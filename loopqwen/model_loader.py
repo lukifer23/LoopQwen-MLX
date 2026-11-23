@@ -23,7 +23,19 @@ def local_snapshot():
     file = try_to_load_from_cache(
         MODEL, "model.safetensors-00001-of-00001.safetensors", revision=REVISION
     )
-    return Path(file).parent if isinstance(file, str) else download()
+    if isinstance(file, str):
+        path = Path(file).parent
+        if all(
+            (path / name).is_file()
+            for name in (
+                "config.json",
+                "tokenizer.json",
+                "tokenizer_config.json",
+                "model.safetensors.index.json",
+            )
+        ):
+            return path
+    return download()
 
 
 def count(model, trainable=False):

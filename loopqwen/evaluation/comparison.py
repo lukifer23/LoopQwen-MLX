@@ -36,9 +36,11 @@ def verify_pair(experiment):
         if a[key] != b[key]:
             raise ValueError(f"Unmatched runs: {key}")
     allowed = {"name", "passes"}
-    if any(
-        a["config"][key] != b["config"][key] for key in a["config"].keys() - allowed
-    ):
+    pair_configs = [
+        {key: value for key, value in s["config"].items() if key not in allowed}
+        for s in states
+    ]
+    if pair_configs[0] != pair_configs[1]:
         raise ValueError("The dense and loop training configurations differ")
     if (a["config"]["passes"], b["config"]["passes"]) != (1, 2) or a["step"] != a[
         "config"
