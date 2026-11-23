@@ -167,6 +167,19 @@ def publish(seed):
     all_handles = {}
     for idx in (index, *stages.values()):
         all_handles.update(idx["records"])
+    for path in sorted((OUT / "configs").glob("p4_profile_*.yaml")):
+        state = read(
+            checkpoint_location(Path("checkpoints") / path.stem) / "state.json"
+        )
+        gz(
+            root / "profiles" / (path.stem + ".json.gz"),
+            dict(
+                git=state["git"],
+                identity=state["training_identity"],
+                order=state["order_hash"],
+                history=state["history"],
+            ),
+        )
     metrics = {}
     for name, path in all_handles.items():
         arm, budget, depth = name.rsplit("-", 2)
