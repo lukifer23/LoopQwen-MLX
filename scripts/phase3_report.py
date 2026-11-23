@@ -331,10 +331,12 @@ def docs(archive, destination):
     checksums = read(checksum_file)
     checksums["learning-curves.png"] = digest(archive / "learning-curves.png")
     if (archive / "promotion.json").is_file():
-        from scripts.phase3_figure import refinement_figure
+        from scripts.phase3_figure import memory_figure, refinement_figure
 
         figure = refinement_figure(archive)
         checksums[figure.name] = digest(figure)
+        memory = memory_figure(archive, chosen)
+        checksums[memory.name] = digest(memory)
     save(checksum_file, checksums)
     profiles = [(k, v) for k, v in train.items() if "_profile_" in k]
     batches = [read(p) for p in sorted(archive.glob("batch-*.json"))]
@@ -471,6 +473,10 @@ def docs(archive, destination):
         perf += [
             "",
             "## 100K to 250K continuation",
+            "",
+            "![Per-session MLX peak and system availability during the 250K gated run](measurements/phase3/training-memory.png)",
+            "",
+            "Each point summarizes 32 consecutive optimizer updates. The band spans post-update system availability. MLX peaks include earlier work in the same worker session. Availability can change while other applications use the Mac.",
             "",
             table(
                 [

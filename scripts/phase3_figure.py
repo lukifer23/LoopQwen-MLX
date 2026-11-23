@@ -1,7 +1,9 @@
 """Plot fresh development scores and paired item effects from the frozen 250K record."""
 
 from pathlib import Path
+import gzip
 import json
+from statistics import median
 
 import matplotlib
 
@@ -106,6 +108,57 @@ def refinement_figure(archive):
         fig.savefig(name, dpi=160, bbox_inches="tight", facecolor="white")
         plt.close(fig)
         return name
+
+
+def memory_figure(archive, selected):
+    source = archive / "curves" / ("p3_" + selected + "_250k.json.gz")
+    history = json.loads(gzip.decompress(source.read_bytes()))
+    blocks = [history[i : i + 32] for i in range(0, len(history), 32)]
+    positions, low, high, typical, peak = [], [], [], [], []
+    targets = 0
+    for block in blocks:
+        targets += sum(r["labels"] for r in block)
+        positions.append(targets / 1000)
+        available = [r["available"] / 2**30 for r in block]
+        low.append(min(available))
+        high.append(max(available))
+        typical.append(median(available))
+        peak.append(max(r["peak_bytes"] for r in block) / 2**30)
+    boundary = sum(r["labels"] for r in history if not r["checkpointing"]) / 1000
+    fig, ax = plt.subplots(figsize=(8, 3.2), layout="constrained")
+    ax.fill_between(
+        positions, low, high, color="#ccd8e8", label="System available · range"
+    )
+    ax.plot(
+        positions, typical, color="#415975", lw=1.4, label="System available · median"
+    )
+    ax.plot(positions, peak, color="#14735B", lw=2, label="MLX process peak allocation")
+    ax.axvline(boundary, color="#393F45", linestyle=":", lw=1.3)
+    ax.annotate(
+        "Layer checkpointing enabled",
+        (boundary, 0.9),
+        xycoords=("data", "axes fraction"),
+        xytext=(4, 0),
+        textcoords="offset points",
+        fontsize=8,
+    )
+    ax.set(
+        xlabel="Supervised training tokens (thousands)",
+        ylabel="GiB",
+        title="Memory during gated training on the 18 GiB M3 Pro",
+    )
+    ax.spines[["right", "top"]].set_visible(False)
+    ax.legend(
+        loc="lower center",
+        bbox_to_anchor=(0.5, -0.48),
+        ncol=3,
+        fontsize=8,
+        frameon=False,
+    )
+    dest = archive / "training-memory.png"
+    fig.savefig(dest, dpi=160, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+    return dest
 
 
 if __name__ == "__main__":
