@@ -12,6 +12,8 @@ Applying the trained loop checkpoint at K=1,2,3 yielded 51, 50 and 43 correct an
 
 Each extended twin processed the same 4,000 examples, 103,637 input tokens and 21,289 supervised labels. Dense used 0.233 s per optimizer update, 444.5 input tokens/s and 2.70 GiB peak allocation. The recurrent model used 0.329 s, 315.4 input tokens/s and 2.69 GiB. Total training-loop wall times were 239.1 and 336.3 seconds. The final training batch losses were 0.7357 and 0.8299. The final fixed validation slice gave answer NLLs of 0.2216 and 0.2679.
 
+On the 110 held-out procedural questions, the extended dense twin scored 65/110 (59.1%) and the loop scored 59/110 (53.6%). Answer NLLs were 0.4983 and 0.5348. Both got 55 questions right, dense alone got ten, and loop alone got four. On the same trained loop checkpoint, increasing K from 1 to 2 raised accuracy from 55/110 to 59/110 and lowered answer NLL from 0.6157 to 0.5348. K=3 fell to 41/110. Thus the second pass contributed useful task performance within the recurrent checkpoint, while the matched dense model still performed better with less compute. Both extended twins scored 0/16 on GSM8K. The loop scored 1/8 on the numeric MATH slice and dense scored 0/8. [Extended comparison](EXTENDED.md) · [Per-example extended outputs](measurements/extended_outputs.json.gz)
+
 The November 23, 2026 pilot checkpoints record training commit `dc18b825073cbb00374305b044bd5aa247dad741`. Both extended runs record `eb7569d61f64523c15802fe27ce6ffc3fa91b86f`. Each pair used seed 41. All checkpoint generations retain their fully resolved configuration and data-order digest.
 
 ## Hardware, precision and performance
@@ -29,3 +31,10 @@ K=1 logits matched the stock language model exactly. Cached and uncached decodin
 The validation placement sweep used 16 calibration problems and frozen pretrained weights. Answer NLLs for six-layer spans starting at 6, 8, 10, 12 and 16 were 1.129, 0.969, 1.574, 1.504 and 0.982. These measurements describe untrained perturbations. All matched runs retained the preselected 10–15 span.
 
 The evaluation uses one seed and a small set of familiar task families. Arithmetic answer training and EOS supervision are only a small part of the 100M-token full-weight reasoning-trace experiment in the literature. Pretraining exposure to public benchmarks is unknown. The six prose documents give a limited retention check. The strict first-line numeric scorer can reject a correct answer embedded in an explanation. Full fine-tuning, quantized export, adaptive-depth training and large reasoning-trace training were outside the measured runs.
+
+
+The 1,000-update BF16 export had 1.56% merge-relative RMS on the verification prompt and reproduced its merged logits exactly in a fresh process. The published adapter bundle and the standalone merged export both greedily generated `391` followed by EOS for `Question: 17 × 23` followed by a newline and `Answer:`. [Extended export verification](measurements/extended_export.json) · [Recorded generation](measurements/extended_generation.json)
+
+## Next experiment
+
+Hold the six-layer span, adapters, data and token budget fixed, and compare direct K=2 training against the gradual K=1-to-K=2 curriculum in configs/gradual_loop.yaml. Run the matched dense control and both recurrent variants across three seeds. The initial doubling of the block disrupted the base model, but the longer-trained recurrent checkpoint gained four correct answers from its second pass. This comparison tests whether introducing that extra depth gradually closes the remaining dense-control gap. Use validation for choosing the schedule and a fresh untouched procedural split for the confirmatory result.

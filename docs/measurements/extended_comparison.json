@@ -1,0 +1,264 @@
+{
+  "paired": {
+    "both": 55,
+    "dense_only": 10,
+    "loop_only": 4,
+    "neither": 41
+  },
+  "settings": {
+    "procedural_per_category": 10,
+    "gsm_examples": 16,
+    "max_tokens": 16,
+    "suite_tokens": 24,
+    "prompts": [
+      "The capital of France is",
+      "Question: 17 \u00d7 23\nAnswer:",
+      "A bag has five red beads and four blue beads. The total number of beads is",
+      "All sparrows are birds. All birds have feathers. Therefore every sparrow",
+      "def square(x):\n    return",
+      "When she opened the kitchen window, the scent of"
+    ],
+    "math500_numeric_examples": 8
+  },
+  "manifest": {
+    "seed": 41,
+    "model": "Qwen/Qwen3.5-0.8B-Base",
+    "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "sources": {
+      "procedural": "Project-generated exact arithmetic, using integer, Decimal and Fraction operations.",
+      "gsm8k": {
+        "url": "https://raw.githubusercontent.com/openai/grade-school-math/3101c7d5072418e28b9008a6636bde82a006892c/",
+        "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+        "license": "MIT",
+        "format": "Gold numeric answer only"
+      }
+    },
+    "splits": {
+      "train": {
+        "count": 4900,
+        "sha256": "cb10343989af8366f6702ad1d3433e9182e2503a854a5e98c5666649b502e21f",
+        "tokens": 132066
+      },
+      "validation": {
+        "count": 220,
+        "sha256": "f68aa956028cb70cde1a458c792d7e4fd031867b823c5135f78b61e4d998d997",
+        "tokens": 5321
+      },
+      "test": {
+        "count": 220,
+        "sha256": "9ee7695e85968f993613bcc729e4b655a4a90c2cd76f62be7f5a7dcc2356cb9e",
+        "tokens": 5379
+      },
+      "gsm_test": {
+        "count": 32,
+        "sha256": "9138041c1c1703d8214f4c8f126e40a540130a9a96f4a401030317cf287a5023",
+        "tokens": 2117
+      }
+    },
+    "preprocessing": "Separate prompt and space-prefixed answer, append EOS, one document per row."
+  },
+  "models": {
+    "base": {
+      "k": 1,
+      "math500_numeric": {
+        "correct": 0,
+        "n": 8,
+        "accuracy": 0.0
+      },
+      "prose_nll": 3.5172883833961923,
+      "answer_nll": 1.4287583313742804,
+      "perplexity": 4.173513852143379,
+      "answer_tokens": 614,
+      "procedural": {
+        "correct": 28,
+        "n": 110,
+        "accuracy": 0.2545454545454545
+      },
+      "gsm": {
+        "correct": 0,
+        "n": 16,
+        "accuracy": 0.0
+      },
+      "seconds": 25.467009587986468,
+      "layer_executions": 79992
+    },
+    "untrained_loop": {
+      "k": 2,
+      "math500_numeric": {
+        "correct": 0,
+        "n": 8,
+        "accuracy": 0.0
+      },
+      "prose_nll": 3.731501086004849,
+      "answer_nll": 1.7909373201138616,
+      "perplexity": 5.995069132546737,
+      "answer_tokens": 614,
+      "procedural": {
+        "correct": 14,
+        "n": 110,
+        "accuracy": 0.12727272727272726
+      },
+      "gsm": {
+        "correct": 0,
+        "n": 16,
+        "accuracy": 0.0
+      },
+      "seconds": 30.164738286008287,
+      "layer_executions": 101370
+    },
+    "trained_dense": {
+      "k": 1,
+      "math500_numeric": {
+        "correct": 0,
+        "n": 8,
+        "accuracy": 0.0
+      },
+      "prose_nll": 3.5218052480412627,
+      "answer_nll": 0.498319705003473,
+      "perplexity": 1.6459532587878514,
+      "answer_tokens": 614,
+      "procedural": {
+        "correct": 65,
+        "n": 110,
+        "accuracy": 0.5909090909090909
+      },
+      "gsm": {
+        "correct": 0,
+        "n": 16,
+        "accuracy": 0.0
+      },
+      "seconds": 11.660594873004811,
+      "layer_executions": 62448
+    },
+    "trained_loop": {
+      "k": 2,
+      "math500_numeric": {
+        "correct": 1,
+        "n": 8,
+        "accuracy": 0.125
+      },
+      "prose_nll": 3.781724294026693,
+      "answer_nll": 0.5347723242274569,
+      "perplexity": 1.707059541907084,
+      "answer_tokens": 614,
+      "procedural": {
+        "correct": 59,
+        "n": 110,
+        "accuracy": 0.5363636363636364
+      },
+      "gsm": {
+        "correct": 0,
+        "n": 16,
+        "accuracy": 0.0
+      },
+      "seconds": 14.709247919001427,
+      "layer_executions": 78090
+    },
+    "loop_at_1": {
+      "k": 1,
+      "math500_numeric": {
+        "correct": 0,
+        "n": 8,
+        "accuracy": 0.0
+      },
+      "prose_nll": 3.533527988126908,
+      "answer_nll": 0.615703813943005,
+      "perplexity": 1.8509588718878218,
+      "answer_tokens": 614,
+      "procedural": {
+        "correct": 55,
+        "n": 110,
+        "accuracy": 0.5
+      },
+      "gsm": {
+        "correct": 0,
+        "n": 16,
+        "accuracy": 0.0
+      },
+      "seconds": 11.115525872990474,
+      "layer_executions": 62400
+    },
+    "loop_at_3": {
+      "k": 3,
+      "math500_numeric": {
+        "correct": 1,
+        "n": 8,
+        "accuracy": 0.125
+      },
+      "prose_nll": 4.166783694563241,
+      "answer_nll": 0.7093211316046835,
+      "perplexity": 2.0326109148538056,
+      "answer_tokens": 614,
+      "procedural": {
+        "correct": 41,
+        "n": 110,
+        "accuracy": 0.37272727272727274
+      },
+      "gsm": {
+        "correct": 0,
+        "n": 16,
+        "accuracy": 0.0
+      },
+      "seconds": 17.779363040001044,
+      "layer_executions": 93636
+    },
+    "dense_budget": {
+      "k": 1,
+      "math500_numeric": {
+        "correct": 0,
+        "n": 8,
+        "accuracy": 0.0
+      },
+      "prose_nll": 3.5218052480412627,
+      "answer_nll": 0.498319705003473,
+      "perplexity": 1.6459532587878514,
+      "answer_tokens": 614,
+      "procedural": {
+        "correct": 65,
+        "n": 110,
+        "accuracy": 0.5909090909090909
+      },
+      "gsm": {
+        "correct": 0,
+        "n": 16,
+        "accuracy": 0.0
+      },
+      "seconds": 12.122550159992898,
+      "layer_executions": 62448
+    }
+  },
+  "training": {
+    "dense": {
+      "updates": 1000,
+      "inputs": 103637,
+      "labels": 21289,
+      "final_update_loss": 0.7356578509012858,
+      "final_validation": {
+        "nll": 0.22164523235824163,
+        "tokens": 80,
+        "perplexity": 1.2481285037043472
+      },
+      "update_s": 0.2331554701560235,
+      "tokens_s": 444.49739879852683,
+      "peak_gib": 2.6987251359969378,
+      "update_seconds_total": 233.1554701560235,
+      "order_hash": "5867912af8e738710768a0e5194432c23ea0c925377bed77052b2512e95f6261"
+    },
+    "loop": {
+      "updates": 1000,
+      "inputs": 103637,
+      "labels": 21289,
+      "final_update_loss": 0.8299036820729574,
+      "final_validation": {
+        "nll": 0.26792631343450923,
+        "tokens": 80,
+        "perplexity": 1.3072508096434547
+      },
+      "update_s": 0.3286197513699608,
+      "tokens_s": 315.3705751646232,
+      "peak_gib": 2.6926811151206493,
+      "update_seconds_total": 328.6197513699608,
+      "order_hash": "5867912af8e738710768a0e5194432c23ea0c925377bed77052b2512e95f6261"
+    }
+  }
+}
