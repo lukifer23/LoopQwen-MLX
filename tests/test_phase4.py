@@ -75,3 +75,52 @@ def test_evaluation_fingerprint_covers_token_stream():
     assert fingerprint([{"id": "same", "ids": [1, 2]}]) != fingerprint(
         [{"id": "same", "ids": [1, 3]}]
     )
+
+
+def test_weighted_joint_checkpoint_restores_both_optimizers(tmp_path):
+    import mlx.core as mx
+    import mlx.nn as nn
+    from mlx.utils import tree_flatten
+    from loopqwen import checkpoint
+    from loopqwen.config import config
+    from loopqwen.data.v2 import rows
+    from loopqwen.data.tokenize import batch
+    from loopqwen.training.losses import exit_objective
+    from loopqwen.training.optimizers import optimizer
+
+    c = config("configs/stabilized_loop.yaml")
+    c.update(gate_lr=0.001, first_exit_weight=0.25)
+    model, _, _ = checkpoint.setup(c)
+    model.train()
+    opt = optimizer(c)
+    ids, positions, targets = batch(rows("validation", "answer")[:2])
+    weights = mx.where(mx.arange(targets.size) % 2 == 0, 0.25, 2.0)
+
+    def objective(m):
+        total, components, raw = exit_objective(
+            m, ids, positions, targets, weights, 0.25
+        )
+        return total / weights.sum(), components / weights.sum(), raw / targets.size
+
+    (loss, parts, raw), grad = nn.value_and_grad(model, objective)(model)
+    mx.eval(loss, parts, raw, grad)
+    assert abs(loss.item() - (0.25 * parts[0] + 0.75 * parts[1]).item()) < 1e-5
+    assert raw.shape == (2,) and 0 < abs(grad["alpha_logit"].item()) < 1e3
+    assert any(
+        mx.any(v != 0).item() for k, v in tree_flatten(grad) if k.endswith("lora_b")
+    )
+    opt.update(model, grad)
+    mx.eval(model.trainable_parameters(), opt.state)
+    checkpoint.write(tmp_path, model, opt, dict(step=1, config=c))
+
+    def snapshot(m, o):
+        return dict(tree_flatten(m.trainable_parameters())), dict(tree_flatten(o.state))
+
+    opt.update(model, grad)
+    expected = snapshot(model, opt)
+    fresh = optimizer(c)
+    checkpoint.restore(tmp_path, model, fresh)
+    fresh.update(model, grad)
+    for got, want in zip(snapshot(model, fresh), expected, strict=True):
+        assert got.keys() == want.keys()
+        assert all(mx.array_equal(v, want[k]).item() for k, v in got.items())
