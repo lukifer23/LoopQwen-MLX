@@ -20,14 +20,17 @@ python -m loopqwen.data.retention3
 scripts/run_phase3.sh smoke
 scripts/run_phase3.sh screening
 scripts/run_phase3.sh main
+scripts/run_phase3.sh promote
 python scripts/phase3_exposure.py
 python scripts/phase3_post.py
 python -m loopqwen compare --experiment phase3_dev
 python scripts/phase3_archive.py
+uv sync --locked --group figures
+python scripts/phase3_report.py
 ```
 
 Full update states live under `checkpoints/p3_<arm>/`. The training history stores measured timings and model telemetry at every update. The shared planned sample schedule and resolved run YAMLs live under `outputs/phase3/`. Selection uses the first 60 balanced V2 validation problems with a 192-token cap. The five-family V3 development and development-OOD splits provide additional generalization evidence. The sealed 300-item ID and OOD splits are reserved for a frozen confirmation.
 
 To resume a milestone manually with unchanged optimization settings, use the same resolved YAML and an absolute update number. For an intentional fork use `python -m loopqwen fork --checkpoint <generation> --config <new-config> --mode extend` or `--mode weights`. The parent is immutable. Extension preserves the schedule position, optimizer moments and data cursor. A weights-only fork begins a distinct adaptation run.
 
-The archived run register, source hashes, artifact checksums and compressed per-example evaluations are in `docs/measurements/phase3/`. Local reruns after publication use a separate reproduction archive. Model cards under `adapters/phase3/` describe the unmerged inference artifacts.
+The archived run register, source hashes, artifact checksums and compressed per-example evaluations are in `docs/measurements/phase3/`. Local reruns after publication use a separate reproduction archive under `outputs/phase3/reproduction/<main-result-digest-prefix>/`. To render that reproduction, pass its directory to `phase3_report.py --archive` and an independent directory to `--destination`. The committed tables remain the original publication. Model cards under `adapters/phase3/` describe the unmerged inference artifacts.
