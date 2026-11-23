@@ -112,6 +112,16 @@ def _train(c, root, until):
         batch_size=c["batch_size"],
         checkpointing=c["gradient_checkpointing"],
     )
+    if policy:
+        package = Path(__file__).resolve().parents[1]
+        sources = hashlib.sha256()
+        for file in sorted(package.rglob("*.py")):
+            sources.update(str(file.relative_to(package)).encode() + b"\0")
+            sources.update(hashlib.sha256(file.read_bytes()).digest())
+        state["package_sha256"] = sources.hexdigest()
+        state["git_dirty"] = bool(
+            subprocess.check_output(["git", "status", "--porcelain", "--", "loopqwen"])
+        )
     if (root / "latest.json").exists():
         state = checkpoint.restore(root, model, opt)
         if state["config"] != c or state["manifest"] != manifest:

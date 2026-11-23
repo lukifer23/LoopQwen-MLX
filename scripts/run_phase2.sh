@@ -2,6 +2,10 @@
 set -eu
 cd "$(dirname "$0")/.."
 python=.venv/bin/python
+if ! "$python" -c 'import matplotlib' >/dev/null 2>&1; then
+  echo "Install the locked environment with uv sync --locked --group figures" >&2
+  exit 1
+fi
 "$python" -m loopqwen data --preset v2
 "$python" scripts/phase2_configs.py
 "$python" scripts/phase2_register.py
