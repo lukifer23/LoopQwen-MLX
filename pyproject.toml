@@ -1,0 +1,15 @@
+[project]
+name = "loopqwen"
+version = "0.1.0"
+description = "Shared-depth experiments with the Qwen3.5 text decoder on Metal"
+requires-python = ">=3.12,<3.13"
+dependencies = ["mlx>=0.32.4", "mlx-lm", "huggingface-hub", "safetensors", "numpy", "pyyaml", "psutil"]
+[project.scripts]
+loopqwen = "loopqwen.cli:main"
+[dependency-groups]
+dev = ["pytest", "ruff"]
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+[tool.setuptools.packages.find]
+include = ["loopqwen*"]
