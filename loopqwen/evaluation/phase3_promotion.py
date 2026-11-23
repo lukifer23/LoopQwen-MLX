@@ -2,9 +2,10 @@
 
 import json
 
-from ..data import v2, v3, retention3
+from pathlib import Path
 from ..io import read, save
-from .phase3 import REGISTER, OUT, measure, compare
+
+OUT = Path("outputs/phase3")
 
 
 def check():
@@ -24,6 +25,9 @@ def check():
 
 
 def evaluate():
+    from ..data import v2, v3, retention3
+    from .phase3 import REGISTER, measure, compare
+
     chosen = check()
     study = read(REGISTER)
     v3.build()

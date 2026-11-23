@@ -105,7 +105,11 @@ def publish(destination):
     selection = read(out / "selection.json")
     main = read(out / "main.json")
     dest = Path(destination)
-    adapter_dest = Path("adapters/phase3")
+    adapter_dest = (
+        Path("adapters/phase3")
+        if dest == Path("docs/measurements/phase3")
+        else dest / "adapters"
+    )
     if (dest / "checksums.json").is_file():
         replay = Path("outputs/phase3/reproduction") / digest(out / "main.json")[:16]
         dest = replay / "docs/measurements/phase3"
