@@ -35,6 +35,7 @@ smoke|screening|main)
   ;;
 promote)
   selected=$("$python" -m loopqwen.evaluation.phase3_promotion check)
+  "$python" scripts/phase3_checkpoint_policy.py experiments/phase3_extension_execution.json
   study dense --targets 250000
   study "$selected" --targets 250000
   "$python" -m loopqwen.evaluation.phase3_promotion evaluate

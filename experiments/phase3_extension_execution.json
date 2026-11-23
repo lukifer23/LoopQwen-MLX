@@ -1,0 +1,6 @@
+{
+  "arm": "dense",
+  "step": 629,
+  "checkpointing": true,
+  "reason": "Freeze per-layer checkpointing on both arms for the 100K-to-250K extension to match execution policy and reduce sustained unified-memory pressure."
+}

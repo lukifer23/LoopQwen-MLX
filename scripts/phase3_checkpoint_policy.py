@@ -45,4 +45,6 @@ def apply(plan):
 
 
 if __name__ == "__main__":
-    apply(read("experiments/phase3_execution.json"))
+    apply(
+        read(sys.argv[1] if len(sys.argv) == 2 else "experiments/phase3_execution.json")
+    )
