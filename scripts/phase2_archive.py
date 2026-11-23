@@ -49,6 +49,8 @@ def all_results():
         "frontier",
         "base_dev",
         "transfer",
+        "format_shift",
+        "gate_sweep",
         "merge_audit",
         "depth_latency",
         "padded",
@@ -61,7 +63,9 @@ def all_results():
         "profile",
         "derivatives",
         "compute",
+        "padding",
         "integrity",
+        "example",
         "anchor_diagnostics",
     ):
         shutil.copyfile(OUT / (key + ".json"), DEST / (key + ".json"))

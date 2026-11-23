@@ -93,7 +93,14 @@ def summarize(name="phase2_confirm"):
                     accuracy=summary,
                     mean_difference=float(arr.mean()),
                     paired_ci95=np.percentile(dist, [2.5, 97.5]).tolist(),
-                    groups={k: np.mean(v, axis=0).tolist() for k, v in groups.items()},
+                    groups={
+                        k: dict(
+                            items_per_seed=len(v) // len(items),
+                            dense_accuracy=float(np.mean(v, axis=0)[0]),
+                            loop_accuracy=float(np.mean(v, axis=0)[1]),
+                        )
+                        for k, v in groups.items()
+                    },
                 )
     save(root / "paired.json", result)
     return result
