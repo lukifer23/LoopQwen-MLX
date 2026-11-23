@@ -14,4 +14,6 @@ Under weighted CE, direct responses receive final-answer weights and EOS receive
 
 The completed primary gated training trajectory contained 3,283 direct-answer examples and 3,157 trace examples. The direct protocol contributed 13,808 supervised tokens, and traces contributed 236,403. Direct examples thus supplied 51.0% of examples and 5.5% of scored positions. The scheduled logical batches had 2.64% padding after physical splitting.
 
+A predictor using only training-set frequencies conditioned on the start node and hop count got 53/384, 62/384 and 54/384 terminal labels correct at depths one through three. The no-return constraint makes uniform guessing among the seven non-start nodes 14.3% accurate in expectation.
+
 The CPU data audit rechecked 3,240 new textual state/DAG certificates and 25,344 pointer-label transitions across all 4,224 disjoint permutations. It compared the historical sealed file digests with their original registration. Reproduce with `python scripts/phase4_data_audit.py`.
