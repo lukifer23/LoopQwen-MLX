@@ -132,6 +132,7 @@ def publish(destination):
         "regression.json",
         "compaction.json",
         "fork-audit.json",
+        "gate-controls.json",
     ):
         if (out / name).is_file():
             shutil.copyfile(out / name, dest / name)
