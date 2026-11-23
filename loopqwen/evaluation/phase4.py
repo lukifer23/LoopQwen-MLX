@@ -73,13 +73,15 @@ def refine_stats(model, tok, samples):
     return values
 
 
-def evaluate(seed, budgets=(25000, 100000, 250000)):
+def evaluate(seed, budgets=(25000, 100000, 250000), suite="primary"):
     reg = read(STUDY)
     prose = [json.loads(line) for line in (retention3.ROOT / "validation.jsonl").open()]
+    data_root = Path("data/v4") if suite == "v4" else v3.ROOT
+    splits = (
+        ("validation", "ood") if suite == "v4" else ("development", "development_ood")
+    )
     streams = {
-        (s, p): v2.rows(s, p, v3.ROOT)
-        for s in ("development", "development_ood")
-        for p in ("answer", "trace")
+        (s, p): v2.rows(s, p, data_root) for s in splits for p in ("answer", "trace")
     }
     source = local_snapshot()
     common = dict(
@@ -90,7 +92,8 @@ def evaluate(seed, budgets=(25000, 100000, 250000)):
         evaluator=digest(Path(__file__)),
         source={p.name: digest(p) for p in source.glob("*.safetensors")},
         v2=digest(v2.ROOT / "manifest.json"),
-        v3=digest(v3.ROOT / "manifest.json"),
+        evaluation_manifest=digest(data_root / "manifest.json"),
+        suite=suite,
         prose=fingerprint(prose),
         seed=seed,
         backend="mlx-metal",
@@ -100,7 +103,10 @@ def evaluate(seed, budgets=(25000, 100000, 250000)):
     def score(arm, budget, k, gen):
         name = f"{arm}-{budget}-k{k}"
         small = budget == 25000
-        streams_here = {key: val[:30] if small else val for key, val in streams.items()}
+        streams_here = {
+            key: val[:60] if suite == "v4" else val[:30] if small else val
+            for key, val in streams.items()
+        }
         ident = dict(
             **common,
             arm=arm,
@@ -145,7 +151,7 @@ def evaluate(seed, budgets=(25000, 100000, 250000)):
             run["correct"] = sum(r["correct"] for r in run["records"])
             run["verified"] = sum(r.get("verified", False) for r in run["records"])
             run["likelihood"] = validation_nll(model, items)
-            if split == "development" and protocol == "trace":
+            if split == splits[0] and protocol == "trace":
                 sample = predictions(
                     model, tok, items[:8], cap, padded=True, batch_size=1, detailed=True
                 )
@@ -159,9 +165,7 @@ def evaluate(seed, budgets=(25000, 100000, 250000)):
                 identity=ident,
                 scores=summaries,
                 retention=validation_nll(model, prose),
-                refinement=refine_stats(
-                    model, tok, streams_here["development", "trace"]
-                ),
+                refinement=refine_stats(model, tok, streams_here[splits[0], "trace"]),
             ),
         )
         print(name, [(p, r["correct"]) for p, r in summaries.items()], flush=True)
@@ -169,6 +173,33 @@ def evaluate(seed, budgets=(25000, 100000, 250000)):
         gc.collect()
         mx.clear_cache()
 
+    def contrast(left_name, right_name):
+        left, right = [
+            read(handles[name])["scores"] for name in (left_name, right_name)
+        ]
+        pairs[left_name + "/" + right_name] = {
+            k: compare(v["records"], right[k]["records"]) for k, v in left.items()
+        }
+
+    pairs = {}
+    if suite in ("boundary", "v4"):
+        arms = (
+            ("dense_boundary", "joint_boundary")
+            if suite == "boundary"
+            else ("dense_v4", "joint_v4", "dense_v4_weighted", "joint_v4_weighted")
+        )
+        for arm in arms:
+            root = Path("checkpoints") / f"p4_{seed}_{arm}"
+            for k in (1, 2) if arm.startswith("joint") else (1,):
+                score(arm, 25000, k, checkpoint_location(root))
+        for arm in arms:
+            if arm.startswith("joint"):
+                contrast(arm + "-25000-k1", arm + "-25000-k2")
+                contrast(arm.replace("joint", "dense") + "-25000-k1", arm + "-25000-k2")
+        save(
+            OUT / f"evaluation-{seed}-{suite}.json", dict(records=handles, pairs=pairs)
+        )
+        return
     score("base", 0, 1, None)
     for budget in budgets:
         for arm in (
@@ -196,15 +227,16 @@ def evaluate(seed, budgets=(25000, 100000, 250000)):
             (f"{a}-{budget}-k1", f"{main}-{budget}-k{1 if budget == 250000 else 2}")
             for a in names
         ] + [(f"{main}-{budget}-k1", f"{main}-{budget}-k2")]:
-            left, right = read(handles[lhs]), read(handles[rhs])
-            pairs[lhs + "/" + rhs] = {
-                s: compare(r["records"], right["scores"][s]["records"])
-                for s, r in left["scores"].items()
-            }
+            contrast(lhs, rhs)
+        if budget < 250000:
+            contrast(f"gated-{budget}-k2", f"joint-{budget}-k2")
+            contrast(f"gated-{budget}-k1", f"gated-{budget}-k2")
     save(OUT / f"evaluation-{seed}.json", dict(records=handles, pairs=pairs))
 
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, default=109)
-    evaluate(p.parse_args().seed)
+    p.add_argument("--suite", choices=["primary", "boundary", "v4"], default="primary")
+    args = p.parse_args()
+    evaluate(args.seed, suite=args.suite)

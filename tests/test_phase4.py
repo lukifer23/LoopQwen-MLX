@@ -42,3 +42,36 @@ def test_v4_graph_certificate_needs_prerequisites():
         graph = dag(random.Random(19), shift)
         assert verify(graph, graph["trace"])["verified"]
         assert not verify(graph, graph["trace"].splitlines()[-1])["verified"]
+
+
+def test_real_cache_rejects_changed_execution_contract():
+    from dataclasses import replace
+    import mlx.core as mx
+    from loopqwen.checkpoint import load_trained
+
+    model, _, _ = load_trained("adapters/phase3/p3_learn1_250k")
+    tokens = mx.array([[42, 15, 89]])
+    original = model.span
+    cache = model.make_cache()
+    mx.eval(model.hidden(tokens, cache))
+    model.span = replace(original, mode="input_anchor")
+    with pytest.raises(ValueError):
+        model.hidden(tokens, cache)
+    model.span = original
+    model.alpha_override = 0.25
+    with pytest.raises(ValueError):
+        model.hidden(tokens, cache)
+    model.alpha_override = None
+    with pytest.raises(ValueError):
+        model.hidden(tokens, cache, window_size=8)
+    model.update({"alpha_logit": model.alpha_logit + 0.01})
+    with pytest.raises(ValueError):
+        model.hidden(tokens, cache)
+
+
+def test_evaluation_fingerprint_covers_token_stream():
+    from loopqwen.identity import fingerprint
+
+    assert fingerprint([{"id": "same", "ids": [1, 2]}]) != fingerprint(
+        [{"id": "same", "ids": [1, 3]}]
+    )

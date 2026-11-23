@@ -9,6 +9,7 @@ from pathlib import Path
 from time import perf_counter
 
 import mlx.core as mx
+from mlx.utils import tree_flatten
 import mlx.nn as nn
 import mlx.optimizers as optim
 
@@ -125,6 +126,9 @@ def run(arm, seed, steps=360, anneal=False):
     opt = optim.AdamW(learning_rate=0.0003, weight_decay=0.0, bias_correction=True)
     state = dict(
         schema="pointer-state-v1",
+        arm=arm,
+        manifest=meta,
+        trainable=sum(x.size for _, x in tree_flatten(model.trainable_parameters())),
         identity=ident,
         config=c,
         model=info,
@@ -133,6 +137,8 @@ def run(arm, seed, steps=360, anneal=False):
         history=[],
         phase="install",
     )
+    if anneal and not (root / "install.json").exists():
+        raise ValueError("Complete installation before outcome-only continuation")
     if (root / "latest.json").exists():
         state = checkpoint.restore(root, model, opt)
         if state["identity"] != ident:
@@ -193,6 +199,10 @@ def run(arm, seed, steps=360, anneal=False):
         for sig, handler in handlers.items():
             signal.signal(sig, handler)
     summary = OUT / f"state-{seed}-{arm}-{'outcome' if anneal else 'install'}.json"
+    save(
+        root / ("outcome.json" if anneal else "install.json"),
+        read(root / "latest.json"),
+    )
     suite = evaluate(model, tok, data["development"], arm, cache)
     eligible = (
         arm == "recurrent"
@@ -228,10 +238,49 @@ def run(arm, seed, steps=360, anneal=False):
     return eligible
 
 
+def predict(source, mapping, start, hops):
+    if (
+        sorted(mapping) != list(range(STATES))
+        or start not in range(STATES)
+        or hops not in range(1, 7)
+    ):
+        raise ValueError(
+            "Expected an eight-node permutation, valid start, and 1–6 hops"
+        )
+    gen = checkpoint.location(source)
+    state = read(gen / "state.json")
+    arm = state["arm"]
+    model, tok, _ = arm_model(state["config"], arm)
+    checkpoint.restore(gen, model)
+    model.eval()
+    ids = mx.array(
+        [
+            tok.encode(
+                render({"map": mapping, "start": start}, hops), add_special_tokens=False
+            )
+        ]
+    )
+    values = logits(model, ids, mx.array([ids.shape[1] - 1]), hops, arm)
+    return dict(
+        prompt=tok.decode(ids[0].tolist()),
+        predicted_states=[mx.argmax(v).item() for v in values],
+        arm=arm,
+    )
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, default=109)
+    p.add_argument("--checkpoint", help="Run a saved categorical readout on one map")
+    p.add_argument("--map", type=int, nargs=8)
+    p.add_argument("--start", type=int, default=0)
+    p.add_argument("--hops", type=int, default=3)
     a = p.parse_args()
+    if a.checkpoint:
+        if a.map is None:
+            p.error("--checkpoint needs --map")
+        print(json.dumps(predict(a.checkpoint, a.map, a.start, a.hops)))
+        raise SystemExit(0)
     for arm in ("probe", "dense", "recurrent"):
         file = OUT / f"state-{a.seed}-{arm}-install.json"
         eligible = read(file)["eligible"] if file.exists() else run(arm, a.seed)

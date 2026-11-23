@@ -10,7 +10,11 @@ root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(root))
 from loopqwen.io import save
 
-out = root / "outputs/phase3"
+import argparse
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument("--output", type=Path, default=Path("outputs/phase3"))
+out = root / parser.parse_args().output
 cwd = out / "regression"
 (cwd / "outputs").mkdir(exist_ok=True, parents=True)
 for name in ("data", "adapters", "configs", "docs", "experiments"):

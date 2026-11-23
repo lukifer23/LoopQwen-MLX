@@ -180,6 +180,45 @@ def stage(name, seed):
             [sys.executable, "-m", "loopqwen.training.latent", "--seed", str(seed)],
             check=True,
         )
+    elif name in ("boundary", "v4"):
+        if not (OUT / f"evaluation-{seed}.json").is_file():
+            raise ValueError(
+                "Score the primary experiments before capacity and data ablations"
+            )
+        if name == "v4":
+            subprocess.run([sys.executable, "-m", "loopqwen.data.v4"], check=True)
+        for key in ("dense", "joint"):
+            for weighted in (False, True) if name == "v4" else (False,):
+                cfg = arm(key)
+                cfg.update(
+                    name=f"p4_{seed}_{key}_{name}" + ("_weighted" if weighted else ""),
+                    label_budget=25000,
+                )
+                if name == "boundary":
+                    cfg["target"] = "boundary"
+                else:
+                    cfg["dataset"] = "v4"
+                if weighted:
+                    cfg["token_weights"] = {
+                        "final": 2.0,
+                        "format": 0.25,
+                        "intermediate": 1.0,
+                        "eos": 0.5,
+                        "language": 1.0,
+                    }
+                run_train(cfg)
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "loopqwen.evaluation.phase4",
+                "--seed",
+                str(seed),
+                "--suite",
+                name,
+            ],
+            check=True,
+        )
     elif name == "evaluate":
         subprocess.run(
             [sys.executable, "-m", "loopqwen.evaluation.phase4", "--seed", str(seed)],
@@ -192,7 +231,16 @@ if __name__ == "__main__":
     p.add_argument(
         "stages",
         nargs="+",
-        choices=["audit", "efficiency", "replicate", "dual-exit", "latent", "evaluate"],
+        choices=[
+            "audit",
+            "efficiency",
+            "replicate",
+            "dual-exit",
+            "latent",
+            "evaluate",
+            "v4",
+            "boundary",
+        ],
     )
     p.add_argument("--seed", type=int, default=SPEC["seed"])
     p.add_argument("--worker", action="store_true")
