@@ -41,3 +41,18 @@ Checkpoint generations contain adapter/gate weights, optimizer tensors, resolved
 Memory pressure reduces the sequence limit, then microbatch size, then enables layer checkpointing. If the minimum setting is still under pressure, training stops. Resuming reuses the saved cursor. The comparison checks manifest, effective order digest, token totals, updates, targets and configuration before scoring. Changing available memory may change batch selection. A resulting unmatched comparison fails explicitly. Peak MLX allocation excludes macOS and other apps.
 
 For a different mixture, `data --gsm-traces` includes publisher-supplied solutions on short GSM8K training rows with a 128-input-token cap. Choose the balanced preset to use their full lengths. The public evaluation rows retain numeric gold answers. `data --retention-file documents.jsonl` accepts one document per line with text, source and license fields, records attribution and source digest, removes duplicate documents, and scores each retained text from its second token through EOS. These options change the manifest. The measured pilot used the default numeric-answer mixture.
+
+## Phase 4 logical batches and exits
+
+A logical optimizer update comprises `batch_size × accumulation` ordered examples. With `max_microbatch_positions` set, the trainer draws the logical depth once and streams smaller, independently right-padded forward/backward passes. One global denominator covers all physical passes. The trainer clips once, updates AdamW once and advances the cursor only after the complete update. The minimum physical width of 16 matches the locked Metal attention VJP. A cap below the maximum eligible document length is rejected.
+
+Set `first_exit_weight: 0.25` on a fixed K=2 configuration to supervise both suffixes. Joint and raw per-exit CE, logical targets, head-target evaluations, physical shapes, decoder site-positions, pre-update alpha and optimizer timings are recorded in each checkpoint. Explicit compatible transfer via `fork --mode compatible --migration-reason <reason>` starts a new optimization trajectory and lists restored, omitted and newly initialized tensor names and shape mismatches.
+
+```sh
+source .venv/bin/activate
+scripts/run_phase4.sh efficiency audit
+scripts/run_phase4.sh replicate dual-exit latent evaluate --seed 109
+python -m loopqwen compare --experiment phase4
+```
+
+The dense time control consumes the measured update seconds of the gated run. Its data-matched comparison is the immutable 250K milestone from that same dense trajectory, when reached. `scripts/run_phase4.sh verify` exercises native gradients and stock K=1 deployment. The [Phase 4 registration](PHASE4_PLAN.md) specifies when to run follow-up ablations.

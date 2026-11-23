@@ -14,3 +14,9 @@
 Use `python -m loopqwen resources` to see the owner of the user-wide GPU lease and processes in the current checkout. Workers release the kernel lock when they exit. Removing a live lock file can create a second inode and defeat exclusion. A normal controlled interruption finishes the active update and writes an atomic checkpoint. Restart the same stage after the worker exits.
 
 A strict resume checks the training source files, dependency versions, data manifest, optimizer schema, configuration and sample schedule. Restore the recorded checkout and environment for exact continuation. To deliberately change implementation, fork to a new run with an explicit migration reason. An extension preserves AdamW state. A weights-only fork starts its optimizer and cursor at zero. The parent generation remains available.
+
+## Phase 4
+
+Run `python -m loopqwen resources` to inspect the per-user GPU lease and this checkout's process tree. A completed arm has both a completed run journal in `outputs/phase4/runs/` and a matching immutable checkpoint generation. Reissue the same study stage to resume an interrupted arm. Strict training identity includes objective and batching code. For historical exact continuations, use the recorded source revision. An explicitly documented compatible fork can transfer overlapping adapter tensors to a wider adaptation policy with a fresh optimizer.
+
+If a cap cannot fit a single document, raise the cap or register a new sequence-length cohort. Swapping or checkpointing changes belong in the recorded execution policy. Try a lower cap in a measured profile first. Scientific controls require the same logical examples and boundaries across paired arms.

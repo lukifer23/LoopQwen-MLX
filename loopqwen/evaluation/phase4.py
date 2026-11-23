@@ -3,6 +3,8 @@
 import argparse
 import gc
 import json
+import math
+from collections import Counter
 from dataclasses import replace
 from pathlib import Path
 
@@ -12,6 +14,8 @@ import numpy as np
 from .. import checkpoint
 from ..data import retention3, v2, v3
 from ..identity import fingerprint, dependencies
+from ..data.token_classes import token_classes
+from ..data.tokenize import batch
 from ..io import read, save, digest, checkpoint_location
 from ..looped_model import LoopedModel
 from ..model_loader import load_base, local_snapshot
@@ -36,6 +40,49 @@ def compare(a, b):
             int(r.get("verified", False)) - int(l.get("verified", False))
             for l, r in zip(a, b, strict=True)
         ),
+    )
+
+
+def partition_likelihood(model, tok, items):
+    """Score each target once; maintain ordered per-item likelihoods across length groups."""
+    groups = Counter()
+    counts = Counter()
+    per_item = {}
+    ordered = sorted(items, key=lambda r: r["input_length"])
+    for i in range(0, len(items), 4):
+        group = ordered[i : i + 4]
+        x, pos, y = batch(group)
+        h = model.hidden(x)
+        selected = h.reshape(-1, h.shape[-1])[pos]
+        values = []
+        for j in range(0, y.size, 64):
+            scores = mx.fast.cross_entropy(
+                model.project(selected[j : j + 64]), y[j : j + 64]
+            )
+            values.extend(scores.tolist())
+        offset = 0
+        for r in group:
+            labels = token_classes(r, tok)
+            totals = Counter()
+            for category, value in zip(
+                labels, values[offset : offset + len(labels)], strict=True
+            ):
+                counts[category] += 1
+                groups[category] += value
+                totals[category] += value
+            per_item[r["id"]] = dict(id=r["id"], final_logp=-totals["final"])
+            offset += len(labels)
+        if offset != y.size:
+            raise ValueError("Scored target coverage mismatch")
+    total = sum(counts.values())
+    nll = sum(groups.values()) / total
+    return dict(
+        tokens=total,
+        nll=nll,
+        perplexity=math.exp(nll),
+        tokens_by_class=counts,
+        nll_by_class={k: v / counts[k] for k, v in groups.items()},
+        records=[per_item[r["id"]] for r in items],
     )
 
 
@@ -150,7 +197,11 @@ def evaluate(seed, budgets=(25000, 100000, 250000), suite="primary"):
                     )
             run["correct"] = sum(r["correct"] for r in run["records"])
             run["verified"] = sum(r.get("verified", False) for r in run["records"])
-            run["likelihood"] = validation_nll(model, items)
+            run["likelihood"] = partition_likelihood(model, tok, items)
+            if [r["id"] for r in run["records"]] != [
+                r["id"] for r in run["likelihood"]["records"]
+            ]:
+                raise ValueError("Likelihood and generation cohorts differ")
             if split == splits[0] and protocol == "trace":
                 sample = predictions(
                     model, tok, items[:8], cap, padded=True, batch_size=1, detailed=True
