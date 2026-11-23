@@ -58,6 +58,31 @@ def training(state):
         config=state["config"],
         identity=state["training_identity"],
         capacity=state["trainable"],
+        inputs_per_second=state["input_tokens"] / seconds,
+        positions_per_second=totals("executed_positions") / seconds,
+        updates_per_second=len(h) / seconds,
+        seconds_per_million_targets=seconds * 1e6 / state["loss_tokens"],
+        available_min_bytes=min(r["available"] for r in h),
+        initial_swap_bytes=h[0]["swap"],
+        final_swap_bytes=h[-1]["swap"],
+        max_swap_bytes=max(r["swap"] for r in h),
+        peak_rss=max(r["rss"] for r in h),
+        mlx_active_max_bytes=max(r["mlx_active"] for r in h),
+        mlx_cached_max_bytes=max(r["mlx_cached"] for r in h),
+        alpha_initial_forward=h[0]["alpha_forward"],
+        last_update={
+            k: h[-1][k]
+            for k in (
+                "exit_ce",
+                "raw_exit_ce",
+                "alpha_forward",
+                "alpha",
+                "gate_gradient",
+                "gate_lr",
+                "lr",
+            )
+            if k in h[-1]
+        },
     )
 
 
@@ -93,6 +118,43 @@ def eligibility(index):
         track_b=passes("joint-100000-k2", "joint-100000-k1", 0.03)
         and scores("joint-100000-k2")[0] >= scores("dense-100000-k1")[0],
     )
+
+
+def pass_changes(index):
+    result = {}
+    for name, left_path in index["records"].items():
+        other = name.removesuffix("-k1") + "-k2"
+        if not name.endswith("-k1") or other not in index["records"]:
+            continue
+        left = read(left_path)["scores"]
+        right = read(index["records"][other])["scores"]
+        for split, run in left.items():
+            counts = Counter()
+            for a, b, l, r in zip(
+                run["records"],
+                right[split]["records"],
+                run["likelihood"]["records"],
+                right[split]["likelihood"]["records"],
+                strict=True,
+            ):
+                if len({v["id"] for v in (a, b, l, r)}) != 1:
+                    raise ValueError("Different likelihood and prediction cohorts")
+                if b["correct"] and not a["correct"]:
+                    counts.update(fixed=1, verified_fixes=int(b.get("verified", False)))
+                elif a["correct"] and not b["correct"]:
+                    counts.update(
+                        broken=1, verified_bypasses_broken=int(a.get("verified", False))
+                    )
+                if a["prediction"] == b["prediction"]:
+                    counts.update(
+                        unchanged_answer=1,
+                        changed_strings_same_answer=int(a["text"] != b["text"]),
+                        increased_conditional_gold_logp=int(
+                            r["final_logp"] > l["final_logp"]
+                        ),
+                    )
+            result[f"{other}/{split}"] = dict(n=len(run["records"]), **counts)
+    return result
 
 
 def figures(root, index, seed):
@@ -308,6 +370,7 @@ def publish(seed):
             block,
         )
         save(root / (label + "-pairs.json"), idx["pairs"])
+        save(root / (label + "-pass-changes.json"), pass_changes(idx))
     all_handles = {}
     for idx in (index, *stages.values()):
         all_handles.update(idx["records"])
