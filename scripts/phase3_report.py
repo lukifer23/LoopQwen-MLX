@@ -292,12 +292,49 @@ def docs(archive, destination):
                 ],
             ),
         ]
+        from scripts.phase3_changes import changes
+
+        flips = changes(archive, chosen)
+        report.extend(
+            [
+                "",
+                "### Problems changed by the extra pass",
+                "",
+                table(
+                    [
+                        "Fresh cohort",
+                        "Problem ID",
+                        "Family",
+                        "K=1 prediction",
+                        "K=2 prediction",
+                        "Gold",
+                        "Effect",
+                        "K=2 trace verified",
+                    ],
+                    [
+                        (
+                            r["split"],
+                            r["id"][:12],
+                            r["family"],
+                            r["bypass"]["prediction"],
+                            r["gated"]["prediction"],
+                            r["gold"],
+                            r["effect"],
+                            r["gated"]["verification"]["verified"],
+                        )
+                        for r in flips
+                    ],
+                ),
+                "",
+                "Both final-answer fixes contained incorrect intermediate arithmetic. In the modular chain, the second pass wrote 39 mod 17 = 12. In the linear system it evaluated 132 − 143 as 13. Both regressions occurred on left rotations by three positions. In each, K=1 correctly rotated the array and selected the alternating indices, while K=2 rotated by two. These four changes identify specific failure modes on this seed.",
+            ]
+        )
         if not extended["confirm_eligible"]:
             report += [
                 "",
                 "On both fresh cohorts the learned checkpoint retained its higher observed score over dense when decoded at K=1. The extra pass fixed one bypass error and broke one correct answer on each cohort. The item intervals describe this seed. They cannot estimate variation across independent training runs.",
                 "",
-                "The next experiment should replicate dense training versus gated training with both checkpoints decoded at K=1 across independent seeds on development data. This isolates the possible training-time benefit at equal deployed depth before committing more inference compute.",
+                "The next experiment should replicate dense training versus gated training with both checkpoints decoded at K=1 across independent seeds on development data. Include a dense arm trained for the same measured time, charging its extra training examples. This isolates the possible training-time benefit at equal deployed depth before committing more inference compute.",
             ]
     (dest / "PHASE3_RESULTS.md").write_text("\n".join(report) + "\n")
     import matplotlib
