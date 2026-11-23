@@ -84,7 +84,14 @@ if __name__ == "__main__":
         sys.exit(0)
     if sys.argv[1:2] == ["--phase3"]:
         code = supervise(
-            ["/bin/sh", "scripts/run_phase3.sh", "--supervised", *sys.argv[2:]],
+            [
+                "/bin/sh",
+                "-c",
+                Path("scripts/run_phase3.sh").read_text(),
+                "scripts/run_phase3.sh",
+                "--supervised",
+                *sys.argv[2:],
+            ],
             Path("outputs/phase3/study.lock"),
         )
         sys.exit(128 - code if code < 0 else code)

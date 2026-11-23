@@ -109,7 +109,7 @@ def publish(destination):
     if (dest / "checksums.json").is_file():
         dest = Path("outputs/phase3/reproduction") / digest(out / "main.json")[:16]
         adapter_dest = dest / "adapters"
-    exposure = read(out / "exposure.json")["100000"]
+    budgets = read(out / "exposure.json")
     dest.mkdir(exist_ok=True, parents=True)
     metrics = {}
     index = {}
@@ -117,25 +117,37 @@ def publish(destination):
         root = Path("checkpoints") / cfg.stem
         if not (root / "latest.json").is_file():
             continue
-        gen = root / read(root / "latest.json")["directory"]
-        state = read(gen / "state.json")
-        metrics[cfg.stem] = performance(state)
-        index[cfg.stem] = dict(
-            git=state["git"],
-            config=state["config"],
-            dataset=state["sampling"],
-            source=state.get("training_identity"),
-            status=state.get("status"),
-            generation=gen.name,
-            metadata=digest(gen / "state.json"),
-            adapters=digest(gen / "adapters.safetensors"),
-        )
-        json_gzip(dest / "curves" / (cfg.stem + ".json.gz"), state["history"])
+        pointers = [
+            (
+                cfg.stem,
+                "targets-100000.json"
+                if (root / "targets-100000.json").exists()
+                else "latest.json",
+            )
+        ]
+        if (root / "targets-250000.json").exists():
+            pointers.append((cfg.stem + "_250k", "targets-250000.json"))
+        for label, pointer in pointers:
+            gen = root / read(root / pointer)["directory"]
+            state = read(gen / "state.json")
+            metrics[label] = performance(state)
+            index[label] = dict(
+                git=state["git"],
+                config=state["config"],
+                dataset=state["sampling"],
+                source=state.get("training_identity"),
+                status=state.get("status"),
+                generation=gen.name,
+                metadata=digest(gen / "state.json"),
+                adapters=digest(gen / "adapters.safetensors"),
+            )
+            json_gzip(dest / "curves" / (label + ".json.gz"), state["history"])
     save(dest / "training.json", metrics)
     save(dest / "registry.json", index)
     for name in (
         "screen.json",
         "main.json",
+        "promotion.json",
         "selection.json",
         "learn1-lr.json",
         "learn2-lr.json",
@@ -169,11 +181,15 @@ def publish(destination):
             / file.relative_to(out / "eval").with_suffix(".json.gz"),
             read(file),
         )
-    for arm in ("dense", "direct", selection["selected"]):
+    publications = [(arm, 100000) for arm in ("dense", "direct", selection["selected"])]
+    if (out / "promotion.json").is_file():
+        publications += [(arm, 250000) for arm in ("dense", selection["selected"])]
+    for arm, budget in publications:
+        exposure = budgets[str(budget)]
         name = "p3_" + arm
         root = Path("checkpoints") / name
-        gen = root / read(root / "targets-100000.json")["directory"]
-        published = adapter_dest / name
+        gen = root / read(root / f"targets-{budget}.json")["directory"]
+        published = adapter_dest / (name if budget == 100000 else name + "_250k")
         published.mkdir(exist_ok=True, parents=True)
         state = read(gen / "state.json")
         if (state["order_hash"], state["loss_tokens"], state["input_tokens"]) != (
@@ -181,9 +197,7 @@ def publish(destination):
             exposure["targets"],
             exposure["inputs"],
         ):
-            raise ValueError(
-                "Measured 100K cohort differs from the registered schedule"
-            )
+            raise ValueError("Measured cohort differs from the registered schedule")
         for filename in ("adapters.safetensors",):
             if (published / filename).exists() and digest(
                 published / filename
@@ -213,6 +227,10 @@ def publish(destination):
         metric = next(
             r for r in main["rows"] if r["arm"] == arm and r["mode"] == "trained"
         )
+        if budget == 250000:
+            metric = read(out / "promotion.json")["splits"]["v2_validation"]["metrics"][
+                arm + "/trained"
+            ]
         c = state["config"]
         (published / "README.md").write_text(f"""# LoopQwen {name}
 
@@ -220,7 +238,7 @@ Experimental unmerged adapter on Qwen/Qwen3.5-0.8B-Base revision `{c["base_revis
 
 This development checkpoint saw {state["loss_tokens"]:,} targets in {state["step"]} updates. It scored {metric["correct"]}/{metric["n"]} final answers with {metric["verified"]} fully verified certificates on the registered V2 development slice. A single training seed limits inference about training variability. Retention NLL was {metric["retention"]:.4f} on the V2 prose sample.
 
-Use native MLX 0.32.4 and MLX-LM 0.32.2. Reproduce with `scripts/run_phase3.sh main`. Generate with `python -m loopqwen generate --checkpoint {published} --prompt 'Evaluate ((8 + 4) * 3 - 5).' --max-tokens 96`. The prompt is raw Base-model input. For the study protocol append the traced prompt suffix from `data/v2`.
+Use native MLX 0.32.4 and MLX-LM 0.32.2. Reproduce with `scripts/run_phase3.sh main`{", then `scripts/run_phase3.sh promote`" if budget == 250000 else ""}. Generate with `python -m loopqwen generate --checkpoint {published} --prompt 'Evaluate ((8 + 4) * 3 - 5).' --max-tokens 96`. The prompt is raw Base-model input. For the study protocol append the traced prompt suffix from `data/v2`.
 """)
     index = {
         str(p.relative_to(dest)): digest(p)
