@@ -25,7 +25,7 @@ def run():
     x, p, y = batch(sample)
 
     def project(h, weight, labels):
-        return mx.fast.cross_entropy(h @ weight.T, labels).sum()
+        return mx.fast.cross_entropy(h @ weight.T, mx.stop_gradient(labels)).sum()
 
     compiled = mx.compile(project)
 
@@ -34,14 +34,22 @@ def run():
             return project(h, w, labels)
         if method == "compiled":
             return compiled(h, w, labels)
-        func = mx.checkpoint(project) if method == "recomputed" else project
-        return sum(
-            func(h[i : i + 32], w, labels[i : i + 32])
-            for i in range(0, labels.size, 32)
-        )
+        total = 0
+        for i in range(0, labels.size, 32):
+            chunk_labels = labels[i : i + 32]
+            if method == "recomputed":
+                # Only hidden states are differentiable in this frozen tied head.
+                def chunk_loss(states, targets=chunk_labels):
+                    return project(states, w, targets)
+
+                total = total + mx.checkpoint(chunk_loss)(h[i : i + 32])
+            else:
+                total = total + project(h[i : i + 32], w, chunk_labels)
+        return total
 
     results = {}
     for method in ("full", "chunk32", "recomputed", "compiled"):
+        print(f"Testing exact projection: {method}", flush=True)
         model, _, _ = checkpoint.setup(c)
         model.checkpointing = True
         model.train()
