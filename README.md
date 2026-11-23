@@ -2,6 +2,33 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
+## Phase 3: does the second pass earn its cost?
+
+The development study compares dense adaptation, direct recurrence and a near-identity refinement at the same 100,068 supervised tokens. A single learned sigmoid controls the extra pass. Every recurrent checkpoint also runs at true K=1 so its adapters can be evaluated without the extra computation. The primary outcome is greedy final-answer accuracy on traced problems. Exact procedural certificates, independent language retention and measured latency provide additional evidence. [Registration and reproduction](docs/EXPERIMENT_REGISTRY.md) · [Architecture](docs/PHASE3_ARCHITECTURE.md)
+
+```mermaid
+flowchart LR
+    P["Embedding and layers 0–9"] --> A["F: layers 10–15, cache set A"]
+    A --> B["Same F and LoRA, cache set B"]
+    A --> M["h₁ + α (candidate − h₁)"]
+    B --> M
+    M --> S["Layers 16–23, norm and tied head"]
+    A -. "K=1 bypass" .-> S
+```
+
+Use a native arm64 Mac with the locked MLX environment. From the repository root:
+
+```sh
+./scripts/bootstrap.sh
+source .venv/bin/activate
+python -m loopqwen download
+python -m loopqwen data --preset v2
+scripts/run_phase3.sh main
+python -m loopqwen compare --experiment phase3_dev
+```
+
+## Historical experiments
+
 The 1,000-update loop answered 59/110 held-out procedural questions correctly. The same checkpoint at K=1 answered 55/110, and the matched dense twin reached 65/110. The experiment compares the untouched base, the untrained loop and two matched trained twins. Its primary outcomes are held-out answer loss and greedy numeric accuracy. Prose retention, variable depth and a longer-output dense control are also measured. [Experimental results](docs/RESULTS.md)
 
 ## Try the trained loop
