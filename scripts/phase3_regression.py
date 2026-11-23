@@ -13,10 +13,22 @@ from loopqwen.io import save
 out = root / "outputs/phase3"
 cwd = out / "regression"
 (cwd / "outputs").mkdir(exist_ok=True, parents=True)
-for name in ("data", "adapters", "configs", "docs", "experiments", "checkpoints"):
+for name in ("data", "adapters", "configs", "docs", "experiments"):
     link = cwd / name
     if not link.exists():
         link.symlink_to(root / name, target_is_directory=True)
+if not (cwd / "checkpoints").exists():
+    (cwd / "checkpoints").mkdir()
+    for name in ("pilot_dense", "pilot_loop"):
+        original = root / "checkpoints" / name
+        (cwd / "checkpoints" / name).symlink_to(
+            original
+            if (original / "latest.json").is_file()
+            else root / "adapters" / name,
+            target_is_directory=True,
+        )
+if not (root / "data/pilot/manifest.json").is_file():
+    subprocess.run([sys.executable, "-m", "loopqwen", "data"], cwd=root, check=True)
 start = perf_counter()
 cmd = [sys.executable, "-m", "pytest", "-q", str(root / "tests")]
 with (out / "regression.log").open("w") as log:

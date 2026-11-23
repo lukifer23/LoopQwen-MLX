@@ -85,7 +85,7 @@ def run():
     del model, opt, stored, restored, full, chunks, k1, zero, cache, c, refs
     gc.collect()
     mx.clear_cache()
-    old, _, _ = checkpoint.load_trained(Path("checkpoints/p2_confirm_43_loop"))
+    old, _, _ = checkpoint.load_trained(Path("adapters/p2_confirm_43_loop"))
     old.span = replace(old.span, passes=1)
     err = relative(old(seq), old.text(seq))
     if err != 0:
