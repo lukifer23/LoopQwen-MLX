@@ -162,6 +162,25 @@ def main():
         from .training.trainer import train
 
         result = train(args.config, args.until)
+    elif cmd in ("evaluate", "report", "compare") and args.experiment == "phase4":
+        if cmd == "evaluate":
+            from .evaluation.phase4 import evaluate
+
+            evaluate(109)
+            result = "outputs/phase4/evaluation-109.json"
+        else:
+            from .io import read
+
+            path = Path("outputs/phase4/evaluation-109.json")
+            if not path.is_file():
+                raise ValueError("Complete scripts/run_phase4.sh evaluate first")
+            result = (
+                read(path)["pairs"] if cmd == "compare" else "docs/PHASE4_RESULTS.md"
+            )
+            if cmd == "report" and not Path(result).is_file():
+                raise ValueError(
+                    "Render the study with python scripts/phase4_report.py"
+                )
     elif cmd in ("evaluate", "report", "compare") and args.experiment == "phase3_dev":
         from .io import read
         from .evaluation.phase3_report import report

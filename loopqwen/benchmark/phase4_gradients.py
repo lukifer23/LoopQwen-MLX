@@ -20,12 +20,13 @@ def rms(a, b):
     return (mx.linalg.norm(a - b) / mx.maximum(mx.linalg.norm(a), 1e-12)).item()
 
 
-def run():
+def run(bf16=False):
     cfg = config("outputs/phase4/configs/p4_profile_360_all.yaml")
     cfg["target"] = "boundary"
     model, _, _ = checkpoint.setup(cfg)
     model.checkpointing = True
-    model.set_dtype(mx.float32)
+    if not bf16:
+        model.set_dtype(mx.float32)
     model.train()
     samples = rows("validation", "answer")[:2]
     init = model.trainable_parameters()
@@ -89,23 +90,28 @@ def run():
             logits_rms=rms(p, q),
         )
 
-    for w in (0.25, 0.5):
+    for w in (0.0, 0.25, 0.5, 1.0):
         ref = result(independent, [samples], w)
         shared = result(joint, [samples], w)
         metrics[str(w)] = compare(ref, shared)
         metrics[f"split-{w}"] = compare(ref, result(joint, [[r] for r in samples], w))
-    save(Path("outputs/phase4/gradient-audit.json"), metrics)
+    destination = "gradient-bf16.json" if bf16 else "gradient-exits.json"
+    save(Path("outputs/phase4") / destination, metrics)
     for rec in metrics.values():
         if (
-            rec["loss_abs"] > 2e-4
-            or rec["grad_rms"] > 0.002
-            or rec["logits_rms"] > 0.002
-            or rec["update_rms"] > 0.04
+            rec["loss_abs"] > (0.08 if bf16 else 2e-4)
+            or rec["grad_rms"] > (0.15 if bf16 else 0.002)
+            or rec["logits_rms"] > (0.04 if bf16 else 0.002)
+            or rec["update_rms"] > (0.35 if bf16 else 0.04)
             or rec["suffix_grad_norm"] == 0
-            or abs(rec["gate_actual"] - rec["gate_ref"]) > 0.001
+            or abs(rec["gate_actual"] - rec["gate_ref"]) > (0.02 if bf16 else 0.001)
         ):
             raise ValueError(f"Gradient audit failed: {rec}")
 
 
 if __name__ == "__main__":
-    run()
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--bf16", action="store_true")
+    run(parser.parse_args().bf16)

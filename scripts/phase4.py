@@ -180,6 +180,25 @@ def stage(name, seed):
             [sys.executable, "-m", "loopqwen.training.latent", "--seed", str(seed)],
             check=True,
         )
+    elif name == "verify":
+        for args in (
+            ["-m", "loopqwen.benchmark.phase4_gradients"],
+            ["-m", "loopqwen.benchmark.phase4_gradients", "--bf16"],
+            ["scripts/phase3_regression.py", "--output", "outputs/phase4"],
+        ):
+            subprocess.run([sys.executable, *args], check=True)
+        root = Path("checkpoints") / f"p4_{seed}_gated"
+        gen = root / read(root / "targets-250000.json")["directory"]
+        dest = Path("exports") / f"p4_stock_{seed}"
+        if not dest.exists():
+            subprocess.run(
+                [sys.executable, "-m", "loopqwen.stock_export", str(gen), str(dest)],
+                check=True,
+            )
+        deployment = read(dest / "deployment.json")
+        if deployment["source"] != digest(gen / "adapters.safetensors"):
+            raise ValueError("Stock export source mismatch")
+        save(OUT / "deployment.json", deployment)
     elif name in ("boundary", "v4"):
         if not (OUT / f"evaluation-{seed}.json").is_file():
             raise ValueError(
@@ -240,6 +259,7 @@ if __name__ == "__main__":
             "evaluate",
             "v4",
             "boundary",
+            "verify",
         ],
     )
     p.add_argument("--seed", type=int, default=SPEC["seed"])

@@ -119,6 +119,9 @@ def run(arm, seed, steps=360, anneal=False):
             config=training_identity(c, meta),
             experiment=digest(Path(__file__)),
             generator=digest(ROOT / "manifest.json"),
+            rendering=digest(
+                Path(__file__).resolve().parents[1] / "data/transitions.py"
+            ),
             arm=arm,
             install_steps=steps,
         )
