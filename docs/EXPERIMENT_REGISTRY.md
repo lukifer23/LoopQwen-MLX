@@ -11,6 +11,8 @@
 
 ## Phase 4 experiments
 
+The seed-109 pass closed after the primary 100K and 250K trained comparisons. Nine model/depth combinations were evaluated on 150 ID items, 150 OOD items and a 120-passage retention cohort. Recovery checkpoints include the 25K milestone. The publication includes four compact adapters and the scored records. The remaining pointer, boundary, weighting and export experiments are available as separate commands. [Findings](PHASE4_RESULTS.md) · [Archived measurements](measurements/phase4)
+
 The [Phase 4 registration](PHASE4_PLAN.md) fixes the seed, source revision, data, logical batch size, milestones and promotion thresholds. The [study manifest](../experiments/phase4.json) distinguishes the 250K equal-deployment-cost comparison, the 25K/100K dual-exit comparison and the independent categorical pointer experiment. Seed 109 is independent of Phase 3 seed 73. Each training arm has its own immutable execution-policy YAML. The data-matched dense and time-matched dense models are two points on a single training trajectory.
 
 From the project root, after the locked environment has been installed:
@@ -22,9 +24,13 @@ python -m loopqwen data --preset v2
 python -m loopqwen data --preset v3
 python -m loopqwen.data.retention3
 scripts/run_phase4.sh efficiency audit
-scripts/run_phase4.sh replicate dual-exit latent evaluate --seed 109
-scripts/run_phase4.sh verify --seed 109
+scripts/run_phase4.sh replicate dual-exit evaluate --seed 109
+python scripts/phase4_data_audit.py
+python scripts/phase4_exposure.py
+python scripts/phase4_report.py --closeout
 ```
+
+The `evaluate` command also scores the 25K checkpoints and untouched base when allowed to finish. The closeout archive selects only the completed primary comparisons reported here. The pointer diagnostic is a separate `scripts/run_phase4.sh latent --seed 109` stage. Export and expanded regression checks use `scripts/run_phase4.sh verify --seed 109`.
 
 After the primary comparison, the registered capacity and weighting screens use `scripts/run_phase4.sh boundary v4 --seed 109`. The V4 stage creates the separate text dataset. The latent stage creates its disjoint permutations independently. Audit target counts and regenerate the research archive with `python scripts/phase4_exposure.py` followed by `python scripts/phase4_report.py`. Rendering the figure requires `uv sync --locked --group figures`.
 

@@ -51,7 +51,7 @@ Set `first_exit_weight: 0.25` on a fixed K=2 configuration to supervise both suf
 ```sh
 source .venv/bin/activate
 scripts/run_phase4.sh efficiency audit
-scripts/run_phase4.sh replicate dual-exit latent evaluate --seed 109
+scripts/run_phase4.sh replicate dual-exit evaluate --seed 109
 python -m loopqwen compare --experiment phase4
 ```
 

@@ -164,7 +164,12 @@ def figures(root, index, seed):
     from matplotlib import pyplot as plt
 
     data = records(index)
-    fig, axes = plt.subplots(1, 3, figsize=(12, 3.6), layout="constrained")
+    has_states = all(
+        (OUT / f"state-{seed}-{arm}-install.json").exists()
+        for arm in ("dense", "recurrent", "probe")
+    )
+    count = 3 if has_states else 2
+    fig, axes = plt.subplots(1, count, figsize=(4 * count, 3.6), layout="constrained")
     panels = [
         (
             "250K training replication",
@@ -207,29 +212,33 @@ def figures(root, index, seed):
         )
         ax.tick_params(axis="x", rotation=25, labelsize=8)
         ax.legend(frameon=False, fontsize=8)
-    ax = axes[-1]
-    for arm, label, color in (
-        ("probe", "Frozen + head", "#798899"),
-        ("dense", "Dense + head", "#375982"),
-        ("recurrent", "Recurrent + head", "#16785e"),
-    ):
-        scores = read(OUT / f"state-{seed}-{arm}-install.json")["suite"]
-        ax.plot(
-            [1, 2, 3],
-            [100 * scores[str(n)]["terminal"] / scores[str(n)]["n"] for n in (1, 2, 3)],
-            marker="o",
-            label=label,
-            color=color,
+    if has_states:
+        ax = axes[-1]
+        for arm, label, color in (
+            ("probe", "Frozen + head", "#798899"),
+            ("dense", "Dense + head", "#375982"),
+            ("recurrent", "Recurrent + head", "#16785e"),
+        ):
+            scores = read(OUT / f"state-{seed}-{arm}-install.json")["suite"]
+            ax.plot(
+                [1, 2, 3],
+                [
+                    100 * scores[str(n)]["terminal"] / scores[str(n)]["n"]
+                    for n in (1, 2, 3)
+                ],
+                marker="o",
+                label=label,
+                color=color,
+            )
+        ax.axhline(12.5, ls=":", color="#777777", label="Uniform guess")
+        ax.set(
+            title="Pointer map generalization",
+            xlabel="Requested transitions",
+            ylabel="Terminal state correct (%)",
+            ylim=(0, 100),
+            xticks=[1, 2, 3],
         )
-    ax.axhline(12.5, ls=":", color="#777777", label="Uniform guess")
-    ax.set(
-        title="Pointer map generalization",
-        xlabel="Requested transitions",
-        ylabel="Terminal state correct (%)",
-        ylim=(0, 100),
-        xticks=[1, 2, 3],
-    )
-    ax.legend(frameon=False, fontsize=8)
+        ax.legend(frameon=False, fontsize=8)
     for ax in axes:
         ax.spines[["top", "right"]].set_visible(False)
     fig.suptitle(f"Phase 4 · independent development seed {seed}")
@@ -301,8 +310,57 @@ def publish_stock(seed, adapters):
     )
 
 
-def publish(seed):
-    index = read(OUT / f"evaluation-{seed}.json")
+def closeout_index(seed):
+    from loopqwen.evaluation.phase4 import compare
+
+    handles = {}
+    for budget, arm in [
+        (250000, "dense"),
+        (250000, "gated"),
+        (250000, "time"),
+        (100000, "dense"),
+        (100000, "gated"),
+        (100000, "joint"),
+    ]:
+        for k in (1, 2) if arm in ("gated", "joint") else (1,):
+            name = f"{arm}-{budget}-k{k}"
+            (path,) = (OUT / "eval" / str(seed) / name).glob("*.json")
+            handles[name] = str(path)
+    data = records(dict(records=handles))
+    if len({r["identity"]["items"] for r in data.values()}) != 1:
+        raise ValueError("Development item streams differ")
+    pairs = {}
+    for left, right in (
+        ("dense-250000-k1", "gated-250000-k1"),
+        ("time-250000-k1", "gated-250000-k1"),
+        ("gated-250000-k1", "gated-250000-k2"),
+        ("dense-100000-k1", "joint-100000-k2"),
+        ("gated-100000-k2", "joint-100000-k2"),
+        ("joint-100000-k1", "joint-100000-k2"),
+        ("gated-100000-k1", "gated-100000-k2"),
+    ):
+        pairs[left + "/" + right] = {
+            s: compare(r["records"], data[right]["scores"][s]["records"])
+            for s, r in data[left]["scores"].items()
+        }
+    index = dict(
+        status="closed after primary trained comparisons",
+        records=handles,
+        pairs=pairs,
+        deferred=[
+            "25K generated-answer screen",
+            "untouched base generation",
+            "pointer training",
+            "boundary and V4 training",
+            "deployment export audits",
+        ],
+    )
+    save(OUT / f"closeout-{seed}.json", index)
+    return index
+
+
+def publish(seed, closeout=False):
+    index = closeout_index(seed) if closeout else read(OUT / f"evaluation-{seed}.json")
     stages = {
         key: read(OUT / f"evaluation-{seed}-{key}.json")
         for key in ("boundary", "v4")
@@ -331,7 +389,12 @@ def publish(seed):
     ):
         if (OUT / name).exists():
             shutil.copyfile(OUT / name, root / name)
-    for ds in ("v2", "v3", "v4", "v4_pointer"):
+    save(
+        root / "study-status.json",
+        {k: v for k, v in index.items() if k not in ("records", "pairs")}
+        | {"completed_evaluations": list(index["records"])},
+    )
+    for ds in ("v2", "v3", "v3_retention", "v4", "v4_pointer"):
         shutil.copyfile(
             Path("data") / ds / "manifest.json", root / (ds + "-manifest.json")
         )
@@ -479,7 +542,8 @@ SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environ
             shutil.copyfile(path, dest)
     save(root / "training.json", metrics)
     publish_states(seed, root, adapters)
-    publish_stock(seed, adapters)
+    if not closeout or (OUT / "deployment.json").exists():
+        publish_stock(seed, adapters)
     latent = []
     for file in sorted((root / "latent").glob("*.gz")):
         x = json.loads(gzip.decompress(file.read_bytes()))
@@ -496,7 +560,7 @@ SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environ
     result = [
         "# Phase 4 research results",
         "",
-        f"Exploratory seed {seed} on M3 Pro, starting at `0a0bb9c`. Development evaluation used the complete 150+150 V3 sets at 100K and 250K, and the first 30+30 at 25K. Trace generation uses 192 tokens and direct generation uses 24. Every trained comparison has a true single-pass exit. Phase 3 sealed cohorts were excluded. [Registration](PHASE4_PLAN.md)",
+        f"Exploratory seed {seed} on M3 Pro, starting at `0a0bb9c`. Development evaluation used the complete 150+150 V3 sets at 100K and 250K, with paired item-level scoring. Trace generation uses 192 tokens and direct generation uses 24. Every trained comparison has a true single-pass exit. Phase 3 sealed cohorts were excluded. [Registration](PHASE4_PLAN.md)",
         "",
         metric_tables["primary"],
         "",
@@ -553,6 +617,8 @@ SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environ
             latent,
         ),
     ]
+    if not latent:
+        del result[result.index("## Categorical pointer prediction") :]
     for label in stages:
         result += [
             "",
@@ -672,4 +738,10 @@ SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environ
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--seed", type=int, default=109)
-    print(publish(p.parse_args().seed))
+    p.add_argument(
+        "--closeout",
+        action="store_true",
+        help="Archive the completed 100K and 250K comparisons only",
+    )
+    args = p.parse_args()
+    print(publish(args.seed, args.closeout))
