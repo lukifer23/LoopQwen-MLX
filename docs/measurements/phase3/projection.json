@@ -1,0 +1,82 @@
+{
+  "ids": [
+    "afbc7808aa9ba1e4cfb8fef8d179f9084a4512bbafbce4046cd0bebf7dafc057",
+    "f2cbf8eecb26e78b4c70e14b8412c1c4b0bae0e1726e9f32fe8c872aff3eb1d3",
+    "312618f1b0e2cef30500c9b1b9dab90a0c086cd482a740cbfdbd85b887ea95b1",
+    "fc7a0026472989c543f1bd644a8cf0db6ae6bfb900da525c7b0bb5e51408b28e"
+  ],
+  "shape": [
+    4,
+    204
+  ],
+  "labels": 402,
+  "checkpointing": true,
+  "k": 2,
+  "chunk": 32,
+  "results": {
+    "full": {
+      "setup_s": 0.11293183299858356,
+      "warmup_s": 1.498148165999737,
+      "steady_s": [
+        1.4677642920032667,
+        1.4694655830026022,
+        1.4731574590005039,
+        1.4698404160008067
+      ],
+      "median_s": 1.4696529995017045,
+      "peak_bytes": 5136124502,
+      "hidden_grad_relative_rms": 0.0,
+      "abs_mean_loss_error": 0.0,
+      "final_training_loss": 0.1863161027431488,
+      "final_grad_norm": 0.9780067205429077
+    },
+    "chunk32": {
+      "setup_s": 0.23011633300120593,
+      "warmup_s": 1.6151150000005146,
+      "steady_s": [
+        1.59012229200016,
+        1.5892917499986652,
+        1.5994812090029882,
+        1.5878717090017744
+      ],
+      "median_s": 1.5897070209994126,
+      "peak_bytes": 5136124506,
+      "hidden_grad_relative_rms": 0.0,
+      "abs_mean_loss_error": 0.0,
+      "final_training_loss": 0.1867252141237259,
+      "final_grad_norm": 0.9742634296417236
+    },
+    "recomputed": {
+      "setup_s": 0.32723762500245357,
+      "warmup_s": 1.7238644580029359,
+      "steady_s": [
+        1.6864387499990698,
+        1.6829170000019076,
+        1.6838987909977732,
+        1.6866711669972574
+      ],
+      "median_s": 1.6851687704984215,
+      "peak_bytes": 5136155718,
+      "hidden_grad_relative_rms": 0.0,
+      "abs_mean_loss_error": 0.0,
+      "final_training_loss": 0.1872933804988861,
+      "final_grad_norm": 0.9769312143325806
+    },
+    "compiled": {
+      "setup_s": 0.12061645799985854,
+      "warmup_s": 1.5518026669997198,
+      "steady_s": [
+        1.5290375410004344,
+        1.5319707920025394,
+        1.529673583998374,
+        1.504187250000541
+      ],
+      "median_s": 1.5293555624994042,
+      "peak_bytes": 5136124502,
+      "hidden_grad_relative_rms": 0.0,
+      "abs_mean_loss_error": 0.0,
+      "final_training_loss": 0.18683063983917236,
+      "final_grad_norm": 0.972889244556427
+    }
+  }
+}

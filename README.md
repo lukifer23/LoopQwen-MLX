@@ -23,11 +23,22 @@ Show your steps. End with Final answer: <number>.
 Solution:' --max-tokens 96
 ```
 
+The published 250K adapter produced the following greedy continuation on the M3 Pro.
+
+```text
+8 + 4 = 12
+12 * 3 = 36
+36 - 5 = 31
+Final answer: 31
+```
+
 Add `--passes 1` to the generation command to run the same adapters at their true bypass depth. Use `adapters/phase3/p3_dense_250k` to try the matched dense model.
 
 ## Reproduce the study
 
 The [experiment registry](docs/EXPERIMENT_REGISTRY.md) lists the ordered commands from data preparation through training, evaluation and archival. The [training guide](docs/TRAINING.md) explains checkpoints and update budgets. The [performance report](docs/PHASE3_OPTIMIZATIONS.md) records memory, throughput and deployment measurements on the 18 GiB M3 Pro.
+
+Measured figures include the [development learning curves](docs/measurements/phase3/learning-curves.png) and [memory over 1,605 gated updates](docs/measurements/phase3/training-memory.png).
 
 ## Shared block and independent caches
 

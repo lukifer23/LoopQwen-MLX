@@ -1,0 +1,66 @@
+{
+  "identity": {
+    "schema": 3,
+    "experiment": "7a1837c53c2c5474210b4bf5e9b785d4bed286186de7ab0ae2150ddd363eea73",
+    "weights": "6d8c01e28ca9830c3e60e680b91e5194a60564b84d230bd2039d8084c9997745",
+    "config": "ba802aaa0920f8349a841867a5b47e04028894b2bac84b969ce0270758458338",
+    "metadata": "31c284457bd7856e612f81ebda5339e47e6a8a05e80aad5879f0890483813188",
+    "sources": {
+      "sources": {
+        "checkpoint.py": "b40c15db0516dd730bfcdd495133664ae9e0f909a662121f72f1b629a9ccecae",
+        "recurrence.py": "7e6235a75981e66a16c616214b0c0efdb4a65b4ef18f23c287db9dfb5c345e03",
+        "recurrent_cache.py": "e545ad2ce5bb19badcb35ed2e998f4c4bcf7acfa2f8bcb08a3fb0e07ebce97e5",
+        "looped_model.py": "8cafdc3699db69b5593db53318ff88b7f6c40ee95c11c7020cf0d5da428d4d53",
+        "model_loader.py": "f9cd0b9f9995ebb71b0f34836eac24ee7eef1af05442b9906ce89520b2af02ff",
+        "config.py": "6e5400c89e842275811799668b2d6bf06b6f83f0aa6190ee6a3f33df746da6dc",
+        "kernels/gdn_backend.py": "2c1a99ba910a16b6e764f8990800512fffaa0de6d1101dc3a7b4bdc998837a01",
+        "training/adapters.py": "c692c503baa97c5b3c062033f16d38d7b5ef34e40dc3fee6ed2f88b378d9d582",
+        "training/losses.py": "60f7720d54fdbbd4b026bb3493bac722dba06e3128e6c8e5aab3d1f4f8eb1140",
+        "data/tokenize.py": "998e536e19674ae6caf973e70ab517c5f2a2fc635b435a2c39ef795f51b66c81",
+        "data/v2.py": "bc2816ac9c64eebf3fe2e40f5cd06b54b87e3d3ffaf7893214c618d4fd206385",
+        "evaluation/identity.py": "030025454c6aa2c9af4f19747a8862235000a84e830ca8281a3d6b77c84e144d",
+        "evaluation/phase2.py": "222f14726c684a9720203d8dd09f49ffe39a2d26508c183c4050446aad0c52b5",
+        "evaluation/phase3.py": "f8d58d2f7eae10e2119fa721fa781b6da9c596dc53a577bf879ef32770a5ff8a",
+        "evaluation/answers.py": "49defb9350434a646358ca74a94d381c3c9be99c258edd40f7ffd1f2a4415d59",
+        "evaluation/trace_verifier.py": "f69f6ad8c5b123237e25116d05b8563046fb17f932b36ca64caf90338122e5e1",
+        "data/graphs.py": "380ad69a92537902dff6bc6bb1a32fc7cd0833d7faa69bf61e36a7d3448e7af8"
+      },
+      "installed": {
+        "mlx_lm.models.qwen3_5": "851449fd9989d6bf4b3c4fed92ddc3be5f1e781eb2246f89c54d7eff2518d9c6",
+        "mlx_lm.models.gated_delta": "f69e837ea68641dbb06fdb5dcc024a9a7e1d9353f08ae58c05275253a0c39428",
+        "mlx_lm.models.cache": "c96cb169fd5e0ec4584a162dd61dc62ab08ccdca03a9850f8a491ce6809145e6",
+        "mlx_lm.tokenizer_utils": "a6c3b727ae30989c5d65d4c1e81b8616cd3e960f02cf6e9cd5474c14926fe49f"
+      },
+      "tokenizer": {
+        "tokenizer.json": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+        "tokenizer_config.json": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+        "config.json": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204"
+      }
+    },
+    "scorer": "token-weighted-nll",
+    "data": "8e1a06ca22906a8976b0cf0e3173288b8cfaebbdc32a610528b285d65835a22c",
+    "items": "dc6f95ce93a755f0b74fe38c6959e9c631e112401daa9002c33855b1e755bffb",
+    "tokenizer": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "decoding": {
+      "protocol": "teacher-forced",
+      "batch_size": 4
+    },
+    "dependencies": {
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "transformers": "5.24.0",
+      "tokenizers": "0.23.3",
+      "numpy": "2.5.5"
+    },
+    "backend": "mlx-metal"
+  },
+  "loss": {
+    "nll": 0.4224926600946444,
+    "perplexity": 1.5257600206282151,
+    "tokens": 2247
+  },
+  "gate": 0.10202755033969879,
+  "gate_logit": -2.174896478652954,
+  "gate_lr": 0.009999999776482582,
+  "order": "338dba69da1f9bd87c39196f073590479ef13c32a5b6380a36f714fb27c37951"
+}

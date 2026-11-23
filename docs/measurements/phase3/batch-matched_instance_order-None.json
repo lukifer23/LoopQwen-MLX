@@ -1,0 +1,373 @@
+{
+  "cohort": "112cde184623ed29da4203e6e8c5977aebecb2f217335b8c856242ef196cd582",
+  "config": {
+    "base_model": "Qwen/Qwen3.5-0.8B-Base",
+    "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "precision": "bfloat16",
+    "start": 10,
+    "length": 6,
+    "passes": 2,
+    "mode": "direct",
+    "alpha_init": 0.1,
+    "alpha_schedule": null,
+    "curriculum": "direct",
+    "depth_weights": [
+      0.1,
+      0.9,
+      0.0
+    ],
+    "target": "block",
+    "projections": null,
+    "rank": 8,
+    "lora_alpha": 16,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "warmup": 5,
+    "weight_decay": 0.01,
+    "clip": 1.0,
+    "seed": 73,
+    "sequence_length": 256,
+    "batch_size": 4,
+    "accumulation": 1,
+    "gradient_checkpointing": false,
+    "steps": 6000,
+    "checkpoint_interval": 150,
+    "eval_interval": 6000,
+    "eval_count": 30,
+    "response_only": true,
+    "dataset": "v2",
+    "training_split": "train",
+    "validation_split": "validation",
+    "gdn_backend": "native",
+    "memory_target_gib": 8,
+    "min_available_gib": 1,
+    "bucket_policy": "protocol_and_length",
+    "checkpoint_policy": "all",
+    "label_budget": 250000,
+    "milestones": [
+      10000,
+      25000,
+      50000,
+      100000,
+      250000
+    ],
+    "mixture": "mixed_answer_and_traces",
+    "name": "p3_direct",
+    "strict_resume": true,
+    "validation_batch_size": 4
+  },
+  "policy": "matched_instance_order",
+  "cap": null,
+  "history": [
+    {
+      "seconds": 0.471419125002285,
+      "inputs": 172,
+      "positions": 320,
+      "targets": 64,
+      "loss": 0.5793763399124146,
+      "norm": 2.12187123298645,
+      "shapes": [
+        [
+          4,
+          80
+        ]
+      ],
+      "available": 6769885184
+    },
+    {
+      "seconds": 0.6600246669986518,
+      "inputs": 281,
+      "positions": 420,
+      "targets": 131,
+      "loss": 0.5705591449300751,
+      "norm": 2.0330164432525635,
+      "shapes": [
+        [
+          4,
+          105
+        ]
+      ],
+      "available": 6585810944
+    },
+    {
+      "seconds": 0.6904932920006104,
+      "inputs": 306,
+      "positions": 440,
+      "targets": 125,
+      "loss": 0.5114832153320312,
+      "norm": 2.1739354133605957,
+      "shapes": [
+        [
+          4,
+          110
+        ]
+      ],
+      "available": 6965755904
+    },
+    {
+      "seconds": 0.738682916999096,
+      "inputs": 384,
+      "positions": 460,
+      "targets": 173,
+      "loss": 0.6720000691496568,
+      "norm": 2.4715025424957275,
+      "shapes": [
+        [
+          4,
+          115
+        ]
+      ],
+      "available": 6276956160
+    },
+    {
+      "seconds": 0.7392680839984678,
+      "inputs": 396,
+      "positions": 476,
+      "targets": 198,
+      "loss": 0.5042659104472459,
+      "norm": 2.190441608428955,
+      "shapes": [
+        [
+          4,
+          119
+        ]
+      ],
+      "available": 5819711488
+    },
+    {
+      "seconds": 0.7451010830009182,
+      "inputs": 340,
+      "positions": 492,
+      "targets": 135,
+      "loss": 0.5034128824869791,
+      "norm": 2.0777060985565186,
+      "shapes": [
+        [
+          4,
+          123
+        ]
+      ],
+      "available": 6769999872
+    },
+    {
+      "seconds": 0.8135390839997854,
+      "inputs": 339,
+      "positions": 516,
+      "targets": 158,
+      "loss": 0.4997974347464646,
+      "norm": 1.8795080184936523,
+      "shapes": [
+        [
+          4,
+          129
+        ]
+      ],
+      "available": 6692569088
+    },
+    {
+      "seconds": 0.79133529200044,
+      "inputs": 259,
+      "positions": 520,
+      "targets": 86,
+      "loss": 0.5390045698298964,
+      "norm": 2.3823130130767822,
+      "shapes": [
+        [
+          4,
+          130
+        ]
+      ],
+      "available": 6495092736
+    },
+    {
+      "seconds": 0.8107977079998818,
+      "inputs": 285,
+      "positions": 536,
+      "targets": 85,
+      "loss": 0.6324703889734605,
+      "norm": 2.7884578704833984,
+      "shapes": [
+        [
+          4,
+          134
+        ]
+      ],
+      "available": 6682656768
+    },
+    {
+      "seconds": 0.8534618749981746,
+      "inputs": 462,
+      "positions": 548,
+      "targets": 245,
+      "loss": 0.8538816490951849,
+      "norm": 1.8917226791381836,
+      "shapes": [
+        [
+          4,
+          137
+        ]
+      ],
+      "available": 6572720128
+    },
+    {
+      "seconds": 0.8404083749992424,
+      "inputs": 376,
+      "positions": 560,
+      "targets": 176,
+      "loss": 1.0444216294722124,
+      "norm": 2.634143829345703,
+      "shapes": [
+        [
+          4,
+          140
+        ]
+      ],
+      "available": 6591381504
+    },
+    {
+      "seconds": 0.8758782500008238,
+      "inputs": 377,
+      "positions": 564,
+      "targets": 173,
+      "loss": 0.7533761614319906,
+      "norm": 2.455002546310425,
+      "shapes": [
+        [
+          4,
+          141
+        ]
+      ],
+      "available": 6527107072
+    },
+    {
+      "seconds": 0.9332113750024291,
+      "inputs": 389,
+      "positions": 572,
+      "targets": 179,
+      "loss": 0.9494756773197451,
+      "norm": 2.7969303131103516,
+      "shapes": [
+        [
+          4,
+          143
+        ]
+      ],
+      "available": 7452114944
+    },
+    {
+      "seconds": 1.0042237500019837,
+      "inputs": 503,
+      "positions": 584,
+      "targets": 245,
+      "loss": 0.748587721221301,
+      "norm": 2.257988691329956,
+      "shapes": [
+        [
+          4,
+          146
+        ]
+      ],
+      "available": 7040335872
+    },
+    {
+      "seconds": 0.9932197919988539,
+      "inputs": 419,
+      "positions": 588,
+      "targets": 181,
+      "loss": 0.2543882296230253,
+      "norm": 3.335038900375366,
+      "shapes": [
+        [
+          4,
+          147
+        ]
+      ],
+      "available": 6680526848
+    },
+    {
+      "seconds": 1.0526406669996504,
+      "inputs": 533,
+      "positions": 628,
+      "targets": 271,
+      "loss": 0.4741681088380708,
+      "norm": 2.0756938457489014,
+      "shapes": [
+        [
+          4,
+          157
+        ]
+      ],
+      "available": 6342180864
+    },
+    {
+      "seconds": 1.2383163329977833,
+      "inputs": 359,
+      "positions": 640,
+      "targets": 103,
+      "loss": 0.3959233552506826,
+      "norm": 4.450945854187012,
+      "shapes": [
+        [
+          4,
+          160
+        ]
+      ],
+      "available": 5918572544
+    },
+    {
+      "seconds": 1.3295739999994112,
+      "inputs": 725,
+      "positions": 776,
+      "targets": 354,
+      "loss": 0.14540424454683637,
+      "norm": 1.730437994003296,
+      "shapes": [
+        [
+          4,
+          194
+        ]
+      ],
+      "available": 6677397504
+    },
+    {
+      "seconds": 1.432801124999969,
+      "inputs": 470,
+      "positions": 792,
+      "targets": 112,
+      "loss": 0.27899510519845144,
+      "norm": 1.7274388074874878,
+      "shapes": [
+        [
+          4,
+          198
+        ]
+      ],
+      "available": 6272139264
+    },
+    {
+      "seconds": 1.3955003750015749,
+      "inputs": 822,
+      "positions": 832,
+      "targets": 402,
+      "loss": 0.09993101471099095,
+      "norm": 1.3326680660247803,
+      "shapes": [
+        [
+          4,
+          208
+        ]
+      ],
+      "available": 6560284672
+    }
+  ],
+  "warmup_updates": 2,
+  "update_seconds": 18.409897169000033,
+  "median_seconds": 0.8469351249987085,
+  "targets_s": 195.32971678164586,
+  "useful_inputs_s": 445.24963527785064,
+  "padding": 0.27228338068181823,
+  "peak": 7615098078,
+  "rss": 1549254656,
+  "swap": 1357250560
+}

@@ -5,3 +5,10 @@ Experimental unmerged adapter on Qwen/Qwen3.5-0.8B-Base revision `dc7cdfe2ee4154
 This development checkpoint saw 250,031 targets in 1605 updates. It scored 35/60 final answers with 32 fully verified certificates on the registered V2 development slice. A single training seed limits inference about training variability. Retention NLL was 3.6394 on the V2 prose sample.
 
 Use native MLX 0.32.4 and MLX-LM 0.32.2. Reproduce with `scripts/run_phase3.sh main`, then `scripts/run_phase3.sh promote`. Generate with `python -m loopqwen generate --checkpoint adapters/phase3/p3_dense_250k --prompt 'Evaluate ((8 + 4) * 3 - 5).' --max-tokens 96`. The prompt is raw Base-model input. For the study protocol append the traced prompt suffix from `data/v2`.
+
+| Development cohort | Execution depth K | Correct answers | Verified solutions |
+|---|---:|---:|---:|
+| Fresh ID | 1 | 58/150 | 53/150 |
+| Fresh OOD | 1 | 41/150 | 37/150 |
+
+Adapter SHA-256 `aaa2632248554698855ea0b447354f19a7e3c72fbfcd1513e82531fb349ded4b`. The accompanying state records the resolved configuration, base revision, dataset and runtime identities.
