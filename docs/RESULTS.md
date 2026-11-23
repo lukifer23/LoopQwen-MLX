@@ -26,6 +26,8 @@ The initial isolated 64-token GDN value-and-gradient measurement was 2.81 ms nat
 
 ## Verification and interpretation
 
+The full real-weight integration suite passed all 14 tests. A second execution of the four backend-specific shared-gradient and checkpoint replay cases also passed. The four published adapter files and metadata were compared byte-for-byte with their final local training checkpoints.
+
 K=1 logits matched the stock language model exactly. Cached and uncached decoding agreed on every greedy token of the short and 49-token test sequences at all three depths. The checkpoint round-trip test recovered every saved trainable tensor and optimizer tensor exactly. The BF16 merge changed verification-prompt logits by 1.62% relative RMS. Reloading the merged model with its bundled runtime reproduced the entire merged logit tensor byte-for-byte in a fresh process. [Architecture probe](measurements/probe.json) · [Cache checks](measurements/cache.json) · [Merged export verification](measurements/pilot_export.json)
 
 The validation placement sweep used 16 calibration problems and frozen pretrained weights. Answer NLLs for six-layer spans starting at 6, 8, 10, 12 and 16 were 1.129, 0.969, 1.574, 1.504 and 0.982. These measurements describe untrained perturbations. All matched runs retained the preselected 10–15 span.

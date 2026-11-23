@@ -109,46 +109,73 @@ def test_checkpoint_resume_and_reproducibility(tmp_path, backend):
     c["gdn_backend"] = backend
     x, pos, y = batch(load_split("train")[:1])
 
-    def update(model, opt):
+    def backward(model):
         model.train()
-        value, g = nn.value_and_grad(model, loss_sum)(model, x, pos, y)
-        opt.update(model, g)
-        mx.eval(model.trainable_parameters(), opt.state)
-        return value.item()
+        value, grads = nn.value_and_grad(model, loss_sum)(model, x, pos, y)
+        mx.eval(value, grads)
+        return value.item(), grads
 
-    model, tok, _ = setup(c)
+    def apply(model, opt, grads):
+        opt.update(model, grads)
+        mx.eval(model.trainable_parameters(), opt.state)
+
+    def snapshot(model, opt):
+        return dict(tree_flatten(model.trainable_parameters())), dict(
+            tree_flatten(opt.state)
+        )
+
+    def assert_same(live, saved):
+        for a, b in zip(live, saved, strict=True):
+            assert a.keys() == b.keys()
+            assert all(mx.array_equal(a[k], v).item() for k, v in b.items())
+
+    model, _, _ = setup(c)
     opt = optimizer(c)
-    initial = update(model, opt)
+    initial, first_grad = backward(model)
+    apply(model, opt, first_grad)
     model.eval()
     saved = model(x)
     mx.eval(saved)
-    # Serialization and the next optimizer step have exact contracts even when
-    # independent native Metal backwards use different reduction orders.
-    saved_weights = dict(tree_flatten(model.trainable_parameters()))
-    saved_optimizer = dict(tree_flatten(opt.state))
+    at_save = snapshot(model, opt)
     write(tmp_path, model, opt, dict(config=c, step=1))
-    continued = update(model, opt)
-    expected = model.text.layers[10].mlp.up_proj.lora_b
+    continued, continuation_grad = backward(model)
+    apply(model, opt, continuation_grad)
+    expected = snapshot(model, opt)
+    model.eval()
+    expected_logits = model(x).reshape(-1, model.args.vocab_size)[pos]
+    mx.eval(expected_logits)
     del model, opt
+
     model, _, _ = setup(c)
     opt = optimizer(c)
-    assert update(model, opt) == initial
+    repeated, grad = backward(model)
+    assert repeated == initial
+    apply(model, opt, grad)
     restore(tmp_path, model, opt)
-    for live, snapshot in [
-        (model.trainable_parameters(), saved_weights),
-        (opt.state, saved_optimizer),
-    ]:
-        arrays = dict(tree_flatten(live))
-        assert arrays.keys() == snapshot.keys()
-        assert all(mx.array_equal(arrays[k], v).item() for k, v in snapshot.items())
+    assert_same(snapshot(model, opt), at_save)
     model.eval()
     assert mx.array_equal(saved, model(x)).item()
-    assert update(model, opt) == continued
-    actual = model.text.layers[10].mlp.up_proj.lora_b
+
+    resumed, independent_grad = backward(model)
+    assert resumed == continued
+    apply(model, opt, independent_grad)
     if backend == "reference":
-        assert mx.array_equal(expected, actual).item()
+        assert_same(snapshot(model, opt), expected)
     else:
-        assert relative(actual, expected) < 0.025
+        # A separately executed native backward uses atomic reductions. Compare
+        # its effect on all scored logits under the established BF16 tolerance.
+        model.eval()
+        actual = model(x).reshape(-1, model.args.vocab_size)[pos]
+        assert relative(actual, expected_logits) < 0.03
+        assert mx.array_equal(
+            mx.argmax(actual, -1), mx.argmax(expected_logits, -1)
+        ).item()
+
+    # With the exact same real backward result, every resumed AdamW moment,
+    # schedule tensor and adapter must equal its uninterrupted counterpart.
+    restore(tmp_path, model, opt)
+    apply(model, opt, continuation_grad)
+    assert_same(snapshot(model, opt), expected)
 
 
 def test_stabilized_gate_trains():
