@@ -1,0 +1,715 @@
+{
+  "hardware": {
+    "device": {
+      "device_name": "Apple M3 Pro",
+      "max_recommended_working_set_size": 14302248960,
+      "memory_size": 19327352832,
+      "architecture": "applegpu_g15s",
+      "max_buffer_length": 10726686720,
+      "resource_limit": 499000
+    },
+    "default_device": "Device(gpu, 0)",
+    "macos": "27.3",
+    "python": "3.12.12",
+    "arch": "arm64",
+    "cpu_cores": 11,
+    "gpu_cores": 14,
+    "cpu_clusters": [
+      5,
+      6
+    ],
+    "available_bytes": 6998917120,
+    "metal_test": 3.0,
+    "versions": {
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "mlx-metal": "0.32.4",
+      "transformers": "5.24.0"
+    },
+    "kernels": {
+      "gated_delta_update": true,
+      "cross_entropy": true,
+      "rms_norm": true,
+      "scaled_dot_product_attention": true,
+      "metal_kernel": true
+    },
+    "transforms": {
+      "compile": true,
+      "checkpoint": true,
+      "value_and_grad": true
+    },
+    "expected_bf16_text_bytes": 1505000000,
+    "checkpoints": [
+      "checkpoints/pilot_dense",
+      "checkpoints/pilot_loop",
+      "checkpoints/smoke",
+      "checkpoints/smoke_dense"
+    ]
+  },
+  "model": {
+    "model": "Qwen/Qwen3.5-0.8B-Base",
+    "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "unique_parameters": 752393024,
+    "precision": {
+      "mlx.core.bfloat16": 752390432,
+      "mlx.core.float32": 2592
+    },
+    "load_seconds": 0.7016587920006714,
+    "layers": [
+      {
+        "index": 0,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 1,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 2,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 3,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 4,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 5,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 6,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 7,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 8,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 9,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 10,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 11,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 12,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 13,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 14,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 15,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 16,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 17,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 18,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 19,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 20,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 21,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 22,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 23,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      }
+    ]
+  },
+  "config": {
+    "base_model": "Qwen/Qwen3.5-0.8B-Base",
+    "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "precision": "bfloat16",
+    "start": 10,
+    "length": 6,
+    "passes": 2,
+    "mode": "direct",
+    "alpha_init": 0.1,
+    "alpha_schedule": null,
+    "curriculum": "direct",
+    "depth_weights": [
+      0.1,
+      0.9,
+      0.0
+    ],
+    "target": "block",
+    "projections": null,
+    "rank": 8,
+    "lora_alpha": 16,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "warmup": 10,
+    "weight_decay": 0.01,
+    "clip": 1.0,
+    "seed": 41,
+    "sequence_length": 64,
+    "batch_size": 1,
+    "accumulation": 8,
+    "gradient_checkpointing": true,
+    "steps": 200,
+    "checkpoint_interval": 25,
+    "eval_interval": 25,
+    "eval_count": 16,
+    "response_only": true,
+    "dataset": "pilot",
+    "training_split": "train",
+    "validation_split": "validation",
+    "gdn_backend": "native",
+    "memory_target_gib": 5.0,
+    "min_available_gib": 0.8,
+    "name": "pilot_loop"
+  },
+  "settings": {
+    "training_config": "configs/pilot_loop.yaml",
+    "sequence_length": 64,
+    "decode_tokens": 32,
+    "repetitions": 5,
+    "depths": [
+      1,
+      2,
+      3
+    ],
+    "placement_starts": [
+      6,
+      8,
+      10,
+      12,
+      16
+    ],
+    "placement_validation_count": 16
+  },
+  "inference": [
+    {
+      "k": 1,
+      "ttft_s": 0.028016915999614866,
+      "prefill_tps": 2284.3342215424345,
+      "decode_tps": 69.06361338488036,
+      "peak_bytes": 1653790174,
+      "per_decode_ms": 14.479404580631506,
+      "prompt_tokens": 64
+    },
+    {
+      "k": 2,
+      "ttft_s": 0.03413583299879974,
+      "prefill_tps": 1874.8626993297723,
+      "decode_tps": 57.2056426818379,
+      "peak_bytes": 1661013496,
+      "per_decode_ms": 17.480793032283998,
+      "prompt_tokens": 64
+    },
+    {
+      "k": 3,
+      "ttft_s": 0.04052199999932782,
+      "prefill_tps": 1579.3889739169251,
+      "decode_tps": 46.99944847512805,
+      "peak_bytes": 1671501288,
+      "per_decode_ms": 21.276845419349904,
+      "prompt_tokens": 64
+    }
+  ],
+  "placements": [
+    {
+      "start": 6,
+      "full_forward_ms": 37.133624999114545,
+      "validation": {
+        "nll": 1.129410019237548,
+        "tokens": 80,
+        "perplexity": 3.093830661000419
+      },
+      "peak_bytes": 1673450702
+    },
+    {
+      "start": 8,
+      "full_forward_ms": 38.060291999499896,
+      "validation": {
+        "nll": 0.9686272111721337,
+        "tokens": 80,
+        "perplexity": 2.6343256032027926
+      },
+      "peak_bytes": 1673532624
+    },
+    {
+      "start": 10,
+      "full_forward_ms": 38.89412500029721,
+      "validation": {
+        "nll": 1.5742650039494037,
+        "tokens": 80,
+        "perplexity": 4.827192346609566
+      },
+      "peak_bytes": 1669416650
+    },
+    {
+      "start": 12,
+      "full_forward_ms": 38.762416999816196,
+      "validation": {
+        "nll": 1.503843492269516,
+        "tokens": 80,
+        "perplexity": 4.498947552810458
+      },
+      "peak_bytes": 1673467088
+    },
+    {
+      "start": 16,
+      "full_forward_ms": 36.05224999955681,
+      "validation": {
+        "nll": 0.9824945750180631,
+        "tokens": 80,
+        "perplexity": 2.67111122513357
+      },
+      "peak_bytes": 1673450704
+    }
+  ],
+  "training": {
+    "microbatches": {
+      "1": {
+        "combined_ms": 141.64208300098835,
+        "ms_per_example": 141.64208300098835,
+        "peak_bytes": 1951737620
+      },
+      "4": {
+        "combined_ms": 439.59074999838776,
+        "ms_per_example": 109.89768749959694,
+        "peak_bytes": 2880912380
+      }
+    },
+    "rows": [
+      {
+        "backend": "reference",
+        "checkpointing": true,
+        "forward_ms": 140.378124999188,
+        "combined_ms": 545.4661669991765,
+        "backward_estimate_ms": 405.0880419999885,
+        "peak_bytes": 3171423076
+      },
+      {
+        "backend": "native",
+        "checkpointing": true,
+        "forward_ms": 42.38354100016295,
+        "combined_ms": 146.2641670004814,
+        "backward_estimate_ms": 103.88062600031844,
+        "peak_bytes": 1951737332
+      },
+      {
+        "backend": "native",
+        "checkpointing": false,
+        "forward_ms": 44.774624999263324,
+        "combined_ms": 129.06574999942677,
+        "backward_estimate_ms": 84.29112500016345,
+        "peak_bytes": 2252428310
+      }
+    ],
+    "loss": {
+      "standard": {
+        "forward_ms": 7.581332998597645,
+        "combined_ms": 19.69216700126708,
+        "peak_bytes": 1594727708
+      },
+      "selected": {
+        "forward_ms": 4.171666998445289,
+        "combined_ms": 8.570834001147887,
+        "peak_bytes": 1515347228
+      }
+    },
+    "loss_gradient_error": 0.0,
+    "input_shape": [
+      1,
+      64
+    ],
+    "labels": 4
+  },
+  "gdn": [
+    {
+      "length": 7,
+      "heads": 2,
+      "dim": 32,
+      "dtype": "mlx.core.float32",
+      "output_state_error": [
+        0.0,
+        0.0
+      ],
+      "gradient_errors": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "timings": {
+        "ref": {
+          "forward_ms": 0.41579100070521235,
+          "value_grad_ms": 1.0306670010322705,
+          "backward_estimate_ms": 0.6148760003270581,
+          "peak_bytes": 757866
+        },
+        "native_update": {
+          "forward_ms": 0.4775830002472503,
+          "value_grad_ms": 1.0280420010531088,
+          "backward_estimate_ms": 0.5504590008058585,
+          "peak_bytes": 665590
+        }
+      },
+      "finite_difference_q": [
+        0.24184583127498627,
+        0.2418609857559204
+      ]
+    },
+    {
+      "length": 32,
+      "heads": 16,
+      "dim": 128,
+      "dtype": "mlx.core.bfloat16",
+      "output_state_error": [
+        2.412747016933281e-05,
+        1.4243880741560133e-07
+      ],
+      "gradient_errors": [
+        2.4250683054560795e-05,
+        0.002910770010203123,
+        2.2709475160809234e-05,
+        1.4608037872676505e-06,
+        0.0,
+        0.0,
+        0.0,
+        2.741574256504009e-08
+      ],
+      "timings": {
+        "ref": {
+          "forward_ms": 2.5278749999415595,
+          "value_grad_ms": 11.530750000019907,
+          "backward_estimate_ms": 9.002875000078348,
+          "peak_bytes": 242434948
+        },
+        "native_update": {
+          "forward_ms": 0.2115419993060641,
+          "value_grad_ms": 1.5490000005229376,
+          "backward_estimate_ms": 1.3374580012168735,
+          "peak_bytes": 45116184
+        }
+      }
+    },
+    {
+      "length": 64,
+      "heads": 16,
+      "dim": 128,
+      "dtype": "mlx.core.bfloat16",
+      "output_state_error": [
+        5.809597496408969e-06,
+        1.422372264414662e-07
+      ],
+      "gradient_errors": [
+        2.554037928348407e-05,
+        0.0027820023242384195,
+        5.095132110000122e-06,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.5917868740066297e-08
+      ],
+      "timings": {
+        "ref": {
+          "forward_ms": 5.253249999441323,
+          "value_grad_ms": 22.994625000137603,
+          "backward_estimate_ms": 17.74137500069628,
+          "peak_bytes": 388120922
+        },
+        "native_update": {
+          "forward_ms": 0.41604199941502884,
+          "value_grad_ms": 3.0467500000668224,
+          "backward_estimate_ms": 2.6307080006517936,
+          "peak_bytes": 82888862
+        }
+      }
+    }
+  ],
+  "projection": {
+    "output": 0.0001106781855924055,
+    "gradients": {
+      "conv1d.weight": 0.0027910973876714706,
+      "in_proj_qkv.weight": 0.00189871434122324,
+      "in_proj_z.weight": 0.00019707635510712862,
+      "in_proj_b.weight": 0.0,
+      "in_proj_a.weight": 0.0,
+      "dt_bias": 0.0,
+      "A_log": 1.827628466344322e-07,
+      "norm.weight": 3.515596836223267e-05,
+      "out_proj.weight": 0.00015742290997877717
+    }
+  }
+}
