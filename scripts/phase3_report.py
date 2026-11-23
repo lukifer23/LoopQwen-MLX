@@ -309,6 +309,34 @@ def docs(archive, destination):
         "",
         "Run-level logs include actual post-update MLX active, cached and peak bytes, process RSS, system availability, swap, gradient norms and group rates. An increase in occupied swap alone cannot establish active thrashing.",
     ]
+    perf += [
+        "",
+        "## Sustained gated run",
+        "",
+        "The first 325 gated updates used no activation checkpointing. Repeated transient macOS warnings around 2 GiB available prompted a controlled stop at 55,470 targets. The new immutable generation hard-links the same adapter weights and AdamW state. The remaining updates recomputed layer activations. Swap occupancy was approximately 1.86 GiB at the transition. The cohort and optimization schedule are identical across arms. The measured gated cost includes both execution policies.",
+        "",
+        table(
+            [
+                "Checkpointing",
+                "Updates",
+                "Targets",
+                "Update seconds",
+                "Targets/s",
+                "Peak GiB",
+            ],
+            [
+                (
+                    key,
+                    r["updates"],
+                    r["targets"],
+                    f"{r['seconds']:.1f}",
+                    f"{r['targets'] / r['seconds']:.1f}",
+                    f"{r['peak'] / 2**30:.2f}",
+                )
+                for key, r in train["p3_" + chosen]["checkpoint_segments"].items()
+            ],
+        ),
+    ]
     (dest / "PHASE3_OPTIMIZATIONS.md").write_text("\n".join(perf) + "\n")
 
 

@@ -44,6 +44,24 @@ def performance(state):
         target_tokens=state["loss_tokens"],
         input_tokens=state["input_tokens"],
         order_hash=state["order_hash"],
+        execution_events=state.get("execution_events", []),
+        checkpoint_segments={
+            str(setting): dict(
+                updates=len(part),
+                targets=sum(r["labels"] for r in part),
+                seconds=sum(r["seconds"] for r in part),
+                peak=max(r["peak_bytes"] for r in part),
+            )
+            for setting in (True, False)
+            if (
+                part := [
+                    r
+                    for r in h
+                    if r.get("checkpointing", state["config"]["gradient_checkpointing"])
+                    == setting
+                ]
+            )
+        },
         unique=len(state["visits"]),
         repeats=sum(r["repeats"] for r in h),
         examples_by_source=dict(protocols),
@@ -137,6 +155,8 @@ def publish(destination):
         if (out / name).is_file():
             shutil.copyfile(out / name, dest / name)
     shutil.copyfile(out / "schedule.jsonl.gz", dest / "schedule.jsonl.gz")
+    if (out / "system.jsonl").exists():
+        shutil.copyfile(out / "system.jsonl", dest / "system.jsonl")
     for name in ("frontier.json",):
         if (out / name).exists():
             json_gzip(dest / (name + ".gz"), read(out / name))
