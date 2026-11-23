@@ -6,17 +6,11 @@ A local MLX research implementation of shared recurrent depth in the official Qw
 
 The development study compares dense adaptation, direct recurrence and a near-identity refinement at the same 100,068 supervised tokens. A single learned sigmoid controls the extra pass. Every recurrent checkpoint also runs at true K=1 so its adapters can be evaluated without the extra computation. The primary outcome is greedy final-answer accuracy on traced problems. Exact procedural certificates, independent language retention and measured latency provide additional evidence. [Registration and reproduction](docs/EXPERIMENT_REGISTRY.md) · [Architecture](docs/PHASE3_ARCHITECTURE.md)
 
-```mermaid
-flowchart LR
-    P["Embedding and layers 0–9"] --> A["F: layers 10–15, cache set A"]
-    A --> B["Same F and LoRA, cache set B"]
-    A --> M["h₁ + α (candidate − h₁)"]
-    B --> M
-    M --> S["Layers 16–23, norm and tied head"]
-    A -. "K=1 bypass" .-> S
-```
-
 At 250,031 matched supervised tokens, the learned-gate checkpoint solved **61/150 fresh ID and 47/150 fresh OOD development problems**. Bypassing its second pass produced the same two totals. On each split the extra pass fixed one answer and broke one. The matched dense checkpoint scored 58/150 and 41/150. This seed suggests a possible training-time benefit. It gave us no net final-answer gain from running the extra six layers at inference. The registered promotion rule kept the three-seed confirmatory test sealed. [Dense adapter](adapters/phase3/p3_dense_250k) · [Learned refinement adapter](adapters/phase3/p3_learn1_250k) · [Development results](docs/PHASE3_RESULTS.md)
+
+![Counts of correct answers on fresh ID and OOD problems and paired differences against the dense and bypass controls.](docs/measurements/phase3/recurrent-contribution.png)
+
+## Run the trained model
 
 Use a native arm64 Mac with the locked MLX environment. From the repository root:
 
@@ -27,9 +21,24 @@ python -m loopqwen download
 python -m loopqwen generate --checkpoint adapters/phase3/p3_learn1_250k --prompt 'Evaluate ((8 + 4) * 3 - 5).
 Show your steps. End with Final answer: <number>.
 Solution:' --max-tokens 96
-python -m loopqwen data --preset v2
-scripts/run_phase3.sh main
-python -m loopqwen compare --experiment phase3_dev
+```
+
+Add `--passes 1` to the generation command to run the same adapters at their true bypass depth. Use `adapters/phase3/p3_dense_250k` to try the matched dense model.
+
+## Reproduce the study
+
+The [experiment registry](docs/EXPERIMENT_REGISTRY.md) lists the ordered commands from data preparation through training, evaluation and archival. The [training guide](docs/TRAINING.md) explains checkpoints and update budgets. The [performance report](docs/PHASE3_OPTIMIZATIONS.md) records memory, throughput and deployment measurements on the 18 GiB M3 Pro.
+
+## Shared block and independent caches
+
+```mermaid
+flowchart LR
+    P["Embedding and layers 0–9"] --> A["F: layers 10–15, cache set A"]
+    A --> B["Same F and LoRA, cache set B"]
+    A --> M["h₁ + α (candidate − h₁)"]
+    B --> M
+    M --> S["Layers 16–23, norm and tied head"]
+    A -. "K=1 bypass" .-> S
 ```
 
 ## Historical experiments

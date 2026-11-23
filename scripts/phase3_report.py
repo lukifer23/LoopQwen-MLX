@@ -330,6 +330,11 @@ def docs(archive, destination):
     checksum_file = archive / "checksums.json"
     checksums = read(checksum_file)
     checksums["learning-curves.png"] = digest(archive / "learning-curves.png")
+    if (archive / "promotion.json").is_file():
+        from scripts.phase3_figure import refinement_figure
+
+        figure = refinement_figure(archive)
+        checksums[figure.name] = digest(figure)
     save(checksum_file, checksums)
     profiles = [(k, v) for k, v in train.items() if "_profile_" in k]
     batches = [read(p) for p in sorted(archive.glob("batch-*.json"))]

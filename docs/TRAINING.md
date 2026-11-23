@@ -1,5 +1,23 @@
 # Training and reproduction
 
+## Reproduce the gated refinement study
+
+Use the locked arm64 environment and the official Base weights. The Phase 3 training cohort uses the V2 mixed answer/trace corpus. Seed 73, rank-eight block LoRA, four examples per optimizer update and a 256-position ceiling are fixed across paired arms. All arms cross each token budget at the first complete update. The schedule digest includes tokens, loss boundaries, problem IDs and batch boundaries.
+
+```sh
+source .venv/bin/activate
+python -m loopqwen doctor
+python -m loopqwen download
+python -m loopqwen data --preset v2
+python -m loopqwen data --preset v3
+python -m loopqwen.data.retention3
+scripts/run_phase3.sh main
+scripts/run_phase3.sh promote
+```
+
+The main command includes the gate screen and the 25K selection before resuming three arms to 100K. Promotion continues the matched pair with their AdamW moments. The measured 250K run consumed 6,420 unique examples per arm. One user-wide GPU lease serializes workers. To inspect a running study from a second terminal, use `python -m loopqwen resources`. The scheduled arm and immutable checkpoint pointers are under `outputs/phase3/configs/` and `checkpoints/p3_*/targets-*.json`. The [experiment registry](EXPERIMENT_REGISTRY.md) includes the evaluation and report commands, and the [results](PHASE3_RESULTS.md) explain why confirmation stayed sealed.
+
+
 Run commands from the repository root using the locked environment. YAML overrides inherit configs/defaults.yaml and an optional hardware preset in configs/presets.yaml. The trainer validates spans, precision, checkpoint identity, model, tokenizer, optimizer and dataset. A run name identifies a checkpoint directory. Reusing the name resumes its latest complete update. Use a new name for an independent run.
 
 ## Data and loss
