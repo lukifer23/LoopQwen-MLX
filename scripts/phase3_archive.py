@@ -167,6 +167,8 @@ def publish(destination):
         "v3-manifest.json",
         "retention-manifest.json",
         "export-audit.json",
+        "export-audit-250k.json",
+        "example-250k.json",
         "example.json",
         "exposure.json",
         "answer-likelihood.json",

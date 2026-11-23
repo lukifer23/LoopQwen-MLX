@@ -7,6 +7,7 @@
 | Phase 3 gate LR | Seed 73, 8 updates, 1,360 identical targets | Both groups moved. Development trace NLL selected LR 0.001. |
 | Phase 3 screen | 25,026 targets, 148 updates, 592 examples | Dense 28/60, direct 23/60, fixed 27/60, learned 30/60. The learned checkpoint at K=1 scored 29/60. |
 | Phase 3 main | 100,068 targets, 629 updates, 2,516 examples per arm | Dense, direct and selected learned interpolation with true bypass evaluation. [Main report](PHASE3_RESULTS.md) |
+| Phase 3 extension | 250,031 targets, 1,605 updates, 6,420 distinct examples per arm | Dense 58/150 ID and 41/150 OOD. Learned K=2 and its true K=1 bypass each scored 61/150 ID and 47/150 OOD. Confirmation criterion missed. [Promotion record](measurements/phase3/promotion.json) |
 
 The Phase 3 registration is in `experiments/phase3_dev.json`. The training schedule digest covers problem IDs, response protocol, prefix length, complete token IDs and batch boundaries. Source files, model revision, dependency versions, AdamW layout and sampler schema accompany strict checkpoints. The latest recovery generation and each crossed milestone are named by separate atomic pointers. A completed milestone can be evaluated while the 250K maximum remains available for extension.
 

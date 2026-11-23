@@ -2,7 +2,7 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
-## Phase 3: does the second pass earn its cost?
+## Does the second pass earn its cost?
 
 The development study compares dense adaptation, direct recurrence and a near-identity refinement at the same 100,068 supervised tokens. A single learned sigmoid controls the extra pass. Every recurrent checkpoint also runs at true K=1 so its adapters can be evaluated without the extra computation. The primary outcome is greedy final-answer accuracy on traced problems. Exact procedural certificates, independent language retention and measured latency provide additional evidence. [Registration and reproduction](docs/EXPERIMENT_REGISTRY.md) · [Architecture](docs/PHASE3_ARCHITECTURE.md)
 
@@ -16,7 +16,7 @@ flowchart LR
     A -. "K=1 bypass" .-> S
 ```
 
-At 100K targets, dense and learned K=2 each answered 36/60 V2 development problems correctly. The learned model answered 35/60 with its second pass bypassed. Direct K=2 answered 30/60. The matched dense and gated checkpoints differ on four correctness decisions, two in each direction. These single-seed results justified a longer paired experiment. [Dense adapter](adapters/phase3/p3_dense) · [Learned refinement adapter](adapters/phase3/p3_learn1) · [Per-arm measurements](docs/measurements/phase3/main.json)
+At 250,031 matched supervised tokens, the learned-gate checkpoint solved **61/150 fresh ID and 47/150 fresh OOD development problems**. Bypassing its second pass produced the same two totals. On each split the extra pass fixed one answer and broke one. The matched dense checkpoint scored 58/150 and 41/150. This seed suggests a possible training-time benefit. It gave us no net final-answer gain from running the extra six layers at inference. The registered promotion rule kept the three-seed confirmatory test sealed. [Dense adapter](adapters/phase3/p3_dense_250k) · [Learned refinement adapter](adapters/phase3/p3_learn1_250k) · [Development results](docs/PHASE3_RESULTS.md)
 
 Use a native arm64 Mac with the locked MLX environment. From the repository root:
 
@@ -24,7 +24,7 @@ Use a native arm64 Mac with the locked MLX environment. From the repository root
 ./scripts/bootstrap.sh
 source .venv/bin/activate
 python -m loopqwen download
-python -m loopqwen generate --checkpoint adapters/phase3/p3_learn1 --prompt 'Evaluate ((8 + 4) * 3 - 5).
+python -m loopqwen generate --checkpoint adapters/phase3/p3_learn1_250k --prompt 'Evaluate ((8 + 4) * 3 - 5).
 Show your steps. End with Final answer: <number>.
 Solution:' --max-tokens 96
 python -m loopqwen data --preset v2

@@ -1,4 +1,4 @@
-"""Task-level audit of the selected 100K adapter and its standalone BF16 fusion."""
+"""Task-level audit of the selected gated adapter and its standalone BF16 fusion."""
 
 import gc
 from pathlib import Path
@@ -15,11 +15,12 @@ from .phase2 import predictions
 from .generation_eval import generate
 
 
-def run():
+def run(targets=100000):
+    suffix = "" if targets == 100000 else f"-{targets // 1000}k"
     name = "p3_" + read("outputs/phase3/selection.json")["selected"]
     root = Path("checkpoints") / name
-    generation = root / read(root / "targets-100000.json")["directory"]
-    out = Path("exports") / (name + "_100k_fp32_fusion")
+    generation = root / read(root / f"targets-{targets}.json")["directory"]
+    out = Path("exports") / (name + f"_{targets // 1000}k_fp32_fusion")
     if not out.exists():
         export(generation, out, "fp32")
     if read(out / "provenance.json")["adapter_sha256"] != digest(
@@ -40,7 +41,9 @@ def run():
         )
         if mode == "adapter":
             prompt = "Evaluate ((8 + 4) * 3 - 5).\nShow your steps. End with Final answer: <number>.\nSolution:"
-            save("outputs/phase3/example.json", generate(model, tok, prompt, 96))
+            save(
+                f"outputs/phase3/example{suffix}.json", generate(model, tok, prompt, 96)
+            )
         gate = float(model.effective_alpha())
         result[mode] = {}
         for k in (1, 2):
@@ -61,7 +64,7 @@ def run():
             x["generated_ids"] != y["generated_ids"] for x, y in zip(a, b)
         )
     save(
-        "outputs/phase3/export-audit.json",
+        f"outputs/phase3/export-audit{suffix}.json",
         dict(
             results=result,
             verification=read(out / "verification.json"),
@@ -71,4 +74,8 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--targets", type=int, choices=(100000, 250000), default=100000)
+    run(parser.parse_args().targets)

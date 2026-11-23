@@ -82,6 +82,14 @@ def main():
             "frontier.json",
         ),
     ]
+    if (out / "promotion.json").is_file():
+        tasks.append(
+            (
+                "export-250k",
+                ["-m", "loopqwen.evaluation.phase3_export", "--targets", "250000"],
+                "export-audit-250k.json",
+            )
+        )
     tasks.append(("difficulty", ["scripts/phase3_breakdowns.py"], "difficulty.json"))
     for arm in ("learn1", "learn2"):
         tasks.append(

@@ -77,7 +77,10 @@ def run():
                 proc.terminate()
                 proc.wait(timeout=60)
     stopped = read(checkpoint_location(root) / "state.json")
-    if stopped["status"] != "interrupted":
+    # SIGTERM can arrive after the immutable generation is published. The writer
+    # records cancellation in the run lifecycle even at that boundary.
+    lifecycle = read(root / "lifecycle.json")
+    if lifecycle["status"] != "interrupted" or not lifecycle.get("resumable"):
         raise AssertionError("Expected interrupted lifecycle")
     subprocess.run(
         command(["train", "--config", str(cfg), "--until", str(stopped["step"] + 1)]),
