@@ -1,13 +1,14 @@
 """Validate batched left padding against independent, unpadded cached requests."""
 
 from dataclasses import replace
-from time import perf_counter
+
 import mlx.core as mx
+
+from ..data.v2 import rows
+from ..evaluation.phase2 import predictions
+from ..io import save
 from ..looped_model import LoopedModel
 from ..model_loader import load_base
-from ..data.v2 import rows
-from ..io import save
-from ..evaluation.phase2 import predictions
 
 
 def run():

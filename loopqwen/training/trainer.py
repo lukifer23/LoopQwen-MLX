@@ -53,7 +53,31 @@ def train(path, until=None):
     root.mkdir(parents=True, exist_ok=True)
     with (root / "writer.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        return _train(c, root, until)
+        if c["dataset"] != "v2":
+            return _train(c, root, until)
+        progress = root / "lifecycle.json"
+        save(progress, {"status": "started", "run": c["name"]})
+        try:
+            result = _train(c, root, until)
+        except (Exception, KeyboardInterrupt) as error:
+            save(
+                progress,
+                {
+                    "status": "interrupted"
+                    if isinstance(error, KeyboardInterrupt)
+                    else "failed",
+                    "error": repr(error),
+                    "resumable": (root / "latest.json").is_file(),
+                },
+            )
+            raise
+        generation = checkpoint.location(root)
+        status = read(generation / "state.json")["status"]
+        save(
+            progress,
+            {"status": status, "checkpoint": generation.name, "step": result["step"]},
+        )
+        return result
 
 
 def _train(c, root, until):

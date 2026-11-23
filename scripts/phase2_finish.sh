@@ -10,3 +10,4 @@ python=.venv/bin/python
 "$python" -m loopqwen.evaluation.merge_audit p2_confirm_43_loop
 "$python" scripts/phase2_repeat.py
 "$python" -m loopqwen.benchmark.phase2_inference
+"$python" scripts/phase2_archive.py

@@ -21,8 +21,14 @@ def register(name, runs, purpose, matched=(), final=False):
         generation_count={"answer": 90 if final else 30, "trace": 45 if final else 5},
         language_count=48 if final else 24,
     )
-    if final:
+    if final or name in ("phase2_screen", "phase2_repeat"):
         m["padded"] = True
+    if name in ("phase2_screen", "phase2_repeat"):
+        m.update(
+            loss_count=150,
+            generation_count={"answer": 60, "trace": 15},
+            language_count=32,
+        )
     if path.exists() and read(path) != m:
         raise ValueError("Choose a fresh experiment ID")
     save(path, m)

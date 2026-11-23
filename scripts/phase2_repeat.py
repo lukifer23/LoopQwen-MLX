@@ -1,13 +1,15 @@
 """Repeat the same native run and quantify initialization-to-checkpoint divergence."""
 
 from pathlib import Path
+
 import mlx.core as mx
 from phase2_configs import write
-from phase2_study import execute
 from phase2_register import register
+from phase2_study import execute
+
 from loopqwen.checkpoint import location
-from loopqwen.io import read, save
 from loopqwen.evaluation.phase2 import evaluate
+from loopqwen.io import read, save
 
 if __name__ == "__main__":
     run = write("repeat_direct", steps=24, eval_interval=24)

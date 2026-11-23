@@ -42,16 +42,26 @@ def screening():
         },
         "rank16": {"rank": 16, "lora_alpha": 32},
         "nearby": {"target": "nearby"},
+        "formats": {"mixture": "mixed_answer_and_traces"},
     }
     runs = []
     for label, params in candidates.items():
         path = write("screen_" + label, steps=24, eval_interval=24, **params)
         runs.append(path.stem)
         execute(path)
+    control = write(
+        "screen_formats_dense",
+        steps=24,
+        eval_interval=24,
+        passes=1,
+        mixture="mixed_answer_and_traces",
+    )
+    execute(control)
     register(
         "phase2_screen",
-        runs,
-        "Equal-update trace screens of curriculum, capacity and MLP-only placement.",
+        runs + [control.stem],
+        "Equal-update development screens of curriculum, capacity, MLP-only placement and response-format mixture.",
+        [["p2_screen_formats_dense", "p2_screen_formats"]],
     )
     assess("phase2_screen")
     scores = {
@@ -68,7 +78,7 @@ def screening():
         policy=candidates[best],
         seeds=[43, 53, 67],
         steps=84,
-        mixture="verified_traces",
+        mixture=candidates[best].get("mixture", "verified_traces"),
         final_id_count=90,
         final_ood_count=90,
         final_trace_count=45,

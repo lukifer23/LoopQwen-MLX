@@ -1,13 +1,15 @@
 """Depth diagnostics and completed prefill/decode time at extended prompt lengths."""
 
-from dataclasses import replace
 import statistics
+from dataclasses import replace
 from time import perf_counter
+
 import mlx.core as mx
+
 from ..checkpoint import load_trained
-from ..io import save
 from ..data.v2 import rows
-from ..evaluation.phase2 import predictions, nll
+from ..evaluation.phase2 import nll, predictions
+from ..io import save
 
 
 def measured(model, ids):

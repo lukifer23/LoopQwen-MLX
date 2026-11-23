@@ -84,3 +84,20 @@ python -m loopqwen export --checkpoint checkpoints/extended_loop --output export
 | `docs/` | Measured results, implementation details and reproduction notes |
 
 The code license is MIT. Official Qwen weights retain their own license, copied into merged exports. GSM8K and MATH source licenses are recorded beside the downloaded data. Full backbone weights, merged exports, local optimizer checkpoints and raw datasets stay outside Git. The four compact adapter bundles are included. [Architecture](docs/ARCHITECTURE.md) · [Training](docs/TRAINING.md) · [Metal benchmarks](docs/METAL_OPTIMIZATIONS.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
+
+## Phase 2 recurrent-depth study
+
+V2 uses 24,000 distinct procedural problems with verified derivations, a separate answer-only prompt, held-out difficulty regimes and independent prose retention data. The historical pilot and extended runs retain their original scoring protocols. The [registered design](docs/PHASE2_PLAN.md), [architecture audit](docs/PHASE2_ARCHITECTURE.md), [Metal investigation](docs/PHASE2_OPTIMIZATIONS.md) and [first V2 development comparison](docs/measurements/phase2/phase2_direct/comparison.md) describe the new study.
+
+From the project root on native Apple Silicon:
+
+```sh
+uv sync --locked --group figures
+.venv/bin/python -m loopqwen download
+.venv/bin/python -m loopqwen data --preset v2
+.venv/bin/python -m loopqwen train --config configs/phase2/p2_a_trace_dense.yaml
+.venv/bin/python -m loopqwen train --config configs/phase2/p2_a_trace_loop.yaml
+.venv/bin/python -m loopqwen compare --experiment phase2_direct
+```
+
+`scripts/run_phase2.sh` runs all registered controls, development selection, three confirmatory seeds and diagnostics sequentially. Use a separate checkout for an independent reproduction. In the original workspace, identical configurations resume using their saved optimizer and deterministic cursor. The `figures` dependency group supplies Matplotlib. Group-level evaluation requires every registered checkpoint to be complete. The comparison command can also read the archived table in a fresh clone.

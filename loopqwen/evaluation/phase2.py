@@ -147,6 +147,7 @@ def evaluate(name):
     m = manifest(name)
     directory = Path("outputs/phase2") / name
     directory.mkdir(parents=True, exist_ok=True)
+    save(directory / "lifecycle.json", {"status": "started", "experiment": name})
     for arm in m["runs"]:
         root = Path("checkpoints") / arm
         state = read(location(root) / "state.json")
@@ -186,12 +187,22 @@ def evaluate(name):
         del model
         mx.clear_cache()
         print("Evaluated", arm, flush=True)
-    return report(name)
+    path = report(name)
+    save(
+        directory / "lifecycle.json",
+        {"status": "evaluated", "experiment": name, "runs": m["runs"]},
+    )
+    return path
 
 
 def report(name):
-    m = manifest(name)
+    if not re.fullmatch(r"[a-zA-Z0-9_-]+", name):
+        raise ValueError("Invalid experiment ID")
     directory = Path("outputs/phase2") / name
+    archive = Path("docs/measurements/phase2") / name / "comparison.md"
+    if not directory.exists() and archive.is_file():
+        return str(archive)
+    m = manifest(name)
     lines = [
         f"# {name}",
         "",
