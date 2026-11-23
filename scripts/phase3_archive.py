@@ -272,6 +272,41 @@ This development checkpoint saw {state["loss_tokens"]:,} targets in {state["step
 
 Use native MLX 0.32.4 and MLX-LM 0.32.2. Reproduce with `scripts/run_phase3.sh main`{", then `scripts/run_phase3.sh promote`" if budget == 250000 else ""}. Generate with `python -m loopqwen generate --checkpoint {published} --prompt 'Evaluate ((8 + 4) * 3 - 5).' --max-tokens 96`. The prompt is raw Base-model input. For the study protocol append the traced prompt suffix from `data/v2`.
 """)
+        if budget == 250000:
+            splits = read(out / "promotion.json")["splits"]
+            rows = []
+            for key, label in (
+                ("development", "Fresh ID"),
+                ("development_ood", "Fresh OOD"),
+            ):
+                metrics = splits[key]["metrics"]
+                for mode in ("trained",) if arm == "dense" else ("trained", "bypass"):
+                    score = metrics[arm + "/" + mode]
+                    rows.append(
+                        f"| {label} | {1 if mode == 'bypass' else c['passes']} | {score['correct']}/{score['n']} | {score['verified']}/{score['n']} |"
+                    )
+            with (published / "README.md").open("a") as card:
+                card.write(
+                    "\n| Development cohort | Execution depth K | Correct answers | Verified solutions |\n|---|---:|---:|---:|\n"
+                )
+                card.write("\n".join(rows) + "\n")
+                card.write(
+                    f"\nAdapter SHA-256 `{digest(published / 'adapters.safetensors')}`. The accompanying state records the resolved configuration, base revision, dataset and runtime identities.\n"
+                )
+                if arm != "dense":
+                    card.write(
+                        "\nUse `--passes 1` with the same checkpoint to bypass the extra six layer calls. The trained gate and its bypass had equal accuracy on both fresh cohorts.\n"
+                    )
+                    example = out / "example-250k.json"
+                    if example.is_file():
+                        generated = read(example)
+                        card.write(
+                            "\nGreedy generation on the M3 Pro with a fresh execution-site cache.\n\n```text\n"
+                            + generated["prompt"]
+                            + "\n"
+                            + generated["text"]
+                            + "\n```\n"
+                        )
     index = {
         str(p.relative_to(dest)): digest(p)
         for p in sorted(dest.rglob("*"))
