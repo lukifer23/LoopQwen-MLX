@@ -7,7 +7,6 @@ from pathlib import Path
 from urllib.request import urlopen
 
 import mlx.core as mx
-from mlx_lm.models.base import create_attention_mask, create_ssm_mask
 
 from ..checkpoint import load_trained
 from ..data.build_data import GSM_REV
@@ -21,33 +20,16 @@ from .phase2 import manifest, nll, predictions, score
 
 
 def representation(model, x):
-    h = model.text.model.embed_tokens(x)
-    seen = []
-    for i, p in model.sites:
-        layer = model.text.layers[i]
-        if i == model.span.start:
-            prev = h
-            if p == 0:
-                seen.append(h)
-        h = layer(
-            h,
-            mask=create_ssm_mask(h, None)
-            if layer.is_linear
-            else create_attention_mask(h, None),
-        )
-        if i == model.span.start + model.span.length - 1:
-            if model.span.mode == "stabilized" and p:
-                alpha = (
-                    model.alpha_override
-                    if model.alpha_override is not None
-                    else mx.sigmoid(model.alpha_logit)
-                )
-                h = (prev + alpha * (h - prev)).astype(h.dtype)
-            seen.append(h)
-    prev = seen[0].astype(mx.float32)
+    previous = None
     values = []
-    for v in seen[1:]:
-        v = v.astype(mx.float32)
+
+    def observe(event, recurrent_pass, activation):
+        nonlocal previous
+        v = mx.stop_gradient(activation).astype(mx.float32)
+        if event == "entry":
+            previous = v
+            return
+        prev = previous
         values.append(
             dict(
                 rms=mx.sqrt(mx.mean(v * v)).item(),
@@ -60,7 +42,9 @@ def representation(model, x):
                 ).item(),
             )
         )
-        prev = v
+        previous = None
+
+    mx.eval(model.hidden(x, observer=observe))
     return values
 
 

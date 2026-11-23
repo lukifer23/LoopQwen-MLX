@@ -19,6 +19,14 @@ def config(path):
         extra := user.keys()
         - defaults.keys()
         - {
+            "gate_lr",
+            "gate_decay",
+            "fixed_alpha",
+            "strict_resume",
+            "bucket_policy",
+            "milestones",
+            "checkpoint_policy",
+            "mixture_policy",
             "preset",
             "name",
             "packing",
@@ -122,4 +130,26 @@ def config(path):
     for key in ("label_budget", "seconds_budget"):
         if key in c and c[key] <= 0:
             raise ValueError(key)
+    if c.get("mixture_policy", "example_fraction") not in (
+        "example_fraction",
+        "target_token_fraction",
+    ):
+        raise ValueError("Unknown mixture policy")
+    if "fixed_alpha" in c and (
+        not 0 <= c["fixed_alpha"] <= 1
+        or c["mode"] != "stabilized"
+        or c["alpha_schedule"] is not None
+    ):
+        raise ValueError("fixed_alpha requires exclusive stabilized interpolation")
+    if "gate_lr" in c and (
+        c["gate_lr"] <= 0
+        or c.get("gate_decay", 0) < 0
+        or "fixed_alpha" in c
+        or c["alpha_schedule"] is not None
+        or not span(c).has_gate
+        or c["passes"] == 1
+    ):
+        raise ValueError("gate_lr needs an active learned gate")
+    if c.get("checkpoint_policy", "all") not in ("all", "block"):
+        raise ValueError("Unknown checkpoint_policy")
     return c

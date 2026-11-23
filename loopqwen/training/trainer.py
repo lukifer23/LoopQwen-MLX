@@ -122,8 +122,15 @@ def _train(c, root, until):
         state["git_dirty"] = bool(
             subprocess.check_output(["git", "status", "--porcelain", "--", "loopqwen"])
         )
+    if c.get("strict_resume"):
+        from ..identity import training_identity
+
+        identity = training_identity(c, manifest)
+        state["training_identity"] = identity
     if (root / "latest.json").exists():
         state = checkpoint.restore(root, model, opt)
+        if c.get("strict_resume") and state.get("training_identity") != identity:
+            raise ValueError("Strict continuation rejected: training identity changed")
         if state["config"] != c or state["manifest"] != manifest:
             raise ValueError("Resume config/data mismatch. Use a distinct run name.")
     stop = c["steps"] if until is None else min(c["steps"], until)
@@ -191,6 +198,9 @@ def _train(c, root, until):
             ids = []
             sources = Counter()
             categories = Counter()
+            microbatches = []
+            examples_by_source = Counter()
+            inputs_by_source = Counter()
             lengths = []
             padded = 0
             depths = []
@@ -210,11 +220,14 @@ def _train(c, root, until):
                 k = depth(c, s, micro)
                 model.span = replace(span(c), passes=k)
                 depths.append(k)
+                micro_start = perf_counter()
                 arguments = (pack if packed else batch)(selected, c["response_only"])
                 value, g = fn(model, *arguments)
                 y = arguments[2]
                 if policy:
                     for sample in selected:
+                        examples_by_source[sample["protocol"]] += 1
+                        inputs_by_source[sample["protocol"]] += sample["input_length"]
                         sources[sample["protocol"]] += sample["output_length"]
                         categories[sample["category"]] += sample["output_length"]
                         lengths.append(sample["input_length"])
@@ -222,11 +235,23 @@ def _train(c, root, until):
                 grads = g if grads is None else tree_map(lambda a, b: a + b, grads, g)
                 total = value if total is None else total + value
                 mx.eval(grads, total)
+                if c.get("strict_resume"):
+                    microbatches.append(
+                        dict(
+                            shape=list(arguments[0].shape),
+                            k=k,
+                            scored=y.size,
+                            protocols=dict(Counter(r["protocol"] for r in selected)),
+                            seconds=perf_counter() - micro_start,
+                        )
+                    )
                 labels += y.size
                 inputs += sum(len(r["ids"]) - 1 for r in selected)
                 ids.extend(r["id"] for r in selected)
             grad_seconds = perf_counter() - start
             grads = tree_map(lambda g: g / labels, grads)
+            gate_gradient = grads.get("alpha_logit")
+            old_gate = model.alpha_logit if gate_gradient is not None else None
             grads, norm = optim.clip_grad_norm(grads, c["clip"])
             mean = total.item() / labels
             magnitude = norm.item()
@@ -268,10 +293,35 @@ def _train(c, root, until):
                     available=psutil.virtual_memory().available,
                     swap=psutil.swap_memory().used,
                     lr=opt.learning_rate.item(),
-                    alpha=mx.sigmoid(model.alpha_logit).item()
+                    alpha=float(model.effective_alpha())
                     if model.span.has_gate
                     else None,
                 )
+            if c.get("strict_resume"):
+                row.update(
+                    microbatches=microbatches,
+                    examples_by_source=dict(examples_by_source),
+                    inputs_by_source=dict(inputs_by_source),
+                    executed_positions=padded,
+                    checkpointing=state["checkpointing"],
+                    mlx_active=mx.get_active_memory(),
+                    mlx_cached=mx.get_cache_memory(),
+                )
+            if gate_gradient is not None:
+                row.update(
+                    gate_logit=model.alpha_logit.item(),
+                    gate_gradient=gate_gradient.item(),
+                    gate_delta=(model.alpha_logit - old_gate).item(),
+                    gate_lr=(
+                        opt.optimizers[1] if "gate_lr" in c else opt
+                    ).learning_rate.item(),
+                )
+            old_targets = state["loss_tokens"]
+            crossed = [
+                m
+                for m in c.get("milestones", [])
+                if old_targets < m <= old_targets + labels
+            ]
             state.update(
                 step=s + 1,
                 cursor=cursor,
@@ -284,7 +334,12 @@ def _train(c, root, until):
                 next_mlx_seed=c["seed"] + s + 1,
             )
             model.span = span(c)
-            if (s + 1) % c["eval_interval"] == 0 or s + 1 == c["steps"] or budget_met():
+            if (
+                crossed
+                or (s + 1) % c["eval_interval"] == 0
+                or s + 1 == c["steps"]
+                or budget_met()
+            ):
                 val_start = perf_counter()
                 if c.get("validation_batch_size", 1) > 1:
                     row["validation"] = validation_nll(
@@ -297,6 +352,7 @@ def _train(c, root, until):
             state["history"].append(row)
             if (
                 (s + 1) % c["checkpoint_interval"] == 0
+                or crossed
                 or s + 1 == stop
                 or budget_met()
                 or canceled
@@ -309,6 +365,8 @@ def _train(c, root, until):
                     else "started"
                 )
                 checkpoint.write(root, model, opt, state)
+                for m in crossed:
+                    save(root / f"targets-{m}.json", read(root / "latest.json"))
                 save(Path("outputs") / (c["name"] + ".json"), state)
                 print(
                     f"{c['name']} update {s + 1} loss {mean:.4f}, {inputs / elapsed:.1f} input tok/s, peak {row['peak_bytes'] / 2**30:.2f} GiB",
@@ -322,8 +380,9 @@ def _train(c, root, until):
     return dict(
         run=c["name"],
         pretrained_unique=state["model"]["unique_parameters"],
-        trainable_adapters=state["trainable"] - int(model.span.has_gate),
-        trainable_gates=int(model.span.has_gate),
+        trainable_adapters=state["trainable"]
+        - int("alpha_logit" in model.trainable_parameters()),
+        trainable_gates=int("alpha_logit" in model.trainable_parameters()),
         effective_layer_executions=len(model.sites),
         step=state["step"],
         input_tokens=state["input_tokens"],

@@ -21,6 +21,16 @@ def optimizer(c):
             floor + (c["learning_rate"] - floor) * (1 + mx.cos(mx.pi * phase)) / 2,
         )
 
-    return optim.AdamW(
+    adapter = optim.AdamW(
         learning_rate=rate, weight_decay=c["weight_decay"], bias_correction=True
+    )
+    if "gate_lr" not in c:
+        return adapter
+    gate = optim.AdamW(
+        learning_rate=lambda step: rate(step) * (c["gate_lr"] / c["learning_rate"]),
+        weight_decay=c.get("gate_decay", 0.0),
+        bias_correction=True,
+    )
+    return optim.MultiOptimizer(
+        [adapter, gate], [lambda path, _: path != "alpha_logit"]
     )

@@ -18,6 +18,12 @@ def setup(c):
     model = LoopedModel(base, span(c), c["alpha_init"])
     mx.random.seed(c["seed"])
     attach(model, c["target"], c["rank"], c["lora_alpha"], c["projections"])
+    if "fixed_alpha" in c or (
+        c.get("strict_resume") and c["alpha_schedule"] is not None
+    ):
+        model.freeze(keys=["alpha_logit"], recurse=False)
+        model.alpha_override = c.get("fixed_alpha", (c["alpha_schedule"] or [None])[0])
+    model.checkpoint_policy = c.get("checkpoint_policy", "all")
     select(model, c["gdn_backend"])
     model.checkpointing = c["gradient_checkpointing"]
     return model, tok, info

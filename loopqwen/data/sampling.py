@@ -33,9 +33,24 @@ def prepare(c):
     path = v2.ROOT / "train.jsonl"
     if digest(path) != manifest["splits"]["train"]["sha256"]:
         raise ValueError("Training split changed")
+    records = [json.loads(line) for line in path.read_text().splitlines()]
+    if c.get("mixture_policy", "example_fraction") == "target_token_fraction":
+        if set(mix) - {"answer", "trace"}:
+            raise ValueError(
+                "Target-token fractions currently support procedural protocols"
+            )
+        frequencies = {}
+        for mode, fraction in mix.items():
+            eligible = [
+                r["variants"][mode]["output_length"]
+                for r in records
+                if r["variants"][mode]["input_length"] <= c["sequence_length"]
+            ]
+            frequencies[mode] = fraction * len(eligible) / sum(eligible)
+        total = sum(frequencies.values())
+        mix = {mode: f / total for mode, f in frequencies.items()}
     pool = []
-    for line in path.read_text().splitlines():
-        r = json.loads(line)
+    for r in records:
         variants = r.pop("variants")
         mode = (
             "answer"
@@ -74,11 +89,19 @@ def prepare(c):
     if c.get("bucket", True):
         size = c["batch_size"]
         width = size * 16
+        policy_name = c.get("bucket_policy", "matched_instance_order")
+        keys = {
+            "matched_instance_order": lambda r: r.get(
+                "bucket_length", r["input_length"]
+            ),
+            "actual_input_length": lambda r: r["input_length"],
+            "protocol_and_length": lambda r: (r["protocol"], r["input_length"]),
+        }
         groups = []
         for start in range(0, len(pool), width):
             window = sorted(
                 pool[start : start + width],
-                key=lambda r: r.get("bucket_length", r["input_length"]),
+                key=keys[policy_name],
             )
             groups.extend(window[j : j + size] for j in range(0, len(window), size))
         rng.shuffle(groups)

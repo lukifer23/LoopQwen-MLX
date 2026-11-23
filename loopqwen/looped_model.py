@@ -35,7 +35,14 @@ class LoopedModel(nn.Module):
 
         return SiteCache(self, max_kv_size, left_padding=left_padding)
 
-    def hidden(self, ids, cache=None, window_size=None):
+    def effective_alpha(self):
+        return (
+            self.alpha_override
+            if self.alpha_override is not None
+            else mx.sigmoid(self.alpha_logit)
+        )
+
+    def hidden(self, ids, cache=None, window_size=None, observer=None):
         h = self.text.model.embed_tokens(ids)
         sites = self.sites
         if cache is not None and (cache.sites != sites or self.training):
@@ -54,11 +61,20 @@ class LoopedModel(nn.Module):
                 if p == 0:
                     anchor = h
                 else:
-                    alpha = mx.sigmoid(self.alpha_logit)
+                    alpha = self.effective_alpha()
                     h = (h + alpha * (anchor - h)).astype(h.dtype)
             if self.span.mode == "stabilized" and p and i == self.span.start:
                 previous = h
-            if self.training and self.checkpointing:
+            if observer is not None and i == self.span.start:
+                observer("entry", p, h)
+            if (
+                self.training
+                and self.checkpointing
+                and (
+                    getattr(self, "checkpoint_policy", "all") == "all"
+                    or self.span.start <= i < self.span.start + self.span.length
+                )
+            ):
                 # Capture masks in the callable; only tensors are checkpoint inputs.
                 h = nn.utils.checkpoint(layer, lambda x, l=layer, m=mask: l(x, mask=m))(
                     h
@@ -76,6 +92,8 @@ class LoopedModel(nn.Module):
                     else mx.sigmoid(self.alpha_logit)
                 )
                 h = (previous + alpha * (h - previous)).astype(h.dtype)
+            if observer is not None and i == self.span.start + self.span.length - 1:
+                observer("exit", p, h)
         return self.text.model.norm(h)
 
     def project(self, hidden):

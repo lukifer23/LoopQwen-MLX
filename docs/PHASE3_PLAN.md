@@ -1,0 +1,9 @@
+# Phase 3 registration
+
+Start at 7293db43c7df9ea72f8b9ccadf44a1545a60e117 on main. Phase 2 direct recurrence lost to both dense controls after only 336 examples. Test whether preserving the first pass and training a separately optimized interpolation coefficient recovers performance.
+
+Use seed 73, the pinned BF16 Base, V2 example-level 50/50 answer and trace assignment, 256-position ceiling, batch four, rank-eight block adapters on layers 10–15 and constant AdamW after five warmup updates. Use one deterministic order shared across arms. Cross each target milestone at the first whole update. Register a 250K maximum in advance. Save learning curves at 10K, 25K, 50K, 100K and 250K. Screen dense, direct, fixed 0.10 and learned 0.10. Compare gate LRs 0.001 and 0.01 over the first eight updates, selecting lower development NLL. Select fixed versus learned at 25K by traced exact accuracy, then verified derivation rate, then final-answer NLL on the first 60 balanced V2 validation examples. Continue dense, direct and selected gated to 100K. Evaluate both recurrent models against their own bypass. Evaluate alpha zero and prespecified 0.05 and 0.10 sensitivity on development.
+
+Promote the selected gated/dense pair only if at 100K gated beats its own bypass on traced accuracy and matches or exceeds dense accuracy without worsening literary retention by more than 0.05 nats. Otherwise report the single-seed exploratory result. Reserve fresh confirmatory samples for a promoted design. No tuning on historical or fresh test answers.
+
+Acceptance requires native training, matched order and exposure, independent caches, measurable gate updates, strict source/config/data resume, versioned evaluation and real timing. Profile real batches with and without checkpointing first. Stop at update boundaries under pressure. Preserve the 384 MiB training and 256 MiB inference free-buffer limits. Archive measurements separately from Phase 2.

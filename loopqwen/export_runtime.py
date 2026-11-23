@@ -12,6 +12,9 @@ from .recurrence import Span
 
 
 def load_export(directory):
+    from .worker import acquire
+
+    acquire()
     if not mx.metal.is_available() or mx.default_device() != mx.gpu:
         raise RuntimeError("The exported model requires native MLX Metal")
     mx.set_cache_limit(256 * 1024**2)

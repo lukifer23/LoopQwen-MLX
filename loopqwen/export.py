@@ -93,6 +93,7 @@ def export(checkpoint, output, fusion="stock"):
         runtime = temp / "runtime"
         runtime.mkdir()
         for filename in (
+            "worker.py",
             "export_runtime.py",
             "looped_model.py",
             "recurrence.py",
@@ -121,6 +122,8 @@ def export(checkpoint, output, fusion="stock"):
         del model, before, after
         gc.collect()
         mx.clear_cache()
+        from .worker import child_lease
+
         subprocess.run(
             [
                 sys.executable,
@@ -128,6 +131,7 @@ def export(checkpoint, output, fusion="stock"):
                 "-c",
                 "import sys; sys.path.insert(0, '.'); from runtime.export_runtime import verify; verify('.')",
             ],
+            **child_lease(),
             cwd=temp,
             check=True,
         )

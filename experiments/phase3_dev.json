@@ -1,0 +1,8 @@
+{
+  "dataset":"v2","data_sha256":"37f82776fa0a006af67447f8e4ca8ca142e1e6f842f4fff6b78bd6d27a59f0c3",
+  "seed":73,"milestones":[10000,25000,50000,100000,250000],
+  "generation":{"protocol":"trace","count":60,"cap":192,"temperature":0,"split":"validation"},
+  "arms":{"dense":{"passes":1},"direct":{"passes":2},"fixed":{"passes":2,"mode":"stabilized","fixed_alpha":0.1},
+          "learn1":{"passes":2,"mode":"stabilized","gate_lr":0.001},
+          "learn2":{"passes":2,"mode":"stabilized","gate_lr":0.01}}
+}

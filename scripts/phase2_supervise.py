@@ -66,8 +66,6 @@ if __name__ == "__main__":
     script = Path("scripts/phase2_finish.sh" if finish else "scripts/run_phase2.sh")
     # A live checkout may change. Give sh an immutable command body for this invocation.
     args = ["/bin/sh", "-c", script.read_text(), str(script), "--supervised"]
-    if finish:
-        os.execv("/bin/sh", args)
     code = supervise(
         args,
         Path("outputs/phase2/study.lock"),

@@ -1,4 +1,4 @@
-"""Cooperative project-local GPU lease. The kernel drops it when the worker exits."""
+"""Cooperative user-wide GPU lease. The kernel drops it when the worker exits."""
 
 import fcntl
 import os
@@ -9,16 +9,30 @@ _lease = None
 CACHE_BYTES = 256 * 1024**2
 
 
+def lease_path():
+    return Path.home() / "Library" / "Caches" / "LoopQwen" / "gpu-worker.lock"
+
+
+def child_lease():
+    acquire()
+    fd = _lease.fileno()
+    return dict(pass_fds=(fd,), env={**os.environ, "LOOPQWEN_LEASE_FD": str(fd)})
+
+
 def acquire():
     global _lease
     if _lease is not None:
         return
-    root = Path(__file__).resolve().parent.parent
-    if not (root / "pyproject.toml").is_file():
-        root = Path.cwd()
-    path = root / "outputs" / "gpu-worker.lock"
-    path.parent.mkdir(exist_ok=True, parents=True)
-    file = path.open("a+")
+    path = lease_path()
+    path.parent.mkdir(mode=0o700, exist_ok=True, parents=True)
+    inherited = os.environ.pop("LOOPQWEN_LEASE_FD", None)
+    if inherited is not None:
+        fd = int(inherited)
+        if not os.path.samestat(os.fstat(fd), path.stat()):
+            raise RuntimeError("Inherited descriptor does not identify the GPU lease")
+        file = os.fdopen(fd, "r+")
+    else:
+        file = path.open("a+")
     try:
         fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
     except BlockingIOError:
@@ -26,12 +40,15 @@ def acquire():
         owner = file.read().strip()
         file.close()
         raise RuntimeError(
-            f"Another LoopQwen GPU worker holds the project lease ({owner})."
+            f"Another LoopQwen GPU worker holds the user-wide GPU lease ({owner})."
         ) from None
-    file.seek(0)
-    file.truncate()
-    file.write(f"pid={os.getpid()} command={Path(sys.argv[0]).name}")
-    file.flush()
+    if inherited is None:
+        file.seek(0)
+        file.truncate()
+        file.write(
+            f"pid={os.getpid()} checkout={Path.cwd()} command={Path(sys.argv[0]).name}"
+        )
+        file.flush()
     _lease = file
     import mlx.core as mx
 
@@ -46,7 +63,7 @@ def resources():
     from .hardware import gpu_utilization
 
     root = Path(__file__).resolve().parent.parent
-    path = root / "outputs/gpu-worker.lock"
+    path = lease_path()
     owner = None
     if path.is_file():
         with path.open() as f:
@@ -66,6 +83,7 @@ def resources():
                 arg.startswith(
                     (
                         "loopqwen",
+                        "scripts/phase3_",
                         "scripts/phase2_",
                         "scripts/run_phase2",
                         "scripts/phase2_finish",
@@ -102,6 +120,8 @@ def resources():
     )
     return dict(
         gpu_lease=owner,
+        gpu_lease_scope="user",
+        checkout=str(root),
         processes=workers,
         available_gib=round(psutil.virtual_memory().available / 2**30, 2),
         swap_used_gib=round(psutil.swap_memory().used / 2**30, 2),
