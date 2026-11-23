@@ -1,0 +1,9 @@
+{
+  "schema": "pointer-install-v5.1", "seed":109, "base_revision":"dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "start":10, "length":6, "rank":8, "lora_alpha":16, "batch":8, "lr":0.0003, "clip":1.0,
+  "steps":480, "milestones":[24,120,360,480], "early_updates":48, "max_positions":384,
+  "arms":["probe","middle","full","recurrent"], "confirm_maps":384, "case_count":64,
+  "max_peak_gib":6, "min_available_gib":1.5, "prior_margin":0.15, "trajectory_floor":0.2,
+  "counterfactual_consistency_floor":0.7, "intervention_delta":0.15, "dense_margin":0.03,
+  "outcome_updates":80, "bridge_rank":8, "objective":"per-map mean of scored state cross-entropies"
+}
