@@ -12,6 +12,8 @@ from .recurrence import Span
 
 
 def load_export(directory):
+    if not mx.metal.is_available() or mx.default_device() != mx.gpu:
+        raise RuntimeError("The exported model requires native MLX Metal")
     directory = Path(directory)
     cfg = json.loads((directory / "config.json").read_text())
     if (

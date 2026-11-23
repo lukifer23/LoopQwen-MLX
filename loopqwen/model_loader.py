@@ -8,6 +8,7 @@ from mlx.utils import tree_flatten
 from mlx_lm import load
 
 from . import MODEL, REVISION
+from .hardware import require_metal
 from .io import read
 
 
@@ -33,6 +34,7 @@ def count(model, trainable=False):
 
 
 def load_base():
+    require_metal()
     path = local_snapshot()
     start = perf_counter()
     outer, tokenizer = load(str(path))

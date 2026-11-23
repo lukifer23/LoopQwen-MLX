@@ -7,14 +7,21 @@ from pathlib import Path
 import psutil
 
 
-def doctor():
+def require_metal():
     if platform.system() != "Darwin" or platform.machine() != "arm64":
         raise RuntimeError("Use native arm64 Python on a Metal-capable Mac.")
     import mlx.core as mx
 
     if mx.default_device() != mx.gpu or not mx.metal.is_available():
         raise RuntimeError("MLX Metal GPU is required.")
+
+
+def doctor():
+    import mlx.core as mx
+
+    require_metal()
     gpu = subprocess.check_output(["system_profiler", "SPDisplaysDataType"], text=True)
+    core_match = re.search(r"Total Number of Cores: (\d+)", gpu)
     return dict(
         device=mx.device_info(),
         default_device=str(mx.default_device()),
@@ -22,7 +29,19 @@ def doctor():
         python=platform.python_version(),
         arch=platform.machine(),
         cpu_cores=psutil.cpu_count(),
-        gpu_cores=int(re.search(r"Total Number of Cores: (\d+)", gpu)[1]),
+        gpu_cores=int(core_match[1]) if core_match else None,
+        cpu_clusters=[
+            int(x)
+            for x in subprocess.check_output(
+                [
+                    "sysctl",
+                    "-n",
+                    "hw.perflevel0.physicalcpu",
+                    "hw.perflevel1.physicalcpu",
+                ],
+                text=True,
+            ).split()
+        ],
         available_bytes=psutil.virtual_memory().available,
         metal_test=(mx.ones(3) @ mx.ones(3)).item(),
         versions={
