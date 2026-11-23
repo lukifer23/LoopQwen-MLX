@@ -8,6 +8,12 @@ Each twin processed 1,600 examples, 41,833 nonpadding input tokens and 8,540 sup
 
 Applying the trained loop checkpoint at K=1,2,3 yielded 51, 50 and 43 correct answers. K=2 had the lowest answer NLL of those three depths. An increased dense output-token allowance left its procedural accuracy and actual work unchanged because it already stopped at EOS. All primary arms scored 0/16 on short-answer GSM8K and 0/8 on the selected numeric MATH slice. These numbers describe this prompt and decoding protocol. [Full pilot comparison](PILOT.md) · [Machine-readable results](measurements/pilot_comparison.json)
 
+## 1,000-update paired experiment
+
+Each extended twin processed the same 4,000 examples, 103,637 input tokens and 21,289 supervised labels. Dense used 0.233 s per optimizer update, 444.5 input tokens/s and 2.70 GiB peak allocation. The recurrent model used 0.329 s, 315.4 input tokens/s and 2.69 GiB. Total training-loop wall times were 239.1 and 336.3 seconds. The final training batch losses were 0.7357 and 0.8299. The final fixed validation slice gave answer NLLs of 0.2216 and 0.2679.
+
+The November 23, 2026 pilot checkpoints record training commit `dc18b825073cbb00374305b044bd5aa247dad741`. Both extended runs record `eb7569d61f64523c15802fe27ce6ffc3fa91b86f`. Each pair used seed 41. All checkpoint generations retain their fully resolved configuration and data-order digest.
+
 ## Hardware, precision and performance
 
 The host is an Apple M3 Pro with 5 performance and 6 efficiency CPU cores, 14 GPU cores and 18 GiB unified memory. At setup, 5.23 GiB was reported available. The environment used macOS 27.3, arm64 Python 3.12.12, MLX 0.32.4 and MLX-LM 0.32.2. The text state contains 752,390,432 BF16 and 2,592 FP32 parameters. The K=2 wrapper references exactly the same 320 tensors as the baseline. Both have 752,393,024 unique parameters before adapting. The 46 LoRA modules in the six-layer block add 1,336,320 FP32 parameters, for a total of 753,729,344. The merged model returns to 752,393,024 parameters.

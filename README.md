@@ -4,6 +4,18 @@ A local MLX research implementation of shared recurrent depth in the official Qw
 
 The experiment compares the untouched base, the untrained loop and two matched trained twins. Its primary outcomes are held-out answer loss and greedy numeric accuracy. Prose retention, variable depth and a longer-output dense control are also measured. [Experimental results](docs/RESULTS.md)
 
+## Try the trained loop
+
+The repository includes small inference adapters for both training pairs. From a clone, run
+
+```sh
+./scripts/bootstrap.sh
+source .venv/bin/activate
+python -m loopqwen download
+python -m loopqwen generate --checkpoint adapters/extended_loop --prompt 'Question: 17 × 23
+Answer:' --max-tokens 16
+```
+
 ## Reproduce the pilot
 
 Use a native arm64 macOS Python environment and run these commands from the repository root. Bootstrap uses uv when available and otherwise creates a Python 3.12 venv with constraints from the lockfile. The default dataset builder downloads small pinned public math splits. The model download uses the official Base checkpoint.
@@ -44,6 +56,18 @@ Answer:' --max-tokens 16
 
 The base model uses raw text. The adaptation examples use a question followed by a newline and `Answer:`. Generation is greedy, capped and EOS-aware. Adapter checkpoints require the pinned base snapshot. The BF16 merged export includes its own tokenizer and recurrent runtime, with a fresh-process check on every logit of the export verification prompt.
 
+## Reproduce the extended comparison
+
+The 1,000-update pair starts from the same pretrained base, using four documents per update and the existing pilot splits. In the activated environment, run the following commands after building the data.
+
+```sh
+python -m loopqwen train --config configs/extended_dense.yaml
+python -m loopqwen train --config configs/extended_loop.yaml
+python -m loopqwen evaluate --experiment extended
+python -m loopqwen compare --experiment extended
+python -m loopqwen export --checkpoint checkpoints/extended_loop --output exports/loopqwen-extended-0.8b
+```
+
 ## Project files
 
 | Path | Contents |
@@ -59,4 +83,4 @@ The base model uses raw text. The adaptation examples use a question followed by
 | `outputs/<experiment>/` | Each generated answer, decoding settings, scores and Markdown comparison |
 | `docs/` | Measured results, implementation details and reproduction notes |
 
-The code license is MIT. Official Qwen weights retain their own license, copied into merged exports. GSM8K and MATH source licenses are recorded beside the downloaded data. Model weights, checkpoints and raw datasets stay outside Git. [Architecture](docs/ARCHITECTURE.md) · [Training](docs/TRAINING.md) · [Metal benchmarks](docs/METAL_OPTIMIZATIONS.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
+The code license is MIT. Official Qwen weights retain their own license, copied into merged exports. GSM8K and MATH source licenses are recorded beside the downloaded data. Full backbone weights, merged exports, local optimizer checkpoints and raw datasets stay outside Git. The four compact adapter bundles are included. [Architecture](docs/ARCHITECTURE.md) · [Training](docs/TRAINING.md) · [Metal benchmarks](docs/METAL_OPTIMIZATIONS.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
