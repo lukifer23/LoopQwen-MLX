@@ -4,7 +4,7 @@ from pathlib import Path
 
 from ..checkpoint import load_trained
 from ..data.v2 import rows
-from ..io import read, save
+from ..io import save
 from ..training.losses import validation_nll
 
 

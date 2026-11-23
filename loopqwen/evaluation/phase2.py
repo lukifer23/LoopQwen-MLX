@@ -29,8 +29,11 @@ def predictions(
     padded=False,
     batch_size=8,
     detailed=False,
+    compact=False,
 ):
     """Batch identical prefix lengths. Charge all executed lanes including finished lanes."""
+    if compact and not padded:
+        raise ValueError("Lane filtering requires batch-aware execution-site caches")
     grouped = defaultdict(list)
     for r in sorted(samples, key=lambda r: r["prefix"]) if padded else samples:
         grouped[0 if padded else r["prefix"]].append(r)
@@ -44,7 +47,7 @@ def predictions(
             pads = [width - r["prefix"] for r in block]
             cache = (
                 model.make_cache(left_padding=pads)
-                if padded and any(pads)
+                if compact or (padded and any(pads))
                 else model.make_cache()
             )
             x = mx.array(
@@ -52,6 +55,8 @@ def predictions(
             )
             answers = [[] for _ in block]
             done = set()
+            lanes = list(range(len(block)))
+            lane_counts = []
             mx.synchronize()
             start = perf_counter()
             seeds = [
@@ -61,28 +66,28 @@ def predictions(
                 for r in block
             ]
             for step in range(limit):
+                lane_counts.append(len(lanes))
                 logits = model.project(model.hidden(x, cache)[:, -1, :])
-                if padded and step == 0 and any(pads):
+                if step == 0 and (compact or (padded and any(pads))):
                     cache.finish_left_prefill()
-                ids = (
-                    mx.random.categorical(logits.astype(mx.float32) / temperature)
-                    if temperature
-                    else mx.argmax(logits, -1)
-                )
                 if temperature and detailed:
                     ids = mx.stack(
                         [
                             mx.random.categorical(
                                 logits[j].astype(mx.float32) / temperature,
-                                key=mx.random.key((sample_seed + step) % 2**32),
+                                key=mx.random.key((seeds[lane] + step) % 2**32),
                             )
-                            for j, sample_seed in enumerate(seeds)
+                            for j, lane in enumerate(lanes)
                         ]
                     )
+                elif temperature:
+                    ids = mx.random.categorical(logits.astype(mx.float32) / temperature)
+                else:
+                    ids = mx.argmax(logits, -1)
                 tokens = ids.tolist()
                 if step == 0:
                     prefill_seconds = perf_counter() - start
-                for j, token in enumerate(tokens):
+                for j, token in zip(lanes, tokens, strict=True):
                     if j not in done:
                         if token in tok.eos_token_ids:
                             done.add(j)
@@ -90,6 +95,13 @@ def predictions(
                             answers[j].append(token)
                 if len(done) == len(block):
                     break
+                if compact and any(j in done for j in lanes):
+                    keep = [idx for idx, lane in enumerate(lanes) if lane not in done]
+                    index = mx.array(keep)
+                    for slot in cache.slots.values():
+                        slot.filter(index)
+                    lanes = [lanes[idx] for idx in keep]
+                    ids = ids[index]
                 x = ids[:, None]
             elapsed = perf_counter() - start
             durations.append(
@@ -100,7 +112,8 @@ def predictions(
                     prefix=width,
                     prefill_seconds=prefill_seconds,
                     decode_seconds=elapsed - prefill_seconds,
-                    executed_positions=len(block) * (width + step),
+                    executed_positions=len(block) * width + sum(lane_counts[1:]),
+                    executed_lanes=lane_counts,
                 )
             )
             for j, (r, ids) in enumerate(zip(block, answers)):
@@ -140,7 +153,11 @@ def predictions(
         batches=durations,
         records=records,
         max_tokens=limit,
-        batching="left-padded" if padded else "equal-length",
+        batching="compacted-left-padded"
+        if compact
+        else "left-padded"
+        if padded
+        else "equal-length",
         temperature=temperature,
         seed=seed,
     )
@@ -184,7 +201,10 @@ def evaluate(name):
     m = manifest(name)
     directory = Path("outputs/phase2") / name
     directory.mkdir(parents=True, exist_ok=True)
-    save(directory / "lifecycle.json", {"status": "started", "experiment": name})
+    save(
+        directory / "revisions/lifecycle.json",
+        {"status": "started", "experiment": name},
+    )
     for arm in m["runs"]:
         root = Path("checkpoints") / arm
         state = read(location(root) / "state.json")
@@ -269,7 +289,7 @@ def evaluate(name):
         print("Evaluated", arm, flush=True)
     path = report(name)
     save(
-        directory / "lifecycle.json",
+        directory / "revisions/lifecycle.json",
         {"status": "evaluated", "experiment": name, "runs": m["runs"]},
     )
     return path
@@ -331,6 +351,7 @@ def report(name):
                 raise ValueError(f"Unmatched {k}: {left}, {right}")
         if abs(a["training"]["trainable"] - b["training"]["trainable"]) > 1:
             raise ValueError("Capacity mismatch")
-    path = directory / "comparison.md"
+    revision = any((directory / (arm + ".revision.json")).exists() for arm in m["runs"])
+    path = directory / ("revisions/comparison.md" if revision else "comparison.md")
     path.write_text("\n".join(lines) + "\n")
     return str(path)

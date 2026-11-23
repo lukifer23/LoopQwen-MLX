@@ -5,6 +5,7 @@ python=.venv/bin/python
 if [ "${1:-}" != "--supervised" ]; then
   exec "$python" scripts/phase2_supervise.py
 fi
+"$python" scripts/phase2_supervise.py --check outputs/phase2/study.lock
 if ! "$python" -c 'import matplotlib' >/dev/null 2>&1; then
   echo "Install the locked environment with uv sync --locked --group figures" >&2
   exit 1

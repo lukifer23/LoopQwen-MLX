@@ -30,7 +30,7 @@ def main():
                 help="Repeat the long K=3 case in FP32",
             )
     p = sub.add_parser("data", help="Build deterministic tokenized pilot splits")
-    p.add_argument("--preset", choices=["pilot", "v2"], default="pilot")
+    p.add_argument("--preset", choices=["pilot", "v2", "v3"], default="pilot")
     p.add_argument("--count", type=int, default=24000, help="V2 training instances")
     p.add_argument("--seed", type=int, default=2602, help="V2 generator seed")
     p.add_argument(
@@ -52,6 +52,13 @@ def main():
     p.add_argument("--start-layer", type=int, default=10)
     p.add_argument("--num-layers", type=int, default=6)
     p.add_argument("--passes", type=int, choices=[1, 2, 3], default=2)
+    p = sub.add_parser(
+        "fork", help="Start a new strict run from an immutable checkpoint"
+    )
+    p.add_argument("--checkpoint", required=True)
+    p.add_argument("--config", required=True)
+    p.add_argument("--mode", choices=["extend", "weights"], required=True)
+    p.add_argument("--migration-reason")
     p = sub.add_parser("train", help="Train or resume a named experiment")
     p.add_argument("--config", default="configs/smoke.yaml")
     p.add_argument(
@@ -102,6 +109,10 @@ def main():
         from .baseline import baseline
 
         result = baseline()
+    elif cmd == "data" and args.preset == "v3":
+        from .data.v3 import build
+
+        result = build()
     elif cmd == "data" and args.preset == "v2":
         from .data.v2 import build
 
@@ -139,10 +150,24 @@ def main():
             integration=check_projection_gradients(),
             masks=masked_contract(),
         )
+    elif cmd == "fork":
+        from .training.continuation import fork
+
+        result = fork(args.checkpoint, args.config, args.mode, args.migration_reason)
     elif cmd == "train":
         from .training.trainer import train
 
         result = train(args.config, args.until)
+    elif cmd in ("evaluate", "report", "compare") and args.experiment == "phase3_dev":
+        from .io import read
+        from .evaluation.phase3_report import report
+
+        if cmd == "evaluate":
+            from .evaluation.phase3 import evaluate
+
+            evaluate("main", read("outputs/phase3/selection.json")["selected"])
+        path = report()
+        result = Path(path).read_text() if cmd == "compare" else path
     elif cmd in ("evaluate", "report", "compare") and args.experiment not in (
         "pilot",
         "extended",

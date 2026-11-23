@@ -32,8 +32,6 @@ def dimensions():
 
 def measure(state, layers, head):
     c = state["config"]
-    if c["accumulation"] != 1:
-        raise ValueError("One depth per observed padded microbatch required")
     s = c["start"]
     end = s + c["length"]
     target = {
@@ -53,11 +51,25 @@ def measure(state, layers, head):
         per_layer.append(2 * (backbone + adapter))
     total = 0
     for row in state["history"]:
-        sites = Span(start=s, length=c["length"], passes=row["depths"][0]).sites(24)
-        padded = round(row["inputs"] / (1 - row["padding_fraction"]))
-        total += padded * sum(per_layer[i] for i, p in sites) + 2 * row[
-            "labels"
-        ] * prod(head)
+        if "microbatches" in row:
+            batches = [
+                (m["k"], prod(m["shape"]), m["scored"]) for m in row["microbatches"]
+            ]
+        elif len(row["depths"]) == 1:
+            batches = [
+                (
+                    row["depths"][0],
+                    round(row["inputs"] / (1 - row["padding_fraction"])),
+                    row["labels"],
+                )
+            ]
+        else:
+            raise ValueError("Historical run lacks per-microbatch shape accounting")
+        for depth, padded, labels in batches:
+            sites = Span(start=s, length=c["length"], passes=depth).sites(24)
+            total += padded * sum(per_layer[i] for i, _ in sites) + 2 * labels * prod(
+                head
+            )
     util = [
         r["device_utilization_percent"]
         for r in state["history"]

@@ -5,6 +5,7 @@ python=.venv/bin/python
 if [ "${1:-}" != "--supervised" ]; then
   exec "$python" scripts/phase2_supervise.py --finish
 fi
+"$python" scripts/phase2_supervise.py --check outputs/phase2/study.lock
 "$python" -m loopqwen.benchmark.validation_memory
 "$python" -m loopqwen.evaluation.statistics
 "$python" -m loopqwen.evaluation.inference_budget

@@ -5,6 +5,7 @@ python=.venv/bin/python
 if [ "${1:-}" != "--supervised" ]; then
   exec "$python" -c 'import sys; from pathlib import Path; from scripts.phase2_supervise import supervise; sys.exit(supervise(["/bin/sh","scripts/run_phase3.sh","--supervised",*sys.argv[1:]],Path("outputs/phase3/study.lock")))' "$@"
 fi
+"$python" scripts/phase2_supervise.py --check outputs/phase3/study.lock
 shift
 stage=${1:-screening}
 study() { "$python" scripts/phase3_study.py "$@" --checkpointing off; }
