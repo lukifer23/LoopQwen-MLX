@@ -175,6 +175,70 @@ def figures(root, index, seed):
     plt.close(fig)
 
 
+def publish_states(seed, root, adapters):
+    """Pair each development record with its exact reproducible categorical head."""
+    for arm in ("dense", "probe", "recurrent"):
+        run = Path("checkpoints") / f"p4_state_{seed}_{arm}"
+        for phase in ("install", "outcome"):
+            path = OUT / f"state-{seed}-{arm}-{phase}.json"
+            if not path.exists():
+                continue
+            evaluated = read(path)
+            generation = run / read(run / (phase + ".json"))["directory"]
+            weight_file = generation / "adapters.safetensors"
+            state = read(generation / "state.json")
+            if (
+                digest(weight_file) != evaluated["weights"]
+                or state["identity"] != evaluated["identity"]
+            ):
+                raise ValueError(
+                    f"Published {arm} {phase} head differs from the evaluated checkpoint"
+                )
+            gz(root / "latent" / (path.stem + ".json.gz"), evaluated)
+            gz(root / "curves" / (path.stem + ".json.gz"), state["history"])
+            dest = adapters / f"pointer_{arm}_{seed}_{phase}"
+            dest.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(weight_file, dest / weight_file.name)
+            save(
+                dest / "state.json", {k: v for k, v in state.items() if k != "history"}
+            )
+            scores = evaluated["suite"]
+            accuracy = ", ".join(
+                f"{scores[str(n)]['terminal']}/{scores[str(n)]['n']} at {n} hop(s)"
+                for n in (1, 2, 3)
+            )
+            card = [
+                f"# Pointer {arm} · {phase} · seed {seed}",
+                f"An eight-state categorical readout for the official Qwen3.5-0.8B-Base text decoder at `{state['config']['base_revision']}`. This artifact includes {state['trainable']:,} trained parameters, including the required {state['head_parameters']:,}-weight shared classifier. The final prompt position supplies the readout. The synthetic permutation and start node appear in the prompt. Intermediate and terminal gold states are separate labels.",
+                f"Seed {seed} trained for {state['step']} updates on disjoint training permutations. Held-out terminal accuracy was {accuracy}. These measurements concern a symbolic task. [Data and limitations](../../../docs/PHASE4_DATA.md) · [Evaluation](../../../docs/PHASE4_RESULTS.md) · [Base license](../../LICENSE-QWEN)",
+                f"Artifact SHA-256 `{evaluated['weights']}`. Training identity `{state['identity']}`. Reproduce with `scripts/run_phase4.sh latent --seed {seed}` after the language experiment has materialized its seed configuration.",
+                f"```sh\npython -m loopqwen.training.latent --checkpoint {dest} --map 1 2 3 4 5 6 7 0 --start 2 --hops 3\n```",
+            ]
+            (dest / "README.md").write_text("\n\n".join(card) + "\n")
+
+
+def publish_stock(seed, adapters):
+    source = Path("exports") / f"p4_stock_{seed}"
+    measured = read(OUT / "deployment.json")
+    if digest(source / "adapters.safetensors") != measured["weights"]:
+        raise ValueError("Stock adapter differs from deployment audit")
+    dest = adapters / f"stock_gated_{seed}_k1"
+    dest.mkdir(parents=True, exist_ok=True)
+    for name in ("adapters.safetensors", "adapter_config.json", "deployment.json"):
+        shutil.copyfile(source / name, dest / name)
+    (dest / "README.md").write_text(
+        f"# Stock MLX-LM K=1 deployment\n\n"
+        f"The gated 250K seed-{seed} adapter was trained with two executions of layers 10–15. "
+        f"This format runs the ordinary 24-layer decoder with stock MLX-LM 0.32.2. "
+        f"The base revision is `{measured['revision']}`. The isolated loader matched "
+        f"all greedy tokens on {len(measured['validation'])} traced validation prompts. "
+        f"SHA-256 `{measured['weights']}`. [Training card](../gated_{seed}_250k/README.md) · [License](../../LICENSE-QWEN)\n\n"
+        f"```python\nfrom huggingface_hub import snapshot_download\nfrom mlx_lm import load\n"
+        f"base = snapshot_download({measured['base']!r}, revision={measured['revision']!r})\n"
+        f"model, tokenizer = load(base, adapter_path={str(dest)!r})\n```\n"
+    )
+
+
 def publish(seed):
     index = read(OUT / f"evaluation-{seed}.json")
     stages = {
@@ -350,11 +414,8 @@ SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environ
         if not dest.exists():
             shutil.copyfile(path, dest)
     save(root / "training.json", metrics)
-    for label in ("dense", "probe", "recurrent"):
-        for stage in ("install", "outcome"):
-            file = OUT / f"state-{seed}-{label}-{stage}.json"
-            if file.exists():
-                gz(root / "latent" / (file.stem + ".json.gz"), read(file))
+    publish_states(seed, root, adapters)
+    publish_stock(seed, adapters)
     latent = []
     for file in sorted((root / "latent").glob("*.gz")):
         x = json.loads(gzip.decompress(file.read_bytes()))
@@ -515,6 +576,14 @@ SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environ
     ]
     (reports / "PHASE4_OPTIMIZATIONS.md").write_text("\n".join(perf) + "\n")
     figures(root, index, seed)
+    save(
+        root / "adapter-checksums.json",
+        {
+            str(p.relative_to(adapters)): digest(p)
+            for p in sorted(adapters.rglob("*"))
+            if p.is_file()
+        },
+    )
     save(
         root / "checksums.json",
         {
