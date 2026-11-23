@@ -139,3 +139,29 @@ def test_stabilized_gate_trains():
     old = model.alpha_logit
     optimizer(c).update(model, g)
     assert model.alpha_logit.item() != old.item()
+
+
+def test_packing_resets_state_at_boundaries():
+    from loopqwen.data.tokenize import pack
+    from loopqwen.training.losses import packed_loss_sum
+
+    model, _, _ = setup(config("configs/smoke.yaml"))
+    model.train()
+    rows = load_split("train")[:2]
+    val, grad = nn.value_and_grad(model, packed_loss_sum)(model, *pack(rows))
+
+    def separate(m):
+        return sum(loss_sum(m, *batch([r])) for r in rows)
+
+    baseline, ref = nn.value_and_grad(model, separate)(model)
+    assert (
+        abs((val - baseline).item()) / sum(len(r["ids"]) - r["prefix"] for r in rows)
+        < 0.01
+    )
+    assert (
+        max(
+            relative(a, b)
+            for (_, a), (_, b) in zip(tree_flatten(grad), tree_flatten(ref))
+        )
+        < 0.025
+    )

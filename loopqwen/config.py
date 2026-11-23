@@ -13,7 +13,7 @@ def config(path):
     root = Path("configs")
     defaults = yaml.safe_load((root / "defaults.yaml").read_text())
     user = yaml.safe_load(Path(path).read_text())
-    if extra := user.keys() - defaults.keys() - {"preset", "name"}:
+    if extra := user.keys() - defaults.keys() - {"preset", "name", "packing"}:
         raise ValueError(f"Unknown config keys {extra}")
     presets = yaml.safe_load((root / "presets.yaml").read_text())
     c = defaults | presets[user.get("preset", "mac_safe")] | user

@@ -55,7 +55,23 @@ def bench_training(model, rows, c, n):
                 peak_bytes=mx.get_peak_memory(),
             )
         )
+    # Compare grouping four identical-length documents with four separate backwards.
+    select(model, "native")
+    model.checkpointing = True
+    vg = nn.value_and_grad(model, loss_sum)
+    accumulation = {}
+    for size in (1, 4):
+        bx, bp, by = batch(rows * size, c["response_only"])
+        mx.clear_cache()
+        mx.reset_peak_memory()
+        latency = timed(lambda: vg(model, bx, bp, by), n)
+        accumulation[str(size)] = dict(
+            combined_ms=latency,
+            ms_per_example=latency / size,
+            peak_bytes=mx.get_peak_memory(),
+        )
     return dict(
+        microbatches=accumulation,
         rows=result,
         loss=loss_bench,
         loss_gradient_error=err,

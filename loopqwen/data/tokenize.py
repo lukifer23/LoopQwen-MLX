@@ -23,3 +23,20 @@ def batch(rows, response_only=True):
         positions.extend(i * length + j - 1 for j in range(first, len(ids)))
         labels.extend(ids[first:])
     return mx.array(x), mx.array(positions), mx.array(labels)
+
+
+def pack(rows, response_only=True):
+    """Concatenate complete documents and retain decoder reset points."""
+    inputs = []
+    positions = []
+    labels = []
+    lengths = []
+    for row in rows:
+        ids = row["ids"]
+        first = row["prefix"] if response_only else 1
+        offset = len(inputs)
+        inputs.extend(ids[:-1])
+        lengths.append(len(ids) - 1)
+        positions.extend(offset + j - 1 for j in range(first, len(ids)))
+        labels.extend(ids[first:])
+    return mx.array(inputs), mx.array(positions), mx.array(labels), tuple(lengths)

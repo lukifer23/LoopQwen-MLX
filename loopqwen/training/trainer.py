@@ -17,11 +17,11 @@ import psutil
 from .. import checkpoint
 from ..config import config, span
 from ..data.build_data import ROOT, load_split
-from ..data.tokenize import batch
+from ..data.tokenize import batch, pack
 from ..hardware import doctor
 from ..io import read, save
 from ..model_loader import count
-from .losses import loss_sum
+from .losses import loss_sum, packed_loss_sum
 from .optimizers import optimizer
 
 
@@ -64,7 +64,8 @@ def _train(c, root, until):
     valid = load_split(c["validation_split"])[: c["eval_count"]]
     model, tok, info = checkpoint.setup(c)
     opt = optimizer(c)
-    fn = nn.value_and_grad(model, loss_sum)
+    packed = c.get("packing", False)
+    fn = nn.value_and_grad(model, packed_loss_sum if packed else loss_sum)
     state = dict(
         config=c,
         manifest=manifest,
@@ -109,6 +110,7 @@ def _train(c, root, until):
             )
             if pressure:
                 mx.clear_cache()
+                mx.reset_peak_memory()
                 if state["sequence_length"] > 16:
                     state["sequence_length"] = max(16, state["sequence_length"] // 2)
                 elif state["batch_size"] > 1:
@@ -145,8 +147,9 @@ def _train(c, root, until):
                 k = depth(c, s, micro)
                 model.span = replace(span(c), passes=k)
                 depths.append(k)
-                x, pos, y = batch(selected, c["response_only"])
-                value, g = fn(model, x, pos, y)
+                arguments = (pack if packed else batch)(selected, c["response_only"])
+                value, g = fn(model, *arguments)
+                y = arguments[2]
                 grads = g if grads is None else tree_map(lambda a, b: a + b, grads, g)
                 total = value if total is None else total + value
                 mx.eval(grads, total)

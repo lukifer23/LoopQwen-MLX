@@ -132,7 +132,19 @@ def evaluate(experiment):
         del model
         gc.collect()
         mx.clear_cache()
+    dense_rows = read(out / "trained_dense.json")["procedural"]["records"]
+    loop_rows = read(out / "trained_loop.json")["procedural"]["records"]
+    pairs = list(zip(dense_rows, loop_rows, strict=True))
+    if any(d["id"] != l["id"] for d, l in pairs):
+        raise ValueError("Evaluation examples differ")
+    paired = dict(
+        both=sum(d["correct"] and l["correct"] for d, l in pairs),
+        dense_only=sum(d["correct"] and not l["correct"] for d, l in pairs),
+        loop_only=sum(l["correct"] and not d["correct"] for d, l in pairs),
+        neither=sum(not d["correct"] and not l["correct"] for d, l in pairs),
+    )
     summary = dict(
+        paired=paired,
         settings=settings,
         manifest=states[0]["manifest"],
         models=suite,
