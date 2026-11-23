@@ -130,3 +130,31 @@ def check_projection_gradients():
     result = dict(output=output, gradients=error)
     save("outputs/gdn_projection.json", result)
     return result
+
+
+def masked_contract():
+    from mlx_lm.models.gated_delta import gated_delta_ops
+
+    mx.random.seed(7)
+    q, k, v = [mx.random.normal((1, 6, 2, 32)) * 0.1 for _ in range(3)]
+    decay = mx.full((1, 6, 2), 0.8)
+    beta = mx.full((1, 6, 2), 0.3)
+    mask = mx.array([[True, False, True, True, False, True]])
+    args = (q, k, v, decay, beta, None, mask)
+    y, s = gated_delta_ops(*args)
+    rows = {}
+    for name, stream in (("cpu", mx.cpu), ("metal", mx.gpu)):
+        native, state = mx.fast.gated_delta_update(*args, stream=stream)
+        valid = mx.where(mask[..., None, None], native - y, 0)
+        row = dict(
+            valid_max_abs=mx.max(mx.abs(valid)).item(),
+            state_relative=relative(state, s),
+            masked_output_max_abs=mx.max(
+                mx.abs(mx.where(mask[..., None, None], 0, native))
+            ).item(),
+        )
+        if row["valid_max_abs"] > 1e-5 or row["state_relative"] > 1e-5:
+            raise AssertionError(row)
+        rows[name] = row
+    save("outputs/gdn_mask.json", rows)
+    return rows

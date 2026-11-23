@@ -1,0 +1,389 @@
+{
+  "model": {
+    "model": "Qwen/Qwen3.5-0.8B-Base",
+    "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "unique_parameters": 752393024,
+    "precision": {
+      "mlx.core.bfloat16": 752390432,
+      "mlx.core.float32": 2592
+    },
+    "load_seconds": 0.9922585000003892,
+    "layers": [
+      {
+        "index": 0,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 1,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 2,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 3,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 4,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 5,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 6,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 7,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 8,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 9,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 10,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 11,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 12,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 13,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 14,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 15,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 16,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 17,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 18,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 19,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 20,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 21,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 22,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 23,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      }
+    ]
+  },
+  "generation": {
+    "prompt": "The capital of France is",
+    "text": " Paris.\nThe 2017-2018 season was the 10th season of the",
+    "token_ids": [
+      11751,
+      13,
+      198,
+      760,
+      220,
+      17,
+      15,
+      16,
+      22,
+      12,
+      17,
+      15,
+      16,
+      23,
+      3098,
+      557,
+      279,
+      220,
+      16,
+      15,
+      337,
+      3098,
+      314,
+      279
+    ],
+    "prompt_tokens": 5,
+    "greedy": true,
+    "seed": 0,
+    "max_tokens": 24,
+    "ttft_s": 0.022721541999999317,
+    "elapsed_s": 0.4782004169992433,
+    "prefill_tps": 220.05548743127338,
+    "decode_tps": 50.496304576229086,
+    "peak_bytes": 1553369046,
+    "active_bytes": 1528203982
+  },
+  "prose": {
+    "nll": 3.5172883833961923,
+    "perplexity": 33.69294214065054,
+    "tokens": 87
+  }
+}

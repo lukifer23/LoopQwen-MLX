@@ -18,7 +18,13 @@ def main():
         ("gradient-check", "Verify adapter gradients and optimizer changes"),
         ("gdn-check", "Compare Metal and reference GDN gradients"),
     ):
-        sub.add_parser(name, help=help_text)
+        cmd_parser = sub.add_parser(name, help=help_text)
+        if name == "cache-check":
+            cmd_parser.add_argument(
+                "--fp32-diagnostic",
+                action="store_true",
+                help="Repeat the long K=3 case in FP32",
+            )
     p = sub.add_parser("data", help="Build deterministic tokenized pilot splits")
     p.add_argument("--preset", choices=["pilot"], default="pilot")
     p.add_argument(
@@ -99,17 +105,25 @@ def main():
 
         result = probe(Span(args.start_layer, args.num_layers, args.passes))
     elif cmd == "cache-check":
-        from .cache_check import cache_check
+        from .cache_check import cache_check, fp32_diagnostic
 
-        result = cache_check()
+        result = fp32_diagnostic() if args.fp32_diagnostic else cache_check()
     elif cmd == "gradient-check":
         from .training.gradient_check import gradient_check
 
         result = gradient_check()
     elif cmd == "gdn-check":
-        from .benchmark.bench_gdn import bench_gdn, check_projection_gradients
+        from .benchmark.bench_gdn import (
+            bench_gdn,
+            check_projection_gradients,
+            masked_contract,
+        )
 
-        result = dict(primitive=bench_gdn(), integration=check_projection_gradients())
+        result = dict(
+            primitive=bench_gdn(),
+            integration=check_projection_gradients(),
+            masks=masked_contract(),
+        )
     elif cmd == "train":
         from .training.trainer import train
 

@@ -40,6 +40,9 @@ def test_cached_full_parity():
 
 
 def test_real_gdn():
+    from loopqwen.benchmark.bench_gdn import masked_contract
+
+    masked_contract()
     bench_gdn()
     check_projection_gradients()
 

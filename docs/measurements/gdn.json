@@ -1,0 +1,108 @@
+[
+  {
+    "length": 7,
+    "heads": 2,
+    "dim": 32,
+    "dtype": "mlx.core.float32",
+    "output_state_error": [
+      0.0,
+      0.0
+    ],
+    "gradient_errors": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "timings": {
+      "ref": {
+        "forward_ms": 0.6462500005000038,
+        "value_grad_ms": 1.5783329999976559,
+        "backward_estimate_ms": 0.932082999497652,
+        "peak_bytes": 747620
+      },
+      "native_update": {
+        "forward_ms": 0.7367500002146699,
+        "value_grad_ms": 1.544583001305,
+        "backward_estimate_ms": 0.8078330010903301,
+        "peak_bytes": 745980
+      }
+    },
+    "finite_difference_q": [
+      0.24184583127498627,
+      0.2418609857559204
+    ]
+  },
+  {
+    "length": 32,
+    "heads": 16,
+    "dim": 128,
+    "dtype": "mlx.core.bfloat16",
+    "output_state_error": [
+      2.412747016933281e-05,
+      1.4243880741560133e-07
+    ],
+    "gradient_errors": [
+      2.3874123144196346e-05,
+      0.0029107704758644104,
+      2.2709475160809234e-05,
+      1.4608037872676505e-06,
+      0.0,
+      0.0,
+      0.0,
+      2.741574256504009e-08
+    ],
+    "timings": {
+      "ref": {
+        "forward_ms": 4.007957999419887,
+        "value_grad_ms": 12.19524999942223,
+        "backward_estimate_ms": 8.187292000002344,
+        "peak_bytes": 242434690
+      },
+      "native_update": {
+        "forward_ms": 0.23887499992270023,
+        "value_grad_ms": 1.8171249994338723,
+        "backward_estimate_ms": 1.578249999511172,
+        "peak_bytes": 45115927
+      }
+    }
+  },
+  {
+    "length": 64,
+    "heads": 16,
+    "dim": 128,
+    "dtype": "mlx.core.bfloat16",
+    "output_state_error": [
+      5.809597496408969e-06,
+      1.422372264414662e-07
+    ],
+    "gradient_errors": [
+      1.3220181926953956e-06,
+      0.0027820481918752193,
+      5.095132110000122e-06,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      2.5917868740066297e-08
+    ],
+    "timings": {
+      "ref": {
+        "forward_ms": 5.6019999992713565,
+        "value_grad_ms": 24.097957999401842,
+        "backward_estimate_ms": 18.495958000130486,
+        "peak_bytes": 388120664
+      },
+      "native_update": {
+        "forward_ms": 0.3175000001647277,
+        "value_grad_ms": 2.806375001455308,
+        "backward_estimate_ms": 2.4888750012905803,
+        "peak_bytes": 82888602
+      }
+    }
+  }
+]

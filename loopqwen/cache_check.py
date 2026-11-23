@@ -60,3 +60,30 @@ def cache_check():
     result = dict(rows=rows, generation=demo)
     save("outputs/cache.json", result)
     return result
+
+
+def fp32_diagnostic():
+    base, tok, _ = load_base()
+    base.set_dtype(mx.float32)
+    mx.eval(base.parameters())
+    mx.clear_cache()
+    model = LoopedModel(base, Span(passes=3))
+    model.eval()
+    ids = mx.array([tok.encode(" ".join(str(i) for i in range(20)))])
+    full = model(ids)
+    mx.eval(full)
+    cache = model.make_cache()
+    pieces = []
+    for i in range(ids.size):
+        part = model(ids[:, i : i + 1], cache)
+        mx.eval(part)
+        pieces.append(part)
+    delta = mx.concatenate(pieces, 1) - full
+    result = dict(
+        max_abs=mx.max(mx.abs(delta)).item(),
+        relative_rms=mx.sqrt(mx.mean(delta**2, -1) / mx.mean(full**2, -1)).max().item(),
+    )
+    if result["relative_rms"] > 0.0001:
+        raise AssertionError(result)
+    save("outputs/cache_fp32.json", result)
+    return result
