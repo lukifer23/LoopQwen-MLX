@@ -82,7 +82,23 @@ def run(arm, targets=None, updates=None, **kw):
     root = Path("checkpoints") / path.stem
     if (root / "latest.json").exists():
         state = read(root / read(root / "latest.json")["directory"] / "state.json")
-        if state["step"] > stop:
+        if state["step"] >= stop:
+            from loopqwen.config import config
+            from loopqwen.identity import training_identity
+
+            resolved = config(path)
+            if state["config"] != resolved or state[
+                "training_identity"
+            ] != training_identity(resolved, state["manifest"]):
+                raise ValueError("Existing stage has incompatible provenance")
+            if targets is not None:
+                p = root / read(root / f"targets-{targets}.json")["directory"]
+                reached = read(p / "state.json")
+                if (reached["step"], reached["loss_tokens"]) != (
+                    stop,
+                    plan[str(targets)]["targets"],
+                ):
+                    raise ValueError("Incomplete milestone generation")
             return
     os.execv(
         sys.executable,

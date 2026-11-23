@@ -157,7 +157,7 @@ def publish(destination):
     shutil.copyfile(out / "schedule.jsonl.gz", dest / "schedule.jsonl.gz")
     if (out / "system.jsonl").exists():
         shutil.copyfile(out / "system.jsonl", dest / "system.jsonl")
-    for name in ("frontier.json",):
+    for name in ("frontier.json", "difficulty.json"):
         if (out / name).exists():
             json_gzip(dest / (name + ".gz"), read(out / name))
     for file in out.glob("batch-*.json"):

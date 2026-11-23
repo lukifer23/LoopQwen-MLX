@@ -77,6 +77,7 @@ def main():
             "frontier.json",
         ),
     ]
+    tasks.append(("difficulty", ["scripts/phase3_breakdowns.py"], "difficulty.json"))
     for task, args, artifact in tasks:
         pointer = out / "post" / (task + ".json")
         file = (
