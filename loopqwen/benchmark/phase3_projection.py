@@ -100,7 +100,8 @@ def run():
             final_training_loss=value.item(),
             final_grad_norm=norm.item(),
         )
-        del model, weight, partial, opt, fn, g
+        del model, weight, opt, fn, g
+        partial = None
         gc.collect()
         mx.clear_cache()
     save(
