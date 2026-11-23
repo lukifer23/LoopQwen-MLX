@@ -18,9 +18,11 @@ def register(name, runs, purpose, matched=(), final=False):
         splits=["test", "ood"] if final else ["validation"],
         loss_count=150 if final else 90,
         generation={"answer": 12, "trace": 128},
-        generation_count={"answer": 90 if final else 30, "trace": 15 if final else 5},
+        generation_count={"answer": 90 if final else 30, "trace": 45 if final else 5},
         language_count=48 if final else 24,
     )
+    if final:
+        m["padded"] = True
     if path.exists() and read(path) != m:
         raise ValueError("Choose a fresh experiment ID")
     save(path, m)

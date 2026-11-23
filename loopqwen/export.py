@@ -12,12 +12,15 @@ import numpy as np
 from mlx_lm.tuner.lora import LoRALinear
 
 from . import MODEL, REVISION
-from .checkpoint import load_trained
+from .checkpoint import load_trained, location
+from .data.build_data import digest
 from .io import read, save
 from .model_loader import count, local_snapshot
 
 
-def export(checkpoint, output):
+def export(checkpoint, output, fusion="stock"):
+    if fusion not in ("stock", "fp32"):
+        raise ValueError("Unknown fusion dtype")
     out = Path(output)
     if out.exists():
         raise FileExistsError(f"Choose a new export directory: {out}")
@@ -34,7 +37,17 @@ def export(checkpoint, output):
             for name, module in list(layer.named_modules()):
                 if isinstance(module, LoRALinear):
                     parent, key = name.rsplit(".", 1)
-                    setattr(getattr(layer, parent), key, module.fuse())
+                    if fusion == "fp32":
+                        linear = module.linear
+                        delta = (
+                            module.scale * module.lora_b.astype(mx.float32).T
+                        ) @ module.lora_a.astype(mx.float32).T
+                        linear.weight = (
+                            linear.weight.astype(mx.float32) + delta
+                        ).astype(linear.weight.dtype)
+                    else:
+                        linear = module.fuse()
+                    setattr(getattr(layer, parent), key, linear)
                     fused += 1
         after = model(ids).astype(mx.float32)
         rms = mx.sqrt(mx.mean((after - before) ** 2) / mx.mean(before**2)).item()
@@ -60,6 +73,22 @@ def export(checkpoint, output):
             recurrent_cache_version=1,
             alpha_override=model.alpha_override,
         )
+        provenance = dict(
+            fusion=fusion,
+            base_revision=REVISION,
+            base_shards={p.name: digest(p) for p in source.glob("*.safetensors")},
+            adapter_sha256=digest(location(checkpoint) / "adapters.safetensors"),
+            train_git=state["git"],
+            export_git=subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], text=True
+            ).strip(),
+            config=state["config"],
+            dataset=state["manifest"],
+            versions=state["hardware"]["versions"],
+            step=state["step"],
+            validation_prompt=prompt,
+        )
+        save(temp / "provenance.json", provenance)
         save(temp / "config.json", config)
         runtime = temp / "runtime"
         runtime.mkdir()
@@ -95,8 +124,9 @@ def export(checkpoint, output):
         subprocess.run(
             [
                 sys.executable,
+                "-I",
                 "-c",
-                "from runtime.export_runtime import verify; verify('.')",
+                "import sys; sys.path.insert(0, '.'); from runtime.export_runtime import verify; verify('.')",
             ],
             cwd=temp,
             check=True,

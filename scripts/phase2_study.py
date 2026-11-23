@@ -71,12 +71,18 @@ def screening():
         mixture="verified_traces",
         final_id_count=90,
         final_ood_count=90,
-        final_trace_count=15,
+        final_trace_count=45,
     )
     path = Path("experiments/phase2_selection.json")
-    if path.exists() and read(path) != frozen:
-        raise ValueError("Selection already frozen")
-    save(path, frozen)
+    if path.exists():
+        save(OUT / "replayed_selection.json", frozen)
+        print(
+            "Continuing with previously frozen policy",
+            read(path)["selected"],
+            flush=True,
+        )
+    else:
+        save(path, frozen)
 
 
 def confirm():

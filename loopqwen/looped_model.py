@@ -30,10 +30,10 @@ class LoopedModel(nn.Module):
     def sites(self):
         return self.span.sites(len(self.text.layers))
 
-    def make_cache(self, max_kv_size=None):
+    def make_cache(self, max_kv_size=None, *, left_padding=None):
         from .recurrent_cache import SiteCache
 
-        return SiteCache(self, max_kv_size)
+        return SiteCache(self, max_kv_size, left_padding=left_padding)
 
     def hidden(self, ids, cache=None, window_size=None):
         h = self.text.model.embed_tokens(ids)
@@ -45,8 +45,11 @@ class LoopedModel(nn.Module):
         for i, p in sites:
             layer = self.text.layers[i]
             state = None if cache is None else cache.slots[i, p]
-            mask = (create_ssm_mask(h,state) if layer.is_linear else
-                    create_attention_mask(h,state,window_size=window_size))
+            mask = (
+                create_ssm_mask(h, state)
+                if layer.is_linear
+                else create_attention_mask(h, state, window_size=window_size)
+            )
             if self.span.mode == "stabilized" and p and i == self.span.start:
                 previous = h
             if self.training and self.checkpointing:

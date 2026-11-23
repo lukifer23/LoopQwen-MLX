@@ -3,7 +3,6 @@
 import math
 import re
 from collections import defaultdict
-from fractions import Fraction
 from pathlib import Path
 from time import perf_counter
 
@@ -16,36 +15,7 @@ from ..data.tokenize import batch
 from ..data.v2 import ROOT, rows
 from ..io import read, save
 from ..training.losses import loss_sum
-
-NUMBER = r"[+-]?(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?"
-MARKER = r"(?:final answer\s*:\s*|answer\s*:\s*|the answer is\s+|####\s*)"
-
-
-def numeric(text):
-    text = text.split("<|endoftext|>")[0].strip()
-    lines = [line.strip() for line in text.splitlines() if line.strip()]
-    if not lines:
-        return None
-    marked = [i for i, s in enumerate(lines) if re.match(MARKER, s, re.I)]
-    if marked and marked[-1] != len(lines) - 1:
-        return None
-    candidates = [lines[i] for i in marked] if marked else lines
-    vals = []
-    for line in candidates:
-        line = re.sub("^" + MARKER, "", line, flags=re.I).strip().strip("$")
-        line = re.sub(r"^\\boxed\{(.*)\}$", r"\1", line)
-        line = re.sub(r"^\\frac\{(-?\d+)\}\{(\d+)\}$", r"\1/\2", line)
-        m = re.fullmatch(rf"({NUMBER})(?:\s*/\s*({NUMBER}))?[.!]?", line)
-        if not m:
-            return None
-        try:
-            n, d = (
-                Fraction(x.replace(",", "")) if x else Fraction(1) for x in m.groups()
-            )
-            vals.append(str(n / d))
-        except (ZeroDivisionError, ValueError):
-            return None
-    return vals[0] if len(set(vals)) == 1 else None
+from .answers import numeric
 
 
 def nll(model, samples):
@@ -59,25 +29,35 @@ def nll(model, samples):
     return dict(nll=total / labels, perplexity=math.exp(total / labels), tokens=labels)
 
 
-def predictions(model, tok, samples, limit, temperature=0, seed=0):
+def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False):
     """Batch identical prefix lengths. Charge all executed lanes including finished lanes."""
     grouped = defaultdict(list)
-    for r in samples:
-        grouped[r["prefix"]].append(r)
+    for r in sorted(samples, key=lambda r: r["prefix"]) if padded else samples:
+        grouped[0 if padded else r["prefix"]].append(r)
     output = {}
     durations = []
     mx.random.seed(seed)
     for length, group in grouped.items():
         for i in range(0, len(group), 8):
             block = group[i : i + 8]
-            cache = model.make_cache()
-            x = mx.array([r["ids"][:length] for r in block])
+            width = max(r["prefix"] for r in block)
+            pads = [width - r["prefix"] for r in block]
+            cache = (
+                model.make_cache(left_padding=pads)
+                if padded and any(pads)
+                else model.make_cache()
+            )
+            x = mx.array(
+                [[0] * pad + r["ids"][: r["prefix"]] for pad, r in zip(pads, block)]
+            )
             answers = [[] for _ in block]
             done = set()
             mx.synchronize()
             start = perf_counter()
             for step in range(limit):
                 logits = model.project(model.hidden(x, cache)[:, -1, :])
+                if padded and step == 0 and any(pads):
+                    cache.finish_left_prefill()
                 ids = (
                     mx.random.categorical(logits.astype(mx.float32) / temperature)
                     if temperature
@@ -98,7 +78,7 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0):
                     ids=[r["id"] for r in block],
                     seconds=elapsed,
                     decode_steps=step + 1,
-                    prefix=length,
+                    prefix=width,
                 )
             )
             for r, ids in zip(block, answers):
@@ -117,7 +97,7 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0):
                     correct=pred == gold,
                     text=response,
                     tokens=len(ids),
-                    prefix=length,
+                    prefix=r["prefix"],
                 )
     records = [output[r["id"]] for r in samples]
     return dict(
@@ -127,6 +107,7 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0):
         batches=durations,
         records=records,
         max_tokens=limit,
+        batching="left-padded" if padded else "equal-length",
         temperature=temperature,
         seed=seed,
     )
@@ -139,7 +120,11 @@ def score(model, tok, m, split):
         result[protocol] = dict(
             loss=nll(model, dataset[: m["loss_count"]]),
             generations=predictions(
-                model, tok, dataset[: m["generation_count"][protocol]], limit
+                model,
+                tok,
+                dataset[: m["generation_count"][protocol]],
+                limit,
+                padded=m.get("padded", False),
             ),
         )
     language_split = "language_validation" if split == "validation" else "language_test"
@@ -165,9 +150,9 @@ def evaluate(name):
     for arm in m["runs"]:
         root = Path("checkpoints") / arm
         state = read(location(root) / "state.json")
-        if state.get("status") != "completed" or state["manifest"] != read(
-            ROOT / "manifest.json"
-        ):
+        if state.get("status") != "completed" or {
+            k: v for k, v in state["manifest"].items() if k != "gsm_train"
+        } != read(ROOT / "manifest.json"):
             raise ValueError("Incomplete or mismatched run " + arm)
         path = directory / (arm + ".json")
         identity = dict(
@@ -184,6 +169,7 @@ def evaluate(name):
         scores = {split: score(model, tok, m, split) for split in m["splits"]}
         h = state["history"]
         summary = dict(
+            config=state["config"],
             seed=state["config"]["seed"],
             step=state["step"],
             target_tokens=state["loss_tokens"],
@@ -227,6 +213,21 @@ def report(name):
             )
     for left, right in m.get("matched", []):
         a, b = [read(directory / (arm + ".json")) for arm in (left, right)]
+        allowed = {
+            "name",
+            "passes",
+            "curriculum",
+            "mode",
+            "depth_weights",
+            "alpha_schedule",
+            "ramp_fraction",
+        }
+        configs = [
+            {k: v for k, v in t["training"]["config"].items() if k not in allowed}
+            for t in (a, b)
+        ]
+        if configs[0] != configs[1]:
+            raise ValueError("Dense and loop training policies differ")
         for k in ("order", "seed", "step", "target_tokens", "input_tokens"):
             if a["training"][k] != b["training"][k]:
                 raise ValueError(f"Unmatched {k}: {left}, {right}")

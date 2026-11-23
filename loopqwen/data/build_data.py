@@ -17,7 +17,8 @@ ROOT = Path("data/pilot")
 
 
 def digest(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    with path.open("rb") as file:
+        return hashlib.file_digest(file, "sha256").hexdigest()
 
 
 def build_data(public=True, seed=41, gsm_traces=False, retention_file=None):

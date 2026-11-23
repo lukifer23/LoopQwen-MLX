@@ -78,6 +78,7 @@ def main():
     )
     p.add_argument("--checkpoint", required=True)
     p.add_argument("--output", required=True)
+    p.add_argument("--fusion", choices=["stock", "fp32"], default="stock")
     args = parser.parse_args()
     cmd = args.command
     if cmd == "doctor":
@@ -170,7 +171,7 @@ def main():
     elif cmd == "export":
         from .export import export
 
-        result = export(args.checkpoint, args.output)
+        result = export(args.checkpoint, args.output, args.fusion)
     elif cmd == "benchmark":
         from .benchmark.bench_inference import benchmark
 

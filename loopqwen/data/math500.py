@@ -13,8 +13,7 @@ REVISION = "7ecc794703b2877f63226f2477a49b34f9b25163"
 SHA256 = "35dc41080a3680858b27fa7e0533d2d547825316fc5dafe5d316f4ccc5a06132"
 
 
-def numeric_slice(tokenizer, n):
-    root = Path("data/math500")
+def numeric_slice(tokenizer, n, root=Path("data/math500")):
     root.mkdir(parents=True, exist_ok=True)
     path = root / "test.jsonl"
     url = f"https://media.githubusercontent.com/media/openai/prm800k/{REVISION}/prm800k/math_splits/test.jsonl"

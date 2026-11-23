@@ -57,7 +57,7 @@ def config(path):
         "validation",
     ):
         raise ValueError(
-            "This experiment requires the pinned BF16 base, tokenizer, AdamW and pilot splits."
+            "This experiment requires the pinned BF16 base, tokenizer, AdamW and registered train/validation splits."
         )
     for key in (
         "steps",
@@ -100,6 +100,10 @@ def config(path):
     if c["dataset"] == "v2":
         from .data.sampling import MIXTURES
 
+        if not c["response_only"]:
+            raise ValueError(
+                "V2 source accounting requires its registered target masks"
+            )
         if c.get("mixture") not in MIXTURES:
             raise ValueError("Choose a V2 mixture")
     if (

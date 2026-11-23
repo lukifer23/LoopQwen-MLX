@@ -4,7 +4,7 @@ from fractions import Fraction
 import pytest
 
 from loopqwen.data.reasoning import FAMILIES, problem
-from loopqwen.evaluation.phase2 import numeric
+from loopqwen.evaluation.answers import numeric
 
 
 @pytest.mark.parametrize(
@@ -47,3 +47,54 @@ def test_v2_targets():
         assert targets[start : start + n].tolist() == doc["ids"][doc["prefix"] :]
         start += n
     assert start == targets.size
+
+
+def test_exact_pairing_and_vote():
+    from loopqwen.evaluation.statistics import exact_mcnemar, paired
+    from loopqwen.evaluation.inference_budget import choose
+
+    assert exact_mcnemar(0, 5) == 0.0625
+    assert exact_mcnemar(3, 3) == 1.0
+    with pytest.raises(ValueError):
+        paired([{"id": "A", "correct": True}], [{"id": "B", "correct": True}])
+    assert (
+        choose([{"prediction": "5"}, {"prediction": "6"}, {"prediction": "6"}]) == "6"
+    )
+    assert (
+        choose([{"prediction": "5"}, {"prediction": "6"}, {"prediction": None}]) == "5"
+    )
+
+
+def test_recorded_split_and_order():
+    import json
+    from loopqwen.data.v2 import ROOT
+    from loopqwen.data.sampling import prepare
+    from loopqwen.config import config
+
+    def ids(split):
+        return [
+            json.loads(line)["id"]
+            for line in (ROOT / (split + ".jsonl")).read_text().splitlines()
+        ]
+
+    all_ids = sum(
+        (
+            ids(split)
+            for split in (
+                "train",
+                "validation",
+                "test",
+                "ood",
+                "language_train",
+                "language_validation",
+                "language_test",
+            )
+        ),
+        [],
+    )
+    assert len(set(all_ids)) == len(all_ids)
+    a = config("configs/phase2/p2_a_trace_loop.yaml")
+    r, _, _, pol = prepare(a)
+    dense, _, _, other = prepare(a | {"passes": 1})
+    assert pol == other and pol["excluded"] == {}
+    assert [s["id"] for s in r] == [s["id"] for s in dense]

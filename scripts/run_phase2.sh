@@ -10,3 +10,4 @@ for run in p2_a_trace_dense p2_a_trace_loop p2_a_answer_dense p2_a_answer_loop; 
 done
 "$python" -m loopqwen evaluate --experiment phase2_direct
 "$python" scripts/phase2_study.py all
+scripts/phase2_finish.sh
