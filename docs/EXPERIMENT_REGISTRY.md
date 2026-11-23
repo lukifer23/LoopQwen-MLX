@@ -9,6 +9,29 @@
 | Phase 3 main | 100,068 targets, 629 updates, 2,516 examples per arm | Dense, direct and selected learned interpolation with true bypass evaluation. [Main report](PHASE3_RESULTS.md) |
 | Phase 3 extension | 250,031 targets, 1,605 updates, 6,420 distinct examples per arm | Dense 58/150 ID and 41/150 OOD. Learned K=2 and its true K=1 bypass each scored 61/150 ID and 47/150 OOD. Confirmation criterion missed. [Promotion record](measurements/phase3/promotion.json) |
 
+## Phase 4 experiments
+
+The [Phase 4 registration](PHASE4_PLAN.md) fixes the seed, source revision, data, logical batch size, milestones and promotion thresholds. The [study manifest](../experiments/phase4.json) distinguishes the 250K equal-deployment-cost comparison, the 25K/100K dual-exit comparison and the independent categorical pointer experiment. Seed 109 is independent of Phase 3 seed 73. Each training arm has its own immutable execution-policy YAML. The data-matched dense and time-matched dense models are two points on a single training trajectory.
+
+From the project root, after the locked environment has been installed:
+
+```sh
+source .venv/bin/activate
+python -m loopqwen download
+python -m loopqwen data --preset v2
+python -m loopqwen data --preset v3
+python -m loopqwen.data.retention3
+scripts/run_phase4.sh efficiency audit
+scripts/run_phase4.sh replicate dual-exit latent evaluate --seed 109
+scripts/run_phase4.sh verify --seed 109
+```
+
+After the primary comparison, the registered capacity and weighting screens use `scripts/run_phase4.sh boundary v4 --seed 109`. The V4 stage creates the separate text dataset. The latent stage creates its disjoint permutations independently. Audit target counts and regenerate the research archive with `python scripts/phase4_exposure.py` followed by `python scripts/phase4_report.py`. Rendering the figure requires `uv sync --locked --group figures`.
+
+The native trainer marks recovery generations under `checkpoints/p4_109_<arm>/`. The full categorical checkpoints are under `checkpoints/p4_state_109_<arm>/`. Phase 4 writes development scores under identities that include the evaluated weights and ordered token streams. A published archive has a checksum index, and subsequent publications resolve to a separate local reproduction directory. The computations only read development items from the earlier phases.
+
+## Phase 3 reproduction
+
 The Phase 3 registration is in `experiments/phase3_dev.json`. The training schedule digest covers problem IDs, response protocol, prefix length, complete token IDs and batch boundaries. Source files, model revision, dependency versions, AdamW layout and sampler schema accompany strict checkpoints. The latest recovery generation and each crossed milestone are named by separate atomic pointers. A completed milestone can be evaluated while the 250K maximum remains available for extension.
 
 From the repository root with the locked environment installed and the pinned checkpoint cached, use the following commands. Each study stage acquires the checkout study lock. Each model worker acquires a per-user kernel GPU lease. Re-running a completed stage uses its saved progress.
