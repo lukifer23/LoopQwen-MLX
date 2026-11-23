@@ -1,6 +1,7 @@
+import re
 from collections import defaultdict
 from fractions import Fraction
-import re
+
 from .generation_eval import generate
 
 NUMBER = r"[+-]?(?:(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?|\.\d+)(?:\s*/\s*[+-]?\d+)?"

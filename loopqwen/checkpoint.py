@@ -1,13 +1,15 @@
-from pathlib import Path
 import tempfile
+from pathlib import Path
+
 import mlx.core as mx
 from mlx.utils import tree_flatten, tree_unflatten
+
 from .config import span
 from .io import read, save
+from .kernels.gdn_backend import select
 from .looped_model import LoopedModel
 from .model_loader import load_base
 from .training.adapters import attach
-from .kernels.gdn_backend import select
 
 
 def setup(c):

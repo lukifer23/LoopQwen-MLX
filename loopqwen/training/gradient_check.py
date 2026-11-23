@@ -2,9 +2,10 @@ import mlx.core as mx
 import mlx.nn as nn
 import mlx.optimizers as optim
 from mlx.utils import tree_flatten
+
 from ..io import save
 from ..looped_model import LoopedModel
-from ..model_loader import load_base, count
+from ..model_loader import count, load_base
 from .adapters import attach
 
 

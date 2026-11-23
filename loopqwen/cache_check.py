@@ -1,5 +1,7 @@
 from dataclasses import replace
+
 import mlx.core as mx
+
 from .evaluation.generation_eval import generate
 from .io import save
 from .looped_model import LoopedModel

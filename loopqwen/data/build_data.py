@@ -1,11 +1,13 @@
 import hashlib
 import json
-from pathlib import Path
 import random
+from pathlib import Path
 from urllib.request import urlopen
+
 from transformers import AutoTokenizer
+
 from .. import MODEL, REVISION
-from ..io import save, read
+from ..io import read, save
 from ..model_loader import local_snapshot
 from .procedural_math import CATEGORIES, problem
 from .tokenize import encode

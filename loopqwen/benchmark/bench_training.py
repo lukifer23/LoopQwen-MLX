@@ -1,8 +1,9 @@
 import mlx.core as mx
 import mlx.nn as nn
-from .bench_gdn import timed, relative
+
 from ..data.tokenize import batch
 from ..training.losses import loss_sum
+from .bench_gdn import relative, timed
 
 
 def bench_training(model, rows, c, n):

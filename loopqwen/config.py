@@ -1,6 +1,8 @@
-from pathlib import Path
 import re
+from pathlib import Path
+
 import yaml
+
 from . import MODEL, REVISION
 from .recurrence import Span
 

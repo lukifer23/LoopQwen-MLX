@@ -2,26 +2,26 @@
 
 import mlx.core as mx
 import mlx.nn as nn
+import pytest
 from mlx.utils import tree_flatten
 from mlx_lm.tuner.lora import LoRALinear
-import pytest
 
-from loopqwen.model_loader import load_base
-from loopqwen.looped_model import LoopedModel
-from loopqwen.recurrence import Span
-from loopqwen.probe import probe
-from loopqwen.cache_check import cache_check
 from loopqwen.benchmark.bench_gdn import bench_gdn, check_projection_gradients, relative
-from loopqwen.training.gradient_check import gradient_check
-from loopqwen.training.adapters import attach
-from loopqwen.kernels.gdn_backend import select
+from loopqwen.cache_check import cache_check
+from loopqwen.checkpoint import restore, setup, write
+from loopqwen.config import config
 from loopqwen.data.build_data import load_split
 from loopqwen.data.tokenize import batch
 from loopqwen.evaluation.math_eval import normalized
-from loopqwen.checkpoint import setup, restore, write
-from loopqwen.config import config
-from loopqwen.training.optimizers import optimizer
+from loopqwen.kernels.gdn_backend import select
+from loopqwen.looped_model import LoopedModel
+from loopqwen.model_loader import load_base
+from loopqwen.probe import probe
+from loopqwen.recurrence import Span
+from loopqwen.training.adapters import attach
+from loopqwen.training.gradient_check import gradient_check
 from loopqwen.training.losses import loss_sum
+from loopqwen.training.optimizers import optimizer
 
 
 def test_pretrained_and_schedule():

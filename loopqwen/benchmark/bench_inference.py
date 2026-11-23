@@ -1,17 +1,19 @@
 from dataclasses import replace
 from pathlib import Path
 from statistics import median
+
 import mlx.core as mx
 import yaml
-from .bench_gdn import bench_gdn, check_projection_gradients, timed
-from .bench_training import bench_training
-from ..config import config
+
 from ..checkpoint import setup
+from ..config import config
 from ..data.build_data import load_split
 from ..evaluation.generation_eval import generate
-from ..training.trainer import evaluate_rows
 from ..hardware import doctor
 from ..io import save
+from ..training.trainer import evaluate_rows
+from .bench_gdn import bench_gdn, check_projection_gradients, timed
+from .bench_training import bench_training
 
 
 def benchmark(path):

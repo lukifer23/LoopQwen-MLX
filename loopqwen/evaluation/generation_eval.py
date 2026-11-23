@@ -18,9 +18,20 @@ def generate(model, tokenizer, prompt, max_tokens=24):
     model.eval()
     mx.synchronize()
     start = perf_counter()
+    # Bound prefill activation memory. Each chunk advances every site once.
+    while inputs.shape[1] > 128:
+        chunk = inputs[:, :128]
+        if hasattr(model, "hidden"):
+            mx.eval(model.hidden(chunk, cache))
+        else:
+            mx.eval(model(chunk, cache=cache)[:, -1])
+        inputs = inputs[:, 128:]
     output = []
     for step in range(max_tokens):
-        logits = model(inputs, cache=cache)
+        if hasattr(model, "hidden"):
+            logits = model.project(model.hidden(inputs, cache)[:, -1:])
+        else:
+            logits = model(inputs, cache=cache)
         token = mx.argmax(logits[:, -1], -1).item()
         if step == 0:
             first = perf_counter()

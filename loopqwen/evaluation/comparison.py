@@ -1,20 +1,21 @@
+import gc
 from collections import Counter
 from dataclasses import replace
 from pathlib import Path
-import gc
-import yaml
+
 import mlx.core as mx
+import yaml
 
 from ..checkpoint import load_trained, location
-from ..data.build_data import load_split, ROOT
+from ..data.build_data import ROOT, load_split
 from ..io import read, save
 from ..looped_model import LoopedModel
 from ..model_loader import load_base
 from ..recurrence import Span
 from ..training.trainer import evaluate_rows
+from .generation_eval import generate
 from .loss_eval import language_loss
 from .math_eval import math_eval
-from .generation_eval import generate
 
 
 def verify_pair(experiment):
@@ -115,10 +116,20 @@ def evaluate(experiment):
         )
         if gsm:
             results["gsm"] = math_eval(model, tok, gsm, settings["max_tokens"], matched)
+        if gsm and settings.get("math500_numeric_examples", 0):
+            from ..data.math500 import numeric_slice
+
+            math_rows = numeric_slice(tok, settings["math500_numeric_examples"])
+            results["math500_numeric"] = math_eval(
+                model, tok, math_rows, settings["max_tokens"], matched
+            )
         save(out / (name + ".json"), results)
         records = results["procedural"]["records"]
         suite[name] = dict(
             k=k,
+            math500_numeric=results.get("math500_numeric", {})
+            .get("groups", {})
+            .get("all"),
             prose_nll=results["prose"]["nll"],
             answer_nll=results["answer_loss"]["nll"],
             perplexity=results["answer_loss"]["perplexity"],

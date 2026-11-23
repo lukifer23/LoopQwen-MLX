@@ -11,8 +11,8 @@ from time import perf_counter
 import mlx.core as mx
 import mlx.nn as nn
 import mlx.optimizers as optim
-from mlx.utils import tree_map
 import psutil
+from mlx.utils import tree_map
 
 from .. import checkpoint
 from ..config import config, span

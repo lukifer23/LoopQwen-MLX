@@ -1,9 +1,11 @@
 from statistics import median
 from time import perf_counter
+
 import mlx.core as mx
 from mlx_lm.models.gated_delta import gated_delta_update
-from ..kernels.gdn_backend import native_update
+
 from ..io import save
+from ..kernels.gdn_backend import native_update
 
 
 def relative(a, b):
@@ -103,9 +105,10 @@ def bench_gdn():
 def check_projection_gradients():
     import mlx.nn as nn
     from mlx.utils import tree_flatten
-    from ..model_loader import load_base
-    from ..looped_model import LoopedModel
+
     from ..kernels.gdn_backend import select
+    from ..looped_model import LoopedModel
+    from ..model_loader import load_base
 
     model = LoopedModel(load_base()[0])
     model.train()

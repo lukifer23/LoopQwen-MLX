@@ -3,6 +3,7 @@
 import argparse
 import json
 from pathlib import Path
+
 from .io import save
 
 
@@ -111,6 +112,7 @@ def main():
         result = path if cmd == "report" else Path(path).read_text()
     elif cmd == "generate":
         from dataclasses import replace
+
         from .evaluation.generation_eval import generate
 
         if (Path(args.checkpoint) / "config.json").exists():

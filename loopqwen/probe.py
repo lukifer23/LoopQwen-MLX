@@ -1,11 +1,13 @@
 from dataclasses import replace
 from time import perf_counter
+
 import mlx.core as mx
 from mlx.utils import tree_flatten
-from .model_loader import load_base, count
-from .looped_model import LoopedModel
+
 from .evaluation.loss_eval import language_loss
 from .io import save
+from .looped_model import LoopedModel
+from .model_loader import count, load_base
 
 
 def probe(span):

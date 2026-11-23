@@ -1,4 +1,5 @@
 import math
+
 import mlx.core as mx
 
 # Fixed standalone documents, authored for this project and excluded from training.

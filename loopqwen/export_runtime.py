@@ -2,11 +2,13 @@
 
 import json
 from pathlib import Path
+
 import mlx.core as mx
-from mlx_lm.models.qwen3_5 import TextModelArgs, TextModel
+from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
 from mlx_lm.tokenizer_utils import load as load_tokenizer
-from .recurrence import Span
+
 from .looped_model import LoopedModel
+from .recurrence import Span
 
 
 def load_export(directory):

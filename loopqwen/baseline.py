@@ -1,7 +1,7 @@
 from .evaluation.generation_eval import generate
 from .evaluation.loss_eval import language_loss
-from .model_loader import load_base
 from .io import save
+from .model_loader import load_base
 
 
 def baseline():
