@@ -29,6 +29,7 @@ def main():
     if study["milestone"] != 100000:
         raise ValueError("Complete the main experiment before post-training audits")
     tasks = [
+        ("regression", ["scripts/phase3_regression.py"], "regression.json"),
         ("coefficients", ["scripts/phase3_gate_audit.py"], "gate-controls.json"),
         ("curves", ["-m", "loopqwen.evaluation.phase3_curve"], "learning-curves.json"),
         ("audit", ["-m", "loopqwen.benchmark.phase3_audit"], "native-audit.json"),
