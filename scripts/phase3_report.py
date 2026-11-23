@@ -411,7 +411,13 @@ def docs(archive, destination):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--archive", type=Path, default=Path("docs/measurements/phase3"))
-    p.add_argument("--destination", default="docs")
+    p.add_argument("--archive", type=Path)
+    p.add_argument("--destination", type=Path)
     a = p.parse_args()
-    docs(a.archive, a.destination)
+    archive = a.archive or Path(read("outputs/phase3/archive-location.json")["archive"])
+    dest = a.destination or (
+        archive.parents[1]
+        if archive.parent.name == "measurements"
+        else archive / "reports"
+    )
+    docs(archive, dest)

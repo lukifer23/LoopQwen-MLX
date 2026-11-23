@@ -107,8 +107,9 @@ def publish(destination):
     dest = Path(destination)
     adapter_dest = Path("adapters/phase3")
     if (dest / "checksums.json").is_file():
-        dest = Path("outputs/phase3/reproduction") / digest(out / "main.json")[:16]
-        adapter_dest = dest / "adapters"
+        replay = Path("outputs/phase3/reproduction") / digest(out / "main.json")[:16]
+        dest = replay / "docs/measurements/phase3"
+        adapter_dest = replay / "adapters/phase3"
     budgets = read(out / "exposure.json")
     dest.mkdir(exist_ok=True, parents=True)
     metrics = {}
@@ -271,6 +272,10 @@ Use native MLX 0.32.4 and MLX-LM 0.32.2. Reproduce with `scripts/run_phase3.sh m
         if p.is_file() and p.name != "checksums.json"
     }
     save(dest / "checksums.json", index)
+    save(
+        out / "archive-location.json",
+        dict(archive=str(dest), adapters=str(adapter_dest)),
+    )
 
 
 if __name__ == "__main__":
