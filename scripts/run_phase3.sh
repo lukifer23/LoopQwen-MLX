@@ -33,5 +33,11 @@ smoke|screening|main)
   done
   "$python" -m loopqwen.evaluation.phase3 main "$selected"
   ;;
-*) echo "Use smoke, screening or main" >&2; exit 2;;
+promote)
+  selected=$("$python" -m loopqwen.evaluation.phase3_promotion check)
+  study dense --targets 250000
+  study "$selected" --targets 250000
+  "$python" -m loopqwen.evaluation.phase3_promotion evaluate
+  ;;
+*) echo "Use smoke, screening, main or promote" >&2; exit 2;;
 esac
