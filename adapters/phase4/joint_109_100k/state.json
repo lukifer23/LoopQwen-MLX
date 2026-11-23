@@ -1,0 +1,711 @@
+{
+  "config": {
+    "base_model": "Qwen/Qwen3.5-0.8B-Base",
+    "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "precision": "bfloat16",
+    "start": 10,
+    "length": 6,
+    "passes": 2,
+    "mode": "stabilized",
+    "alpha_init": 0.1,
+    "alpha_schedule": null,
+    "curriculum": "direct",
+    "depth_weights": [
+      0.1,
+      0.9,
+      0.0
+    ],
+    "target": "block",
+    "projections": null,
+    "rank": 8,
+    "lora_alpha": 16,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0001,
+    "warmup": 5,
+    "weight_decay": 0.01,
+    "clip": 1.0,
+    "seed": 109,
+    "sequence_length": 256,
+    "batch_size": 4,
+    "accumulation": 1,
+    "gradient_checkpointing": false,
+    "steps": 6000,
+    "checkpoint_interval": 150,
+    "eval_interval": 6000,
+    "eval_count": 30,
+    "response_only": true,
+    "dataset": "v2",
+    "training_split": "train",
+    "validation_split": "validation",
+    "gdn_backend": "native",
+    "memory_target_gib": 8,
+    "min_available_gib": 1,
+    "bucket_policy": "protocol_and_length",
+    "checkpoint_policy": "all",
+    "first_exit_weight": 0.25,
+    "gate_lr": 0.001,
+    "label_budget": 100000,
+    "max_microbatch_positions": 360,
+    "milestones": [
+      25000,
+      100000,
+      250000
+    ],
+    "mixture": "mixed_answer_and_traces",
+    "name": "p4_109_joint",
+    "strict_resume": true,
+    "validation_batch_size": 4
+  },
+  "manifest": {
+    "schema": 2,
+    "generator": "ffc08ff3dbd4370cb5f29b3e2cd9a24c5411ae1d9694eacad878e0ac326d1e6a",
+    "builder": "bc2816ac9c64eebf3fe2e40f5cd06b54b87e3d3ffaf7893214c618d4fd206385",
+    "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "seed": 2602,
+    "train_requested": 24000,
+    "splits": {
+      "train": {
+        "count": 24000,
+        "sha256": "ff00479c32000b01390f7ddae71acf241ea00c2b58b65d99567c55f278ff6338",
+        "categories": {
+          "arithmetic": 4800,
+          "system": 4800,
+          "modular": 4800,
+          "dependencies": 4800,
+          "array": 4800
+        },
+        "levels": {
+          "0": 8000,
+          "1": 8000,
+          "2": 8000
+        },
+        "supervised": {
+          "answer": 100453,
+          "trace": 1784049
+        }
+      },
+      "validation": {
+        "count": 450,
+        "sha256": "10cc1e86da1d5a7258a87164d444d1ff26dc1c8d88c3406e55164d76adadf292",
+        "categories": {
+          "arithmetic": 90,
+          "system": 90,
+          "modular": 90,
+          "dependencies": 90,
+          "array": 90
+        },
+        "levels": {
+          "0": 150,
+          "1": 150,
+          "2": 150
+        },
+        "supervised": {
+          "answer": 1887,
+          "trace": 33560
+        }
+      },
+      "test": {
+        "count": 300,
+        "sha256": "1d8ac21403232ebb66cb4cc7498a515a3d6524af01b7524e871a9eb9ff477f72",
+        "categories": {
+          "arithmetic": 60,
+          "system": 60,
+          "modular": 60,
+          "dependencies": 60,
+          "array": 60
+        },
+        "levels": {
+          "0": 100,
+          "1": 100,
+          "2": 100
+        },
+        "supervised": {
+          "answer": 1278,
+          "trace": 22458
+        }
+      },
+      "ood": {
+        "count": 300,
+        "sha256": "386ad1b5dcf09f1c5b5dcd936b0613f94721c8094f0e59ba5c026f35150feb1c",
+        "categories": {
+          "arithmetic": 60,
+          "system": 60,
+          "modular": 60,
+          "dependencies": 60,
+          "array": 60
+        },
+        "levels": {
+          "0": 100,
+          "1": 100,
+          "2": 100
+        },
+        "supervised": {
+          "answer": 1536,
+          "trace": 31413
+        }
+      },
+      "language_train": {
+        "count": 227,
+        "sha256": "b854fc94ec2b4796b6b1700a9e356678bd13117fc7bbf630a0c3f995c7cbf446",
+        "categories": {
+          "language": 227
+        },
+        "levels": {
+          "0": 227
+        },
+        "supervised": {
+          "language": 16145
+        }
+      },
+      "language_validation": {
+        "count": 64,
+        "sha256": "e55fba6ea316c3529d33c13b1f757eceaf89f1aec4fca61d9da24de186708f1f",
+        "categories": {
+          "language": 64
+        },
+        "levels": {
+          "0": 64
+        },
+        "supervised": {
+          "language": 4701
+        }
+      },
+      "language_test": {
+        "count": 128,
+        "sha256": "9ebbf4b9a612dbb3e477be97c65499398e7582fcc9ad2d5431cda7a097b5e86b",
+        "categories": {
+          "language": 128
+        },
+        "levels": {
+          "0": 128
+        },
+        "supervised": {
+          "language": 9098
+        }
+      }
+    },
+    "sources": {
+      "procedural": "Project MIT"
+    },
+    "books": [
+      {
+        "repo": "Alice-s-Adventures-in-Wonderland_11",
+        "url": "https://raw.githubusercontent.com/GITenberg/Alice-s-Adventures-in-Wonderland_11/7f18748e114b994d5d9454d5793581bc0b9cf9d7/11.txt",
+        "rights": "Public domain in the USA",
+        "revision": "7f18748e114b994d5d9454d5793581bc0b9cf9d7"
+      },
+      {
+        "repo": "The-Secret-Garden_113",
+        "url": "https://raw.githubusercontent.com/GITenberg/The-Secret-Garden_113/0031c0badd0d3fc83860c941d2f39d4aa345c51b/113.txt",
+        "rights": "Public domain in the USA",
+        "revision": "0031c0badd0d3fc83860c941d2f39d4aa345c51b"
+      }
+    ]
+  },
+  "git": "cc527b953c7de416d27430a6acf25ca2e6348d59",
+  "hardware": {
+    "device": {
+      "device_name": "Apple M3 Pro",
+      "max_recommended_working_set_size": 14302248960,
+      "memory_size": 19327352832,
+      "architecture": "applegpu_g15s",
+      "max_buffer_length": 10726686720,
+      "resource_limit": 499000
+    },
+    "default_device": "Device(gpu, 0)",
+    "metal_available": true,
+    "hardware_model": "Mac15,6",
+    "macos": "27.3",
+    "python": "3.12.12",
+    "arch": "arm64",
+    "cpu_cores": 11,
+    "gpu_cores": 14,
+    "cpu_clusters": [
+      5,
+      6
+    ],
+    "available_bytes": 6189137920,
+    "metal_test": 3.0,
+    "versions": {
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "mlx-metal": "0.32.4",
+      "transformers": "5.24.0"
+    },
+    "kernels": {
+      "gated_delta_update": true,
+      "cross_entropy": true,
+      "rms_norm": true,
+      "scaled_dot_product_attention": true,
+      "metal_kernel": true
+    },
+    "transforms": {
+      "compile": true,
+      "checkpoint": true,
+      "value_and_grad": true
+    },
+    "expected_bf16_text_bytes": 1505000000,
+    "checkpoints": [
+      "checkpoints/extended_dense",
+      "checkpoints/extended_loop",
+      "checkpoints/p2_a_answer_dense",
+      "checkpoints/p2_a_answer_loop",
+      "checkpoints/p2_a_trace_dense",
+      "checkpoints/p2_a_trace_loop",
+      "checkpoints/p2_anchor",
+      "checkpoints/p2_confirm_43_dense",
+      "checkpoints/p2_confirm_43_loop",
+      "checkpoints/p2_confirm_43_time",
+      "checkpoints/p2_confirm_53_dense",
+      "checkpoints/p2_confirm_53_loop",
+      "checkpoints/p2_confirm_53_time",
+      "checkpoints/p2_confirm_67_dense",
+      "checkpoints/p2_confirm_67_loop",
+      "checkpoints/p2_confirm_67_time",
+      "checkpoints/p2_repeat_direct",
+      "checkpoints/p2_screen_direct",
+      "checkpoints/p2_screen_formats",
+      "checkpoints/p2_screen_formats_dense",
+      "checkpoints/p2_screen_gradual",
+      "checkpoints/p2_screen_mixed",
+      "checkpoints/p2_screen_mlp10",
+      "checkpoints/p2_screen_mlp16",
+      "checkpoints/p2_screen_mlp8",
+      "checkpoints/p2_screen_nearby",
+      "checkpoints/p2_screen_rank16",
+      "checkpoints/p2_screen_stabilized",
+      "checkpoints/p3_audit_extend",
+      "checkpoints/p3_audit_identity",
+      "checkpoints/p3_audit_weights",
+      "checkpoints/p3_dense",
+      "checkpoints/p3_direct",
+      "checkpoints/p3_direct_profile_matched_instance_order_on",
+      "checkpoints/p3_direct_profile_protocol_and_length_block",
+      "checkpoints/p3_direct_profile_protocol_and_length_off",
+      "checkpoints/p3_direct_profile_protocol_and_length_on",
+      "checkpoints/p3_fixed",
+      "checkpoints/p3_learn1",
+      "checkpoints/p3_learn2",
+      "checkpoints/p3_schedule_audit",
+      "checkpoints/p4_109_dense",
+      "checkpoints/p4_109_gated",
+      "checkpoints/p4_profile_256_all",
+      "checkpoints/p4_profile_256_block",
+      "checkpoints/p4_profile_256_off",
+      "checkpoints/p4_profile_360_all",
+      "checkpoints/p4_profile_360_block",
+      "checkpoints/p4_profile_360_off",
+      "checkpoints/p4_profile_512_all",
+      "checkpoints/p4_profile_512_block",
+      "checkpoints/p4_profile_512_off",
+      "checkpoints/p4_profile_768_all",
+      "checkpoints/p4_profile_768_block",
+      "checkpoints/p4_profile_768_off",
+      "checkpoints/p4_profile_None_off",
+      "checkpoints/pilot_dense",
+      "checkpoints/pilot_loop",
+      "checkpoints/smoke",
+      "checkpoints/smoke_dense"
+    ]
+  },
+  "model": {
+    "model": "Qwen/Qwen3.5-0.8B-Base",
+    "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "unique_parameters": 752393024,
+    "precision": {
+      "mlx.core.bfloat16": 752390432,
+      "mlx.core.float32": 2592
+    },
+    "load_seconds": 0.8961889999991399,
+    "layers": [
+      {
+        "index": 0,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 1,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 2,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 3,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 4,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 5,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 6,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 7,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 8,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 9,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 10,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 11,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 12,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 13,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 14,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 15,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 16,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 17,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 18,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 19,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      },
+      {
+        "index": 20,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 21,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 22,
+        "kind": "linear_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "linear_attn.out_proj",
+          "linear_attn.in_proj_a",
+          "linear_attn.in_proj_b",
+          "linear_attn.in_proj_z",
+          "linear_attn.in_proj_qkv"
+        ]
+      },
+      {
+        "index": 23,
+        "kind": "full_attention",
+        "projections": [
+          "mlp.up_proj",
+          "mlp.down_proj",
+          "mlp.gate_proj",
+          "self_attn.o_proj",
+          "self_attn.v_proj",
+          "self_attn.k_proj",
+          "self_attn.q_proj"
+        ]
+      }
+    ]
+  },
+  "trainable": 1336321,
+  "step": 619,
+  "cursor": 2476,
+  "input_tokens": 235064,
+  "loss_tokens": 100229,
+  "order_hash": "814b1e7e6abd3c7fb96e2525a81a969aa34e2b57b034468db0e1fb05116281e3",
+  "sequence_length": 256,
+  "batch_size": 4,
+  "checkpointing": false,
+  "package_sha256": "cfd0bdf8b884f7aea3d66306192792a4835d30e9c5f8e75c9ce8f0f4e6f5d199",
+  "git_dirty": false,
+  "training_identity": {
+    "schema": 1,
+    "sources": {
+      "__init__.py": "edd62f047f1d99466d0ff61bb31e30ebcacba90d83bccee964b1160ba57ff699",
+      "config.py": "d1380a5222ec820ce151ce5e19bcebf8a6fbea355e1ca80ba9a396dedcda5661",
+      "model_loader.py": "f9cd0b9f9995ebb71b0f34836eac24ee7eef1af05442b9906ce89520b2af02ff",
+      "looped_model.py": "9ccfb5b79a26d0027d70ea3840947c4035607a30eadc47bc53f70bf13b3ce134",
+      "recurrence.py": "7e6235a75981e66a16c616214b0c0efdb4a65b4ef18f23c287db9dfb5c345e03",
+      "kernels/gdn_backend.py": "2c1a99ba910a16b6e764f8990800512fffaa0de6d1101dc3a7b4bdc998837a01",
+      "training/trainer.py": "ce5295271b84307d8739d6f7eb5e307afc31d52eb90fdf43725cc0eb5bfb6a1e",
+      "training/adapters.py": "c3346628c6dcdf1ca99b4f0b11266714a8c410371e2252806bad693ad6964e15",
+      "training/optimizers.py": "3bb05be9b02da6101d872d5e1d459b7927aefa1d1996b52bc1b1c12782e7c832",
+      "training/losses.py": "0066d870c5c8106fec1e6b62338581243e7a88eb15cbf9eb8461248514880c70",
+      "data/sampling.py": "e0ab7c9475e6c018db698fa8d285e90dc9b4b2a9d3c9a5e945e1c6ae5f663e31",
+      "data/tokenize.py": "02b98d46efdf46a038632caf80b8aa5cdf087991fce11fb3088f28fd0e16c32a",
+      "data/token_classes.py": "7246a32552e5fdb24ef566e5d70dfa4cd74acae148f7ff2506cfd81c9e13120c",
+      "recurrent_cache.py": "b364a1aa16a9a36f925413a7aa0fee97850828bbdf24ca434fa1d257813fa895",
+      "data/v2.py": "bc2816ac9c64eebf3fe2e40f5cd06b54b87e3d3ffaf7893214c618d4fd206385",
+      "checkpoint.py": "b40c15db0516dd730bfcdd495133664ae9e0f909a662121f72f1b629a9ccecae",
+      "identity.py": "a8159fe9bf1e06cac012709675de74d348ced9d86bf60f8c9baa238c6fabea3a"
+    },
+    "dependencies": {
+      "mlx": "0.32.4",
+      "mlx-lm": "0.32.2",
+      "transformers": "5.24.0",
+      "tokenizers": "0.23.3",
+      "numpy": "2.5.5"
+    },
+    "config": "8f024ed9424ee68501b95f0a1fe98cbc0a1dc8abb4e2f550b1bce26c711f52a7",
+    "data": "8e1a06ca22906a8976b0cf0e3173288b8cfaebbdc32a610528b285d65835a22c",
+    "optimizer": "split-adamw-v1",
+    "sampler": "v2-ordered-batches-v1",
+    "recurrence": "shared-site-v1"
+  },
+  "sampling": {
+    "eligible": 24000,
+    "excluded": {},
+    "weights": {
+      "answer": 0.5,
+      "trace": 0.5
+    },
+    "schedule_digest": "c255b0435f50c2ce71fbed25bac49cb3f247227418879c41768927da3f2b18e2"
+  },
+  "alpha_override": null,
+  "next_mlx_seed": 728,
+  "status": "completed"
+}

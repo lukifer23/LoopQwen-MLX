@@ -1,0 +1,34 @@
+{
+  "dataset": "v3",
+  "seed": 3703,
+  "license": "MIT",
+  "training_dataset": "v2",
+  "splits": {
+    "development": {
+      "count": 150,
+      "ids": "c343487d6270b51aa275a0d089ecf20c714183df7763ea66b667aa64bd063dbe",
+      "sha256": "daec820847b066f515167f442216f949d08317a49754b878ca05356eb8351cbd"
+    },
+    "development_ood": {
+      "count": 150,
+      "ids": "2b81b6e941817992681f9d7dc07879b4e2d7aa9495641ebeebaeef51d61b397a",
+      "sha256": "677e1178c81e88cdb7c5fd6c495d8358f6e1d097bd1003e9206a2a857d8059db"
+    },
+    "confirm": {
+      "count": 300,
+      "ids": "eba08d7c9a691fbad4eac3d545732a1ac8efaae47cf363841ab1da56b3bfd447",
+      "sha256": "802c260c13240b2bd030ff6e39f140c07c95860adbbc8656a335ad2d44e1813b"
+    },
+    "confirm_ood": {
+      "count": 300,
+      "ids": "fbc0e21ccc3836a4bc02975ff2ac9e0b5c25b717b0ca8cad145aa11054dcdf20",
+      "sha256": "e178c33f6e61648ac605e02b42d747dc89e82fe8501fa017835e82162eb38905"
+    }
+  },
+  "generator": {
+    "v3.py": "bc08718b9fd13e98ef950bac7fab373d1b9296ff9f0146c309cf547052b2d42d",
+    "graphs.py": "380ad69a92537902dff6bc6bb1a32fc7cd0833d7faa69bf61e36a7d3448e7af8",
+    "reasoning.py": "ffc08ff3dbd4370cb5f29b3e2cd9a24c5411ae1d9694eacad878e0ac326d1e6a"
+  },
+  "exclusions": "37f82776fa0a006af67447f8e4ca8ca142e1e6f842f4fff6b78bd6d27a59f0c3"
+}

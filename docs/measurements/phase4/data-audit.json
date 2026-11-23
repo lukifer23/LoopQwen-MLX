@@ -1,0 +1,50 @@
+{
+  "train": {
+    "sha256": "21d564dfa81119d1cf7a2a16da32affefde22994757c78f6c953b80957132b95",
+    "verified_new_examples": {
+      "dependencies": 1500,
+      "pointer": 1500
+    }
+  },
+  "validation": {
+    "sha256": "93e41ae51db9c8c4414c19cce61ad2902a450845bec2bb75403c62eecc889865",
+    "verified_new_examples": {
+      "dependencies": 60,
+      "pointer": 60
+    }
+  },
+  "ood": {
+    "sha256": "8170233f46646898646a17056b150384423959e66e18649d8d87486c46fc0050",
+    "verified_new_examples": {
+      "dependencies": 60,
+      "pointer": 60
+    }
+  },
+  "pointer/train": {
+    "maps": 3840,
+    "explicit_state_labels": 23040,
+    "sha256": "ed8c976b26f1f1cb56753341f5ba7617dd1db66e68ce2a66ef7de1136848a353"
+  },
+  "pointer/development": {
+    "maps": 384,
+    "explicit_state_labels": 2304,
+    "sha256": "81a8bf645f6f203691cb2eae0cc2488ad58a519b8078ffdad51d37df53281c7d"
+  },
+  "pointer/start_depth_prior": {
+    "terminal_correct": [
+      53,
+      62,
+      54
+    ],
+    "denominator": 384,
+    "allowed_state_guess_probability": 0.14285714285714285
+  },
+  "historical/confirm": {
+    "sha256": "802c260c13240b2bd030ff6e39f140c07c95860adbbc8656a335ad2d44e1813b",
+    "check": "file digest only"
+  },
+  "historical/confirm_ood": {
+    "sha256": "e178c33f6e61648ac605e02b42d747dc89e82fe8501fa017835e82162eb38905",
+    "check": "file digest only"
+  }
+}

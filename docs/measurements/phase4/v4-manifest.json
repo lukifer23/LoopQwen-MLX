@@ -1,0 +1,71 @@
+{
+  "schema": 4,
+  "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "seed": 4204,
+  "generator": "1e94604d4a132ec426017ad5402dc8ff5def466b7c9a3f449d85d6314485594a",
+  "sources": {
+    "procedural": "Project MIT",
+    "parent": "37f82776fa0a006af67447f8e4ca8ca142e1e6f842f4fff6b78bd6d27a59f0c3",
+    "pointers": {
+      "schema": 1,
+      "seed": 40819,
+      "states": 8,
+      "license": "Project MIT",
+      "generator": "94166d1bdb2966500cf9d17fa8a6f2b52811123568ce3d4fe1f1874c557607cf",
+      "splits": {
+        "train": "ed8c976b26f1f1cb56753341f5ba7617dd1db66e68ce2a66ef7de1136848a353",
+        "development": "81a8bf645f6f203691cb2eae0cc2488ad58a519b8078ffdad51d37df53281c7d"
+      }
+    }
+  },
+  "splits": {
+    "train": {
+      "count": 7500,
+      "sha256": "21d564dfa81119d1cf7a2a16da32affefde22994757c78f6c953b80957132b95",
+      "supervised": {
+        "answer": 30841,
+        "trace": 590344
+      },
+      "categories": {
+        "modular": 924,
+        "array": 896,
+        "system": 884,
+        "dependencies": 2395,
+        "pointer": 1500,
+        "arithmetic": 901
+      }
+    },
+    "validation": {
+      "count": 300,
+      "sha256": "93e41ae51db9c8c4414c19cce61ad2902a450845bec2bb75403c62eecc889865",
+      "supervised": {
+        "answer": 1256,
+        "trace": 23719
+      },
+      "categories": {
+        "array": 36,
+        "modular": 29,
+        "arithmetic": 44,
+        "dependencies": 95,
+        "pointer": 60,
+        "system": 36
+      }
+    },
+    "ood": {
+      "count": 300,
+      "sha256": "8170233f46646898646a17056b150384423959e66e18649d8d87486c46fc0050",
+      "supervised": {
+        "answer": 1445,
+        "trace": 32868
+      },
+      "categories": {
+        "dependencies": 95,
+        "system": 37,
+        "pointer": 60,
+        "modular": 37,
+        "arithmetic": 34,
+        "array": 37
+      }
+    }
+  }
+}

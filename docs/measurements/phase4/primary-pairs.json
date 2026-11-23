@@ -1,0 +1,408 @@
+{
+  "dense-250000-k1/gated-250000-k1": {
+    "development/answer": {
+      "dense": 15,
+      "loop": 11,
+      "wins": 3,
+      "losses": 7,
+      "n": 150,
+      "difference": -0.02666666666666667,
+      "mcnemar": 0.34375,
+      "item_ci95": [
+        -0.06666666666666667,
+        0.013333333333333334
+      ],
+      "verified_change": 0
+    },
+    "development/trace": {
+      "dense": 63,
+      "loop": 66,
+      "wins": 6,
+      "losses": 3,
+      "n": 150,
+      "difference": 0.02,
+      "mcnemar": 0.5078125,
+      "item_ci95": [
+        -0.02,
+        0.06
+      ],
+      "verified_change": 2
+    },
+    "development_ood/answer": {
+      "dense": 5,
+      "loop": 7,
+      "wins": 4,
+      "losses": 2,
+      "n": 150,
+      "difference": 0.013333333333333334,
+      "mcnemar": 0.6875,
+      "item_ci95": [
+        -0.02,
+        0.04666666666666667
+      ],
+      "verified_change": 0
+    },
+    "development_ood/trace": {
+      "dense": 45,
+      "loop": 48,
+      "wins": 4,
+      "losses": 1,
+      "n": 150,
+      "difference": 0.02,
+      "mcnemar": 0.375,
+      "item_ci95": [
+        -0.006666666666666667,
+        0.05333333333333334
+      ],
+      "verified_change": 3
+    }
+  },
+  "time-250000-k1/gated-250000-k1": {
+    "development/answer": {
+      "dense": 9,
+      "loop": 11,
+      "wins": 6,
+      "losses": 4,
+      "n": 150,
+      "difference": 0.013333333333333334,
+      "mcnemar": 0.75390625,
+      "item_ci95": [
+        -0.02666666666666667,
+        0.05333333333333334
+      ],
+      "verified_change": 0
+    },
+    "development/trace": {
+      "dense": 63,
+      "loop": 66,
+      "wins": 6,
+      "losses": 3,
+      "n": 150,
+      "difference": 0.02,
+      "mcnemar": 0.5078125,
+      "item_ci95": [
+        -0.02,
+        0.06
+      ],
+      "verified_change": 0
+    },
+    "development_ood/answer": {
+      "dense": 10,
+      "loop": 7,
+      "wins": 5,
+      "losses": 8,
+      "n": 150,
+      "difference": -0.02,
+      "mcnemar": 0.5810546875,
+      "item_ci95": [
+        -0.06666666666666667,
+        0.02666666666666667
+      ],
+      "verified_change": 0
+    },
+    "development_ood/trace": {
+      "dense": 45,
+      "loop": 48,
+      "wins": 4,
+      "losses": 1,
+      "n": 150,
+      "difference": 0.02,
+      "mcnemar": 0.375,
+      "item_ci95": [
+        -0.006666666666666667,
+        0.05333333333333334
+      ],
+      "verified_change": 1
+    }
+  },
+  "gated-250000-k1/gated-250000-k2": {
+    "development/answer": {
+      "dense": 11,
+      "loop": 15,
+      "wins": 4,
+      "losses": 0,
+      "n": 150,
+      "difference": 0.02666666666666667,
+      "mcnemar": 0.125,
+      "item_ci95": [
+        0.006666666666666667,
+        0.05333333333333334
+      ],
+      "verified_change": 0
+    },
+    "development/trace": {
+      "dense": 66,
+      "loop": 64,
+      "wins": 1,
+      "losses": 3,
+      "n": 150,
+      "difference": -0.013333333333333334,
+      "mcnemar": 0.625,
+      "item_ci95": [
+        -0.04,
+        0.013333333333333334
+      ],
+      "verified_change": -1
+    },
+    "development_ood/answer": {
+      "dense": 7,
+      "loop": 5,
+      "wins": 0,
+      "losses": 2,
+      "n": 150,
+      "difference": -0.013333333333333334,
+      "mcnemar": 0.5,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.0
+      ],
+      "verified_change": 0
+    },
+    "development_ood/trace": {
+      "dense": 48,
+      "loop": 48,
+      "wins": 1,
+      "losses": 1,
+      "n": 150,
+      "difference": 0.0,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.02,
+        0.02
+      ],
+      "verified_change": -1
+    }
+  },
+  "dense-100000-k1/joint-100000-k2": {
+    "development/answer": {
+      "dense": 9,
+      "loop": 9,
+      "wins": 2,
+      "losses": 2,
+      "n": 150,
+      "difference": 0.0,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.02666666666666667,
+        0.02666666666666667
+      ],
+      "verified_change": 0
+    },
+    "development/trace": {
+      "dense": 52,
+      "loop": 52,
+      "wins": 6,
+      "losses": 6,
+      "n": 150,
+      "difference": 0.0,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.04666666666666667,
+        0.04666666666666667
+      ],
+      "verified_change": 1
+    },
+    "development_ood/answer": {
+      "dense": 4,
+      "loop": 6,
+      "wins": 3,
+      "losses": 1,
+      "n": 150,
+      "difference": 0.013333333333333334,
+      "mcnemar": 0.625,
+      "item_ci95": [
+        -0.013333333333333334,
+        0.04
+      ],
+      "verified_change": 0
+    },
+    "development_ood/trace": {
+      "dense": 44,
+      "loop": 43,
+      "wins": 4,
+      "losses": 5,
+      "n": 150,
+      "difference": -0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.04666666666666667,
+        0.03333333333333333
+      ],
+      "verified_change": 0
+    }
+  },
+  "gated-100000-k2/joint-100000-k2": {
+    "development/answer": {
+      "dense": 10,
+      "loop": 9,
+      "wins": 2,
+      "losses": 3,
+      "n": 150,
+      "difference": -0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.02
+      ],
+      "verified_change": 0
+    },
+    "development/trace": {
+      "dense": 51,
+      "loop": 52,
+      "wins": 6,
+      "losses": 5,
+      "n": 150,
+      "difference": 0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.05333333333333334
+      ],
+      "verified_change": 3
+    },
+    "development_ood/answer": {
+      "dense": 7,
+      "loop": 6,
+      "wins": 1,
+      "losses": 2,
+      "n": 150,
+      "difference": -0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.013333333333333334
+      ],
+      "verified_change": 0
+    },
+    "development_ood/trace": {
+      "dense": 44,
+      "loop": 43,
+      "wins": 3,
+      "losses": 4,
+      "n": 150,
+      "difference": -0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.04,
+        0.02666666666666667
+      ],
+      "verified_change": 1
+    }
+  },
+  "joint-100000-k1/joint-100000-k2": {
+    "development/answer": {
+      "dense": 8,
+      "loop": 9,
+      "wins": 1,
+      "losses": 0,
+      "n": 150,
+      "difference": 0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        0.0,
+        0.02
+      ],
+      "verified_change": 0
+    },
+    "development/trace": {
+      "dense": 53,
+      "loop": 52,
+      "wins": 2,
+      "losses": 3,
+      "n": 150,
+      "difference": -0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.02
+      ],
+      "verified_change": -2
+    },
+    "development_ood/answer": {
+      "dense": 5,
+      "loop": 6,
+      "wins": 3,
+      "losses": 2,
+      "n": 150,
+      "difference": 0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.02,
+        0.04
+      ],
+      "verified_change": 0
+    },
+    "development_ood/trace": {
+      "dense": 45,
+      "loop": 43,
+      "wins": 0,
+      "losses": 2,
+      "n": 150,
+      "difference": -0.013333333333333334,
+      "mcnemar": 0.5,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.0
+      ],
+      "verified_change": -2
+    }
+  },
+  "gated-100000-k1/gated-100000-k2": {
+    "development/answer": {
+      "dense": 10,
+      "loop": 10,
+      "wins": 1,
+      "losses": 1,
+      "n": 150,
+      "difference": 0.0,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.02,
+        0.02
+      ],
+      "verified_change": 0
+    },
+    "development/trace": {
+      "dense": 57,
+      "loop": 51,
+      "wins": 0,
+      "losses": 6,
+      "n": 150,
+      "difference": -0.04,
+      "mcnemar": 0.03125,
+      "item_ci95": [
+        -0.07333333333333333,
+        -0.013333333333333334
+      ],
+      "verified_change": -3
+    },
+    "development_ood/answer": {
+      "dense": 9,
+      "loop": 7,
+      "wins": 0,
+      "losses": 2,
+      "n": 150,
+      "difference": -0.013333333333333334,
+      "mcnemar": 0.5,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.0
+      ],
+      "verified_change": 0
+    },
+    "development_ood/trace": {
+      "dense": 43,
+      "loop": 44,
+      "wins": 2,
+      "losses": 1,
+      "n": 150,
+      "difference": 0.006666666666666667,
+      "mcnemar": 1.0,
+      "item_ci95": [
+        -0.013333333333333334,
+        0.03333333333333333
+      ],
+      "verified_change": -1
+    }
+  }
+}
