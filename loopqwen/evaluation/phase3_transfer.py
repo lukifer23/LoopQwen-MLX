@@ -12,6 +12,7 @@ from ..data import retention3, v2, v3
 from ..identity import fingerprint
 from ..io import read, save
 from .inference_budget import choose
+from .trace_verifier import verify
 from .phase2 import predictions
 from .phase3 import OUT, REGISTER, compare, measure
 
@@ -61,11 +62,20 @@ def transfer():
         save(OUT / "fresh-development.json", results)
 
 
+def strict_records(measurement, samples):
+    for row, pred in zip(samples, measurement["records"], strict=True):
+        status = verify(row, pred["text"], pred["token_cap_reached"])["final"]
+        pred["correct"] = status == "correct"
+        if status not in ("correct", "incorrect"):
+            pred["prediction"] = None
+
+
 def frontier():
     chosen = read(OUT / "selection.json")["selected"]
     docs = v2.rows("validation", "trace")[:60]
     # Two crossover halves. Each arm runs on identical prompts without sharing its KV history.
     work = {}
+    batches = {}
     timing = {}
     for half, arms in enumerate(
         (("dense", "gated", "bypass"), ("bypass", "gated", "dense"))
@@ -85,6 +95,8 @@ def frontier():
                 rec = predictions(
                     m, t, sample, 192, batch_size=b, padded=True, detailed=True
                 )
+                strict_records(rec, sample)
+                batches.setdefault((arm, b), []).extend(rec["batches"])
                 work.setdefault((arm, b), []).extend(rec["records"])
                 timing[(arm, b)] = timing.get((arm, b), 0) + rec["seconds"]
             del m
@@ -112,6 +124,7 @@ def frontier():
                     batch_size=1,
                     detailed=True,
                 )
+                strict_records(r, [doc])
                 options.extend(r["records"])
                 used += r["seconds"]
         votes.append(choose(options))
@@ -125,6 +138,7 @@ def frontier():
                     correct=sum(r["correct"] for r in rs),
                     seconds=timing[a, b],
                     records=rs,
+                    batches=batches[a, b],
                 )
                 for (a, b), rs in work.items()
             },
