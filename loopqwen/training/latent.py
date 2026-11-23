@@ -101,7 +101,13 @@ def evaluate(model, tok, rows, arm, cache, depths=(1, 2, 3), verbal=False):
 def run(arm, seed, steps=360, anneal=False):
     meta = build()
     c = config(OUT / "configs" / f"p4_{seed}_dense.yaml")
-    c.update(mode="direct", passes=1 if arm != "recurrent" else 3, seed=seed)
+    c.update(
+        mode="direct",
+        passes=1 if arm != "recurrent" else 3,
+        seed=seed,
+        gradient_checkpointing=True,
+        checkpoint_policy="all",
+    )
     model, tok, info = arm_model(c, arm)
     data = {
         s: [
@@ -129,6 +135,21 @@ def run(arm, seed, steps=360, anneal=False):
     opt = optim.AdamW(learning_rate=0.0003, weight_decay=0.0, bias_correction=True)
     state = dict(
         schema="pointer-state-v1",
+        task_config=dict(
+            dataset="v4_pointer",
+            install_updates=steps,
+            outcome_updates=80,
+            batch_size=8,
+            seed=seed,
+            optimizer="AdamW",
+            learning_rate=0.0003,
+            weight_decay=0.0,
+            clip=1,
+            readout="shared RMS-normalized final prompt state",
+            early_depths=[1, 2],
+            early_updates=48,
+            main_depths=[1, 2, 3],
+        ),
         arm=arm,
         manifest=meta,
         trainable=sum(x.size for _, x in tree_flatten(model.trainable_parameters())),
