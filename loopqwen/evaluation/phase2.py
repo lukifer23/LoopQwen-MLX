@@ -1,6 +1,7 @@
 """Manifest-driven V2 study. Historical scores continue to use math_eval."""
 
 import gc
+import hashlib
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -18,7 +19,17 @@ from ..training.losses import validation_nll as nll
 from .answers import numeric
 
 
-def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False):
+def predictions(
+    model,
+    tok,
+    samples,
+    limit,
+    temperature=0,
+    seed=0,
+    padded=False,
+    batch_size=8,
+    detailed=False,
+):
     """Batch identical prefix lengths. Charge all executed lanes including finished lanes."""
     grouped = defaultdict(list)
     for r in sorted(samples, key=lambda r: r["prefix"]) if padded else samples:
@@ -27,8 +38,8 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False)
     durations = []
     mx.random.seed(seed)
     for length, group in grouped.items():
-        for i in range(0, len(group), 8):
-            block = group[i : i + 8]
+        for i in range(0, len(group), batch_size):
+            block = group[i : i + batch_size]
             width = max(r["prefix"] for r in block)
             pads = [width - r["prefix"] for r in block]
             cache = (
@@ -43,6 +54,12 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False)
             done = set()
             mx.synchronize()
             start = perf_counter()
+            seeds = [
+                int.from_bytes(
+                    hashlib.sha256(f"{seed}/{r['id']}".encode()).digest()[:4], "big"
+                )
+                for r in block
+            ]
             for step in range(limit):
                 logits = model.project(model.hidden(x, cache)[:, -1, :])
                 if padded and step == 0 and any(pads):
@@ -52,7 +69,20 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False)
                     if temperature
                     else mx.argmax(logits, -1)
                 )
-                for j, token in enumerate(ids.tolist()):
+                if temperature and detailed:
+                    ids = mx.stack(
+                        [
+                            mx.random.categorical(
+                                logits[j].astype(mx.float32) / temperature,
+                                key=mx.random.key((sample_seed + step) % 2**32),
+                            )
+                            for j, sample_seed in enumerate(seeds)
+                        ]
+                    )
+                tokens = ids.tolist()
+                if step == 0:
+                    prefill_seconds = perf_counter() - start
+                for j, token in enumerate(tokens):
                     if j not in done:
                         if token in tok.eos_token_ids:
                             done.add(j)
@@ -68,9 +98,12 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False)
                     seconds=elapsed,
                     decode_steps=step + 1,
                     prefix=width,
+                    prefill_seconds=prefill_seconds,
+                    decode_seconds=elapsed - prefill_seconds,
+                    executed_positions=len(block) * (width + step),
                 )
             )
-            for r, ids in zip(block, answers):
+            for j, (r, ids) in enumerate(zip(block, answers)):
                 response = tok.decode(ids)
                 pred = numeric(response)
                 gold = numeric(r["answer"])
@@ -89,6 +122,16 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False)
                     tokens=len(ids),
                     prefix=r["prefix"],
                 )
+                if detailed:
+                    output[r["id"]].update(
+                        generated_ids=ids,
+                        stop_reason="eos" if j in done else "token_cap",
+                        eos_reached=j in done,
+                        token_cap_reached=j not in done,
+                        request_steps=len(ids) + int(j in done),
+                        batch_steps=step + 1,
+                        sample_seed=seeds[j] if temperature else None,
+                    )
     records = [output[r["id"]] for r in samples]
     return dict(
         correct=sum(r["correct"] for r in records),
@@ -149,10 +192,32 @@ def evaluate(name):
             k: v for k, v in state["manifest"].items() if k != "gsm_train"
         } != read(ROOT / "manifest.json"):
             raise ValueError("Incomplete or mismatched run " + arm)
-        path = directory / (arm + ".json")
-        identity = dict(
-            manifest=digest(Path("experiments") / (name + ".json")),
-            weights=digest(location(root) / "adapters.safetensors"),
+        from ..identity import evaluation_identity
+
+        identity = evaluation_identity(
+            m,
+            location(root),
+            {
+                split: digest(ROOT / (split + ".jsonl"))
+                for split in set(m["splits"])
+                | {
+                    "language_validation" if s == "validation" else "language_test"
+                    for s in m["splits"]
+                }
+            },
+            {
+                "generation": m["generation"],
+                "padded": m.get("padded", False),
+                "temperature": 0,
+            },
+            "historical-numeric-v2",
+        )
+        from ..identity import fingerprint
+
+        path = directory / "revisions" / fingerprint(identity) / (arm + ".json")
+        save(
+            directory / (arm + ".revision.json"),
+            {"path": str(path.relative_to(directory))},
         )
         if path.exists():
             if read(path)["identity"] != identity:
@@ -226,8 +291,15 @@ def report(name):
         "| Run | Split | Updates | Targets | Training s | Answer NLL | Accuracy | Trace NLL | Trace accuracy | Prose NLL | Greedy s |",
         "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
+
+    def current(arm):
+        pointer = directory / (arm + ".revision.json")
+        return read(
+            directory / (read(pointer)["path"] if pointer.exists() else arm + ".json")
+        )
+
     for arm in m["runs"]:
-        record = read(directory / (arm + ".json"))
+        record = current(arm)
         t = record["training"]
         for split, s in record["scores"].items():
             a = s["answer"]
@@ -238,7 +310,7 @@ def report(name):
                 f"| {arm} | {split} | {t['step']} | {t['target_tokens']} | {t['update_seconds']:.1f} | {a['loss']['nll']:.4f} | {g['correct']}/{g['n']} | {trace['loss']['nll']:.4f} | {tr['correct']}/{tr['n']} | {s['language']['nll']:.4f} | {g['seconds']:.2f} |"
             )
     for left, right in m.get("matched", []):
-        a, b = [read(directory / (arm + ".json")) for arm in (left, right)]
+        a, b = [current(arm) for arm in (left, right)]
         allowed = {
             "name",
             "passes",
