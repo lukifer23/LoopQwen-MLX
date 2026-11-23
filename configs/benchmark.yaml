@@ -1,0 +1,7 @@
+training_config: configs/pilot_loop.yaml
+sequence_length: 64
+decode_tokens: 32
+repetitions: 5
+depths: [1, 2, 3]
+placement_starts: [6, 8, 10, 12, 16]
+placement_validation_count: 16

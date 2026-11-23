@@ -8,6 +8,10 @@ def baseline():
     model, tokenizer, info = load_base()
     prompt = "The capital of France is"
     generate(model, tokenizer, prompt, 2)
-    result = dict(model=info, generation=generate(model, tokenizer, prompt), prose=language_loss(model, tokenizer))
+    result = dict(
+        model=info,
+        generation=generate(model, tokenizer, prompt),
+        prose=language_loss(model, tokenizer),
+    )
     save("outputs/baseline.json", result)
     return result

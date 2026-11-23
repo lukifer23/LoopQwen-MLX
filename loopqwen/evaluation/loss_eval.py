@@ -16,6 +16,6 @@ def language_loss(model, tokenizer):
     total = tokens = 0
     for text in PROSE:
         x = mx.array([tokenizer.encode(text, add_special_tokens=False)])
-        total += mx.fast.cross_entropy(model(x[:,:-1]), x[:,1:]).sum().item()
-        tokens += x.size-1
-    return dict(nll=total/tokens, perplexity=math.exp(total/tokens), tokens=tokens)
+        total += mx.fast.cross_entropy(model(x[:, :-1]), x[:, 1:]).sum().item()
+        tokens += x.size - 1
+    return dict(nll=total / tokens, perplexity=math.exp(total / tokens), tokens=tokens)
