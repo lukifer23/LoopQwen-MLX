@@ -1,0 +1,29 @@
+{
+  "metric": "Common answer-only development NLL",
+  "scores": {
+    "direct": 1.8096746368408203,
+    "gradual": 1.7938954971313477,
+    "stabilized": 1.7553831024169921,
+    "mixed": 1.809049723815918,
+    "mlp8": 1.644486279296875,
+    "mlp10": 1.6854240539550782,
+    "mlp16": 1.8137503829956054,
+    "rank16": 2.0204963928222655,
+    "nearby": 2.0022179931640625,
+    "formats": 1.3104932601928712
+  },
+  "selected": "formats",
+  "policy": {
+    "mixture": "mixed_answer_and_traces"
+  },
+  "seeds": [
+    43,
+    53,
+    67
+  ],
+  "steps": 84,
+  "mixture": "mixed_answer_and_traces",
+  "final_id_count": 90,
+  "final_ood_count": 90,
+  "final_trace_count": 45
+}
