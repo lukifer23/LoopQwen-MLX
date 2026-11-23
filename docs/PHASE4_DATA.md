@@ -17,3 +17,5 @@ The completed primary gated training trajectory contained 3,283 direct-answer ex
 A predictor using only training-set frequencies conditioned on the start node and hop count got 53/384, 62/384 and 54/384 terminal labels correct at depths one through three. The no-return constraint makes uniform guessing among the seven non-start nodes 14.3% accurate in expectation.
 
 The CPU data audit rechecked 3,240 new textual state/DAG certificates and 25,344 pointer-label transitions across all 4,224 disjoint permutations. It compared the historical sealed file digests with their original registration. Reproduce with `python scripts/phase4_data_audit.py`.
+
+Phase 4 reuses the V3 development items already scored in Phase 3. Seed 109 supplies independent training randomness. Repeated scoring of those items supplies development evidence only. The separate pointer development maps and V4 additions have their own split identities.
