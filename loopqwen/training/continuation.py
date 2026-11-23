@@ -6,6 +6,7 @@ import tempfile
 import shutil
 
 import mlx.core as mx
+from mlx.utils import tree_flatten
 
 from .. import checkpoint
 from ..config import config
@@ -16,8 +17,8 @@ from .optimizers import optimizer
 
 
 def fork(source, path, mode, migration_reason=None):
-    if mode not in ("extend", "weights"):
-        raise ValueError("Specify extend or weights")
+    if mode not in ("extend", "weights", "compatible"):
+        raise ValueError("Specify extend, weights or compatible")
     c = config(path)
     if not c.get("strict_resume"):
         raise ValueError("Fork destination must use strict_resume")
@@ -68,9 +69,34 @@ def fork(source, path, mode, migration_reason=None):
             )
     model, _, info = checkpoint.setup(c)
     opt = optimizer(c)
-    checkpoint.restore(generation, model, opt if mode == "extend" else None)
+    transfer = None
+    if mode == "compatible":
+        if (
+            not migration_reason
+            or parent["config"]["base_revision"] != c["base_revision"]
+        ):
+            raise ValueError(
+                "Compatible transfer requires the same base and a documented reason"
+            )
+        incoming = mx.load(str(generation / "adapters.safetensors"))
+        expected = dict(tree_flatten(model.trainable_parameters()))
+        names = set(expected) & set(incoming)
+        mismatch = sorted(k for k in names if expected[k].shape != incoming[k].shape)
+        restored = sorted(names - set(mismatch))
+        if not restored:
+            raise ValueError(f"No compatible parameters. Shape mismatches: {mismatch}")
+        transfer = dict(
+            restored=restored,
+            newly_initialized=sorted(set(expected) - set(restored)),
+            omitted=sorted(set(incoming) - set(restored)),
+            shape_mismatches=mismatch,
+            optimizer="fresh",
+        )
+        model.load_weights([(k, incoming[k]) for k in restored], strict=False)
+    else:
+        checkpoint.restore(generation, model, opt if mode == "extend" else None)
     state = deepcopy(parent)
-    if mode == "weights":
+    if mode in ("weights", "compatible"):
         opt.init(model.trainable_parameters())
         mx.eval(opt.state)
         state.update(
@@ -91,6 +117,7 @@ def fork(source, path, mode, migration_reason=None):
     state.update(
         config=c,
         model=info,
+        trainable=sum(a.size for _, a in tree_flatten(model.trainable_parameters())),
         status="started",
         manifest=manifest,
         sampling=sampling,
@@ -102,6 +129,7 @@ def fork(source, path, mode, migration_reason=None):
             metadata=digest(generation / "state.json"),
             weights=digest(generation / "adapters.safetensors"),
             migration_reason=migration_reason,
+            transfer=transfer,
         ),
     )
     tmp = Path(tempfile.mkdtemp(dir=dest.parent, prefix=".fork-"))

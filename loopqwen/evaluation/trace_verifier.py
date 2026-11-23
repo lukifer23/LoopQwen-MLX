@@ -122,24 +122,44 @@ def verify(row, text, truncated=False):
     else:
         final = "correct" if finals[-1][1] == gold else "incorrect"
     actual = [s for s in lines if not re.match(MARKER, s, re.I)]
-    expected = [obligation(s) for s in row["trace"].splitlines()[:-1]]
-    checks = []
-    for i, line in enumerate(actual):
-        try:
-            item = obligation(re.sub(r"^Step \d+\s*:\s*", "", line, flags=re.I))
-        except (ValueError, SyntaxError, ZeroDivisionError):
-            checks.append("unsupported")
-            continue
-        if not item[2]:
-            checks.append("arithmetic_error")
-        elif i < len(expected) and item[:2] == expected[i][:2]:
-            checks.append("verified")
-        elif i < len(expected) and item[0] and item[0] == expected[i][0]:
-            checks.append("incorrect_state_transition")
-        else:
-            checks.append("unsupported")
-    complete = len(checks) == len(expected) and all(c == "verified" for c in checks)
-    expected_count = len(expected)
+    if "transition" in row:
+        spec = row["transition"]
+        node = spec["start"]
+        checks = []
+        for line in actual:
+            match = re.fullmatch(r"Next\((\d+)\)\s*=\s*(\d+)", line, re.I)
+            expected = spec["mapping"][node]
+            checks.append(
+                "unsupported"
+                if not match
+                else "verified"
+                if tuple(map(int, match.groups())) == (node, expected)
+                else "incorrect_state_transition"
+            )
+            node = expected
+        expected_count = spec["n"]
+        complete = len(checks) == expected_count and all(
+            s == "verified" for s in checks
+        )
+    else:
+        expected = [obligation(s) for s in row["trace"].splitlines()[:-1]]
+        checks = []
+        for i, line in enumerate(actual):
+            try:
+                item = obligation(re.sub(r"^Step \d+\s*:\s*", "", line, flags=re.I))
+            except (ValueError, SyntaxError, ZeroDivisionError):
+                checks.append("unsupported")
+                continue
+            if not item[2]:
+                checks.append("arithmetic_error")
+            elif i < len(expected) and item[:2] == expected[i][:2]:
+                checks.append("verified")
+            elif i < len(expected) and item[0] and item[0] == expected[i][0]:
+                checks.append("incorrect_state_transition")
+            else:
+                checks.append("unsupported")
+        complete = len(checks) == len(expected) and all(c == "verified" for c in checks)
+        expected_count = len(expected)
     if "graph" in row:
         checks, complete, expected_count = graph_obligations(row["graph"], actual)
     return dict(

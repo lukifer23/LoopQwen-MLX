@@ -30,7 +30,7 @@ def main():
                 help="Repeat the long K=3 case in FP32",
             )
     p = sub.add_parser("data", help="Build deterministic tokenized pilot splits")
-    p.add_argument("--preset", choices=["pilot", "v2", "v3"], default="pilot")
+    p.add_argument("--preset", choices=["pilot", "v2", "v3", "v4"], default="pilot")
     p.add_argument("--count", type=int, default=24000, help="V2 training instances")
     p.add_argument("--seed", type=int, default=2602, help="V2 generator seed")
     p.add_argument(
@@ -57,7 +57,7 @@ def main():
     )
     p.add_argument("--checkpoint", required=True)
     p.add_argument("--config", required=True)
-    p.add_argument("--mode", choices=["extend", "weights"], required=True)
+    p.add_argument("--mode", choices=["extend", "weights", "compatible"], required=True)
     p.add_argument("--migration-reason")
     p = sub.add_parser("train", help="Train or resume a named experiment")
     p.add_argument("--config", default="configs/smoke.yaml")
@@ -109,6 +109,10 @@ def main():
         from .baseline import baseline
 
         result = baseline()
+    elif cmd == "data" and args.preset == "v4":
+        from .data.v4 import build
+
+        result = build()
     elif cmd == "data" and args.preset == "v3":
         from .data.v3 import build
 
