@@ -1,6 +1,8 @@
 """Render publication tables and a learning curve from completed local measurements."""
 
 import argparse
+import gzip
+import json
 import sys
 from pathlib import Path
 
@@ -174,6 +176,48 @@ def docs(archive, destination):
         "",
         "[Training, memory and deployment measurements](PHASE3_OPTIMIZATIONS.md) · [Run identifiers and artifacts](EXPERIMENT_REGISTRY.md)",
     ]
+    curve_file = archive / "curves" / ("p3_" + chosen + "_250k.json.gz")
+    if not curve_file.exists():
+        curve_file = archive / "curves" / ("p3_" + chosen + ".json.gz")
+    history = json.loads(gzip.decompress(curve_file.read_bytes()))
+    gate_points = []
+    total_targets = 0
+    for rec in history:
+        total_targets += rec["labels"]
+        if "validation" in rec and "gate_logit" in rec:
+            gate_points.append(
+                (
+                    rec["step"],
+                    total_targets,
+                    f"{rec['alpha']:.6f}",
+                    f"{rec['gate_logit']:.5f}",
+                    f"{rec['gate_gradient']:.3g}",
+                    f"{rec['gate_delta']:+.3g}",
+                    f"{rec['gate_lr']:.3g}",
+                    f"{rec['lr']:.3g}",
+                )
+            )
+    if gate_points:
+        report += [
+            "",
+            "## Effective gate trajectory",
+            "",
+            "The initial alpha was 0.10 and its sigmoid logit was −2.19722. Each listed gradient is token-normalized before joint clipping. Delta is the logit change after the actual AdamW update.",
+            "",
+            table(
+                [
+                    "Step",
+                    "Targets",
+                    "Alpha",
+                    "Logit",
+                    "Gate gradient",
+                    "Logit delta",
+                    "Gate LR",
+                    "Adapter LR",
+                ],
+                gate_points,
+            ),
+        ]
     if (archive / "promotion.json").exists():
         extended = read(archive / "promotion.json")
         report += [
