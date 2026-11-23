@@ -168,19 +168,21 @@ def main():
 
             evaluate(109)
             result = "outputs/phase4/evaluation-109.json"
-        else:
+        elif cmd == "compare":
             from .io import read
 
-            path = Path("outputs/phase4/evaluation-109.json")
-            if not path.is_file():
+            index = Path("outputs/phase4/evaluation-109.json")
+            archive = Path("docs/measurements/phase4/primary-pairs.json")
+            if index.is_file():
+                result = read(index)["pairs"]
+            elif archive.is_file():
+                result = read(archive)
+            else:
                 raise ValueError("Complete scripts/run_phase4.sh evaluate first")
-            result = (
-                read(path)["pairs"] if cmd == "compare" else "docs/PHASE4_RESULTS.md"
-            )
-            if cmd == "report" and not Path(result).is_file():
-                raise ValueError(
-                    "Render the study with python scripts/phase4_report.py"
-                )
+        else:
+            result = Path("docs/PHASE4_RESULTS.md")
+            if not result.is_file():
+                raise ValueError("Render the study with python scripts/phase4_report.py")
     elif cmd in ("evaluate", "report", "compare") and args.experiment == "phase3_dev":
         from .io import read
         from .evaluation.phase3_report import report
