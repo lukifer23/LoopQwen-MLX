@@ -10,6 +10,8 @@ On the 18 GiB M3 Pro, the integrated 360-position physical microbatch cap reduce
 
 Seed 109's 250K model solved **114/300 traced development problems at K=1**, versus **108/300** for both dense controls. Its second pass reduced that total to **112/300**. Neither answer fixed by the extra pass had a verified derivation. The two-point single-pass gain fell below the registered promotion threshold. [Phase 4 results](docs/PHASE4_RESULTS.md)
 
+![Traced answer accuracy for both 250K controls and both 100K joint exits on the same ID and OOD development items.](docs/measurements/phase4/development.png)
+
 ## Phase 3 development result
 
 The development study compares dense adaptation, direct recurrence and a near-identity refinement at the same 100,068 supervised tokens. A single learned sigmoid controls the extra pass. Every recurrent checkpoint also runs at true K=1 so its adapters can be evaluated without the extra computation. The primary outcome is greedy final-answer accuracy on traced problems. Exact procedural certificates, independent language retention and measured latency provide additional evidence. [Registration and reproduction](docs/EXPERIMENT_REGISTRY.md) · [Architecture](docs/PHASE3_ARCHITECTURE.md)
@@ -18,33 +20,33 @@ At 250,031 matched supervised tokens, the learned-gate checkpoint solved **61/15
 
 ![Counts of correct answers on fresh ID and OOD problems and paired differences against the dense and bypass controls.](docs/measurements/phase3/recurrent-contribution.png)
 
-## Run the trained model
+## Run the seed-109 model
 
-Use a native arm64 Mac with the locked MLX environment. From the repository root:
+On a native arm64 Mac, install the locked environment and resolve the pinned Base checkpoint. The 250K gated adapter's best observed traced accuracy on this cohort came at K=1.
 
 ```sh
 ./scripts/bootstrap.sh
 source .venv/bin/activate
 python -m loopqwen download
-python -m loopqwen generate --checkpoint adapters/phase3/p3_learn1_250k --prompt 'Evaluate ((8 + 4) * 3 - 5).
+python -m loopqwen generate --checkpoint adapters/phase4/gated_109_250k --passes 1 --prompt 'Evaluate (((4 - 13) - 14) * 3).
 Show your steps. End with Final answer: <number>.
-Solution:' --max-tokens 96
+Solution:' --max-tokens 192
 ```
 
-The published 250K adapter produced the following greedy continuation on the M3 Pro.
+The K=1 adapter generated the following verified solution for that prompt during the batched development evaluation.
 
 ```text
-8 + 4 = 12
-12 * 3 = 36
-36 - 5 = 31
-Final answer: 31
+4 - 13 = -9
+-9 - 14 = -23
+-23 * 3 = -69
+Final answer: -69
 ```
 
-Add `--passes 1` to the generation command to run the same adapters at their true bypass depth. Use `adapters/phase3/p3_dense_250k` to try the matched dense model.
+Use `--passes 2` to run the extra pass. The matched dense model is in `adapters/phase4/dense_109_250k`. Earlier published adapters and their measurements remain available in the [experiment registry](docs/EXPERIMENT_REGISTRY.md).
 
 ## Reproduce the study
 
-The [experiment registry](docs/EXPERIMENT_REGISTRY.md) lists the ordered commands from data preparation through training, evaluation and archival. The [training guide](docs/TRAINING.md) explains checkpoints and update budgets. The [performance report](docs/PHASE3_OPTIMIZATIONS.md) records memory, throughput and deployment measurements on the 18 GiB M3 Pro.
+The [experiment registry](docs/EXPERIMENT_REGISTRY.md) lists the ordered commands from data preparation through training, evaluation and archival. The [training guide](docs/TRAINING.md) explains checkpoints and update budgets. The [performance report](docs/PHASE3_OPTIMIZATIONS.md) records historical deployment measurements on the 18 GiB M3 Pro. The [Phase 4 trainer profile](docs/PHASE4_OPTIMIZATIONS.md) reports target throughput, memory and checkpoint cost.
 
 Measured figures include the [development learning curves](docs/measurements/phase3/learning-curves.png) and [memory over 1,605 gated updates](docs/measurements/phase3/training-memory.png).
 
