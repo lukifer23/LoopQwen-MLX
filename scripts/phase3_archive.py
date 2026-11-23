@@ -172,7 +172,24 @@ def publish(destination):
             shutil.copyfile(out / name, dest / name)
     shutil.copyfile(out / "schedule.jsonl.gz", dest / "schedule.jsonl.gz")
     if (out / "system.jsonl").exists():
-        shutil.copyfile(out / "system.jsonl", dest / "system.jsonl")
+        with (dest / "system.jsonl").open("w") as samples:
+            for line in (out / "system.jsonl").read_text().splitlines():
+                r = json.loads(line)
+                sample = {
+                    k: r[k]
+                    for k in (
+                        "utc",
+                        "available_gib",
+                        "swap_used_gib",
+                        "gpu_device_percent",
+                        "memory_pressure",
+                    )
+                }
+                sample.update(
+                    lease_held=bool(r["gpu_lease"]),
+                    checkout_processes=len(r["processes"]),
+                )
+                samples.write(json.dumps(sample) + "\n")
     for name in ("frontier.json", "difficulty.json"):
         if (out / name).exists():
             json_gzip(dest / (name + ".gz"), read(out / name))

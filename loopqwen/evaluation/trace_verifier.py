@@ -54,7 +54,11 @@ def obligation(line):
     if len(parts) != 2:
         raise ValueError("unknown step")
     value = expression(parts[0])
-    claimed = Fraction(parts[1].strip())
+    # Only register a bounded scalar literal on a certificate equality.
+    rhs = parts[1].strip()
+    if len(rhs) > 96 or not re.fullmatch(r"[+-]?\d+(?:/\d+)?", rhs):
+        raise ValueError("Unsupported scalar in certificate")
+    claimed = Fraction(rhs)
     return (label, re.sub(r"\s+", "", parts[0]), value == claimed)
 
 
