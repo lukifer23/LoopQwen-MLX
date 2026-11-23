@@ -65,6 +65,8 @@ def export(checkpoint, output, fusion="stock"):
             shutil.copyfile(source / name, temp / name)
         config = dict(
             model_type="qwen3_5_looped",
+            export_schema=2,
+            supported_depths=[1, 2, 3],
             base_model=MODEL,
             base_revision=REVISION,
             span=asdict(model.span),

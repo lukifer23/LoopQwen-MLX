@@ -21,7 +21,8 @@ def load_export(directory):
     directory = Path(directory)
     cfg = json.loads((directory / "config.json").read_text())
     if (
-        cfg["model_type"] != "qwen3_5_looped"
+        cfg.get("export_schema", 1) not in (1, 2)
+        or cfg["model_type"] != "qwen3_5_looped"
         or cfg["recurrent_cache_version"] != 1
         or cfg["weight_sharing"] is not True
     ):
