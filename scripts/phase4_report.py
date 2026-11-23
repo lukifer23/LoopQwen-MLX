@@ -221,6 +221,41 @@ Experimental unmerged LoRA for Qwen/Qwen3.5-0.8B-Base, revision `{state["config"
 
 SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environment and `python -m loopqwen generate --checkpoint {dest} --passes 1 --prompt 'Evaluate 2 + 3.' --max-tokens 32`. Reproduce with `scripts/run_phase4.sh {"dual-exit" if arm == "joint" else "replicate"} --seed {seed}` after the efficiency stage. Full evaluation and latency measurements are in the [Phase 4 report](../../../docs/PHASE4_RESULTS.md).
 """)
+    breakdown = {}
+    for suite, idx in {"primary": index, **stages}.items():
+        for name, path in idx["records"].items():
+            for split, score in read(path)["scores"].items():
+                groups = {}
+                for r in score["records"]:
+                    for key in (
+                        r["category"],
+                        f"complexity/{r['complexity']}",
+                        f"steps/{r['steps']}",
+                    ):
+                        bucket = groups.setdefault(key, Counter())
+                        bucket.update(
+                            examples=1,
+                            correct=int(r["correct"]),
+                            verified=int(r.get("verified", False)),
+                            truncated=int(r["token_cap_reached"]),
+                            generated=r["tokens"],
+                        )
+                breakdown[f"{suite}/{name}/{split}"] = groups
+    gz(root / "difficulty.json.gz", breakdown)
+    for path in sorted((OUT / "configs").glob("*.yaml")):
+        directory = root / "configs"
+        directory.mkdir(exist_ok=True)
+        shutil.copyfile(path, directory / path.name)
+    for path in sorted(OUT.glob("p4_*.schedule.gz")):
+        # Identical dense/gated schedules share one content-addressed copy.
+        directory = root / "schedules"
+        directory.mkdir(exist_ok=True)
+        import hashlib
+
+        key = hashlib.sha256(gzip.decompress(path.read_bytes())).hexdigest()
+        dest = directory / (key + ".jsonl.gz")
+        if not dest.exists():
+            shutil.copyfile(path, dest)
     save(root / "training.json", metrics)
     for label in ("dense", "probe", "recurrent"):
         for stage in ("install", "outcome"):
