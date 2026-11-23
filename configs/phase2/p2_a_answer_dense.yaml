@@ -1,0 +1,16 @@
+name: p2_a_answer_dense
+dataset: v2
+mixture: answer_only
+sequence_length: 256
+batch_size: 4
+accumulation: 1
+steps: 72
+warmup: 5
+checkpoint_interval: 24
+eval_interval: 36
+eval_count: 90
+memory_target_gib: 8
+min_available_gib: 1
+gradient_checkpointing: true
+seed: 41
+passes: 1

@@ -15,7 +15,24 @@ def config(path):
     root = Path("configs")
     defaults = yaml.safe_load((root / "defaults.yaml").read_text())
     user = yaml.safe_load(Path(path).read_text())
-    if extra := user.keys() - defaults.keys() - {"preset", "name", "packing"}:
+    if (
+        extra := user.keys()
+        - defaults.keys()
+        - {
+            "preset",
+            "name",
+            "packing",
+            "mixture",
+            "mixture_weights",
+            "bucket",
+            "schedule",
+            "warmup_fraction",
+            "min_lr",
+            "ramp_fraction",
+            "label_budget",
+            "seconds_budget",
+        }
+    ):
         raise ValueError(f"Unknown config keys {extra}")
     presets = yaml.safe_load((root / "presets.yaml").read_text())
     c = defaults | presets[user.get("preset", "mac_safe")] | user
@@ -28,7 +45,6 @@ def config(path):
         c["tokenizer_revision"],
         c["precision"],
         c["optimizer"],
-        c["dataset"],
         c["training_split"],
         c["validation_split"],
     ) != (
@@ -37,7 +53,6 @@ def config(path):
         REVISION,
         "bfloat16",
         "AdamW",
-        "pilot",
         "train",
         "validation",
     ):
@@ -80,4 +95,22 @@ def config(path):
         raise ValueError(
             "alpha_schedule needs a stabilized loop and two endpoints in [0,1]"
         )
+    if c["dataset"] not in ("v2", "pilot"):
+        raise ValueError("Unknown dataset")
+    if c["dataset"] == "v2":
+        from .data.sampling import MIXTURES
+
+        if c.get("mixture") not in MIXTURES:
+            raise ValueError("Choose a V2 mixture")
+    if (
+        c.get("schedule", "constant") not in ("cosine", "constant")
+        or not 0 <= c.get("min_lr", 0) <= c["learning_rate"]
+    ):
+        raise ValueError("Invalid LR schedule")
+    for key in ("warmup_fraction", "ramp_fraction"):
+        if key in c and not 0 < c[key] <= 1:
+            raise ValueError(key)
+    for key in ("label_budget", "seconds_budget"):
+        if key in c and c[key] <= 0:
+            raise ValueError(key)
     return c

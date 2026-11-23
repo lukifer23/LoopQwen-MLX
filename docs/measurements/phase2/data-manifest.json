@@ -1,0 +1,146 @@
+{
+  "schema": 2,
+  "generator": "ffc08ff3dbd4370cb5f29b3e2cd9a24c5411ae1d9694eacad878e0ac326d1e6a",
+  "builder": "bc2816ac9c64eebf3fe2e40f5cd06b54b87e3d3ffaf7893214c618d4fd206385",
+  "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "seed": 2602,
+  "train_requested": 24000,
+  "splits": {
+    "train": {
+      "count": 24000,
+      "sha256": "ff00479c32000b01390f7ddae71acf241ea00c2b58b65d99567c55f278ff6338",
+      "categories": {
+        "arithmetic": 4800,
+        "system": 4800,
+        "modular": 4800,
+        "dependencies": 4800,
+        "array": 4800
+      },
+      "levels": {
+        "0": 8000,
+        "1": 8000,
+        "2": 8000
+      },
+      "supervised": {
+        "answer": 100453,
+        "trace": 1784049
+      }
+    },
+    "validation": {
+      "count": 450,
+      "sha256": "10cc1e86da1d5a7258a87164d444d1ff26dc1c8d88c3406e55164d76adadf292",
+      "categories": {
+        "arithmetic": 90,
+        "system": 90,
+        "modular": 90,
+        "dependencies": 90,
+        "array": 90
+      },
+      "levels": {
+        "0": 150,
+        "1": 150,
+        "2": 150
+      },
+      "supervised": {
+        "answer": 1887,
+        "trace": 33560
+      }
+    },
+    "test": {
+      "count": 300,
+      "sha256": "1d8ac21403232ebb66cb4cc7498a515a3d6524af01b7524e871a9eb9ff477f72",
+      "categories": {
+        "arithmetic": 60,
+        "system": 60,
+        "modular": 60,
+        "dependencies": 60,
+        "array": 60
+      },
+      "levels": {
+        "0": 100,
+        "1": 100,
+        "2": 100
+      },
+      "supervised": {
+        "answer": 1278,
+        "trace": 22458
+      }
+    },
+    "ood": {
+      "count": 300,
+      "sha256": "386ad1b5dcf09f1c5b5dcd936b0613f94721c8094f0e59ba5c026f35150feb1c",
+      "categories": {
+        "arithmetic": 60,
+        "system": 60,
+        "modular": 60,
+        "dependencies": 60,
+        "array": 60
+      },
+      "levels": {
+        "0": 100,
+        "1": 100,
+        "2": 100
+      },
+      "supervised": {
+        "answer": 1536,
+        "trace": 31413
+      }
+    },
+    "language_train": {
+      "count": 227,
+      "sha256": "b854fc94ec2b4796b6b1700a9e356678bd13117fc7bbf630a0c3f995c7cbf446",
+      "categories": {
+        "language": 227
+      },
+      "levels": {
+        "0": 227
+      },
+      "supervised": {
+        "language": 16145
+      }
+    },
+    "language_validation": {
+      "count": 64,
+      "sha256": "e55fba6ea316c3529d33c13b1f757eceaf89f1aec4fca61d9da24de186708f1f",
+      "categories": {
+        "language": 64
+      },
+      "levels": {
+        "0": 64
+      },
+      "supervised": {
+        "language": 4701
+      }
+    },
+    "language_test": {
+      "count": 128,
+      "sha256": "9ebbf4b9a612dbb3e477be97c65499398e7582fcc9ad2d5431cda7a097b5e86b",
+      "categories": {
+        "language": 128
+      },
+      "levels": {
+        "0": 128
+      },
+      "supervised": {
+        "language": 9098
+      }
+    }
+  },
+  "sources": {
+    "procedural": "Project MIT"
+  },
+  "books": [
+    {
+      "repo": "Alice-s-Adventures-in-Wonderland_11",
+      "url": "https://raw.githubusercontent.com/GITenberg/Alice-s-Adventures-in-Wonderland_11/7f18748e114b994d5d9454d5793581bc0b9cf9d7/11.txt",
+      "rights": "Public domain in the USA",
+      "revision": "7f18748e114b994d5d9454d5793581bc0b9cf9d7"
+    },
+    {
+      "repo": "The-Secret-Garden_113",
+      "url": "https://raw.githubusercontent.com/GITenberg/The-Secret-Garden_113/0031c0badd0d3fc83860c941d2f39d4aa345c51b/113.txt",
+      "rights": "Public domain in the USA",
+      "revision": "0031c0badd0d3fc83860c941d2f39d4aa345c51b"
+    }
+  ]
+}

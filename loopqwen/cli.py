@@ -26,7 +26,9 @@ def main():
                 help="Repeat the long K=3 case in FP32",
             )
     p = sub.add_parser("data", help="Build deterministic tokenized pilot splits")
-    p.add_argument("--preset", choices=["pilot"], default="pilot")
+    p.add_argument("--preset", choices=["pilot", "v2"], default="pilot")
+    p.add_argument("--count", type=int, default=24000, help="V2 training instances")
+    p.add_argument("--seed", type=int, default=2602, help="V2 generator seed")
     p.add_argument(
         "--procedural-only", action="store_true", help="Skip public GSM8K examples"
     )
@@ -61,7 +63,7 @@ def main():
         ("report", "Write the Markdown experiment report"),
     ):
         p = sub.add_parser(name, help=desc)
-        p.add_argument("--experiment", choices=["pilot", "extended"], default="pilot")
+        p.add_argument("--experiment", default="pilot")
     p = sub.add_parser(
         "generate", help="Generate greedily with a new execution-site cache"
     )
@@ -91,6 +93,10 @@ def main():
         from .baseline import baseline
 
         result = baseline()
+    elif cmd == "data" and args.preset == "v2":
+        from .data.v2 import build
+
+        result = build(args.count, args.seed)
     elif cmd == "data":
         from .data.build_data import build_data
 
@@ -128,6 +134,14 @@ def main():
         from .training.trainer import train
 
         result = train(args.config, args.until)
+    elif cmd in ("evaluate", "report", "compare") and args.experiment not in (
+        "pilot",
+        "extended",
+    ):
+        from .evaluation.phase2 import evaluate, report
+
+        path = (evaluate if cmd == "evaluate" else report)(args.experiment)
+        result = Path(path).read_text() if cmd == "compare" else path
     elif cmd == "evaluate":
         from .evaluation.comparison import evaluate
 

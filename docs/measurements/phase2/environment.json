@@ -1,0 +1,51 @@
+{
+  "device": {
+    "device_name": "Apple M3 Pro",
+    "max_recommended_working_set_size": 14302248960,
+    "memory_size": 19327352832,
+    "architecture": "applegpu_g15s",
+    "max_buffer_length": 10726686720,
+    "resource_limit": 499000
+  },
+  "default_device": "Device(gpu, 0)",
+  "metal_available": true,
+  "hardware_model": "Mac15,6",
+  "macos": "27.3",
+  "python": "3.12.12",
+  "arch": "arm64",
+  "cpu_cores": 11,
+  "gpu_cores": 14,
+  "cpu_clusters": [
+    5,
+    6
+  ],
+  "available_bytes": 6100959232,
+  "metal_test": 3.0,
+  "versions": {
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2",
+    "mlx-metal": "0.32.4",
+    "transformers": "5.24.0"
+  },
+  "kernels": {
+    "gated_delta_update": true,
+    "cross_entropy": true,
+    "rms_norm": true,
+    "scaled_dot_product_attention": true,
+    "metal_kernel": true
+  },
+  "transforms": {
+    "compile": true,
+    "checkpoint": true,
+    "value_and_grad": true
+  },
+  "expected_bf16_text_bytes": 1505000000,
+  "checkpoints": [
+    "checkpoints/extended_dense",
+    "checkpoints/extended_loop",
+    "checkpoints/pilot_dense",
+    "checkpoints/pilot_loop",
+    "checkpoints/smoke",
+    "checkpoints/smoke_dense"
+  ]
+}

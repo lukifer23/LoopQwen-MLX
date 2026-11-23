@@ -4,6 +4,7 @@ import math
 import random
 import signal
 import subprocess
+from collections import Counter
 from dataclasses import replace
 from pathlib import Path
 from time import perf_counter
@@ -40,7 +41,7 @@ def depth(c, step, micro):
     if c["curriculum"] == "mixed":
         return rng.choices((1, 2, 3), weights=c["depth_weights"])[0]
     if c["curriculum"] == "gradual" and rng.random() >= min(
-        1.0, step / max(1, c["steps"] / 3)
+        1.0, step / max(1, c["steps"] * c.get("ramp_fraction", 1 / 3))
     ):
         return 1
     return c["passes"]
@@ -56,12 +57,16 @@ def train(path, until=None):
 
 
 def _train(c, root, until):
-    manifest = (
-        read(ROOT / "manifest.json") if (ROOT / "manifest.json").exists() else None
-    )
-    rows = load_split(c["training_split"])
-    random.Random(c["seed"]).shuffle(rows)
-    valid = load_split(c["validation_split"])[: c["eval_count"]]
+    policy = None
+    if c["dataset"] == "v2":
+        from ..data.sampling import prepare
+
+        rows, valid, manifest, policy = prepare(c)
+    else:
+        manifest = read(ROOT / "manifest.json")
+        rows = load_split(c["training_split"])
+        random.Random(c["seed"]).shuffle(rows)
+        valid = load_split(c["validation_split"])[: c["eval_count"]]
     model, tok, info = checkpoint.setup(c)
     opt = optimizer(c)
     packed = c.get("packing", False)
@@ -90,6 +95,18 @@ def _train(c, root, until):
     stop = c["steps"] if until is None else min(c["steps"], until)
     if stop < state["step"]:
         raise ValueError("Requested stop precedes checkpoint")
+    consumed_seconds = sum(r["seconds"] for r in state["history"])
+
+    def budget_met():
+        return state["loss_tokens"] >= c.get(
+            "label_budget", math.inf
+        ) or consumed_seconds >= c.get("seconds_budget", math.inf)
+
+    if policy:
+        if state.get("sampling", policy) != policy:
+            raise ValueError("Resolved V2 sample schedule changed")
+        state["sampling"] = policy
+        state.setdefault("visits", {})
     canceled = []
 
     def request_stop(signum, frame):
@@ -102,7 +119,7 @@ def _train(c, root, until):
     mx.reset_peak_memory()
     begin = perf_counter()
     try:
-        while state["step"] < stop:
+        while state["step"] < stop and not budget_met():
             s = state["step"]
             pressure = (
                 psutil.virtual_memory().available < c["min_available_gib"] * 2**30
@@ -111,7 +128,15 @@ def _train(c, root, until):
             if pressure:
                 mx.clear_cache()
                 mx.reset_peak_memory()
-                if state["sequence_length"] > 16:
+                if policy:
+                    if state["checkpointing"]:
+                        if s:
+                            checkpoint.write(root, model, opt, state)
+                        raise MemoryError(
+                            "V2 memory pressure: checkpoint saved; resume after freeing memory"
+                        )
+                    state["checkpointing"] = True
+                elif state["sequence_length"] > 16:
                     state["sequence_length"] = max(16, state["sequence_length"] // 2)
                 elif state["batch_size"] > 1:
                     state["batch_size"] = max(1, state["batch_size"] // 2)
@@ -130,6 +155,10 @@ def _train(c, root, until):
             total = grads = None
             labels = inputs = 0
             ids = []
+            sources = Counter()
+            categories = Counter()
+            lengths = []
+            padded = 0
             depths = []
             cursor = state["cursor"]
             start = perf_counter()
@@ -150,6 +179,12 @@ def _train(c, root, until):
                 arguments = (pack if packed else batch)(selected, c["response_only"])
                 value, g = fn(model, *arguments)
                 y = arguments[2]
+                if policy:
+                    for sample in selected:
+                        sources[sample["protocol"]] += sample["output_length"]
+                        categories[sample["category"]] += sample["output_length"]
+                        lengths.append(sample["input_length"])
+                    padded += arguments[0].size
                 grads = g if grads is None else tree_map(lambda a, b: a + b, grads, g)
                 total = value if total is None else total + value
                 mx.eval(grads, total)
@@ -181,6 +216,26 @@ def _train(c, root, until):
                 sequence_limit=state["sequence_length"],
                 batch_size=state["batch_size"],
             )
+            consumed_seconds += elapsed
+            if policy:
+                repeats = 0
+                for key in ids:
+                    repeats += int(key in state["visits"])
+                    state["visits"][key] = state["visits"].get(key, 0) + 1
+                row.update(
+                    scored_by_source=dict(sources),
+                    scored_by_category=dict(categories),
+                    lengths=lengths,
+                    padding_fraction=1 - inputs / padded,
+                    repeats=repeats,
+                    rss=psutil.Process().memory_info().rss,
+                    available=psutil.virtual_memory().available,
+                    swap=psutil.swap_memory().used,
+                    lr=opt.learning_rate.item(),
+                    alpha=mx.sigmoid(model.alpha_logit).item()
+                    if c["mode"] == "stabilized"
+                    else None,
+                )
             state.update(
                 step=s + 1,
                 cursor=cursor,
@@ -193,10 +248,22 @@ def _train(c, root, until):
                 next_mlx_seed=c["seed"] + s + 1,
             )
             model.span = span(c)
-            if (s + 1) % c["eval_interval"] == 0 or s + 1 == c["steps"]:
+            if (s + 1) % c["eval_interval"] == 0 or s + 1 == c["steps"] or budget_met():
                 row["validation"] = evaluate_rows(model, valid, c["response_only"])
             state["history"].append(row)
-            if (s + 1) % c["checkpoint_interval"] == 0 or s + 1 == stop or canceled:
+            if (
+                (s + 1) % c["checkpoint_interval"] == 0
+                or s + 1 == stop
+                or budget_met()
+                or canceled
+            ):
+                state["status"] = (
+                    "completed"
+                    if s + 1 == c["steps"] or budget_met()
+                    else "interrupted"
+                    if canceled
+                    else "started"
+                )
                 checkpoint.write(root, model, opt, state)
                 save(Path("outputs") / (c["name"] + ".json"), state)
                 print(
