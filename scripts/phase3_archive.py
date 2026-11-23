@@ -161,6 +161,7 @@ def publish(destination):
         "learning-curves.json",
         "regression.json",
         "compaction.json",
+        "projection.json",
         "fork-audit.json",
         "gate-controls.json",
     ):
