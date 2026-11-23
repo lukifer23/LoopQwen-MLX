@@ -82,6 +82,12 @@ if __name__ == "__main__":
             raise SystemExit("Start through the study supervisor")
         fcntl.flock(int(fd), fcntl.LOCK_EX | fcntl.LOCK_NB)
         sys.exit(0)
+    if sys.argv[1:2] == ["--phase3"]:
+        code = supervise(
+            ["/bin/sh", "scripts/run_phase3.sh", "--supervised", *sys.argv[2:]],
+            Path("outputs/phase3/study.lock"),
+        )
+        sys.exit(128 - code if code < 0 else code)
     finish = sys.argv[1:] == ["--finish"]
     script = Path("scripts/phase2_finish.sh" if finish else "scripts/run_phase2.sh")
     # A live checkout may change. Give sh an immutable command body for this invocation.

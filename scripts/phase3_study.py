@@ -4,7 +4,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
-import subprocess
+import os
 import sys
 
 import yaml
@@ -84,7 +84,8 @@ def run(arm, targets=None, updates=None, **kw):
         state = read(root / read(root / "latest.json")["directory"] / "state.json")
         if state["step"] > stop:
             return
-    subprocess.run(
+    os.execv(
+        sys.executable,
         [
             sys.executable,
             "-m",
@@ -95,7 +96,6 @@ def run(arm, targets=None, updates=None, **kw):
             "--until",
             str(stop),
         ],
-        check=True,
     )
 
 

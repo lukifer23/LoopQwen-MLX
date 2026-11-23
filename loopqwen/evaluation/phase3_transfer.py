@@ -11,7 +11,6 @@ from .. import checkpoint
 from ..data import retention3, v2, v3
 from ..identity import fingerprint
 from ..io import read, save
-from ..training.losses import validation_nll
 from .inference_budget import choose
 from .phase2 import predictions
 from .phase3 import OUT, REGISTER, compare, measure

@@ -46,12 +46,20 @@ def test_graph_paths_and_fingerprints():
 def test_checkout_contention(tmp_path):
     import fcntl
     import os
+    import shutil
     from loopqwen.worker import lease_path
+
+    repo = Path(__file__).resolve().parents[1]
+    other = tmp_path / "second-checkout"
+    pkg = other / "loopqwen"
+    pkg.mkdir(parents=True)
+    for name in ("__init__.py", "worker.py"):
+        shutil.copyfile(repo / "loopqwen" / name, pkg / name)
 
     env = dict(
         os.environ,
         HOME=str(tmp_path),
-        PYTHONPATH=str(Path(__file__).resolve().parents[1]),
+        PYTHONPATH=str(other),
     )
     path = tmp_path / lease_path().relative_to(Path.home())
     path.parent.mkdir(parents=True)
@@ -59,7 +67,7 @@ def test_checkout_contention(tmp_path):
         fcntl.flock(f, fcntl.LOCK_EX)
         result = subprocess.run(
             [sys.executable, "-c", "from loopqwen.worker import acquire; acquire()"],
-            cwd=tmp_path,
+            cwd=other,
             env=env,
             capture_output=True,
             text=True,

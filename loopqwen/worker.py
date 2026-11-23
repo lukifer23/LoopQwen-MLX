@@ -19,10 +19,28 @@ def child_lease():
     return dict(pass_fds=(fd,), env={**os.environ, "LOOPQWEN_LEASE_FD": str(fd)})
 
 
+def check_study(root):
+    import psutil
+
+    ancestors = {os.getpid(), *(p.pid for p in psutil.Process().parents())}
+    for phase in ("phase2", "phase3"):
+        path = root / "outputs" / phase / "study.lock"
+        if not path.is_file():
+            continue
+        with path.open() as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_SH | fcntl.LOCK_NB)
+            except BlockingIOError:
+                owner = lock.read().strip()
+                if not owner.isdigit() or int(owner) not in ancestors:
+                    raise RuntimeError(f"{phase} conductor {owner} owns this checkout")
+
+
 def acquire():
     global _lease
     if _lease is not None:
         return
+    check_study(Path(__file__).resolve().parents[1])
     path = lease_path()
     path.parent.mkdir(mode=0o700, exist_ok=True, parents=True)
     inherited = os.environ.pop("LOOPQWEN_LEASE_FD", None)
@@ -83,6 +101,7 @@ def resources():
                 arg.startswith(
                     (
                         "loopqwen",
+                        "scripts/run_phase3",
                         "scripts/phase3_",
                         "scripts/phase2_",
                         "scripts/run_phase2",
