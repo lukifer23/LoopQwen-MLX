@@ -1,5 +1,6 @@
 import fcntl
 import hashlib
+import json
 import math
 import random
 import signal
@@ -313,7 +314,13 @@ def _train(c, root, until):
             if not math.isfinite(mean) or not math.isfinite(magnitude):
                 raise FloatingPointError(f"Nonfinite loss or gradient at step {s + 1}")
             t = perf_counter()
-            opt.update(model, grads)
+            if "gate_lr" in c and max(depths) == 1:
+                adapter_grads = {
+                    key: value for key, value in grads.items() if key != "alpha_logit"
+                }
+                opt.optimizers[0].update(model, adapter_grads)
+            else:
+                opt.update(model, grads)
             mx.eval(model.trainable_parameters(), opt.state)
             elapsed = perf_counter() - start
             row = dict(
@@ -334,6 +341,23 @@ def _train(c, root, until):
                 row.update(
                     objective_denominator=denominator,
                     exit_targets=labels * (2 if exit_weight else 1),
+                    decoder_site_positions=sum(
+                        b["shape"][0]
+                        * b["shape"][1]
+                        * (
+                            len(model.text.layers)
+                            + (b["k"] - 1) * model.span.length
+                            + (
+                                len(model.text.layers)
+                                - model.span.start
+                                - model.span.length
+                                if exit_weight
+                                else 0
+                            )
+                        )
+                        for b in microbatches
+                    ),
+                    gate_active=forward_alpha is not None and max(depths) > 1,
                     alpha_forward=float(forward_alpha)
                     if forward_alpha is not None and max(depths) > 1
                     else None,
@@ -433,7 +457,21 @@ def _train(c, root, until):
                     if canceled
                     else "started"
                 )
+                io_start = perf_counter()
                 checkpoint.write(root, model, opt, state)
+                if c.get("max_microbatch_positions"):
+                    gen = checkpoint.location(root)
+                    with (root / "serialization.jsonl").open("a") as file:
+                        print(
+                            json.dumps(
+                                dict(
+                                    step=s + 1,
+                                    seconds=perf_counter() - io_start,
+                                    bytes=sum(p.stat().st_size for p in gen.iterdir()),
+                                )
+                            ),
+                            file=file,
+                        )
                 for m in crossed:
                     save(root / f"targets-{m}.json", read(root / "latest.json"))
                 save(Path("outputs") / (c["name"] + ".json"), state)

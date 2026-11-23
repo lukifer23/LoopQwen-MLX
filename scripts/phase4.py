@@ -136,8 +136,13 @@ def efficiency(seed):
 
 
 def stage(name, seed):
-    if digest("data/v2/manifest.json") != SPEC["data_manifest"]:
+    if digest(Path("data/v2/manifest.json")) != SPEC["data_manifest"]:
         raise ValueError("Unregistered V2 manifest")
+    if name == "audit":
+        subprocess.run(
+            [sys.executable, "-m", "loopqwen.benchmark.phase4_gradients"], check=True
+        )
+        return
     if name == "efficiency":
         efficiency(seed)
         return
@@ -187,7 +192,7 @@ if __name__ == "__main__":
     p.add_argument(
         "stages",
         nargs="+",
-        choices=["efficiency", "replicate", "dual-exit", "latent", "evaluate"],
+        choices=["audit", "efficiency", "replicate", "dual-exit", "latent", "evaluate"],
     )
     p.add_argument("--seed", type=int, default=SPEC["seed"])
     p.add_argument("--worker", action="store_true")

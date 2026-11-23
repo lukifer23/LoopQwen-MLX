@@ -52,7 +52,7 @@ def prepare(c):
                 raise ValueError("No eligible examples for requested " + mode)
             if not fraction:
                 continue
-            frequencies[mode] = fraction * len(eligible) / sum(eligible)
+            frequencies[mode] = fraction / sum(eligible)
         total = sum(frequencies.values())
         mix = {mode: f / total for mode, f in frequencies.items()}
     pool = []

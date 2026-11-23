@@ -26,6 +26,9 @@ FILES = (
     "evaluation/answers.py",
     "evaluation/trace_verifier.py",
     "data/graphs.py",
+    "data/token_classes.py",
+    "evaluation/generation_eval.py",
+    "evaluation/statistics.py",
 )
 
 
