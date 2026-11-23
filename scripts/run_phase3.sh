@@ -23,7 +23,14 @@ smoke|screening|main)
   "$python" -m loopqwen.evaluation.phase3 screen "$learned"
   [ "$stage" = main ] || exit 0
   selected=$("$python" -c 'from loopqwen.io import read; print(read("outputs/phase3/selection.json")["selected"])')
-  for arm in dense direct "$selected"; do study "$arm" --targets 100000; done
+  for arm in dense direct "$selected"; do
+    boundary=$("$python" -c 'import sys; from loopqwen.io import read; p=read("experiments/phase3_execution.json");print(p["step"] if p["arm"]==sys.argv[1] else 0)' "$arm")
+    if [ "$boundary" -gt 0 ]; then
+      study "$arm" --updates "$boundary"
+      "$python" scripts/phase3_checkpoint_policy.py
+    fi
+    study "$arm" --targets 100000
+  done
   "$python" -m loopqwen.evaluation.phase3 main "$selected"
   ;;
 *) echo "Use smoke, screening or main" >&2; exit 2;;
