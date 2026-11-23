@@ -12,7 +12,8 @@ import numpy as np
 
 from ..checkpoint import load_trained
 from ..data.v2 import rows
-from ..identity import evaluation_identity, fingerprint
+from ..identity import fingerprint
+from .identity import evaluation_identity
 from ..io import read, save
 from ..training.losses import validation_nll
 from .phase2 import predictions

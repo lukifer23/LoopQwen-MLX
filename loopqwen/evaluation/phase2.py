@@ -212,7 +212,7 @@ def evaluate(name):
             k: v for k, v in state["manifest"].items() if k != "gsm_train"
         } != read(ROOT / "manifest.json"):
             raise ValueError("Incomplete or mismatched run " + arm)
-        from ..identity import evaluation_identity
+        from .identity import evaluation_identity
 
         identity = evaluation_identity(
             m,
