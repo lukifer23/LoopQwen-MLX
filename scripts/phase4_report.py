@@ -95,6 +95,86 @@ def eligibility(index):
     )
 
 
+def figures(root, index, seed):
+    import matplotlib
+
+    matplotlib.use("Agg")
+    from matplotlib import pyplot as plt
+
+    data = records(index)
+    fig, axes = plt.subplots(1, 3, figsize=(12, 3.6), layout="constrained")
+    panels = [
+        (
+            "250K training replication",
+            [
+                ("dense-250000-k1", "Dense"),
+                ("time-250000-k1", "Dense · time"),
+                ("gated-250000-k1", "Gated · K1"),
+                ("gated-250000-k2", "Gated · K2"),
+            ],
+        ),
+        (
+            "100K dual-exit comparison",
+            [
+                ("dense-100000-k1", "Dense"),
+                ("gated-100000-k2", "Gated · K2"),
+                ("joint-100000-k1", "Joint · K1"),
+                ("joint-100000-k2", "Joint · K2"),
+            ],
+        ),
+    ]
+    for ax, (title, arms) in zip(axes, panels):
+        for offset, split, color, label in (
+            (-0.18, "development", "#1b7866", "ID"),
+            (0.18, "development_ood", "#7b5798", "OOD"),
+        ):
+            scores = [data[k]["scores"][split + "/trace"] for k, _ in arms]
+            ax.bar(
+                [j + offset for j in range(len(arms))],
+                [100 * v["correct"] / v["n"] for v in scores],
+                width=0.34,
+                color=color,
+                label=label,
+            )
+        ax.set(
+            title=title,
+            ylabel="Traced answers correct (%)",
+            ylim=(0, 100),
+            xticks=range(len(arms)),
+            xticklabels=[x[1] for x in arms],
+        )
+        ax.tick_params(axis="x", rotation=25, labelsize=8)
+        ax.legend(frameon=False, fontsize=8)
+    ax = axes[-1]
+    for arm, label, color in (
+        ("probe", "Frozen + head", "#798899"),
+        ("dense", "Dense + head", "#375982"),
+        ("recurrent", "Recurrent + head", "#16785e"),
+    ):
+        scores = read(OUT / f"state-{seed}-{arm}-install.json")["suite"]
+        ax.plot(
+            [1, 2, 3],
+            [100 * scores[str(n)]["terminal"] / scores[str(n)]["n"] for n in (1, 2, 3)],
+            marker="o",
+            label=label,
+            color=color,
+        )
+    ax.axhline(12.5, ls=":", color="#777777", label="Uniform guess")
+    ax.set(
+        title="Pointer map generalization",
+        xlabel="Requested transitions",
+        ylabel="Terminal state correct (%)",
+        ylim=(0, 100),
+        xticks=[1, 2, 3],
+    )
+    ax.legend(frameon=False, fontsize=8)
+    for ax in axes:
+        ax.spines[["top", "right"]].set_visible(False)
+    fig.suptitle(f"Phase 4 · independent development seed {seed}")
+    fig.savefig(root / "development.png", dpi=160)
+    plt.close(fig)
+
+
 def publish(seed):
     index = read(OUT / f"evaluation-{seed}.json")
     stages = {
@@ -434,6 +514,7 @@ SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environ
         "[Source-resolved configurations, work counters and checkpoint measurements](measurements/phase4/training.json)",
     ]
     (reports / "PHASE4_OPTIMIZATIONS.md").write_text("\n".join(perf) + "\n")
+    figures(root, index, seed)
     save(
         root / "checksums.json",
         {
