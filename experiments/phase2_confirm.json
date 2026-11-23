@@ -1,0 +1,45 @@
+{
+  "runs": [
+    "p2_confirm_43_dense",
+    "p2_confirm_43_loop",
+    "p2_confirm_43_time",
+    "p2_confirm_53_dense",
+    "p2_confirm_53_loop",
+    "p2_confirm_53_time",
+    "p2_confirm_67_dense",
+    "p2_confirm_67_loop",
+    "p2_confirm_67_time"
+  ],
+  "purpose": "Frozen three-seed ID and OOD evaluation with data- and time-matched dense controls.",
+  "matched": [
+    [
+      "p2_confirm_43_dense",
+      "p2_confirm_43_loop"
+    ],
+    [
+      "p2_confirm_53_dense",
+      "p2_confirm_53_loop"
+    ],
+    [
+      "p2_confirm_67_dense",
+      "p2_confirm_67_loop"
+    ]
+  ],
+  "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "data_sha256": "37f82776fa0a006af67447f8e4ca8ca142e1e6f842f4fff6b78bd6d27a59f0c3",
+  "splits": [
+    "test",
+    "ood"
+  ],
+  "loss_count": 150,
+  "generation": {
+    "answer": 12,
+    "trace": 128
+  },
+  "generation_count": {
+    "answer": 90,
+    "trace": 45
+  },
+  "language_count": 48,
+  "padded": true
+}

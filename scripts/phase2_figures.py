@@ -66,6 +66,40 @@ def figure(name):
     plt.close(fig)
 
 
+def frontier_plot(records):
+    fig, axes = plt.subplots(
+        1,
+        len(records),
+        figsize=(10, 3.6),
+        sharex=True,
+        sharey=True,
+        layout="constrained",
+    )
+    for ax, r in zip(axes, records):
+        for label, seconds, correct, marker, color in (
+            ("Dense greedy", "dense_seconds", "dense", "o", "#82613a"),
+            ("Dense vote", "strategy_seconds", "plurality", "x", "#ae5b34"),
+            ("Loop greedy", "loop_seconds", "loop", "s", "#146764"),
+        ):
+            ax.scatter(
+                1000 * r[seconds] / len(r["records"]),
+                r[correct],
+                marker=marker,
+                s=65,
+                color=color,
+                label=label,
+            )
+        ax.set(title=f"Seed {r['seed']}", xlabel="Milliseconds per problem")
+        ax.grid(alpha=0.18)
+        ax.spines[["right", "top"]].set_visible(False)
+    axes[0].set_ylabel("Correct out of 30")
+    axes[0].set_ylim(bottom=-0.5)
+    axes[-1].legend(loc="best", fontsize=8)
+    fig.suptitle("Measured single-request inference budgets")
+    fig.savefig(ARCHIVE / "phase2_confirm" / "latency.png", dpi=165)
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--experiment", required=True)

@@ -5,7 +5,7 @@ import json
 import shutil
 from pathlib import Path
 
-from phase2_figures import figure
+from phase2_figures import figure, frontier_plot
 
 from loopqwen.checkpoint import location
 from loopqwen.data.build_data import digest
@@ -45,6 +45,7 @@ def all_results():
         "phase2_anchor",
     ):
         archive(group)
+    frontier_plot(read(OUT / "frontier.json"))
     for key in (
         "frontier",
         "base_dev",

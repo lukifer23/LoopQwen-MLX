@@ -180,6 +180,10 @@ def create():
             for r in read(ROOT / "frontier.json")
         ),
     )
+    p(
+        "![Sequential accuracy and measured cost](measurements/phase2/phase2_confirm/latency.png)"
+    )
+    p()
     p("## External transfer and depth")
     p()
     table(

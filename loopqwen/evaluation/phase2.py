@@ -89,6 +89,7 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False)
                     raise ValueError(r["answer"])
                 output[r["id"]] = dict(
                     id=r["id"],
+                    prompt=r["prompt"],
                     category=r["category"],
                     complexity=r["complexity"],
                     steps=r["steps"],
