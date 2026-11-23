@@ -31,6 +31,7 @@ def config(path):
             "ramp_fraction",
             "label_budget",
             "seconds_budget",
+            "validation_batch_size",
         }
     ):
         raise ValueError(f"Unknown config keys {extra}")
@@ -114,6 +115,10 @@ def config(path):
     for key in ("warmup_fraction", "ramp_fraction"):
         if key in c and not 0 < c[key] <= 1:
             raise ValueError(key)
+    if c.get("validation_batch_size", 1) not in (1, 2, 4) or (
+        "validation_batch_size" in c and c["dataset"] != "v2"
+    ):
+        raise ValueError("V2 validation batch size must be 1, 2 or 4")
     for key in ("label_budget", "seconds_budget"):
         if key in c and c[key] <= 0:
             raise ValueError(key)

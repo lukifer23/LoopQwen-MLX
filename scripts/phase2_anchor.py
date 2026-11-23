@@ -13,7 +13,14 @@ from loopqwen.io import save
 
 
 def run():
-    p = write("anchor", steps=24, eval_interval=24, mode="input_anchor", alpha_init=0.9)
+    p = write(
+        "anchor",
+        steps=24,
+        eval_interval=24,
+        mode="input_anchor",
+        alpha_init=0.9,
+        validation_batch_size=4,
+    )
     execute(p)
     model, tok, state = load_trained(Path("checkpoints") / p.stem)
     x = mx.array([rows("validation", "answer")[0]["ids"][:35]])

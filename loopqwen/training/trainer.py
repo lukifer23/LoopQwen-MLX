@@ -22,7 +22,7 @@ from ..data.tokenize import batch, pack
 from ..hardware import doctor, gpu_utilization
 from ..io import read, save
 from ..model_loader import count
-from .losses import loss_sum, packed_loss_sum
+from .losses import loss_sum, packed_loss_sum, validation_nll
 from .optimizers import optimizer
 
 
@@ -285,7 +285,15 @@ def _train(c, root, until):
             )
             model.span = span(c)
             if (s + 1) % c["eval_interval"] == 0 or s + 1 == c["steps"] or budget_met():
-                row["validation"] = evaluate_rows(model, valid, c["response_only"])
+                val_start = perf_counter()
+                if c.get("validation_batch_size", 1) > 1:
+                    row["validation"] = validation_nll(
+                        model, valid, batch_size=c["validation_batch_size"]
+                    )
+                else:
+                    row["validation"] = evaluate_rows(model, valid, c["response_only"])
+                if policy:
+                    row["validation_seconds"] = perf_counter() - val_start
             state["history"].append(row)
             if (
                 (s + 1) % c["checkpoint_interval"] == 0
