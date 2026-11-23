@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from loopqwen.io import read
+from loopqwen.io import digest, read, save
 
 
 def table(head, data):
@@ -202,6 +202,10 @@ def docs(archive, destination):
     axes[0].legend(fontsize=7)
     fig.savefig(archive / "learning-curves.png", dpi=160)
     plt.close(fig)
+    checksum_file = archive / "checksums.json"
+    checksums = read(checksum_file)
+    checksums["learning-curves.png"] = digest(archive / "learning-curves.png")
+    save(checksum_file, checksums)
     profiles = [(k, v) for k, v in train.items() if "_profile_" in k]
     batches = [read(p) for p in sorted(archive.glob("batch-*.json"))]
     audit = read(archive / "native-audit.json")

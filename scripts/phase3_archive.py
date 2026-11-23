@@ -129,6 +129,7 @@ def publish(destination):
         "exposure.json",
         "answer-likelihood.json",
         "learning-curves.json",
+        "regression.json",
         "compaction.json",
         "fork-audit.json",
     ):
@@ -179,6 +180,9 @@ def publish(destination):
                     "loss_tokens",
                     "input_tokens",
                     "trainable",
+                    "manifest",
+                    "hardware",
+                    "model",
                     "training_identity",
                     "alpha_override",
                     "order_hash",
