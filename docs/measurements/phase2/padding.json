@@ -1,0 +1,120 @@
+{
+  "answer_only": {
+    "True": {
+      "positions": 1373876,
+      "padding_fraction": 0.09526114438275357,
+      "caps": {
+        "64": {
+          "dependencies": 4782
+        },
+        "128": {},
+        "256": {},
+        "512": {}
+      }
+    },
+    "False": {
+      "positions": 1693788,
+      "padding_fraction": 0.2661425160645843,
+      "caps": {
+        "64": {
+          "dependencies": 4782
+        },
+        "128": {},
+        "256": {},
+        "512": {}
+      }
+    }
+  },
+  "verified_traces": {
+    "True": {
+      "positions": 3314788,
+      "padding_fraction": 0.022985783706227947,
+      "caps": {
+        "64": {
+          "arithmetic": 4791,
+          "dependencies": 4800,
+          "system": 4800,
+          "array": 4800,
+          "modular": 4800
+        },
+        "128": {
+          "dependencies": 4800,
+          "system": 4648,
+          "array": 2810,
+          "modular": 3106,
+          "arithmetic": 74
+        },
+        "256": {},
+        "512": {}
+      }
+    },
+    "False": {
+      "positions": 3967944,
+      "padding_fraction": 0.18381030579060587,
+      "caps": {
+        "64": {
+          "dependencies": 4800,
+          "array": 4800,
+          "modular": 4800,
+          "arithmetic": 4791,
+          "system": 4800
+        },
+        "128": {
+          "dependencies": 4800,
+          "array": 2810,
+          "modular": 3106,
+          "system": 4648,
+          "arithmetic": 74
+        },
+        "256": {},
+        "512": {}
+      }
+    }
+  },
+  "mixed_answer_and_traces": {
+    "True": {
+      "positions": 3154788,
+      "padding_fraction": 0.2914836115770695,
+      "caps": {
+        "64": {
+          "arithmetic": 2299,
+          "dependencies": 4792,
+          "system": 2343,
+          "array": 2383,
+          "modular": 2412
+        },
+        "128": {
+          "system": 2269,
+          "dependencies": 2462,
+          "array": 1387,
+          "modular": 1564,
+          "arithmetic": 41
+        },
+        "256": {},
+        "512": {}
+      }
+    },
+    "False": {
+      "positions": 3494440,
+      "padding_fraction": 0.36034987007932606,
+      "caps": {
+        "64": {
+          "dependencies": 4792,
+          "array": 2383,
+          "modular": 2412,
+          "arithmetic": 2299,
+          "system": 2343
+        },
+        "128": {
+          "dependencies": 2462,
+          "array": 1387,
+          "modular": 1564,
+          "system": 2269,
+          "arithmetic": 41
+        },
+        "256": {},
+        "512": {}
+      }
+    }
+  }
+}

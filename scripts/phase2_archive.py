@@ -54,6 +54,7 @@ def all_results():
         "format_shift",
         "gate_sweep",
         "merge_audit",
+        "merge_trace",
         "depth_latency",
         "padded",
     ):
@@ -75,6 +76,10 @@ def all_results():
     shutil.copyfile(
         OUT / "phase2_confirm/paired.json", DEST / "phase2_confirm/paired.json"
     )
+    for fusion in ("stock", "fp32"):
+        directory = Path("exports") / ("p2_confirm_43_loop_" + fusion)
+        for filename in ("verification.json", "provenance.json"):
+            shutil.copyfile(directory / filename, DEST / (fusion + "-" + filename))
     for run in ("p2_confirm_43_dense", "p2_confirm_43_loop"):
         src = location(Path("checkpoints") / run)
         dst = (OUT / "reproduction/adapters" if REPRO else Path("adapters")) / run

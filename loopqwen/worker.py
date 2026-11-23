@@ -82,7 +82,14 @@ def resources():
                     parent=proc.ppid(),
                     status=proc.status(),
                     adopted_by_launchd=proc.ppid() == 1,
-                    command=" ".join(args[:4]),
+                    command=(
+                        next(
+                            (a for a in args if a.endswith(".sh") and len(a) < 128),
+                            "project shell",
+                        )
+                        if "-c" in args
+                        else " ".join(args[:5])[:160]
+                    ),
                     rss_mib=round(proc.memory_info().rss / 2**20, 1),
                 )
             )

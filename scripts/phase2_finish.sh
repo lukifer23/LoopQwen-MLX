@@ -2,6 +2,9 @@
 set -eu
 cd "$(dirname "$0")/.."
 python=.venv/bin/python
+if [ "${1:-}" != "--supervised" ]; then
+  exec "$python" scripts/phase2_supervise.py --finish
+fi
 "$python" -m loopqwen.benchmark.validation_memory
 "$python" -m loopqwen.evaluation.statistics
 "$python" -m loopqwen.evaluation.inference_budget
@@ -11,6 +14,7 @@ python=.venv/bin/python
 "$python" -m loopqwen.evaluation.gate_sweep
 "$python" -m loopqwen.benchmark.phase2_training
 "$python" -m loopqwen.evaluation.merge_audit p2_confirm_43_loop
+"$python" -m loopqwen.evaluation.merge_audit p2_confirm_43_loop --trace
 "$python" scripts/phase2_repeat.py
 "$python" -m loopqwen.benchmark.phase2_inference
 "$python" scripts/phase2_anchor.py

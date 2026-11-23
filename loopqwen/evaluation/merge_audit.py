@@ -27,6 +27,25 @@ def diagnostics(model, tok, docs, language):
     )
 
 
+def traced(name):
+    docs = rows("validation", "trace")[:30]
+    result = {}
+    for mode in ("adapter", "stock", "fp32"):
+        if mode == "adapter":
+            model, tok, _ = load_trained(Path("checkpoints") / name)
+        else:
+            model, tok = load_export(Path("exports") / (name + "_" + mode))
+        result[mode] = dict(
+            loss=nll(model, docs),
+            greedy=predictions(model, tok, docs, 128, padded=True),
+        )
+        del model
+        gc.collect()
+        mx.clear_cache()
+    save("outputs/phase2/merge_trace.json", result)
+    return result
+
+
 def audit(name):
     checkpoint = Path("checkpoints") / name
     docs = rows("validation", "answer")[:30]
@@ -60,4 +79,7 @@ def audit(name):
 if __name__ == "__main__":
     import sys
 
-    audit(sys.argv[1])
+    if "--trace" in sys.argv:
+        traced(sys.argv[1])
+    else:
+        audit(sys.argv[1])

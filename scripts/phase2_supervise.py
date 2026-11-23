@@ -62,8 +62,14 @@ def supervise(argv, lock_path):
 
 
 if __name__ == "__main__":
+    finish = sys.argv[1:] == ["--finish"]
+    script = Path("scripts/phase2_finish.sh" if finish else "scripts/run_phase2.sh")
+    # A live checkout may change. Give sh an immutable command body for this invocation.
+    args = ["/bin/sh", "-c", script.read_text(), str(script), "--supervised"]
+    if finish:
+        os.execv("/bin/sh", args)
     code = supervise(
-        ["/bin/sh", "scripts/run_phase2.sh", "--supervised"],
+        args,
         Path("outputs/phase2/study.lock"),
     )
     sys.exit(128 - code if code < 0 else code)

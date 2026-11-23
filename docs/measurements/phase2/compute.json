@@ -1,0 +1,306 @@
+{
+  "p2_a_answer_dense": {
+    "forward_projection_flops": 17197596024832,
+    "update_seconds": 23.368498876010563,
+    "device_utilization_samples": [],
+    "targets": 1220,
+    "inputs": 15074
+  },
+  "p2_a_answer_loop": {
+    "forward_projection_flops": 21322381672448,
+    "update_seconds": 31.883606548999524,
+    "device_utilization_samples": [],
+    "targets": 1220,
+    "inputs": 15074
+  },
+  "p2_a_trace_dense": {
+    "forward_projection_flops": 51295399550976,
+    "update_seconds": 59.103015663989936,
+    "device_utilization_samples": [],
+    "targets": 21834,
+    "inputs": 39432
+  },
+  "p2_a_trace_loop": {
+    "forward_projection_flops": 61295993503744,
+    "update_seconds": 78.51478011800646,
+    "device_utilization_samples": [],
+    "targets": 21834,
+    "inputs": 39432
+  },
+  "p2_screen_direct": {
+    "forward_projection_flops": 19861582036992,
+    "update_seconds": 24.765750581998873,
+    "device_utilization_samples": [],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_gradual": {
+    "forward_projection_flops": 19202093072384,
+    "update_seconds": 23.434332789995096,
+    "device_utilization_samples": [],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_stabilized": {
+    "forward_projection_flops": 19861582036992,
+    "update_seconds": 24.767967752002733,
+    "device_utilization_samples": [],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_mixed": {
+    "forward_projection_flops": 19389809057792,
+    "update_seconds": 23.994220999997196,
+    "device_utilization_samples": [],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_mlp8": {
+    "forward_projection_flops": 19909488279552,
+    "update_seconds": 25.770300167998357,
+    "device_utilization_samples": [],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_mlp10": {
+    "forward_projection_flops": 19826415108096,
+    "update_seconds": 22.76701558300192,
+    "device_utilization_samples": [],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_mlp16": {
+    "forward_projection_flops": 19909488279552,
+    "update_seconds": 19.166816417011432,
+    "device_utilization_samples": [],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_rank16": {
+    "forward_projection_flops": 19931434156032,
+    "update_seconds": 24.858927462999418,
+    "device_utilization_samples": [
+      97,
+      99,
+      99
+    ],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_nearby": {
+    "forward_projection_flops": 19886016897024,
+    "update_seconds": 27.424924582999665,
+    "device_utilization_samples": [
+      98,
+      99,
+      99
+    ],
+    "targets": 7032,
+    "inputs": 12829
+  },
+  "p2_screen_formats": {
+    "forward_projection_flops": 17975206576128,
+    "update_seconds": 23.52681849700457,
+    "device_utilization_samples": [
+      97,
+      99,
+      99
+    ],
+    "targets": 3607,
+    "inputs": 8741
+  },
+  "p2_screen_formats_dense": {
+    "forward_projection_flops": 14759204667392,
+    "update_seconds": 17.253411873993173,
+    "device_utilization_samples": [
+      95,
+      99,
+      99
+    ],
+    "targets": 3607,
+    "inputs": 8741
+  },
+  "p2_confirm_43_dense": {
+    "forward_projection_flops": 51165643841536,
+    "update_seconds": 59.050992047014006,
+    "device_utilization_samples": [
+      96,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "targets": 13730,
+    "inputs": 31373
+  },
+  "p2_confirm_43_loop": {
+    "forward_projection_flops": 62159444066304,
+    "update_seconds": 80.88613979099682,
+    "device_utilization_samples": [
+      97,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "targets": 13730,
+    "inputs": 31373
+  },
+  "p2_confirm_43_time": {
+    "forward_projection_flops": 69678545133568,
+    "update_seconds": 80.98556948998885,
+    "device_utilization_samples": [
+      96,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      97,
+      99,
+      99,
+      99
+    ],
+    "targets": 18125,
+    "inputs": 42464
+  },
+  "p2_confirm_53_dense": {
+    "forward_projection_flops": 51065878544384,
+    "update_seconds": 59.21073979300854,
+    "device_utilization_samples": [
+      92,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "targets": 12694,
+    "inputs": 31256
+  },
+  "p2_confirm_53_loop": {
+    "forward_projection_flops": 62165951840256,
+    "update_seconds": 81.32553108299544,
+    "device_utilization_samples": [
+      96,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "targets": 12694,
+    "inputs": 31256
+  },
+  "p2_confirm_53_time": {
+    "forward_projection_flops": 70846969421824,
+    "update_seconds": 82.22230408699761,
+    "device_utilization_samples": [
+      94,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      97,
+      99,
+      99,
+      99
+    ],
+    "targets": 17801,
+    "inputs": 43477
+  },
+  "p2_confirm_67_dense": {
+    "forward_projection_flops": 53745150427136,
+    "update_seconds": 61.794687706984405,
+    "device_utilization_samples": [
+      96,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "targets": 14917,
+    "inputs": 33762
+  },
+  "p2_confirm_67_loop": {
+    "forward_projection_flops": 65230587756544,
+    "update_seconds": 84.94201654499193,
+    "device_utilization_samples": [
+      98,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99
+    ],
+    "targets": 14917,
+    "inputs": 33762
+  },
+  "p2_confirm_67_time": {
+    "forward_projection_flops": 73957299380224,
+    "update_seconds": 85.1545980820083,
+    "device_utilization_samples": [
+      97,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      99,
+      97,
+      99,
+      99,
+      99
+    ],
+    "targets": 20228,
+    "inputs": 46231
+  }
+}

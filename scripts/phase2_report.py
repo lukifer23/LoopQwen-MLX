@@ -17,7 +17,7 @@ def state(arm):
     return read(location(Path("checkpoints") / arm) / "state.json")
 
 
-def create():
+def create(output=None):
     m = read("experiments/phase2_confirm.json")
     sel = read("experiments/phase2_selection.json")
     paired = read(ROOT / "phase2_confirm/paired.json")
@@ -26,7 +26,7 @@ def create():
     rows = []
 
     def p(s=""):
-        rows.append(s + "\n")
+        rows.append(s)
 
     def table(columns, values):
         p("| " + " | ".join(columns) + " |")
@@ -35,12 +35,28 @@ def create():
             p("| " + " | ".join(map(str, row)) + " |")
         p()
 
+    selected = (
+        "direct K=2 with mixed answer and trace supervision"
+        if sel["selected"] == "formats"
+        else sel["selected"]
+    )
     p("# Phase 2 results")
     p()
     p(
-        f"The development criterion selected **{sel['selected']}**. The confirmatory runs use seeds 43, 53 and 67 with 84 data-matched updates per model. Each time-matched dense run continued until it reached its paired loop’s measured update time. The research question is whether shared recurrent depth improves exact answers, likelihood or quality for the compute spent after matched adaptation."
+        f"The development criterion selected **{selected}**. The confirmatory runs use seeds 43, 53 and 67 with 84 data-matched updates per model. Each time-matched dense run continued until it reached its paired loop’s measured update time. The research question is whether shared recurrent depth improves exact answers, likelihood or quality for the compute spent after matched adaptation."
     )
     p()
+    for split, label in (
+        ("test", "Fresh in-distribution"),
+        ("ood", "Out-of-distribution"),
+    ):
+        entry = paired[f"{split}/trace/dense"]
+        acc = entry["accuracy"]
+        lo, hi = entry["paired_ci95"]
+        p(
+            f"{label} traced accuracy averaged **{acc['dense']['mean']:.1%} dense and {acc['loop']['mean']:.1%} loop**. The loop-minus-dense difference was {100 * entry['mean_difference']:+.1f} percentage points, paired 95% interval [{100 * lo:+.1f}, {100 * hi:+.1f}]."
+        )
+        p()
     p("## Setup")
     p()
     p(
@@ -371,18 +387,66 @@ def create():
         "Both BF16 fusions include the recurrent loader, tokenizer and provenance. Clean subprocesses checked their merged logits. Adapter inference preserves the original unfused computation. The seed-43 data-matched pair is stored under `adapters/p2_confirm_43_{dense,loop}`. Timestamped local training generations under `checkpoints/` include AdamW state."
     )
     p()
+    table(
+        [
+            "Seed 43 form",
+            "Trace NLL",
+            "Trace correct / 30",
+            "Changed traced strings vs adapter",
+        ],
+        (
+            [
+                mode,
+                f"{v['loss']['nll']:.4f}",
+                v["greedy"]["correct"],
+                sum(
+                    a["text"] != b["text"]
+                    for a, b in zip(
+                        trace_results["adapter"]["greedy"]["records"],
+                        v["greedy"]["records"],
+                    )
+                ),
+            ]
+            for trace_results in [read(ROOT / "merge_trace.json")]
+            for mode, v in trace_results.items()
+        ),
+    )
+    p("## Interpretation and next experiment")
+    p()
+    p(
+        "This local conversion learned to emit useful derivations, but the selected recurrent model lost traced accuracy on the harder distribution, spent more time per matched training example and increased general-language NLL. Dense models used the matched update-time budget for additional training exposure. The short answer-only protocol yielded few correct answers for any arm. Lower teacher-forced trace loss can reward predictable scaffolding even on a problem the model ultimately answers incorrectly."
+    )
+    p()
+    p(
+        "The next larger experiment should test output interpolation on the selected mixed supervision, with the same dense control and a K=1 bypass of each trained loop. On the trace-only screen, interpolation improved trace NLL and prose retention over direct recurrence. The learned scalar stayed close to its initial 0.1, and its K=1 bypass gave essentially the same development trace NLL. A matched, three-seed gate/bypass comparison tests whether a second pass actually earns its cost."
+    )
+    p()
+    p(
+        "These are short LoRA runs on one Mac, with 336 examples per data-matched seed. Both response protocols draw from five generated task families. The held-out novel measures one prose domain. External transfer and export checks use one seed. Original trainer states record their launch revision. Some early runs started during implementation, so that revision alone does not identify every working-tree edit. The archived configurations, manifests, curves, weights and result hashes preserve the measured runs. Later workers also record a package source digest."
+    )
+    p()
     p("## Reproduction")
     p()
     p("Run from a fresh checkout on an arm64 Mac with MLX Metal.")
     p()
     p(
-        "```sh\nuv sync --locked --group figures\n.venv/bin/python -m loopqwen download\nscripts/run_phase2.sh\n.venv/bin/python -m loopqwen compare --experiment phase2_confirm\n.venv/bin/python -m loopqwen generate --checkpoint adapters/p2_confirm_43_loop --prompt 'Evaluate ((8 + 4) * 3 - 5).\nAnswer:' --max-tokens 24\n```"
+        "```sh\nuv sync --locked --group figures\n.venv/bin/python -m loopqwen download\nscripts/run_phase2.sh\n.venv/bin/python -m loopqwen compare --experiment phase2_confirm\n.venv/bin/python -m loopqwen generate --checkpoint adapters/p2_confirm_43_loop --prompt 'Evaluate ((8 + 4) * 3 - 5).\nShow your steps. End with Final answer: <number>.\nSolution:' --max-tokens 96\n```"
     )
-    path = Path("docs/PHASE2_RESULTS.md")
-    if path.exists():
+    p()
+    p(
+        "The seed-43 recurrent adapter generated the following continuation for this command. [Recorded tokens and timing](measurements/phase2/example.json)"
+    )
+    p()
+    p(
+        "```text\n"
+        + read(ROOT / "example.json")["text"].split("<|endoftext|>")[0].strip()
+        + "\n```"
+    )
+    path = Path(output or "docs/PHASE2_RESULTS.md")
+    if output is None and path.exists():
         path = ROOT / "reproduction/PHASE2_RESULTS.md"
         path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(rows))
+    path.write_text("\n".join(rows) + "\n")
 
 
 if __name__ == "__main__":
