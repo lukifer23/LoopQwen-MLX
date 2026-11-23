@@ -30,3 +30,20 @@ def load_export(directory):
     model.eval()
     eos = cfg["text_config"]["eos_token_id"]
     return model, load_tokenizer(directory, eos_token_ids=[eos])
+
+
+def verify(directory):
+    import hashlib
+
+    import numpy as np
+
+    root = Path(directory)
+    audit = json.loads((root / "verification.json").read_text())
+    model, tokenizer = load_export(root)
+    ids = tokenizer.encode(audit["prompt"])
+    if [ids] != audit["input_ids"]:
+        raise ValueError("Export tokenizer mismatch")
+    logits = model(mx.array([ids])).astype(mx.float32)
+    actual = hashlib.sha256(np.asarray(logits).tobytes()).hexdigest()
+    if actual != audit["logits_sha256"]:
+        raise ValueError("Fresh-process export logits differ from merged logits")

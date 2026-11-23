@@ -175,14 +175,16 @@ def report(experiment):
     lines = [
         f"# {experiment} comparison",
         "",
-        "| Model | Answer NLL | Prose NLL | Procedural exact | GSM8K exact | Actual layer-token executions¹ |",
-        "|---|---:|---:|---:|---:|---:|",
+        "| Model | Answer NLL | Prose NLL | Procedural exact | GSM8K exact | Numeric MATH slice | Actual layer-token executions¹ |",
+        "|---|---:|---:|---:|---:|---:|---:|",
     ]
     for name, r in summary["models"].items():
         p, g = r["procedural"], r["gsm"]
+        subset = r.get("math500_numeric")
+        math_score = f"{subset['correct']}/{subset['n']}" if subset else "n/a"
         gsm = f"{g['correct']}/{g['n']}" if g else "n/a"
         lines.append(
-            f"| {name} | {r['answer_nll']:.4f} | {r['prose_nll']:.4f} | {p['correct']}/{p['n']} | {gsm} | {r['layer_executions']:,} |"
+            f"| {name} | {r['answer_nll']:.4f} | {r['prose_nll']:.4f} | {p['correct']}/{p['n']} | {gsm} | {math_score} | {r['layer_executions']:,} |"
         )
     lines += [
         "",

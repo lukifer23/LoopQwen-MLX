@@ -24,6 +24,15 @@ def main():
     p.add_argument(
         "--procedural-only", action="store_true", help="Skip public GSM8K examples"
     )
+    p.add_argument(
+        "--gsm-traces",
+        action="store_true",
+        help="Train on short published GSM8K solutions",
+    )
+    p.add_argument(
+        "--retention-file",
+        help="JSONL general-language documents with text, source and license",
+    )
     p = sub.add_parser(
         "probe",
         help="Measure shared parameter identity, K=1 parity and forward latency",
@@ -79,7 +88,11 @@ def main():
     elif cmd == "data":
         from .data.build_data import build_data
 
-        result = build_data(public=not args.procedural_only)
+        result = build_data(
+            public=not args.procedural_only,
+            gsm_traces=args.gsm_traces,
+            retention_file=args.retention_file,
+        )
     elif cmd == "probe":
         from .probe import probe
         from .recurrence import Span

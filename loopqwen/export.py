@@ -1,9 +1,14 @@
+import gc
+import hashlib
 import shutil
+import subprocess
+import sys
 import tempfile
 from dataclasses import asdict
 from pathlib import Path
 
 import mlx.core as mx
+import numpy as np
 from mlx_lm.tuner.lora import LoRALinear
 
 from . import MODEL, REVISION
@@ -77,12 +82,26 @@ def export(checkpoint, output):
             prompt=prompt,
             input_ids=ids.tolist(),
             last_top1=mx.argmax(after[0, -1]).item(),
-            last_logits_sample=after[0, -1, ::256].tolist(),
+            logits_sha256=hashlib.sha256(np.asarray(after).tobytes()).hexdigest(),
             merge_relative_rms=rms,
             unique_parameters=count(model),
             fused_modules=fused,
             step=state["step"],
         )
+        save(temp / "verification.json", audit)
+        del model, before, after
+        gc.collect()
+        mx.clear_cache()
+        subprocess.run(
+            [
+                sys.executable,
+                "-c",
+                "from runtime.export_runtime import verify; verify('.')",
+            ],
+            cwd=temp,
+            check=True,
+        )
+        audit["fresh_process_verified"] = True
         save(temp / "verification.json", audit)
         temp.rename(out)
     finally:

@@ -20,7 +20,7 @@ def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def build_data(public=True, seed=41):
+def build_data(public=True, seed=41, gsm_traces=False, retention_file=None):
     rng = random.Random(seed)
     tok = AutoTokenizer.from_pretrained(str(local_snapshot()))
     seen = set()
@@ -41,6 +41,8 @@ def build_data(public=True, seed=41):
     sources = {
         "procedural": "Project-generated exact arithmetic, using integer, Decimal and Fraction operations."
     }
+    if gsm_traces and not public:
+        raise ValueError("GSM8K traces require public data")
     if public:
         url = f"https://raw.githubusercontent.com/openai/grade-school-math/{GSM_REV}/"
         license_text = urlopen(url + "LICENSE", timeout=30).read().decode()
@@ -50,6 +52,10 @@ def build_data(public=True, seed=41):
         sources["gsm8k"] = dict(
             url=url, revision=GSM_REV, license="MIT", format="Gold numeric answer only"
         )
+        if gsm_traces:
+            sources["gsm8k"]["format"] = (
+                "Publisher solutions plus final answer on training rows"
+            )
         for source, dest, n in (("train", "train", 500), ("test", "gsm_test", 32)):
             rows = []
             with urlopen(
@@ -63,6 +69,8 @@ def build_data(public=True, seed=41):
                     answer = (
                         item["answer"].rsplit("#### ", 1)[1].strip().replace(",", "")
                     )
+                    if gsm_traces and source == "train":
+                        answer = item["answer"].strip()
                     r = encode(
                         dict(
                             id=f"gsm-{source}-{i}",
@@ -73,13 +81,56 @@ def build_data(public=True, seed=41):
                         ),
                         tok,
                     )
-                    if len(r["ids"]) > 65 and source == "train":
+                    if (
+                        len(r["ids"]) > (129 if gsm_traces else 65)
+                        and source == "train"
+                    ):
                         continue
                     seen.add(key)
                     rows.append(r)
                     if len(rows) == n:
                         break
             splits.setdefault(dest, []).extend(rows)
+    if retention_file:
+        from ..evaluation.loss_eval import PROSE
+
+        path = Path(retention_file)
+        existing = {
+            r["prompt"].strip() for group in splits.values() for r in group
+        } | set(PROSE)
+        catalog = set()
+        for line in path.read_text().splitlines():
+            item = json.loads(line)
+            source, license_name, text = (
+                item[k].strip() for k in ("source", "license", "text")
+            )
+            if not source or not license_name or not text:
+                raise ValueError(
+                    "Every retention document requires text, source and license"
+                )
+            if text in existing:
+                continue
+            ids = tok.encode(text, add_special_tokens=False) + [tok.eos_token_id]
+            if len(ids) < 2:
+                continue
+            key = hashlib.sha256(text.encode()).hexdigest()
+            splits["train"].append(
+                dict(
+                    id="text-" + key,
+                    category="language",
+                    steps=0,
+                    prompt="",
+                    answer=text,
+                    ids=ids,
+                    prefix=1,
+                )
+            )
+            catalog.add((source, license_name))
+            existing.add(text)
+        sources["retention"] = dict(
+            sha256=digest(path),
+            attributions=[dict(source=s, license=l) for s, l in sorted(catalog)],
+        )
     manifest = dict(
         seed=seed,
         model=MODEL,
