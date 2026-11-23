@@ -182,6 +182,7 @@ def stage(name, seed):
         )
     elif name == "verify":
         for args in (
+            ["scripts/phase4_data_audit.py"],
             ["-m", "loopqwen.benchmark.phase4_gradients"],
             ["-m", "loopqwen.benchmark.phase4_gradients", "--bf16"],
             ["scripts/phase3_regression.py", "--output", "outputs/phase4"],

@@ -11,3 +11,7 @@ python -m loopqwen data --preset v4
 ```
 
 Under weighted CE, direct responses receive final-answer weights and EOS receives its separate weight. For traces, tokenizer offsets partition final numeric tokens, numeric/operator-bearing intermediate tokens and remaining scaffold tokens. Language tokens use an explicit language weight. These are heuristics. Copying an answer already printed in a gold trace can give a tiny final-token NLL. Direct-answer NLL and generated answer correctness measure different behavior. Pointer certificates must assert each transition of the specified map in order. Unsupported derivations retain their separate verifier status. [Verifier](../loopqwen/evaluation/trace_verifier.py)
+
+The completed primary gated training trajectory contained 3,283 direct-answer examples and 3,157 trace examples. The direct protocol contributed 13,808 supervised tokens, and traces contributed 236,403. Direct examples thus supplied 51.0% of examples and 5.5% of scored positions. The scheduled logical batches had 2.64% padding after physical splitting.
+
+The CPU data audit rechecked 3,240 new textual state/DAG certificates and 25,344 pointer-label transitions across all 4,224 disjoint permutations. It compared the historical sealed file digests with their original registration. Reproduce with `python scripts/phase4_data_audit.py`.

@@ -327,6 +327,7 @@ def publish(seed):
         "deployment.json",
         "merged-deployment.json",
         "exposure.json",
+        "data-audit.json",
     ):
         if (OUT / name).exists():
             shutil.copyfile(OUT / name, root / name)
