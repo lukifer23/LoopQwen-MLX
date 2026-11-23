@@ -16,12 +16,17 @@ flowchart LR
     A -. "K=1 bypass" .-> S
 ```
 
+At 100K targets, dense and learned K=2 each answered 36/60 V2 development problems correctly. The learned model answered 35/60 with its second pass bypassed. Direct K=2 answered 30/60. The matched dense and gated checkpoints differ on four correctness decisions, two in each direction. These single-seed results justified a longer paired experiment. [Dense adapter](adapters/phase3/p3_dense) · [Learned refinement adapter](adapters/phase3/p3_learn1) · [Per-arm measurements](docs/measurements/phase3/main.json)
+
 Use a native arm64 Mac with the locked MLX environment. From the repository root:
 
 ```sh
 ./scripts/bootstrap.sh
 source .venv/bin/activate
 python -m loopqwen download
+python -m loopqwen generate --checkpoint adapters/phase3/p3_learn1 --prompt 'Evaluate ((8 + 4) * 3 - 5).
+Show your steps. End with Final answer: <number>.
+Solution:' --max-tokens 96
 python -m loopqwen data --preset v2
 scripts/run_phase3.sh main
 python -m loopqwen compare --experiment phase3_dev
