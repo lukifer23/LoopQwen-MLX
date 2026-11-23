@@ -7,18 +7,13 @@ from urllib.request import urlopen
 from transformers import AutoTokenizer
 
 from .. import MODEL, REVISION
-from ..io import read, save
+from ..io import digest, read, save
 from ..model_loader import local_snapshot
 from .procedural_math import CATEGORIES, problem
 from .tokenize import encode
 
 GSM_REV = "3101c7d5072418e28b9008a6636bde82a006892c"
 ROOT = Path("data/pilot")
-
-
-def digest(path):
-    with path.open("rb") as file:
-        return hashlib.file_digest(file, "sha256").hexdigest()
 
 
 def build_data(public=True, seed=41, gsm_traces=False, retention_file=None):

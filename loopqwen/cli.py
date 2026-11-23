@@ -11,6 +11,10 @@ def main():
     parser = argparse.ArgumentParser(description="Shared-depth Qwen3.5 on Apple Metal")
     sub = parser.add_subparsers(dest="command", required=True)
     for name, help_text in (
+        (
+            "resources",
+            "Inspect project processes, GPU lease, available memory and pressure",
+        ),
         ("doctor", "Inspect hardware and execute a Metal operation"),
         ("download", "Fetch the pinned official checkpoint"),
         ("baseline", "Measure the original text model"),
@@ -81,7 +85,11 @@ def main():
     p.add_argument("--fusion", choices=["stock", "fp32"], default="stock")
     args = parser.parse_args()
     cmd = args.command
-    if cmd == "doctor":
+    if cmd == "resources":
+        from .worker import resources
+
+        result = resources()
+    elif cmd == "doctor":
         from .hardware import doctor
 
         result = doctor()
@@ -153,6 +161,9 @@ def main():
         path = report(args.experiment)
         result = path if cmd == "report" else Path(path).read_text()
     elif cmd == "generate":
+        from .worker import acquire
+
+        acquire()
         from dataclasses import replace
 
         from .evaluation.generation_eval import generate

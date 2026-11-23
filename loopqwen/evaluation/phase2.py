@@ -1,32 +1,21 @@
 """Manifest-driven V2 study. Historical scores continue to use math_eval."""
 
-import math
+import gc
 import re
 from collections import defaultdict
 from pathlib import Path
 from time import perf_counter
 
 import mlx.core as mx
+import psutil
 
 from .. import REVISION
 from ..checkpoint import load_trained, location
 from ..data.build_data import digest
-from ..data.tokenize import batch
 from ..data.v2 import ROOT, rows
 from ..io import read, save
-from ..training.losses import loss_sum
+from ..training.losses import validation_nll as nll
 from .answers import numeric
-
-
-def nll(model, samples):
-    model.eval()
-    total = labels = 0
-    ordered = sorted(samples, key=lambda r: r["input_length"])
-    for i in range(0, len(ordered), 4):
-        x, p, y = batch(ordered[i : i + 4])
-        total += loss_sum(model, x, p, y).item()
-        labels += y.size
-    return dict(nll=total / labels, perplexity=math.exp(total / labels), tokens=labels)
 
 
 def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False):
@@ -114,7 +103,7 @@ def predictions(model, tok, samples, limit, temperature=0, seed=0, padded=False)
     )
 
 
-def score(model, tok, m, split):
+def score(model, tok, m, split, language_metrics=None):
     result = {}
     for protocol, limit in m["generation"].items():
         dataset = rows(split, protocol)
@@ -129,9 +118,13 @@ def score(model, tok, m, split):
             ),
         )
     language_split = "language_validation" if split == "validation" else "language_test"
-    result["language"] = nll(
-        model, rows(language_split, "language")[: m["language_count"]]
-    )
+    if language_metrics is None:
+        language_metrics = {}
+    if language_split not in language_metrics:
+        language_metrics[language_split] = nll(
+            model, rows(language_split, "language")[: m["language_count"]]
+        )
+    result["language"] = language_metrics[language_split]
     return result
 
 
@@ -168,7 +161,12 @@ def evaluate(name):
         model, tok, state = load_trained(root)
         # Warm model execution before latency measurement.
         mx.eval(model.project(model.hidden(mx.array([[1, 2, 3]]))[:, -1]))
-        scores = {split: score(model, tok, m, split) for split in m["splits"]}
+        mx.reset_peak_memory()
+        language_metrics = {}
+        scores = {
+            split: score(model, tok, m, split, language_metrics)
+            for split in m["splits"]
+        }
         h = state["history"]
         summary = dict(
             config=state["config"],
@@ -184,8 +182,24 @@ def evaluate(name):
             alpha=h[-1]["alpha"],
             gradient_norm_max=max(r["gradient_norm"] for r in h),
         )
-        save(path, dict(identity=identity, training=summary, scores=scores))
+        save(
+            path,
+            dict(
+                identity=identity,
+                training=summary,
+                scores=scores,
+                eval_memory=dict(
+                    cache_limit_mib=256,
+                    peak=mx.get_peak_memory(),
+                    active=mx.get_active_memory(),
+                    cached=mx.get_cache_memory(),
+                    available=psutil.virtual_memory().available,
+                    swap_used=psutil.swap_memory().used,
+                ),
+            ),
+        )
         del model
+        gc.collect()
         mx.clear_cache()
         print("Evaluated", arm, flush=True)
     path = report(name)

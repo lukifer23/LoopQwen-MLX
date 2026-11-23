@@ -3,8 +3,7 @@
 from pathlib import Path
 
 from loopqwen import REVISION
-from loopqwen.data.build_data import digest
-from loopqwen.io import read, save
+from loopqwen.io import digest, read, save
 
 
 def register(name, runs, purpose, matched=(), final=False):

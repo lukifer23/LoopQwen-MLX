@@ -5,6 +5,7 @@ import mlx.core as mx
 from mlx.utils import tree_flatten, tree_unflatten
 
 from .config import span
+from .io import checkpoint_location as location
 from .io import read, save
 from .kernels.gdn_backend import select
 from .looped_model import LoopedModel
@@ -36,17 +37,6 @@ def write(root, model, optimizer, state):
     name = f"step-{state['step']:06d}-{tmp.name[-8:]}"
     tmp.rename(root / name)
     save(root / "latest.json", {"directory": name})
-
-
-def location(root):
-    path = Path(root)
-    if (path / "state.json").exists():
-        return path
-    if not (path / "latest.json").exists():
-        raise FileNotFoundError(
-            f"No saved checkpoint in {root}. Run the corresponding train config first."
-        )
-    return path / read(path / "latest.json")["directory"]
 
 
 def restore(root, model, optimizer=None):

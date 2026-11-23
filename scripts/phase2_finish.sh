@@ -2,6 +2,7 @@
 set -eu
 cd "$(dirname "$0")/.."
 python=.venv/bin/python
+"$python" -m loopqwen.benchmark.validation_memory
 "$python" -m loopqwen.evaluation.statistics
 "$python" -m loopqwen.evaluation.inference_budget
 "$python" -m loopqwen.evaluation.phase2_controls dev

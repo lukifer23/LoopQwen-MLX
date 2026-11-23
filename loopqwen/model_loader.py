@@ -47,6 +47,9 @@ def count(model, trainable=False):
 
 def load_base():
     require_metal()
+    from .worker import acquire
+
+    acquire()
     path = local_snapshot()
     start = perf_counter()
     outer, tokenizer = load(str(path))

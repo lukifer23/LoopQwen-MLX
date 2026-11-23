@@ -3,7 +3,7 @@
 from pathlib import Path
 from statistics import mean
 
-from loopqwen.checkpoint import location
+from loopqwen.io import checkpoint_location as location
 from loopqwen.io import read
 
 ROOT = Path("outputs/phase2")
@@ -282,6 +282,68 @@ def create():
         f"The separate input-anchor ablation trained a scalar mixing the original block input into the next block application. Alpha moved from {anchor['initial_alpha']:.3f} to {anchor['final_alpha']:.5f}. K=1 parity was exact and K=2 cached versus uncached logit RMS was {anchor['cache_relative_rms']:.2%}. This arm was outside confirmatory selection. [Matched development comparison](measurements/phase2/phase2_anchor/comparison.md)"
     )
     p()
+    shifted = read(ROOT / "format_shift.json")["runs"]
+    p("### Alternate answer representations")
+    p()
+    table(
+        [
+            "Seed 43 arm",
+            "Numerically correct / 45",
+            "Requested representation / 45",
+            "Canonical response NLL",
+        ],
+        (
+            [
+                name,
+                r["generations"]["correct"],
+                sum(x["format_compliant"] for x in r["generations"]["records"]),
+                f"{r['loss']['nll']:.3f}",
+            ]
+            for name, r in shifted.items()
+        ),
+    )
+    p(
+        "The same OOD questions alternate fixed decimal, fraction and scientific-notation requests. Compliance and numerical accuracy are counted independently."
+    )
+    p()
+    p("### Gate sensitivity and padding")
+    p()
+    table(
+        ["Passes", "Interpolation alpha", "Dev answer NLL", "Dev trace NLL"],
+        (
+            [
+                r["k"],
+                f"{r['alpha']:.5f}",
+                f"{r['answer']['nll']:.4f}",
+                f"{r['trace']['nll']:.4f}",
+            ]
+            for r in read(ROOT / "gate_sweep.json")
+        ),
+    )
+    pad = read(ROOT / "padding.json")
+    table(
+        [
+            "Full training epoch",
+            "Padding without buckets",
+            "Padding with buckets",
+            "Instances too long at 64",
+            "Instances too long at 128",
+        ],
+        (
+            [
+                mix,
+                f"{v['False']['padding_fraction']:.1%}",
+                f"{v['True']['padding_fraction']:.1%}",
+                sum(v["True"]["caps"]["64"].values()),
+                sum(v["True"]["caps"]["128"].values()),
+            ]
+            for mix, v in pad.items()
+        ),
+    )
+    p(
+        "The padding comparison traverses the same complete corpus. Projection FLOP estimates and device-wide utilization samples are archived for each measured study arm. All data-matched confirmatory runs had zero length exclusions at the 256-position cap."
+    )
+    p()
     p("## Export parity")
     p()
     table(
@@ -316,7 +378,11 @@ def create():
     p(
         "```sh\nuv sync --locked --group figures\n.venv/bin/python -m loopqwen download\nscripts/run_phase2.sh\n.venv/bin/python -m loopqwen compare --experiment phase2_confirm\n.venv/bin/python -m loopqwen generate --checkpoint adapters/p2_confirm_43_loop --prompt 'Evaluate ((8 + 4) * 3 - 5).\nAnswer:' --max-tokens 24\n```"
     )
-    Path("docs/PHASE2_RESULTS.md").write_text("\n".join(rows))
+    path = Path("docs/PHASE2_RESULTS.md")
+    if path.exists():
+        path = ROOT / "reproduction/PHASE2_RESULTS.md"
+        path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("\n".join(rows))
 
 
 if __name__ == "__main__":

@@ -26,9 +26,9 @@ def measured(group, arm):
     )
 
 
-def figure(name):
+def figure(name, destination=ROOT / "figures"):
     m = read(Path("experiments") / (name + ".json"))
-    dest = ARCHIVE / name
+    dest = destination / name
     dest.mkdir(exist_ok=True, parents=True)
     models = [measured(name, run) for run in m["runs"]]
     split = m["splits"][0]
@@ -66,7 +66,7 @@ def figure(name):
     plt.close(fig)
 
 
-def frontier_plot(records):
+def frontier_plot(records, destination):
     fig, axes = plt.subplots(
         1,
         len(records),
@@ -96,7 +96,7 @@ def frontier_plot(records):
     axes[0].set_ylim(bottom=-0.5)
     axes[-1].legend(loc="best", fontsize=8)
     fig.suptitle("Measured single-request inference budgets")
-    fig.savefig(ARCHIVE / "phase2_confirm" / "latency.png", dpi=165)
+    fig.savefig(destination / "phase2_confirm" / "latency.png", dpi=165)
     plt.close(fig)
 
 

@@ -1,0 +1,69 @@
+"""One study conductor per checkout. Forward cancellation to its entire process group."""
+
+import fcntl
+import os
+import signal
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+
+def supervise(argv, lock_path):
+    lock_path.parent.mkdir(exist_ok=True, parents=True)
+    with lock_path.open("a+") as file:
+        try:
+            fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            file.seek(0)
+            raise SystemExit(f"Study already running under PID {file.read().strip()}")
+        file.seek(0)
+        file.truncate()
+        file.write(str(os.getpid()))
+        file.flush()
+        proc = subprocess.Popen(argv, start_new_session=True)
+        canceled = []
+
+        def forward(sig, _frame):
+            canceled.append(sig)
+            try:
+                os.killpg(proc.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+
+        handlers = {
+            s: signal.signal(s, forward)
+            for s in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP)
+        }
+        try:
+            result = proc.wait()
+            if canceled or result:
+                # A shell can exit before its trainer finishes the current atomic update.
+                try:
+                    os.killpg(proc.pid, signal.SIGTERM)
+                except ProcessLookupError:
+                    return result
+                deadline = time.monotonic() + 60
+                while time.monotonic() < deadline:
+                    try:
+                        os.killpg(proc.pid, 0)
+                    except ProcessLookupError:
+                        break
+                    time.sleep(0.1)
+                else:
+                    try:
+                        os.killpg(proc.pid, signal.SIGKILL)
+                    except ProcessLookupError:
+                        pass
+            return result
+        finally:
+            for sig, handler in handlers.items():
+                signal.signal(sig, handler)
+
+
+if __name__ == "__main__":
+    code = supervise(
+        ["/bin/sh", "scripts/run_phase2.sh", "--supervised"],
+        Path("outputs/phase2/study.lock"),
+    )
+    sys.exit(128 - code if code < 0 else code)

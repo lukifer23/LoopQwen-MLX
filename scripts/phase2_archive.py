@@ -7,12 +7,13 @@ from pathlib import Path
 
 from phase2_figures import figure, frontier_plot
 
-from loopqwen.checkpoint import location
-from loopqwen.data.build_data import digest
-from loopqwen.io import read, save
+from loopqwen.io import checkpoint_location as location
+from loopqwen.io import digest, read, save
 
 OUT = Path("outputs/phase2")
-DEST = Path("docs/measurements/phase2")
+FIRST_ARCHIVE = Path("docs/measurements/phase2")
+REPRO = (FIRST_ARCHIVE / "sha256.json").exists()
+DEST = OUT / "reproduction/measurements/phase2" if REPRO else FIRST_ARCHIVE
 
 
 def archive(name):
@@ -33,7 +34,7 @@ def archive(name):
                 gzip.compress(json.dumps(data, separators=(",", ":")).encode(), mtime=0)
             )
     shutil.copyfile(summary, folder / "comparison.md")
-    figure(name)
+    figure(name, DEST)
 
 
 def all_results():
@@ -45,7 +46,7 @@ def all_results():
         "phase2_anchor",
     ):
         archive(group)
-    frontier_plot(read(OUT / "frontier.json"))
+    frontier_plot(read(OUT / "frontier.json"), DEST)
     for key in (
         "frontier",
         "base_dev",
@@ -64,6 +65,7 @@ def all_results():
         "profile",
         "derivatives",
         "compute",
+        "validation_memory",
         "padding",
         "integrity",
         "example",
@@ -75,7 +77,7 @@ def all_results():
     )
     for run in ("p2_confirm_43_dense", "p2_confirm_43_loop"):
         src = location(Path("checkpoints") / run)
-        dst = Path("adapters") / run
+        dst = (OUT / "reproduction/adapters" if REPRO else Path("adapters")) / run
         dst.mkdir(exist_ok=True, parents=True)
         for filename in ("state.json", "adapters.safetensors"):
             shutil.copyfile(src / filename, dst / filename)
