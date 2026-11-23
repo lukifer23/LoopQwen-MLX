@@ -37,6 +37,8 @@ def audit():
                 verified[row["category"]] += 1
         results[split] = dict(sha256=meta["sha256"], verified_new_examples=verified)
     maps = set()
+    counts = {}
+    baseline = [0, 0, 0]
     for split, sha in read("data/v4_pointer/manifest.json")["splits"].items():
         path = Path("data/v4_pointer") / (split + ".jsonl")
         if digest(path) != sha:
@@ -47,11 +49,25 @@ def audit():
             key = tuple(r["map"])
             if key in maps or r["states"] != states(key, r["start"], 6):
                 raise ValueError("Repeated map or inconsistent gold labels")
+            for j, gold in enumerate(r["states"][:3]):
+                conditioned = (r["start"], j)
+                if split == "train":
+                    counts.setdefault(conditioned, Counter())[gold] += 1
+                else:
+                    # Learn a deterministic start/depth prior using only training labels.
+                    hist = counts[conditioned]
+                    guess = max(range(8), key=lambda s: (hist[s], -s))
+                    baseline[j] += int(guess == gold)
             maps.add(key)
             count += 1
         results["pointer/" + split] = dict(
             maps=count, explicit_state_labels=6 * count, sha256=sha
         )
+    results["pointer/start_depth_prior"] = dict(
+        terminal_correct=baseline,
+        denominator=count,
+        allowed_state_guess_probability=1 / 7,
+    )
     registered = read("docs/measurements/phase3/v3-manifest.json")["splits"]
     for split in ("confirm", "confirm_ood"):
         expected = registered[split]["sha256"]
