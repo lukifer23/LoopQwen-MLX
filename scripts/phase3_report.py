@@ -261,6 +261,44 @@ def docs(archive, destination):
                 else "did not pass. The fresh confirmatory cohorts stay sealed."
             ),
         ]
+        report += [
+            "",
+            table(
+                [
+                    "Fresh split",
+                    "Gated K=2 versus",
+                    "Fixes",
+                    "Breaks",
+                    "Difference (pp)",
+                    "Paired item 95% (pp)",
+                    "Exact McNemar p",
+                ],
+                [
+                    (
+                        split,
+                        comparator,
+                        pair["fixes"],
+                        pair["breaks"],
+                        f"{100 * pair['delta']:+.1f}",
+                        f"[{100 * pair['item_ci95'][0]:.1f}, {100 * pair['item_ci95'][1]:.1f}]",
+                        f"{pair['mcnemar']:.3f}",
+                    )
+                    for split, record in extended["splits"].items()
+                    if split != "v2_validation"
+                    for comparator, pair in (
+                        ("matched dense", record["against_dense"]),
+                        ("same checkpoint K=1", record["against_bypass"]),
+                    )
+                ],
+            ),
+        ]
+        if not extended["confirm_eligible"]:
+            report += [
+                "",
+                "On both fresh cohorts the learned checkpoint retained its higher observed score over dense when decoded at K=1. The extra pass fixed one bypass error and broke one correct answer on each cohort. The item intervals describe this seed. They cannot estimate variation across independent training runs.",
+                "",
+                "The next experiment should replicate dense training versus gated training with both checkpoints decoded at K=1 across independent seeds on development data. This isolates the possible training-time benefit at equal deployed depth before committing more inference compute.",
+            ]
     (dest / "PHASE3_RESULTS.md").write_text("\n".join(report) + "\n")
     import matplotlib
 
@@ -564,6 +602,30 @@ def docs(archive, destination):
             ],
         ),
     ]
+    if (archive / "export-audit-250k.json").is_file():
+        promoted_fusion = read(archive / "export-audit-250k.json")
+        results = promoted_fusion["results"]
+        perf += [
+            "",
+            "## Promoted 250K deployment",
+            "",
+            f"FP32 fusion followed by BF16 storage yielded verification-prompt relative RMS {promoted_fusion['verification']['merge_relative_rms']:.2%}. K=2 generation changed on {results['different_strings_k2']}/30 prompts and K=1 on {results['different_strings_k1']}/30.",
+            "",
+            table(
+                ["Format", "Depth", "Correct / 30", "Trace NLL", "Language NLL"],
+                [
+                    (
+                        mode,
+                        k,
+                        r["generations"]["correct"],
+                        f"{r['trace_nll']['nll']:.5f}",
+                        f"{r['retention']['nll']:.5f}",
+                    )
+                    for mode in ("adapter", "merged")
+                    for k, r in results[mode].items()
+                ],
+            ),
+        ]
     (dest / "PHASE3_OPTIMIZATIONS.md").write_text("\n".join(perf) + "\n")
 
 
