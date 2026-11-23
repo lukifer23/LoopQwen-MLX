@@ -69,3 +69,12 @@ def doctor():
             str(p.parent) for p in Path("checkpoints").glob("*/latest.json")
         ),
     )
+
+
+def gpu_utilization():
+    """Latest driver-wide occupancy sample, available without elevated privileges."""
+    raw = subprocess.run(
+        ["ioreg", "-r", "-c", "AGXAccelerator", "-l", "-w", "0"], capture_output=True
+    )
+    match = re.search(rb'"Device Utilization %"\s*=\s*(\d+)', raw.stdout)
+    return int(match[1]) if raw.returncode == 0 and match else None

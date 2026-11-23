@@ -15,7 +15,7 @@ class LoopedModel(nn.Module):
         span.sites(len(text.layers))
         self.checkpointing = False
         self.alpha_override = None
-        if span.mode == "stabilized":
+        if span.has_gate:
             if not 0 < alpha < 1:
                 raise ValueError(
                     "Initial interpolation must be strictly between 0 and 1"
@@ -50,6 +50,12 @@ class LoopedModel(nn.Module):
                 if layer.is_linear
                 else create_attention_mask(h, state, window_size=window_size)
             )
+            if self.span.mode == "input_anchor" and i == self.span.start:
+                if p == 0:
+                    anchor = h
+                else:
+                    alpha = mx.sigmoid(self.alpha_logit)
+                    h = (h + alpha * (anchor - h)).astype(h.dtype)
             if self.span.mode == "stabilized" and p and i == self.span.start:
                 previous = h
             if self.training and self.checkpointing:

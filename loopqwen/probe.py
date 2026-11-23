@@ -37,7 +37,7 @@ def probe(span):
             )
         )
     wrapped = {id(a) for _, a in tree_flatten(wrapper.parameters())}
-    gates = int(span.mode == "stabilized")
+    gates = int(span.has_gate)
     assert original <= wrapped and len(wrapped - original) == gates
     result = dict(
         unique=count(base),

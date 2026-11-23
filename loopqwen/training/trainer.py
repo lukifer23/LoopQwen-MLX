@@ -19,7 +19,7 @@ from .. import checkpoint
 from ..config import config, span
 from ..data.build_data import ROOT, load_split
 from ..data.tokenize import batch, pack
-from ..hardware import doctor
+from ..hardware import doctor, gpu_utilization
 from ..io import read, save
 from ..model_loader import count
 from .losses import loss_sum, packed_loss_sum
@@ -246,6 +246,8 @@ def _train(c, root, until):
                 for key in ids:
                     repeats += int(key in state["visits"])
                     state["visits"][key] = state["visits"].get(key, 0) + 1
+                if s % 8 == 0:
+                    row["device_utilization_percent"] = gpu_utilization()
                 row.update(
                     scored_by_source=dict(sources),
                     scored_by_category=dict(categories),
@@ -257,7 +259,7 @@ def _train(c, root, until):
                     swap=psutil.swap_memory().used,
                     lr=opt.learning_rate.item(),
                     alpha=mx.sigmoid(model.alpha_logit).item()
-                    if c["mode"] == "stabilized"
+                    if model.span.has_gate
                     else None,
                 )
             state.update(
@@ -302,8 +304,8 @@ def _train(c, root, until):
     return dict(
         run=c["name"],
         pretrained_unique=state["model"]["unique_parameters"],
-        trainable_adapters=state["trainable"] - int(c["mode"] == "stabilized"),
-        trainable_gates=int(c["mode"] == "stabilized"),
+        trainable_adapters=state["trainable"] - int(model.span.has_gate),
+        trainable_gates=int(model.span.has_gate),
         effective_layer_executions=len(model.sites),
         step=state["step"],
         input_tokens=state["input_tokens"],

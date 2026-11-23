@@ -8,12 +8,16 @@ class Span:
     passes: int = 2
     mode: str = "direct"
 
+    @property
+    def has_gate(self):
+        return self.mode in ("stabilized", "input_anchor")
+
     def sites(self, depth):
         end = self.start + self.length
         if not (
             0 <= self.start < end <= depth
             and self.passes in (1, 2, 3)
-            and self.mode in ("direct", "stabilized")
+            and self.mode in ("direct", "stabilized", "input_anchor")
         ):
             raise ValueError(f"Invalid recurrence for {depth} layers: {self}")
         return tuple(

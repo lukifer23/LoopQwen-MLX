@@ -68,6 +68,11 @@ def derivatives(cfg):
                 else {},
             )
         )
+        if (
+            max(result[-1]["relative_to_reference"].values()) > 0.025
+            or max(result[-1]["relative_to_first_native"].values(), default=0) > 0.01
+        ):
+            raise AssertionError(result[-1])
         if native is None and backend == "native":
             native = grads
     select(m, "reference")

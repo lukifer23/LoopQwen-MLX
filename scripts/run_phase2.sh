@@ -5,6 +5,9 @@ python=.venv/bin/python
 "$python" -m loopqwen data --preset v2
 "$python" scripts/phase2_configs.py
 "$python" scripts/phase2_register.py
+"$python" -m loopqwen.benchmark.long_cache
+"$python" -m loopqwen.benchmark.padded_cache
+"$python" -c 'from loopqwen.benchmark.phase2_training import derivatives; from loopqwen.config import config; from loopqwen.io import save; save("outputs/phase2/derivatives.json", derivatives(config("configs/phase2/p2_a_trace_loop.yaml")))'
 for run in p2_a_trace_dense p2_a_trace_loop p2_a_answer_dense p2_a_answer_loop; do
   "$python" -m loopqwen train --config "configs/phase2/$run.yaml"
 done

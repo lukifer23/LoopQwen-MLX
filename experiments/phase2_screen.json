@@ -1,0 +1,38 @@
+{
+  "runs": [
+    "p2_screen_direct",
+    "p2_screen_gradual",
+    "p2_screen_stabilized",
+    "p2_screen_mixed",
+    "p2_screen_mlp8",
+    "p2_screen_mlp10",
+    "p2_screen_mlp16",
+    "p2_screen_rank16",
+    "p2_screen_nearby",
+    "p2_screen_formats",
+    "p2_screen_formats_dense"
+  ],
+  "purpose": "Equal-update development screens of curriculum, capacity, MLP-only placement and response-format mixture.",
+  "matched": [
+    [
+      "p2_screen_formats_dense",
+      "p2_screen_formats"
+    ]
+  ],
+  "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "data_sha256": "37f82776fa0a006af67447f8e4ca8ca142e1e6f842f4fff6b78bd6d27a59f0c3",
+  "splits": [
+    "validation"
+  ],
+  "loss_count": 150,
+  "generation": {
+    "answer": 12,
+    "trace": 128
+  },
+  "generation_count": {
+    "answer": 60,
+    "trace": 15
+  },
+  "language_count": 32,
+  "padded": true
+}

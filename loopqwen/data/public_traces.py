@@ -42,7 +42,10 @@ def gsm(cap):
     tok = AutoTokenizer.from_pretrained(str(local_snapshot()))
     rows = []
     seen = set()
+    overlength = 0
+    total = 0
     for line in path.read_text().splitlines():
+        total += 1
         item = json.loads(line)
         solution = item["answer"]
         steps = re.findall(r"<<([^<>]+)=([^<>=]+)>>", solution)
@@ -68,9 +71,12 @@ def gsm(cap):
             " " + solution.replace("####", "Final answer:"), add_special_tokens=False
         ) + [tok.eos_token_id]
         key = hashlib.sha256(prompt.encode()).hexdigest()
-        if len(ids) - 1 > cap or key in seen:
+        if key in seen:
             continue
         seen.add(key)
+        if len(ids) - 1 > cap:
+            overlength += 1
+            continue
         rows.append(
             dict(
                 id=key,
@@ -91,5 +97,8 @@ def gsm(cap):
         revision=GSM_REV,
         license="MIT",
         eligible=len(rows),
+        sequence_length=cap,
+        overlength=overlength,
+        source_count=total,
         sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
     )

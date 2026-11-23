@@ -98,3 +98,32 @@ def test_recorded_split_and_order():
     dense, _, _, other = prepare(a | {"passes": 1})
     assert pol == other and pol["excluded"] == {}
     assert [s["id"] for s in r] == [s["id"] for s in dense]
+
+
+def test_cosine_schedule_and_budget_validation(tmp_path):
+    import mlx.core as mx
+    import yaml
+    from loopqwen.config import config
+    from loopqwen.training.optimizers import optimizer
+
+    values = {
+        "name": "test_schedule",
+        "steps": 10,
+        "schedule": "cosine",
+        "warmup_fraction": 0.2,
+        "min_lr": 1e-5,
+    }
+    path = tmp_path / "run.yaml"
+    path.write_text(yaml.safe_dump(values))
+    c = config(path)
+    o = optimizer(c)
+    observed = []
+    for i in range(10):
+        o.apply_gradients({"w": mx.array(1.0)}, {"w": mx.array(1.0)})
+        observed.append(o.learning_rate.item())
+    assert observed[0] == pytest.approx(c["learning_rate"] / 2)
+    assert max(observed) == pytest.approx(c["learning_rate"])
+    assert observed[-1] == pytest.approx(c["min_lr"])
+    path.write_text(yaml.safe_dump(values | {"label_budget": 0}))
+    with pytest.raises(ValueError):
+        config(path)

@@ -4,7 +4,7 @@ from mlx_lm.tuner.lora import LoRALinear
 
 def attach(model, policy="block", rank=8, alpha=16, projections=None):
     model.freeze()
-    if model.span.mode == "stabilized":
+    if model.span.has_gate:
         model.unfreeze(keys=["alpha_logit"], recurse=False)
     n = len(model.text.layers)
     start, end = model.span.start, model.span.start + model.span.length

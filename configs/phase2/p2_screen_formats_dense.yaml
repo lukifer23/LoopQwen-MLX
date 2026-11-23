@@ -1,0 +1,16 @@
+name: p2_screen_formats_dense
+dataset: v2
+mixture: mixed_answer_and_traces
+sequence_length: 256
+batch_size: 4
+accumulation: 1
+steps: 24
+warmup: 5
+checkpoint_interval: 24
+eval_interval: 24
+eval_count: 90
+memory_target_gib: 8
+min_available_gib: 1
+gradient_checkpointing: true
+seed: 41
+passes: 1
