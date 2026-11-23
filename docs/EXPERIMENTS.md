@@ -13,3 +13,7 @@ Generation uses greedy decoding with a 16-token output allowance. The scorer rea
 The dense compute control increases the output allowance on each question. For a prompt of length P and loop output cap N, the loop ceiling is 30 × (P + N − 1) layer-token executions. The dense cap is floor(30 × (P + N − 1) / 24) − P + 1. Prefill produces the first output token. Each arm can stop early at EOS. The report records actual executed layer-tokens and wall time. This is a ceiling on nominal decoder work, with different costs for attention, GDN, the head and generated length.
 
 The variable-depth evaluation reuses a single trained recurrent checkpoint at K=1,2,3. K=3 is outside the direct K=2 pilot's training distribution. The placement calibration uses only the validation split and measures untrained six-layer spans starting at 6, 8, 10, 12 and 16. The training span and scoring protocol remain fixed across the reported comparisons.
+
+## Extended pair
+
+The measured 64-token K=2 microbatch of four used 2.68 GiB and averaged 109.9 ms per document for forward plus gradient, versus 141.6 ms for a single document. The extended pair therefore uses four independent right-padded documents per update, without gradient accumulation. Both models start again from the official base and complete 1,000 updates at the same seed. This increases exposure from 1,600 to 4,000 documents per model. Batch grouping and the number of updates both change from the 200-update pilot. Comparisons within each pair control these factors.

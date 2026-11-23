@@ -25,6 +25,10 @@ def doctor():
     return dict(
         device=mx.device_info(),
         default_device=str(mx.default_device()),
+        metal_available=mx.metal.is_available(),
+        hardware_model=subprocess.check_output(
+            ["sysctl", "-n", "hw.model"], text=True
+        ).strip(),
         macos=platform.mac_ver()[0],
         python=platform.python_version(),
         arch=platform.machine(),

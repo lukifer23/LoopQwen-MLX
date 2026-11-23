@@ -206,8 +206,8 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "huggingface-hub" },
-    { name = "mlx", specifier = ">=0.32.4" },
-    { name = "mlx-lm" },
+    { name = "mlx", specifier = "==0.32.4" },
+    { name = "mlx-lm", specifier = "==0.32.2" },
     { name = "numpy" },
     { name = "psutil" },
     { name = "pyyaml" },

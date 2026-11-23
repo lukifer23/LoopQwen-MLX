@@ -7,11 +7,11 @@ import mlx.core as mx
 import yaml
 
 from ..checkpoint import load_trained, location
+from ..config import span
 from ..data.build_data import ROOT, load_split
 from ..io import read, save
 from ..looped_model import LoopedModel
 from ..model_loader import load_base
-from ..recurrence import Span
 from ..training.trainer import evaluate_rows
 from .generation_eval import generate
 from .loss_eval import language_loss
@@ -100,7 +100,9 @@ def evaluate(experiment):
             )
         else:
             base, tok, _ = load_base()
-            model = LoopedModel(base, Span())
+            model = LoopedModel(
+                base, span(states[1]["config"]), states[1]["config"]["alpha_init"]
+            )
             del base
         model.span = replace(model.span, passes=k)
         model.eval()

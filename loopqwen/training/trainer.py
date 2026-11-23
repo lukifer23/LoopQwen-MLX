@@ -210,6 +210,10 @@ def _train(c, root, until):
             signal.signal(sig, handler)
     return dict(
         run=c["name"],
+        pretrained_unique=state["model"]["unique_parameters"],
+        trainable_adapters=state["trainable"] - int(c["mode"] == "stabilized"),
+        trainable_gates=int(c["mode"] == "stabilized"),
+        effective_layer_executions=len(model.sites),
         step=state["step"],
         input_tokens=state["input_tokens"],
         loss_tokens=state["loss_tokens"],
