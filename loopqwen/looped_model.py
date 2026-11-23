@@ -57,19 +57,29 @@ class LoopedModel(nn.Module):
         self._generation = object()
         return result
 
+    def prefix_hidden(self, ids):
+        return self._execute(
+            self.text.model.embed_tokens(ids), [(i, 0) for i in range(self.span.start)]
+        )
+
+    def shared_block(self, h):
+        return self._execute(
+            h,
+            [
+                (i, 0)
+                for i in range(self.span.start, self.span.start + self.span.length)
+            ],
+        )
+
     def block_states(self, ids, passes, refinement_observer=None):
         """Uncached training exits. Expose no target tokens or states on re-entry."""
-        start = self.span.start
-        end = start + self.span.length
-        h = self._execute(
-            self.text.model.embed_tokens(ids), [(i, 0) for i in range(start)]
-        )
+        h = self.prefix_hidden(ids)
         anchor = h
         for p in range(passes):
             previous = h
             if p and self.span.mode == "input_anchor":
                 h = (h + self.effective_alpha() * (anchor - h)).astype(h.dtype)
-            h = self._execute(h, [(i, 0) for i in range(start, end)])
+            h = self.shared_block(h)
             candidate = h
             if p and self.span.mode == "stabilized":
                 h = (previous + self.effective_alpha() * (candidate - previous)).astype(

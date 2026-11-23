@@ -289,7 +289,7 @@ def _train(c, root, until):
                     )
                     total = value if total is None else total + value
                     mx.eval(grads, total)
-                    if c.get("strict_resume"):
+                    if c.get("strict_resume") or c.get("max_microbatch_positions") or custom_loss:
                         microbatches.append(
                             dict(
                                 shape=list(arguments[0].shape),

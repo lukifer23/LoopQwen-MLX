@@ -42,12 +42,12 @@ def pack(rows, response_only=True):
     return mx.array(inputs), mx.array(positions), mx.array(labels), tuple(lengths)
 
 
-def physical_batches(rows, cap):
+def physical_batches(rows, cap, *, next_token=True):
     """Preserve a logical update's membership and order while limiting padded work."""
     group = []
     width = 16
     for row in rows:
-        length = max(16, len(row["ids"]) - 1)
+        length = max(16, len(row["ids"]) - int(next_token))
         if cap and length > cap:
             raise ValueError("One selected document exceeds the physical position cap")
         if cap and group and max(width, length) * (len(group) + 1) > cap:
