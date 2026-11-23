@@ -567,7 +567,17 @@ SHA-256 `{digest(dest / "adapters.safetensors")}`. Use the locked native environ
         "",
         f"Track A eligibility: {decisions['track_a']}. Track B eligibility: {decisions['track_b']}. Confidence intervals above resample items for this one seed. [Training cost and memory](PHASE4_OPTIMIZATIONS.md) · [Data and verification](PHASE4_DATA.md)",
     ]
-    (reports / "PHASE4_RESULTS.md").write_text("\n".join(result) + "\n")
+    page = reports / "PHASE4_RESULTS.md"
+    if page.is_file() and seed == 109:
+        authored = page.read_text().partition("<!-- measured-tables -->")[0].rstrip()
+        page.write_text(
+            authored
+            + "\n\n<!-- measured-tables -->\n\n## Complete recorded outcomes\n"
+            + "\n".join(result[1:])
+            + "\n"
+        )
+    else:
+        page.write_text("\n".join(result) + "\n")
     profiles = read(root / "profiles.json")
     perf = [
         "# Phase 4 native performance",
