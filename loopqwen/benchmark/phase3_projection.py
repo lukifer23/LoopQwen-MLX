@@ -63,13 +63,14 @@ def run():
         weight = model.text.model.embed_tokens.weight
         mx.eval(selected)
 
-        def partial(z, policy, w=weight):
-            return objective(policy, z, w, y) / y.size
-
-        ref, dr = mx.value_and_grad(lambda z: partial(z, "full"))(selected)
+        ref, dr = mx.value_and_grad(lambda z, w: objective("full", z, w, y) / y.size)(
+            selected, weight
+        )
         mx.eval(ref, dr)
         start = perf_counter()
-        actual, da = mx.value_and_grad(lambda z: partial(z, method))(selected)
+        actual, da = mx.value_and_grad(
+            lambda z, w: objective(method, z, w, y) / y.size
+        )(selected, weight)
         mx.eval(actual, da, ref, dr)
         setup_seconds = perf_counter() - start
         e = mx.sqrt(
@@ -101,7 +102,6 @@ def run():
             final_grad_norm=norm.item(),
         )
         del model, weight, opt, fn, g
-        partial = None
         gc.collect()
         mx.clear_cache()
     save(
