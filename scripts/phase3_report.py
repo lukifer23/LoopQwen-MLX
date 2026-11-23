@@ -3,6 +3,7 @@
 import argparse
 import gzip
 import json
+from statistics import median
 import sys
 from pathlib import Path
 
@@ -450,6 +451,119 @@ def docs(archive, destination):
                 ],
             ),
         ]
+    frontier = json.loads(gzip.decompress((archive / "frontier.json.gz").read_bytes()))
+    perf += [
+        "",
+        "## Traced inference costs",
+        "",
+        "Sixty traced V2 development requests were split into two counterbalanced halves. Each arm warmed up on a separate short generation. Batch-one request time and batched throughput are reported separately. Times charge every executed lane through the final decode step.",
+        "",
+        table(
+            [
+                "Arm / batch",
+                "Correct",
+                "Total s",
+                "Requests/s",
+                "Useful output tokens/s",
+                "Median batch TTFT s",
+                "Median batch duration s",
+            ],
+            [
+                (
+                    k,
+                    r["correct"],
+                    f"{r['seconds']:.2f}",
+                    f"{frontier['n'] / r['seconds']:.2f}",
+                    f"{sum(v['tokens'] for v in r['records']) / r['seconds']:.1f}",
+                    f"{median(v['prefill_seconds'] for v in r['batches']):.4f}",
+                    f"{median(v['seconds'] for v in r['batches']):.3f}",
+                )
+                for k, r in frontier["greedy"].items()
+            ],
+        ),
+        "",
+        f"Dense numerical plurality scored {frontier['plurality']['correct']}/{frontier['n']} in {frontier['plurality']['seconds']:.1f} seconds against a gated batch-one budget of {frontier['plurality']['budget']:.1f} seconds. Additional candidates are charged in complete pairs. Selection uses numeric votes with greedy-first ties.",
+        "",
+    ]
+    compact = read(archive / "compaction.json")
+    baseline = compact["timing"][0]["records"]
+    perf += [
+        "## Active-lane filtering",
+        "",
+        f"On four FP32 continuation steps the largest filtered versus full-batch relative RMS was {max(compact['fp32_filtered_errors']):.3g}. The BF16 timing comparison used 30 identical prompts in counterbalanced order. Primary cohort scoring used fixed lanes.",
+        "",
+        table(
+            [
+                "Compaction",
+                "Seconds",
+                "Lane positions",
+                "Answers",
+                "Changed strings vs first run",
+            ],
+            [
+                (
+                    r["compact"],
+                    f"{r['seconds']:.2f}",
+                    r["positions"],
+                    r["correct"],
+                    sum(x["text"] != y["text"] for x, y in zip(baseline, r["records"])),
+                )
+                for r in compact["timing"]
+            ],
+        ),
+    ]
+    projection = read(archive / "projection.json")
+    perf += [
+        "",
+        "## Exact vocabulary-loss timing",
+        "",
+        f"Four real traces produced input shape {projection['shape']} and {projection['labels']} selected targets. Each method used the same initial model and optimizer, one warmup and four timed updates. Hidden-gradient comparisons isolate projection error from GDN reduction order.",
+        "",
+        table(
+            [
+                "Head",
+                "Setup s",
+                "Warmup s",
+                "Median update s",
+                "Timed range s",
+                "Peak GiB",
+                "Loss abs. error",
+                "Hidden gradient rel. RMS",
+            ],
+            [
+                (
+                    k,
+                    f"{r['setup_s']:.3f}",
+                    f"{r['warmup_s']:.3f}",
+                    f"{r['median_s']:.3f}",
+                    f"{min(r['steady_s']):.3f}–{max(r['steady_s']):.3f}",
+                    f"{r['peak_bytes'] / 2**30:.2f}",
+                    f"{r['abs_mean_loss_error']:.3g}",
+                    f"{r['hidden_grad_relative_rms']:.3g}",
+                )
+                for k, r in projection["results"].items()
+            ],
+        ),
+    ]
+    perf += [
+        "",
+        "## Adapter and merged task performance",
+        "",
+        table(
+            ["Format", "K", "Correct / 30", "Trace NLL", "Language NLL"],
+            [
+                (
+                    m,
+                    k,
+                    r["generations"]["correct"],
+                    f"{r['trace_nll']['nll']:.5f}",
+                    f"{r['retention']['nll']:.5f}",
+                )
+                for m in ("adapter", "merged")
+                for k, r in fusion["results"][m].items()
+            ],
+        ),
+    ]
     (dest / "PHASE3_OPTIMIZATIONS.md").write_text("\n".join(perf) + "\n")
 
 
