@@ -12,6 +12,7 @@ from ..export_runtime import load_export, verify
 from ..io import read, save, digest
 from ..training.losses import validation_nll
 from .phase2 import predictions
+from .generation_eval import generate
 
 
 def run():
@@ -37,6 +38,9 @@ def run():
             if mode == "adapter"
             else load_export(out)
         )
+        if mode == "adapter":
+            prompt = "Evaluate ((8 + 4) * 3 - 5).\nShow your steps. End with Final answer: <number>.\nSolution:"
+            save("outputs/phase3/example.json", generate(model, tok, prompt, 96))
         gate = float(model.effective_alpha())
         result[mode] = {}
         for k in (1, 2):

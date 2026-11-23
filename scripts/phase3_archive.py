@@ -162,6 +162,7 @@ def publish(destination):
         "v3-manifest.json",
         "retention-manifest.json",
         "export-audit.json",
+        "example.json",
         "exposure.json",
         "answer-likelihood.json",
         "learning-curves.json",
