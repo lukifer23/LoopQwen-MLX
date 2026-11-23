@@ -29,6 +29,12 @@ We closed this pass after nine trained checkpoint/depth comparisons. Both regist
 
 We deferred wider adapters, weighted V4 training, additional seeds, the 25K generated-answer screen, fresh untouched-base generation, and stock/merged export parity checks. All three language training trajectories completed. Their 25K checkpoints and interim validation losses are preserved. The scored unmerged checkpoints reloaded for native generation. Historical source and result artifacts remain intact.
 
+## Independent review
+
+From a fresh checkout, run `python3 scripts/verify_phase4_archive.py`. It checks SHA-256 values, matches the four published adapters to evaluated weight digests, verifies ordered prompts and gold answers across arms, and recounts the stored per-item verdicts. The individual generations and certificate checks are available for inspection. [Evaluation records](measurements/phase4/eval/primary) · [Paired gains and losses](measurements/phase4/primary-pass-changes.json)
+
+Before publication the native regression suite passed all 38 tests on the M3 Pro, including the real-weight cache identity and weighted dual-exit optimizer restoration tests. Reproduce with `python scripts/phase3_regression.py --output outputs/phase4/review` in the locked environment with the study data prepared. The wider BF16 objective audit and deployment-format checks remain separate experiments.
+
 <!-- measured-tables -->
 
 ## Complete recorded outcomes

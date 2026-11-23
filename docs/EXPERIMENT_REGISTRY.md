@@ -25,6 +25,7 @@ python -m loopqwen data --preset v3
 python -m loopqwen.data.retention3
 scripts/run_phase4.sh efficiency audit
 scripts/run_phase4.sh replicate dual-exit evaluate --seed 109
+python -m loopqwen data --preset v4
 python scripts/phase4_data_audit.py
 python scripts/phase4_exposure.py
 python scripts/phase4_report.py --closeout
