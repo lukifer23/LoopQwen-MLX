@@ -174,6 +174,48 @@ def docs(archive, destination):
         "",
         "[Training, memory and deployment measurements](PHASE3_OPTIMIZATIONS.md) · [Run identifiers and artifacts](EXPERIMENT_REGISTRY.md)",
     ]
+    if (archive / "promotion.json").exists():
+        extended = read(archive / "promotion.json")
+        report += [
+            "",
+            "## Promoted 250K pair",
+            "",
+            "The two arms continued their original AdamW state on the same planned examples, with per-layer checkpointing throughout the extension. Each reached update 1,605 with 250,031 targets, 597,444 input tokens and 6,420 distinct instances. Fresh development scores below remain single-seed observations.",
+            "",
+            table(
+                [
+                    "Cohort",
+                    "Arm/execution",
+                    "Answers",
+                    "Certificates",
+                    "Capped",
+                    "Final-token NLL",
+                    "Retention NLL",
+                    "Seconds",
+                ],
+                [
+                    (
+                        split,
+                        k,
+                        f"{r['correct']}/{r['n']}",
+                        r["verified"],
+                        r["truncated"],
+                        f"{r['final_nll']:.5f}",
+                        f"{r['retention']:.4f}",
+                        f"{r['seconds']:.1f}",
+                    )
+                    for split, record in extended["splits"].items()
+                    for k, r in record["metrics"].items()
+                ],
+            ),
+            "",
+            "The registered eligibility rule for a three-seed confirmation "
+            + (
+                "passed."
+                if extended["confirm_eligible"]
+                else "did not pass. The fresh confirmatory cohorts stay sealed."
+            ),
+        ]
     (dest / "PHASE3_RESULTS.md").write_text("\n".join(report) + "\n")
     import matplotlib
 
@@ -337,6 +379,33 @@ def docs(archive, destination):
             ],
         ),
     ]
+    if (archive / "promotion.json").exists():
+        perf += [
+            "",
+            "## 100K to 250K continuation",
+            "",
+            table(
+                [
+                    "Arm",
+                    "Additional updates",
+                    "Additional targets",
+                    "Update seconds",
+                    "Targets/s",
+                ],
+                [
+                    (
+                        arm,
+                        train["p3_" + arm + "_250k"]["step"]
+                        - train["p3_" + arm]["step"],
+                        train["p3_" + arm + "_250k"]["target_tokens"]
+                        - train["p3_" + arm]["target_tokens"],
+                        f"{train['p3_' + arm + '_250k']['update_seconds'] - train['p3_' + arm]['update_seconds']:.1f}",
+                        f"{(train['p3_' + arm + '_250k']['target_tokens'] - train['p3_' + arm]['target_tokens']) / (train['p3_' + arm + '_250k']['update_seconds'] - train['p3_' + arm]['update_seconds']):.1f}",
+                    )
+                    for arm in ("dense", chosen)
+                ],
+            ),
+        ]
     (dest / "PHASE3_OPTIMIZATIONS.md").write_text("\n".join(perf) + "\n")
 
 

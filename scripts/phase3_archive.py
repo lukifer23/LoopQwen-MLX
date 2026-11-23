@@ -138,6 +138,9 @@ def publish(destination):
                 source=state.get("training_identity"),
                 status=state.get("status"),
                 generation=gen.name,
+                milestone_reached=pointer.removesuffix(".json")
+                if pointer.startswith("targets-")
+                else None,
                 metadata=digest(gen / "state.json"),
                 adapters=digest(gen / "adapters.safetensors"),
             )
