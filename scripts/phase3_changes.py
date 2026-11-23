@@ -2,7 +2,6 @@
 
 import gzip
 import json
-from pathlib import Path
 
 
 def _records(archive, arm, mode):

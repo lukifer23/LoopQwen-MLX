@@ -326,7 +326,7 @@ def docs(archive, destination):
                     ],
                 ),
                 "",
-                "Both final-answer fixes contained incorrect intermediate arithmetic. In the modular chain, the second pass wrote 39 mod 17 = 12. In the linear system it evaluated 132 − 143 as 13. Both regressions occurred on left rotations by three positions. In each, K=1 correctly rotated the array and selected the alternating indices, while K=2 rotated by two. These four changes identify specific failure modes on this seed.",
+                f"Of the {sum(r['effect'] == 'fixed' for r in flips)} final-answer fixes, {sum(r['effect'] == 'fixed' and r['gated']['verification']['verified'] for r in flips)} also produced a fully verified solution. Of the {sum(r['effect'] == 'broke' for r in flips)} broken answers, {sum(r['effect'] == 'broke' and r['bypass']['verification']['verified'] for r in flips)} had a fully verified bypass solution. [Reviewed cases and next experiment](PHASE3_PLAN.md)",
             ]
         )
         if not extended["confirm_eligible"]:
