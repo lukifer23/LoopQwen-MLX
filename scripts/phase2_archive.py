@@ -7,7 +7,7 @@ from pathlib import Path
 
 from phase2_figures import figure, frontier_plot
 
-from loopqwen.io import checkpoint_location as location
+from loopqwen.io import evaluation_record, checkpoint_location as location
 from loopqwen.io import digest, read, save
 
 OUT = Path("outputs/phase2")
@@ -18,6 +18,8 @@ DEST = OUT / "reproduction/measurements/phase2" if REPRO else FIRST_ARCHIVE
 
 def archive(name):
     summary = OUT / name / "comparison.md"
+    if (summary.parent / "revisions/comparison.md").exists():
+        summary=summary.parent / "revisions/comparison.md"
     if not summary.exists():
         raise FileNotFoundError(f"Evaluation group is incomplete: {name}")
     m = read(Path("experiments") / (name + ".json"))
@@ -25,7 +27,7 @@ def archive(name):
     folder.mkdir(exist_ok=True, parents=True)
     for arm in m["runs"]:
         weights = location(Path("checkpoints") / arm)
-        result = read(OUT / name / (arm + ".json"))
+        result = read(evaluation_record(OUT / name, arm))
         if result["identity"]["weights"] != digest(weights / "adapters.safetensors"):
             raise ValueError("Checkpoint changed")
         for suffix, data in (("", result), (".training", read(weights / "state.json"))):

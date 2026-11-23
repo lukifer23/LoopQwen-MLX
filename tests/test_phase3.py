@@ -66,3 +66,30 @@ def test_checkout_contention(tmp_path):
             timeout=15,
         )
         assert result.returncode and "user-wide GPU lease" in result.stderr
+
+
+def test_evaluation_revision_tracks_decoding_and_metadata(tmp_path):
+    from loopqwen.io import checkpoint_location, read, save
+    from loopqwen.evaluation.identity import evaluation_identity
+
+    source = checkpoint_location("adapters/p2_confirm_43_loop")
+    # Use the published adapter tensors; the metadata digest also includes non-weight changes.
+    (tmp_path / "adapters.safetensors").symlink_to(
+        (source / "adapters.safetensors").resolve()
+    )
+    state = read(source / "state.json")
+    if "manifest" not in state:
+        state["manifest"] = read("data/v2/manifest.json")
+    save(tmp_path / "state.json", state)
+
+    def identity(cap):
+        return evaluation_identity(
+            {"dataset": "v2"}, tmp_path, ["item"], {"cap": cap}, "v3"
+        )
+
+    original = identity(192)
+    assert original != identity(128)
+    state["metric_protocol"] = "new"
+    save(tmp_path / "state.json", state)
+    assert original != identity(192)
+    assert original["weights"] == identity(192)["weights"]

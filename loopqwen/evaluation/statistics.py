@@ -7,7 +7,7 @@ from pathlib import Path
 
 import numpy as np
 
-from ..io import read, save
+from ..io import evaluation_record, read, save
 
 
 def exact_mcnemar(a, b):
@@ -51,7 +51,7 @@ def summarize(name="phase2_confirm"):
                 for left, right in m["matched"]:
                     if control == "time":
                         left = left.removesuffix("_dense") + "_time"
-                    a, b = [read(root / (run + ".json")) for run in (left, right)]
+                    a, b = [read(evaluation_record(root, run)) for run in (left, right)]
                     aa, bb = [
                         entry["scores"][split][protocol]["generations"]["records"]
                         for entry in (a, b)

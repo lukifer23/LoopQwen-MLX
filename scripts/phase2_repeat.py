@@ -9,7 +9,7 @@ from phase2_study import execute
 
 from loopqwen.checkpoint import location
 from loopqwen.evaluation.phase2 import evaluate
-from loopqwen.io import read, save
+from loopqwen.io import evaluation_record, read, save
 
 if __name__ == "__main__":
     run = write("repeat_direct", steps=24, eval_interval=24)
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     assert states[0]["order_hash"] == states[1]["order_hash"]
     out = Path("outputs/phase2")
     scores = [
-        read(out / group / (arm + ".json"))["scores"]["validation"]
+        read(evaluation_record(out / group, arm))["scores"]["validation"]
         for group, arm in (
             ("phase2_screen", "p2_screen_direct"),
             ("phase2_repeat", run.stem),

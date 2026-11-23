@@ -8,7 +8,7 @@ from pathlib import Path
 from phase2_configs import write
 from phase2_register import register
 
-from loopqwen.io import checkpoint_location as location
+from loopqwen.io import evaluation_record, checkpoint_location as location
 from loopqwen.io import read, save
 
 OUT = Path("outputs/phase2")
@@ -65,7 +65,7 @@ def screening():
     )
     assess("phase2_screen")
     scores = {
-        label: read(OUT / "phase2_screen" / (run + ".json"))["scores"]["validation"][
+        label: read(evaluation_record(OUT / "phase2_screen", run))["scores"]["validation"][
             "answer"
         ]["loss"]["nll"]
         for label, run in zip(candidates, runs)

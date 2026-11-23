@@ -29,3 +29,9 @@ def checkpoint_location(root):
             f"No saved checkpoint in {root}. Run the corresponding train config first."
         )
     return path / read(path / "latest.json")["directory"]
+
+
+def evaluation_record(directory, arm):
+    """Locate revision-bound results with support for historical output layouts."""
+    pointer = directory / (arm + ".revision.json")
+    return directory / (read(pointer)["path"] if pointer.is_file() else arm + ".json")

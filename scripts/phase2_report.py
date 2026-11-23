@@ -3,14 +3,14 @@
 from pathlib import Path
 from statistics import mean
 
-from loopqwen.io import checkpoint_location as location
+from loopqwen.io import evaluation_record, checkpoint_location as location
 from loopqwen.io import read
 
 ROOT = Path("outputs/phase2")
 
 
 def scores(group, arm):
-    return read(ROOT / group / (arm + ".json"))
+    return read(evaluation_record(ROOT / group, arm))
 
 
 def state(arm):

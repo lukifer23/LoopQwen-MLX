@@ -11,14 +11,14 @@ matplotlib.use("Agg")
 import numpy as np
 from matplotlib import pyplot as plt
 
-from loopqwen.io import read
+from loopqwen.io import evaluation_record, read
 
 ROOT = Path("outputs/phase2")
 ARCHIVE = Path("docs/measurements/phase2")
 
 
 def measured(group, arm):
-    path = ROOT / group / (arm + ".json")
+    path = evaluation_record(ROOT / group, arm)
     if path.exists():
         return read(path)
     return json.loads(

@@ -1,6 +1,7 @@
 """Run native post-training audits serially; cache successful compatible work."""
 
 from pathlib import Path
+import os
 import subprocess
 import sys
 
@@ -22,11 +23,13 @@ def main():
             str(out / "study.lock"),
         ],
         check=True,
+        pass_fds=(int(os.environ["LOOPQWEN_STUDY_FD"]),),
     )
     study = read(out / "main.json")
     if study["milestone"] != 100000:
         raise ValueError("Complete the main experiment before post-training audits")
     tasks = [
+        ("curves", ["-m", "loopqwen.evaluation.phase3_curve"], "learning-curves.json"),
         ("audit", ["-m", "loopqwen.benchmark.phase3_audit"], "native-audit.json"),
         ("fork", ["scripts/phase3_recovery.py"], "fork-audit.json"),
         (

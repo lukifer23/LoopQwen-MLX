@@ -87,6 +87,11 @@ def publish(destination):
     selection = read(out / "selection.json")
     main = read(out / "main.json")
     dest = Path(destination)
+    adapter_dest = Path("adapters/phase3")
+    if (dest / "checksums.json").is_file():
+        dest = Path("outputs/phase3/reproduction") / digest(out / "main.json")[:16]
+        adapter_dest = dest / "adapters"
+    exposure = read(out / "exposure.json")["100000"]
     dest.mkdir(exist_ok=True, parents=True)
     metrics = {}
     index = {}
@@ -121,11 +126,15 @@ def publish(destination):
         "v3-manifest.json",
         "retention-manifest.json",
         "export-audit.json",
+        "exposure.json",
+        "answer-likelihood.json",
+        "learning-curves.json",
         "compaction.json",
         "fork-audit.json",
     ):
         if (out / name).is_file():
             shutil.copyfile(out / name, dest / name)
+    shutil.copyfile(out / "schedule.jsonl.gz", dest / "schedule.jsonl.gz")
     for name in ("frontier.json",):
         if (out / name).exists():
             json_gzip(dest / (name + ".gz"), read(out / name))
@@ -142,9 +151,17 @@ def publish(destination):
         name = "p3_" + arm
         root = Path("checkpoints") / name
         gen = root / read(root / "targets-100000.json")["directory"]
-        published = Path("adapters/phase3") / name
+        published = adapter_dest / name
         published.mkdir(exist_ok=True, parents=True)
         state = read(gen / "state.json")
+        if (state["order_hash"], state["loss_tokens"], state["input_tokens"]) != (
+            exposure["order"],
+            exposure["targets"],
+            exposure["inputs"],
+        ):
+            raise ValueError(
+                "Measured 100K cohort differs from the registered schedule"
+            )
         for filename in ("adapters.safetensors",):
             if (published / filename).exists() and digest(
                 published / filename
