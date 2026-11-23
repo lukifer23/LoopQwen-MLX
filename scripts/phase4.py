@@ -199,6 +199,18 @@ def stage(name, seed):
         if deployment["source"] != digest(gen / "adapters.safetensors"):
             raise ValueError("Stock export source mismatch")
         save(OUT / "deployment.json", deployment)
+        joint = Path("checkpoints") / f"p4_{seed}_joint"
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "loopqwen.evaluation.deployment",
+                str(joint / read(joint / "targets-100000.json")["directory"]),
+                f"exports/p4_joint_{seed}_merged",
+                str(OUT / "merged-deployment.json"),
+            ],
+            check=True,
+        )
     elif name in ("boundary", "v4"):
         if not (OUT / f"evaluation-{seed}.json").is_file():
             raise ValueError(

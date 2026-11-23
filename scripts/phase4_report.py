@@ -119,6 +119,7 @@ def publish(seed):
         "gradient-bf16.json",
         "regression.json",
         "deployment.json",
+        "merged-deployment.json",
         "exposure.json",
     ):
         if (OUT / name).exists():
@@ -201,7 +202,11 @@ def publish(seed):
         ]
         gz(root / "curves" / (name + ".json.gz"), state["history"])
         if int(budget) == 250000 or (arm == "joint" and int(budget) == 100000):
-            dest = adapters / f"{arm}_{seed}_{int(budget) // 1000}k"
+            dest = adapters / (
+                f"time_{seed}_matched_seconds"
+                if arm == "time"
+                else f"{arm}_{seed}_{int(budget) // 1000}k"
+            )
             dest.mkdir(exist_ok=True, parents=True)
             shutil.copyfile(gen / "adapters.safetensors", dest / "adapters.safetensors")
             save(
