@@ -251,8 +251,9 @@ def evaluate(seed, budgets=(25000, 100000, 250000), suite="primary"):
             OUT / f"evaluation-{seed}-{suite}.json", dict(records=handles, pairs=pairs)
         )
         return
-    score("base", 0, 1, None)
-    for budget in budgets:
+    # Return the cost-matched replication and main joint comparison first.
+    # Smaller learning-curve checkpoints and Base use the same frozen item lists.
+    for budget in sorted(budgets, reverse=True):
         for arm in (
             ("dense", "gated", "joint")
             if budget <= 100000
@@ -270,6 +271,7 @@ def evaluate(seed, budgets=(25000, 100000, 250000), suite="primary"):
             )
             for k in (1, 2) if arm in ("gated", "joint") else (1,):
                 score(arm, budget, k, gen)
+    score("base", 0, 1, None)
     pairs = {}
     for budget in budgets:
         names = ["dense", "time"] if budget == 250000 else ["dense", "gated"]
