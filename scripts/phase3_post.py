@@ -83,6 +83,30 @@ def main():
         ),
     ]
     tasks.append(("difficulty", ["scripts/phase3_breakdowns.py"], "difficulty.json"))
+    for arm in ("learn1", "learn2"):
+        tasks.append(
+            (
+                "lr-" + arm,
+                ["-m", "loopqwen.evaluation.gate_screen", arm],
+                arm + "-lr-current.json",
+            )
+        )
+    priority = (
+        "regression",
+        "audit",
+        "fork",
+        "coefficients",
+        "lr-learn1",
+        "lr-learn2",
+        "curves",
+        "transfer",
+        "export",
+    )
+    tasks.sort(
+        key=lambda task: (
+            priority.index(task[0]) if task[0] in priority else len(priority)
+        )
+    )
     for task, args, artifact in tasks:
         pointer = out / "post" / (task + ".json")
         file = (
