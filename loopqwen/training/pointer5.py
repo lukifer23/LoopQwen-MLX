@@ -1,7 +1,6 @@
 """Categorical optimization through the real shared Qwen block, with one update per logical batch."""
 
 import gc
-import json
 import math
 import random
 import signal
@@ -33,6 +32,14 @@ def architecture(seed, arm, policy):
     c = config("configs/pilot_loop.yaml")
     c.update(
         seed=seed,
+        name=f"p5_{seed}_{arm}",
+        dataset="phase5_pointer",
+        batch_size=SPEC["batch"],
+        learning_rate=SPEC["lr"],
+        weight_decay=0,
+        warmup=0,
+        accumulation=1,
+        steps=SPEC["steps"],
         passes=3 if arm in REC else 1,
         mode="direct",
         gradient_checkpointing=policy != "off",
@@ -180,7 +187,15 @@ def make_update(m, opt, arm):
             if adapter_keys
             else mx.array(0.0)
         )
-        mx.eval(m.trainable_parameters(), opt.state, delta)
+        bridge_update = (
+            mx.sqrt(
+                norm2([new[k] - old[k] for k in bridge_keys])
+                / sum(old[k].size for k in bridge_keys)
+            )
+            if bridge_keys
+            else mx.array(0.0)
+        )
+        mx.eval(m.trainable_parameters(), opt.state, delta, bridge_update)
         return dict(
             depth=n,
             maps=size,
@@ -192,6 +207,7 @@ def make_update(m, opt, arm):
             head_gradient=head_norm.item(),
             adapter_gradient=adapter_grad.item(),
             bridge_gradient=bridge_grad.item(),
+            bridge_update_rms=bridge_update.item(),
             adapter_update=delta.item(),
             seconds=perf_counter() - begin,
             positions=positions,
@@ -341,6 +357,8 @@ def install(seed, arm, until):
         if original["step"] != 480:
             raise ValueError("Outcome lineage requires completed installation")
     marks = [560] if arm == "outcome" else SPEC["milestones"]
+    if state["step"] in marks and not (root / f"at-{state['step']}.json").exists():
+        save(root / f"at-{state['step']}.json", read(root / "latest.json"))
     for step in marks:
         if step <= min(state["step"], until):
             milestone(seed, arm, step)
