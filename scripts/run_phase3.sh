@@ -12,13 +12,11 @@ study() { "$python" scripts/phase3_study.py "$@" --checkpointing off; }
 case "$stage" in
 smoke|screening|main)
   for arm in learn1 learn2; do
-    if [ ! -f "outputs/phase3/$arm-lr.json" ]; then
-      study "$arm" --updates 8
-      "$python" -m loopqwen.evaluation.gate_screen "$arm"
-    fi
+    study "$arm" --updates 8
+    "$python" -m loopqwen.evaluation.gate_screen "$arm"
   done
   [ "$stage" != smoke ] || exit 0
-  learned=$("$python" -c 'from loopqwen.io import read; print(min(("learn1","learn2"),key=lambda a:read(f"outputs/phase3/{a}-lr.json")["loss"]["nll"]))')
+  learned=$("$python" -c 'from loopqwen.io import read; print(min(("learn1","learn2"),key=lambda a:read(f"outputs/phase3/{a}-lr-current.json")["loss"]["nll"]))')
   for arm in dense direct fixed "$learned"; do study "$arm" --targets 25000; done
   "$python" -m loopqwen.evaluation.phase3 screen "$learned"
   [ "$stage" = main ] || exit 0
