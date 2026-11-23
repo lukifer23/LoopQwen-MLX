@@ -2,7 +2,7 @@
 
 import argparse
 import gc
-import re
+from ..data.token_classes import token_classes
 from collections import Counter
 from dataclasses import replace
 from pathlib import Path
@@ -22,27 +22,6 @@ from .trace_verifier import verify
 
 OUT = Path("outputs/phase3")
 REGISTER = Path("experiments/phase3_dev.json")
-
-
-def token_classes(row, tok):
-    response = " " + row["trace"]
-    encoded = tok._tokenizer(
-        response, add_special_tokens=False, return_offsets_mapping=True
-    )
-    if encoded["input_ids"] + [tok.eos_token_id] != row["ids"][row["prefix"] :]:
-        raise ValueError("Teacher-forced response tokenization changed")
-    boundary = response.rindex("Final answer:") + len("Final answer:")
-    result = []
-    for begin, end in encoded["offset_mapping"]:
-        chars = response[begin:end]
-        if end > boundary and response[max(begin, boundary) : end].strip():
-            group = "final"
-        elif begin < boundary and re.search(r"[0-9+*/%\-]", chars):
-            group = "intermediate"
-        else:
-            group = "format"
-        result.append(group)
-    return result + ["eos"]
 
 
 def likelihood(model, tok, samples):
@@ -90,6 +69,11 @@ def compare(left, right):
     b = right["generations"]["records"]
     if [r["id"] for r in a] != [r["id"] for r in b]:
         raise ValueError("Pairing requires the same ordered IDs")
+    for records, side in ((a, left), (b, right)):
+        if [r["id"] for r in records] != [
+            r["id"] for r in side["likelihood"]["records"]
+        ]:
+            raise ValueError("Likelihood order differs from generation order")
     change = np.asarray([int(y["correct"]) - int(x["correct"]) for x, y in zip(a, b)])
     wins = int(sum(change > 0))
     losses = int(sum(change < 0))
@@ -128,7 +112,7 @@ def measure(arm, milestone, mode, samples, prose, study):
     identity = evaluation_identity(
         study,
         gen,
-        [r["id"] for r in samples + prose],
+        samples + prose,
         {**setting, "mode": mode, "batch": 8, "left_padded": True},
         "procedural-certificate-v1",
     )

@@ -23,7 +23,7 @@ def check_study(root):
     import psutil
 
     ancestors = {os.getpid(), *(p.pid for p in psutil.Process().parents())}
-    for phase in ("phase2", "phase3"):
+    for phase in ("phase2", "phase3", "phase4"):
         path = root / "outputs" / phase / "study.lock"
         if not path.is_file():
             continue
@@ -103,6 +103,7 @@ def resources():
                         "loopqwen",
                         "scripts/run_phase3",
                         "scripts/phase3_",
+                        "scripts/phase4",
                         "scripts/phase2_",
                         "scripts/run_phase2",
                         "scripts/phase2_finish",

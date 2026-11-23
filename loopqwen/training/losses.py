@@ -48,3 +48,19 @@ def validation_nll(model, samples, batch_size=4, projection_chunk=None):
                 )
         labels += y.size
     return dict(nll=total / labels, perplexity=math.exp(total / labels), tokens=labels)
+
+
+def exit_objective(model, x, positions, labels, weights, first_weight):
+    states = (
+        (model.suffix(h) for h in model.block_states(x, 2))
+        if first_weight
+        else (model.hidden(x),)
+    )
+    numerators, raw = [], []
+    for h in states:
+        logits = model.project(h.reshape(-1, h.shape[-1])[positions])
+        ce = mx.fast.cross_entropy(logits, labels).astype(mx.float32)
+        raw.append(ce.sum())
+        numerators.append((ce * weights).sum())
+    total = first_weight * numerators[0] + (1 - first_weight) * numerators[-1]
+    return total, mx.stack(numerators), mx.stack(raw)

@@ -19,6 +19,10 @@ def config(path):
         extra := user.keys()
         - defaults.keys()
         - {
+            "max_microbatch_positions",
+            "first_exit_weight",
+            "token_weights",
+            "dataset_path",
             "gate_lr",
             "gate_decay",
             "fixed_alpha",
@@ -104,9 +108,9 @@ def config(path):
         raise ValueError(
             "alpha_schedule needs a stabilized loop and two endpoints in [0,1]"
         )
-    if c["dataset"] not in ("v2", "pilot"):
+    if c["dataset"] not in ("v2", "v4", "pilot"):
         raise ValueError("Unknown dataset")
-    if c["dataset"] == "v2":
+    if c["dataset"] in ("v2", "v4"):
         from .data.sampling import MIXTURES
 
         if not c["response_only"]:
@@ -124,7 +128,7 @@ def config(path):
         if key in c and not 0 < c[key] <= 1:
             raise ValueError(key)
     if c.get("validation_batch_size", 1) not in (1, 2, 4) or (
-        "validation_batch_size" in c and c["dataset"] != "v2"
+        "validation_batch_size" in c and c["dataset"] == "pilot"
     ):
         raise ValueError("V2 validation batch size must be 1, 2 or 4")
     for key in ("label_budget", "seconds_budget"):
@@ -152,4 +156,29 @@ def config(path):
         raise ValueError("gate_lr needs an active learned gate")
     if c.get("checkpoint_policy", "all") not in ("all", "block"):
         raise ValueError("Unknown checkpoint_policy")
+    if "max_microbatch_positions" in c and (
+        not isinstance(c["max_microbatch_positions"], int)
+        or c["max_microbatch_positions"] < max(16, c["sequence_length"])
+        or c.get("packing")
+    ):
+        raise ValueError(
+            "Position cap must fit every eligible document and requires independent padding"
+        )
+    if "first_exit_weight" in c and (
+        not 0 < c["first_exit_weight"] < 1
+        or c["passes"] != 2
+        or c["curriculum"] != "direct"
+        or c.get("packing")
+    ):
+        raise ValueError(
+            "Joint CE requires fixed K=2 and a strictly interior exit weight"
+        )
+    if "token_weights" in c and (
+        set(c["token_weights"])
+        != {"format", "intermediate", "final", "eos", "language"}
+        or min(c["token_weights"].values()) <= 0
+        or c.get("packing")
+        or c["dataset"] == "pilot"
+    ):
+        raise ValueError("Supply positive weights for all five response classes")
     return c

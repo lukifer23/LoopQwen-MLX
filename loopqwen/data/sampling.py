@@ -1,4 +1,5 @@
 from collections import Counter
+from pathlib import Path
 import hashlib
 import json
 import random
@@ -29,8 +30,9 @@ def prepare(c):
     math_weight = mix.get("answer", 0) + mix.get("trace", 0)
     if math_weight <= 0:
         raise ValueError("Include procedural examples")
-    manifest = read(v2.ROOT / "manifest.json")
-    path = v2.ROOT / "train.jsonl"
+    root = Path(c.get("dataset_path", "data/" + c["dataset"]))
+    manifest = read(root / "manifest.json")
+    path = root / "train.jsonl"
     if digest(path) != manifest["splits"]["train"]["sha256"]:
         raise ValueError("Training split changed")
     records = [json.loads(line) for line in path.read_text().splitlines()]
@@ -46,6 +48,10 @@ def prepare(c):
                 for r in records
                 if r["variants"][mode]["input_length"] <= c["sequence_length"]
             ]
+            if not eligible and fraction:
+                raise ValueError("No eligible examples for requested " + mode)
+            if not fraction:
+                continue
             frequencies[mode] = fraction * len(eligible) / sum(eligible)
         total = sum(frequencies.values())
         mix = {mode: f / total for mode, f in frequencies.items()}
@@ -67,7 +73,7 @@ def prepare(c):
         if not mix.get(source):
             continue
         if source == "language":
-            extra = v2.rows("language_train", "language")
+            extra = v2.rows("language_train", "language", root)
         else:
             from .public_traces import gsm
 
@@ -85,6 +91,9 @@ def prepare(c):
     pool = [r for r in pool if r["input_length"] <= c["sequence_length"]]
     if not pool:
         raise ValueError("No eligible samples")
+    absent = {k for k, v in mix.items() if v > 0} - {r["protocol"] for r in pool}
+    if absent:
+        raise ValueError(f"No eligible examples for {sorted(absent)}")
     rng.shuffle(pool)
     if c.get("bucket", True):
         size = c["batch_size"]
@@ -114,7 +123,7 @@ def prepare(c):
             "".join(r["id"] + r["protocol"] for r in pool).encode()
         ).hexdigest(),
     )
-    valid = v2.rows("validation", "trace" if mix.get("trace", 0) else "answer")[
+    valid = v2.rows("validation", "trace" if mix.get("trace", 0) else "answer", root)[
         : c["eval_count"]
     ]
     return pool, valid, manifest, policy

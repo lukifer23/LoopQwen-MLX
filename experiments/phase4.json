@@ -1,0 +1,10 @@
+{
+  "id": "phase4", "seed": 109, "additional_seeds": [137, 73],
+  "primary_targets": 250000, "dual_targets": 100000,
+  "milestones": [25000, 100000, 250000],
+  "data_manifest": "37f82776fa0a006af67447f8e4ca8ca142e1e6f842f4fff6b78bd6d27a59f0c3",
+  "generation": {"trace_cap": 192, "answer_cap": 24, "batch_size": 8},
+  "config": {"batch_size":4,"sequence_length":256,"accumulation":1,"dataset":"v2","mixture":"mixed_answer_and_traces","bucket_policy":"protocol_and_length","steps":6000,"warmup":5,"strict_resume":true,"eval_count":30,"validation_batch_size":4,"checkpoint_interval":150,"eval_interval":6000,"memory_target_gib":8,"min_available_gib":1,"gradient_checkpointing":false,"max_microbatch_positions":360},
+  "arms": {"gated":{"mode":"stabilized","passes":2,"gate_lr":0.001},"dense":{"mode":"direct","passes":1},"joint":{"mode":"stabilized","passes":2,"gate_lr":0.001,"first_exit_weight":0.25}},
+  "track_a_pooled_delta":0.03,"track_b_pooled_delta":0.03,"retention_tolerance":0.05
+}

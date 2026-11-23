@@ -18,11 +18,11 @@ from mlx.utils import tree_map
 from .. import checkpoint
 from ..config import config, span
 from ..data.build_data import ROOT, load_split
-from ..data.tokenize import batch, pack
+from ..data.tokenize import batch, pack, physical_batches
 from ..hardware import doctor, gpu_utilization
 from ..io import read, save
 from ..model_loader import count
-from .losses import loss_sum, packed_loss_sum, validation_nll
+from .losses import exit_objective, loss_sum, packed_loss_sum, validation_nll
 from .optimizers import optimizer
 
 
@@ -53,7 +53,7 @@ def train(path, until=None):
     root.mkdir(parents=True, exist_ok=True)
     with (root / "writer.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        if c["dataset"] != "v2":
+        if c["dataset"] == "pilot":
             return _train(c, root, until)
         progress = root / "lifecycle.json"
         save(progress, {"status": "started", "run": c["name"]})
@@ -82,7 +82,7 @@ def train(path, until=None):
 
 def _train(c, root, until):
     policy = None
-    if c["dataset"] == "v2":
+    if c["dataset"] != "pilot":
         from ..data.sampling import prepare
 
         rows, valid, manifest, policy = prepare(c)
@@ -94,7 +94,23 @@ def _train(c, root, until):
     model, tok, info = checkpoint.setup(c)
     opt = optimizer(c)
     packed = c.get("packing", False)
-    fn = nn.value_and_grad(model, packed_loss_sum if packed else loss_sum)
+    custom_loss = "first_exit_weight" in c or "token_weights" in c
+    fn = nn.value_and_grad(
+        model,
+        exit_objective if custom_loss else packed_loss_sum if packed else loss_sum,
+    )
+    weight_cache = {}
+    exit_weight = c.get("first_exit_weight", 0.0)
+    weight_policy = c.get("token_weights")
+    if weight_policy:
+        from ..data.token_classes import token_classes
+
+        for sample in rows:
+            key = (sample["id"], sample["protocol"])
+            if key not in weight_cache:
+                weight_cache[key] = [
+                    weight_policy[t] for t in token_classes(sample, tok)
+                ]
     state = dict(
         config=c,
         manifest=manifest,
@@ -194,6 +210,9 @@ def _train(c, root, until):
                 a, b = c["alpha_schedule"]
                 model.alpha_override = a + (b - a) * s / max(1, c["steps"] - 1)
             total = grads = None
+            denominator = 0
+            exit_sums = raw_sums = None
+            forward_alpha = model.effective_alpha() if model.span.has_gate else None
             labels = inputs = 0
             ids = []
             sources = Counter()
@@ -217,43 +236,79 @@ def _train(c, root, until):
                         break
                 if len(selected) != state["batch_size"]:
                     raise ValueError("Sequence length too short for dataset")
-                k = depth(c, s, micro)
+                k = depth(c, s, 0 if "max_microbatch_positions" in c else micro)
                 model.span = replace(span(c), passes=k)
                 depths.append(k)
-                micro_start = perf_counter()
-                arguments = (pack if packed else batch)(selected, c["response_only"])
-                value, g = fn(model, *arguments)
-                y = arguments[2]
-                if policy:
-                    for sample in selected:
-                        examples_by_source[sample["protocol"]] += 1
-                        inputs_by_source[sample["protocol"]] += sample["input_length"]
-                        sources[sample["protocol"]] += sample["output_length"]
-                        categories[sample["category"]] += sample["output_length"]
-                        lengths.append(sample["input_length"])
-                    padded += arguments[0].size
-                grads = g if grads is None else tree_map(lambda a, b: a + b, grads, g)
-                total = value if total is None else total + value
-                mx.eval(grads, total)
-                if c.get("strict_resume"):
-                    microbatches.append(
-                        dict(
-                            shape=list(arguments[0].shape),
-                            k=k,
-                            scored=y.size,
-                            protocols=dict(Counter(r["protocol"] for r in selected)),
-                            seconds=perf_counter() - micro_start,
-                        )
+                for selected in physical_batches(
+                    selected, c.get("max_microbatch_positions")
+                ):
+                    micro_start = perf_counter()
+                    arguments = (pack if packed else batch)(
+                        selected, c["response_only"]
                     )
-                labels += y.size
-                inputs += sum(len(r["ids"]) - 1 for r in selected)
-                ids.extend(r["id"] for r in selected)
+                    if custom_loss:
+                        weights = (
+                            [
+                                w
+                                for r in selected
+                                for w in weight_cache[(r["id"], r["protocol"])]
+                            ]
+                            if weight_policy
+                            else None
+                        )
+                        (value, components, raw), g = fn(
+                            model,
+                            *arguments,
+                            mx.array(weights) if weights is not None else 1.0,
+                            exit_weight,
+                        )
+                        exit_sums = (
+                            components if exit_sums is None else exit_sums + components
+                        )
+                        raw_sums = raw if raw_sums is None else raw_sums + raw
+                        denominator += (
+                            sum(weights) if weights is not None else arguments[2].size
+                        )
+                    else:
+                        value, g = fn(model, *arguments)
+                        denominator += arguments[2].size
+                    y = arguments[2]
+                    if policy:
+                        for sample in selected:
+                            examples_by_source[sample["protocol"]] += 1
+                            inputs_by_source[sample["protocol"]] += sample[
+                                "input_length"
+                            ]
+                            sources[sample["protocol"]] += sample["output_length"]
+                            categories[sample["category"]] += sample["output_length"]
+                            lengths.append(sample["input_length"])
+                        padded += arguments[0].size
+                    grads = (
+                        g if grads is None else tree_map(lambda a, b: a + b, grads, g)
+                    )
+                    total = value if total is None else total + value
+                    mx.eval(grads, total)
+                    if c.get("strict_resume"):
+                        microbatches.append(
+                            dict(
+                                shape=list(arguments[0].shape),
+                                k=k,
+                                scored=y.size,
+                                protocols=dict(
+                                    Counter(r["protocol"] for r in selected)
+                                ),
+                                seconds=perf_counter() - micro_start,
+                            )
+                        )
+                    labels += y.size
+                    inputs += sum(len(r["ids"]) - 1 for r in selected)
+                    ids.extend(r["id"] for r in selected)
             grad_seconds = perf_counter() - start
-            grads = tree_map(lambda g: g / labels, grads)
+            grads = tree_map(lambda g: g / denominator, grads)
             gate_gradient = grads.get("alpha_logit")
             old_gate = model.alpha_logit if gate_gradient is not None else None
             grads, norm = optim.clip_grad_norm(grads, c["clip"])
-            mean = total.item() / labels
+            mean = total.item() / denominator
             magnitude = norm.item()
             if not math.isfinite(mean) or not math.isfinite(magnitude):
                 raise FloatingPointError(f"Nonfinite loss or gradient at step {s + 1}")
@@ -275,6 +330,20 @@ def _train(c, root, until):
                 sequence_limit=state["sequence_length"],
                 batch_size=state["batch_size"],
             )
+            if c.get("max_microbatch_positions") or custom_loss:
+                row.update(
+                    objective_denominator=denominator,
+                    exit_targets=labels * (2 if exit_weight else 1),
+                    alpha_forward=float(forward_alpha)
+                    if forward_alpha is not None and max(depths) > 1
+                    else None,
+                )
+                if custom_loss:
+                    row.update(
+                        exit_ce=(exit_sums / denominator).tolist(),
+                        raw_exit_ce=(raw_sums / labels).tolist(),
+                        first_exit_weight=exit_weight,
+                    )
             consumed_seconds += elapsed
             if policy:
                 repeats = 0

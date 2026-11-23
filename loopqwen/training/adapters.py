@@ -10,6 +10,7 @@ def attach(model, policy="block", rank=8, alpha=16, projections=None):
     start, end = model.span.start, model.span.start + model.span.length
     ranges = {
         "block": range(start, end),
+        "boundary": range(max(0, start - 1), min(n, end + 1)),
         "nearby": range(max(0, start - 2), min(n, end + 2)),
         "last8": range(n - 8, n),
         "all": range(n),

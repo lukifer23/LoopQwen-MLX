@@ -21,6 +21,8 @@ TRAIN_FILES = (
     "training/losses.py",
     "data/sampling.py",
     "data/tokenize.py",
+    "data/token_classes.py",
+    "recurrent_cache.py",
     "data/v2.py",
     "checkpoint.py",
     "identity.py",

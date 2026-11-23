@@ -10,6 +10,7 @@ from .recurrence import Span
 class LoopedModel(nn.Module):
     def __init__(self, text, span=Span(), alpha=0.1):
         super().__init__()
+        self._generation = object()
         self.text = text
         self.span = span
         span.sites(len(text.layers))
@@ -45,10 +46,46 @@ class LoopedModel(nn.Module):
     def hidden(self, ids, cache=None, window_size=None, observer=None):
         h = self.text.model.embed_tokens(ids)
         sites = self.sites
-        if cache is not None and (cache.sites != sites or self.training):
-            raise ValueError(
-                "Cache requires evaluation mode and its original execution schedule"
-            )
+        if cache is not None:
+            cache.validate(self, window_size)
+        return self.text.model.norm(
+            self._execute(h, sites, cache, window_size, observer)
+        )
+
+    def update(self, parameters, strict=True):
+        result = super().update(parameters, strict=strict)
+        self._generation = object()
+        return result
+
+    def block_states(self, ids, passes, refinement_observer=None):
+        """Uncached training exits. Expose no target tokens or states on re-entry."""
+        start = self.span.start
+        end = start + self.span.length
+        h = self._execute(
+            self.text.model.embed_tokens(ids), [(i, 0) for i in range(start)]
+        )
+        anchor = h
+        for p in range(passes):
+            previous = h
+            if p and self.span.mode == "input_anchor":
+                h = (h + self.effective_alpha() * (anchor - h)).astype(h.dtype)
+            h = self._execute(h, [(i, 0) for i in range(start, end)])
+            candidate = h
+            if p and self.span.mode == "stabilized":
+                h = (previous + self.effective_alpha() * (candidate - previous)).astype(
+                    h.dtype
+                )
+            if p and refinement_observer is not None:
+                refinement_observer(previous, candidate, h)
+            yield h
+
+    def suffix(self, h):
+        end = self.span.start + self.span.length
+        return self.text.model.norm(
+            self._execute(h, [(i, 0) for i in range(end, len(self.text.layers))])
+        )
+
+    def _execute(self, h, sites, cache=None, window_size=None, observer=None):
         for i, p in sites:
             layer = self.text.layers[i]
             state = None if cache is None else cache.slots[i, p]
@@ -94,7 +131,7 @@ class LoopedModel(nn.Module):
                 h = (previous + alpha * (h - previous)).astype(h.dtype)
             if observer is not None and i == self.span.start + self.span.length - 1:
                 observer("exit", p, h)
-        return self.text.model.norm(h)
+        return h
 
     def project(self, hidden):
         if self.args.tie_word_embeddings:

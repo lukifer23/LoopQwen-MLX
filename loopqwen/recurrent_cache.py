@@ -5,6 +5,11 @@ class SiteCache:
     """One convolution+delta state or KV pair for each (layer, pass) site."""
 
     def __init__(self, model, max_kv_size=None, *, left_padding=None):
+        self.generation = model._generation
+        self.span = model.span
+        self.gate = getattr(model, "alpha_logit", None)
+        self.override = model.alpha_override
+        self.window_size = max_kv_size
         self.sites = model.sites
         if max_kv_size is not None and max_kv_size < 2:
             raise ValueError("KV window must contain at least two tokens")
@@ -25,6 +30,19 @@ class SiteCache:
             else:
                 slot = KVCache()
             self.slots[i, p] = slot
+
+    def validate(self, model, window_size):
+        if (
+            model.training
+            or model._generation is not self.generation
+            or model.span != self.span
+            or getattr(model, "alpha_logit", None) is not self.gate
+            or model.alpha_override != self.override
+            or (window_size is not None and window_size != self.window_size)
+        ):
+            raise ValueError(
+                "Cache requires evaluation mode and its original model, window and execution schedule"
+            )
 
     def finish_left_prefill(self):
         for slot in self.slots.values():
