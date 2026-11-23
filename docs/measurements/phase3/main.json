@@ -1,0 +1,172 @@
+{
+  "stage": "main",
+  "milestone": 100000,
+  "rows": [
+    {
+      "arm": "dense",
+      "mode": "trained",
+      "correct": 36,
+      "verified": 34,
+      "truncated": 0,
+      "n": 60,
+      "alpha": null,
+      "final_nll": 1.0285819248832523e-05,
+      "trace_nll": 0.06032828467077873,
+      "retention": 3.637820278119848,
+      "seconds": 15.316825125002651,
+      "identity": "bb370f3ca5e12a96555cbdeb2aead5d8dc1883aafe3f09816bdb9f56f055995d"
+    },
+    {
+      "arm": "direct",
+      "mode": "trained",
+      "correct": 30,
+      "verified": 28,
+      "truncated": 0,
+      "n": 60,
+      "alpha": null,
+      "final_nll": 1.8830734017266142e-05,
+      "trace_nll": 0.06305831072806019,
+      "retention": 3.768202992049564,
+      "seconds": 19.133997832002933,
+      "identity": "4a07e1f8eb6334debfae5c9a6d4b3a4bbf6cad65971917fa93949aa39540780f"
+    },
+    {
+      "arm": "direct",
+      "mode": "bypass",
+      "correct": 26,
+      "verified": 22,
+      "truncated": 0,
+      "n": 60,
+      "alpha": null,
+      "final_nll": 4.289974028518865e-05,
+      "trace_nll": 0.08354620425855533,
+      "retention": 3.6388429967526856,
+      "seconds": 16.068470250000246,
+      "identity": "2eb587d17feb4253699bf4b3854375086ef6cd8339929c9406d3f4171cb70a22"
+    },
+    {
+      "arm": "learn1",
+      "mode": "trained",
+      "correct": 36,
+      "verified": 35,
+      "truncated": 0,
+      "n": 60,
+      "alpha": 0.09803057461977005,
+      "final_nll": 9.050254274647138e-06,
+      "trace_nll": 0.060461308066369776,
+      "retention": 3.6368631388476187,
+      "seconds": 18.750050749997172,
+      "identity": "2af518332c51eb5edc197f21f62bd2e23da9e3795bbad7ce57e4b932b16364be"
+    },
+    {
+      "arm": "learn1",
+      "mode": "bypass",
+      "correct": 35,
+      "verified": 34,
+      "truncated": 0,
+      "n": 60,
+      "alpha": null,
+      "final_nll": 1.1159538492911521e-05,
+      "trace_nll": 0.06064036906104511,
+      "retention": 3.635161957520674,
+      "seconds": 15.360389916004351,
+      "identity": "3eb8f94af30916ba1e9051286a1cf15c96f06dfd61cda4a88909c0ed384871a2"
+    },
+    {
+      "arm": "learn1",
+      "mode": "alpha0",
+      "correct": 35,
+      "verified": 34,
+      "truncated": 0,
+      "n": 60,
+      "alpha": 0.0,
+      "final_nll": 1.1159538492911521e-05,
+      "trace_nll": 0.06064036906104511,
+      "retention": 3.635161957520674,
+      "seconds": 18.820740834995377,
+      "identity": "e860b3ef0ff0f62707522b313563bb02cbefa0dee14bc8eda8d110bcf3bffb2c"
+    },
+    {
+      "arm": "learn1",
+      "mode": "alpha0.05",
+      "correct": 36,
+      "verified": 34,
+      "truncated": 0,
+      "n": 60,
+      "alpha": 0.05,
+      "final_nll": 9.314000471246944e-06,
+      "trace_nll": 0.06041080551664552,
+      "retention": 3.6358477428755185,
+      "seconds": 18.71344124800453,
+      "identity": "2625a3485a61b18744d242a4c169c834034924c232bd7a79434bb450d8bb8dbb"
+    },
+    {
+      "arm": "learn1",
+      "mode": "alpha0.10",
+      "correct": 38,
+      "verified": 36,
+      "truncated": 0,
+      "n": 60,
+      "alpha": 0.1,
+      "final_nll": 9.170309228315777e-06,
+      "trace_nll": 0.06055110221207199,
+      "retention": 3.636257980661528,
+      "seconds": 19.07966254100029,
+      "identity": "c963046bbe4568c71a4340c6bae62511ad4c426bd62b6e7e15871df09c901c3b"
+    }
+  ],
+  "paired": {
+    "direct-dense": {
+      "fixes": 1,
+      "breaks": 7,
+      "delta": -0.1,
+      "item_ci95": [
+        -0.18333333333333332,
+        -0.016666666666666666
+      ],
+      "mcnemar": 0.0703125,
+      "same_numeric": 36,
+      "formatting_only": 0,
+      "unchanged_text_improved_logp": 21
+    },
+    "direct-bypass": {
+      "fixes": 7,
+      "breaks": 3,
+      "delta": 0.06666666666666667,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.16666666666666666
+      ],
+      "mcnemar": 0.34375,
+      "same_numeric": 29,
+      "formatting_only": 0,
+      "unchanged_text_improved_logp": 20
+    },
+    "learn1-dense": {
+      "fixes": 2,
+      "breaks": 2,
+      "delta": 0.0,
+      "item_ci95": [
+        -0.06666666666666667,
+        0.06666666666666667
+      ],
+      "mcnemar": 1.0,
+      "same_numeric": 44,
+      "formatting_only": 0,
+      "unchanged_text_improved_logp": 22
+    },
+    "learn1-bypass": {
+      "fixes": 2,
+      "breaks": 1,
+      "delta": 0.016666666666666666,
+      "item_ci95": [
+        -0.03333333333333333,
+        0.08333333333333333
+      ],
+      "mcnemar": 1.0,
+      "same_numeric": 49,
+      "formatting_only": 0,
+      "unchanged_text_improved_logp": 37
+    }
+  }
+}
