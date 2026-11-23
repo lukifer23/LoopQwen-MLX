@@ -25,6 +25,7 @@ FILES = (
     "evaluation/phase3.py",
     "evaluation/answers.py",
     "evaluation/trace_verifier.py",
+    "data/graphs.py",
 )
 
 

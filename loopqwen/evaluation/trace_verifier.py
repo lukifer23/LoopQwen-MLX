@@ -64,6 +64,49 @@ def obligation(line):
     return (label, re.sub(r"\s+", "", parts[0]), value == claimed)
 
 
+def graph_obligations(graph, lines):
+    from ..data.graphs import solve
+
+    duration = graph["durations"]
+    parents = graph["predecessors"]
+    target = graph["target"]
+    finishes, _, _ = solve(duration, parents, target)
+    required = set()
+
+    def include(node):
+        if node not in required:
+            required.add(node)
+            for parent in parents[node]:
+                include(parent)
+
+    include(target)
+    established = set()
+    checks = []
+    for line in lines:
+        line = re.sub(r"^Step \d+\s*:\s*", "", line, flags=re.I)
+        m = re.fullmatch(
+            r"job (\w+) finishes at (\d{1,12})\s*\+\s*(\d{1,12})\s*=\s*(\d{1,12})\.?",
+            line,
+            re.I,
+        )
+        if not m or m[1].upper() not in duration:
+            checks.append("unsupported")
+            continue
+        node = m[1].upper()
+        left, right, claimed = map(int, m.groups()[1:])
+        if left + right != claimed:
+            checks.append("arithmetic_error")
+        elif sorted((left, right)) != sorted(
+            (finishes[node] - duration[node], duration[node])
+        ):
+            checks.append("incorrect_state_transition")
+        else:
+            established.add(node)
+            checks.append("verified")
+    complete = required.issubset(established) and all(c == "verified" for c in checks)
+    return checks, complete, len(required)
+
+
 def verify(row, text, truncated=False):
     lines = [s.strip() for s in text.splitlines() if s.strip()]
     finals = [(i, numeric(s)) for i, s in enumerate(lines) if re.match(MARKER, s, re.I)]
@@ -96,6 +139,9 @@ def verify(row, text, truncated=False):
         else:
             checks.append("unsupported")
     complete = len(checks) == len(expected) and all(c == "verified" for c in checks)
+    expected_count = len(expected)
+    if "graph" in row:
+        checks, complete, expected_count = graph_obligations(row["graph"], actual)
     return dict(
         final=final,
         verified=complete and final == "correct",
@@ -104,6 +150,6 @@ def verify(row, text, truncated=False):
         truncated=truncated,
         recognized=sum(s != "unsupported" for s in checks),
         correct_steps=checks.count("verified"),
-        expected_steps=len(expected),
+        expected_steps=expected_count,
         checks=checks,
     )

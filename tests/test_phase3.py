@@ -101,3 +101,17 @@ def test_evaluation_revision_tracks_decoding_and_metadata(tmp_path):
     save(tmp_path / "state.json", state)
     assert original != identity(192)
     assert original["weights"] == identity(192)["weights"]
+
+
+def test_dag_certificate_accepts_independent_order_and_omitted_irrelevant_sink():
+    row = graph(random.Random(75), 1)
+    g = row["graph"]
+    required = {g["target"]}
+    for _ in g["durations"]:
+        required.update(p for node in tuple(required) for p in g["predecessors"][node])
+    claims = [
+        line for line in row["trace"].splitlines()[:-1] if line.split()[1] in required
+    ]
+    text = "\n".join(list(reversed(claims)) + ["Final answer: " + row["answer"]])
+    assert verify(row, text)["verified"]
+    assert not verify(row, "\n".join(text.splitlines()[1:]))["verified"]
