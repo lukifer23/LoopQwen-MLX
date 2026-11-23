@@ -11,6 +11,7 @@ python=.venv/bin/python
 "$python" scripts/phase2_repeat.py
 "$python" -m loopqwen.benchmark.phase2_inference
 "$python" scripts/phase2_anchor.py
+"$python" scripts/phase2_integrity.py
 "$python" scripts/phase2_compute.py
 "$python" scripts/phase2_archive.py
 "$python" scripts/phase2_report.py

@@ -56,7 +56,14 @@ def all_results():
         (DEST / (key + ".json.gz")).write_bytes(
             gzip.compress((OUT / (key + ".json")).read_bytes(), mtime=0)
         )
-    for key in ("repeat", "profile", "derivatives", "compute", "anchor_diagnostics"):
+    for key in (
+        "repeat",
+        "profile",
+        "derivatives",
+        "compute",
+        "integrity",
+        "anchor_diagnostics",
+    ):
         shutil.copyfile(OUT / (key + ".json"), DEST / (key + ".json"))
     shutil.copyfile(
         OUT / "phase2_confirm/paired.json", DEST / "phase2_confirm/paired.json"
