@@ -73,3 +73,7 @@ The four arms share the ordered training maps and requested depths. The frozen p
 The follow-up command evaluates the prespecified installation rule. A miss triggers a matched low-rank bridge. A qualifying direct model triggers stronger neural controls, unseen depths and terminal-only continuation. [Phase 5 decision rules](PHASE5_PLAN.md)
 
 The published Phase 5 seed-109 categorical checkpoints use identity schema 1. During closeout we found the generator and trainer shared the basename `pointer5.py` in the source digest map. Their recorded Git trees allow independent verification of both files for this study. New runs use separate, fully qualified module names. Legacy resume is restricted to the reviewed compatible trainer and original resolved settings. The archive stores both paths and their SHA-256 values. [Source inventory](measurements/phase5/source-files.json)
+
+## Phase 6 matched installation
+
+From the repository root with the locked native environment, run `scripts/run_phase6.sh data`, then `scripts/run_phase6.sh train`. These stages reuse the verified Phase 5 map identities. Each arm has separate atomic optimizer and milestone checkpoints under `checkpoints/phase6/109/`. Rerun the training command to resume from the latest complete logical update. Use `scripts/run_phase6.sh evaluate` for paired order evaluation and `scripts/run_phase6.sh followup` for the registered decision and eligible continuation.

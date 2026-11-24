@@ -77,3 +77,7 @@ Run `scripts/run_phase5.sh audit data profile smoke install --seed 109` for the 
 The installation threshold triggered the dense multi-state control, recurrent terminal-only control, forced depths four through six and 80 terminal-only continuation updates. The display-order test retained a separate promotion gate. The donor-diversity sensitivity and bounded zero-shot verbal checks have dated, separate registrations. [Supplemental donors](../experiments/phase5_donors.json) · [Transfer protocol](../experiments/phase5_transfer.json)
 
 To reproduce the supplemental checks, run `scripts/run_phase5.sh donors transfer --seed 109` after the qualified follow-up. Archive a reproduction into a new directory with `.venv/bin/python scripts/phase5_archive.py --destination outputs/phase5/reproduction`. Render its plot with `.venv/bin/python scripts/phase5_figure.py --archive outputs/phase5/reproduction --output outputs/phase5/reproduction.png`.
+
+## Phase 6 presentation-order generalization
+
+The matched seed-109 study changes edge presentation while preserving the map schedule, pretrained weights and recurrent graph. The independent three-head control receives all intermediate labels. The primary measurements use 384 development maps, 12 presentations per map and map-clustered comparisons. [Preregistration](PHASE6_PLAN.md) · [Cohorts](PHASE6_DATA.md) · [Architecture](PHASE6_ARCHITECTURE.md)
