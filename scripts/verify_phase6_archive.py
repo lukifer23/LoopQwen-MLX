@@ -6,12 +6,51 @@ import gzip
 import hashlib
 import json
 import math
+import random
 from pathlib import Path
 
 
 def read(p):
     data = p.read_bytes()
     return json.loads(gzip.decompress(data) if p.suffix == ".gz" else data)
+
+
+def identity(obj):
+    return hashlib.sha256(
+        json.dumps(obj, sort_keys=True, separators=(",", ":")).encode()
+    ).hexdigest()
+
+
+def cohort(result, spec):
+    rows = []
+    for r in result["records"]:
+        if r["example_id"] != identity([r["map_id"], r["start"]]):
+            raise ValueError("Incorrect example identity")
+        order = list(range(len(r["map"])))
+        condition = r["condition"]
+        if condition not in spec["orders"]:
+            raise ValueError("Unknown presentation")
+        if condition.startswith("random"):
+            random.Random(
+                identity(
+                    [
+                        spec["evaluation_seed"],
+                        0,
+                        r["map_id"],
+                        r["example_id"],
+                        condition,
+                    ]
+                )
+            ).shuffle(order)
+        if condition == "reverse":
+            order.reverse()
+        if condition.startswith("rotate"):
+            i = int(condition[6:]) % len(order)
+            order = order[i:] + order[:i]
+        if order != r["order"]:
+            raise ValueError("Archived presentation differs from registration")
+        rows.append([r["example_id"], condition, order, r["gold"]])
+    return identity(rows)
 
 
 def score(result):
@@ -109,10 +148,32 @@ def verify(root):
         if hashlib.sha256((root / key).read_bytes()).hexdigest() != h:
             raise ValueError(f"Digest mismatch {key}")
     summary = read(root / "results.json")
+    spec = read(root / "registration.json")
+    cohorts = {}
     for name, run in summary["arms"].items():
         for item in run["evaluations"]:
             r = read(root / item["path"])
             counts, consistent, n = score(r)
+            final = item == run["evaluations"][-1]
+            expected = spec["orders"] if final else ["canonical", "random0"]
+            key = "final" if final else item["step"]
+            cohort_id = cohort(r, spec)
+            if (
+                cohorts.setdefault(key, cohort_id) != cohort_id
+                or list(counts) != expected
+            ):
+                raise ValueError("Unpaired arms or missing presentation conditions")
+            if n != (spec["evaluation_maps"] if final else spec["early_items"]):
+                raise ValueError("Incomplete evaluation cohort")
+            randoms = [counts[k] for k in counts if k.startswith("random")]
+            recorded = item["scores"]["conditions"]["mean_random"]
+            for j in range(1, 4):
+                for metric, prefix in (("accuracy", "hop"), ("trajectory", "path")):
+                    expected_score = sum(c[f"{prefix}{j}"] for c in randoms) / (
+                        n * len(randoms)
+                    )
+                    if abs(recorded[metric][j - 1] - expected_score) > 1e-10:
+                        raise ValueError("Incorrect clustered random score")
             for cond, vals in counts.items():
                 m = item["scores"]["conditions"][cond]
                 for j, (acc, traj) in enumerate(zip(m["accuracy"], m["trajectory"]), 1):
