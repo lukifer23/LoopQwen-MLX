@@ -1,0 +1,33 @@
+{
+  "study": "phase6",
+  "eligibility": "Requires all registered seed-109 Phase 6 development promotion gates",
+  "selected_model": "randomized installation at update 480",
+  "replication": {
+    "seeds": [137, 173],
+    "control": "best random-order hop-three dense control at seed 109",
+    "updates": 480,
+    "development": "384 maps in canonical and eight frozen shuffles",
+    "confirmation_eligibility": "Both new seeds clear the registered canonical, random, trajectory and dense advantage gates",
+    "confirmation": "384 fresh permutation maps at seed 671124, disjoint by map from all old training, development, intervention and sealed maps. Fixed canonical and eight random orders. Score all three trained recurrent and matched dense pairs once."
+  },
+  "compute_control": "If the best dense arm trains faster, continue its completed seed-109 training on successive full logical updates until total synchronized update time reaches recurrent installation time. Preserve AdamW and epoch schedule. If slower, report full measured costs.",
+  "functional_graphs": {
+    "seed": 82603, "size": 8, "training_maps": 3840, "development_maps": 384, "confirmation_maps": 384,
+    "distribution": "Unique IID uniform successor vectors and uniform starts; exclude all permutations to measure transfer specifically to nonbijective graphs.",
+    "orders": ["canonical","random0"], "depths": [1,2,3,4,5,6],
+    "priors": "Fit majority and (start,depth) modal state on new training maps only, stable lower-class ties. Also report unconditional uniform chance.",
+    "training_trigger": "Random0 hop-three accuracy above train-fitted prior but below 90 percent",
+    "adaptation": "Warm recurrent, cold recurrent and cold dense terminal. 240 matched batch-eight updates, checked at 120 and 240, with the Phase 6 optimizer and randomized rendering."
+  },
+  "language": {
+    "seed": 109, "updates": 256, "milestones": [64,256], "batch": 8, "max_positions": 384,
+    "data": "Use the first 2048 maps in the registered seed-109 training schedule. One requested hop count per batch, cycling 1-3. Evaluate first 192 development maps at all three depths.",
+    "train_renderings": ["rooms","documents","pointers"], "held_out_rendering": "state machine",
+    "node_names": "Use an instance-seeded permutation of digit labels, exact single-token unconstrained answer.",
+    "arms": ["installed without verbal adaptation","installed recurrent","cold recurrent","cold dense"],
+    "trainable": "Same rank-eight block adapters and eight-class readout for all trained arms. The unchanged full suffix and tied head receive gradients through their inputs. Joint adaptation at LR 0.0001, with no second optimizer state carried from installation.",
+    "loss": "0.5 selected-depth categorical CE plus 0.5 unrestricted selected-position vocabulary CE. All targets describe the state at the requested hop.",
+    "retention": "Report token-weighted NLL on all source-disjoint V3 validation passages at K=1 and K=3, with an untouched K=1 baseline and counts by domain.",
+    "report": "Compare unrestricted generated token IDs and exact answer log-probabilities for identical held-out task requests, including recurrent K=1 bypass. Recheck symbolic state accuracy after adaptation."
+  }
+}
