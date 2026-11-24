@@ -17,3 +17,23 @@ The third-hop answer was correct under all twelve orders on 328 maps. Four maps 
 All five primary arms completed the registered 480 updates. Every arm saw the same ordered 3,840 maps, with one presentation per training map. The dense terminal controls received 3,840 labels and the intermediate-supervised arms received 7,488. The canonical floor closes promotion. Phase 6 cross-order transplants, terminal-only continuation, additional seeds, confirmation, functional-graph transfer and ordinary vocabulary-head training remain gated. The earlier Phase 5 transplant, verbal and retention measurements concern different weights. [Registration](PHASE6_PLAN.md) · [Mechanism and readouts](PHASE6_ARCHITECTURE.md)
 
 The implementation records installation and promotion decisions separately. One failed required measurement closes the dependent stage while any unmeasured prerequisites retain their pending status. Independent, already-registered primary comparisons finish. This closeout policy applies to future studies. [Research stopping protocol](TRAINING.md#stopping-a-staged-study)
+
+## Matched controls and inference cost
+
+| Arm | Shuffled first hop | Second hop | Third hop | Complete path | K=3 request, median ms |
+|---|---:|---:|---:|---:|---:|
+| Recurrent, canonical training | 99.97% | 65.10% | 46.88% | 43.65% | 38.26 |
+| Recurrent, randomized training | 100.00% | 99.28% | 93.91% | 93.52% | 38.82 |
+| Dense middle, terminal label | 99.77% | 18.59% | 18.98% | 0.13% | 19.91 |
+| Dense full, terminal label | 99.93% | 14.78% | 19.11% | 0.29% | 27.86 |
+| Dense middle, three independent heads | 99.12% | 15.33% | 16.67% | 2.90% | 19.61 |
+
+Latency measures an individual uncached three-hop request at batch one. The dense models execute once and receive the requested depth in the prompt or head selection. The recurrent model executes the shared block three times. The randomized recurrent checkpoint's third-hop advantage over the strongest dense terminal control was **74.80 percentage points** (paired map-bootstrap 95% interval **70.54–78.78**). The full dense arm used 1,344,512 trainable weights and 189.9 update seconds. The stronger three-head control used 1,360,896 weights and the same 7,488 state labels as the recurrent arm. All estimates describe seed 109 and this development distribution.
+
+## How far the transition carries
+
+On random0, the randomized checkpoint scored 307/384, 187/384 and 106/384 at the unseen fourth, fifth and sixth hops. For fresh states those counts were 252/306, 126/226 and 68/159. For paths that had wrapped they were 55/78, 61/158 and 38/225. On canonical displays it scored 301, 187 and 118. At random0 hop six, 109/384 predictions stayed at the preceding predicted state when its correct successor would have moved.
+
+For the 96-map precision diagnostic, moving the shared block to FP32 changed sixth-hop accuracy from 30 to 30 on canonical displays and from 32 to 30 on random0. Giving the sixth application the first pass's context vectors while preserving the latest readout position produced 34 and 31 correct. Resetting only the readout position produced 21 and 20 correct. These limited interventions give little support for rounding alone or degraded map context alone explaining the late errors. On random0, late incorrect novel-state predictions had a smaller average readout update RMS (0.07 versus 0.09) and greater cosine similarity to the preceding state (0.82 versus 0.73). The observations are consistent with some failures to advance. They do not identify a unique internal cause.
+
+The biggest remaining uncertainty is exposure. On the same 96 shuffled maps the randomized third-hop checkpoint scored 13, 15, 79 and 94 at updates 24, 120, 360 and 480. The single additional epoch proposed in the [review handoff](PHASE6_REVIEW.md) would test whether learning continues, while preserving this decision and its sealed cohorts.
