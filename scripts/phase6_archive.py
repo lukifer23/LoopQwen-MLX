@@ -36,7 +36,9 @@ def archive(dest, seed):
         schedule = None
         order_hashes = {}
         shutil.copy("experiments/phase6.json", root / "registration.json")
-        shutil.copy("experiments/phase6_followup.json", root / "conditional-registration.json")
+        shutil.copy(
+            "experiments/phase6_followup.json", root / "conditional-registration.json"
+        )
         shutil.copy(ROOT / "manifest.json", root / "data.json")
         shutil.copy(
             "docs/measurements/phase5/base-weights-and-tokenizer.json",
@@ -167,6 +169,19 @@ def archive(dest, seed):
                     f".venv/bin/python scripts/phase6_predict.py --arm {arm.name} --map 5 4 7 6 0 2 1 3 --start 0 --depth 3\n```\n"
                 )
             result["arms"][arm.name] = info
+        pair_reg = Path("experiments/phase6_reasoning_pair.json")
+        pair_output = base / read(pair_reg)["id"]
+        if pair_output.exists():
+            pair_scores = read(pair_output / "scores.json")
+            target = root / "reasoning-pair"
+            target.mkdir()
+            shutil.copy(pair_reg, target / "registration.json")
+            shutil.copy(pair_output / "scores.json", target / "scores.json")
+            if len(list(pair_output.glob("*.json.gz"))) != 2 * pair_scores["all"]["n"]:
+                raise ValueError("Reasoning pair is incomplete")
+            for item in pair_output.glob("*.json.gz"):
+                shutil.copy(item, target / item.name)
+            result["reasoning_pair"] = pair_scores
         save(root / "results.json", result)
         save(
             root / "checksums.json",

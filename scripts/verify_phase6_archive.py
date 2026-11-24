@@ -156,6 +156,59 @@ def patches(result):
                 raise ValueError("Inconsistent transplant score")
 
 
+def reasoning_pair(folder, scores):
+    import sys
+
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+    from loopqwen.evaluation.answers import numeric
+
+    records = defaultdict(dict)
+    for file in folder.glob("*.json.gz"):
+        r = read(file)
+        g = r["generation"]
+        ident = r["identity"]
+        if (
+            identity(r["prompt_ids"]) != ident["inputs"]
+            or identity(r["item"]) != ident["question"]
+        ):
+            raise ValueError("Paired question or prompt digest changed")
+        answer = None
+        if "</think>" in g["text"]:
+            answer = numeric(g["text"].rsplit("</think>", 1)[1].split("<|im_end|>")[0])
+        if (
+            answer != r["answer"]
+            or (answer == numeric(r["item"]["gold"])) != r["correct"]
+        ):
+            raise ValueError("Incorrect visible-answer score")
+        records[r["item"]["id"]][ident["arm"]] = r
+    for pair in records.values():
+        if (
+            pair["base"]["prompt_ids"] != pair["recurrent"]["prompt_ids"]
+            or pair["base"]["item"] != pair["recurrent"]["item"]
+        ):
+            raise ValueError("Different questions in a paired comparison")
+    for key, summary in scores.items():
+        cohort = [
+            pair
+            for pair in records.values()
+            if key == "all" or pair["base"]["item"]["split"] == key
+        ]
+        if len(cohort) != summary["n"]:
+            raise ValueError("Missing paired items")
+        for arm in ("base", "recurrent"):
+            xs = [pair[arm] for pair in cohort]
+            result = [
+                sum(x["correct"] for x in xs),
+                sum(x["answer"] is not None for x in xs),
+                sum(x["stop"] == "cap" for x in xs),
+                sum(len(x["generation"]["token_ids"]) for x in xs),
+            ]
+            if result != [
+                summary[arm][col] for col in ("correct", "valid", "capped", "tokens")
+            ]:
+                raise ValueError("Paired inference score mismatch")
+
+
 def verify(root):
     index = read(root / "checksums.json")
     for key, h in index.items():
@@ -207,6 +260,9 @@ def verify(root):
         if run.get("causal"):
             patches(read(root / run["causal"]))
         print(name, "verified")
+    if "reasoning_pair" in summary:
+        reasoning_pair(root / "reasoning-pair", summary["reasoning_pair"])
+        print("Paired token prompts and visible-answer scores verified")
     print(len(index), "SHA-256 digests verified")
 
 
