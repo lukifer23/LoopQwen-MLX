@@ -1,0 +1,296 @@
+{
+  "identity": "197e32967355389fb17b589f94e7d225338f21e2ec5cb5ffc069e4c2dd027b44",
+  "spec": {
+    "id": "trace-bootstrap-01",
+    "seed": 82031,
+    "parent_path": "docs/measurements/phase7/transfer/model",
+    "parent_sha256": "14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+    "change": "gold response-only full-vocabulary trace CE",
+    "depth": 3,
+    "train_maps": 256,
+    "dev_maps": 64,
+    "logical_batch": 8,
+    "cap_positions": 168,
+    "updates": 32,
+    "lr": 0.0001,
+    "clip": 1.0,
+    "weight_decay": 0.0,
+    "optimizer": "fresh AdamW with bias correction",
+    "protocol": "existing unambiguous request for exactly three rooms; leading space then d, d, d then atomic chat end; raw completion, greedy, batch one; first complete line, chat end or EOS; 24 token cap; caps never verified",
+    "control": "unchanged verbal transfer parent on exact same tokens",
+    "retention": "fixed first 96 Phase 5 development maps under random0, all three categorical exits; entire source-disjoint V3 retention suite K1 and K3",
+    "gate": {
+      "verified_min": 0.5,
+      "verified_gain": 0.2,
+      "max_hop3_drop": 0.03,
+      "max_nll_increase_each_depth": 0.1
+    },
+    "limits": {
+      "wall_seconds": 480,
+      "peak_gib": 5.0,
+      "available_gib": 1.5
+    },
+    "extension": "none in this registration",
+    "selection": "single endpoint; stop on resources or nonfinite; promote only completed comparison"
+  },
+  "parent": "14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+  "step": 32,
+  "history": [
+    {
+      "ce": 4.2069106631808815,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8659234160004416,
+      "peak": 2861540410
+    },
+    {
+      "ce": 2.7112625439961753,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8708714159947704,
+      "peak": 2872392546
+    },
+    {
+      "ce": 1.99026534292433,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8714649579997058,
+      "peak": 2872392546
+    },
+    {
+      "ce": 1.24726230568356,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.9096813750002184,
+      "peak": 2872392546
+    },
+    {
+      "ce": 0.9284098347028097,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.886810958996648,
+      "peak": 2872392546
+    },
+    {
+      "ce": 0.7476262781355116,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.9657361669960665,
+      "peak": 2872392574
+    },
+    {
+      "ce": 0.5760373075803121,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.9892079999990528,
+      "peak": 2872392574
+    },
+    {
+      "ce": 0.4386959473292033,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.9182017499988433,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.35795364446110195,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.90047137500369,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.30789092514250016,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8945544169982895,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.2695884058872859,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8900860409994493,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.26079023215505814,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8763047499960521,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.28362516396575504,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8345371250034077,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.250693463616901,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8864739159980672,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.2458338571919335,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8661286670030677,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.2307716061671575,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8734685419985908,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.2411410626437929,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 2.055292874996667,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.20600054495864445,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.9366117090030457,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.27319130963749355,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8300204159968416,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.2003298116226991,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8428047909983434,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.158203839427895,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8586505000057514,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.182354888982243,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8555069580033887,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.13355525852077538,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8496663330006413,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.08471332531836298,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8456200000000536,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.022713523358106613,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8146664169980795,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.010306878946721554,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8515352500035078,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.011871545433273746,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.874146791997191,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.0011880186373471385,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.844147374999011,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.0008455523315610157,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8474995840006159,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.0005663471787960993,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.849099541999749,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.0003064034099224955,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8540667079942068,
+      "peak": 2872408930
+    },
+    {
+      "ce": 0.004764402582724061,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.8609070840029744,
+      "peak": 2872408930
+    }
+  ]
+}
