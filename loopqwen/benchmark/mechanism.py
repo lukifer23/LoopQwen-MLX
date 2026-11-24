@@ -11,7 +11,7 @@ from ..training.mechanism import requests, model_for
 from ..training import pointer5 as kernel
 from ..data import pointer5
 from ..data.pointer6 import ordered
-from ..evaluation.mechanism import load
+from ..evaluation.mechanism import infer, load
 from ..io import save, read, digest
 from ..identity import fingerprint
 
@@ -33,14 +33,13 @@ def bench(arm):
             raise ValueError("Incompatible timing benchmark")
         return
     group = [ordered(r, "random0", 61091) for r in pointer5.rows("development")[:8]]
-    x, last = kernel.inputs(requests(group, 1, arm, t, {}))
+    request = requests(group, 1, arm, t, {})
+    x, last = kernel.inputs(request)
 
     def exits(independent):
-        logits = (
-            [kernel.outputs(m, x, last, k, "recurrent")[-1] for k in range(1, 7)]
-            if independent
-            else kernel.outputs(m, x, last, 6, "recurrent")
-        )
+        if not independent:
+            return infer(m, arm, [request], 6, False)[0]
+        logits = [kernel.outputs(m, x, last, k, "recurrent")[-1] for k in range(1, 7)]
         return mx.softmax(mx.stack(logits, axis=1).astype(mx.float32), axis=-1)
 
     profile = {}
@@ -106,6 +105,7 @@ def bench(arm):
     for cached in (False, True, True, False):
         m.update(initial)
         opt = kernel.adam()
+        mx.reset_peak_memory()
         times = []
         for i, (a, b, y) in enumerate(batches):
 
@@ -119,7 +119,16 @@ def bench(arm):
 
             _, dt = timed(step)
             times.append(dt)
-        results.append(dict(cached=cached, update_seconds=sum(times), samples=times))
+        results.append(
+            dict(
+                cached=cached,
+                update_seconds=sum(times),
+                samples=times,
+                peak=mx.get_peak_memory(),
+                active=mx.get_active_memory(),
+                buffers=mx.get_cache_memory(),
+            )
+        )
     # Measure actual disk write and read once, including materialization.
     import tempfile
 
