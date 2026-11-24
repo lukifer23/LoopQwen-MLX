@@ -1,7 +1,6 @@
 """Prospective first-assistant-turn calibration with a frozen untouched Base cohort."""
 
 import random
-from pathlib import Path
 from . import core
 from ..data import graphs, reasoning
 from ..evaluation.answers import numeric

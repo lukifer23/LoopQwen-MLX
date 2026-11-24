@@ -2,7 +2,6 @@
 
 from pathlib import Path
 import gzip
-import json
 from loopqwen.data import curriculum as c
 from loopqwen.io import digest, read, save
 from loopqwen.identity import fingerprint

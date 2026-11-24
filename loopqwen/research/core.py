@@ -1,6 +1,5 @@
 """Common native session budget, exact turn decoding and logical response-only updates."""
 
-import gc
 import gzip
 import math
 import random
@@ -21,7 +20,7 @@ from .. import checkpoint
 from ..data import pointer5, pointer6
 from ..data.tokenize import batch, physical_batches
 from ..identity import fingerprint
-from ..io import read, save, digest, checkpoint_location
+from ..io import read, save, digest
 from ..training.losses import loss_sum
 from ..training.mechanism import StudyArm, model_for, assets
 from ..training.exposure import verify_optimizer

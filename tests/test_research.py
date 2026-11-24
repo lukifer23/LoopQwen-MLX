@@ -1,6 +1,5 @@
 """Check the released raw-trace token protocol with the pinned tokenizer."""
 
-from pathlib import Path
 
 from mlx_lm.utils import load_tokenizer
 from loopqwen.model_loader import local_snapshot

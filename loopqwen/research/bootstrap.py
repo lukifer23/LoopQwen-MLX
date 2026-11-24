@@ -1,30 +1,27 @@
 """Compare complete verified language responses from a fixed parent and its SFT child."""
 
 import json
-import math
 import shutil
 import sys
 from dataclasses import replace
 from pathlib import Path
 from statistics import median
-from time import perf_counter
 
 import numpy as np
 from . import core
 from ..data import pointer5, pointer6, retention3
-from ..evaluation.mechanism import infer, packed, unpack
+from ..evaluation.mechanism import infer, packed
 from ..training.losses import validation_nll
 from ..training.mechanism import requests
 from ..training.verified_trace import request, verdict
 from ..io import read, save, digest, checkpoint_location
-from ..identity import fingerprint
 
 
-def traces(m, t, rows, spec, budget, path, weight):
+def traces(m, t, rows, spec, budget, path, weight, render=request):
     rec = []
     cap = spec.get("generation_cap", 24)
     for r in rows:
-        ids = t.encode(request(r), add_special_tokens=False)
+        ids = t.encode(render(r), add_special_tokens=False)
         out = core.generate(m, t, ids, cap, budget.check, line=True)
         visible = out["visible"].strip()
         score = verdict(r["map"], r["start"], visible, out["stop"])
