@@ -9,7 +9,15 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument(
         "stage",
-        choices=["data", "train", "evaluate", "benchmark", "diagnostics", "followup"],
+        choices=[
+            "data",
+            "train",
+            "evaluate",
+            "benchmark",
+            "diagnostics",
+            "followup",
+            "replicate",
+        ],
     )
     p.add_argument("--seed", type=int, default=SPEC["seed"])
     p.add_argument(
@@ -21,6 +29,11 @@ def main():
         from .mechanism_study import decision
 
         print(decision(args.seed, follow=True), flush=True)
+        return
+    if args.stage == "replicate":
+        from .evaluation.mechanism_replication import replicate
+
+        replicate()
         return
     for name in args.arms:
         arm = StudyArm.registered(name, args.seed)
