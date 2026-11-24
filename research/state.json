@@ -1,13 +1,13 @@
 {
-  "session_start_utc": "2026-11-24T02:20:31Z",
-  "starting_revision": "907b2623d426849d1f8d331cc2052f2f3e1fcaee",
+  "session_start_utc": "2026-11-24T02:41:49.708839+00:00",
+  "starting_revision": "99b4ad1e7d74dd65882de770205acc2bd80d922d",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": null,
+  "active": "functional-terminal-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -60,16 +60,11 @@
       "reason": "Two model-directed generations, 57/64 verified vs 60/64 gold; the gold arm crossed the categorical retention safeguard."
     }
   ],
-  "status": "session closed at eight primary comparisons",
-  "next_action": "In a newly authorized window run .venv/bin/python scripts/research_session.py then .venv/bin/python -m loopqwen.research.terminal",
+  "status": "running registered terminal-only comparison",
+  "next_action": "Finish and independently score both terminal arms before deciding the next comparison.",
   "hypothesis": "Extra recurrent computation may improve terminal-only language answers when the graph permits repeated successors and intermediate tokens are unavailable.",
   "budget_used": {
-    "iterations": 8,
-    "experiment_wall_seconds": 868.5644221305847,
-    "release_and_regression_wall_seconds": 53.86630312498892,
-    "training_update_seconds": 295.1387705909874,
-    "session_wall_seconds_at_close": 1181.5625939369202,
-    "peak_experiment_mlx_gib": 2.6801053564995527
+    "iterations_started": 1
   },
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",

@@ -120,6 +120,8 @@ def verify(root):
             == decision["correct"],
             "Calibration accuracy",
         )
+    if study == "functional-terminal-01":
+        verify_terminal(root, decision)
     if study == "functional-zero-01":
         for kind in ("functional", "permutation"):
             rows = read(root / (kind + ".json.gz"))["records"]
@@ -145,6 +147,65 @@ def verify(root):
     if study == "verified-generations-01":
         verify_generations(root, decision)
     print(study, len(index), "files verified")
+
+
+def verify_terminal(root, decision):
+    reg = read(root / "registration.json")
+    cohort = read(Path("research/data") / (reg["id"] + ".json.gz"))["splits"]["dev"]
+    inputs = []
+    outcomes = []
+    for depth in reg["depths"]:
+        arm = f"K{depth}"
+        output = read(root / arm / "eval.json.gz")
+        require(
+            output["weights"] == sha(root / arm / "model/adapters.safetensors"),
+            "Wrong trained adapter",
+        )
+        records = output["records"]
+        require(
+            len(records) == len(cohort) == decision[arm]["n"], "Wrong terminal cohort"
+        )
+        correct = []
+        for r, expected in zip(records, cohort, strict=True):
+            require(
+                all(r[k] == expected[k] for k in ("map_id", "map", "start", "order")),
+                "Wrong terminal request",
+            )
+            require(
+                r["stop"] in ("line", "eos", "chat_end", "cap")
+                and r["complete"] == (r["stop"] != "cap"),
+                "Wrong completion verdict",
+            )
+            ok = r["complete"] and r["visible"].strip() == str(
+                trajectory(expected, 3)[-1]
+            )
+            require(ok == r["correct"], "Wrong terminal verdict")
+            correct.append(ok)
+        inputs.append([r["prompt_ids"] for r in records])
+        outcomes.append(correct)
+        require(sum(correct) == decision[arm]["correct"], "Wrong terminal total")
+        require(
+            sum(r["complete"] for r in records) == decision[arm]["completed"],
+            "Wrong completion count",
+        )
+        require(
+            sum(len(r["token_ids"]) for r in records) == decision[arm]["tokens"],
+            "Wrong token count",
+        )
+    require(inputs[0] == inputs[1], "Unpaired terminal prompts")
+    diff = [int(b) - int(a) for a, b in zip(*outcomes, strict=True)]
+    require(
+        diff.count(1) == decision["paired"]["wins"]
+        and diff.count(-1) == decision["paired"]["losses"],
+        "Wrong paired counts",
+    )
+    retained = (
+        decision["parent_categorical"][-1] - decision["K3"]["categorical"][-1] <= 2
+    )
+    require(
+        decision["passed"] == (sum(diff) / len(cohort) >= 0.05 and retained),
+        "Wrong terminal gate",
+    )
 
 
 def verify_generations(root, decision):
