@@ -1,5 +1,8 @@
 """Rescore archived room-number predictions on mutually exclusive path topologies."""
 
+import argparse
+from collections import Counter
+from fractions import Fraction
 import json
 from pathlib import Path
 
@@ -35,5 +38,37 @@ def score(root):
     return dict(study=root.name, exploratory=True, by_topology=groups)
 
 
+def shortcuts(root):
+    """Compare completed responses with one-edge and start-independent predictions."""
+    verify_terminal(root, read(root / "decision.json"))
+    summaries = {}
+    for arm in ("K1", "K3"):
+        records = read(root / arm / "eval.json.gz")["records"]
+        counts = Counter()
+        expected = Fraction()
+        for r in records:
+            first, _, target = trajectory(r, 3)
+            frequency = Counter(r["map"])
+            maximum = max(frequency.values())
+            popular = {str(k) for k, v in frequency.items() if v == maximum}
+            answer = r["visible"].strip() if r["complete"] else None
+            correct = answer == str(target)
+            target_popular = str(target) in popular
+            counts["maps"] += 1
+            counts["one_edge_correct"] += first == target
+            counts["model_wins_over_one_edge"] += correct and first != target
+            counts["model_losses_to_one_edge"] += not correct and first == target
+            counts["model_chose_popular"] += answer in popular
+            counts["target_outside_popular"] += not target_popular
+            counts["correct_outside_popular"] += correct and not target_popular
+            expected += Fraction(int(target_popular), len(popular))
+        summaries[arm] = {**counts, "popular_expected_correct": str(expected)}
+    return dict(study=root.name, exploratory=True, arms=summaries)
+
+
 if __name__ == "__main__":
-    print(json.dumps(score(Path("research/results/functional-terminal-01")), indent=2))
+    cli = argparse.ArgumentParser(description=__doc__)
+    cli.add_argument("--shortcuts", action="store_true")
+    study = Path("research/results/functional-terminal-01")
+    report = shortcuts(study) if cli.parse_args().shortcuts else score(study)
+    print(json.dumps(report, indent=2))
