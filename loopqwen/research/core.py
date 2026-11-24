@@ -43,20 +43,36 @@ class Budget:
         self.session_start = datetime.fromisoformat(
             state["session_start_utc"].replace("Z", "+00:00")
         ).timestamp()
+        local_session = OUT / "active-session.json"
+        if local_session.exists():
+            self.session_start = read(local_session)["start"]
         self.ledger = OUT / ("budget-" + str(int(self.session_start)) + ".json")
         acquire()
         self.jobs = read(self.ledger) if self.ledger.exists() else []
+        limits = state["limits"]
+        started = {r["job"] for r in self.jobs}
+        if name not in started and len(started) >= limits["iterations"]:
+            raise RuntimeError("Session iteration budget exhausted")
         spent = sum(r["seconds"] for r in self.jobs)
+        already = sum(r["seconds"] for r in self.jobs if r["job"] == name)
         self.deadline = min(
-            self.start + spec["wall_seconds"],
-            self.session_start + 7200,
-            self.start + 4500 - spent - 12,
+            self.start + spec["wall_seconds"] - already,
+            self.session_start + limits["wall_seconds"],
+            self.start + limits["native_seconds"] - spent - 12,
         )
         self.old = {
             s: signal.signal(s, self.cancel) for s in (signal.SIGINT, signal.SIGTERM)
         }
         mx.reset_peak_memory()
         self.check()
+        # Charge the full remaining reservation if the process exits before close().
+        self.reservation = dict(
+            job=name,
+            seconds=self.deadline - self.start,
+            start=self.start,
+            status="unclosed reservation",
+        )
+        save(self.ledger, [*self.jobs, self.reservation])
 
     def cancel(self, *_):
         self.interrupt = True
@@ -104,6 +120,11 @@ def reserve(name, seed, sizes, functional=False):
     path = root / (name + ".json.gz")
     key = fingerprint([seed, sizes, functional, digest(source)])
     if path.exists():
+        index = RESEARCH / "registry.json"
+        if index.exists():
+            published = read(index)["datasets"].get(str(path))
+            if published and digest(path) != published["sha256"]:
+                raise ValueError("Reserved data file changed")
         saved = unpack(path)
         if saved["key"] != key:
             raise ValueError("Data registration changed")
@@ -327,21 +348,28 @@ def train(m, docs, spec, root, budget, identity, *, state_docs=None):
             state_count = state_positions = 0
             if state_docs:
                 from ..training.pointer5 import inputs
+
                 state_grads = None
                 state_group = state_docs[idx * size : (idx + 1) * size]
                 for g in physical_batches(state_group, cap, next_token=False):
                     x, last = inputs(g)
                     labels = mx.array([r["states"] for r in g])
                     loss, grad = state_vg(m, x, last, labels)
-                    state_grads = grad if state_grads is None else tree_map(
-                        lambda a, b: a + b, state_grads, grad
+                    state_grads = (
+                        grad
+                        if state_grads is None
+                        else tree_map(lambda a, b: a + b, state_grads, grad)
                     )
                     mx.eval(state_grads, loss)
                     state_total += loss.item()
                     state_count += labels.size
                     state_positions += x.size
                 weight = spec["state_weight"]
-                grads = tree_map(lambda a, b: (1-weight)*a + weight*b/state_count, grads, state_grads)
+                grads = tree_map(
+                    lambda a, b: (1 - weight) * a + weight * b / state_count,
+                    grads,
+                    state_grads,
+                )
             grads, norm = optim.clip_grad_norm(grads, spec["clip"])
             if not math.isfinite(total + state_total + norm.item()):
                 raise FloatingPointError("Nonfinite update")

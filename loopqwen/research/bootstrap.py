@@ -143,8 +143,11 @@ def run(name="trace-bootstrap-01"):
         state_docs = None
         if spec.get("state_weight"):
             from ..training.exposure import ARM
-            state_docs = [dict(ids=d["ids"], states=d["row"]["states"][:3])
-                          for d in requests(rows["train"], 3, ARM, t, {})]
+
+            state_docs = [
+                dict(ids=d["ids"], states=d["row"]["states"][:3])
+                for d in requests(rows["train"], 3, ARM, t, {})
+            ]
         st = core.train(m, docs, spec, cp, budget, w, state_docs=state_docs)
         gen = checkpoint_location(cp)
         child = digest(gen / "adapters.safetensors")
