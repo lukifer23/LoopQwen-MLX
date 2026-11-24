@@ -1,0 +1,229 @@
+{
+  "step": 60,
+  "status": "unsafe",
+  "verbal": {
+    "base": {
+      "n": 192,
+      "vocab": [
+        0
+      ],
+      "state": [],
+      "first_exit_as_third": 0,
+      "seconds": 5.089451207997627
+    },
+    "installed": {
+      "n": 192,
+      "vocab": [
+        154,
+        77,
+        39
+      ],
+      "state": [
+        188,
+        148,
+        91
+      ],
+      "first_exit_as_third": 0,
+      "seconds": 12.530324416002259
+    },
+    "transfer-60": {
+      "n": 192,
+      "vocab": [
+        192,
+        190,
+        187
+      ],
+      "state": [
+        192,
+        192,
+        192
+      ],
+      "first_exit_as_third": 0,
+      "seconds": 13.046313040998939
+    }
+  },
+  "retention": {
+    "base/K1": {
+      "weights": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+      "depth": 1,
+      "corpus": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+      "passages": 120,
+      "tokens": 9328,
+      "by_domain": {
+        "code_description": {
+          "nll": 2.5795112024891673,
+          "perplexity": 13.190689007668926,
+          "tokens": 1733
+        },
+        "general_prose": {
+          "nll": 3.759918527288751,
+          "perplexity": 42.944926996592386,
+          "tokens": 1911
+        },
+        "reference": {
+          "nll": 2.481994895069372,
+          "perplexity": 11.96510976393208,
+          "tokens": 1680
+        },
+        "scientific_exposition": {
+          "nll": 3.1038506585976173,
+          "perplexity": 22.2835927956883,
+          "tokens": 2291
+        },
+        "technical_explanation": {
+          "nll": 2.852343489639396,
+          "perplexity": 17.328343087066276,
+          "tokens": 1713
+        }
+      },
+      "nll": 2.9826581153386043
+    },
+    "installed/K1": {
+      "weights": "a63ba803bb96ea8ecbb411b6ffb2a94a7c350c93fbec31e05e9dfc694d2e9b79",
+      "depth": 1,
+      "corpus": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+      "passages": 120,
+      "tokens": 9328,
+      "by_domain": {
+        "code_description": {
+          "nll": 2.6244472569973567,
+          "perplexity": 13.796945912712854,
+          "tokens": 1733
+        },
+        "general_prose": {
+          "nll": 3.807512334539652,
+          "perplexity": 45.03825926953731,
+          "tokens": 1911
+        },
+        "reference": {
+          "nll": 2.503305524161884,
+          "perplexity": 12.22283011818645,
+          "tokens": 1680
+        },
+        "scientific_exposition": {
+          "nll": 3.1424547435153993,
+          "perplexity": 23.1606505923114,
+          "tokens": 2291
+        },
+        "technical_explanation": {
+          "nll": 2.888551883543018,
+          "perplexity": 17.967272051053573,
+          "tokens": 1713
+        }
+      },
+      "nll": 3.0207257335095012
+    },
+    "installed/K3": {
+      "weights": "a63ba803bb96ea8ecbb411b6ffb2a94a7c350c93fbec31e05e9dfc694d2e9b79",
+      "depth": 3,
+      "corpus": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+      "passages": 120,
+      "tokens": 9328,
+      "by_domain": {
+        "code_description": {
+          "nll": 3.11598398229908,
+          "perplexity": 22.555613762350983,
+          "tokens": 1733
+        },
+        "general_prose": {
+          "nll": 4.199626495549967,
+          "perplexity": 66.66142805050335,
+          "tokens": 1911
+        },
+        "reference": {
+          "nll": 2.9843175101847876,
+          "perplexity": 19.77300275726783,
+          "tokens": 1680
+        },
+        "scientific_exposition": {
+          "nll": 3.5337382314351906,
+          "perplexity": 34.25176963111338,
+          "tokens": 2291
+        },
+        "technical_explanation": {
+          "nll": 3.3209301947990637,
+          "perplexity": 27.686092043188047,
+          "tokens": 1713
+        }
+      },
+      "nll": 3.4545119643374305
+    },
+    "transfer-60/K1": {
+      "weights": "14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+      "depth": 1,
+      "corpus": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+      "passages": 120,
+      "tokens": 9328,
+      "by_domain": {
+        "code_description": {
+          "nll": 2.6268910444408777,
+          "perplexity": 13.830703947823922,
+          "tokens": 1733
+        },
+        "general_prose": {
+          "nll": 3.8190120344446443,
+          "perplexity": 45.55917518310592,
+          "tokens": 1911
+        },
+        "reference": {
+          "nll": 2.52401507965156,
+          "perplexity": 12.47859878321236,
+          "tokens": 1680
+        },
+        "scientific_exposition": {
+          "nll": 3.1602540540023956,
+          "perplexity": 23.5765848940308,
+          "tokens": 2291
+        },
+        "technical_explanation": {
+          "nll": 2.8952499074819,
+          "perplexity": 18.088021208305147,
+          "tokens": 1713
+        }
+      },
+      "nll": 3.0328671356014536
+    },
+    "transfer-60/K3": {
+      "weights": "14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+      "depth": 3,
+      "corpus": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+      "passages": 120,
+      "tokens": 9328,
+      "by_domain": {
+        "code_description": {
+          "nll": 3.133099119501931,
+          "perplexity": 22.944978699136943,
+          "tokens": 1733
+        },
+        "general_prose": {
+          "nll": 4.218944876684311,
+          "perplexity": 67.96173843091856,
+          "tokens": 1911
+        },
+        "reference": {
+          "nll": 3.0490694080080303,
+          "perplexity": 21.09570379223735,
+          "tokens": 1680
+        },
+        "scientific_exposition": {
+          "nll": 3.5612183777019477,
+          "perplexity": 35.20606530994253,
+          "tokens": 2291
+        },
+        "technical_explanation": {
+          "nll": 3.364800449984852,
+          "perplexity": 28.927724195256477,
+          "tokens": 1713
+        }
+      },
+      "nll": 3.488117014690531
+    }
+  },
+  "categorical": 0.9934895833333334,
+  "gain": 0.7708333333333334,
+  "checks": {
+    "gain": true,
+    "categorical": true,
+    "retention": true
+  }
+}

@@ -86,4 +86,4 @@ The five matched installations and their twelve-order evaluations are complete. 
 
 ## Phase 7 additional exposure
 
-Seed 109, exact R480 optimizer continuation, shared rank-eight block, fresh randomized displays of original maps. System pressure closed training at R624 after 144 updates. The full frozen order cohort qualified this endpoint for causal diagnosis. Base-only language calibration has its own registration and independent gate. [Registration](../experiments/phase7.json) · [Results](PHASE7_RESULTS.md)
+Seed 109, exact R480 optimizer continuation, shared rank-eight block, fresh randomized displays of original maps. System pressure closed training at R624 after 144 updates. The full frozen order cohort qualified this endpoint for causal diagnosis. All cross-order checks passed. Base calibration stopped at 5/8 valid. The separately registered R624 vocabulary fork closed at 60 updates and improved three-hop digits from 39 to 187 out of 192. [Registration](../experiments/phase7.json) · [Results](PHASE7_RESULTS.md)

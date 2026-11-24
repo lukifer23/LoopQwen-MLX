@@ -42,6 +42,7 @@ def archive(dest):
             "experiments/phase7_transfer_parent.json",
             root / "transfer/registration.json",
         )
+        cards = [(model, f"R{d['step']} categorical mechanism", state, "exposure", "")]
         if transfer["step"]:
             child = generation(ARM_T, transfer["step"])
             target = root / "transfer/model"
@@ -55,22 +56,16 @@ def archive(dest):
                     optimizer_sha256=digest(child / "optimizer.safetensors"),
                 ),
             )
-        for directory, label, record, command, mode in [
-            (model, "R624 categorical mechanism", state, "exposure", ""),
-            *(
-                [
-                    (
-                        target,
-                        "Unrestricted next-digit transfer",
-                        read(child / "state.json"),
-                        "transfer",
-                        "--vocabulary ",
-                    )
-                ]
-                if transfer["step"]
-                else []
-            ),
-        ]:
+            cards.append(
+                (
+                    target,
+                    "Unrestricted next-digit transfer",
+                    read(child / "state.json"),
+                    "transfer",
+                    "--vocabulary ",
+                )
+            )
+        for directory, label, record, command, mode in cards:
             config = record["config"]
             sha = digest(directory / "adapters.safetensors")
             data = record["provenance"]["base"]["data"]

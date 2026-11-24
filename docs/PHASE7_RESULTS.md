@@ -73,3 +73,24 @@ The first system pressure warning closed the pilot at **60/256** updates, before
 | Transfer, 60 updates | 192 | 190 | 187 | 0 |
 
 The terminal-digit gain was **148/192 (+77.08 points)** over the same installed model before transfer. Both models used identical tokens and external pass counts. Readout-state accuracy on these verbal prompts rose from 188, 148 and 91 correct to 192 at every trained depth. The same-checkpoint first exit was scored against the same third-hop labels. The map restrictions make hop one and hop three distinct, so this comparison describes the utility of a later exit for this protocol. Untouched Base receives the same depth-independent prompt at ordinary depth. A dense model trained explicitly for the third-hop target remains the appropriate attribution control. The trained room, document and array descriptions shared a single operation with the held-out state-machine wording. [Pilot registration](../experiments/phase7_transfer_parent.json) · [All token predictions](measurements/phase7/transfer/transfer-60.json.gz)
+
+The 148 new correct third-hop vocabulary predictions retained every originally correct item. The transferred model correctly classified 3,052/3,072 original shuffled third-hop presentations, down 0.49 points from 3,067. The registered vocabulary gain, categorical retention and K=1 prose safeguards all passed at the saved endpoint.
+
+| Full V3 retention, 120 passages and 9,328 target tokens | K=1 NLL | K=3 NLL |
+|---|---:|---:|
+| Untouched Base | 2.9827 | — |
+| Installed R624 | 3.0207 | 3.4545 |
+| Transferred model | 3.0329 | 3.4881 |
+
+All five per-domain NLLs are archived. For example, general prose reached 3.7599 for Base, 3.8075/4.1996 installed and 3.8190/4.2189 transferred at K=1/K=3. Use the transfer checkpoint at K=3 for the tested three-hop verbal digit task, R624 for the categorical task, and untouched Base at ordinary depth for general prose. A dense model given the same verbal supervision is the next scientific control for attributing the transfer gain. [Retention, gate decisions and full per-domain results](measurements/phase7/transfer/decision.json)
+
+| Registered work | Closeout |
+|---|---|
+| R480 exact continuation | Interrupted at R624 on system pressure. Parent and child fully evaluated. |
+| Exposure, extrapolation, cross-order interventions | Completed on R624. All eligibility gates passed. |
+| Thinking calibration | Completed. Both prompts missed the completion floor. |
+| Paired thinking-enabled deployment and external benchmark | Failed calibration prerequisite. |
+| Full-vocabulary transfer | Interrupted at update 60 on pressure. Held-out digits, bypass, categorical and prose retention completed. |
+| Sealed confirmation | Pending independent replication. |
+
+The [reproduction guide](TRAINING.md#phase-7-exact-exposure-continuation) includes runnable training, evaluation and inference commands. The [checksum inventory](measurements/phase7/checksums.json) authenticates both compact releases and all archived scores. Training began at code revision `73af1a8` for exposure and `30794e8` for transfer. The complete updates, ordered example IDs, token digests and parent lineage accompany the adapters. The CPU audit rescores saved predictions. A separate native reload reproduced 48 categorical argmaxes with zero maximum probability difference and all 24 vocabulary argmaxes checked. No sealed item was scored.

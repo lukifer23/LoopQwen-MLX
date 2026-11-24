@@ -1,0 +1,1808 @@
+{
+  "identity": "51b6c545414eeeaa1aa17818130eabb937628a24e74701da3a0ec527c6b006f1",
+  "provenance": {
+    "base": {
+      "schema": 1,
+      "sources": {
+        "__init__.py": "edd62f047f1d99466d0ff61bb31e30ebcacba90d83bccee964b1160ba57ff699",
+        "config.py": "d1380a5222ec820ce151ce5e19bcebf8a6fbea355e1ca80ba9a396dedcda5661",
+        "model_loader.py": "f9cd0b9f9995ebb71b0f34836eac24ee7eef1af05442b9906ce89520b2af02ff",
+        "looped_model.py": "54e5369d40d4d37ae0f50fc9645ba018746fd1e124203286d6a262c9afa94e6c",
+        "recurrence.py": "7e6235a75981e66a16c616214b0c0efdb4a65b4ef18f23c287db9dfb5c345e03",
+        "kernels/gdn_backend.py": "2c1a99ba910a16b6e764f8990800512fffaa0de6d1101dc3a7b4bdc998837a01",
+        "training/trainer.py": "dda82465ca54e2c39f5ab1cbed04d519914ea54e3cd1ed2bdda3e1048a2d9d90",
+        "training/adapters.py": "c3346628c6dcdf1ca99b4f0b11266714a8c410371e2252806bad693ad6964e15",
+        "training/optimizers.py": "3bb05be9b02da6101d872d5e1d459b7927aefa1d1996b52bc1b1c12782e7c832",
+        "training/losses.py": "0066d870c5c8106fec1e6b62338581243e7a88eb15cbf9eb8461248514880c70",
+        "data/sampling.py": "e0ab7c9475e6c018db698fa8d285e90dc9b4b2a9d3c9a5e945e1c6ae5f663e31",
+        "data/tokenize.py": "adc35e307ede4aa6398b9056f4110cfd8775dd3c27ceb065bf7ae3a8b07a079f",
+        "data/token_classes.py": "7246a32552e5fdb24ef566e5d70dfa4cd74acae148f7ff2506cfd81c9e13120c",
+        "recurrent_cache.py": "b364a1aa16a9a36f925413a7aa0fee97850828bbdf24ca434fa1d257813fa895",
+        "data/v2.py": "bc2816ac9c64eebf3fe2e40f5cd06b54b87e3d3ffaf7893214c618d4fd206385",
+        "checkpoint.py": "b40c15db0516dd730bfcdd495133664ae9e0f909a662121f72f1b629a9ccecae",
+        "identity.py": "a8159fe9bf1e06cac012709675de74d348ced9d86bf60f8c9baa238c6fabea3a"
+      },
+      "dependencies": {
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2",
+        "transformers": "5.24.0",
+        "tokenizers": "0.23.3",
+        "numpy": "2.5.5"
+      },
+      "config": "6c63a49a09692c424a2fc4ebc4e9251ab99afcdbb35478a5d6fae5e926d191a8",
+      "data": "d3f53a5e6bebc5fcf1e2a69287765a443b9b103635ade5b5afe8ea17e260c8b3",
+      "optimizer": "adamw-v1",
+      "sampler": "v2-ordered-batches-v1",
+      "recurrence": "shared-site-v1"
+    },
+    "assets": {
+      "files": {
+        "config.json": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+        "merges.txt": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+        "model.safetensors-00001-of-00001.safetensors": "c2b1e5a17d9c1e27685d92ed9b382911ebb99955ecd89052d1721241adfbab6c",
+        "model.safetensors.index.json": "ce9a885efdf27d3664fdef5d512ad365216f1074051ef840c7cd8e5431495d0a",
+        "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "tokenizer.json": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+        "tokenizer_config.json": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+        "video_preprocessor_config.json": "d039cd7d88b3502a99edd455496b75b44ecf7dd3b3669748bafac37e6cecc085",
+        "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+      },
+      "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+    },
+    "registration": {
+      "id": "phase6",
+      "dataset": "phase6_pointer",
+      "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+      "seed": 109,
+      "replication_seeds": [
+        137,
+        173
+      ],
+      "batch": 8,
+      "position_cap": 384,
+      "lr": 0.0003,
+      "clip": 1,
+      "weight_decay": 0,
+      "milestones": [
+        24,
+        120,
+        360,
+        480
+      ],
+      "steps": 480,
+      "trained_depth": 3,
+      "evaluation_depth": 6,
+      "arms": {
+        "canonical": [
+          "recurrent",
+          "canonical",
+          "all"
+        ],
+        "randomized": [
+          "recurrent",
+          "randomized",
+          "all"
+        ],
+        "middle": [
+          "middle",
+          "randomized",
+          "terminal"
+        ],
+        "full": [
+          "full",
+          "randomized",
+          "terminal"
+        ],
+        "heads": [
+          "heads",
+          "randomized",
+          "all"
+        ]
+      },
+      "orders": [
+        "canonical",
+        "reverse",
+        "rotate1",
+        "rotate4",
+        "random0",
+        "random1",
+        "random2",
+        "random3",
+        "random4",
+        "random5",
+        "random6",
+        "random7"
+      ],
+      "evaluation_seed": 61091,
+      "mixed_canonical_fraction": 0.25,
+      "early_items": 96,
+      "evaluation_maps": 384,
+      "minimum_canonical": 0.95,
+      "minimum_random": 0.9,
+      "minimum_random_trajectory": 0.85,
+      "minimum_relabel": 0.9,
+      "minimum_patch_delta": 0.5,
+      "dense_advantage": "positive mean random-order terminal accuracy at hop 3 over best dense arm",
+      "cluster_bootstraps": 10000,
+      "cases": 64,
+      "outcome_updates": 80,
+      "max_peak_gib": 6,
+      "min_available_gib": 1.5
+    },
+    "arm": {
+      "study": "phase7",
+      "name": "verbal",
+      "seed": 109,
+      "kind": "recurrent",
+      "rendering": "randomized",
+      "objective": "state_and_full_vocab",
+      "dataset": "phase6_pointer",
+      "milestones": [
+        64,
+        256
+      ],
+      "max_depth": 3
+    },
+    "sources": {
+      "loopqwen/training/mechanism.py": "43f369e7a9e5026703a10beb22d2a010517bed8df0fb97438d720d6393f53133",
+      "loopqwen/data/pointer6.py": "47655d8fa3c2a893e734c4bf72535e7a3e7d770fd23bfdc5ba32dc424171c3ad",
+      "loopqwen/training/pointer5.py": "cdd5dc09c6bae2de6bfded734120fbf9554809b7ad0a2736198f37c59172df2b",
+      "loopqwen/data/pointer5.py": "113c57fe756856a00504902daeac3c4cb668edc9c14fc4c9606e437671d9d74a",
+      "latent.py": "85559d3e77850648d597c9fe03e2cdb3b5dd4160c5e0cd96922f618d8aa0f8a4",
+      "phase5.json": "2f517e56c357495b16233817e0f35a9f5a071844b05ea69ac810c18402e64746"
+    }
+  },
+  "step": 60,
+  "history": [
+    {
+      "seconds": 1.0382508750044508,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.20086975395679474,
+        0.8927918076515198
+      ],
+      "gradient": 18.55785369873047,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "5f8e84a56341a4b91700199e86a33ce2d9815075bc5307efbc93bb219a49f8ec",
+        "a31279c305f44ce7eaa9eba29b4bba3c4800360048c00175a1cfa409241ac4e7",
+        "4ba8005163bda056cc8f001e124eb7f7dc5fbb8a72d7d8ecc578cebd0a96ee76",
+        "4b127bda1801146e61648a936acfc1a5b8f5ee5d2c285702538c839125d759fb",
+        "94744c9796939d3f19685355ec078690b11fc332b63c083a46c8ce0ea9caf722",
+        "2e791a9d4f9951b8f2c6e2e8c27eb0661d7a4fca6c5602eb412fe76a77f85b33",
+        "6582c8663e21419c084de5af762fa2e3768113bb9628bd92d5ae70470b160397",
+        "07818fd1425141b8fce4f1fd676d89040b1f9940176e3b69c8e6bf7055ce4f7d"
+      ],
+      "token_digest": "f6d83d6e008b20238eecfe194e6debff5b31f8350f5cf36d588dff95673e90d8",
+      "peak": 4599300348,
+      "available": 5571215360
+    },
+    {
+      "seconds": 1.5238595830014674,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.3358042538166046,
+        1.6967649459838867
+      ],
+      "gradient": 17.504615783691406,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "46cb1d0447f5e151965ad4ff5c2fe5d8b53d0077e81973bb281c440a71404e8a",
+        "1adfb0f5b0dda285f3658fb5e1c1e9e42372224bd32554e67621971d1e81f430",
+        "b5eb81bd6359d999f8f1d0570b3391b29391789a2e7497058f9f84f30a1be27c",
+        "74645cd63e26acf6131a6489d3a8e6dee5dd57fcae6252fd86fb4cb51f9e0108",
+        "af3025b854ab55ac7031c84c7121b093ca4641335ce9175ef5755b792cdf5a9e",
+        "5ada1fdd945c128a2394e4892831dc056ceb717a97bc7efed1893d514cd28ffe",
+        "9f567df9d09633b3862b15e13102bd885c81d47c3ddea0031000632bf85da66b",
+        "e3017887e1f7be837ebbbcad75d49b5867c1aa91415cd4ab3eda0225018daf61"
+      ],
+      "token_digest": "d732143451f0c136c0de76bfe45c0afb57cc587b60617718a5bdded8790075ff",
+      "peak": 4944376380,
+      "available": 5553012736
+    },
+    {
+      "seconds": 1.4481618749996414,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        1.781076431274414,
+        2.197699546813965
+      ],
+      "gradient": 26.264938354492188,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "5ec9c7f6f1e0bc94f547da7a0f5f11246103e9132c7474e3f48c82ddad25b8a7",
+        "9ef6401d118a7ef99bbf9f9f42422fba2f063b56fc936dbf514abcab86eedc68",
+        "15461eb354c8c4107a8a1b35eb3553775ea43b8a0908d27fe33a108baabb106b",
+        "0a251042022c5c013d3d9ba21c50e175e0f0d4eda881ad18eb1221e47e5244ec",
+        "004166eb0ea94d7a605bb85069babe5c4e9d322729058487b818efd6d6cc405b",
+        "f1e9fd517e2094c7b080c8ecc8f68b3c52448af1180d0b9504196bc55653462a",
+        "af1bdc34e29f543daad2060ff6299ba267b91ee239fa88c44202cb712e6f6771",
+        "4d1016654123967b34f24ce5c00b1bc68b5237bec7d5148a72ab93c6a02b0b9b"
+      ],
+      "token_digest": "05820a0de941956a9fde844d136847fb05b5847a2a54bb8160777383e9c8f40b",
+      "peak": 5284192124,
+      "available": 5739118592
+    },
+    {
+      "seconds": 0.795127457997296,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        5.4192336392588913e-05,
+        0.3073585629463196
+      ],
+      "gradient": 2.5924293994903564,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "1aa9aaefce8bb47e1224f02f2e55f582f76ff37e5b9ab6940fd638d58a020580",
+        "b37f31ef0a6aa09fbb8c513d0c52427de8e46d4d888a0f4cada8c63021c7bf61",
+        "fce5c144dace5b5594ca3bbf840622cb807b246fd07129acdfa6cc37b907c3d1",
+        "71d3b96756a89fe81115ad6d387ca3f2a2c48e4459e935b5f9557c1a58626b8c",
+        "d3c432c18653dfde4359527f21548a6daed9259be4d86f917bd11ccdc53a2810",
+        "884b0332028bc96a41be290b17c33c0b0cb22435721b37c56a22e9f9364af1a7",
+        "0ff7ccb76030431d931716a498993453900a72ee080f567a66171727e7c0d87f",
+        "f1b5cd53b73a6493014a878ac435e18caf481021030bf5f23774cf648ae3ed18"
+      ],
+      "token_digest": "13f20ed5330b5633fb4c0ff4682619e248d0475abeebe1882dab8334d6326753",
+      "peak": 5284192124,
+      "available": 5637537792
+    },
+    {
+      "seconds": 1.0387369579984806,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.03130418807268143,
+        0.9442973136901855
+      ],
+      "gradient": 14.64156723022461,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "c5d1519eb24c7dcf31495d975ff2fe1f56efb3171ad5d58dcb16eb336336908b",
+        "2ae73d8e1a81acea4586a79d069035f897796dac971fe6a37239f746f633219a",
+        "9ae64bd96745c675b3c8f0ea2e6574f1732058fc1762d18744e0e83b84248aa2",
+        "3ad5b674d6e66e47a9729fd2d2f3357c85eb73f86486c74762cd8105c001b2ef",
+        "17190086437fb633d30f08964fea7f1a384b8cc005374909c66074151a27ee1c",
+        "be54efd2b6d1dd9616193e6c5171852e9b1df89e75cc1f6b8eb42d6c24714f36",
+        "f171123dc2c75dd37f805effd5d17a50847539f5de395ecca2bcff4c65c8eb0e",
+        "d8b39bf520e44d8519b1191f7392a42fdec4df4bfffce14f1e094bc38c12a877"
+      ],
+      "token_digest": "0518ee07297fdbf824f46221946cda198dde002080bf615bc42d55f0dd76c1eb",
+      "peak": 5284192124,
+      "available": 5775343616
+    },
+    {
+      "seconds": 1.3185783329972764,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.30690982937812805,
+        1.8512139320373535
+      ],
+      "gradient": 15.371936798095703,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "3c8907f57aca42143378e7ba9f4d17244cbe9c50dec52eb67e7911c696bc7ded",
+        "5e05c503b6c28630b1f463adeb2ee438d6319e1825e7a131eb6595a5ee1ec0e0",
+        "d68f9bf4ae0d78859f4e5977765febf066470dbb9e63b58a45ea02e539c98691",
+        "0838609784889c666faae410bcd892055811822cecee888346c42189d640fa21",
+        "ced1508aab789a93cc20b155cfe9ee18adb78d3dfb8b36691e8809e97e48a950",
+        "bfa370f778112e642451eadd966a80048162f883b0b2c5087d91cd17dd1d4e1b",
+        "3c32d6d1c211ad6b5370274f8765b9a90f50cdfcfdbc038d1900b7a2db5a700f",
+        "ddee780a03f877216ab2f0150cf2f10e950b284dc565bee01b62e76b78699402"
+      ],
+      "token_digest": "b0047fc0ceceea889e6a8a217fab54239554b6032ab41ec9e6b616aaa6f52835",
+      "peak": 5284208252,
+      "available": 6198181888
+    },
+    {
+      "seconds": 0.7582955840043724,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        2.630014205351472e-05,
+        0.08434513211250305
+      ],
+      "gradient": 0.9406741857528687,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "2203da0fc4c08608c9f8b37a4434619da19fee49f5f687aa010a3cf60ff73a37",
+        "f6ef45eed04f00557d001a185284d0108df6f64e0d37af2a7bc67f0b0b1f0fe8",
+        "bcd34407d951a6200b1e64ad49634b5d4e931ae753654be88f5e7957712f013a",
+        "a87dac4be7398a29faecbf8beda624dc43bb24f4961a579b6b0cb71cd083d3c6",
+        "006c239b0ebc4f3991b162009ccb40b2ca227080e5c6792db12f223963946b31",
+        "e27f297a88c2fe1ff215a6869a1437d76364cf02ff5be5a52dc9bc40fdb5a614",
+        "ad2b6a2c5129e5d5086b36f73ab75f8621ef001b03513bd93943fd7e27eaee7d",
+        "ba7992346cab671a2c14bebdf96ee1c1e8e5617daeb71f3cc8315737d1813c4b"
+      ],
+      "token_digest": "644d630d10c4759b46ce6e7b6cdd25abf2784525e45a544d449841f83dfcd999",
+      "peak": 5284208252,
+      "available": 6087704576
+    },
+    {
+      "seconds": 1.0400302089983597,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.0003102939226664603,
+        0.6279293894767761
+      ],
+      "gradient": 9.945028305053711,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "fac8b67d34f539d3bc54a43633bfc606b7c12e441b9a3c5ca3d91a7d1d34bd4c",
+        "ae25bd8bd54b5c5f73c1ee3a584946dd79140a62ebcc56d7ae6d88afcafcec93",
+        "5df7ea12800b0fba93bd0683dab42937edfad87aa6ab6b613db34300594c148c",
+        "01603a3b08f43cc3fb447337ba00a50e9ea9d218133815e2788d5a090ffdf10d",
+        "eb03e6b461e10c33ffbf0ee9e64103e432c73f3ecdb0d1f61f00cad1623d3406",
+        "f03d5d05ab54076358864fb7370d85c98130a96a3f1c097711f1434f692a71a9",
+        "6451d166d0fb07f9116fb6126e07e166eb29d0bbb4f6c8a93b01b8781e698b96",
+        "4652b1a4185b636166453ebd744af0e3b983b560ad95aa96c61f90f855900a63"
+      ],
+      "token_digest": "d596f4a12cc6d406cc52bc6011e69a758fe0a4deea9d10c546dcf5d7848fc940",
+      "peak": 5284208252,
+      "available": 6146752512
+    },
+    {
+      "seconds": 1.3231211669990444,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.8889868259429932,
+        1.6838054656982422
+      ],
+      "gradient": 41.8863639831543,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "5e48486284c91bc1050d23b9d86a79e689b9da6a6b5eb50c420428cf244da6b9",
+        "10fad35b129dcdd95ffbf79aed6fdd891a21c46cfbde150423ec36730dd1bbe3",
+        "f7daf8b4118a509d4510806d08315b80f415bc1a50f718f307c4412379505ae3",
+        "a998cfbc0273c6b5a4e21984e93a32b5e8e0ab9e0e4dd7c17497db5b2882cb06",
+        "d8ec7c852b857b21a4d013cf1e4b904e95ee474e4b265bb18ec36853f10eefcc",
+        "5d5429a065086754f7134b2a461ff30290da9934af830d60d64043ffc9d72981",
+        "b7424686f7a78f7844d6cc206610496718985a988af726953c4a2ecd45580f24",
+        "d68540f08def7ccbed7d54fedcb33ab11bf4118ccce23f405d96c56fd20ae53d"
+      ],
+      "token_digest": "9d7ec85974bc36507175a9d50860eabf657a53fd26b3019912defa06f4a09d7c",
+      "peak": 5284208252,
+      "available": 6330056704
+    },
+    {
+      "seconds": 0.7610270000004675,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        2.8609621949726716e-05,
+        0.02649419754743576
+      ],
+      "gradient": 0.3529178202152252,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "2238624574e0a3eff565e9ce36eaa70c31d31d3826ef90693629a2429e9706a1",
+        "6a3ff6dab850eb47b94c5965925dd301cac4e95fc65b691e832b2d01149a631a",
+        "feb4f576893436009a4597ce8feb91151ec8f3801937f63b0af52681e8c792ea",
+        "cccb2dcef6af12fbbc65bc84d144beca153c5bd024ce30ab7d2e7cc70854719e",
+        "7cd8c3dfb4a15c196f28173d02df53b8a79b0204a963c38a510a06a9b08869bc",
+        "09bb3a13c2de6348950fc5058c18e289a06da43e518e4bada451c9ce1b869785",
+        "d40c5ba34d45288cfc57434d4b7b2d1ad461ef4abb96e3e973558875823d8165",
+        "ee348b779e268a4eaf978f2ca55a397b4e2372d0d1bc33e4c1597b1888c200c0"
+      ],
+      "token_digest": "b0b5a3ffc4cb37e57d4f114adcdd4363ad4923a68f4531985b31f82a3764e6fc",
+      "peak": 5284208252,
+      "available": 6124503040
+    },
+    {
+      "seconds": 1.0666326670034323,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.1761411726474762,
+        0.6610003113746643
+      ],
+      "gradient": 13.355206489562988,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "16d4f8eaaa4b849c8cb3f70fc51c4ad862f3f8faa7bb7ed0bb4ec7c6fbffcbc0",
+        "c7f25a8c865ebaa29c7c17d6c042e9e8f38c5478a4ff4aa6e16765ea4cb31f43",
+        "3d57f55e1bf7d2effaebd9c50e85cffc7c6d802197fc484f53ed4deec62fc6de",
+        "6b8f7c6eee3c18b9e8faeb32c791a353ceb2ccdf32ff2f0e719a90a4507b45b7",
+        "f2871a4f7302e27a563da6cd2369e77337658af86b1300e8bab605bc4967b479",
+        "7ca060dc85ec9a4cef78168c0c5c0cf170253ace6ebaaccc80298eaa72455937",
+        "d7d7bb0df73ef6b13417aad73062f1207acb7b987ba08a9a307bfe58e245b1db",
+        "0de0972d6a6687fa99d4b15e07bafff52795be539f4dac2f46e5ebe4b8eb86ea"
+      ],
+      "token_digest": "3a3ba4cc3eae291220def0e494eb6735340e7cdaa52fe570c71220e1b23bc6c7",
+      "peak": 5284208252,
+      "available": 6414778368
+    },
+    {
+      "seconds": 1.3206344579957658,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.16278879344463348,
+        0.8148816823959351
+      ],
+      "gradient": 18.622146606445312,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "138a3742562a9fdc043bbd663c57dbe9de13cda06579dde4245f48ed242456b3",
+        "304fa6488c5a553d87858cad50f915e8c26f000310dc90d662fdbbf1041ece33",
+        "f7c7cc9c2f075974cbffe8e05e751b645c88dfb657e0ae1dff33279682a04cc7",
+        "2bb0800c3a0479d5b92c8d5507cb71ed8c7f41699af802bfd3440912a6784b68",
+        "e67b1bab5252889990c76ae9b4fd0b63da56b6d94637fec5521c95c038c96740",
+        "8affec476004087a6db60e0aff3ce3dc3d2b645d9e63ec3d998012a50ac1c9a3",
+        "8733b0ba52fd962da89c6d6f8a649179a353c083d0d6515ec41c90205c7e0d93",
+        "224af43bb4fb329ff9936ad3e580936cc01e2ac5cad534356b47cf21f18dd5cb"
+      ],
+      "token_digest": "6e32f14937d8ebff827f2a6be1a57b15d541e1c430eaad328406712b7bcaa55b",
+      "peak": 5284213628,
+      "available": 6365167616
+    },
+    {
+      "seconds": 0.7611465000009048,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        4.3361258576624095e-05,
+        0.0194525308907032
+      ],
+      "gradient": 0.34357714653015137,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "f213685cadbf0d55d798dab4f186cf63d63189b1ef7f362ca616f8776bfd6729",
+        "77bc246b94213985892143934cb4c9e25da46eab8f80283de758707d4d5582f2",
+        "5ff5fd4120143e132dd4c14306da57f28ca781b89cfd61a40b0ee6946231de46",
+        "ff6d3b23d490ddb62361e0597535d070e3630fe4e6c9d393904704b224c5b1f1",
+        "d80163ed04e38cbd2fa3c5c6e617a92934a3375362a534b76664899f8ea535b9",
+        "b863812f5db993a12a9d72dbb711ef594cb06bbaf637564e52f5e531a82d92fa",
+        "605581908364e3b6e544eddc2cd069074a6c3d5957aebf6a739c1265c35c2735",
+        "dbfac15d4c8986f487de41933f214b227d7b42aa3016d2d4f7f5345fb5b5aa8f"
+      ],
+      "token_digest": "60bc03b130b031f757fba888182101459b028982ca8b11af42d598f2e43f0a3d",
+      "peak": 5284213628,
+      "available": 6065750016
+    },
+    {
+      "seconds": 1.0333232500051963,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.047479260712862015,
+        0.49827462434768677
+      ],
+      "gradient": 8.699976921081543,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "75627463874b8149f33d7184fc60207ff12319c2820577bc49423fb5788d381f",
+        "923a220d44c63bd5d8411678553997dea5913353cb89a37a75d46852cfe2ecb5",
+        "68dfc65ecc0048e53b1414c4bfcc925051d8501bfa1a51d65a4320974ca6a737",
+        "5aa87080678db8f24b16ea5a66da6aa1652137102ad0c2255d281be1b2a48261",
+        "0ede08a0857da7d442dcd5f119ffcc7cdc2a2e7d8f4b457dfa2077f43e3e3436",
+        "6176953e4c11a8e9005c8a7fa387b252e44be05ae1fb92f974c1cdf5a4fce8ec",
+        "9a969b053b42113e6f76b741946eb4d820b2a8f51d90fb829105f27d6b174ac3",
+        "49cf1965fd5749fd24d7b06898aa61106ae5b35c2d5942994801392021206edc"
+      ],
+      "token_digest": "85b7acb25cb0cdd942a1e7aa418d6ff330a9f4885088ee153848e0893931c51d",
+      "peak": 5284213628,
+      "available": 5883740160
+    },
+    {
+      "seconds": 1.3180299170053331,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.24747976660728455,
+        0.7248435616493225
+      ],
+      "gradient": 20.60312843322754,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "2d7ba3b242374bb6135a06fea4ef6394e3d2104658611e1a4464e82f3f8bae8c",
+        "75657175a7dbdbe7c5f6bae9b5685fc5af96252109d074ec12de404b9031da42",
+        "0f9b02d81145c614fa655802b0853e0052fd5c5f5db28da052c14a3c4be5889f",
+        "1e59334797462381ca82b6b8fa5d3beb4f369938dc520d52d7ad49d6efa3f406",
+        "556052ad3d48a031979707e46ee031b76bade64f041741f5fd6e2aecb41399e9",
+        "bcdb893b25bde0f571856fe9bc53d4a6ebd825aa2ef31909882a43f1610bb1c2",
+        "5a0c6c69463fa3f7d76c7b737f872a807e0c20ebe522ff63edf0d8a0a970f3f0",
+        "ab8201171e75c56317e88a4b4ba96ae46cbf6ec12124f12da492193578bd9a22"
+      ],
+      "token_digest": "88517de7dc69a5459060f79cb082b21107440b8bf9ecc2923a245e0db4597c77",
+      "peak": 5284213628,
+      "available": 6316081152
+    },
+    {
+      "seconds": 0.764821208002104,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        6.545703217852861e-05,
+        0.004102806095033884
+      ],
+      "gradient": 0.06397783756256104,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "74f4731c5e86e44503daaa573da2bbd9da2d80575bfebfbce476455ed3e65386",
+        "adbdab3e305b33f9c21b3794864f314d4866a8fac625f485798a62a4b9219468",
+        "4355b8fd68d5e598d8e10695b31bd8896e87b818fff7ec1b9c1acd8bb9f93737",
+        "9814da75672379b9f55400f371b2133362eb70f616e533707dbe5dbeb9d4a858",
+        "945621a4f26a7b017cc0398234c6be0ed3914a85a3c1573439392fe480f28185",
+        "fdad1633f7c0e0989a40dfc9678b58d841dc96e9d5101d9efb0bd7ae0ded24f1",
+        "e6a3e52e4e1ac42b39da3326cbcacc232ef1d626b0a4b832dea221c93eee6ae7",
+        "f122e04c9837462c16f3ede037beb93e5e4429cc0e99e4142ff2f1c9a033edc5"
+      ],
+      "token_digest": "f7d2db33cf169d608a62cd17c079236c3b7ef94ba2ebb0abb39ebf8184bc6a4f",
+      "peak": 5284213628,
+      "available": 6096371712
+    },
+    {
+      "seconds": 1.0852376249968074,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.10035471618175507,
+        0.8461123704910278
+      ],
+      "gradient": 16.80663299560547,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "33352d56b1e1c72341568f301f048604d0081f20e48bfe205a220338b59ec415",
+        "32725088fbf80e656cb6da0d7e4f1dac0529ce6dba5e44392c7c9f82f62206d4",
+        "d62208e2fc9b0728fda0c67eca6ffd885eba005b7c578df208ad269bf632d690",
+        "29421a4e6c3d54e7befccb0b28036f5a0939e6e73a8535aa9d70610792d31ec4",
+        "0a97b7f83bdb3ab6e04f0a8ebde16cd04573e99b99d8128193276d729bc3a191",
+        "aa9828c912adde615c92caaad3197c1f08de5cac59036a613ac26f621c75f550",
+        "980db2d83d5d659028ec41125900533775fac9f4e5467248143b5f650d1fdfb8",
+        "df6dfe15db1f63bd13d3697259918406fd5955dc407506e7763fd6b2bbe95a8b"
+      ],
+      "token_digest": "574d2b65ee46ad81c2ed3eaf4dd158f2f448200820af2a4d39c420f4ad628417",
+      "peak": 5284213628,
+      "available": 6317522944
+    },
+    {
+      "seconds": 1.3723056250019,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.10089513659477234,
+        0.5742420554161072
+      ],
+      "gradient": 29.908384323120117,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "84c01ea9449bfd1cb3b04878c69dda520268cbaa1d93384a3267d2e8e5718b17",
+        "260ba6a49de4d15e84f2c2c1dd0640e824c93000ad3208f5c9a7ef9f66dd5628",
+        "5941e7d43ef5f55b392159353da4c8a48a181c573e4067a9ae0156d17a1ba411",
+        "fb99b283ff16915b36fd0f78263845c51ae194ac38d677488d518a6fac8d55a3",
+        "d504845eab0e5494c6cd6e88bc7543c8c8d070a1a1a0e0bfb04d5e2b79060550",
+        "b466544eac0f642941753000e1a13aab23b88c078177d179a1aae98939d9d70a",
+        "ef56c77b1bfd2552c853e90ea4ea5938b81c66ec6c4320fb21a4f47fa528cfa3",
+        "8d15272fec6369ae66bd3158edddf25877f3051e2bea4aab72fe73cec0deffbd"
+      ],
+      "token_digest": "b6e18a2e45ac5cfbe663cf2b0c06eb983e6e2372919759d74c46a7490449dd3d",
+      "peak": 5284245884,
+      "available": 6269239296
+    },
+    {
+      "seconds": 0.7602066659965203,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        4.418053140398115e-05,
+        0.0019782832823693752
+      ],
+      "gradient": 0.03305301442742348,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "2ca068a051c9f98aa587b917929c209b1121d1200bb554f109895a1df850cc60",
+        "c040dc9c519a3cb923979be43169c715e05904e57059888c0a27369b6d708607",
+        "435c0f0600a5fa56e52c8921df9d6359242a00b4f4a2cdb704a5da9939a20a24",
+        "93e9819917f509ccfbe675163b8053aa0158ad88a173c816568e3edc35608ad7",
+        "20a14a6f3b512dd37e929e55212aa3077deac343db8c0acb00e73b766f302e8d",
+        "b50d00e25b456faeda7a5f3bf2b01ee0b7c9b68a80eab284ec34248fbcb45b29",
+        "15cb41c9b90d5101445711cee24ff4a2b2acdfe7ba97818ef7991734f0fcd128",
+        "004a3f442c15afc5758fc513fa28880fee4d757861817e5c15a3e90d8da5f6c9"
+      ],
+      "token_digest": "bfa3b1a7be9d7d8fa3af21640c861a92b16dcc160abaac42c052abdfa2733884",
+      "peak": 5284245884,
+      "available": 6094422016
+    },
+    {
+      "seconds": 1.038120750003145,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.09444215893745422,
+        0.4816499650478363
+      ],
+      "gradient": 15.523455619812012,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "780b1e5b0435470d2e04754ed006ae305ea3523c0730ac5b8f23badcfd5bc706",
+        "300134822e223e55791e8461a19d8efab025ba4b8b404adc9a0d8404fc766204",
+        "51d34c64fef6503029647c594a4e05c53c88e676ddcf45f1181307188fe4beef",
+        "13dcc807b45cd133124081edbe33d00630c685c6155b347f9ab569224ebcb501",
+        "4cde5d607914594bd487a80298de0a9c492d94a30b94003ba17b1655794b88e0",
+        "cf5fab6aca7aa148d92d3559b4fbe0527e47961cd1b672f265e86657bfe10a27",
+        "f0671a2a48381f40e861017beefa9aeacf8ad827973841bd56c4f6116b7db27c",
+        "9cc6399e63dd5af1fc91cb3b7c0c763a4d236fb3f38ffe8e1f0bfae86e79db7d"
+      ],
+      "token_digest": "a21d8a1504f2e62cf10de6ebc3195a1198371203b407d5206b0b116828f7380e",
+      "peak": 5284245884,
+      "available": 6019923968
+    },
+    {
+      "seconds": 1.3157532920013182,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.6368240714073181,
+        0.5769054889678955
+      ],
+      "gradient": 21.814420700073242,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "39177631afee3bcace7445d99e6babbc813875253da94b7c84e2db1e0b361933",
+        "5617f748edcb8cd9438c0581987e55bf175def35c810f6e1dfc2f9b51807e1dc",
+        "1b99682054e9614d26111a98a8973a93eb1be6c3179855741d0134a6844f5226",
+        "8defaa3aa212b44753e7436e1a98a931d1352f36e988e9a354050138fb366352",
+        "f1f8bad9cce290bc1b756f1018458ce24a80f8a99b65db7d4fe2573d500256d2",
+        "046afb3a007e7461e34daccc6c8e40a35b0ecd97828de74443097fe24c23c996",
+        "c9ac02a8a493e85ba2a2999c0e4cd06422f07f481daf24c356c6220ad52d8a1e",
+        "84f5e0b72898a9b619d00f82c4f81dc3609c191479e0695d78abaa1470a96f86"
+      ],
+      "token_digest": "207d3e6f60ff6c0102b861ba95d74051db01bb3a7a6eb7f37177e47a59377c09",
+      "peak": 5284245884,
+      "available": 6429605888
+    },
+    {
+      "seconds": 0.7574220420065103,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.00013209780445322394,
+        0.00284434761852026
+      ],
+      "gradient": 0.04901805892586708,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "be030d79860d12bc9b3cb628cff6c03920df0774ded42c5c57442475bddfe6b4",
+        "91b14fc4046bfc2eb94fbd7e96f1a8f16ca833d1329b5f6528043ee93b627f0d",
+        "037117937709eff5677161cd3fe12a71e1736563f3ba84ede7e76b85010051f4",
+        "c23925607f46a46417f77f9a0778cf74041cf533de12991807125f0104eaab0c",
+        "3439c0bc2a400406821685bdb1d13f571b5ef4ecb762ae49fee5aafcb6fe4056",
+        "a4fc5213aaa3dab878d687f51560c4e770fb03a4fc75d0a56fe79efe42028735",
+        "73937f54b67ab175a856cac68c9267f89f0718a6a3235ad71023d964f0e03143",
+        "00032d26e48cdae6c333c721368280acbe0631545f5be281ac136979f0ef3910"
+      ],
+      "token_digest": "6f1173e01f2f2b4e5ba1cc9d4ae10afabc44430e25578e1e80426e91cc805845",
+      "peak": 5284245884,
+      "available": 6436225024
+    },
+    {
+      "seconds": 1.0329215840029065,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.0651705265045166,
+        0.08416198939085007
+      ],
+      "gradient": 4.2311296463012695,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "8ec1e74aa927a836baa0e42aa9cfc1fe8b73427a302e0a375749cf000961e9e0",
+        "be8535153688bdc33b7206631e519e2bff04a141e16c2676a03ae7a364ad40b2",
+        "75ed1e5b31782726631c98b2bdb75f9529bbf04fd27585adbf3f977f22895a90",
+        "153e179e5a83b6560799da0c58bcf1aca6992f4c071fe12a5e5faa9c8fe1911e",
+        "762dfb869edd0139976d737c131db5572c8cb82169b2d6ae83983fc227e3bd96",
+        "15fdbbc37e27e624ad81ee38deba0ec5558c5d0b15ce80ccb8cbdc82b39fe9ca",
+        "c42ec3f1a1314792f23ca682c5ddb652e1f0b0306c23e5ebe8b9558f8b427aab",
+        "1a8dd5daf67adc0521bc7a18ef73ab03613d5f2b875876ca3fb53ecbde285b72"
+      ],
+      "token_digest": "931aef67b81ed4d85c860580d8bfc716e6d6b9db58354277e41bbbe001981137",
+      "peak": 5284245884,
+      "available": 6694649856
+    },
+    {
+      "seconds": 1.3100584999992861,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.2697017192840576,
+        0.5509454607963562
+      ],
+      "gradient": 28.581655502319336,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "e2d3bb68f878b9b9cea247f9edb7a9eca97a3305a329c8513ffc80d5dce37e7a",
+        "1f7047f23c5a220b2c3a8186845780a2a14c3c0a947ecb7b8d28dc9fba1b8f37",
+        "b9822b47d1d3449752f33e11374bea7bd4b79f851b3aa194c0e1b841d4a5ff0e",
+        "23f8c17c562ce37547d8c6f7f53b21fa699d1a29388a00b0f1f775f0655f1c90",
+        "7524766bbc6ccbf13cca781c0b468d828721e0373ffe25e5d39f8e285e7aebf9",
+        "67752205e8b6b54b79f9030dbe167a005b570461f2064bf1cd7592d9d6b81dda",
+        "ccea270b5d8c4838cc06915e2dc62eba372ee1990ddd676cf021125ae0bf4594",
+        "000223f2601c7c8c3b7f03d5fb309671750a7769463f8cd43dae451b65f639f1"
+      ],
+      "token_digest": "fbfe27723b00040382f4419718311b80afdc24893bcddca1883cdc7c42fc6eb9",
+      "peak": 5284245884,
+      "available": 6452510720
+    },
+    {
+      "seconds": 0.754871582998021,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.000372661801520735,
+        0.0019005952635779977
+      ],
+      "gradient": 0.02991563081741333,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "246fcb9fbc3374ff076c4a858218d36ecc9ac8b60e5d18f203b11d3d5cc03ea2",
+        "0e9578b3c0d1de3c26a6ef65308bb9b0b346ed1264f8873b61fdc633efb7d112",
+        "7fc4f61196ba5ef63083f18d4bb89c49551eeb1e8f46729644df09ead99517e6",
+        "3ffee0c38df299440f1d0d411e1c0dd5aeff175bf3e6ce96a566a55cfec997db",
+        "25cbae6bcaf5318d750411e21f8929c5268b2b4b4943e3b918e6136e1bc94c9b",
+        "9a6c32fe2b2b07b147eacf7d6074d8a014d9ce490ab43cdbf74f4b5ababf2d0f",
+        "41f6912c94199886e0000f41ed19d9a2040c5600f146b3863830db77e79296a1",
+        "06011fd2ddbea780146475b40e5327bde6059af00b4d6f3b93a65637e2ebb4d7"
+      ],
+      "token_digest": "396c6837fb6ecb7bded9876a0c52ace8e2f8b339f5018340a9f4a24c8382977c",
+      "peak": 5284245884,
+      "available": 6460522496
+    },
+    {
+      "seconds": 1.0425669999967795,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.023980803787708282,
+        0.039046503603458405
+      ],
+      "gradient": 2.5153651237487793,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "e8c228bb4224222b363b4d47aafef4c95fe313911651f9332560d9426fe52907",
+        "73be457b1e9a50f2ddd01a2efc145241e34713cffa1f73eab4fc58adbfbe4f6e",
+        "b280e94976b04c610c4aaa3972a971eed47b52ce7c3e05e2559535c47e3700ea",
+        "063e6690ec8f64292742da77f5091a821aa9cd0112bbd469777a8e1c8bd7f533",
+        "4a4bea2afe3f2afa6452a40cde1285de29c7b9c5f9d3ec21cccf4677870a15e9",
+        "dfce97242b9a55f531fb0ca12de94da0e418b675caf9714ebf90dbc4a3649ee3",
+        "4f8a1397532d1c1eab46f22b10901526645ba36bb1df01b0f5480e281ca6bcf2",
+        "30ec4e4045ded00a9ae87a9a77db6321e580d33da4f36545b69097b815566220"
+      ],
+      "token_digest": "2161a409b109aaf52c1124afc2a2dfc0c0dd5167384a57e2546c57d2d0d4fedb",
+      "peak": 5284245884,
+      "available": 6194774016
+    },
+    {
+      "seconds": 1.3132126659984351,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.02918316051363945,
+        0.5176432132720947
+      ],
+      "gradient": 28.527029037475586,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "1c93c470c519f2befd74d0b148ddbcbcb258af3119893345c14387f1e36a98b9",
+        "41b16f102b4f6e257626108818d784cd3c490c75674fcdd72193292e3def7a91",
+        "e7db570efb71b2e044ce93504a71e03ff1714289ff03acd64fbc4c3a5f3941d7",
+        "89a7d182e07bc3c020565c9851fe19f305824f83782e9c8a84e13b2b7c4c01d2",
+        "f6bf72d693e9500cfbf79b4d3b297d2db740ffcb64253050e63637b2919d35cb",
+        "2dd72b940c58b34a1210b11e953aeb8c2a782f6dc0c487b3b59428edb08f0550",
+        "144d69ed7dba4a3a1db19ee55bbd278cc04a0f4207619cf7cb1d43de92901a89",
+        "6deac4c7fa2778302cc51911afd8b8643d5c5a623259f39bcf5b5894901a4fb1"
+      ],
+      "token_digest": "2c429f0e90f861a46b2a0e171223d57d61dab324cede48e617583323448d1620",
+      "peak": 5284245884,
+      "available": 6432047104
+    },
+    {
+      "seconds": 0.7570728330028942,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.00027386899455450475,
+        0.000546457595191896
+      ],
+      "gradient": 0.014140025712549686,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "652d6c899fc7d721bf2808711765a7dba794493f6fb624285763c2bb5e3b06dc",
+        "2cff0f15eaf4b7bc1027b71d834ce9772e14357e78364639607e2e386227fd69",
+        "c14cb2c680748f8d0d87a3acddabfd045abf69353f914a5f41ea7726e82473e5",
+        "8094496d893965b1e0d86c3660a413abb490249def72aef5e975b2510c37925b",
+        "b849408bba59825879fb2e9545e3a09c5c1818743363cea52c94b213de4c3bc1",
+        "7d257102143f38c67bda1a334edbb9f183584bed8e9cd42670b5f47b08bdc64b",
+        "36d9d22910c8e2295c92e73e9fbd6f1b1b1dab4471a9fd7a66c3fb4c402aed8c",
+        "3a5fd082c45576e35c750f77541055ac86f23e8e4afa1362b861c42784658af3"
+      ],
+      "token_digest": "f5a3d0ba1b17a68257d7692ac761e2636ad793078187c3ec6fec7993e8baa4a2",
+      "peak": 5284245884,
+      "available": 6294061056
+    },
+    {
+      "seconds": 1.0456093339962536,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.015311351977288723,
+        0.3114354908466339
+      ],
+      "gradient": 11.523548126220703,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "7a50d3a7d5f60cbfd16b656ad15428de7aac176af2b0ffa6b86473da8db65ca1",
+        "68214bee50dca993732bed48315d3b1980906fd5b5066569a129e14dde0a2293",
+        "89415b65ff7b6673b08d769839c2ed2fe86b05c497b7a73627a8e5defe0be655",
+        "c05a897fb2b54667137818ad6dab9edcb564dbd57d4697c6416540311baa6a5a",
+        "72fff8cabdf7f03b424f3757b1ec1e8cf3af604ee5da8dc724a064ff8514ddaf",
+        "46e28d876aeb20e36da9f09f78ac40edab0b3f7a512c932c3d0800c8fea61cce",
+        "47a70f4f58959e9b9b84f6f054da47f06895b48db16e047885006f654c9c6136",
+        "1af92b113ccfe2d7895f9fabbeb9e2503976768f72626d1cfae1d7f19b894e3d"
+      ],
+      "token_digest": "7af74221d02f688364e8ad4581817cf79cae4898723ad486aa5659194b2030dd",
+      "peak": 5284245884,
+      "available": 6190039040
+    },
+    {
+      "seconds": 1.3168520420003915,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.11478453129529953,
+        0.08519900590181351
+      ],
+      "gradient": 9.346346855163574,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "0b4c8e3fc787dd6ee7d48575f081640f1a6baf25388b58ad2de3199508c7b3a3",
+        "224fdd2895b638a567dd859d831cd495cf932bdafc1b1b3ee775dadbb0822a62",
+        "ceca575ddfb6b61a75cc55f2c9a96ec73db078134fee01ef3857cbdf2bd0eb46",
+        "69875b7d282ebf638da61ac6063cd3991fcac3b4ff9be6bb850ed9194127e7e6",
+        "4a887242aedadd6591e0361e78c512f8578c9719bcb5139c89fb7cd072dbf62a",
+        "51821a8cfe7054e5bd0c63d987fe00b92490d0791d856235687bec670d660927",
+        "d76ee84a5ba4f4182be45864398dc529de6169a0edd9a48795a03f3011fd6828",
+        "ee8be7c4238f5beff5eec54c13d42d2abd30b836b26b9df268c19c49444085e8"
+      ],
+      "token_digest": "9e0e395d9b2344c56995002a78e98a81fa243fb1b1930e3142e911e4bdd1f756",
+      "peak": 5284245884,
+      "available": 6368296960
+    },
+    {
+      "seconds": 0.7556833339986042,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.0006349495379254222,
+        0.0006381786661222577
+      ],
+      "gradient": 0.030243614688515663,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "69368e572dea5c1f9cb4e6047d6ac936527bbfc894d87b3424de661eaa10523f",
+        "aaa5498dd9372fe50b6660e01b7ae38bea397999873638c5db32f2f1a2f3fb8a",
+        "f70922cfec123ae2c581139a4e80f8bda6d88d3876a2a3c3b4ad6bda6a772b2f",
+        "6e4c0941b32a2aa2cd3fa7affaedf3223bab62879e87c973a024277897ad31c1",
+        "70d5a3165e27cb0c593afeffd5735bd656699c0788fd3a9d337f60981f35d4d0",
+        "faed565c7428ab49cc4ce0d636be02d7417828a6b4ffd179b98c47956d0ec924",
+        "7944155d936b5f4e462197d12171917bcda665f517d7f3c1b383b23e97834b33",
+        "b92056c399393a6311101166bd72d0cbb4669d6babe9f11d7d1e6a1925d440bc"
+      ],
+      "token_digest": "925b53b93738650a5453a72d121caa63b11af31fec2717c748e2ff8540740038",
+      "peak": 5284245884,
+      "available": 6385614848
+    },
+    {
+      "seconds": 1.0355630830017617,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.024725493043661118,
+        0.10430571436882019
+      ],
+      "gradient": 10.527061462402344,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "31ed3bba0a0cea92d916b5fc2d1cb9cc36108300af813dddff99d843a6ac189c",
+        "d64b153f8df126367a823393569db3c76021a501ee5fc88ea363c1b07c517af4",
+        "b01e0937a5f5acf36852cc87e55ebd3d709922a3c07e99cc74a0654923bcd63e",
+        "8774f0e49b4a6138588ad0b4fff9b15cd5b3bfd376daf9fe8b709a9202781b2c",
+        "2a10aa5d4b6668bf58b9cad9aa5a49bc2e73799526a2c36b5807371c88b11c1e",
+        "d0d39bd712cdc5fc4ca037e6c8704d7373f7133f6aed20579dd3cdfabfc30964",
+        "51dd5e87fd60a38728008299df224c4f32d35d34e519940e7cc75c14003f1e72",
+        "606622790d0ba199e993c5f72f9f0395d28e15fb098144bd226585946edc10a0"
+      ],
+      "token_digest": "8785d8aee366a3aa8d3d847428f217c2c882c171a2f81132139ee2972e8add45",
+      "peak": 5284245884,
+      "available": 6400032768
+    },
+    {
+      "seconds": 1.3206435409956612,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.02197832427918911,
+        0.14114874601364136
+      ],
+      "gradient": 11.546980857849121,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "38140d2bf2b5902019543386e1fb8093bbe367200f7dd55e73ba76e6ddc21985",
+        "5a4c87d6fbb9fb8f61dc2ade1302f9938d8ed3178e1f214a057b1be5cbf661f5",
+        "2cb78fc1c827edcb24bbc7ab9c9f6a704481703bfc84b3659d479a09c3edfd3e",
+        "deef3eeea192447fea23396a673461cc3c0f0b89938fcfb9a6f034fdd614d039",
+        "8cd64aec56f03342b9ba3dd082aa32461c886e3f897da599333876ac2ed4a365",
+        "c00c3e4667f0286031b12f25dff287e0e1e530c94d5cf3d6c3a44683cb276b61",
+        "2e8d3e36dcfff21324ebf38cf4e98343150ae64407227f458404c71b7415e95e",
+        "5ee4a4fe036b9f171f5abc51fcd498f2bba90cc2772d6b7ab8446a9be2707bc8"
+      ],
+      "token_digest": "c29339f59d18b93f1b453c124f689f10c7ab5c6f38377fcffb8cec6cfb4663da",
+      "peak": 5284245884,
+      "available": 6442008576
+    },
+    {
+      "seconds": 0.756787375001295,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.0005368204438127577,
+        0.0006438494310714304
+      ],
+      "gradient": 0.023877542465925217,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "ae5794b8c14d845f9bd7586c68e7c37d1bc73e49fc3a97e299b60cc94b0289ca",
+        "a5e373763905ca3355fb28d549a3fe5822dd95a685d8dd91bce25d721e8317c9",
+        "e9d64f1f6f1af96bec3cc454829cab60881f54dbc7f4f5aa688528e5e9e90f3b",
+        "4707319002fae078bc4843706c393de40ebb893893f3264ac6cedc457a29d871",
+        "d719f5254a8dd3c461039440262cc4efa42a17b0af89e46f8a3eb4c167b33b70",
+        "54a8e11a4136516220139b01ad88446cf362f9d54d9bf81285ebcbf5468f6fd1",
+        "9a3e4323f0fea5bc55b8207d2afc98e9a078f87bfb3f8e1fe1d65f6d48567b8a",
+        "e220117268577c593b9cd3c8b1f7e78562dc3e719b9c4958541c3159b3e072a6"
+      ],
+      "token_digest": "8784b94fd3246645b5c38a5d1cc6786f524de37d2e7a53110240f48463826a05",
+      "peak": 5284245884,
+      "available": 6451789824
+    },
+    {
+      "seconds": 1.0373585839988664,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.06205115467309952,
+        0.018557678908109665
+      ],
+      "gradient": 3.2722060680389404,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "63a3088bd6f64aaf93dd92b2520a43814f38f27ae11b815cdbb4f0256757d9d0",
+        "1979f86dd63ba935821c05f6022f7dd8522535c36c376586caa4e76c24f8926b",
+        "9b18f18cf65b314eb20153f5d61d4a3bd552781597f1a41be9075900859e18c2",
+        "bcf35ef7975fdbbe71846bffa78dc54cebb0e52b0f5cfe168322f00aa9bc8936",
+        "69ce5216d12c46b5487971ab6c6519952cc6c67c34fd6336eb16031d071e1724",
+        "e03a0b92b9656e03ac603a35d755abd01f05769402f77564a307e931ba33734e",
+        "04f10a91282afbf0129da53fbdfe7ea217040316e1e03314aa6d2135b7b17efc",
+        "7acedd7130ed0f8195465ffc9a4368a088c529742a57b921f048f064ee8f540b"
+      ],
+      "token_digest": "ab3cde68021ca3e90dbe3b3a57df2674d154b87cf9d3a7742c599d0fd8584744",
+      "peak": 5284245884,
+      "available": 6240354304
+    },
+    {
+      "seconds": 1.3149758750005276,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.25880059599876404,
+        0.2144097536802292
+      ],
+      "gradient": 20.63520050048828,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "7255f51696e1ad19c2fe915be3d534c2ffd0a9321b52d60965b8d4fa8b26dcd4",
+        "a3449d9301eaae82af657fdcac1b5efa427d56e29910cc9267d65520554244d0",
+        "b586d45c75a5f5a691237ac95a8ec8c77070f770dae92e4a8efcbac0a702b0e7",
+        "8dd981ff8d3c3d436625196f61605151fbee40620c2d18c129e054c4787d0860",
+        "303952b048f7a5d81d9a66d4fdf61c924688ef387851f539f7762d39ebc7d792",
+        "0076d7e0e52fcf1ffad4b921e9a58f9d88cb2353f7a315b7e91fd99330bf2291",
+        "93208349837e2ec3e6348b459f08d70b685b7d88ff8bf6b6b3e0d47bfdb193a4",
+        "416c7cc1e255468ba20bdea5f85ddbbd58add6e65bd21fe25b7b2cbc68bcfe1f"
+      ],
+      "token_digest": "5d29babb438e16392f0855bc5ac521d0b7da7493221d21cebfd3f713b0eae7d9",
+      "peak": 5284245884,
+      "available": 6444892160
+    },
+    {
+      "seconds": 0.7615519579994725,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.0007845890359021723,
+        0.0005729998229071498
+      ],
+      "gradient": 0.03570907935500145,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "9635d910378afb1d94ae9960fd0e2c99b694af3d796b6c3673cdb671083eeac9",
+        "9296b3d3c656c80539d2923715ea98f587ae37c779b2867a2ce36f4df1c15efb",
+        "04cf34c66c2aa5238112006fcac0447dcc074cb14534423330d3177647f20468",
+        "3af2ba33a65d2a847240194ca6b2039546fdd9743b601210fd8322b3087da80b",
+        "ee2198e6f0af4004b58fd49d37957dab2d67c73458bcc3d3194275eb7781d43e",
+        "9f90c1c06f9cc3ebf6e19fc23d564bc175df6113c784a66986d62c67b636a582",
+        "9ff91132791434729bcd4f7855577e0b2862962e3caefa973e58ef62612c0081",
+        "61148d3a82c731ad53b5660a7b0169db6302b3a311b509f77d15329937a83c3d"
+      ],
+      "token_digest": "1493e55319e2e023dcc02e92bde58b10d4e7fbc761ae539899c9bb2d8584b22d",
+      "peak": 5284245884,
+      "available": 6287687680
+    },
+    {
+      "seconds": 1.0350825420027832,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.0008495899382978678,
+        0.006834125146269798
+      ],
+      "gradient": 0.34625425934791565,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "10e59debf2af1daff4e046ad600decf3d97e07650439492fe43c68481c11b70f",
+        "f739309a2ce05ef79dbd3ab27e8c67032ce1605b3bea3835b9b28c5817428b68",
+        "28d943d7b25d45e557d357d13ff786369c0e76e288284834dd5e7014f194927a",
+        "45d9f6c88e2033b729e852651365c59d83bad969fbb3eafd67c90e5c28228e70",
+        "975ebf396d266339b21f5173f33aeb2d52ea53b356fc982546df875355620490",
+        "c44b4cc57b4b1bc5cb58ad27289e42f29e6c770ac97077bab6a3b152eda6273a",
+        "12996071175523326a69c26947e80714248134629a913c481dc76b8b9da6d80c",
+        "627878e659a6f3570309e6b1273aa11ce57e0a320c76734e7bd09cf846f8604f"
+      ],
+      "token_digest": "ea2c1dc0d940591ef94b84987ccf6cb1217310d278ba0f6e624750e55866968d",
+      "peak": 5284245884,
+      "available": 6209617920
+    },
+    {
+      "seconds": 1.3136653330002446,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.31653672456741333,
+        0.24666182696819305
+      ],
+      "gradient": 23.033964157104492,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "b02e964cbb71968edda368ad400f5a69727714647d8a7db7f7c978c697bd197f",
+        "060688eb9d358426701676db479c4c777990d80d0f6cd008ec1d8ec98b81834e",
+        "e658e36a49557e483ce55ffc2255fdbe779ee3ded6d1c23dbbdeb96c02c19d13",
+        "2ef857c2658b2a376788391793635b5fbee431ffb5097f8bd296b196d714dc1b",
+        "3d675fb0a661168fbd5d0817125c519e37188b3d8ab299c4a580c061afcc1a43",
+        "7b532a7c1ce8cc1b7cec2e9046930528bb384035f2467927eb2bee5b31be0e6f",
+        "966b2204670e0a30e9a0b8905365d4ca2ac8b83b9f2d2c847ec64414765632ed",
+        "fbfd2b941c47e2f797a8fdb9a7a426abbfb5f1a5db62103cc2aa859131e35204"
+      ],
+      "token_digest": "41ad4321ad52e4e7a04e2004401428a2e386984beadff12adc6856eb64f9777b",
+      "peak": 5284245884,
+      "available": 6463209472
+    },
+    {
+      "seconds": 0.7675382499946863,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.00026376021560281515,
+        0.0007363975164480507
+      ],
+      "gradient": 0.013995149172842503,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "0d7c03c4104f1ff4e50ddb442fd5260c34aa494bb1dea1ac23ba2dd79e9fc37a",
+        "a210cde72ba943ad32ed60a7c6e4a5239a8b9586d76e30a0b7510131cb37683e",
+        "13e1210e3b181f11a55df6b5bb9466578fdf04ceb833c2bbc320c5c5e72de932",
+        "a7411dd014788e7c4af027a5346b8b8166bd255c175a3eff75fa848545dbaa54",
+        "f75745c7015dcc9ca03629601c638f666ff2f4d0c84a4178bfaa3245ef7ccfd4",
+        "4fbe908cfd514f2b74583730ede272ddaf8021ad620bbaa6103466f921c2c23f",
+        "3f2602382bf3da850afdaf2274a07a82ce96e5ca93aefa9f8eec8af71825d4dc",
+        "6803f1ee8f859cd1035e18425be0ab104f79de8cd1385ed9900791dbe89a9efb"
+      ],
+      "token_digest": "05a56313ba368e58b951aaa9cefc2aa6a6bda60c889379512cb0220810c2cfd3",
+      "peak": 5284245884,
+      "available": 6473089024
+    },
+    {
+      "seconds": 1.0763462909962982,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.00328673142939806,
+        0.002976174931973219
+      ],
+      "gradient": 0.27050742506980896,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "ac8b3c80bac782227eeedfb9c3886e83696f272b026b5a3c5650d0eb8f306e58",
+        "076edb46783f975bbcfc0370aa6a2cf46a4337b375b3a9f55963a94b227df035",
+        "3f0f094a06d9cf4f88229f233b726d83afe0b67a1d2841a4418987055510f75a",
+        "db6cd1d6aff4e691465c636731e53a51a64b38ff2bdcaf3f738ebf13d4a2b2e2",
+        "2b9849dda06158c07224bc505a8ed28dbdf56e1e3e732dff478169b53aab42b1",
+        "721a0581dd4694c9c9cea964315254e6b1a7412385e1f5e63afac8f4cc50c317",
+        "3ee2e0c91ea85018eea16fdde4de8d9d2e55d7ce1a1361fa5c9952e3661868fb",
+        "c73bca9fbe13954cfdf592a0833c787ea802a4a7b30f8bbc27ea6109ac9a59bb"
+      ],
+      "token_digest": "bd1b6f1408b8fbca9f68c1ad27352edb3c5d58e38ddb32d8b429048709f618d1",
+      "peak": 5284245884,
+      "available": 6177636352
+    },
+    {
+      "seconds": 1.3851999580001575,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.013374945148825645,
+        0.0889604315161705
+      ],
+      "gradient": 8.733878135681152,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "f8541e9f29d66d11ecd5d066e058001811603c02b429688f6014f8b59c940ca7",
+        "6bea3430c7b136ee64594d06f077fc9ade02b6bd410e70f5276a7f4e7b333194",
+        "d28b1994d2c42576166ce34d41a3e19655a931c798a6b81be2d558d5db3ad896",
+        "37ae6c75e3ee3c6f488a4fc8654dba9077e37eab13d8afee8c8750958567103e",
+        "2295599780cc6112f963afc5cf281a3fa3ad44bfa419a1ad430e706bf2089c66",
+        "e989b509a74bcedd1ebf3fa76eba6960f30ba4fc1655308464797dc17b31cdc5",
+        "00f3b7bcc08f1fcb686e15abecdde5283ef208d3fec7eb56134b8a187aa13e90",
+        "0a59336d2c227626f47953776ba19a6a70ba3d004e3419a6f015ae968fede75e"
+      ],
+      "token_digest": "57a27b6368ad123b5ba9c86ed2f5250dd023c14bc8700c1aa8fb622a46c3aa37",
+      "peak": 5284245884,
+      "available": 6417874944
+    },
+    {
+      "seconds": 0.8573027919992455,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.0003194248420186341,
+        0.00038250506622716784
+      ],
+      "gradient": 0.012929202988743782,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "3a4476aadcd95e85d75918bf9a1052a3c60215285e954e83c57a0977422bd7d1",
+        "9cf1acc3b4997a2a8bccbc3b5dece852befab3e14316f7f110aa123514e5bb5f",
+        "856bfd4c73daa3ab928319deba96fa80bc36d597501244651be0d881801be692",
+        "a031f1a1a992b8aa86252e4909ff39305abcac6fc46d53aeab3a02c6e5ceb9a0",
+        "a08eb14bdf81e2a21bf60df8d13137d9890d3641bb3299cbd54f72b4aebdf686",
+        "d41cbb1ca0f2a2103fba99a272e0a588f131ddffd7d3c7762e9766e2bca28694",
+        "8589967a79628dfeffe46074d08d25219ba13a834c45bf9489baa2dd70c7cc51",
+        "fb5efdccd3c667b2afd6665b1e0d44072962f179e26431de3a51c062afd5e82b"
+      ],
+      "token_digest": "6ed17065113805111a389913977c98192c9b43a31f8ce828dabe952b83b35a1a",
+      "peak": 5284245884,
+      "available": 6426951680
+    },
+    {
+      "seconds": 1.3671303329974762,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.003594080451875925,
+        0.09781109541654587
+      ],
+      "gradient": 16.865079879760742,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "14260cc4b58601e81f21c42dfb7038a8fdf7f2941476b5365161de604dbbfd6b",
+        "62c64edf328f382a70cbe09bc0b1d51f3310c255ff71a693b5e0b51c101daef8",
+        "64b5234cccd259ecc2df1cd3bc23ab5e69fb66d607a6d8f382374b85b0a02acb",
+        "c9058f26b0b55624bd31862d58fe98e872d7dfcbc40376d117208fb2d387b27d",
+        "faaa7bfb473f8ce8297ff569c60bde5158b4bcda6e44320b013fa1c3ab9ad26b",
+        "70091c9160b967a85993fc978fb091b3ef292bf6368ae10134d56ddd8d8564d9",
+        "618e7e127172ed6e49d7ee15f472780da034fe49ffefb6b6bc19f33b0663ffee",
+        "793ff7f275cbe6e8da318e03281f71e71770c669d2a5913d6a9965123040c65c"
+      ],
+      "token_digest": "681271b472d82dc166ec4392bfd70bc768c481955cfcecc8456affef5be2a131",
+      "peak": 5284245884,
+      "available": 5635653632
+    },
+    {
+      "seconds": 1.5015715420013294,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.018098551779985428,
+        0.030896199867129326
+      ],
+      "gradient": 4.639904022216797,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "391792c53f05139bfdc0c45f027acf4e86557af5358f44487097b634c11a2438",
+        "7e20a25dbd714a82bf052cc7502cd758cbaa884dc03eb0abe738fc2c22f374ce",
+        "2edc99a09b52e393b1068ed65f483900245ea13ccbf8a60a7f80036f4554f319",
+        "e14b847bcb5ac11aa4e053c8707c41c28e5c4e3ed1d6c10167c2dbaf5ad0cff1",
+        "8997879d6627937f83f0b20b05b37f131b4a8fd6252ef3f109b29383dc1ba504",
+        "6696175ce737ffa2bb5630711996a72aad8b609334e5c1999acbf73397652cdd",
+        "54b317cdac96d56ea3e19d1c76bdb0778b7962143405c84221eff7da971f7fb6",
+        "67867d5e108791e1dd77f50b3f69f17d458518d16743e32517d62072f234fd2c"
+      ],
+      "token_digest": "e372a271f97831728567ea4ff804a892afa398b3e90e67e06d30f76bce88813a",
+      "peak": 5284245884,
+      "available": 5884575744
+    },
+    {
+      "seconds": 0.881772374996217,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.00020747238886542618,
+        0.00032762886257842183
+      ],
+      "gradient": 0.009992283768951893,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "57812f629f280eff51a9b039ebaf070456b873378fffabeb483305093ac8174a",
+        "9eb46dcaee435978315df3b4a1906a079170fbf9101b9dc11b1fbfaa2e197054",
+        "837634e58ab41213f3366a58867916a1703994b0ed0f04c70ed0d02a1c405596",
+        "5fefb7001cdee251a043a5da44358bdb57df7052eab99910ccdaa862a6859dff",
+        "ebcbcfec7404d4de38081ead9029f2aa133e7b59cef0ce20fa574b8273175c25",
+        "3937e6879287df6c4012f0403b77186bf3ac00ff98e22d2b3cf17302b3cbc3f7",
+        "0db028cc218275edb7f1d12c472b794100cf0494e2b1bdd713055ce7fc042e5c",
+        "4f2452c8b8ba089911e0472dcb67e15573392f451c53ebeb6bab328c71f6e556"
+      ],
+      "token_digest": "f58c4b3d92c95de614eb0672f150f041b83517448f0b2807b3c03e6e3f8a4f88",
+      "peak": 5284245884,
+      "available": 5708480512
+    },
+    {
+      "seconds": 1.1827366249999614,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.00025160773657262325,
+        0.0007475550519302487
+      ],
+      "gradient": 0.027375251054763794,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "e3a4e1eeb11ff23414bfb670f4ca177141f7b2e9669164342e08e959d69bf6a4",
+        "2ee4e1a0714efc1c63fb827a28b071f14eef512bf8fd67407e30ed10d00b2f73",
+        "c2fe1899cb7a8eb9b6c183a335f1dbc243e12460451224e10388da8c0522577a",
+        "9831f02b83052abcda0576627fbb54c6ab24152158c7eafbc7cf459f85339f39",
+        "edfd2145f295500dbe77346ac8092c2bdef1bee0c7e2609a6397f640350a1db4",
+        "8bff35ca95d5783eab14b3af9c4de6f91b3ba7b7b0b30e0f2e1af5fc82159719",
+        "630720f195b3cdc0b21e27110aa3460acf8f962c76305b67d13b364e8d06fac7",
+        "f0fa1ff8d791f4af259c0414db9a11ef69896d174e9243caa501becc2805c2a9"
+      ],
+      "token_digest": "2bfbbfa764f385cd13d23a9f1ce19ab2e9b11f1e8f188d72e4c4bb9e7a4750ab",
+      "peak": 5284245884,
+      "available": 5730877440
+    },
+    {
+      "seconds": 1.3262102500011679,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.010437095537781715,
+        0.21577048301696777
+      ],
+      "gradient": 37.12593078613281,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "8c58ab06df981328e1730ef7bb54ad8a18ef2a5ff7060abf43ba60befb383dd8",
+        "5a9567e09e78f8d909356215a3ad40c8664b1b25c304de9cd049073c4d2596ce",
+        "f585e19873340b4c5e7cb20e84950b9f0be97b3b81606315e7e7137b73fadb49",
+        "31426959f0cc38373470e2556cb74574ef64a9ffb9d2d930b938c354d8f4f3ba",
+        "94cce964a99b1aaba2b5061bb4e3a2327a02dafe75ff77c9ce8c348f8e20c913",
+        "8b83619639a5e6893d4253715df73be58582ac5d5d6bf124a4161f2ba768f8a0",
+        "eb6a018a8db601c253b44ed92e21dbfbdb3b7dc0bbced25be1644a3432c6c9cb",
+        "db62d6b26c6362bdbde08e3a8e564bcb931cdef84509042c842cac7fabdd3ab0"
+      ],
+      "token_digest": "8de66a8342b6d195c541bd87cf989eed5773f98e580e92679b4654eeb7a174ab",
+      "peak": 5284245884,
+      "available": 5611896832
+    },
+    {
+      "seconds": 0.7595813750012894,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.00016581300587859005,
+        0.00043629968422465026
+      ],
+      "gradient": 0.009561849758028984,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "a673aaddb20af13668a00ae05fdb492c569ac08bb72edd31c483f12ce47cb937",
+        "9f977bdc416df1f95448a0a2ae321fd13ed74d9556bcfee5f88a5b8e9cbc3708",
+        "cb9ec7ef33ae045c03e62646437bf2bbae08a4b4b270ad364f28fbb6c7e5b0ac",
+        "3468eca276db51ffc78df8d1cad94f93ed19940b20713c215d534e6daff83225",
+        "3d099c92e3581cf87e3c85c8bebd109b95d3898229287d47aa632f3c8265851d",
+        "2f714cbe3c903f9073bd97198d25a78cccf9e256af7c41d9ce68344786acb555",
+        "a7e3938ecc1773580e709552aaaef2290a7225fa63b54ac52d7d525e9a867d05",
+        "71cad06ffb2ff20f3a18cd900e8ac794cd785892b47158698efbcefea6e277a4"
+      ],
+      "token_digest": "396d6cc4b3f7e398b19d1cdba46b96b11605f2976af5630897be1d8affbf1f7d",
+      "peak": 5284245884,
+      "available": 5620252672
+    },
+    {
+      "seconds": 1.0246258750048582,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.0008809232385829091,
+        0.0032754605636000633
+      ],
+      "gradient": 0.2284226417541504,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "fc311922f51205d916ab43d8ea30957fbfc7b13ef51e0dc61d91465c156fa66f",
+        "e52e207b3a71a40c70f6d5a8d366717b3ebfabdfd91512f3426b2fe993b7d101",
+        "772b03ec62beccd03cb59ec77f6d1ff077427cfef70a5ef7a0058411ff270693",
+        "d4d55746ecda3022d2911ba1fdd455cc3d0b364e0c658fef66f2167197a3d218",
+        "32cc15964988b837a10adfda052a0e8a4ad13609ecba26edd57e6eed6673477c",
+        "5271d554fe8bbc2c13ed62d7c19b204234d1d1b418b0d82fdbce6aaf551a45fe",
+        "15561ba07fcbc82c1db496e05d6170974a892f60378d220490a5014a4256a231",
+        "4f96e551ca3a5421c59f3cb04ec88f7949dc3188bfe80e0d48ad28f5107c2513"
+      ],
+      "token_digest": "45c865854647b711ed4f6425c66aa04eb97ff790b182db6ece399686dd1c209f",
+      "peak": 5284245884,
+      "available": 5678039040
+    },
+    {
+      "seconds": 1.2984398749977117,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.031155604869127274,
+        0.03625611215829849
+      ],
+      "gradient": 3.0354015827178955,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "bbafc1a80b7a00aa80d76db99fd11730f9f00cc1949943a63b6f00e9dcd2c77a",
+        "b78e0c10c2084710b44d8c92d37506c4a43f18b20ac47f8b26829dc9a107c5e6",
+        "d6cc37166a94cb9fb35a99cde07b270e35740adb772f0c00b9a16f9d8fcbf95b",
+        "f2f7fee5e90e78781fda7939bf3ef15fdb6284caf76400d2a39f23fc82d0b83a",
+        "0a502c52b92bb02876d31a0798b9943a34bf3f3a090811f3eec9cbfbab719b98",
+        "3f1b637f11dbd2a08832a9b52cdad565c7c181599ce437c9111c496cbf045341",
+        "780a8d4292eac7d61c8e4dd019d5d6e99f15c705b26569a81d1144041a255bbd",
+        "79399ae986cdde31b0f8833cbe9535f8284995ac15615bfac5deaa977bfdf638"
+      ],
+      "token_digest": "4db8a17babaa185cff3da2a55ef3df764056c0d4891232c984427bfd2ca9b97e",
+      "peak": 5284245884,
+      "available": 6109118464
+    },
+    {
+      "seconds": 0.7576352079995559,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.00015158623864408582,
+        0.0004045736859552562
+      ],
+      "gradient": 0.00995184388011694,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "b5ad8f5d4877da0b549bad7d63233a8716e6d57bc0673544eb80e01e5edd7c2b",
+        "2a7990b1ede09cd3d4d73801435e66d59c58e0759d5b02ed2de914252ca02cf0",
+        "ad5a59a2d2dd4f41a865610ac218c1ca00035bb3be663082054e14364e343637",
+        "69d76aefcc94d087cb277204d962fb9ed88c53551c1c07e16b349acae3f84d70",
+        "85c2d600507438a8784fb7243f268c54362f740629d6279a9b83c912b71fff34",
+        "710d5eddfb7c1e8dbea90486b0864bb0a2acc288d2d2e94fb05abe85b79d7a59",
+        "281872939a0d000ffc1d78498bb8cf713837854be0bc5f4468f3b4bd224e2c86",
+        "82be3d13871f8929a1c142c47a5f31a4ecd3068ac9779f7d3e7d4e4bfe0ec8c3"
+      ],
+      "token_digest": "60b7231bbaf409f12d9dbbed239f5e6aa0e338f247ad767803a1eefff2c28dea",
+      "peak": 5284245884,
+      "available": 5921964032
+    },
+    {
+      "seconds": 1.0323671250007465,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.0009995419532060623,
+        0.0012333549093455076
+      ],
+      "gradient": 0.0653553456068039,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "4649b6fd84f9c6014e28dca006203b063e59e343eca99608b28f7593d4a7d020",
+        "72c81cbc18a7e9836c70779fc308a09da7e91830d4ecb9983d1f10141b196760",
+        "29b73620a68238dacedd1723e90e4b2f9665979e913c3f383e3332b268f2902a",
+        "ff82f6d07b58882b8e5004d5074e8bb45ef73ab110ecefb1080de9a6c24e56a2",
+        "0bbde19d14d01ec6d9b50e29d2c2aca90dfdc0bbf09ec2db88083d8f19e9c4d3",
+        "cafb86fd6aab50babc2345d166d38fd67b14068c59ea4246094f13d1777b9114",
+        "e0b629ef01594b1ed0cb62f68fb979c9e3ebfd7fc08acb5c0cc7ca78202c706f",
+        "a2d3a00d24629ab26863c019f803108fa82c8844366b6ef0ab982e302e71f5ee"
+      ],
+      "token_digest": "ded951780a5d1e36c67f17cf72ce24c72c37a55be7a29e19c68e28fccdfd91c4",
+      "peak": 5284245884,
+      "available": 5780307968
+    },
+    {
+      "seconds": 1.3241818329988746,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.019298408180475235,
+        0.004100176505744457
+      ],
+      "gradient": 1.6340999603271484,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "aa59666624652a3b5cba016b0028292f978f25c2cbf31f8df4af6b3e36e9cf22",
+        "b7dff8b4085ba53bf524d2313fe270b150e6d40a357f27260fc95cc925cf6c44",
+        "4cd368248b0f20d9cfa6ebbd332b25b975ea6bbb2f9844d3ea0bdb39955d9a4c",
+        "1e38b0748765d1b5628653e062d13c9dea089d6005379e2677791c562a2a9566",
+        "0b92f6106223bb6c6f48ad3784ea388fa5db09eadeb6e7173fb4a9383cee65f0",
+        "c7c487a195eec182d53e8dccc41e8e734d616389100fa252ac5104a770a148ea",
+        "78ac9d81512133461703bb1547fa6b53658a88a6e549c0edeb07409b1a2cac3c",
+        "e2c68063161b76dceb1d9d5d715c7d20059b61bfb4b3dfe8350517715685fdc7"
+      ],
+      "token_digest": "e8e274f343e36643bd685c701ff1502bb07e99150a8612719a8a2bf7942b107d",
+      "peak": 5284245884,
+      "available": 6035652608
+    },
+    {
+      "seconds": 0.7635177499978454,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        0.00013935584865976125,
+        0.00042746716644614935
+      ],
+      "gradient": 0.008810220286250114,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "7b6a508c6894612c8d26b2f93079172c915c38d05d324d3375890ef0fc0919ff",
+        "f9d49cc635574d5b076af6c1a4656af752ab0899f3e6f0cc450406ae9d06eef0",
+        "8564bd7fc0e483a7f2947b08024f917fd4be645d98a84009f98c4fbf84d6850d",
+        "68e68f3f20b4b95e3c18363196d6c19839c166d519da08a8a2732a4ee9c01b1e",
+        "29ef15d822dc929c1cf2f6a89b56caf5e091537d72753e5978ad9b3fe7a24b82",
+        "65c5950c4008ecaabf5464a75e5338a5cc36842cecd2dedfbff69dd72593d6f0",
+        "0bdb80f7a0a15c5f6e086283639c657eed067dc1a7724052343b25d450439193",
+        "8b9515a0931245d9907983c77fa58679cfa176f251df4dda21b8414d6628b632"
+      ],
+      "token_digest": "78355116712cd6b6aa06c78253f175b9199413a80296854cd300bed321135b22",
+      "peak": 5284245884,
+      "available": 5878628352
+    },
+    {
+      "seconds": 1.0399148750002496,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.0010110659059137106,
+        0.00048074231017380953
+      ],
+      "gradient": 0.04018015041947365,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "4f090bb66da996a6842d9cab28c466b723198b77d69bdde651eeae9650c6924d",
+        "e7a7d2a1c06c4b787893be0c62a9e508c30258e45dba04c39ea3752e0922dfea",
+        "d8fcca64702ffe0b9a978b196619636d8adf4a06b6b493a963fc8054fa306588",
+        "f0b0a41d74002e1ded69187f988ae7d552964c8805865de57ad97ea3302d14a6",
+        "e4df0cb6972f16beeb0f30a38a9c740e4f08556e3cbe5cc4ba571bb76e872750",
+        "b055e56d5db3b21455145805ad76d4a06852260e4fb1a12d327708e7206bc71e",
+        "9be53571e4c7f66859629e8a39be9b80a750358f992e165dd457bf41a77dd7df",
+        "811ebe0b9c4dddaa120ff8d6dce68df03838a6733e3b85e896d6a6d6af330b88"
+      ],
+      "token_digest": "ed2244952a265c90414af41fdc113e7212045faf812df3d6dae941eda0584aeb",
+      "peak": 5284245884,
+      "available": 6119047168
+    },
+    {
+      "seconds": 1.322340124999755,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.01626194827258587,
+        0.0012602218193933368
+      ],
+      "gradient": 1.0678207874298096,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "1cc4c61489ae15a68a5efca98f0ec0b9b1721ffb45fbfd2929e2e4f92f4f425d",
+        "a976fda33e589b6cb397d856b4bc8b6adf342fbcca49a8fed6bb59bf97486a67",
+        "0428ce148565eed58a3875af97e9d1c48dadbc60400863751f06345850024304",
+        "11676820635beed78801754a52a4dff5a74276e637a12052bcda4385e32b1b44",
+        "8f6a5f13752b561990a5b3788562f1502dd797413d5af14f6748031279176904",
+        "718a8c7cb6aaba7b9702093658e38aa48749efaba4a4b2d27ebc07937748b312",
+        "ddc659344d459e16247e159d80e57816cb882ddfe5022522adf8c04ffa6c4de3",
+        "b36b35b5b59e16c01e20d67120e2e71d114d4842535c21c1d9638bdaa010a9b8"
+      ],
+      "token_digest": "046bd16f969201000c9c7ab14d813786912620f1132b8d070f33ad59d0d4282e",
+      "peak": 5284245884,
+      "available": 5964972032
+    },
+    {
+      "seconds": 0.765062708996993,
+      "depth": 1,
+      "maps": 8,
+      "ce": [
+        9.507809591013938e-05,
+        0.000593110453337431
+      ],
+      "gradient": 0.014378553256392479,
+      "positions": 688,
+      "site_positions": 16512,
+      "input_tokens": 664,
+      "ids": [
+        "5c517decd67feb4b704f507a529e92a99feff7273805c38934ec739f81f4f8e8",
+        "56773f5bb9b7cf5c88c8fc99371b64b2c3f5a0a0638c3f8caddc6418f3a00dab",
+        "b11f4187e454a235a55b0301d267225fd9384032d0d08d5b995bb8cc48ccfe0b",
+        "ed200c7839b0d171c0deb407ab3b3d7c9fb89cdd2da9e40b48b4122da455c4c1",
+        "2e8e8660d19dd188be0af4231f07fd13817a40d5dd522514f7f4f56f7cbe607c",
+        "bbdc5b29985550b2689b46a6faa89323964063ce32170d175862b9d5331ff1e8",
+        "ad38b038cdadaa5d647e082c2eaf31a9027bb62f0a188c2a6a03bafdb148214c",
+        "c4ed8cc33b6f106140fbcb06898255313a5bfe9adad990491a49fb76e8970a09"
+      ],
+      "token_digest": "fdb02c109cb3e2cc37c085c18f52b22e96d26d224471ca02ac8a2a6a3264a7a6",
+      "peak": 5284245884,
+      "available": 5823987712
+    },
+    {
+      "seconds": 1.0434137920019566,
+      "depth": 2,
+      "maps": 8,
+      "ce": [
+        0.0011398950591683388,
+        0.0014511013869196177
+      ],
+      "gradient": 0.17594817280769348,
+      "positions": 688,
+      "site_positions": 20640,
+      "input_tokens": 672,
+      "ids": [
+        "2e69505a71fe4a02f075326143f3041c577c2bcb39bdc117b2ed95bd37b1fc3c",
+        "71367ead11900f7c82db023f0a3c793eb4c8b948e664e7bac763217a96535de8",
+        "d01f2dc44218a6364c8d7465371bba4cef6da809e9c10c5685abd2fb3f277764",
+        "e1b60eff340cfa4601ae77eae177a1bb91ee4a581fab439d20e3c60e1726094f",
+        "3b2d076ca96fc97ca876480abeba8c776bb67d8b3190275721a99d0515eba8e6",
+        "67d3a22b1cf1222e10bcaa4db186dc921dcd5fcb6df1d15b97c4efcd16a4af4b",
+        "d1fc9932be8e7e4e25f7ee4331feb92e4bd5693685653a3ad0e4e1564ef1d507",
+        "bd1a54c8336b63b09cdce94e00c1bedaf9e88e77d0327c06c0e866d92601ba71"
+      ],
+      "token_digest": "d492181e0744b3b86dd6361b5cec2ecf2b8dac30498911630e201ae24cb3d663",
+      "peak": 5284245884,
+      "available": 5844549632
+    },
+    {
+      "seconds": 1.3348547499990673,
+      "depth": 3,
+      "maps": 8,
+      "ce": [
+        0.006403497885912657,
+        0.002247388008981943
+      ],
+      "gradient": 0.37704789638519287,
+      "positions": 688,
+      "site_positions": 24768,
+      "input_tokens": 664,
+      "ids": [
+        "a7e256f227d9215b99c74a2fe3b579593ed6085e948d2e4762e760da03a72760",
+        "9ecb623c1982136f94ad459434660a80accb91432efd8407e49dd2f3c939864c",
+        "8536de6d4e2bcbde6f3ad729eb0b81f17c65531b92bb95eca1c46e3c484fedaf",
+        "d8669f5f4ae90564691b9ecf23f275c142da4dc7f67c297a7c6c6d6c9d6b14d9",
+        "c4254e20adc570983e7a43b81772b317dee20644dbf817c870f605aaa04614e5",
+        "26b7446c79204891a300d46ded2559739af2cc1144b909342d75fd1dab111d5d",
+        "160f0565fbf8605e7effcb64f2c8403e1a6bcc0c5708f878ea452ed68544ce4e",
+        "a7dd0b8073ab31934d5a314fa1df196f76729d1ed8a6642486f6fe8d438d9076"
+      ],
+      "token_digest": "71ef031f19889f6d4b383025220cd5ba7b5783828103f95becc32d7d9a723420",
+      "peak": 5284245884,
+      "available": 4963876864
+    }
+  ],
+  "config": {
+    "base_model": "Qwen/Qwen3.5-0.8B-Base",
+    "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "precision": "bfloat16",
+    "start": 10,
+    "length": 6,
+    "passes": 3,
+    "mode": "direct",
+    "alpha_init": 0.1,
+    "alpha_schedule": null,
+    "curriculum": "direct",
+    "depth_weights": [
+      0.1,
+      0.9,
+      0.0
+    ],
+    "target": "block",
+    "projections": null,
+    "rank": 8,
+    "lora_alpha": 16,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "warmup": 0,
+    "weight_decay": 0,
+    "clip": 1.0,
+    "seed": 109,
+    "sequence_length": 64,
+    "batch_size": 8,
+    "accumulation": 1,
+    "gradient_checkpointing": false,
+    "steps": 480,
+    "checkpoint_interval": 25,
+    "eval_interval": 25,
+    "eval_count": 16,
+    "response_only": true,
+    "dataset": "phase6_pointer",
+    "training_split": "train",
+    "validation_split": "validation",
+    "gdn_backend": "native",
+    "memory_target_gib": 5.0,
+    "min_available_gib": 0.8,
+    "name": "verbal",
+    "pointer_identity_schema": 2,
+    "checkpoint_policy": "all",
+    "study": "phase7",
+    "rendering": "randomized",
+    "objective": "state_and_full_vocab",
+    "readout": "recurrent",
+    "max_depth": 3
+  },
+  "parent": {
+    "study": "phase7",
+    "parent_absolute_step": 624,
+    "parent_weights": "a63ba803bb96ea8ecbb411b6ffb2a94a7c350c93fbec31e05e9dfc694d2e9b79",
+    "parent_choice": "Owner delegated endpoint selection after exposure and causal scoring. R624 passed all seven gates. The registered 960 endpoint was interrupted.",
+    "policy": "Use experiments/phase7.json transfer policy unchanged, fresh AdamW, matched frozen before/after state-machine prompts. Stop on the first system memory warning or registered cap and evaluate the saved boundary. No retries after pressure in the pilot.",
+    "retention": "120 V3 source-disjoint passages, K1 NLL <= both base and installed K1 plus 0.10; report K3. Score full shuffled third-hop categorical accuracy before and after.",
+    "renderings": "Cycle room, document, pointer by map within each batch, independent of depth; use a distinct held-out state-machine template on the first 192 development maps. Use one gold digit as a loss label after the prompt, with no teacher-forced response in the inputs."
+  },
+  "policy": {
+    "requires": "all exposure and cross-order mechanism gates; independent of chat calibration",
+    "protocol": "single unrestricted next digit",
+    "updates": 256,
+    "batch": 8,
+    "milestones": [
+      64,
+      256
+    ],
+    "lr": 0.0001,
+    "state_weight": 0.5,
+    "vocab_weight": 0.5,
+    "seed": 109,
+    "orders": "epoch 0 map schedule; deterministic new display; cycle 1-3 by update",
+    "training_renderings": [
+      "room",
+      "document",
+      "pointer"
+    ],
+    "heldout": "state machine",
+    "evaluation_maps": 192,
+    "cap_positions": 384,
+    "max_update_seconds": 600,
+    "max_peak_gib": 6,
+    "categorical_max_drop": 0.03,
+    "retention_k1_max_increase": 0.1,
+    "promotion": "Gain >=3pp in unrestricted third-hop state-machine digits against installed checkpoint, both retention safeguards; diagnose bypass on a meaningful digit gain."
+  },
+  "status": "unsafe",
+  "wall_seconds": 65.26049016699835
+}

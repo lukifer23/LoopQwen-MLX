@@ -1,0 +1,407 @@
+{
+  "calibration": [
+    {
+      "id": "42815cb275716fc766a9ee1b44cf0a6c9117762b421cda11a906ec595820c00f",
+      "question": "What is 18 plus 7?",
+      "gold": "25",
+      "family": "arithmetic"
+    },
+    {
+      "id": "a0c6a09ba83fa10dd36632f33258d27e6dc944d55083d9fcdbf38bd380daae61",
+      "question": "Room links: 6 leads to 0, 2 leads to 2, 5 leads to 5, 1 leads to 6, 4 leads to 3, 0 leads to 7, 7 leads to 4, 3 leads to 1. Start in room 4 and follow exactly three links. What is the destination?",
+      "gold": "6",
+      "family": "pointer",
+      "map": [
+        7,
+        6,
+        2,
+        1,
+        3,
+        5,
+        0,
+        4
+      ],
+      "start": 4
+    },
+    {
+      "id": "237c861df6e01bad47e293d532ac73ca165aadc094decec59ec3148ad1a09f56",
+      "question": "Jobs run in parallel as soon as all prerequisites finish. Job: duration after prerequisites. Q: 2 after K; J: 30 after K; I: 19 after Q,D; K: 32 after none; D: 17 after P; P: 21 after none. When does job I finish?",
+      "gold": "57",
+      "family": "dependencies",
+      "generator_id": "c56d90e3840218e6f3a4bda17f1dee7b258425f96384d865e8a12f6c3044411f",
+      "certificate": "job K finishes at 0+32 = 32\njob P finishes at 0+21 = 21\njob Q finishes at 32+2 = 34\njob J finishes at 32+30 = 62\njob D finishes at 21+17 = 38\njob I finishes at 38+19 = 57\nFinal answer: 57"
+    },
+    {
+      "id": "8ce8391c47afeb5a6ee330f859e754c286ea89c4b2fc66b5a340186cef734558",
+      "question": "Evaluate (((4 * 15) * 13) + 5).",
+      "gold": "785",
+      "family": "arithmetic",
+      "generator_id": "cb855ce246e4bab40faa39b8c5aec689381385a0a8d91e2ed69bb07b918223b6",
+      "certificate": "4 * 15 = 60\n60 * 13 = 780\n780 + 5 = 785\nFinal answer: 785"
+    },
+    {
+      "id": "33485f536007afd30170a8075e6ec05a3603355f981236ad594193a50fc61275",
+      "question": "Room links: 6 leads to 0, 5 leads to 6, 7 leads to 3, 0 leads to 1, 4 leads to 7, 3 leads to 5, 2 leads to 4, 1 leads to 2. Start in room 4 and follow exactly three links. What is the destination?",
+      "gold": "5",
+      "family": "pointer",
+      "map": [
+        1,
+        2,
+        4,
+        5,
+        7,
+        6,
+        0,
+        3
+      ],
+      "start": 4
+    },
+    {
+      "id": "d547756c46e6c69dcab10d6d08dc15e501c141066b0d03dbc9327974e4d5d4ba",
+      "question": "Solve this problem. Start at 12. For each t in [15, 6, 16], replace x by (t*x+t-1) mod 29. Find the final x.",
+      "gold": "14",
+      "family": "modular",
+      "generator_id": "8ad439d86a5fae7d7af8447162ec792e8822d41c1b755db262bad02eb714ab4a",
+      "certificate": "(12*15+14) mod 29 = 20\n(20*6+5) mod 29 = 9\n(9*16+15) mod 29 = 14\nFinal answer: 14"
+    },
+    {
+      "id": "c0cdda62ce4237905df3e8774729c4db6f3c4a3c81d265521d941cd060a19570",
+      "question": "Jobs run in parallel as soon as all prerequisites finish. Job: duration after prerequisites. U: 27 after E,M; T: 21 after none; M: 24 after C; K: 20 after C; E: 29 after T; L: 31 after U; C: 11 after none. When does job L finish?",
+      "gold": "108",
+      "family": "dependencies",
+      "generator_id": "8b37030e050e056d3d601dbff8bb6259f055de9573ebfc16f2d5aa06672d126b",
+      "certificate": "job T finishes at 0+21 = 21\njob C finishes at 0+11 = 11\njob E finishes at 21+29 = 50\njob M finishes at 11+24 = 35\njob K finishes at 11+20 = 31\njob U finishes at 50+27 = 77\njob L finishes at 77+31 = 108\nFinal answer: 108"
+    },
+    {
+      "id": "74e8f4086e1cc058ecc38178d63d0525103431009710d451f7ce8ed321952fa6",
+      "question": "Room links: 7 leads to 0, 6 leads to 3, 0 leads to 6, 3 leads to 2, 2 leads to 4, 1 leads to 1, 5 leads to 7, 4 leads to 5. Start in room 7 and follow exactly three links. What is the destination?",
+      "gold": "3",
+      "family": "pointer",
+      "map": [
+        6,
+        1,
+        4,
+        2,
+        5,
+        7,
+        3,
+        0
+      ],
+      "start": 7
+    }
+  ],
+  "comparison": [
+    {
+      "id": "1b7ce0ef3af63ffa6199e3eb52db2b4658da72c0572eeb88e0bc61acf6829eae",
+      "question": "Room links: 3 leads to 7, 4 leads to 6, 1 leads to 1, 5 leads to 5, 7 leads to 0, 2 leads to 3, 6 leads to 2, 0 leads to 4. Start in room 2 and follow exactly three links. What is the destination?",
+      "gold": "0",
+      "family": "pointer",
+      "map": [
+        4,
+        1,
+        3,
+        7,
+        6,
+        5,
+        2,
+        0
+      ],
+      "start": 2
+    },
+    {
+      "id": "7fcf67dc9882bf75aa66864a6db0b55ebbae797c769bcfb6c01248a4296d4bef",
+      "question": "Evaluate (((5 * 7) + 15) * 14).",
+      "gold": "700",
+      "family": "arithmetic",
+      "generator_id": "37fcb618e31c9efdbf42b13a5c8bc2240d6d6286c5ebc272c48bc4c5fb080b4e",
+      "certificate": "5 * 7 = 35\n35 + 15 = 50\n50 * 14 = 700\nFinal answer: 700"
+    },
+    {
+      "id": "ce805f86541c1c528140604cf281ce047bcc2021a0bdb7cb57ce5392e3ff4aed",
+      "question": "Room links: 2 leads to 2, 1 leads to 7, 6 leads to 3, 3 leads to 1, 4 leads to 5, 5 leads to 0, 0 leads to 6, 7 leads to 4. Start in room 0 and follow exactly three links. What is the destination?",
+      "gold": "1",
+      "family": "pointer",
+      "map": [
+        6,
+        7,
+        2,
+        1,
+        5,
+        0,
+        3,
+        4
+      ],
+      "start": 0
+    },
+    {
+      "id": "8b6515c09c7b41cc9c7a1e9e6719b66560da8c7fee46f0d41e6e4d555cf5c870",
+      "question": "Start at 40. For each t in [6, 10, 13, 8], replace x by (t*x+t-1) mod 23. Find the final x.",
+      "gold": "10",
+      "family": "modular",
+      "generator_id": "e7e4ae21e33eb8087903b35681711f1328b9b23c458cabc84929645b18aeb6d3",
+      "certificate": "(40*6+5) mod 23 = 15\n(15*10+9) mod 23 = 21\n(21*13+12) mod 23 = 9\n(9*8+7) mod 23 = 10\nFinal answer: 10"
+    },
+    {
+      "id": "cf9fc64cf09819e8961443e1ad98f1842d5190ecda912c6b051091108eb66898",
+      "question": "Room links: 5 leads to 0, 6 leads to 7, 3 leads to 5, 7 leads to 2, 1 leads to 1, 2 leads to 3, 0 leads to 6, 4 leads to 4. Start in room 0 and follow exactly three links. What is the destination?",
+      "gold": "2",
+      "family": "pointer",
+      "map": [
+        6,
+        1,
+        3,
+        5,
+        4,
+        0,
+        7,
+        2
+      ],
+      "start": 0
+    },
+    {
+      "id": "d53e9f64eab49b217cbabe26516f822d9fef7f62c7692eff4c40eada177ded55",
+      "question": "Jobs run in parallel as soon as all prerequisites finish. Job: duration after prerequisites. G: 7 after none; X: 9 after R; R: 22 after none; W: 14 after J,S; J: 5 after G; S: 24 after R. When does job W finish?",
+      "gold": "60",
+      "family": "dependencies",
+      "generator_id": "40e7cd67e17fd0a12595a95b424e0f19790c7d5f4bcfda09f32844f803c711f4",
+      "certificate": "job G finishes at 0+7 = 7\njob R finishes at 0+22 = 22\njob J finishes at 7+5 = 12\njob S finishes at 22+24 = 46\njob X finishes at 22+9 = 31\njob W finishes at 46+14 = 60\nFinal answer: 60"
+    },
+    {
+      "id": "1f124081d3159e1d84e8dc99befe982984a2ef138593ff9e432f6351b36d6805",
+      "question": "Room links: 5 leads to 0, 4 leads to 2, 0 leads to 4, 3 leads to 5, 2 leads to 1, 1 leads to 3, 7 leads to 6, 6 leads to 7. Start in room 1 and follow exactly three links. What is the destination?",
+      "gold": "0",
+      "family": "pointer",
+      "map": [
+        4,
+        3,
+        1,
+        5,
+        2,
+        0,
+        7,
+        6
+      ],
+      "start": 1
+    },
+    {
+      "id": "902be4b7ba003d725d52af1b7bb8987fcff003f0787b9670ae8d32984a954664",
+      "question": "Compute the result. Evaluate ((((11 * 7) + 5) - 3) + 12).",
+      "gold": "91",
+      "family": "arithmetic",
+      "generator_id": "7942cef437d9cdae63ab3f509a8010c58c6fe8b6bec4d2bfe22261516cd82611",
+      "certificate": "11 * 7 = 77\n77 + 5 = 82\n82 - 3 = 79\n79 + 12 = 91\nFinal answer: 91"
+    },
+    {
+      "id": "959ae588ec2729c1393cdb72ab83f8901f6de49fbc2aff55671864adf18c6e42",
+      "question": "Room links: 4 leads to 4, 3 leads to 3, 7 leads to 1, 2 leads to 2, 1 leads to 5, 6 leads to 6, 0 leads to 7, 5 leads to 0. Start in room 1 and follow exactly three links. What is the destination?",
+      "gold": "7",
+      "family": "pointer",
+      "map": [
+        7,
+        5,
+        2,
+        3,
+        4,
+        0,
+        6,
+        1
+      ],
+      "start": 1
+    },
+    {
+      "id": "7df8e1a6ea319aafbb26bc184833f0a575fecf5d54eab2a19930e3c949b6281a",
+      "question": "Solve this problem. Start at 20. For each t in [12, 6, 16], replace x by (t*x+t-1) mod 11. Find the final x.",
+      "gold": "2",
+      "family": "modular",
+      "generator_id": "db5ee5b87a2075fbbfc05930d3a3ef17d38485056ba61830f862d68c787f552c",
+      "certificate": "(20*12+11) mod 11 = 9\n(9*6+5) mod 11 = 4\n(4*16+15) mod 11 = 2\nFinal answer: 2"
+    },
+    {
+      "id": "4ad7460c4c07582c64fd89e9d3789467d21b33e54d1f5528930a247ef8982938",
+      "question": "Room links: 4 leads to 0, 5 leads to 5, 3 leads to 1, 0 leads to 6, 6 leads to 4, 7 leads to 2, 2 leads to 3, 1 leads to 7. Start in room 1 and follow exactly three links. What is the destination?",
+      "gold": "3",
+      "family": "pointer",
+      "map": [
+        6,
+        7,
+        3,
+        1,
+        0,
+        5,
+        4,
+        2
+      ],
+      "start": 1
+    },
+    {
+      "id": "6a546197a43259d393b1ee43bd016c4dd7f68076d07790bd67db29ed73b2c279",
+      "question": "Jobs run in parallel as soon as all prerequisites finish. Job: duration after prerequisites. K: 12 after N,C; Y: 18 after none; L: 21 after none; N: 23 after L; C: 14 after Y; H: 10 after Y; W: 16 after K. When does job W finish?",
+      "gold": "72",
+      "family": "dependencies",
+      "generator_id": "9d527181df38113784455d12619b876aba1bc2354f2c9e2bc497151ec9d80017",
+      "certificate": "job L finishes at 0+21 = 21\njob Y finishes at 0+18 = 18\njob N finishes at 21+23 = 44\njob C finishes at 18+14 = 32\njob H finishes at 18+10 = 28\njob K finishes at 44+12 = 56\njob W finishes at 56+16 = 72\nFinal answer: 72"
+    },
+    {
+      "id": "a2d1212fcd08306b1176c5f7ec8172cc19146c0e1dde4a79c1cbc4a6d8d5c833",
+      "question": "Room links: 4 leads to 7, 6 leads to 3, 0 leads to 2, 5 leads to 6, 2 leads to 1, 3 leads to 5, 1 leads to 4, 7 leads to 0. Start in room 1 and follow exactly three links. What is the destination?",
+      "gold": "0",
+      "family": "pointer",
+      "map": [
+        2,
+        4,
+        1,
+        5,
+        7,
+        6,
+        3,
+        0
+      ],
+      "start": 1
+    },
+    {
+      "id": "6eac23301de7b4f325782e50b80becf550cb2bcce025f6dc00ccdf0991434a06",
+      "question": "Evaluate (((28 * 5) - 6) + 5).",
+      "gold": "139",
+      "family": "arithmetic",
+      "generator_id": "d80b2051e034c6447a66df119f59186f6d568a8f420f8ac0936c8c2512ecd26a",
+      "certificate": "28 * 5 = 140\n140 - 6 = 134\n134 + 5 = 139\nFinal answer: 139"
+    },
+    {
+      "id": "4ff6f716b52a020c2ea352e826c924066fe64426b8a1be69b13be2707860563a",
+      "question": "Room links: 6 leads to 0, 4 leads to 4, 7 leads to 2, 2 leads to 5, 5 leads to 1, 3 leads to 3, 0 leads to 7, 1 leads to 6. Start in room 1 and follow exactly three links. What is the destination?",
+      "gold": "7",
+      "family": "pointer",
+      "map": [
+        7,
+        6,
+        5,
+        3,
+        4,
+        1,
+        0,
+        2
+      ],
+      "start": 1
+    },
+    {
+      "id": "70fdd924ab7356c894e4bcee847defd059f0e4122f135f637f31c77aa1f0d4c1",
+      "question": "Solve this problem. Start at 12. For each t in [4, 15, 2, 3], replace x by (t*x+t-1) mod 29. Find the final x.",
+      "gold": "10",
+      "family": "modular",
+      "generator_id": "f75066245c32c0dba135cd2b19ae4a2ebba2f96cb9abe54d94f714c6601748b7",
+      "certificate": "(12*4+3) mod 29 = 22\n(22*15+14) mod 29 = 25\n(25*2+1) mod 29 = 22\n(22*3+2) mod 29 = 10\nFinal answer: 10"
+    },
+    {
+      "id": "7fbdfeac30911bd22bdc5d0efcb5833493e3c7e5f4b0c2454adad5bbb387a2a7",
+      "question": "Room links: 4 leads to 4, 0 leads to 7, 2 leads to 3, 6 leads to 6, 1 leads to 5, 5 leads to 0, 3 leads to 1, 7 leads to 2. Start in room 3 and follow exactly three links. What is the destination?",
+      "gold": "0",
+      "family": "pointer",
+      "map": [
+        7,
+        5,
+        3,
+        1,
+        4,
+        0,
+        6,
+        2
+      ],
+      "start": 3
+    },
+    {
+      "id": "1504c8b8b826c96c9747f99dea911caf8e94827453eb1b9bd1381bff9053d28f",
+      "question": "Jobs run in parallel as soon as all prerequisites finish. Job: duration after prerequisites. K: 5 after none; H: 15 after K; R: 14 after L; T: 30 after K; U: 13 after H,R; L: 25 after none. When does job U finish?",
+      "gold": "52",
+      "family": "dependencies",
+      "generator_id": "d615d458ea504837907d394741adb5b670adf679ef53defbce53d555d8db78ea",
+      "certificate": "job K finishes at 0+5 = 5\njob L finishes at 0+25 = 25\njob H finishes at 5+15 = 20\njob T finishes at 5+30 = 35\njob R finishes at 25+14 = 39\njob U finishes at 39+13 = 52\nFinal answer: 52"
+    },
+    {
+      "id": "aea7b152807bc50fd21e4b60b0d612cef101ac8bad694f49e7c3cd39a0adf283",
+      "question": "Room links: 4 leads to 0, 0 leads to 7, 3 leads to 3, 6 leads to 4, 2 leads to 5, 5 leads to 6, 7 leads to 1, 1 leads to 2. Start in room 1 and follow exactly three links. What is the destination?",
+      "gold": "6",
+      "family": "pointer",
+      "map": [
+        7,
+        2,
+        5,
+        3,
+        0,
+        6,
+        4,
+        1
+      ],
+      "start": 1
+    },
+    {
+      "id": "5efb24bc7068711b76ece541a1cde4d75851b018b6c24ae97bae8a0c114ddebd",
+      "question": "Solve this problem. Evaluate ((((42 - 7) * 14) + 11) * 12).",
+      "gold": "6012",
+      "family": "arithmetic",
+      "generator_id": "f4e54c1bd0a253f953eeec848f148059f6b922c1dbc7a09281756cfc692eea29",
+      "certificate": "42 - 7 = 35\n35 * 14 = 490\n490 + 11 = 501\n501 * 12 = 6012\nFinal answer: 6012"
+    },
+    {
+      "id": "0249cd08d4b919e70f78a150fe77b107824ba05a3aa9086938c806b153196405",
+      "question": "Room links: 0 leads to 2, 3 leads to 1, 7 leads to 3, 5 leads to 6, 6 leads to 4, 4 leads to 0, 1 leads to 5, 2 leads to 7. Start in room 0 and follow exactly three links. What is the destination?",
+      "gold": "3",
+      "family": "pointer",
+      "map": [
+        2,
+        5,
+        7,
+        1,
+        0,
+        6,
+        4,
+        3
+      ],
+      "start": 0
+    },
+    {
+      "id": "440e3ee2fd67f063bb41a44d8338887c995f786dfd58ba66e0efb40427f2b299",
+      "question": "Solve this problem. Start at 22. For each t in [4, 4, 4], replace x by (t*x+t-1) mod 29. Find the final x.",
+      "gold": "21",
+      "family": "modular",
+      "generator_id": "a6514756a6740f691fe48d625004a3331b2f78f7241703f689d234f756ebdf95",
+      "certificate": "(22*4+3) mod 29 = 4\n(4*4+3) mod 29 = 19\n(19*4+3) mod 29 = 21\nFinal answer: 21"
+    },
+    {
+      "id": "e32e4ddb2cad085c565628a27c9de3b88c60ac4843ca954fbb89582560f7f9ca",
+      "question": "Room links: 2 leads to 4, 7 leads to 5, 5 leads to 3, 3 leads to 1, 1 leads to 6, 0 leads to 0, 6 leads to 7, 4 leads to 2. Start in room 3 and follow exactly three links. What is the destination?",
+      "gold": "7",
+      "family": "pointer",
+      "map": [
+        0,
+        6,
+        4,
+        1,
+        2,
+        3,
+        7,
+        5
+      ],
+      "start": 3
+    },
+    {
+      "id": "0322762ad8bc274c9951d7d2b82f170722e58d6746864cc39d132e271d87615a",
+      "question": "Jobs run in parallel as soon as all prerequisites finish. Job: duration after prerequisites. R: 9 after none; D: 21 after none; C: 6 after R; W: 8 after Y,S; Y: 18 after D; V: 27 after W; S: 29 after R. When does job V finish?",
+      "gold": "74",
+      "family": "dependencies",
+      "generator_id": "4f51fd359688418d21d866ffbe8ee5d0c10192645c7e23bfb1ecb0f397d4edf4",
+      "certificate": "job D finishes at 0+21 = 21\njob R finishes at 0+9 = 9\njob Y finishes at 21+18 = 39\njob S finishes at 9+29 = 38\njob C finishes at 9+6 = 15\njob W finishes at 39+8 = 47\njob V finishes at 47+27 = 74\nFinal answer: 74"
+    }
+  ],
+  "demos": [
+    [
+      "What is 4 times 3 plus 1?",
+      "4 \u00d7 3 = 12, and 12 + 1 = 13.",
+      "13"
+    ],
+    [
+      "A path goes from 2 to 6 and from 6 to 1. Starting at 2, where are you after two links?",
+      "The two successive rooms are 6 and 1.",
+      "1"
+    ]
+  ]
+}
