@@ -72,13 +72,22 @@ class Budget:
             self.session_start = read(local_session)["start"]
         self.ledger = OUT / ("budget-" + str(int(self.session_start)) + ".json")
         acquire()
+        if (OUT / f"closed-{int(self.session_start)}.json").exists() or state.get(
+            "closed_session_start"
+        ) == self.session_start:
+            raise RuntimeError("Research session is closed")
         self.jobs = read(self.ledger) if self.ledger.exists() else []
         limits = state["limits"]
         started = {r["job"] for r in self.jobs}
         if name not in started and len(started) >= limits["iterations"]:
             raise RuntimeError("Session iteration budget exhausted")
         spent = sum(r["seconds"] for r in self.jobs)
-        already = sum(r["seconds"] for r in self.jobs if r["job"] == name)
+        already = sum(
+            r["seconds"]
+            for ledger in OUT.glob("budget-*.json")
+            for r in read(ledger)
+            if r["job"] == name
+        )
         self.deadline = min(
             self.start + spec["wall_seconds"] - already,
             self.session_start + limits["wall_seconds"],
@@ -114,12 +123,12 @@ class Budget:
             pressure = subprocess.check_output(
                 ["sysctl", "-n", "kern.memorystatus_vm_pressure_level"], text=True
             ).strip()
-            if (
-                pressure != "1"
-                or psutil.virtual_memory().available
-                < self.spec["available_gib"] * 2**30
-            ):
-                raise MemoryError("System memory pressure")
+            available = psutil.virtual_memory().available / 2**30
+            if pressure != "1" or available < self.spec["available_gib"]:
+                raise MemoryError(
+                    f"System memory pressure level {pressure}, {available:.2f} GiB "
+                    f"available (floor {self.spec['available_gib']} GiB)"
+                )
 
     def close(self):
         self.jobs.append(

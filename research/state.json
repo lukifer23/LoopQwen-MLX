@@ -70,13 +70,14 @@
       "reason": "Static 53/128 sixth hops vs online 33/128; permutation anchor dropped to 12/96 and 11/96. Round two closed."
     }
   ],
-  "status": "owner authorized continued work; checking resource recovery before the 84-position interleaving comparison",
-  "next_action": "If the worker lease is free and memory conditions have recovered, run .venv/bin/python -m loopqwen.research.interleave in this same bounded session.",
+  "status": "Native session closed after repeated macOS memory-guard interruptions. Interleaving comparison incomplete.",
+  "next_action": "When sustained system memory headroom is available, verify the original control optimizer and resume the registered interleaving comparison from update 1 in an authorized session. See docs/NEXT_EXPERIMENTS.md.",
   "hypothesis": "Replacing two of eight new-task examples with prior permutation training examples can preserve the old operation during functional-graph adaptation.",
   "budget_used": {
-    "iterations_started": 4,
-    "experiment_wall_seconds": 475.4401071071625,
-    "peak_experiment_mlx_gib": 4.868857823312283
+    "iterations_started": 5,
+    "experiment_wall_seconds": 480.757981300354,
+    "peak_experiment_mlx_gib": 4.868857823312283,
+    "session_wall_seconds_at_close": 1036.320354938507
   },
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
@@ -104,6 +105,15 @@
       "updates": 16,
       "valid": 26,
       "correct": 1
+    },
+    {
+      "id": "functional-interleave-01",
+      "reason": "Memory guard after the first control update at the 84-position physical cap",
+      "control_updates": 1,
+      "permutation_updates": 0,
+      "snapshot": "research/sessions/2026-11-24-resumed/interleave-control-step1",
+      "paired_evaluation": false
     }
-  ]
+  ],
+  "closed_session_start": 1795488109.708839
 }

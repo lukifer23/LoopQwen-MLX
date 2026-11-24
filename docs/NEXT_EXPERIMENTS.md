@@ -1,14 +1,17 @@
 # Next experiment
 
-**Test whether interleaving prior permutation training maps prevents catastrophic forgetting during functional-graph adaptation.** Static training raised sixth-hop accuracy from 4/128 to 53/128 but cut third-hop permutation accuracy from 96/96 to 12/96. Replaying the learner's own difficult examples reached 33/128 and retained 11/96. This provides a specific reason to repeat old-task examples during adaptation.
+**Finish the registered retention comparison when the Mac has sustained memory headroom.** Training exclusively on arbitrary successor maps improved sixth-hop accuracy from 4/128 to 53/128 but cut third-hop permutation accuracy from 96/96 to 12/96. The pending comparison tests whether mixing two prior permutation examples into each batch of eight preserves the old operation.
 
-The frozen comparison gives both forks 96 identical new maps, 16 updates and the same six-hop parent. Two of eight examples in each logical update carry either repeats of functional maps or old permutation training maps. The measured-safe physical position cap is 84. The treatment must gain ten points on the new task and lose at most two of 96 prior third hops. Exact map IDs and display orders are already frozen. No optimizer update or score from this study is claimed. [Registration](../research/experiments/functional-interleave-01.json) · [Frozen schedule](../research/data/functional-interleave-01.json)
+Both arms have the same six-hop parent and 96 identical fresh maps. The functional-only control fills the other 32 slots with repeated functional maps. The treatment fills those slots with old permutation training maps. Success requires a ten-point new-task gain and at most two lost prior third hops. [Registration](../research/experiments/functional-interleave-01.json) · [Frozen schedule](../research/data/functional-interleave-01.json)
 
-The memory guard interrupted the separate math workload during evaluation. Continue under the existing authorized window after pressure returns to normal and sufficient memory is available. For a fresh reproduction, open a bounded session first.
+At the 84-position cap, the control completed **1/16** optimizer updates. The treatment completed **0/16**. The system memory guard stopped the worker after 5.32 seconds at 2.38 GiB peak MLX allocation. Preflight had found normal OS pressure and 5.34–6.38 GiB available across six checks. That short recovery proved insufficient for sustained training. The session is closed. The remaining study allowance on this host is 174.68 seconds. The saved generation includes the exact first logical batch and its optimizer state. The published compact copy records the local optimizer digest. [Snapshot](../research/sessions/2026-11-24-resumed/interleave-control-step1) · [Session accounting](../research/sessions/2026-11-24-resumed/execution.json)
+
+On the original training host, run the recovery check first. In the next authorized window with materially improved memory conditions, open a session and resume. The runner restores AdamW and the saved cursor.
 
 ```sh
+python3 scripts/verify_research_recovery.py research/sessions/2026-11-24-resumed/interleave-control-step1
 .venv/bin/python scripts/research_session.py
 .venv/bin/python -m loopqwen.research.interleave
 ```
 
-The short external math adaptation taught valid turn completion but missed its answer-quality threshold. Extending its reasoning benchmark, training the gated dense attribution control, or using its outputs for self-training would require new evidence.
+The external math pilot produced one correct answer from 32 questions. Its accuracy gate closed the larger math comparison. The paired terminal-number study favored ordinary-depth training and leaves little support for spending more compute on the same three-pass objective. [Capability scoreboard](CAPABILITY_SCOREBOARD.md)

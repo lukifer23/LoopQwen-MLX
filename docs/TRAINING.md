@@ -161,3 +161,5 @@ python3 scripts/research_archive.py functional-replay-cap84 --verify
 python3 scripts/research_archive.py gsm-equations-01 --verify
 python3 scripts/audit_gsm_equations.py
 ```
+
+Study time limits include prior charged invocations in this checkout. A closed research window rejects new native jobs. Preserve the local budget ledgers alongside optimizer generations for exact continuation. The study of mixed permutation and functional training saved the control after update one. The recovery check validates the adapter and AdamW file digests, moment shapes, metadata and step without loading the model. [Commands and remaining budget](NEXT_EXPERIMENTS.md)

@@ -1,0 +1,60 @@
+{
+  "start": 1795488109.708839,
+  "reason": "Native session closed after repeated macOS memory-guard interruptions. Interleaving comparison incomplete.",
+  "experiments": [
+    {
+      "job": "functional-terminal-01",
+      "seconds": 192.54034614562988,
+      "peak_bytes": 2639571230,
+      "start": 1795488110.946858
+    },
+    {
+      "job": "functional-replay-01",
+      "seconds": 17.37564706802368,
+      "peak_bytes": 5227896280,
+      "start": 1795488304.996275
+    },
+    {
+      "job": "functional-replay-cap84",
+      "seconds": 68.69317603111267,
+      "peak_bytes": 2568653998,
+      "start": 1795488351.32163
+    },
+    {
+      "job": "gsm-equations-01",
+      "seconds": 138.44734692573547,
+      "peak_bytes": 4902385448,
+      "start": 1795488421.749395
+    },
+    {
+      "job": "gsm-equations-01",
+      "seconds": 58.38359093666077,
+      "peak_bytes": 2281811724,
+      "start": 1795488595.194283
+    },
+    {
+      "job": "functional-interleave-01",
+      "seconds": 5.317874193191528,
+      "peak_bytes": 2555555884,
+      "start": 1795488892.56564
+    }
+  ],
+  "iterations_started": 5,
+  "experiment_wall_seconds": 480.757981300354,
+  "peak_experiment_mlx_gib": 4.868857823312283,
+  "session_wall_seconds_at_close": 1036.320354938507,
+  "validation": {
+    "historical_archive_checks": [
+      "phase4",
+      "phase5",
+      "phase6",
+      "phase7",
+      "rsi1",
+      "rsi2",
+      "rsi_followup"
+    ],
+    "published_research_archives": 12,
+    "local_optimizer_generations_verified": 7,
+    "focused_tests_passed": 4
+  }
+}
