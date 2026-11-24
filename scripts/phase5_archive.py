@@ -172,6 +172,24 @@ def archive(dest, seed):
                     gen / "adapters.safetensors", folder / "adapters.safetensors"
                 )
                 write(folder / "state.json", state)
+                scores = ", ".join(str(m["correct"]) for m in r["metrics"])
+                purpose = (
+                    "Terminal-only continuation from the installed recurrent checkpoint"
+                    if arm == "outcome"
+                    else "Intermediate-state supervision on shared recurrent passes"
+                )
+                (folder / "README.md").write_text(
+                    f"# Seed {seed} categorical {arm} checkpoint\n\n"
+                    f"{purpose}. The artifact contains {state['capacity']:,} trainable parameters, "
+                    "including the shared eight-class state readout. It requires the official "
+                    f"Qwen3.5-0.8B-Base at `{state['base']}`. The study code and generated maps use "
+                    "the repository MIT license. The official base weights carry Apache License 2.0.\n\n"
+                    f"After update {final}, the checkpoint scored {scores} correct at one, two and three "
+                    f"hops on 384 canonical development maps. Artifact SHA-256 `{weights}`. "
+                    "Display order, number of hops and rendering can affect these scores. "
+                    f"Run `.venv/bin/python scripts/phase5_predict.py --arm {arm} --verify` for "
+                    "a fresh native probability comparison. [Research report](../../../../PHASE5_RESULTS.md)\n"
+                )
             if arm in ("recurrent", "bridge", "outcome"):
                 d = read(results / f"diagnostics-{arm}-{final}.json")
                 if d["weights"] != weights or d["cases"] != sha(data / "cases.jsonl"):

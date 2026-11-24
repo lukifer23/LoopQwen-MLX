@@ -14,3 +14,13 @@ Training and development inherit the Phase 4 pointer permutations. The project g
 The start belongs to a cycle of length four through eight. Through depth three the uniform conditional baseline is 1/7. A predictor fitted to training counts given start and depth scores 53, 62 and 54 of 384. The installation thresholds are 113, 120 and 113 correct. An unseen permutation can share its cycle structure with many training maps.
 
 Generate the data with `scripts/run_phase5.sh data`. The local manifest records generator and split hashes, start and cycle frequencies and terminal distributions for each depth. [Generator](../loopqwen/data/pointer5.py) · [Registration](../experiments/phase5.json)
+
+| Start-cycle length | Train | Development | Sealed cohort |
+|---:|---:|---:|---:|
+| 4 | 809 | 78 | 82 |
+| 5 | 761 | 80 | 87 |
+| 6 | 750 | 67 | 82 |
+| 7 | 763 | 85 | 65 |
+| 8 | 757 | 74 | 68 |
+
+The eight nodes admit 40,320 permutations in total. Map disjointness measures instance generalization. Shuffling edge order tests a separate rendering change while leaving the underlying map and trajectory fixed. The original cross-map diagnostic selected three distinct donors across 64 recipients. The separately registered sensitivity check uses 64 distinct donor maps, exactly eight for each donor state. [Donor selection](../experiments/phase5_donors.json)
