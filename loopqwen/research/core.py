@@ -363,8 +363,7 @@ def train(m, docs, spec, root, budget, identity, *, state_docs=None):
             )
             if st["step"] % 16 == 0:
                 checkpoint.write(root, m, opt, st)
-                state_vg = nn.value_and_grad(m, state_loss) if state_docs else None
-    saved = st["step"]
+                saved = st["step"]
     finally:
         if saved != st["step"]:
             checkpoint.write(root, m, opt, st)
