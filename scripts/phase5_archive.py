@@ -116,7 +116,9 @@ def archive(dest, seed):
             selected = "bridge"
             arms.append(selected)
         if passes(selected):
-            arms.extend(["multi", "terminal", "outcome"])
+            arms.extend(["multi", "terminal"])
+            if selected == "recurrent":
+                arms.append("outcome")
         for arm in arms:
             checkpoint = Path("checkpoints") / f"p5_{seed}_{arm}"
             final = 560 if arm == "outcome" else 480
@@ -132,6 +134,8 @@ def archive(dest, seed):
                     "loopqwen/data/transitions.py",
                     "loopqwen/evaluation/pointer5.py",
                 }
+                if state["config"].get("pointer_identity_schema") == 2:
+                    paths.add("loopqwen/training/pointer_provenance.py")
                 source_trees[state["git"]] = {
                     p: hashlib.sha256(
                         subprocess.check_output(["git", "show", state["git"] + ":" + p])
