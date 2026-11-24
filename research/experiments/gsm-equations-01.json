@@ -1,0 +1,11 @@
+{
+ "id":"gsm-equations-01","seed":95902,"parent_path":"research/results/joint-trace-01/model","parent_sha256":"75d63d5ca8887fdc7cd4ecb4310fd29f00c39e3cb6b6f653be80487d6af0ff48","depth":3,
+ "hypothesis":"Response-only supervision of checked equation sequences plus genuine first-turn completion will produce more correct completed GSM8K answers than untouched Base on identical thinking-enabled prompts.",
+ "source":{"revision":"3101c7d5072418e28b9008a6636bde82a006892c","sha256":"17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465","license":"MIT","split":"publisher train"},
+ "data":"256 training questions with 2-5 exact calculator annotations and an integral final answer equal to the last annotated result. Exclude prior project evaluation items and direct pilot questions. Development: 32 fresh unannotated publisher training rows, ineligible for all historical optional calculator-trace training, excluding earlier anchors and reserves. Stable seeded ordering, disjoint questions. Public pretraining overlap unknown. Freeze exact membership before running.",
+ "protocol":"Identical thinking-enabled chat for Base K1 and trained K3. One fixed worked demonstration. Request short equations, then Final answer: number. Greedy, cap 160; stop at first official boundary; score only closed thinking plus completed strict numeric final. No generated tokens forced. Secondary arithmetic consistency checks each expression and its final value; this measures numerical consistency, not full semantic validity.",
+ "objective":"Response-only full-vocabulary CE over calculator equations, closing thinking marker, final answer and official chat end. Fixed K3, same rank-eight block, fresh AdamW. Pin token boundary for entire prompt and response. Exclude overlength items before seeded sampling.",
+ "train_maps":256,"dev_maps":32,"logical_batch":8,"cap_positions":320,"updates":32,"lr":0.0001,"clip":1,"weight_decay":0,"generation_cap":160,
+ "gate":"Candidate must complete >=16/32 strict answers, gain at least 2 net correct answers over Base, and lose <=2 of 96 categorical third hops versus joint parent. Report each criterion plus prose NLL at K1 and K3. A data-matched dense attribution study requires the whole gate. No expanded unscorable benchmark.",
+ "limits":{"wall_seconds":600,"peak_gib":5,"available_gib":1.5}
+}
