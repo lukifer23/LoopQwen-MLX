@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "verified-generations-01",
+  "active": null,
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -17,7 +17,7 @@
     "combined_room_and_state": "research/results/joint-trace-01/model at K3"
   },
   "frontier": "Measured-time static training 255/256 vs adaptive 248/256. General retention of the six-hop model remains unmeasured.",
-  "next": "Finish the registered two-generation comparison or its registered yield, ceiling or retention stop.",
+  "next": "functional-terminal-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -53,6 +53,35 @@
       "id": "functional-zero-01",
       "promoted": false,
       "reason": "6/192 full functional paths, 190/192 restricted permutation paths"
+    },
+    {
+      "id": "verified-generations-01",
+      "promoted": false,
+      "reason": "Two model-directed generations, 57/64 verified vs 60/64 gold; the gold arm crossed the categorical retention safeguard."
     }
+  ],
+  "status": "session closed at eight primary comparisons",
+  "next_action": "In a newly authorized window run .venv/bin/python scripts/research_session.py then .venv/bin/python -m loopqwen.research.terminal",
+  "hypothesis": "Extra recurrent computation may improve terminal-only language answers when the graph permits repeated successors and intermediate tokens are unavailable.",
+  "budget_used": {
+    "iterations": 8,
+    "experiment_wall_seconds": 868.5644221305847,
+    "release_and_regression_wall_seconds": 53.86630312498892,
+    "training_update_seconds": 295.1387705909874,
+    "session_wall_seconds_at_close": 1181.5625939369202,
+    "peak_experiment_mlx_gib": 2.6801053564995527
+  },
+  "known_limits": [
+    "Thinking-enabled Base completed 3/8 calibration questions",
+    "Six-hop unrestricted graph paths 6/192",
+    "No external quality advantage on 32 GSM8K and 32 ARC-Easy development items",
+    "General-language loss worsens at K3 versus original Base K1",
+    "One installation seed; no sealed confirmation"
+  ],
+  "rejected": [
+    "Frozen prefix cache failed gradient parity",
+    "Two-rendering adaptive curriculum lost to equal-time static training",
+    "Suffix-only trace fork missed quality and prose safeguards",
+    "Verified-success document trace selection lost to static gold at equal updates"
   ]
 }

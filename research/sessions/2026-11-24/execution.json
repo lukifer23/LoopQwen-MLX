@@ -1,0 +1,111 @@
+{
+  "experiments": [
+    {
+      "job": "trace-bootstrap-01",
+      "seconds": 107.64202094078064,
+      "peak_bytes": 2872408930,
+      "start": 1795486956.386734
+    },
+    {
+      "job": "turn-calibration-01",
+      "seconds": 74.03097605705261,
+      "peak_bytes": 1784677858,
+      "start": 1795487087.919282
+    },
+    {
+      "job": "suffix-trace-01",
+      "seconds": 93.22485494613647,
+      "peak_bytes": 2215264568,
+      "start": 1795487163.7790332
+    },
+    {
+      "job": "external-anchor-01",
+      "seconds": 20.16369390487671,
+      "peak_bytes": 1785117006,
+      "start": 1795487258.148463
+    },
+    {
+      "job": "trace-depth-01",
+      "seconds": 142.10464096069336,
+      "peak_bytes": 2657022210,
+      "start": 1795487303.684864
+    },
+    {
+      "job": "joint-trace-01",
+      "seconds": 181.7729811668396,
+      "peak_bytes": 2877741214,
+      "start": 1795487448.497665
+    },
+    {
+      "job": "functional-zero-01",
+      "seconds": 18.768919944763184,
+      "peak_bytes": 2334962296,
+      "start": 1795487631.795556
+    },
+    {
+      "job": "verified-generations-01",
+      "seconds": 230.85633420944214,
+      "peak_bytes": 2869071846,
+      "start": 1795487682.6832829
+    }
+  ],
+  "validation": [
+    {
+      "command": [
+        "scripts/research_predict.py",
+        "--archive",
+        "research/results/joint-trace-01",
+        "--verify"
+      ],
+      "seconds": 5.5250137919938425,
+      "exit": 0,
+      "stdout": "Eight native complete token streams match the release\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "scripts/research_predict.py",
+        "--archive",
+        "research/results/trace-depth-01",
+        "--depth",
+        "1",
+        "--verify"
+      ],
+      "seconds": 4.849421415994584,
+      "exit": 0,
+      "stdout": "Eight native complete token streams match the release\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "scripts/research_predict.py",
+        "--archive",
+        "research/results/suffix-trace-01",
+        "--verify"
+      ],
+      "seconds": 6.677435375000641,
+      "exit": 0,
+      "stdout": "Eight native complete token streams match the release\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "scripts/phase3_regression.py",
+        "--output",
+        "outputs/research/regression-session-01"
+      ],
+      "seconds": 36.81443254199985,
+      "exit": 0,
+      "stdout": "54 passed in 36.42s\n",
+      "stderr": ""
+    }
+  ],
+  "initial_weight_check": "Released verbal parent: 24 full-vocabulary predictions matched",
+  "initial_environment": {
+    "arch": "arm64",
+    "available_gib": 6.63,
+    "disk_available_gib": 146,
+    "pressure": "normal"
+  },
+  "checkpoint_digest_checks": "All eight new compact generations matched their local weights, metadata and optimizer hashes."
+}
