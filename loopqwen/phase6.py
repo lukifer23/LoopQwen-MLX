@@ -8,7 +8,8 @@ from .training.mechanism import StudyArm, train
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument(
-        "stage", choices=["data", "train", "evaluate", "benchmark", "diagnostics"]
+        "stage",
+        choices=["data", "train", "evaluate", "benchmark", "diagnostics", "followup"],
     )
     p.add_argument("--seed", type=int, default=SPEC["seed"])
     p.add_argument(
@@ -16,6 +17,11 @@ def main():
     )
     args = p.parse_args()
     build()
+    if args.stage == "followup":
+        from .mechanism_study import decision
+
+        print(decision(args.seed, follow=True), flush=True)
+        return
     for name in args.arms:
         arm = StudyArm.registered(name, args.seed)
         if args.stage == "train":
