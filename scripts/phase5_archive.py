@@ -1,6 +1,7 @@
 """Publish a complete pointer study into a new directory, verifying each checkpoint and prediction."""
 
 import argparse
+from collections import Counter
 import gzip
 import hashlib
 import json
@@ -47,6 +48,32 @@ def archive(dest, seed):
         root = Path(temp) / "archive"
         root.mkdir()
         shutil.copy(data / "manifest.json", root / "dataset.json")
+        train = training_rows()
+        dev = [
+            json.loads(s)
+            for s in (data / "development.jsonl").read_bytes().splitlines()
+        ]
+        baselines = []
+        for j in range(6):
+            counts = Counter(r["states"][j] for r in train)
+            majority = max(range(8), key=lambda s: counts[s])
+            by_start = []
+            for state in range(8):
+                counts = Counter(r["states"][j] for r in train if r["start"] == state)
+                by_start.append(max(range(8), key=lambda s: counts[s]))
+            baselines.append(
+                dict(
+                    hop=j + 1,
+                    majority_prediction=majority,
+                    majority_correct=sum(r["states"][j] == majority for r in dev),
+                    start_conditioned_predictions=by_start,
+                    prior_correct=sum(
+                        r["states"][j] == by_start[r["start"]] for r in dev
+                    ),
+                    n=len(dev),
+                )
+            )
+        write(root / "priors.json", baselines)
         shutil.copy("experiments/phase5.json", root / "registration.json")
         write(
             root / "cases.json.gz",

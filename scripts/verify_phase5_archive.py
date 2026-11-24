@@ -84,6 +84,46 @@ def verify(root=ARCHIVE):
     for path, sha in sums.items():
         if hashlib.sha256((root / path).read_bytes()).hexdigest() != sha:
             raise ValueError("Changed archive file " + path)
+    for path in sorted((root / "donors").glob("*.gz")):
+        record = json.loads(gzip.decompress(path.read_bytes()))
+        counts = [0] * 4
+        states = [0] * 8
+        maps = set()
+        for item in record["records"]:
+            donor = item["donor"]
+            recipient = item["recipient"]
+            state = trajectory(donor, 1)[0]
+            states[state] += 1
+            maps.add(donor["map_id"])
+            target = recipient["map"][state]
+            orig = trajectory(recipient, 2)[1]
+            for j, v in enumerate(
+                (
+                    item["patch"] == target,
+                    item["natural"] == target,
+                    item["noise"] == target,
+                    item["patch"] == orig,
+                )
+            ):
+                counts[j] += v
+        summary = record["summary"]
+        if (
+            states != [8] * 8
+            or len(maps) != 64
+            or counts
+            != [
+                summary[k]
+                for k in (
+                    "donor_transition",
+                    "natural_donor_transition",
+                    "noise_donor_transition",
+                    "recipient_persistence",
+                )
+            ]
+        ):
+            raise ValueError(
+                "Balanced donor sensitivity disagrees with independently recomputed targets"
+            )
     for path in sorted((root / "transfer").glob("*.gz")):
         rows = json.loads(gzip.decompress(path.read_bytes()))["records"]
         for r in rows:
