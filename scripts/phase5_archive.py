@@ -5,6 +5,7 @@ import gzip
 import hashlib
 import json
 import shutil
+import subprocess
 import tempfile
 from pathlib import Path
 from statistics import median
@@ -52,6 +53,7 @@ def archive(dest, seed):
             [json.loads(s) for s in (data / "cases.jsonl").read_bytes().splitlines()],
         )
         write(root / "profile.json.gz", read(out / "profile.json"))
+        source_trees = {}
         runs = {}
         schedule = None
         prior = read(data / "manifest.json")["prior"]
@@ -79,6 +81,22 @@ def archive(dest, seed):
             final = 560 if arm == "outcome" else 480
             gen = checkpoint / read(checkpoint / f"at-{final}.json")["directory"]
             state = read(gen / "state.json")
+            if state["git"] not in source_trees:
+                from loopqwen.identity import TRAIN_FILES
+
+                paths = {"loopqwen/" + p for p in TRAIN_FILES} | {
+                    "loopqwen/training/latent.py",
+                    "loopqwen/training/pointer5.py",
+                    "loopqwen/data/pointer5.py",
+                    "loopqwen/data/transitions.py",
+                    "loopqwen/evaluation/pointer5.py",
+                }
+                source_trees[state["git"]] = {
+                    p: hashlib.sha256(
+                        subprocess.check_output(["git", "show", state["git"] + ":" + p])
+                    ).hexdigest()
+                    for p in sorted(paths)
+                }
             h = state.pop("history")
             if state["status"] != "completed" or state["step"] != final:
                 raise ValueError(f"Incomplete {arm}")
@@ -172,6 +190,29 @@ def archive(dest, seed):
                         elapsed_through_last_log_seconds=stat.st_mtime
                         - stat.st_birthtime,
                     )
+        write(root / "source-files.json", source_trees)
+        if "outcome" in runs:
+            shutil.copy(
+                "experiments/phase5_donors.json", root / "donor-registration.json"
+            )
+            for arm in ("recurrent", "outcome"):
+                d = read(results / f"balanced-donors-{arm}.json")
+                if d["identity"]["weights"] != runs[arm]["weights"]:
+                    raise ValueError("Wrong donor sensitivity checkpoint")
+                write(root / f"donors/{arm}.json.gz", d)
+        if "outcome" in runs and all(
+            m["accuracy"]
+            >= max(p["conditional"], p["prior"], p["majority"]) + spec["prior_margin"]
+            for m, p in zip(runs["outcome"]["metrics"], prior, strict=True)
+        ):
+            shutil.copy(
+                "experiments/phase5_transfer.json", root / "transfer-registration.json"
+            )
+            for arm in ("base", "middle", "recurrent", "outcome"):
+                r = read(results / f"transfer-{arm}.json")
+                if arm != "base" and r["identity"]["weights"] != runs[arm]["weights"]:
+                    raise ValueError("Incompatible transfer checkpoint")
+                write(root / f"transfer/{arm}.json.gz", r)
         write(root / "stage-times.json", stage_times)
         write(root / "training.json", runs)
         write(root / "schedule.json.gz", schedule)

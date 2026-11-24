@@ -84,6 +84,13 @@ def verify(root=ARCHIVE):
     for path, sha in sums.items():
         if hashlib.sha256((root / path).read_bytes()).hexdigest() != sha:
             raise ValueError("Changed archive file " + path)
+    for path in sorted((root / "transfer").glob("*.gz")):
+        rows = json.loads(gzip.decompress(path.read_bytes()))["records"]
+        for r in rows:
+            if trajectory(r, r["requested"])[-1] != r["gold"] or r["correct"] != (
+                r["greedy_token_id"] == r["reference_token_id"]
+            ):
+                raise ValueError("Incorrect transfer gold or prediction")
     for path in sorted((root / "predictions").glob("*.gz")):
         with gzip.open(path, "rt") as f:
             r = json.load(f)

@@ -25,6 +25,7 @@ def main():
             "followup",
             "latency",
             "transfer",
+            "donors",
         ],
     )
     p.add_argument("--seed", type=int, default=SPEC["seed"])
@@ -54,6 +55,10 @@ def main():
             from .evaluation.pointer5_diagnostics import diagnose
 
             diagnose(args.seed, "recurrent")
+        elif stage == "donors":
+            from .evaluation.pointer5_donors import diagnose
+
+            diagnose(args.seed)
         elif stage == "transfer":
             from .evaluation.pointer5_transfer import transfer
 
