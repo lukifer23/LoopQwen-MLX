@@ -80,3 +80,17 @@ def test_pretrained_arm_initializations_match_and_extra_heads_are_independent():
         del m, params
         gc.collect()
         mx.clear_cache()
+
+
+def test_expensive_stages_require_all_prerequisites():
+    from loopqwen.study_gates import decide_stage
+
+    gates = ["installation", "advantage", "confirmation"]
+    assert decide_stage(gates, {})["status"] == "pending"
+    result = decide_stage(gates, {"installation": False})
+    assert result == {
+        "status": "closed",
+        "failed": ["installation"],
+        "pending": ["advantage", "confirmation"],
+    }
+    assert decide_stage(gates, dict.fromkeys(gates, True))["status"] == "eligible"

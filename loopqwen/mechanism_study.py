@@ -2,6 +2,7 @@
 
 from dataclasses import replace
 from .io import read, save
+from .study_gates import decide_stage
 from .data.pointer6 import SPEC
 from .evaluation.order_scores import metrics, paired
 from .evaluation.mechanism import evaluate_arm, unpack
@@ -16,17 +17,42 @@ def report_scores(arm):
     )
 
 
-def decision(seed, *, follow=False):
-    arms = [StudyArm.registered(k, seed) for k in SPEC["arms"]]
-    scores = {a.name: report_scores(a) for a in arms}
-    r = scores["randomized"]["conditions"]
-    checks = dict(
+INSTALLATION = ("canonical", "shuffled", "trajectory")
+PROMOTION = (*INSTALLATION, "dense", "relabel", "patch")
+
+
+def installation_checks(r):
+    return dict(
         canonical=min(r["canonical"]["accuracy"]) >= SPEC["minimum_canonical"],
         shuffled=min(r["mean_random"]["accuracy"]) >= SPEC["minimum_random"],
         trajectory=r["mean_random"]["trajectory"][-1]
         >= SPEC["minimum_random_trajectory"],
     )
-    installed = all(checks.values())
+
+
+def installed_checkpoint(arm):
+    path = arm.output / f"orders-{arm.milestones[-1]}.json.gz"
+    if not path.exists():
+        return decide_stage(INSTALLATION, {})
+    from .io import digest
+    from .training.mechanism import generation
+
+    measured = unpack(path)
+    if measured["identity"]["weights"] != digest(
+        generation(arm, arm.milestones[-1]) / "adapters.safetensors"
+    ):
+        raise ValueError("Installation evidence and current checkpoint differ")
+    return decide_stage(
+        INSTALLATION, installation_checks(metrics(measured["records"])["conditions"])
+    )
+
+
+def decision(seed, *, follow=False):
+    arms = [StudyArm.registered(k, seed) for k in SPEC["arms"]]
+    scores = {a.name: report_scores(a) for a in arms}
+    r = scores["randomized"]["conditions"]
+    checks = installation_checks(r)
+    installed = decide_stage(INSTALLATION, checks)["status"] == "eligible"
     strongest = max(
         ("middle", "full", "heads"),
         key=lambda k: scores[k]["conditions"]["mean_random"]["accuracy"][-1],
@@ -63,12 +89,14 @@ def decision(seed, *, follow=False):
         }
         checks["patch"] = min(effects.values()) >= SPEC["minimum_patch_delta"]
         record["patch_deltas"] = effects
-    record["promoted"] = (
-        installed
-        and checks.get("relabel", False)
-        and checks.get("patch", False)
-        and checks["dense"]
-    )
+    installation = decide_stage(INSTALLATION, checks)
+    promotion = decide_stage(PROMOTION, checks)
+    record["stages"] = {
+        "matched_primary_evaluation": {"status": "completed"},
+        "transplants_and_annealing": installation,
+        "replicate_compute_match_functional_graphs_and_lm_transfer": promotion,
+    }
+    record["promoted"] = promotion["status"] == "eligible"
     save(arm.output.parent / "decision.json", record)
     if installed and follow:
         outcome = replace(arm, name="outcome", objective="outcome", milestones=(80,))

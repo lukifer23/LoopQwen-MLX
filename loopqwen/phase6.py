@@ -46,6 +46,12 @@ def main():
         if args.stage == "diagnostics":
             from .evaluation.order_diagnostics import diagnose
 
+            from .mechanism_study import installed_checkpoint
+
+            gate = installed_checkpoint(StudyArm.registered("randomized", args.seed))
+            if gate["status"] != "eligible":
+                print("Transplant stage skipped", gate, flush=True)
+                return
             diagnose(arm, arm.milestones[-1])
         if args.stage == "evaluate":
             from .evaluation.mechanism import evaluate_arm
