@@ -255,10 +255,24 @@ def doc(t, prompt, response):
     return dict(ids=all_ids + [atom(t, "<|im_end|>")], prefix=len(pre))
 
 
-def train(m, docs, spec, root, budget, identity):
+def state_loss(model, inputs, last, labels):
+    from ..training.pointer5 import readout
+
+    losses = [
+        nn.losses.cross_entropy(readout(model, h, last), labels[:, j]).sum()
+        for j, h in enumerate(model.block_states(inputs, labels.shape[1]))
+    ]
+    return mx.stack(losses).sum()
+
+
+def train(m, docs, spec, root, budget, identity, *, state_docs=None):
     size = spec["logical_batch"]
     n = spec["updates"]
     cap = spec["cap_positions"]
+    if bool(state_docs) != bool(spec.get("state_weight", 0)):
+        raise ValueError("Registered state objective and supplied supervision differ")
+    if state_docs is not None and len(state_docs) != len(docs):
+        raise ValueError("Unpaired state supervision")
     if len(docs) != size * n:
         raise ValueError("Schedule and logical budget differ")
     key = fingerprint(
@@ -267,6 +281,7 @@ def train(m, docs, spec, root, budget, identity):
             spec,
             [r["ids"] for r in docs],
             [r["prefix"] for r in docs],
+            state_docs if state_docs else [],
             assets(),
             digest(Path(__file__)),
             digest(Path(__file__).with_name("bootstrap.py")),
@@ -287,6 +302,7 @@ def train(m, docs, spec, root, budget, identity):
             verify_optimizer(m, opt, st["step"], spec["lr"])
     m.train()
     vg = nn.value_and_grad(m, loss_sum)
+    state_vg = nn.value_and_grad(m, state_loss) if state_docs else None
     saved = st["step"]
     try:
         for idx in range(saved, n):
@@ -306,10 +322,28 @@ def train(m, docs, spec, root, budget, identity):
                 total += loss.item()
                 denom += y.size
                 positions += x.size
-            grads, norm = optim.clip_grad_norm(
-                tree_map(lambda a: a / denom, grads), spec["clip"]
-            )
-            if not math.isfinite(total + norm.item()):
+            grads = tree_map(lambda a: a / denom, grads)
+            state_total = 0.0
+            state_count = state_positions = 0
+            if state_docs:
+                from ..training.pointer5 import inputs
+                state_grads = None
+                state_group = state_docs[idx * size : (idx + 1) * size]
+                for g in physical_batches(state_group, cap, next_token=False):
+                    x, last = inputs(g)
+                    labels = mx.array([r["states"] for r in g])
+                    loss, grad = state_vg(m, x, last, labels)
+                    state_grads = grad if state_grads is None else tree_map(
+                        lambda a, b: a + b, state_grads, grad
+                    )
+                    mx.eval(state_grads, loss)
+                    state_total += loss.item()
+                    state_count += labels.size
+                    state_positions += x.size
+                weight = spec["state_weight"]
+                grads = tree_map(lambda a, b: (1-weight)*a + weight*b/state_count, grads, state_grads)
+            grads, norm = optim.clip_grad_norm(grads, spec["clip"])
+            if not math.isfinite(total + state_total + norm.item()):
                 raise FloatingPointError("Nonfinite update")
             opt.update(m, grads)
             mx.eval(m.trainable_parameters(), opt.state)
@@ -317,6 +351,9 @@ def train(m, docs, spec, root, budget, identity):
             st["history"].append(
                 dict(
                     ce=total / denom,
+                    state_ce=state_total / state_count if state_count else None,
+                    state_labels=state_count,
+                    state_positions=state_positions,
                     targets=denom,
                     positions=positions,
                     input_tokens=sum(len(r["ids"]) - 1 for r in group),
@@ -326,7 +363,8 @@ def train(m, docs, spec, root, budget, identity):
             )
             if st["step"] % 16 == 0:
                 checkpoint.write(root, m, opt, st)
-                saved = st["step"]
+                state_vg = nn.value_and_grad(m, state_loss) if state_docs else None
+    saved = st["step"]
     finally:
         if saved != st["step"]:
             checkpoint.write(root, m, opt, st)

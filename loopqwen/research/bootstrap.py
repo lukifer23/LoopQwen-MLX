@@ -140,7 +140,12 @@ def run(name="trace-bootstrap-01"):
         from mlx.utils import tree_flatten
 
         capacity = sum(v.size for _, v in tree_flatten(m.trainable_parameters()))
-        st = core.train(m, docs, spec, cp, budget, w)
+        state_docs = None
+        if spec.get("state_weight"):
+            from ..training.exposure import ARM
+            state_docs = [dict(ids=d["ids"], states=d["row"]["states"][:3])
+                          for d in requests(rows["train"], 3, ARM, t, {})]
+        st = core.train(m, docs, spec, cp, budget, w, state_docs=state_docs)
         gen = checkpoint_location(cp)
         child = digest(gen / "adapters.safetensors")
         trial = traces(m, t, rows["dev"], spec, budget, out / "child.json.gz", child)
