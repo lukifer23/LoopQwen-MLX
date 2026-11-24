@@ -99,6 +99,11 @@ def archive(dest, seed):
                     raise ValueError("Stale milestone evidence")
                 write(root / f"predictions/{arm}-{step}.json.gz", r)
             weights = sha(gen / "adapters.safetensors")
+            if arm in set(spec["arms"]) | {"bridge"}:
+                timing = read(results / f"latency-{arm}.json")
+                if timing["identity"]["weights"] != weights:
+                    raise ValueError("Timing used different checkpoint weights")
+                write(root / f"latency/{arm}.json", timing)
             if arm in ("recurrent", "bridge", "outcome"):
                 folder = root / "models" / arm
                 folder.mkdir(parents=True)
