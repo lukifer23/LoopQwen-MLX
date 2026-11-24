@@ -71,3 +71,5 @@ The published Phase 4 equal-data dense adapter is the evaluated update-1,610 sna
 ## Phase 5 pointer installation
 
 Seed 109, pinned Qwen Base, original rank-eight span. The registered arms are the frozen probe, dense middle, dense full and direct recurrent. Each has a common 480-update schedule. Model selection uses development maps. The 384-map confirmation cohort has a separate immutable identity. [Registration](../experiments/phase5.json) · [Cohorts and priors](PHASE5_DATA.md) · [Promotion rules](PHASE5_PLAN.md)
+
+Run `scripts/run_phase5.sh audit data profile smoke install --seed 109` for the primary installation. Run `scripts/run_phase5.sh evaluate diagnostics followup latency --seed 109` for the registered follow-up and timings. Record findings after completed stages and synchronize verified commits on the authorized `main` branch. Publish compact readouts, predictions and checksums at closeout. [Current results](PHASE5_RESULTS.md)
