@@ -1,0 +1,213 @@
+{
+  "step": 480,
+  "config": {
+    "base_model": "Qwen/Qwen3.5-0.8B-Base",
+    "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "precision": "bfloat16",
+    "start": 10,
+    "length": 6,
+    "passes": 3,
+    "mode": "direct",
+    "alpha_init": 0.1,
+    "alpha_schedule": null,
+    "curriculum": "direct",
+    "depth_weights": [
+      0.1,
+      0.9,
+      0.0
+    ],
+    "target": "block",
+    "projections": null,
+    "rank": 8,
+    "lora_alpha": 16,
+    "optimizer": "AdamW",
+    "learning_rate": 0.0003,
+    "warmup": 0,
+    "weight_decay": 0,
+    "clip": 1.0,
+    "seed": 109,
+    "sequence_length": 64,
+    "batch_size": 8,
+    "accumulation": 1,
+    "gradient_checkpointing": false,
+    "steps": 480,
+    "checkpoint_interval": 25,
+    "eval_interval": 25,
+    "eval_count": 16,
+    "response_only": true,
+    "dataset": "phase6_pointer",
+    "training_split": "train",
+    "validation_split": "validation",
+    "gdn_backend": "native",
+    "memory_target_gib": 5.0,
+    "min_available_gib": 0.8,
+    "name": "canonical",
+    "pointer_identity_schema": 2,
+    "checkpoint_policy": "all",
+    "study": "phase6",
+    "rendering": "canonical",
+    "objective": "all",
+    "readout": "recurrent",
+    "max_depth": 3
+  },
+  "identity": "1b93f5e2411f3c9aebf3e26e2dbfdd833406fd18c5eb8da52ecea3bb0ad33c88",
+  "provenance": {
+    "base": {
+      "schema": 1,
+      "sources": {
+        "__init__.py": "edd62f047f1d99466d0ff61bb31e30ebcacba90d83bccee964b1160ba57ff699",
+        "config.py": "d1380a5222ec820ce151ce5e19bcebf8a6fbea355e1ca80ba9a396dedcda5661",
+        "model_loader.py": "f9cd0b9f9995ebb71b0f34836eac24ee7eef1af05442b9906ce89520b2af02ff",
+        "looped_model.py": "54e5369d40d4d37ae0f50fc9645ba018746fd1e124203286d6a262c9afa94e6c",
+        "recurrence.py": "7e6235a75981e66a16c616214b0c0efdb4a65b4ef18f23c287db9dfb5c345e03",
+        "kernels/gdn_backend.py": "2c1a99ba910a16b6e764f8990800512fffaa0de6d1101dc3a7b4bdc998837a01",
+        "training/trainer.py": "dda82465ca54e2c39f5ab1cbed04d519914ea54e3cd1ed2bdda3e1048a2d9d90",
+        "training/adapters.py": "c3346628c6dcdf1ca99b4f0b11266714a8c410371e2252806bad693ad6964e15",
+        "training/optimizers.py": "3bb05be9b02da6101d872d5e1d459b7927aefa1d1996b52bc1b1c12782e7c832",
+        "training/losses.py": "0066d870c5c8106fec1e6b62338581243e7a88eb15cbf9eb8461248514880c70",
+        "data/sampling.py": "e0ab7c9475e6c018db698fa8d285e90dc9b4b2a9d3c9a5e945e1c6ae5f663e31",
+        "data/tokenize.py": "adc35e307ede4aa6398b9056f4110cfd8775dd3c27ceb065bf7ae3a8b07a079f",
+        "data/token_classes.py": "7246a32552e5fdb24ef566e5d70dfa4cd74acae148f7ff2506cfd81c9e13120c",
+        "recurrent_cache.py": "b364a1aa16a9a36f925413a7aa0fee97850828bbdf24ca434fa1d257813fa895",
+        "data/v2.py": "bc2816ac9c64eebf3fe2e40f5cd06b54b87e3d3ffaf7893214c618d4fd206385",
+        "checkpoint.py": "b40c15db0516dd730bfcdd495133664ae9e0f909a662121f72f1b629a9ccecae",
+        "identity.py": "a8159fe9bf1e06cac012709675de74d348ced9d86bf60f8c9baa238c6fabea3a"
+      },
+      "dependencies": {
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2",
+        "transformers": "5.24.0",
+        "tokenizers": "0.23.3",
+        "numpy": "2.5.5"
+      },
+      "config": "2469dc4dcdd2acab189ec54c5f6464e944af22089f587a9e0a848eafc15bd02f",
+      "data": "d3f53a5e6bebc5fcf1e2a69287765a443b9b103635ade5b5afe8ea17e260c8b3",
+      "optimizer": "adamw-v1",
+      "sampler": "v2-ordered-batches-v1",
+      "recurrence": "shared-site-v1"
+    },
+    "assets": {
+      "files": {
+        "config.json": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+        "merges.txt": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+        "model.safetensors-00001-of-00001.safetensors": "c2b1e5a17d9c1e27685d92ed9b382911ebb99955ecd89052d1721241adfbab6c",
+        "model.safetensors.index.json": "ce9a885efdf27d3664fdef5d512ad365216f1074051ef840c7cd8e5431495d0a",
+        "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "tokenizer.json": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+        "tokenizer_config.json": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+        "video_preprocessor_config.json": "d039cd7d88b3502a99edd455496b75b44ecf7dd3b3669748bafac37e6cecc085",
+        "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+      },
+      "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+    },
+    "registration": {
+      "id": "phase6",
+      "dataset": "phase6_pointer",
+      "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+      "seed": 109,
+      "replication_seeds": [
+        137,
+        173
+      ],
+      "batch": 8,
+      "position_cap": 384,
+      "lr": 0.0003,
+      "clip": 1,
+      "weight_decay": 0,
+      "milestones": [
+        24,
+        120,
+        360,
+        480
+      ],
+      "steps": 480,
+      "trained_depth": 3,
+      "evaluation_depth": 6,
+      "arms": {
+        "canonical": [
+          "recurrent",
+          "canonical",
+          "all"
+        ],
+        "randomized": [
+          "recurrent",
+          "randomized",
+          "all"
+        ],
+        "middle": [
+          "middle",
+          "randomized",
+          "terminal"
+        ],
+        "full": [
+          "full",
+          "randomized",
+          "terminal"
+        ],
+        "heads": [
+          "heads",
+          "randomized",
+          "all"
+        ]
+      },
+      "orders": [
+        "canonical",
+        "reverse",
+        "rotate1",
+        "rotate4",
+        "random0",
+        "random1",
+        "random2",
+        "random3",
+        "random4",
+        "random5",
+        "random6",
+        "random7"
+      ],
+      "evaluation_seed": 61091,
+      "mixed_canonical_fraction": 0.25,
+      "early_items": 96,
+      "evaluation_maps": 384,
+      "minimum_canonical": 0.95,
+      "minimum_random": 0.9,
+      "minimum_random_trajectory": 0.85,
+      "minimum_relabel": 0.9,
+      "minimum_patch_delta": 0.5,
+      "dense_advantage": "positive mean random-order terminal accuracy at hop 3 over best dense arm",
+      "cluster_bootstraps": 10000,
+      "cases": 64,
+      "outcome_updates": 80,
+      "max_peak_gib": 6,
+      "min_available_gib": 1.5
+    },
+    "arm": {
+      "study": "phase6",
+      "name": "canonical",
+      "seed": 109,
+      "kind": "recurrent",
+      "rendering": "canonical",
+      "objective": "all",
+      "dataset": "phase6_pointer",
+      "milestones": [
+        24,
+        120,
+        360,
+        480
+      ],
+      "max_depth": 3
+    },
+    "sources": {
+      "loopqwen/training/mechanism.py": "43f369e7a9e5026703a10beb22d2a010517bed8df0fb97438d720d6393f53133",
+      "loopqwen/data/pointer6.py": "47655d8fa3c2a893e734c4bf72535e7a3e7d770fd23bfdc5ba32dc424171c3ad",
+      "loopqwen/training/pointer5.py": "cdd5dc09c6bae2de6bfded734120fbf9554809b7ad0a2736198f37c59172df2b",
+      "loopqwen/data/pointer5.py": "113c57fe756856a00504902daeac3c4cb668edc9c14fc4c9606e437671d9d74a",
+      "latent.py": "85559d3e77850648d597c9fe03e2cdb3b5dd4160c5e0cd96922f618d8aa0f8a4",
+      "phase5.json": "2f517e56c357495b16233817e0f35a9f5a071844b05ea69ac810c18402e64746"
+    }
+  },
+  "parent_weights": null,
+  "git": "fdd2e16a2113bf43de2184b7ff207f8befa46f47",
+  "capacity": 1344512,
+  "status": "completed"
+}
