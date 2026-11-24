@@ -1,0 +1,153 @@
+{
+  "identity": "e4e8a7a0dbb70f868b9a30528085cadbba20d200aec1f879aed0496fa552ce4f",
+  "parent": "75d63d5ca8887fdc7cd4ecb4310fd29f00c39e3cb6b6f653be80487d6af0ff48",
+  "stages": {
+    "1": {
+      "selection": "c201c835267a861cd12ae2ab3505c7f4f9d7f52454c1a82d1774ef023e56ec11",
+      "yield_summary": {
+        "maps": 32,
+        "attempts": 64,
+        "accepted": 48,
+        "distinct": 25,
+        "tokens": 621,
+        "rollout_seconds": 25.627486455043254
+      },
+      "gold": {
+        "parent": "75d63d5ca8887fdc7cd4ecb4310fd29f00c39e3cb6b6f653be80487d6af0ff48",
+        "weights": "4970a3a562e5da9e60d42ac7f3bb5110a9e11137668e8d4d3d5b54d6fc441bdd",
+        "gold_identical": 16,
+        "score": {
+          "n": 64,
+          "verified": 61,
+          "correct": 61,
+          "completed": 64,
+          "tokens": 576,
+          "seconds": 23.47611008099193,
+          "median_ms": 366.5930205024779
+        },
+        "categorical": [
+          96,
+          96,
+          95
+        ],
+        "updates": 4,
+        "update_seconds": 12.054711042001145,
+        "vocab_targets": 288,
+        "state_labels": 96
+      },
+      "self": {
+        "parent": "75d63d5ca8887fdc7cd4ecb4310fd29f00c39e3cb6b6f653be80487d6af0ff48",
+        "weights": "13010f9e023b2a894d3fb154a687f422d7b06145f6b4cd8a861af4a502884eb4",
+        "gold_identical": 16,
+        "score": {
+          "n": 64,
+          "verified": 50,
+          "correct": 51,
+          "completed": 64,
+          "tokens": 576,
+          "seconds": 21.92764220900426,
+          "median_ms": 334.249457999249
+        },
+        "categorical": [
+          96,
+          96,
+          95
+        ],
+        "updates": 4,
+        "update_seconds": 11.769599292994826,
+        "vocab_targets": 288,
+        "state_labels": 96
+      },
+      "paired": {
+        "wins": 0,
+        "losses": 11,
+        "delta": -0.171875,
+        "ci": [
+          -0.265625,
+          -0.078125
+        ]
+      }
+    },
+    "2": {
+      "selection": "1c9f9e2e2d654c0cd9a91b6fd85bdc32ba73c6f696696aebf26b50cd8c38f5c5",
+      "yield_summary": {
+        "maps": 32,
+        "attempts": 64,
+        "accepted": 52,
+        "distinct": 27,
+        "tokens": 576,
+        "rollout_seconds": 22.089766794000752
+      },
+      "gold": {
+        "parent": "4970a3a562e5da9e60d42ac7f3bb5110a9e11137668e8d4d3d5b54d6fc441bdd",
+        "weights": "7fccef62873c7b8a1e0b1221417438d61fa1719f0f855ecef894cb0abe19d405",
+        "gold_identical": 16,
+        "score": {
+          "n": 64,
+          "verified": 60,
+          "correct": 60,
+          "completed": 63,
+          "tokens": 591,
+          "seconds": 22.463937458051078,
+          "median_ms": 336.0654585012526
+        },
+        "categorical": [
+          96,
+          96,
+          93
+        ],
+        "updates": 4,
+        "update_seconds": 11.829233502001443,
+        "vocab_targets": 288,
+        "state_labels": 96
+      },
+      "self": {
+        "parent": "13010f9e023b2a894d3fb154a687f422d7b06145f6b4cd8a861af4a502884eb4",
+        "weights": "a27ba59cd8ba6bdae56b237234ef0114133dc25c9ca78d0af9479b95f8237e12",
+        "gold_identical": 16,
+        "score": {
+          "n": 64,
+          "verified": 57,
+          "correct": 58,
+          "completed": 64,
+          "tokens": 576,
+          "seconds": 22.147499415987113,
+          "median_ms": 331.9187500019325
+        },
+        "categorical": [
+          96,
+          96,
+          94
+        ],
+        "updates": 4,
+        "update_seconds": 11.74022375101049,
+        "vocab_targets": 288,
+        "state_labels": 96
+      },
+      "paired": {
+        "wins": 1,
+        "losses": 4,
+        "delta": -0.046875,
+        "ci": [
+          -0.109375,
+          0.015625
+        ]
+      }
+    }
+  },
+  "status": "running",
+  "parent_eval": {
+    "n": 64,
+    "verified": 47,
+    "correct": 48,
+    "completed": 61,
+    "tokens": 630,
+    "seconds": 25.43801316900499,
+    "median_ms": 363.64085400055046
+  },
+  "categorical": [
+    96,
+    96,
+    95
+  ]
+}

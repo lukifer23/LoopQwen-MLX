@@ -31,6 +31,31 @@ RESEARCH = Path("research")
 OUT = Path("outputs/research")
 
 
+def archived_result(out, spec):
+    """Reuse a closed local run only as a verified copy of its immutable publication."""
+    if not (out / "decision.json").is_file():
+        return False
+    published = RESEARCH / "results" / spec["id"]
+    if not (published / "checksums.json").is_file():
+        return False
+    index = read(RESEARCH / "registry.json")
+    expected = index["experiments"][spec["id"]]
+    if digest(published / "checksums.json") != expected["archive"]:
+        raise ValueError("Published inventory changed")
+    if read(published / "registration.json") != spec:
+        raise ValueError("Registration changed")
+    for name, info in index["datasets"].items():
+        if digest(Path(name)) != info["sha256"]:
+            raise ValueError("Registered research data changed: " + name)
+    for rel, expected_digest in read(published / "checksums.json").items():
+        if rel == "registration.json":
+            continue
+        if not (out / rel).is_file() or digest(out / rel) != expected_digest:
+            raise ValueError("Local result differs from publication: " + rel)
+    print("Verified existing measured archive", spec["id"])
+    return True
+
+
 class Budget:
     def __init__(self, name, spec):
         self.start = time.time()

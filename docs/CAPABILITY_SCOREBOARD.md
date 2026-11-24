@@ -51,3 +51,17 @@ The joint K=3 fork generated **64/64** complete three-hop responses. On the cate
 | 192 unseen unrestricted successor maps | 192 | 84 | 30 | 23 | 10 | 12 | 6 |
 
 At the sixth hop of the unrestricted cohort, 189/192 gold states had already been visited. Only 12 of those 189 predictions were correct. Just four of 70 gold stationary states were predicted correctly. The model retrieved the first successor on every map in both cohorts, then lost accuracy on graphs with repeated destinations or shorter cycles. The sample changes both properties together. Its results leave their individual contributions unresolved. [Recorded probabilities, strata and verification](../research/results/functional-zero-01)
+
+### Verified self-training on document references
+
+| Generation, K=3 | Verified paths / 64 | Correct terminal / 64 | Categorical hop 3 / 96 | Generation-specific update s | Candidate rollout s |
+|---|---:|---:|---:|---:|---:|
+| Joint parent | 47 | 48 | 95 | — | — |
+| Static gold 1 | 61 | 61 | 95 | 12.05 | 0 |
+| Model-selected 1 | 50 | 51 | 95 | 11.77 | 25.63 |
+| Static gold 2 | 60 | 60 | 93 | 11.83 | 0 |
+| Model-selected 2 | 57 | 58 | 94 | 11.74 | 22.09 |
+
+Each branch used eight updates in total, 32 distinct selected maps, 64 map exposures, 576 response targets and 192 auxiliary state labels. The learner generated 100 verified candidate responses across 128 attempts, on 25/32 and 27/32 distinct candidate maps. Generation two used its actual predecessor. Across both rounds, every selected response exactly matched the gold response tokens for its selected map. The two arms used different map selections. Static training had four unique wins and self-training one on the final cohort. The paired self-minus-gold difference was −4.69 points (95% map bootstrap −10.94 to +1.56). The gold branch lost two categorical items from 95/96, a 2.08-point drop against the registered two-point safeguard. Both rounds were measured. Promotion failed. [Generations, sampled responses and training lineages](../research/results/verified-generations-01)
+
+The external screen's aggregate tie on ARC-Easy includes four unique wins for each system. On GSM8K, the candidate fixed one Base error and lost two Base successes. None of the fresh evaluation items were used to train a successor.

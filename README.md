@@ -12,6 +12,8 @@ On **96 further unseen maps**, a single-pass model trained on those same example
 
 ## Can the model choose better training examples?
 
+In the new document-reference comparison, the qualified parent produced **47/64** verified paths. Two generations using verified model responses reached **50/64 and 57/64**. Gold supervision reached **61/64 and 60/64** with the same update budgets. All 32 selected model responses exactly matched the gold tokens on their respective maps, and model sampling added 47.7 seconds. [Paired results and costs](docs/CAPABILITY_SCOREBOARD.md#verified-self-training-on-document-references)
+
 On a fresh six-hop pointer cohort, two generations of learner-selected training reached **248/256** correct terminal states versus **236/256** for static selection at equal updates. When static training received the same time allowance, it reached **255/256**. An independent curriculum seed stopped after one matched round under the registered retention rule. A separate self-training trial produced **zero fully verified trajectories in 32 sampled responses**, including 17 correct final numbers. Static training remains the stronger measured six-hop operating point. [Capability scoreboard and compute accounting](docs/RSI_RESULTS.md) · [Frozen study](docs/RSI_PLAN.md)
 
 ## What another 1,152 map presentations bought

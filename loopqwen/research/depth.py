@@ -15,7 +15,7 @@ def run():
     spec = read("research/experiments/trace-depth-01.json")
     name = spec["id"]
     out = core.OUT / name
-    if (out / "decision.json").exists():
+    if core.archived_result(out, spec):
         return
     budget = core.Budget(name, spec["limits"])
     try:

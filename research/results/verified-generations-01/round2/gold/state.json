@@ -1,0 +1,83 @@
+{
+  "identity": "cfbb5ac17b29b161c6c7c88a776578f48f0630481ec34253229042e22169d578",
+  "spec": {
+    "id": "verified-generations-01",
+    "seed": 95732,
+    "parent_path": "research/results/joint-trace-01/model",
+    "parent_sha256": "75d63d5ca8887fdc7cd4ecb4310fd29f00c39e3cb6b6f653be80487d6af0ff48",
+    "rounds": 2,
+    "candidates_per_round": 32,
+    "samples_per_map": 2,
+    "select": 16,
+    "repeats": 2,
+    "dev_maps": 64,
+    "logical_batch": 8,
+    "cap_positions": 168,
+    "updates": 4,
+    "depth": 3,
+    "lr": 5e-05,
+    "clip": 1,
+    "weight_decay": 0,
+    "state_weight": 0.5,
+    "temperature": 0.7,
+    "generation_cap": 24,
+    "distribution": "Fresh unrestricted eight-state functional graphs. Document references, start document, explicit request for three successive document numbers separated by commas. One randomized display per map. Fixed raw completion and stop policy. Selection uses only training pools.",
+    "curriculum": "Self arm samples two actual completions per map per round from its current checkpoint. Accept only independently verified complete three-step sequences. Select the first 16 distinct successful maps in frozen candidate order and the first valid response for each. Preserve all generated response IDs through their actual boundary. Gold control takes the first 16 maps independently of feedback using original verified gold text. Both arms repeat their 16 examples twice, retain symbolic state supervision on their own identical task instances, and start fresh AdamW in each generation.",
+    "control": "Same installed parent for both branches, same distribution, update count and number of examples; this tests selection plus verified response tokens. Validation is disjoint from all pools. Measure rollout cost. Primary comparison at equal updates; no compute superiority claim.",
+    "stopping": "Always measure the first 64-candidate response yield. If initial development verified accuracy >=95%, stop after first-round yield at the registered ceiling. Stop if fewer than 16 eligible training maps, or either branch loses >2 percentage points on 96-map categorical third-hop retention against parent. Stop at two rounds, on nonfinite updates or resource guard. No sample replacements.",
+    "gate": "At round two self minus gold >=3 percentage points on fresh fixed document-map complete traces and <=2-point retention loss. Archive paired discordances, selected IDs, actual tokens, costs and failures.",
+    "limits": {
+      "wall_seconds": 480,
+      "peak_gib": 5,
+      "available_gib": 1.5
+    }
+  },
+  "parent": "7ea4c57c495d15ae0444f146d60015836d17ad63d21eb30599c327171d7dba96",
+  "step": 4,
+  "history": [
+    {
+      "ce": 0.1276003514519996,
+      "state_ce": 3.200770378112793,
+      "state_labels": 24,
+      "state_positions": 336,
+      "targets": 72,
+      "positions": 824,
+      "input_tokens": 824,
+      "seconds": 2.9590665840005386,
+      "peak": 2868958630
+    },
+    {
+      "ce": 0.054672492616292506,
+      "state_ce": 3.6156222025553384,
+      "state_labels": 24,
+      "state_positions": 336,
+      "targets": 72,
+      "positions": 824,
+      "input_tokens": 824,
+      "seconds": 3.026302833997761,
+      "peak": 2868958630
+    },
+    {
+      "ce": 0.0517901909382393,
+      "state_ce": 2.3092666467030845,
+      "state_labels": 24,
+      "state_positions": 336,
+      "targets": 72,
+      "positions": 824,
+      "input_tokens": 824,
+      "seconds": 2.9511887920016306,
+      "peak": 2868958630
+    },
+    {
+      "ce": 0.004350879785811735,
+      "state_ce": 3.0393904050191245,
+      "state_labels": 24,
+      "state_positions": 336,
+      "targets": 72,
+      "positions": 824,
+      "input_tokens": 824,
+      "seconds": 2.8926752920015133,
+      "peak": 2868985794
+    }
+  ]
+}

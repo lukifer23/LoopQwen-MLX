@@ -19,12 +19,12 @@ DEMO = "Question: Four bags each contain five marbles. How many marbles are ther
 def run():
     s = read("research/experiments/external-anchor-01.json")
     out = core.OUT / s["id"]
-    if (out / "decision.json").exists():
+    if core.archived_result(out, s):
         return
     b = core.Budget(s["id"], s["limits"])
     try:
         data = read("research/data/external-anchor.json")
-        boot = core.OUT / "trace-bootstrap-01"
+        boot = Path("research/results/trace-bootstrap-01")
         cp = (
             boot / "model"
             if read(boot / "decision.json")["promoted"]

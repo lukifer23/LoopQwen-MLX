@@ -18,8 +18,10 @@ if __name__ == "__main__":
             state["session_start_utc"].replace("Z", "+00:00")
         ).timestamp()
     )
-    if now - prior < state["limits"]["wall_seconds"] and (
-        path.exists() or (path.parent / f"budget-{int(prior)}.json").exists()
+    if (
+        not (path.parent / f"closed-{int(prior)}.json").exists()
+        and now - prior < state["limits"]["wall_seconds"]
+        and (path.exists() or (path.parent / f"budget-{int(prior)}.json").exists())
     ):
         raise SystemExit("Current local session is still active")
     save(path, dict(start=now))

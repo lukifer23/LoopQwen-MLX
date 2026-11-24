@@ -47,7 +47,7 @@ def questions(seed, name, n):
 def run():
     s = read("research/experiments/turn-calibration-01.json")
     out = core.OUT / s["id"]
-    if (out / "decision.json").exists():
+    if core.archived_result(out, s):
         return
     b = core.Budget(s["id"], s["limits"])
     try:

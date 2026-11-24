@@ -111,7 +111,7 @@ def run(name="trace-bootstrap-01"):
     spec = read(Path("research/experiments") / (name + ".json"))
     name = spec["id"]
     out = core.OUT / name
-    if (out / "decision.json").exists():
+    if core.archived_result(out, spec):
         return print(read(out / "decision.json")["status"])
     budget = core.Budget(name, spec["limits"])
     try:

@@ -1,5 +1,12 @@
-# Research decisions
+# Next experiment
 
-The 96-map trial established a strong single-pass trace comparator. It wrote every path correctly from the same examples and was faster than K=3. Use explicit intermediate output when that is the requested deliverable. A terminal-only language task on a harder distribution can test whether extra internal steps earn their cost when intermediate tokens are unavailable.
+**Compare a trained K=1 and a trained K=3 decoder on terminal-only vocabulary answers over arbitrary successor maps.** Both receive the same explicit three-hop question, initial adapted weights, training data and response targets. A terminal-only protocol measures whether internal computation adds value when the model cannot write intermediate states into its output. The previous complete-trace control scored 96/96 at K=1. The six-hop categorical checkpoint produced only 6/192 complete trajectories on unrestricted successor maps. Those observations justify changing the evaluation task before increasing model capacity.
 
-The registered combined-objective fork tests categorical retention while learning the full verbal response. Verified self-training depends on that joint gate. A separate inference-only study tests whether the best six-hop categorical checkpoint transfers to arbitrary successor maps. The expensive two-rendering RSI selector, frozen-prefix cache and suffix-only trace fork have failed their respective cost, parity or quality tests.
+The registration fixes 256 new training maps, 128 development maps and 32 updates per arm. The K=3 advantage must reach five points and meet the categorical retention safeguard. The command has been implemented and syntax-checked. Native execution is pending a new authorized session. [Registration](../research/experiments/functional-terminal-01.json)
+
+```sh
+.venv/bin/python scripts/research_session.py
+.venv/bin/python -m loopqwen.research.terminal
+```
+
+The expensive diagnostic curriculum, verified-success filtering on three-digit traces, and frozen-prefix caching have failed their respective cost or numerical tests. The frozen-block suffix trace fork preserved symbolic accuracy and underperformed on language output. Keep the gold-supervised combined checkpoint for retention-sensitive work. The single-pass trace fork is the preferred specialized room-trace deployment on the measured cohort.

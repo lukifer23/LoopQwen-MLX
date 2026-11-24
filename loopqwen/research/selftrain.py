@@ -91,7 +91,7 @@ def run():
     s = read("research/experiments/verified-generations-01.json")
     name = s["id"]
     out = core.OUT / name
-    if (out / "decision.json").exists():
+    if core.archived_result(out, s):
         return
     b = core.Budget(name, s["limits"])
     try:
