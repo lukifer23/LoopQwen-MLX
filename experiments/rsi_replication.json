@@ -1,0 +1,38 @@
+{
+  "id": "rsi2",
+  "seed": 859,
+  "parent": "docs/measurements/phase7/model",
+  "weights": "a63ba803bb96ea8ecbb411b6ffb2a94a7c350c93fbec31e05e9dfc694d2e9b79",
+  "rounds": 2,
+  "candidate_maps_per_round": 256,
+  "selected_maps_per_arm_round": 128,
+  "development_maps": 128,
+  "confirmation_maps": 128,
+  "orders": [
+    "random0",
+    "random1"
+  ],
+  "strata": "8 starts x start cycle lengths 4-5 or 6-8; 16 candidates and 8 selections per stratum per round",
+  "static": "lowest salted map hashes within each stratum",
+  "adaptive": "per stratum take five boundary, two failure, one mastered. Boundary = imperfect trajectory with 4 or 5 correct prefix hops or disagreement across orders; rank by proximity of average correct terminal probability to 0.5. Failure = other imperfect paths; rank by longest correct prefix. Mastered = both paths correct; rank by lower terminal confidence. Fill deficits from remaining boundary, failure, mastered in that order. Stable map ID ties.",
+  "depths": [
+    4,
+    5,
+    6
+  ],
+  "objective": "mean CE over all executed state labels per map",
+  "initial_optimizer": "fresh AdamW for both branches, preserve moments into round two",
+  "lr": 0.0003,
+  "batch": 8,
+  "position_cap": 84,
+  "updates_per_round": 16,
+  "max_training_updates": 64,
+  "max_candidate_presentations": 1024,
+  "max_gpu_seconds": 540,
+  "max_wall_seconds": 720,
+  "peak_gib": 5.75,
+  "available_gib": 1.5,
+  "primary": "mean terminal sixth-hop accuracy over two frozen shuffled orders, paired map bootstrap 10000 samples",
+  "promotion": "Final adaptive exceeds static by >=0.03 and adaptive third-hop accuracy falls <=0.02 absolute versus parent. Parent terminal accuracy must be below 0.95. Positive result requires independent seed and total-compute matched static before stronger claims.",
+  "stop": "After matched round one stop if either branch third-hop drops >0.02 versus parent. Stop on nonfinite, pressure warning, identity mismatch or time cap. No third cycle."
+}
