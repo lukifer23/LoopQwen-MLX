@@ -20,3 +20,7 @@ Specify one primary metric, a numerical stop rule, time and exposure caps before
 Compare the merits of regenerated presentations, genuinely fresh verified maps, and a small open benchmark for external validity. Keep one changed training variable per rapid iteration. The data guide records concrete sources and the split, license and contamination checks needed before including them. [Generated and open data](PHASE6_DATA.md#generated-and-open-data-for-the-next-review)
 
 The scored pair stopped at six items. Both models exhausted 384 tokens inside the thinking segment on all six. Propose a small completion-rate calibration with identical reasoning and output budgets for both models before using the language benchmark as a training promotion metric.
+
+## Closeout verification
+
+The isolated native regression suite passed 46 tests, including matching initial tensors across all five arms. The Phase 4, 5 and 6 archive checks passed. The Phase 6 standard-library audit checked 66 SHA-256 digests, rederived trajectories from maps, rescored probabilities, validated paired edge orders, and rechecked both deployments' prompts and final-answer scores. Fresh native processes reloaded each published Phase 6 adapter and reproduced 48 readouts per adapter with maximum probability difference zero. The randomized adapter predicted `5, 2, 7` for the README example. At closeout the per-user GPU lease was free and the checkout reported zero workers.
