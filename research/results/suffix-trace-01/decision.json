@@ -1,0 +1,107 @@
+{
+  "status": "completed",
+  "parent": {
+    "n": 64,
+    "verified": 0,
+    "correct": 45,
+    "completed": 64,
+    "tokens": 198,
+    "seconds": 8.347496289985429,
+    "median_ms": 126.87597850163002
+  },
+  "child": {
+    "n": 64,
+    "verified": 1,
+    "correct": 8,
+    "completed": 52,
+    "tokens": 762,
+    "seconds": 25.386634006048553,
+    "median_ms": 301.5053960007208
+  },
+  "checks": {
+    "verified": false,
+    "gain": false,
+    "categorical": true,
+    "retention": false
+  },
+  "promoted": false,
+  "categorical_before": [
+    96,
+    96,
+    95
+  ],
+  "categorical_after": [
+    96,
+    96,
+    95
+  ],
+  "retention": {
+    "1": {
+      "nll": 3.23376276619464,
+      "by_domain": {
+        "code_description": {
+          "loss": 4894.073178589344,
+          "tokens": 1733,
+          "nll": 2.824046842809777
+        },
+        "general_prose": {
+          "loss": 7654.074548244476,
+          "tokens": 1911,
+          "nll": 4.005271872446089
+        },
+        "reference": {
+          "loss": 4548.060966491699,
+          "tokens": 1680,
+          "nll": 2.7071791467212494
+        },
+        "scientific_exposition": {
+          "loss": 7697.5777592659,
+          "tokens": 2291,
+          "nll": 3.359920453629812
+        },
+        "technical_explanation": {
+          "loss": 5370.752630472183,
+          "tokens": 1713,
+          "nll": 3.135290502318846
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    },
+    "3": {
+      "nll": 3.7037848178265333,
+      "by_domain": {
+        "code_description": {
+          "loss": 5771.187681019306,
+          "tokens": 1733,
+          "nll": 3.3301717720826924
+        },
+        "general_prose": {
+          "loss": 8390.115756988525,
+          "tokens": 1911,
+          "nll": 4.390432107267674
+        },
+        "reference": {
+          "loss": 5490.220909118652,
+          "tokens": 1680,
+          "nll": 3.2679886363801502
+        },
+        "scientific_exposition": {
+          "loss": 8687.505456447601,
+          "tokens": 2291,
+          "nll": 3.7920146034254043
+        },
+        "technical_explanation": {
+          "loss": 6209.874977111816,
+          "tokens": 1713,
+          "nll": 3.6251459294289647
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  },
+  "updates": 32,
+  "weights": "c9a82d2105e328174f502e2d7dcfca5fc2ace4a9e15213c56f03be4591151600",
+  "trainable": 1803776,
+  "target_tokens": 2304,
+  "training_seconds": 36.898698124990915
+}

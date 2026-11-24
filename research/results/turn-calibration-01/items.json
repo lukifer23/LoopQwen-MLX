@@ -1,0 +1,50 @@
+[
+  {
+    "id": "16c340b6fa970afddcbc752d65a831a5f7bac9869e841b52cc701e8bf8469e50",
+    "question": "The room links are 5 to 7, 6 to 5, 7 to 3, 3 to 6, 1 to 0, 0 to 2, 2 to 1, 4 to 4. Start at room 5. Which room is reached after exactly three links?",
+    "gold": "6",
+    "kind": "room"
+  },
+  {
+    "id": "a4fafa6305398768aa082ea7009e2d3c5efb00a9a51deb8a9a8c38fa872e245e",
+    "question": "Solve this problem. Evaluate ((((17 + 11) * 13) * 4) + 3).",
+    "gold": "1459",
+    "kind": "arithmetic"
+  },
+  {
+    "id": "2175a5eadafceea3a87f6fa80ba998afc06799fbcbab06c7d6f2f2315e774e9f",
+    "question": "Start at 9. For each t in [15, 14, 11], replace x by (t*x+t-1) mod 17. Find the final x.",
+    "gold": "13",
+    "kind": "modular"
+  },
+  {
+    "id": "b9154a3a749d84eae01785bd3a4989f872c4ff72b17a6a15d21ef6daf61bca1f",
+    "question": "Jobs run in parallel as soon as all prerequisites finish. Job: duration after prerequisites. E: 12 after F,B; Q: 8 after none; Z: 29 after E; W: 15 after Q; F: 24 after U; B: 13 after Q; U: 18 after none. When does job Z finish?",
+    "gold": "83",
+    "kind": "dependency"
+  },
+  {
+    "id": "74dc4645b9300038a6cbf1c3c0b3ba6d0e5bdad99719e4229683b10c6c473c25",
+    "question": "The room links are 2 to 6, 1 to 1, 7 to 4, 5 to 2, 6 to 3, 4 to 5, 3 to 7, 0 to 0. Start at room 5. Which room is reached after exactly three links?",
+    "gold": "3",
+    "kind": "room"
+  },
+  {
+    "id": "f6fad1aab90e092eb8cbf470cc0f84619d6de2295b1aa270faafbcd457ee2a7e",
+    "question": "Compute the result. Evaluate ((((2 * 7) + 9) - 4) - 9).",
+    "gold": "10",
+    "kind": "arithmetic"
+  },
+  {
+    "id": "9ddaff4e64c6ab9ebd5a46f2993872abb4bc026deac53e321ed65246fc057e16",
+    "question": "Start at 12. For each t in [8, 9, 9], replace x by (t*x+t-1) mod 29. Find the final x.",
+    "gold": "13",
+    "kind": "modular"
+  },
+  {
+    "id": "89ff3d9cf56a527bbdd312a157de617a99462c0602a8909f7526d67c32ab47e6",
+    "question": "Jobs run in parallel as soon as all prerequisites finish. Job: duration after prerequisites. Q: 8 after J; N: 26 after F; H: 9 after J; O: 3 after L; L: 32 after N,H; F: 19 after none; J: 2 after none. When does job O finish?",
+    "gold": "80",
+    "kind": "dependency"
+  }
+]

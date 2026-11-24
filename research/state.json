@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "turn-calibration-01",
+  "active": "trace-depth-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -15,12 +15,27 @@
     "general_language": "Qwen/Qwen3.5-0.8B-Base@dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
   },
   "frontier": "Measured-time static training 255/256 vs adaptive 248/256. General retention of the six-hop model remains unmeasured.",
-  "next": "suffix-trace-01",
+  "next": "joint-trace-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
       "promoted": false,
       "reason": "Third-hop categorical retention failed despite 64/64 verified responses"
+    },
+    {
+      "id": "turn-calibration-01",
+      "promoted": false,
+      "reason": "3/8 valid first-turn answers"
+    },
+    {
+      "id": "suffix-trace-01",
+      "promoted": false,
+      "reason": "1/64 verified; language NLL regression"
+    },
+    {
+      "id": "external-anchor-01",
+      "promoted": false,
+      "reason": "GSM8K 1/32 vs 2/32; ARC-Easy 18/32 both"
     }
   ]
 }

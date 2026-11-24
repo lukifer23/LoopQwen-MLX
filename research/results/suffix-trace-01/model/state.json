@@ -1,0 +1,297 @@
+{
+  "identity": "ff2f000ab79c26914f3371cd7f5faa70ebe274f79a96b5e4c37a72f439ae1e12",
+  "spec": {
+    "id": "suffix-trace-01",
+    "seed": 82031,
+    "parent_path": "docs/measurements/phase7/transfer/model",
+    "parent_sha256": "14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+    "change": "freeze complete installed checkpoint; train only fresh rank-eight suffix adapters on original layers 16\u201323, all compatible linear projections, alpha 16 and zero-output initialization; fixed 109 initializer",
+    "depth": 3,
+    "train_maps": 256,
+    "dev_maps": 64,
+    "logical_batch": 8,
+    "cap_positions": 168,
+    "updates": 32,
+    "lr": 0.0001,
+    "clip": 1.0,
+    "weight_decay": 0.0,
+    "optimizer": "fresh AdamW with bias correction",
+    "protocol": "existing unambiguous request for exactly three rooms; leading space then d, d, d then atomic chat end; raw completion, greedy, batch one; first complete line, chat end or EOS; 24 token cap; caps never verified",
+    "control": "unchanged common parent, identical reserved maps and response targets; compare to failed block-only child",
+    "retention": "fixed first 96 Phase 5 development maps under random0, all three categorical exits; entire source-disjoint V3 retention suite K1 and K3",
+    "gate": {
+      "verified_min": 0.5,
+      "verified_gain": 0.2,
+      "max_hop3_drop": 0.03,
+      "max_nll_increase_each_depth": 0.1
+    },
+    "limits": {
+      "wall_seconds": 480,
+      "peak_gib": 5.0,
+      "available_gib": 1.5
+    },
+    "extension": "none in this registration",
+    "selection": "single endpoint; stop on resources or nonfinite; promote only completed comparison",
+    "dataset": "trace-bootstrap-01"
+  },
+  "parent": "14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+  "step": 32,
+  "history": [
+    {
+      "ce": 4.2069106631808815,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1661970829954953,
+      "peak": 2196422984
+    },
+    {
+      "ce": 3.801190005408393,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.150020166998729,
+      "peak": 2215182676
+    },
+    {
+      "ce": 3.657807297176785,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.148913832999824,
+      "peak": 2215182676
+    },
+    {
+      "ce": 3.271288924747043,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.130356458001188,
+      "peak": 2215231800
+    },
+    {
+      "ce": 2.9123084810045032,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1548182079932303,
+      "peak": 2215231828
+    },
+    {
+      "ce": 2.4547786050372653,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1577026250015479,
+      "peak": 2215231828
+    },
+    {
+      "ce": 2.23735245068868,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1411952080015908,
+      "peak": 2215231828
+    },
+    {
+      "ce": 1.867115404870775,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1451582500012591,
+      "peak": 2215231828
+    },
+    {
+      "ce": 1.7530215316348605,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1499955830004183,
+      "peak": 2215231828
+    },
+    {
+      "ce": 1.3447689215342205,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1722499579991563,
+      "peak": 2215231828
+    },
+    {
+      "ce": 1.190346188015408,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1498849999989034,
+      "peak": 2215231828
+    },
+    {
+      "ce": 1.1232002311282687,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1519588749943068,
+      "peak": 2215231828
+    },
+    {
+      "ce": 1.0226424800025091,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1539415829975042,
+      "peak": 2215231828
+    },
+    {
+      "ce": 0.9367828236685859,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1500642910032184,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.9652443991767036,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1477067500018165,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.9364185465706719,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1891199999954551,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.8654356532626681,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1510580419999314,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.8564404182963901,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1472379590049968,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.8949606418609619,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.148990292000235,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.839392774634891,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1514522090001265,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.8557802438735962,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1536253329977626,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.8596845732794868,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1502265840026666,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.789764510260688,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.15006374999939,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.7541172835561964,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1547422500007087,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.7709902260038588,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1513522919995012,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.7538774278428819,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1551039170008153,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.7673274411095513,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1516027079997002,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.7911877830823263,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.154583666997496,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.7523411446147494,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.148582334004459,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.766228887769911,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1646892080025282,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.7464568018913269,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1545374579945928,
+      "peak": 2215264568
+    },
+    {
+      "ce": 0.7265437377823724,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.151566250002361,
+      "peak": 2215264568
+    }
+  ]
+}

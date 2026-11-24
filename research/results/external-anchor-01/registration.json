@@ -1,0 +1,8 @@
+{
+ "id":"external-anchor-01","seed":82033,"arms":"untouched Base K1 and promoted trace child K3, otherwise released verbal parent K3","gsm_items":32,"arc_items":32,
+ "gsm":"Publisher train split, no annotation markers, remove all observed historical training questions and first 12 historical reserved items. Two fixed independent arithmetic demonstrations, answer-only raw completion, first complete line or end, greedy, cap 32. Strict numeric score across all items.",
+ "arc":"ARC-Easy validation, 4 nonempty choices. Natural question followed by Answer: and each choice as continuation. Primary mean continuation log probability per choice token; also report unnormalized sum. Full tied vocabulary normalization, identical input tokens in both arms.",
+ "gate":"exploratory external improvement requires >=2 net GSM correct and no loss of more than one ARC item; freeze before any comparison. Keep both cohorts for longitudinal scoring only.",
+ "limits":{"wall_seconds":420,"peak_gib":5.0,"available_gib":1.5},
+ "sources":{"gsm":{"revision":"3101c7d5072418e28b9008a6636bde82a006892c","sha256":"17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465","license":"MIT"},"arc":{"revision":"210d026faf9955653af8916fad021475a3f00453","sha256":"ed890ff1e4cef7a7140d3a30dcea3ed2c9d467c6458f447ad9ef0176d8dcbb74","license":"CC BY-SA 4.0"}}
+}
