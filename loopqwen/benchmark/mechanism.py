@@ -96,8 +96,24 @@ def bench(arm):
 
     g1, g2 = vec(raw[1]), vec(ref[1])
     relative = (mx.linalg.norm(g1 - g2) / mx.linalg.norm(g1)).item()
-    if abs(raw[0].item() - ref[0].item()) > 1e-5 or relative > 0.004:
-        raise ValueError("Prefix gradient check failed")
+    raw_loss, cached_loss = raw[0].item(), ref[0].item()
+    accepted = abs(raw_loss - cached_loss) <= 1e-5 and relative <= 0.004
+    repeated = grad(m, *batches[0], False)
+    repeat_relative = (
+        mx.linalg.norm(vec(repeated[1]) - g1) / mx.linalg.norm(g1)
+    ).item()
+    same_input = mx.max(
+        mx.abs(
+            m.prefix_hidden(batches[0][0]).astype(mx.float32)
+            - cache[0].astype(mx.float32)
+        )
+    ).item()
+    changes = {}
+    cached_grads = dict(tree_flatten(ref[1]))
+    for name, v in tree_flatten(raw[1]):
+        old = v.astype(mx.float32)
+        diff = old - cached_grads[name].astype(mx.float32)
+        changes[name] = [mx.linalg.norm(diff).item(), mx.linalg.norm(old).item()]
     memory = sum(h.nbytes for h in cache)
     initial = m.trainable_parameters()
     mx.eval(initial)
@@ -153,6 +169,12 @@ def bench(arm):
                 disk_write_seconds=write,
                 disk_read_seconds=fetch,
                 grad_relative_rms=relative,
+                acceptance_passed=accepted,
+                uncached_repeat_relative_rms=repeat_relative,
+                prefix_max_abs=same_input,
+                gradients=changes,
+                loss_uncached=raw_loss,
+                loss_cached=cached_loss,
                 updates=results,
                 key=fingerprint(
                     [
