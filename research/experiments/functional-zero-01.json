@@ -1,0 +1,8 @@
+{
+ "id":"functional-zero-01","seed":95731,"maps_each":192,"depth":6,"batch":8,
+ "parent_path":"docs/measurements/rsi_time1/model","sha256":"20d2209013df8bc07b290db8f1de2552f5dcd7a8d707d642349841c097568c6c",
+ "comparison":"One fixed pretrained and adapted checkpoint. Fresh independent source-disjoint permutation cohort versus 192 independent unrestricted successor maps with self-loops and many-to-one transitions. Same eight states, random presentation and symbolic prompt. No training or model selection.",
+ "metrics":"Exact state and full path at each depth, natural stationary versus erroneous stalls, repeated vs novel states, transient and cycle lengths, one-hot independent verifier. Intervals by map within distribution. Stratified frequencies are descriptive; denominators can differ.",
+ "gate":"Exploratory zero-shot portability requires >=90% correct terminal states and >=85% complete paths at K6 on functional graphs; compare permutation calibration separately.",
+ "limits":{"wall_seconds":180,"peak_gib":5,"available_gib":1.5}
+}
