@@ -23,7 +23,7 @@ def check_study(root):
     import psutil
 
     ancestors = {os.getpid(), *(p.pid for p in psutil.Process().parents())}
-    for phase in ("phase2", "phase3", "phase4", "phase5", "phase6"):
+    for phase in ("phase2", "phase3", "phase4", "phase5", "phase6", "phase7"):
         path = root / "outputs" / phase / "study.lock"
         if not path.is_file():
             continue
