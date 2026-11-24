@@ -172,3 +172,32 @@ def deeper(records):
             "context_update_rms",
         ],
     )
+
+
+def positional_lookup(records):
+    """Contrast slot-index and source-key successors when their predictions disagree."""
+    counts = defaultdict(Counter)
+    for record in records:
+        if not record["condition"].startswith("random"):
+            continue
+        mapping = record["map"]
+        order = record["order"]
+        previous = record["start"]
+        for hop, (p, gold) in enumerate(
+            zip(record["probabilities"], record["gold"], strict=True), 1
+        ):
+            prediction = max(range(len(p)), key=p.__getitem__)
+            by_slot = mapping[order[previous]]
+            by_key = mapping[previous]
+            tally = counts[str(hop)]
+            tally["n"] += 1
+            tally["errors"] += prediction != gold
+            if by_slot != by_key:
+                tally["distinct_predictions"] += 1
+                tally["matches_source"] += prediction == by_key
+                tally["matches_slot"] += prediction == by_slot
+                if prediction != gold:
+                    tally["distinguishable_errors"] += 1
+                    tally["errors_matching_slot"] += prediction == by_slot
+            previous = prediction
+    return dict(counts)

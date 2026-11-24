@@ -10,7 +10,7 @@ from verify_phase6_archive import verify
 
 from loopqwen.data.pointer6 import ROOT, SPEC
 from loopqwen.evaluation.mechanism import packed, unpack
-from loopqwen.evaluation.order_scores import deeper, metrics
+from loopqwen.evaluation.order_scores import deeper, metrics, positional_lookup
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.training.mechanism import StudyArm, generation
@@ -102,6 +102,8 @@ def archive(dest, seed):
                     raise ValueError("Incorrect evaluated milestone")
                 shutil.copy(source, path / source.name)
                 scores = metrics(measured["records"])
+                if n == arm.milestones[-1]:
+                    info["positional_lookup"] = positional_lookup(measured["records"])
                 info["evaluations"].append(
                     {
                         "path": str((path / source.name).relative_to(root)),
