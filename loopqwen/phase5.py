@@ -4,9 +4,8 @@ import argparse
 import subprocess
 import sys
 from .data.pointer5 import build
-from .io import read
 from .training.pointer5 import SPEC, OUT, install, profile
-from .evaluation.pointer5 import installed, milestone
+from .evaluation.pointer5 import milestone
 
 
 def main():
