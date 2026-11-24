@@ -88,6 +88,7 @@ def test_real_pointer_gradients_splitting_and_resume(tmp_path):
     original = dict(tree_flatten(opt.state))
     mx.eval(original)
     restored = adam()
+    m.state_head.weight = mx.zeros_like(m.state_head.weight)
     checkpoint.restore(tmp_path, m, restored)
     actual_state = dict(tree_flatten(restored.state))
     assert original.keys() == actual_state.keys()

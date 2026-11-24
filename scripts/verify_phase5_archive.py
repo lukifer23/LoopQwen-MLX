@@ -28,7 +28,16 @@ def rescore(result):
     correct = [0] * depth
     complete = [0] * depth
     consistent = [0] * depth
+    seen = set()
     for r in result["records"]:
+        if (
+            r["example_id"] in seen
+            or r["map_id"] != hashlib.sha256(bytes(r["map"])).hexdigest()
+        ):
+            raise ValueError("Duplicate request or incorrect map identity")
+        seen.add(r["example_id"])
+        if len(r["probabilities"]) != depth:
+            raise ValueError("Missing categorical prediction")
         gold = trajectory(r, depth)
         pred = []
         for p in r["probabilities"]:
@@ -60,6 +69,18 @@ def rescore(result):
 
 def verify(root=ARCHIVE):
     sums = json.loads((root / "checksums.json").read_text())
+    if set(sums) != {
+        str(p.relative_to(root))
+        for p in root.rglob("*")
+        if p.is_file() and p.name != "checksums.json"
+    }:
+        raise ValueError("Archive inventory differs")
+    registration = json.loads((root / "registration.json").read_bytes())
+    training = json.loads((root / "training.json").read_bytes())
+    if not set(registration["arms"]).issubset(training):
+        raise ValueError("Missing registered arm")
+    cases = json.loads(gzip.decompress((root / "cases.json.gz").read_bytes()))
+    cohorts = {}
     for path, sha in sums.items():
         if hashlib.sha256((root / path).read_bytes()).hexdigest() != sha:
             raise ValueError("Changed archive file " + path)
@@ -67,10 +88,34 @@ def verify(root=ARCHIVE):
         with gzip.open(path, "rt") as f:
             r = json.load(f)
         if "behavior" not in r:
+            if "step" in r:
+                ids = [row["example_id"] for row in r["records"]]
+                if cohorts.setdefault(r["step"], ids) != ids:
+                    raise ValueError("Unpaired evaluation cohort")
             print(path.name, rescore(r))
             continue
         for kind, record in r["behavior"].items():
             rescore(record)
+            for j, m in enumerate(record["metrics"]):
+                agree = 0
+                for c, base, altered in zip(
+                    cases,
+                    r["behavior"]["original"]["records"],
+                    record["records"],
+                    strict=True,
+                ):
+                    if (altered["map"], altered["start"], altered["order"]) != (
+                        c[kind]["map"],
+                        c[kind]["start"],
+                        c[kind]["order"],
+                    ):
+                        raise ValueError("Counterfactual request mismatch")
+                    pred = base["pred"][j]
+                    agree += (
+                        c["perm"][pred] if kind == "relabel" else pred
+                    ) == altered["pred"][j]
+                if agree != m["prediction_agreement"]:
+                    raise ValueError("Incorrect counterfactual consistency")
         groups = {}
         for item in r["intervention"]["records"]:
             current = trajectory(item["donor"], 1)[0]
