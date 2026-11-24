@@ -8,12 +8,22 @@ from .evaluation.order_scores import metrics, paired, deeper
 from .io import read, save
 
 
-def exposure():
+def exposure(*, close=False):
     rows = pointer5.rows("development")
     original = unpack(ARCH / "randomized/orders-480.json.gz")
     parent = metrics(original["records"])
     early = ["canonical", "random0"]
-    st = train_until(ARM.milestones[0])
+    from .training.mechanism import generation
+    from .io import checkpoint_location
+
+    if close:
+        st = read(checkpoint_location(ARM.root) / "state.json")
+        if st["status"] != "unsafe":
+            raise ValueError("Early closeout requires a recorded resource stop")
+    elif (ARM.root / f"at-{ARM.milestones[0]}.json").exists():
+        st = read(generation(ARM, ARM.milestones[0]) / "state.json")
+    else:
+        st = train_until(ARM.milestones[0])
     n = st["step"]
     child = metrics(
         evaluate(ARM, n, rows[:96], early, 3, OUT / f"mid-{n}.json.gz")["records"]
@@ -35,7 +45,7 @@ def exposure():
         )
     )
     save(OUT / "midpoint.json", dict(parent=prior, child=child, stop=regress))
-    if not regress and st["status"] != "time_limit":
+    if not close and not regress and st["status"] != "time_limit":
         st = train_until(ARM.milestones[-1])
     n = st["step"]
     final = evaluate(ARM, n, rows, pointer6.SPEC["orders"], 3, OUT / "endpoint.json.gz")
@@ -58,6 +68,7 @@ def exposure():
     deep = evaluate(ARM, n, rows, early, 6, OUT / "deep.json.gz", observe=True)
     result = dict(
         step=n,
+        training_status=st["status"],
         checks=checks,
         installed=all(checks.values()),
         scores=child,
@@ -97,10 +108,12 @@ def exposure():
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("stage", choices=["exposure", "language", "transfer"])
+    p.add_argument(
+        "stage", choices=["exposure", "close-exposure", "language", "transfer"]
+    )
     stage = p.parse_args().stage
-    if stage == "exposure":
-        exposure()
+    if stage in ("exposure", "close-exposure"):
+        exposure(close=stage == "close-exposure")
     elif stage == "language":
         from .evaluation.language7 import run
 
