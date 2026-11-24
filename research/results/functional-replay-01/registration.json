@@ -1,0 +1,10 @@
+{
+  "id":"functional-replay-01","seed":95901,"parent_path":"docs/measurements/rsi_time1/model","parent_sha256":"20d2209013df8bc07b290db8f1de2552f5dcd7a8d707d642349841c097568c6c",
+  "question":"Can reusing errors seen in the actual training forward improve functional-graph adaptation at lower cost than a separate diagnostic sweep?",
+  "objective":"Unchanged rank-eight block and shared readout. Mean CE over six categorical states per map and then across eight maps. Fresh AdamW for each branch, retain moments across both cycles.",
+  "rounds":2,"fresh_per_round":96,"replay_per_round":32,"batch":8,"depth":6,"dev_maps":128,"lr":0.0003,"clip":1,"cap":384,
+  "distribution":"Uniform independent eight-state successor maps; one frozen randomized symbolic presentation per map. Same fresh batches in both arms. One independent development cohort. Anchor retention on 96 historical random0 permissioned development permutations at three hops.",
+  "selection":"Within each cycle take one unique replay example from each consecutive stratum of three fresh maps (32 strata, no replacement). Static uses a preseeded independent uniform choice within each stratum. Online uses pre-update correct-prefix length from its own fresh forward. Prefer an intermediate prefix of 1..5 nearest to three for strata 0,1,2 modulo five; for stratum 3 prefer lowest prefix; for stratum 4 highest prefix. Break ties by a seeded hash of map ID. Replay selected maps in stratum order. No extra candidate inference.",
+  "gate":"At the second endpoint require >=3 percentage points online minus static sixth-hop accuracy and <=2 percentage points online third-hop permutation retention loss versus parent. Stop after matched round one if either loses >5 absolute points on the 96-map permutation anchor. Charge rollout, training and selection; optional measured-time static only if equal-update gate passes.",
+  "limits":{"wall_seconds":300,"peak_gib":5,"available_gib":1.5}
+}
