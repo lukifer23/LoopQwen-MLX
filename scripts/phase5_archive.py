@@ -8,8 +8,10 @@ import shutil
 import tempfile
 from pathlib import Path
 from statistics import median
+from datetime import datetime, timezone
 
 from verify_phase5_archive import verify
+from phase5_extrapolation import summarize, training_rows
 
 
 def read(path):
@@ -121,6 +123,10 @@ def archive(dest, seed):
                 if extra["weights"] != weights:
                     raise ValueError("Stale extrapolation")
                 write(root / f"predictions/extra-{arm}.json.gz", extra)
+                write(
+                    root / f"extrapolation/{arm}.json",
+                    summarize(extra, training_rows()),
+                )
             write(root / f"history/{arm}.json.gz", h)
             seconds = sum(r["seconds"] for r in h)
             runs[arm] = dict(
@@ -150,6 +156,23 @@ def archive(dest, seed):
                 metrics=r["metrics"],
                 runtime=r["runtime"],
             )
+        stage_times = {}
+        for name in ("profile", "install", "followup"):
+            log = out / (name + ".log")
+            if log.is_file():
+                stat = log.stat()
+                if stat.st_size and hasattr(stat, "st_birthtime"):
+                    stage_times[name] = dict(
+                        first_log_creation_utc=datetime.fromtimestamp(
+                            stat.st_birthtime, timezone.utc
+                        ).isoformat(),
+                        last_log_write_utc=datetime.fromtimestamp(
+                            stat.st_mtime, timezone.utc
+                        ).isoformat(),
+                        elapsed_through_last_log_seconds=stat.st_mtime
+                        - stat.st_birthtime,
+                    )
+        write(root / "stage-times.json", stage_times)
         write(root / "training.json", runs)
         write(root / "schedule.json.gz", schedule)
         write(
