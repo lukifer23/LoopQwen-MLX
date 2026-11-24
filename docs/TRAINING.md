@@ -56,3 +56,17 @@ python -m loopqwen compare --experiment phase4
 ```
 
 The dense time control consumes the measured update seconds of the gated run. Its data-matched comparison is the immutable 250K milestone from that same dense trajectory, when reached. `scripts/run_phase4.sh verify` exercises native gradients and stock K=1 deployment. The [Phase 4 registration](PHASE4_PLAN.md) specifies when to run follow-up ablations.
+
+## Standalone pointer training
+
+Use the locked environment from the repository root and the pinned Qwen Base model. These stages run without Phase 4 training outputs.
+
+```sh
+scripts/run_phase5.sh audit data profile
+scripts/run_phase5.sh smoke install --seed 109
+scripts/run_phase5.sh evaluate diagnostics followup --seed 109
+```
+
+The four arms share the ordered training maps and requested depths. The frozen probe and both dense comparators receive one terminal label per map. The direct recurrent arm receives one target per executed pass. Run `install` again to resume a compatible interrupted arm. Recovery generations contain all trainable weights, including the categorical head, AdamW moments and the update cursor. The 24-, 120-, 360- and 480-update pointers retain the evaluated generations. The machine-wide lease and checkout conductor serialize workers.
+
+The follow-up command evaluates the prespecified installation rule. A miss triggers a matched low-rank bridge. A qualifying direct model triggers stronger neural controls, unseen depths and terminal-only continuation. [Phase 5 decision rules](PHASE5_PLAN.md)
