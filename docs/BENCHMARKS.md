@@ -15,3 +15,9 @@ The latest categorical benchmark reports maps per second, state labels per secon
 | native | False | 44.8 | 129.1 | 2.10 |
 
 The Phase 7 pointer benchmark reports batch-one latency separately from the cost of a multi-exit trajectory. The vocabulary pilot projects the final real prompt position through the original tied head. Its next-digit score and the thinking-enabled chat completion score use different input and answer protocols. [Measured costs and quality](PHASE7_RESULTS.md)
+
+## Continuous language anchors
+
+The raw room task explicitly requests three successive rooms. All compared depths receive identical prompt IDs and the same 24-token greedy generation budget. A verified path requires all three states in order and a line or token boundary. A final number alone can earn terminal-answer credit. The thinking calibration counts a numeric answer only in the completed first assistant turn after its thinking segment closes. Each archive retains all charged token IDs.
+
+GSM8K uses two short arithmetic demonstrations and direct numeric completion on 32 reserved publisher training items. ARC-Easy uses 32 four-choice validation items with mean log probability over each candidate continuation and also reports the unnormalized likelihood sum. Both have fixed source hashes and reserved question IDs. Public pretraining overlap is unknown. These development samples support screening and paired comparisons. [Dataset and licenses](../research/data/external-anchor.json) · [GSM8K publisher](https://github.com/openai/grade-school-math) · [ARC publisher](https://huggingface.co/datasets/allenai/ai2_arc)

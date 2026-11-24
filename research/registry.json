@@ -1,0 +1,68 @@
+{
+  "datasets": {
+    "research/data/trace-bootstrap-01.json.gz": {
+      "sha256": "a855f58035734be8ab69713c1c357be1614cc19a22ff5fc9853cb533a06227e4",
+      "splits": {
+        "train": 256,
+        "dev": 64
+      }
+    },
+    "research/data/trace-depth-01.json.gz": {
+      "sha256": "d199d52dfac116f4910771934eba6cc27205e13136ad3133399e25d64f59dd15",
+      "splits": {
+        "dev": 96
+      }
+    },
+    "research/data/turn-calibration-01.json.gz": {
+      "sha256": "f5a78e2d66c4a8a0eb4aed8a959a0062b9bc87153cab3578b6ae517725e49a79",
+      "splits": {
+        "rooms": 2
+      }
+    },
+    "research/data/external-anchor.json": {
+      "sha256": "5079c29d3f04c8ff04183515a49f8128eba13b32657d7e82c035557d13f6c939"
+    },
+    "research/data/historical-maps.txt.gz": {
+      "sha256": "601bb62b775ee6e57fb8b29eb0d5499f9ad433ffb270028d4129a1ebc5ccff7d"
+    },
+    "research/data/historical.json": {
+      "sha256": "b8ff141b3966dcb58674439154422e2f1733c393dab7e490b1119f0e49063830"
+    },
+    "research/registry/historical-text-ids.json.gz": {
+      "sha256": "4ad01d6f5cb6533d1716edb3cc2e9d25e63e99398e45ec2a3f0fd4e8e8084237"
+    },
+    "research/registry/historical-text.json": {
+      "sha256": "82803ca9d4833a4126fb9f872969cb7168aac6256b0c76b9f725a0f4354a734d"
+    }
+  },
+  "experiments": {
+    "external-anchor-01": {
+      "registration": "0f61860e9161a8c93c24c3f6e2855efaa69b6e8ec97c5c6617129a18e37a5020",
+      "archive": "64d5b868339bbcf0c7ae9667b48924ebc4e7d8233c5eabaa89979761c5335ede"
+    },
+    "functional-zero-01": {
+      "registration": "5cbe5e49357ec14fb713126ff3a30f2710afa576d13c0b207333e9fb17c9b5e3",
+      "archive": null
+    },
+    "joint-trace-01": {
+      "registration": "0b7a240bee507afdcfb41e8bbde4c7d7848d5a7b5cef3857199eac6044652233",
+      "archive": null
+    },
+    "suffix-trace-01": {
+      "registration": "cd76296f00146bb536554fa950865febe45a2a63c0b240583b0f364f1a740fe0",
+      "archive": "a330c74f99e677053d89b9d956838ad3cb52ec8323e94ea90b5b230d5003c1ce"
+    },
+    "trace-bootstrap-01": {
+      "registration": "ec1d478945479edc9ce04c8f0fdadafa1946daa974de43f9d6addab66da71266",
+      "archive": "bf51a9d0793cb661fca8799bd5ef45b0e72edf19929a305abc4105f3a5e4fdad"
+    },
+    "trace-depth-01": {
+      "registration": "0627fa89326e2fa0a61f9a35a02ac6e7ecade982f68ff389dce888d2039b8bff",
+      "archive": null
+    },
+    "turn-calibration-01": {
+      "registration": "9ae12abfdd12716fd48528d680c8fc2b3dc417e50420eef1154e44b2cb8541d0",
+      "archive": "ce16b28a00c7b4ab7769faeaa2e754eaa30ed5f3289f38567e9dbb8e407d179d"
+    }
+  }
+}

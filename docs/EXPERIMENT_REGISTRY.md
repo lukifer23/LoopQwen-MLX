@@ -92,3 +92,7 @@ Seed 109, exact R480 optimizer continuation, shared rank-eight block, fresh rand
 ## Bounded outer-loop curriculum and verified traces
 
 Seed 719 completed both generations. A prespecified equal-update advantage failed to survive the measured-time static control. Seed 859 completed both first-generation arms before its joint retention stop. The verified-trace trial failed its training-data yield floor. The frozen self-distillation prerequisites closed. [Scoreboards and costs](RSI_RESULTS.md) · [Seed 719 archive](measurements/rsi1) · [Time control](measurements/rsi_time1) · [Seed 859 archive](measurements/rsi2) · [Verified-trace records](measurements/rsi_trace1)
+
+## Continuous research
+
+The [research index](../research/registry.json) binds dataset contents, prospective registrations and immutable result archives. The [scoreboard](CAPABILITY_SCOREBOARD.md) separates categorical, language, reasoning, retention and efficiency outcomes. The [ledger](RESEARCH_LOG.md) records gate decisions.
