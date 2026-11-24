@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-24T02:41:49.708839+00:00",
-  "starting_revision": "99b4ad1e7d74dd65882de770205acc2bd80d922d",
+  "session_start_utc": "2026-11-24T03:04:27.475056+00:00",
+  "starting_revision": "fbddf5a65d5c62dc45604cb1150549c2949b7055",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -70,14 +70,13 @@
       "reason": "Static 53/128 sixth hops vs online 33/128; permutation anchor dropped to 12/96 and 11/96. Round two closed."
     }
   ],
-  "status": "User resumed the research goal; the authorized native window is waiting for sustained memory recovery.",
-  "next_action": "During this authorized window, resume the saved interleaving comparison if sustained memory headroom returns. Use the existing session on the training host. The first preflight started no model worker.",
+  "status": "Stopped at owner request. The native window is closed and its memory monitor exited.",
+  "next_action": "Only after a new owner-authorized session and sufficient memory headroom, verify and restore the original control at update 1, then complete the registered paired retention study. See docs/NEXT_EXPERIMENTS.md.",
   "hypothesis": "Replacing two of eight new-task examples with prior permutation training examples can preserve the old operation during functional-graph adaptation.",
   "budget_used": {
-    "iterations_started": 5,
-    "experiment_wall_seconds": 480.757981300354,
-    "peak_experiment_mlx_gib": 4.868857823312283,
-    "session_wall_seconds_at_close": 1036.320354938507
+    "iterations_started": 0,
+    "experiment_wall_seconds": 0,
+    "session_wall_seconds_at_close": 2610.463922739029
   },
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
@@ -115,11 +114,14 @@
       "paired_evaluation": false
     }
   ],
-  "closed_session_start": 1795488109.708839,
+  "closed_session_start": 1795489467.4750562,
   "native_window": {
     "start_utc": "2026-11-24T03:04:27.475056+00:00",
     "expires_utc": "2026-11-24T05:04:27.475056+00:00",
     "study": "functional-interleave-01",
-    "last_resource_observation": "research/sessions/interleave-resume-1795489467.json"
+    "last_resource_observation": "research/sessions/interleave-closure-1795489467/monitor.tsv",
+    "status": "closed",
+    "closed_utc": "2026-11-24T03:47:57.938979+00:00",
+    "closure_record": "research/sessions/interleave-closure-1795489467/closure.json"
   }
 }

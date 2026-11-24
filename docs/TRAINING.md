@@ -163,3 +163,5 @@ python3 scripts/audit_gsm_equations.py
 ```
 
 Study time limits include prior charged invocations in this checkout. A closed research window rejects new native jobs. Preserve the local budget ledgers alongside optimizer generations for exact continuation. The study of mixed permutation and functional training saved the control after update one. The recovery check validates the adapter and AdamW file digests, moment shapes, metadata and step without loading the model. [Commands and remaining budget](NEXT_EXPERIMENTS.md)
+
+The November 24 interleaving window closed early at the owner’s request. Its monitor has exited. A future authorized run uses the original optimizer generation, the frozen schedule, and the remaining study allowance. The closure record separates preflight observations from worker time. [Restart instructions](NEXT_EXPERIMENTS.md) · [Final accounting](../research/sessions/interleave-closure-1795489467/closure.json)

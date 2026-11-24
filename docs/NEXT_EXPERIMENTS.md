@@ -1,18 +1,25 @@
 # Next experiment
 
-**Finish the registered retention comparison when the Mac has sustained memory headroom.** Training exclusively on arbitrary successor maps improved sixth-hop accuracy from 4/128 to 53/128 but cut third-hop permutation accuracy from 96/96 to 12/96. The pending comparison tests whether mixing two prior permutation examples into each batch of eight preserves the old operation.
+**Research execution is stopped at the owner’s request.** The monitor exited and the native session closed on November 23 at 9:47 p.m. Central (November 24 at 03:47 UTC). The saved control is at **1/16** optimizer updates and the treatment is at **0/16**. No paired evaluation or promotion decision exists for this study. [Closure and final readings](../research/sessions/interleave-closure-1795489467/closure.json)
 
-Both arms have the same six-hop parent and 96 identical fresh maps. The functional-only control fills the other 32 slots with repeated functional maps. The treatment fills those slots with old permutation training maps. Success requires a ten-point new-task gain and at most two lost prior third hops. [Registration](../research/experiments/functional-interleave-01.json) · [Frozen schedule](../research/data/functional-interleave-01.json)
+## What blocked training
 
-At the 84-position cap, the control completed **1/16** optimizer updates. The treatment completed **0/16**. The system memory guard stopped the worker after 5.32 seconds at 2.38 GiB peak MLX allocation. Preflight had found normal OS pressure and 5.34–6.38 GiB available across six checks. That short recovery proved insufficient for sustained training. That training session closed after the interruption. The remaining study allowance on this host is 174.68 seconds. The saved generation includes the exact first logical batch and its optimizer state. The published compact copy records the local optimizer digest. [Snapshot](../research/sessions/2026-11-24-resumed/interleave-control-step1) · [Session accounting](../research/sessions/2026-11-24-resumed/execution.json)
+The earlier trial completed one eight-map update with 48 state labels. The runtime guard then stopped the worker after 5.32 seconds, with a 2.38 GiB peak MLX allocation. The guard checks both macOS memory pressure and the study’s 1.5 GiB minimum system availability. The earlier exception recorded a combined memory warning, so the triggering measurement cannot be distinguished retrospectively. [Interruption record](../research/sessions/2026-11-24-resumed/interleave-control-step1/interruption.json) · [Registered limits](../research/experiments/functional-interleave-01.json)
 
-The owner resumed the goal and opened a new bounded window ending at **2026-11-24 05:04:27 UTC**. The first four-minute resource check saw 6 warning readings in 31 samples while the model was unloaded. Available memory ranged from 3.52 to 5.40 GiB. No training budget was consumed. [Preflight measurements](../research/sessions/interleave-resume-1795489467.json)
+For the resumed window we chose a conservative launch margin of five consecutive readings at or above **6.4 GiB available**, sampled eight seconds apart, with normal OS pressure and a free GPU lease. The previous trial had stopped even after preflight readings reached 6.38 GiB. The new preflight saw six OS warnings in 31 readings. The subsequent monitor saw normal pressure in all **288** readings, but available memory ranged from **4.01 to 5.98 GiB**. Zero readings reached the launch margin. The monitor spent **zero native worker seconds** and exited before its deadline at the owner’s request. [Preflight measurements](../research/sessions/interleave-resume-1795489467.json) · [Monitor samples](../research/sessions/interleave-closure-1795489467/monitor.tsv)
 
-On the original host, use the existing window when memory recovers. The runner restores AdamW and the saved cursor. After window expiry, a new authorized session must be opened with `.venv/bin/python scripts/research_session.py` before running the study.
+## One experiment to resume
+
+When the owner next authorizes training and memory headroom improves, finish the registered comparison of mixed-task replay. Training only on arbitrary successor maps previously raised sixth-hop accuracy from 4/128 to 53/128 while cutting third-hop permutation accuracy from 96/96 to 12/96. Both new arms see the same 96 fresh functional maps. Two slots per logical batch contain either repeated functional maps (control) or previously seen permutation maps (treatment). [Frozen training schedule](../research/data/functional-interleave-01.json) · [Prior scores](CAPABILITY_SCOREBOARD.md)
+
+1. On the original training host, verify the saved control weights and AdamW moments. Open one authorized window after checking available memory and the GPU lease.
+2. Restore the control at update one. Finish its 15 remaining updates and the treatment’s 16 under the same 84-position cap. The two arms share **174.68 seconds** of remaining study worker time.
+3. Independently score sixth-hop predictions and complete trajectories on the 128 functional maps. Report paired changes and the 96-map permutation retention score. Promotion requires a gain of at least ten percentage points over the parent on functional sixth hops and at most two lost permutation third hops. If the budget or memory guard stops execution first, preserve the completed boundary.
 
 ```sh
 python3 scripts/verify_research_recovery.py research/sessions/2026-11-24-resumed/interleave-control-step1
+.venv/bin/python scripts/research_session.py
 .venv/bin/python -m loopqwen.research.interleave
 ```
 
-The external math pilot produced one correct answer from 32 questions. Its accuracy gate closed the larger math comparison. The paired terminal-number study favored ordinary-depth training and leaves little support for spending more compute on the same three-pass objective. [Capability scoreboard](CAPABILITY_SCOREBOARD.md)
+The compact adapter and metadata are published. Exact recovery also uses the original locally retained optimizer file. [Checkpoint and optimizer digest](../research/sessions/2026-11-24-resumed/interleave-control-step1/recovery.json)

@@ -96,3 +96,10 @@ Seed 719 completed both generations. A prespecified equal-update advantage faile
 ## Continuous research
 
 The [research index](../research/registry.json) binds dataset contents, prospective registrations and immutable result archives. The [scoreboard](CAPABILITY_SCOREBOARD.md) separates categorical, language, reasoning, retention and efficiency outcomes. The [ledger](RESEARCH_LOG.md) records gate decisions.
+
+| Recent study | Outcome |
+|---|---|
+| Functional terminal answers | Trained K=1 scored 61/128 and K=3 scored 44/128. A one-link lookup scored 51/128. [Paired archive](../research/results/functional-terminal-01) |
+| Functional replay | Static scored 53/128 sixth hops and online replay scored 33/128. Both crossed the permutation retention stop. [Archive](../research/results/functional-replay-cap84) |
+| Thinking-enabled GSM8K | Equation-trained K=3 produced 26/32 scorable answers and one correct answer at update 16. Untouched Base completed zero within the same token cap. [Archive](../research/results/gsm-equations-01) |
+| Mixed-task retention | Interrupted at control update 1/16 and treatment update 0/16. The resumed window closed with zero native worker starts. [Registration](../research/experiments/functional-interleave-01.json) · [Closure](../research/sessions/interleave-closure-1795489467/closure.json) |
