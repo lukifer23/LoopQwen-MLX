@@ -70,8 +70,8 @@
       "reason": "Static 53/128 sixth hops vs online 33/128; permutation anchor dropped to 12/96 and 11/96. Round two closed."
     }
   ],
-  "status": "Native session closed after repeated macOS memory-guard interruptions. Interleaving comparison incomplete.",
-  "next_action": "When sustained system memory headroom is available, verify the original control optimizer and resume the registered interleaving comparison from update 1 in an authorized session. See docs/NEXT_EXPERIMENTS.md.",
+  "status": "User resumed the research goal; the authorized native window is waiting for sustained memory recovery.",
+  "next_action": "During this authorized window, resume the saved interleaving comparison if sustained memory headroom returns. Use the existing session on the training host. The first preflight started no model worker.",
   "hypothesis": "Replacing two of eight new-task examples with prior permutation training examples can preserve the old operation during functional-graph adaptation.",
   "budget_used": {
     "iterations_started": 5,
@@ -115,5 +115,11 @@
       "paired_evaluation": false
     }
   ],
-  "closed_session_start": 1795488109.708839
+  "closed_session_start": 1795488109.708839,
+  "native_window": {
+    "start_utc": "2026-11-24T03:04:27.475056+00:00",
+    "expires_utc": "2026-11-24T05:04:27.475056+00:00",
+    "study": "functional-interleave-01",
+    "last_resource_observation": "research/sessions/interleave-resume-1795489467.json"
+  }
 }
