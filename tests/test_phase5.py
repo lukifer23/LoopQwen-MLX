@@ -94,3 +94,30 @@ def test_real_pointer_gradients_splitting_and_resume(tmp_path):
     assert original.keys() == actual_state.keys()
     assert all(mx.array_equal(v, actual_state[k]).item() for k, v in original.items())
     assert mx.array_equal(actual, outputs(m, x, last, 3, "recurrent")[-1]).item()
+
+
+def test_zero_output_reentry_and_real_bridge_gradient():
+    import mlx.core as mx
+    import mlx.nn as nn
+
+    from loopqwen.training.pointer5 import architecture, inputs, outputs, request_rows
+
+    model, tok, _, _ = architecture(109, "bridge", "off")
+    samples = rows("development")[:2]
+    group = request_rows(samples, 2, "bridge", tok, {})
+    x, last = inputs(group)
+    for a, b in zip(
+        outputs(model, x, last, 2, "bridge"),
+        outputs(model, x, last, 2, "recurrent"),
+        strict=True,
+    ):
+        assert mx.array_equal(a, b).item()
+    y = mx.array([s["states"][1] for s in samples])
+
+    def loss(m):
+        z = outputs(m, x, last, 2, "bridge")[-1]
+        return nn.losses.cross_entropy(z, y, reduction="mean")
+
+    _, grad = nn.value_and_grad(model, loss)(model)
+    assert mx.linalg.norm(grad["bridge_out"]["weight"]).item() > 0
+    assert mx.linalg.norm(grad["bridge_in"]["weight"]).item() == 0
