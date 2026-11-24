@@ -67,3 +67,7 @@ To resume a milestone manually with unchanged optimization settings, use the sam
 The archived run register, source hashes, artifact checksums and compressed per-example evaluations are in `docs/measurements/phase3/`. Local reruns after publication use a separate reproduction archive under `outputs/phase3/reproduction/<main-result-digest-prefix>/`. To render that reproduction, pass its directory to `phase3_report.py --archive` and an independent directory to `--destination`. The committed tables remain the original publication. Model cards under `adapters/phase3/` describe the unmerged inference artifacts.
 
 The published Phase 4 equal-data dense adapter is the evaluated update-1,610 snapshot of the time-matched dense trajectory. Its original metadata records the enclosing run as active at capture. That trajectory subsequently completed at update 2,160. The evaluated 1,610-update weights have their own artifact digest. Both milestones are listed in the [archived training record](measurements/phase4/training.json).
+
+## Phase 5 pointer installation
+
+Seed 109, pinned Qwen Base, original rank-eight span. The registered arms are the frozen probe, dense middle, dense full and direct recurrent. Each has a common 480-update schedule. Model selection uses development maps. The 384-map confirmation cohort has a separate immutable identity. [Registration](../experiments/phase5.json) · [Cohorts and priors](PHASE5_DATA.md) · [Promotion rules](PHASE5_PLAN.md)
