@@ -17,6 +17,7 @@ def main():
             "diagnostics",
             "followup",
             "replicate",
+            "reasoning-pair",
         ],
     )
     p.add_argument("--seed", type=int, default=SPEC["seed"])
@@ -29,6 +30,11 @@ def main():
         from .mechanism_study import decision
 
         print(decision(args.seed, follow=True), flush=True)
+        return
+    if args.stage == "reasoning-pair":
+        from .evaluation.reasoning_pair import run
+
+        run()
         return
     if args.stage == "replicate":
         from .evaluation.mechanism_replication import replicate
