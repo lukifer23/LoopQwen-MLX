@@ -80,6 +80,20 @@ def archive(dest, seed):
             [json.loads(s) for s in (data / "cases.jsonl").read_bytes().splitlines()],
         )
         write(root / "profile.json.gz", read(out / "profile.json"))
+        from loopqwen.model_loader import local_snapshot
+
+        snapshot = local_snapshot()
+        write(
+            root / "base-weights-and-tokenizer.json",
+            dict(
+                revision=spec["base_revision"],
+                files={
+                    p.name: sha(p)
+                    for p in sorted(snapshot.iterdir())
+                    if p.is_file() and p.suffix in (".json", ".txt", ".safetensors")
+                },
+            ),
+        )
         source_trees = {}
         runs = {}
         schedule = None
