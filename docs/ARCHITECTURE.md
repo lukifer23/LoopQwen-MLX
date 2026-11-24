@@ -1,5 +1,7 @@
 # Text backbone and execution schedule
 
+The Phase 5 categorical study reads an eight-state prediction after each application of the shared middle block. The decoder and cache architecture for language generation follows below. [Pointer architecture and diagram](PHASE5_ARCHITECTURE.md)
+
 The MLX-LM loader constructs the text module from the official multimodal configuration. Its sanitizer strips vision and MTP weights, transposes the depthwise convolutions, adjusts RMSNorm weights and respects tied embeddings. Loading uses strict weight matching. The model has 24 decoder layers, width 1,024, intermediate width 3,584 and vocabulary size 248,320. Every fourth layer performs gated grouped-query attention with RoPE. The other 18 use a causal depthwise convolution and a gated delta recurrence. The pinned non-MoE text module has no special quantization predicate. This experiment uses the original precision.
 
 The wrapper registers the text model once. Its schedule contains integer pairs identifying an original layer and an application of the selected span. The default visits layers 0–9, 10–15, 10–15 again, then 16–23. Each visit indexes the same original module, including its adapters. The tied embedding performs the final vocabulary projection. K=1, 2 and 3 execute 24, 30 and 36 decoder layers respectively. The probe compares all pretrained tensor identities and K=1 logits against the stock model. Its JSON also records whole-forward timings. The baseline JSON lists every layer and projection.

@@ -1,5 +1,7 @@
 # Metal benchmark
 
+The latest categorical benchmark reports maps per second, state labels per second and peak memory. The historical language-model benchmark below measures token generation and vocabulary training. [Phase 5 native measurements](PHASE5_OPTIMIZATIONS.md) · [Fixed-work inference latency](PHASE5_RESULTS.md#runtime-and-reproducibility)
+
 | K | Prefill tok/s | Decode tok/s | TTFT ms | Peak MLX GiB |
 |---:|---:|---:|---:|---:|
 | 1 | 2284.3 | 69.1 | 28.0 | 1.54 |

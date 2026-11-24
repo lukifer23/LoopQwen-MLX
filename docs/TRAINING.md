@@ -64,7 +64,8 @@ Use the locked environment from the repository root and the pinned Qwen Base mod
 ```sh
 scripts/run_phase5.sh audit data profile
 scripts/run_phase5.sh smoke install --seed 109
-scripts/run_phase5.sh evaluate diagnostics followup --seed 109
+scripts/run_phase5.sh evaluate diagnostics followup latency --seed 109
+scripts/run_phase5.sh donors transfer --seed 109
 ```
 
 The four arms share the ordered training maps and requested depths. The frozen probe and both dense comparators receive one terminal label per map. The direct recurrent arm receives one target per executed pass. Run `install` again to resume a compatible interrupted arm. Recovery generations contain all trainable weights, including the categorical head, AdamW moments and the update cursor. The 24-, 120-, 360- and 480-update pointers retain the evaluated generations. The machine-wide lease and checkout conductor serialize workers.

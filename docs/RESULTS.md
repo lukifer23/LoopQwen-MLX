@@ -1,5 +1,11 @@
 # Local results on Apple M3 Pro
 
+## Current finding and research history
+
+Phase 5 trained on 3,840 eight-node maps. The installed recurrent checkpoint completed all three hops on 384/384 unseen canonical development maps, compared with 1/384 complete paths for dense middle and 10/384 for dense full. Shuffling the displayed edges cut third-hop accuracy to 36/64 and missed the registered promotion threshold. Confirmation remains sealed. The next experiment is matched training with randomized edge presentation. [Phase 5 report](PHASE5_RESULTS.md) · [Decision record](measurements/phase5/decision.json) · [Verification record](measurements/phase5-review.json)
+
+The earlier language-model studies measured generated answers on different tasks. Their reports cover richer supervision, gated recurrence and joint-exit training. The pilot and extended measurements follow below. [Phase 2](PHASE2_RESULTS.md) · [Phase 3](PHASE3_RESULTS.md) · [Phase 4](PHASE4_RESULTS.md)
+
 ## 200-update paired pilot
 
 Training adapted the loop. Enabling the six-layer recurrence without training cut procedural exact accuracy from 28/110 to 14/110. Training the shared adapters brought it to 50/110. The equally trained dense twin reached 61/110. Among their paired answers, both models got 47 right, the dense twin alone got 14 right, and the loop alone got three right. The trained loop's answer NLL was 0.6392 versus 0.5613 for the dense twin. Its prose NLL was also higher. This run favors the dense control.
@@ -37,6 +43,6 @@ The evaluation uses one seed and a small set of familiar task families. Arithmet
 
 The 1,000-update BF16 export had 1.56% merge-relative RMS on the verification prompt and reproduced its merged logits exactly in a fresh process. The published adapter bundle and the standalone merged export both greedily generated `391` followed by EOS for `Question: 17 × 23` followed by a newline and `Answer:`. [Extended export verification](measurements/extended_export.json) · [Recorded generation](measurements/extended_generation.json)
 
-## Next experiment
+## Recommendation recorded after the 1,000-update experiment
 
 Hold the six-layer span, adapters, data and token budget fixed, and compare direct K=2 training against the gradual K=1-to-K=2 curriculum in configs/gradual_loop.yaml. Run the matched dense control and both recurrent variants across three seeds. The initial doubling of the block disrupted the base model, but the longer-trained recurrent checkpoint gained four correct answers from its second pass. This comparison tests whether introducing that extra depth gradually closes the remaining dense-control gap. Use validation for choosing the schedule and a fresh untouched procedural split for the confirmatory result.

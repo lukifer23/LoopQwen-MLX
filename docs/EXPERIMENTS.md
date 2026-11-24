@@ -1,5 +1,7 @@
 # Experiment protocol
 
+For the completed Phase 5 pointer study, the registry lists the training, evaluation and archival commands. The original language-model protocols follow below. [Study registry](EXPERIMENT_REGISTRY.md#phase-5-pointer-installation) · [Phase 5 results](PHASE5_RESULTS.md)
+
 The primary question is whether the additional application of layers 10–15 improves held-out performance after training, relative to giving the same adapter capacity and data to the original decoder. K=1 uses the stock layer order. K=2 repeats the span. K=3 applies it three times. All indices are zero-based.
 
 ## Controls and scoring
