@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "functional-replay-cap84",
+  "active": "gsm-equations-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -17,7 +17,7 @@
     "combined_room_and_state": "research/results/joint-trace-01/model at K3"
   },
   "frontier": "Measured-time static training 255/256 vs adaptive 248/256. General retention of the six-hop model remains unmeasured.",
-  "next": "gsm-equations-01",
+  "next": "functional-interleave-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -63,6 +63,11 @@
       "id": "functional-terminal-01",
       "promoted": false,
       "reason": "K3 44/128 versus K1 61/128, both promotion criteria missed"
+    },
+    {
+      "id": "functional-replay-cap84",
+      "promoted": false,
+      "reason": "Static 53/128 sixth hops vs online 33/128; permutation anchor dropped to 12/96 and 11/96. Round two closed."
     }
   ],
   "status": "bounded native session in progress",

@@ -120,6 +120,10 @@ def verify(root):
             == decision["correct"],
             "Calibration accuracy",
         )
+    if study == "gsm-equations-01":
+        verify_math(root, decision)
+    if study == "functional-replay-cap84":
+        verify_replay(root, decision)
     if study == "functional-terminal-01":
         verify_terminal(root, decision)
     if study == "functional-zero-01":
@@ -147,6 +151,136 @@ def verify(root):
     if study == "verified-generations-01":
         verify_generations(root, decision)
     print(study, len(index), "files verified")
+
+
+def verify_math(root, decision):
+    data = read(Path("research/data/gsm-equations-01.json"))
+    streams = []
+    answers = []
+    for arm in ("base", "candidate"):
+        report = read(root / (arm + ".json.gz"))
+        records = report["records"]
+        require(
+            report["cohort"] == sha(Path("research/data/gsm-equations-01.json")),
+            "Math cohort digest",
+        )
+        flags = []
+        valid = 0
+        for r, item in zip(records, data["dev"], strict=True):
+            require(
+                (r["id"], r["gold"]) == (item["id"], item["gold"]), "Wrong math item"
+            )
+            final = numeric(r["visible"]) if r["complete"] else None
+            require(final == r["answer"], "Wrong visible answer")
+            ok = final == item["gold"]
+            require(ok == r["correct"], "Wrong completed answer")
+            valid += final is not None
+            flags.append(ok)
+        require(
+            (sum(flags), valid) == (decision[arm]["correct"], decision[arm]["valid"]),
+            "Math totals",
+        )
+        streams.append([r["prompt_ids"] for r in records])
+        answers.append(flags)
+    require(streams[0] == streams[1], "Unpaired math questions")
+    diff = [int(b) - int(a) for a, b in zip(*answers, strict=True)]
+    require(
+        (diff.count(1), diff.count(-1))
+        == (decision["paired"]["wins"], decision["paired"]["losses"]),
+        "Math paired totals",
+    )
+    passed = (
+        sum(diff) >= 2
+        and decision["candidate"]["valid"] >= 16
+        and decision["anchor_before"][-1] - decision["anchor_after"][-1] <= 2
+    )
+    require(passed == decision["passed"], "Math gate")
+
+
+def verify_replay(root, decision):
+    reg = read(root / "registration.json")
+    groups = read(Path("research/data") / (reg["dataset"] + ".json.gz"))["splits"]
+
+    def counts(path):
+        rows = read(path)["records"]
+        hits = [0] * 6
+        for r, expected in zip(rows, groups["dev"], strict=True):
+            require(r["map_id"] == expected["map_id"], "Wrong functional cohort")
+            pred = [p.index(max(p)) for p in r["probabilities"]]
+            require(pred == r["predicted"], "Invalid categorical argmax")
+            for i, (p, g) in enumerate(zip(pred, trajectory(expected, 6), strict=True)):
+                hits[i] += p == g
+        return hits
+
+    require(
+        counts(root / "initial.json.gz") == decision["parent"]["functional"]["correct"],
+        "Initial accuracy",
+    )
+    prev = {k: reg["parent_sha256"] for k in ("static", "online")}
+    for j, arms in enumerate(decision["rounds"], 1):
+        pool = groups[f"pool{j}"]
+        for arm in prev:
+            folder = root / f"round{j}" / arm
+            require(
+                counts(folder / "eval.json.gz") == arms[arm]["functional"]["correct"],
+                "Round accuracy",
+            )
+            meta = read(folder / "model/state.json")
+            require(
+                meta["parent"] == prev[arm]
+                and meta["step"] == j * len(meta["history"]),
+                "Replay lineage",
+            )
+            prev[arm] = sha(folder / "model/adapters.safetensors")
+            require(prev[arm] == arms[arm]["weights"], "Replay weights")
+            feedback = [r for h in meta["history"] for r in h["feedback"]]
+            require(
+                [r["id"] for r in feedback[: len(pool)]] == [r["map_id"] for r in pool],
+                "Fresh schedule",
+            )
+            selected = arms[arm]["selected"]
+            require(
+                [r["id"] for r in feedback[len(pool) :]] == selected
+                and len(selected) == reg["replay_per_round"],
+                "Replay schedule",
+            )
+            for i, r in enumerate(feedback[: len(pool)]):
+                gold = trajectory(pool[i], 6)
+                prefix = next(
+                    (
+                        k
+                        for k, (a, b) in enumerate(
+                            zip(gold, r["predicted"], strict=True)
+                        )
+                        if a != b
+                    ),
+                    6,
+                )
+                require(prefix == r["prefix"], "Wrong online prefix length")
+            for slot, item in enumerate(selected):
+
+                def priority(row):
+                    prefix = row["prefix"]
+                    rank = (
+                        0
+                        if arm == "static"
+                        else (
+                            prefix
+                            if slot % 5 == 3
+                            else -prefix if slot % 5 == 4 else abs(prefix - 3)
+                        )
+                    )
+                    tie = hashlib.sha256(
+                        json.dumps(
+                            [reg["seed"] + j, row["id"]], separators=(",", ":")
+                        ).encode()
+                    ).hexdigest()
+                    return rank, tie
+
+                require(
+                    item == min(feedback[3 * slot : 3 * slot + 3], key=priority)["id"],
+                    "Unreconstructible curriculum",
+                )
 
 
 def verify_terminal(root, decision):
