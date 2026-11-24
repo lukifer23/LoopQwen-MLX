@@ -1,0 +1,7 @@
+{
+  "id":"rsi_trace1","parent":"docs/measurements/phase7/transfer/model","weights":"14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+  "seed":72193,"training_maps":16,"development_maps":16,"candidates_per_map":2,"temperature":0.65,"max_tokens":32,"wall_seconds":180,
+  "protocol":"Unrestricted autoregressive K3. Ask for three successive visited rooms, separated by commas. Accept one complete line or EOS, verify each transition independently, reject capped outputs. No answer-conditioned retries.",
+  "min_verified_maps":8,"updates":8,"lr":0.0001,"sft":"Only on adequate yield: compare own verified responses versus gold responses on the same first eight accepted map IDs, eight updates at batch four per arm, fresh AdamW, response-only CE. Evaluate both on the same 16 separate maps. Stop on safety, nonfinite or time budget.",
+  "scope":"One bounded yield/SFT cycle, independent of categorical curriculum success."
+}
