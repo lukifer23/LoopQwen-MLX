@@ -178,6 +178,8 @@ def trial(m, t, weights, r, p, out):
     seconds = perf_counter() - start
     parsed = interpret(tokens, op[0], cl[0], eos, t)
     stop = "eos" if tokens[-1] in eos else "cap"
+    if stop == "cap":
+        parsed["answer"] = None
     status = (
         ("correct" if parsed["answer"] == numeric(r["gold"]) else "incorrect")
         if parsed["answer"] is not None
