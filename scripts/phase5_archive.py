@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 
 from verify_phase5_archive import verify
 from phase5_extrapolation import summarize, training_rows
+from phase5_selection import decide
 
 
 def read(path):
@@ -175,6 +176,7 @@ def archive(dest, seed):
         write(root / "stage-times.json", stage_times)
         write(root / "training.json", runs)
         write(root / "schedule.json.gz", schedule)
+        write(root / "decision.json", decide(root))
         write(
             root / "checksums.json",
             {
