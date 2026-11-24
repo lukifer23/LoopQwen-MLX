@@ -3,8 +3,10 @@ set -eu
 cd "$(dirname "$0")/.."
 case "${1:-pilot}" in
   pilot) module=loopqwen.training.rsi ;;
+  replicate) export LOOPQWEN_RSI_REPLICATION=1; module=loopqwen.training.rsi ;;
+  time-control) module=loopqwen.training.rsi_time ;;
   traces) module=loopqwen.training.verified_trace ;;
-  *) echo "usage: scripts/run_rsi.sh [pilot|traces]" >&2; exit 2 ;;
+  *) echo "usage: scripts/run_rsi.sh [pilot|traces|replicate|time-control]" >&2; exit 2 ;;
 esac
 exec .venv/bin/python -c 'from pathlib import Path
 import sys

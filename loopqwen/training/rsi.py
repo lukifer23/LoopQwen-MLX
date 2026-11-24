@@ -20,8 +20,8 @@ from . import pointer5 as kernel
 from .exposure import ARM, verify_optimizer
 from .mechanism import model_for, requests, assets
 
-ROOT = Path("outputs/rsi1")
-CHECK = Path("checkpoints/rsi1")
+ROOT = Path("outputs") / S["id"]
+CHECK = Path("checkpoints") / S["id"]
 
 
 def run():
@@ -30,6 +30,11 @@ def run():
         return print(read(closed)["status"])
     if (ROOT / "start.json").exists() or CHECK.exists():
         raise ValueError("Incomplete prior experiment; preserve this lineage")
+    if (
+        S["id"] == "rsi2"
+        and not read("docs/measurements/rsi1/decision.json")["promoted"]
+    ):
+        raise ValueError("Replication prerequisite failed")
     start = perf_counter()
     parent = Path(S["parent"])
     if digest(parent / "adapters.safetensors") != S["weights"]:
@@ -205,6 +210,9 @@ def run():
         ArithmeticError,
     ) as e:
         status = str(e)
+    except Exception:
+        status = "failed integrity or execution"
+        raise
     finally:
         for sig, h in handlers.items():
             signal.signal(sig, h)

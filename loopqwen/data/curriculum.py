@@ -3,6 +3,7 @@
 import collections
 import hashlib
 import json
+import os
 import random
 from pathlib import Path
 
@@ -10,7 +11,11 @@ from ..identity import fingerprint
 from ..io import read
 from . import pointer5
 
-REG = Path("experiments/rsi_pilot.json")
+REG = Path(
+    "experiments/rsi_replication.json"
+    if os.environ.get("LOOPQWEN_RSI_REPLICATION") == "1"
+    else "experiments/rsi_pilot.json"
+)
 S = read(REG)
 
 
@@ -55,15 +60,17 @@ def historical():
     return used
 
 
-def pools():
-    used = historical()
+def _pools(spec, used):
     initial = fingerprint(sorted(used))
-    rng = random.Random(S["seed"])
+    rng = random.Random(spec["seed"])
     splits = {}
     for name, size in [
-        ("development", S["development_maps"]),
-        ("confirmation", S["confirmation_maps"]),
-        *((f"pool{i + 1}", S["candidate_maps_per_round"]) for i in range(S["rounds"])),
+        ("development", spec["development_maps"]),
+        ("confirmation", spec["confirmation_maps"]),
+        *(
+            (f"pool{i + 1}", spec["candidate_maps_per_round"])
+            for i in range(spec["rounds"])
+        ),
     ]:
         rows = []
         counts = collections.Counter()
@@ -86,6 +93,16 @@ def pools():
             )
         splits[name] = rows
     return splits, initial
+
+
+def pools():
+    used = historical()
+    if S["id"] == "rsi2":
+        old, _ = _pools(read("experiments/rsi_pilot.json"), used.copy())
+        used.update(r["map_id"] for rows in old.values() for r in rows)
+        trace = read("docs/measurements/rsi_trace1/splits.json")
+        used.update(r["map_id"] for rows in trace.values() for r in rows)
+    return _pools(S, used)
 
 
 def select(rows, diag, round_id):
