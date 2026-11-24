@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from mlx_lm.tokenizer_utils import load_tokenizer
+from mlx_lm.utils import load_tokenizer
 from loopqwen.model_loader import local_snapshot
 from loopqwen.research import core
 from loopqwen.research.functional import orbit

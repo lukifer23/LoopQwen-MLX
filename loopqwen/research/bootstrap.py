@@ -55,6 +55,7 @@ def traces(m, t, rows, spec, budget, path, weight):
 def categorical(m, t, budget):
     from ..training.exposure import ARM
 
+    pointer5.build()
     rows = [
         pointer6.ordered(r, "random0", 61091) for r in pointer5.rows("development")[:96]
     ]
