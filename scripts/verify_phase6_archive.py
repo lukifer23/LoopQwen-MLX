@@ -1,12 +1,12 @@
 """Rescore archived state trajectories, paired orders and transplants using the standard library."""
 
 import argparse
-from collections import Counter, defaultdict
 import gzip
 import hashlib
 import json
 import math
 import random
+from collections import Counter, defaultdict
 from pathlib import Path
 
 
@@ -106,6 +106,20 @@ def score(result):
 
 
 def patches(result):
+    for condition, evaluation in result["behavior"].items():
+        counts = [0] * 3
+        for r in evaluation["records"]:
+            node = r["start"]
+            for j, probabilities in enumerate(r["probabilities"]):
+                node = r["map"][node]
+                prediction = max(
+                    range(len(probabilities)), key=probabilities.__getitem__
+                )
+                if prediction != r["pred"][j] or node != r["gold"][j]:
+                    raise ValueError(f"Inconsistent counterfactual record {condition}")
+                counts[j] += prediction == node
+        if counts != [m["correct"] for m in evaluation["metrics"]]:
+            raise ValueError(f"Inconsistent counterfactual counts {condition}")
     for test in result["interventions"].values():
         for key, value in test["summary"].items():
             kind, subset = key.split("/")

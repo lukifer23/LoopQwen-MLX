@@ -40,7 +40,13 @@ def plot(root, dest):
     fig, ax = plt.subplots(2, 3, figsize=(13, 7.4), layout="constrained")
     a, b, c, d, e, f = ax.ravel()
     for name, run in data.items():
-        style = dict(color=colors[name], marker="o", lw=1.7, ms=4, label=labels[name])
+        style = {
+            "color": colors[name],
+            "marker": "o",
+            "lw": 1.7,
+            "ms": 4,
+            "label": labels[name],
+        }
         points = []
         for ev in run["evaluations"]:
             cohort = [

@@ -1,18 +1,19 @@
 """Publish completed runs in a new directory after matching cohorts, updates and weights."""
 
 import argparse
-from pathlib import Path
 import shutil
 import tempfile
+from pathlib import Path
 from statistics import median
 
-from loopqwen.data.pointer6 import SPEC, ROOT
-from loopqwen.io import read, save, digest
-from loopqwen.identity import fingerprint
-from loopqwen.training.mechanism import StudyArm, generation
-from loopqwen.evaluation.mechanism import unpack, packed
-from loopqwen.evaluation.order_scores import metrics, deeper
 from verify_phase6_archive import verify
+
+from loopqwen.data.pointer6 import ROOT, SPEC
+from loopqwen.evaluation.mechanism import packed, unpack
+from loopqwen.evaluation.order_scores import deeper, metrics
+from loopqwen.identity import fingerprint
+from loopqwen.io import digest, read, save
+from loopqwen.training.mechanism import StudyArm, generation
 
 
 def archive(dest, seed):
@@ -31,7 +32,7 @@ def archive(dest, seed):
     with tempfile.TemporaryDirectory(dir=dest.parent) as td:
         root = Path(td) / "archive"
         root.mkdir()
-        result = dict(arms={}, decision=decision, seed=seed)
+        result = {"arms": {}, "decision": decision, "seed": seed}
         schedule = None
         order_hashes = {}
         shutil.copy("experiments/phase6.json", root / "registration.json")
@@ -72,24 +73,24 @@ def archive(dest, seed):
             seconds = sum(r["seconds"] for r in h)
             maps = sum(r["maps"] for r in h)
             labels = sum(r["labels"] for r in h)
-            info = dict(
-                updates=step,
-                maps=maps,
-                unique=len({i for _, group in seq for i in group}),
-                labels=labels,
-                seconds=seconds,
-                maps_s=maps / seconds,
-                labels_s=labels / seconds,
-                median_ms=median(r["seconds"] for r in h) * 1000,
-                peak_gib=max(r["peak"] for r in h) / 2**30,
-                min_available_gib=min(r["available"] for r in h) / 2**30,
-                positions=sum(r["positions"] for r in h),
-                site_positions=sum(r["site_positions"] for r in h),
-                capacity=state["capacity"],
-                weights=weights,
-                optimizer=digest(gen / "optimizer.safetensors"),
-                evaluations=[],
-            )
+            info = {
+                "updates": step,
+                "maps": maps,
+                "unique": len({i for _, group in seq for i in group}),
+                "labels": labels,
+                "seconds": seconds,
+                "maps_s": maps / seconds,
+                "labels_s": labels / seconds,
+                "median_ms": median(r["seconds"] for r in h) * 1000,
+                "peak_gib": max(r["peak"] for r in h) / 2**30,
+                "min_available_gib": min(r["available"] for r in h) / 2**30,
+                "positions": sum(r["positions"] for r in h),
+                "site_positions": sum(r["site_positions"] for r in h),
+                "capacity": state["capacity"],
+                "weights": weights,
+                "optimizer": digest(gen / "optimizer.safetensors"),
+                "evaluations": [],
+            }
             packed(path / "updates.json.gz", h)
             save(path / "state.json", state)
             for n in arm.milestones:
@@ -102,11 +103,11 @@ def archive(dest, seed):
                 shutil.copy(source, path / source.name)
                 scores = metrics(measured["records"])
                 info["evaluations"].append(
-                    dict(
-                        path=str((path / source.name).relative_to(root)),
-                        step=n,
-                        scores=scores,
-                    )
+                    {
+                        "path": str((path / source.name).relative_to(root)),
+                        "step": n,
+                        "scores": scores,
+                    }
                 )
             if arm.kind == "recurrent":
                 shutil.copy(gen / "adapters.safetensors", path / "adapters.safetensors")

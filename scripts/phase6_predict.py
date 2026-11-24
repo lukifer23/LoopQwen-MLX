@@ -3,11 +3,13 @@
 import argparse
 from dataclasses import replace
 from pathlib import Path
+
 import mlx.core as mx
+
 from loopqwen import checkpoint
-from loopqwen.io import read, digest
-from loopqwen.training.mechanism import StudyArm, model_for, assets, requests
 from loopqwen.evaluation.mechanism import infer, unpack
+from loopqwen.io import digest, read
+from loopqwen.training.mechanism import StudyArm, assets, model_for, requests
 
 
 def main():
@@ -54,7 +56,7 @@ def main():
     else:
         if args.map is None or sorted(args.order) != list(range(8)):
             p.error("Supply eight successors and a valid presentation order")
-        row = dict(map=args.map, order=args.order, start=args.start)
+        row = {"map": args.map, "order": args.order, "start": args.start}
         probs, _ = infer(m, arm, [requests([row], 1, arm, t, {})], args.depth, False)
         print(mx.argmax(probs, axis=-1).tolist()[0])
 
