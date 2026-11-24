@@ -4,7 +4,7 @@
 
 The frozen comparison gives both forks 96 identical new maps, 16 updates and the same six-hop parent. Two of eight examples in each logical update carry either repeats of functional maps or old permutation training maps. The measured-safe physical position cap is 84. The treatment must gain ten points on the new task and lose at most two of 96 prior third hops. Exact map IDs and display orders are already frozen. No optimizer update or score from this study is claimed. [Registration](../research/experiments/functional-interleave-01.json) · [Frozen schedule](../research/data/functional-interleave-01.json)
 
-The prior session closed after the system memory guard triggered during evaluation. Start this comparison only in a newly authorized window with normal system pressure and sufficient available memory.
+The memory guard interrupted the separate math workload during evaluation. Continue under the existing authorized window after pressure returns to normal and sufficient memory is available. For a fresh reproduction, open a bounded session first.
 
 ```sh
 .venv/bin/python scripts/research_session.py
