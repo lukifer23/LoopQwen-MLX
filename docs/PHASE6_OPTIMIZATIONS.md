@@ -25,3 +25,7 @@ The frozen-prefix benchmark used 64 real randomized training prompts in eight ba
 | Randomized dense three-head | 480 | 92.8 | 41.4 | 80.7 | 3.18 | 5.41 |
 
 The primary study processed 19,200 map exposures and 30,144 categorical labels across the five arms. Recurrent, full dense, dense middle and dense three-head executed 3,499,776, 4,423,680, 2,949,120 and 2,580,480 decoder-layer positions per arm, respectively. All runs stayed within the 6 GiB MLX peak limit. Synchronized update times exclude checkpointing and evaluation. For example, the full dense final twelve-order evaluation took 223.9 seconds, while its training updates took 189.9 seconds. This evaluation cost is part of the rationale for the two-model rapid-study policy.
+
+## Reproduction details
+
+The starting checkout was `3e0323cc87f1112ba36cf809fdbfe57d02e530d0`. Training ran serially while evaluation and documentation commits were added on main. The checkpoint metadata records the Git revision at the start of each arm and the hashes of training-relevant files, the pinned backbone/tokenizer assets, the resolved config and optimizer identity. The five arm revisions were `fdd2e16` (canonical), `675450f` (randomized), `ee3ab5f` (middle), `45ce779` (full) and `58dbfc2` (three-head). The archiver checks all five logical schedules against each other and the published seed-109 Phase 5 schedule, plus all randomized order digests across arms.
