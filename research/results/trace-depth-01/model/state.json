@@ -1,0 +1,290 @@
+{
+  "identity": "5329da43111c1d84353e9fd39690d23b8b61d2aa52d96cb99de0ca2082fe1a70",
+  "spec": {
+    "id": "trace-depth-01",
+    "seed": 95730,
+    "dev_maps": 96,
+    "train_maps": 256,
+    "training_dataset": "trace-bootstrap-01",
+    "training_seed": 82031,
+    "parent_path": "docs/measurements/phase7/transfer/model",
+    "parent_sha256": "14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+    "recurrent_path": "research/results/trace-bootstrap-01/model",
+    "recurrent_sha256": "bdd718506f14ecf64c6d4fab473c6cc72b8be153efd9a09aa6f15f20a03c0b13",
+    "primary": "From the identical installed transfer parent, train a K1 dense full decoder on the identical 256 three-hop trace examples and 32 updates. Compare its fresh-map complete-trajectory accuracy to the previous K3 trained fork. Compare that K3-trained fork at K1 on identical requests for inference-depth attribution. Include untouched Base K1 as a deployment reference.",
+    "metric": "verified three-state completed trace on 96 fresh disjoint maps, all arms same prompt and greedy termination; paired map bootstrap and all discordances",
+    "gate": "K3-trained K3 exceeds both dense-trained K1 and its own K1 by >=5 percentage points; report metrics separately. No claim of equal total compute or multi-seed superiority.",
+    "logical_batch": 8,
+    "cap_positions": 168,
+    "updates": 32,
+    "lr": 0.0001,
+    "clip": 1,
+    "weight_decay": 0,
+    "generation_cap": 24,
+    "limits": {
+      "wall_seconds": 420,
+      "peak_gib": 5,
+      "available_gib": 1.5
+    }
+  },
+  "parent": "14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+  "step": 32,
+  "history": [
+    {
+      "ce": 1.231908745235867,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.118695209006546,
+      "peak": 2646266110
+    },
+    {
+      "ce": 0.6054955588446723,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.0771309999981895,
+      "peak": 2656989442
+    },
+    {
+      "ce": 0.4282043046421475,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.0783827079940238,
+      "peak": 2657005826
+    },
+    {
+      "ce": 0.16071976804071003,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.0776213339995593,
+      "peak": 2657005826
+    },
+    {
+      "ce": 0.06499641885360082,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.0774742499997956,
+      "peak": 2657005826
+    },
+    {
+      "ce": 0.04352290276437998,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1169757500028936,
+      "peak": 2657005826
+    },
+    {
+      "ce": 0.009533383055693574,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1206479589964147,
+      "peak": 2657005826
+    },
+    {
+      "ce": 0.002922915957040257,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.100566749999416,
+      "peak": 2657005826
+    },
+    {
+      "ce": 0.0007857331592175695,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1192426249981509,
+      "peak": 2657007330
+    },
+    {
+      "ce": 0.00032226885701270983,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1212319170008413,
+      "peak": 2657007330
+    },
+    {
+      "ce": 0.00028155420780725154,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.0848312500020256,
+      "peak": 2657007330
+    },
+    {
+      "ce": 0.00011732645887402921,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1121562080006697,
+      "peak": 2657007330
+    },
+    {
+      "ce": 0.0002856851153612499,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1401875840019784,
+      "peak": 2657022210
+    },
+    {
+      "ce": 4.3284474587481884e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.2301451669991366,
+      "peak": 2657022210
+    },
+    {
+      "ce": 0.00024605920003119134,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.2713018750000629,
+      "peak": 2657022210
+    },
+    {
+      "ce": 7.559791730374045e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1038519169960637,
+      "peak": 2657022210
+    },
+    {
+      "ce": 0.00010405700898748667,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1047942090008291,
+      "peak": 2657022210
+    },
+    {
+      "ce": 8.280125894088997e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1113639579998562,
+      "peak": 2657022210
+    },
+    {
+      "ce": 3.2044565361704575e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1276060000018333,
+      "peak": 2657022210
+    },
+    {
+      "ce": 2.5781955981882573e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1182322500026203,
+      "peak": 2657022210
+    },
+    {
+      "ce": 2.615969780587572e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.123193874998833,
+      "peak": 2657022210
+    },
+    {
+      "ce": 0.0005340648929935318,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1170008750050329,
+      "peak": 2657022210
+    },
+    {
+      "ce": 0.00015543927565886406,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1156689999988885,
+      "peak": 2657022210
+    },
+    {
+      "ce": 9.637357556534374e-06,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1079743329974008,
+      "peak": 2657022210
+    },
+    {
+      "ce": 1.5029426221089023e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1873596670047846,
+      "peak": 2657022210
+    },
+    {
+      "ce": 1.9754431074640404e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.2301807080002618,
+      "peak": 2657022210
+    },
+    {
+      "ce": 7.965295228334273e-06,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1402970410053967,
+      "peak": 2657022210
+    },
+    {
+      "ce": 2.5837630245304252e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1440097910017357,
+      "peak": 2657022210
+    },
+    {
+      "ce": 0.029682892097298463,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.260732333001215,
+      "peak": 2657022210
+    },
+    {
+      "ce": 1.579086877730636e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.2945514999955776,
+      "peak": 2657022210
+    },
+    {
+      "ce": 1.0016437904091112e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1354788329990697,
+      "peak": 2657022210
+    },
+    {
+      "ce": 4.3499991079443134e-05,
+      "targets": 72,
+      "positions": 888,
+      "input_tokens": 888,
+      "seconds": 1.1411734159992193,
+      "peak": 2657022210
+    }
+  ]
+}

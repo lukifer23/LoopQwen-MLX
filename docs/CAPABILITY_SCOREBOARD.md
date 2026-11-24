@@ -27,3 +27,14 @@ After 32 updates, 256 fresh maps and 2,304 supervised vocabulary targets, the ch
 | Untouched Base thinking calibration, greedy first-turn stop | 3/8 valid and correct, 4,821 tokens, 72.43 seconds. Six completions required. |
 | GSM8K raw numeric completion, 32 reserved publisher training items | Base 2/32, verbal parent K=3 1/32. Valid answers 26 versus 30. |
 | ARC-Easy validation, 32 four-choice items | Both 18/32 with length-normalized choice likelihood, both 21/32 with summed likelihood. |
+
+### Same requested trace, fresh 96-map cohort
+
+| Checkpoint | Verified trajectories | Terminal correct | Median request | Generated tokens |
+|---|---:|---:|---:|---:|
+| Untouched Base K=1 | 0/96 | 5/96 | 159 ms | 884 |
+| Trained at K=1, deployed K=1 | 96/96 | 96/96 | 198 ms | 864 |
+| Trained at K=3, deployed K=1 | 32/96 | 36/96 | 209 ms | 864 |
+| Trained at K=3, deployed K=3 | 95/96 | 95/96 | 447 ms | 864 |
+
+Both trained models started from the identical Phase 7 verbal parent and used the same 256 examples, 2,304 targets and 32 updates. Dense training took 36.41 synchronized seconds and recurrent training took 60.17 seconds. All requests terminated. The same-weight depth gain was 63 wins and zero losses. Against trained dense, K=3 had zero wins and one loss, a paired 95% interval of −3.13 to 0 percentage points. One training lineage, one wording family and near-ceiling dense performance limit attribution. [Paired outputs and dense weights](../research/results/trace-depth-01)

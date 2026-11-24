@@ -1,0 +1,71 @@
+{
+  "scores": {
+    "base": {
+      "n": 96,
+      "verified": 0,
+      "correct": 5,
+      "completed": 96,
+      "tokens": 884,
+      "seconds": 15.680652247996477,
+      "median_ms": 158.58560400010902
+    },
+    "dense": {
+      "n": 96,
+      "verified": 96,
+      "correct": 96,
+      "completed": 96,
+      "tokens": 864,
+      "seconds": 19.500298121995,
+      "median_ms": 197.62666650058236
+    },
+    "bypass": {
+      "n": 96,
+      "verified": 32,
+      "correct": 36,
+      "completed": 96,
+      "tokens": 864,
+      "seconds": 21.848914620022697,
+      "median_ms": 209.46541650482686
+    },
+    "recurrent": {
+      "n": 96,
+      "verified": 95,
+      "correct": 95,
+      "completed": 96,
+      "tokens": 864,
+      "seconds": 43.26663349298178,
+      "median_ms": 447.134999998525
+    }
+  },
+  "paired": {
+    "base": {
+      "wins": 95,
+      "losses": 0,
+      "delta": 0.9895833333333334,
+      "ci": [
+        0.96875,
+        1.0
+      ]
+    },
+    "dense": {
+      "wins": 0,
+      "losses": 1,
+      "delta": -0.010416666666666666,
+      "ci": [
+        -0.03125,
+        0.0
+      ]
+    },
+    "bypass": {
+      "wins": 63,
+      "losses": 0,
+      "delta": 0.65625,
+      "ci": [
+        0.5625,
+        0.75
+      ]
+    }
+  },
+  "passed": false,
+  "training_seconds": 36.41006129200832
+}

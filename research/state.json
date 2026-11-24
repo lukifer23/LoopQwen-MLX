@@ -7,15 +7,16 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "trace-depth-01",
+  "active": "joint-trace-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
     "verbal_digit": "docs/measurements/phase7/transfer/model",
-    "general_language": "Qwen/Qwen3.5-0.8B-Base@dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+    "general_language": "Qwen/Qwen3.5-0.8B-Base@dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+    "complete_room_trace": "research/results/trace-depth-01/model at K1"
   },
   "frontier": "Measured-time static training 255/256 vs adaptive 248/256. General retention of the six-hop model remains unmeasured.",
-  "next": "joint-trace-01",
+  "next": "functional-zero-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -36,6 +37,11 @@
       "id": "external-anchor-01",
       "promoted": false,
       "reason": "GSM8K 1/32 vs 2/32; ARC-Easy 18/32 both"
+    },
+    {
+      "id": "trace-depth-01",
+      "promoted": false,
+      "reason": "95/96 at K3, 32/96 at same weights K1, 96/96 trained dense K1"
     }
   ]
 }
