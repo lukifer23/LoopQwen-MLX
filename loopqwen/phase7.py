@@ -16,6 +16,8 @@ def exposure(*, close=False):
     from .training.mechanism import generation
     from .io import checkpoint_location
 
+    if (OUT / "decision.json").exists():
+        return read(OUT / "decision.json")
     if close:
         st = read(checkpoint_location(ARM.root) / "state.json")
         if st["status"] != "unsafe":
@@ -109,13 +111,18 @@ def exposure(*, close=False):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument(
-        "stage", choices=["exposure", "close-exposure", "language", "transfer"]
+        "stage",
+        choices=["exposure", "close-exposure", "language", "long-latency", "transfer"],
     )
     stage = p.parse_args().stage
     if stage in ("exposure", "close-exposure"):
         exposure(close=stage == "close-exposure")
     elif stage == "language":
         from .evaluation.language7 import run
+
+        run()
+    elif stage == "long-latency":
+        from .evaluation.depth_cost7 import run
 
         run()
     else:
