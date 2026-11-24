@@ -2,6 +2,10 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
+## Can the model choose better training examples?
+
+On a fresh six-hop pointer cohort, two generations of learner-selected training reached **248/256** correct terminal states versus **236/256** for static selection at equal updates. When static training received the same time allowance, it reached **255/256**. An independent curriculum seed stopped after one matched round under the registered retention rule. A separate self-training trial produced **zero fully verified trajectories in 32 sampled responses**, including 17 correct final numbers. Static training remains the stronger measured six-hop operating point. [Capability scoreboard and compute accounting](docs/RSI_RESULTS.md) · [Frozen study](docs/RSI_PLAN.md)
+
 ## What another 1,152 map presentations bought
 
 With its original optimizer restored, the seed-109 recurrent checkpoint improved from **360 to 384 correct canonical third hops out of 384**. Across eight shuffles of those same unseen maps it improved from **93.91% to 99.84%**. The paired map-bootstrap interval for the gain was **+4.10 to +7.94 percentage points**. The architecture, map set and adapter capacity stayed fixed. System memory pressure ended training at update 624 of a planned 960.

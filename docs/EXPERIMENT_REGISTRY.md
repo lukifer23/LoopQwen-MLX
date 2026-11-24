@@ -87,3 +87,8 @@ The five matched installations and their twelve-order evaluations are complete. 
 ## Phase 7 additional exposure
 
 Seed 109, exact R480 optimizer continuation, shared rank-eight block, fresh randomized displays of original maps. System pressure closed training at R624 after 144 updates. The full frozen order cohort qualified this endpoint for causal diagnosis. All cross-order checks passed. Base calibration stopped at 5/8 valid. The separately registered R624 vocabulary fork closed at 60 updates and improved three-hop digits from 39 to 187 out of 192. [Registration](../experiments/phase7.json) · [Results](PHASE7_RESULTS.md)
+
+
+## Bounded outer-loop curriculum and verified traces
+
+Seed 719 completed both generations. A prespecified equal-update advantage failed to survive the measured-time static control. Seed 859 completed both first-generation arms before its joint retention stop. The verified-trace trial failed its training-data yield floor. The frozen self-distillation prerequisites closed. [Scoreboards and costs](RSI_RESULTS.md) · [Seed 719 archive](measurements/rsi1) · [Time control](measurements/rsi_time1) · [Seed 859 archive](measurements/rsi2) · [Verified-trace records](measurements/rsi_trace1)

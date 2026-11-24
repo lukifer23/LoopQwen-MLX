@@ -1,0 +1,861 @@
+{
+  "parent": "a63ba803bb96ea8ecbb411b6ffb2a94a7c350c93fbec31e05e9dfc694d2e9b79",
+  "identity": {
+    "registration": "6265f21f178434df7ca9a9d0976e4db1ba066edbd95f00366d08c4a0564ea2c2",
+    "trainer": "6dfcc47a185ac2aef1dc6c4c5c41b96dd0fb969c1183c005ee9c5248911a0224",
+    "selector": "b8647870772a5f653b31001e18b2e865a48a2866f01291e1a91c75f958ff53c3",
+    "scorer": "2c1a2ad811b08132225d8e35f8f6e8586b1574ac79b0607e60c07dafd978bde9",
+    "git": "3861dc4b2aa4243f671ef3bcf430e6f31016492f",
+    "assets": {
+      "files": {
+        "config.json": "b90b86f35c8e6925ef74ee04d0e758f0a845c83a42089ad82bbaa948de9b4204",
+        "merges.txt": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d",
+        "model.safetensors-00001-of-00001.safetensors": "c2b1e5a17d9c1e27685d92ed9b382911ebb99955ecd89052d1721241adfbab6c",
+        "model.safetensors.index.json": "ce9a885efdf27d3664fdef5d512ad365216f1074051ef840c7cd8e5431495d0a",
+        "preprocessor_config.json": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+        "tokenizer.json": "fe000e3ed39ed12b8d2481d527d44f93c65d37e87645d2dcc80d1bf9d50d2927",
+        "tokenizer_config.json": "e611fbccc7c29ef3b1cafb1cb7ea548d189968632901d678fd62be68c47885de",
+        "video_preprocessor_config.json": "d039cd7d88b3502a99edd455496b75b44ecf7dd3b3669748bafac37e6cecc085",
+        "vocab.json": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+      },
+      "revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"
+    }
+  },
+  "round": 1,
+  "branch": "static",
+  "step": 16,
+  "history": [
+    {
+      "depth": 4,
+      "maps": 8,
+      "labels": 32,
+      "intermediate": 24,
+      "ce": [
+        5.212239921092987e-05,
+        0.00013364902406465262,
+        0.0011736544547602534,
+        0.05995433032512665
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "gradient": 2.632772445678711,
+      "head_gradient": 0.4213358759880066,
+      "adapter_gradient": 2.598839521408081,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.3464904725551605,
+      "seconds": 1.0145008749968838,
+      "positions": 336,
+      "site_positions": 11424,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2383516074,
+      "active": 1542733166,
+      "cached": 267982006,
+      "available": 4339056640,
+      "rss": 1298268160
+    },
+    {
+      "depth": 5,
+      "maps": 8,
+      "labels": 40,
+      "intermediate": 32,
+      "ce": [
+        7.93892759247683e-05,
+        0.0008386858971789479,
+        0.0029999339021742344,
+        0.04735832288861275,
+        0.5375437140464783
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8,
+        7
+      ],
+      "gradient": 12.518871307373047,
+      "head_gradient": 0.9947823882102966,
+      "adapter_gradient": 12.479284286499023,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.24347372353076935,
+      "seconds": 1.2186700840029516,
+      "positions": 336,
+      "site_positions": 13440,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2481973080,
+      "active": 1542601970,
+      "cached": 267986561,
+      "available": 4622303232,
+      "rss": 1295859712
+    },
+    {
+      "depth": 6,
+      "maps": 8,
+      "labels": 48,
+      "intermediate": 40,
+      "ce": [
+        8.34122474770993e-05,
+        0.002291598357260227,
+        0.0006162817007862031,
+        0.009451193735003471,
+        0.141477569937706,
+        0.2508608400821686
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        7
+      ],
+      "gradient": 7.37477445602417,
+      "head_gradient": 0.7535505890846252,
+      "adapter_gradient": 7.336174488067627,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.19995971024036407,
+      "seconds": 1.5149246250002761,
+      "positions": 336,
+      "site_positions": 15456,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542716678,
+      "cached": 188607196,
+      "available": 4414636032,
+      "rss": 1296973824
+    },
+    {
+      "depth": 4,
+      "maps": 8,
+      "labels": 32,
+      "intermediate": 24,
+      "ce": [
+        0.00010102121450472623,
+        0.0004305312177166343,
+        0.006858545821160078,
+        0.02502983808517456
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "gradient": 1.5803840160369873,
+      "head_gradient": 0.16065046191215515,
+      "adapter_gradient": 1.5721975564956665,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.17415247857570648,
+      "seconds": 1.0361869170010323,
+      "positions": 336,
+      "site_positions": 11424,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542667630,
+      "cached": 268092782,
+      "available": 4373364736,
+      "rss": 1297399808
+    },
+    {
+      "depth": 5,
+      "maps": 8,
+      "labels": 40,
+      "intermediate": 32,
+      "ce": [
+        0.0004117150092497468,
+        0.0026119211688637733,
+        0.012437296099960804,
+        0.4302135109901428,
+        1.4273655414581299
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        7,
+        6
+      ],
+      "gradient": 19.752283096313477,
+      "head_gradient": 1.6035630702972412,
+      "adapter_gradient": 19.687084197998047,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.15278075635433197,
+      "seconds": 1.2097920410014922,
+      "positions": 336,
+      "site_positions": 13440,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542634738,
+      "cached": 204938491,
+      "available": 4729503744,
+      "rss": 1297530880
+    },
+    {
+      "depth": 6,
+      "maps": 8,
+      "labels": 48,
+      "intermediate": 40,
+      "ce": [
+        0.0005636113346554339,
+        0.022364085540175438,
+        0.017061607912182808,
+        0.0588180311024189,
+        1.0373337268829346,
+        2.987370491027832
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8,
+        6,
+        4
+      ],
+      "gradient": 56.95301818847656,
+      "head_gradient": 2.3683249950408936,
+      "adapter_gradient": 56.90375900268555,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.1400507241487503,
+      "seconds": 1.4947926250024466,
+      "positions": 336,
+      "site_positions": 15456,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542733062,
+      "cached": 185515960,
+      "available": 4549754880,
+      "rss": 1297891328
+    },
+    {
+      "depth": 4,
+      "maps": 8,
+      "labels": 32,
+      "intermediate": 24,
+      "ce": [
+        0.0006575234001502395,
+        0.0068721165880560875,
+        0.7789521217346191,
+        0.042892519384622574
+      ],
+      "correct": [
+        8,
+        8,
+        7,
+        8
+      ],
+      "gradient": 8.996094703674316,
+      "head_gradient": 1.2689789533615112,
+      "adapter_gradient": 8.906145095825195,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.13090869784355164,
+      "seconds": 1.0644863339985022,
+      "positions": 336,
+      "site_positions": 11424,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542700398,
+      "cached": 268362438,
+      "available": 4404789248,
+      "rss": 1297858560
+    },
+    {
+      "depth": 5,
+      "maps": 8,
+      "labels": 40,
+      "intermediate": 32,
+      "ce": [
+        0.00043286895379424095,
+        0.009437094442546368,
+        0.3377917408943176,
+        0.3385757505893707,
+        0.24319328367710114
+      ],
+      "correct": [
+        8,
+        8,
+        7,
+        7,
+        7
+      ],
+      "gradient": 14.285181999206543,
+      "head_gradient": 1.3165760040283203,
+      "adapter_gradient": 14.224382400512695,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.12285742908716202,
+      "seconds": 1.2638463330004015,
+      "positions": 336,
+      "site_positions": 13440,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542683890,
+      "cached": 266567773,
+      "available": 4524097536,
+      "rss": 1294761984
+    },
+    {
+      "depth": 6,
+      "maps": 8,
+      "labels": 48,
+      "intermediate": 40,
+      "ce": [
+        0.0003584791556932032,
+        0.02591073140501976,
+        0.0995495468378067,
+        0.4205801784992218,
+        1.6649668216705322,
+        1.4921643733978271
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        7,
+        5,
+        7
+      ],
+      "gradient": 43.51346206665039,
+      "head_gradient": 2.0796921253204346,
+      "adapter_gradient": 43.46373748779297,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.11995996534824371,
+      "seconds": 1.4031637080042856,
+      "positions": 336,
+      "site_positions": 15456,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542601990,
+      "cached": 267429690,
+      "available": 5105680384,
+      "rss": 1294680064
+    },
+    {
+      "depth": 4,
+      "maps": 8,
+      "labels": 32,
+      "intermediate": 24,
+      "ce": [
+        0.0003517161821946502,
+        0.0010536268819123507,
+        0.0027830780018121004,
+        0.003070540726184845
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "gradient": 0.16161856055259705,
+      "head_gradient": 0.027206389233469963,
+      "adapter_gradient": 0.1593121886253357,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.10750894248485565,
+      "seconds": 1.0371949999971548,
+      "positions": 336,
+      "site_positions": 11424,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542716782,
+      "cached": 266116712,
+      "available": 5346770944,
+      "rss": 1294499840
+    },
+    {
+      "depth": 5,
+      "maps": 8,
+      "labels": 40,
+      "intermediate": 32,
+      "ce": [
+        0.00019529428391251713,
+        0.003265003440901637,
+        0.015379807911813259,
+        0.06569960713386536,
+        0.12520571053028107
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "gradient": 3.7689507007598877,
+      "head_gradient": 0.6666069030761719,
+      "adapter_gradient": 3.709531545639038,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.10571980476379395,
+      "seconds": 1.2987429160057218,
+      "positions": 336,
+      "site_positions": 13440,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575380684,
+      "active": 1542749426,
+      "cached": 268538639,
+      "available": 5190434816,
+      "rss": 1294761984
+    },
+    {
+      "depth": 6,
+      "maps": 8,
+      "labels": 48,
+      "intermediate": 40,
+      "ce": [
+        0.00020676935673691332,
+        0.027639618143439293,
+        0.013384126126766205,
+        0.000644338084384799,
+        0.01049357745796442,
+        0.30756649374961853
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8,
+        8,
+        7
+      ],
+      "gradient": 5.012491226196289,
+      "head_gradient": 0.8278398513793945,
+      "adapter_gradient": 4.943657398223877,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.10254080593585968,
+      "seconds": 1.5578659169987077,
+      "positions": 336,
+      "site_positions": 15456,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575840796,
+      "active": 1542683910,
+      "cached": 263576596,
+      "available": 5191155712,
+      "rss": 1295155200
+    },
+    {
+      "depth": 4,
+      "maps": 8,
+      "labels": 32,
+      "intermediate": 24,
+      "ce": [
+        0.00012934619735460728,
+        0.004726123064756393,
+        0.0027964673936367035,
+        0.003305699909105897
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "gradient": 0.28158438205718994,
+      "head_gradient": 0.055692728608846664,
+      "adapter_gradient": 0.27602189779281616,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.09333749115467072,
+      "seconds": 1.0119378340023104,
+      "positions": 336,
+      "site_positions": 11424,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575840796,
+      "active": 1542634862,
+      "cached": 201849432,
+      "available": 5618401280,
+      "rss": 1294761984
+    },
+    {
+      "depth": 5,
+      "maps": 8,
+      "labels": 40,
+      "intermediate": 32,
+      "ce": [
+        0.00010660685802577063,
+        0.01770908758044243,
+        0.0013498180778697133,
+        0.006740592420101166,
+        0.22801117599010468
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8,
+        7
+      ],
+      "gradient": 3.593909502029419,
+      "head_gradient": 0.8886680006980896,
+      "adapter_gradient": 3.4823060035705566,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.09056830406188965,
+      "seconds": 1.2047525409943773,
+      "positions": 336,
+      "site_positions": 13440,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575840796,
+      "active": 1542717718,
+      "cached": 268445655,
+      "available": 5249187840,
+      "rss": 1294827520
+    },
+    {
+      "depth": 6,
+      "maps": 8,
+      "labels": 48,
+      "intermediate": 40,
+      "ce": [
+        0.00012447229528333992,
+        0.006387261673808098,
+        0.8383018374443054,
+        1.4424386024475098,
+        1.9710021018981934,
+        1.7712212800979614
+      ],
+      "correct": [
+        8,
+        8,
+        7,
+        7,
+        7,
+        6
+      ],
+      "gradient": 54.544761657714844,
+      "head_gradient": 2.245649576187134,
+      "adapter_gradient": 54.498512268066406,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.08973878622055054,
+      "seconds": 1.5662680410023313,
+      "positions": 336,
+      "site_positions": 15456,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575840796,
+      "active": 1542651318,
+      "cached": 236331462,
+      "available": 5158371328,
+      "rss": 1295187968
+    },
+    {
+      "depth": 4,
+      "maps": 8,
+      "labels": 32,
+      "intermediate": 24,
+      "ce": [
+        4.845692092203535e-05,
+        0.008196585811674595,
+        0.0007885690429247916,
+        0.05705912411212921
+      ],
+      "correct": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "gradient": 1.6684904098510742,
+      "head_gradient": 0.3662881851196289,
+      "adapter_gradient": 1.6277878284454346,
+      "bridge_gradient": 0.0,
+      "bridge_update_rms": 0.0,
+      "adapter_update": 0.09250359237194061,
+      "seconds": 1.0151984589974745,
+      "positions": 336,
+      "site_positions": 11424,
+      "shapes": [
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ],
+        [
+          2,
+          42
+        ]
+      ],
+      "peak": 2575840796,
+      "active": 1542684014,
+      "cached": 267514818,
+      "available": 4485283840,
+      "rss": 1294532608
+    }
+  ],
+  "curriculum": "af7fcca6b19d5065b3821ae174e2eee9cfaae9f367df754161245c2970bbd6f0",
+  "status": "completed"
+}

@@ -107,3 +107,12 @@ if __name__ == "__main__":
         archive_time()
     else:
         time_score(ROOT / "rsi_time1")
+        expected = read(ROOT / "rsi-followup-checksums.json")
+        actual = {
+            str(f.relative_to(ROOT)): sha(f)
+            for name in ("rsi_trace1", "rsi_time1")
+            for f in (ROOT / name).rglob("*")
+            if f.is_file()
+        }
+        if expected != actual:
+            raise ValueError("Trace or time-control artifact digest changed")
