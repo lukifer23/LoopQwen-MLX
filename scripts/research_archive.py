@@ -120,6 +120,8 @@ def verify(root):
             == decision["correct"],
             "Calibration accuracy",
         )
+    if study == "functional-interleave-01":
+        verify_interleave(root, decision)
     if study == "gsm-equations-01":
         verify_math(root, decision)
     if study == "functional-replay-cap84":
@@ -151,6 +153,64 @@ def verify(root):
     if study == "verified-generations-01":
         verify_generations(root, decision)
     print(study, len(index), "files verified")
+
+
+def verify_interleave(root, decision):
+    reg = read(root / "registration.json")
+    material = read(Path("research/data") / (reg["id"] + ".json"))
+    dataset = read(Path("research/data") / (reg["dataset"] + ".json.gz"))["splits"]
+    require(material["fresh"] == dataset["pool1"], "Fresh curriculum differs")
+    reserved = set(material["dev_ids"])
+    require(
+        not any(
+            r["map_id"] in reserved
+            for name in ("fresh", "control", "permutation")
+            for r in material[name]
+        ),
+        "Replay leakage",
+    )
+    for arm in ("control", "permutation"):
+        folder = root / arm
+        meta = read(folder / "model/state.json")
+        require(
+            meta["parent"] == reg["parent_sha256"] and meta["step"] == 16,
+            "Interleaved checkpoint lineage",
+        )
+        for j, h in enumerate(meta["history"]):
+            want = (
+                material["fresh"][6 * j : 6 * j + 6] + material[arm][2 * j : 2 * j + 2]
+            )
+            require(
+                [f["id"] for f in h["feedback"]] == [r["map_id"] for r in want],
+                "Replay membership",
+            )
+        rows = read(folder / "eval.json.gz")["records"]
+        hits = [0] * 6
+        paths = [0] * 6
+        for r, gold in zip(rows, dataset["dev"], strict=True):
+            require(r["map_id"] == gold["map_id"], "Wrong replay evaluation map")
+            expected = trajectory(gold, 6)
+            pred = [p.index(max(p)) for p in r["probabilities"]]
+            for j in range(6):
+                hits[j] += pred[j] == expected[j]
+                paths[j] += pred[: j + 1] == expected[: j + 1]
+        require(
+            hits == decision[arm]["functional"]["correct"]
+            and paths == decision[arm]["functional"]["trajectory"],
+            "Wrong interleave accuracy",
+        )
+    parent = decision["parent"]
+    mixed = decision["permutation"]
+    require(
+        decision["passed"]
+        == (
+            (mixed["functional"]["correct"][-1] - parent["functional"]["correct"][-1])
+            / len(dataset["dev"])
+            >= 0.10
+            and parent["anchor"][-1] - mixed["anchor"][-1] <= 2
+        ),
+        "Interleave gate",
+    )
 
 
 def verify_math(root, decision):
@@ -190,7 +250,8 @@ def verify_math(root, decision):
         "Math paired totals",
     )
     passed = (
-        sum(diff) >= 2
+        decision["completed_updates"] == read(root / "registration.json")["updates"]
+        and sum(diff) >= 2
         and decision["candidate"]["valid"] >= 16
         and decision["anchor_before"][-1] - decision["anchor_after"][-1] <= 2
     )

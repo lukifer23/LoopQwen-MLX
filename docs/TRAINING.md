@@ -148,3 +148,16 @@ For a fresh explicitly authorized training session, open a bounded local window 
 Each command runs serially under a user-wide lease. Training uses one clipped update per eight maps with a padded 168-position physical cap. The symbolic replay input contains only the map, start and readout cue. Its three labels enter cross-entropy after recurrent execution. Verbal SFT scores only the response and registered turn-ending token. Denominators are total state labels and total supervised vocabulary tokens in the logical update.
 
 Run `.venv/bin/python -m loopqwen.research.selftrain` for the registered document-map comparison from the released joint parent. A partial run restores its selected map IDs, original generated token sequences, previous generation, exact update cursor and local AdamW state. Generation two samples from the first self-trained successor. Both arms deliberately initialize fresh AdamW at each generation. The fixed procedural verifier checks all three states and the response boundary. Model-dependent selection and sampled responses can both affect the comparison. [Registration](../research/experiments/verified-generations-01.json) · [STaR method](https://arxiv.org/abs/2203.14465)
+
+## Functional replay and thinking-enabled word problems
+
+The terminal-only matched study runs with `.venv/bin/python -m loopqwen.research.terminal`. For the lower-memory replay comparison, run `.venv/bin/python -m loopqwen.research.replay functional-replay-cap84`. It computes curriculum feedback during each real training forward. The preserved 384-position trial ended after six static updates under the system guard.
+
+The GSM8K pilot uses the tracked [frozen source-derived cohort](../research/data/gsm-equations-01.json) and the standard research environment. Run `.venv/bin/python -m loopqwen.research.equations` in a fresh bounded reproduction. The recorded endpoint is update 16 of 32 planned. On the original training host the optimizer, weights and metadata digests are recorded in [the closure record](../research/results/gsm-equations-01/closure.json). A compatible stopped generation can be evaluated using `--assess-saved`. If both paired generations completed before a retention interruption, `--close-scored` seals that measured endpoint without additional neural execution.
+
+```sh
+python3 scripts/research_archive.py functional-terminal-01 --verify
+python3 scripts/research_archive.py functional-replay-cap84 --verify
+python3 scripts/research_archive.py gsm-equations-01 --verify
+python3 scripts/audit_gsm_equations.py
+```

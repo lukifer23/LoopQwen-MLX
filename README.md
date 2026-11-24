@@ -2,6 +2,10 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
+## Does recurrence improve the final answer?
+
+On **128 unseen arbitrary document-link maps**, both models received the same explicit three-hop question and generated only the requested final number. The ordinary-depth model answered **61/128** correctly at **107 ms** median latency. The three-pass model answered **44/128** at **150 ms**. Both completed every request after identical training exposure. On a separate thinking-enabled GSM8K screen, a resource-limited recurrent checkpoint produced **26/32 scorable answers and 1/32 correct**. Untouched Base exhausted the token cap on all 32. The math pilot established answer completion and missed its accuracy target. [Scoreboard](docs/CAPABILITY_SCOREBOARD.md) · [Per-question GSM8K outputs](research/results/gsm-equations-01) · [Current research decision](docs/NEXT_EXPERIMENTS.md)
+
 ## Can it generate a complete verified answer?
 
 Training the shared block on 256 gold room trajectories raised complete three-hop answers from **0/64 to 64/64** on fresh maps. Its categorical third-hop score fell from 95/96 to 81/96. A frozen-block suffix adapter preserved 95/96 and generated one correct path. On public development anchors, the previous verbal transfer checkpoint at K=3 scored **1/32 on GSM8K** and **18/32 on ARC-Easy**, compared with 2/32 and 18/32 for untouched Base. GSM8K measures generated numeric answers. ARC uses normalized choice likelihood. [Capability scoreboard](docs/CAPABILITY_SCOREBOARD.md) · [Experiment ledger](docs/RESEARCH_LOG.md) · [Active research state](research/state.json)

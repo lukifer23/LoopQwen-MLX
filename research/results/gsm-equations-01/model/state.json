@@ -1,0 +1,215 @@
+{
+  "identity": "85320951caf793e37ee1053fca3c63dfba61d4e059285f310db5edbf3c15f1c9",
+  "spec": {
+    "id": "gsm-equations-01",
+    "seed": 95902,
+    "parent_path": "research/results/joint-trace-01/model",
+    "parent_sha256": "75d63d5ca8887fdc7cd4ecb4310fd29f00c39e3cb6b6f653be80487d6af0ff48",
+    "depth": 3,
+    "hypothesis": "Response-only supervision of checked equation sequences plus genuine first-turn completion will produce more correct completed GSM8K answers than untouched Base on identical thinking-enabled prompts.",
+    "source": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "data": "256 training questions with 2-5 exact calculator annotations and an integral final answer equal to the last annotated result. Exclude prior project evaluation items and direct pilot questions. Development: 32 fresh unannotated publisher training rows, ineligible for all historical optional calculator-trace training, excluding earlier anchors and reserves. Stable seeded ordering, disjoint questions. Public pretraining overlap unknown. Freeze exact membership before running.",
+    "protocol": "Identical thinking-enabled chat for Base K1 and trained K3. One fixed worked demonstration. Request short equations, then Final answer: number. Greedy, cap 160; stop at first official boundary; score only closed thinking plus completed strict numeric final. No generated tokens forced. Secondary arithmetic consistency checks each expression and its final value; this measures numerical consistency, not full semantic validity.",
+    "objective": "Response-only full-vocabulary CE over calculator equations, closing thinking marker, final answer and official chat end. Fixed K3, same rank-eight block, fresh AdamW. Pin token boundary for entire prompt and response. Exclude overlength items before seeded sampling.",
+    "train_maps": 256,
+    "dev_maps": 32,
+    "logical_batch": 8,
+    "cap_positions": 320,
+    "updates": 32,
+    "lr": 0.0001,
+    "clip": 1,
+    "weight_decay": 0,
+    "generation_cap": 160,
+    "gate": "Candidate must complete >=16/32 strict answers, gain at least 2 net correct answers over Base, and lose <=2 of 96 categorical third hops versus joint parent. Report each criterion plus prose NLL at K1 and K3. A data-matched dense attribution study requires the whole gate. No expanded unscorable benchmark.",
+    "limits": {
+      "wall_seconds": 600,
+      "peak_gib": 5,
+      "available_gib": 1.5
+    }
+  },
+  "parent": "75d63d5ca8887fdc7cd4ecb4310fd29f00c39e3cb6b6f653be80487d6af0ff48",
+  "step": 16,
+  "history": [
+    {
+      "ce": 1.9872306136839644,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 311,
+      "positions": 1675,
+      "input_tokens": 1675,
+      "seconds": 3.273585750001075,
+      "peak": 4104427860
+    },
+    {
+      "ce": 1.3245094409887341,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 414,
+      "positions": 1781,
+      "input_tokens": 1781,
+      "seconds": 3.4003965410011006,
+      "peak": 4259459800
+    },
+    {
+      "ce": 0.9160977268525642,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 311,
+      "positions": 1892,
+      "input_tokens": 1892,
+      "seconds": 3.608259749998979,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.8325016818829437,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 402,
+      "positions": 1709,
+      "input_tokens": 1709,
+      "seconds": 3.4023057500016876,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.8329487747147372,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 339,
+      "positions": 1760,
+      "input_tokens": 1760,
+      "seconds": 3.4791663750002044,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.921592192216353,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 297,
+      "positions": 1743,
+      "input_tokens": 1743,
+      "seconds": 3.5316754579980625,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.5052728638548145,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 331,
+      "positions": 1689,
+      "input_tokens": 1689,
+      "seconds": 3.37976983399858,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.45290792310560074,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 259,
+      "positions": 1591,
+      "input_tokens": 1591,
+      "seconds": 3.180364916996041,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.44877716071705404,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 263,
+      "positions": 1653,
+      "input_tokens": 1653,
+      "seconds": 3.3691782919995603,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.4837583357287991,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 310,
+      "positions": 1662,
+      "input_tokens": 1662,
+      "seconds": 3.2382187910043285,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.28855466842651367,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 308,
+      "positions": 1640,
+      "input_tokens": 1640,
+      "seconds": 3.1980041670030914,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.4453337548271058,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 315,
+      "positions": 1695,
+      "input_tokens": 1695,
+      "seconds": 3.2939912080037175,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.4471464699613834,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 334,
+      "positions": 1703,
+      "input_tokens": 1703,
+      "seconds": 3.410784333005722,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.6423995436374758,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 367,
+      "positions": 1810,
+      "input_tokens": 1810,
+      "seconds": 3.6159817919979105,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.5073942149769176,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 275,
+      "positions": 1581,
+      "input_tokens": 1581,
+      "seconds": 3.1308973750055884,
+      "peak": 4902385448
+    },
+    {
+      "ce": 0.480367646634,
+      "state_ce": null,
+      "state_labels": 0,
+      "state_positions": 0,
+      "targets": 309,
+      "positions": 1708,
+      "input_tokens": 1708,
+      "seconds": 3.3856285000001662,
+      "peak": 4902385448
+    }
+  ]
+}

@@ -179,6 +179,10 @@ def evaluate(m, t, weight, s, items, b, path):
             )
         )
     packed(path, dict(weights=weight, cohort=digest(DATA), records=records))
+    return aggregate(records)
+
+
+def aggregate(records):
     return dict(
         n=len(records),
         valid=sum(r["answer"] is not None for r in records),
@@ -192,7 +196,63 @@ def evaluate(m, t, weight, s, items, b, path):
     )
 
 
-def run():
+def close_scored_endpoint():
+    """Close interrupted retention evaluation using only the two completed generation archives."""
+    s = read(Path("research/experiments") / (NAME + ".json"))
+    out = core.OUT / NAME
+    closed = read(out / "closure.json")
+    meta = read(out / "model/state.json")
+    if (
+        meta["step"] >= s["updates"]
+        or meta["spec"] != s
+        or digest(out / "model/adapters.safetensors") != closed["weights"]
+    ):
+        raise ValueError("Unexpected interrupted endpoint")
+    if digest(out / "base.json.gz") != closed["base_outputs"]:
+        raise ValueError("Base generations changed")
+    result = {}
+    records = []
+    for arm in ("base", "candidate"):
+        archive = unpack(out / (arm + ".json.gz"))
+        if (
+            archive["cohort"] != digest(DATA)
+            or arm == "candidate"
+            and archive["weights"] != closed["weights"]
+        ):
+            raise ValueError("Unexpected evaluation lineage")
+        rows = archive["records"]
+        if len(rows) != s["dev_maps"]:
+            raise ValueError("Incomplete generation cohort")
+        records.append(rows)
+        result[arm] = aggregate(rows)
+    if [r["prompt_ids"] for r in records[0]] != [r["prompt_ids"] for r in records[1]]:
+        raise ValueError("Different prompt streams")
+    diff = np.array(
+        [int(b["correct"]) - int(a["correct"]) for a, b in zip(*records, strict=True)]
+    )
+    idx = np.random.default_rng(s["seed"]).integers(len(diff), size=(5000, len(diff)))
+    result.update(
+        paired=dict(
+            wins=int((diff > 0).sum()),
+            losses=int((diff < 0).sum()),
+            ci=np.quantile(diff[idx].mean(1), [0.025, 0.975]).tolist(),
+        ),
+        weights=closed["weights"],
+        status="training and subsequent retention assessment stopped by memory guard; paired generations complete",
+        completed_updates=meta["step"],
+        anchor_before=None,
+        anchor_after=None,
+        nll=None,
+        targets=sum(r["targets"] for r in meta["history"]),
+        update_seconds=sum(r["seconds"] for r in meta["history"]),
+        passed=False,
+    )
+    if (out / "decision.json").exists() and read(out / "decision.json") != result:
+        raise ValueError("Refusing to overwrite a prior decision")
+    save(out / "decision.json", result)
+
+
+def run(assess_saved=False):
     s = read(Path("research/experiments") / (NAME + ".json"))
     out = core.OUT / NAME
     if core.archived_result(out, s):
@@ -205,17 +265,40 @@ def run():
         par = Path(s["parent_path"])
         if digest(par / "adapters.safetensors") != s["parent_sha256"]:
             raise ValueError("Wrong trace parent")
-        m, t, w = base()
-        result = dict(base=evaluate(m, t, w, s, data["dev"], b, out / "base.json.gz"))
-        del m, t
-        gc.collect()
-        mx.clear_cache()
+        cp = Path("checkpoints/research") / NAME
+        if assess_saved:
+            from .. import checkpoint
+
+            closure = read(out / "closure.json")
+            gen = checkpoint_location(cp)
+            for file, key in [
+                ("adapters.safetensors", "weights"),
+                ("optimizer.safetensors", "optimizer"),
+                ("state.json", "metadata"),
+            ]:
+                if digest(gen / file) != closure[key]:
+                    raise ValueError("Stopped checkpoint changed")
+            if digest(out / "base.json.gz") != closure["base_outputs"]:
+                raise ValueError("Measured Base records changed")
+            result = dict(base=aggregate(unpack(out / "base.json.gz")["records"]))
+        else:
+            m, t, w = base()
+            result = dict(
+                base=evaluate(m, t, w, s, data["dev"], b, out / "base.json.gz")
+            )
+            del m, t
+            gc.collect()
+            mx.clear_cache()
         m, t = core.model(par, s["depth"])
         baseline = bootstrap.categorical(m, t, b)
-        docs = [document(t, r) for r in data["train"]]
-        cp = Path("checkpoints/research") / NAME
-        st = core.train(m, docs, s, cp, b, s["parent_sha256"])
-        gen = checkpoint_location(cp)
+        if assess_saved:
+            st = checkpoint.restore(gen, m)
+            if st["spec"] != s or st["parent"] != s["parent_sha256"]:
+                raise ValueError("Stopped lineage mismatch")
+        else:
+            docs = [document(t, r) for r in data["train"]]
+            st = core.train(m, docs, s, cp, b, s["parent_sha256"])
+            gen = checkpoint_location(cp)
         w = digest(gen / "adapters.safetensors")
         if not (out / "model").exists():
             bootstrap.release(gen, out / "model")
@@ -233,6 +316,8 @@ def run():
         ix = np.random.default_rng(s["seed"]).integers(len(z), size=(5000, len(z)))
         after = bootstrap.categorical(m, t, b)
         result.update(
+            completed_updates=st["step"],
+            status="resource-limited endpoint" if assess_saved else "completed",
             paired=dict(
                 wins=int((delta > 0).sum()),
                 losses=int((delta < 0).sum()),
@@ -245,7 +330,8 @@ def run():
             targets=sum(r["targets"] for r in st["history"]),
             update_seconds=sum(r["seconds"] for r in st["history"]),
             passed=bool(
-                delta.sum() >= 2
+                st["step"] == s["updates"]
+                and delta.sum() >= 2
                 and result["candidate"]["valid"] >= 16
                 and baseline[-1] - after[-1] <= 2
             ),
@@ -260,6 +346,10 @@ if __name__ == "__main__":
 
     if sys.argv[1:] == ["data"]:
         build()
+    elif sys.argv[1:] == ["--close-scored"]:
+        close_scored_endpoint()
+    elif sys.argv[1:] == ["--assess-saved"]:
+        run(assess_saved=True)
     elif len(sys.argv) == 1:
         run()
     else:
