@@ -2,6 +2,10 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
+## Generalization to shuffled pointer maps
+
+Training with shuffled edge displays produced **93.9% third-hop accuracy** and **93.5% complete three-hop paths** across eight presentations of each of 384 unseen development maps. The same recurrent checkpoint achieved **360/384 (93.75%)** on canonical third hops, five maps short of the registered 95% floor for promotion. This is a categorical prediction from Qwen's shared middle layers. The Phase 6 language-transfer and confirmation stages remain gated. [Phase 6 results](docs/PHASE6_RESULTS.md) · [Registered study](docs/PHASE6_PLAN.md) · [Reproduction](docs/TRAINING.md#phase-6-matched-installation)
+
 ## Learning an internal pointer transition
 
 With an explicit state target after each application, the same six Qwen layers learned to follow an eight-node permutation. At seed 109 the shared recurrent model predicted all three successive states on **384/384 unseen development maps**. At the same map exposure the dense middle, dense full and frozen controls completed **1, 10 and 0** paths. A shared eight-way head reads the state. This experiment used no generated tokens between passes.

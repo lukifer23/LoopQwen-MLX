@@ -2,7 +2,9 @@
 
 ## Current finding and research history
 
-Phase 5 trained on 3,840 eight-node maps. The installed recurrent checkpoint completed all three hops on 384/384 unseen canonical development maps, compared with 1/384 complete paths for dense middle and 10/384 for dense full. Shuffling the displayed edges cut third-hop accuracy to 36/64 and missed the registered promotion threshold. Confirmation remains sealed. The next experiment is matched training with randomized edge presentation. [Phase 5 report](PHASE5_RESULTS.md) · [Decision record](measurements/phase5/decision.json) · [Verification record](measurements/phase5-review.json)
+Phase 6 trained a matched seed-109 recurrent model with randomized display order. It completed 2,873/3,072 paths across eight shuffles of 384 development maps. Canonical third-hop accuracy reached 360/384 and missed the 95% floor by five maps. [Phase 6 results](PHASE6_RESULTS.md)
+
+Phase 5 trained on 3,840 eight-node maps. The installed recurrent checkpoint completed all three hops on 384/384 unseen canonical development maps, compared with 1/384 complete paths for dense middle and 10/384 for dense full. Shuffling the displayed edges cut third-hop accuracy to 36/64 and missed the registered promotion threshold. Confirmation remains sealed. That finding motivated the Phase 6 matched comparison. [Phase 5 report](PHASE5_RESULTS.md) · [Decision record](measurements/phase5/decision.json) · [Verification record](measurements/phase5-review.json)
 
 The earlier language-model studies measured generated answers on different tasks. Their reports cover richer supervision, gated recurrence and joint-exit training. The pilot and extended measurements follow below. [Phase 2](PHASE2_RESULTS.md) · [Phase 3](PHASE3_RESULTS.md) · [Phase 4](PHASE4_RESULTS.md)
 
