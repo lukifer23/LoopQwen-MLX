@@ -120,3 +120,29 @@ Use `scripts/run_phase7.sh long-latency` for independent K=4–6 requests. Archi
 Run `scripts/run_rsi.sh pilot` for the two-cycle categorical comparison and `python3 scripts/rsi_archive.py` to verify the published seed-719 records and adapter hashes. The scorer traverses each map and recomputes predictions from all eight probabilities per exit. The learner's selections are training-only. A completed pilot is reused. An unclosed partial lineage remains available for inspection.
 
 The separate commands `scripts/run_rsi.sh time-control`, `scripts/run_rsi.sh replicate` and `scripts/run_rsi.sh traces` name the registered follow-ups. The measured-time control requires the local seed-719 static optimizer generation. The other studies start from compact Phase 7 artifacts. Each worker uses native Metal and runs under a single user-wide GPU lease. [Study registration](RSI_PLAN.md)
+
+## Complete verified responses
+
+On an archive-equipped clone with the locked native environment, the CPU commands validate preserved files and recount recorded predictions. The native command reloads the released adapter and compares eight actual generated token streams.
+
+```sh
+python3 scripts/research_registry.py
+python3 scripts/research_archive.py trace-depth-01 --verify
+.venv/bin/python scripts/research_predict.py --archive research/results/trace-depth-01 --depth 1 --verify
+.venv/bin/python scripts/research_predict.py --archive research/results/trace-depth-01 --depth 1 --map 5 4 7 6 0 2 1 3 --start 0
+```
+
+For a fresh explicitly authorized training session, open a bounded local window once. Use a separate checkout and output tree for independent reproduction. New optimization can yield different weights on Metal. The exact measured release and optimizer checksum remain in its archive. The training cohort, parent digests, objectives and stop rules are frozen in the [registrations](../research/experiments).
+
+```sh
+.venv/bin/python scripts/research_session.py
+.venv/bin/python -m loopqwen.research.bootstrap trace-bootstrap-01
+.venv/bin/python -m loopqwen.research.depth
+.venv/bin/python -m loopqwen.research.bootstrap suffix-trace-01
+.venv/bin/python -m loopqwen.research.bootstrap joint-trace-01
+.venv/bin/python -m loopqwen.research.calibrate
+.venv/bin/python -m loopqwen.research.external
+.venv/bin/python -m loopqwen.research.functional
+```
+
+Each command runs serially under a user-wide lease. Training uses one clipped update per eight maps with a padded 168-position physical cap. The symbolic replay input contains only the map, start and readout cue. Its three labels enter cross-entropy after recurrent execution. Verbal SFT scores only the response and registered turn-ending token. Denominators are total state labels and total supervised vocabulary tokens in the logical update.
