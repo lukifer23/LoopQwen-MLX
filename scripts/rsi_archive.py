@@ -107,14 +107,19 @@ def verify(root):
     print("Verified bounded RSI archive:", sorted(board))
 
 
-def publish(root):
+def publish(root, study="rsi1"):
     if root.exists():
         raise FileExistsError(root)
-    src = Path("outputs/rsi1")
+    src = Path("outputs") / study
     with TemporaryDirectory(dir=root.parent) as tmp:
         build = Path(tmp) / "release"
         shutil.copytree(src, build, ignore=shutil.ignore_patterns("study.lock"))
-        shutil.copy("experiments/rsi_pilot.json", build / "registration.json")
+        shutil.copy(
+            "experiments/rsi_replication.json"
+            if study == "rsi2"
+            else "experiments/rsi_pilot.json",
+            build / "registration.json",
+        )
         for p in build.glob("*-lineage.json"):
             row = read(p)
             dst = build / "models" / p.stem.split("-")[0]
@@ -143,5 +148,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--publish", action="store_true")
     parser.add_argument("--archive", type=Path, default=Path("docs/measurements/rsi1"))
+    parser.add_argument("--study", choices=["rsi1", "rsi2"], default="rsi1")
     a = parser.parse_args()
-    (publish if a.publish else verify)(a.archive)
+    if a.publish:
+        publish(a.archive, a.study)
+    else:
+        verify(a.archive)

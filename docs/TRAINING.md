@@ -114,3 +114,9 @@ python3 scripts/verify_phase7_archive.py
 ```
 
 Use `scripts/run_phase7.sh long-latency` for independent K=4–6 requests. Archive an independent run to a new destination with `.venv/bin/python scripts/phase7_archive.py --destination outputs/phase7/reproduction`. Predictions from a new run can differ under native BF16 reductions.
+
+## Bounded curriculum study
+
+Run `scripts/run_rsi.sh pilot` for the two-cycle categorical comparison and `python3 scripts/rsi_archive.py` to verify the published seed-719 records and adapter hashes. The scorer traverses each map and recomputes predictions from all eight probabilities per exit. The learner's selections are training-only. A completed pilot is reused. An unclosed partial lineage remains available for inspection.
+
+The separate commands `scripts/run_rsi.sh time-control`, `scripts/run_rsi.sh replicate` and `scripts/run_rsi.sh traces` name the registered follow-ups. The measured-time control requires the local seed-719 static optimizer generation. The other studies start from compact Phase 7 artifacts. Each worker uses native Metal and runs under a single user-wide GPU lease. [Study registration](RSI_PLAN.md)
