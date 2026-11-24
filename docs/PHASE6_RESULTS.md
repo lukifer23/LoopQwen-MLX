@@ -37,3 +37,18 @@ On random0, the randomized checkpoint scored 307/384, 187/384 and 106/384 at the
 For the 96-map precision diagnostic, moving the shared block to FP32 changed sixth-hop accuracy from 30 to 30 on canonical displays and from 32 to 30 on random0. Giving the sixth application the first pass's context vectors while preserving the latest readout position produced 34 and 31 correct. Resetting only the readout position produced 21 and 20 correct. These limited interventions give little support for rounding alone or degraded map context alone explaining the late errors. On random0, late incorrect novel-state predictions had a smaller average readout update RMS (0.07 versus 0.09) and greater cosine similarity to the preceding state (0.82 versus 0.73). The observations are consistent with some failures to advance. They do not identify a unique internal cause.
 
 The biggest remaining uncertainty is exposure. On the same 96 shuffled maps the randomized third-hop checkpoint scored 13, 15, 79 and 94 at updates 24, 120, 360 and 480. The single additional epoch proposed in the [review handoff](PHASE6_REVIEW.md) would test whether learning continues, while preserving this decision and its sealed cohorts.
+
+## Thinking-enabled one-on-one deployment benchmark
+
+After the categorical promotion decision, a separately registered inference-only benchmark compared the installed K=3 checkpoint with untouched Qwen Base at K=1. It used Qwen's actual chat template with thinking enabled, byte-identical prompt tokens, unrestricted greedy decoding and a 384-token cap. The initial six pairs comprised three shuffled room-navigation questions and three independent procedural development questions. The preregistered floor rule fired.
+
+| Model | Correct final answers | Scorable final answers | Capped | Generated tokens | Total inference seconds | Median request seconds |
+|---|---:|---:|---:|---:|---:|---:|
+| Untouched Qwen Base, K=1 | 0/6 | 0/6 | 6/6 | 2,304 | 34.61 | 5.73 |
+| Trained randomized loop, K=3 | 0/6 | 0/6 | 6/6 | 2,304 | 56.82 | 9.46 |
+
+All twelve generations reached the cap inside the thinking segment. Neither model emitted a final answer. There were zero exclusive wins for either model. The other fourteen planned pairs were skipped, avoiding up to 10,752 more output tokens at this uninformative operating point. These measurements support a latency comparison and leave ordinary answer quality unresolved. A future reasoning benchmark needs a pilot on which Base reliably completes answers under the chosen budget. Full verbal adaptation and a new general-language retention evaluation stayed gated. [Raw answers and scores](measurements/phase6/reasoning-pair) · [Preregistered floor](../experiments/phase6_reasoning_pair.json)
+
+![Matched learning curves, order generalization, unseen depth, and measured inference and training costs](measurements/phase6-orders.png)
+
+The [release archive](measurements/phase6) contains training histories, the exact schedule, probabilities, orders, CIs, cache benchmark and immutable weight hashes. Generate the detailed per-order calibration, consistency, nonwrapping and wrapped accuracy and latency tables with `python3 scripts/phase6_tables.py`. [Randomized model card](measurements/phase6/randomized/README.md) · [Canonical model card](measurements/phase6/canonical/README.md) · [Verification and review handoff](PHASE6_REVIEW.md)

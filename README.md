@@ -6,6 +6,17 @@ A local MLX research implementation of shared recurrent depth in the official Qw
 
 Changing only the training display order raised third-hop accuracy from **46.9% to 93.9%** and complete three-hop paths from **43.7% to 93.5%** across eight presentations of each of 384 unseen development maps. The same recurrent checkpoint achieved **360/384 (93.75%)** on canonical third hops, five maps short of the registered 95% floor for promotion. This is a categorical prediction from Qwen's shared middle layers. The Phase 6 language-transfer and confirmation stages remain gated. [Phase 6 results](docs/PHASE6_RESULTS.md) · [Registered study](docs/PHASE6_PLAN.md) · [Reproduction](docs/TRAINING.md#phase-6-matched-installation)
 
+The strongest dense control achieved **19.1%** on shuffled third hops. The separately scored thinking-enabled deployment pair hit its prespecified floor. On six identical questions, both the base and trained loop used all 384 tokens before emitting a final answer. Base took 34.6 seconds and the loop took 56.8 seconds. Ordinary answer quality remains unresolved. [Two-model scores](docs/measurements/phase6/reasoning-pair/scores.json) · [Independent review handoff](docs/PHASE6_REVIEW.md)
+
+![Phase 6 measured accuracy, order sensitivity, learning curves and cost](docs/measurements/phase6-orders.png)
+
+```sh
+.venv/bin/python scripts/phase6_predict.py --arm randomized --map 5 4 7 6 0 2 1 3 --start 0 --depth 3
+python3 scripts/verify_phase6_archive.py
+```
+
+[Released adapter and readout](docs/measurements/phase6/randomized) · [Full measurement archive](docs/measurements/phase6)
+
 ## Learning an internal pointer transition
 
 With an explicit state target after each application, the same six Qwen layers learned to follow an eight-node permutation. At seed 109 the shared recurrent model predicted all three successive states on **384/384 unseen development maps**. At the same map exposure the dense middle, dense full and frozen controls completed **1, 10 and 0** paths. A shared eight-way head reads the state. This experiment used no generated tokens between passes.
