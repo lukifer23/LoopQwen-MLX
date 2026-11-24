@@ -1,0 +1,15 @@
+{
+  "id":"phase6", "dataset":"phase6_pointer", "base_revision":"dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+  "seed":109, "replication_seeds":[137,173], "batch":8, "position_cap":384, "lr":0.0003, "clip":1, "weight_decay":0,
+  "milestones":[24,120,360,480], "steps":480, "trained_depth":3, "evaluation_depth":6,
+  "arms":{
+    "canonical":["recurrent","canonical","all"], "randomized":["recurrent","randomized","all"],
+    "middle":["middle","randomized","terminal"], "full":["full","randomized","terminal"],
+    "heads":["heads","randomized","all"]
+  },
+  "orders":["canonical","reverse","rotate1","rotate4","random0","random1","random2","random3","random4","random5","random6","random7"],
+  "evaluation_seed":61091,"mixed_canonical_fraction":0.25,"early_items":96,"evaluation_maps":384,
+  "minimum_canonical":0.95,"minimum_random":0.90,"minimum_random_trajectory":0.85,"minimum_relabel":0.90,
+  "minimum_patch_delta":0.50,"dense_advantage":"positive mean random-order terminal accuracy at hop 3 over best dense arm",
+  "cluster_bootstraps":10000,"cases":64,"outcome_updates":80,"max_peak_gib":6,"min_available_gib":1.5
+}
