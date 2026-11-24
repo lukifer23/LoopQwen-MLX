@@ -1,0 +1,9 @@
+{
+  "id":"trace-bootstrap-01","seed":82031,"parent_path":"docs/measurements/phase7/transfer/model","parent_sha256":"14d34a55a34b3ceef6aa21e230d658e931011c4d60336af17c739d3292ce1954",
+  "change":"gold response-only full-vocabulary trace CE","depth":3,"train_maps":256,"dev_maps":64,"logical_batch":8,"cap_positions":168,"updates":32,"lr":0.0001,"clip":1.0,"weight_decay":0.0,"optimizer":"fresh AdamW with bias correction",
+  "protocol":"existing unambiguous request for exactly three rooms; leading space then d, d, d then atomic chat end; raw completion, greedy, batch one; first complete line, chat end or EOS; 24 token cap; caps never verified",
+  "control":"unchanged verbal transfer parent on exact same tokens","retention":"fixed first 96 Phase 5 development maps under random0, all three categorical exits; entire source-disjoint V3 retention suite K1 and K3",
+  "gate":{"verified_min":0.5,"verified_gain":0.2,"max_hop3_drop":0.03,"max_nll_increase_each_depth":0.10},
+  "limits":{"wall_seconds":480,"peak_gib":5.0,"available_gib":1.5},"extension":"none in this registration",
+  "selection":"single endpoint; stop on resources or nonfinite; promote only completed comparison"
+}
