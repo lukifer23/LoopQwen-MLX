@@ -24,6 +24,7 @@ def main():
             "diagnostics",
             "followup",
             "latency",
+            "transfer",
         ],
     )
     p.add_argument("--seed", type=int, default=SPEC["seed"])
@@ -53,6 +54,10 @@ def main():
             from .evaluation.pointer5_diagnostics import diagnose
 
             diagnose(args.seed, "recurrent")
+        elif stage == "transfer":
+            from .evaluation.pointer5_transfer import transfer
+
+            transfer(args.seed)
         elif stage == "latency":
             from .evaluation.pointer5_latency import measure
 

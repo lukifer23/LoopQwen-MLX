@@ -15,10 +15,12 @@ from .pointer5_diagnostics import load
 def measure(seed):
     cohort = rows("development")[:32]
     arms = list(SPEC["arms"])
-    if (root_for(seed, "bridge") / "at-480.json").is_file():
-        arms.append("bridge")
+    for arm in ("bridge", "multi", "terminal", "outcome"):
+        step = 560 if arm == "outcome" else 480
+        if (root_for(seed, arm) / f"at-{step}.json").is_file():
+            arms.append(arm)
     for arm in arms:
-        m, tok, weight = load(seed, arm, 480)
+        m, tok, weight = load(seed, arm, 560 if arm == "outcome" else 480)
         path = OUT / str(seed) / f"latency-{arm}.json"
         identity = dict(
             weights=weight,
