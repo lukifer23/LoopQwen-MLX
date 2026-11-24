@@ -99,8 +99,13 @@ def verify(root):
                         if group == "gsm"
                         else max(
                             range(len(r["logp"])),
-                            key=lambda i: r["logp"][i]
-                            / (len(r["streams"][i]["ids"]) - r["streams"][i]["prefix"]),
+                            key=lambda i: (
+                                r["logp"][i]
+                                / (
+                                    len(r["streams"][i]["ids"])
+                                    - r["streams"][i]["prefix"]
+                                )
+                            ),
                         )
                         == target
                     )
@@ -155,6 +160,37 @@ def verify(root):
     print(study, len(index), "files verified")
 
 
+def replay_outcomes(report, cohort, depth, weight, parent_records):
+    """Rescore each exit for the same map, start and token stream across checkpoints."""
+    require(report["weights"] == weight, "Wrong replay prediction weights")
+    hits, paths, terminal = [0] * depth, [0] * depth, []
+    for row, gold, parent in zip(
+        report["records"], cohort, parent_records, strict=True
+    ):
+        require(
+            all(
+                row[k] == gold[k]
+                for k in ("map", "map_id", "start", "example_id", "order")
+            )
+            and row["ids"] == parent["ids"],
+            "Unpaired replay request",
+        )
+        expected = trajectory(gold, depth)
+        predicted = [p.index(max(p)) for p in row["probabilities"]]
+        require(
+            predicted == row["predicted"] and row["states"][:depth] == expected,
+            "Replayed state or target differs",
+        )
+        prefix_correct = True
+        for j, (state, target) in enumerate(zip(predicted, expected, strict=True)):
+            correct = state == target
+            hits[j] += correct
+            prefix_correct = prefix_correct and correct
+            paths[j] += prefix_correct
+        terminal.append(predicted[-1] == expected[-1])
+    return hits, paths, terminal
+
+
 def verify_interleave(root, decision):
     reg = read(root / "registration.json")
     material = read(Path("research/data") / (reg["id"] + ".json"))
@@ -169,11 +205,22 @@ def verify_interleave(root, decision):
         ),
         "Replay leakage",
     )
+    previous = Path("research/results/functional-replay-cap84")
+    parent = read(previous / "initial.json.gz")
+    parent_summary = read(previous / "decision.json")["parent"]
+    require(decision["parent"] == parent_summary, "Wrong reference checkpoint scores")
+    cohort = dataset["dev"]
+    require(material["dev_ids"] == [r["map_id"] for r in cohort], "Wrong cohort order")
+    _, _, parent_terminal = replay_outcomes(
+        parent, cohort, reg["depth"], reg["parent_sha256"], parent["records"]
+    )
+    terminal = {"parent": parent_terminal}
     for arm in ("control", "permutation"):
         folder = root / arm
         meta = read(folder / "model/state.json")
         require(
-            meta["parent"] == reg["parent_sha256"] and meta["step"] == 16,
+            meta["parent"] == reg["parent_sha256"]
+            and meta["step"] == len(meta["history"]) == reg["train_updates"],
             "Interleaved checkpoint lineage",
         )
         for j, h in enumerate(meta["history"]):
@@ -184,20 +231,27 @@ def verify_interleave(root, decision):
                 [f["id"] for f in h["feedback"]] == [r["map_id"] for r in want],
                 "Replay membership",
             )
-        rows = read(folder / "eval.json.gz")["records"]
-        hits = [0] * 6
-        paths = [0] * 6
-        for r, gold in zip(rows, dataset["dev"], strict=True):
-            require(r["map_id"] == gold["map_id"], "Wrong replay evaluation map")
-            expected = trajectory(gold, 6)
-            pred = [p.index(max(p)) for p in r["probabilities"]]
-            for j in range(6):
-                hits[j] += pred[j] == expected[j]
-                paths[j] += pred[: j + 1] == expected[: j + 1]
+        weight = sha(folder / "model/adapters.safetensors")
+        require(weight == decision[arm]["weights"], "Wrong interleave checkpoint")
+        hits, paths, terminal[arm] = replay_outcomes(
+            read(folder / "eval.json.gz"),
+            cohort,
+            reg["depth"],
+            weight,
+            parent["records"],
+        )
         require(
             hits == decision[arm]["functional"]["correct"]
             and paths == decision[arm]["functional"]["trajectory"],
             "Wrong interleave accuracy",
+        )
+    for arm in ("parent", "control"):
+        pairs = list(zip(terminal["permutation"], terminal[arm], strict=True))
+        paired = decision["paired"][arm]
+        require(
+            sum(a and not b for a, b in pairs) == paired["wins"]
+            and sum(b and not a for a, b in pairs) == paired["losses"],
+            "Incorrect paired interleave outcomes",
         )
     parent = decision["parent"]
     mixed = decision["permutation"]
@@ -262,29 +316,27 @@ def verify_replay(root, decision):
     reg = read(root / "registration.json")
     groups = read(Path("research/data") / (reg["dataset"] + ".json.gz"))["splits"]
 
-    def counts(path):
-        rows = read(path)["records"]
-        hits = [0] * 6
-        for r, expected in zip(rows, groups["dev"], strict=True):
-            require(r["map_id"] == expected["map_id"], "Wrong functional cohort")
-            pred = [p.index(max(p)) for p in r["probabilities"]]
-            require(pred == r["predicted"], "Invalid categorical argmax")
-            for i, (p, g) in enumerate(zip(pred, trajectory(expected, 6), strict=True)):
-                hits[i] += p == g
-        return hits
+    initial = read(root / "initial.json.gz")
 
-    require(
-        counts(root / "initial.json.gz") == decision["parent"]["functional"]["correct"],
-        "Initial accuracy",
-    )
+    def score(report, weight, summary):
+        hits, paths, _ = replay_outcomes(
+            report, groups["dev"], reg["depth"], weight, initial["records"]
+        )
+        require(
+            hits == summary["correct"] and paths == summary["trajectory"],
+            "Replay accuracy",
+        )
+
+    score(initial, reg["parent_sha256"], decision["parent"]["functional"])
     prev = {k: reg["parent_sha256"] for k in ("static", "online")}
     for j, arms in enumerate(decision["rounds"], 1):
         pool = groups[f"pool{j}"]
         for arm in prev:
             folder = root / f"round{j}" / arm
-            require(
-                counts(folder / "eval.json.gz") == arms[arm]["functional"]["correct"],
-                "Round accuracy",
+            score(
+                read(folder / "eval.json.gz"),
+                arms[arm]["weights"],
+                arms[arm]["functional"],
             )
             meta = read(folder / "model/state.json")
             require(
@@ -328,7 +380,9 @@ def verify_replay(root, decision):
                         else (
                             prefix
                             if slot % 5 == 3
-                            else -prefix if slot % 5 == 4 else abs(prefix - 3)
+                            else -prefix
+                            if slot % 5 == 4
+                            else abs(prefix - 3)
                         )
                     )
                     tie = hashlib.sha256(

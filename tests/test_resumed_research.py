@@ -22,3 +22,24 @@ def test_arithmetic_audit_accepts_valid_chain_and_detects_wrong_computation():
     assert module.check(["20/100=0.2", "168/0.2=168*5=840"], "840") == "consistent"
     assert module.check(["4*80=32", "32-32=10"], "10") == "false equality"
     assert module.check(["190*0.5=95", "95*0.4=38"], "19") == "final mismatch"
+
+
+def test_replay_rescore_binds_weights_and_paired_requests():
+    import pytest
+    from scripts.research_archive import read, replay_outcomes
+
+    root = Path("research/results/functional-replay-cap84")
+    cohort = read(Path("research/data/functional-replay-01.json.gz"))["splits"]["dev"]
+    parent = read(root / "initial.json.gz")
+    static = read(root / "round1/static/eval.json.gz")
+    hits, paths, terminal = replay_outcomes(
+        static, cohort, 6, static["weights"], parent["records"]
+    )
+    assert hits[-1] == sum(terminal) == 53
+    assert paths[-1] == 18
+    with pytest.raises(ValueError, match="weights"):
+        replay_outcomes(static, cohort, 6, parent["weights"], parent["records"])
+    with pytest.raises(ValueError, match="Unpaired"):
+        replay_outcomes(
+            static, cohort, 6, static["weights"], reversed(parent["records"])
+        )
