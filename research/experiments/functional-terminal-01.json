@@ -1,0 +1,9 @@
+{
+ "id":"functional-terminal-01","seed":95733,"parent_path":"research/results/joint-trace-01/model","parent_sha256":"75d63d5ca8887fdc7cd4ecb4310fd29f00c39e3cb6b6f653be80487d6af0ff48",
+ "question":"Does K3 outperform K1 on ordinary generated terminal-only answers when the question, prior weights and data match and no intermediate output is requested?",
+ "train_maps":256,"dev_maps":128,"logical_batch":8,"cap_positions":168,"updates":32,"lr":0.0001,"clip":1.0,"weight_decay":0.0,"depths":[1,3],"generation_cap":8,
+ "protocol":"Uniform eight-node deterministic successor maps. Fresh disjoint map-level splits; one randomized order per map. Identical document references and explicit three-hop question for both arms. Train each with response-only full-vocabulary CE on the digit and turn termination, including leading space under the pinned tokenizer. Fresh AdamW each. No gold intermediate labels or tokens. Greedy batch-one generation, stop at end or first complete line. Require one visible digit 0-7 and valid termination.",
+ "gate":"Advance only for >=5 absolute points K3 minus K1 complete exact accuracy and at most two lost third-hop categorical cases vs shared parent on the fixed 96-map retention suite. Report paired discordance and bootstrap interval, full V3 K1/K3 NLL, train time, tokens and actual request latency.",
+ "limits":{"wall_seconds":540,"peak_gib":5,"available_gib":1.5},
+ "session":"next explicitly authorized execution session; registered after trace, attribution and functional zero-shot results"
+}
