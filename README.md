@@ -2,6 +2,19 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
+## What another 1,152 map presentations bought
+
+With its original optimizer restored, the seed-109 recurrent checkpoint improved from **360 to 384 correct canonical third hops out of 384**. Across eight shuffles of those same unseen maps it improved from **93.91% to 99.84%**. The paired map-bootstrap interval for the gain was **+4.10 to +7.94 percentage points**. The architecture, map set and adapter capacity stayed fixed. System memory pressure ended training at update 624 of a planned 960.
+
+The improvement carried past the trained depth. On the fixed random presentation, sixth-hop accuracy rose from **106/384 to 284/384**. Across four display-order conditions, transplanting a carried hidden vector caused the recipient to advance from the donor state on **61–62/64** cases per condition. The unmodified and matched-noise controls scored **0/64** each. This evidence applies to an eight-state categorical task on one development seed. [Phase 7 findings and gate decisions](docs/PHASE7_RESULTS.md) · [Training and reproduction](docs/TRAINING.md#phase-7-exact-exposure-continuation)
+
+![Third-hop accuracy across eight shuffles and extrapolation through six recurrent applications](docs/measurements/phase7-exposure.png)
+
+```sh
+.venv/bin/python scripts/phase7_predict.py --map 5 4 7 6 0 2 1 3 --start 0 --depth 3
+python3 scripts/verify_phase7_archive.py
+```
+
 ## Generalization to shuffled pointer maps
 
 Changing only the training display order raised third-hop accuracy from **46.9% to 93.9%** and complete three-hop paths from **43.7% to 93.5%** across eight presentations of each of 384 unseen development maps. The same recurrent checkpoint achieved **360/384 (93.75%)** on canonical third hops, five maps short of the registered 95% floor for promotion. This is a categorical prediction from Qwen's shared middle layers. The Phase 6 language-transfer and confirmation stages remain gated. [Phase 6 results](docs/PHASE6_RESULTS.md) · [Registered study](docs/PHASE6_PLAN.md) · [Reproduction](docs/TRAINING.md#phase-6-matched-installation)

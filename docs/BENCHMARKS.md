@@ -13,3 +13,5 @@ The latest categorical benchmark reports maps per second, state labels per secon
 | reference | True | 140.4 | 545.5 | 2.95 |
 | native | True | 42.4 | 146.3 | 1.82 |
 | native | False | 44.8 | 129.1 | 2.10 |
+
+The Phase 7 pointer benchmark reports batch-one latency separately from the cost of a multi-exit trajectory. The vocabulary pilot projects the final real prompt position through the original tied head. Its next-digit score and the thinking-enabled chat completion score use different input and answer protocols. [Measured costs and quality](PHASE7_RESULTS.md)

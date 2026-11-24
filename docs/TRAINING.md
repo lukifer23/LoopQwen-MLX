@@ -101,3 +101,16 @@ The first inference-only rapid pair runs with `scripts/run_phase6.sh reasoning-p
 From the registered checkout and locked environment, `scripts/run_phase7.sh exposure` verifies the full local Phase 6 randomized generation against its published metadata, source, adapter and optimizer digests. It resumes at absolute cursor 480 and writes a separate child tree under `checkpoints/phase7/109/exposure`. Both AdamW moments are necessary for exact continuation. A compact inference release alone supports prediction. A newly reproduced Phase 6 run with different native reduction results needs its own lineage registration.
 
 The worker saves complete logical updates on interruption and checks available memory, system pressure and MLX peak. After recurrent pressure warnings, `scripts/run_phase7.sh close-exposure` scores the saved endpoint and preserves the stop. `scripts/run_phase7.sh language` runs the bounded independent Base calibration. A usable protocol unlocks the registered pair. Each generation uses the archived token stream with a fresh cache and a fixed request depth.
+
+The transfer pilot has a separately registered, weights-only fork from qualified R624. Run `scripts/run_phase7.sh transfer` on the training host. Its optimizer starts at zero. The model receives randomized verbal prompts and the selected exit predicts one state and one unrestricted vocabulary token from the same hidden representation. The worker preserves the last complete update at its first resource stop. Reinvoking a closed pilot evaluates its saved weights.
+
+From an archive-equipped clone, predict without any optimizer files:
+
+```sh
+.venv/bin/python scripts/phase7_predict.py --verify
+.venv/bin/python scripts/phase7_predict.py --vocabulary --verify
+.venv/bin/python scripts/phase7_predict.py --vocabulary --map 5 4 7 6 0 2 1 3 --start 0 --depth 3
+python3 scripts/verify_phase7_archive.py
+```
+
+Use `scripts/run_phase7.sh long-latency` for independent K=4–6 requests. Archive an independent run to a new destination with `.venv/bin/python scripts/phase7_archive.py --destination outputs/phase7/reproduction`. Predictions from a new run can differ under native BF16 reductions.
