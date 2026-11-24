@@ -136,6 +136,13 @@ def reserve(name, seed, sizes, functional=False):
     return splits
 
 
+def suffix_adapters(model):
+    from ..training.adapters import attach
+
+    mx.random.seed(109)
+    attach(model, "last8", rank=8, alpha=16)
+
+
 def model(path, depth):
     assets()
     arm = StudyArm(
@@ -149,7 +156,16 @@ def model(path, depth):
         (),
         3,
     )
-    m, t, _ = model_for(arm)
+    composition = Path(path) / "composition.json" if path else None
+    if composition and composition.exists():
+        meta = read(composition)
+        parent = Path(meta["frozen_parent"])
+        if digest(parent / "adapters.safetensors") != meta["sha256"]:
+            raise ValueError("Frozen component differs")
+        m, t = model(parent, depth)
+        suffix_adapters(m)
+    else:
+        m, t, _ = model_for(arm)
     if path:
         checkpoint.restore(path, m)
     m.span = replace(m.span, passes=depth)

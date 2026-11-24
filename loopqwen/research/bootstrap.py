@@ -109,8 +109,8 @@ def release(gen, folder):
     )
 
 
-def run():
-    spec = read("research/experiments/trace-bootstrap-01.json")
+def run(name="trace-bootstrap-01"):
+    spec = read(Path("research/experiments") / (name + ".json"))
     name = spec["id"]
     out = core.OUT / name
     if (out / "decision.json").exists():
@@ -118,7 +118,9 @@ def run():
     budget = core.Budget(name, spec["limits"])
     try:
         rows = core.reserve(
-            name, spec["seed"], dict(train=spec["train_maps"], dev=spec["dev_maps"])
+            spec.get("dataset", name),
+            spec["seed"],
+            dict(train=spec["train_maps"], dev=spec["dev_maps"]),
         )
         parent = Path(spec["parent_path"])
         w = digest(parent / "adapters.safetensors")
@@ -133,6 +135,11 @@ def run():
         cat0 = categorical(m, t, budget)
         print("parent", base, "categorical", cat0, flush=True)
         cp = Path("checkpoints/research") / name
+        if name == "suffix-trace-01":
+            core.suffix_adapters(m)
+        from mlx.utils import tree_flatten
+
+        capacity = sum(v.size for _, v in tree_flatten(m.trainable_parameters()))
         st = core.train(m, docs, spec, cp, budget, w)
         gen = checkpoint_location(cp)
         child = digest(gen / "adapters.safetensors")
@@ -155,6 +162,16 @@ def run():
         )
         if not (out / "model").exists():
             release(gen, out / "model")
+        if name == "suffix-trace-01":
+            save(
+                out / "model/composition.json",
+                dict(
+                    frozen_parent=str(parent),
+                    sha256=w,
+                    trainable=capacity,
+                    policy="last8-rank8",
+                ),
+            )
         save(
             out / "decision.json",
             dict(
@@ -168,6 +185,7 @@ def run():
                 retention=nll,
                 updates=st["step"],
                 weights=child,
+                trainable=capacity,
                 target_tokens=sum(r["targets"] for r in st["history"]),
                 training_seconds=sum(r["seconds"] for r in st["history"]),
             ),
@@ -178,4 +196,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    run(*sys.argv[1:])
