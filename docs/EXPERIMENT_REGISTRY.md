@@ -83,3 +83,7 @@ To reproduce the supplemental checks, run `scripts/run_phase5.sh donors transfer
 The matched seed-109 study changes edge presentation while preserving the map schedule, pretrained weights and recurrent graph. The independent three-head control receives all intermediate labels. The primary measurements use 384 development maps, 12 presentations per map and map-clustered comparisons. [Preregistration](PHASE6_PLAN.md) · [Cohorts](PHASE6_DATA.md) · [Architecture](PHASE6_ARCHITECTURE.md)
 
 The five matched installations and their twelve-order evaluations are complete. The randomized arm gained 47.04 points over canonical training on shuffled third-hop accuracy. Canonical third hops missed the 95% floor, closing all dependent training and confirmation stages. A separate, inference-only, thinking-enabled comparison uses the saved model and the untouched base. [Results](PHASE6_RESULTS.md) · [Pair registration](../experiments/phase6_reasoning_pair.json) · [Reviewer handoff](PHASE6_REVIEW.md)
+
+## Phase 7 additional exposure
+
+Seed 109, exact R480 optimizer continuation, shared rank-eight block, fresh randomized displays of original maps. System pressure closed training at R624 after 144 updates. The full frozen order cohort qualified this endpoint for causal diagnosis. Base-only language calibration has its own registration and independent gate. [Registration](../experiments/phase7.json) · [Results](PHASE7_RESULTS.md)
