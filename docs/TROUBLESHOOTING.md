@@ -20,3 +20,9 @@ A strict resume checks the training source files, dependency versions, data mani
 Run `python -m loopqwen resources` to inspect the per-user GPU lease and this checkout's process tree. A completed arm has both a completed run journal in `outputs/phase4/runs/` and a matching immutable checkpoint generation. Reissue the same study stage to resume an interrupted arm. Strict training identity includes objective and batching code. For historical exact continuations, use the recorded source revision. An explicitly documented compatible fork can transfer overlapping adapter tensors to a wider adaptation policy with a fresh optimizer.
 
 If a cap cannot fit a single document, raise the cap or register a new sequence-length cohort. Swapping or checkpointing changes belong in the recorded execution policy. Try a lower cap in a measured profile first. Scientific controls require the same logical examples and boundaries across paired arms.
+
+## Disk use on an APFS Mac
+
+Use `du -sh exports checkpoints outputs adapters .git` to locate large directories and `df -h .` for volume free space. Each full BF16 export occupies roughly 1.4 GiB of logical file space. APFS can share many extents across independently writable exports. Logical sizes remain the same after compaction.
+
+With finished exports idle, run `.venv/bin/python scripts/compact_exports.py` for the read-only comparison. Add `--apply` to clone equal-size files, copy differing blocks and SHA-256 verify the complete replacement before an atomic rename. The tool only considers weights and tokenizer assets in local `exports/`. Existing shared blocks and snapshots affect the observed change in free space. Keep training checkpoints, milestone pointers and compact published adapters for recovery and reproduction. Use `python -m loopqwen resources` to inspect the current GPU owner and checkout workers.

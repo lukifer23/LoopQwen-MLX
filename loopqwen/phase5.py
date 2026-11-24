@@ -3,6 +3,7 @@
 import argparse
 import subprocess
 import sys
+from .io import read
 from .data.pointer5 import build
 from .training.pointer5 import SPEC, OUT, install, profile
 from .evaluation.pointer5 import milestone
@@ -34,7 +35,11 @@ def main():
         elif stage == "data":
             print(build()["files"])
         elif stage == "profile":
-            profile(args.seed)
+            path = OUT / "profile.json"
+            if path.exists():
+                print("Frozen hardware profile:", read(path)["selected"])
+            else:
+                profile(args.seed)
         elif stage in ("smoke", "install"):
             if not (OUT / "profile.json").exists():
                 profile(args.seed)
