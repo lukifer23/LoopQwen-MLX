@@ -1,15 +1,19 @@
 {
   "id": "phase6_reasoning_pair_v1",
   "purpose": "User-requested deployment comparison after closing the categorical study. Inference only.",
-  "arms": ["untouched Qwen Base K=1", "seed-109 randomized recurrent installation K=3"],
+  "arms": [
+    "untouched Qwen Base K=1",
+    "seed-109 randomized recurrent installation K=3"
+  ],
   "current_checkpoint_step": 480,
   "items": "10 shuffled three-hop development permutations, 5 V3 ID and 5 V3 OOD development problems (one per family per split), chosen by lowest salted item hash within each stratum.",
   "selection_seed": 671125,
   "thinking": true,
   "max_tokens": 384,
   "decode": "unrestricted vocabulary, batch-one greedy, identical tokenized chat prompt, fresh cache per request",
-  "order": "Interleave one pointer with one procedural item. Base first for the first 10 paired questions and recurrent first for the second 10. One unscored one-token warmup per model load.",
+  "order": "For each block (six-question floor check, then fourteen), Base first on the first half and recurrent first on the second half. One unscored one-token warmup per model load.",
   "scoring": "Numeric final answer in visible assistant content after closing the thinking segment. Incomplete thinking receives no answer credit. Separately report truncation, valid answers, output tokens and latency.",
   "budget": "At most 40 scored requests, 15,360 generated tokens. No training, architecture promotion or sealed items. A failure to produce answers is an operating-point result.",
-  "stop": "Publish once both arms finish all 20 items. This descriptive iteration unlocks no additional experiments."
+  "stop": "Publish once both arms finish all 20 items. This descriptive iteration unlocks no additional experiments.",
+  "floor_check": "Score an initial six paired requests. If both models cap without a scorable answer on all six, report the floor and stop. Otherwise finish the registered 20."
 }

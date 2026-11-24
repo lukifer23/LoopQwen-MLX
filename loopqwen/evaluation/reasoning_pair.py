@@ -73,7 +73,8 @@ def run():
     arm = StudyArm.registered("randomized", 109)
     dest = Path("outputs/phase6/109") / spec["id"]
     dest.mkdir(exist_ok=True, parents=True)
-    for name, cohort in [("base", rows[:10]), ("recurrent", rows), ("base", rows[10:])]:
+
+    def measure(name, cohort):
         if name == "base":
             base, t, _ = load_base()
             m = LoopedModel(base, Span(passes=1))
@@ -135,6 +136,23 @@ def run():
         del m, t
         gc.collect()
         mx.clear_cache()
+
+    completed = []
+    for block in (rows[:6], rows[6:]):
+        half = len(block) // 2
+        measure("base", block[:half])
+        measure("recurrent", block)
+        measure("base", block[half:])
+        completed.extend(block)
+        if len(completed) == 6:
+            pilot = [
+                unpack(dest / f"{name}-{r['id']}.json.gz")
+                for r in completed
+                for name in ("base", "recurrent")
+            ]
+            if all(x["answer"] is None and x["stop"] == "cap" for x in pilot):
+                break
+    rows = completed
     records = []
     for r in rows:
         b, l = [unpack(dest / f"{n}-{r['id']}.json.gz") for n in ("base", "recurrent")]
