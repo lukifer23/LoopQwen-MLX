@@ -11,6 +11,13 @@ from ..training.pointer5 import inputs, readout
 from .mechanism import load
 
 
+def predict(model, depth, x, last):
+    h = model.prefix_hidden(x)
+    for _ in range(depth):
+        h = model.shared_block(h)
+    mx.eval(mx.argmax(readout(model, h, last), axis=-1))
+
+
 def run():
     n = read(OUT / "decision.json")["step"]
     result = {}
@@ -25,17 +32,11 @@ def run():
         cost = {}
         for k in (4, 5, 6):
 
-            def forward(x, last):
-                h = m.prefix_hidden(x)
-                for _ in range(k):
-                    h = m.shared_block(h)
-                mx.eval(mx.argmax(readout(m, h, last), axis=-1))
-
-            forward(*batches[0])
+            predict(m, k, *batches[0])
             samples = []
             for batch in batches:
                 start = perf_counter()
-                forward(*batch)
+                predict(m, k, *batch)
                 samples.append(perf_counter() - start)
             cost[k] = dict(median_ms=1000 * median(samples), seconds=samples)
         result[step] = dict(

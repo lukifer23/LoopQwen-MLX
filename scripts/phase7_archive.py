@@ -4,8 +4,9 @@ import argparse
 import shutil
 import tempfile
 from pathlib import Path
-from loopqwen.training.exposure import ARM, OUT, REG, S, parent_lineage
+from loopqwen.training.exposure import ARM, OUT, REG, parent_lineage
 from loopqwen.training.mechanism import generation
+from loopqwen.training.transfer7 import ARM_T
 from loopqwen.io import read, save, digest
 from verify_phase7_archive import verify
 
@@ -36,6 +37,24 @@ def archive(dest):
                 parent=lineage,
             ),
         )
+        transfer = read(OUT / "transfer/decision.json")
+        shutil.copy(
+            "experiments/phase7_transfer_parent.json",
+            root / "transfer/registration.json",
+        )
+        if transfer["step"]:
+            child = generation(ARM_T, transfer["step"])
+            target = root / "transfer/model"
+            target.mkdir()
+            for filename in ("adapters.safetensors", "state.json"):
+                shutil.copy(child / filename, target / filename)
+            save(
+                root / "transfer/recovery.json",
+                dict(
+                    generation=str(child),
+                    optimizer_sha256=digest(child / "optimizer.safetensors"),
+                ),
+            )
         save(
             root / "checksums.json",
             {

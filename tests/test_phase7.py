@@ -75,3 +75,20 @@ def test_numeric_visibility_and_cohort_separation():
     a, b = cohorts()
     assert len(a) == 8 and len(b) == 24
     assert not ({r["id"] for r in a} & {r["id"] for r in b})
+
+
+def test_first_chat_end_excludes_simulated_later_turns():
+    from loopqwen.evaluation.chat_turn7 import first_turn
+
+    r = dict(
+        token_ids=[8, 9, 3, 11, 7, 9, 5],
+        text="work</think>Final answer: 3<|im_end|>later</think>5",
+        closing_id=9,
+        opening_id=7,
+        stop="cap",
+        item={"id": "one", "gold": "3"},
+    )
+    first = first_turn(r, 11)
+    assert first["correct"] and first["end_position"] == 3
+    unfinished = {**r, "text": "work 3", "token_ids": [8, 3]}
+    assert first_turn(unfinished, 11)["answer"] is None

@@ -121,6 +121,9 @@ if __name__ == "__main__":
         from .evaluation.language7 import run
 
         run()
+        from .evaluation.chat_turn7 import audit
+
+        audit()
     elif stage == "long-latency":
         from .evaluation.depth_cost7 import run
 
