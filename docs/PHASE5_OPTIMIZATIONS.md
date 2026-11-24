@@ -33,3 +33,17 @@ The hardware screen used 27 real permutation workloads with the pinned BF16 Qwen
 | all | 16 | 3 | 1.099 | 1.098–1.099 | 14.6 | 43.7 | 612 | 3.60 |
 
 Batch eight without checkpointing had the lowest sum of per-depth median update times under the registered safety limits. The small timing samples support this local policy choice. Sustained runs use the same physical cap, sample membership and memory policy. The Phase 4 language-model targets/s metric counts next-token predictions through a much larger vocabulary head and measures a different workload.
+
+## Sustained native runs
+
+| Arm | Updates | Useful maps/s | State labels/s | Input positions/s | Median update ms | Peak MLX GiB | Peak process RSS GiB | Min available GiB |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| probe | 480 | 80.5 | 80.5 | 3865 | 98 | 2.14 | 1.86 | 4.35 |
+| middle | 480 | 35.6 | 35.6 | 1708 | 221 | 3.41 | 1.88 | 4.44 |
+| full | 480 | 19.3 | 19.3 | 928 | 401 | 4.71 | 1.79 | 4.14 |
+| recurrent | 480 | 23.1 | 45.0 | 970 | 336 | 3.91 | 1.82 | 4.07 |
+| multi | 480 | 37.2 | 72.5 | 1561 | 204 | 3.17 | 1.07 | 3.23 |
+| terminal | 480 | 23.7 | 23.7 | 997 | 333 | 3.91 | 0.90 | 3.73 |
+| outcome | 80 | 21.7 | 21.7 | 912 | 358 | 5.32 | 0.55 | 3.60 |
+
+All timings use real eight-map logical batches. The symbolic recurrent prompt has 42 tokens, and the depth-conditioned dense prompt has 48. At the measured batch size those prompts fit in one 384-position physical batch. The batch-16 profile exercised actual physical subdivision. The categorical workload uses the same native GDN backward implementation as language training. MLX allocation, process RSS and available system memory measure different quantities. The resource monitor sampled normal system pressure during training and follow-up evaluation; occupied swap increased during the study. Per-update memory and timing samples are archived.
