@@ -142,7 +142,69 @@ def verify(root):
                 and paths == decision[kind]["trajectory"],
                 "Functional summary",
             )
+    if study == "verified-generations-01":
+        verify_generations(root, decision)
     print(study, len(index), "files verified")
+
+
+def verify_generations(root, decision):
+    reg = read(root / "registration.json")
+    groups = read(Path("research/data") / (reg["id"] + ".json.gz"))["splits"]
+    previous = {arm: reg["parent_sha256"] for arm in ("self", "gold")}
+    dev = [r["map_id"] for r in groups["dev"]]
+
+    def score(path, summary):
+        records = read(path)["records"]
+        require([r["map_id"] for r in records] == dev, "Wrong evaluation cohort")
+        require(
+            sum(map(trace_score, records)) == summary["verified"],
+            "Incorrect verified generation count",
+        )
+
+    score(root / "parent-eval.json.gz", decision["parent_eval"])
+    for round_id, stage in decision["stages"].items():
+        folder = root / ("round" + round_id)
+        selection = read(folder / "selection.json")
+        pool = groups["pool" + round_id]
+        require(
+            sha(folder / "selection.json") == stage["selection"], "Selection digest"
+        )
+        require(selection["parent"] == previous["self"], "Wrong teacher")
+        rolls = read(folder / "candidates.json.gz")["records"]
+        require(
+            [r["map_id"] for r in rolls]
+            == [r["map_id"] for r in pool for _ in range(reg["samples_per_map"])],
+            "Rollout cohort",
+        )
+        first = {}
+        accepted = 0
+        for r in rolls:
+            valid = trace_score(r)
+            require(valid == r["score"]["verified"], "Rollout verdict disagrees")
+            if valid:
+                accepted += 1
+                first.setdefault(r["map_id"], r["token_ids"])
+        require(accepted == stage["yield_summary"]["accepted"], "Verified yield")
+        require(
+            list(first)[: reg["select"]] == selection["self_ids"],
+            "Wrong self curriculum",
+        )
+        require(
+            selection["responses"] == {i: first[i] for i in selection["self_ids"]},
+            "Changed sampled answer",
+        )
+        require(
+            [r["map_id"] for r in pool[: reg["select"]]] == selection["gold_ids"],
+            "Changed static curriculum",
+        )
+        for arm in ("self", "gold"):
+            if arm in stage:
+                require(stage[arm]["parent"] == previous[arm], "Wrong training lineage")
+                previous[arm] = sha(folder / arm / "adapters.safetensors")
+                require(
+                    previous[arm] == stage[arm]["weights"], "Wrong generation weights"
+                )
+                score(folder / (arm + "-eval.json.gz"), stage[arm]["score"])
 
 
 def publish(name):

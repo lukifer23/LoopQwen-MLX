@@ -6,6 +6,10 @@ A local MLX research implementation of shared recurrent depth in the official Qw
 
 Training the shared block on 256 gold room trajectories raised complete three-hop answers from **0/64 to 64/64** on fresh maps. Its categorical third-hop score fell from 95/96 to 81/96. A frozen-block suffix adapter preserved 95/96 and generated one correct path. On public development anchors, the previous verbal transfer checkpoint at K=3 scored **1/32 on GSM8K** and **18/32 on ARC-Easy**, compared with 2/32 and 18/32 for untouched Base. GSM8K measures generated numeric answers. ARC uses normalized choice likelihood. [Capability scoreboard](docs/CAPABILITY_SCOREBOARD.md) · [Experiment ledger](docs/RESEARCH_LOG.md) · [Active research state](research/state.json)
 
+On **96 further unseen maps**, a single-pass model trained on those same examples solved **96/96** complete trajectories (198 ms median). The recurrently trained checkpoint solved **95/96 at K=3** (447 ms) and **32/96 at K=1**. A subsequent joint state-and-response objective restored categorical retention while generating **64/64** verified room traces. On a separate zero-shot structural test, the six-hop symbolic model solved **190/192** complete permutation paths and **6/192** arbitrary successor paths.
+
+![State accuracy across six applications and complete generated trace accuracy versus latency](docs/measurements/research-generalization.png)
+
 ## Can the model choose better training examples?
 
 On a fresh six-hop pointer cohort, two generations of learner-selected training reached **248/256** correct terminal states versus **236/256** for static selection at equal updates. When static training received the same time allowance, it reached **255/256**. An independent curriculum seed stopped after one matched round under the registered retention rule. A separate self-training trial produced **zero fully verified trajectories in 32 sampled responses**, including 17 correct final numbers. Static training remains the stronger measured six-hop operating point. [Capability scoreboard and compute accounting](docs/RSI_RESULTS.md) · [Frozen study](docs/RSI_PLAN.md)
