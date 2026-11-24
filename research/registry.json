@@ -1,5 +1,13 @@
 {
   "datasets": {
+    "research/data/functional-replay-01.json.gz": {
+      "sha256": "dc2e1ee53f703ca918f852f31414283c7187b99dfa36f3491e6c93f1acdb764f",
+      "splits": {
+        "pool1": 96,
+        "pool2": 96,
+        "dev": 128
+      }
+    },
     "research/data/functional-terminal-01.json.gz": {
       "sha256": "3f90d332385d2b852b93252289b1677b2f0d7804de641e6ec5ebf35e5b487f5c",
       "splits": {
@@ -49,6 +57,9 @@
     "research/data/external-anchor.json": {
       "sha256": "5079c29d3f04c8ff04183515a49f8128eba13b32657d7e82c035557d13f6c939"
     },
+    "research/data/gsm-equations-01.json": {
+      "sha256": "c3a30b9e9d700d205429673976876f41d0ceef593dbfcb72b7c3c47e43ed853a"
+    },
     "research/data/historical-maps.txt.gz": {
       "sha256": "601bb62b775ee6e57fb8b29eb0d5499f9ad433ffb270028d4129a1ebc5ccff7d"
     },
@@ -67,13 +78,25 @@
       "registration": "0f61860e9161a8c93c24c3f6e2855efaa69b6e8ec97c5c6617129a18e37a5020",
       "archive": "64d5b868339bbcf0c7ae9667b48924ebc4e7d8233c5eabaa89979761c5335ede"
     },
+    "functional-replay-01": {
+      "registration": "3147349cb9e7f1903883376ce4d451e7f76d6ede1ea2fc18614ee39fd70fbafd",
+      "archive": null
+    },
+    "functional-replay-cap84": {
+      "registration": "0d64e8c6584c2f28661803bb250db19312e9c3a74d8932fade9dda59a8d7cd2d",
+      "archive": null
+    },
     "functional-terminal-01": {
       "registration": "b3849b86e38f53bad9c79f5f44ed063eb017b2d348646dff8a32bc56a234c366",
-      "archive": null
+      "archive": "c3eed2ffca269a64307dd1fb6eac4ee688424fe2aeacb14736ebd3050e27c225"
     },
     "functional-zero-01": {
       "registration": "5cbe5e49357ec14fb713126ff3a30f2710afa576d13c0b207333e9fb17c9b5e3",
       "archive": "5524ceaf4842ab2bc37726d3b444d1844611d45fa1dd0dc434fe2c167f6aed9e"
+    },
+    "gsm-equations-01": {
+      "registration": "44ab95db9e5311b9e3b94d164c3ffebd66f6db24d97cafe3a58928ad41cb341a",
+      "archive": null
     },
     "joint-trace-01": {
       "registration": "0b7a240bee507afdcfb41e8bbde4c7d7848d5a7b5cef3857199eac6044652233",

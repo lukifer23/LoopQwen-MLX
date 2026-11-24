@@ -197,8 +197,8 @@ def train_round(s, b, arm, j, groups, prior_weight, parent, out):
     )
 
 
-def run():
-    s = read("research/experiments/functional-replay-01.json")
+def run(name="functional-replay-01"):
+    s = read(Path("research/experiments") / (name + ".json"))
     name = s["id"]
     out = core.OUT / name
     if core.archived_result(out, s):
@@ -207,7 +207,10 @@ def run():
     try:
         sizes = {f"pool{j+1}": s["fresh_per_round"] for j in range(s["rounds"])}
         groups = core.reserve(
-            name, s["seed"], dict(**sizes, dev=s["dev_maps"]), functional=True
+            s.get("dataset", name),
+            s["seed"],
+            dict(**sizes, dev=s["dev_maps"]),
+            functional=True,
         )
         parent = Path(s["parent_path"])
         w = digest(parent / "adapters.safetensors")
@@ -254,4 +257,6 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    import sys
+
+    run(*sys.argv[1:])

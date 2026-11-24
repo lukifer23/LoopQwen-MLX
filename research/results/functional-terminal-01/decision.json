@@ -1,0 +1,174 @@
+{
+  "K1": {
+    "correct": 61,
+    "completed": 128,
+    "n": 128,
+    "tokens": 384,
+    "median_ms": 107.41856250388082,
+    "generation_seconds": 13.866993254989211,
+    "update_seconds": 40.30813404000219,
+    "train_targets": 768,
+    "categorical": [
+      96,
+      96,
+      93
+    ],
+    "retention": {
+      "1": {
+        "nll": 3.049512255690851,
+        "by_domain": {
+          "code_description": {
+            "loss": 4584.991228014231,
+            "tokens": 1733,
+            "nll": 2.6456960346302543
+          },
+          "general_prose": {
+            "loss": 7328.330059170723,
+            "tokens": 1911,
+            "nll": 3.834814264348887
+          },
+          "reference": {
+            "loss": 4277.641508579254,
+            "tokens": 1680,
+            "nll": 2.5462151836781275
+          },
+          "scientific_exposition": {
+            "loss": 7264.510121226311,
+            "tokens": 2291,
+            "nll": 3.1708904937696687
+          },
+          "technical_explanation": {
+            "loss": 4990.377404093742,
+            "tokens": 1713,
+            "nll": 2.9132384145322487
+          }
+        },
+        "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+      },
+      "3": {
+        "nll": 3.564596184666746,
+        "by_domain": {
+          "code_description": {
+            "loss": 5609.662705913186,
+            "tokens": 1733,
+            "nll": 3.2369663623272857
+          },
+          "general_prose": {
+            "loss": 8146.720041155815,
+            "tokens": 1911,
+            "nll": 4.263066478888443
+          },
+          "reference": {
+            "loss": 5284.428056240082,
+            "tokens": 1680,
+            "nll": 3.145492890619096
+          },
+          "scientific_exposition": {
+            "loss": 8272.555919587612,
+            "tokens": 2291,
+            "nll": 3.6108930246999615
+          },
+          "technical_explanation": {
+            "loss": 5937.186487674713,
+            "tokens": 1713,
+            "nll": 3.465958253166791
+          }
+        },
+        "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+      }
+    }
+  },
+  "K3": {
+    "correct": 44,
+    "completed": 128,
+    "n": 128,
+    "tokens": 384,
+    "median_ms": 149.80575000299723,
+    "generation_seconds": 19.75366479808872,
+    "update_seconds": 67.80486954401567,
+    "train_targets": 768,
+    "categorical": [
+      96,
+      96,
+      92
+    ],
+    "retention": {
+      "1": {
+        "nll": 3.0371423893884515,
+        "by_domain": {
+          "code_description": {
+            "loss": 4569.90730842948,
+            "tokens": 1733,
+            "nll": 2.63699209949768
+          },
+          "general_prose": {
+            "loss": 7303.615405201912,
+            "tokens": 1911,
+            "nll": 3.821881426060655
+          },
+          "reference": {
+            "loss": 4258.000450849533,
+            "tokens": 1680,
+            "nll": 2.5345240778866267
+          },
+          "scientific_exposition": {
+            "loss": 7229.792714357376,
+            "tokens": 2291,
+            "nll": 3.1557366714785577
+          },
+          "technical_explanation": {
+            "loss": 4969.148329377174,
+            "tokens": 1713,
+            "nll": 2.900845492923044
+          }
+        },
+        "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+      },
+      "3": {
+        "nll": 3.4746320209790205,
+        "by_domain": {
+          "code_description": {
+            "loss": 5465.126963019371,
+            "tokens": 1733,
+            "nll": 3.1535643179569366
+          },
+          "general_prose": {
+            "loss": 8033.018319249153,
+            "tokens": 1911,
+            "nll": 4.203567932626454
+          },
+          "reference": {
+            "loss": 5067.760238170624,
+            "tokens": 1680,
+            "nll": 3.016523951292038
+          },
+          "scientific_exposition": {
+            "loss": 8116.693320721388,
+            "tokens": 2291,
+            "nll": 3.5428604629949314
+          },
+          "technical_explanation": {
+            "loss": 5728.768650531769,
+            "tokens": 1713,
+            "nll": 3.344289930257892
+          }
+        },
+        "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+      }
+    }
+  },
+  "parent_categorical": [
+    96,
+    96,
+    95
+  ],
+  "paired": {
+    "wins": 4,
+    "losses": 21,
+    "ci": [
+      -0.203125,
+      -0.0625
+    ]
+  },
+  "passed": false
+}
