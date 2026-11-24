@@ -33,3 +33,50 @@ def test_map_pairing_and_independent_rescore():
     assert paired(result, result)["difference"] == [0, 0, 0]
     with pytest.raises(ValueError):
         metrics([base, {**altered, "example_id": "wrong"}])
+
+
+def test_pretrained_arm_initializations_match_and_extra_heads_are_independent():
+    """Run on the real pinned model. Only the three-head arm has extra tensors."""
+    import gc
+    import hashlib
+
+    import mlx.core as mx
+    from mlx.utils import tree_flatten
+    import numpy as np
+
+    from loopqwen.training.mechanism import StudyArm, model_for
+
+    reference = {}
+    for name in pointer6.SPEC["arms"]:
+        m, _, _ = model_for(StudyArm.registered(name, 109))
+        params = dict(tree_flatten(m.trainable_parameters()))
+        fingerprints = {
+            k: hashlib.sha256(np.array(v).tobytes()).hexdigest()
+            for k, v in params.items()
+        }
+        common = {
+            k: v for k, v in fingerprints.items() if not k.startswith("extra_heads.")
+        }
+        if not reference:
+            reference = common
+        assert common == reference
+        if name == "heads":
+            assert (
+                len(
+                    {
+                        fingerprints[k]
+                        for k in (
+                            "state_head.weight",
+                            "extra_heads.0.weight",
+                            "extra_heads.1.weight",
+                        )
+                    }
+                )
+                == 3
+            )
+        assert sum(v.size for v in params.values()) == (
+            1360896 if name == "heads" else 1344512
+        )
+        del m, params
+        gc.collect()
+        mx.clear_cache()

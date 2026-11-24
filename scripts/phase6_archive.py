@@ -36,6 +36,7 @@ def archive(dest, seed):
         schedule = None
         order_hashes = {}
         shutil.copy("experiments/phase6.json", root / "registration.json")
+        shutil.copy("experiments/phase6_followup.json", root / "conditional-registration.json")
         shutil.copy(ROOT / "manifest.json", root / "data.json")
         shutil.copy(
             "docs/measurements/phase5/base-weights-and-tokenizer.json",
