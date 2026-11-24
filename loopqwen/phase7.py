@@ -63,12 +63,12 @@ def exposure(*, close=False):
         random=min(c["mean_random"]["accuracy"]) >= g["random"],
         path=c["mean_random"]["trajectory"][-1] >= g["path"],
         gain=comp["difference"][-1] >= g["gain"],
-        endpoint=n == ARM.milestones[-1] and not regress,
     )
     deep = evaluate(ARM, n, rows, early, 6, OUT / "deep.json.gz", observe=True)
     result = dict(
         step=n,
         training_status=st["status"],
+        reached_planned_endpoint=n == ARM.milestones[-1],
         checks=checks,
         installed=all(checks.values()),
         scores=child,
