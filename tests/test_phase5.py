@@ -103,6 +103,7 @@ def test_zero_output_reentry_and_real_bridge_gradient():
     from loopqwen.training.pointer5 import architecture, inputs, outputs, request_rows
 
     model, tok, _, _ = architecture(109, "bridge", "off")
+    model.train()
     samples = rows("development")[:2]
     group = request_rows(samples, 2, "bridge", tok, {})
     x, last = inputs(group)
@@ -121,3 +122,24 @@ def test_zero_output_reentry_and_real_bridge_gradient():
     _, grad = nn.value_and_grad(model, loss)(model)
     assert mx.linalg.norm(grad["bridge_out"]["weight"]).item() > 0
     assert mx.linalg.norm(grad["bridge_in"]["weight"]).item() == 0
+
+
+def test_qualified_trainer_and_generator_sources(tmp_path):
+    from loopqwen.training.pointer_provenance import source_keys
+    import pytest
+
+    files = {}
+    for name in ("training", "data"):
+        path = tmp_path / name / "pointer5.py"
+        path.parent.mkdir()
+        path.write_text(name)
+        files["loopqwen." + name + ".pointer5"] = path
+    policy = {"pointer_identity_schema": 2}
+    before = source_keys(policy, files)
+    assert len(before) == 2
+    files["loopqwen.training.pointer5"].write_text("changed trainer")
+    after = source_keys(policy, files)
+    assert after["loopqwen.data.pointer5"] == before["loopqwen.data.pointer5"]
+    assert after["loopqwen.training.pointer5"] != before["loopqwen.training.pointer5"]
+    with pytest.raises(ValueError, match="Legacy categorical"):
+        source_keys({}, files)

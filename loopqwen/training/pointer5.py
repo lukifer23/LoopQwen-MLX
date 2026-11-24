@@ -34,6 +34,7 @@ def architecture(seed, arm, policy):
         seed=seed,
         name=f"p5_{seed}_{arm}",
         dataset="phase5_pointer",
+        pointer_identity_schema=2,
         batch_size=SPEC["batch"],
         learning_rate=SPEC["lr"],
         weight_decay=0,
@@ -293,22 +294,24 @@ def root_for(seed, arm):
 def identity(c, arm):
     import importlib.util
 
-    files = [
-        Path(importlib.util.find_spec(n).origin)
-        for n in (
-            "loopqwen.training.latent",
-            "loopqwen.training.pointer5",
-            "loopqwen.data.pointer5",
-            "loopqwen.data.transitions",
-        )
-    ]
+    from .pointer_provenance import source_keys
+
+    names = (
+        "loopqwen.training.latent",
+        "loopqwen.training.pointer5",
+        "loopqwen.data.pointer5",
+        "loopqwen.data.transitions",
+    )
+    if c.get("pointer_identity_schema") == 2:
+        names += ("loopqwen.training.pointer_provenance",)
+    files = {n: Path(importlib.util.find_spec(n).origin) for n in names}
     return fingerprint(
         dict(
             base=training_identity(c, read(ROOT / "manifest.json")),
             registration=SPEC,
             arm=arm,
             head="rms32-last-1024x8",
-            sources={p.name: digest(p) for p in files},
+            sources=source_keys(c, files),
         )
     )
 
@@ -341,7 +344,11 @@ def install(seed, arm, until):
     )
     if (root / "latest.json").exists():
         state = checkpoint.restore(root, m, opt)
-        if state["identity"] != ident:
+        recorded = state["config"]
+        expected = dict(c)
+        if "pointer_identity_schema" not in recorded:
+            expected.pop("pointer_identity_schema")
+        if recorded != expected or state["identity"] != identity(recorded, arm):
             raise ValueError(
                 "Incompatible pointer checkpoint; use a distinct experiment"
             )
