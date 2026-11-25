@@ -88,6 +88,11 @@ def summarize(items, records):
         ]
         wins, losses = diff.count(1), diff.count(-1)
         result[name] = dict(
-            **by, n=len(ix), wins=wins, losses=losses, p=exact_mcnemar(wins, losses)
+            **by,
+            n=len(ix),
+            wins=wins,
+            losses=losses,
+            p=exact_mcnemar(wins, losses),
+            premise_p=premise_randomization(diff),
         )
     return result
