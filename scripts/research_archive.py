@@ -153,6 +153,7 @@ def verify(root):
         "projected-distillation-01",
         "privileged-reasoning-01",
         "late-recurrent-exit-01",
+        "learned-exit-01",
     ):
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
@@ -780,6 +781,58 @@ def verify_transfer(root, decision):
                 ),
                 "Trained deliberation model or exposure",
             )
+    if reg["id"] == "learned-exit-01":
+        manifest = Path("research/data/learned-exit-training.json")
+        ids = read(manifest)["ordered_questions"]
+        originals = read(Path(reg["drafts"]))
+        require(
+            sha(manifest) == decision["training"]
+            and sha(Path(reg["drafts"])) == reg["draft_sha256"]
+            and sha(Path(reg["parent"]) / "adapters.safetensors")
+            == reg["parent_sha256"]
+            and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+            == reg["dense_sha256"]
+            and len(set(ids)) == len(ids) == len(originals) == 64
+            and ids == [r["id"] for r in originals]
+            and set(ids).isdisjoint(r["id"] for r in items),
+            "Learned exit training ancestry and held-out material",
+        )
+        path = root / "extensions.json.gz"
+        ext = read(path) if path.exists() else []
+        require([v["id"] for v in ext] == ids[: len(ext)], "Base continuation order")
+        for old, new in zip(originals, ext):
+            active = old["close_at"] is None and old["stop"] == "cap"
+            require(
+                bool(new["token_ids"]) == active
+                and (new["seconds"] > 0) == active
+                and len(new["token_ids"]) + len(old["token_ids"])
+                <= reg["training_draft_cap"],
+                "Authentic extended thought",
+            )
+        if weight:
+            state = read(root / "model/state.json")
+            config = read(root / "model/deliberation.json")
+            fit = read(root / "readout-fit.json")
+            require(
+                len(ext) == len(ids)
+                and state["step"] == decision["updates"] == reg["updates"]
+                and state["parent"] == reg["parent_sha256"]
+                and sum(h["targets"] for h in state["history"]) == decision["targets"]
+                and weight
+                == config["adapter_sha256"]
+                == sha(root / "model/adapters.safetensors")
+                and decision["readout"]
+                == config["readout_sha256"]
+                == sha(root / "model/exit-readout.safetensors")
+                and config["revision"] == REVISION
+                and config["version"] == 2
+                and config["switch_after"] == reg["switch_after"]
+                and fit["updates"] == reg["head_updates"]
+                and fit["positives"] >= len(ids)
+                and fit["negatives"] >= len(ids)
+                and fit["after"] < fit["before"],
+                "Learned exit adapter, native vocabulary readout and objective",
+            )
     if reg["id"] == "late-recurrent-exit-01":
         from loopqwen.identity import fingerprint
 
@@ -859,7 +912,11 @@ def verify_transfer(root, decision):
                 0 < row["seconds_at_256"] <= row["seconds"], "Invalid prefix timing"
             )
         reports[arm] = rows
-    if reg["id"] in ("recurrent-deliberation-01", "late-recurrent-exit-01"):
+    if reg["id"] in (
+        "recurrent-deliberation-01",
+        "late-recurrent-exit-01",
+        "learned-exit-01",
+    ):
         switch = reg["switch_after"]
         for a, c in zip(reports.get("base", ()), reports.get("candidate", ())):
             early = a["token_ids"][:switch]
@@ -956,6 +1013,7 @@ def verify_transfer(root, decision):
         "projected-distillation-01",
         "privileged-reasoning-01",
         "late-recurrent-exit-01",
+        "learned-exit-01",
     ):
         passed = (
             full["all"]["wins"] - full["all"]["losses"] >= reg.get("net_floor", 4)
