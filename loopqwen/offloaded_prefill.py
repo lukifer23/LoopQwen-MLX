@@ -56,6 +56,9 @@ class OffloadedPrefill:
         self.groups = stages(model)
 
     def prefill(self, ids, progress=None):
+        return self.model.project(self.prefill_hidden(ids, progress))
+
+    def prefill_hidden(self, ids, progress=None):
         m = self.model
         self.cache.validate(m, None)
         length = len(ids)
@@ -98,9 +101,12 @@ class OffloadedPrefill:
         )
         del words
         (self.directory / "hidden.bf16").unlink()
-        return m.project(m.text.model.norm(h[:, -1:]))
+        return m.text.model.norm(h[:, -1:])
 
     def decode(self, ids):
+        return self.model.project(self.decode_hidden(ids))
+
+    def decode_hidden(self, ids):
         m = self.model
         self.cache.validate(m, None)
         h = m.text.model.embed_tokens(ids)
@@ -108,4 +114,4 @@ class OffloadedPrefill:
             h = m._execute(h, group, self.cache)
             # Release this stage's loaded prefix before the next stage reads its own.
             mx.eval(h)
-        return m.project(m.text.model.norm(h))
+        return m.text.model.norm(h)

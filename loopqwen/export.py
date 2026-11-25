@@ -127,6 +127,11 @@ def export(checkpoint, output, fusion="stock"):
                 deliberation=policy,
                 ordinary_projections_sha256=digest(cfg_path),
             )
+            if policy["version"] == 2:
+                shutil.copyfile(
+                    checkpoint_location(checkpoint) / "exit-readout.safetensors",
+                    temp / "exit-readout.safetensors",
+                )
             provenance["deliberation"] = policy
         if has_reader:
             generation = checkpoint_location(checkpoint)

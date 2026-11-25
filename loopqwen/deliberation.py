@@ -1,5 +1,6 @@
 """Use ordinary depth for early deliberation and recurrent depth for unfinished turns."""
 
+import hashlib
 from contextlib import ExitStack
 from copy import deepcopy
 from tempfile import TemporaryDirectory
@@ -37,15 +38,28 @@ def ordinary_view(model, original_weights=None):
     return ordinary
 
 
-def attach(model, policy, *, original_weights=None):
+def attach(model, policy, *, original_weights=None, directory=None):
     if (
         policy["revision"] != REVISION
-        or policy["version"] != 1
+        or policy["version"] not in (1, 2)
         or type(policy["switch_after"]) is not int
         or policy["switch_after"] < 1
         or model.span.passes != 2
     ):
         raise ValueError("Unsupported recurrent deliberation policy")
+    if policy["version"] == 2:
+        path = directory / "exit-readout.safetensors"
+        with path.open("rb") as f:
+            if hashlib.file_digest(f, "sha256").hexdigest() != policy["readout_sha256"]:
+                raise ValueError("Learned exit weights differ")
+        weights = mx.load(str(path))
+        if (
+            set(weights) != {"weight"}
+            or weights["weight"].shape != (model.args.hidden_size + 2,)
+            or not mx.all(mx.isfinite(weights["weight"])).item()
+        ):
+            raise ValueError("Invalid learned exit readout")
+        object.__setattr__(model, "exit_readout", weights["weight"])
     ordinary = ordinary_view(model, original_weights)
     # The dense view shares immutable arrays and is deliberately outside the parameter tree.
     object.__setattr__(model, "ordinary_depth", ordinary)
@@ -83,6 +97,8 @@ def greedy(
     switch = policy["switch_after"] if early else None
     out = []
     switched = False
+    closed = False
+    readout = getattr(model, "exit_readout", None)
     scratch = 0
     first = None
     mx.synchronize()
@@ -92,7 +108,7 @@ def greedy(
         for i in range(cap):
             if before:
                 before()
-            if i == switch and closing not in out:
+            if i == switch and not closed:
                 stage = model
                 switched = True
                 cache = disk = None
@@ -106,7 +122,7 @@ def greedy(
                         TemporaryDirectory(dir=offload_dir)
                     )
                     disk = OffloadedPrefill(stage, folder)
-                    logits = disk.prefill(history, progress)
+                    hidden = disk.prefill_hidden(history, progress)
                     scratch = max(scratch, disk.scratch_bytes)
                 else:
                     cache = stage.make_cache()
@@ -117,18 +133,25 @@ def greedy(
                             mx.eval(h)
                             if progress:
                                 progress(j + x.shape[1])
-                    logits = stage.project(h[:, -1:])
+                    hidden = h[:, -1:]
             else:
                 x = mx.array([[out[-1]]])
-                logits = (
-                    disk.decode(x)
-                    if disk
-                    else stage.project(stage.hidden(x, cache)[:, -1:])
+                hidden = (
+                    disk.decode_hidden(x) if disk else stage.hidden(x, cache)[:, -1:]
                 )
+            logits = stage.project(hidden)
+            if switched and not closed and readout is not None:
+                delta = (
+                    hidden.astype(mx.float32) @ readout[:-2]
+                    + readout[-2] * (i / switch)
+                    + readout[-1]
+                )
+                logits = logits.astype(mx.float32).at[..., closing].add(delta)
             tok = logits.reshape(-1).argmax().item()
             if first is None:
                 first = perf_counter()
             out.append(tok)
+            closed = closed or tok == closing
             if progress:
                 progress(len(ids) + i)
             if tok in tokenizer.eos_token_ids or tok in stop_ids:

@@ -68,7 +68,12 @@ def load_export(directory):
                 != cfg["ordinary_projections_sha256"]
             ):
                 raise ValueError("Exported ordinary-depth projections differ")
-        attach(model, cfg["deliberation"], original_weights=mx.load(str(original)))
+        attach(
+            model,
+            cfg["deliberation"],
+            original_weights=mx.load(str(original)),
+            directory=directory,
+        )
     if "attention_reader_metadata_sha256" in cfg:
         import hashlib
 

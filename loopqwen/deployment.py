@@ -31,7 +31,7 @@ def load_trained(root):
         config = read(policy)
         if digest(generation / "adapters.safetensors") != config["adapter_sha256"]:
             raise ValueError("Deliberation policy belongs to another checkpoint")
-        attach(model, config)
+        attach(model, config, directory=generation)
     if (generation / "context-policy.json").is_file():
         from .context_policy import attach as attach_context
 
