@@ -715,7 +715,8 @@ def verify_ledger_curriculum(root, decision):
                 and item["minimum_length"]
                 <= row["prompt_tokens"]
                 <= item["minimum_length"] + 32
-                and row["seed"] == item["seed"]
+                and row["ledger_seed"] == item["seed"]
+                and row["seed"] == 0
                 and row["gold"] == item["gold"]
                 and row["greedy"]
                 and row["max_tokens"] == reg["generation_cap"]

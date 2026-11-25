@@ -70,7 +70,7 @@ def measure(m, t, row, cap, budget):
     answer = numeric(parsed["visible"]) if v["token_ids"][-1] in stops else None
     return dict(
         **v,
-        seed=row["seed"],
+        ledger_seed=row["seed"],
         input_sha256=fingerprint(ids),
         gold=row["gold"],
         answer=answer,
@@ -123,7 +123,19 @@ def run(freeze):
             s["parent_sha256"],
         )
         gen = checkpoint_location(cp)
-        bootstrap.release(gen, root / "model")
+        published = root / "model"
+        if published.exists():
+            if any(
+                digest(gen / name) != digest(published / name)
+                for name in ("state.json", "adapters.safetensors")
+            ) or read(published / "recovery.json")["optimizer_sha256"] != digest(
+                gen / "optimizer.safetensors"
+            ):
+                raise ValueError(
+                    "Existing ledger checkpoint differs from completed training"
+                )
+        else:
+            bootstrap.release(gen, published)
         result.update(
             weights=digest(gen / "adapters.safetensors"),
             updates=state["step"],
