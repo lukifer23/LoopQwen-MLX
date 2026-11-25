@@ -130,6 +130,8 @@ def verify(root):
         verify_context(root, decision)
     if study == "attention-memory-128k":
         verify_full_memory(root, decision)
+    if study == "natural-context-01":
+        verify_natural_context(root, decision)
     if study == "prose-reading-01":
         verify_prose_reading(root, decision)
     if study == "shared-budget-vote-01":
@@ -1218,6 +1220,109 @@ def verify_full_memory(root, decision):
             and all(r["located"] for r in rows["candidate"])
         ),
         "Counterfactual full-context gate",
+    )
+
+
+def verify_natural_context(root, decision):
+    from loopqwen import REVISION
+    from loopqwen.evaluation import extractive
+    from loopqwen.identity import fingerprint
+
+    reg = read(root / "registration.json")
+    panel = Path("research/data/natural-context-01.json")
+    train = Path("research/data/natural-context-training.json")
+    items = read(panel)
+    schedule = read(train)
+    require(
+        sha(root / "registration.json") == decision["registration"]
+        and sha(panel) == decision["data"]
+        and sha(train) == decision["training"]
+        and len(items) == len(reg["titles"]) == 24
+        and len(set(schedule["ids"])) == reg["passages"]
+        and set(schedule["ids"]).isdisjoint(r["id"] for r in items)
+        and [r["title"] for r in items] == reg["titles"]
+        and sha(Path(reg["parent"]).parent / "checksums.json") == reg["qualification"]
+        and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+        == reg["dense_sha256"],
+        "Natural source or controls",
+    )
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"], "Interrupted natural study"
+        )
+        return
+    model = root / "model"
+    policy = read(model / "context-policy.json")
+    st = read(root / "prose-training.json")
+    reader = read(model / "reader-training.json")
+    require(
+        sha(model / "context-policy.json") == decision["weights"]
+        and all(sha(model / k) == v for k, v in policy["files"].items())
+        and sha(model / "adapters.safetensors")
+        == sha(Path(reg["parent"]) / "adapters.safetensors")
+        and st["parent"] == sha(model / "adapters.safetensors")
+        and st["step"] == reg["updates"]
+        and sum(h["targets"] for h in st["history"]) == schedule["targets"]
+        and set(reader["questions"]) <= set(schedule["ids"])
+        and len(set(reader["questions"]))
+        == len(reader["loss"])
+        >= 0.75 * reg["passages"]
+        and reader["route_examples"] == 3 * reg["routing_examples"]
+        and reader["route_updates"] == 48,
+        "Natural training lineage",
+    )
+    scores = {}
+    for arm in ("base", "candidate"):
+        blob = read(root / (arm + ".json.gz"))
+        require(
+            blob["weights"] == (REVISION if arm == "base" else decision["weights"]),
+            "Decoder identity",
+        )
+        rows = blob["records"]
+        for v, r in zip(rows, items, strict=True):
+            ids = v["token_ids"]
+            answer = extractive.answer(ids, v["text"])
+            em, f1 = extractive.score(answer, r["aliases"])
+            sec = v.get("attention_memory")
+            lo, hi = r["source_interval"]
+            require(
+                v["input_sha256"] == fingerprint(r["prompt_ids"])
+                and v["id"] == r["id"]
+                and v["prompt_tokens"] == len(r["prompt_ids"]) >= reg["minimum_length"]
+                and v["greedy"]
+                and v["seed"] == 0
+                and v["max_tokens"] == reg["generation_cap"]
+                and 0 < len(ids) <= v["max_tokens"]
+                and v["elapsed_s"] >= v["ttft_s"] > 0
+                and v["answer"] == answer
+                and v["correct"] == em
+                and v["f1"] == f1
+                and v["located"]
+                == bool(sec and lo < sec["stop"] and hi > sec["start"]),
+                "Paired natural evidence, score, or timing",
+            )
+            if arm == "candidate":
+                require(
+                    v["context_route"]
+                    in ("prose_recurrent", "register_recurrent", "ordinary"),
+                    "Unrecognized natural route",
+                )
+        scores[arm] = {
+            "exact": sum(v["correct"] for v in rows),
+            "f1": sum(v["f1"] for v in rows) / len(rows),
+            "seconds": sum(v["elapsed_s"] for v in rows),
+            "located": sum(v["located"] for v in rows),
+        }
+    a, c = scores["base"], scores["candidate"]
+    require(
+        scores == decision["scores"]
+        and decision["passed"]
+        == (
+            c["exact"] >= a["exact"] + 3
+            and c["f1"] >= a["f1"]
+            and c["seconds"] <= 1.25 * a["seconds"]
+        ),
+        "Natural comparison gate",
     )
 
 

@@ -28,6 +28,21 @@ def make(t, s):
         if q["id"] not in known
     ]
     entries.sort(key=lambda e: fingerprint([s["seed"], e[2]["id"]]))
+
+    def prompt(body, query):
+        question = (
+            body
+            + "\n\nQuestion: "
+            + query
+            + "\nReason briefly. Give just the shortest phrase from the article that answers the question."
+        )
+        return t.apply_chat_template(
+            [{"role": "user", "content": question}],
+            tokenize=False,
+            add_generation_prompt=True,
+            enable_thinking=True,
+        )
+
     rows, docs = [], []
     for a, pi, q in entries:
         paragraphs = [p["context"] for p in a["paragraphs"]]
@@ -37,20 +52,6 @@ def make(t, s):
         para = paragraphs[pi]
         if para[start : start + len(ans)] != ans or len(para) > 2200:
             continue
-
-        def prompt(body):
-            question = (
-                body
-                + "\n\nQuestion: "
-                + q["question"]
-                + "\nReason briefly. Give just the shortest phrase from the article that answers the question."
-            )
-            return t.apply_chat_template(
-                [{"role": "user", "content": question}],
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_thinking=True,
-            )
 
         r = Random(int(fingerprint([s["seed"], q["id"]])[:12], 16))
         others = [
@@ -63,7 +64,7 @@ def make(t, s):
         selected = r.sample(others, 3) + [pi]
         r.shuffle(selected)
         body = "\n\n".join(paragraphs[i] for i in selected)
-        text = prompt(body)
+        text = prompt(body, q["question"])
         ids = t.encode(text, add_special_tokens=False)
         if not 320 <= len(ids) <= 1232:
             continue
@@ -78,7 +79,9 @@ def make(t, s):
             + re.split(r"(?<=[.?!])\s+", para[start + len(ans) :])[0]
         )
         if len(docs) < s["updates"] * s["logical_batch"]:
-            doc = core.doc(t, prompt(para), sentence + "\n</think>\n\n" + ans)
+            doc = core.doc(
+                t, prompt(para, q["question"]), sentence + "\n</think>\n\n" + ans
+            )
             if len(doc["ids"]) - 1 <= s["cap_positions"]:
                 docs.append(doc)
         rows.append(
