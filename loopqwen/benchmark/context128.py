@@ -211,6 +211,20 @@ def run(offload=False, recovery=False):
             "capacity": True,
             "retrieval": {a: r["correct"] for a, r in rows.items()},
         }
+        if offload and recovery:
+            resident = Path("research/sessions/2026-11-25") / spec["reference"]
+            result["resident_archive"] = str(resident)
+            result["identical_generations"] = {}
+            for arm in rows:
+                baseline = read(resident / f"{arm}.json")
+                if (baseline["weights"], baseline["input_sha256"]) != (
+                    rows[arm]["weights"],
+                    rows[arm]["input_sha256"],
+                ):
+                    raise ValueError("Resident comparison differs")
+                result["identical_generations"][arm] = (
+                    rows[arm]["token_ids"] == baseline["token_ids"]
+                )
     except (MemoryError, TimeoutError, InterruptedError) as exc:
         result = {
             "status": "interrupted",

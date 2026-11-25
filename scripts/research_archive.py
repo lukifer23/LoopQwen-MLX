@@ -128,6 +128,8 @@ def verify(root):
         )
     if study in ("context-128k-01", "context-128k-disk"):
         verify_context(root, decision)
+    if study == "rationale-dense-01":
+        verify_dense_rationale(root, decision)
     if study == "rationale-transfer-01":
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
@@ -226,6 +228,16 @@ def verify_context(root, decision):
         decision["capacity"] == (completed == ["base", "candidate"]),
         "Context capacity gate",
     )
+    if "resident_archive" in decision:
+        resident = Path(decision["resident_archive"])
+        for arm in completed:
+            a, b = read(root / f"{arm}.json"), read(resident / f"{arm}.json")
+            require(
+                (a["input_sha256"], a["weights"]) == (b["input_sha256"], b["weights"])
+                and decision["identical_generations"][arm]
+                == (a["token_ids"] == b["token_ids"]),
+                "Long decode parity",
+            )
     if decision["capacity"]:
         require(
             decision["retrieval"]
@@ -239,6 +251,72 @@ def verify_context(root, decision):
             and 0 <= decision["processed_positions"] < len(ids) + reg["generation_cap"],
             "Context interruption",
         )
+
+
+def verify_dense_rationale(root, decision):
+    reg = read(root / "registration.json")
+    require(
+        sha(root / "registration.json") == decision["registration"],
+        "Dense registration",
+    )
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"],
+            "Interrupted dense comparison",
+        )
+        return
+    prior = Path(reg["prerequisite"])
+    earlier = read(prior / "decision.json")
+    state = read(root / "model/state.json")
+    dense = read(root / "dense.json.gz")
+    candidate = read(prior / "candidate.json.gz")
+    require(
+        dense["weights"]
+        == sha(root / "model/adapters.safetensors")
+        == decision["weights"]
+        and candidate["weights"] == reg["recurrent_weights"],
+        "Dense pair weights",
+    )
+    require(
+        state["parent"] == reg["parent_sha256"]
+        and decision["updates"] == state["step"] == 32
+        and decision["targets"]
+        == sum(h["targets"] for h in state["history"])
+        == earlier["targets"]
+        and decision["data"] == earlier["data"],
+        "Dense exposure",
+    )
+    diff = []
+    for a, c in zip(dense["records"], candidate["records"], strict=True):
+        require(
+            (a["prompt_ids"], a["id"], a["gold"])
+            == (c["prompt_ids"], c["id"], c["gold"]),
+            "Unpaired dense prompts",
+        )
+        answer = numeric(a["visible"]) if a["complete"] else None
+        require(
+            answer == a["answer"] and a["correct"] == (answer == a["gold"]),
+            "Dense answer",
+        )
+        diff.append(int(c["correct"]) - int(a["correct"]))
+    d, r = decision["dense"], decision["recurrent"]
+    require(
+        len(diff) == 32
+        and r == earlier["candidate"]
+        and d["correct"] == sum(x["correct"] for x in dense["records"])
+        and d["seconds"] == sum(x["seconds"] for x in dense["records"])
+        and (decision["wins"], decision["losses"]) == (diff.count(1), diff.count(-1)),
+        "Dense aggregate",
+    )
+    require(
+        decision["passed"]
+        == (
+            sum(diff) >= 2
+            and r["seconds"] <= 1.25 * d["seconds"]
+            and r["retention"]["nll"] <= d["retention"]["nll"] + 0.03
+        ),
+        "Dense gate",
+    )
 
 
 def verify_transfer(root, decision):
