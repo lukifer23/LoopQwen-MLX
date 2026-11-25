@@ -162,17 +162,23 @@ def export(checkpoint, output, fusion="stock"):
             "print(result['text'])\n"
             "```\n"
         )
+        decoder_parameters = count(model)
+        reader_parameters = count(model.attention_reader.scorer) if has_reader else 0
         audit = dict(
             prompt=prompt,
             input_ids=ids.tolist(),
             last_top1=mx.argmax(after[0, -1]).item(),
             logits_sha256=hashlib.sha256(np.asarray(after).tobytes()).hexdigest(),
             merge_relative_rms=rms,
-            unique_parameters=count(model),
+            unique_parameters=decoder_parameters + reader_parameters,
             fused_modules=fused,
             step=state["step"],
         )
         if has_reader:
+            audit.update(
+                decoder_parameters=decoder_parameters,
+                reader_parameters=reader_parameters,
+            )
             from .evaluation.generation_eval import generate
 
             body = "".join(
