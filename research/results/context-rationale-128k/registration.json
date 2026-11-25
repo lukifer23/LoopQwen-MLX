@@ -1,0 +1,12 @@
+{
+  "id": "context-rationale-128k",
+  "question": "Can the 32-update language checkpoint process the full 131072-token ledger and return the early number on the measured Base request?",
+  "candidate": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "weights": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "base_archive": "research/sessions/2026-11-25/context-128k-01",
+  "base_row_sha256": "f8a1dd3b5ee70a3a74a4e7f6a29b867a8fe39daafe21b3ac38c3f347dd363737",
+  "seed": 13107241, "prompt_tokens": 131072, "generation_cap": 96,
+  "policy": "Reuse the completed resident Base measurement on identical prompt IDs and exact greedy policy. Measure the development-qualified adapter at K2 with resident BF16 caches and the same 128-token prefill chunks. Stop at the first official turn boundary or EOS.",
+  "decision": "Capacity requires consuming all 131072 prompt tokens and decoding at least one token. Retrieval independently requires an exact visible numeric answer at a completed first-turn boundary. Time both outcomes. One early key cannot qualify multi-document reasoning. A failed development checkpoint or absent completed Base baseline closes the measurement.",
+  "limits": {"wall_seconds": 640, "peak_gib": 5.5, "available_gib": 1.5}
+}
