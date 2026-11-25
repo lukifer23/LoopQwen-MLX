@@ -148,6 +148,7 @@ def verify(root):
         "paired-solutions-01",
         "all-layer-reasoning-01",
         "recurrent-deliberation-01",
+        "projected-distillation-01",
     ):
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
@@ -524,6 +525,96 @@ def verify_preference_training(root, reg, decision, items):
         require(sorted(used) == list(range(n)), "Preference epoch exposure")
 
 
+def verify_distillation(root, reg, decision, items):
+    from loopqwen.identity import fingerprint
+
+    manifest = Path("research/data/projected-distillation-training.json")
+    plan = read(manifest)
+    require(
+        sha(manifest) == decision["training"]
+        and sha(Path(reg["parent"]) / "adapters.safetensors") == reg["parent_sha256"]
+        and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+        == reg["dense_sha256"]
+        and set(plan["ordered_questions"]).isdisjoint(r["id"] for r in items),
+        "Distillation source material",
+    )
+    original = plan["exposure"]
+    eligible = [i for i in range(len(original)) if i % reg["group"] < 3]
+    eligible.sort(key=lambda i: fingerprint([reg["seed"], "teacher", i]))
+    path = root / "training-draws.json.gz"
+    draws = read(path)["records"] if path.exists() else []
+    good = []
+    require(len(draws) <= reg["max_draws"], "Teacher draw bound")
+    for index, r in zip(eligible, draws):
+        d = original[index]
+        require(
+            index == r["index"]
+            and fingerprint(r["prompt_ids"]) == d["prompt"]
+            and d["gold"] == r["gold"]
+            and len(r["token_ids"]) <= reg["draw_cap"]
+            and r["answer"] == first_turn_answer(r["token_ids"], r["text"])
+            and r["correct"] == (r["answer"] == r["gold"]),
+            "Teacher trajectory",
+        )
+        if r["correct"]:
+            good.append(r)
+    if decision["status"] == "insufficient_correct_training_traces":
+        require(
+            len(draws) == reg["max_draws"]
+            and len(good) < reg["min_good"]
+            and not decision["passed"],
+            "Incorrect teacher-yield decision",
+        )
+        return
+    if decision["status"] == "interrupted" and "weights" not in decision:
+        return
+    require(
+        reg["min_good"] <= len(good) <= reg["wanted"]
+        and len(good) == decision["correct_training_draws"]
+        and (len(good) == reg["wanted"] or len(draws) == reg["max_draws"]),
+        "Selected teacher yield",
+    )
+    selection = read(root / "draw-selection.json")
+    require(
+        selection["indices"] == [r["index"] for r in good],
+        "Selected trajectory identity",
+    )
+    exposure = [0 if d["raw"] else d["length"] - d["prefix"] for d in original]
+    positions = [i for i in eligible if i not in {r["index"] for r in draws}]
+    replacement = []
+    for r in good:
+        exposure[r["index"]] = len(r["token_ids"])
+        for _ in range(reg["copies"] - 1):
+            i = positions.pop()
+            exposure[i] = len(r["token_ids"])
+            replacement.append([i, r["index"]])
+    require(
+        selection["additional_slots"] == replacement,
+        "Unregistered training replication",
+    )
+    state = read(root / "model/state.json")
+    teach = read(root / "teachers.json")
+    projected = read(root / "projection.json")
+    require(
+        sha(root / "model/adapters.safetensors") == decision["weights"]
+        and state["step"] == reg["updates"] == decision["updates"]
+        and state["parent"] == reg["parent_sha256"]
+        and sum(exposure)
+        == decision["targets"]
+        == sum(h["targets"] for h in state["history"])
+        and sum(h["seconds"] for h in state["history"]) == decision["update_seconds"]
+        and sum(h["teacher_positions"] for h in state["history"]) == teach["positions"]
+        and teach["rows"] == reg["updates"] * reg["group"]
+        and sha(root / "teachers.safetensors")
+        == teach["sha256"]
+        == decision["teacher_targets"]
+        and state["spec"]["deployment"]["config"]["rank"] == reg["rank"] + 8
+        and len({r["projection"] for r in projected}) == len(projected) > 100
+        and all(0 <= r["fraction"] <= 1.0001 for r in projected),
+        "Projected adapter, teacher targets or optimizer exposure",
+    )
+
+
 def verify_transfer(root, decision):
     from loopqwen import REVISION
 
@@ -544,6 +635,10 @@ def verify_transfer(root, decision):
     if reg["id"] == "paired-solutions-01":
         verify_preference_training(root, reg, decision, items)
         if decision["status"] == "insufficient_pairs":
+            return
+    if reg["id"] == "projected-distillation-01":
+        verify_distillation(root, reg, decision, items)
+        if decision["status"] == "insufficient_correct_training_traces":
             return
     weight = decision.get("weights") if trained else reg["weights"]
     if reg["id"] == "checked-rationale-01":
@@ -779,7 +874,11 @@ def verify_transfer(root, decision):
             )
             and r["candidate"]["nll"] <= r["base"]["nll"] + 0.03
         )
-    if reg["id"] in ("all-layer-reasoning-01", "recurrent-deliberation-01"):
+    if reg["id"] in (
+        "all-layer-reasoning-01",
+        "recurrent-deliberation-01",
+        "projected-distillation-01",
+    ):
         passed = (
             full["all"]["wins"] - full["all"]["losses"] >= 4
             and full["all"]["candidate"]["seconds"] <= full["all"]["base"]["seconds"]
