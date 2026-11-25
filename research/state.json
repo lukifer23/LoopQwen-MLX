@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "conditional-depth-01",
+  "active": "entailment-triplets-confirm-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -20,7 +20,7 @@
     "word_problems_at_1024_vs_base": "research/results/learned-exit-01/model"
   },
   "frontier": "Same learned exit won two independent full-budget pairs: 52/80 versus 46/80 strict, 58/80 versus 52/80 completed content, six paired wins, zero losses, 542.44 versus 592.24 seconds.",
-  "next": "entailment-triplets-confirm-01",
+  "next": "conditional-depth-128k",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -206,9 +206,15 @@
       "promoted": false,
       "scope": "Primary qualification passed; independent confirmation pending",
       "reason": "35/48 vs 27/48 completed relation judgments including blind review. Probe 37 vs 30, fully correct triplets 7 vs 2, generation 14.23 vs 391.76 s and raw prose NLL 2.93196 vs 2.98266."
+    },
+    {
+      "id": "conditional-depth-01",
+      "promoted": true,
+      "scope": "Mixed 56-request qualification; same model full-history test pending",
+      "reason": "34/56 vs 25/56, nine wins and no losses, 289.86 vs 322.33 s. Full-budget arithmetic +3, short arithmetic +2, register lookup +4. Every ordinary response matched and all 120 raw V3 routes retained exact NLL."
     }
   ],
-  "status": "Mixed deployment under measurement. Unchanged natural inference weights qualified and independent confirmation is frozen.",
+  "status": "Combined arithmetic and register model qualified across all five workloads. Independent natural inference confirmation is running.",
   "next_action": "Archive the natural inference primary and run the first integrated deployment comparison with the confirmed arithmetic finisher, short-budget decoder and register reader.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
