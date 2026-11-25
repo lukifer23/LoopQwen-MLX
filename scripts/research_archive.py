@@ -125,9 +125,9 @@ def verify(root):
             == decision["correct"],
             "Calibration accuracy",
         )
-    if study == "context-128k-01":
+    if study in ("context-128k-01", "context-128k-disk"):
         verify_context(root, decision)
-    if study == "gsm-rationale-01":
+    if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
         verify_rationale(root, decision)
     if study == "functional-interleave-01":
         verify_interleave(root, decision)
@@ -178,6 +178,22 @@ def verify_context(root, decision):
         len(ids) == reg["prompt_tokens"] and prompt["input_sha256"] == fingerprint(ids),
         "Context prompt stream",
     )
+    if "reference" in reg:
+        old = read(Path("research/results") / reg["reference"] / "prompt.json.gz")
+        require(old == prompt, "Disk variant changed the frozen prompt")
+        parity = read(root / "parity.json") if (root / "parity.json").exists() else {}
+        if decision["status"] == "parity_failed":
+            require(
+                any(x != 0 for x in parity[decision["arm"]])
+                and not decision["capacity"],
+                "Parity stop",
+            )
+            return
+        if decision["completed"] or decision["status"] == "completed":
+            require(
+                parity == {a: [0.0] * 4 for a in ("base", "candidate")},
+                "Missing logit parity",
+            )
     completed = []
     for arm, weight in (
         ("base", decision["base_revision"]),
@@ -227,9 +243,13 @@ def verify_rationale(root, decision):
     from loopqwen.identity import fingerprint
 
     reg = read(root / "registration.json")
-    manifest = Path("research/data") / (reg["id"] + ".json")
+    endpoint = reg.get("training_study")
+    training = (
+        read(Path("research/experiments") / (endpoint + ".json")) if endpoint else reg
+    )
+    manifest = Path("research/data") / (training["id"] + ".json")
     frozen = read(manifest)
-    data = read(Path(reg["data"]))["dev"]
+    data = read(Path(training["data"]))["dev"]
     require(
         sha(root / "registration.json") == decision["registration"]
         and sha(manifest) == decision["data"],
@@ -245,9 +265,14 @@ def verify_rationale(root, decision):
         state = read(model / "state.json")
         require(
             sha(model / "adapters.safetensors") == decision["weights"]
-            and state["parent"] == reg["parent_sha256"]
+            and state["parent"] == training["parent_sha256"]
             and state["step"] == reg["updates"],
             "Rationale checkpoint",
+        )
+    if endpoint:
+        require(
+            not decision["passed"] and decision["weights"] == reg["weights"],
+            "Interrupted endpoint cannot promote",
         )
     answers = []
     for arm in ("base", "candidate"):
@@ -305,7 +330,7 @@ def verify_rationale(root, decision):
     )
     c, b = decision["candidate"], decision["base"]
     require(
-        decision["passed"]
+        decision.get("descriptive_thresholds_met", decision["passed"])
         == (
             c["correct"] >= 8
             and min(halves) > 0
