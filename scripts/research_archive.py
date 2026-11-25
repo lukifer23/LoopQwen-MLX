@@ -147,6 +147,7 @@ def verify(root):
         "checked-rationale-01",
         "paired-solutions-01",
         "all-layer-reasoning-01",
+        "recurrent-deliberation-01",
     ):
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
@@ -597,6 +598,63 @@ def verify_transfer(root, decision):
                 and st["spec"]["deployment"]["config"]["passes"] == 2,
                 "Expanded-adapter checkpoint and exposure",
             )
+    if reg["id"] == "recurrent-deliberation-01":
+        manifest = Path("research/data/recurrent-deliberation-training.json")
+        pool = read(manifest)
+        require(
+            sha(manifest) == decision["training"]
+            and len({r["id"] for r in pool}) == len(pool) == reg["pool"]
+            and {r["id"] for r in pool}.isdisjoint(r["id"] for r in items)
+            and sha(Path(reg["parent"]) / "adapters.safetensors")
+            == reg["parent_sha256"]
+            and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+            == reg["dense_sha256"],
+            "Draft training items and frozen controls",
+        )
+        drafts_file = root / "drafts.json.gz"
+        drafts = read(drafts_file) if drafts_file.is_file() else []
+        require(len(drafts) <= len(pool), "Extra training draft")
+        for d, row in zip(drafts, pool):
+            tokens = d["token_ids"]
+            close = next((i for i, x in enumerate(tokens) if x == 248069), None)
+            keep = (
+                close // 2
+                if close is not None
+                else (len(tokens) if d["stop"] == "cap" else (len(tokens) - 1) // 2)
+            )
+            prefix = row["prompt_ids"] + tokens[:keep]
+            doc = d["document"]
+            require(
+                d["id"] == row["id"]
+                and d["prompt_ids"] == row["prompt_ids"]
+                and 0 < len(tokens) <= reg["training_draft_cap"]
+                and d["kept"] == keep
+                and doc["ids"][: doc["prefix"]] == prefix
+                and doc["ids"][-1] == 248046
+                and doc["ids"][doc["prefix"] :].count(248069) == 1,
+                "Invalid training prefix or completion",
+            )
+        if weight:
+            st = read(root / "model/state.json")
+            policy = read(root / "model/deliberation.json")
+            require(
+                len(drafts) == len(pool)
+                and sha(root / "model/adapters.safetensors")
+                == policy["adapter_sha256"]
+                == weight
+                and policy["revision"] == REVISION
+                and policy["version"] == 1
+                and policy["switch_after"] == reg["switch_after"]
+                and st["parent"] == reg["parent_sha256"]
+                and st["step"] == decision["updates"] == reg["updates"]
+                and decision["targets"]
+                == sum(h["targets"] for h in st["history"])
+                == 2
+                * sum(
+                    len(d["document"]["ids"]) - d["document"]["prefix"] for d in drafts
+                ),
+                "Trained deliberation model or exposure",
+            )
     for arm, expected_weight in (("base", REVISION), ("candidate", weight)):
         file = root / (arm + ".json.gz")
         if not file.exists():
@@ -640,6 +698,18 @@ def verify_transfer(root, decision):
         all(len(rows) == len(items) for rows in reports.values()),
         "Missing transfer items",
     )
+    if reg["id"] == "recurrent-deliberation-01":
+        switch = reg["switch_after"]
+        for a, c in zip(reports["base"], reports["candidate"], strict=True):
+            early = a["token_ids"][:switch]
+            late = len(a["token_ids"]) > switch and 248069 not in early
+            require(
+                a["recurrent_from"] is None
+                and c["recurrent_from"] == (switch if late else None)
+                and c["token_ids"][:switch] == early
+                and (late or a["token_ids"] == c["token_ids"]),
+                "The early ordinary-depth trajectory differs from the pinned control",
+            )
     for key, cap in (("full", reg["generation_cap"]), ("prefix_256", 256)):
         for source in ("all", *reg["sources"]):
             summary = decision[key][source]
@@ -709,7 +779,7 @@ def verify_transfer(root, decision):
             )
             and r["candidate"]["nll"] <= r["base"]["nll"] + 0.03
         )
-    if reg["id"] == "all-layer-reasoning-01":
+    if reg["id"] in ("all-layer-reasoning-01", "recurrent-deliberation-01"):
         passed = (
             full["all"]["wins"] - full["all"]["losses"] >= 4
             and full["all"]["candidate"]["seconds"] <= full["all"]["base"]["seconds"]
