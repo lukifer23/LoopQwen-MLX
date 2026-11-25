@@ -169,6 +169,23 @@ def verify(root):
     print(study, len(index), "files verified")
 
 
+def first_turn_answer(tokens, text):
+    # Atomic IDs from the pinned tokenizer. Score only a complete first assistant turn.
+    if (
+        not tokens
+        or tokens[-1] not in (248044, 248046)
+        or 248068 in tokens
+        or tokens.count(248069) != 1
+    ):
+        return None
+    boundary = "<|im_end|>" if tokens[-1] == 248046 else "<|endoftext|>"
+    require(
+        text.endswith(boundary) and text.count("</think>") == 1,
+        "Turn text/token mismatch",
+    )
+    return numeric(text.removesuffix(boundary).split("</think>")[1])
+
+
 def verify_context(root, decision):
     from loopqwen.identity import fingerprint
 
@@ -219,7 +236,8 @@ def verify_context(root, decision):
             "Incomplete context record",
         )
         require(
-            row["correct"] == (row["answer"] == prompt["gold"]),
+            row["answer"] == first_turn_answer(row["token_ids"], row["text"])
+            and row["correct"] == (row["answer"] == prompt["gold"]),
             "Context retrieval score",
         )
         completed.append(arm)
@@ -360,7 +378,8 @@ def verify_transfer(root, decision):
             )
             answer = numeric(row["visible"]) if complete else None
             require(
-                row["answer"] == answer and row["correct"] == (answer == item["gold"]),
+                row["answer"] == answer == first_turn_answer(tokens, row["text"])
+                and row["correct"] == (answer == item["gold"]),
                 "Transfer numeric score",
             )
             require(
