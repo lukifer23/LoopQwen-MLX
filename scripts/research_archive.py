@@ -138,6 +138,8 @@ def verify(root):
         verify_shared_budget(root, decision)
     if study == "attention-memory-01":
         verify_attention_memory(root, decision)
+    if study == "entailment-triplets-01":
+        verify_entailment(root, decision)
     if study == "prefill-block-01":
         verify_prefill(root, decision)
     if study == "ledger-curriculum-01":
@@ -644,6 +646,139 @@ def verify_distillation(root, reg, decision, items):
         and len({r["projection"] for r in projected}) == len(projected) > 100
         and all(0 <= r["fraction"] <= 1.0001 for r in projected),
         "Projected adapter, teacher targets or optimizer exposure",
+    )
+
+
+def verify_entailment(root, decision):
+    from loopqwen import REVISION
+    from loopqwen.evaluation.relations import conclusion, summarize
+
+    spec = read(root / "registration.json")
+    panel = Path("research/data") / (spec["id"] + ".json")
+    manifest = Path("research/data/entailment-triplets-training.json")
+    rows = read(panel)
+    require(
+        sha(root / "registration.json") == decision["registration"]
+        and sha(panel) == decision["data"]
+        and sha(manifest) == decision["training"],
+        "Contrastive panel and training identity",
+    )
+    require(
+        len(rows) == 6 * spec["per_source_groups"]
+        and len({r["id"] for r in rows}) == len(rows),
+        "Unique NLI items",
+    )
+    keys = read(manifest)["ordered_questions"]
+    require(
+        len(keys) == len(set(keys)) == 6 * spec["updates"]
+        and set(keys).isdisjoint(r["id"] for r in rows),
+        "NLI training separation",
+    )
+    require(
+        len({r["premise"].casefold() for r in rows}) == len(rows) // 3,
+        "Unique contrast groups",
+    )
+    for i in range(0, len(rows), 3):
+        group = rows[i : i + 3]
+        require(
+            len({r["premise"] for r in group}) == 1
+            and len({r["source"] for r in group}) == 1
+            and {r["label"] for r in group} == {"yes", "no", "maybe"},
+            "Three counterfactual relations",
+        )
+    require(
+        sha(Path(spec["parent"]) / "adapters.safetensors") == spec["parent_sha256"]
+        and sha(Path(spec["dense_control"]) / "adapters.safetensors")
+        == spec["dense_sha256"],
+        "NLI control integrity",
+    )
+    if "weights" in decision:
+        state = read(root / "model/state.json")
+        require(
+            sha(root / "model/adapters.safetensors") == decision["weights"]
+            and state["parent"] == spec["parent_sha256"]
+            and state["step"] == spec["updates"] == decision["updates"]
+            and sum(h["targets"] for h in state["history"])
+            == decision["targets"]
+            == read(manifest)["response_tokens"],
+            "NLI training exposure",
+        )
+    reports = {}
+    for arm in ("candidate", "base"):
+        path = root / (arm + ".json.gz")
+        if not path.exists():
+            require(decision["status"] == "interrupted", "Missing NLI generations")
+            continue
+        report = read(path)
+        require(
+            report["weights"] == (REVISION if arm == "base" else decision["weights"]),
+            "NLI decoder weights",
+        )
+        records = report["records"]
+        require(len(records) <= len(rows), "Extra generations")
+        for row, item in zip(records, rows):
+            ids = row["token_ids"]
+            require(
+                row["id"] == item["id"]
+                and row["prompt_ids"] == item["prompt_ids"]
+                and 0 < len(ids) <= spec["generation_cap"]
+                and row["seconds"] >= row["ttft"] > 0,
+                "NLI prompt, output and time",
+            )
+            complete = (
+                ids[-1] in (248044, 248046)
+                and 248068 not in ids
+                and ids.count(248069) == 1
+            )
+            require(
+                row["complete"] == complete
+                and not set(ids[:-1]).intersection((248044, 248046)),
+                "NLI assistant boundary",
+            )
+            if complete:
+                boundary = "<|im_end|>" if ids[-1] == 248046 else "<|endoftext|>"
+                require(
+                    row["text"].endswith(boundary)
+                    and row["text"].count("</think>") == 1
+                    and row["visible"]
+                    == row["text"].removesuffix(boundary).split("</think>")[1],
+                    "NLI visible answer",
+                )
+            answer = conclusion(row["visible"]) if complete else None
+            logits = row["probe_logits"]
+            require(
+                row["answer"] == answer
+                and row["correct"] == (answer == item["label"])
+                and len(logits) == 3
+                and all(map(math.isfinite, logits))
+                and row["probe_seconds"] > 0
+                and row["probe"]
+                == ("yes", "no", "maybe")[max(range(3), key=logits.__getitem__)],
+                "NLI visible and latent decisions",
+            )
+        reports[arm] = records
+    if decision["status"] == "interrupted":
+        require(not decision["passed"] and decision["reason"], "NLI stop")
+        return
+    require(
+        all(len(reports[a]) == len(rows) for a in ("base", "candidate")),
+        "Incomplete NLI pair",
+    )
+    scores = summarize(rows, reports)
+    ret = decision["retention"]
+    verify_retention_pair(ret["base"], ret["candidate"])
+    a = scores["all"]
+    qualify = (
+        a["wins"] - a["losses"] >= spec["net_floor"]
+        and all(scores[k]["wins"] > scores[k]["losses"] for k in ("esnli", "multinli"))
+        and a["candidate"]["seconds"] <= a["base"]["seconds"]
+        and a["candidate"]["probe"] > a["base"]["probe"]
+        and a["candidate"]["triplets"] > a["base"]["triplets"]
+        and ret["candidate"]["nll"] <= ret["base"]["nll"] + 0.03
+    )
+    require(
+        scores == decision["scores"] and decision["passed"] == qualify,
+        "Reconstructed inference gate",
     )
 
 

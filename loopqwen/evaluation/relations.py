@@ -23,17 +23,23 @@ def conclusion(visible):
         if not line.strip():
             continue
         clean = line.strip(" \t*#`.!").lower()
-        if clean in synonyms:
-            return synonyms[clean]
-        m = re.match(
-            r"^(?:final (?:answer|judgment)|answer|judgment|conclusion)\s*[:=]\s*(.*)",
+        clean = re.sub(
+            r"^(?:final (?:answer|judgment)|answer|judgment|conclusion)\s*[:=]\s*",
+            "",
             clean,
         )
-        if m:
-            clean = m[1]
-        words = re.findall(r"\b(?:" + "|".join(synonyms) + r")\b", clean)
-        if words and len({synonyms[v] for v in words}) == 1:
-            return synonyms[words[0]]
+        clean = clean.strip(" *`'\"")
+        if clean in synonyms:
+            return synonyms[clean]
+        explicit = re.match(r"^(yes|no|maybe)\s*[,.:!—-]", clean)
+        if explicit:
+            return explicit[1]
+        named = re.fullmatch(
+            r"(?:therefore,? |thus,? |so,? )?(?:the (?:correct |final )?(?:answer|judgment|relation|relationship|label|claim|inference|hypothesis)(?: here)? is|it is)\s+(?:an? )?[\"'*]*(yes|no|maybe|entailment|contradiction|neutral|entailed|contradicted|uncertain|undetermined|unknown)[\"'*]*",
+            clean,
+        )
+        if named:
+            return synonyms[named[1]]
         break
     return None
 
