@@ -48,7 +48,9 @@ def initialize(s, root, budget, load_teacher):
 
     parent = Path(s["parent"])
     dep = read(parent / "state.json")["spec"]["deployment"]
-    rank = s["rank"] + 8
+    parent_rank = dep["config"]["rank"]
+    parent_scale = dep["config"]["lora_alpha"] / parent_rank
+    rank = s["rank"] + parent_rank
     dep = dict(
         dep,
         config=dict(
@@ -82,10 +84,10 @@ def initialize(s, root, budget, load_teacher):
             )
             if path + ".lora_a" in old:
                 base_a = old[path + ".lora_a"]
-                base_b = 2 * old[path + ".lora_b"]
+                base_b = parent_scale * old[path + ".lora_b"]
             else:
-                base_a = module.lora_a[:, :8]
-                base_b = mx.zeros_like(module.lora_b[:8])
+                base_a = module.lora_a[:, :parent_rank]
+                base_b = mx.zeros_like(module.lora_b[:parent_rank])
             module.lora_a = mx.concatenate([base_a, a], axis=1)
             module.lora_b = mx.concatenate([base_b, b], axis=0)
             mx.eval(module.lora_a, module.lora_b, energy)
