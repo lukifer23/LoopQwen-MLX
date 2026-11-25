@@ -21,7 +21,7 @@ def load_export(directory):
     directory = Path(directory)
     cfg = json.loads((directory / "config.json").read_text())
     if (
-        cfg.get("export_schema", 1) not in (1, 2)
+        cfg.get("export_schema", 1) not in (1, 2, 3)
         or cfg["model_type"] != "qwen3_5_looped"
         or cfg["recurrent_cache_version"] != 1
         or cfg["weight_sharing"] is not True
@@ -33,6 +33,19 @@ def load_export(directory):
     mx.eval(model.parameters())
     model.alpha_override = cfg["alpha_override"]
     model.eval()
+    if cfg.get("export_schema") == 3:
+        import hashlib
+
+        from .deliberation import attach
+
+        original = directory / "ordinary-projections.safetensors"
+        with original.open("rb") as handle:
+            if (
+                hashlib.file_digest(handle, "sha256").hexdigest()
+                != cfg["ordinary_projections_sha256"]
+            ):
+                raise ValueError("Exported ordinary-depth projections differ")
+        attach(model, cfg["deliberation"], original_weights=mx.load(str(original)))
     if "attention_reader_metadata_sha256" in cfg:
         import hashlib
 
@@ -65,6 +78,15 @@ def verify(directory):
     actual = hashlib.sha256(np.asarray(logits).tobytes()).hexdigest()
     if actual != audit["logits_sha256"]:
         raise ValueError("Fresh-process export logits differ from merged logits")
+    if "ordinary_logits_sha256" in audit:
+        ordinary = model.ordinary_depth(mx.array([ids])).astype(mx.float32)
+        if (
+            hashlib.sha256(np.asarray(ordinary).tobytes()).hexdigest()
+            != audit["ordinary_logits_sha256"]
+        ):
+            raise ValueError(
+                "Exported ordinary-depth logits differ from the pinned control"
+            )
     if "reader_probe" in audit:
         from .evaluation.generation_eval import generate
 

@@ -14,7 +14,7 @@ from .looped_model import LoopedModel
 from .recurrence import Span
 
 
-def attach(model, policy):
+def attach(model, policy, *, original_weights=None):
     if (
         policy["revision"] != REVISION
         or policy["version"] != 1
@@ -30,6 +30,16 @@ def attach(model, policy):
             if isinstance(module, LoRALinear):
                 parent, key = name.rsplit(".", 1)
                 setattr(getattr(layer, parent), key, module.linear)
+    if original_weights is not None:
+        parameters = dict(tree_flatten(text.parameters()))
+        if not original_weights or any(
+            k not in parameters
+            or parameters[k].shape != v.shape
+            or parameters[k].dtype != v.dtype
+            for k, v in original_weights.items()
+        ):
+            raise ValueError("Original projection set differs from the merged decoder")
+        text.load_weights(list(original_weights.items()), strict=False)
     ordinary = LoopedModel(text, Span(passes=1))
     ordinary.eval()
     # The dense view shares immutable arrays and is deliberately outside the parameter tree.

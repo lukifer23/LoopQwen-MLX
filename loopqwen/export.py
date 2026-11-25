@@ -33,9 +33,15 @@ def export(checkpoint, output, fusion="stock"):
         before = model(ids).astype(mx.float32)
         mx.eval(before)
         fused = 0
-        for layer in model.text.layers:
+        policy = getattr(model, "deliberation_policy", None)
+        ordinary_weights = {}
+        for layer_index, layer in enumerate(model.text.layers):
             for name, module in list(layer.named_modules()):
                 if isinstance(module, LoRALinear):
+                    if policy:
+                        ordinary_weights[
+                            f"model.layers.{layer_index}.{name}.weight"
+                        ] = module.linear.weight
                     parent, key = name.rsplit(".", 1)
                     if fusion == "fp32":
                         linear = module.linear
@@ -107,6 +113,15 @@ def export(checkpoint, output, fusion="stock"):
                 ),
             )
         has_reader = getattr(model, "attention_reader", None) is not None
+        if policy:
+            cfg_path = temp / "ordinary-projections.safetensors"
+            mx.save_safetensors(str(cfg_path), ordinary_weights)
+            config.update(
+                export_schema=3,
+                deliberation=policy,
+                ordinary_projections_sha256=digest(cfg_path),
+            )
+            provenance["deliberation"] = policy
         if has_reader:
             generation = checkpoint_location(checkpoint)
             for filename in ("attention-reader.json", "attention-reader.safetensors"):
@@ -128,6 +143,10 @@ def export(checkpoint, output, fusion="stock"):
             "offloaded_prefill.py",
         ):
             shutil.copyfile(Path(__file__).with_name(filename), runtime / filename)
+        if policy:
+            shutil.copyfile(
+                Path(__file__).with_name("deliberation.py"), runtime / "deliberation.py"
+            )
         if has_reader:
             shutil.copyfile(
                 Path(__file__).with_name("attention_memory.py"),
@@ -141,6 +160,7 @@ def export(checkpoint, output, fusion="stock"):
             evaluation / "generation_eval.py",
         )
         (runtime / "__init__.py").write_text(
+            f"REVISION = {REVISION!r}\n"
             "from .export_runtime import load_export\n"
             "from .evaluation.generation_eval import generate\n"
         )
@@ -197,7 +217,19 @@ def export(checkpoint, output, fusion="stock"):
                 "section": sample["attention_memory"],
                 "token_ids": sample["token_ids"],
             }
+        if policy:
+            ordinary_logits = model.ordinary_depth(ids).astype(mx.float32)
+            audit.update(
+                ordinary_logits_sha256=hashlib.sha256(
+                    np.asarray(ordinary_logits).tobytes()
+                ).hexdigest(),
+                ordinary_projection_parameters=sum(
+                    v.size for v in ordinary_weights.values()
+                ),
+            )
+            audit["unique_parameters"] += audit["ordinary_projection_parameters"]
         save(temp / "verification.json", audit)
+        del ordinary_weights
         del model, before, after
         gc.collect()
         mx.clear_cache()
