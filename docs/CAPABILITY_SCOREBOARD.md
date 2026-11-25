@@ -113,3 +113,12 @@ Two simple rules put the terminal-answer scores in context. Following just the f
 | Two old permutations per eight-map batch | 21 | 9 | 0 | 57 | 16.56 |
 
 The mixed arm gained 17 net endpoints versus the parent (20 wins, three losses). Against the control it traded 13 wins for 13 losses. Both arms saw the same 96 fresh maps. Replaying old examples recovered 18 old-task answers over the control and still lost 39 against the parent. All nine successful paths for each arm ended at a stationary state. The promotion floor required at least 94 retained old-task answers. [Scored models and paired records](../research/results/functional-interleave-01)
+
+### Natural-language GSM8K adaptation
+
+| 32 matched development questions, 256-token cap | Correct | Scorable | Tokens generated | Generation seconds | Retention NLL |
+|---|---:|---:|---:|---:|---:|
+| Untouched Base K1 | 1 | 1 | 8,133 | 118.07 | 2.98266 |
+| Trained stabilized K2 | 13 | 32 | 3,133 | 64.64 | 2.98727 |
+
+The candidate gained nine net answers on the first half and three on the second half. Each assessment used the same five-domain retention corpus with 9,328 targets. NLL increased in four domains and decreased in reference text. The training run consumed 10,083 response targets and 44.72 synchronized update seconds. On the boxing question, both systems calculated that 20% of 95 is 19. The candidate delivered the final answer within the budget while Base continued checking. Short-budget first-turn accuracy measures that deployment difference. [Both token streams, retention by domain and weights](../research/sessions/2026-11-25/gsm-rationale-01)

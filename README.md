@@ -2,13 +2,23 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
-## Does recurrence improve the final answer?
+## Thinking-enabled word problems
 
-On **128 unseen arbitrary document-link maps**, both models received the same explicit three-hop question and generated only the requested final number. The ordinary-depth model answered **61/128** correctly at **107 ms** median latency. The three-pass model answered **44/128** at **150 ms**. Both completed every request after identical training exposure. On a separate thinking-enabled GSM8K screen, a resource-limited recurrent checkpoint produced **26/32 scorable answers and 1/32 correct**. Untouched Base exhausted the token cap on all 32. The math pilot established answer completion and missed its accuracy target. A one-link lookup answered 51/128 of the document questions correctly. [Scoreboard](docs/CAPABILITY_SCOREBOARD.md) · [Per-question GSM8K outputs](research/results/gsm-equations-01) · [Current research decision](docs/NEXT_EXPERIMENTS.md)
+The stabilized K=2 checkpoint trained on 128 publisher-written GSM8K explanations answered **13/32** development questions correctly in **64.6 seconds**. Untouched Qwen Base K=1 answered **1/32** in **118.1 seconds** on identical prompts with a 256-token limit. The candidate produced 32 scorable answers and Base produced one. The candidate fixed 13 Base errors and lost one correct answer. Its prose-retention NLL was 2.9873 against Base at 2.9827. These 32 questions had been used in earlier development studies. [Checkpoint and per-question outputs](research/sessions/2026-11-25/gsm-rationale-01) · [End-to-end review](docs/PROJECT_REVIEW.md)
 
-## Current research status
+Run the measured adapter on a native Apple Silicon Mac with the locked environment and pinned Base checkpoint.
 
-**Training and the memory monitor have stopped.** The mixed-task retention study saved one of 16 control updates and has yet to train the treatment. The resumed window required 6.4 GiB of available unified memory before loading the model. Its monitor peaked at 5.98 GiB. The owner closed the window with 174.68 seconds of study worker time remaining. The next authorized run can restore the exact control optimizer and test whether mixing old permutation examples into training preserves that skill. [Next steps and recovery](docs/NEXT_EXPERIMENTS.md) · [Execution record](research/sessions/interleave-closure-1795489467/closure.json)
+```sh
+.venv/bin/python -m loopqwen generate --checkpoint research/sessions/2026-11-25/gsm-rationale-01/model --thinking --max-tokens 256 --prompt 'A car travels 42 miles in 45 minutes. At that rate, how many miles does it travel in two hours? Reason briefly, then give a single number on the last line as Final answer: <number>.'
+```
+
+For long prompts, `--prompt-file path/to/prompt.txt` reads the entire UTF-8 file. The optional `--offload-dir /path/to/scratch` stores full-precision KV prefixes on disk while keeping every position accessible to attention. [Context protocol and reproduction](docs/PROJECT_REVIEW.md)
+
+## What recurrence contributes
+
+On **128 unseen arbitrary document-link maps**, both models received the same explicit three-hop question and generated only the requested final number. The ordinary-depth model answered **61/128** correctly at **107 ms** median latency. The three-pass model answered **44/128** at **150 ms**. Both completed every request after identical training exposure. A one-link lookup answered 51/128 correctly. [Scoreboard](docs/CAPABILITY_SCOREBOARD.md)
+
+Both arms of the six-hop retention study completed their 16 updates. Mixing two old-task examples per batch preserved 57/96 old-task answers versus 39/96 for the functional-only control. Both reached 21/128 on the new endpoint and zero complete paths on 78 maps with moving final steps. The parent retained 96/96, so the mixed model missed its retention requirement. [Paired comparison](research/results/functional-interleave-01)
 
 ## Can it generate a complete verified answer?
 
