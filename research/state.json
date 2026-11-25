@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "natural-context-01",
+  "active": "late-recurrent-exit-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -177,6 +177,11 @@
       "id": "privileged-reasoning-01",
       "promoted": false,
       "reason": "Standalone K2 after 96 updates scored 9/32 versus 16/32 strict at 1024, losing on both sources. NLL 2.99066 versus 2.98266 passed the retention tolerance."
+    },
+    {
+      "id": "natural-context-01",
+      "promoted": false,
+      "reason": "Located 20/24 real source paragraphs but exact answers 9/24 versus 10/24 for Base. Mean token F1 0.392 versus 0.517. Failed final-answer gate, no long-context promotion."
     }
   ],
   "status": "Active renewed reasoning comparison",

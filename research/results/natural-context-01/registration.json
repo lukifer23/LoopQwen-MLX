@@ -1,0 +1,79 @@
+{
+  "id": "natural-context-01",
+  "question": "Can a single deployable recurrent model improve free-text reading on unseen natural articles while retaining the trained full-history register reader and the unmodified Base path for longer-budget short inputs?",
+  "qualification": "febd16621f8818a7a00ddac9589ea4fb2ab7ab3584b833ec3b22b1280f87b878",
+  "qualification_sha256": "febd16621f8818a7a00ddac9589ea4fb2ab7ab3584b833ec3b22b1280f87b878",
+  "source": {
+    "url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v1.1.json",
+    "sha256": "95aa6a52d5d6a735563366753ca50492a658031da74f301ac5238b03966972c9",
+    "license": "CC BY-SA 4.0",
+    "credit": "SQuAD v1.1 by Rajpurkar et al., with Wikipedia contributors. Same-article paragraph order modified for this pilot."
+  },
+  "titles": [
+    "Computational_complexity_theory",
+    "Economic_inequality",
+    "Kenya",
+    "Imperialism",
+    "Fresno,_California",
+    "Newcastle_upon_Tyne",
+    "Normans",
+    "Ctenophora",
+    "European_Union_law",
+    "Civil_disobedience",
+    "Nikola_Tesla",
+    "Oxygen",
+    "Super_Bowl_50",
+    "Genghis_Khan",
+    "Immune_system",
+    "Islamism",
+    "Black_Death",
+    "Intergovernmental_Panel_on_Climate_Change",
+    "Martin_Luther",
+    "Pharmacy",
+    "Scottish_Parliament",
+    "Huguenot",
+    "French_and_Indian_War",
+    "Private_school"
+  ],
+  "seed": 261125393,
+  "minimum_length": 2048,
+  "generation_cap": 256,
+  "protocol": "Train a 64-token attention window scorer from frozen Base embeddings on genuine training paragraphs surrounded by same-article distractors. Train a separate 48-update recurrent LoRA bank on publisher answers with the annotated support sentence. Preserve the original recurrent register decoder and selector. Learn a three-way native prompt classifier on 64 disjoint arithmetic training questions, 64 independent registers and 64 short or long annotated natural prompts. It receives sampled frozen embeddings, never source boundaries or gold. All public inference routes preserve every input ID and the full KV history. For short thinking prompts with an allowance above 256 and for raw text use untouched Base. For short low-budget requests select the arithmetic decoder only when the classifier predicts arithmetic. Long documents use the appropriate learned full-history reader, with ordinary depth as the fallback.",
+  "decision": "Direct 24-item fresh publisher-dev SQuAD comparison across 24 new articles at minimum 2048 input tokens. Both arms receive identical thinking prompts, unrestricted greedy decoding, 256-token maximum, source aliases and first-turn exact/F1 scorer. Require >=3 net exact matches, no mean F1 loss and candidate time <=1.25x Base. A pass allows explicit short arithmetic, raw language and 2K/16K register retention followed by a scored 131072+ token full-history validation. A failed arm closes its release and expansion. Original register and short-arithmetic checkpoints remain intact.",
+  "limits": {
+    "wall_seconds": 400,
+    "peak_gib": 5.9,
+    "available_gib": 1.5
+  },
+  "updates": 48,
+  "logical_batch": 4,
+  "cap_positions": 384,
+  "lr": 0.0001,
+  "clip": 1.0,
+  "weight_decay": 0,
+  "depth": 2,
+  "passages": 1024,
+  "reader_rate": 0.001,
+  "routing_examples": 64,
+  "gain": 4.0,
+  "architecture": {
+    "width": 48,
+    "query_length": 64,
+    "span_width": 64,
+    "stride": 12
+  },
+  "parent": "research/results/attention-memory-01/model",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "routing_math": "research/data/recurrent-deliberation-training.json",
+  "exclude_training": [
+    "research/data/all-layer-reasoning-training.json",
+    "research/data/projected-distillation-training.json",
+    "research/data/privileged-reasoning-training.json"
+  ],
+  "source_sha256": "3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955",
+  "method_references": [
+    "https://arxiv.org/abs/2004.12832",
+    "https://arxiv.org/abs/1606.05250"
+  ]
+}

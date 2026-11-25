@@ -152,6 +152,7 @@ def verify(root):
         "recurrent-deliberation-01",
         "projected-distillation-01",
         "privileged-reasoning-01",
+        "late-recurrent-exit-01",
     ):
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
@@ -779,6 +780,52 @@ def verify_transfer(root, decision):
                 ),
                 "Trained deliberation model or exposure",
             )
+    if reg["id"] == "late-recurrent-exit-01":
+        from loopqwen.identity import fingerprint
+
+        train = Path("research/data/late-recurrent-exit-training.json")
+        manifest = read(train)
+        draft = Path(reg["drafts"])
+        require(
+            sha(train) == decision["training"]
+            and sha(draft) == reg["draft_sha256"]
+            and sha(Path(reg["parent"]) / "adapters.safetensors")
+            == reg["parent_sha256"]
+            and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+            == reg["dense_sha256"],
+            "Exit training material",
+        )
+        samples = read(draft)
+        options = [
+            sorted(
+                (r for r in samples if (r["close_at"] is None) == flag),
+                key=lambda r: fingerprint([reg["seed"], r["id"]]),
+            )[:16]
+            for flag in (True, False)
+        ]
+        keys = [r["id"] for pair in zip(*options, strict=True) for r in pair]
+        require(
+            keys == manifest["ordered_questions"]
+            and len(set(keys)) == 32
+            and set(keys).isdisjoint(r["id"] for r in items),
+            "Exit draft selection",
+        )
+        if weight:
+            st = read(root / "model/state.json")
+            policy = read(root / "model/deliberation.json")
+            require(
+                st["step"] == decision["updates"] == reg["updates"]
+                and st["parent"] == reg["parent_sha256"]
+                and sum(h["targets"] for h in st["history"])
+                == manifest["targets"]
+                == decision["targets"]
+                and sha(root / "model/adapters.safetensors")
+                == policy["adapter_sha256"]
+                == weight
+                and policy["revision"] == REVISION
+                and policy["switch_after"] == reg["switch_after"],
+                "Exit training and inference checkpoint",
+            )
     for arm, expected_weight in (("base", REVISION), ("candidate", weight)):
         file = root / (arm + ".json.gz")
         if not file.exists():
@@ -822,7 +869,7 @@ def verify_transfer(root, decision):
         all(len(rows) == len(items) for rows in reports.values()),
         "Missing transfer items",
     )
-    if reg["id"] == "recurrent-deliberation-01":
+    if reg["id"] in ("recurrent-deliberation-01", "late-recurrent-exit-01"):
         switch = reg["switch_after"]
         for a, c in zip(reports["base"], reports["candidate"], strict=True):
             early = a["token_ids"][:switch]
@@ -908,6 +955,7 @@ def verify_transfer(root, decision):
         "recurrent-deliberation-01",
         "projected-distillation-01",
         "privileged-reasoning-01",
+        "late-recurrent-exit-01",
     ):
         passed = (
             full["all"]["wins"] - full["all"]["losses"] >= reg.get("net_floor", 4)

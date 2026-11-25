@@ -246,3 +246,12 @@ The frozen public post-trained sibling completed none of 48 training turns at 64
 | At 1,024 tokens | 9 | 16 | 197.1 / 271.9 |
 
 At the full budget K2 gained four answers and lost eleven. It solved 4/16 reserved GSM8K and 5/16 SVAMP questions versus 7/16 and 9/16 for Base. Its 9,328-target language NLL was 2.99066 versus 2.98266. The retained post-training update and hidden-state supervision did not yield a deployable long-budget advantage. [Paired outputs](../research/results/privileged-reasoning-01) · [Completed-prose review](measurements/answer-audits/privileged-reasoning-01.json)
+
+### Native reading on 24 previously unused natural articles
+
+| Frozen two-model pair, at least 2,048 input tokens | Exact | Mean token F1 | Total seconds |
+|---|---:|---:|---:|
+| Untouched Base | 10/24 | 0.517 | 67.54 |
+| Context-conditioned recurrent reader | 9/24 | 0.392 | 65.58 |
+
+The learned 64-token passage window overlapped the annotated source paragraph on 20/24 requests. A separate recurrent adapter received 48 updates on annotated answers and their support sentences. The full-history scorer trained on 869 natural examples with supervised answer positions. Passage localization improved relative to the earlier reader's 3/12 on a different cohort, but the new decoder missed the direct answer-quality gate. Its independent native export reproduced all three decoder banks' logits in a fresh process. [Paired answers, training and native model](../research/results/natural-context-01)
