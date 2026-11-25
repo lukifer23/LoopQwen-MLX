@@ -14,15 +14,7 @@ from .looped_model import LoopedModel
 from .recurrence import Span
 
 
-def attach(model, policy, *, original_weights=None):
-    if (
-        policy["revision"] != REVISION
-        or policy["version"] != 1
-        or type(policy["switch_after"]) is not int
-        or policy["switch_after"] < 1
-        or model.span.passes != 2
-    ):
-        raise ValueError("Unsupported recurrent deliberation policy")
+def ordinary_view(model, original_weights=None):
     arrays = {id(v): v for _, v in tree_flatten(model.text.parameters())}
     text = deepcopy(model.text, arrays)
     for layer in text.layers:
@@ -42,6 +34,19 @@ def attach(model, policy, *, original_weights=None):
         text.load_weights(list(original_weights.items()), strict=False)
     ordinary = LoopedModel(text, Span(passes=1))
     ordinary.eval()
+    return ordinary
+
+
+def attach(model, policy, *, original_weights=None):
+    if (
+        policy["revision"] != REVISION
+        or policy["version"] != 1
+        or type(policy["switch_after"]) is not int
+        or policy["switch_after"] < 1
+        or model.span.passes != 2
+    ):
+        raise ValueError("Unsupported recurrent deliberation policy")
+    ordinary = ordinary_view(model, original_weights)
     # The dense view shares immutable arrays and is deliberately outside the parameter tree.
     object.__setattr__(model, "ordinary_depth", ordinary)
     object.__setattr__(model, "deliberation_policy", dict(policy))

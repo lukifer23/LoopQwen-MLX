@@ -28,6 +28,12 @@ def export(checkpoint, output, fusion="stock"):
     temp = Path(tempfile.mkdtemp(prefix=".export-", dir=out.parent))
     try:
         model, tok, state = load_trained(checkpoint)
+        if getattr(model, "context_policy", None) is not None:
+            from .context_export import write
+
+            result = write(temp, checkpoint, model, tok, state)
+            temp.rename(out)
+            return dict(directory=str(out), **result)
         prompt = "Question: 17 × 23\nAnswer:"
         ids = mx.array([tok.encode(prompt)])
         before = model(ids).astype(mx.float32)

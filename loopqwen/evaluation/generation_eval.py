@@ -29,6 +29,13 @@ def generate(
         raise ValueError(
             "Supply a nonempty prompt within the context window and 1..4096 output tokens."
         )
+    route = None
+    routed_at = None
+    policy = getattr(model, "context_policy", None)
+    if policy is not None:
+        mx.synchronize()
+        routed_at = perf_counter()
+        model, route = policy.choose(model, ids, max_tokens)
     if getattr(model, "deliberation_policy", None):
         from ..deliberation import greedy
 
@@ -75,7 +82,7 @@ def generate(
         inputs = mx.array([ids])
         model.eval()
         mx.synchronize()
-        start = perf_counter()
+        start = perf_counter() if routed_at is None else routed_at
         section = None
         reader = getattr(model, "attention_reader", None)
         if reader is not None:
@@ -135,6 +142,8 @@ def generate(
         "peak_bytes": mx.get_peak_memory(),
         "active_bytes": mx.get_active_memory(),
     }
+    if route is not None:
+        result["context_route"] = route
     if section is not None:
         result["attention_memory"] = section
     if disk is not None:

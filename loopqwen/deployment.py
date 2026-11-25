@@ -32,4 +32,8 @@ def load_trained(root):
         if digest(generation / "adapters.safetensors") != config["adapter_sha256"]:
             raise ValueError("Deliberation policy belongs to another checkpoint")
         attach(model, config)
+    if (generation / "context-policy.json").is_file():
+        from .context_policy import attach as attach_context
+
+        attach_context(model, generation)
     return model, tokenizer, state

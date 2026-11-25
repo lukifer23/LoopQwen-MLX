@@ -49,7 +49,7 @@ print(json.dumps(result))
 
 def export_stock(source, destination):
     gen = checkpoint_location(source)
-    if (gen / "deliberation.json").exists():
+    if (gen / "context-policy.json").exists() or (gen / "deliberation.json").exists():
         raise ValueError("Adaptive depth requires the recurrent export.")
     if (gen / "attention-reader.json").exists():
         raise ValueError(

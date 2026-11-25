@@ -21,7 +21,7 @@ def load_export(directory):
     directory = Path(directory)
     cfg = json.loads((directory / "config.json").read_text())
     if (
-        cfg.get("export_schema", 1) not in (1, 2, 3)
+        cfg.get("export_schema", 1) not in (1, 2, 3, 4)
         or cfg["model_type"] != "qwen3_5_looped"
         or cfg["recurrent_cache_version"] != 1
         or cfg["weight_sharing"] is not True
@@ -29,7 +29,30 @@ def load_export(directory):
         raise ValueError("Unsupported looped export schema")
     base = TextModel(TextModelArgs.from_dict(cfg["text_config"]))
     model = LoopedModel(base, Span(**cfg["span"]))
-    model.load_weights(str(directory / "model.safetensors"), strict=True)
+    if cfg.get("export_schema") == 4:
+        import hashlib
+        from mlx.utils import tree_flatten
+        from .training.adapters import attach
+        from .attention_memory import load_reader
+        from .context_policy import attach as attach_context
+
+        if (
+            hashlib.sha256((directory / "context-policy.json").read_bytes()).hexdigest()
+            != cfg["context_policy_sha256"]
+        ):
+            raise ValueError("Exported context policy metadata differs")
+        base.load_weights(str(directory / "model.safetensors"), strict=True)
+        c = cfg["adapter_config"]
+        attach(model, c["target"], c["rank"], c["lora_alpha"], c["projections"])
+        weights = mx.load(str(directory / "adapters.safetensors"))
+        if set(weights) != set(dict(tree_flatten(model.trainable_parameters()))):
+            raise ValueError("Exported register adapter tensor set differs")
+        model.load_weights(list(weights.items()), strict=False)
+        model.alpha_override = cfg["alpha_override"]
+        load_reader(model, directory)
+        attach_context(model, directory)
+    else:
+        model.load_weights(str(directory / "model.safetensors"), strict=True)
     mx.eval(model.parameters())
     model.alpha_override = cfg["alpha_override"]
     model.eval()
@@ -78,6 +101,17 @@ def verify(directory):
     actual = hashlib.sha256(np.asarray(logits).tobytes()).hexdigest()
     if actual != audit["logits_sha256"]:
         raise ValueError("Fresh-process export logits differ from merged logits")
+    if "bank_logits" in audit:
+        for name, bank in (
+            ("ordinary", model.context_policy.ordinary),
+            ("prose", model.context_policy.prose),
+        ):
+            actual = bank(mx.array([ids])).astype(mx.float32)
+            if (
+                hashlib.sha256(np.asarray(actual).tobytes()).hexdigest()
+                != audit["bank_logits"][name]
+            ):
+                raise ValueError("Exported context decoder logits differ")
     if "ordinary_logits_sha256" in audit:
         ordinary = model.ordinary_depth(mx.array([ids])).astype(mx.float32)
         if (
