@@ -21,7 +21,7 @@ def test_ordinary_view_matches_base_and_recurrent_switch_replays_every_token(tmp
     del bm
     gc.collect()
     m, t, _ = load_trained(read(REG)["parent"])
-    attach(m, dict(version=1, revision=REVISION, switch_after=4))
+    attach(m, {"version": 1, "revision": REVISION, "switch_after": 4})
     assert mx.array_equal(expected, m.ordinary_depth(mx.array([ids]))[:, -1]).item()
     assert all(tok != 248069 for tok in early)
     late = [m(mx.array([ids + early]))[:, -1].argmax().item()]

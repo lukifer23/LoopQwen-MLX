@@ -57,6 +57,7 @@ def greedy(
     prefill_block=128,
 ):
     """Replay the whole causal prefix once if a thinking turn reaches the depth boundary."""
+    model.eval()
     opening, closing = (
         tokenizer.encode(k, add_special_tokens=False)[0]
         for k in ("<think>", "</think>")
@@ -118,12 +119,12 @@ def greedy(
             if tok in tokenizer.eos_token_ids or tok in stop_ids:
                 break
     end = perf_counter()
-    result = dict(
-        token_ids=out,
-        ttft_s=first - start,
-        elapsed_s=end - start,
-        recurrent_from=switch if switched else None,
-    )
+    result = {
+        "token_ids": out,
+        "ttft_s": first - start,
+        "elapsed_s": end - start,
+        "recurrent_from": switch if switched else None,
+    }
     if offload_dir is not None:
         result["scratch_bytes"] = scratch
     return result

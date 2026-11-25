@@ -49,18 +49,18 @@ def decode(m, t, ids, cap, guard, *, thinking):
         close_at is not None and out.count(closing) == 1 and opening not in out
     )
     content = out[:-1] if boundary else out
-    return dict(
-        prompt_ids=ids,
-        token_ids=out,
-        text=t.decode(out),
-        visible=t.decode(content[close_at + 1 :]) if well_formed else "",
-        stop=("chat_end" if out[-1] == end else "eos") if boundary else "cap",
-        close_at=close_at,
-        complete=boundary and well_formed,
-        ttft=v["ttft_s"],
-        seconds=v["elapsed_s"],
-        recurrent_from=v["recurrent_from"],
-    )
+    return {
+        "prompt_ids": ids,
+        "token_ids": out,
+        "text": t.decode(out),
+        "visible": t.decode(content[close_at + 1 :]) if well_formed else "",
+        "stop": ("chat_end" if out[-1] == end else "eos") if boundary else "cap",
+        "close_at": close_at,
+        "complete": boundary and well_formed,
+        "ttft": v["ttft_s"],
+        "seconds": v["elapsed_s"],
+        "recurrent_from": v["recurrent_from"],
+    }
 
 
 def training_docs(s, pool, budget, root):
@@ -96,12 +96,12 @@ def training_docs(s, pool, budget, root):
             + "\n</think>\n\nFinal answer: "
             + row["gold"]
         )
-        doc = dict(
-            ids=prefix
+        doc = {
+            "ids": prefix
             + t.encode(response, add_special_tokens=False)
             + [core.atom(t, "<|im_end|>")],
-            prefix=len(prefix),
-        )
+            "prefix": len(prefix),
+        }
         if len(doc["ids"]) - 1 > s["cap_positions"]:
             raise ValueError("Draft supervision exceeds registered cap")
         docs.append(doc)
@@ -136,12 +136,12 @@ def run(freeze=False):
         raise FileExistsError(root)
     root.mkdir(parents=True, exist_ok=True)
     b = core.Budget(s["id"], s["limits"])
-    result = dict(
-        registration=digest(REG),
-        data=digest(PANEL),
-        training=digest(TRAIN),
-        passed=False,
-    )
+    result = {
+        "registration": digest(REG),
+        "data": digest(PANEL),
+        "training": digest(TRAIN),
+        "passed": False,
+    }
     try:
         docs = training_docs(s, pool, b, root)
         gc.collect()
@@ -156,12 +156,12 @@ def run(freeze=False):
         w = digest(gen / "adapters.safetensors")
         save(
             root / "model/deliberation.json",
-            dict(
-                revision=REVISION,
-                version=1,
-                switch_after=s["switch_after"],
-                adapter_sha256=w,
-            ),
+            {
+                "revision": REVISION,
+                "version": 1,
+                "switch_after": s["switch_after"],
+                "adapter_sha256": w,
+            },
         )
         result.update(
             weights=w,
