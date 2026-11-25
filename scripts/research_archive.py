@@ -178,6 +178,9 @@ def first_turn_answer(tokens, text):
         or tokens.count(248069) != 1
     ):
         return None
+    require(
+        not {248044, 248046}.intersection(tokens[:-1]), "Tokens after first boundary"
+    )
     boundary = "<|im_end|>" if tokens[-1] == 248046 else "<|endoftext|>"
     require(
         text.endswith(boundary) and text.count("</think>") == 1,
@@ -293,6 +296,32 @@ def verify_context(root, decision):
         )
 
 
+def verify_retention_pair(first, second):
+    manifest = read(Path("docs/measurements/phase4/v3_retention-manifest.json"))
+    domains = set(manifest["sources"])
+    counts = {k: r["tokens"] for k, r in first["by_domain"].items()}
+    require(
+        sum(counts.values()) == 9328 and set(counts) == domains, "Retention exposure"
+    )
+    for measurements in (first, second):
+        groups = measurements["by_domain"]
+        require(
+            measurements["sha256"] == manifest["sha256"] and set(groups) == domains,
+            "Retention sources",
+        )
+        for domain, row in groups.items():
+            require(
+                row["tokens"] == counts[domain]
+                and row["tokens"] > 0
+                and row["nll"] == row["loss"] / row["tokens"],
+                "Domain retention loss",
+            )
+        require(
+            measurements["nll"] == sum(r["loss"] for r in groups.values()) / 9328,
+            "Pooled retention loss",
+        )
+
+
 def verify_dense_rationale(root, decision):
     reg = read(root / "registration.json")
     require(
@@ -341,6 +370,7 @@ def verify_dense_rationale(root, decision):
         )
         diff.append(int(c["correct"]) - int(a["correct"]))
     d, r = decision["dense"], decision["recurrent"]
+    verify_retention_pair(d["retention"], r["retention"])
     require(
         len(diff) == 32
         and r == earlier["candidate"]
@@ -569,6 +599,7 @@ def verify_rationale(root, decision):
         "Paired GSM8K totals",
     )
     c, b = decision["candidate"], decision["base"]
+    verify_retention_pair(c["retention"], b["retention"])
     require(
         decision.get("descriptive_thresholds_met", decision["passed"])
         == (
