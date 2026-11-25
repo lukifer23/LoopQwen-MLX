@@ -214,6 +214,10 @@ def verify_context(root, decision):
             and sha(Path(reg["candidate"]) / "adapters.safetensors") == reg["weights"],
             "Language deployment and measured Base identity",
         )
+    require(
+        sha(Path(reg["candidate"]) / "adapters.safetensors") == reg["weights"],
+        "Registered context checkpoint",
+    )
     if "reference" in reg:
         old = read(Path("research/results") / reg["reference"] / "prompt.json.gz")
         require(old == prompt, "Disk variant changed the frozen prompt")
@@ -239,6 +243,10 @@ def verify_context(root, decision):
         if not path.exists():
             continue
         row = read(path)
+        require(
+            row["greedy"] and row["max_tokens"] == reg["generation_cap"],
+            "Context generation policy",
+        )
         require(
             row["weights"] == weight and row["input_sha256"] == fingerprint(ids),
             "Context arm identity",
@@ -327,7 +335,8 @@ def verify_dense_rationale(root, decision):
         )
         answer = numeric(a["visible"]) if a["complete"] else None
         require(
-            answer == a["answer"] and a["correct"] == (answer == a["gold"]),
+            answer == a["answer"] == first_turn_answer(a["token_ids"], a["text"])
+            and a["correct"] == (answer == a["gold"]),
             "Dense answer",
         )
         diff.append(int(c["correct"]) - int(a["correct"]))
@@ -524,7 +533,9 @@ def verify_rationale(root, decision):
             )
             visible = numeric(row["visible"]) if row["complete"] else None
             require(
-                row["answer"] == visible
+                row["answer"]
+                == visible
+                == first_turn_answer(row["token_ids"], row["text"])
                 and row["correct"] == (visible == target["gold"]),
                 "GSM8K answer",
             )
