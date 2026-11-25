@@ -13,7 +13,8 @@ from urllib.request import urlopen
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer
 
-from .. import REVISION, checkpoint
+from .. import REVISION
+from ..deployment import load_trained
 from ..evaluation.answers import numeric
 from ..evaluation.language7 import base, prompt_ids
 from ..evaluation.mechanism import packed
@@ -200,7 +201,7 @@ def run(freeze):
                 m, t, _ = (
                     base()
                     if arm == "base"
-                    else checkpoint.load_trained(parent / "model")
+                    else load_trained(parent / "model")
                 )
                 for item in rows[start : start + len(rows) // 2]:
                     if item["prompt_ids"] != prompt_ids(t, item, {"demos": 0}):

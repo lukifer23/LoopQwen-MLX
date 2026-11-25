@@ -10,7 +10,8 @@ from tempfile import TemporaryDirectory
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer
 
-from .. import REVISION, checkpoint
+from .. import REVISION
+from ..deployment import load_trained
 from ..evaluation.answers import numeric
 from ..evaluation.generation_eval import generate
 from ..evaluation.language7 import base, interpret
@@ -151,7 +152,7 @@ def run(offload=False, recovery=False, language=False):
             for arm in ("base", "candidate"):
                 start = time.perf_counter()
                 m, t, _ = (
-                    base() if arm == "base" else checkpoint.load_trained(candidate)
+                    base() if arm == "base" else load_trained(candidate)
                 )
                 errors[arm] = parity(m, ids, b.check, out)
                 save(out / "parity.json", errors)
@@ -180,7 +181,7 @@ def run(offload=False, recovery=False, language=False):
             if arm == "base":
                 m, t, weight = base()
             else:
-                m, t, _ = checkpoint.load_trained(candidate)
+                m, t, _ = load_trained(candidate)
                 weight = spec["weights"]
             if m.span.passes != (1 if arm == "base" else 2):
                 raise ValueError("Unexpected depth")

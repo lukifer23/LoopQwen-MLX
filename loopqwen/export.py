@@ -12,9 +12,9 @@ import numpy as np
 from mlx_lm.tuner.lora import LoRALinear
 
 from . import MODEL, REVISION
-from .checkpoint import load_trained, location
 from .data.build_data import digest
-from .io import read, save
+from .deployment import load_trained
+from .io import checkpoint_location, read, save
 from .model_loader import count, local_snapshot
 
 
@@ -79,7 +79,7 @@ def export(checkpoint, output, fusion="stock"):
             fusion=fusion,
             base_revision=REVISION,
             base_shards={p.name: digest(p) for p in source.glob("*.safetensors")},
-            adapter_sha256=digest(location(checkpoint) / "adapters.safetensors"),
+            adapter_sha256=digest(checkpoint_location(checkpoint) / "adapters.safetensors"),
             export_git=subprocess.check_output(
                 ["git", "rev-parse", "HEAD"], text=True
             ).strip(),
@@ -100,7 +100,7 @@ def export(checkpoint, output, fusion="stock"):
                 training_spec={k: v for k, v in spec.items() if k != "deployment"},
                 training_identity=state["identity"],
                 parent_weights=state["parent"],
-                checkpoint_metadata_sha256=digest(location(checkpoint) / "state.json"),
+                checkpoint_metadata_sha256=digest(checkpoint_location(checkpoint) / "state.json"),
             )
         save(temp / "provenance.json", provenance)
         save(temp / "config.json", config)

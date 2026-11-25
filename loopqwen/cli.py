@@ -239,7 +239,7 @@ def main():
 
             model, tok = load_export(args.checkpoint)
         else:
-            from .checkpoint import load_trained
+            from .deployment import load_trained
 
             model, tok, _ = load_trained(args.checkpoint)
         if args.passes:

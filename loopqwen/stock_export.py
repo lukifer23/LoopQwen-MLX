@@ -4,18 +4,18 @@ import gc
 import json
 import subprocess
 import sys
+from dataclasses import replace
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from dataclasses import replace
 
 import mlx.core as mx
 
-from . import checkpoint
-from .io import digest, read, save
+from .data.v2 import rows
+from .deployment import load_trained
+from .evaluation.trace_verifier import verify
+from .io import checkpoint_location, digest, read, save
 from .model_loader import local_snapshot
 from .worker import child_lease
-from .data.v2 import rows
-from .evaluation.trace_verifier import verify
 
 # Run in isolated mode: this script uses only MLX, MLX-LM and standard Python.
 STOCK = """
@@ -48,14 +48,14 @@ print(json.dumps(result))
 
 
 def export_stock(source, destination):
-    gen = checkpoint.location(source)
+    gen = checkpoint_location(source)
     out = Path(destination)
     if out.exists():
         raise FileExistsError(out)
     out.parent.mkdir(exist_ok=True, parents=True)
     state = read(gen / "state.json")
     c = (state if "config" in state else state["spec"]["deployment"])["config"]
-    model, tok, _ = checkpoint.load_trained(gen)
+    model, tok, _ = load_trained(gen)
     model.span = replace(model.span, passes=1)
     samples = rows("validation", "trace")[:16]
     weights = mx.load(str(gen / "adapters.safetensors"))

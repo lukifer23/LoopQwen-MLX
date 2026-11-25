@@ -9,7 +9,8 @@ from pathlib import Path
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer
 
-from .. import REVISION, checkpoint
+from .. import REVISION
+from ..deployment import load_trained
 from ..evaluation.answers import numeric
 from ..evaluation.language7 import base, prompt_ids
 from ..evaluation.mechanism import packed, unpack
@@ -95,7 +96,7 @@ def assess(m, t, weight, items, s, b, folder):
 
 
 def compare(model_path, weight, items, s, b, root, result, baseline_archive=None):
-    m, t, _ = checkpoint.load_trained(model_path)
+    m, t, _ = load_trained(model_path)
     result["phase"] = phase = "candidate"
     m.eval()
     result[phase] = assess(m, t, weight, items, s, b, root / "candidate.json.gz")
@@ -137,7 +138,7 @@ def compare(model_path, weight, items, s, b, root, result, baseline_archive=None
     halves = [sum(diff[:16]), sum(diff[16:])]
     result.update(wins=diff.count(1), losses=diff.count(-1), half_deltas=halves)
     result["phase"] = "retention"
-    m, _, _ = checkpoint.load_trained(model_path)
+    m, _, _ = load_trained(model_path)
     result["candidate"]["retention"] = bootstrap.retention(m, s["depth"], b)
     c, a = result["candidate"], result["base"]
     result.update(
@@ -186,7 +187,7 @@ def run(freeze=False, recovery=False):
                 or digest(gen / "optimizer.safetensors") != point["optimizer"]
             ):
                 raise ValueError("Interrupted AdamW generation changed")
-        m, t, parent = checkpoint.load_trained(s["parent"])
+        m, t, parent = load_trained(s["parent"])
         if m.span.passes != s["depth"]:
             raise ValueError("Registered depth differs")
         m.checkpointing = True
