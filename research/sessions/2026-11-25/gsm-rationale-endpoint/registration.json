@@ -1,0 +1,7 @@
+{
+  "id": "gsm-rationale-endpoint", "training_study": "gsm-rationale-01", "updates": 22,
+  "weights": "7815d792a9ea49b90f72308b7e149ad2643880586c6f83c7412e4860dac9df06",
+  "question": "What accuracy, latency and retention did the exact interrupted update-22 deployment achieve against untouched Base? No new training or replication. This independently registered descriptive endpoint cannot promote the unfinished 32-update study.",
+  "protocol": "Use all 32 original frozen development prompts in the original order, thinking on, greedy, 256-token limit and unchanged scorer. Retain completed per-item streams on interruption. Report the original numerical thresholds descriptively.",
+  "limits": {"wall_seconds": 460, "peak_gib": 4, "available_gib": 1.5}
+}

@@ -1,0 +1,91 @@
+{
+  "registration": "f0119104beb25c948ceab315f57854f1786d05bebddf0a28b71608e1d77b2a89",
+  "data": "edaab52c595e5d3a58ea9377c0ecde2760a2e1a212dbaa7d5e459dce9068f007",
+  "weights": "7815d792a9ea49b90f72308b7e149ad2643880586c6f83c7412e4860dac9df06",
+  "updates": 22,
+  "passed": false,
+  "phase": "retention",
+  "candidate": {
+    "correct": 6,
+    "valid": 28,
+    "tokens": 2990,
+    "seconds": 62.36157958593685,
+    "retention": {
+      "nll": 2.9897994291721037,
+      "by_domain": {
+        "code_description": {
+          "loss": 4496.476632773876,
+          "tokens": 1733,
+          "nll": 2.594620099696409
+        },
+        "general_prose": {
+          "loss": 7196.739978790283,
+          "tokens": 1911,
+          "nll": 3.765954986284816
+        },
+        "reference": {
+          "loss": 4168.196718096733,
+          "tokens": 1680,
+          "nll": 2.4810694750575792
+        },
+        "scientific_exposition": {
+          "loss": 7121.358375310898,
+          "tokens": 2291,
+          "nll": 3.108406100092055
+        },
+        "technical_explanation": {
+          "loss": 4906.0773703455925,
+          "tokens": 1713,
+          "nll": 2.8640264858993536
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  },
+  "base": {
+    "correct": 1,
+    "valid": 1,
+    "tokens": 8133,
+    "seconds": 118.07408187401597,
+    "retention": {
+      "nll": 2.9826581153386043,
+      "by_domain": {
+        "code_description": {
+          "loss": 4470.292913913727,
+          "tokens": 1733,
+          "nll": 2.5795112024891673
+        },
+        "general_prose": {
+          "loss": 7185.204305648804,
+          "tokens": 1911,
+          "nll": 3.759918527288751
+        },
+        "reference": {
+          "loss": 4169.751423716545,
+          "tokens": 1680,
+          "nll": 2.481994895069372
+        },
+        "scientific_exposition": {
+          "loss": 7110.921858847141,
+          "tokens": 2291,
+          "nll": 3.1038506585976173
+        },
+        "technical_explanation": {
+          "loss": 4886.064397752285,
+          "tokens": 1713,
+          "nll": 2.852343489639396
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  },
+  "base_measurement": "research/sessions/2026-11-25/gsm-rationale-01",
+  "wins": 6,
+  "losses": 1,
+  "half_deltas": [
+    5,
+    0
+  ],
+  "status": "completed",
+  "descriptive_thresholds_met": false
+}
