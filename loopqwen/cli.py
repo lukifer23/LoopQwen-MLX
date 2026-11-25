@@ -82,6 +82,11 @@ def main():
         "--checkpoint", required=True, help="Adapter checkpoint or merged export"
     )
     prompts = p.add_mutually_exclusive_group(required=True)
+    p.add_argument(
+        "--offload-dir",
+        type=Path,
+        help="Use an existing scratch directory for exact BF16 full-history inference",
+    )
     prompts.add_argument("--prompt")
     prompts.add_argument(
         "--prompt-file", type=Path, help="Read the complete UTF-8 prompt from disk"
@@ -239,7 +244,9 @@ def main():
             if args.prompt_file
             else args.prompt
         )
-        result = generate(model, tok, prompt, args.max_tokens)
+        result = generate(
+            model, tok, prompt, args.max_tokens, offload_dir=args.offload_dir
+        )
     elif cmd == "export":
         from .export import export
 

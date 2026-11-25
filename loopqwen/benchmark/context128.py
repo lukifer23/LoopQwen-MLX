@@ -3,6 +3,7 @@
 import gc
 import random
 import time
+from tempfile import TemporaryDirectory
 from pathlib import Path
 
 import mlx.core as mx
@@ -64,8 +65,40 @@ def ledger_prompt(t, spec):
     return prompt, ids, gold
 
 
-def run():
-    spec = read(REG)
+def parity(m, ids, guard, scratch):
+    from ..offloaded_prefill import OffloadedPrefill
+
+    m.eval()
+    ids = ids[:259]
+    cache = m.make_cache()
+    for first in range(0, len(ids), 128):
+        guard()
+        h = m.hidden(mx.array([ids[first : first + 128]]), cache)
+        mx.eval(h)
+    reference = m.project(h[:, -1:])
+    errors = []
+    with TemporaryDirectory(dir=scratch) as folder:
+        disk = OffloadedPrefill(m, folder)
+        actual = disk.prefill(ids, lambda _: guard())
+        for i in range(4):
+            guard()
+            errors.append(
+                mx.max(
+                    mx.abs(reference.astype(mx.float32) - actual.astype(mx.float32))
+                ).item()
+            )
+            if errors[-1] != 0:
+                break
+            if i < 3:
+                token = mx.argmax(reference[:, -1], -1)[:, None]
+                reference = m.project(m.hidden(token, cache))
+                actual = disk.decode(token)
+    return errors
+
+
+def run(offload=False):
+    reg = REG.with_name("context-128k-disk.json") if offload else REG
+    spec = read(reg)
     out = core.OUT / spec["id"]
     if (out / "decision.json").exists():
         raise FileExistsError(out)
@@ -73,8 +106,16 @@ def run():
     prompt, ids, gold = ledger_prompt(t, spec)
     packed(
         out / "prompt.json.gz",
-        dict(prompt_ids=ids, gold=gold, input_sha256=fingerprint(ids)),
+        {"prompt_ids": ids, "gold": gold, "input_sha256": fingerprint(ids)},
     )
+    if offload:
+        from ..evaluation.mechanism import unpack
+
+        original = unpack(
+            Path("research/results") / spec["reference"] / "prompt.json.gz"
+        )
+        if original["prompt_ids"] != ids or original["gold"] != gold:
+            raise ValueError("Frozen long-context query changed")
     candidate = Path(spec["candidate"])
     if digest(candidate / "adapters.safetensors") != spec["weights"]:
         raise ValueError("Wrong recurrent checkpoint")
@@ -83,6 +124,32 @@ def run():
     rows = {}
     progress = 0
     try:
+        if offload:
+            errors = {}
+            for arm in ("base", "candidate"):
+                start = time.perf_counter()
+                m, t, _ = (
+                    base() if arm == "base" else checkpoint.load_trained(candidate)
+                )
+                errors[arm] = parity(m, ids, b.check, out)
+                save(out / "parity.json", errors)
+                del m, t
+                gc.collect()
+                mx.clear_cache()
+                if errors[arm] != [0.0] * 4:
+                    save(
+                        out / "decision.json",
+                        {
+                            "status": "parity_failed",
+                            "capacity": False,
+                            "completed": [],
+                            "base_revision": REVISION,
+                            "registration": digest(reg),
+                            "arm": arm,
+                            "errors": errors[arm],
+                        },
+                    )
+                    return
         for arm in ("base", "candidate"):
             progress = 0
             start = time.perf_counter()
@@ -96,18 +163,25 @@ def run():
             if t.encode(prompt, add_special_tokens=False) != ids:
                 raise ValueError("Tokenizer changed")
 
-            def check(position):
+            def check(position, arm=arm, start=start):
                 nonlocal progress
+                advanced = position != progress
                 progress = position
                 b.check()
-                if position % 8192 == 0:
+                if advanced and position % 8192 == 0:
                     print(
                         arm, position, round(time.perf_counter() - start, 2), flush=True
                     )
 
             end = core.atom(t, "<|im_end|>")
             trial = generate(
-                m, t, prompt, spec["generation_cap"], progress=check, stop_ids=[end]
+                m,
+                t,
+                prompt,
+                spec["generation_cap"],
+                progress=check,
+                stop_ids=[end],
+                offload_dir=out if offload else None,
             )
             trial.pop("prompt")
             stop = set(t.eos_token_ids) | {end}
@@ -132,21 +206,21 @@ def run():
             del m
             gc.collect()
             mx.clear_cache()
-        result = dict(
-            status="completed",
-            capacity=True,
-            retrieval={a: r["correct"] for a, r in rows.items()},
-        )
+        result = {
+            "status": "completed",
+            "capacity": True,
+            "retrieval": {a: r["correct"] for a, r in rows.items()},
+        }
     except (MemoryError, TimeoutError, InterruptedError) as exc:
-        result = dict(
-            status="interrupted",
-            arm=arm,
-            processed_positions=progress,
-            reason=str(exc),
-            arm_wall_seconds=time.perf_counter() - start,
-            peak_bytes=mx.get_peak_memory(),
-            capacity=False,
-        )
+        result = {
+            "status": "interrupted",
+            "arm": arm,
+            "processed_positions": progress,
+            "reason": str(exc),
+            "arm_wall_seconds": time.perf_counter() - start,
+            "peak_bytes": mx.get_peak_memory(),
+            "capacity": False,
+        }
     finally:
         b.close()
     save(
@@ -154,7 +228,7 @@ def run():
         dict(
             **result,
             base_revision=REVISION,
-            registration=digest(REG),
+            registration=digest(reg),
             completed=list(rows),
         ),
     )
@@ -162,4 +236,8 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--offload", action="store_true")
+    run(parser.parse_args().offload)

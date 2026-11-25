@@ -40,7 +40,7 @@ def material(spec):
         if numeric(gold) != row["gold"]:
             raise ValueError("Publisher target mismatch")
         explanation = re.sub(r"<<[^<>]+>>", "", rationale).strip()
-        ids = prompt_ids(t, row, dict(demos=0))
+        ids = prompt_ids(t, row, {"demos": 0})
         doc = core.doc(
             t, t.decode(ids), explanation + "\n</think>\n\nFinal answer: " + row["gold"]
         )
@@ -49,7 +49,7 @@ def material(spec):
             selected.append(row["id"])
         if len(docs) == spec["updates"] * spec["logical_batch"]:
             break
-    items = [dict(**r, prompt_ids=prompt_ids(t, r, dict(demos=0))) for r in pool["dev"]]
+    items = [dict(**r, prompt_ids=prompt_ids(t, r, {"demos": 0})) for r in pool["dev"]]
     if (
         len(set(selected + [r["id"] for r in items])) != len(docs) + len(items)
         or len(items) != 32
@@ -57,13 +57,13 @@ def material(spec):
         raise ValueError("Cohort overlap or size mismatch")
     if len(docs) != spec["updates"] * spec["logical_batch"]:
         raise ValueError("Insufficient eligible training documents")
-    manifest = dict(
-        cohort=expected,
-        train_ids=selected,
-        train_tokens=fingerprint(docs),
-        dev_ids=[r["id"] for r in items],
-        dev_prompts=fingerprint([r["prompt_ids"] for r in items]),
-    )
+    manifest = {
+        "cohort": expected,
+        "train_ids": selected,
+        "train_tokens": fingerprint(docs),
+        "dev_ids": [r["id"] for r in items],
+        "dev_prompts": fingerprint([r["prompt_ids"] for r in items]),
+    }
     return docs, items, manifest
 
 
@@ -71,7 +71,7 @@ def assess(m, t, weight, items, s, b, folder):
     rows = []
     for row in items:
         ids = row["prompt_ids"]
-        if prompt_ids(t, row, dict(demos=0)) != ids:
+        if prompt_ids(t, row, {"demos": 0}) != ids:
             raise ValueError("Evaluation prompt IDs changed")
         stream = core.generate(m, t, ids, s["generation_cap"], b.check, thinking=True)
         answer = numeric(stream["visible"]) if stream["complete"] else None
@@ -84,13 +84,13 @@ def assess(m, t, weight, items, s, b, folder):
                 **stream,
             )
         )
-        packed(folder, dict(weights=weight, records=rows))
-    return dict(
-        correct=sum(r["correct"] for r in rows),
-        valid=sum(r["answer"] is not None for r in rows),
-        tokens=sum(len(r["token_ids"]) for r in rows),
-        seconds=sum(r["seconds"] for r in rows),
-    )
+        packed(folder, {"weights": weight, "records": rows})
+    return {
+        "correct": sum(r["correct"] for r in rows),
+        "valid": sum(r["answer"] is not None for r in rows),
+        "tokens": sum(len(r["token_ids"]) for r in rows),
+        "seconds": sum(r["seconds"] for r in rows),
+    }
 
 
 def compare(model_path, weight, items, s, b, root, result):
@@ -152,7 +152,7 @@ def run(freeze=False):
             raise ValueError("Phase 4 parent or dense control changed")
     core.assets()
     b = core.Budget(s["id"], s["limits"])
-    result = dict(registration=digest(REG), data=digest(frozen), passed=False)
+    result = {"registration": digest(REG), "data": digest(frozen), "passed": False}
     phase = "training"
     cp = Path("checkpoints/research") / s["id"]
     try:
@@ -160,7 +160,7 @@ def run(freeze=False):
         if m.span.passes != s["depth"]:
             raise ValueError("Registered depth differs")
         m.checkpointing = True
-        deployment = dict(config=parent["config"], alpha_override=m.alpha_override)
+        deployment = {"config": parent["config"], "alpha_override": m.alpha_override}
         st = core.train(
             m, docs, dict(s, deployment=deployment), cp, b, s["parent_sha256"]
         )
@@ -215,13 +215,13 @@ def endpoint():
     core.assets()
     bootstrap.release(cp, root / "model")
     b = core.Budget(protocol["id"], protocol["limits"])
-    result = dict(
-        registration=digest(reg),
-        data=digest(frozen),
-        weights=weight,
-        updates=protocol["updates"],
-        passed=False,
-    )
+    result = {
+        "registration": digest(reg),
+        "data": digest(frozen),
+        "weights": weight,
+        "updates": protocol["updates"],
+        "passed": False,
+    }
     try:
         compare(root / "model", weight, items, spec, b, root, result)
     except (MemoryError, TimeoutError, InterruptedError) as exc:
