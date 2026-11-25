@@ -2,12 +2,15 @@
 
 import argparse
 import gc
+import hashlib
 from pathlib import Path
 
 import mlx.core as mx
+import numpy as np
 from mlx_lm.utils import load_tokenizer
 
 from .. import backbone_mix, checkpoint
+from ..deployment import load_trained
 from ..evaluation.language7 import base
 from ..identity import fingerprint
 from ..io import checkpoint_location, digest, read, save
@@ -138,7 +141,30 @@ def run(freeze):
                 targets=sum(h["targets"] for h in state["history"]),
                 backbone_mix=dep["backbone_mix"],
             )
+            probe_text = "The notebook contains the observations from yesterday."
+            tokenizer = load_tokenizer(local_snapshot())
+            probe_ids = tokenizer.encode(probe_text, add_special_tokens=False)
+            probe_input = mx.array([probe_ids])
+            reference = np.asarray(model(probe_input)[:, -1].astype(mx.float32))
             del model
+            gc.collect()
+            mx.clear_cache()
+            loaded, _, _ = load_trained(root / "model")
+            restored = np.asarray(loaded(probe_input)[:, -1].astype(mx.float32))
+            if not np.array_equal(reference, restored):
+                raise ValueError(
+                    "Reloaded full-rank decoder differs from the trained endpoint"
+                )
+            save(
+                root / "reload-parity.json",
+                {
+                    "prompt": probe_text,
+                    "ids": probe_ids,
+                    "vocabulary": reference.size,
+                    "logits_sha256": hashlib.sha256(reference.tobytes()).hexdigest(),
+                },
+            )
+            del loaded
             gc.collect()
             mx.clear_cache()
             rationale_transfer.evaluate_pair(
