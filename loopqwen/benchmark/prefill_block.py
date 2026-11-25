@@ -1,6 +1,7 @@
 """Balanced native MLX prefill timing and full-vocabulary numerical comparison."""
 
 import gc
+import hashlib
 from pathlib import Path
 from statistics import median
 
@@ -123,15 +124,14 @@ def run():
                 ]
                 if ref is None:
                     ref = values
-                errors = [
-                    float(
-                        np.sqrt(
-                            np.sum((a - c) ** 2, dtype=np.float64)
-                            / np.sum(a * a, dtype=np.float64)
-                        )
-                    )
+                moments = [
+                    [
+                        float(np.sum((a - c) ** 2, dtype=np.float64)),
+                        float(np.sum(a * a, dtype=np.float64)),
+                    ]
                     for a, c in zip(ref, values)
                 ]
+                errors = [float(np.sqrt(delta / norm)) for delta, norm in moments]
                 rows.append(
                     dict(
                         **v,
@@ -139,6 +139,10 @@ def run():
                         repeat=repeat,
                         input_sha256=fingerprint(ids[:n]),
                         relative_rms=errors,
+                        squared_norms=moments,
+                        vocabulary_sha256=[
+                            hashlib.sha256(v.tobytes()).hexdigest() for v in values
+                        ],
                     )
                 )
                 save(out / "runs.json", rows)

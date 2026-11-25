@@ -128,6 +128,8 @@ def verify(root):
         )
     if study in ("context-128k-01", "context-128k-disk", "context-rationale-128k"):
         verify_context(root, decision)
+    if study == "prefill-block-01":
+        verify_prefill(root, decision)
     if study == "ledger-curriculum-01":
         verify_ledger_curriculum(root, decision)
     if study == "rationale-dense-01":
@@ -670,6 +672,91 @@ def verify_transfer(root, decision):
             and r["candidate"]["nll"] <= r["base"]["nll"] + 0.03
         )
     require(decision["passed"] == passed, "Transfer gate")
+
+
+def verify_prefill(root, decision):
+    from statistics import median
+    from loopqwen.identity import fingerprint
+
+    reg = read(root / "registration.json")
+    source = Path("research/sessions/2026-11-25/context-128k-01/prompt.json.gz")
+    ids = read(source)["prompt_ids"]
+    require(
+        sha(source) == decision["source_sha256"]
+        and sha(root / "registration.json") == decision["registration"]
+        and sha(Path(reg["candidate"]) / "adapters.safetensors")
+        == decision["weights"]
+        == reg["weights"],
+        "Performance identity",
+    )
+    rows = read(root / "runs.json") if (root / "runs.json").exists() else []
+    schedule = [
+        (n, i, size)
+        for n in reg["lengths"]
+        for i, size in enumerate(
+            [reg["baseline"], reg["treatment"], reg["treatment"], reg["baseline"]]
+        )
+    ]
+    require(len(rows) <= len(schedule), "Extra performance run")
+    for row, (n, i, size) in zip(rows, schedule):
+        require(
+            (row["prompt_tokens"], row["repeat"], row["block"]) == (n, i, size)
+            and row["input_sha256"] == fingerprint(ids[:n])
+            and row["max_tokens"] == reg["cap"]
+            and row["greedy"]
+            and row["elapsed_s"] >= row["ttft_s"] > 0
+            and row["peak_bytes"] > 0,
+            "Performance workload",
+        )
+        require(
+            len(row["vocabulary_sha256"]) == len(row["token_ids"]) > 0
+            and all(re.fullmatch("[0-9a-f]{64}", x) for x in row["vocabulary_sha256"])
+            and all(
+                math.isclose(x, math.sqrt(a / b), rel_tol=1e-12)
+                for x, (a, b) in zip(
+                    row["relative_rms"], row["squared_norms"], strict=True
+                )
+            ),
+            "Logit norms or digests",
+        )
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"], "Incomplete performance gate"
+        )
+        return
+    require(len(rows) == len(schedule), "Incomplete crossover")
+    for n in reg["lengths"]:
+        selected = [x for x in rows if x["prompt_tokens"] == n]
+        report = decision["lengths"][str(n)]
+        for mode in ("baseline", "treatment"):
+            times = [r for r in selected if r["block"] == reg[mode]]
+            require(
+                report[mode]
+                == {
+                    "ttft": median(r["ttft_s"] for r in times),
+                    "peak_bytes": max(r["peak_bytes"] for r in times),
+                },
+                "Performance medians and peak",
+            )
+        same = all(x["token_ids"] == selected[0]["token_ids"] for x in selected)
+        rms = max(max(x["relative_rms"]) for x in selected)
+        ref, alt = report["baseline"], report["treatment"]
+        require(
+            (report["identical"], report["max_rms"], report["passed"])
+            == (
+                same,
+                rms,
+                same
+                and rms <= 0.005
+                and alt["ttft"] <= 0.90 * ref["ttft"]
+                and alt["peak_bytes"] <= ref["peak_bytes"] + 0.30 * 2**30,
+            ),
+            "Performance length gate",
+        )
+    require(
+        decision["passed"] == all(v["passed"] for v in decision["lengths"].values()),
+        "Performance promotion",
+    )
 
 
 def verify_ledger_curriculum(root, decision):
