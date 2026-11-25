@@ -1,0 +1,9 @@
+{
+ "id":"functional-interleave-01","seed":95903,"parent_path":"docs/measurements/rsi_time1/model","parent_sha256":"20d2209013df8bc07b290db8f1de2552f5dcd7a8d707d642349841c097568c6c",
+ "question":"Does interleaving prior permutation training examples preserve the original mechanism while adapting to arbitrary successor maps?",
+ "dataset":"functional-replay-01","reference":"same pool1 and development maps as the failed functional-only study; exploratory retention repair on reused development maps",
+ "protocol":"Both arms see the same 96 arbitrary training maps in the same order, six per update. For remaining two positions per batch functional control uses 32 prespecified repeats from pool1 sampled without replacement, treatment uses 32 prior Phase5/6 training permutations sampled without replacement. Fixed randomized rendering. Both arms train from the same six-hop parent for 16 logical updates at the same optimizer settings. No online selection. Freeze exact membership before execution.",
+ "primary":"Joint retention and new-task learning. Mixed arm must lose <=2 third-hop cases on the 96-map permutation anchor and improve sixth-hop functional accuracy >=10 points from parent. Report all paired wins and losses against parent and functional-only, including trajectory accuracy and how much new-task quality is forgone. No automatic second epoch.",
+ "train_updates":16,"batch":8,"functional_per_update":6,"depth":6,"lr":0.0003,"clip":1,"cap":84,
+ "limits":{"wall_seconds":180,"peak_gib":5,"available_gib":1.5}
+}
