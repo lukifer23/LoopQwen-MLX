@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "projected-distillation-01",
+  "active": "privileged-reasoning-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -18,7 +18,7 @@
     "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model",
     "register_lookup_through_131078": "research/results/attention-memory-01/model"
   },
-  "frontier": "The frozen arithmetic decoder with a learned passage prior achieved 8/8 register answers through 16K and 2/2 on a 131078-token key swap, against 0/8 and 0/2 for Base. Natural extractive transfer failed (2/12 vs 4/12).",
+  "frontier": "Full-budget recurrent completion reached 27/48 versus 25/48 strict and 31/48 versus 30/48 on mathematical content, 353.05 versus 380.68 seconds. The positive margin missed the per-source and minimum-effect safeguards. The independently qualified 131078-token lookup reader remains available.",
   "next": null,
   "completed": [
     {
@@ -167,6 +167,11 @@
       "id": "recurrent-deliberation-01",
       "promoted": false,
       "reason": "27/48 versus 25/48 strict and 31/48 versus 30/48 on completed mathematical content. The decoder saved 27.6 seconds, tied GSM8K and missed the four-answer promotion margin."
+    },
+    {
+      "id": "projected-distillation-01",
+      "promoted": false,
+      "reason": "0/48 teacher completions at 640 tokens, 443.3 measured generation seconds. Minimum ten correct complete demonstrations failed. No student weights or evaluation."
     }
   ],
   "status": "Active renewed reasoning comparison",
