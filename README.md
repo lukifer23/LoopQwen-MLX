@@ -6,6 +6,10 @@ A local MLX research implementation of shared recurrent depth in the official Qw
 
 The stabilized K=2 checkpoint trained on 128 publisher-written GSM8K explanations answered **13/32** development questions correctly in **64.6 seconds**. Untouched Qwen Base K=1 answered **1/32** in **118.1 seconds** on identical prompts with a 256-token limit. The candidate produced 32 scorable answers and Base produced one. The candidate fixed 13 Base errors and lost one correct answer. Its prose-retention NLL was 2.9873 against Base at 2.9827. These 32 questions had been used in earlier development studies. [Checkpoint and per-question outputs](research/sessions/2026-11-25/gsm-rationale-01) · [End-to-end review](docs/PROJECT_REVIEW.md)
 
+On **48 fresh public word problems**, the same adapter answered **23/48** correctly within 256 tokens in **82.6 s**, compared with **9/48 in 172.9 s** for untouched Base. With 1,024 tokens, Base reached **31/48 in 383.1 s** and the adapter reached **23/48 in 114.1 s**. All 23 of the adapter’s correct turns finished by token 167. The longer-budget promotion gate failed. [Frozen prompts and paired results](research/results/rationale-transfer-01)
+
+![Correct completed turns versus output allowance and total generation time on 48 fresh public word problems](docs/measurements/rationale-budget.png)
+
 Run the measured adapter on a native Apple Silicon Mac with the locked environment and pinned Base checkpoint.
 
 ```sh

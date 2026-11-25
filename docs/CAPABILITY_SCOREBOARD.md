@@ -120,3 +120,16 @@ The mixed arm gained 17 net endpoints versus the parent (20 wins, three losses).
 | Trained stabilized K2 | 13 | 32 | 3,133 | 64.64 | 2.98727 |
 
 The candidate gained nine net answers on the first half and three on the second half. Each assessment used the same five-domain retention corpus with 9,328 targets. NLL increased in four domains and decreased in reference text. The training run consumed 10,083 response targets and 44.72 synchronized update seconds. On the boxing question, both systems calculated that 20% of 95 is 19. The candidate delivered the final answer within the budget while Base continued checking. The candidate also lost a question Base solved: after two years of 20% evaporation, Base returned the correct 64%, while the candidate subtracted 20 percentage points twice and returned 60%. [Both token streams, retention by domain and weights](../research/sessions/2026-11-25/gsm-rationale-01)
+
+### Fresh word problems at two output budgets
+
+| Cohort | Base at 256 | Trained K2 at 256 | Base at 1,024 | Trained K2 at 1,024 |
+|---|---:|---:|---:|---:|
+| Public GSM1K, 24 items | 1 | 7 | 13 | 7 |
+| SVAMP, 24 items | 8 | 16 | 18 | 16 |
+| Correct / 48 | 9 | 23 | 31 | 23 |
+| Scorable / 48 | 9 | 46 | 35 | 46 |
+| Total generated tokens | 11,771 | 3,955 | 26,138 | 5,491 |
+| Measured generation seconds | 172.89 | 82.57 | 383.11 | 114.11 |
+
+The 256-token prefix gave K2 15 paired wins and one loss (two-sided exact McNemar p = 0.00052). At the registered primary limit of 1,024, K2 gained five and lost 13 (p = 0.096). Base delivered 22 additional correct answers after token 256. The trained model delivered its last correct answer at token 167. Its higher completion rate and lower elapsed time hold at both budgets. The long-budget accuracy requirement failed in both sources. The same greedy stream supplies both budgets and the shorter timings were captured during decoding. [Generation records, costs and thresholds](../research/results/rationale-transfer-01)
