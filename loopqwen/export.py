@@ -80,16 +80,28 @@ def export(checkpoint, output, fusion="stock"):
             base_revision=REVISION,
             base_shards={p.name: digest(p) for p in source.glob("*.safetensors")},
             adapter_sha256=digest(location(checkpoint) / "adapters.safetensors"),
-            train_git=state["git"],
             export_git=subprocess.check_output(
                 ["git", "rev-parse", "HEAD"], text=True
             ).strip(),
-            config=state["config"],
-            dataset=state["manifest"],
-            versions=state["hardware"]["versions"],
             step=state["step"],
             validation_prompt=prompt,
         )
+        if "config" in state:
+            provenance.update(
+                train_git=state["git"],
+                config=state["config"],
+                dataset=state["manifest"],
+                versions=state["hardware"]["versions"],
+            )
+        else:
+            spec = state["spec"]
+            provenance.update(
+                config=spec["deployment"]["config"],
+                training_spec={k: v for k, v in spec.items() if k != "deployment"},
+                training_identity=state["identity"],
+                parent_weights=state["parent"],
+                checkpoint_metadata_sha256=digest(location(checkpoint) / "state.json"),
+            )
         save(temp / "provenance.json", provenance)
         save(temp / "config.json", config)
         runtime = temp / "runtime"

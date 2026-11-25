@@ -54,7 +54,7 @@ def export_stock(source, destination):
         raise FileExistsError(out)
     out.parent.mkdir(exist_ok=True, parents=True)
     state = read(gen / "state.json")
-    c = state["config"]
+    c = (state if "config" in state else state["spec"]["deployment"])["config"]
     model, tok, _ = checkpoint.load_trained(gen)
     model.span = replace(model.span, passes=1)
     samples = rows("validation", "trace")[:16]
