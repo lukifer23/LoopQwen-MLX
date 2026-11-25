@@ -3,6 +3,7 @@
 import gc
 import json
 import re
+import shutil
 from pathlib import Path
 
 import mlx.core as mx
@@ -93,7 +94,7 @@ def assess(m, t, weight, items, s, b, folder):
     }
 
 
-def compare(model_path, weight, items, s, b, root, result):
+def compare(model_path, weight, items, s, b, root, result, baseline_archive=None):
     m, t, _ = checkpoint.load_trained(model_path)
     result["phase"] = phase = "candidate"
     m.eval()
@@ -101,9 +102,34 @@ def compare(model_path, weight, items, s, b, root, result):
     del m, t
     gc.collect()
     mx.clear_cache()
-    result["phase"] = phase = "base"
-    m, t, _ = base()
-    result[phase] = assess(m, t, REVISION, items, s, b, root / "base.json.gz")
+    result["phase"] = "base"
+    if baseline_archive is None:
+        m, t, _ = base()
+        result["base"] = assess(m, t, REVISION, items, s, b, root / "base.json.gz")
+        result["phase"] = "retention"
+        result["base"]["retention"] = bootstrap.retention(m, 1, b)
+        del m, t
+        gc.collect()
+        mx.clear_cache()
+    else:
+        inventory = read(baseline_archive / "checksums.json")
+        for name in ("base.json.gz", "decision.json", "registration.json"):
+            if digest(baseline_archive / name) != inventory[name]:
+                raise ValueError("Archived Base measurement changed")
+        previous = read(baseline_archive / "decision.json")
+        reference = unpack(baseline_archive / "base.json.gz")
+        if (
+            previous["status"] != "completed"
+            or previous["data"] != result["data"]
+            or read(baseline_archive / "registration.json") != s
+            or reference["weights"] != REVISION
+            or [r["prompt_ids"] for r in reference["records"]]
+            != [r["prompt_ids"] for r in items]
+        ):
+            raise ValueError("Base comparison protocol or cohort differs")
+        shutil.copyfile(baseline_archive / "base.json.gz", root / "base.json.gz")
+        result["base"] = previous["base"]
+        result["base_measurement"] = str(baseline_archive)
     data = [unpack(root / f"{a}.json.gz")["records"] for a in ("base", "candidate")]
     if [r["prompt_ids"] for r in data[0]] != [r["prompt_ids"] for r in data[1]]:
         raise ValueError("Unpaired development prompts")
@@ -111,10 +137,6 @@ def compare(model_path, weight, items, s, b, root, result):
     halves = [sum(diff[:16]), sum(diff[16:])]
     result.update(wins=diff.count(1), losses=diff.count(-1), half_deltas=halves)
     result["phase"] = "retention"
-    result["base"]["retention"] = bootstrap.retention(m, 1, b)
-    del m, t
-    gc.collect()
-    mx.clear_cache()
     m, _, _ = checkpoint.load_trained(model_path)
     result["candidate"]["retention"] = bootstrap.retention(m, s["depth"], b)
     c, a = result["candidate"], result["base"]
@@ -239,7 +261,18 @@ def endpoint(recovery=False):
         "passed": False,
     }
     try:
-        compare(root / "model", weight, items, spec, b, root, result)
+        compare(
+            root / "model",
+            weight,
+            items,
+            spec,
+            b,
+            root,
+            result,
+            baseline_archive=Path("research/sessions/2026-11-25") / spec["id"]
+            if recovery
+            else None,
+        )
     except (MemoryError, TimeoutError, InterruptedError) as exc:
         result.update(status="interrupted", reason=str(exc))
     finally:
