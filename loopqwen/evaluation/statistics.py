@@ -5,8 +5,6 @@ import statistics
 from collections import defaultdict
 from pathlib import Path
 
-import numpy as np
-
 from ..io import evaluation_record, read, save
 
 
@@ -18,6 +16,8 @@ def exact_mcnemar(a, b):
 
 
 def paired(left, right):
+    import numpy as np
+
     if [r["id"] for r in left] != [r["id"] for r in right]:
         raise ValueError("IDs differ")
     diff = np.array(
@@ -37,6 +37,8 @@ def paired(left, right):
 
 
 def summarize(name="phase2_confirm"):
+    import numpy as np
+
     m = read(Path("experiments") / (name + ".json"))
     root = Path("outputs/phase2") / name
     result = {}
