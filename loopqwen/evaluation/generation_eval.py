@@ -47,6 +47,14 @@ def generate(
         model.eval()
         mx.synchronize()
         start = perf_counter()
+        section = None
+        reader = getattr(model, "attention_reader", None)
+        if reader is not None:
+            section = reader.select(model, ids)
+            if section is not None:
+                from ..attention_memory import attach_bias
+
+                attach_bias(cache if disk is None else disk.cache, section)
         # Bound prefill activation memory. Each chunk advances every site once.
         if progress is not None:
             progress(0)
@@ -69,6 +77,9 @@ def generate(
                 logits = model.project(model.hidden(inputs, cache)[:, -1:])
             else:
                 logits = model(inputs, cache=cache)
+            if disk is not None and step == 0 and section is not None:
+                # Prefill replaced full KV slots with disk-backed prefixes.
+                attach_bias(disk.cache, section)
             token = mx.argmax(logits[:, -1], -1).item()
             if step == 0:
                 first = perf_counter()
@@ -95,6 +106,8 @@ def generate(
         "peak_bytes": mx.get_peak_memory(),
         "active_bytes": mx.get_active_memory(),
     }
+    if section is not None:
+        result["attention_memory"] = section
     if disk is not None:
         result["scratch_bytes"] = disk.scratch_bytes
     return result

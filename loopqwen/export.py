@@ -79,7 +79,9 @@ def export(checkpoint, output, fusion="stock"):
             fusion=fusion,
             base_revision=REVISION,
             base_shards={p.name: digest(p) for p in source.glob("*.safetensors")},
-            adapter_sha256=digest(checkpoint_location(checkpoint) / "adapters.safetensors"),
+            adapter_sha256=digest(
+                checkpoint_location(checkpoint) / "adapters.safetensors"
+            ),
             export_git=subprocess.check_output(
                 ["git", "rev-parse", "HEAD"], text=True
             ).strip(),
@@ -100,8 +102,19 @@ def export(checkpoint, output, fusion="stock"):
                 training_spec={k: v for k, v in spec.items() if k != "deployment"},
                 training_identity=state["identity"],
                 parent_weights=state["parent"],
-                checkpoint_metadata_sha256=digest(checkpoint_location(checkpoint) / "state.json"),
+                checkpoint_metadata_sha256=digest(
+                    checkpoint_location(checkpoint) / "state.json"
+                ),
             )
+        has_reader = getattr(model, "attention_reader", None) is not None
+        if has_reader:
+            generation = checkpoint_location(checkpoint)
+            for filename in ("attention-reader.json", "attention-reader.safetensors"):
+                shutil.copyfile(generation / filename, temp / filename)
+            config["attention_reader_metadata_sha256"] = digest(
+                temp / "attention-reader.json"
+            )
+            provenance["attention_reader"] = read(temp / "attention-reader.json")
         save(temp / "provenance.json", provenance)
         save(temp / "config.json", config)
         runtime = temp / "runtime"
@@ -114,6 +127,11 @@ def export(checkpoint, output, fusion="stock"):
             "recurrent_cache.py",
         ):
             shutil.copyfile(Path(__file__).with_name(filename), runtime / filename)
+        if has_reader:
+            shutil.copyfile(
+                Path(__file__).with_name("attention_memory.py"),
+                runtime / "attention_memory.py",
+            )
         (runtime / "__init__.py").write_text(
             "from .export_runtime import load_export\n"
         )
@@ -122,6 +140,11 @@ def export(checkpoint, output, fusion="stock"):
             "Run `from runtime import load_export` and `model, tokenizer = load_export('.')`. "
             "Call `model.make_cache()` once per prompt.\n"
         )
+        if has_reader:
+            with (temp / "README.md").open("a") as guide:
+                guide.write(
+                    "\nFor the learned attention bias, call `section = model.attention_reader.select(model, prompt_ids)` before prefill. When section is present, use `from runtime.attention_memory import attach_bias` and `attach_bias(cache, section)` on that request cache. The project generation command does this automatically.\n"
+                )
         audit = dict(
             prompt=prompt,
             input_ids=ids.tolist(),

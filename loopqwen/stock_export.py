@@ -49,6 +49,10 @@ print(json.dumps(result))
 
 def export_stock(source, destination):
     gen = checkpoint_location(source)
+    if (gen / "attention-reader.json").exists():
+        raise ValueError(
+            "Stock K1 cannot represent the learned attention mask. Use the recurrent export."
+        )
     out = Path(destination)
     if out.exists():
         raise FileExistsError(out)

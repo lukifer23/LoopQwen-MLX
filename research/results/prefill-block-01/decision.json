@@ -1,0 +1,35 @@
+{
+  "passed": false,
+  "registration": "976534aadd16e1eaabbe06e68fcbf56627ca761c8431d8b08c09e7c359e52e1d",
+  "source_sha256": "764e2cbf7bf1b77891b3acd0fe70774d929b329cd3b8094a2ec713a8c1452e84",
+  "weights": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "status": "completed",
+  "lengths": {
+    "8192": {
+      "baseline": {
+        "ttft": 4.573973437494715,
+        "peak_bytes": 2006442934
+      },
+      "treatment": {
+        "ttft": 4.07871260450338,
+        "peak_bytes": 2671240272
+      },
+      "identical": true,
+      "max_rms": 0.014807938885120615,
+      "passed": false
+    },
+    "16384": {
+      "baseline": {
+        "ttft": 10.643353625011514,
+        "peak_bytes": 2223530398
+      },
+      "treatment": {
+        "ttft": 9.525623416499002,
+        "peak_bytes": 2772313080
+      },
+      "identical": false,
+      "max_rms": 0.2461136942357294,
+      "passed": false
+    }
+  }
+}

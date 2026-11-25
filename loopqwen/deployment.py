@@ -1,7 +1,7 @@
 """Load an inference adapter while preserving the historical training implementation."""
 
 from . import checkpoint
-from .io import checkpoint_location, read
+from .io import checkpoint_location, digest, read
 
 
 def load_trained(root):
@@ -14,4 +14,14 @@ def load_trained(root):
     checkpoint.restore(generation, model)
     model.alpha_override = deployment.get("alpha_override")
     model.eval()
+    sidecar = generation / "attention-reader.json"
+    if sidecar.is_file():
+        from .attention_memory import load_reader
+
+        if (
+            digest(generation / "adapters.safetensors")
+            != read(sidecar)["adapter_sha256"]
+        ):
+            raise ValueError("Attention reader is bound to a different adapter")
+        load_reader(model, generation)
     return model, tokenizer, state

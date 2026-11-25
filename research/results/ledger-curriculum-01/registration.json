@@ -1,0 +1,25 @@
+{
+  "id": "ledger-curriculum-01",
+  "seed": 19260317,
+  "question": "Can direct supervision on short, densely populated keyed ledgers teach the deployed arithmetic adapter to find unseen random values among comparable distractors at 2K and 16K, while retaining its arithmetic and prose?",
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "depth": 2,
+  "updates": 96,
+  "logical_batch": 4,
+  "cap_positions": 512,
+  "lr": 0.00012,
+  "weight_decay": 0,
+  "clip": 1,
+  "generation_cap": 96,
+  "training": "Start from the qualified 32-update K2 weights. Each update sees three independently generated ledgers and one of the parent's already-trained GSM documents, in the original order. Train on complete records of at least 160, 288, or 416 input tokens. Keys are uniformly sampled distinct triples of common words and six-digit values are independently sampled without replacement within each request. Vary target location. Half of requests name the query before and after the ledger, half only after. The neural model receives the entire string. No external lookup at inference.",
+  "evaluation": "Direct candidate K2 vs untouched ordinary-depth Base. Eight fresh seeded ledgers: 2048 and 16384 minimum input tokens, target at 10% and 75%, early query present or absent. Keep complete records until the length threshold and freeze the exact token stream and order. Greedy first thinking turn, max 96, score exact final number. Measure actual time and allocated memory. Both consume identical prompts without KV eviction. Separately measure five-domain V3 NLL and the original 32 256-token development prompts against the archived identical Base measurement.",
+  "decision": "For a query-placement protocol to advance to 128K, require candidate 4/4 exact at 2K/16K including both 16K distances, no fewer correct than Base in that protocol, and candidate total request time at most 1.75x Base there. Require V3 NLL no more than Base+0.03. Only qualified protocols may get the two new 128K probes; no training on evaluation inputs. Recommend a combined deployment only if it also reaches >=13/32 on the prior short-budget arithmetic cohort. Failure of both layout gates closes 128K scaling for these weights. Training interruption closes downstream measurement.",
+  "limits": {
+    "wall_seconds": 1200,
+    "peak_gib": 5.2,
+    "available_gib": 1.5
+  }
+}

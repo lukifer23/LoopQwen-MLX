@@ -33,6 +33,18 @@ def load_export(directory):
     mx.eval(model.parameters())
     model.alpha_override = cfg["alpha_override"]
     model.eval()
+    if "attention_reader_metadata_sha256" in cfg:
+        import hashlib
+        from .attention_memory import load_reader
+
+        if (
+            hashlib.sha256(
+                (directory / "attention-reader.json").read_bytes()
+            ).hexdigest()
+            != cfg["attention_reader_metadata_sha256"]
+        ):
+            raise ValueError("Exported attention reader metadata differs")
+        load_reader(model, directory)
     eos = cfg["text_config"]["eos_token_id"]
     return model, load_tokenizer(directory, eos_token_ids=[eos])
 
