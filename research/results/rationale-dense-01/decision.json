@@ -1,0 +1,87 @@
+{
+  "registration": "7b14a90001ff355b9654b58db02313a9f22f25cb44a92b8220130d19bed0dac6",
+  "data": "edaab52c595e5d3a58ea9377c0ecde2760a2e1a212dbaa7d5e459dce9068f007",
+  "passed": true,
+  "weights": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "updates": 32,
+  "update_seconds": 31.86016020711395,
+  "targets": 10083,
+  "status": "completed",
+  "dense": {
+    "correct": 10,
+    "valid": 29,
+    "tokens": 3299,
+    "seconds": 53.558191501913825,
+    "retention": {
+      "nll": 2.987232644340953,
+      "by_domain": {
+        "code_description": {
+          "loss": 4478.679531574249,
+          "tokens": 1733,
+          "nll": 2.5843505664017594
+        },
+        "general_prose": {
+          "loss": 7201.258071780205,
+          "tokens": 1911,
+          "nll": 3.768319242166512
+        },
+        "reference": {
+          "loss": 4162.588322162628,
+          "tokens": 1680,
+          "nll": 2.4777311441444216
+        },
+        "scientific_exposition": {
+          "loss": 7130.964063644409,
+          "tokens": 2291,
+          "nll": 3.1125988929045874
+        },
+        "technical_explanation": {
+          "loss": 4891.416117250919,
+          "tokens": 1713,
+          "nll": 2.8554676691482306
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  },
+  "recurrent": {
+    "correct": 13,
+    "valid": 32,
+    "tokens": 3133,
+    "seconds": 64.63914954199572,
+    "retention": {
+      "nll": 2.9872700601822566,
+      "by_domain": {
+        "code_description": {
+          "loss": 4485.809147357941,
+          "tokens": 1733,
+          "nll": 2.5884645974367806
+        },
+        "general_prose": {
+          "loss": 7195.930616855621,
+          "tokens": 1911,
+          "nll": 3.765531458323193
+        },
+        "reference": {
+          "loss": 4166.5568261146545,
+          "tokens": 1680,
+          "nll": 2.4800933488777708
+        },
+        "scientific_exposition": {
+          "loss": 7116.934710890055,
+          "tokens": 2291,
+          "nll": 3.106475212086449
+        },
+        "technical_explanation": {
+          "loss": 4900.0238201618195,
+          "tokens": 1713,
+          "nll": 2.860492597876135
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  },
+  "recurrent_weights": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "wins": 6,
+  "losses": 3
+}
