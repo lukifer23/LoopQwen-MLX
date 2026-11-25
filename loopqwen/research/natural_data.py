@@ -1,8 +1,10 @@
 """Ground reader training in multiple real paragraphs from each publisher training article."""
 
+import hashlib
 import re
 from pathlib import Path
 from random import Random
+from urllib.request import urlopen
 
 from ..identity import fingerprint
 from ..io import digest, read
@@ -11,6 +13,14 @@ from . import core
 
 def make(t, s):
     source = Path("data/research_external/squad-train-v1.1.json")
+    if not source.is_file():
+        url = "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json"
+        with urlopen(url, timeout=45) as handle:
+            data = handle.read()
+        if hashlib.sha256(data).hexdigest() != s["source_sha256"]:
+            raise ValueError("Publisher SQuAD training download changed")
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_bytes(data)
     if digest(source) != s["source_sha256"]:
         raise ValueError("SQuAD training source differs")
     train = read(source)["data"]
