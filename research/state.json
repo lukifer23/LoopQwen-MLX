@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "entailment-triplets-01",
+  "active": "conditional-depth-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -20,7 +20,7 @@
     "word_problems_at_1024_vs_base": "research/results/learned-exit-01/model"
   },
   "frontier": "Same learned exit won two independent full-budget pairs: 52/80 versus 46/80 strict, 58/80 versus 52/80 completed content, six paired wins, zero losses, 542.44 versus 592.24 seconds.",
-  "next": "conditional-depth-01",
+  "next": "entailment-triplets-confirm-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -200,9 +200,15 @@
       "promoted": true,
       "scope": "Full-budget arithmetic versus Base on two disjoint panels",
       "reason": "28/48 versus 24/48 strict, 33/48 versus 29/48 blind content. Both sources improved. 326.54 versus 360.61 s. Across both panels, six wins and no losses (nominal paired two-sided p=0.03125)."
+    },
+    {
+      "id": "entailment-triplets-01",
+      "promoted": false,
+      "scope": "Primary qualification passed; independent confirmation pending",
+      "reason": "35/48 vs 27/48 completed relation judgments including blind review. Probe 37 vs 30, fully correct triplets 7 vs 2, generation 14.23 vs 391.76 s and raw prose NLL 2.93196 vs 2.98266."
     }
   ],
-  "status": "Full-budget arithmetic replicated on both sources. Independent natural inference training is running. Mixed deployment pair frozen.",
+  "status": "Mixed deployment under measurement. Unchanged natural inference weights qualified and independent confirmation is frozen.",
   "next_action": "Archive the natural inference primary and run the first integrated deployment comparison with the confirmed arithmetic finisher, short-budget decoder and register reader.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
