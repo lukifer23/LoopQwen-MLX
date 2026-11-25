@@ -117,3 +117,15 @@ Expanding the six-layer adapter to all 24 layers and training on 1,152 new arith
 The timing records suggested a different training target. On this 48-question panel, Base gained 26 correct answers between tokens 256 and 1,024. The all-layer adapter gained zero. The recurrent-deliberation trial keeps Base's actual early token stream and trains the repeated span to continue authentic partial solutions. The switch changes the active model depth and charges a second prefill over all preceding tokens. At inference every output token comes from the active model's unrestricted greedy vocabulary head. Research on test-time thinking budgets motivated checking the timing of a transition as well as its final accuracy. [Frozen architecture and training protocol](../research/experiments/recurrent-deliberation-01.json) · [Muennighoff et al., 2025](https://arxiv.org/abs/2501.19393)
 
 A reading of every completed Base response that the strict numeric scorer rejected makes the full-budget gap larger. Five such responses gave the correct answer in prose or angle brackets, including “Zachary did 7 push-ups.” Accepting those five visible answers gives 38/48 for Base and 21/48 for the trained adapter. Seven unfinished Base turns still receive zero credit. The registered 33/48 result stands under its original rule. [Complete per-item records](../research/results/all-layer-reasoning-01/base.json.gz) · [Frozen scorer](../loopqwen/evaluation/answers.py)
+
+## What the remaining reasoning budget buys
+
+Six archived 1,024-token arithmetic comparisons contain 240 ordinary-depth Base responses. The table counts turns still generating inside the thinking block at each boundary. A completed turn includes both the thinking close and the first turn boundary. The content column also credits an unambiguous correct visible answer written in prose. Each row follows the same outputs to the same 1,024-token endpoint.
+
+| Tokens already generated | Still thinking | Subsequently completed | Subsequently correct, strict | Subsequently correct, content |
+|---:|---:|---:|---:|---:|
+| 512 | 78 | 39 | 20 | 24 |
+| 768 | 48 | 9 | 3 | 3 |
+| 896 | 42 | 4 | 1 | 1 |
+
+Switching at 512 puts more correct Base answers at risk. Switching at 896 leaves only 128 generated tokens to finish the reasoning and give a visible answer. These retrospective counts motivated a fresh late-switch pilot. They measure Base's exposure to the intervention and cannot predict how many of those cases a trained model can repair. [Blind answer annotations](measurements/answer-audits) · [Late-switch registration and original checkpoint](../research/experiments/late-recurrent-exit-01.json)

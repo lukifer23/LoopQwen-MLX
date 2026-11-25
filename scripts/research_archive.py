@@ -859,6 +859,18 @@ def verify_transfer(root, decision):
                 0 < row["seconds_at_256"] <= row["seconds"], "Invalid prefix timing"
             )
         reports[arm] = rows
+    if reg["id"] in ("recurrent-deliberation-01", "late-recurrent-exit-01"):
+        switch = reg["switch_after"]
+        for a, c in zip(reports.get("base", ()), reports.get("candidate", ())):
+            early = a["token_ids"][:switch]
+            late = len(a["token_ids"]) > switch and 248069 not in early
+            require(
+                a["recurrent_from"] is None
+                and c["recurrent_from"] == (switch if late else None)
+                and c["token_ids"][:switch] == early
+                and (late or a["token_ids"] == c["token_ids"]),
+                "The early ordinary-depth trajectory differs from the pinned control",
+            )
     if decision["status"] == "interrupted":
         require(
             not decision["passed"] and decision["reason"],
@@ -869,18 +881,6 @@ def verify_transfer(root, decision):
         all(len(rows) == len(items) for rows in reports.values()),
         "Missing transfer items",
     )
-    if reg["id"] in ("recurrent-deliberation-01", "late-recurrent-exit-01"):
-        switch = reg["switch_after"]
-        for a, c in zip(reports["base"], reports["candidate"], strict=True):
-            early = a["token_ids"][:switch]
-            late = len(a["token_ids"]) > switch and 248069 not in early
-            require(
-                a["recurrent_from"] is None
-                and c["recurrent_from"] == (switch if late else None)
-                and c["token_ids"][:switch] == early
-                and (late or a["token_ids"] == c["token_ids"]),
-                "The early ordinary-depth trajectory differs from the pinned control",
-            )
     for key, cap in (("full", reg["generation_cap"]), ("prefix_256", 256)):
         for source in ("all", *reg["sources"]):
             summary = decision[key][source]
@@ -2130,7 +2130,7 @@ def verify_replay(root, decision):
     prev = {k: reg["parent_sha256"] for k in ("static", "online")}
     for j, arms in enumerate(decision["rounds"], 1):
         pool = groups[f"pool{j}"]
-        for arm in prev:
+        for arm, previous_weight in prev.items():
             folder = root / f"round{j}" / arm
             score(
                 read(folder / "eval.json.gz"),
@@ -2139,7 +2139,7 @@ def verify_replay(root, decision):
             )
             meta = read(folder / "model/state.json")
             require(
-                meta["parent"] == prev[arm]
+                meta["parent"] == previous_weight
                 and meta["step"] == j * len(meta["history"]),
                 "Replay lineage",
             )
@@ -2171,7 +2171,7 @@ def verify_replay(root, decision):
                 require(prefix == r["prefix"], "Wrong online prefix length")
             for slot, item in enumerate(selected):
 
-                def priority(row):
+                def priority(row, arm=arm, slot=slot, j=j):
                     prefix = row["prefix"]
                     rank = (
                         0
