@@ -133,3 +133,14 @@ The candidate gained nine net answers on the first half and three on the second 
 | Measured generation seconds | 172.89 | 82.57 | 383.11 | 114.11 |
 
 The 256-token prefix gave K2 15 paired wins and one loss (two-sided exact McNemar p = 0.00052). At the registered primary limit of 1,024, K2 gained five and lost 13 (p = 0.096). Base delivered 22 additional correct answers after token 256. The trained model delivered its last correct answer at token 167. Its higher completion rate and lower elapsed time hold at both budgets. The long-budget accuracy requirement failed in both sources. The same greedy stream supplies both budgets and the shorter timings were captured during decoding. [Generation records, costs and thresholds](../research/results/rationale-transfer-01)
+
+### Earlier checkpoint and matched dense control
+
+| Same 32 development items, 256-token cap | Correct | Generation seconds | Retention NLL |
+|---|---:|---:|---:|
+| Untouched Base K1 | 1 | 118.07 | 2.98266 |
+| K2 at update 22 | 6 | 62.36 | 2.98980 |
+| K2 at update 32 | 13 | 64.64 | 2.98727 |
+| Matched dense K1 at update 32 | 10 | 53.56 | 2.98723 |
+
+The last ten K2 updates fixed nine previously incorrect responses and lost two. The earlier checkpoint missed the development threshold and had zero net gains on the second half. The 32-update K2 beat the matched dense control by three answers, with 21% more generation time and 40% more optimizer-update time. Both trained models received 10,083 identical supervised tokens. The earlier endpoint reused the Base outputs and times from the full comparison. The dense comparison reused the K2 outputs and times. Both verified the exact prompt token IDs. [Update 22 records](../research/sessions/2026-11-25/gsm-rationale-endpoint) · [Dense control](../research/results/rationale-dense-01)
