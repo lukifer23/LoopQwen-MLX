@@ -6,7 +6,7 @@ from pathlib import Path
 from urllib.request import urlopen
 
 import mlx.core as mx
-from huggingface_hub import snapshot_download
+from huggingface_hub import snapshot_download, try_to_load_from_cache
 from mlx_lm import load as load_model
 from mlx_lm.utils import load_tokenizer
 
@@ -100,9 +100,18 @@ def material(s):
 
 def tutor(s):
     ref = s["teacher"]
-    folder_path = Path(
-        snapshot_download(ref["repo"], revision=ref["revision"], local_files_only=True)
-    )
+    cached = try_to_load_from_cache(ref["repo"], ref["shard"], revision=ref["revision"])
+    assets = [ref["shard"], "*.json", "*.txt", "*.jinja"]
+    folder_path = Path(cached).parent if isinstance(cached, str) else None
+    if folder_path is None or not all(
+        (folder_path / f).is_file()
+        for f in ("config.json", "tokenizer.json", "tokenizer_config.json")
+    ):
+        folder_path = Path(
+            snapshot_download(
+                ref["repo"], revision=ref["revision"], allow_patterns=assets
+            )
+        )
     if digest(folder_path / ref["shard"]) != ref["sha256"]:
         raise ValueError("Teacher weights differ")
     import json
