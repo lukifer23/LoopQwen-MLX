@@ -2,6 +2,7 @@
 
 import argparse
 import gc
+import inspect
 import shutil
 from pathlib import Path
 from time import perf_counter
@@ -13,7 +14,7 @@ from mlx.utils import tree_flatten, tree_map
 from mlx_lm.utils import load_tokenizer
 
 from .. import checkpoint
-from ..attention_memory import AttentionReader, PassageScorer
+from ..attention_memory import AttentionReader, PassageScorer, normalized
 from ..deployment import load_trained
 from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed, unpack
@@ -24,6 +25,17 @@ from . import bootstrap, core, ledger_curriculum, memory_data, rationale
 
 REG = Path("research/experiments/attention-memory-01.json")
 DATA = Path("research/data/attention-memory-01.json")
+
+
+def scorer_identity():
+    # The first release hashed the entire module, including cache-lifetime code.
+    # Preserve its measured optimizer lineage for the exact same scorer implementation.
+    source = fingerprint(
+        [inspect.getsource(normalized), inspect.getsource(PassageScorer)]
+    )
+    if source == "fe7e8bec8ebf682001f4e77080462e3dcb7349bc794d75752cea098827ed3f8a":
+        return "b77ea542dfaa667f2bca2bab1ecef2b01b2f33015d842acca7922458e48ca83d"
+    return source
 
 
 def fit(s, model, scorer, items, b, out):
@@ -45,7 +57,7 @@ def fit(s, model, scorer, items, b, out):
             digest(DATA),
             s["parent_sha256"],
             digest(Path(__file__).with_name("memory_data.py")),
-            digest(Path(__file__).parents[1] / "attention_memory.py"),
+            scorer_identity(),
         ]
     )
     state = {"step": 0, "identity": identity, "history": []}

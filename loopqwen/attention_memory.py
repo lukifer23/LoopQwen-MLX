@@ -3,6 +3,7 @@
 import hashlib
 import json
 import math
+import weakref
 from pathlib import Path
 
 import mlx.core as mx
@@ -109,14 +110,22 @@ def attach_bias(cache, section):
             or getattr(slot, "reader_bias", False)
         ):
             continue
-        original = slot.make_mask
+        # A disk-backed prefill releases each completed site before starting the next.
+        # Keep the method implementation without retaining its bound cache instance.
+        original = slot.make_mask.__func__
+        owner = weakref.ref(slot)
 
         def mask(
-            n, *, return_array=False, window_size=None, slot=slot, original=original
+            n, *, return_array=False, window_size=None, owner=owner, original=original
         ):
+            slot = owner()
+            if slot is None:
+                raise ReferenceError("Attention cache has been released")
             end = slot.offset + n
             if end < section["length"]:
-                return original(n, return_array=return_array, window_size=window_size)
+                return original(
+                    slot, n, return_array=return_array, window_size=window_size
+                )
             dtype = getattr(getattr(slot, "keys", None), "dtype", mx.bfloat16)
             keys = mx.arange(end)
             boost = ((keys >= section["start"]) & (keys < section["stop"])).astype(

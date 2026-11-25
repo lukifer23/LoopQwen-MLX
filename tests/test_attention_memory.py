@@ -62,3 +62,21 @@ def test_held_out_registers_contain_hard_negatives_and_one_visible_gold():
                 )
                 == 1
             )
+
+
+def test_releasing_an_attention_site_frees_its_full_history_immediately():
+    import gc
+    import weakref
+    from types import SimpleNamespace
+
+    enabled = gc.isenabled()
+    gc.disable()
+    try:
+        cache = SimpleNamespace(slots={(11, 0): KVCache()})
+        reference = weakref.ref(cache.slots[11, 0])
+        attach_bias(cache, {"start": 3, "stop": 6, "length": 10, "gain": 3.0})
+        del cache.slots[11, 0]
+        assert reference() is None
+    finally:
+        if enabled:
+            gc.enable()
