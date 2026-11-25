@@ -7,8 +7,19 @@ from mlx import nn
 from mlx.utils import tree_flatten
 
 from .context_policy import features
-from .deliberation import attach, ordinary_view, turn_open
+from .deliberation import attach, ordinary_view
 from .io import digest, read
+
+
+def assistant_thinking(ids):
+    """Recognize an open assistant thought in the pinned Qwen chat protocol."""
+    for offset in range(len(ids) - 1, -1, -1):
+        token = ids[offset]
+        if token in (248044, 248046, 248069):
+            return False
+        if token == 248045:
+            return list(ids[offset + 1 : offset + 4]) == [74455, 198, 248068]
+    return False
 
 
 class ConditionalDepth:
@@ -23,7 +34,7 @@ class ConditionalDepth:
         return {"ordinary": self.ordinary, **self.experts}
 
     def choose(self, model, ids, cap):
-        if not turn_open(ids, 248068, 248069):
+        if not assistant_thinking(ids):
             return self.ordinary, "ordinary"
         evidence = features(model.text.model.embed_tokens, ids)
         distribution = mx.softmax(self.classifier(evidence)).tolist()

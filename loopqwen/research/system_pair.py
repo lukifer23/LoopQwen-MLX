@@ -2,12 +2,14 @@
 
 import argparse
 import gc
+import json
 from pathlib import Path
 
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer
 
 from .. import REVISION
+from ..data import retention3
 from ..deployment import load_trained
 from ..evaluation.generation_eval import generate
 from ..evaluation.language7 import base
@@ -47,14 +49,13 @@ def material(s):
         for i, r in enumerate(math)
     ]
     past = [r for p in s["excluded_relations"] for r in read(p)]
+    original = read("research/experiments/entailment-triplets-01.json")
+    if "entailment" in s["experts"]:
+        first = read("research/data/entailment-triplets-01.json")
+        groups, _ = inference_data.training_groups(original, first)
+        past += [r for source in groups.values() for group in source for r in group]
     nli = inference_data.material(
-        dict(
-            read("research/experiments/entailment-triplets-01.json"),
-            seed=s["seed"],
-            per_source_groups=2,
-            eval_template=3,
-        ),
-        past,
+        dict(original, seed=s["seed"], per_source_groups=2, eval_template=3), past
     )
     panel.extend(
         {
@@ -213,14 +214,21 @@ def run(name, freeze):
                     )
                 if offset:
                     active = m if arm == "base" else m.context_policy.ordinary
-                    if (
-                        arm == "candidate"
-                        and m.context_policy.choose(
-                            m, t.encode("The early observations were consistent."), 96
-                        )[0]
-                        is not active
-                    ):
-                        raise ValueError("Raw path changed")
+                    if arm == "candidate":
+                        retention3.build()
+                        passages = [
+                            json.loads(line)
+                            for line in (retention3.ROOT / "validation.jsonl")
+                            .read_text()
+                            .splitlines()
+                        ]
+                        for raw in passages:
+                            view, route = m.context_policy.choose(m, raw["ids"], 96)
+                            if view is not active or route != "ordinary":
+                                raise ValueError(
+                                    "Raw retention request changed execution depth"
+                                )
+                        result["raw_route_ids"] = [r["id"] for r in passages]
                     ret[arm] = bootstrap.retention(active, 1, b)
                 del m, t
                 gc.collect()

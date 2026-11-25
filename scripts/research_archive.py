@@ -756,6 +756,12 @@ def verify_system(root, decision):
         for c, b in zip(reports["candidate"], reports["base"], strict=True)
         if c["context_route"] == "ordinary"
     )
+    raw_rows = Path("data/v3_retention/validation.jsonl")
+    require(
+        decision["raw_route_ids"]
+        == [json.loads(line)["id"] for line in raw_rows.read_text().splitlines()],
+        "Ordinary routing of every raw retention passage",
+    )
     ret = decision["retention"]
     verify_retention_pair(ret["base"], ret["candidate"])
     passed = (
