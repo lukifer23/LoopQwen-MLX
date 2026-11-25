@@ -30,3 +30,24 @@ The primary language pair fixes ordered questions, exact prompt token IDs, the o
 The scored 128K pair uses identical input IDs for both depths with full-history caches at every attention site. The disk-backed implementation writes intermediate activations as BF16 bits, stores each completed site's prefix in its original dtype, and reads the prefix during decode. It trades storage I/O for lower resident cache memory. All model inference and training use native MLX on Metal. The 259-token preflight compares every vocabulary logit across four positions before committing to long prefill. [Full-history protocol](../research/experiments/context-128k-01.json) · [Disk-backed protocol](../research/experiments/context-128k-disk.json)
 
 The fresh panel uses 24 of Scale AI’s 50 publicly released GSM1K examples and 24 SVAMP examples, six per arithmetic operation. The same adapter and scorer face a 1,024-token ceiling. This directly tests whether additional time for Base to finish changes the deployment conclusion. The shorter 256-token comparison is read from the same greedy streams, with its elapsed time measured during generation. The publisher datasets are public, so prior exposure during Qwen pretraining is unknown. [Registered transfer comparison](../research/experiments/rationale-transfer-01.json) · [GSM1K public release](https://github.com/scaleapi/gsm1k_eval) · [SVAMP study](https://aclanthology.org/2021.naacl-main.168/)
+
+## What fits on the 18 GiB M3 Pro
+
+Both resident-cache runs processed the same 131,072 input IDs and generated all 96 allowed output tokens. The target number appeared about 13,100 tokens into the ledger. Both generations were still in the thinking span at the limit and neither contained the target. MLX peak allocations are process measurements. The operating system and filesystem cache also use unified memory. [Prompt, emitted IDs and timings](../research/sessions/2026-11-25/context-128k-01)
+
+| Resident checkpoint | Time to first token | Total time | Prefill tokens/s | Decode tokens/s |
+|---|---:|---:|---:|---:|
+| Untouched Base K1 | 192.44 s | 195.97 s | 681 | 26.9 |
+| Phase 4 arithmetic parent K2 | 261.75 s | 266.53 s | 501 | 19.9 |
+
+The original run stopped on a system memory warning after processing 112,768 Base input tokens. After Chrome closed, available memory reached 9.48 GiB. The completed test used the original registration, prompt and allocation guard. The working context limit therefore depends on other applications on this machine. [Initial interruption](../research/results/context-128k-01) · [Recovery record](../research/sessions/2026-11-25/resumption.json)
+
+### Recount the archived deployments
+
+From the checkout root, these commands use Python's standard library to verify checkpoint identities, exact prompts, emitted first turns, timing aggregates and the registered decisions. Native inference additionally needs the pinned checkpoint and locked Apple Silicon environment.
+
+```sh
+python3 scripts/research_registry.py
+python3 scripts/research_archive.py gsm-rationale-01 --verify --recovered-session 2026-11-25
+python3 scripts/research_archive.py context-128k-01 --verify --recovered-session 2026-11-25
+```
