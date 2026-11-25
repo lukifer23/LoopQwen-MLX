@@ -173,3 +173,12 @@ The reader selected the gold span on all eight inputs. Each correct answer was g
 | 1,024-token allowance | 16 | 18 | 71.8 / 206.6 | 6 / 8 |
 
 At 256 tokens the candidate gained seven answers on each source. At 1,024 it led 9–8 on SVAMP and trailed 7–10 on the publisher GSM8K sample. The 40 training pairs contained 3,820 chosen tokens and 3,713 rejected tokens. Sampling took 681.6 s and 30 preference updates took 86.6 s. The V3 NLL was 2.98823 against 2.98266 for Base. This trained variant missed its long-budget gate. [Sampled solutions, reference log probabilities and paired predictions](../research/results/paired-solutions-01)
+
+### 131,078-token counterfactual retrieval
+
+| Queried value position | Reader answer | Base answer within 96 tokens | Reader / Base elapsed |
+|---|---:|---|---:|
+| 13,124 | 245799 | Unfinished turn | 325.7 / 249.8 s |
+| 98,297 | 307755 | Unfinished turn | 318.0 / 249.8 s |
+
+Each input contains all 131,078 tokens, both values and the same final question. Only two equal-length names exchanged positions. All numeric rows retained exactly the same values at the same offsets. The reader selected both annotated spans and generated both correct first turns. The total time ratio was 1.29 against a registered ceiling of 1.75. One counterfactual document pair cannot estimate accuracy across arbitrary documents. [Both complete requests and independent audit](../research/results/attention-memory-128k) · [Frozen inputs](../research/data/attention-memory-128k.json)

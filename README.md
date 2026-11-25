@@ -6,6 +6,10 @@ A local MLX research implementation of shared recurrent depth in the official Qw
 
 The released passage reader answered **8/8** held-out lookup questions across 2K and 16K contexts. Untouched Base answered **0/8** on the same thinking prompts with the same 96-token output allowance. Total generation time was **52.2 s versus 45.1 s**. The reader adds 32,929 learned parameters to the frozen arithmetic checkpoint. All 32 archived short math answers reproduced token for token. [Reader checkpoint, prompts and outputs](research/results/attention-memory-01) · [Measured accuracy and cost](docs/CAPABILITY_SCOREBOARD.md#frozen-arithmetic-decoder-with-a-learned-passage-reader)
 
+At **131,078 input tokens**, the same reader answered **2/2** full-history requests in **643.7 s** on an 18 GiB M3 Pro. Base answered **0/2 in 499.7 s**. The two documents contain the same question and every number in the same position. Swapping two record names moved the right answer from token 13,124 to token 98,297. The reader produced both different values. These are two versions of one synthetic document. [Full-context outputs and timing](research/results/attention-memory-128k)
+
+![Measured register accuracy and per-request latency at 2K, 16K and 128K](docs/measurements/reader-context.png)
+
 Reproduce the first 2K request on Apple Silicon. The expected visible answer is `191242`.
 
 ```sh
