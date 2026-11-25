@@ -1,13 +1,13 @@
 {
-  "session_start_utc": "2026-11-24T03:04:27.475056+00:00",
-  "starting_revision": "fbddf5a65d5c62dc45604cb1150549c2949b7055",
+  "session_start_utc": "2026-11-25T18:20:08.744079+00:00",
+  "starting_revision": "eceb96f",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": null,
+  "active": "gsm-rationale-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -17,7 +17,7 @@
     "combined_room_and_state": "research/results/joint-trace-01/model at K3"
   },
   "frontier": "Measured-time static training 255/256 vs adaptive 248/256. General retention of the six-hop model remains unmeasured.",
-  "next": "functional-interleave-01",
+  "next": "context-128k-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -68,16 +68,16 @@
       "id": "functional-replay-cap84",
       "promoted": false,
       "reason": "Static 53/128 sixth hops vs online 33/128; permutation anchor dropped to 12/96 and 11/96. Round two closed."
+    },
+    {
+      "id": "functional-interleave-01",
+      "promoted": false,
+      "reason": "Mixed arm 21/128 functional endpoints versus parent 4/128, but permutation retention 57/96 versus required 94/96. Both trained arms solved 0/78 moving complete paths."
     }
   ],
-  "status": "Stopped at owner request. The native window is closed and its memory monitor exited.",
-  "next_action": "Only after a new owner-authorized session and sufficient memory headroom, verify and restore the original control at update 1, then complete the registered paired retention study. See docs/NEXT_EXPERIMENTS.md.",
-  "hypothesis": "Replacing two of eight new-task examples with prior permutation training examples can preserve the old operation during functional-graph adaptation.",
-  "budget_used": {
-    "iterations_started": 0,
-    "experiment_wall_seconds": 0,
-    "session_wall_seconds_at_close": 2610.463922739029
-  },
+  "status": "Authorized session active after host memory recovery.",
+  "next_action": "Complete the frozen language and full-history deployment pairs with cumulative resource limits.",
+  "hypothesis": "A stabilized arithmetic parent adapted to complete natural-language solutions can improve correct first-turn answers at reasonable cost.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
     "Six-hop unrestricted graph paths 6/192",
@@ -116,12 +116,8 @@
   ],
   "closed_session_start": 1795489467.4750562,
   "native_window": {
-    "start_utc": "2026-11-24T03:04:27.475056+00:00",
-    "expires_utc": "2026-11-24T05:04:27.475056+00:00",
-    "study": "functional-interleave-01",
-    "last_resource_observation": "research/sessions/interleave-closure-1795489467/monitor.tsv",
-    "status": "closed",
-    "closed_utc": "2026-11-24T03:47:57.938979+00:00",
-    "closure_record": "research/sessions/interleave-closure-1795489467/closure.json"
+    "start_utc": "2026-11-25T18:20:08.744079+00:00",
+    "status": "open",
+    "resumption": "research/sessions/2026-11-25/resumption.json"
   }
 }
