@@ -211,3 +211,14 @@ Both systems first attempted each question greedily with the entire allowance av
 | SVAMP at 1,024 | 9/24 | 16/24 | 36.4 / 151.8 | 1 / 8 |
 
 All 384 updates completed on MLX in 919.1 seconds of update time. V3 language NLL was 3.00277 for the recurrent adapter and 2.98266 for Base. Full-budget accuracy failed on both sources. [Individual generations and weights](../research/results/all-layer-reasoning-01)
+
+### Completed answers under a content-based reading
+
+| Independent panel, 1,024-token allowance | Recurrent | Untouched Base | Paired wins / losses |
+|---|---:|---:|---:|
+| Original arithmetic transfer | 23/48 | 35/48 | 2 / 14 |
+| Inverse-checked rationale | 12/32 | 21/32 | 4 / 13 |
+| Preference-trained solutions | 16/32 | 23/32 | 2 / 9 |
+| All-layer arithmetic and reading | 21/48 | 38/48 | 0 / 17 |
+
+This secondary analysis keeps each frozen generation and its original completion boundary. For every completed visible response rejected by the numeric scorer, a reviewer recorded the numeric answer actually expressed, including clear prose and equivalent fractions. Unfinished turns still score zero. The annotation view displays the question and visible answer. The scoring step joins each annotation to the model and publisher gold. The four primary decisions continue to use their registered strict rule. [Reviewed labels](measurements/answer-audits) · [Reproducible scoring](../scripts/research_answer_audit.py)
