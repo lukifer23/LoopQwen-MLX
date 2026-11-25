@@ -711,7 +711,9 @@ def verify_system(root, decision):
                 arc = Path(stage["directory"])
                 require(
                     sha(arc / "checksums.json") == stage["inventory"]
-                    and read(arc / "decision.json")["passed"],
+                    and read(arc / "decision.json")["passed"]
+                    and sha(Path(stage["audit"])) == stage["audit_sha256"]
+                    and read(arc / "decision.json")["weights"] == info["weights"],
                     "Qualified specialist required",
                 )
     reports = {}
