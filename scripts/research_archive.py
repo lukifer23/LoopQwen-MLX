@@ -128,6 +128,8 @@ def verify(root):
         )
     if study in ("context-128k-01", "context-128k-disk", "context-rationale-128k"):
         verify_context(root, decision)
+    if study == "ledger-curriculum-01":
+        verify_ledger_curriculum(root, decision)
     if study == "rationale-dense-01":
         verify_dense_rationale(root, decision)
     if study in ("rationale-transfer-01", "checked-rationale-01"):
@@ -544,6 +546,128 @@ def verify_transfer(root, decision):
             and r["candidate"]["nll"] <= r["base"]["nll"] + 0.03
         )
     require(decision["passed"] == passed, "Transfer gate")
+
+
+def verify_ledger_curriculum(root, decision):
+    from loopqwen.identity import fingerprint
+
+    reg = read(root / "registration.json")
+    cohort = Path("research/data/ledger-curriculum-01.json")
+    require(
+        sha(root / "registration.json") == decision["registration"]
+        and sha(cohort) == decision["data"],
+        "Ledger registration and frozen requests",
+    )
+    items = read(cohort)["items"]
+    require(
+        len(items) == len({r["seed"] for r in items}) == 8
+        and {(r["minimum_length"], r["fraction"], r["announce"]) for r in items}
+        == {
+            (n, f, a) for n in (2048, 16384) for f in (0.1, 0.75) for a in (False, True)
+        },
+        "Ledger evaluation design",
+    )
+    if "weights" in decision:
+        state = read(root / "model/state.json")
+        require(
+            sha(root / "model/adapters.safetensors") == decision["weights"]
+            and state["step"] == decision["updates"] == reg["updates"]
+            and state["parent"] == reg["parent_sha256"]
+            and decision["targets"] == sum(h["targets"] for h in state["history"]),
+            "Ledger checkpoint lineage or exposure",
+        )
+    outputs = {}
+    for arm in ("base", "candidate"):
+        file = root / (arm + ".json.gz")
+        if not file.exists():
+            require(decision["status"] == "interrupted", "Missing ledger arm")
+            continue
+        rows = read(file)["records"]
+        require(len(rows) <= len(items), "Too many ledger generations")
+        for row, item in zip(rows, items):
+            require(
+                row["input_sha256"] == fingerprint(item["prompt_ids"])
+                and row["prompt_tokens"] == len(item["prompt_ids"])
+                and item["minimum_length"]
+                <= row["prompt_tokens"]
+                <= item["minimum_length"] + 32
+                and row["seed"] == item["seed"]
+                and row["gold"] == item["gold"]
+                and row["greedy"]
+                and row["max_tokens"] == reg["generation_cap"]
+                and 0 < len(row["token_ids"]) <= row["max_tokens"]
+                and row["elapsed_s"] >= row["ttft_s"] > 0,
+                "Ledger request, generation policy or cost",
+            )
+            answer = first_turn_answer(row["token_ids"], row["text"])
+            require(
+                row["answer"] == answer and row["correct"] == (answer == item["gold"]),
+                "Ledger lookup score",
+            )
+        outputs[arm] = rows
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and not decision["qualified"] and decision["reason"],
+            "Interrupted ledger",
+        )
+        return
+    require(
+        all(len(outputs[arm]) == len(items) for arm in ("candidate", "base")),
+        "Incomplete ledger pair",
+    )
+    audit = decision["arithmetic"]
+    parent = Path(reg["parent"]).parent
+    require(
+        sha(root / "arithmetic/base.json.gz") == sha(parent / "base.json.gz")
+        and audit["base"] == read(parent / "decision.json")["base"],
+        "Frozen arithmetic Base",
+    )
+    candidate = read(root / "arithmetic/candidate.json.gz")
+    arithmetic = candidate["records"]
+    ref = read(parent / "base.json.gz")["records"]
+    require(
+        candidate["weights"] == decision["weights"]
+        and len(arithmetic) == len(ref) == 32,
+        "Arithmetic checkpoint or size",
+    )
+    for a, b in zip(arithmetic, ref, strict=True):
+        require(
+            (a["id"], a["gold"], a["prompt_ids"])
+            == (b["id"], b["gold"], b["prompt_ids"])
+            and a["answer"] == first_turn_answer(a["token_ids"], a["text"])
+            and a["correct"] == (a["answer"] == a["gold"]),
+            "Arithmetic retention response",
+        )
+    require(
+        sum(v["correct"] for v in arithmetic) == audit["candidate"]["correct"]
+        and sum(v["seconds"] for v in arithmetic) == audit["candidate"]["seconds"],
+        "Arithmetic retention totals",
+    )
+    verify_retention_pair(audit["candidate"]["retention"], audit["base"]["retention"])
+    eligible = []
+    for announce, name in ((False, "query_last"), (True, "query_first")):
+        ix = [i for i, r in enumerate(items) if r["announce"] == announce]
+        pair = {
+            a: {
+                "correct": sum(rows[i]["correct"] for i in ix),
+                "seconds": sum(rows[i]["elapsed_s"] for i in ix),
+            }
+            for a, rows in outputs.items()
+        }
+        require(pair == decision["scores"][name], "Ledger group scores")
+        if (
+            pair["candidate"]["correct"] == 4
+            and pair["candidate"]["seconds"] <= 1.75 * pair["base"]["seconds"]
+            and audit["candidate"]["retention"]["nll"]
+            <= audit["base"]["retention"]["nll"] + 0.03
+        ):
+            eligible.append(name)
+    require(
+        decision["qualified"] == eligible
+        and decision["passed"] == bool(eligible)
+        and decision["arithmetic_retained"] == (audit["candidate"]["correct"] >= 13),
+        "Ledger scaling decision",
+    )
 
 
 def verify_rationale(root, decision):
