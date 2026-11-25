@@ -154,6 +154,35 @@ def material(s):
     )
 
 
+def expanded(s):
+    """Preserve the trained K2 parent exactly before expanding its trainable layer set."""
+    parent = Path(s["parent"])
+    dep = read(parent / "state.json")["spec"]["deployment"]
+    dep = dict(
+        dep,
+        config=dict(
+            dep["config"], target="all", seed=s["seed"], gradient_checkpointing=True
+        ),
+    )
+    m, t, _ = checkpoint.setup(dep["config"])
+    m.alpha_override = dep["alpha_override"]
+    prior = mx.load(str(parent / "adapters.safetensors"))
+    initialized = dict(tree_flatten(m.trainable_parameters()))
+    if not prior.keys() < initialized.keys() or any(
+        prior[k].shape != initialized[k].shape for k in prior
+    ):
+        raise ValueError("Expanded adapter cannot reproduce the parent")
+    if any(
+        mx.max(mx.abs(v)).item() != 0
+        for k, v in initialized.items()
+        if k not in prior and k.endswith("lora_b")
+    ):
+        raise ValueError("New projection must start at zero")
+    m.load_weights(list(prior.items()), strict=False)
+    del prior, initialized
+    return m, t, dep
+
+
 def run(freeze):
     s = read(REG)
     docs, rows, manifest = material(s)
@@ -187,30 +216,7 @@ def run(freeze):
     }
     cp = Path("checkpoints/research") / s["id"]
     try:
-        parent = Path(s["parent"])
-        dep = read(parent / "state.json")["spec"]["deployment"]
-        dep = dict(
-            dep,
-            config=dict(
-                dep["config"], target="all", seed=s["seed"], gradient_checkpointing=True
-            ),
-        )
-        m, t, _ = checkpoint.setup(dep["config"])
-        m.alpha_override = dep["alpha_override"]
-        prior = mx.load(str(parent / "adapters.safetensors"))
-        initialized = dict(tree_flatten(m.trainable_parameters()))
-        if not prior.keys() < initialized.keys() or any(
-            prior[k].shape != initialized[k].shape for k in prior
-        ):
-            raise ValueError("Expanded adapter cannot reproduce the parent")
-        if any(
-            mx.max(mx.abs(v)).item() != 0
-            for k, v in initialized.items()
-            if k not in prior and k.endswith("lora_b")
-        ):
-            raise ValueError("New projection must start at zero")
-        m.load_weights(list(prior.items()), strict=False)
-        del prior, initialized
+        m, t, dep = expanded(s)
         st = core.train(m, docs, dict(s, deployment=dep), cp, b, s["parent_sha256"])
         gen = checkpoint_location(cp)
         bootstrap.release(gen, root / "model")
