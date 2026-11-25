@@ -675,7 +675,9 @@ def verify_system(root, decision):
         "Conditional comparison identity",
     )
     require(
-        len({r["id"] for r in data}) == len(data) == 56
+        len({r["id"] for r in data})
+        == len(data)
+        == 44 + 6 * reg.get("relation_groups_per_source", 2)
         and len(manifest["ids"]) == 4 * reg["route_examples_per_class"]
         and len(set(manifest["ids"])) == len(manifest["ids"])
         and set(manifest["ids"]).isdisjoint(fingerprint(r["prompt_ids"]) for r in data),
@@ -792,6 +794,10 @@ def verify_system(root, decision):
             for k in ("arithmetic", "entailment")
         )
         > 0
+        and all(
+            scores[k]["wins"] > scores[k]["losses"]
+            for k in reg.get("required_gains", [])
+        )
         and scores["register"]["candidate"]["correct"] == 4
         and a["candidate"]["seconds"] <= a["base"]["seconds"]
         and kept

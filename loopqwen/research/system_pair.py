@@ -86,7 +86,13 @@ def material(s):
         groups, _ = inference_data.training_groups(original, first)
         past += [r for source in groups.values() for group in source for r in group]
     nli = inference_data.material(
-        dict(original, seed=s["seed"], per_source_groups=2, eval_template=3), past
+        dict(
+            original,
+            seed=s["seed"],
+            per_source_groups=s.get("relation_groups_per_source", 2),
+            eval_template=s.get("relation_template", 3),
+        ),
+        past,
     )
     panel.extend(
         {
@@ -289,6 +295,10 @@ def run(name, freeze):
                 for k in ("arithmetic", "entailment")
             )
             > 0
+            and all(
+                scores[k]["wins"] > scores[k]["losses"]
+                for k in s.get("required_gains", [])
+            )
             and scores["register"]["candidate"]["correct"] == 4
             and a["candidate"]["seconds"] <= a["base"]["seconds"]
             and ret["base"] == ret["candidate"]
