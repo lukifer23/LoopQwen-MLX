@@ -182,3 +182,12 @@ At 256 tokens the candidate gained seven answers on each source. At 1,024 it led
 | 98,297 | 307755 | Unfinished turn | 318.0 / 249.8 s |
 
 Each input contains all 131,078 tokens, both values and the same final question. Only two equal-length names exchanged positions. All numeric rows retained exactly the same values at the same offsets. The reader selected both annotated spans and generated both correct first turns. The total time ratio was 1.29 against a registered ceiling of 1.75. One counterfactual document pair cannot estimate accuracy across arbitrary documents. [Both complete requests and independent audit](../research/results/attention-memory-128k) · [Frozen inputs](../research/data/attention-memory-128k.json)
+
+### Natural prose transfer
+
+| Twelve SQuAD-derived reading requests | Exact match | Mean token F1 | Scorable visible answers | Total seconds |
+|---|---:|---:|---:|---:|
+| Untouched Base K1 | 4/12 | 0.511 | 12/12 | 32.6 |
+| Learned reader K2 | 2/12 | 0.408 | 8/12 | 27.5 |
+
+The reader's selected span overlapped the human-annotated source paragraph on only three requests. Its two exact answers were also correct for Base. The reader gained zero and lost two, with early/middle/late exact counts of 1/1/0 versus 2/1/1 for Base. The preregistered 8/12 exact threshold and quality improvement both failed. This closes expansion of the frozen reader on this task. [Free-text outputs and costs](../research/results/prose-reading-01) · [Source, transformation and evaluation policy](../research/experiments/prose-reading-01.json)

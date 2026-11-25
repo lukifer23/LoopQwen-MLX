@@ -8,6 +8,8 @@ The released passage reader answered **8/8** held-out lookup questions across 2K
 
 At **131,078 input tokens**, the same reader answered **2/2** full-history requests in **643.7 s** on an 18 GiB M3 Pro. Base answered **0/2 in 499.7 s**. The two documents contain the same question and every number in the same position. Swapping two record names moved the right answer from token 13,124 to token 98,297. The reader produced both different values. These are two versions of one synthetic document. [Full-context outputs and timing](research/results/attention-memory-128k)
 
+On **12 natural Wikipedia reading questions** with roughly 2K tokens of same-topic paragraphs, the reader scored **2/12 exact** in 27.5 s and Base scored **4/12** in 32.6 s. The learned span overlapped the annotated source paragraph on only three requests. The released reader is a register-lookup specialist. Base remains the general reading reference. [Natural prose transfer results](research/results/prose-reading-01)
+
 ![Measured register accuracy and per-request latency at 2K, 16K and 128K](docs/measurements/reader-context.png)
 
 Reproduce the first 2K request on Apple Silicon. The expected visible answer is `191242`.

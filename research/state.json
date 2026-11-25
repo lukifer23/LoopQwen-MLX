@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "attention-memory-128k",
+  "active": "shared-budget-vote-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -15,10 +15,11 @@
     "general_language": "Qwen/Qwen3.5-0.8B-Base@dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
     "complete_room_trace": "research/results/trace-depth-01/model at K1",
     "combined_room_and_state": "research/results/joint-trace-01/model at K3",
-    "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model"
+    "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model",
+    "register_lookup_through_131078": "research/results/attention-memory-01/model"
   },
-  "frontier": "The 32-update K2 adapter improved 256-token word-problem accuracy on the development cohort and both fresh sources. Base won the fresh 1,024-token comparison.",
-  "next": "shared-budget-vote-01",
+  "frontier": "The frozen arithmetic decoder with a learned passage prior achieved 8/8 register answers through 16K and 2/2 on a 131078-token key swap, against 0/8 and 0/2 for Base. Natural extractive transfer failed (2/12 vs 4/12).",
+  "next": null,
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -129,10 +130,32 @@
       "id": "prefill-block-01",
       "promoted": false,
       "reason": "512-token blocks lowered TTFT but changed the 16K greedy stream and exceeded both memory bounds."
+    },
+    {
+      "id": "paired-solutions-01",
+      "promoted": false,
+      "reason": "DPO on 40 sampled correct/wrong pairs scored 16/32 vs Base 2/32 at 256 tokens and 16/32 vs 18/32 at 1024."
+    },
+    {
+      "id": "attention-memory-01",
+      "promoted": true,
+      "scope": "Matched 2K/16K register qualification",
+      "reason": "8/8 correct vs Base 0/8, 52.18 vs 45.08 seconds, all 32 short arithmetic token streams reproduced."
+    },
+    {
+      "id": "attention-memory-128k",
+      "promoted": true,
+      "scope": "Two equal-length key swaps in a single 131078-token register",
+      "reason": "2/2 correct vs Base 0/2, both selected spans contain the value, 643.73 vs 499.67 seconds."
+    },
+    {
+      "id": "prose-reading-01",
+      "promoted": false,
+      "reason": "Only 3/12 selected spans overlap the annotated paragraph. Natural exact match 2/12 vs Base 4/12 and mean token F1 0.408 vs 0.511."
     }
   ],
   "status": "Active after owner confirmed continuation",
-  "next_action": "Measure checked publisher solutions and independently test full-history record retrieval.",
+  "next_action": "Finish the frozen shared-budget language pair and verify the released inference and export paths.",
   "hypothesis": "A stabilized arithmetic parent adapted to complete natural-language solutions can improve correct first-turn answers at reasonable cost.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
