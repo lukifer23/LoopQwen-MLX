@@ -64,3 +64,13 @@ def verify(directory):
     actual = hashlib.sha256(np.asarray(logits).tobytes()).hexdigest()
     if actual != audit["logits_sha256"]:
         raise ValueError("Fresh-process export logits differ from merged logits")
+    if "reader_probe" in audit:
+        from .evaluation.generation_eval import generate
+
+        probe = audit["reader_probe"]
+        sample = generate(model, tokenizer, probe["prompt"], 4)
+        if (
+            sample.get("attention_memory") != probe["section"]
+            or sample["token_ids"] != probe["token_ids"]
+        ):
+            raise ValueError("Standalone full-history attention generation differs")

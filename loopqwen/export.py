@@ -125,6 +125,7 @@ def export(checkpoint, output, fusion="stock"):
             "looped_model.py",
             "recurrence.py",
             "recurrent_cache.py",
+            "offloaded_prefill.py",
         ):
             shutil.copyfile(Path(__file__).with_name(filename), runtime / filename)
         if has_reader:
@@ -132,19 +133,35 @@ def export(checkpoint, output, fusion="stock"):
                 Path(__file__).with_name("attention_memory.py"),
                 runtime / "attention_memory.py",
             )
+        evaluation = runtime / "evaluation"
+        evaluation.mkdir()
+        (evaluation / "__init__.py").write_text("")
+        shutil.copyfile(
+            Path(__file__).parent / "evaluation" / "generation_eval.py",
+            evaluation / "generation_eval.py",
+        )
         (runtime / "__init__.py").write_text(
             "from .export_runtime import load_export\n"
+            "from .evaluation.generation_eval import generate\n"
         )
         (temp / "README.md").write_text(
-            "# Looped Qwen text export\n\nIn this directory use the pinned project environment. "
-            "Run `from runtime import load_export` and `model, tokenizer = load_export('.')`. "
-            "Call `model.make_cache()` once per prompt.\n"
+            "# Looped Qwen text export\n\n"
+            "Run in this directory with the pinned native MLX environment. "
+            "The generator initializes a fresh request cache, applies the checkpoint's "
+            "attention reader when present, and preserves the full input. "
+            "Pass an existing scratch directory as `offload_dir` for disk-backed BF16 caches.\n\n"
+            "```python\n"
+            "from runtime import generate, load_export\n\n"
+            "model, tokenizer = load_export('.')\n"
+            "prompt = tokenizer.apply_chat_template(\n"
+            "    [{'role': 'user', 'content': 'What is 17 times 23?'}],\n"
+            "    tokenize=False, add_generation_prompt=True, enable_thinking=True,\n"
+            ")\n"
+            "end = tokenizer.encode('<|im_end|>', add_special_tokens=False)\n"
+            "result = generate(model, tokenizer, prompt, 256, stop_ids=end)\n"
+            "print(result['text'])\n"
+            "```\n"
         )
-        if has_reader:
-            with (temp / "README.md").open("a") as guide:
-                guide.write(
-                    "\nFor the learned attention bias, call `section = model.attention_reader.select(model, prompt_ids)` before prefill. When section is present, use `from runtime.attention_memory import attach_bias` and `attach_bias(cache, section)` on that request cache. The project generation command does this automatically.\n"
-                )
         audit = dict(
             prompt=prompt,
             input_ids=ids.tolist(),
@@ -155,6 +172,25 @@ def export(checkpoint, output, fusion="stock"):
             fused_modules=fused,
             step=state["step"],
         )
+        if has_reader:
+            from .evaluation.generation_eval import generate
+
+            body = "".join(
+                f"Register entry {i} has code {100000 + 137 * i}.\n" for i in range(128)
+            )
+            message = body + "Which code belongs to register entry 37?"
+            probe = tok.apply_chat_template(
+                [{"role": "user", "content": message}],
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=True,
+            )
+            sample = generate(model, tok, probe, 4)
+            audit["reader_probe"] = {
+                "prompt": probe,
+                "section": sample["attention_memory"],
+                "token_ids": sample["token_ids"],
+            }
         save(temp / "verification.json", audit)
         del model, before, after
         gc.collect()
