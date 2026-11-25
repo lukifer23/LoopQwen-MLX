@@ -1,0 +1,15 @@
+{
+  "id": "rationale-transfer-01",
+  "question": "Does the 32-update checkpoint still beat Base on two fresh public word-problem sources when both receive four times the generation allowance?",
+  "prerequisite": "research/sessions/2026-11-25/gsm-rationale-01",
+  "weights": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "seed": 2511214, "generation_cap": 1024, "per_source": 24,
+  "selection": "Seeded SHA256 order on normalized unique question text. Select 24 public GSM1K questions and six SVAMP items per each of four operation types. Exclude historical project texts, previous GSM training/development rows and duplicate questions. Interleave two sorted source lists. Freeze IDs, golds, prompt tokens and order before any neural scoring.",
+  "protocol": "Same zero-demo thinking prompt and strict first-turn numeric scorer as the passing development study, K2 vs unadapted K1, unrestricted greedy. Balanced arm order: candidate first on first 24, Base first on last 24. Record tokens, per-item times, wins, losses, answers at full budget and descriptive 256-token prefix at the actual measured time. No tuning on this cohort. No new training.",
+  "gate": "At the full 1024-token allowance require >=2 net wins in each source, pooled exact two-sided McNemar p<0.05, and total candidate generation time <= Base. Any loss of the prerequisite weight identity closes this study. On warning or budget interruption archive the completed prefix; no claim of replication.",
+  "sources": {
+    "gsm1k_public": {"file":"gsm1k_public_50.csv","url":"https://raw.githubusercontent.com/scaleapi/gsm1k_eval/39294c6f31855aca8255b6174b22fc3a6311be0b/gsm1k_public_50.csv","sha256":"43fcd00bc698ee38852857427e956a2e4b516af710113b06f64018226233aa02"},
+    "svamp": {"file":"svamp.json","url":"https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json","sha256":"5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"}
+  },
+  "limits":{"wall_seconds":1150,"peak_gib":4,"available_gib":1.5}
+}
