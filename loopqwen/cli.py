@@ -87,6 +87,11 @@ def main():
         type=Path,
         help="Use an existing scratch directory for exact BF16 full-history inference",
     )
+    p.add_argument(
+        "--thinking",
+        action="store_true",
+        help="Render the input as a thinking-enabled user turn and stop at its first chat boundary",
+    )
     prompts.add_argument("--prompt")
     prompts.add_argument(
         "--prompt-file", type=Path, help="Read the complete UTF-8 prompt from disk"
@@ -244,8 +249,26 @@ def main():
             if args.prompt_file
             else args.prompt
         )
+        stop_ids = ()
+        if args.thinking:
+            prompt = tok.apply_chat_template(
+                [{"role": "user", "content": prompt}],
+                tokenize=False,
+                add_generation_prompt=True,
+                enable_thinking=True,
+            )
+            stop_ids = tok.encode("<|im_end|>", add_special_tokens=False)
+            if not prompt.endswith("<think>\n") or len(stop_ids) != 1:
+                raise ValueError(
+                    "Tokenizer does not support the pinned thinking-turn protocol"
+                )
         result = generate(
-            model, tok, prompt, args.max_tokens, offload_dir=args.offload_dir
+            model,
+            tok,
+            prompt,
+            args.max_tokens,
+            offload_dir=args.offload_dir,
+            stop_ids=stop_ids,
         )
     elif cmd == "export":
         from .export import export
