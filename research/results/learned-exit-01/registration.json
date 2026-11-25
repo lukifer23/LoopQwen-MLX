@@ -1,0 +1,65 @@
+{
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "sources": {
+    "gsm8k_reserved": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "id": "learned-exit-01",
+  "seed": 261125761,
+  "updates": 64,
+  "logical_batch": 2,
+  "cap_positions": 1152,
+  "lr": 6e-05,
+  "weight_decay": 0,
+  "clip": 1,
+  "depth": 2,
+  "generation_cap": 1024,
+  "rollout_cap": 192,
+  "per_source": 16,
+  "pool": 0,
+  "question": "Can a learned vocabulary correction and trained answer decoder read authentic long Base reasoning, finish more correct answers across both sources, and preserve earlier ordinary-depth computations?",
+  "training": "Start at the original qualified K2 arithmetic decoder. Extend all 23 previously capped, unclosed training-only Base drafts from token 512 through token 832 or the first turn boundary. From each of the 64 drafts train on the prefix at the switch (or the natural close) and at a later available boundary, supervising the natural thinking close and the human numeric answer. Fit one regularized linear output residual to the closing-token logit on these true K2 hidden states, the normalized thinking length, and matched earlier negative states. All inference tokens come from the full vocabulary greedy head with no forced tokens. No evaluation questions, answers, benchmark identities or supplied expressions at inference.",
+  "decision": "First fresh 32 paired questions, 16 from each source. Fixed identical zero-demo prompt IDs, thinking and greedy 1024-token limit. Require at least two net additional strict answers, positive net on each source, no earlier loss at 256, total generation time <=Base and K2 retention within Base+0.03. Blindly audit all completed free-text answers rejected by numeric scorer and require a positive content margin before replication. If passed, independently repeat on 48 new questions with fixed weights. A failed prerequisite closes expansion. Stop on registered resource guard.",
+  "limits": {
+    "wall_seconds": 1450,
+    "peak_gib": 6.7,
+    "available_gib": 1.5
+  },
+  "switch_after": 704,
+  "training_draft_cap": 832,
+  "net_floor": 2,
+  "drafts": "research/results/recurrent-deliberation-01/drafts.json.gz",
+  "excluded_panels": [
+    "research/data/paired-solutions-01.json",
+    "research/data/paired-solutions-pool.json",
+    "research/data/shared-budget-vote-01.json",
+    "research/data/all-layer-reasoning-01.json",
+    "research/data/recurrent-deliberation-01.json",
+    "research/data/recurrent-deliberation-training.json",
+    "research/data/projected-distillation-01.json",
+    "research/data/privileged-reasoning-01.json",
+    "research/data/late-recurrent-exit-01.json"
+  ],
+  "excluded_training": [
+    "research/data/all-layer-reasoning-training.json",
+    "research/data/projected-distillation-training.json",
+    "research/data/privileged-reasoning-training.json",
+    "research/data/late-recurrent-exit-training.json"
+  ],
+  "draft_sha256": "71d36d21590f3c4ead242df5416bbc23a45cd01f5f4849a0420f76c4cdef0322",
+  "head_updates": 240,
+  "head_lr": 0.012,
+  "head_l2": 0.012
+}

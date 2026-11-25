@@ -28,7 +28,10 @@ def export(checkpoint, output, fusion="stock"):
     temp = Path(tempfile.mkdtemp(prefix=".export-", dir=out.parent))
     try:
         model, tok, state = load_trained(checkpoint)
-        if getattr(model, "context_policy", None) is not None:
+        if (
+            getattr(model, "context_policy", None) is not None
+            or getattr(model, "deliberation_policy", {}).get("version") == 2
+        ):
             from .context_export import write
 
             result = write(temp, checkpoint, model, tok, state)

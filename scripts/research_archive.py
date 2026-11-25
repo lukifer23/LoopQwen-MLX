@@ -156,6 +156,7 @@ def verify(root):
         "privileged-reasoning-01",
         "late-recurrent-exit-01",
         "learned-exit-01",
+        "learned-exit-confirm-01",
         "fullrank-reasoning-01",
     ):
         verify_transfer(root, decision)
@@ -917,6 +918,32 @@ def verify_transfer(root, decision):
                 ),
                 "Trained deliberation model or exposure",
             )
+    if reg["id"] == "learned-exit-confirm-01":
+        parent = Path(reg["model"]).parent
+        first = read(parent / "decision.json")
+        require(
+            first["passed"]
+            and sha(parent / "checksums.json")
+            == reg["qualification"]
+            == decision["qualification"]
+            and weight
+            == reg["weights"]
+            == first["weights"]
+            == sha(parent / "model/adapters.safetensors")
+            and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+            == reg["dense_sha256"]
+            and read(parent / "model/deliberation.json")["switch_after"]
+            == reg["switch_after"]
+            and set(r["id"] for r in items).isdisjoint(
+                r["id"] for p in reg["excluded_panels"] for r in read(Path(p))
+            )
+            and set(r["id"] for r in items).isdisjoint(
+                q
+                for p in reg["excluded_training"]
+                for q in read(Path(p))["ordered_questions"]
+            ),
+            "Fixed qualified checkpoint and independent confirmation items",
+        )
     if reg["id"] == "fullrank-reasoning-01":
         manifest = Path("research/data/fullrank-reasoning-training.json")
         require(
@@ -1113,6 +1140,7 @@ def verify_transfer(root, decision):
         "recurrent-deliberation-01",
         "late-recurrent-exit-01",
         "learned-exit-01",
+        "learned-exit-confirm-01",
     ):
         switch = reg["switch_after"]
         for a, c in zip(reports.get("base", ()), reports.get("candidate", ())):
@@ -1211,6 +1239,7 @@ def verify_transfer(root, decision):
         "privileged-reasoning-01",
         "late-recurrent-exit-01",
         "learned-exit-01",
+        "learned-exit-confirm-01",
         "fullrank-reasoning-01",
     ):
         passed = (

@@ -21,7 +21,7 @@ def load_export(directory):
     directory = Path(directory)
     cfg = json.loads((directory / "config.json").read_text())
     if (
-        cfg.get("export_schema", 1) not in (1, 2, 3, 4)
+        cfg.get("export_schema", 1) not in (1, 2, 3, 4, 5)
         or cfg["model_type"] != "qwen3_5_looped"
         or cfg["recurrent_cache_version"] != 1
         or cfg["weight_sharing"] is not True
@@ -29,18 +29,22 @@ def load_export(directory):
         raise ValueError("Unsupported looped export schema")
     base = TextModel(TextModelArgs.from_dict(cfg["text_config"]))
     model = LoopedModel(base, Span(**cfg["span"]))
-    if cfg.get("export_schema") == 4:
+    if cfg.get("export_schema") in (4, 5):
         import hashlib
         from mlx.utils import tree_flatten
         from .training.adapters import attach
         from .attention_memory import load_reader
         from .context_policy import attach as attach_context
 
-        if (
-            hashlib.sha256((directory / "context-policy.json").read_bytes()).hexdigest()
-            != cfg["context_policy_sha256"]
-        ):
-            raise ValueError("Exported context policy metadata differs")
+        label = "context-policy" if cfg["export_schema"] == 4 else "deliberation"
+        metadata = directory / (label + ".json")
+        expected = (
+            cfg["context_policy_sha256"]
+            if cfg["export_schema"] == 4
+            else cfg["deliberation_sha256"]
+        )
+        if hashlib.sha256(metadata.read_bytes()).hexdigest() != expected:
+            raise ValueError("Exported policy metadata differs")
         base.load_weights(str(directory / "model.safetensors"), strict=True)
         c = cfg["adapter_config"]
         attach(model, c["target"], c["rank"], c["lora_alpha"], c["projections"])
@@ -49,8 +53,20 @@ def load_export(directory):
             raise ValueError("Exported register adapter tensor set differs")
         model.load_weights(list(weights.items()), strict=False)
         model.alpha_override = cfg["alpha_override"]
-        load_reader(model, directory)
-        attach_context(model, directory)
+        if cfg["export_schema"] == 4:
+            load_reader(model, directory)
+            attach_context(model, directory)
+        else:
+            from .deliberation import attach as attach_deliberation
+
+            spec = json.loads(metadata.read_bytes())
+            with (directory / "adapters.safetensors").open("rb") as f:
+                if (
+                    hashlib.file_digest(f, "sha256").hexdigest()
+                    != spec["adapter_sha256"]
+                ):
+                    raise ValueError("Learned exit adapter differs")
+            attach_deliberation(model, spec, directory=directory)
     else:
         model.load_weights(str(directory / "model.safetensors"), strict=True)
     mx.eval(model.parameters())

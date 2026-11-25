@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "learned-exit-01",
+  "active": "fullrank-reasoning-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -19,7 +19,7 @@
     "register_lookup_through_131078": "research/results/attention-memory-01/model"
   },
   "frontier": "Full-budget recurrent completion reached 27/48 versus 25/48 strict and 31/48 versus 30/48 on mathematical content, 353.05 versus 380.68 seconds. The positive margin missed the per-source and minimum-effect safeguards. The independently qualified 131078-token lookup reader remains available.",
-  "next": null,
+  "next": "learned-exit-confirm-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -182,10 +182,16 @@
       "id": "natural-context-01",
       "promoted": false,
       "reason": "Located 20/24 real source paragraphs but exact answers 9/24 versus 10/24 for Base. Mean token F1 0.392 versus 0.517. Failed final-answer gate, no long-context promotion."
+    },
+    {
+      "id": "learned-exit-01",
+      "promoted": false,
+      "scope": "Passed initial qualification; independent confirmation pending",
+      "reason": "24/32 vs 22/32 strict, 25/32 vs 23/32 completed mathematical content. One additional answer on each source; no losses. 215.89 vs 231.63 s; raw V3 NLL 2.99538 vs 2.98266."
     }
   ],
-  "status": "Evaluating learned recurrent termination",
-  "next_action": "Train on extended authentic training-only Base thoughts and run the registered matched comparison.",
+  "status": "Learned exit qualified on both reasoning sources; independent confirmation frozen",
+  "next_action": "Complete the full-rank pair, then verify the unchanged learned-exit model on 48 disjoint questions and the separate entailment primary.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",

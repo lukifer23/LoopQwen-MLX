@@ -259,3 +259,17 @@ The learned 64-token passage window overlapped the annotated source paragraph on
 ### Late recurrent exit
 
 The 896-token switch completed 14 of 16 candidate turns and all 16 Base turns before the 315-second worker limit. On the 14 matched items the candidate scored 9/14 in 123.75 seconds and Base scored 10/14 in 121.77 seconds. All four switched turns ended without a complete visible answer. Base scored 11/16 on the full panel. Even if the candidate had solved both remaining items, it could only have tied Base. The registered two-answer gain was already unreachable. Full-panel candidate accuracy and latency remain unmeasured. Its trained weights, Base prefix identities and completed turns were archived. [Partial paired generations](../research/results/late-recurrent-exit-01)
+
+### Learned exit on authentic extended reasoning
+
+| Frozen 1,024-token comparison | Learned exit | Untouched Base |
+|---|---:|---:|
+| Reserved GSM8K | 12/16 | 11/16 |
+| SVAMP | 12/16 | 11/16 |
+| Total under the registered scorer | 24/32 | 22/32 |
+| Correct visible mathematical content | 25/32 | 23/32 |
+| Generation seconds including replay | 215.89 | 231.63 |
+| Generated tokens | 14,426 | 15,861 |
+| Independent raw V3 NLL | 2.99538 | 2.98266 |
+
+Seven requests reached the learned recurrent exit. The paired result was two wins and zero losses (two-sided exact p = 0.50). All 32 ordinary prefixes matched the control. The endpoint met its initial qualification and the blind content check. Independent confirmation uses 24 additional reserved GSM8K items and 24 additional operation-balanced SVAMP questions. The project's historical inventory already contains every question in the official GSM8K test split. [Measured endpoint](../research/results/learned-exit-01) · [Blind labels](measurements/answer-audits/learned-exit-01.json) · [Frozen confirmation](../research/experiments/learned-exit-confirm-01.json)
