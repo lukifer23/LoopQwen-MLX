@@ -1,0 +1,1490 @@
+[
+  {
+    "projection": "text.model.layers.0.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.0750303864479065
+  },
+  {
+    "projection": "text.model.layers.0.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06213229149580002
+  },
+  {
+    "projection": "text.model.layers.0.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08007784187793732
+  },
+  {
+    "projection": "text.model.layers.0.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.09395275264978409
+  },
+  {
+    "projection": "text.model.layers.0.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 0.9999999403953552
+  },
+  {
+    "projection": "text.model.layers.0.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.0.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.1138981506228447
+  },
+  {
+    "projection": "text.model.layers.0.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.21665127575397491
+  },
+  {
+    "projection": "text.model.layers.1.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07756523042917252
+  },
+  {
+    "projection": "text.model.layers.1.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06671964377164841
+  },
+  {
+    "projection": "text.model.layers.1.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08629091829061508
+  },
+  {
+    "projection": "text.model.layers.1.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.07720501720905304
+  },
+  {
+    "projection": "text.model.layers.1.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.1.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.1.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10520388931035995
+  },
+  {
+    "projection": "text.model.layers.1.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.1097564697265625
+  },
+  {
+    "projection": "text.model.layers.2.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07655894756317139
+  },
+  {
+    "projection": "text.model.layers.2.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.060614943504333496
+  },
+  {
+    "projection": "text.model.layers.2.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.09109336882829666
+  },
+  {
+    "projection": "text.model.layers.2.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08753518015146255
+  },
+  {
+    "projection": "text.model.layers.2.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.2.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.2.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10780586302280426
+  },
+  {
+    "projection": "text.model.layers.2.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.11081118881702423
+  },
+  {
+    "projection": "text.model.layers.3.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07139264792203903
+  },
+  {
+    "projection": "text.model.layers.3.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.05998251959681511
+  },
+  {
+    "projection": "text.model.layers.3.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08486002683639526
+  },
+  {
+    "projection": "text.model.layers.3.self_attn.o_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.09649944305419922
+  },
+  {
+    "projection": "text.model.layers.3.self_attn.v_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.1644405722618103
+  },
+  {
+    "projection": "text.model.layers.3.self_attn.k_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.18314790725708008
+  },
+  {
+    "projection": "text.model.layers.3.self_attn.q_proj",
+    "shape": [
+      4096,
+      1024
+    ],
+    "fraction": 0.10863316059112549
+  },
+  {
+    "projection": "text.model.layers.4.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07116391509771347
+  },
+  {
+    "projection": "text.model.layers.4.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.05867309123277664
+  },
+  {
+    "projection": "text.model.layers.4.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08177891373634338
+  },
+  {
+    "projection": "text.model.layers.4.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08494237065315247
+  },
+  {
+    "projection": "text.model.layers.4.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.4.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 0.9999999403953552
+  },
+  {
+    "projection": "text.model.layers.4.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10691377520561218
+  },
+  {
+    "projection": "text.model.layers.4.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.11319922655820847
+  },
+  {
+    "projection": "text.model.layers.5.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07203065603971481
+  },
+  {
+    "projection": "text.model.layers.5.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.061035823076963425
+  },
+  {
+    "projection": "text.model.layers.5.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08259216696023941
+  },
+  {
+    "projection": "text.model.layers.5.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08212985098361969
+  },
+  {
+    "projection": "text.model.layers.5.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.5.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 0.9999999403953552
+  },
+  {
+    "projection": "text.model.layers.5.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10682497173547745
+  },
+  {
+    "projection": "text.model.layers.5.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.10462815314531326
+  },
+  {
+    "projection": "text.model.layers.6.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07355015724897385
+  },
+  {
+    "projection": "text.model.layers.6.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.060353416949510574
+  },
+  {
+    "projection": "text.model.layers.6.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08345994353294373
+  },
+  {
+    "projection": "text.model.layers.6.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08308451622724533
+  },
+  {
+    "projection": "text.model.layers.6.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.6.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.6.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10993149131536484
+  },
+  {
+    "projection": "text.model.layers.6.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.09532780945301056
+  },
+  {
+    "projection": "text.model.layers.7.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07132057845592499
+  },
+  {
+    "projection": "text.model.layers.7.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.058930132538080215
+  },
+  {
+    "projection": "text.model.layers.7.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08046488463878632
+  },
+  {
+    "projection": "text.model.layers.7.self_attn.o_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.09287718683481216
+  },
+  {
+    "projection": "text.model.layers.7.self_attn.v_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.15691184997558594
+  },
+  {
+    "projection": "text.model.layers.7.self_attn.k_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.17592184245586395
+  },
+  {
+    "projection": "text.model.layers.7.self_attn.q_proj",
+    "shape": [
+      4096,
+      1024
+    ],
+    "fraction": 0.10568632185459137
+  },
+  {
+    "projection": "text.model.layers.8.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07173368334770203
+  },
+  {
+    "projection": "text.model.layers.8.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.060038622468709946
+  },
+  {
+    "projection": "text.model.layers.8.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.0798090249300003
+  },
+  {
+    "projection": "text.model.layers.8.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.0780019462108612
+  },
+  {
+    "projection": "text.model.layers.8.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.8.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.8.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10659318417310715
+  },
+  {
+    "projection": "text.model.layers.8.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.09564507007598877
+  },
+  {
+    "projection": "text.model.layers.9.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07517436891794205
+  },
+  {
+    "projection": "text.model.layers.9.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06270893663167953
+  },
+  {
+    "projection": "text.model.layers.9.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.0807049497961998
+  },
+  {
+    "projection": "text.model.layers.9.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08371439576148987
+  },
+  {
+    "projection": "text.model.layers.9.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.9.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.9.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10823794454336166
+  },
+  {
+    "projection": "text.model.layers.9.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.09752164781093597
+  },
+  {
+    "projection": "text.model.layers.10.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07519938796758652
+  },
+  {
+    "projection": "text.model.layers.10.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06438678503036499
+  },
+  {
+    "projection": "text.model.layers.10.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08189324289560318
+  },
+  {
+    "projection": "text.model.layers.10.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.084197036921978
+  },
+  {
+    "projection": "text.model.layers.10.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 0.9999999403953552
+  },
+  {
+    "projection": "text.model.layers.10.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.10.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10471179336309433
+  },
+  {
+    "projection": "text.model.layers.10.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.09135276824235916
+  },
+  {
+    "projection": "text.model.layers.11.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07119960337877274
+  },
+  {
+    "projection": "text.model.layers.11.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06168635934591293
+  },
+  {
+    "projection": "text.model.layers.11.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07685213536024094
+  },
+  {
+    "projection": "text.model.layers.11.self_attn.o_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.09431726485490799
+  },
+  {
+    "projection": "text.model.layers.11.self_attn.v_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.15890994668006897
+  },
+  {
+    "projection": "text.model.layers.11.self_attn.k_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.17036819458007812
+  },
+  {
+    "projection": "text.model.layers.11.self_attn.q_proj",
+    "shape": [
+      4096,
+      1024
+    ],
+    "fraction": 0.09804599732160568
+  },
+  {
+    "projection": "text.model.layers.12.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.0765460804104805
+  },
+  {
+    "projection": "text.model.layers.12.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06345663964748383
+  },
+  {
+    "projection": "text.model.layers.12.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.0835266262292862
+  },
+  {
+    "projection": "text.model.layers.12.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.09408854693174362
+  },
+  {
+    "projection": "text.model.layers.12.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.12.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.12.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10620155930519104
+  },
+  {
+    "projection": "text.model.layers.12.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.10134358704090118
+  },
+  {
+    "projection": "text.model.layers.13.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07576519250869751
+  },
+  {
+    "projection": "text.model.layers.13.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06399957835674286
+  },
+  {
+    "projection": "text.model.layers.13.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08310211449861526
+  },
+  {
+    "projection": "text.model.layers.13.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08438188582658768
+  },
+  {
+    "projection": "text.model.layers.13.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.13.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 0.9999999403953552
+  },
+  {
+    "projection": "text.model.layers.13.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10341975092887878
+  },
+  {
+    "projection": "text.model.layers.13.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.09758180379867554
+  },
+  {
+    "projection": "text.model.layers.14.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07507283985614777
+  },
+  {
+    "projection": "text.model.layers.14.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06290695071220398
+  },
+  {
+    "projection": "text.model.layers.14.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08500108122825623
+  },
+  {
+    "projection": "text.model.layers.14.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08680606633424759
+  },
+  {
+    "projection": "text.model.layers.14.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 0.9999998211860657
+  },
+  {
+    "projection": "text.model.layers.14.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 0.9999998807907104
+  },
+  {
+    "projection": "text.model.layers.14.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10590530186891556
+  },
+  {
+    "projection": "text.model.layers.14.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.0937684178352356
+  },
+  {
+    "projection": "text.model.layers.15.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07286304235458374
+  },
+  {
+    "projection": "text.model.layers.15.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06215006858110428
+  },
+  {
+    "projection": "text.model.layers.15.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08261583745479584
+  },
+  {
+    "projection": "text.model.layers.15.self_attn.o_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.10130470991134644
+  },
+  {
+    "projection": "text.model.layers.15.self_attn.v_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.15694928169250488
+  },
+  {
+    "projection": "text.model.layers.15.self_attn.k_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.1705264300107956
+  },
+  {
+    "projection": "text.model.layers.15.self_attn.q_proj",
+    "shape": [
+      4096,
+      1024
+    ],
+    "fraction": 0.10365533828735352
+  },
+  {
+    "projection": "text.model.layers.16.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07643996924161911
+  },
+  {
+    "projection": "text.model.layers.16.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.061230503022670746
+  },
+  {
+    "projection": "text.model.layers.16.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.09010841697454453
+  },
+  {
+    "projection": "text.model.layers.16.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08491828292608261
+  },
+  {
+    "projection": "text.model.layers.16.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.16.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.16.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10230858623981476
+  },
+  {
+    "projection": "text.model.layers.16.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.10926830023527145
+  },
+  {
+    "projection": "text.model.layers.17.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07858824729919434
+  },
+  {
+    "projection": "text.model.layers.17.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.061017610132694244
+  },
+  {
+    "projection": "text.model.layers.17.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.09468479454517365
+  },
+  {
+    "projection": "text.model.layers.17.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08548278361558914
+  },
+  {
+    "projection": "text.model.layers.17.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.17.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.17.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10868225991725922
+  },
+  {
+    "projection": "text.model.layers.17.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.11825133860111237
+  },
+  {
+    "projection": "text.model.layers.18.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.07810153812170029
+  },
+  {
+    "projection": "text.model.layers.18.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.06084694340825081
+  },
+  {
+    "projection": "text.model.layers.18.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.0936313346028328
+  },
+  {
+    "projection": "text.model.layers.18.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08239302039146423
+  },
+  {
+    "projection": "text.model.layers.18.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.18.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.18.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10861177742481232
+  },
+  {
+    "projection": "text.model.layers.18.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.1302151083946228
+  },
+  {
+    "projection": "text.model.layers.19.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.0736365094780922
+  },
+  {
+    "projection": "text.model.layers.19.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.060457080602645874
+  },
+  {
+    "projection": "text.model.layers.19.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08984512090682983
+  },
+  {
+    "projection": "text.model.layers.19.self_attn.o_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.0907498449087143
+  },
+  {
+    "projection": "text.model.layers.19.self_attn.v_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.1756104975938797
+  },
+  {
+    "projection": "text.model.layers.19.self_attn.k_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.18848145008087158
+  },
+  {
+    "projection": "text.model.layers.19.self_attn.q_proj",
+    "shape": [
+      4096,
+      1024
+    ],
+    "fraction": 0.11187801510095596
+  },
+  {
+    "projection": "text.model.layers.20.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.0763406977057457
+  },
+  {
+    "projection": "text.model.layers.20.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.05946023389697075
+  },
+  {
+    "projection": "text.model.layers.20.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.09137894213199615
+  },
+  {
+    "projection": "text.model.layers.20.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08029451221227646
+  },
+  {
+    "projection": "text.model.layers.20.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.20.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.20.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10189858824014664
+  },
+  {
+    "projection": "text.model.layers.20.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.11806918680667877
+  },
+  {
+    "projection": "text.model.layers.21.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08257167041301727
+  },
+  {
+    "projection": "text.model.layers.21.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.062069837003946304
+  },
+  {
+    "projection": "text.model.layers.21.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.09779241681098938
+  },
+  {
+    "projection": "text.model.layers.21.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.08097892999649048
+  },
+  {
+    "projection": "text.model.layers.21.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0000001192092896
+  },
+  {
+    "projection": "text.model.layers.21.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 0.9999999403953552
+  },
+  {
+    "projection": "text.model.layers.21.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.10587988048791885
+  },
+  {
+    "projection": "text.model.layers.21.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.1341298222541809
+  },
+  {
+    "projection": "text.model.layers.22.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.08697628229856491
+  },
+  {
+    "projection": "text.model.layers.22.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.0721227154135704
+  },
+  {
+    "projection": "text.model.layers.22.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.10313000530004501
+  },
+  {
+    "projection": "text.model.layers.22.linear_attn.out_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.09162229299545288
+  },
+  {
+    "projection": "text.model.layers.22.linear_attn.in_proj_a",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.22.linear_attn.in_proj_b",
+    "shape": [
+      16,
+      1024
+    ],
+    "fraction": 1.0
+  },
+  {
+    "projection": "text.model.layers.22.linear_attn.in_proj_z",
+    "shape": [
+      2048,
+      1024
+    ],
+    "fraction": 0.11919491738080978
+  },
+  {
+    "projection": "text.model.layers.22.linear_attn.in_proj_qkv",
+    "shape": [
+      6144,
+      1024
+    ],
+    "fraction": 0.12355232238769531
+  },
+  {
+    "projection": "text.model.layers.23.mlp.up_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.10104189068078995
+  },
+  {
+    "projection": "text.model.layers.23.mlp.down_proj",
+    "shape": [
+      1024,
+      3584
+    ],
+    "fraction": 0.09441418200731277
+  },
+  {
+    "projection": "text.model.layers.23.mlp.gate_proj",
+    "shape": [
+      3584,
+      1024
+    ],
+    "fraction": 0.11960964649915695
+  },
+  {
+    "projection": "text.model.layers.23.self_attn.o_proj",
+    "shape": [
+      1024,
+      2048
+    ],
+    "fraction": 0.1455918699502945
+  },
+  {
+    "projection": "text.model.layers.23.self_attn.v_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.19913184642791748
+  },
+  {
+    "projection": "text.model.layers.23.self_attn.k_proj",
+    "shape": [
+      512,
+      1024
+    ],
+    "fraction": 0.18377022445201874
+  },
+  {
+    "projection": "text.model.layers.23.self_attn.q_proj",
+    "shape": [
+      4096,
+      1024
+    ],
+    "fraction": 0.1362537145614624
+  }
+]

@@ -1,0 +1,859 @@
+{
+  "identity": "f7f2ac94125395905727474a20e5bdfd6f1f1f824684e39812061142d56d824e",
+  "step": 96,
+  "spec": {
+    "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+    "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+    "dense_control": "research/results/rationale-dense-01/model",
+    "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+    "sources": {
+      "gsm8k_reserved": {
+        "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+        "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+        "license": "MIT",
+        "split": "publisher train"
+      },
+      "svamp": {
+        "file": "svamp.json",
+        "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+        "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+      }
+    },
+    "id": "privileged-reasoning-01",
+    "seed": 261125283,
+    "updates": 96,
+    "logical_batch": 4,
+    "cap_positions": 384,
+    "lr": 5.5e-05,
+    "weight_decay": 0,
+    "clip": 1,
+    "depth": 2,
+    "generation_cap": 1024,
+    "rollout_cap": 192,
+    "per_source": 16,
+    "pool": 0,
+    "reading_sha256": "3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955",
+    "reading_url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json",
+    "reading_license": "CC BY-SA 4.0, Rajpurkar et al. and Wikipedia contributors",
+    "reading_topics": [
+      "Architecture",
+      "Classical_music",
+      "Pitch_(music)",
+      "London",
+      "Appalachian_Mountains",
+      "Yale_University",
+      "Georgian_architecture",
+      "Norfolk_Island",
+      "Association_football",
+      "Gothic_architecture",
+      "Arena_Football_League",
+      "Neoclassical_architecture"
+    ],
+    "question": "Can a standalone recurrent student predict answer-phase hidden states with only a quarter of a human worked rationale available during training and then solve new questions by unrestricted generation?",
+    "training": "A new, independent weights-only study starting at the original K2 arithmetic adapter. Freeze all pinned dense parameters and the ordinary-depth control. Initialize 24 additive low-rank directions per linear projection from the post-trained sibling delta in addition to the eight parent factors. Train against complete publisher GSM8K worked solutions and SQuAD annotated reading, with Base-distribution anchors on unseen training prose. Each of 96 groups contains three math, one reading, one raw prose and one extra matched-prefix math document. For the latter, the teacher sees the whole publisher rationale. The student gets one quarter of its token prefix and must predict the same closing marker, visible answer and first turn boundary. Align top-32 plus residual vocabulary mass and unit-normalized final hidden vectors at up to 24 aligned answer positions. Save all distillation targets, the amount of reasoning withheld and the exact number of supervised tokens. No teacher generation, reference answer, privileged context or donor at inference. One trained K2 adapter generates every token at test time.",
+    "decision": "Fresh equal 1024-token 32-item paired primary at ordinary Base K1 versus the trained standalone K2. Require >=3 net correct pooled (9.375 percentage points), positive net on each source, candidate elapsed <=Base, nonnegative short-prefix net on each source and ungated prose NLL <=Base +0.03. Also require positive net on unambiguously correct completed mathematical content before allowing an independent replication. Report both paired p values. A failed primary closes the branch. Native memory or wall limit stops the study and downstream work.",
+    "limits": {
+      "wall_seconds": 1340,
+      "peak_gib": 6.15,
+      "available_gib": 1.5
+    },
+    "group": 6,
+    "rank": 24,
+    "power_iterations": 2,
+    "import_strength": 0.85,
+    "soft_weight": 0.4,
+    "temperature": 1.25,
+    "positions": 24,
+    "top_k": 32,
+    "retention_weight": 6,
+    "novel_sha256": "b854fc94ec2b4796b6b1700a9e356678bd13117fc7bbf630a0c3f995c7cbf446",
+    "exclude_panels": [
+      "research/data/all-layer-reasoning-01.json",
+      "research/data/recurrent-deliberation-01.json",
+      "research/data/recurrent-deliberation-training.json",
+      "research/data/projected-distillation-01.json"
+    ],
+    "exclude_training": [
+      "research/data/all-layer-reasoning-training.json",
+      "research/data/projected-distillation-training.json"
+    ],
+    "teacher": {
+      "repo": "Qwen/Qwen3.5-0.8B",
+      "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+      "shard": "model.safetensors-00001-of-00001.safetensors",
+      "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+      "license": "Apache-2.0"
+    },
+    "anchor_files": {
+      "howto-sorting.rst": {
+        "sha256": "c0e38a56c301e6968f5630a01e27048f07ca1288ffec45d37e6335fd909d2e4d",
+        "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/howto/sorting.rst",
+        "license": "PSF"
+      },
+      "library-collections.rst": {
+        "sha256": "dd9867a9f2f2419a1fbf03c89100f1260041fd6549a785d075d32cb4d36417ee",
+        "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/collections.rst",
+        "license": "PSF"
+      },
+      "library-fractions.rst": {
+        "sha256": "ed214dd0c9da914273419f8bba06e8215ebc9802475237dce863c9426a369c29",
+        "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/fractions.rst",
+        "license": "PSF"
+      },
+      "library-statistics.rst": {
+        "sha256": "5d12d67adc29c15b0520de33db7db0cf149ce97b40276bb691e5ca9216c495e4",
+        "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/statistics.rst",
+        "license": "PSF"
+      },
+      "tutorial-datastructures.rst": {
+        "sha256": "c83633cfaa116c223eb4eacaf454f444591257f5340bae4f741726335029cf48",
+        "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/tutorial/datastructures.rst",
+        "license": "PSF"
+      }
+    },
+    "method_references": [
+      "https://aclanthology.org/2025.findings-ijcnlp.125/",
+      "https://arxiv.org/abs/2106.09685",
+      "https://huggingface.co/Qwen/Qwen3.5-0.8B/tree/2fc06364715b967f1860aea9cf38778875588b17",
+      "https://aclanthology.org/2025.emnlp-main.36/"
+    ],
+    "net_floor": 3,
+    "hidden_weight": 2.0,
+    "training_manifest": "research/data/privileged-reasoning-training.json",
+    "deployment": {
+      "config": {
+        "base_model": "Qwen/Qwen3.5-0.8B-Base",
+        "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+        "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+        "precision": "bfloat16",
+        "start": 10,
+        "length": 6,
+        "passes": 2,
+        "mode": "stabilized",
+        "alpha_init": 0.1,
+        "alpha_schedule": null,
+        "curriculum": "direct",
+        "depth_weights": [
+          0.1,
+          0.9,
+          0.0
+        ],
+        "target": "all",
+        "projections": null,
+        "rank": 32,
+        "lora_alpha": 32,
+        "optimizer": "AdamW",
+        "learning_rate": 0.0001,
+        "warmup": 5,
+        "weight_decay": 0.01,
+        "clip": 1.0,
+        "seed": 261125283,
+        "sequence_length": 256,
+        "batch_size": 4,
+        "accumulation": 1,
+        "gradient_checkpointing": true,
+        "steps": 6000,
+        "checkpoint_interval": 150,
+        "eval_interval": 6000,
+        "eval_count": 30,
+        "response_only": true,
+        "dataset": "v2",
+        "training_split": "train",
+        "validation_split": "validation",
+        "gdn_backend": "native",
+        "memory_target_gib": 8,
+        "min_available_gib": 1,
+        "bucket_policy": "protocol_and_length",
+        "checkpoint_policy": "all",
+        "gate_lr": 0.001,
+        "label_budget": 250000,
+        "max_microbatch_positions": 360,
+        "milestones": [
+          25000,
+          100000,
+          250000
+        ],
+        "mixture": "mixed_answer_and_traces",
+        "name": "p4_109_gated",
+        "strict_resume": true,
+        "validation_batch_size": 4
+      },
+      "alpha_override": null
+    }
+  },
+  "parent": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "history": [
+    {
+      "loss": 1.352360208829244,
+      "targets": 503,
+      "teacher_positions": 130,
+      "seconds": 3.7539742499939166,
+      "peak": 3375464094
+    },
+    {
+      "loss": 1.1305606812238693,
+      "targets": 502,
+      "teacher_positions": 131,
+      "seconds": 3.8726223749981727,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.9379683534304301,
+      "targets": 370,
+      "teacher_positions": 129,
+      "seconds": 3.493286499986425,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8478209426005682,
+      "targets": 324,
+      "teacher_positions": 131,
+      "seconds": 3.1436694170115516,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.975947675605615,
+      "targets": 319,
+      "teacher_positions": 130,
+      "seconds": 3.291419249988394,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.7576546842853228,
+      "targets": 404,
+      "teacher_positions": 129,
+      "seconds": 3.138494125014404,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.7541999568541845,
+      "targets": 394,
+      "teacher_positions": 129,
+      "seconds": 3.267781707982067,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8630834768215815,
+      "targets": 367,
+      "teacher_positions": 130,
+      "seconds": 3.2717518340214156,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.954876804103454,
+      "targets": 360,
+      "teacher_positions": 128,
+      "seconds": 3.6281851659878157,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8582358186443647,
+      "targets": 280,
+      "teacher_positions": 129,
+      "seconds": 2.7804987090057693,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.7170301998655001,
+      "targets": 369,
+      "teacher_positions": 133,
+      "seconds": 3.341367375018308,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8706786831219991,
+      "targets": 459,
+      "teacher_positions": 129,
+      "seconds": 3.445117625000421,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8338702792922655,
+      "targets": 457,
+      "teacher_positions": 129,
+      "seconds": 3.6644363749946933,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.7470793078343073,
+      "targets": 248,
+      "teacher_positions": 128,
+      "seconds": 2.6950026669946965,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8801923915743828,
+      "targets": 383,
+      "teacher_positions": 129,
+      "seconds": 3.239824916992802,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8417600691318512,
+      "targets": 271,
+      "teacher_positions": 129,
+      "seconds": 2.6989618340157904,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8345785190661749,
+      "targets": 344,
+      "teacher_positions": 130,
+      "seconds": 3.2041401249880437,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8251948940257231,
+      "targets": 383,
+      "teacher_positions": 132,
+      "seconds": 3.225159708003048,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.8301881775259972,
+      "targets": 415,
+      "teacher_positions": 127,
+      "seconds": 3.317336583015276,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.7303519497315089,
+      "targets": 242,
+      "teacher_positions": 122,
+      "seconds": 2.8717542910017073,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.7931267991662025,
+      "targets": 264,
+      "teacher_positions": 129,
+      "seconds": 3.1126175000099465,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.7601962437232336,
+      "targets": 240,
+      "teacher_positions": 130,
+      "seconds": 3.000233582977671,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.6862328251202902,
+      "targets": 238,
+      "teacher_positions": 129,
+      "seconds": 3.1193891250004526,
+      "peak": 3785088542
+    },
+    {
+      "loss": 0.5073515760401884,
+      "targets": 521,
+      "teacher_positions": 128,
+      "seconds": 3.777915624988964,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.7174482295910517,
+      "targets": 351,
+      "teacher_positions": 128,
+      "seconds": 3.2308376250148285,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.6981910392642021,
+      "targets": 277,
+      "teacher_positions": 130,
+      "seconds": 2.7821017499954905,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.5364247312148412,
+      "targets": 379,
+      "teacher_positions": 130,
+      "seconds": 3.249400250002509,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.7313806985815366,
+      "targets": 407,
+      "teacher_positions": 128,
+      "seconds": 3.394607750000432,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.7849450632929802,
+      "targets": 277,
+      "teacher_positions": 130,
+      "seconds": 3.0596968329919036,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.6419581385950247,
+      "targets": 430,
+      "teacher_positions": 129,
+      "seconds": 3.2130448750103824,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.60718584805727,
+      "targets": 498,
+      "teacher_positions": 132,
+      "seconds": 3.9631963330029976,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.7935111473004023,
+      "targets": 367,
+      "teacher_positions": 129,
+      "seconds": 3.4816533749981318,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.5415486519535383,
+      "targets": 302,
+      "teacher_positions": 130,
+      "seconds": 2.9884598329954315,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.5301381622751554,
+      "targets": 377,
+      "teacher_positions": 130,
+      "seconds": 3.257058916002279,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.7053076947728792,
+      "targets": 336,
+      "teacher_positions": 129,
+      "seconds": 3.6678586670022923,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.6057968363165855,
+      "targets": 322,
+      "teacher_positions": 129,
+      "seconds": 2.922516082995571,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.6060313805937767,
+      "targets": 290,
+      "teacher_positions": 129,
+      "seconds": 3.087902375002159,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.6928970788915952,
+      "targets": 309,
+      "teacher_positions": 129,
+      "seconds": 3.1858545830182265,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.6459800750017166,
+      "targets": 311,
+      "teacher_positions": 128,
+      "seconds": 3.1621983340010047,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.6237206136186918,
+      "targets": 303,
+      "teacher_positions": 130,
+      "seconds": 2.8425903340103105,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.73285939792792,
+      "targets": 343,
+      "teacher_positions": 129,
+      "seconds": 3.1936257089837454,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.6407562233507633,
+      "targets": 424,
+      "teacher_positions": 129,
+      "seconds": 3.6102786250121426,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.7883634914954504,
+      "targets": 209,
+      "teacher_positions": 130,
+      "seconds": 2.8173804999969434,
+      "peak": 3828870882
+    },
+    {
+      "loss": 0.5759207829833031,
+      "targets": 439,
+      "teacher_positions": 129,
+      "seconds": 3.5464775410073344,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.661111131310463,
+      "targets": 411,
+      "teacher_positions": 129,
+      "seconds": 3.558199708000757,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5660903416574001,
+      "targets": 469,
+      "teacher_positions": 130,
+      "seconds": 3.680434999987483,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5345716364681721,
+      "targets": 222,
+      "teacher_positions": 130,
+      "seconds": 2.9693323750107083,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6618300800522169,
+      "targets": 468,
+      "teacher_positions": 128,
+      "seconds": 3.5824219999776687,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5978674069046974,
+      "targets": 428,
+      "teacher_positions": 129,
+      "seconds": 3.457030459016096,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6763295518855253,
+      "targets": 405,
+      "teacher_positions": 130,
+      "seconds": 3.5379173329856712,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6701147357622782,
+      "targets": 246,
+      "teacher_positions": 130,
+      "seconds": 3.4549653329886496,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5894034703572592,
+      "targets": 283,
+      "teacher_positions": 129,
+      "seconds": 3.143874917004723,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6216767579317093,
+      "targets": 274,
+      "teacher_positions": 129,
+      "seconds": 3.178643124992959,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5625918110211691,
+      "targets": 245,
+      "teacher_positions": 128,
+      "seconds": 2.5994025420222897,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6367131347457567,
+      "targets": 356,
+      "teacher_positions": 130,
+      "seconds": 3.3999149999872316,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.587629164258639,
+      "targets": 425,
+      "teacher_positions": 131,
+      "seconds": 3.816674208996119,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.7725776930650076,
+      "targets": 322,
+      "teacher_positions": 128,
+      "seconds": 3.15199958399171,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5941749215126038,
+      "targets": 209,
+      "teacher_positions": 129,
+      "seconds": 2.4009835420001764,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5767705291509628,
+      "targets": 416,
+      "teacher_positions": 129,
+      "seconds": 3.6111417079810053,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6951064219077429,
+      "targets": 344,
+      "teacher_positions": 128,
+      "seconds": 2.906782750011189,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.7205893745024999,
+      "targets": 463,
+      "teacher_positions": 129,
+      "seconds": 4.027087666006992,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6469067161281904,
+      "targets": 423,
+      "teacher_positions": 128,
+      "seconds": 3.587014207994798,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.7021273449063301,
+      "targets": 335,
+      "teacher_positions": 130,
+      "seconds": 3.305516499996884,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5526404852668444,
+      "targets": 341,
+      "teacher_positions": 133,
+      "seconds": 3.4287734589888714,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.7057729884982109,
+      "targets": 361,
+      "teacher_positions": 130,
+      "seconds": 3.5459028749901336,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5871888374288877,
+      "targets": 416,
+      "teacher_positions": 129,
+      "seconds": 3.308887166000204,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6128324468930563,
+      "targets": 454,
+      "teacher_positions": 129,
+      "seconds": 3.3617533330107108,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6462809617320696,
+      "targets": 302,
+      "teacher_positions": 130,
+      "seconds": 3.116363042005105,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.7873200848698616,
+      "targets": 372,
+      "teacher_positions": 129,
+      "seconds": 3.6466927919827867,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5721853425105413,
+      "targets": 383,
+      "teacher_positions": 129,
+      "seconds": 3.5020913330081385,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5402565325299898,
+      "targets": 375,
+      "teacher_positions": 132,
+      "seconds": 3.2677897079847753,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5985622182488441,
+      "targets": 408,
+      "teacher_positions": 130,
+      "seconds": 3.7089987919898704,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6278084566195806,
+      "targets": 239,
+      "teacher_positions": 128,
+      "seconds": 2.739487000013469,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.7123762766520182,
+      "targets": 361,
+      "teacher_positions": 130,
+      "seconds": 3.4127713330090046,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5550649613142014,
+      "targets": 320,
+      "teacher_positions": 129,
+      "seconds": 3.2364476249786094,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.646266795694828,
+      "targets": 344,
+      "teacher_positions": 129,
+      "seconds": 3.564153000013903,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5885435168941816,
+      "targets": 282,
+      "teacher_positions": 128,
+      "seconds": 2.953635833982844,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6075995874901613,
+      "targets": 378,
+      "teacher_positions": 129,
+      "seconds": 3.903972917003557,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6113572058578333,
+      "targets": 378,
+      "teacher_positions": 129,
+      "seconds": 3.296408458001679,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5789468884468079,
+      "targets": 319,
+      "teacher_positions": 129,
+      "seconds": 3.1828567080083303,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6499097247918447,
+      "targets": 295,
+      "teacher_positions": 129,
+      "seconds": 3.0613608750281855,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5183647672335306,
+      "targets": 380,
+      "teacher_positions": 130,
+      "seconds": 3.4671629590156954,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.7041998927791914,
+      "targets": 256,
+      "teacher_positions": 130,
+      "seconds": 2.8228689579991624,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5670200288295746,
+      "targets": 293,
+      "teacher_positions": 131,
+      "seconds": 3.1115034579997882,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5115693956613541,
+      "targets": 346,
+      "teacher_positions": 129,
+      "seconds": 3.1322955839859787,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6100913770496845,
+      "targets": 340,
+      "teacher_positions": 131,
+      "seconds": 3.4462961250101216,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6499771897991499,
+      "targets": 347,
+      "teacher_positions": 129,
+      "seconds": 3.303194332984276,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6653698533773422,
+      "targets": 446,
+      "teacher_positions": 129,
+      "seconds": 3.571390875003999,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5884267191092173,
+      "targets": 419,
+      "teacher_positions": 130,
+      "seconds": 3.5527890420053154,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.4279445583621661,
+      "targets": 435,
+      "teacher_positions": 129,
+      "seconds": 3.432227832992794,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6238856241106987,
+      "targets": 421,
+      "teacher_positions": 130,
+      "seconds": 3.312225750007201,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.5593569800257683,
+      "targets": 436,
+      "teacher_positions": 129,
+      "seconds": 3.674207167001441,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6366005515058836,
+      "targets": 453,
+      "teacher_positions": 131,
+      "seconds": 3.6201460840238724,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6514473309119543,
+      "targets": 270,
+      "teacher_positions": 130,
+      "seconds": 3.2351279169961344,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6169745946923891,
+      "targets": 376,
+      "teacher_positions": 129,
+      "seconds": 3.509817040991038,
+      "peak": 4000399886
+    },
+    {
+      "loss": 0.6848501438895861,
+      "targets": 247,
+      "teacher_positions": 129,
+      "seconds": 2.880803125008242,
+      "peak": 4000399886
+    }
+  ]
+}

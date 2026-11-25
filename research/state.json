@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "privileged-reasoning-01",
+  "active": "natural-context-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -172,6 +172,11 @@
       "id": "projected-distillation-01",
       "promoted": false,
       "reason": "0/48 teacher completions at 640 tokens, 443.3 measured generation seconds. Minimum ten correct complete demonstrations failed. No student weights or evaluation."
+    },
+    {
+      "id": "privileged-reasoning-01",
+      "promoted": false,
+      "reason": "Standalone K2 after 96 updates scored 9/32 versus 16/32 strict at 1024, losing on both sources. NLL 2.99066 versus 2.98266 passed the retention tolerance."
     }
   ],
   "status": "Active renewed reasoning comparison",

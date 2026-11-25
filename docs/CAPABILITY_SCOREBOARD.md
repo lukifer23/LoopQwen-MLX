@@ -235,3 +235,14 @@ This secondary analysis keeps each frozen generation and its original completion
 | Total seconds, including causal prefix replay | 353.05 | 380.68 |
 
 The trained second pass activated on 18 requests. All 48 ordinary-depth prefixes matched Base exactly. The strict comparison gained three items and lost one (exact paired p = 0.625). The content review gained two and lost one. With a two-answer strict margin and a tie on GSM8K, this endpoint missed the four-answer, both-source promotion rule. [Fixed comparison and checkpoint](../research/results/recurrent-deliberation-01) · [Content review labels](measurements/answer-audits/recurrent-deliberation-01.json)
+
+### Post-training transfer and privileged answer states
+
+The frozen public post-trained sibling completed none of 48 training turns at 640 tokens, closing the sampled-teacher study. The independent hidden-state experiment used 12,418 teacher-distribution positions from 576 training documents. In 96 of those documents, the teacher saw the full publisher rationale and the student saw its first quarter. The 96 native updates took 316.7 seconds and supervised 34,145 hard targets. [Teacher attempts](../research/results/projected-distillation-01) · [Hidden targets and released student](../research/results/privileged-reasoning-01)
+
+| 32 fresh questions | Standalone K2 | Untouched Base | K2 / Base seconds |
+|---|---:|---:|---:|
+| At 256 tokens | 9 | 5 | 81.3 / 113.5 |
+| At 1,024 tokens | 9 | 16 | 197.1 / 271.9 |
+
+At the full budget K2 gained four answers and lost eleven. It solved 4/16 reserved GSM8K and 5/16 SVAMP questions versus 7/16 and 9/16 for Base. Its 9,328-target language NLL was 2.99066 versus 2.98266. The retained post-training update and hidden-state supervision did not yield a deployable long-budget advantage. [Paired outputs](../research/results/privileged-reasoning-01) · [Completed-prose review](measurements/answer-audits/privileged-reasoning-01.json)
