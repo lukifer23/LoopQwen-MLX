@@ -1,0 +1,35 @@
+{
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "sources": {
+    "gsm8k_reserved": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "per_source": 16,
+  "generation_cap": 1024,
+  "id": "shared-budget-vote-01",
+  "seed": 251125983,
+  "pool": 0,
+  "rollout_cap": 192,
+  "max_attempts": 5,
+  "temperature": 0.8,
+  "question": "Does the measured short-turn language adapter use a shared 1024-token budget more effectively if both it and Base may independently reconsider an answer?",
+  "protocol": "Fresh 16 unused GSM8K training-split and 16 unused SVAMP questions disjoint from prior training pools and evaluation panels. Freeze the same thinking prompt IDs, order, 1024 generated tokens total per question, five attempts maximum, first-turn scorer, attempt seeds, and selection policy for each system. First attempt is greedy and may use the full 1024 tokens. Each remaining attempt samples at temperature 0.8 with all remaining tokens available. Stop at exhaustion or when the leading numeric answer has more votes than any competitor can reach with remaining attempts. Use plurality among completed numeric first turns; ties to earliest observed tied answer. No use of gold, arithmetic checker, external retriever or partial reasoning to select a response. Alternate which model runs the first half. Time and charge every attempted token including incomplete turns.",
+  "decision": "At the shared budget require >=1 net correct answer on each source, pooled paired two-sided exact McNemar p<0.05 and candidate total generation seconds <= Base. Also require the candidate at least matches single-greedy Base on each source. Report the first greedy 1024-token pair from the same traces and any corrections or regressions from voting. Treat this as a system-level comparison under the common inference policy. Failed gates close expansion. Stop on budget or host warning.",
+  "limits": {
+    "wall_seconds": 1100,
+    "peak_gib": 4,
+    "available_gib": 1.5
+  }
+}

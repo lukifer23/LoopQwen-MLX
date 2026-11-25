@@ -33,9 +33,10 @@ PANEL = Path("research/data/paired-solutions-01.json")
 POOL = PANEL.with_name("paired-solutions-pool.json")
 
 
-def material(s):
+def material(s, exclude=()):
     old = read(rationale_transfer.DATA) + read(checked_rationale.PANEL)
     used = {" ".join(r["question"].split()) for r in old}
+    used.update(" ".join(r["question"].split()) for r in exclude)
     reserve = read("research/data/gsm-equations-01.json")
     used.update(
         " ".join(r["question"].split())

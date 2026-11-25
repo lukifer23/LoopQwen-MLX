@@ -36,7 +36,7 @@ def test_bias_is_causal_and_preserves_every_older_key():
             assert mask[q][k] == expected
     a.offset = 12
     assert a.make_mask(1).reshape(-1).tolist() == [0, 0, 6, 6, 6] + [0] * 8
-    assert c.slots[3, 0].make_mask(1) is None
+    assert c.slots[3, 0].make_mask(1, return_array=False, window_size=None) is None
 
 
 def test_held_out_registers_contain_hard_negatives_and_one_visible_gold():

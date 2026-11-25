@@ -1,0 +1,441 @@
+{
+  "identity": "d671844f925fd44f5a010f4bcf46d806ba7a4cab22a38137529fee022008182b",
+  "parent": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "spec": {
+    "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+    "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+    "dense_control": "research/results/rationale-dense-01/model",
+    "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+    "depth": 2,
+    "generation_cap": 1024,
+    "per_source": 16,
+    "id": "paired-solutions-01",
+    "seed": 251125719,
+    "question": "Can the winning short-budget parent learn to prefer its own numerically correct solutions over equally fluent wrong solutions, instead of imitating additional publisher explanations?",
+    "sources": {
+      "gsm8k_reserved": {
+        "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+        "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+        "license": "MIT",
+        "split": "publisher train"
+      },
+      "svamp": {
+        "file": "svamp.json",
+        "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+        "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+      }
+    },
+    "pool": 96,
+    "draws": 4,
+    "temperature": 0.8,
+    "rollout_cap": 192,
+    "min_pairs": 24,
+    "max_pairs": 40,
+    "beta": 0.1,
+    "epochs": 3,
+    "logical_batch": 4,
+    "lr": 3e-05,
+    "clip": 1,
+    "weight_decay": 0,
+    "protocol": "Freeze 96 fresh publisher training questions and an independent 32-item evaluation panel (16 other GSM8K training-split items and 16 SVAMP, four per operation). Exclude all earlier frozen question pools, training identities and historical question hashes. Draw at most four responses per pool question at temperature 0.8 from the unchanged 32-update parent. Stop a question at the first pair of completed, scorable responses with differing correctness and longest/shortest token ratio <=1.5. Select closest length, then draw order. Stop sampling at 40 pairs or end of pool. Each exact-match positive and numeric wrong negative must come from the same model/prompt, with no external teacher. No reward on formatting-only failures. Require >=24 pairs or close training/evaluation. Trim only last incomplete group of four. Three separately seeded passes of each selected pair, standard sequence-summed DPO vs frozen reference using all generated tokens, batch four, fresh AdamW, gradient clip 1. All rollouts, reference scoring, updates and evaluation are charged.",
+    "decision": "At 1024 require at least two net answers pooled and no net loss on either source, paired two-sided exact McNemar p<0.05, and no more generation time than Base. At 256 require positive net answers on each source. V3 NLL must stay within +0.03 of Base. All conditions required before confirmatory replication or dense attribution. Preserve checkpoints and incomplete generations on resource stop; no tuning on these evaluation items.",
+    "limits": {
+      "wall_seconds": 1850,
+      "peak_gib": 4.8,
+      "available_gib": 1.5
+    },
+    "deployment": {
+      "config": {
+        "base_model": "Qwen/Qwen3.5-0.8B-Base",
+        "base_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+        "tokenizer_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+        "precision": "bfloat16",
+        "start": 10,
+        "length": 6,
+        "passes": 2,
+        "mode": "stabilized",
+        "alpha_init": 0.1,
+        "alpha_schedule": null,
+        "curriculum": "direct",
+        "depth_weights": [
+          0.1,
+          0.9,
+          0.0
+        ],
+        "target": "block",
+        "projections": null,
+        "rank": 8,
+        "lora_alpha": 16,
+        "optimizer": "AdamW",
+        "learning_rate": 0.0001,
+        "warmup": 5,
+        "weight_decay": 0.01,
+        "clip": 1.0,
+        "seed": 109,
+        "sequence_length": 256,
+        "batch_size": 4,
+        "accumulation": 1,
+        "gradient_checkpointing": false,
+        "steps": 6000,
+        "checkpoint_interval": 150,
+        "eval_interval": 6000,
+        "eval_count": 30,
+        "response_only": true,
+        "dataset": "v2",
+        "training_split": "train",
+        "validation_split": "validation",
+        "gdn_backend": "native",
+        "memory_target_gib": 8,
+        "min_available_gib": 1,
+        "bucket_policy": "protocol_and_length",
+        "checkpoint_policy": "all",
+        "gate_lr": 0.001,
+        "label_budget": 250000,
+        "max_microbatch_positions": 360,
+        "milestones": [
+          25000,
+          100000,
+          250000
+        ],
+        "mixture": "mixed_answer_and_traces",
+        "name": "p4_109_gated",
+        "strict_resume": true,
+        "validation_batch_size": 4
+      },
+      "alpha_override": null
+    }
+  },
+  "step": 30,
+  "history": [
+    {
+      "epoch": 0,
+      "indices": [
+        12,
+        24,
+        14,
+        4
+      ],
+      "loss": 0.6953791949528371,
+      "seconds": 2.8139264170022216
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        16,
+        11,
+        9,
+        20
+      ],
+      "loss": 0.7122520969245167,
+      "seconds": 2.9282271660049446
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        31,
+        34,
+        7,
+        15
+      ],
+      "loss": 0.6947223495918554,
+      "seconds": 2.384899124997901
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        13,
+        21,
+        35,
+        26
+      ],
+      "loss": 0.6832608460424112,
+      "seconds": 2.377679541008547
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        30,
+        22,
+        2,
+        3
+      ],
+      "loss": 0.6803374841871259,
+      "seconds": 2.95291541700135
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        8,
+        36,
+        19,
+        39
+      ],
+      "loss": 0.7008333438727428,
+      "seconds": 2.7566862090025097
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        38,
+        17,
+        10,
+        5
+      ],
+      "loss": 0.7104488686664375,
+      "seconds": 2.875518416025443
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        25,
+        23,
+        1,
+        18
+      ],
+      "loss": 0.6949623497168501,
+      "seconds": 3.4989013750164304
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        37,
+        32,
+        28,
+        27
+      ],
+      "loss": 0.7019889926560834,
+      "seconds": 3.4179165000095963
+    },
+    {
+      "epoch": 0,
+      "indices": [
+        6,
+        33,
+        0,
+        29
+      ],
+      "loss": 0.7052529446040158,
+      "seconds": 2.857725665991893
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        25,
+        37,
+        11,
+        4
+      ],
+      "loss": 0.5332000769568795,
+      "seconds": 3.362634999997681
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        32,
+        18,
+        13,
+        29
+      ],
+      "loss": 0.573303031087248,
+      "seconds": 3.410189583984902
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        22,
+        3,
+        28,
+        1
+      ],
+      "loss": 0.6273644111335066,
+      "seconds": 2.7026479999767616
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        34,
+        6,
+        39,
+        8
+      ],
+      "loss": 0.5570132178963787,
+      "seconds": 2.8393473330070265
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        10,
+        9,
+        35,
+        20
+      ],
+      "loss": 0.5025042007531375,
+      "seconds": 2.6373772909864783
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        0,
+        31,
+        14,
+        2
+      ],
+      "loss": 0.48549922258103173,
+      "seconds": 2.7290782500058413
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        30,
+        26,
+        15,
+        16
+      ],
+      "loss": 0.4883803875970074,
+      "seconds": 2.5272149159864057
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        21,
+        24,
+        17,
+        7
+      ],
+      "loss": 0.4311193119926363,
+      "seconds": 2.907891999988351
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        33,
+        5,
+        36,
+        38
+      ],
+      "loss": 0.5859997754330881,
+      "seconds": 2.9131601249973755
+    },
+    {
+      "epoch": 1,
+      "indices": [
+        23,
+        19,
+        27,
+        12
+      ],
+      "loss": 0.5813857386180342,
+      "seconds": 2.857522458973108
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        31,
+        8,
+        13,
+        28
+      ],
+      "loss": 0.40116900109525344,
+      "seconds": 2.8005479580024257
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        4,
+        23,
+        6,
+        11
+      ],
+      "loss": 0.3938353059168622,
+      "seconds": 2.967439625004772
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        25,
+        0,
+        1,
+        22
+      ],
+      "loss": 0.4944736748529608,
+      "seconds": 3.2291608749947045
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        35,
+        10,
+        26,
+        36
+      ],
+      "loss": 0.43779890730745424,
+      "seconds": 2.444377041014377
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        7,
+        16,
+        2,
+        37
+      ],
+      "loss": 0.31567260078011683,
+      "seconds": 3.289282165991608
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        19,
+        39,
+        29,
+        15
+      ],
+      "loss": 0.4498996938542118,
+      "seconds": 2.414262082980713
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        32,
+        38,
+        24,
+        17
+      ],
+      "loss": 0.41132585504480557,
+      "seconds": 3.422646084014559
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        33,
+        14,
+        9,
+        30
+      ],
+      "loss": 0.38199518649390435,
+      "seconds": 2.7516497500182595
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        5,
+        12,
+        3,
+        21
+      ],
+      "loss": 0.4746055826962762,
+      "seconds": 2.2520443339890335
+    },
+    {
+      "epoch": 2,
+      "indices": [
+        27,
+        20,
+        18,
+        34
+      ],
+      "loss": 0.3528460783119789,
+      "seconds": 3.326397833006922
+    }
+  ]
+}
