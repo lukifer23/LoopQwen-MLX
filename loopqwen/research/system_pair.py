@@ -134,6 +134,12 @@ def run(name, freeze):
         raise ValueError("Required register reader unavailable")
     if digest(Path(s["dense_control"]) / "adapters.safetensors") != s["dense_sha256"]:
         raise ValueError("Dense control changed")
+    if not s["experts"]:
+        raise ValueError(
+            "A full-budget reasoning expert must qualify before this comparison"
+        )
+    for expert, info in s["experts"].items():
+        route_training.qualified_expert(expert, info)
     t = load_tokenizer(local_snapshot())
     training = route_training.inputs(t, s)
     rows = material(s)

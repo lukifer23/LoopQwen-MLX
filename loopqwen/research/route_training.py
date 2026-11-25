@@ -93,6 +93,39 @@ def inputs(t, s):
     return examples
 
 
+def qualified_expert(name, info):
+    """Check both predeclared outcomes and their separately sealed content reviews."""
+    for stage in (info["qualification"], info["confirmation"]):
+        archive = Path(stage["directory"])
+        annotation = Path(stage["audit"])
+        if (
+            digest(archive / "checksums.json") != stage["inventory"]
+            or not read(archive / "decision.json")["passed"]
+            or digest(annotation) != stage["audit_sha256"]
+        ):
+            raise ValueError("Missing measured specialist prerequisite")
+        if name == "arithmetic":
+            from scripts.research_answer_audit import score
+
+            audited = [score(archive.name, read(annotation))]
+        elif name == "entailment":
+            from scripts.research_relation_audit import audit
+
+            audited = audit(archive.name, read(annotation))["scores"].values()
+        else:
+            raise ValueError("Unknown expert")
+        if any(r["wins"] <= r["losses"] for r in audited):
+            raise ValueError("The independent content review did not pass")
+    primary = read(Path(info["qualification"]["directory"]) / "decision.json")
+    confirmation = read(Path(info["confirmation"]["directory"]) / "decision.json")
+    if (
+        confirmation["qualification"] != info["qualification"]["inventory"]
+        or primary["weights"] != info["weights"]
+        or confirmation["weights"] != info["weights"]
+    ):
+        raise ValueError("Different specialist or qualification at replication")
+
+
 def package(s, model, tokenizer, examples, root, budget):
     directory = root / "model"
     parent = Path(s["reader"])
@@ -104,13 +137,7 @@ def package(s, model, tokenizer, examples, root, budget):
     ]
     for name, info in s["experts"].items():
         source = Path(info["model"])
-        for stage in (info["qualification"], info["confirmation"]):
-            archive = Path(stage["directory"])
-            if (
-                digest(archive / "checksums.json") != stage["inventory"]
-                or not read(archive / "decision.json")["passed"]
-            ):
-                raise ValueError("Missing measured specialist prerequisite")
+        qualified_expert(name, info)
         if digest(source / "adapters.safetensors") != info["weights"]:
             raise ValueError("Wrong specialist checkpoint")
         names = ["adapters.safetensors"]
