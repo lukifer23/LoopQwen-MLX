@@ -13,8 +13,11 @@ On **48 fresh public word problems**, the same adapter answered **23/48** correc
 Run the measured adapter on a native Apple Silicon Mac with the locked environment and pinned Base checkpoint.
 
 ```sh
-.venv/bin/python -m loopqwen generate --checkpoint research/sessions/2026-11-25/gsm-rationale-01/model --thinking --max-tokens 256 --prompt 'A car travels 42 miles in 45 minutes. At that rate, how many miles does it travel in two hours? Reason briefly, then give a single number on the last line as Final answer: <number>.'
+.venv/bin/python -m loopqwen generate --checkpoint research/sessions/2026-11-25/gsm-rationale-01/model --thinking --max-tokens 256 --prompt 'Rocky boxed 190 fights in his career.  50 percent of his fights were knockouts, and 20 percent of the knockouts were in the first round.  How many knockouts did Rocky have in the first round?
+Reason briefly, then give a single number on the last line as Final answer: <number>.'
 ```
+
+On the same development set with identical training exposure, the ordinary-depth adapter answered **10/32 in 53.6 s**. The recurrent adapter gained six answers and lost three against that control. Both used 32 updates and 10,083 supervised response tokens. [Matched dense checkpoint and scores](research/results/rationale-dense-01)
 
 For long prompts, `--prompt-file path/to/prompt.txt` reads the entire UTF-8 file. The optional `--offload-dir /path/to/scratch` stores full-precision KV prefixes on disk while keeping every position accessible to attention. [Context protocol and reproduction](docs/PROJECT_REVIEW.md)
 

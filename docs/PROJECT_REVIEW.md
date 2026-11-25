@@ -53,3 +53,9 @@ python3 scripts/research_registry.py
 python3 scripts/research_archive.py gsm-rationale-01 --verify --recovered-session 2026-11-25
 python3 scripts/research_archive.py context-128k-01 --verify --recovered-session 2026-11-25
 ```
+
+## Which model to use for these word problems
+
+The trained recurrent adapter improved correct first turns under 256 output tokens on all three measured groups. It scored 13/32 on reused GSM8K development questions, 7/24 on fresh public GSM1K and 16/24 on fresh SVAMP. Base scored 1, 1 and 8 respectively. Accuracy at 1,024 tokens favored Base on both fresh sources. The candidate finished all 23 of its correct fresh answers within 167 tokens, and Base first matched that count at token 482. This crossover describes these archived items. Both sources remain frozen against further tuning. [Budget curve and per-source scores](CAPABILITY_SCOREBOARD.md#fresh-word-problems-at-two-output-budgets)
+
+Most of the short-budget development gain is also available at ordinary depth. The dense twin trained on the identical 128 publisher explanations delivered 10/32 correct turns in 53.56 s, versus 13/32 in 64.64 s for K2. K2 gained six paired answers and lost three, meeting the prespecified two-answer and 1.25× time criteria. The exact two-sided paired p-value is 0.508 on nine discordant items. That modest difference combines training and deployment depth and comes from a single lineage. The V3 retention NLL differed by less than 0.00004 between trained models. [Matched dense evidence](../research/results/rationale-dense-01)
