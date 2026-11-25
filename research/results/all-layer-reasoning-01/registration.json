@@ -1,0 +1,57 @@
+{
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "sources": {
+    "gsm8k_reserved": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "id": "all-layer-reasoning-01",
+  "seed": 261125231,
+  "updates": 384,
+  "logical_batch": 4,
+  "cap_positions": 384,
+  "lr": 0.0001,
+  "weight_decay": 0,
+  "clip": 1,
+  "depth": 2,
+  "generation_cap": 1024,
+  "rollout_cap": 192,
+  "per_source": 24,
+  "pool": 0,
+  "reading_sha256": "3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955",
+  "reading_url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json",
+  "reading_license": "CC BY-SA 4.0, Rajpurkar et al. and Wikipedia contributors",
+  "reading_topics": [
+    "Architecture",
+    "Classical_music",
+    "Pitch_(music)",
+    "London",
+    "Appalachian_Mountains",
+    "Yale_University",
+    "Georgian_architecture",
+    "Norfolk_Island",
+    "Association_football",
+    "Gothic_architecture",
+    "Arena_Football_League",
+    "Neoclassical_architecture"
+  ],
+  "question": "Can all-layer low-rank adaptation recover missing relationships in full-budget arithmetic without losing general language?",
+  "training": "Expand the existing rank-eight K2 adapter from six shared layers to every decoder layer, copying every parent tensor exactly and initializing each added LoRA output factor at zero. Use 384 native MLX AdamW updates, each with three disjoint publisher GSM8K solutions and one SQuAD training response with a human-annotated answer and its source sentence. Use each training question once. No teacher checkpoint or decoding-time helper. Select training and testing by deterministic hashes and freeze both before differentiation.",
+  "decision": "One direct fresh 48-item pair with frozen greedy thinking policy, first completed numeric turn, 1024 tokens. Require >=4 net correct pooled and strictly positive net per source, total candidate time <= Base, V3 NLL <= Base +0.03 and no accuracy loss at the 256-token prefix on either source. Report paired exact p regardless. A pass permits a separately registered independent replication, prose and 128K checks before promotion. Failure closes promotion and expansion of this checkpoint. Stop on host guard or budget.",
+  "limits": {
+    "wall_seconds": 2150,
+    "peak_gib": 5.9,
+    "available_gib": 1.5
+  }
+}

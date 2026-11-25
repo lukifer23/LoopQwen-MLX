@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "all-layer-reasoning-01",
+  "active": "recurrent-deliberation-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -157,6 +157,11 @@
       "id": "shared-budget-vote-01",
       "promoted": false,
       "reason": "At a common total of 1024 generated tokens, the candidate solved 20/32 versus 25/32 for Base in 283.19 vs 468.57 seconds. Paired wins/losses 2/7."
+    },
+    {
+      "id": "all-layer-reasoning-01",
+      "promoted": false,
+      "reason": "Expanded recurrent adapter won the 256-token prefix 21/48 to 7/48 but lost at 1024 by 21/48 to 33/48; full-accuracy prerequisites closed."
     }
   ],
   "status": "Active renewed reasoning comparison",
