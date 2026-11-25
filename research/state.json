@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "learned-exit-confirm-01",
+  "active": "entailment-triplets-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -16,10 +16,11 @@
     "complete_room_trace": "research/results/trace-depth-01/model at K1",
     "combined_room_and_state": "research/results/joint-trace-01/model at K3",
     "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model",
-    "register_lookup_through_131078": "research/results/attention-memory-01/model"
+    "register_lookup_through_131078": "research/results/attention-memory-01/model",
+    "word_problems_at_1024_vs_base": "research/results/learned-exit-01/model"
   },
-  "frontier": "Full-budget recurrent completion reached 27/48 versus 25/48 strict and 31/48 versus 30/48 on mathematical content, 353.05 versus 380.68 seconds. The positive margin missed the per-source and minimum-effect safeguards. The independently qualified 131078-token lookup reader remains available.",
-  "next": "entailment-triplets-01",
+  "frontier": "Same learned exit won two independent full-budget pairs: 52/80 versus 46/80 strict, 58/80 versus 52/80 completed content, six paired wins, zero losses, 542.44 versus 592.24 seconds.",
+  "next": "conditional-depth-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -193,10 +194,16 @@
       "id": "fullrank-reasoning-01",
       "promoted": false,
       "reason": "12/32 versus 19/32 at 1024, 120.17 versus 277.14 s. V3 NLL improved to 2.91114 versus 2.98266."
+    },
+    {
+      "id": "learned-exit-confirm-01",
+      "promoted": true,
+      "scope": "Full-budget arithmetic versus Base on two disjoint panels",
+      "reason": "28/48 versus 24/48 strict, 33/48 versus 29/48 blind content. Both sources improved. 326.54 versus 360.61 s. Across both panels, six wins and no losses (nominal paired two-sided p=0.03125)."
     }
   ],
-  "status": "Full-rank transfer closed after a full-budget accuracy loss. Learned-exit confirmation running.",
-  "next_action": "Finish the frozen learned-exit confirmation and the independent entailment primary.",
+  "status": "Full-budget arithmetic replicated on both sources. Independent natural inference training is running. Mixed deployment pair frozen.",
+  "next_action": "Archive the natural inference primary and run the first integrated deployment comparison with the confirmed arithmetic finisher, short-budget decoder and register reader.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",

@@ -19,6 +19,12 @@ Reproduce the first 2K request on Apple Silicon. The expected visible answer is 
 .venv/bin/python -m loopqwen generate --checkpoint research/results/attention-memory-01/model --thinking --prompt-file /tmp/loopqwen-register.txt --max-tokens 96
 ```
 
+## Replicated full-budget arithmetic improvement
+
+The same learned-exit checkpoint answered **52/80** word problems correctly against **46/80** for untouched Qwen Base at a common **1,024 generated tokens**. With blind credit for completed answers in prose, the totals were **58/80 versus 52/80**. It gained answers on both reserved GSM8K and SVAMP in each panel. The six wins rescued unfinished Base turns, with zero paired losses. Elapsed generation time, including recurrent replay, was **542.44 versus 592.24 seconds** on the M3 Pro. The nominal two-sided paired test on these two panels gives **p = 0.03125**. The project explored multiple earlier designs. Raw language NLL was 2.99538 versus 2.98266. [Primary pair and checkpoint](research/results/learned-exit-01) · [Independent replication](research/results/learned-exit-confirm-01) · [Blinded pooled scores](docs/measurements/answer-audits/learned-exit-pooled.json)
+
+The model uses ordinary depth for the first 704 generated tokens. If the thought remains open, it reprocesses the entire sequence at recurrent depth and chooses subsequent tokens from the full vocabulary. To run this checkpoint, pass `--checkpoint research/results/learned-exit-01/model --thinking --max-tokens 1024` to the native `generate` command. The self-contained native export reproduces the measured token stream through a real depth switch.
+
 ## Thinking-enabled word problems
 
 The stabilized K=2 checkpoint trained on 128 publisher-written GSM8K explanations answered **13/32** development questions correctly in **64.6 seconds**. Untouched Qwen Base K=1 answered **1/32** in **118.1 seconds** on identical prompts with a 256-token limit. The candidate produced 32 scorable answers and Base produced one. The candidate fixed 13 Base errors and lost one correct answer. Its prose-retention NLL was 2.9873 against Base at 2.9827. These 32 questions had been used in earlier development studies. [Checkpoint and per-question outputs](research/sessions/2026-11-25/gsm-rationale-01) · [End-to-end review](docs/PROJECT_REVIEW.md)

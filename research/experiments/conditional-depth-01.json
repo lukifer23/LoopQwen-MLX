@@ -1,0 +1,123 @@
+{
+  "id": "conditional-depth-01",
+  "seed": 261125820,
+  "question": "Can one deployable shared-weight model improve the number of completed correct answers at the same or lower total time across five workloads while preserving ordinary raw text, long-budget reasoning and full register access?",
+  "sources": {
+    "gsm8k_reserved": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "excluded_panels": [
+    "research/data/paired-solutions-01.json",
+    "research/data/paired-solutions-pool.json",
+    "research/data/shared-budget-vote-01.json",
+    "research/data/all-layer-reasoning-01.json",
+    "research/data/recurrent-deliberation-01.json",
+    "research/data/recurrent-deliberation-training.json",
+    "research/data/projected-distillation-01.json",
+    "research/data/privileged-reasoning-01.json",
+    "research/data/late-recurrent-exit-01.json",
+    "research/data/learned-exit-01.json",
+    "research/data/fullrank-reasoning-01.json",
+    "research/data/checked-rationale-01.json",
+    "research/data/rationale-transfer-01.json",
+    "research/data/learned-exit-confirm-01.json"
+  ],
+  "excluded_training": [
+    "research/data/all-layer-reasoning-training.json",
+    "research/data/projected-distillation-training.json",
+    "research/data/privileged-reasoning-training.json",
+    "research/data/late-recurrent-exit-training.json",
+    "research/data/fullrank-reasoning-training.json",
+    "research/data/learned-exit-training.json"
+  ],
+  "excluded_relations": [
+    "research/data/entailment-triplets-01.json"
+  ],
+  "excluded_titles": [
+    "Amazon_rainforest",
+    "Apollo_program",
+    "Black_Death",
+    "Civil_disobedience",
+    "Computational_complexity_theory",
+    "Ctenophora",
+    "Doctor_Who",
+    "Economic_inequality",
+    "European_Union_law",
+    "Force",
+    "French_and_Indian_War",
+    "Fresno,_California",
+    "Genghis_Khan",
+    "Geology",
+    "Huguenot",
+    "Immune_system",
+    "Imperialism",
+    "Intergovernmental_Panel_on_Climate_Change",
+    "Islamism",
+    "Kenya",
+    "Martin_Luther",
+    "Newcastle_upon_Tyne",
+    "Nikola_Tesla",
+    "Normans",
+    "Oxygen",
+    "Pharmacy",
+    "Prime_number",
+    "Private_school",
+    "Rhine",
+    "Scottish_Parliament",
+    "Steam_engine",
+    "Super_Bowl_50",
+    "Teacher",
+    "University_of_Chicago",
+    "Victoria_and_Albert_Museum",
+    "Warsaw"
+  ],
+  "reader": "research/results/attention-memory-01/model",
+  "reader_qualification": "febd16621f8818a7a00ddac9589ea4fb2ab7ab3584b833ec3b22b1280f87b878",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "route_examples_per_class": 96,
+  "route_updates": 96,
+  "route_lr": 0.003,
+  "confidence": 0.9,
+  "net_floor": 4,
+  "routing_sources": {
+    "data/research_external/gsm-train.jsonl": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+    "research/data/all-layer-reasoning-training.json": "10406127f5f294848ce98a054cb45df4a4ce1ff41e334c66fae8396340b16071",
+    "data/research_external/esnli_train_1.csv": "7311c7bc16ad9f6a9adcd116a62ef991e1803dc0d71e253ce66b975c2aba8ee5",
+    "data/research_external/squad-train-v1.1.json": "3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955"
+  },
+  "decision": "Freeze the entire mixed panel before training the input-only selector. For each item give both arms identical prompt IDs, thinking and greedy generation at the same cap. Require a net gain of at least four completed correct answers over 56, positive net in at least two of five families, positive net across the full-budget arithmetic and entailment families, no losses in aggregate for any family, all four register answers correct, total generation seconds including routing and replay <= Base, exact ordinary fallback output IDs and identical V3 raw loss in all five domains. The register and short arithmetic weights are fixed. A long-budget specialist must pass both its own prospective comparison and independent confirmation with a positive blinded content difference. A failed mixed gate closes full-context deployment expansion. A pass permits one fresh full-history counterfactual at >=131072 input tokens and an exact native export.",
+  "limits": {
+    "wall_seconds": 1460,
+    "peak_gib": 6.6,
+    "available_gib": 1.5
+  },
+  "experts": {
+    "arithmetic": {
+      "model": "research/results/learned-exit-01/model",
+      "weights": "d671b7332e80fb47660ad7701ab4c53bf523aa75e2591fb134d1470da55bca0d",
+      "qualification": {
+        "directory": "research/results/learned-exit-01",
+        "inventory": "17d48884d6daf299402c0a2b4a2ced06f1fdb2453337fb14a0200c8035e79913",
+        "audit": "docs/measurements/answer-audits/learned-exit-01.json",
+        "audit_sha256": "9a01ff6892ce1e8bc5f0df73976c4db782da56a4d6517108256aebea8ce72abf"
+      },
+      "confirmation": {
+        "directory": "research/results/learned-exit-confirm-01",
+        "inventory": "4910c90e7be7828121b017f83e2b917eadb51906e2662ea2b2780f756f2e6fd0",
+        "audit": "docs/measurements/answer-audits/learned-exit-confirm-01.json",
+        "audit_sha256": "9974b37c9243ea1a81232f97ced5b6a0319ac74b7e3842e440370eef1da0e53e"
+      }
+    }
+  },
+  "policy_design": "Freeze the first deployable policy with the independently confirmed arithmetic weights and the existing short-arithmetic and register weights. Unconfirmed full-budget task families take the ordinary Base path. The separate entailment training experiment cannot change this panel, routing confidence, model inventory or scoring."
+}

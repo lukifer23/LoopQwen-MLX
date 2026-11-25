@@ -277,3 +277,13 @@ Seven requests reached the learned recurrent exit. The paired result was two win
 ### Full-rank weight transfer
 
 Mixing 60% of the post-trained sibling's internal weight difference into the Base backbone and training 128 recurrent updates improved V3 language NLL from 2.98266 to 2.91114. Strict arithmetic accuracy at 1,024 tokens fell to 12/32 versus 19/32, with 120.17 versus 277.14 seconds of generation. Reviewing the two noncanonical completed answers gave 12/32 versus 20/32 on mathematical content, with two candidate wins and ten losses. The prospective full-budget accuracy criterion closed this branch. [Paired generations](../research/results/fullrank-reasoning-01) · [Blind annotations](measurements/answer-audits/fullrank-reasoning-01.json)
+
+### Independent full-budget arithmetic replication
+
+| Frozen 1,024-token pair | Strict K2 policy / Base | Blinded completed content | Generation seconds K2 policy / Base |
+|---|---:|---:|---:|
+| First 32 | 24 / 22 | 25 / 23 | 215.89 / 231.63 |
+| Independent 48 | 28 / 24 | 33 / 29 | 326.54 / 360.61 |
+| All 80 | 52 / 46 | 58 / 52 | 542.44 / 592.24 |
+
+Across both panels the policy gained four GSM8K and two SVAMP answers, without losing a correct answer. The six gains all came from unfinished Base turns. It completed 79/80 first turns versus 65/80. Raw V3 NLL was 2.99538 versus 2.98266. Training and interrogation of earlier alternative policies make the pooled two-sided McNemar p = 0.03125 a nominal, design-specific result. [Paired generations](../research/results/learned-exit-confirm-01) · [Blind audit and pooled counts](measurements/answer-audits/learned-exit-pooled.json)

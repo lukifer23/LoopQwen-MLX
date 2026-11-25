@@ -1,0 +1,60 @@
+{
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "switch_after": 704,
+  "generation_cap": 1024,
+  "excluded_panels": [
+    "research/data/paired-solutions-01.json",
+    "research/data/paired-solutions-pool.json",
+    "research/data/shared-budget-vote-01.json",
+    "research/data/all-layer-reasoning-01.json",
+    "research/data/recurrent-deliberation-01.json",
+    "research/data/recurrent-deliberation-training.json",
+    "research/data/projected-distillation-01.json",
+    "research/data/privileged-reasoning-01.json",
+    "research/data/late-recurrent-exit-01.json",
+    "research/data/learned-exit-01.json",
+    "research/data/fullrank-reasoning-01.json",
+    "research/data/checked-rationale-01.json",
+    "research/data/rationale-transfer-01.json"
+  ],
+  "excluded_training": [
+    "research/data/all-layer-reasoning-training.json",
+    "research/data/projected-distillation-training.json",
+    "research/data/privileged-reasoning-training.json",
+    "research/data/late-recurrent-exit-training.json",
+    "research/data/fullrank-reasoning-training.json",
+    "research/data/learned-exit-training.json"
+  ],
+  "sources": {
+    "gsm8k_reserved": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "id": "learned-exit-confirm-01",
+  "seed": 261125781,
+  "per_source": 24,
+  "net_floor": 2,
+  "model": "research/results/learned-exit-01/model",
+  "weights": "d671b7332e80fb47660ad7701ab4c53bf523aa75e2591fb134d1470da55bca0d",
+  "qualification": "17d48884d6daf299402c0a2b4a2ced06f1fdb2453337fb14a0200c8035e79913",
+  "audit": "docs/measurements/answer-audits/learned-exit-01.json",
+  "question": "Does the unchanged native learned-exit decoder replicate its gain on an independent 48-item pair from both original sources?",
+  "decision": "Qualification requires a passed primary pair and positive blinded content margin. Use 24 unused reserved GSM8K items and 24 unused operation-balanced SVAMP items. Identical zero-example, thinking-on prompt IDs, ordered items, greedy generation and 1024-token cap. Count full replay latency. Replication requires >=2 net strict correct and a positive net on each source, total time <= Base, retained raw V3 NLL <= Base+0.03; the 256-token streams must be identical. Blindly score completed prose before promotion. Report exact pooled paired p across both panels; claims of statistically reliable superiority require pooled p<0.05. Close larger expansion on failure. No optimizer or decoding-policy changes.",
+  "limits": {
+    "wall_seconds": 1100,
+    "peak_gib": 5.8,
+    "available_gib": 1.5
+  },
+  "pool": 0,
+  "rollout_cap": 192,
+  "exclusion_note": "All 1319 official GSM8K test questions occur in the historical Phase 2 inventory. This replication uses prospectively frozen, disjoint publisher-train questions. No model measurements were run on the inventoried test split for this study."
+}
