@@ -27,6 +27,8 @@ On **48 fresh public word problems**, the same adapter answered **23/48** correc
 
 Two follow-up training methods also beat Base at 256 tokens on separate 32-question cohorts. Inverse-checked supervision scored **12 vs 3** and sampled-solution preference training scored **16 vs 2**. Both trailed Base at 1,024 tokens. Giving the original adapter and Base multiple attempts within one shared 1,024-token allowance produced **20/32 vs 25/32** in **283.2 vs 468.6 seconds**. [Follow-up scores and costs](docs/CAPABILITY_SCOREBOARD.md#follow-up-evidence-on-language-retrieval-and-prefill)
 
+A different trained checkpoint preserves the first 512 greedy Base tokens when thinking is enabled. If the thought is still open, it reprocesses the entire prefix at K=2 and finishes within the original allowance. On 48 fresh problems at 1,024 tokens it scored **27/48 vs 25/48** for Base in **353.05 vs 380.68 seconds**, including the second prefill. The gain came from two additional SVAMP answers. GSM8K tied. A blind review that credited correct visible answers written in prose gave **31/48 vs 30/48**. The result fell below the registered promotion margin. The native CLI loads this research checkpoint with `--checkpoint research/results/recurrent-deliberation-01/model --thinking --max-tokens 1024`. [Frozen paired outputs and checkpoint](research/results/recurrent-deliberation-01) · [Answer review](docs/measurements/answer-audits/recurrent-deliberation-01.json)
+
 ![Correct completed turns versus output allowance and total generation time on 48 fresh public word problems](docs/measurements/rationale-budget.png)
 
 Run the measured adapter on a native Apple Silicon Mac with the locked environment and pinned Base checkpoint.

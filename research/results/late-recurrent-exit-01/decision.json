@@ -1,0 +1,44 @@
+{
+  "registration": "998da8c7341675218fb86038459638035eac2d3d1a4ba5e5cb418311ec4a116d",
+  "data": "f7791540fad73bc8e4557b695a2a93b6aefe95f618799c66a547d5795854255a",
+  "training": "2f0e77e63f38f05e5544bee58d3ea7b1157c682c6091d5955c1e0cd7418d3a50",
+  "passed": false,
+  "weights": "5a468171940395a2425e5356af8e002c650f84e7cc434f8b6f6dbaf56aed0e60",
+  "updates": 16,
+  "targets": 304,
+  "retention": {
+    "base": {
+      "nll": 2.9826581153386043,
+      "by_domain": {
+        "code_description": {
+          "loss": 4470.292913913727,
+          "tokens": 1733,
+          "nll": 2.5795112024891673
+        },
+        "general_prose": {
+          "loss": 7185.204305648804,
+          "tokens": 1911,
+          "nll": 3.759918527288751
+        },
+        "reference": {
+          "loss": 4169.751423716545,
+          "tokens": 1680,
+          "nll": 2.481994895069372
+        },
+        "scientific_exposition": {
+          "loss": 7110.921858847141,
+          "tokens": 2291,
+          "nll": 3.1038506585976173
+        },
+        "technical_explanation": {
+          "loss": 4886.064397752285,
+          "tokens": 1713,
+          "nll": 2.852343489639396
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  },
+  "status": "interrupted",
+  "reason": "Execution budget"
+}

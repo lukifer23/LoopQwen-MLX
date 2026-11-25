@@ -255,3 +255,7 @@ At the full budget K2 gained four answers and lost eleven. It solved 4/16 reserv
 | Context-conditioned recurrent reader | 9/24 | 0.392 | 65.58 |
 
 The learned 64-token passage window overlapped the annotated source paragraph on 20/24 requests. A separate recurrent adapter received 48 updates on annotated answers and their support sentences. The full-history scorer trained on 869 natural examples with supervised answer positions. Passage localization improved relative to the earlier reader's 3/12 on a different cohort, but the new decoder missed the direct answer-quality gate. Its independent native export reproduced all three decoder banks' logits in a fresh process. [Paired answers, training and native model](../research/results/natural-context-01)
+
+### Late recurrent exit
+
+The 896-token switch completed 14 of 16 candidate turns and all 16 Base turns before the 315-second worker limit. On the 14 matched items the candidate scored 9/14 in 123.75 seconds and Base scored 10/14 in 121.77 seconds. All four switched turns ended without a complete visible answer. Base scored 11/16 on the full panel. Even if the candidate had solved both remaining items, it could only have tied Base. The registered two-answer gain was already unreachable. Full-panel candidate accuracy and latency remain unmeasured. Its trained weights, Base prefix identities and completed turns were archived. [Partial paired generations](../research/results/late-recurrent-exit-01)
