@@ -1,0 +1,204 @@
+{
+  "start": 1795641803.515946,
+  "closed_utc": "2026-11-25T22:42:27.052340+00:00",
+  "wall_seconds": 4743.536394119263,
+  "charged_research_worker_seconds": 4482.636424064636,
+  "remaining_research_worker_seconds": 17.36357593536377,
+  "research_limits": {
+    "wall_seconds": 7200,
+    "native_seconds": 4500,
+    "iterations": 8,
+    "reassess_consecutive_failures": 3
+  },
+  "registrations": {
+    "all-layer-reasoning-01": {
+      "archive": "research/results/all-layer-reasoning-01",
+      "inventory_sha256": "6eccfda3b5d6dca8ab94062379032926a00c14bd5fe06f82f965596a67a41706",
+      "charged_seconds": 1369.2595410346985,
+      "status": "completed"
+    },
+    "recurrent-deliberation-01": {
+      "archive": "research/results/recurrent-deliberation-01",
+      "inventory_sha256": "ef20dade61c03d0eb01b0fd7cf923eed2e6a5ca08025379669f9d407a931e4e3",
+      "charged_seconds": 1272.8634538650513,
+      "status": "completed"
+    },
+    "projected-distillation-01": {
+      "archive": "research/results/projected-distillation-01",
+      "inventory_sha256": "4fb8647a4d665c8ccac59bd47345796642c53d99bf20bec1801eb8c633e827b2",
+      "charged_seconds": 445.015114068985,
+      "status": "insufficient_correct_training_traces"
+    },
+    "privileged-reasoning-01": {
+      "archive": "research/results/privileged-reasoning-01",
+      "inventory_sha256": "03ea2e17f1aa61b65d772480b5b0692c93a0676f45b9f80565612bfc2972368b",
+      "charged_seconds": 855.9629352092743,
+      "status": "completed"
+    },
+    "natural-context-01": {
+      "archive": "research/results/natural-context-01",
+      "inventory_sha256": "c621b39cbc0a41bba06447c48f1b5271d40a337e3002a93b232051ab2db5b596",
+      "charged_seconds": 226.5036301612854,
+      "status": "completed"
+    },
+    "late-recurrent-exit-01": {
+      "archive": "research/results/late-recurrent-exit-01",
+      "inventory_sha256": "110a91a7336e2cd34f6d598372240b8fb73253dec1216fea1ab1c42a05a1d344",
+      "charged_seconds": 313.0317497253418,
+      "status": "interrupted"
+    }
+  },
+  "worker_starts": [
+    {
+      "job": "all-layer-reasoning-01",
+      "seconds": 1369.2595410346985,
+      "peak_bytes": 3814454708,
+      "start": 1795641859.101763
+    },
+    {
+      "job": "recurrent-deliberation-01",
+      "seconds": 1272.8634538650513,
+      "peak_bytes": 5249092500,
+      "start": 1795643249.195403
+    },
+    {
+      "job": "projected-distillation-01",
+      "seconds": 0.010341882705688477,
+      "peak_bytes": 0,
+      "start": 1795644568.914848
+    },
+    {
+      "job": "projected-distillation-01",
+      "seconds": 445.0047721862793,
+      "peak_bytes": 1749458910,
+      "start": 1795644583.399752
+    },
+    {
+      "job": "privileged-reasoning-01",
+      "seconds": 855.9629352092743,
+      "peak_bytes": 4000399886,
+      "start": 1795645038.010829
+    },
+    {
+      "job": "natural-context-01",
+      "seconds": 226.5036301612854,
+      "peak_bytes": 3509380052,
+      "start": 1795645933.522086
+    },
+    {
+      "job": "late-recurrent-exit-01",
+      "seconds": 313.0317497253418,
+      "peak_bytes": 4645514892,
+      "start": 1795646198.962016
+    }
+  ],
+  "reason": "Six registrations closed. Positive full-budget effects missed the minimum margin and cross-source gains. The remaining native allowance cannot cover a fresh matched replication.",
+  "latest_pilot": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable.",
+  "verification": {
+    "test_suite": "75 passed",
+    "standalone_exports": {
+      "natural-context-01": {
+        "prompt": "The report lists eight samples. How many samples are there?",
+        "input_ids": [
+          [
+            760,
+            1830,
+            11140,
+            7810,
+            10156,
+            13,
+            2500,
+            1599,
+            10156,
+            513,
+            1017,
+            30
+          ]
+        ],
+        "logits_sha256": "71e0d18202a0e6959effbecc33836bbd4e5e3d39b05de75dbee4255fcf60d966",
+        "bank_logits": {
+          "register": "71e0d18202a0e6959effbecc33836bbd4e5e3d39b05de75dbee4255fcf60d966",
+          "ordinary": "6061baa565754b64008ce0aa8ad4e975f15b00d21689947ee38b7c018aa992f0",
+          "prose": "1bcb66ab9e20b0dab0593a1adea8bad76e7499dcbe41d1f9899ea6f031bd8cb1"
+        },
+        "unique_parameters": 755154103,
+        "fresh_process_verified": true
+      },
+      "recurrent-deliberation-01": {
+        "prompt": "Question: 17 \u00d7 23\nAnswer:",
+        "input_ids": [
+          [
+            14162,
+            25,
+            220,
+            16,
+            22,
+            23985,
+            220,
+            17,
+            18,
+            198,
+            15666,
+            25
+          ]
+        ],
+        "last_top1": 220,
+        "logits_sha256": "df33acf38e3e1f519f24bd9145f4423348fc888663629f0a1bdba5a5d856446a",
+        "merge_relative_rms": 0.0134578300639987,
+        "unique_parameters": 875207489,
+        "fused_modules": 46,
+        "step": 64,
+        "ordinary_logits_sha256": "e265942b2b59e7eff89255b41c0050a34f13bf17ba945d5fbdfa92ce4313c6d5",
+        "ordinary_projection_parameters": 122814464,
+        "fresh_process_verified": true
+      }
+    },
+    "semantic_reviews": {
+      "all-layer-reasoning-01": {
+        "study": "all-layer-reasoning-01",
+        "archive": "6eccfda3b5d6dca8ab94062379032926a00c14bd5fe06f82f965596a67a41706",
+        "reviewed": 5,
+        "n": 48,
+        "correct": {
+          "base": 38,
+          "candidate": 21
+        },
+        "wins": 0,
+        "losses": 17,
+        "paired_p": 1.52587890625e-05
+      },
+      "recurrent-deliberation-01": {
+        "study": "recurrent-deliberation-01",
+        "archive": "ef20dade61c03d0eb01b0fd7cf923eed2e6a5ca08025379669f9d407a931e4e3",
+        "reviewed": 5,
+        "n": 48,
+        "correct": {
+          "base": 30,
+          "candidate": 31
+        },
+        "wins": 2,
+        "losses": 1,
+        "paired_p": 1.0
+      },
+      "privileged-reasoning-01": {
+        "study": "privileged-reasoning-01",
+        "archive": "03ea2e17f1aa61b65d772480b5b0692c93a0676f45b9f80565612bfc2972368b",
+        "reviewed": 3,
+        "n": 32,
+        "correct": {
+          "base": 18,
+          "candidate": 9
+        },
+        "wins": 4,
+        "losses": 13,
+        "paired_p": 0.049041748046875
+      }
+    },
+    "register_128k_archive": "44730438b1dc7ecf46d5aba7586f52664d743a133f783f79a0a553ec15b4d4a7",
+    "matched_dense_archive": "56b29f3b1e3e81c0566d9f2e0b7ea2cf3f996c27adb4dd5cb75bda9eb1028383"
+  },
+  "final_gpu_lease": null,
+  "final_project_worker_count": 0,
+  "final_pressure": "normal",
+  "accounting": "Includes every registered native worker invocation. Software regression tests, export validation and archive verification are separate."
+}

@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "late-recurrent-exit-01",
+  "active": null,
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -184,9 +184,9 @@
       "reason": "Located 20/24 real source paragraphs but exact answers 9/24 versus 10/24 for Base. Mean token F1 0.392 versus 0.517. Failed final-answer gate, no long-context promotion."
     }
   ],
-  "status": "Active renewed reasoning comparison",
-  "next_action": "Train and assess full-depth adaptation on the frozen 1024-token reasoning panel.",
-  "hypothesis": "A stabilized arithmetic parent adapted to complete natural-language solutions can improve correct first-turn answers at reasonable cost.",
+  "status": "Closed bounded full-budget reasoning and natural-reading session",
+  "next_action": "Base remains the general-language reference. An independent study of learned stopping would require a new execution window.",
+  "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
     "Six-hop unrestricted graph paths 6/192",
@@ -196,7 +196,8 @@
     "Early-key retrieval failed at 131072 input tokens for Base and the Phase 4 parent.",
     "The 256-token advantage is on word problems from one trained lineage. General prose NLL increased by 0.00461.",
     "The deployed rationale adapter completed the full-context turn with an incorrect early ledger value.",
-    "The supervised reader returned both correct 128K counterfactual values, but the requests share one synthetic filing register. Natural prose transfer scored 2/12 versus Base 4/12."
+    "The supervised reader returned both correct 128K counterfactual values, but the requests share one synthetic filing register. Natural prose transfer scored 2/12 versus Base 4/12.",
+    "The 512-token recurrent switch won three full-budget arithmetic items and lost one across 48. Its mathematical-content gain was one and GSM8K tied. The natural reader scored 9/24 versus Base 10/24."
   ],
   "rejected": [
     "Frozen prefix cache failed gradient parity",
@@ -225,11 +226,16 @@
       "permutation_updates": 0,
       "snapshot": "research/sessions/2026-11-24-resumed/interleave-control-step1",
       "paired_evaluation": false
+    },
+    {
+      "id": "late-recurrent-exit-01",
+      "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795636316.297983,
+  "closed_session_start": 1795641803.515946,
   "native_window": {
     "start_utc": "2026-11-25T21:23:23.515946+00:00",
-    "status": "open"
+    "status": "closed",
+    "closed_utc": "2026-11-25T22:42:27.052340+00:00"
   }
 }
