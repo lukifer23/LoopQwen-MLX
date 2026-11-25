@@ -200,3 +200,14 @@ The reader's selected span overlapped the human-annotated source paragraph on on
 | Original arithmetic K2 | 20 / 69.5 | 20 / 283.2 | 13,575 | 135 |
 
 Both systems first attempted each question greedily with the entire allowance available, then sampled within the remaining budget. Voting fixed two Base errors and lost none. It fixed one K2 error and lost one. The final candidate gained two paired questions and lost seven against Base (exact two-sided McNemar p = 0.180). The model scored 9/16 versus 10/16 on reserved GSM8K and 11/16 versus 15/16 on SVAMP. The registered longer-budget advantage failed. [All 225 attempts, stop boundaries and costs](../research/results/shared-budget-vote-01)
+
+### Full-budget all-layer adapter
+
+| 48 paired questions | Recurrent correct | Base correct | Recurrent / Base seconds | Paired wins / losses |
+|---|---:|---:|---:|---:|
+| Through 256 tokens | 21 | 7 | 85.1 / 172.9 | 16 / 2 |
+| Through 1,024 tokens | 21 | 33 | 85.1 / 342.8 | 3 / 15 |
+| Reserved GSM8K at 1,024 | 12/24 | 17/24 | 48.8 / 191.0 | 2 / 7 |
+| SVAMP at 1,024 | 9/24 | 16/24 | 36.4 / 151.8 | 1 / 8 |
+
+All 384 updates completed on MLX in 919.1 seconds of update time. V3 language NLL was 3.00277 for the recurrent adapter and 2.98266 for Base. Full-budget accuracy failed on both sources. [Individual generations and weights](../research/results/all-layer-reasoning-01)
