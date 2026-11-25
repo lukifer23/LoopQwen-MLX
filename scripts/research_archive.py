@@ -154,6 +154,7 @@ def verify(root):
         "privileged-reasoning-01",
         "late-recurrent-exit-01",
         "learned-exit-01",
+        "fullrank-reasoning-01",
     ):
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
@@ -781,6 +782,67 @@ def verify_transfer(root, decision):
                 ),
                 "Trained deliberation model or exposure",
             )
+    if reg["id"] == "fullrank-reasoning-01":
+        manifest = Path("research/data/fullrank-reasoning-training.json")
+        require(
+            sha(manifest) == decision["training"]
+            and set(read(manifest)["ordered_questions"]).isdisjoint(
+                r["id"] for r in items
+            )
+            and sha(Path(reg["parent"]) / "adapters.safetensors")
+            == reg["parent_sha256"]
+            and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+            == reg["dense_sha256"],
+            "Full-rank initialization, training and control identity",
+        )
+        calpath = root / "calibration.json"
+        if calpath.exists():
+            cal = read(calpath)
+            table = cal["rows"]
+            eligible = [
+                r
+                for r in table
+                if r["nll"] <= cal["base"] + reg["calibration_tolerance"]
+            ]
+            chosen = max(eligible, key=lambda r: r["fraction"]) if eligible else None
+            require(
+                [r["fraction"] for r in table] == reg["fractions"]
+                and all(r["tensors"] > 186 and math.isfinite(r["nll"]) for r in table)
+                and cal["selected"] == chosen,
+                "Training-only mixture selection",
+            )
+            if decision["status"] == "no_retained_mixture":
+                require(
+                    chosen is None
+                    and not weight
+                    and not decision["passed"]
+                    and not (root / "candidate.json.gz").exists(),
+                    "Calibration prerequisite",
+                )
+                return
+            if weight:
+                st = read(root / "model/state.json")
+                mix = st["spec"]["deployment"]["backbone_mix"]
+                from loopqwen.identity import fingerprint
+
+                require(
+                    mix == decision["backbone_mix"]
+                    and mix["donor"] == reg["teacher"]
+                    and mix["fraction"] == chosen["fraction"]
+                    and mix["tensors"] == chosen["tensors"]
+                    and st["parent"] == fingerprint([reg["base_revision"], mix])
+                    and st["step"] == reg["updates"] == decision["updates"]
+                    and sum(h["targets"] for h in st["history"])
+                    == decision["targets"]
+                    == read(manifest)["response_tokens"]
+                    and sha(root / "model/adapters.safetensors") == weight,
+                    "Materialized full-rank decoder and native optimization",
+                )
+        else:
+            require(
+                decision["status"] == "interrupted" and not weight,
+                "Missing training calibration",
+            )
     if reg["id"] == "learned-exit-01":
         manifest = Path("research/data/learned-exit-training.json")
         ids = read(manifest)["ordered_questions"]
@@ -1014,6 +1076,7 @@ def verify_transfer(root, decision):
         "privileged-reasoning-01",
         "late-recurrent-exit-01",
         "learned-exit-01",
+        "fullrank-reasoning-01",
     ):
         passed = (
             full["all"]["wins"] - full["all"]["losses"] >= reg.get("net_floor", 4)
