@@ -32,8 +32,14 @@ def material(s):
         *map(Path, s.get("exclude_panels", [])),
     )
     prior = [item for path in prior_paths for item in read(path)]
-    _, panel = paired_solutions.material(s, prior)
+    prior_ids = {
+        key
+        for path in s.get("exclude_training", [])
+        for key in read(path)["ordered_questions"]
+    }
+    _, panel = paired_solutions.material(s, prior, exclude_ids=prior_ids)
     excluded = {fingerprint(" ".join(r["question"].split())) for r in prior + panel}
+    excluded.update(prior_ids)
     for name in ("rationale-transfer-01", "checked-rationale-01"):
         excluded.update(
             fingerprint(" ".join(r["question"].split()))
@@ -100,6 +106,8 @@ def material(s):
     for q, passage in sorted(
         candidates, key=lambda v: fingerprint([s["seed"], v[0]["id"]])
     ):
+        if q["id"] in prior_ids:
+            continue
         ann = q["answers"][0]
         start = ann["answer_start"]
         answer = ann["text"]

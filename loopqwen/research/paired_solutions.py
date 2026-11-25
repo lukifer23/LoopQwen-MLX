@@ -33,7 +33,7 @@ PANEL = Path("research/data/paired-solutions-01.json")
 POOL = PANEL.with_name("paired-solutions-pool.json")
 
 
-def material(s, exclude=()):
+def material(s, exclude=(), *, exclude_ids=()):
     old = read(rationale_transfer.DATA) + read(checked_rationale.PANEL)
     used = {" ".join(r["question"].split()) for r in old}
     used.update(" ".join(r["question"].split()) for r in exclude)
@@ -45,6 +45,7 @@ def material(s, exclude=()):
         + read("research/data/external-anchor.json")["gsm"]
     )
     checked = {r["question_id"] for r in read(checked_rationale.TRAIN)["selected"]}
+    checked.update(exclude_ids)
     historical = set().union(
         *json.loads(
             gzip.decompress(
