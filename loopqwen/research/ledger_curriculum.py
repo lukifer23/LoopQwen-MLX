@@ -55,13 +55,21 @@ def material(s):
     return docs, arithmetic, manifest
 
 
-def measure(m, t, row, cap, budget):
+def measure(m, t, row, cap, budget, *, offload_dir=None):
     ids = row["prompt_ids"]
     end = core.atom(t, "<|im_end|>")
     text = t.decode(ids)
     if t.encode(text, add_special_tokens=False) != ids:
         raise ValueError("Evaluation token stream changed")
-    v = generate(m, t, text, cap, progress=lambda _: budget.check(), stop_ids=[end])
+    v = generate(
+        m,
+        t,
+        text,
+        cap,
+        progress=lambda _: budget.check(),
+        stop_ids=[end],
+        offload_dir=offload_dir,
+    )
     del v["prompt"]
     stops = set(t.eos_token_ids) | {end}
     parsed = interpret(

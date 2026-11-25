@@ -128,6 +128,10 @@ def verify(root):
         )
     if study in ("context-128k-01", "context-128k-disk", "context-rationale-128k"):
         verify_context(root, decision)
+    if study == "attention-memory-128k":
+        verify_full_memory(root, decision)
+    if study == "shared-budget-vote-01":
+        verify_shared_budget(root, decision)
     if study == "attention-memory-01":
         verify_attention_memory(root, decision)
     if study == "prefill-block-01":
@@ -833,6 +837,232 @@ def verify_attention_memory(root, decision):
         and decision["retention"]["nll"] <= base_nll["nll"] + 0.03
     )
     require(decision["passed"] == gate, "Memory full-length qualification")
+
+
+def verify_full_memory(root, decision):
+    reg = read(root / "registration.json")
+    path = Path("research/data/attention-memory-128k.json")
+    data = read(path)
+    parent = Path(reg["qualification"])
+    qualification = read(parent / "decision.json")
+    require(
+        qualification["passed"]
+        and sha(parent / "checksums.json")
+        == reg["qualification_sha256"]
+        == decision["qualification"]
+        and sha(path) == decision["data"]
+        and sha(root / "registration.json") == decision["registration"],
+        "Full-context prerequisite and identities",
+    )
+    first, second = data["panel"]
+    a, b = first["prompt_ids"], second["prompt_ids"]
+    (i, j), (k, l) = data["key_spans"]
+    require(
+        0 < i < j < k < l < len(a)
+        and a[i:j] != a[k:l]
+        and j - i == l - k
+        and a[:i] + a[k:l] + a[j:k] + a[i:j] + a[l:] == b,
+        "Only the two equal-length keys may move",
+    )
+    require(
+        first["gold"] != second["gold"]
+        and first["key"] == second["key"]
+        and reg["minimum_length"] <= len(a) == len(b) <= reg["minimum_length"] + 48
+        and len(set(data["swapped_keys"])) == 2
+        and data["swapped_keys"][0] == first["key"],
+        "Counterfactual labels and context length",
+    )
+    require(
+        0.08 < first["gold_start"] / len(a) < 0.12
+        and 0.73 < second["gold_start"] / len(b) < 0.77
+        and all(
+            a[r["gold_start"] : r["gold_stop"]] == b[r["gold_start"] : r["gold_stop"]]
+            for r in (first, second)
+        ),
+        "Unchanged values at separated depths",
+    )
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"],
+            "Interrupted context comparison",
+        )
+        return
+    probe = read(root / "disk-parity.json.gz")["records"][0]
+    ref = read(parent / "candidate.json.gz")["records"][0]
+    parity = (
+        probe["token_ids"] == ref["token_ids"]
+        and probe["attention_memory"] == ref["attention_memory"]
+        and probe["input_sha256"] == ref["input_sha256"]
+        and probe["scratch_bytes"] > 0
+    )
+    if decision["status"] == "disk_parity_failed":
+        require(
+            not parity
+            and not decision["passed"]
+            and not (root / "base.json.gz").exists(),
+            "Failed parity closes context job",
+        )
+        return
+    require(parity, "Validated disk reader required")
+    rows = {
+        arm: verify_memory_rows(
+            root / (arm + ".json.gz"),
+            data["panel"],
+            reg["generation_cap"],
+            qualification["gain"] if arm == "candidate" else None,
+        )
+        for arm in ("base", "candidate")
+    }
+    counts = {
+        arm: {
+            "correct": sum(r["correct"] for r in rs),
+            "seconds": sum(r["elapsed_s"] for r in rs),
+        }
+        for arm, rs in rows.items()
+    }
+    require(
+        all(
+            r["scratch_bytes"] > 0 and r["peak_bytes"] > 0
+            for rs in rows.values()
+            for r in rs
+        )
+        and counts == decision["scores"],
+        "Full-history costs and counts",
+    )
+    a, c = counts["base"], counts["candidate"]
+    require(
+        decision["passed"]
+        == (
+            c["correct"] == 2
+            and c["correct"] > a["correct"]
+            and c["seconds"] <= 1.75 * a["seconds"]
+            and all(r["located"] for r in rows["candidate"])
+        ),
+        "Counterfactual full-context gate",
+    )
+
+
+def verify_shared_budget(root, decision):
+    from collections import Counter
+    from loopqwen import REVISION
+
+    reg = read(root / "registration.json")
+    data = Path("research/data/shared-budget-vote-01.json")
+    items = read(data)
+    require(
+        sha(data) == decision["data"]
+        and sha(root / "registration.json") == decision["registration"]
+        and len(items) == 2 * reg["per_source"]
+        and len({r["id"] for r in items}) == len(items),
+        "Shared budget panel and registration",
+    )
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"],
+            "Interrupted reasoning measurement",
+        )
+        return
+    arms = {}
+    for arm, weight in (("base", REVISION), ("candidate", reg["parent_sha256"])):
+        blob = read(root / (arm + ".json.gz"))
+        require(blob["weights"] == weight, "Shared-budget model")
+        rows = blob["records"]
+        for i, (r, item) in enumerate(zip(rows, items, strict=True)):
+            require(
+                r["id"] == item["id"]
+                and r["gold"] == item["gold"]
+                and r["prompt_ids"] == item["prompt_ids"],
+                "Shared-budget matched input",
+            )
+            left = reg["generation_cap"]
+            counts = Counter()
+            done = False
+            choice = None
+            traces = r["traces"]
+            require(0 < len(traces) <= reg["max_attempts"], "Reasoning attempt count")
+            for j, t in enumerate(traces):
+                ids = t["token_ids"]
+                require(
+                    not done
+                    and 0 < len(ids) <= left
+                    and t["seconds"] >= t["ttft"] > 0
+                    and t["seed"] == reg["seed"] + i * reg["max_attempts"] + j
+                    and t["temperature"] == (reg["temperature"] if j else 0),
+                    "Attempt identity and cost",
+                )
+                left -= len(ids)
+                answer = first_turn_answer(ids, t["text"])
+                require(answer == t["answer"], "Independent attempt answer")
+                if answer is not None:
+                    counts[answer] += 1
+                choice = max(counts, key=counts.get) if counts else None
+                remaining = reg["max_attempts"] - j - 1
+                other = max((v for k, v in counts.items() if k != choice), default=0)
+                done = (
+                    left == 0
+                    or remaining == 0
+                    or (choice is not None and counts[choice] > other + remaining)
+                )
+            require(
+                done
+                and r["answer"] == choice
+                and r["correct"] == (choice == item["gold"])
+                and r["tokens"] == reg["generation_cap"] - left
+                and r["seconds"] == sum(t["seconds"] for t in traces),
+                "Vote final decision",
+            )
+        arms[arm] = rows
+    for src, summ in decision["scores"].items():
+        idx = [
+            i for i, item in enumerate(items) if src == "all" or item["source"] == src
+        ]
+        wins = losses = 0
+        for arm, rows in arms.items():
+            rs = [rows[i] for i in idx]
+            first = [r["traces"][0]["answer"] == r["gold"] for r in rs]
+            require(
+                summ[arm]
+                == {
+                    "correct": sum(r["correct"] for r in rs),
+                    "valid": sum(r["answer"] is not None for r in rs),
+                    "tokens": sum(r["tokens"] for r in rs),
+                    "seconds": sum(r["seconds"] for r in rs),
+                    "attempts": sum(len(r["traces"]) for r in rs),
+                    "first_correct": sum(first),
+                    "first_seconds": sum(r["traces"][0]["seconds"] for r in rs),
+                    "fixed": sum(r["correct"] and not f for r, f in zip(rs, first)),
+                    "lost": sum(not r["correct"] and f for r, f in zip(rs, first)),
+                },
+                "Vote performance summary",
+            )
+        for i in idx:
+            a, c = arms["base"][i]["correct"], arms["candidate"][i]["correct"]
+            wins += c and not a
+            losses += a and not c
+        n = wins + losses
+        p = min(
+            1.0, 2 * sum(math.comb(n, k) for k in range(min(wins, losses) + 1)) / 2**n
+        )
+        require(
+            (summ["wins"], summ["losses"], summ["p"]) == (wins, losses, p),
+            "Vote paired outcomes",
+        )
+    scores = decision["scores"]
+    pooled = scores["all"]
+    require(
+        decision["passed"]
+        == (
+            pooled["p"] < 0.05
+            and pooled["candidate"]["seconds"] <= pooled["base"]["seconds"]
+            and all(
+                scores[k]["wins"] > scores[k]["losses"]
+                and scores[k]["candidate"]["correct"]
+                >= scores[k]["base"]["first_correct"]
+                for k in reg["sources"]
+            )
+        ),
+        "Shared budget gate",
+    )
 
 
 def verify_prefill(root, decision):
