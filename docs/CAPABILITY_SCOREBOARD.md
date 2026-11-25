@@ -154,3 +154,22 @@ The last ten K2 updates fixed nine previously incorrect responses and lost two. 
 | Native resident prefill at 512 versus 128 tokens per block | Median first-token time improved from 4.57 to 4.08 s at 8K, and from 10.64 to 9.53 s at 16K. The 16K greedy streams diverged. Peak allocation rose by 0.62 GiB at 8K and 0.51 GiB at 16K. | Numerical and memory gates failed. Deployed prefill stays at 128 tokens per block. [Crossover measurements](../research/results/prefill-block-01) |
 
 For the two wrong 16K retrievals, the model returned a six-digit value that belonged to another entry in the same ledger. The keys, positions and distractor sets varied across these items, so the two misses cannot isolate a position effect. [Frozen ledgers](../research/data/ledger-curriculum-01.json)
+
+### Frozen arithmetic decoder with a learned passage reader
+
+| Held-out register inputs | Reader K2 exact answers | Untouched Base K1 exact answers | Reader / Base total seconds |
+|---|---:|---:|---:|
+| 2K, two positions in table and prose | 4/4 | 0/4 | 6.4 / 8.3 |
+| 16K, two positions in table and prose | 4/4 | 0/4 | 45.8 / 36.8 |
+| All eight requests | 8/8 | 0/8 | 52.2 / 45.1 |
+
+The reader selected the gold span on all eight inputs. Each correct answer was generated through Qwen’s vocabulary head and scored after the thinking span and first turn boundary. Base reached the 96-token cap on all eight. The learned module adds 32,929 parameters. The arithmetic adapter and the original Qwen weights stayed frozen. All 32 short arithmetic streams matched the parent exactly, and the V3 loss was 2.98727 against Base’s 2.98266. [Per-item outputs and checkpoint](../research/results/attention-memory-01)
+
+### Preference training on sampled solutions
+
+| Fresh 32-question cohort | Candidate correct | Base correct | Candidate / Base seconds | Paired wins / losses |
+|---|---:|---:|---:|---:|
+| 256-token prefix | 16 | 2 | 55.9 / 116.4 | 14 / 0 |
+| 1,024-token allowance | 16 | 18 | 71.8 / 206.6 | 6 / 8 |
+
+At 256 tokens the candidate gained seven answers on each source. At 1,024 it led 9–8 on SVAMP and trailed 7–10 on the publisher GSM8K sample. The 40 training pairs contained 3,820 chosen tokens and 3,713 rejected tokens. Sampling took 681.6 s and 30 preference updates took 86.6 s. The V3 NLL was 2.98823 against 2.98266 for Base. This trained variant missed its long-budget gate. [Sampled solutions, reference log probabilities and paired predictions](../research/results/paired-solutions-01)

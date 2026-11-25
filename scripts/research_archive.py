@@ -752,6 +752,45 @@ def verify_attention_memory(root, decision):
         and sha(root / "attention-reader.safetensors") == decision["scorer_weights"],
         "Memory fitting and scorer weights",
     )
+    import struct
+
+    recovery = read(root / "reader-recovery.json")
+    require(
+        recovery["updates"] == reg["updates"]
+        and recovery["weights"] == decision["scorer_weights"]
+        and recovery["optimizer"] == sha(root / "reader-optimizer.safetensors"),
+        "Recovered passage scorer and Adam identities",
+    )
+
+    def tensor_header(file):
+        header = json.loads(file.read(struct.unpack("<Q", file.read(8))[0]))
+        header.pop("__metadata__", None)
+        return header
+
+    with (root / "attention-reader.safetensors").open("rb") as file:
+        trainable = tensor_header(file)
+    expected = {
+        f"{key}.{moment}": v["shape"]
+        for key, v in trainable.items()
+        for moment in ("m", "v")
+    }
+    with (root / "reader-optimizer.safetensors").open("rb") as file:
+        slots = tensor_header(file)
+        require(
+            set(slots) == set(expected) | {"step", "learning_rate"}
+            and all(slots[k]["shape"] == shape for k, shape in expected.items()),
+            "Passage scorer moment shapes",
+        )
+        cursor = slots["step"]
+        require(
+            cursor["dtype"] == "U64" and cursor["shape"] == [],
+            "Passage Adam step schema",
+        )
+        file.seek(cursor["data_offsets"][0], 1)
+        require(
+            struct.unpack("<Q", file.read(8))[0] == recovery["updates"],
+            "Passage Adam step",
+        )
     cal = {}
     for gain in reg["gains"]:
         rows = verify_memory_rows(

@@ -2,6 +2,17 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
+## Learned full-history retrieval
+
+The released passage reader answered **8/8** held-out lookup questions across 2K and 16K contexts. Untouched Base answered **0/8** on the same thinking prompts with the same 96-token output allowance. Total generation time was **52.2 s versus 45.1 s**. The reader adds 32,929 learned parameters to the frozen arithmetic checkpoint. All 32 archived short math answers reproduced token for token. [Reader checkpoint, prompts and outputs](research/results/attention-memory-01) · [Measured accuracy and cost](docs/CAPABILITY_SCOREBOARD.md#frozen-arithmetic-decoder-with-a-learned-passage-reader)
+
+Reproduce the first 2K request on Apple Silicon. The expected visible answer is `191242`.
+
+```sh
+.venv/bin/python scripts/reader_prompt.py > /tmp/loopqwen-register.txt
+.venv/bin/python -m loopqwen generate --checkpoint research/results/attention-memory-01/model --thinking --prompt-file /tmp/loopqwen-register.txt --max-tokens 96
+```
+
 ## Thinking-enabled word problems
 
 The stabilized K=2 checkpoint trained on 128 publisher-written GSM8K explanations answered **13/32** development questions correctly in **64.6 seconds**. Untouched Qwen Base K=1 answered **1/32** in **118.1 seconds** on identical prompts with a 256-token limit. The candidate produced 32 scorable answers and Base produced one. The candidate fixed 13 Base errors and lost one correct answer. Its prose-retention NLL was 2.9873 against Base at 2.9827. These 32 questions had been used in earlier development studies. [Checkpoint and per-question outputs](research/sessions/2026-11-25/gsm-rationale-01) · [End-to-end review](docs/PROJECT_REVIEW.md)
