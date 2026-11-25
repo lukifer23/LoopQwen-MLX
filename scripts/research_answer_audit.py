@@ -29,7 +29,7 @@ def material(study):
     return records, dict(sorted(blind.items())), digest(root / "checksums.json")
 
 
-def score(study, annotations):
+def reviewed(study, annotations):
     records, blind, archive = material(study)
     if set(annotations) != set(blind) or any(
         value is not None and (not isinstance(value, str) or numeric(value) != value)
@@ -46,6 +46,11 @@ def score(study, annotations):
             if row["complete"] and answer is None:
                 answer = annotations[fingerprint([row["id"], row["visible"]])]
             flags[arm].append(row["complete"] and answer == row["gold"])
+    return records, flags, blind, archive
+
+
+def score(study, annotations):
+    _, flags, blind, archive = reviewed(study, annotations)
     diff = [
         int(c) - int(b) for c, b in zip(flags["candidate"], flags["base"], strict=True)
     ]
@@ -62,12 +67,84 @@ def score(study, annotations):
     }
 
 
+def combined(first, confirmation, initial_annotations, final_annotations):
+    original = Path("research/results") / first
+    repeat = Path("research/results") / confirmation
+    spec = read(repeat / "registration.json")
+    prior = read(original / "registration.json")
+    if (
+        spec["qualification"] != digest(original / "checksums.json")
+        or spec["model"] != str(original / "model")
+        or spec["weights"] != read(original / "decision.json")["weights"]
+        or any(
+            spec[k] != prior[k] for k in ("switch_after", "generation_cap", "sources")
+        )
+    ):
+        raise ValueError(
+            "Pooling requires a preregistered unchanged-checkpoint replication"
+        )
+    ids = set()
+    grouped = {}
+    for study, annotations in (
+        (first, initial_annotations),
+        (confirmation, final_annotations),
+    ):
+        records, flags, _, _ = reviewed(study, annotations)
+        panel = read(Path("research/data") / (study + ".json"))
+        for i, item in enumerate(panel):
+            if item["id"] in ids:
+                raise ValueError("Repeated pooled question")
+            ids.add(item["id"])
+            for name in ("all", item["source"]):
+                group = grouped.setdefault(
+                    name,
+                    {
+                        "strict": [],
+                        "content": [],
+                        "seconds": {"candidate": 0, "base": 0},
+                    },
+                )
+                for arm in group["seconds"]:
+                    group["seconds"][arm] += records[arm][i]["seconds"]
+                group["strict"].append(
+                    [bool(records[a][i]["correct"]) for a in ("candidate", "base")]
+                )
+                group["content"].append(
+                    [bool(flags[a][i]) for a in ("candidate", "base")]
+                )
+    for group in grouped.values():
+        group["n"] = len(group["strict"])
+        for key in ("strict", "content"):
+            pairs = group[key]
+            wins = pairs.count([True, False])
+            losses = pairs.count([False, True])
+            group[key] = dict(
+                candidate=sum(c for c, _ in pairs),
+                base=sum(b for _, b in pairs),
+                wins=wins,
+                losses=losses,
+                paired_p=exact_mcnemar(wins, losses),
+            )
+    return {"studies": [first, confirmation], "scores": grouped}
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("study")
     parser.add_argument("--annotations", type=Path)
+    parser.add_argument("--replication")
+    parser.add_argument("--replication-annotations", type=Path)
     args = parser.parse_args()
-    if args.annotations:
+    if args.replication or args.replication_annotations:
+        if not (args.replication and args.annotations and args.replication_annotations):
+            parser.error("Pooling needs both studies and both annotations")
+        result = combined(
+            args.study,
+            args.replication,
+            read(args.annotations),
+            read(args.replication_annotations),
+        )
+    elif args.annotations:
         result = score(args.study, read(args.annotations))
     else:
         _, result, _ = material(args.study)
