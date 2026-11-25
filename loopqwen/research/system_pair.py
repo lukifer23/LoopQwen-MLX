@@ -34,6 +34,36 @@ def material(s):
     known = {
         i for path in s["excluded_training"] for i in read(path)["ordered_questions"]
     }
+    mixed = []
+    for entry in s.get("excluded_mixed", []):
+        path = Path(entry["path"])
+        if digest(path) != entry["sha256"]:
+            raise ValueError("Earlier mixed panel changed")
+        mixed += read(path)
+    previous_math = {
+        r["id"] for r in mixed if r["family"] in ("arithmetic", "short_arithmetic")
+    }
+    if previous_math:
+        gsm = (
+            json.loads(line)["question"]
+            for line in Path("data/research_external/gsm-train.jsonl")
+            .read_bytes()
+            .splitlines()
+        )
+        svamp = (
+            r["Body"].strip() + " " + r["Question"].strip()
+            for r in read("data/research_external/svamp.json")
+        )
+        from itertools import chain
+
+        earlier = {
+            " ".join(q.split())
+            for q in chain(gsm, svamp)
+            if fingerprint(" ".join(q.split())) in previous_math
+        }
+        if {fingerprint(q) for q in earlier} != previous_math:
+            raise ValueError("Cannot reconstruct earlier arithmetic identities")
+        old.extend({"question": q} for q in earlier)
     _, math = paired_solutions.material(
         dict(s, per_source=16, pool=0, rollout_cap=192), old, exclude_ids=known
     )
@@ -49,6 +79,7 @@ def material(s):
         for i, r in enumerate(math)
     ]
     past = [r for p in s["excluded_relations"] for r in read(p)]
+    past += [r for r in mixed if r["family"] == "entailment"]
     original = read("research/experiments/entailment-triplets-01.json")
     if "entailment" in s["experts"]:
         first = read("research/data/entailment-triplets-01.json")
@@ -70,7 +101,9 @@ def material(s):
         for r in nli
     )
     squad = read("data/research_external/squad-dev-v1.1.json")["data"]
-    titles = set(s["excluded_titles"])
+    titles = set(s["excluded_titles"]) | {
+        r["source"] for r in mixed if r["family"] == "reading"
+    }
     documents = sorted(
         (a for a in squad if a["title"] not in titles),
         key=lambda a: fingerprint([s["seed"], a["title"]]),
@@ -141,7 +174,7 @@ def run(name, freeze):
     for expert, info in s["experts"].items():
         route_training.qualified_expert(expert, info)
     t = load_tokenizer(local_snapshot())
-    training = route_training.inputs(t, s)
+    training = route_training.inputs(t, dict(s, seed=s.get("routing_seed", s["seed"])))
     rows = material(s)
     manifest = {
         "documents": fingerprint(training),
@@ -175,7 +208,7 @@ def run(name, freeze):
     }
     try:
         m, t, _ = load_trained(s["reader"])
-        mx.random.seed(s["seed"])
+        mx.random.seed(s.get("routing_seed", s["seed"]))
         w = route_training.package(s, m, t, training, root, b)
         result["weights"] = w
         del m, t

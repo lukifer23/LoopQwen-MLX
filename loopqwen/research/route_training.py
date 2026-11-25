@@ -148,6 +148,38 @@ def package(s, model, tokenizer, examples, root, budget):
         for f in names:
             shutil.copyfile(source / f, local / f)
             files.append(name + "/" + f)
+    selector = s.get("selector_source")
+    if selector:
+        arc = Path(selector["directory"])
+        source = arc / "model/selector.safetensors"
+        report = read(arc / "router-training.json")
+        if (
+            digest(arc / "checksums.json") != selector["inventory"]
+            or digest(source) != selector["sha256"]
+            or not read(arc / "decision.json")["passed"]
+            or report["documents"] != fingerprint(examples)
+            or report["n"] != len(examples)
+        ):
+            raise ValueError("Qualified input selector or training cohort changed")
+        shutil.copyfile(source, directory / "selector.safetensors")
+        save(root / "router-training.json", dict(report, source=selector))
+    else:
+        fit_selector(s, model, examples, directory, root, budget)
+    files.append("selector.safetensors")
+    save(
+        directory / "context-policy.json",
+        {
+            "schema": 2,
+            "labels": LABELS,
+            "confidence": s["confidence"],
+            "experts": list(s["experts"]),
+            "files": {f: digest(directory / f) for f in files},
+        },
+    )
+    return digest(directory / "context-policy.json")
+
+
+def fit_selector(s, model, examples, directory, root, budget):
     classifier = nn.Linear(2 * model.args.hidden_size, len(LABELS))
     optimizer = optim.Adam(learning_rate=s["route_lr"])
     embed = model.text.model.embed_tokens
@@ -170,17 +202,6 @@ def package(s, model, tokenizer, examples, root, budget):
         mx.eval(value, classifier.parameters(), optimizer.state)
         history.append(value.item())
     classifier.save_weights(str(directory / "selector.safetensors"))
-    files.append("selector.safetensors")
-    save(
-        directory / "context-policy.json",
-        {
-            "schema": 2,
-            "labels": LABELS,
-            "confidence": s["confidence"],
-            "experts": list(s["experts"]),
-            "files": {f: digest(directory / f) for f in files},
-        },
-    )
     save(
         root / "router-training.json",
         {
@@ -190,4 +211,3 @@ def package(s, model, tokenizer, examples, root, budget):
             "training_correct": (classifier(x).argmax(axis=-1) == y).sum().item(),
         },
     )
-    return digest(directory / "context-policy.json")

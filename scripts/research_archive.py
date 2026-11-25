@@ -128,7 +128,11 @@ def verify(root):
         )
     if study in ("context-128k-01", "context-128k-disk", "context-rationale-128k"):
         verify_context(root, decision)
-    if study in ("attention-memory-128k", "conditional-depth-128k"):
+    if study in (
+        "attention-memory-128k",
+        "conditional-depth-128k",
+        "conditional-language-128k",
+    ):
         verify_full_memory(root, decision)
     if study == "natural-context-01":
         verify_natural_context(root, decision)
@@ -138,7 +142,7 @@ def verify(root):
         verify_shared_budget(root, decision)
     if study == "attention-memory-01":
         verify_attention_memory(root, decision)
-    if study == "conditional-depth-01":
+    if study in ("conditional-depth-01", "conditional-language-01"):
         verify_system(root, decision)
     if study in ("entailment-triplets-01", "entailment-triplets-confirm-01"):
         verify_entailment(root, decision)
@@ -699,6 +703,17 @@ def verify_system(root, decision):
             and all(math.isfinite(x) for x in report["history"]),
             "Selector and source identity",
         )
+        if "selector_source" in reg:
+            source = reg["selector_source"]
+            arc = Path(source["directory"])
+            require(
+                report["source"] == source
+                and sha(arc / "checksums.json") == source["inventory"]
+                and sha(arc / "model/selector.safetensors")
+                == sha(folder / "selector.safetensors")
+                == source["sha256"],
+                "Unchanged input selector",
+            )
         for f, h in meta["files"].items():
             require(sha(folder / f) == h, "System tensor or policy digest")
         for name, info in reg["experts"].items():
