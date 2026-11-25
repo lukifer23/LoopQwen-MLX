@@ -20,10 +20,9 @@ def test_window_selection_streams_the_same_features_used_for_training():
 def test_bias_is_causal_and_preserves_every_older_key():
     acquire()
 
-    class Cache:
-        slots = {(3, 0): KVCache(), (11, 0): KVCache()}
+    from types import SimpleNamespace
 
-    c = Cache()
+    c = SimpleNamespace(slots={(3, 0): KVCache(), (11, 0): KVCache()})
     attach_bias(c, {"start": 2, "stop": 5, "length": 12, "gain": 6.0})
     a = c.slots[11, 0]
     a.offset = 8
@@ -38,3 +37,28 @@ def test_bias_is_causal_and_preserves_every_older_key():
     a.offset = 12
     assert a.make_mask(1).reshape(-1).tolist() == [0, 0, 6, 6, 6] + [0] * 8
     assert c.slots[3, 0].make_mask(1) is None
+
+
+def test_held_out_registers_contain_hard_negatives_and_one_visible_gold():
+    from mlx_lm.utils import load_tokenizer
+
+    from loopqwen.io import read
+    from loopqwen.model_loader import local_snapshot
+
+    tok = load_tokenizer(local_snapshot())
+    data = read("research/data/attention-memory-01.json")
+    for row in data["panel"] + data["calibration"]:
+        ids = row["prompt_ids"]
+        text = tok.decode(ids)
+        assert row["minimum_length"] <= len(ids) <= row["minimum_length"] + 48
+        assert text.count(row["gold"]) == 1
+        assert tok.decode(ids[row["gold_start"] : row["gold_stop"]]) == row["gold"]
+        assert len(set(row["hard_keys"])) == 3
+        for key in row["hard_keys"]:
+            assert key in text
+            assert (
+                sum(
+                    a != b for a, b in zip(row["key"].split(), key.split(), strict=True)
+                )
+                == 1
+            )
