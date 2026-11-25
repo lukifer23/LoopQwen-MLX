@@ -41,6 +41,9 @@ Both resident-cache runs processed the same 131,072 input IDs and generated all 
 |---|---:|---:|---:|---:|
 | Untouched Base K1 | 192.44 s | 195.97 s | 681 | 26.9 |
 | Phase 4 arithmetic parent K2 | 261.75 s | 266.53 s | 501 | 19.9 |
+| Deployed 32-update rationale K2 | 261.27 s | 262.37 s | 502 | 19.1 |
+
+The actual deployed rationale adapter also consumed every input token. It completed a 22-token answer and returned 13494. The early ledger entry was 965265. This directly establishes capacity on the trained weights and records an incorrect retrieval even when the answer finished within the allowance. [Trained checkpoint at 128K](../research/results/context-rationale-128k)
 
 The original run stopped on a system memory warning after processing 112,768 Base input tokens. After Chrome closed, available memory reached 9.48 GiB. The completed test used the original registration, prompt and allocation guard. The working context limit therefore depends on other applications on this machine. [Initial interruption](../research/results/context-128k-01) · [Recovery record](../research/sessions/2026-11-25/resumption.json)
 
