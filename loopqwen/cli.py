@@ -81,7 +81,11 @@ def main():
     p.add_argument(
         "--checkpoint", required=True, help="Adapter checkpoint or merged export"
     )
-    p.add_argument("--prompt", required=True)
+    prompts = p.add_mutually_exclusive_group(required=True)
+    prompts.add_argument("--prompt")
+    prompts.add_argument(
+        "--prompt-file", type=Path, help="Read the complete UTF-8 prompt from disk"
+    )
     p.add_argument("--passes", type=int, choices=[1, 2, 3])
     p.add_argument("--max-tokens", type=int, default=64)
     p = sub.add_parser(
@@ -182,7 +186,9 @@ def main():
         else:
             result = Path("docs/PHASE4_RESULTS.md")
             if not result.is_file():
-                raise ValueError("Render the study with python scripts/phase4_report.py")
+                raise ValueError(
+                    "Render the study with python scripts/phase4_report.py"
+                )
     elif cmd in ("evaluate", "report", "compare") and args.experiment == "phase3_dev":
         from .io import read
         from .evaluation.phase3_report import report
@@ -228,7 +234,12 @@ def main():
             model, tok, _ = load_trained(args.checkpoint)
         if args.passes:
             model.span = replace(model.span, passes=args.passes)
-        result = generate(model, tok, args.prompt, args.max_tokens)
+        prompt = (
+            args.prompt_file.read_bytes().decode("utf-8")
+            if args.prompt_file
+            else args.prompt
+        )
+        result = generate(model, tok, prompt, args.max_tokens)
     elif cmd == "export":
         from .export import export
 

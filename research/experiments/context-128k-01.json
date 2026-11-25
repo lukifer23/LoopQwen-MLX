@@ -1,0 +1,12 @@
+{
+  "id": "context-128k-01",
+  "question": "Can the untouched pinned Base K1 and the Phase 4 stabilized adapter K2 ingest exactly 131072 prompt tokens, preserve full KV history and decode on this Mac? Can they recall one early ledger entry?",
+  "candidate": "adapters/phase4/gated_109_250k",
+  "weights": "fe472c4fb69db0a0b8663ac36bbf9b1edc9b2062d8368f85503a300c9e5a9cbf",
+  "seed": 13107241,
+  "prompt_tokens": 131072,
+  "generation_cap": 96,
+  "policy": "Base first, then candidate, batch one, fresh full BF16 site caches, 128-token prefill, identical token stream, thinking open, greedy to first official turn end or EOS. Fixed seeded ledger distractors, target near ten percent of the prompt. No KV eviction, compression or external lookup.",
+  "decision": "Capacity requires processing all 131072 input tokens and producing at least one token on each arm. Retrieval requires a completed first turn with the exact target number. One key is a smoke test. Stop the pair on a resource failure and keep the last synchronized position. No broad long-context claim from this probe.",
+  "limits": {"wall_seconds": 2000, "peak_gib": 5.5, "available_gib": 1.5}
+}

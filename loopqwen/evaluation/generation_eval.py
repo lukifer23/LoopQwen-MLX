@@ -3,7 +3,7 @@ from time import perf_counter
 import mlx.core as mx
 
 
-def generate(model, tokenizer, prompt, max_tokens=24):
+def generate(model, tokenizer, prompt, max_tokens=24, *, progress=None, stop_ids=()):
     ids = tokenizer.encode(prompt, add_special_tokens=False)
     if (
         not ids
@@ -19,6 +19,8 @@ def generate(model, tokenizer, prompt, max_tokens=24):
     mx.synchronize()
     start = perf_counter()
     # Bound prefill activation memory. Each chunk advances every site once.
+    if progress is not None:
+        progress(0)
     while inputs.shape[1] > 128:
         chunk = inputs[:, :128]
         if hasattr(model, "hidden"):
@@ -26,6 +28,8 @@ def generate(model, tokenizer, prompt, max_tokens=24):
         else:
             mx.eval(model(chunk, cache=cache)[:, -1])
         inputs = inputs[:, 128:]
+        if progress is not None:
+            progress(len(ids) - inputs.shape[1])
     output = []
     for step in range(max_tokens):
         if hasattr(model, "hidden"):
@@ -36,7 +40,9 @@ def generate(model, tokenizer, prompt, max_tokens=24):
         if step == 0:
             first = perf_counter()
         output.append(token)
-        if token in tokenizer.eos_token_ids:
+        if progress is not None:
+            progress(len(ids) + step)
+        if token in tokenizer.eos_token_ids or token in stop_ids:
             break
         inputs = mx.array([[token]])
     end = perf_counter()
