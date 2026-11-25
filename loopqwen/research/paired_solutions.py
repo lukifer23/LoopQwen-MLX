@@ -151,6 +151,12 @@ def document(v):
     return {"ids": v["prompt_ids"] + v["token_ids"], "prefix": len(v["prompt_ids"])}
 
 
+def preference_terms(chosen_nll, rejected_nll, reference, beta):
+    margin = beta * ((reference[0] - chosen_nll) - (reference[1] - rejected_nll))
+    loss = max(0.0, -margin) + math.log1p(math.exp(-abs(margin)))
+    return loss, beta * mx.sigmoid(mx.array(-margin)).item()
+
+
 def train_preferences(m, s, pairs, draws, budget, root, cp, deployment):
     size = s["logical_batch"]
     count = len(pairs) // size * size
@@ -200,13 +206,10 @@ def train_preferences(m, s, pairs, draws, budget, root, cp, deployment):
                         mx.eval(loss, gradient)
                         results.append((loss.item(), gradient))
                     (a, ga), (b, gb) = results
-                    pa, pb = costs[idx]
-                    margin = s["beta"] * ((pa - a) - (pb - b))
-                    losses.append(
-                        max(0.0, -margin) + math.log1p(math.exp(-abs(margin)))
-                    )
-                    # Chain rule for -log(sigmoid(margin)); forward passes run separately to bound activation memory.
-                    factor = s["beta"] * mx.sigmoid(mx.array(-margin)).item() / size
+                    loss, slope = preference_terms(a, b, costs[idx], s["beta"])
+                    losses.append(loss)
+                    # Chain rule for sequence-summed DPO. Each backward pass holds one response's activations.
+                    factor = slope / size
                     delta = tree_map(lambda x, y, scale=factor: scale * (x - y), ga, gb)
                     grads = (
                         delta
