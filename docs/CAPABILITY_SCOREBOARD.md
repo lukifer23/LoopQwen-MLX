@@ -159,8 +159,8 @@ For the two wrong 16K retrievals, the model returned a six-digit value that belo
 
 | Held-out register inputs | Reader K2 exact answers | Untouched Base K1 exact answers | Reader / Base total seconds |
 |---|---:|---:|---:|
-| 2K, two positions in table and prose | 4/4 | 0/4 | 6.4 / 8.3 |
-| 16K, two positions in table and prose | 4/4 | 0/4 | 45.8 / 36.8 |
+| 2K, two positions in table and prose | 4/4 | 0/4 | 6.4 / 8.4 |
+| 16K, two positions in table and prose | 4/4 | 0/4 | 45.8 / 36.7 |
 | All eight requests | 8/8 | 0/8 | 52.2 / 45.1 |
 
 The reader selected the gold span on all eight inputs. Each correct answer was generated through Qwen’s vocabulary head and scored after the thinking span and first turn boundary. Base reached the 96-token cap on all eight. The learned module adds 32,929 parameters. The arithmetic adapter and the original Qwen weights stayed frozen. All 32 short arithmetic streams matched the parent exactly, and the V3 loss was 2.98727 against Base’s 2.98266. [Per-item outputs and checkpoint](../research/results/attention-memory-01)

@@ -19,7 +19,7 @@ from . import core, ledger_curriculum, memory_data
 REG = Path("research/experiments/attention-memory-128k.json")
 DATA = Path("research/data/attention-memory-128k.json")
 LINE = re.compile(
-    r"^The filing code under ([a-z]+ [a-z]+ [a-z]+) is ([0-9]{6})\.$", re.M
+    r"^The filing code under ([a-z]+ [a-z]+ [a-z]+) is ([0-9]{6})\.$", re.MULTILINE
 )
 
 

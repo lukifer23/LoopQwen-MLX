@@ -40,6 +40,8 @@ def answer(ids, text):
         raise ValueError("Decoded thinking boundary differs")
     visible = text.removesuffix(boundary).split("</think>")[1].strip()
     return (
-        re.sub(r"^(?:final\s+)?answer\s*:\s*", "", visible, count=1, flags=re.I).strip()
+        re.sub(
+            r"^(?:final\s+)?answer\s*:\s*", "", visible, count=1, flags=re.IGNORECASE
+        ).strip()
         or None
     )

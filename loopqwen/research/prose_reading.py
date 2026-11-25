@@ -77,17 +77,17 @@ def material(t, s):
             )
         )
         panel.append(
-            dict(
-                id=qa["id"],
-                title=title,
-                question=qa["question"],
-                aliases=sorted({a["text"] for a in qa["answers"]}),
-                placement=("early", "middle", "late")[i % 3],
-                source_paragraph=index,
-                order=order,
-                source_interval=[lower, upper],
-                prompt_ids=ids,
-            )
+            {
+                "id": qa["id"],
+                "title": title,
+                "question": qa["question"],
+                "aliases": sorted({a["text"] for a in qa["answers"]}),
+                "placement": ("early", "middle", "late")[i % 3],
+                "source_paragraph": index,
+                "order": order,
+                "source_interval": [lower, upper],
+                "prompt_ids": ids,
+            }
         )
     return panel
 
@@ -116,12 +116,12 @@ def run(freeze):
     core.assets()
     b = core.Budget(s["id"], s["limits"])
     rows = {"base": [], "candidate": []}
-    decision = dict(
-        passed=False,
-        data=digest(DATA),
-        registration=digest(REG),
-        qualification=s["qualification_sha256"],
-    )
+    decision = {
+        "passed": False,
+        "data": digest(DATA),
+        "registration": digest(REG),
+        "qualification": s["qualification_sha256"],
+    }
     try:
         half = len(items) // 2
         for start, order in ((0, ("base", "candidate")), (half, ("candidate", "base"))):
@@ -166,12 +166,12 @@ def run(freeze):
                 mx.clear_cache()
         scores = {}
         for k, rs in rows.items():
-            scores[k] = dict(
-                exact=sum(r["correct"] for r in rs),
-                f1=sum(r["f1"] for r in rs) / len(rs),
-                seconds=sum(r["elapsed_s"] for r in rs),
-                completed=sum(r["answer"] is not None for r in rs),
-                placement={
+            scores[k] = {
+                "exact": sum(r["correct"] for r in rs),
+                "f1": sum(r["f1"] for r in rs) / len(rs),
+                "seconds": sum(r["elapsed_s"] for r in rs),
+                "completed": sum(r["answer"] is not None for r in rs),
+                "placement": {
                     pos: sum(
                         r["correct"]
                         for r, item in zip(rs, items)
@@ -179,7 +179,7 @@ def run(freeze):
                     )
                     for pos in ("early", "middle", "late")
                 },
-            )
+            }
         a, c = scores["base"], scores["candidate"]
         decision.update(
             status="completed",

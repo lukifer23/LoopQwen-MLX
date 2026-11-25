@@ -29,7 +29,9 @@ def test_frozen_ledger_labels_and_positions_are_in_the_encoded_input():
         )
         assert frozen == row
         rendered = t.decode(row["prompt_ids"])
-        records = re.findall(r"^([a-z]+ [a-z]+ [a-z]+) = (\d{6})$", rendered, re.MULTILINE)
+        records = re.findall(
+            r"^([a-z]+ [a-z]+ [a-z]+) = (\d{6})$", rendered, re.MULTILINE
+        )
         assert (
             len(records)
             == len(dict(records))

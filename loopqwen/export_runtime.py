@@ -35,6 +35,7 @@ def load_export(directory):
     model.eval()
     if "attention_reader_metadata_sha256" in cfg:
         import hashlib
+
         from .attention_memory import load_reader
 
         if (

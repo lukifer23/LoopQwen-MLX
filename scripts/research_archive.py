@@ -567,13 +567,13 @@ def verify_transfer(root, decision):
                 and decision["targets"] == sum(h["targets"] for h in state["history"]),
                 "Checked supervision checkpoint",
             )
-    for arm, weight in (("base", REVISION), ("candidate", weight)):
+    for arm, expected_weight in (("base", REVISION), ("candidate", weight)):
         file = root / (arm + ".json.gz")
         if not file.exists():
             require(decision["status"] == "interrupted", "Missing transfer generations")
             continue
         report = read(file)
-        require(report["weights"] == weight, "Transfer weights")
+        require(report["weights"] == expected_weight, "Transfer weights")
         rows = report["records"]
         require(len(rows) <= len(items), "Extra transfer generations")
         for row, item in zip(rows, items):
@@ -984,8 +984,9 @@ def verify_full_memory(root, decision):
 
 
 def verify_prose_reading(root, decision):
-    from collections import Counter
     import string
+    from collections import Counter
+
     from loopqwen import REVISION
     from loopqwen.identity import fingerprint
 
@@ -1001,7 +1002,7 @@ def verify_prose_reading(root, decision):
         == decision["qualification"]
         and read(parent / "decision.json")["passed"]
         and [i["title"] for i in items] == reg["titles"]
-        and len(set(i["id"] for i in items)) == 12,
+        and len({i["id"] for i in items}) == 12,
         "Public reading prerequisites",
     )
     if decision["status"] == "interrupted":
@@ -1058,7 +1059,11 @@ def verify_prose_reading(root, decision):
                 raw = r["text"].removesuffix(boundary).split("</think>")[1].strip()
                 ans = (
                     re.sub(
-                        r"^(?:final\s+)?answer\s*:\s*", "", raw, count=1, flags=re.I
+                        r"^(?:final\s+)?answer\s*:\s*",
+                        "",
+                        raw,
+                        count=1,
+                        flags=re.IGNORECASE,
                     ).strip()
                     or None
                 )
@@ -1082,16 +1087,16 @@ def verify_prose_reading(root, decision):
                 hits += hit
             else:
                 require("attention_memory" not in r, "Public Base reader")
-        counts[arm] = dict(
-            exact=sum(r["correct"] for r in rows),
-            f1=sum(r["f1"] for r in rows) / len(items),
-            seconds=sum(r["elapsed_s"] for r in rows),
-            completed=sum(r["answer"] is not None for r in rows),
-            placement={
+        counts[arm] = {
+            "exact": sum(r["correct"] for r in rows),
+            "f1": sum(r["f1"] for r in rows) / len(items),
+            "seconds": sum(r["elapsed_s"] for r in rows),
+            "completed": sum(r["answer"] is not None for r in rows),
+            "placement": {
                 p: sum(r["correct"] for r, i in zip(rows, items) if i["placement"] == p)
                 for p in ("early", "middle", "late")
             },
-        )
+        }
     a, c = counts["base"], counts["candidate"]
     require(
         counts == decision["scores"]
@@ -1109,6 +1114,7 @@ def verify_prose_reading(root, decision):
 
 def verify_shared_budget(root, decision):
     from collections import Counter
+
     from loopqwen import REVISION
 
     reg = read(root / "registration.json")
@@ -1232,6 +1238,7 @@ def verify_shared_budget(root, decision):
 
 def verify_prefill(root, decision):
     from statistics import median
+
     from loopqwen.identity import fingerprint
 
     reg = read(root / "registration.json")
