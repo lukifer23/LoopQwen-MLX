@@ -28,7 +28,7 @@ REG = Path("research/experiments/rationale-transfer-01.json")
 DATA = Path("research/data/rationale-transfer-01.json")
 
 
-def material(s):
+def material(s, exclude=()):
     old = set().union(
         *json.loads(
             gzip.decompress(
@@ -43,6 +43,7 @@ def material(s):
         + prior["dev"]
         + read("research/data/external-anchor.json")["gsm"]
     }
+    used.update(" ".join(q.split()) for q in exclude)
     groups = {}
     for family, source in s["sources"].items():
         path = Path("data/research_external") / source["file"]
@@ -160,6 +161,76 @@ def summarize(data, base_rows, candidate_rows, *, cap):
     return out
 
 
+def evaluate_pair(root, model, rows, s, weight, b, result, *, retention=False):
+    records = {"base": [], "candidate": []}
+    for start, order in [
+        (0, ("candidate", "base")),
+        (len(rows) // 2, ("base", "candidate")),
+    ]:
+        for arm in order:
+            m, t, _ = base() if arm == "base" else load_trained(model)
+            for item in rows[start : start + len(rows) // 2]:
+                if item["prompt_ids"] != prompt_ids(t, item, {"demos": 0}):
+                    raise ValueError("Tokenizer mismatch")
+                # The guard runs before each token, after the previous argmax synchronized.
+                calls = 0
+                at_256 = None
+                first = None
+
+                def guard():
+                    nonlocal calls, at_256, first
+                    if calls == 0:
+                        first = perf_counter()
+                    if calls == 256:
+                        at_256 = perf_counter() - first
+                    calls += 1
+                    b.check()
+
+                v = core.generate(
+                    m,
+                    t,
+                    item["prompt_ids"],
+                    s["generation_cap"],
+                    guard,
+                    thinking=True,
+                )
+                answer = numeric(v["visible"]) if v["complete"] else None
+                records[arm].append(
+                    dict(
+                        **v,
+                        id=item["id"],
+                        gold=item["gold"],
+                        answer=answer,
+                        correct=answer == item["gold"],
+                        seconds_at_256=at_256 if at_256 is not None else v["seconds"],
+                    )
+                )
+                packed(
+                    root / (arm + ".json.gz"),
+                    {
+                        "weights": REVISION if arm == "base" else weight,
+                        "records": records[arm],
+                    },
+                )
+            if retention and start:
+                from .bootstrap import retention as measure_retention
+
+                result.setdefault("retention", {})[arm] = measure_retention(
+                    m, 1 if arm == "base" else 2, b
+                )
+            del m, t
+            gc.collect()
+            mx.clear_cache()
+    full = summarize(
+        rows, records["base"], records["candidate"], cap=s["generation_cap"]
+    )
+    result.update(
+        status="completed",
+        full=full,
+        prefix_256=summarize(rows, records["base"], records["candidate"], cap=256),
+    )
+
+
 def run(freeze):
     s = read(REG)
     parent = Path(s["prerequisite"])
@@ -185,7 +256,6 @@ def run(freeze):
         raise FileExistsError(root)
     core.assets()
     b = core.Budget(s["id"], s["limits"])
-    records = {"base": [], "candidate": []}
     result = {
         "passed": False,
         "registration": digest(REG),
@@ -193,72 +263,8 @@ def run(freeze):
         "weights": s["weights"],
     }
     try:
-        for start, order in [
-            (0, ("candidate", "base")),
-            (len(rows) // 2, ("base", "candidate")),
-        ]:
-            for arm in order:
-                m, t, _ = (
-                    base()
-                    if arm == "base"
-                    else load_trained(parent / "model")
-                )
-                for item in rows[start : start + len(rows) // 2]:
-                    if item["prompt_ids"] != prompt_ids(t, item, {"demos": 0}):
-                        raise ValueError("Tokenizer mismatch")
-                    # The guard runs before each token, after the previous argmax synchronized.
-                    calls = 0
-                    at_256 = None
-                    first = None
-
-                    def guard():
-                        nonlocal calls, at_256, first
-                        if calls == 0:
-                            first = perf_counter()
-                        if calls == 256:
-                            at_256 = perf_counter() - first
-                        calls += 1
-                        b.check()
-
-                    v = core.generate(
-                        m,
-                        t,
-                        item["prompt_ids"],
-                        s["generation_cap"],
-                        guard,
-                        thinking=True,
-                    )
-                    answer = numeric(v["visible"]) if v["complete"] else None
-                    records[arm].append(
-                        dict(
-                            **v,
-                            id=item["id"],
-                            gold=item["gold"],
-                            answer=answer,
-                            correct=answer == item["gold"],
-                            seconds_at_256=at_256
-                            if at_256 is not None
-                            else v["seconds"],
-                        )
-                    )
-                    packed(
-                        root / (arm + ".json.gz"),
-                        {
-                            "weights": REVISION if arm == "base" else s["weights"],
-                            "records": records[arm],
-                        },
-                    )
-                del m, t
-                gc.collect()
-                mx.clear_cache()
-        full = summarize(
-            rows, records["base"], records["candidate"], cap=s["generation_cap"]
-        )
-        result.update(
-            status="completed",
-            full=full,
-            prefix_256=summarize(rows, records["base"], records["candidate"], cap=256),
-        )
+        evaluate_pair(root, parent / "model", rows, s, s["weights"], b, result)
+        full = result["full"]
         result["passed"] = (
             all(full[name]["wins"] - full[name]["losses"] >= 2 for name in s["sources"])
             and full["all"]["p"] < 0.05

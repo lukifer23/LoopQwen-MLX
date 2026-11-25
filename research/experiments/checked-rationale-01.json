@@ -1,0 +1,38 @@
+{
+  "id": "checked-rationale-01",
+  "question": "Does training the short-budget arithmetic adapter on a larger, fresh set of multistep solutions with exact inverse checks improve longer-budget answers versus unchanged Base while preserving short-budget accuracy and prose retention?",
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "seed": 251125391,
+  "updates": 128,
+  "logical_batch": 4,
+  "cap_positions": 352,
+  "depth": 2,
+  "lr": 0.00012,
+  "clip": 1,
+  "weight_decay": 0,
+  "generation_cap": 1024,
+  "per_source": 16,
+  "sources": {
+    "gsm1k_public": {
+      "file": "gsm1k_public_50.csv",
+      "url": "https://raw.githubusercontent.com/scaleapi/gsm1k_eval/39294c6f31855aca8255b6174b22fc3a6311be0b/gsm1k_public_50.csv",
+      "sha256": "43fcd00bc698ee38852857427e956a2e4b516af710113b06f64018226233aa02"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "training": "From pinned publisher GSM8K train use seeded SHA order on fresh normalized texts. Exclude all historical text hashes, all reserved math and external rows, past and current transfer panels. Each accepted human rationale fits the cap and ends in a binary arithmetic operation equal to the gold. Append the exact inverse operation on the final operands as a verification before closing thinking. No access to evaluation solutions; no generation-time calculator.",
+  "protocol": "Fresh 16 public GSM1K and 16 SVAMP (four per operation); no previous panel questions. Identical zero-shot thinking prompt, greedy first-turn scorer and 1024-token cap. Time the 256th token and full stream. Candidate starts first half, Base starts second half. Measure the five-domain retention corpus on both. Keep separate from retrieval research.",
+  "decision": "At 1024 require at least two net answers pooled and no net loss on either source, paired two-sided exact McNemar p<0.05, and no more generation time than Base. At 256 require positive net answers on each source. V3 NLL must stay within +0.03 of Base. All conditions required before confirmatory replication or dense attribution. Preserve checkpoints and incomplete generations on resource stop; no tuning on these evaluation items.",
+  "limits": {
+    "wall_seconds": 1650,
+    "peak_gib": 4.8,
+    "available_gib": 1.5
+  }
+}
