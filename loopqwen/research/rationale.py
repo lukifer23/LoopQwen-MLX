@@ -130,7 +130,7 @@ def compare(model_path, weight, items, s, b, root, result):
     )
 
 
-def run(freeze=False):
+def run(freeze=False, recovery=False):
     s = read(REG)
     docs, items, manifest = material(s)
     frozen = Path("research/data") / (s["id"] + ".json")
@@ -141,7 +141,7 @@ def run(freeze=False):
         return
     if manifest != read(frozen):
         raise ValueError("Material differs from registration")
-    root = core.OUT / s["id"]
+    root = (core.OUT / "recovered" if recovery else core.OUT) / s["id"]
     if (root / "decision.json").exists():
         raise FileExistsError(root)
     for path, key in [
@@ -156,6 +156,14 @@ def run(freeze=False):
     phase = "training"
     cp = Path("checkpoints/research") / s["id"]
     try:
+        if recovery:
+            point = read(Path("research/results") / s["id"] / "decision.json")
+            gen = checkpoint_location(cp)
+            if (
+                digest(gen / "adapters.safetensors") != point["weights"]
+                or digest(gen / "optimizer.safetensors") != point["optimizer"]
+            ):
+                raise ValueError("Interrupted AdamW generation changed")
         m, t, parent = checkpoint.load_trained(s["parent"])
         if m.span.passes != s["depth"]:
             raise ValueError("Registered depth differs")
@@ -195,13 +203,21 @@ def run(freeze=False):
     print(result, flush=True)
 
 
-def endpoint():
+def endpoint(recovery=False):
     reg = Path("research/experiments/gsm-rationale-endpoint.json")
     protocol = read(reg)
     spec = read(REG)
     _, items, manifest = material(spec)
     frozen = Path("research/data") / (spec["id"] + ".json")
-    cp = checkpoint_location(Path("checkpoints/research") / spec["id"])
+    cp = (
+        Path(
+            read(Path("research/results") / protocol["id"] / "model/recovery.json")[
+                "generation"
+            ]
+        )
+        if recovery
+        else checkpoint_location(Path("checkpoints/research") / spec["id"])
+    )
     weight = digest(cp / "adapters.safetensors")
     if (
         manifest != read(frozen)
@@ -209,7 +225,7 @@ def endpoint():
         or read(cp / "state.json")["step"] != protocol["updates"]
     ):
         raise ValueError("Endpoint or evaluation cohort differs")
-    root = core.OUT / protocol["id"]
+    root = (core.OUT / "recovered" if recovery else core.OUT) / protocol["id"]
     if (root / "decision.json").exists():
         raise FileExistsError(root)
     core.assets()
@@ -240,8 +256,13 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--freeze", action="store_true")
     p.add_argument("--endpoint", action="store_true")
+    p.add_argument(
+        "--recovery",
+        action="store_true",
+        help="Finish the original comparison in a separate archive after memory recovery",
+    )
     args = p.parse_args()
     if args.endpoint:
-        endpoint()
+        endpoint(args.recovery)
     else:
-        run(args.freeze)
+        run(args.freeze, args.recovery)

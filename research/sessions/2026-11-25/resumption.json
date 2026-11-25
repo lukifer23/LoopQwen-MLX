@@ -1,0 +1,5 @@
+{
+  "event": "Owner closed Chrome. Available system memory rose to 9.48 GiB at normal OS pressure.",
+  "studies": ["functional-interleave-01", "gsm-rationale-01", "context-128k-01", "context-128k-disk", "gsm-rationale-endpoint"],
+  "decision": "Complete the existing primary comparisons on their original data with their original thresholds, memory guards and cumulative wall budgets. Preserve the interrupted archives. Resume rationale AdamW at update 22 and score the separately registered update-22 deployment using those original weights. The two context modes receive exactly the same previous 131072-token stream. Do not promote an interrupted run. Stop again on pressure."
+}

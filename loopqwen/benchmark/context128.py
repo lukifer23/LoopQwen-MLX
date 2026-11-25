@@ -96,10 +96,10 @@ def parity(m, ids, guard, scratch):
     return errors
 
 
-def run(offload=False):
+def run(offload=False, recovery=False):
     reg = REG.with_name("context-128k-disk.json") if offload else REG
     spec = read(reg)
-    out = core.OUT / spec["id"]
+    out = (core.OUT / "recovered" if recovery else core.OUT) / spec["id"]
     if (out / "decision.json").exists():
         raise FileExistsError(out)
     t = load_tokenizer(local_snapshot())
@@ -240,4 +240,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--offload", action="store_true")
-    run(parser.parse_args().offload)
+    parser.add_argument("--recovery", action="store_true")
+    args = parser.parse_args()
+    run(args.offload, args.recovery)

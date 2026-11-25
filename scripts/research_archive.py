@@ -699,9 +699,13 @@ def verify_generations(root, decision):
                 score(folder / (arm + "-eval.json.gz"), stage[arm]["score"])
 
 
-def publish(name):
-    root = Path("research/results") / name
-    src = Path("outputs/research") / name
+def publish(name, session=None):
+    root = (
+        Path("research/sessions") / session if session else Path("research/results")
+    ) / name
+    src = (
+        Path("outputs/research/recovered") if session else Path("outputs/research")
+    ) / name
     if root.exists():
         return verify(root)
     require((src / "decision.json").is_file(), "Missing stage decision")
@@ -723,8 +727,21 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("name")
     parser.add_argument("--verify", action="store_true")
+    parser.add_argument(
+        "--recovered-session",
+        help="Archive a recovered primary run under this session date",
+    )
     args = parser.parse_args()
+    if args.recovered_session and not re.fullmatch(
+        r"[0-9]{4}-[0-9]{2}-[0-9]{2}", args.recovered_session
+    ):
+        parser.error("Use an ISO session date")
     if args.verify:
-        verify(Path("research/results") / args.name)
+        root = (
+            Path("research/sessions") / args.recovered_session
+            if args.recovered_session
+            else Path("research/results")
+        )
+        verify(root / args.name)
     else:
-        publish(args.name)
+        publish(args.name, args.recovered_session)
