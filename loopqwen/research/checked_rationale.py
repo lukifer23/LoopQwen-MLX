@@ -1,14 +1,14 @@
 """Train on verified final operations and score fresh public first turns at two budgets."""
 
 import argparse
-from fractions import Fraction
 import gc
 import gzip
 import hashlib
 import json
 import operator
-from pathlib import Path
 import re
+from fractions import Fraction
+from pathlib import Path
 
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer

@@ -130,7 +130,7 @@ def verify(root):
         verify_context(root, decision)
     if study == "rationale-dense-01":
         verify_dense_rationale(root, decision)
-    if study == "rationale-transfer-01":
+    if study in ("rationale-transfer-01", "checked-rationale-01"):
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
         verify_rationale(root, decision)
@@ -406,7 +406,32 @@ def verify_transfer(root, decision):
         "Transfer cohort size",
     )
     reports = {}
-    for arm, weight in (("base", REVISION), ("candidate", reg["weights"])):
+    trained = reg["id"] == "checked-rationale-01"
+    weight = decision.get("weights") if trained else reg["weights"]
+    if trained:
+        manifest = Path("research/data/checked-rationale-training.json")
+        training = read(manifest)
+        question_ids = {row["question_id"] for row in training["selected"]}
+        prior_panel = read(Path("research/data/rationale-transfer-01.json"))
+        require(
+            sha(manifest) == decision["training"]
+            and len(question_ids)
+            == len(training["selected"])
+            == reg["updates"] * reg["logical_batch"]
+            and question_ids.isdisjoint({r["id"] for r in items + prior_panel})
+            and {r["id"] for r in items}.isdisjoint({r["id"] for r in prior_panel}),
+            "Training and evaluation identities",
+        )
+        if weight:
+            state = read(root / "model/state.json")
+            require(
+                weight == sha(root / "model/adapters.safetensors")
+                and state["parent"] == reg["parent_sha256"]
+                and state["step"] == decision["updates"] == reg["updates"]
+                and decision["targets"] == sum(h["targets"] for h in state["history"]),
+                "Checked supervision checkpoint",
+            )
+    for arm, weight in (("base", REVISION), ("candidate", weight)):
         file = root / (arm + ".json.gz")
         if not file.exists():
             require(decision["status"] == "interrupted", "Missing transfer generations")
@@ -503,6 +528,21 @@ def verify_transfer(root, decision):
         and full["all"]["p"] < 0.05
         and full["all"]["candidate"]["seconds"] <= full["all"]["base"]["seconds"]
     )
+    if trained:
+        r = decision["retention"]
+        verify_retention_pair(r["base"], r["candidate"])
+        short = decision["prefix_256"]
+        passed = (
+            full["all"]["wins"] - full["all"]["losses"] >= 2
+            and full["all"]["p"] < 0.05
+            and full["all"]["candidate"]["seconds"] <= full["all"]["base"]["seconds"]
+            and all(
+                full[src]["wins"] >= full[src]["losses"]
+                and short[src]["wins"] > short[src]["losses"]
+                for src in reg["sources"]
+            )
+            and r["candidate"]["nll"] <= r["base"]["nll"] + 0.03
+        )
     require(decision["passed"] == passed, "Transfer gate")
 
 
