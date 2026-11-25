@@ -93,6 +93,43 @@ def assess(m, t, weight, items, s, b, folder):
     )
 
 
+def compare(model_path, weight, items, s, b, root, result):
+    m, t, _ = checkpoint.load_trained(model_path)
+    result["phase"] = phase = "candidate"
+    m.eval()
+    result[phase] = assess(m, t, weight, items, s, b, root / "candidate.json.gz")
+    del m, t
+    gc.collect()
+    mx.clear_cache()
+    result["phase"] = phase = "base"
+    m, t, _ = base()
+    result[phase] = assess(m, t, REVISION, items, s, b, root / "base.json.gz")
+    data = [unpack(root / f"{a}.json.gz")["records"] for a in ("base", "candidate")]
+    if [r["prompt_ids"] for r in data[0]] != [r["prompt_ids"] for r in data[1]]:
+        raise ValueError("Unpaired development prompts")
+    diff = [int(c["correct"]) - int(a["correct"]) for a, c in zip(*data, strict=True)]
+    halves = [sum(diff[:16]), sum(diff[16:])]
+    result.update(wins=diff.count(1), losses=diff.count(-1), half_deltas=halves)
+    result["phase"] = "retention"
+    result["base"]["retention"] = bootstrap.retention(m, 1, b)
+    del m, t
+    gc.collect()
+    mx.clear_cache()
+    m, _, _ = checkpoint.load_trained(model_path)
+    result["candidate"]["retention"] = bootstrap.retention(m, s["depth"], b)
+    c, a = result["candidate"], result["base"]
+    result.update(
+        status="completed",
+        passed=bool(
+            c["correct"] >= 8
+            and min(halves) > 0
+            and sum(diff) >= 4
+            and c["seconds"] <= 1.25 * a["seconds"]
+            and c["retention"]["nll"] <= a["retention"]["nll"] + 0.03
+        ),
+    )
+
+
 def run(freeze=False):
     s = read(REG)
     docs, items, manifest = material(s)
@@ -136,43 +173,14 @@ def run(freeze=False):
             targets=sum(r["targets"] for r in st["history"]),
             update_seconds=sum(r["seconds"] for r in st["history"]),
         )
-        phase = "candidate"
-        m.eval()
-        result[phase] = assess(m, t, weight, items, s, b, root / "candidate.json.gz")
         del m, t
         gc.collect()
         mx.clear_cache()
-        phase = "base"
-        m, t, _ = base()
-        result[phase] = assess(m, t, REVISION, items, s, b, root / "base.json.gz")
-        data = [unpack(root / f"{a}.json.gz")["records"] for a in ("base", "candidate")]
-        if [r["prompt_ids"] for r in data[0]] != [r["prompt_ids"] for r in data[1]]:
-            raise ValueError("Unpaired development prompts")
-        diff = [
-            int(c["correct"]) - int(a["correct"]) for a, c in zip(*data, strict=True)
-        ]
-        halves = [sum(diff[:16]), sum(diff[16:])]
-        result.update(wins=diff.count(1), losses=diff.count(-1), half_deltas=halves)
-        phase = "retention"
-        result["base"]["retention"] = bootstrap.retention(m, 1, b)
-        del m, t
-        gc.collect()
-        mx.clear_cache()
-        m, t, _ = checkpoint.load_trained(root / "model")
-        result["candidate"]["retention"] = bootstrap.retention(m, s["depth"], b)
-        c, a = result["candidate"], result["base"]
-        result.update(
-            status="completed",
-            passed=bool(
-                c["correct"] >= 8
-                and min(halves) > 0
-                and sum(diff) >= 4
-                and c["seconds"] <= 1.25 * a["seconds"]
-                and c["retention"]["nll"] <= a["retention"]["nll"] + 0.03
-            ),
-        )
+        compare(root / "model", weight, items, s, b, root, result)
     except (MemoryError, TimeoutError, InterruptedError) as exc:
-        result.update(status="interrupted", phase=phase, reason=str(exc))
+        result.update(
+            status="interrupted", phase=result.get("phase", phase), reason=str(exc)
+        )
         if (cp / "latest.json").exists():
             gen = checkpoint_location(cp)
             result.update(
@@ -187,9 +195,53 @@ def run(freeze=False):
     print(result, flush=True)
 
 
+def endpoint():
+    reg = Path("research/experiments/gsm-rationale-endpoint.json")
+    protocol = read(reg)
+    spec = read(REG)
+    _, items, manifest = material(spec)
+    frozen = Path("research/data") / (spec["id"] + ".json")
+    cp = checkpoint_location(Path("checkpoints/research") / spec["id"])
+    weight = digest(cp / "adapters.safetensors")
+    if (
+        manifest != read(frozen)
+        or weight != protocol["weights"]
+        or read(cp / "state.json")["step"] != protocol["updates"]
+    ):
+        raise ValueError("Endpoint or evaluation cohort differs")
+    root = core.OUT / protocol["id"]
+    if (root / "decision.json").exists():
+        raise FileExistsError(root)
+    core.assets()
+    bootstrap.release(cp, root / "model")
+    b = core.Budget(protocol["id"], protocol["limits"])
+    result = dict(
+        registration=digest(reg),
+        data=digest(frozen),
+        weights=weight,
+        updates=protocol["updates"],
+        passed=False,
+    )
+    try:
+        compare(root / "model", weight, items, spec, b, root, result)
+    except (MemoryError, TimeoutError, InterruptedError) as exc:
+        result.update(status="interrupted", reason=str(exc))
+    finally:
+        b.close()
+    result["descriptive_thresholds_met"] = result["passed"]
+    result["passed"] = False
+    save(root / "decision.json", result)
+    print(result, flush=True)
+
+
 if __name__ == "__main__":
     import argparse
 
     p = argparse.ArgumentParser()
     p.add_argument("--freeze", action="store_true")
-    run(p.parse_args().freeze)
+    p.add_argument("--endpoint", action="store_true")
+    args = p.parse_args()
+    if args.endpoint:
+        endpoint()
+    else:
+        run(args.freeze)

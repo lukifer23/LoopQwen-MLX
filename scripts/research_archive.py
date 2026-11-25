@@ -125,6 +125,10 @@ def verify(root):
             == decision["correct"],
             "Calibration accuracy",
         )
+    if study == "context-128k-01":
+        verify_context(root, decision)
+    if study == "gsm-rationale-01":
+        verify_rationale(root, decision)
     if study == "functional-interleave-01":
         verify_interleave(root, decision)
     if study == "gsm-equations-01":
@@ -158,6 +162,159 @@ def verify(root):
     if study == "verified-generations-01":
         verify_generations(root, decision)
     print(study, len(index), "files verified")
+
+
+def verify_context(root, decision):
+    from loopqwen.identity import fingerprint
+
+    reg = read(root / "registration.json")
+    prompt = read(root / "prompt.json.gz")
+    ids = prompt["prompt_ids"]
+    require(
+        sha(root / "registration.json") == decision["registration"],
+        "Context registration",
+    )
+    require(
+        len(ids) == reg["prompt_tokens"] and prompt["input_sha256"] == fingerprint(ids),
+        "Context prompt stream",
+    )
+    completed = []
+    for arm, weight in (
+        ("base", decision["base_revision"]),
+        ("candidate", reg["weights"]),
+    ):
+        path = root / f"{arm}.json"
+        if not path.exists():
+            continue
+        row = read(path)
+        require(
+            row["weights"] == weight and row["input_sha256"] == fingerprint(ids),
+            "Context arm identity",
+        )
+        require(
+            row["prompt_tokens"] == len(ids)
+            and 0 < len(row["token_ids"]) <= reg["generation_cap"]
+            and row["elapsed_s"] >= row["ttft_s"] > 0,
+            "Incomplete context record",
+        )
+        require(
+            row["correct"] == (row["answer"] == prompt["gold"]),
+            "Context retrieval score",
+        )
+        completed.append(arm)
+    require(completed == decision["completed"], "Context arm inventory")
+    require(
+        decision["capacity"] == (completed == ["base", "candidate"]),
+        "Context capacity gate",
+    )
+    if decision["capacity"]:
+        require(
+            decision["retrieval"]
+            == {arm: read(root / f"{arm}.json")["correct"] for arm in completed},
+            "Context retrieval aggregate",
+        )
+    else:
+        require(
+            decision["status"] == "interrupted"
+            and decision["reason"]
+            and 0 <= decision["processed_positions"] < len(ids) + reg["generation_cap"],
+            "Context interruption",
+        )
+
+
+def verify_rationale(root, decision):
+    from loopqwen import REVISION
+    from loopqwen.identity import fingerprint
+
+    reg = read(root / "registration.json")
+    manifest = Path("research/data") / (reg["id"] + ".json")
+    frozen = read(manifest)
+    data = read(Path(reg["data"]))["dev"]
+    require(
+        sha(root / "registration.json") == decision["registration"]
+        and sha(manifest) == decision["data"],
+        "Rationale registration",
+    )
+    require(
+        [r["id"] for r in data] == frozen["dev_ids"]
+        and len(set(frozen["train_ids"]) & set(frozen["dev_ids"])) == 0,
+        "Rationale cohort",
+    )
+    model = root / "model"
+    if model.exists():
+        state = read(model / "state.json")
+        require(
+            sha(model / "adapters.safetensors") == decision["weights"]
+            and state["parent"] == reg["parent_sha256"]
+            and state["step"] == reg["updates"],
+            "Rationale checkpoint",
+        )
+    answers = []
+    for arm in ("base", "candidate"):
+        path = root / (arm + ".json.gz")
+        if not path.exists():
+            require(arm not in decision, "Missing arm outputs")
+            continue
+        archive = read(path)
+        require(
+            archive["weights"] == (REVISION if arm == "base" else decision["weights"]),
+            "Wrong GSM8K weights",
+        )
+        records = archive["records"]
+        require(len(records) <= len(data), "Unregistered GSM8K example")
+        flags = []
+        for row, target in zip(records, data):
+            require(
+                (row["id"], row["gold"]) == (target["id"], target["gold"]),
+                "Wrong GSM8K row",
+            )
+            visible = numeric(row["visible"]) if row["complete"] else None
+            require(
+                row["answer"] == visible
+                and row["correct"] == (visible == target["gold"]),
+                "GSM8K answer",
+            )
+            flags.append(row["correct"])
+        if arm in decision:
+            require(
+                fingerprint([r["prompt_ids"] for r in records])
+                == frozen["dev_prompts"],
+                "GSM8K prompt stream",
+            )
+            stats = decision[arm]
+            require(
+                stats["correct"] == sum(flags)
+                and stats["valid"] == sum(r["answer"] is not None for r in records)
+                and stats["seconds"] == sum(r["seconds"] for r in records)
+                and stats["tokens"] == sum(len(r["token_ids"]) for r in records),
+                "GSM8K accuracy or cost",
+            )
+        answers.append(flags)
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"], "Incomplete rationale gate"
+        )
+        return
+    diff = [int(c) - int(b) for b, c in zip(*answers, strict=True)]
+    halves = [sum(diff[:16]), sum(diff[16:])]
+    require(
+        len(diff) == 32
+        and (diff.count(1), diff.count(-1), halves)
+        == (decision["wins"], decision["losses"], decision["half_deltas"]),
+        "Paired GSM8K totals",
+    )
+    c, b = decision["candidate"], decision["base"]
+    require(
+        decision["passed"]
+        == (
+            c["correct"] >= 8
+            and min(halves) > 0
+            and sum(diff) >= 4
+            and c["seconds"] <= 1.25 * b["seconds"]
+            and c["retention"]["nll"] <= b["retention"]["nll"] + 0.03
+        ),
+        "Rationale gate",
+    )
 
 
 def replay_outcomes(report, cohort, depth, weight, parent_records):
