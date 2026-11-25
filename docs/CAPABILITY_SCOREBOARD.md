@@ -144,3 +144,13 @@ The 256-token prefix gave K2 15 paired wins and one loss (two-sided exact McNema
 | Matched dense K1 at update 32 | 10 | 53.56 | 2.98723 |
 
 The last ten K2 updates fixed nine previously incorrect responses and lost two. The earlier checkpoint missed the development threshold and had zero net gains on the second half. The 32-update K2 beat the matched dense control by three answers, with 21% more generation time and 40% more optimizer-update time. Both trained models received 10,083 identical supervised tokens. The earlier endpoint reused the Base outputs and times from the full comparison. The dense comparison reused the K2 outputs and times. Both verified the exact prompt token IDs. [Update 22 records](../research/sessions/2026-11-25/gsm-rationale-endpoint) · [Dense control](../research/results/rationale-dense-01)
+
+### Follow-up evidence on language, retrieval and prefill
+
+| Study | Measured comparison | Decision |
+|---|---|---|
+| Correctness checks in publisher solutions | On 32 new questions at 256 tokens, K2 scored 12 in 77.5 s and Base scored 3 in 116.7 s. At 1,024 tokens K2 scored 12 in 108.6 s and Base scored 18 in 242.5 s. | The longer-budget accuracy threshold failed. [Archive](../research/results/checked-rationale-01) |
+| Short-ledger training plus arithmetic replay | K2 retrieved all four 2K values and both 16K values at the 10% position. It missed both independently sampled 16K values at the 75% position. Base completed zero correct turns in eight. Total time was 51.9 s for K2 and 45.3 s for Base. | Both query placements scored 3/4. Neither qualified for 128K. The original short arithmetic score fell from 13/32 to 6/32. [Archive](../research/results/ledger-curriculum-01) |
+| Native resident prefill at 512 versus 128 tokens per block | Median first-token time improved from 4.57 to 4.08 s at 8K, and from 10.64 to 9.53 s at 16K. The 16K greedy streams diverged. Peak allocation rose by 0.62 GiB at 8K and 0.51 GiB at 16K. | Numerical and memory gates failed. Deployed prefill stays at 128 tokens per block. [Crossover measurements](../research/results/prefill-block-01) |
+
+For the two wrong 16K retrievals, the model returned a six-digit value that belonged to another entry in the same ledger. The keys, positions and distractor sets varied across these items, so the two misses cannot isolate a position effect. [Frozen ledgers](../research/data/ledger-curriculum-01.json)

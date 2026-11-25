@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "ledger-curriculum-01",
+  "active": "paired-solutions-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -18,7 +18,7 @@
     "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model"
   },
   "frontier": "The 32-update K2 adapter improved 256-token word-problem accuracy on the development cohort and both fresh sources. Base won the fresh 1,024-token comparison.",
-  "next": "paired-solutions-01",
+  "next": "attention-memory-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -119,6 +119,16 @@
       "id": "checked-rationale-01",
       "promoted": false,
       "reason": "Fresh 32 at 1024 tokens: 12 correct K2 vs 18 Base. At 256: 12 K2 vs 3 Base. Matched dense follow-up closed."
+    },
+    {
+      "id": "ledger-curriculum-01",
+      "promoted": false,
+      "reason": "6/8 through 16K vs Base 0/8. Both placements 3/4. Arithmetic fell to 6/32."
+    },
+    {
+      "id": "prefill-block-01",
+      "promoted": false,
+      "reason": "512-token blocks lowered TTFT but changed the 16K greedy stream and exceeded both memory bounds."
     }
   ],
   "status": "Active after owner confirmed continuation",

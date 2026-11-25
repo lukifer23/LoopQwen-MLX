@@ -128,6 +128,8 @@ def verify(root):
         )
     if study in ("context-128k-01", "context-128k-disk", "context-rationale-128k"):
         verify_context(root, decision)
+    if study == "attention-memory-01":
+        verify_attention_memory(root, decision)
     if study == "prefill-block-01":
         verify_prefill(root, decision)
     if study == "ledger-curriculum-01":
@@ -672,6 +674,165 @@ def verify_transfer(root, decision):
             and r["candidate"]["nll"] <= r["base"]["nll"] + 0.03
         )
     require(decision["passed"] == passed, "Transfer gate")
+
+
+def verify_memory_rows(file, items, cap, gain=None):
+    from loopqwen.identity import fingerprint
+
+    rows = read(file)["records"]
+    require(len(rows) == len(items), "Incomplete learned memory cohort")
+    for r, item in zip(rows, items, strict=True):
+        ids = item["prompt_ids"]
+        require(
+            r["input_sha256"] == fingerprint(ids)
+            and r["prompt_tokens"] == len(ids)
+            and r["ledger_seed"] == item["seed"]
+            and r["seed"] == 0
+            and r["gold"] == item["gold"]
+            and r["greedy"]
+            and r["max_tokens"] == cap
+            and 0 < len(r["token_ids"]) <= cap
+            and r["elapsed_s"] >= r["ttft_s"] > 0,
+            "Memory request or timing",
+        )
+        answer = first_turn_answer(r["token_ids"], r["text"])
+        require(
+            r["answer"] == answer and r["correct"] == (answer == item["gold"]),
+            "Memory first-turn score",
+        )
+        if gain is None:
+            require("attention_memory" not in r, "Untouched Base prior")
+        else:
+            section = r["attention_memory"]
+            require(
+                section["length"] == len(ids)
+                and 0 <= section["start"] < section["stop"] <= len(ids) - 64
+                and section["gain"] == gain + max(0.0, math.log(len(ids) / 2048))
+                and r["located"]
+                == (
+                    section["start"] <= item["gold_start"]
+                    and section["stop"] >= item["gold_stop"]
+                ),
+                "Learned passage and gain",
+            )
+    return rows
+
+
+def verify_attention_memory(root, decision):
+    from loopqwen.identity import fingerprint
+
+    reg = read(root / "registration.json")
+    data = Path("research/data/attention-memory-01.json")
+    d = read(data)
+    require(
+        sha(data) == decision["data"]
+        and sha(root / "registration.json") == decision["registration"]
+        and decision["parent"]
+        == reg["parent_sha256"]
+        == sha(Path(reg["parent"]) / "adapters.safetensors"),
+        "Memory experiment identity",
+    )
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"], "Interrupted memory study"
+        )
+        return
+    training = read(root / "training.json")
+    require(
+        len(training) == reg["updates"]
+        and d["training_examples"] == reg["updates"] * reg["logical_batch"]
+        and sum(h["seconds"] for h in training) == decision["update_seconds"]
+        and all(math.isfinite(h["loss"]) and h["loss"] >= 0 for h in training)
+        and sha(root / "attention-reader.safetensors") == decision["scorer_weights"],
+        "Memory fitting and scorer weights",
+    )
+    cal = {}
+    for gain in reg["gains"]:
+        rows = verify_memory_rows(
+            root / f"calibration-{gain}.json.gz",
+            d["calibration"],
+            reg["generation_cap"],
+            gain,
+        )
+        cal[str(gain)] = {
+            "correct": sum(r["correct"] for r in rows),
+            "located": sum(r["located"] for r in rows),
+            "seconds": sum(r["elapsed_s"] for r in rows),
+        }
+    best = max(reg["gains"], key=lambda g: (cal[str(g)]["correct"], -g))
+    require(
+        decision["calibration"] == cal and decision["gain"] == best,
+        "Memory strength selection",
+    )
+    eligible = cal[str(best)]["correct"] >= 8 and cal[str(best)]["located"] >= 10
+    if not eligible:
+        require(
+            decision["status"] == "calibration_failed"
+            and not decision["passed"]
+            and not (root / "base.json.gz").exists(),
+            "Failed calibration closes evaluation",
+        )
+        return
+    meta = read(root / "model/attention-reader.json")
+    require(
+        fingerprint(meta) == decision["weights"]
+        and meta["scorer_sha256"]
+        == sha(root / "model/attention-reader.safetensors")
+        == decision["scorer_weights"]
+        and meta["gain"] == best
+        and meta["minimum"] == reg["activation_length"]
+        and meta["adapter_sha256"]
+        == sha(root / "model/adapters.safetensors")
+        == reg["parent_sha256"],
+        "Deployed memory checkpoint",
+    )
+    base = verify_memory_rows(root / "base.json.gz", d["panel"], reg["generation_cap"])
+    candidate = verify_memory_rows(
+        root / "candidate.json.gz", d["panel"], reg["generation_cap"], best
+    )
+    counts = {
+        a: {
+            "correct": sum(r["correct"] for r in rows),
+            "seconds": sum(r["elapsed_s"] for r in rows),
+        }
+        for a, rows in (("base", base), ("candidate", candidate))
+    }
+    require(
+        counts == decision["scores"]
+        and decision["located"] == sum(r["located"] for r in candidate),
+        "Memory score aggregates",
+    )
+    parent = Path(reg["parent"]).parent
+    known = read(parent / "candidate.json.gz")["records"]
+    short = read(root / "short.json.gz")["records"]
+    require(
+        decision["short_parity"] == len(short) == len(known) == 32
+        and all(
+            a["token_ids"] == b["token_ids"]
+            and a["input_sha256"] == fingerprint(b["prompt_ids"])
+            and "attention_memory" not in a
+            for a, b in zip(short, known, strict=True)
+        ),
+        "Short ability parity",
+    )
+    base_nll = read(parent / "decision.json")["base"]["retention"]
+    verify_retention_pair(base_nll, decision["retention"])
+    gate = (
+        counts["candidate"]["correct"] >= 7
+        and sum(r["correct"] for r in candidate[4:]) >= 3
+        and all(
+            any(
+                r["correct"] and d["panel"][i]["style"] == style
+                for i, r in enumerate(candidate)
+                if i >= 4
+            )
+            for style in ("table", "filing")
+        )
+        and counts["candidate"]["correct"] - counts["base"]["correct"] >= 2
+        and counts["candidate"]["seconds"] <= 1.75 * counts["base"]["seconds"]
+        and decision["retention"]["nll"] <= base_nll["nll"] + 0.03
+    )
+    require(decision["passed"] == gate, "Memory full-length qualification")
 
 
 def verify_prefill(root, decision):

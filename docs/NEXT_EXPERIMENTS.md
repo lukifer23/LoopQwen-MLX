@@ -17,3 +17,9 @@ The November 24 window had closed with the control at one update. The released r
 ## Long context
 
 For the measured 131,072-token prompt, resident inference had the lowest latency. Full-precision cache staging on disk reduced peak MLX allocation and reproduced every generated token. The rationale adapter completed its turn but missed the early key. A test of useful retrieval needs successful answers across multiple positions, inputs and lengths. Broad long-context promotion remains closed. [Full-history measurements](PROJECT_REVIEW.md#disk-backed-memory-and-speed)
+
+## Follow-up reassessment
+
+Three completed comparisons identified distinct limits. Additional arithmetic supervision with a verified inverse operation still lost to Base at 1,024 output tokens. Supervised ledger adaptation learned exact 2K lookup, then selected two wrong records at 16K and lost arithmetic accuracy. Larger prefill blocks reduced latency while changing the generated tokens. These results close the corresponding larger studies. [Measured gates](CAPABILITY_SCOREBOARD.md#follow-up-evidence-on-language-retrieval-and-prefill)
+
+Two separate hypotheses use the original qualified 32-update arithmetic checkpoint. The preference study trains only on comparable correct and wrong solutions sampled from that model. The attention study freezes its weights entirely and trains a passage scorer to reweight existing full-history attention. It tests whether a localized passage actually produces a correct generated answer. A selected passage alone earns no answer credit. [Sampled preference registration](../research/experiments/paired-solutions-01.json) · [Learned attention registration](../research/experiments/attention-memory-01.json)
