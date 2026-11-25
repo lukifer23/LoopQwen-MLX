@@ -103,3 +103,13 @@ An exploratory rescore divided the 128 terminal questions by their verified thre
 Two simple rules put the terminal-answer scores in context. Following just the first reference gives **51/128** correct third-hop answers. Choosing the most frequently cited document and breaking ties uniformly gives **48.08/128 in expectation**, even without reading the starting document. The trained K=1 model gained 23 answers and lost 13 relative to the one-edge rule, reaching 61/128. K=3 gained 14 and lost 21, reaching 44/128. K=1 chose a most-cited document on 103/128 requests and K=3 on 97/128. On the 57 maps where the true answer was outside that set, they scored **9/57** and **6/57**. This post-hoc comparison measures the opportunity for a shortcut. Testing whether either model relies on it would require varying irrelevant citations while holding the path fixed. Reproduce with `python3 scripts/audit_terminal_paths.py --shortcuts`. [Scoring code](../scripts/audit_terminal_paths.py)
 
 **Mixed-task retention remains unscored.** The saved control is at 1/16 updates and the treatment at 0/16. The resumed window added zero updates before the owner stopped the monitor and closed execution. [Recovery and next experiment](NEXT_EXPERIMENTS.md)
+
+### Mixed-task retention after completing both arms
+
+| Training condition | Functional hop six / 128 | Complete paths / 128 | Complete moving paths / 78 | Permutation hop three / 96 | Update seconds |
+|---|---:|---:|---:|---:|---:|
+| Frozen six-hop parent | 4 | 1 | — | 96 | — |
+| Functional-only control | 21 | 9 | 0 | 39 | 17.26 |
+| Two old permutations per eight-map batch | 21 | 9 | 0 | 57 | 16.56 |
+
+The mixed arm gained 17 net endpoints versus the parent (20 wins, three losses). Against the control it traded 13 wins for 13 losses. Both arms saw the same 96 fresh maps. Replaying old examples recovered 18 old-task answers over the control and still lost 39 against the parent. All nine successful paths for each arm ended at a stationary state. The promotion floor required at least 94 retained old-task answers. [Scored models and paired records](../research/results/functional-interleave-01)
