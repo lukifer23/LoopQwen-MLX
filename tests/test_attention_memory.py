@@ -80,3 +80,39 @@ def test_releasing_an_attention_site_frees_its_full_history_immediately():
     finally:
         if enabled:
             gc.enable()
+
+
+def test_full_context_intervention_changes_only_the_two_key_names():
+    import re
+
+    from mlx_lm.utils import load_tokenizer
+
+    from loopqwen.io import read
+    from loopqwen.model_loader import local_snapshot
+
+    tokenizer = load_tokenizer(local_snapshot())
+    data = read("research/data/attention-memory-128k.json")
+    documents = []
+    for item in data["panel"]:
+        ids = item["prompt_ids"]
+        text = tokenizer.decode(ids)
+        rows = re.findall(
+            r"^The filing code under ([a-z]+ [a-z]+ [a-z]+) is ([0-9]{6})\.$",
+            text,
+            re.MULTILINE,
+        )
+        assert len(ids) >= 131072
+        assert len(set(key for key, _ in rows)) == len(rows)
+        assert dict(rows)[item["key"]] == item["gold"]
+        assert (
+            tokenizer.decode(ids[item["gold_start"] : item["gold_stop"]])
+            == item["gold"]
+        )
+        documents.append(rows)
+    first, second = documents
+    assert [value for _, value in first] == [value for _, value in second]
+    x, y = data["swapped_keys"]
+    assert [(a[0], b[0]) for a, b in zip(first, second, strict=True) if a != b] == [
+        (x, y),
+        (y, x),
+    ]
