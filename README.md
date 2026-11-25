@@ -246,7 +246,7 @@ python -m loopqwen export --checkpoint checkpoints/extended_loop --output export
 | `outputs/<experiment>/` | Each generated answer, decoding settings, scores and Markdown comparison |
 | `docs/` | Measured results, implementation details and reproduction notes |
 
-The code license is MIT. Official Qwen weights retain their own license, copied into merged exports. GSM8K and MATH source licenses are recorded beside the downloaded data. Full backbone weights, merged exports, local optimizer checkpoints and raw datasets stay outside Git. The four compact adapter bundles are included. [Architecture](docs/ARCHITECTURE.md) · [Training](docs/TRAINING.md) · [Metal benchmarks](docs/METAL_OPTIMIZATIONS.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
+The code license is MIT. Official Qwen weights retain their own license, copied into merged exports. GSM8K and MATH source licenses are recorded beside the downloaded data. Full backbone weights, merged exports, local optimizer checkpoints and raw datasets stay outside Git. The four compact adapter bundles are included. [Architecture](docs/ARCHITECTURE.md) · [Training](docs/TRAINING.md) · [Metal benchmarks](docs/METAL_OPTIMIZATIONS.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) The natural reading panel adapts SQuAD v1.1 by Rajpurkar and colleagues and the contributing Wikipedia authors. It reorders complete paragraphs from each named article and distributes those transformed data under CC BY-SA 4.0. [Publisher and source download](https://rajpurkar.github.io/SQuAD-explorer/) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
 ## Phase 2 recurrent-depth study
 

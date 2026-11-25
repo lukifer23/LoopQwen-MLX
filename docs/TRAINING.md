@@ -165,3 +165,24 @@ python3 scripts/audit_gsm_equations.py
 Study time limits include prior charged invocations in this checkout. A closed research window rejects new native jobs. Preserve the local budget ledgers alongside optimizer generations for exact continuation. The study of mixed permutation and functional training saved the control after update one. The recovery check validates the adapter and AdamW file digests, moment shapes, metadata and step without loading the model. [Commands and remaining budget](NEXT_EXPERIMENTS.md)
 
 The November 24 interleaving window closed early at the owner’s request. Its monitor has exited. A future authorized run uses the original optimizer generation, the frozen schedule, and the remaining study allowance. The closure record separates preflight observations from worker time. [Restart instructions](NEXT_EXPERIMENTS.md) · [Final accounting](../research/sessions/interleave-closure-1795489467/closure.json)
+
+## Reproducing the learned attention reader
+
+The released reader lives beside the arithmetic adapter in `research/results/attention-memory-01/model`. The optional `attention-reader.json` binds its 32,929-parameter scorer to the exact adapter digest. Native generation activates it at 1,024 prompt tokens. The ordinary CLI accepts user text, and `--thinking` applies the same Qwen template used in evaluation. The export bundles both the scorer and the full-history generator. [Trained checkpoint](../research/results/attention-memory-01/model)
+
+```sh
+.venv/bin/python scripts/reader_prompt.py --study attention-memory-01 --index 7 > /tmp/loopqwen-reader.txt
+.venv/bin/python -m loopqwen generate --checkpoint research/results/attention-memory-01/model --thinking --prompt-file /tmp/loopqwen-reader.txt --max-tokens 96
+.venv/bin/python -m loopqwen export --checkpoint research/results/attention-memory-01/model --output exports/my-attention-reader
+```
+
+Use `--study attention-memory-128k --index 0` or `--index 1` to reconstruct either 131,078-token request. Add `--offload-dir` with an existing scratch directory to run the same BF16 storage policy used for those documents. Both the CLI and the bundled generator return the selected passage, emitted IDs, time to first token and total seconds. Disk-backed results also give the temporary byte count.
+
+For an independent training reproduction, use the pinned environment and a fresh output tree. The primary module regenerates and checks the published synthetic training and held-out data before fitting the scorer. Its optimizer checkpoints preserve all four trainable tensors, eight Adam moment tensors and the update cursor. The 128K study requires a verified qualifying archive, then checks a disk replay against the resident reference before starting the paired requests.
+
+```sh
+.venv/bin/python -m loopqwen.research.attention_memory
+python3 scripts/research_archive.py attention-memory-01
+.venv/bin/python -m loopqwen.research.counterfactual_memory
+python3 scripts/research_archive.py attention-memory-128k
+```
