@@ -65,6 +65,21 @@ def write(temp, gen, model, t, state):
         "adapter_config": dep["config"],
     }
     save(temp / "config.json", config)
+    provenance = {
+        "base_revision": REVISION,
+        "base_shards": {
+            path.name: digest(path) for path in source.glob("*.safetensors")
+        },
+        "checkpoint_state_sha256": digest(original / "state.json"),
+        "checkpoint_step": state["step"],
+        "checkpoint_identity": state["identity"],
+        "files": {name: digest(temp / name) for name in files},
+        "export_git": subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], text=True
+        ).strip(),
+        "fusion": "unmerged native adapter tensors",
+    }
+    save(temp / "provenance.json", provenance)
     rt = temp / "runtime"
     rt.mkdir()
     for name in (
