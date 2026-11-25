@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "rationale-dense-01",
+  "active": null,
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -18,7 +18,7 @@
     "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model"
   },
   "frontier": "The 32-update K2 adapter improved 256-token word-problem accuracy on the development cohort and both fresh sources. Base won the fresh 1,024-token comparison.",
-  "next": "context-rationale-128k",
+  "next": null,
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -91,19 +91,43 @@
       "id": "rationale-transfer-01",
       "promoted": false,
       "reason": "At 1024 tokens K2 scored 23/48 vs Base 31/48. At the registered descriptive 256-token prefix K2 scored 23 vs 9, with gains on both fresh sources."
+    },
+    {
+      "id": "rationale-dense-01",
+      "promoted": true,
+      "scope": "256-token development comparison only",
+      "reason": "13/32 K2 vs 10/32 matched dense K1, six wins and three losses at 1.21 times the generation seconds, with comparable NLL."
+    },
+    {
+      "id": "context-rationale-128k",
+      "promoted": false,
+      "capacity": true,
+      "reason": "The deployed adapter consumed 131072 prompt tokens and decoded 22. It supplied 13494 for the early ledger value 965265."
+    },
+    {
+      "id": "gsm-rationale-endpoint",
+      "promoted": false,
+      "reason": "The preserved update-22 checkpoint scored 6/32 vs Base 1/32. Net differences were +5 and zero on the two halves."
+    },
+    {
+      "id": "context-128k-disk",
+      "promoted": false,
+      "capacity": true,
+      "reason": "Full stagewise disk prefill reproduced all 96 resident output IDs per arm at 131072 input tokens. Lower MLX peak and higher latency at both depths. Neither retrieved the early entry."
     }
   ],
-  "status": "Authorized session active after host memory recovery.",
-  "next_action": "Complete the frozen language and full-history deployment pairs with cumulative resource limits.",
+  "status": "Closed after eight registered comparisons reached a scored outcome.",
+  "next_action": "Keep the 256-token arithmetic adapter available. Full-budget accuracy favors Base. A new training hypothesis and independent cohort are needed before general-language promotion.",
   "hypothesis": "A stabilized arithmetic parent adapted to complete natural-language solutions can improve correct first-turn answers at reasonable cost.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
     "Six-hop unrestricted graph paths 6/192",
-    "No external quality advantage on 32 GSM8K and 32 ARC-Easy development items",
     "General-language loss worsens at K3 versus original Base K1",
     "One installation seed; no sealed confirmation",
     "Fresh 1024-token word-problem accuracy favored Base.",
-    "Early-key retrieval failed at 131072 input tokens for Base and the Phase 4 parent."
+    "Early-key retrieval failed at 131072 input tokens for Base and the Phase 4 parent.",
+    "The 256-token advantage is on word problems from one trained lineage. General prose NLL increased by 0.00461.",
+    "The deployed rationale adapter completed the full-context turn with an incorrect early ledger value."
   ],
   "rejected": [
     "Frozen prefix cache failed gradient parity",
@@ -134,10 +158,13 @@
       "paired_evaluation": false
     }
   ],
-  "closed_session_start": 1795489467.4750562,
+  "closed_session_start": 1795630808.744079,
   "native_window": {
     "start_utc": "2026-11-25T18:20:08.744079+00:00",
-    "status": "open",
-    "resumption": "research/sessions/2026-11-25/resumption.json"
+    "status": "closed",
+    "resumption": "research/sessions/2026-11-25/resumption.json",
+    "closure": "research/sessions/2026-11-25/closure.json",
+    "charged_research_worker_seconds": 2446.710537672043,
+    "distinct_studies": 8
   }
 }

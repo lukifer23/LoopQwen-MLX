@@ -47,6 +47,17 @@ The actual deployed rationale adapter also consumed every input token. It comple
 
 The original run stopped on a system memory warning after processing 112,768 Base input tokens. After Chrome closed, available memory reached 9.48 GiB. The completed test used the original registration, prompt and allocation guard. The working context limit therefore depends on other applications on this machine. [Initial interruption](../research/results/context-128k-01) · [Recovery record](../research/sessions/2026-11-25/resumption.json)
 
+### Disk-backed memory and speed
+
+| Checkpoint and storage | Peak MLX allocation | Temporary disk | First token | Total for 96 generated tokens | Decode tokens/s |
+|---|---:|---:|---:|---:|---:|
+| Base K1 resident | 3.78 GiB | 0 | 192.44 s | 195.97 s | 26.9 |
+| Base K1 disk-backed | 2.22 GiB | 1.75 GiB | 232.13 s | 248.79 s | 5.7 |
+| Phase 4 K2 resident | 4.32 GiB | 0 | 261.75 s | 266.53 s | 19.9 |
+| Phase 4 K2 disk-backed | 2.59 GiB | 2.25 GiB | 315.45 s | 338.21 s | 4.2 |
+
+Both measured storage modes produced identical sequences of 96 output IDs at each depth. The disk-backed preflight also produced bit-identical full-vocabulary logits at four positions on a 259-token prompt at both depths. The disk-backed path saves 40% of peak MLX allocation on K2 and takes 27% longer for this complete request. During decode the disk path rereads all stored prefixes for every generated token. The table reports the MLX peak since the start of each study worker, which includes earlier arms and parity checks. Temporary directories are removed when the request exits. [Parity, per-arm timings and outputs](../research/sessions/2026-11-25/context-128k-disk)
+
 ### Recount the archived deployments
 
 From the checkout root, these commands use Python's standard library to verify checkpoint identities, exact prompts, emitted first turns, timing aggregates and the registered decisions. Native inference additionally needs the pinned checkpoint and locked Apple Silicon environment.
@@ -55,6 +66,10 @@ From the checkout root, these commands use Python's standard library to verify c
 python3 scripts/research_registry.py
 python3 scripts/research_archive.py gsm-rationale-01 --verify --recovered-session 2026-11-25
 python3 scripts/research_archive.py context-128k-01 --verify --recovered-session 2026-11-25
+python3 scripts/research_archive.py context-128k-disk --verify --recovered-session 2026-11-25
+python3 scripts/research_archive.py context-rationale-128k --verify
+python3 scripts/research_archive.py rationale-transfer-01 --verify
+python3 scripts/research_archive.py rationale-dense-01 --verify
 ```
 
 ## Which model to use for these word problems

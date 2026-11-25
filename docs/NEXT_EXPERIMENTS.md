@@ -13,3 +13,7 @@ A future training hypothesis would need to address the observed loss of accuracy
 Both arms of the mixed-retention comparison finished all 16 updates. They reached 21/128 functional sixth hops and 9/128 complete paths. Mixing old maps preserved 57/96 permutation third hops, versus the control's 39/96 and the parent's 96/96. The registered 94/96 floor closed this branch. [Paired archive](../research/results/functional-interleave-01)
 
 The November 24 window had closed with the control at one update. The released record preserves the interruption, memory samples and exact AdamW lineage used to resume after the owner freed unified memory. [Original closure](../research/sessions/interleave-closure-1795489467/closure.json) · [November 25 recovery](../research/sessions/2026-11-25/resumption.json)
+
+## Long context
+
+For the measured 131,072-token prompt, resident inference had the lowest latency. Full-precision cache staging on disk reduced peak MLX allocation and reproduced every generated token. The rationale adapter completed its turn but missed the early key. A test of useful retrieval needs successful answers across multiple positions, inputs and lengths. Broad long-context promotion remains closed. [Full-history measurements](PROJECT_REVIEW.md#disk-backed-memory-and-speed)

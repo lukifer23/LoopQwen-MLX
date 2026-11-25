@@ -1,0 +1,157 @@
+{
+  "start": 1795630808.744079,
+  "closed_utc": "2026-11-25T19:09:54.003871+00:00",
+  "wall_seconds": 2985.2597918510437,
+  "charged_research_worker_seconds": 2446.710537672043,
+  "research_limits": {
+    "wall_seconds": 7200,
+    "native_seconds": 4500,
+    "iterations": 8,
+    "reassess_consecutive_failures": 3
+  },
+  "registrations": {
+    "context-128k-01": {
+      "archive": "research/sessions/2026-11-25/context-128k-01",
+      "inventory_sha256": "ea40e518d55a1fab8383ca568851380ddb965a803f1701eb47fa57853c782152",
+      "charged_seconds": 614.0119781494141
+    },
+    "context-128k-disk": {
+      "archive": "research/sessions/2026-11-25/context-128k-disk",
+      "inventory_sha256": "08812d3ec82ca5f090c0b482bd521d33c7b917472550033251592f82f54a4981",
+      "charged_seconds": 611.4083709716797
+    },
+    "context-rationale-128k": {
+      "archive": "research/results/context-rationale-128k",
+      "inventory_sha256": "281cdb1b2815e18548b8b12a8d9635819add02e08012d6bb00a554c335437c08",
+      "charged_seconds": 263.1404390335083
+    },
+    "functional-interleave-01": {
+      "archive": "research/results/functional-interleave-01",
+      "inventory_sha256": "3ba431043106cf4034cfff2d6cdf3b3d784f033f4fc8b84e661904a6f6522751",
+      "charged_seconds": 48.07929348945618
+    },
+    "gsm-rationale-01": {
+      "archive": "research/sessions/2026-11-25/gsm-rationale-01",
+      "inventory_sha256": "8b85cc6f8ac6748122cefd7142df27ca76caf7f14e89843109f8ace16cc48982",
+      "charged_seconds": 244.3990387916565
+    },
+    "gsm-rationale-endpoint": {
+      "archive": "research/sessions/2026-11-25/gsm-rationale-endpoint",
+      "inventory_sha256": "3e17537f1d4c16aef7de52831d023732b814fb779a93391220b4f2a76858e225",
+      "charged_seconds": 72.70957088470459
+    },
+    "rationale-dense-01": {
+      "archive": "research/results/rationale-dense-01",
+      "inventory_sha256": "56b29f3b1e3e81c0566d9f2e0b7ea2cf3f996c27adb4dd5cb75bda9eb1028383",
+      "charged_seconds": 92.60299611091614
+    },
+    "rationale-transfer-01": {
+      "archive": "research/results/rationale-transfer-01",
+      "inventory_sha256": "9177729f97e0318a8e0d1b6dc7066c32e3aeaac8648f6124f11eb617ad9fa84b",
+      "charged_seconds": 500.3588502407074
+    }
+  },
+  "worker_starts": [
+    {
+      "job": "functional-interleave-01",
+      "seconds": 2.861337661743164,
+      "peak_bytes": 2557369692,
+      "start": 1795630810.1221492
+    },
+    {
+      "job": "context-128k-01",
+      "seconds": 149.68932008743286,
+      "peak_bytes": 3719859968,
+      "start": 1795630889.9298859
+    },
+    {
+      "job": "gsm-rationale-01",
+      "seconds": 32.28759765625,
+      "peak_bytes": 2677843774,
+      "start": 1795631048.9576802
+    },
+    {
+      "job": "gsm-rationale-endpoint",
+      "seconds": 1.5899410247802734,
+      "peak_bytes": 1698420890,
+      "start": 1795631113.4650612
+    },
+    {
+      "job": "context-128k-disk",
+      "seconds": 20.749650955200195,
+      "peak_bytes": 1992576218,
+      "start": 1795631198.530581
+    },
+    {
+      "job": "functional-interleave-01",
+      "seconds": 45.21795582771301,
+      "peak_bytes": 2568502446,
+      "start": 1795631292.866712
+    },
+    {
+      "job": "gsm-rationale-01",
+      "seconds": 212.1114411354065,
+      "peak_bytes": 2668932878,
+      "start": 1795631356.916926
+    },
+    {
+      "job": "context-128k-01",
+      "seconds": 464.3226580619812,
+      "peak_bytes": 4634963808,
+      "start": 1795631580.319415
+    },
+    {
+      "job": "rationale-transfer-01",
+      "seconds": 500.3588502407074,
+      "peak_bytes": 1786808946,
+      "start": 1795632082.8489118
+    },
+    {
+      "job": "rationale-dense-01",
+      "seconds": 92.60299611091614,
+      "peak_bytes": 2673714658,
+      "start": 1795632586.137616
+    },
+    {
+      "job": "context-rationale-128k",
+      "seconds": 263.1404390335083,
+      "peak_bytes": 4634881888,
+      "start": 1795632681.084904
+    },
+    {
+      "job": "gsm-rationale-endpoint",
+      "seconds": 71.11962985992432,
+      "peak_bytes": 1991840006,
+      "start": 1795632946.8602931
+    },
+    {
+      "job": "context-128k-disk",
+      "seconds": 590.6587200164795,
+      "peak_bytes": 2777951626,
+      "start": 1795633020.261129
+    }
+  ],
+  "reason": "All eight distinct registrations reached a scored outcome. The long-budget language promotion and early-key retrieval gates failed.",
+  "verification": {
+    "test_suite": "60 passed",
+    "phase_archives": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "registry": "20 registrations, 17 data identities",
+    "public_weights": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+    "cli_archived_output_ids_reproduced": 78,
+    "standalone_recurrent_export": {
+      "fresh_process_verified": true,
+      "fusion_relative_rms": 0.016512740403413773,
+      "standalone_boxing_output_ids_match_adapter": true
+    },
+    "stock_dense_parity_requests": 16
+  },
+  "final_gpu_lease": null,
+  "final_project_worker_count": 0,
+  "final_pressure": "normal",
+  "accounting": "Charged time covers registered research workers including interrupted attempts. Software tests, export validation and archive audits are outside the research-worker counter."
+}

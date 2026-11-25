@@ -1,0 +1,11 @@
+{
+  "id": "context-128k-disk",
+  "question": "Can an exact BF16 disk-backed KV prefix and layer-ordered prefill complete the same 131072-token deployment pair after resident KV encountered memory pressure?",
+  "reference": "context-128k-01",
+  "candidate": "adapters/phase4/gated_109_250k",
+  "weights": "fe472c4fb69db0a0b8663ac36bbf9b1edc9b2062d8368f85503a300c9e5a9cbf",
+  "seed": 13107241, "prompt_tokens": 131072, "generation_cap": 96,
+  "parity": "Before either long request, require exact full-vocabulary logits for the final prefill position and three greedy decode steps versus resident KV on a 259-token real prompt at Base K1 and trained stabilized K2, using identical 128-token prefill boundaries. A parity failure closes long measurement.",
+  "policy": "Replay the frozen input from the resident-cache archive, identical greedy decode and first-turn scoring. Full precision KV stored once per site with an in-memory tail. Disk staging is also charged in first-token time. No truncation, eviction, quantization or weight changes. Score both capacity and completed retrieval as in the reference. Stop and archive on memory warning or timeout.",
+  "limits": {"wall_seconds": 1500, "peak_gib": 4.5, "available_gib": 1.5}
+}
