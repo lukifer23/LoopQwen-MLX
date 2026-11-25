@@ -73,8 +73,21 @@ def material(s):
     plain = anchors(load_tokenizer(local_snapshot()), s)
     docs = []
     for i, anchor in enumerate(plain):
-        docs.extend(dict(d, raw=False) for d in supervised[4 * i : 4 * i + 4])
+        quartet = supervised[4 * i : 4 * i + 4]
+        docs.extend(dict(d, raw=False) for d in quartet)
         docs.append(anchor)
+        if "hidden_weight" in s:
+            source = quartet[i % 3]
+            close = source["ids"].index(248069, source["prefix"])
+            keep = source["prefix"] + (close - source["prefix"]) // 4
+            docs.append(
+                {
+                    "ids": source["ids"][:keep] + source["ids"][close:],
+                    "prefix": keep,
+                    "raw": False,
+                    "teacher": {"ids": source["ids"], "prefix": close},
+                }
+            )
     tokenizer = load_tokenizer(local_snapshot())
     exposure = []
     for j, d in enumerate(docs):
@@ -82,15 +95,22 @@ def material(s):
         label = None
         if j % s["group"] < 3:
             label = numeric(tokenizer.decode(d["ids"][n:-1]).split("</think>")[-1])
-        exposure.append(
-            {
-                "prefix": n,
-                "length": len(d["ids"]),
-                "prompt": fingerprint(d["ids"][:n]),
-                "raw": d["raw"],
-                "gold": label,
-            }
-        )
+        entry = {
+            "prefix": n,
+            "length": len(d["ids"]),
+            "prompt": fingerprint(d["ids"][:n]),
+            "raw": d["raw"],
+            "gold": label,
+        }
+        if "teacher" in d:
+            entry["teacher_prefix"] = d["teacher"]["prefix"]
+            entry["teacher_length"] = len(d["teacher"]["ids"])
+            entry["teacher_prompt"] = fingerprint(
+                d["teacher"]["ids"][: d["teacher"]["prefix"]]
+            )
+            if d["ids"][n:] != d["teacher"]["ids"][d["teacher"]["prefix"] :]:
+                raise ValueError("Privileged output tokens do not align")
+        exposure.append(entry)
     return (
         docs,
         panel,
@@ -230,9 +250,13 @@ def collect(s, docs, b, folder):
             if d["raw"] != raw:
                 continue
             b.check()
-            ids, p = distill_training.distribution(
-                model, d, raw, s["positions"], s["top_k"], s["temperature"]
+            target_doc = d.get("teacher", d)
+            ids, p, hidden = distill_training.distribution(
+                model, target_doc, raw, s["positions"], s["top_k"], s["temperature"]
             )
+            if "teacher" in d:
+                arrays[f"{j}.hidden"] = mx.contiguous(hidden.astype(mx.bfloat16))
+                mx.eval(arrays[f"{j}.hidden"])
             arrays[f"{j}.ids"] = mx.contiguous(ids.astype(mx.int32))
             mx.eval(arrays[f"{j}.ids"])
             arrays[f"{j}.mass"] = p
@@ -257,10 +281,12 @@ def collect(s, docs, b, folder):
     return path
 
 
-def run(freeze):
-    s = read(REG)
+def run(freeze, reg=REG):
+    s = read(reg)
+    panel_file = Path("research/data") / (s["id"] + ".json")
+    train_file = Path(s.get("training_manifest", TRAIN))
     docs, panel, manifest = material(s)
-    for p, v in ((PANEL, panel), (TRAIN, manifest)):
+    for p, v in ((panel_file, panel), (train_file, manifest)):
         if freeze and not p.exists():
             save(p, v)
         if read(p) != v:
@@ -268,8 +294,9 @@ def run(freeze):
     if freeze:
         return
     registry = read("research/registry.json")
-    if registry["experiments"][s["id"]]["registration"] != digest(REG) or any(
-        registry["datasets"][str(p)]["sha256"] != digest(p) for p in (PANEL, TRAIN)
+    if registry["experiments"][s["id"]]["registration"] != digest(reg) or any(
+        registry["datasets"][str(p)]["sha256"] != digest(p)
+        for p in (panel_file, train_file)
     ):
         raise ValueError("Unregistered inputs")
     for path, k in (
@@ -286,18 +313,19 @@ def run(freeze):
     b = core.Budget(s["id"], s["limits"])
     cp = Path("checkpoints/research") / s["id"]
     result = {
-        "registration": digest(REG),
-        "data": digest(PANEL),
-        "training": digest(TRAIN),
+        "registration": digest(reg),
+        "data": digest(panel_file),
+        "training": digest(train_file),
         "passed": False,
     }
     try:
-        docs, count = verified_traces(s, docs, b, root)
-        result["correct_training_draws"] = count
-        if docs is None:
-            result.update(status="insufficient_correct_training_traces")
-            save(root / "decision.json", result)
-            return
+        if "hidden_weight" not in s:
+            docs, count = verified_traces(s, docs, b, root)
+            result["correct_training_draws"] = count
+            if docs is None:
+                result.update(status="insufficient_correct_training_traces")
+                save(root / "decision.json", result)
+                return
         target = collect(s, docs, b, root)
         result["teacher_targets"] = digest(target)
         from .task_vectors import initialize
@@ -322,7 +350,7 @@ def run(freeze):
         )
         f, z, r = result["full"], result["prefix_256"], result["retention"]
         result["passed"] = (
-            f["all"]["wins"] - f["all"]["losses"] >= 4
+            f["all"]["wins"] - f["all"]["losses"] >= s.get("net_floor", 4)
             and all(
                 f[k]["wins"] > f[k]["losses"] and z[k]["wins"] >= z[k]["losses"]
                 for k in s["sources"]
@@ -341,4 +369,6 @@ def run(freeze):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--freeze", action="store_true")
-    run(parser.parse_args().freeze)
+    parser.add_argument("--registration", type=Path, default=REG)
+    args = parser.parse_args()
+    run(args.freeze, args.registration)

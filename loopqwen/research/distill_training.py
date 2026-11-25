@@ -30,7 +30,7 @@ def distribution(model, doc, raw, count, k, temperature):
     logp = nn.log_softmax(logits, axis=-1)
     mass = mx.exp(mx.take_along_axis(logp, ids, axis=-1))
     mx.eval(ids, mass)
-    return ids, mass
+    return ids, mass, h
 
 
 def bucket_kl(logits, ids, p, temperature):
@@ -61,13 +61,25 @@ def train(model, docs, targets, s, root, budget, source):
         verify_optimizer(model, opt, state["step"], s["lr"])
     teacher = mx.load(str(targets))
 
-    def loss(net, x, labels, at, ids, p, prefix, raw):
+    def loss(net, x, labels, at, ids, p, prefix, raw, privileged):
         h = net.hidden(x)[0]
         kl = bucket_kl(net.project(h[at]), ids, p, s["temperature"])
         if raw:
             return s["retention_weight"] * kl
         hard = mx.fast.cross_entropy(net.project(h[prefix - 1 :]), labels).mean()
-        return (1 - s["soft_weight"]) * hard + s["soft_weight"] * kl
+        objective = (1 - s["soft_weight"]) * hard + s["soft_weight"] * kl
+        if privileged is not None:
+
+            def unit(value):
+                value = value.astype(mx.float32)
+                return value * mx.rsqrt(
+                    mx.sum(value * value, axis=-1, keepdims=True) + 1e-8
+                )
+
+            objective += s["hidden_weight"] * (
+                1 - (unit(h[at]) * unit(privileged)).sum(-1).mean()
+            )
+        return objective
 
     vg = nn.value_and_grad(model, loss)
     model.train()
@@ -84,6 +96,8 @@ def train(model, docs, targets, s, root, budget, source):
             for j in range(i * size, (i + 1) * size):
                 budget.check()
                 d = docs[j]
+                if ("teacher" in d) != (f"{j}.hidden" in teacher):
+                    raise ValueError("Missing or unexpected privileged state target")
                 raw = d["raw"]
                 at = positions(d, raw, s["positions"])
                 v, g = vg(
@@ -95,6 +109,7 @@ def train(model, docs, targets, s, root, budget, source):
                     teacher[f"{j}.mass"],
                     d["prefix"],
                     raw,
+                    teacher.get(f"{j}.hidden"),
                 )
                 grads = g if grads is None else tree_map(lambda a, b: a + b, grads, g)
                 mx.eval(v, grads)

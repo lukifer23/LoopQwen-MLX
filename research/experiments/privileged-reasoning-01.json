@@ -1,0 +1,120 @@
+{
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "sources": {
+    "gsm8k_reserved": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "id": "privileged-reasoning-01",
+  "seed": 261125283,
+  "updates": 96,
+  "logical_batch": 4,
+  "cap_positions": 384,
+  "lr": 5.5e-05,
+  "weight_decay": 0,
+  "clip": 1,
+  "depth": 2,
+  "generation_cap": 1024,
+  "rollout_cap": 192,
+  "per_source": 16,
+  "pool": 0,
+  "reading_sha256": "3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955",
+  "reading_url": "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json",
+  "reading_license": "CC BY-SA 4.0, Rajpurkar et al. and Wikipedia contributors",
+  "reading_topics": [
+    "Architecture",
+    "Classical_music",
+    "Pitch_(music)",
+    "London",
+    "Appalachian_Mountains",
+    "Yale_University",
+    "Georgian_architecture",
+    "Norfolk_Island",
+    "Association_football",
+    "Gothic_architecture",
+    "Arena_Football_League",
+    "Neoclassical_architecture"
+  ],
+  "question": "Can a standalone recurrent student predict answer-phase hidden states with only a quarter of a human worked rationale available during training and then solve new questions by unrestricted generation?",
+  "training": "A new, independent weights-only study starting at the original K2 arithmetic adapter. Freeze all pinned dense parameters and the ordinary-depth control. Initialize 24 additive low-rank directions per linear projection from the post-trained sibling delta in addition to the eight parent factors. Train against complete publisher GSM8K worked solutions and SQuAD annotated reading, with Base-distribution anchors on unseen training prose. Each of 96 groups contains three math, one reading, one raw prose and one extra matched-prefix math document. For the latter, the teacher sees the whole publisher rationale. The student gets one quarter of its token prefix and must predict the same closing marker, visible answer and first turn boundary. Align top-32 plus residual vocabulary mass and unit-normalized final hidden vectors at up to 24 aligned answer positions. Save all distillation targets, the amount of reasoning withheld and the exact number of supervised tokens. No teacher generation, reference answer, privileged context or donor at inference. One trained K2 adapter generates every token at test time.",
+  "decision": "Fresh equal 1024-token 32-item paired primary at ordinary Base K1 versus the trained standalone K2. Require >=3 net correct pooled (9.375 percentage points), positive net on each source, candidate elapsed <=Base, nonnegative short-prefix net on each source and ungated prose NLL <=Base +0.03. Also require positive net on unambiguously correct completed mathematical content before allowing an independent replication. Report both paired p values. A failed primary closes the branch. Native memory or wall limit stops the study and downstream work.",
+  "limits": {
+    "wall_seconds": 1340,
+    "peak_gib": 6.15,
+    "available_gib": 1.5
+  },
+  "group": 6,
+  "rank": 24,
+  "power_iterations": 2,
+  "import_strength": 0.85,
+  "soft_weight": 0.4,
+  "temperature": 1.25,
+  "positions": 24,
+  "top_k": 32,
+  "retention_weight": 6,
+  "novel_sha256": "b854fc94ec2b4796b6b1700a9e356678bd13117fc7bbf630a0c3f995c7cbf446",
+  "exclude_panels": [
+    "research/data/all-layer-reasoning-01.json",
+    "research/data/recurrent-deliberation-01.json",
+    "research/data/recurrent-deliberation-training.json",
+    "research/data/projected-distillation-01.json"
+  ],
+  "exclude_training": [
+    "research/data/all-layer-reasoning-training.json",
+    "research/data/projected-distillation-training.json"
+  ],
+  "teacher": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "anchor_files": {
+    "howto-sorting.rst": {
+      "sha256": "c0e38a56c301e6968f5630a01e27048f07ca1288ffec45d37e6335fd909d2e4d",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/howto/sorting.rst",
+      "license": "PSF"
+    },
+    "library-collections.rst": {
+      "sha256": "dd9867a9f2f2419a1fbf03c89100f1260041fd6549a785d075d32cb4d36417ee",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/collections.rst",
+      "license": "PSF"
+    },
+    "library-fractions.rst": {
+      "sha256": "ed214dd0c9da914273419f8bba06e8215ebc9802475237dce863c9426a369c29",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/fractions.rst",
+      "license": "PSF"
+    },
+    "library-statistics.rst": {
+      "sha256": "5d12d67adc29c15b0520de33db7db0cf149ce97b40276bb691e5ca9216c495e4",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/statistics.rst",
+      "license": "PSF"
+    },
+    "tutorial-datastructures.rst": {
+      "sha256": "c83633cfaa116c223eb4eacaf454f444591257f5340bae4f741726335029cf48",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/tutorial/datastructures.rst",
+      "license": "PSF"
+    }
+  },
+  "method_references": [
+    "https://aclanthology.org/2025.findings-ijcnlp.125/",
+    "https://arxiv.org/abs/2106.09685",
+    "https://huggingface.co/Qwen/Qwen3.5-0.8B/tree/2fc06364715b967f1860aea9cf38778875588b17",
+    "https://aclanthology.org/2025.emnlp-main.36/"
+  ],
+  "net_floor": 3,
+  "hidden_weight": 2.0,
+  "training_manifest": "research/data/privileged-reasoning-training.json"
+}
