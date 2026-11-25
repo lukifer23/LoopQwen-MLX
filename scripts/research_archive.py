@@ -146,6 +146,7 @@ def verify(root):
         "rationale-transfer-01",
         "checked-rationale-01",
         "paired-solutions-01",
+        "all-layer-reasoning-01",
     ):
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
@@ -567,6 +568,35 @@ def verify_transfer(root, decision):
                 and decision["targets"] == sum(h["targets"] for h in state["history"]),
                 "Checked supervision checkpoint",
             )
+    if reg["id"] == "all-layer-reasoning-01":
+        manifest = Path("research/data/all-layer-reasoning-training.json")
+        schedule = read(manifest)
+        keys = schedule["ordered_questions"]
+        require(
+            sha(manifest) == decision["training"]
+            and len(set(keys)) == len(keys) == reg["updates"] * reg["logical_batch"]
+            and set(keys).isdisjoint(r["id"] for r in items)
+            and sha(Path(reg["parent"]) / "adapters.safetensors")
+            == reg["parent_sha256"]
+            and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+            == reg["dense_sha256"],
+            "Expanded-adapter training cohort and controls",
+        )
+        if weight:
+            st = read(root / "model/state.json")
+            require(
+                sha(root / "model/adapters.safetensors") == weight
+                and st["parent"] == reg["parent_sha256"]
+                and st["step"] == decision["updates"] == reg["updates"]
+                and sum(h["targets"] for h in st["history"])
+                == schedule["response_tokens"]
+                == decision["targets"]
+                and sum(h["seconds"] for h in st["history"])
+                == decision["update_seconds"]
+                and st["spec"]["deployment"]["config"]["target"] == "all"
+                and st["spec"]["deployment"]["config"]["passes"] == 2,
+                "Expanded-adapter checkpoint and exposure",
+            )
     for arm, expected_weight in (("base", REVISION), ("candidate", weight)):
         file = root / (arm + ".json.gz")
         if not file.exists():
@@ -676,6 +706,17 @@ def verify_transfer(root, decision):
                 full[src]["wins"] >= full[src]["losses"]
                 and short[src]["wins"] > short[src]["losses"]
                 for src in reg["sources"]
+            )
+            and r["candidate"]["nll"] <= r["base"]["nll"] + 0.03
+        )
+    if reg["id"] == "all-layer-reasoning-01":
+        passed = (
+            full["all"]["wins"] - full["all"]["losses"] >= 4
+            and full["all"]["candidate"]["seconds"] <= full["all"]["base"]["seconds"]
+            and all(
+                full[k]["wins"] > full[k]["losses"]
+                and short[k]["wins"] >= short[k]["losses"]
+                for k in reg["sources"]
             )
             and r["candidate"]["nll"] <= r["base"]["nll"] + 0.03
         )
