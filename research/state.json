@@ -1,13 +1,13 @@
 {
-  "session_start_utc": "2026-11-25T19:51:56.297983+00:00",
-  "starting_revision": "c7b9d11",
+  "session_start_utc": "2026-11-25T21:23:23.515946+00:00",
+  "starting_revision": "ad5b4c8",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": null,
+  "active": "all-layer-reasoning-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -159,8 +159,8 @@
       "reason": "At a common total of 1024 generated tokens, the candidate solved 20/32 versus 25/32 for Base in 283.19 vs 468.57 seconds. Paired wins/losses 2/7."
     }
   ],
-  "status": "Closed after eight scored follow-up comparisons",
-  "next_action": "No active jobs. The released reader is qualified for measured key-value lookup and Base remains the general reading reference.",
+  "status": "Active renewed reasoning comparison",
+  "next_action": "Train and assess full-depth adaptation on the frozen 1024-token reasoning panel.",
   "hypothesis": "A stabilized arithmetic parent adapted to complete natural-language solutions can improve correct first-turn answers at reasonable cost.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
@@ -204,8 +204,7 @@
   ],
   "closed_session_start": 1795636316.297983,
   "native_window": {
-    "start_utc": "2026-11-25T19:51:56.297983+00:00",
-    "status": "closed",
-    "closed_utc": "2026-11-25T21:06:52.576209+00:00"
+    "start_utc": "2026-11-25T21:23:23.515946+00:00",
+    "status": "open"
   }
 }
