@@ -118,6 +118,8 @@ def export(checkpoint, output, fusion="stock"):
                     checkpoint_location(checkpoint) / "state.json"
                 ),
             )
+        if "backbone_mix" in state.get("spec", {}).get("deployment", {}):
+            provenance["backbone_mix"] = state["spec"]["deployment"]["backbone_mix"]
         has_reader = getattr(model, "attention_reader", None) is not None
         if policy:
             cfg_path = temp / "ordinary-projections.safetensors"

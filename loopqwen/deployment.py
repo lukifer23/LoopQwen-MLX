@@ -12,6 +12,10 @@ def load_trained(root):
     deployment = state["spec"]["deployment"]
     model, tokenizer, _ = checkpoint.setup(deployment["config"])
     checkpoint.restore(generation, model)
+    if "backbone_mix" in deployment:
+        from .backbone_mix import restore
+
+        restore(model, deployment["backbone_mix"])
     model.alpha_override = deployment.get("alpha_override")
     model.eval()
     sidecar = generation / "attention-reader.json"
