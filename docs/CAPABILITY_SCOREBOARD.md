@@ -191,3 +191,12 @@ Each input contains all 131,078 tokens, both values and the same final question.
 | Learned reader K2 | 2/12 | 0.408 | 8/12 | 27.5 |
 
 The reader's selected span overlapped the human-annotated source paragraph on only three requests. Its two exact answers were also correct for Base. The reader gained zero and lost two, with early/middle/late exact counts of 1/1/0 versus 2/1/1 for Base. The preregistered 8/12 exact threshold and quality improvement both failed. This closes expansion of the frozen reader on this task. [Free-text outputs and costs](../research/results/prose-reading-01) · [Source, transformation and evaluation policy](../research/experiments/prose-reading-01.json)
+
+### Shared 1,024-token reasoning budget
+
+| Fresh 32 questions | Greedy exact / seconds | Final vote exact / seconds | All generated tokens | Attempts |
+|---|---:|---:|---:|---:|
+| Untouched Base K1 | 23 / 194.1 | 25 / 468.6 | 32,168 | 90 |
+| Original arithmetic K2 | 20 / 69.5 | 20 / 283.2 | 13,575 | 135 |
+
+Both systems first attempted each question greedily with the entire allowance available, then sampled within the remaining budget. Voting fixed two Base errors and lost none. It fixed one K2 error and lost one. The final candidate gained two paired questions and lost seven against Base (exact two-sided McNemar p = 0.180). The model scored 9/16 versus 10/16 on reserved GSM8K and 11/16 versus 15/16 on SVAMP. The registered longer-budget advantage failed. [All 225 attempts, stop boundaries and costs](../research/results/shared-budget-vote-01)
