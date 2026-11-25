@@ -63,8 +63,9 @@ def restore(root, model, optimizer=None):
 
 def load_trained(root):
     state = read(location(root) / "state.json")
-    model, tok, _ = setup(state["config"])
+    deployment = state if "config" in state else state["spec"]["deployment"]
+    model, tok, _ = setup(deployment["config"])
     restore(root, model)
-    model.alpha_override = state.get("alpha_override")
+    model.alpha_override = deployment.get("alpha_override")
     model.eval()
     return model, tok, state

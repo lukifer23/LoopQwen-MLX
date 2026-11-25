@@ -123,13 +123,12 @@ def run(freeze=False):
         if m.span.passes != s["depth"]:
             raise ValueError("Registered depth differs")
         m.checkpointing = True
-        st = core.train(m, docs, s, cp, b, s["parent_sha256"])
+        deployment = dict(config=parent["config"], alpha_override=m.alpha_override)
+        st = core.train(
+            m, docs, dict(s, deployment=deployment), cp, b, s["parent_sha256"]
+        )
         gen = checkpoint_location(cp)
         bootstrap.release(gen, root / "model")
-        # Package the child for the same load_trained/generate entry point as its parent.
-        release = read(root / "model/state.json")
-        release.update(config=parent["config"], alpha_override=m.alpha_override)
-        save(root / "model/state.json", release)
         weight = digest(gen / "adapters.safetensors")
         result.update(
             weights=weight,
