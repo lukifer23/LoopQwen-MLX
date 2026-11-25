@@ -51,7 +51,20 @@ def inventory():
         reports[name] = dict(
             registration=digest(p), archive=digest(result) if result.exists() else None
         )
-    return dict(datasets=datasets, experiments=reports)
+    sessions = {}
+    for inventory_path in sorted((root / "sessions").glob("*/*/checksums.json")):
+        folder = inventory_path.parent
+        registration = folder / "registration.json"
+        if not registration.exists():
+            continue
+        study = json.loads(registration.read_bytes())["id"]
+        if digest(registration) != reports[study]["registration"]:
+            raise ValueError(f"Recovered study registration changed: {folder}")
+        sessions[str(folder.relative_to(root / "sessions"))] = {
+            "archive": digest(inventory_path),
+            "registration": digest(registration),
+        }
+    return dict(datasets=datasets, experiments=reports, session_results=sessions)
 
 
 if __name__ == "__main__":
