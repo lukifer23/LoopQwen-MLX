@@ -146,6 +146,8 @@ def verify(root):
         verify_prefill(root, decision)
     if study == "ledger-curriculum-01":
         verify_ledger_curriculum(root, decision)
+    if study == "learned-exit-dense-01":
+        verify_exit_attribution(root, decision)
     if study == "rationale-dense-01":
         verify_dense_rationale(root, decision)
     if study in (
@@ -785,6 +787,142 @@ def verify_system(root, decision):
         and decision["scores"] == scores
         and decision["ordinary_identity"] == kept,
         "System retention and promotion rule",
+    )
+
+
+def verify_exit_attribution(root, decision):
+    from loopqwen.identity import fingerprint
+    from loopqwen.evaluation.statistics import exact_mcnemar
+
+    s = read(root / "registration.json")
+    info = s["expert"]
+    rows, previous = [], []
+    for stage in [info["qualification"], info["confirmation"]]:
+        arc = Path(stage["directory"])
+        require(
+            sha(arc / "checksums.json") == stage["inventory"]
+            and read(arc / "decision.json")["passed"],
+            "Qualified original pair",
+        )
+        require(
+            sha(Path(stage["audit"])) == stage["audit_sha256"], "Audited original pair"
+        )
+        rows += read(Path("research/data") / (arc.name + ".json"))
+        previous += read(arc / "candidate.json.gz")["records"]
+    require(
+        sha(root / "registration.json") == decision["registration"]
+        and fingerprint(rows) == decision["data"]
+        and sha(Path(s["initial_dense"]) / "adapters.safetensors") == s["dense_sha256"],
+        "Attribution inputs",
+    )
+    original = Path(info["qualification"]["directory"])
+    first = read(original / "decision.json")
+    if "dense_weights" in decision:
+        folder = root / "model"
+        ds = read(folder / "state.json")
+        config = read(folder / "deliberation.json")
+        fit = read(root / "readout-fit.json")
+        ref_fit = read(original / "readout-fit.json")
+        require(
+            ds["step"] == decision["updates"] == first["updates"]
+            and ds["parent"] == s["dense_sha256"]
+            and ds["spec"]["depth"] == config["finisher_depth"] == 1
+            and ds["spec"]["deployment"]["config"]["passes"] == 1
+            and decision["targets"]
+            == first["targets"]
+            == sum(r["targets"] for r in ds["history"])
+            and decision["documents"] == first["documents"]
+            and all(
+                fit[k] == ref_fit[k]
+                for k in ("features", "updates", "positives", "negatives")
+            )
+            and config["switch_after"]
+            == read(original / "model/deliberation.json")["switch_after"]
+            and config["adapter_sha256"]
+            == decision["dense_weights"]
+            == sha(folder / "adapters.safetensors")
+            and config["readout_sha256"] == sha(folder / "exit-readout.safetensors"),
+            "Dense exposure, readout and checkpoint",
+        )
+    results = {}
+    for name in ("dense", "recurrent"):
+        f = root / (name + ".json.gz")
+        if not f.exists():
+            require(decision["status"] == "interrupted", "Missing attribution arm")
+            continue
+        pack = read(f)
+        require(
+            pack["weights"]
+            == (decision["dense_weights"] if name == "dense" else info["weights"]),
+            "Attribution weights",
+        )
+        runs = pack["records"]
+        require(len(runs) <= len(rows), "Attribution extra requests")
+        results[name] = runs
+        for item, v, prior in zip(rows, runs, previous):
+            ids = v["token_ids"]
+            close = ids.index(248069) if 248069 in ids else None
+            ended = ids[-1] in (248044, 248046)
+            complete = ended and ids.count(248069) == 1 and 248068 not in ids
+            visible = numeric(v["visible"]) if complete else None
+            require(
+                v["id"] == item["id"]
+                and v["prompt_ids"] == item["prompt_ids"]
+                and v["gold"] == item["gold"]
+                and v["complete"] == complete
+                and v["close_at"] == close
+                and v["answer"] == visible
+                and v["correct"] == (visible == item["gold"])
+                and len(ids) <= 1024
+                and not set(ids[:-1]).intersection((248044, 248046))
+                and v["seconds"] >= v["ttft"] > 0
+                and ids[:704] == prior["token_ids"][:704],
+                "Matched first-turn attribution",
+            )
+            if name == "recurrent":
+                require(ids == prior["token_ids"], "Fresh unchanged recurrent stream")
+    if decision["status"] == "interrupted":
+        require(not decision["passed"] and decision["reason"], "Attribution stop")
+        return
+    require(
+        all(len(rs) == len(rows) for rs in results.values()),
+        "Complete attribution pair",
+    )
+    scores = {}
+    for source in ("all", *sorted({q["source"] for q in rows})):
+        idx = [
+            i for i, r in enumerate(rows) if source == "all" or r["source"] == source
+        ]
+        summary = {}
+        for arm, runs in results.items():
+            val = [runs[i] for i in idx]
+            summary[arm] = dict(
+                correct=sum(r["correct"] for r in val),
+                valid=sum(r["answer"] is not None for r in val),
+                seconds=sum(r["seconds"] for r in val),
+                tokens=sum(len(r["token_ids"]) for r in val),
+            )
+        delta = [
+            int(results["recurrent"][i]["correct"])
+            - int(results["dense"][i]["correct"])
+            for i in idx
+        ]
+        w, l = delta.count(1), delta.count(-1)
+        scores[source] = dict(
+            **summary, n=len(idx), wins=w, losses=l, p=exact_mcnemar(w, l)
+        )
+    a = scores["all"]
+    ret = decision["retention"]
+    verify_retention_pair(ret["dense"], ret["recurrent"])
+    passed = (
+        a["wins"] - a["losses"] >= s["net_floor"]
+        and all(r["wins"] >= r["losses"] for r in scores.values())
+        and a["recurrent"]["seconds"] <= s["max_time_ratio"] * a["dense"]["seconds"]
+        and ret["recurrent"]["nll"] <= ret["dense"]["nll"] + 0.03
+    )
+    require(
+        scores == decision["scores"] and passed == decision["passed"],
+        "Dense attribution recount",
     )
 
 

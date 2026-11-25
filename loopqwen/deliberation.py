@@ -44,7 +44,8 @@ def attach(model, policy, *, original_weights=None, directory=None):
         or policy["version"] not in (1, 2)
         or type(policy["switch_after"]) is not int
         or policy["switch_after"] < 1
-        or model.span.passes != 2
+        or policy.get("finisher_depth", 2) not in (1, 2)
+        or model.span.passes != policy.get("finisher_depth", 2)
     ):
         raise ValueError("Unsupported recurrent deliberation policy")
     if policy["version"] == 2:
