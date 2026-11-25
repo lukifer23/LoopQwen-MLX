@@ -1,0 +1,208 @@
+{
+  "start": 1795636316.297983,
+  "closed_utc": "2026-11-25T21:06:52.576209+00:00",
+  "wall_seconds": 4496.278225898743,
+  "charged_research_worker_seconds": 4276.249725580215,
+  "research_limits": {
+    "wall_seconds": 7200,
+    "native_seconds": 4500,
+    "iterations": 8,
+    "reassess_consecutive_failures": 3
+  },
+  "registrations": {
+    "checked-rationale-01": {
+      "archive": "research/results/checked-rationale-01",
+      "inventory_sha256": "a99d6a7edc2d4aa33a8b9e0db6c1b81ebeb61dd4a47f474d78d3ebe2c08a59e3",
+      "charged_seconds": 569.7212111949921
+    },
+    "ledger-curriculum-01": {
+      "archive": "research/results/ledger-curriculum-01",
+      "inventory_sha256": "4c0c13d174ca487b926b211da38c84f526302ad3f6f33733c511696c0671aaaf",
+      "charged_seconds": 379.0479300022125
+    },
+    "prefill-block-01": {
+      "archive": "research/results/prefill-block-01",
+      "inventory_sha256": "affe1ca15bc71fbfaf561c5fd61718bcfc43e4a93349d513eb484ba068e6f5e0",
+      "charged_seconds": 60.91721701622009
+    },
+    "paired-solutions-01": {
+      "archive": "research/results/paired-solutions-01",
+      "inventory_sha256": "da2b9760a4f71e45dc7c54e8bff667aa27159f786b992f4a4d05b633fea59e94",
+      "charged_seconds": 1072.987529039383
+    },
+    "attention-memory-01": {
+      "archive": "research/results/attention-memory-01",
+      "inventory_sha256": "febd16621f8818a7a00ddac9589ea4fb2ab7ab3584b833ec3b22b1280f87b878",
+      "charged_seconds": 226.4887659549713
+    },
+    "attention-memory-128k": {
+      "archive": "research/results/attention-memory-128k",
+      "inventory_sha256": "44730438b1dc7ecf46d5aba7586f52664d743a133f783f79a0a553ec15b4d4a7",
+      "charged_seconds": 1149.8478479385376
+    },
+    "prose-reading-01": {
+      "archive": "research/results/prose-reading-01",
+      "inventory_sha256": "27d735d6ac6e639af57e307fe18b85d9e42110eadfee76b58b0b259ff572571b",
+      "charged_seconds": 62.56543731689453
+    },
+    "shared-budget-vote-01": {
+      "archive": "research/results/shared-budget-vote-01",
+      "inventory_sha256": "0e2836ce8023f17d0504bc22d19a38d8d48587136761bb7eed679aff11c8590d",
+      "charged_seconds": 754.6737871170044
+    }
+  },
+  "worker_starts": [
+    {
+      "job": "checked-rationale-01",
+      "seconds": 569.7212111949921,
+      "peak_bytes": 3363657316,
+      "start": 1795636319.023218
+    },
+    {
+      "job": "ledger-curriculum-01",
+      "seconds": 205.61593985557556,
+      "peak_bytes": 3904663624,
+      "start": 1795636894.547895
+    },
+    {
+      "job": "ledger-curriculum-01",
+      "seconds": 173.43199014663696,
+      "peak_bytes": 2223612318,
+      "start": 1795637140.758987
+    },
+    {
+      "job": "prefill-block-01",
+      "seconds": 60.91721701622009,
+      "peak_bytes": 2223530398,
+      "start": 1795637315.706687
+    },
+    {
+      "job": "paired-solutions-01",
+      "seconds": 1072.987529039383,
+      "peak_bytes": 3087159976,
+      "start": 1795637380.7183201
+    },
+    {
+      "job": "attention-memory-01",
+      "seconds": 226.4887659549713,
+      "peak_bytes": 2950407202,
+      "start": 1795638489.319978
+    },
+    {
+      "job": "attention-memory-128k",
+      "seconds": 1149.8478479385376,
+      "peak_bytes": 4234776230,
+      "start": 1795638742.074262
+    },
+    {
+      "job": "prose-reading-01",
+      "seconds": 62.56543731689453,
+      "peak_bytes": 1842121658,
+      "start": 1795639897.0088289
+    },
+    {
+      "job": "shared-budget-vote-01",
+      "seconds": 754.6737871170044,
+      "peak_bytes": 1803820306,
+      "start": 1795639962.124871
+    }
+  ],
+  "reason": "All eight registered comparisons reached scored decisions. The frozen scorer passed register qualification and the full-length key swap. Natural reading transfer and longer-budget language promotion failed.",
+  "verification": {
+    "test_suite": "71 passed",
+    "phase_archives": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "registrations": 28,
+    "dataset_identities": 26,
+    "trained_reader_sha256": "a4416237af4d67ee62778dda11cf255e276c61edf95ef0230f6fd1a440080f19",
+    "cli_archived_2k_ids": 29,
+    "standalone_recurrent_export": {
+      "fresh_process_verified": true,
+      "merge_relative_rms": 0.016512740403413773,
+      "unique_parameters": 752425954,
+      "reader_parameters": 32929,
+      "merged_2k_answer_matches": true,
+      "merged_2k_ids_match": true
+    },
+    "post_cache_fix": {
+      "full_span_and_mask_replays": [
+        {
+          "prompt_tokens": 131078,
+          "selected": {
+            "start": 13110,
+            "stop": 13136,
+            "gain": 7.158928858679153,
+            "length": 131078
+          },
+          "decode_masks": 30,
+          "prefill_rows": 6
+        },
+        {
+          "prompt_tokens": 131078,
+          "selected": {
+            "start": 98286,
+            "stop": 98312,
+            "gain": 7.158928858679153,
+            "length": 131078
+          },
+          "decode_masks": 30,
+          "prefill_rows": 6
+        }
+      ],
+      "disk_replay": {
+        "prompt_tokens": 16395,
+        "token_ids": [
+          760,
+          24670,
+          1970,
+          1172,
+          270,
+          1458,
+          61785,
+          36620,
+          369,
+          220,
+          16,
+          23,
+          21,
+          19,
+          16,
+          20,
+          13,
+          198,
+          248069,
+          271,
+          18770,
+          4087,
+          25,
+          220,
+          16,
+          23,
+          21,
+          19,
+          16,
+          20,
+          248046
+        ],
+        "selection": {
+          "start": 12246,
+          "stop": 12272,
+          "gain": 5.08011270311935,
+          "length": 16395
+        },
+        "peak_bytes": 1920804354,
+        "elapsed_s": 14.350381541997194
+      }
+    },
+    "full_context_measurement_revision": "e8c9f85",
+    "full_context_cache_lifetime_fix": "3d00133"
+  },
+  "final_gpu_lease": null,
+  "final_project_worker_count": 0,
+  "final_pressure": "normal",
+  "accounting": "Charged seconds cover all registered native workers including interrupted attempts. Deployment replays, software tests, export validation and archive audits are reported separately."
+}

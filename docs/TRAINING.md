@@ -186,3 +186,6 @@ python3 scripts/research_archive.py attention-memory-01
 .venv/bin/python -m loopqwen.research.counterfactual_memory
 python3 scripts/research_archive.py attention-memory-128k
 ```
+
+
+The standalone merged reader was verified in a fresh process. Its 2,054-token example produced all 29 original output IDs, and its merged short-probe relative logit RMS was 0.01651. The merged decoder and reader contain 752,425,954 unique parameters, including the decoder's learned recurrence scalar and the 32,929 passage parameters. [Deployment and independent validation record](../research/sessions/2026-11-25-followup/closure.json)
