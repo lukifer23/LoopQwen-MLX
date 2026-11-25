@@ -79,8 +79,12 @@ def prompt(tokenizer, a, h, template):
         user = f"Read this statement: {a}\nSomeone concludes: {h}\nIs that conclusion guaranteed (yes), ruled out (no), or uncertain (maybe)?"
     elif template == 2:
         user = f"Assume the following is true. {a}\nCan we conclude that {h}\nUse yes for entailed, no for contradicted and maybe for neither."
-    else:
+    elif template == 3:
         user = f"Passage: {a}\nProposed inference: {h}\nDecide whether the inference must be true, must be false, or could go either way. Give your final judgment as yes, no, or maybe, respectively."
+    elif template == 4:
+        user = f"Take this information as given: {a}\nConsider this statement: {h}\nIs the statement supported, contradicted, or left undecided by the information? Answer yes, no, or maybe in that order of meanings."
+    else:
+        raise ValueError("Unknown inference prompt")
     return tokenizer.apply_chat_template(
         [{"role": "user", "content": user}],
         tokenize=False,
@@ -150,12 +154,17 @@ def material(s, excluded=()):
     return panel
 
 
-def training(s, panel):
-    tok = load_tokenizer(local_snapshot())
+def training_groups(s, panel):
     used = {r["premise"].casefold() for r in panel}
     groups_by = {
         c: groups(s, c, True, used, s["updates"]) for c in ("esnli", "multinli")
     }
+    return groups_by, used
+
+
+def training(s, panel):
+    tok = load_tokenizer(local_snapshot())
+    groups_by, used = training_groups(s, panel)
     anchors = projected_distillation.anchors(tok, s)
     docs = []
     keys = []

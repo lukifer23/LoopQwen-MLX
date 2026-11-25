@@ -140,7 +140,7 @@ def verify(root):
         verify_attention_memory(root, decision)
     if study == "conditional-depth-01":
         verify_system(root, decision)
-    if study == "entailment-triplets-01":
+    if study in ("entailment-triplets-01", "entailment-triplets-confirm-01"):
         verify_entailment(root, decision)
     if study == "prefill-block-01":
         verify_prefill(root, decision)
@@ -823,7 +823,24 @@ def verify_entailment(root, decision):
         == spec["dense_sha256"],
         "NLI control integrity",
     )
-    if "weights" in decision:
+    if "qualification" in spec:
+        primary = Path(spec["model"]).parent
+        earlier = read(panel.with_name(primary.name + ".json"))
+        require(
+            sha(primary / "checksums.json")
+            == spec["qualification"]
+            == decision["qualification"]
+            and read(primary / "decision.json")["passed"]
+            and sha(Path(spec["model"]) / "adapters.safetensors")
+            == decision["weights"]
+            == spec["weights"]
+            and sha(Path(spec["audit"])) == spec["audit_sha256"]
+            and {r["premise"].casefold() for r in rows}.isdisjoint(
+                r["premise"].casefold() for r in earlier
+            ),
+            "Frozen independent NLI confirmation",
+        )
+    elif "weights" in decision:
         state = read(root / "model/state.json")
         require(
             sha(root / "model/adapters.safetensors") == decision["weights"]
