@@ -46,7 +46,7 @@ quality.set(
     ylim=(0, 48),
     xticks=(0, 256, 512, 768, 1024),
 )
-quality.legend(loc="upper left", frameon=False)
+quality.legend(loc="upper right", frameon=False)
 timing.set(
     title="Measured time for the full cohort",
     xlabel="Generation time (seconds)",
