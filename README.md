@@ -30,7 +30,7 @@ Reason briefly, then give a single number on the last line as Final answer: <num
 
 On the same development set with identical training exposure, the ordinary-depth adapter answered **10/32 in 53.6 s**. The recurrent adapter gained six answers and lost three against that control. Both used 32 updates and 10,083 supervised response tokens. [Matched dense checkpoint and scores](research/results/rationale-dense-01)
 
-The deployed adapter processed **131,072 input tokens** and completed its response on the 18 GiB M3 Pro. Time to first token was **261.3 s**. It returned 13494 for an early ledger entry whose value was 965265. Full-context capacity is verified. Reliable retrieval at that distance remains open. [128K deployment record](research/results/context-rationale-128k)
+The arithmetic adapter alone processed **131,072 input tokens** and completed its response on the 18 GiB M3 Pro. Time to first token was **261.3 s**. It returned 13494 for an early ledger entry whose value was 965265. This earlier run established full-context capacity and recorded a failed lookup. [128K deployment record](research/results/context-rationale-128k)
 
 For long prompts, `--prompt-file path/to/prompt.txt` reads the entire UTF-8 file. The optional `--offload-dir /path/to/scratch` stores full-precision KV prefixes on disk while keeping every position accessible to attention. [Context protocol and reproduction](docs/PROJECT_REVIEW.md)
 

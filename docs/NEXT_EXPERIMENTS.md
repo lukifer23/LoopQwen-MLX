@@ -6,7 +6,7 @@ Use the 32-update K2 adapter when correct answers on grade-school word problems 
 
 The ordinary-depth model with identical rationale supervision closed most of the development gap. It solved 10/32 in 53.6 seconds. The recurrent model solved 13/32 in 64.6 seconds. The paired difference spans only nine discordant questions from one training lineage. Favoring recurrence as a general architecture requires evidence beyond this cohort. [Matched attribution](../research/results/rationale-dense-01)
 
-A future training hypothesis would need to address the observed loss of accuracy when time is available to check an answer. The current training target rewards one concise publisher solution. A comparison that teaches when to verify a proposed answer would need a new training set, a separate untouched evaluation cohort and a registered check that both short- and long-budget accuracy hold. The released GSM1K and SVAMP panel remains frozen. [Current training objective](../research/experiments/gsm-rationale-01.json) · [Completed transfer test](../research/results/rationale-transfer-01)
+The follow-up window tested two responses to the loss of longer-budget accuracy. One model learned verified inverse steps in publisher solutions. Another learned preferences between its own correct and incorrect solutions of comparable length. Both used fresh evaluation questions, and both missed their longer-budget gates. The released GSM1K and SVAMP panel remains frozen. [Current training objective](../research/experiments/gsm-rationale-01.json) · [Completed transfer test](../research/results/rationale-transfer-01)
 
 ## Graph recurrence
 
