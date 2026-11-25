@@ -222,3 +222,16 @@ All 384 updates completed on MLX in 919.1 seconds of update time. V3 language NL
 | All-layer arithmetic and reading | 21/48 | 38/48 | 0 / 17 |
 
 This secondary analysis keeps each frozen generation and its original completion boundary. For every completed visible response rejected by the numeric scorer, a reviewer recorded the numeric answer actually expressed, including clear prose and equivalent fractions. Unfinished turns still score zero. The annotation view displays the question and visible answer. The scoring step joins each annotation to the model and publisher gold. The four primary decisions continue to use their registered strict rule. [Reviewed labels](measurements/answer-audits) · [Reproducible scoring](../scripts/research_answer_audit.py)
+
+### Recurrent completion of Base deliberation
+
+| 48 fresh questions at 1,024 tokens | Trained adaptive depth | Untouched Base |
+|---|---:|---:|
+| Strict numeric answers | 27/48 | 25/48 |
+| Completed answers with unambiguous mathematical content | 31/48 | 30/48 |
+| Reserved GSM8K, strict | 11/24 | 11/24 |
+| SVAMP, strict | 16/24 | 14/24 |
+| Generated tokens | 22,730 | 26,338 |
+| Total seconds, including causal prefix replay | 353.05 | 380.68 |
+
+The trained second pass activated on 18 requests. All 48 ordinary-depth prefixes matched Base exactly. The strict comparison gained three items and lost one (exact paired p = 0.625). The content review gained two and lost one. With a two-answer strict margin and a tie on GSM8K, this endpoint missed the four-answer, both-source promotion rule. [Fixed comparison and checkpoint](../research/results/recurrent-deliberation-01) · [Content review labels](measurements/answer-audits/recurrent-deliberation-01.json)

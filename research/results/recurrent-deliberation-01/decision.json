@@ -1,0 +1,186 @@
+{
+  "registration": "4714883b36073f2a270e42fd307ceee7b6207a26d75f439ade4dc7b867136f1c",
+  "data": "0d08520e65cce126e3718c1ad3e95af9f6ceb6687ef9331cad28be642a19de3d",
+  "training": "72e046fd0a44c75d22294bfac6054214c6ed02e4bc8e63959aa7b81922cf7a49",
+  "passed": false,
+  "weights": "335114386be0e790a5d785b1676d2d7a65fc489a2ee1ef3a1c524460d780b9eb",
+  "updates": 64,
+  "targets": 14232,
+  "retention": {
+    "base": {
+      "nll": 2.9826581153386043,
+      "by_domain": {
+        "code_description": {
+          "loss": 4470.292913913727,
+          "tokens": 1733,
+          "nll": 2.5795112024891673
+        },
+        "general_prose": {
+          "loss": 7185.204305648804,
+          "tokens": 1911,
+          "nll": 3.759918527288751
+        },
+        "reference": {
+          "loss": 4169.751423716545,
+          "tokens": 1680,
+          "nll": 2.481994895069372
+        },
+        "scientific_exposition": {
+          "loss": 7110.921858847141,
+          "tokens": 2291,
+          "nll": 3.1038506585976173
+        },
+        "technical_explanation": {
+          "loss": 4886.064397752285,
+          "tokens": 1713,
+          "nll": 2.852343489639396
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    },
+    "candidate": {
+      "nll": 3.0022956755421224,
+      "by_domain": {
+        "code_description": {
+          "loss": 4506.43434163928,
+          "tokens": 1733,
+          "nll": 2.6003660367220314
+        },
+        "general_prose": {
+          "loss": 7231.527498960495,
+          "tokens": 1911,
+          "nll": 3.7841588168291445
+        },
+        "reference": {
+          "loss": 4187.960513830185,
+          "tokens": 1680,
+          "nll": 2.4928336391846337
+        },
+        "scientific_exposition": {
+          "loss": 7145.660674154758,
+          "tokens": 2291,
+          "nll": 3.1190138254713045
+        },
+        "technical_explanation": {
+          "loss": 4933.8310328722,
+          "tokens": 1713,
+          "nll": 2.880228273714069
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  },
+  "status": "completed",
+  "full": {
+    "all": {
+      "base": {
+        "correct": 25,
+        "valid": 33,
+        "tokens": 26338,
+        "seconds": 380.68001349898987
+      },
+      "candidate": {
+        "correct": 27,
+        "valid": 40,
+        "tokens": 22730,
+        "seconds": 353.0468804970151
+      },
+      "wins": 3,
+      "losses": 1,
+      "n": 48,
+      "p": 0.625
+    },
+    "gsm8k_reserved": {
+      "base": {
+        "correct": 11,
+        "valid": 17,
+        "tokens": 15507,
+        "seconds": 224.00533237404306
+      },
+      "candidate": {
+        "correct": 11,
+        "valid": 21,
+        "tokens": 13428,
+        "seconds": 209.88329312606947
+      },
+      "wins": 1,
+      "losses": 1,
+      "n": 24,
+      "p": 1.0
+    },
+    "svamp": {
+      "base": {
+        "correct": 14,
+        "valid": 16,
+        "tokens": 10831,
+        "seconds": 156.6746811249468
+      },
+      "candidate": {
+        "correct": 16,
+        "valid": 19,
+        "tokens": 9302,
+        "seconds": 143.1635873709456
+      },
+      "wins": 2,
+      "losses": 0,
+      "n": 24,
+      "p": 0.5
+    }
+  },
+  "prefix_256": {
+    "all": {
+      "base": {
+        "correct": 8,
+        "valid": 9,
+        "tokens": 11768,
+        "seconds": 170.40278842186672
+      },
+      "candidate": {
+        "correct": 8,
+        "valid": 9,
+        "tokens": 11768,
+        "seconds": 170.94706916308496
+      },
+      "wins": 0,
+      "losses": 0,
+      "n": 48,
+      "p": 1.0
+    },
+    "gsm8k_reserved": {
+      "base": {
+        "correct": 0,
+        "valid": 0,
+        "tokens": 6144,
+        "seconds": 89.09714000191889
+      },
+      "candidate": {
+        "correct": 0,
+        "valid": 0,
+        "tokens": 6144,
+        "seconds": 89.00177079209243
+      },
+      "wins": 0,
+      "losses": 0,
+      "n": 24,
+      "p": 1.0
+    },
+    "svamp": {
+      "base": {
+        "correct": 8,
+        "valid": 9,
+        "tokens": 5624,
+        "seconds": 81.30564841994783
+      },
+      "candidate": {
+        "correct": 8,
+        "valid": 9,
+        "tokens": 5624,
+        "seconds": 81.94529837099253
+      },
+      "wins": 0,
+      "losses": 0,
+      "n": 24,
+      "p": 1.0
+    }
+  }
+}
