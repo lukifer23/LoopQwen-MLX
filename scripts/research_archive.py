@@ -1161,6 +1161,22 @@ def verify_shared_budget(root, decision):
                     and t["temperature"] == (reg["temperature"] if j else 0),
                     "Attempt identity and cost",
                 )
+                boundary = ids[-1] in (248044, 248046)
+                require(
+                    not set(ids[:-1]).intersection((248044, 248046))
+                    and (boundary or len(ids) == left)
+                    and t["stop"]
+                    == (
+                        "chat_end"
+                        if ids[-1] == 248046
+                        else "eos"
+                        if boundary
+                        else "cap"
+                    )
+                    and t["complete"]
+                    == (boundary and 248068 not in ids and ids.count(248069) == 1),
+                    "Every attempt spends its available budget or stops at its first boundary",
+                )
                 left -= len(ids)
                 answer = first_turn_answer(ids, t["text"])
                 require(answer == t["answer"], "Independent attempt answer")
