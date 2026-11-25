@@ -2,6 +2,7 @@
 
 import gc
 import random
+import shutil
 import time
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -96,8 +97,10 @@ def parity(m, ids, guard, scratch):
     return errors
 
 
-def run(offload=False, recovery=False):
+def run(offload=False, recovery=False, language=False):
     reg = REG.with_name("context-128k-disk.json") if offload else REG
+    if language:
+        reg = REG.with_name("context-rationale-128k.json")
     spec = read(reg)
     out = (core.OUT / "recovered" if recovery else core.OUT) / spec["id"]
     if (out / "decision.json").exists():
@@ -120,8 +123,27 @@ def run(offload=False, recovery=False):
     if digest(candidate / "adapters.safetensors") != spec["weights"]:
         raise ValueError("Wrong recurrent checkpoint")
     core.assets()
-    b = core.Budget(spec["id"], spec["limits"])
     rows = {}
+    if language:
+        from ..evaluation.mechanism import unpack
+
+        source = Path(spec["base_archive"])
+        qualified = read(candidate.parent / "decision.json")
+        measured = read(source / "base.json")
+        if not (
+            qualified["passed"]
+            and qualified["weights"] == spec["weights"]
+            and read(source / "decision.json")["capacity"]
+            and digest(source / "base.json") == spec["base_row_sha256"]
+            and unpack(source / "prompt.json.gz") == unpack(out / "prompt.json.gz")
+            and measured["weights"] == REVISION
+            and read(source / "registration.json")["generation_cap"]
+            == spec["generation_cap"]
+        ):
+            raise ValueError("Qualified checkpoint or frozen Base request differs")
+        rows["base"] = measured
+        shutil.copyfile(source / "base.json", out / "base.json")
+    b = core.Budget(spec["id"], spec["limits"])
     progress = 0
     try:
         if offload:
@@ -151,6 +173,8 @@ def run(offload=False, recovery=False):
                     )
                     return
         for arm in ("base", "candidate"):
+            if arm in rows:
+                continue
             progress = 0
             start = time.perf_counter()
             if arm == "base":
@@ -253,7 +277,9 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--offload", action="store_true")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--offload", action="store_true")
+    mode.add_argument("--language", action="store_true")
     parser.add_argument("--recovery", action="store_true")
     args = parser.parse_args()
-    run(args.offload, args.recovery)
+    run(args.offload, args.recovery, args.language)

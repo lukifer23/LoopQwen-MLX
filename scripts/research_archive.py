@@ -126,7 +126,7 @@ def verify(root):
             == decision["correct"],
             "Calibration accuracy",
         )
-    if study in ("context-128k-01", "context-128k-disk"):
+    if study in ("context-128k-01", "context-128k-disk", "context-rationale-128k"):
         verify_context(root, decision)
     if study == "rationale-dense-01":
         verify_dense_rationale(root, decision)
@@ -200,6 +200,20 @@ def verify_context(root, decision):
         len(ids) == reg["prompt_tokens"] and prompt["input_sha256"] == fingerprint(ids),
         "Context prompt stream",
     )
+    if "base_archive" in reg:
+        source = Path(reg["base_archive"])
+        qualified = read(Path(reg["candidate"]).parent / "decision.json")
+        require(
+            read(source / "prompt.json.gz") == prompt
+            and sha(source / "base.json")
+            == sha(root / "base.json")
+            == reg["base_row_sha256"]
+            and read(source / "decision.json")["capacity"]
+            and qualified["passed"]
+            and qualified["weights"] == reg["weights"]
+            and sha(Path(reg["candidate"]) / "adapters.safetensors") == reg["weights"],
+            "Language deployment and measured Base identity",
+        )
     if "reference" in reg:
         old = read(Path("research/results") / reg["reference"] / "prompt.json.gz")
         require(old == prompt, "Disk variant changed the frozen prompt")
