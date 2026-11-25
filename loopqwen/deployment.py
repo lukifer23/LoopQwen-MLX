@@ -24,4 +24,12 @@ def load_trained(root):
         ):
             raise ValueError("Attention reader is bound to a different adapter")
         load_reader(model, generation)
+    policy = generation / "deliberation.json"
+    if policy.is_file():
+        from .deliberation import attach
+
+        config = read(policy)
+        if digest(generation / "adapters.safetensors") != config["adapter_sha256"]:
+            raise ValueError("Deliberation policy belongs to another checkpoint")
+        attach(model, config)
     return model, tokenizer, state

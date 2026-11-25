@@ -161,7 +161,9 @@ def summarize(data, base_rows, candidate_rows, *, cap):
     return out
 
 
-def evaluate_pair(root, model, rows, s, weight, b, result, *, retention=False):
+def evaluate_pair(
+    root, model, rows, s, weight, b, result, *, retention=False, decoder=core.generate
+):
     records = {"base": [], "candidate": []}
     for start, order in [
         (0, ("candidate", "base")),
@@ -186,7 +188,7 @@ def evaluate_pair(root, model, rows, s, weight, b, result, *, retention=False):
                     calls += 1
                     b.check()
 
-                v = core.generate(
+                v = decoder(
                     m,
                     t,
                     item["prompt_ids"],

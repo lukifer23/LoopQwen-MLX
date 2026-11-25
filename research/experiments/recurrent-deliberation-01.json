@@ -1,0 +1,42 @@
+{
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "sources": {
+    "gsm8k_reserved": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "id": "recurrent-deliberation-01",
+  "seed": 261125249,
+  "updates": 64,
+  "logical_batch": 2,
+  "cap_positions": 1152,
+  "lr": 4.5e-05,
+  "weight_decay": 0,
+  "clip": 1,
+  "depth": 2,
+  "generation_cap": 1024,
+  "rollout_cap": 192,
+  "per_source": 24,
+  "pool": 64,
+  "question": "Does preserving the first 512 native Base tokens and training recurrent layers on authentic unfinished reasoning improve the full-budget accuracy and time?",
+  "training": "Independently restart at the original qualified 32-update K2 adapter. Generate exactly one ordinary-depth greedy thinking draft on each of 64 fresh publisher training questions. For still-open drafts charge and retain all 512 IDs. For drafts that close, take the first half of the actual thought, at most 512 tokens. Train on the publisher worked solution and final answer following each prefix (twice in distinct groupings). No evaluated question, inference teacher, injected token, answer checker or extra generation budget. Persist every draft and supervised document.",
+  "decision": "Direct 48-item pair, identical greedy thinking policy, exact prompt IDs and first-turn scorer. Deploy ordinary depth through token 512 of every open thinking request, then replay the entire prefix through trained K2 only if thinking is unfinished. Charge all latency and all generated IDs. Raw text uses the actual K2 adapter. Require pooled net >=4, positive net on both sources, no short-prefix loss on either, time <= Base, raw V3 NLL <= Base +0.03. Stop on budget or host guard. Failure closes expansion of this checkpoint. Pass permits fresh independent confirmation, prose and 128K verification before promotion.",
+  "limits": {
+    "wall_seconds": 1800,
+    "peak_gib": 5.9,
+    "available_gib": 1.5
+  },
+  "switch_after": 512,
+  "training_draft_cap": 512
+}

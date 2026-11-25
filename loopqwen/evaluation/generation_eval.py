@@ -29,6 +29,35 @@ def generate(
         raise ValueError(
             "Supply a nonempty prompt within the context window and 1..4096 output tokens."
         )
+    if getattr(model, "deliberation_policy", None):
+        from ..deliberation import greedy
+
+        val = greedy(
+            model,
+            tokenizer,
+            ids,
+            max_tokens,
+            progress=progress,
+            stop_ids=stop_ids,
+            offload_dir=offload_dir,
+            prefill_block=prefill_block,
+        )
+        tokens = val["token_ids"]
+        return dict(
+            **val,
+            prompt=prompt,
+            text=tokenizer.decode(tokens),
+            prompt_tokens=len(ids),
+            greedy=True,
+            seed=0,
+            max_tokens=max_tokens,
+            prefill_tps=len(ids) / val["ttft_s"],
+            decode_tps=(len(tokens) - 1) / (val["elapsed_s"] - val["ttft_s"])
+            if len(tokens) > 1
+            else None,
+            peak_bytes=mx.get_peak_memory(),
+            active_bytes=mx.get_active_memory(),
+        )
     workspace = (
         TemporaryDirectory(dir=offload_dir)
         if offload_dir is not None
