@@ -273,3 +273,7 @@ The 896-token switch completed 14 of 16 candidate turns and all 16 Base turns be
 | Independent raw V3 NLL | 2.99538 | 2.98266 |
 
 Seven requests reached the learned recurrent exit. The paired result was two wins and zero losses (two-sided exact p = 0.50). All 32 ordinary prefixes matched the control. The endpoint met its initial qualification and the blind content check. Independent confirmation uses 24 additional reserved GSM8K items and 24 additional operation-balanced SVAMP questions. The project's historical inventory already contains every question in the official GSM8K test split. [Measured endpoint](../research/results/learned-exit-01) · [Blind labels](measurements/answer-audits/learned-exit-01.json) · [Frozen confirmation](../research/experiments/learned-exit-confirm-01.json)
+
+### Full-rank weight transfer
+
+Mixing 60% of the post-trained sibling's internal weight difference into the Base backbone and training 128 recurrent updates improved V3 language NLL from 2.98266 to 2.91114. Strict arithmetic accuracy at 1,024 tokens fell to 12/32 versus 19/32, with 120.17 versus 277.14 seconds of generation. Reviewing the two noncanonical completed answers gave 12/32 versus 20/32 on mathematical content, with two candidate wins and ten losses. The prospective full-budget accuracy criterion closed this branch. [Paired generations](../research/results/fullrank-reasoning-01) · [Blind annotations](measurements/answer-audits/fullrank-reasoning-01.json)

@@ -1,0 +1,197 @@
+{
+  "passed": false,
+  "registration": "d7269cd2697d8d88d0b8be4fc4d23ba982ae79a71447de8ae89e5447e74b05ce",
+  "data": "38df6949fc458e7c129769240eba7256453bb004ba1701e0c8211eaed783cf9f",
+  "training": "1ce0eaa7e260bf8911168bb9668083dfd4bea2ff2f76fb67562b94edbe8f92fa",
+  "weights": "a6caaa178f19b4dd9cef801a3044ee86c16d9124f46783f35d7c3e841592cdac",
+  "updates": 128,
+  "targets": 57741,
+  "backbone_mix": {
+    "donor": {
+      "repo": "Qwen/Qwen3.5-0.8B",
+      "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+      "shard": "model.safetensors-00001-of-00001.safetensors",
+      "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+      "license": "Apache-2.0"
+    },
+    "fraction": 0.6,
+    "tensors": 318
+  },
+  "retention": {
+    "base": {
+      "nll": 2.9826581153386043,
+      "by_domain": {
+        "code_description": {
+          "loss": 4470.292913913727,
+          "tokens": 1733,
+          "nll": 2.5795112024891673
+        },
+        "general_prose": {
+          "loss": 7185.204305648804,
+          "tokens": 1911,
+          "nll": 3.759918527288751
+        },
+        "reference": {
+          "loss": 4169.751423716545,
+          "tokens": 1680,
+          "nll": 2.481994895069372
+        },
+        "scientific_exposition": {
+          "loss": 7110.921858847141,
+          "tokens": 2291,
+          "nll": 3.1038506585976173
+        },
+        "technical_explanation": {
+          "loss": 4886.064397752285,
+          "tokens": 1713,
+          "nll": 2.852343489639396
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    },
+    "candidate": {
+      "nll": 2.9111411897289865,
+      "by_domain": {
+        "code_description": {
+          "loss": 4317.856365263462,
+          "tokens": 1733,
+          "nll": 2.491550124214346
+        },
+        "general_prose": {
+          "loss": 7132.247909545898,
+          "tokens": 1911,
+          "nll": 3.732207174016692
+        },
+        "reference": {
+          "loss": 3885.770655632019,
+          "tokens": 1680,
+          "nll": 2.3129587235904876
+        },
+        "scientific_exposition": {
+          "loss": 7154.535570025444,
+          "tokens": 2291,
+          "nll": 3.1228876342319705
+        },
+        "technical_explanation": {
+          "loss": 4664.714517325163,
+          "tokens": 1713,
+          "nll": 2.7231258127992777
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  },
+  "status": "completed",
+  "full": {
+    "all": {
+      "base": {
+        "correct": 19,
+        "valid": 26,
+        "tokens": 17673,
+        "seconds": 277.14030174704385
+      },
+      "candidate": {
+        "correct": 12,
+        "valid": 30,
+        "tokens": 4895,
+        "seconds": 120.1706775399798
+      },
+      "wins": 2,
+      "losses": 9,
+      "n": 32,
+      "p": 0.0654296875
+    },
+    "gsm8k_reserved": {
+      "base": {
+        "correct": 7,
+        "valid": 12,
+        "tokens": 10954,
+        "seconds": 172.42866929003503
+      },
+      "candidate": {
+        "correct": 5,
+        "valid": 15,
+        "tokens": 2689,
+        "seconds": 66.43052395698032
+      },
+      "wins": 2,
+      "losses": 4,
+      "n": 16,
+      "p": 0.6875
+    },
+    "svamp": {
+      "base": {
+        "correct": 12,
+        "valid": 14,
+        "tokens": 6719,
+        "seconds": 104.71163245700882
+      },
+      "candidate": {
+        "correct": 7,
+        "valid": 15,
+        "tokens": 2206,
+        "seconds": 53.74015358299948
+      },
+      "wins": 0,
+      "losses": 5,
+      "n": 16,
+      "p": 0.0625
+    }
+  },
+  "prefix_256": {
+    "all": {
+      "base": {
+        "correct": 4,
+        "valid": 4,
+        "tokens": 7978,
+        "seconds": 125.27000004198635
+      },
+      "candidate": {
+        "correct": 12,
+        "valid": 30,
+        "tokens": 3359,
+        "seconds": 83.08772841500468
+      },
+      "wins": 9,
+      "losses": 1,
+      "n": 32,
+      "p": 0.021484375
+    },
+    "gsm8k_reserved": {
+      "base": {
+        "correct": 0,
+        "valid": 0,
+        "tokens": 4096,
+        "seconds": 64.62886345895822
+      },
+      "candidate": {
+        "correct": 5,
+        "valid": 15,
+        "tokens": 1921,
+        "seconds": 47.524082664982416
+      },
+      "wins": 5,
+      "losses": 0,
+      "n": 16,
+      "p": 0.0625
+    },
+    "svamp": {
+      "base": {
+        "correct": 4,
+        "valid": 4,
+        "tokens": 3882,
+        "seconds": 60.64113658302813
+      },
+      "candidate": {
+        "correct": 7,
+        "valid": 15,
+        "tokens": 1438,
+        "seconds": 35.56364575002226
+      },
+      "wins": 4,
+      "losses": 1,
+      "n": 16,
+      "p": 0.375
+    }
+  }
+}
