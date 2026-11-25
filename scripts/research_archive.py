@@ -130,6 +130,8 @@ def verify(root):
         verify_context(root, decision)
     if study == "attention-memory-128k":
         verify_full_memory(root, decision)
+    if study == "prose-reading-01":
+        verify_prose_reading(root, decision)
     if study == "shared-budget-vote-01":
         verify_shared_budget(root, decision)
     if study == "attention-memory-01":
@@ -939,6 +941,130 @@ def verify_full_memory(root, decision):
             and all(r["located"] for r in rows["candidate"])
         ),
         "Counterfactual full-context gate",
+    )
+
+
+def verify_prose_reading(root, decision):
+    from collections import Counter
+    import string
+    from loopqwen import REVISION
+    from loopqwen.identity import fingerprint
+
+    reg = read(root / "registration.json")
+    data = Path("research/data/prose-reading-01.json")
+    items = read(data)
+    parent = Path(reg["qualification"])
+    require(
+        sha(data) == decision["data"]
+        and sha(root / "registration.json") == decision["registration"]
+        and sha(parent / "checksums.json")
+        == reg["qualification_sha256"]
+        == decision["qualification"]
+        and read(parent / "decision.json")["passed"]
+        and [i["title"] for i in items] == reg["titles"]
+        and len(set(i["id"] for i in items)) == 12,
+        "Public reading prerequisites",
+    )
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"],
+            "Interrupted reading measurement",
+        )
+        return
+
+    def words(text):
+        s = "".join(c for c in text.lower() if c not in string.punctuation)
+        return [
+            w for w in re.split(r"\s+", re.sub(r"\b(a|an|the)\b", " ", s).strip()) if w
+        ]
+
+    counts = {}
+    hits = 0
+    for arm in ("base", "candidate"):
+        blob = read(root / (arm + ".json.gz"))
+        require(
+            blob["weights"]
+            == (REVISION if arm == "base" else reg["qualification_sha256"]),
+            "Public reading weights",
+        )
+        rows = blob["records"]
+        for r, item in zip(rows, items, strict=True):
+            ids = r["token_ids"]
+            require(
+                r["input_sha256"] == fingerprint(item["prompt_ids"])
+                and reg["minimum_length"]
+                <= r["prompt_tokens"]
+                == len(item["prompt_ids"])
+                and r["id"] == item["id"]
+                and r["greedy"]
+                and r["seed"] == 0
+                and r["max_tokens"] == reg["generation_cap"]
+                and 0 < len(ids) <= r["max_tokens"]
+                and r["elapsed_s"] >= r["ttft_s"] > 0,
+                "Public reading prompt, policy and timing",
+            )
+            ans = None
+            if (
+                ids[-1] in (248044, 248046)
+                and ids.count(248069) == 1
+                and 248068 not in ids
+            ):
+                boundary = "<|im_end|>" if ids[-1] == 248046 else "<|endoftext|>"
+                require(
+                    not set(ids[:-1]).intersection((248044, 248046))
+                    and r["text"].endswith(boundary)
+                    and r["text"].count("</think>") == 1,
+                    "Free-text turn boundary",
+                )
+                raw = r["text"].removesuffix(boundary).split("</think>")[1].strip()
+                ans = (
+                    re.sub(
+                        r"^(?:final\s+)?answer\s*:\s*", "", raw, count=1, flags=re.I
+                    ).strip()
+                    or None
+                )
+            target = [words(x) for x in item["aliases"]]
+            predicted = words(ans or "")
+            em = ans is not None and predicted in target
+            f1 = 0
+            for gold in target:
+                overlap = sum((Counter(predicted) & Counter(gold)).values())
+                if overlap:
+                    f1 = max(f1, 2 * overlap / (len(predicted) + len(gold)))
+            require(
+                (ans, em, f1) == (r["answer"], r["correct"], r["f1"]),
+                "Independent public EM and F1",
+            )
+            if arm == "candidate":
+                sec = r["attention_memory"]
+                lo, hi = item["source_interval"]
+                hit = sec["start"] < hi and lo < sec["stop"]
+                require(hit == r["selected_source"], "Selected public source paragraph")
+                hits += hit
+            else:
+                require("attention_memory" not in r, "Public Base reader")
+        counts[arm] = dict(
+            exact=sum(r["correct"] for r in rows),
+            f1=sum(r["f1"] for r in rows) / len(items),
+            seconds=sum(r["elapsed_s"] for r in rows),
+            completed=sum(r["answer"] is not None for r in rows),
+            placement={
+                p: sum(r["correct"] for r, i in zip(rows, items) if i["placement"] == p)
+                for p in ("early", "middle", "late")
+            },
+        )
+    a, c = counts["base"], counts["candidate"]
+    require(
+        counts == decision["scores"]
+        and hits == decision["selected_source"]
+        and decision["passed"]
+        == (
+            c["exact"] >= 8
+            and c["exact"] - a["exact"] >= 2
+            and c["f1"] >= a["f1"]
+            and c["seconds"] <= 1.5 * a["seconds"]
+        ),
+        "Natural reading gate",
     )
 
 

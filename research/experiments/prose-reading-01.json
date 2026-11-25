@@ -1,0 +1,12 @@
+{
+  "id": "prose-reading-01",
+  "question": "Does the reader qualified on uniformly formatted registers transfer to short free-form answers from natural Wikipedia passages with same-topic distractors?",
+  "qualification": "research/results/attention-memory-01",
+  "qualification_sha256": "febd16621f8818a7a00ddac9589ea4fb2ab7ab3584b833ec3b22b1280f87b878",
+  "source": {"url":"https://rajpurkar.github.io/SQuAD-explorer/dataset/dev-v1.1.json","sha256":"95aa6a52d5d6a735563366753ca50492a658031da74f301ac5238b03966972c9","license":"CC BY-SA 4.0","credit":"SQuAD v1.1 by Rajpurkar et al., with Wikipedia contributors. Same-article paragraph order modified for this pilot."},
+  "titles": ["Warsaw","Geology","Prime_number","Victoria_and_Albert_Museum","Amazon_rainforest","Steam_engine","Rhine","Teacher","Force","Doctor_Who","Apollo_program","University_of_Chicago"],
+  "seed": 251125611, "minimum_length": 2048, "generation_cap": 256,
+  "protocol": "Use one uniformly seeded publisher development question per named article, without screening on model outputs, difficulty or answer type. Preserve multiple annotator aliases and unedited full paragraphs. Fill a minimum 2048-token context with randomly ordered paragraphs from the same article and insert the annotated source near the beginning, middle or end in a balanced cycle. Freeze exact same thinking chat IDs, token cap and greedy first-turn stop for the trained system and untouched ordinary-depth Base. Report normalized SQuAD exact match and token F1, giving zero for unfinished or malformed first turns. Strip at most one optional leading Final answer label from the visible response. Track timing, source-paragraph selection and performance by placement. One fresh development item per article; pretraining overlap is unknown.",
+  "decision": "Require at least 8/12 exact matches and at least two net more than Base, noninferior mean token F1 and no more than 1.5x Base generation time before expanding to a larger natural-document cohort. Qualification at 2K/16K registers is required; this independent transfer study does not use results from the full-length key swap. Stop at the memory, worker or wall limit.",
+  "limits": {"wall_seconds":270,"peak_gib":4,"available_gib":1.5}
+}
