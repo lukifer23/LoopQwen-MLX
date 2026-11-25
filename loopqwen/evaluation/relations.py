@@ -44,6 +44,23 @@ def conclusion(visible):
     return None
 
 
+def premise_randomization(differences):
+    """Two-sided paired swap test, preserving all three judgments of a premise."""
+    counts = {0: 1}
+    for i in range(0, len(differences), 3):
+        delta = sum(differences[i : i + 3])
+        updated = {}
+        for total, n in counts.items():
+            for sign in (-1, 1):
+                key = total + sign * delta
+                updated[key] = updated.get(key, 0) + n
+        counts = updated
+    observed = abs(sum(differences))
+    return sum(n for d, n in counts.items() if abs(d) >= observed) / sum(
+        counts.values()
+    )
+
+
 def summarize(items, records):
     result = {}
     for name in ("all", "esnli", "multinli"):
