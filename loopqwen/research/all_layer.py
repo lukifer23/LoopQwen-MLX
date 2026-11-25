@@ -25,17 +25,13 @@ TRAIN = Path("research/data/all-layer-reasoning-training.json")
 
 
 def material(s):
-    prior = sum(
-        (
-            read(p)
-            for p in (
-                paired_solutions.PANEL,
-                paired_solutions.POOL,
-                Path("research/data/shared-budget-vote-01.json"),
-            )
-        ),
-        [],
+    prior_paths = (
+        paired_solutions.PANEL,
+        paired_solutions.POOL,
+        Path("research/data/shared-budget-vote-01.json"),
+        *map(Path, s.get("exclude_panels", [])),
     )
+    prior = [item for path in prior_paths for item in read(path)]
     _, panel = paired_solutions.material(s, prior)
     excluded = {fingerprint(" ".join(r["question"].split())) for r in prior + panel}
     for name in ("rationale-transfer-01", "checked-rationale-01"):
