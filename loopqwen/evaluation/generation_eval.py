@@ -75,7 +75,7 @@ def generate(
             inputs = mx.array([[token]])
         end = perf_counter()
     decode = end - first
-    return {
+    result = {
         "prompt": prompt,
         "text": tokenizer.decode(output),
         "token_ids": output,
@@ -90,3 +90,6 @@ def generate(
         "peak_bytes": mx.get_peak_memory(),
         "active_bytes": mx.get_active_memory(),
     }
+    if disk is not None:
+        result["scratch_bytes"] = disk.scratch_bytes
+    return result

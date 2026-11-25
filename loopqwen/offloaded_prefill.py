@@ -93,6 +93,9 @@ class OffloadedPrefill:
                     mx.save_safetensors(str(path), {"k": k, "v": v})
                     self.cache.slots[site] = PrefixOnDisk(path, length)
                     del slot, k, v
+        self.scratch_bytes = sum(
+            file.stat().st_size for file in self.directory.iterdir()
+        )
         del words
         (self.directory / "hidden.bf16").unlink()
         return m.project(m.text.model.norm(h[:, -1:]))
