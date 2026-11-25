@@ -1,31 +1,15 @@
 # Research decisions
 
-## November 25
+## Word problems
 
-The mixed-retention comparison completed all 16 updates per arm after the owner freed unified memory. Both reached 21/128 functional sixth hops and 9/128 complete paths. Mixing old maps preserved 57/96 permutation third hops, versus the control’s 39/96 and the parent’s 96/96. The 94/96 retention floor closed this branch. [Paired archive](../research/results/functional-interleave-01)
+Use the 32-update K2 adapter when correct answers on grade-school word problems are needed within 256 generated tokens. It improved over untouched Base on three measured groups and used less generation time. With 1,024 tokens, Base solved eight more of the 48 fresh questions. The longer-budget gate failed on both sources. Base remains the general-language reference and the higher-accuracy choice on this longer-budget cohort. [Per-source counts and costs](CAPABILITY_SCOREBOARD.md#fresh-word-problems-at-two-output-budgets)
 
-## Previous November 24 window
+The ordinary-depth model with identical rationale supervision closed most of the development gap. It solved 10/32 in 53.6 seconds. The recurrent model solved 13/32 in 64.6 seconds. The paired difference spans only nine discordant questions from one training lineage. Favoring recurrence as a general architecture requires evidence beyond this cohort. [Matched attribution](../research/results/rationale-dense-01)
 
-**The November 24 execution window closed at the owner’s request.** The monitor exited and the native session closed on November 23 at 9:47 p.m. Central (November 24 at 03:47 UTC). The saved control is at **1/16** optimizer updates and the treatment is at **0/16**. No paired evaluation or promotion decision exists for this study. [Closure and final readings](../research/sessions/interleave-closure-1795489467/closure.json)
+A future training hypothesis would need to address the observed loss of accuracy when time is available to check an answer. The current training target rewards one concise publisher solution. A comparison that teaches when to verify a proposed answer would need a new training set, a separate untouched evaluation cohort and a registered check that both short- and long-budget accuracy hold. The released GSM1K and SVAMP panel remains frozen. [Current training objective](../research/experiments/gsm-rationale-01.json) · [Completed transfer test](../research/results/rationale-transfer-01)
 
-### What blocked training in that window
+## Graph recurrence
 
-The earlier trial completed one eight-map update with 48 state labels. The runtime guard then stopped the worker after 5.32 seconds, with a 2.38 GiB peak MLX allocation. The guard checks both macOS memory pressure and the study’s 1.5 GiB minimum system availability. The earlier exception recorded a combined memory warning, so the triggering measurement cannot be distinguished retrospectively. [Interruption record](../research/sessions/2026-11-24-resumed/interleave-control-step1/interruption.json) · [Registered limits](../research/experiments/functional-interleave-01.json)
+Both arms of the mixed-retention comparison finished all 16 updates. They reached 21/128 functional sixth hops and 9/128 complete paths. Mixing old maps preserved 57/96 permutation third hops, versus the control's 39/96 and the parent's 96/96. The registered 94/96 floor closed this branch. [Paired archive](../research/results/functional-interleave-01)
 
-For the resumed window we chose a conservative launch margin of five consecutive readings at or above **6.4 GiB available**, sampled eight seconds apart, with normal OS pressure and a free GPU lease. The previous trial had stopped even after preflight readings reached 6.38 GiB. The new preflight saw six OS warnings in 31 readings. The subsequent monitor saw normal pressure in all **288** readings, but available memory ranged from **4.01 to 5.98 GiB**. Zero readings reached the launch margin. The monitor spent **zero native worker seconds** and exited before its deadline at the owner’s request. [Preflight measurements](../research/sessions/interleave-resume-1795489467.json) · [Monitor samples](../research/sessions/interleave-closure-1795489467/monitor.tsv)
-
-### Archived resumption instructions
-
-When the owner next authorizes training and memory headroom improves, finish the registered comparison of mixed-task replay. Training only on arbitrary successor maps previously raised sixth-hop accuracy from 4/128 to 53/128 while cutting third-hop permutation accuracy from 96/96 to 12/96. Both new arms see the same 96 fresh functional maps. Two slots per logical batch contain either repeated functional maps (control) or previously seen permutation maps (treatment). [Frozen training schedule](../research/data/functional-interleave-01.json) · [Prior scores](CAPABILITY_SCOREBOARD.md)
-
-1. On the original training host, verify the saved control weights and AdamW moments. Open one authorized window after checking available memory and the GPU lease.
-2. Restore the control at update one. Finish its 15 remaining updates and the treatment’s 16 under the same 84-position cap. The two arms share **174.68 seconds** of remaining study worker time.
-3. Independently score sixth-hop predictions and complete trajectories on the 128 functional maps. Report paired changes and the 96-map permutation retention score. Promotion requires a gain of at least ten percentage points over the parent on functional sixth hops and at most two lost permutation third hops. If the budget or memory guard stops execution first, preserve the completed boundary.
-
-```sh
-python3 scripts/verify_research_recovery.py research/sessions/2026-11-24-resumed/interleave-control-step1
-.venv/bin/python scripts/research_session.py
-.venv/bin/python -m loopqwen.research.interleave
-```
-
-The compact adapter and metadata are published. Exact recovery also uses the original locally retained optimizer file. [Checkpoint and optimizer digest](../research/sessions/2026-11-24-resumed/interleave-control-step1/recovery.json)
+The November 24 window had closed with the control at one update. The released record preserves the interruption, memory samples and exact AdamW lineage used to resume after the owner freed unified memory. [Original closure](../research/sessions/interleave-closure-1795489467/closure.json) · [November 25 recovery](../research/sessions/2026-11-25/resumption.json)
