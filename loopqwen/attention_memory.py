@@ -117,17 +117,18 @@ def attach_bias(cache, section):
             end = slot.offset + n
             if end < section["length"]:
                 return original(n, return_array=return_array, window_size=window_size)
+            dtype = getattr(getattr(slot, "keys", None), "dtype", mx.bfloat16)
             keys = mx.arange(end)
             boost = ((keys >= section["start"]) & (keys < section["stop"])).astype(
                 mx.float32
             ) * section["gain"]
             if n == 1:
-                return boost[None, None, None, :]
+                return boost.astype(dtype)[None, None, None, :]
             queries = mx.arange(slot.offset, end)[:, None]
             causal = mx.where(queries >= keys[None, :], 0.0, -float("inf"))
             return (
                 causal + mx.where(queries >= section["length"] - 1, boost[None, :], 0.0)
-            )[None, None, :, :]
+            ).astype(dtype)[None, None, :, :]
 
         slot.make_mask = mask
         slot.reader_bias = True
