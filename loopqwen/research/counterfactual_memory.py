@@ -82,24 +82,34 @@ def material(t, s):
     raise ValueError("No length-matched intervention near registered depth")
 
 
-def run(freeze):
-    s = read(REG)
+def run(freeze, registration=REG, dataset=DATA):
+    s = read(registration)
     parent = Path(s["qualification"])
     if (
         not read(parent / "decision.json")["passed"]
         or digest(parent / "checksums.json") != s["qualification_sha256"]
     ):
         raise ValueError("Missing qualified reader")
+    parity_source = Path(s.get("parity_reference", parent))
+    if (
+        "parity_reference" in s
+        and digest(parity_source / "checksums.json") != s["parity_reference_sha256"]
+    ):
+        raise ValueError("Different prior parity reference")
     model = parent / "model"
     t = load_tokenizer(local_snapshot())
     data = material(t, s)
-    if freeze and not DATA.exists():
-        DATA.write_text(json.dumps(data, separators=(",", ":")) + "\n")
-    if read(DATA) != data:
+    if freeze and not dataset.exists():
+        dataset.write_text(json.dumps(data, separators=(",", ":")) + "\n")
+    if read(dataset) != data:
         raise ValueError("Counterfactual material differs")
     if freeze:
         return
-    if digest(DATA) != read("research/registry.json")["datasets"][str(DATA)]["sha256"]:
+    index = read("research/registry.json")
+    if (
+        digest(dataset) != index["datasets"][str(dataset)]["sha256"]
+        or digest(registration) != index["experiments"][s["id"]]["registration"]
+    ):
         raise ValueError("Unregistered context inputs")
     root = core.OUT / s["id"]
     if root.exists():
@@ -110,15 +120,15 @@ def run(freeze):
     scratch.mkdir(exist_ok=True)
     rows = {"base": [], "candidate": []}
     result = {
-        "registration": digest(REG),
-        "data": digest(DATA),
+        "registration": digest(registration),
+        "data": digest(dataset),
         "qualification": s["qualification_sha256"],
         "passed": False,
     }
     try:
         m, t, _ = load_trained(model)
         existing = read(Path("research/data/attention-memory-01.json"))["panel"][0]
-        expected = unpack(parent / "candidate.json.gz")["records"][0]
+        expected = unpack(parity_source / "candidate.json.gz")["records"][0]
         probe = ledger_curriculum.measure(
             m, t, existing, s["generation_cap"], b, offload_dir=scratch
         )
@@ -128,7 +138,7 @@ def run(freeze):
         mx.clear_cache()
         if (
             probe["token_ids"] != expected["token_ids"]
-            or probe["attention_memory"] != expected["attention_memory"]
+            or probe.get("attention_memory") != expected["attention_memory"]
         ):
             result.update(status="disk_parity_failed")
         else:
@@ -140,9 +150,10 @@ def run(freeze):
                         m, t, row, s["generation_cap"], b, offload_dir=scratch
                     )
                     if arm == "candidate":
-                        sec = v["attention_memory"]
+                        sec = v.get("attention_memory")
                         v["located"] = (
-                            sec["start"] <= row["gold_start"]
+                            sec is not None
+                            and sec["start"] <= row["gold_start"]
                             and sec["stop"] >= row["gold_stop"]
                         )
                     rows[arm].append(v)
@@ -172,4 +183,10 @@ def run(freeze):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--freeze", action="store_true")
-    run(parser.parse_args().freeze)
+    parser.add_argument("--study", default=REG.stem)
+    args = parser.parse_args()
+    run(
+        args.freeze,
+        REG.with_name(args.study + ".json"),
+        DATA.with_name(args.study + ".json"),
+    )

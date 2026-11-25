@@ -128,7 +128,7 @@ def verify(root):
         )
     if study in ("context-128k-01", "context-128k-disk", "context-rationale-128k"):
         verify_context(root, decision)
-    if study == "attention-memory-128k":
+    if study in ("attention-memory-128k", "conditional-depth-128k"):
         verify_full_memory(root, decision)
     if study == "natural-context-01":
         verify_natural_context(root, decision)
@@ -138,6 +138,8 @@ def verify(root):
         verify_shared_budget(root, decision)
     if study == "attention-memory-01":
         verify_attention_memory(root, decision)
+    if study == "conditional-depth-01":
+        verify_system(root, decision)
     if study == "entailment-triplets-01":
         verify_entailment(root, decision)
     if study == "prefill-block-01":
@@ -650,6 +652,134 @@ def verify_distillation(root, reg, decision, items):
     )
 
 
+def verify_system(root, decision):
+    from loopqwen import REVISION
+    from loopqwen.evaluation.mixed import assess, summarize
+    from loopqwen.identity import fingerprint
+
+    reg = read(root / "registration.json")
+    path = Path("research/data") / (reg["id"] + ".json")
+    train = path.with_name(reg["id"] + "-routing.json")
+    data = read(path)
+    manifest = read(train)
+    require(
+        sha(path) == decision["data"]
+        and sha(train) == decision["training"]
+        and sha(root / "registration.json") == decision["registration"],
+        "Conditional comparison identity",
+    )
+    require(
+        len({r["id"] for r in data}) == len(data) == 56
+        and len(manifest["ids"]) == 4 * reg["route_examples_per_class"]
+        and len(set(manifest["ids"])) == len(manifest["ids"])
+        and set(manifest["ids"]).isdisjoint(fingerprint(r["prompt_ids"]) for r in data),
+        "Independent mixed requests",
+    )
+    require(
+        sha(Path(reg["reader"]).parent / "checksums.json")
+        == reg["reader_qualification"]
+        and sha(Path(reg["dense_control"]) / "adapters.safetensors")
+        == reg["dense_sha256"],
+        "Retained reader and dense control",
+    )
+    if "weights" in decision:
+        folder = root / "model"
+        meta = read(folder / "context-policy.json")
+        report = read(root / "router-training.json")
+        require(
+            sha(folder / "context-policy.json") == decision["weights"]
+            and meta["schema"] == 2
+            and meta["confidence"] == reg["confidence"]
+            and set(meta["experts"]) == set(reg["experts"])
+            and report["documents"] == manifest["documents"]
+            and report["n"] == len(manifest["ids"])
+            and len(report["history"]) == reg["route_updates"]
+            and all(math.isfinite(x) for x in report["history"]),
+            "Selector and source identity",
+        )
+        for f, h in meta["files"].items():
+            require(sha(folder / f) == h, "System tensor or policy digest")
+        for name, info in reg["experts"].items():
+            require(
+                sha(folder / name / "adapters.safetensors")
+                == info["weights"]
+                == sha(Path(info["model"]) / "adapters.safetensors"),
+                "Trained specialist identity",
+            )
+            for key in ("qualification", "confirmation"):
+                stage = info[key]
+                arc = Path(stage["directory"])
+                require(
+                    sha(arc / "checksums.json") == stage["inventory"]
+                    and read(arc / "decision.json")["passed"],
+                    "Qualified specialist required",
+                )
+    reports = {}
+    for arm in ("candidate", "base"):
+        f = root / (arm + ".json.gz")
+        if not f.exists():
+            require(decision["status"] == "interrupted", "Missing system generations")
+            continue
+        obj = read(f)
+        require(
+            obj["weights"] == (REVISION if arm == "base" else decision["weights"])
+            and len(obj["records"]) <= len(data),
+            "System decoder identity",
+        )
+        reports[arm] = obj["records"]
+        for r, q in zip(reports[arm], data):
+            require(
+                r["id"] == q["id"]
+                and r["input_sha256"] == fingerprint(q["prompt_ids"])
+                and r["prompt_tokens"] == len(q["prompt_ids"])
+                and r["max_tokens"] == q["cap"]
+                and r["greedy"]
+                and 0 < len(r["token_ids"]) <= q["cap"]
+                and r["elapsed_s"] >= r["ttft_s"] > 0,
+                "System native generation and token budget",
+            )
+            expected = assess(q, r["token_ids"], r["text"])
+            require(all(r[k] == v for k, v in expected.items()), "System answer")
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"], "Conditional worker stop"
+        )
+        return
+    require(
+        all(len(reports[a]) == len(data) for a in ("base", "candidate")),
+        "Complete mixed pair",
+    )
+    scores = summarize(data, reports)
+    a = scores["all"]
+    kept = all(
+        c["token_ids"] == b["token_ids"]
+        for c, b in zip(reports["candidate"], reports["base"], strict=True)
+        if c["context_route"] == "ordinary"
+    )
+    ret = decision["retention"]
+    verify_retention_pair(ret["base"], ret["candidate"])
+    passed = (
+        a["wins"] - a["losses"] >= reg["net_floor"]
+        and all(v["wins"] >= v["losses"] for v in scores.values())
+        and sum(v["wins"] > v["losses"] for k, v in scores.items() if k != "all") >= 2
+        and sum(
+            scores[k]["wins"] - scores[k]["losses"]
+            for k in ("arithmetic", "entailment")
+        )
+        > 0
+        and scores["register"]["candidate"]["correct"] == 4
+        and a["candidate"]["seconds"] <= a["base"]["seconds"]
+        and kept
+        and ret["base"] == ret["candidate"]
+    )
+    require(
+        decision["passed"] == passed
+        and decision["scores"] == scores
+        and decision["ordinary_identity"] == kept,
+        "System retention and promotion rule",
+    )
+
+
 def verify_entailment(root, decision):
     from loopqwen import REVISION
     from loopqwen.evaluation.relations import conclusion, summarize
@@ -934,10 +1064,10 @@ def verify_transfer(root, decision):
             == reg["dense_sha256"]
             and read(parent / "model/deliberation.json")["switch_after"]
             == reg["switch_after"]
-            and set(r["id"] for r in items).isdisjoint(
+            and {r["id"] for r in items}.isdisjoint(
                 r["id"] for p in reg["excluded_panels"] for r in read(Path(p))
             )
-            and set(r["id"] for r in items).isdisjoint(
+            and {r["id"] for r in items}.isdisjoint(
                 q
                 for p in reg["excluded_training"]
                 for q in read(Path(p))["ordered_questions"]
@@ -1255,7 +1385,7 @@ def verify_transfer(root, decision):
     require(decision["passed"] == passed, "Transfer gate")
 
 
-def verify_memory_rows(file, items, cap, gain=None):
+def verify_memory_rows(file, items, cap, gain=None, *, allow_unselected=False):
     from loopqwen.identity import fingerprint
 
     rows = read(file)["records"]
@@ -1281,6 +1411,8 @@ def verify_memory_rows(file, items, cap, gain=None):
         )
         if gain is None:
             require("attention_memory" not in r, "Untouched Base prior")
+        elif allow_unselected and "attention_memory" not in r:
+            require(not r["located"], "Missing attention span cannot locate the answer")
         else:
             section = r["attention_memory"]
             require(
@@ -1455,7 +1587,7 @@ def verify_attention_memory(root, decision):
 
 def verify_full_memory(root, decision):
     reg = read(root / "registration.json")
-    path = Path("research/data/attention-memory-128k.json")
+    path = Path("research/data") / (reg["id"] + ".json")
     data = read(path)
     parent = Path(reg["qualification"])
     qualification = read(parent / "decision.json")
@@ -1502,10 +1634,16 @@ def verify_full_memory(root, decision):
         )
         return
     probe = read(root / "disk-parity.json.gz")["records"][0]
-    ref = read(parent / "candidate.json.gz")["records"][0]
+    reference = Path(reg.get("parity_reference", parent))
+    if "parity_reference" in reg:
+        require(
+            sha(reference / "checksums.json") == reg["parity_reference_sha256"],
+            "Full-context parity reference identity",
+        )
+    ref = read(reference / "candidate.json.gz")["records"][0]
     parity = (
         probe["token_ids"] == ref["token_ids"]
-        and probe["attention_memory"] == ref["attention_memory"]
+        and probe.get("attention_memory") == ref["attention_memory"]
         and probe["input_sha256"] == ref["input_sha256"]
         and probe["scratch_bytes"] > 0
     )
@@ -1523,7 +1661,8 @@ def verify_full_memory(root, decision):
             root / (arm + ".json.gz"),
             data["panel"],
             reg["generation_cap"],
-            qualification["gain"] if arm == "candidate" else None,
+            read(reference / "decision.json")["gain"] if arm == "candidate" else None,
+            allow_unselected="parity_reference" in reg,
         )
         for arm in ("base", "candidate")
     }
