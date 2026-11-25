@@ -14,7 +14,12 @@ def generate(
     progress=None,
     stop_ids=(),
     offload_dir=None,
+    prefill_block=128,
 ):
+    if type(prefill_block) is not int or prefill_block < 1:
+        raise ValueError("Prefill block must be a positive integer")
+    if offload_dir is not None and prefill_block != 128:
+        raise ValueError("Disk-backed prefill requires the validated 128-token block")
     ids = tokenizer.encode(prompt, add_special_tokens=False)
     if (
         not ids
@@ -45,13 +50,13 @@ def generate(
         # Bound prefill activation memory. Each chunk advances every site once.
         if progress is not None:
             progress(0)
-        while disk is None and inputs.shape[1] > 128:
-            chunk = inputs[:, :128]
+        while disk is None and inputs.shape[1] > prefill_block:
+            chunk = inputs[:, :prefill_block]
             if hasattr(model, "hidden"):
                 mx.eval(model.hidden(chunk, cache))
             else:
                 mx.eval(model(chunk, cache=cache)[:, -1])
-            inputs = inputs[:, 128:]
+            inputs = inputs[:, prefill_block:]
             if progress is not None:
                 progress(len(ids) - inputs.shape[1])
         output = []

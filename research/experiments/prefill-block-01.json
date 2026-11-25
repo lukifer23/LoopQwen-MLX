@@ -1,0 +1,20 @@
+{
+  "id": "prefill-block-01",
+  "question": "Can a larger native Metal prefill block improve time to first token on the released arithmetic K2 checkpoint while preserving full-history greedy outputs?",
+  "candidate": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "weights": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "baseline": 128,
+  "treatment": 512,
+  "lengths": [
+    8192,
+    16384
+  ],
+  "cap": 8,
+  "protocol": "Use exact prefixes of the frozen 131072-token ledger (the engineering workload need not end in a question). Keep identical weights, BF16, full-history KV, prompt IDs, greedy decoding, output cap, cache limit and native MLX. Warm each block with 1024 tokens. For both lengths use balanced AB/BA crossovers, two synchronized observations per implementation. Compare all emitted IDs, full last-position vocabulary logits along each decoded path, median TTFT and peak allocation. Test only the prespecified block sizes.",
+  "decision": "At each length require all output IDs identical on all observations, maximum per-step relative logit RMS <=0.005, treatment median TTFT <=0.90 times baseline and peak <=baseline+0.30 GiB. If either length fails close 128K performance promotion and retain current default. A passing pilot permits one independent full 131072-token original request against its measured 128-token reference with 22 identical emitted IDs, >=10% TTFT improvement and <=0.30 GiB increase.",
+  "limits": {
+    "wall_seconds": 420,
+    "peak_gib": 5.2,
+    "available_gib": 1.5
+  }
+}
