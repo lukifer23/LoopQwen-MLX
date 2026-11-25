@@ -1,8 +1,8 @@
 from dataclasses import replace
 
 import mlx.core as mx
-from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
 import pytest
+from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
 
 from loopqwen.looped_model import LoopedModel
 from loopqwen.offloaded_prefill import OffloadedPrefill

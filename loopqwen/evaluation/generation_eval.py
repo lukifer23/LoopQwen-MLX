@@ -30,10 +30,14 @@ def generate(
         else nullcontext()
     )
     with workspace as directory:
-        from ..offloaded_prefill import OffloadedPrefill
+        disk = None
+        cache = None
+        if directory is None:
+            cache = model.make_cache()
+        else:
+            from ..offloaded_prefill import OffloadedPrefill
 
-        disk = OffloadedPrefill(model, directory) if directory is not None else None
-        cache = model.make_cache() if disk is None else None
+            disk = OffloadedPrefill(model, directory)
         inputs = mx.array([ids])
         model.eval()
         mx.synchronize()

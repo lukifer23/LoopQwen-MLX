@@ -3,8 +3,8 @@
 import gc
 import random
 import time
-from tempfile import TemporaryDirectory
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer
