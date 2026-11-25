@@ -132,7 +132,11 @@ def verify(root):
         verify_ledger_curriculum(root, decision)
     if study == "rationale-dense-01":
         verify_dense_rationale(root, decision)
-    if study in ("rationale-transfer-01", "checked-rationale-01"):
+    if study in (
+        "rationale-transfer-01",
+        "checked-rationale-01",
+        "paired-solutions-01",
+    ):
         verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
         verify_rationale(root, decision)
@@ -392,6 +396,122 @@ def verify_dense_rationale(root, decision):
     )
 
 
+def verify_preference_training(root, reg, decision, items):
+    pool_file = Path("research/data/paired-solutions-pool.json")
+    pool = read(pool_file)
+    fresh = {r["id"] for r in pool + items}
+    exclusions = {
+        r["id"]
+        for name in ("rationale-transfer-01", "checked-rationale-01")
+        for r in read(Path("research/data") / (name + ".json"))
+    }
+    exclusions.update(
+        r["question_id"]
+        for r in read(Path("research/data/checked-rationale-training.json"))["selected"]
+    )
+    require(
+        sha(pool_file) == decision["pool"]
+        and len(fresh) == len(pool) + len(items)
+        and len(pool) == reg["pool"]
+        and fresh.isdisjoint(exclusions),
+        "Preference cohorts",
+    )
+    if not (root / "rollouts.json.gz").exists():
+        require(
+            decision["status"] == "interrupted" and decision["reason"],
+            "Missing sampled solutions",
+        )
+        return
+    draws = read(root / "rollouts.json.gz")
+    selected = read(root / "pairs.json")
+    recovered = []
+    for i, step in enumerate(draws):
+        attempts = step["attempts"]
+        require(
+            step["id"] == pool[i]["id"] and 0 < len(attempts) <= reg["draws"],
+            "Rollout order",
+        )
+        choices = []
+        for j, r in enumerate(attempts):
+            require(not choices, "Sampling continued after the first eligible pair")
+            require(
+                r["prompt_ids"] == pool[i]["prompt_ids"]
+                and 0 < len(r["token_ids"]) <= reg["rollout_cap"]
+                and r["seconds"] > 0,
+                "Sampled request",
+            )
+            ans = first_turn_answer(r["token_ids"], r["text"])
+            require(
+                r["answer"] == ans and r["correct"] == (ans == pool[i]["gold"]),
+                "Sampled solution verdict",
+            )
+            for k in range(j):
+                other = attempts[k]
+                if (
+                    ans is None
+                    or other["answer"] is None
+                    or r["correct"] == other["correct"]
+                ):
+                    continue
+                lengths = (len(r["token_ids"]), len(other["token_ids"]))
+                if max(lengths) <= 1.5 * min(lengths):
+                    good, bad = (j, k) if r["correct"] else (k, j)
+                    choices.append((max(lengths) - min(lengths), good, bad))
+        if choices:
+            _, good, bad = min(choices)
+            recovered.append({"pool_index": i, "chosen": good, "rejected": bad})
+        else:
+            require(len(attempts) == reg["draws"], "Incomplete sampled question")
+    require(
+        selected == recovered and len(selected) <= reg["max_pairs"],
+        "Preference pair selection",
+    )
+    if decision["status"] == "interrupted":
+        return
+    require(
+        decision["eligible"] == len(selected)
+        and decision["sampled_questions"] == len(draws)
+        and (len(draws) == reg["pool"] or len(selected) == reg["max_pairs"])
+        and decision["sampling_seconds"]
+        == sum(v["seconds"] for item in draws for v in item["attempts"]),
+        "Preference collection costs or stop",
+    )
+    if decision["status"] == "insufficient_pairs":
+        require(
+            len(selected) < reg["min_pairs"]
+            and not decision["passed"]
+            and not (root / "model").exists(),
+            "Insufficient pair gate",
+        )
+        return
+    n = (len(selected) // reg["logical_batch"]) * reg["logical_batch"]
+    state = read(root / "model/state.json")
+    refs = read(root / "reference-nll.json")
+    require(
+        n >= reg["min_pairs"]
+        and len(refs) == n
+        and all(
+            len(pair) == 2 and all(math.isfinite(v) and v > 0 for v in pair)
+            for pair in refs
+        ),
+        "Frozen reference probabilities",
+    )
+    require(
+        sha(root / "model/adapters.safetensors") == decision["weights"]
+        and state["parent"] == reg["parent_sha256"]
+        and state["step"]
+        == decision["updates"]
+        == reg["epochs"] * n // reg["logical_batch"]
+        and decision["update_seconds"] == sum(h["seconds"] for h in state["history"]),
+        "Preference optimizer lineage",
+    )
+    for epoch in range(reg["epochs"]):
+        used = [
+            j for h in state["history"] if h["epoch"] == epoch for j in h["indices"]
+        ]
+        require(sorted(used) == list(range(n)), "Preference epoch exposure")
+
+
 def verify_transfer(root, decision):
     from loopqwen import REVISION
 
@@ -408,9 +528,13 @@ def verify_transfer(root, decision):
         "Transfer cohort size",
     )
     reports = {}
-    trained = reg["id"] == "checked-rationale-01"
+    trained = reg["id"] != "rationale-transfer-01"
+    if reg["id"] == "paired-solutions-01":
+        verify_preference_training(root, reg, decision, items)
+        if decision["status"] == "insufficient_pairs":
+            return
     weight = decision.get("weights") if trained else reg["weights"]
-    if trained:
+    if reg["id"] == "checked-rationale-01":
         manifest = Path("research/data/checked-rationale-training.json")
         training = read(manifest)
         question_ids = {row["question_id"] for row in training["selected"]}

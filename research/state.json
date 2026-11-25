@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "checked-rationale-01",
+  "active": "ledger-curriculum-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -18,7 +18,7 @@
     "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model"
   },
   "frontier": "The 32-update K2 adapter improved 256-token word-problem accuracy on the development cohort and both fresh sources. Base won the fresh 1,024-token comparison.",
-  "next": null,
+  "next": "paired-solutions-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -114,6 +114,11 @@
       "promoted": false,
       "capacity": true,
       "reason": "Full stagewise disk prefill reproduced all 96 resident output IDs per arm at 131072 input tokens. Lower MLX peak and higher latency at both depths. Neither retrieved the early entry."
+    },
+    {
+      "id": "checked-rationale-01",
+      "promoted": false,
+      "reason": "Fresh 32 at 1024 tokens: 12 correct K2 vs 18 Base. At 256: 12 K2 vs 3 Base. Matched dense follow-up closed."
     }
   ],
   "status": "Active after owner confirmed continuation",
