@@ -123,10 +123,10 @@ def verify(directory):
     if actual != audit["logits_sha256"]:
         raise ValueError("Fresh-process export logits differ from merged logits")
     if "bank_logits" in audit:
-        for name, bank in (
-            ("ordinary", model.context_policy.ordinary),
-            ("prose", model.context_policy.prose),
-        ):
+        views = model.context_policy.views()
+        if set(views) | {"register"} != set(audit["bank_logits"]):
+            raise ValueError("Exported policy bank inventory changed")
+        for name, bank in views.items():
             actual = bank(mx.array([ids])).astype(mx.float32)
             if (
                 hashlib.sha256(np.asarray(actual).tobytes()).hexdigest()

@@ -31,6 +31,7 @@ def entries(s, corpus, train):
     if not path.is_file():
         from shutil import copyfileobj
 
+        path.parent.mkdir(parents=True, exist_ok=True)
         tmp = path.with_suffix(".download")
         with urlopen(spec["url"], timeout=90) as resp, tmp.open("wb") as stream:
             copyfileobj(resp, stream)

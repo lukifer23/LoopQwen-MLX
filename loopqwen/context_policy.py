@@ -28,6 +28,9 @@ class ContextPolicy:
         self.prose = prose
         self.classifier = classifier
 
+    def views(self):
+        return {"ordinary": self.ordinary, "prose": self.prose}
+
     def choose(self, model, ids, cap):
         from .deliberation import turn_open
 
@@ -56,6 +59,11 @@ def attach(model, folder):
     for k, h in spec["files"].items():
         if digest(folder / k) != h:
             raise ValueError("Context policy checkpoint differs")
+    if spec.get("schema") == 2:
+        from .conditional import load
+
+        load(model, folder, spec)
+        return
     original = ordinary_view(model)
     shared = {id(v): v for _, v in tree_flatten(model.parameters())}
     prose = deepcopy(model, shared)

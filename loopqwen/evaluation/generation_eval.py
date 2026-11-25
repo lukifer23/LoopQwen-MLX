@@ -49,6 +49,11 @@ def generate(
             offload_dir=offload_dir,
             prefill_block=prefill_block,
         )
+        if routed_at is not None:
+            total = perf_counter() - routed_at
+            val["ttft_s"] += total - val["elapsed_s"]
+            val["elapsed_s"] = total
+            val["context_route"] = route
         tokens = val["token_ids"]
         return dict(
             **val,

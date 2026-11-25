@@ -77,6 +77,7 @@ def write(temp, gen, model, t, state):
         "attention_memory.py",
         "deliberation.py",
         "context_policy.py",
+        "conditional.py",
         "io.py",
     ):
         shutil.copyfile(Path(__file__).with_name(name), rt / name)
@@ -91,23 +92,23 @@ def write(temp, gen, model, t, state):
     prompt = "The report lists eight samples. How many samples are there?"
     ids = t.encode(prompt)
     logits = {}
-    views = {"recurrent": model, "ordinary": ordinary}
-    extras = []
-    if policy:
-        views["prose"] = policy.prose
-        extras.extend(
-            [
-                policy.classifier,
-                model.attention_reader.scorer,
-                policy.prose.attention_reader.scorer,
-            ]
-        )
+    views = {
+        "recurrent": model,
+        **(policy.views() if policy else {"ordinary": ordinary}),
+    }
+    extras = [policy.classifier] if policy else []
+    for bank in views.values():
+        reader = getattr(bank, "attention_reader", None)
+        if reader is not None:
+            extras.append(reader.scorer)
     for name, net in views.items():
         y = net(mx.array([ids])).astype(mx.float32)
         logits[name] = hashlib.sha256(np.asarray(y).tobytes()).hexdigest()
     all_arrays = {}
-    if not policy:
-        all_arrays[id(model.exit_readout)] = model.exit_readout
+    for bank in views.values():
+        head = getattr(bank, "exit_readout", None)
+        if head is not None:
+            all_arrays[id(head)] = head
     for net in [*views.values(), *extras]:
         for _, v in tree_flatten(net.parameters()):
             all_arrays[id(v)] = v
@@ -121,8 +122,7 @@ def write(temp, gen, model, t, state):
     if policy:
         audit["bank_logits"] = {
             "register": logits["recurrent"],
-            "ordinary": logits["ordinary"],
-            "prose": logits["prose"],
+            **{n: logits[n] for n in policy.views()},
         }
     else:
         audit["ordinary_logits_sha256"] = logits["ordinary"]
