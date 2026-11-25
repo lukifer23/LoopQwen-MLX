@@ -4,6 +4,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import math
 import re
 import shutil
 import sys
@@ -127,6 +128,8 @@ def verify(root):
         )
     if study in ("context-128k-01", "context-128k-disk"):
         verify_context(root, decision)
+    if study == "rationale-transfer-01":
+        verify_transfer(root, decision)
     if study in ("gsm-rationale-01", "gsm-rationale-endpoint"):
         verify_rationale(root, decision)
     if study == "functional-interleave-01":
@@ -236,6 +239,121 @@ def verify_context(root, decision):
             and 0 <= decision["processed_positions"] < len(ids) + reg["generation_cap"],
             "Context interruption",
         )
+
+
+def verify_transfer(root, decision):
+    from loopqwen import REVISION
+
+    reg = read(root / "registration.json")
+    cohort = Path("research/data") / (reg["id"] + ".json")
+    require(
+        sha(cohort) == decision["data"]
+        and sha(root / "registration.json") == decision["registration"],
+        "Transfer material",
+    )
+    items = read(cohort)
+    require(
+        len({r["id"] for r in items}) == len(items) == reg["per_source"] * 2,
+        "Transfer cohort size",
+    )
+    reports = {}
+    for arm, weight in (("base", REVISION), ("candidate", reg["weights"])):
+        file = root / (arm + ".json.gz")
+        if not file.exists():
+            require(decision["status"] == "interrupted", "Missing transfer generations")
+            continue
+        report = read(file)
+        require(report["weights"] == weight, "Transfer weights")
+        rows = report["records"]
+        require(len(rows) <= len(items), "Extra transfer generations")
+        for row, item in zip(rows, items):
+            require(
+                all(row[k] == item[k] for k in ("id", "prompt_ids", "gold")),
+                "Wrong transfer prompt",
+            )
+            tokens = row["token_ids"]
+            close = [i for i, t in enumerate(tokens) if t == 248069]
+            boundary = tokens[-1] in (248046, 248044)
+            complete = boundary and len(close) == 1 and 248068 not in tokens
+            require(
+                row["complete"] == complete
+                and 0 < len(tokens) <= reg["generation_cap"],
+                "Invalid first turn",
+            )
+            answer = numeric(row["visible"]) if complete else None
+            require(
+                row["answer"] == answer and row["correct"] == (answer == item["gold"]),
+                "Transfer numeric score",
+            )
+            require(
+                0 < row["seconds_at_256"] <= row["seconds"], "Invalid prefix timing"
+            )
+        reports[arm] = rows
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"],
+            "Interrupted transfer decision",
+        )
+        return
+    require(
+        all(len(rows) == len(items) for rows in reports.values()),
+        "Missing transfer items",
+    )
+    for key, cap in (("full", reg["generation_cap"]), ("prefix_256", 256)):
+        for source in ("all", *reg["sources"]):
+            summary = decision[key][source]
+            ix = [
+                i
+                for i, item in enumerate(items)
+                if source == "all" or item["source"] == source
+            ]
+            flags = {}
+            for arm, rows in reports.items():
+                selected = [rows[i] for i in ix]
+                flags[arm] = [
+                    r["correct"] and len(r["token_ids"]) <= cap for r in selected
+                ]
+                stats = summary[arm]
+                require(
+                    stats["correct"] == sum(flags[arm])
+                    and stats["valid"]
+                    == sum(
+                        r["answer"] is not None and len(r["token_ids"]) <= cap
+                        for r in selected
+                    ),
+                    "Transfer score totals",
+                )
+                require(
+                    stats["tokens"]
+                    == sum(min(cap, len(r["token_ids"])) for r in selected)
+                    and stats["seconds"]
+                    == sum(
+                        r["seconds_at_256"] if cap == 256 else r["seconds"]
+                        for r in selected
+                    ),
+                    "Transfer cost totals",
+                )
+            delta = [
+                int(c) - int(b)
+                for c, b in zip(flags["candidate"], flags["base"], strict=True)
+            ]
+            wins, losses = delta.count(1), delta.count(-1)
+            n = wins + losses
+            p_value = min(
+                1, 2 * sum(math.comb(n, i) for i in range(min(wins, losses) + 1)) / 2**n
+            )
+            require(
+                (summary["n"], summary["wins"], summary["losses"], summary["p"])
+                == (len(ix), wins, losses, p_value),
+                "Transfer paired totals",
+            )
+    full = decision["full"]
+    passed = (
+        all(full[src]["wins"] - full[src]["losses"] >= 2 for src in reg["sources"])
+        and full["all"]["p"] < 0.05
+        and full["all"]["candidate"]["seconds"] <= full["all"]["base"]["seconds"]
+    )
+    require(decision["passed"] == passed, "Transfer gate")
 
 
 def verify_rationale(root, decision):
