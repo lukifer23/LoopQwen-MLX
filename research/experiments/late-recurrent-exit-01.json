@@ -1,0 +1,60 @@
+{
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "sources": {
+    "gsm8k_reserved": {
+      "revision": "3101c7d5072418e28b9008a6636bde82a006892c",
+      "sha256": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+      "license": "MIT",
+      "split": "publisher train"
+    },
+    "svamp": {
+      "file": "svamp.json",
+      "url": "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/SVAMP.json",
+      "sha256": "5be77703a6d891ae476d7c082787ad361392aa02453b132516cdd5f4e7934e3e"
+    }
+  },
+  "id": "late-recurrent-exit-01",
+  "seed": 261125452,
+  "updates": 16,
+  "logical_batch": 2,
+  "cap_positions": 1152,
+  "lr": 0.00015,
+  "weight_decay": 0,
+  "clip": 1,
+  "depth": 2,
+  "generation_cap": 1024,
+  "rollout_cap": 192,
+  "per_source": 8,
+  "pool": 0,
+  "question": "Can the recurrent decoder finish useful calculations that run close to the 1024-token limit while retaining already completed Base answers?",
+  "training": "Restart independently at the original qualified 32-update K2 weights. Use only the archived training drafts, never evaluation answers or the earlier finisher weights. Select 16 naturally closed and 16 still-open training thoughts by frozen hash. Keep every actual thought token up to the original natural close or draft cap. Train directly on the close, visible gold scalar and first turn boundary, with no new imitation of abbreviated reasoning. Use these 32 documents once in 16 native AdamW updates.",
+  "decision": "Separate 16-question paired pilot, eight reserved GSM8K and eight operation-balanced SVAMP. Both receive exact same zero-demo thinking IDs, greedy decoding and 1024 tokens. Both follow ordinary depth for 896 tokens. The candidate switches to trained K2 only if still thinking. Charge replay and all tokens. Require a pooled net >=2, strictly positive on each source, no short-prefix loss, elapsed <=Base, and raw V3 NLL <=Base+0.03. Audit completed prose separately and require a positive content margin before independent replication. Stop on wall time or memory guard. A failure closes expansion.",
+  "limits": {
+    "wall_seconds": 315,
+    "peak_gib": 5.9,
+    "available_gib": 1.5
+  },
+  "switch_after": 896,
+  "training_draft_cap": 512,
+  "net_floor": 2,
+  "drafts": "research/results/recurrent-deliberation-01/drafts.json.gz",
+  "excluded_panels": [
+    "research/data/paired-solutions-01.json",
+    "research/data/paired-solutions-pool.json",
+    "research/data/shared-budget-vote-01.json",
+    "research/data/all-layer-reasoning-01.json",
+    "research/data/recurrent-deliberation-01.json",
+    "research/data/recurrent-deliberation-training.json",
+    "research/data/projected-distillation-01.json",
+    "research/data/privileged-reasoning-01.json"
+  ],
+  "excluded_training": [
+    "research/data/all-layer-reasoning-training.json",
+    "research/data/projected-distillation-training.json",
+    "research/data/privileged-reasoning-training.json"
+  ],
+  "draft_sha256": "71d36d21590f3c4ead242df5416bbc23a45cd01f5f4849a0420f76c4cdef0322"
+}

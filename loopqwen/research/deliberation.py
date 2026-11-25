@@ -123,9 +123,13 @@ def run(freeze=False):
             raise ValueError("Frozen deliberation material changed")
     if freeze:
         return
+    compare(s, REG, PANEL, TRAIN, rows, lambda b, root: training_docs(s, pool, b, root))
+
+
+def compare(s, registration, panel, training, rows, build_docs):
     index = read("research/registry.json")
-    if index["experiments"][s["id"]]["registration"] != digest(REG) or any(
-        index["datasets"][str(p)]["sha256"] != digest(p) for p in (PANEL, TRAIN)
+    if index["experiments"][s["id"]]["registration"] != digest(registration) or any(
+        index["datasets"][str(p)]["sha256"] != digest(p) for p in (panel, training)
     ):
         raise ValueError("Unregistered deliberation study")
     for key, h in (("parent", "parent_sha256"), ("dense_control", "dense_sha256")):
@@ -137,13 +141,13 @@ def run(freeze=False):
     root.mkdir(parents=True, exist_ok=True)
     b = core.Budget(s["id"], s["limits"])
     result = {
-        "registration": digest(REG),
-        "data": digest(PANEL),
-        "training": digest(TRAIN),
+        "registration": digest(registration),
+        "data": digest(panel),
+        "training": digest(training),
         "passed": False,
     }
     try:
-        docs = training_docs(s, pool, b, root)
+        docs = build_docs(b, root)
         gc.collect()
         mx.clear_cache()
         m, t, state = load_trained(s["parent"])
@@ -176,7 +180,7 @@ def run(freeze=False):
         )
         full, short, r = result["full"], result["prefix_256"], result["retention"]
         result["passed"] = (
-            full["all"]["wins"] - full["all"]["losses"] >= 4
+            full["all"]["wins"] - full["all"]["losses"] >= s.get("net_floor", 4)
             and all(
                 full[k]["wins"] > full[k]["losses"]
                 and short[k]["wins"] >= short[k]["losses"]
