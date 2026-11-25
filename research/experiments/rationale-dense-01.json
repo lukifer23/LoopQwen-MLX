@@ -1,0 +1,11 @@
+{
+  "id": "rationale-dense-01",
+  "question": "How much of the short-budget development gain is available to the matched ordinary-depth arithmetic model with the same rationale supervision?",
+  "prerequisite": "research/sessions/2026-11-25/gsm-rationale-01",
+  "recurrent_weights": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "parent": "adapters/phase4/dense_109_250k",
+  "parent_sha256": "e72111ea0f0161dc429ef88d9a4b9a8e038829a725da14706ba48dabc2794507",
+  "protocol": "Train the existing seed-109 dense twin with exactly the original 128 ordered documents, complete response labels, 32 updates, AdamW and position cap of gsm-rationale-01. Compare against the archived K2 trained deployment on the same 32 frozen thinking turns at 256 tokens. Score K1 retention and update/generation time. Both parent lineages previously consumed 250211 targets. This pair attributes the combined training/deployment difference, not inference depth alone.",
+  "decision": "Prefer K2 over matched K1 here only with >=2 net correct answers, at most 1.25x generation seconds, and retention NLL <= K1 + 0.03. No additional arm or training automatically follows. Preserve incomplete work on any warning or budget limit.",
+  "limits": {"wall_seconds":300,"peak_gib":4.5,"available_gib":1.5}
+}
