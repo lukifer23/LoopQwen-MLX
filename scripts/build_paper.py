@@ -40,6 +40,7 @@ def main(verify):
                         "draft-program-",
                         "folded-system-",
                         "action-preference-",
+                        "report-calculation-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",
