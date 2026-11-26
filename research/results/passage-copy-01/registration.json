@@ -1,0 +1,34 @@
+{
+  "id": "passage-copy-01",
+  "question": "Can a Base-initialized shared decoder improve natural single-passage question answering by learning when to generate and when to copy from actual source positions?",
+  "training": "research/data/passage-copy-train.json",
+  "material": "research/data/passage-copy-dev.json",
+  "rank": 48,
+  "passes": 2,
+  "pointer_width": 96,
+  "seed": 71731,
+  "updates": 1200,
+  "batch": 8,
+  "targets": 12,
+  "lr": 0.00022,
+  "language_weight": 0.1,
+  "alignment_weight": 0.18,
+  "cap": 384,
+  "net_gain": 8,
+  "f1_gain": 0.1,
+  "parity_indices": [
+    0,
+    13,
+    26,
+    39,
+    52,
+    63
+  ],
+  "protocol": "New next-token architecture. The prior independent linked reader retrieved both HotpotQA documents on 23/48 but its downstream generator supplied 18/48 reference phrases versus 19 for Base. Ask the narrower unresolved question of extracting and generating an answer from a real supplied passage. No failed reader or instruction checkpoint is reused. Initialize from the pinned BF16 Base; quantize the frozen prefix to 8 bits, repeat the same adapted native full-attention layer 23 twice with separate native caches and a fixed interpolation of 0.35. Train rank-48 Q/K/V/O adapters and a 96-wide learned question-conditioned pointer over actual passage tokens. A continuous gate conditioned on the causal decoder state mixes full-vocabulary generation with passage attention; positions carrying the same token add their masses. A learned continuation coefficient favors positions following the most recently observed token. Grammar and termination remain freely generated. Minimize actual next-token mixture loss, auxiliary vocabulary loss and publisher-aligned probability mass when token pieces match the annotated span. No answer positions, correct text, dataset identities or labels at inference. Train on 1024 unique SQuAD paragraphs and 1024 unique first-turn QuAC sections. Development uses 32 human SQuAD questions from eight previously unused articles and 32 first-turn QuAC questions from 32 further articles; 24 span-answerable and eight majority-unanswerable. No shared titles or passages between this fit and held-out suite. Remove the publisher CANNOTANSWER marker. Use every enrolled dev question at full length and the identical zero-shot thinking prompt, greedy 384-token policy, ordered items and normalized multi-reference scoring for ordinary BF16 Base. Report exact match, content, maximum reference token F1, completion, wall, actual first-token time, peak and every token copy gate. Six actual prompt prefixes compared whole versus 128-token incremental prefill. Distinct documents within an article may correlate; item-level probability is conditional on this panel. SQuAD and QuAC supply first-turn reading evidence rather than a full dialogue test.",
+  "gate": "Require at least eight net additional completed exact answers, two-sided paired McNemar p<=.05 and average F1 gain >=.10. On each source, the full suite and the eight unanswerables, require no fewer exact, phrase, completed answers or lower average F1. No greater aggregate wall seconds, first-token seconds or peak MLX allocation. All six single/chunked top-one predictions equal and best log probabilities differ by at most .04 nat. Any miss closes this fit for release. A pass licenses an equally trained one-application copy decoder (same weights, adapter dimensions, pointer heads, sampled data and optimizer exposure) and an independent reading replication before deployment.",
+  "limits": {
+    "wall_seconds": 2110,
+    "peak_gib": 8,
+    "available_gib": 1.4
+  }
+}

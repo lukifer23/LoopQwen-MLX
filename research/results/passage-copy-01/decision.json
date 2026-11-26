@@ -1,0 +1,106 @@
+{
+  "passed": false,
+  "groups": {
+    "all": {
+      "candidate": {
+        "completed": 64,
+        "content": 21,
+        "exact": 13,
+        "n": 64,
+        "f1": 0.4189258300483629,
+        "seconds": 17.729253666941077,
+        "ttft": 11.221484792011324,
+        "peak": 1206252322
+      },
+      "control": {
+        "completed": 64,
+        "content": 34,
+        "exact": 16,
+        "n": 64,
+        "f1": 0.49489550328723947,
+        "seconds": 145.59626862494042,
+        "ttft": 10.195945336017758,
+        "peak": 1819399410
+      },
+      "gains": 6,
+      "losses": 9,
+      "p_exact": 0.60723876953125
+    },
+    "SQuAD": {
+      "candidate": {
+        "completed": 32,
+        "content": 11,
+        "exact": 9,
+        "n": 32,
+        "f1": 0.452724358974359,
+        "seconds": 5.364760082040448,
+        "ttft": 3.015167789038969,
+        "peak": 1206252322
+      },
+      "control": {
+        "completed": 32,
+        "content": 23,
+        "exact": 11,
+        "n": 32,
+        "f1": 0.6246826855742297,
+        "seconds": 62.02825603893143,
+        "ttft": 2.790264125011163,
+        "peak": 1819399410
+      },
+      "gains": 5,
+      "losses": 7,
+      "p_exact": 0.7744140625
+    },
+    "QuAC": {
+      "candidate": {
+        "completed": 32,
+        "content": 10,
+        "exact": 4,
+        "n": 32,
+        "f1": 0.3851273011223669,
+        "seconds": 12.364493584900629,
+        "ttft": 8.206317002972355,
+        "peak": 1206252322
+      },
+      "control": {
+        "completed": 32,
+        "content": 11,
+        "exact": 5,
+        "n": 32,
+        "f1": 0.36510832100024926,
+        "seconds": 83.56801258600899,
+        "ttft": 7.405681211006595,
+        "peak": 1819399410
+      },
+      "gains": 1,
+      "losses": 2,
+      "p_exact": 1.0
+    },
+    "unanswerable": {
+      "candidate": {
+        "completed": 8,
+        "content": 4,
+        "exact": 4,
+        "n": 8,
+        "f1": 0.5,
+        "seconds": 2.426247916970169,
+        "ttft": 1.7252968760149088,
+        "peak": 1206252322
+      },
+      "control": {
+        "completed": 8,
+        "content": 5,
+        "exact": 4,
+        "n": 8,
+        "f1": 0.52,
+        "seconds": 17.210671793029178,
+        "ttft": 1.608698416966945,
+        "peak": 1819399410
+      },
+      "gains": 1,
+      "losses": 1,
+      "p_exact": 1.0
+    }
+  },
+  "incremental": true
+}
