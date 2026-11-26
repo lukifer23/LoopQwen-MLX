@@ -24,6 +24,7 @@ def test_mixed_register_shares_inputs_and_preserves_original_feedforward_arrays(
         linear_value_head_dim=16,
         full_attention_interval=4,
         vocab_size=128,
+        tie_word_embeddings=True,
     )
     model = LoopedModel(TextModel(cfg), Span(start=2, length=2, passes=2))
     model.set_dtype(mx.bfloat16)
