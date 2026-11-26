@@ -1,0 +1,12 @@
+{
+  "id":"short-depth-transfer-01",
+  "question":"Does the previously positive short arithmetic matched-depth comparison replicate across the two external sources where the 256-token recurrent candidate beat untouched Base?",
+  "panel":"research/data/rationale-transfer-01.json",
+  "qualification":"research/results/rationale-dense-01",
+  "recurrent":"research/sessions/2026-11-25/gsm-rationale-01/model",
+  "dense":"research/results/rationale-dense-01/model",
+  "generation_cap":256,
+  "protocol":"Rerun both immutable equally trained models on the 48 frozen thinking-enabled prompt token sequences, greedy first turn, strict numeric visible answer. Reverse arm order at halfway. Check against archived recurrent 256-token prefixes. Report both source deltas, exact paired p, real latency and archived prose retention.",
+  "gate":"At least two net correct in each source, pooled exact McNemar p<0.05, at most 1.30x dense generation seconds and recurrent NLL no more than 0.03 above dense. Failure closes this arithmetic branch. Passing qualifies a separate same-weights bypass test.",
+  "limits":{"wall_seconds":510,"peak_gib":4.5,"available_gib":1.5}
+}

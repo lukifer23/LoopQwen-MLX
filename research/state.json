@@ -1,13 +1,13 @@
 {
-  "session_start_utc": "2026-11-26T00:41:53.845358+00:00",
-  "starting_revision": "6881c04",
+  "session_start_utc": "2026-11-26T01:36:01.206034+00:00",
+  "starting_revision": "a013ea0",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": null,
+  "active": "short-depth-transfer-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -259,8 +259,8 @@
       "reason": "Same combined checkpoint as the 80-request pair. 2/2 vs 0/2 at 131083 input tokens, correct values at 13098 and 98294 with every other token fixed. 524.50 vs 393.20 seconds, peak 4.32 GiB. Resident/disk preflight bit-identical output."
     }
   ],
-  "status": "Combined reasoning and full-history deployment verified and archived.",
-  "next_action": "The qualified checkpoint is available through native generate and its self-contained export.",
+  "status": "Testing causal depth attribution.",
+  "next_action": "Replicate the matched short arithmetic pair, then test an evidence-reading recurrence on a separate task.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
@@ -311,8 +311,7 @@
   ],
   "closed_session_start": 1795653713.8453581,
   "native_window": {
-    "start_utc": "2026-11-26T00:41:53.845358+00:00",
-    "end_utc": "2026-11-26T01:21:02.303766+00:00",
-    "status": "closed"
+    "start_utc": "2026-11-26T01:36:01.206034+00:00",
+    "status": "open"
   }
 }
