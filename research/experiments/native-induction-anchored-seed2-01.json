@@ -1,0 +1,47 @@
+{
+  "id": "native-induction-anchored-seed2-01",
+  "question": "Does the effect of three native layer applications reproduce after independently reinitializing and training both depths?",
+  "requires": "native-induction-anchored-replication-01",
+  "prerequisite_sha256": "bd9b11c58c0aeaa1ddcf72befa95114eb1610bf84d5e9a86cc614827e9b7ad7f",
+  "material": "research/data/native-induction-anchored-01.json",
+  "seed": 431908,
+  "sizes": {
+    "train": 1536,
+    "primary": 64,
+    "replication": 64
+  },
+  "fit_seed": 8213,
+  "rank": 64,
+  "lr": 0.00045,
+  "batch": 32,
+  "updates": 3000,
+  "auxiliary": 1.2,
+  "panel": "replication",
+  "arms": {
+    "recurrent": {
+      "depth": 3,
+      "fit": true
+    },
+    "dense": {
+      "depth": 1,
+      "fit": true
+    }
+  },
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "Use 1536 new publisher training stories and two fresh 64-story test panels, all disjoint from every story in the preceding induction experiment. Permute all nine static premises. Keep their compressed latent states fixed and update the question by applying the same native Qwen layer 15 and its Q/K/V/O LoRA three times. Add a fixed sinusoidal step code with no learned per-pass parameters. During training supervise actual post-RoPE last-query attention probabilities for three different pairs of heads against annotated supporting facts, plus the answer-token loss on the final native state and full-vocabulary response loss. In an equal-training single-pass control all three head pairs receive their respective labels on the same native call. At generation only the native transformer produces the refined state; no auxiliary support labels or scores enter the prediction. Same ordered first-turn thinking prompts and 192 genuine decode tokens, same scorer and common answer probe for the frozen primary pair. Cache all predictions, attention diagnostics and times. Reinitialize both arms from exactly the same new optimization seed, keep the identical 1536 training stories and score both on the 64 confirmation stories. Both arms learn all tensors, with no tuning after seeing results.",
+  "gate": "Require eight net correct answers, exact paired two-sided p<.05 and four net common-prefix correct probes. End-to-end time must be <=1.50x the one-pass control. Stop on memory warning or budget exhaustion.",
+  "limits": {
+    "wall_seconds": 1450,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "exclude": [
+    "research/data/native-induction-01.json"
+  ],
+  "architecture": "anchored_native",
+  "decay_start": 1800,
+  "isolated_answer_weight": 1.0
+}
