@@ -337,6 +337,7 @@ Each command below uses the saved registration and frozen material. Compute tria
 | `packed-release-retention-03` | `loopqwen.research.packed_release` | Corrected evidence-mask delivery against the shipped release at 131K and 24K, whole books, short reasoning and tools |
 | `dialogue-state-fields-01` | `loopqwen.research.action_preferences` | First-pass field-presence supervision and unconstrained second-pass calls and clarifications |
 | `future-token-prose-01` | `loopqwen.research.selective_raw` | Shared Q/K/V/O at two prediction horizons, paired source-level inference and six complete cache replays |
+| `repository-tree-field-01` | `loopqwen.research.narrative_book` | Two genuine project object listings, independently verified PDF sizes and complete native history above 169K |
 | `shared-session-01` | `loopqwen.research.shared_session_study` | One resident instruction backbone, two recurrent views, physically shared weights and a cold 120-request comparison |
 
 For example, `python -m loopqwen.research.action_preferences action-preference-01` fits from the archived two-pass typed tool weights. The preference builder retains the original source line for every chosen/rejected pair, selects read-oriented topics, normalizes schemas, converts single calls to the installed JSON protocol, and splits distinct questions before fitting. Rebuild the frozen inputs using `python scripts/preference_material.py /tmp/loopqwen-preference-source`. NVIDIA distributed the original When2Call data under CC BY 4.0. The file rows in the two ecological tables come from Kristen Gorman and the Palmer Station LTER, distributed in the Palmer Penguins package. [Original preference data](https://huggingface.co/datasets/nvidia/When2Call) · [Attribution license](https://creativecommons.org/licenses/by/4.0/) · [Original ecological measurements](https://allisonhorst.github.io/palmerpenguins/)
@@ -357,3 +358,12 @@ After archiving the fit, run your own question with the same policy and ordinary
 
 
 For the trained document reader, regenerate the 40-file evaluation and all fitting searches with `python -m scripts.document_evidence_material`. The source builder opens the original SQuAD and QuAC material, actually calls the same SQLite-backed tool that users receive, and labels the returned character intervals. The archive verifier rebuilds the fitting dialogs and executes every evaluation search again. To fit and evaluate, run `python -m loopqwen.research.document_search document-evidence-01`. After archiving the checkpoint, pass `--tool-adapter research/results/document-evidence-01` alongside `--document your-file.txt` to `python -m loopqwen ask`. [Frozen registration](../research/experiments/document-evidence-01.json)
+
+The repository-tree field check uses one practical question against the *complete*, unmodified output of `git ls-tree -r -l` at two real revisions. Both the stored PDF object and its byte count changed. To reproduce one of the actual user prompts and run it against the installed models, use the following commands. This reads 169,890 input tokens in each arm. The study also runs the second revision and alternates model order.
+
+```sh
+.venv/bin/python -m scripts.repository_tree_material \
+  --show-request c6a08ff72dd895ed1578a0c9cc4940159dcc52c8 > /tmp/loopqwen-tree-question.txt
+.venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-04 \
+  --prompt-file /tmp/loopqwen-tree-question.txt --max-tokens 160 --compare-base --trace
+```

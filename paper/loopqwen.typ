@@ -250,6 +250,8 @@ The candidate took 165.78 versus 168.75 s across the two full registers. Decode 
 
 #figure(image("repaired-register-streams.svg",width:98%),caption:[Isolated qualification of the corrected release against the unchanged shipping control. The numerical outputs, both shorter replays and per-site evidence-mask counts are in the companion CSV.])
 
+*Transfer to the actual project tree.* We also freeze the entire output of `git ls-tree -r -l` at two genuine revisions and ask for the byte size of this paper in each listing. The 2,624-file and 2,678-file trees produce 169,890 and 173,151 prompt tokens. A separate Git object-size query verifies the two labels. The decoder must locate the correct path among similarly named files with no external lookup. The two observations concern one file and one project. They test changed real-world evidence outside the authored register format.
+
 == An entire natural novel
 We tested the offline assistant on Frank Norris's _McTeague_ using a human-written NarrativeQA question about who reports McTeague's missing dental license to City Hall [19]. Both publisher annotators named Marcus. In the second version we changed all 440 occurrences of Marcus, 24 of Mark and 65 of Schouler to Felix, Ned and Radford respectively. We kept the question and every chapter. The two prompts contained 162,714 and 162,711 tokens.
 
