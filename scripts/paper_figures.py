@@ -339,7 +339,10 @@ def main():
 
     from paper_prefill import make as prefill
 
+    from paper_prefill import resources as prefill_resources
+
     prefill(PAPER, RESULTS, result, finish)
+    prefill_resources(PAPER, RESULTS, result, finish)
     conversations(PAPER, RESULTS, result)
     deployment(PAPER, RESULTS, result, finish)
     index()

@@ -119,3 +119,98 @@ def make(paper, results, result, finish):
     work.set_ylim(0, 105)
     work.axhline(100, c="#536a89", lw=1, ls=":")
     finish(fig, "page-prefill")
+
+
+def resources(paper, results, result, finish):
+    comparisons = (
+        (
+            "register-page-prefill-01",
+            "pages",
+            "stock",
+            "BF16 pages vs dense recurrent · 16K/32K",
+        ),
+        ("register-page-full-01", "pages", "base", "BF16 pages vs Base · 131K"),
+        (
+            "register-packed-pilot-01",
+            "packed_pages",
+            "pages",
+            "8-bit vs BF16 pages · 16K/32K",
+        ),
+        (
+            "register-packed-full-01",
+            "packed_pages",
+            "base",
+            "8-bit pages vs Base · 131K",
+        ),
+    )
+    panels = []
+    with (paper / "prefill-resource-comparisons.csv").open("w") as file:
+        writer = csv.writer(file)
+        writer.writerow(
+            [
+                "study",
+                "metric",
+                "candidate",
+                "control",
+                "unit",
+                "candidate_correct",
+                "control_correct",
+                "requests",
+                "passed",
+            ]
+        )
+        for name, first, second, title in comparisons:
+            if not (results / name / "checksums.json").is_file():
+                continue
+            d = result(name)
+            a, b = (d["metrics"][key] for key in (first, second))
+            changes = []
+            for key, unit in (
+                ("ttft", "seconds"),
+                ("seconds", "seconds"),
+                ("peak", "bytes"),
+            ):
+                writer.writerow(
+                    [
+                        name,
+                        key,
+                        a[key],
+                        b[key],
+                        unit,
+                        a["correct"],
+                        b["correct"],
+                        d["items"],
+                        d["passed"],
+                    ]
+                )
+                changes.append(100 * (a[key] / b[key] - 1))
+            panels.append((title, changes))
+    if not panels:
+        return
+    fig, ax = plt.subplots(figsize=(6.65, max(1.95, 0.43 * len(panels) + 1.2)))
+    for i, (title, changes) in enumerate(panels):
+        for j, (value, color, marker, metric) in enumerate(
+            zip(
+                changes,
+                ("#11675d", "#4773a1", "#ad5d33"),
+                ("o", "^", "s"),
+                ("First token", "Total time", "Peak bytes"),
+                strict=True,
+            )
+        ):
+            ax.scatter(
+                value,
+                i + (j - 1) * 0.14,
+                c=color,
+                marker=marker,
+                s=30,
+                label=metric if i == 0 else None,
+            )
+    ax.axvline(0, color="#85918d", linewidth=0.85)
+    ax.set_yticks(range(len(panels)), [t for t, _ in panels], fontsize=8)
+    ax.invert_yaxis()
+    ax.set_xlabel("Change from the paired control (%)")
+    ax.legend(
+        frameon=False, ncol=3, loc="lower center", bbox_to_anchor=(0.5, 1), fontsize=8
+    )
+    finish(fig, "prefill-resource-comparisons")
