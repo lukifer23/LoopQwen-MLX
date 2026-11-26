@@ -76,6 +76,8 @@ def features(model, tok, rows, budget):
         h = model.prefix_hidden(mx.array([ids]))[0]
         mx.eval(h)
         bank.append((h, len(prefix) - 1, reply))
+        if len(bank) % 256 == 0:
+            print("prepared frozen prefixes", len(bank), flush=True)
     return bank
 
 
@@ -199,6 +201,10 @@ def fitted(arm, spec, out, budget):
         model, tok = restore(source)
         mx.random.seed(spec["fit_seed"])
         model.train()
+        # Prefix weights are frozen and cached once. Inference mode uses the same
+        # native gated-delta kernel that will supply the adapter at deployment.
+        for layer in model.text.layers[: model.span.start]:
+            layer.eval()
     else:
         model, tok = build(spec, passes)
     fit(model, tok, spec, out, budget)
