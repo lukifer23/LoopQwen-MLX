@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "science-composition-01",
+  "active": "native-induction-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -309,7 +309,7 @@
     }
   ],
   "status": "Verifying combined deployment and human-authored science transfer.",
-  "next_action": "Evaluate human science questions and isolate native Qwen recurrence on separate three-fact induction stories.",
+  "next_action": "Measure the decoder-layer-only recurrence on three-fact induction; the science reader failed its common-prefix safeguard.",
   "hypothesis": "A question-directed second read can follow a subject-to-rule link that an ordinary single read misses.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
@@ -323,7 +323,8 @@
     "The supervised reader returned both correct 128K counterfactual values, but the requests share one synthetic filing register. Natural prose transfer scored 2/12 versus Base 4/12.",
     "The 512-token recurrent switch won three full-budget arithmetic items and lost one across 48. Its mathematical-content gain was one and GSM8K tied. The natural reader scored 9/24 versus Base 10/24.",
     "The final model matched Base at 2/8 general reading answers. Its long-context retrieval was measured on two related synthetic prompts.",
-    "The trained K1 controls tied K2 on arithmetic and natural inference accuracy and ran faster. The final combined inference router used the specialist on 10 of 36 requests."
+    "The trained K1 controls tied K2 on arithmetic and natural inference accuracy and ran faster. The final combined inference router used the specialist on 10 of 36 requests.",
+    "QASC provided-evidence science questions: the learned reader generated 23/40 correct vs 4/40 at 256 tokens, but common-prefix probabilities favored Base 37/40 vs 32/40. Human science content improvement was not established."
   ],
   "rejected": [
     "Frozen prefix cache failed gradient parity",
