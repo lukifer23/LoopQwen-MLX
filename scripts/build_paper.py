@@ -15,6 +15,7 @@ def main(verify):
     from loopqwen.io import read
 
     subprocess.run([sys.executable, "scripts/paper_figures.py"], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, "scripts/paper_overlap.py"], cwd=ROOT, check=True)
     if verify:
         tracked = read(ROOT / "paper/figure-sources.json")
         tracked.update(

@@ -1,0 +1,23 @@
+study,field,number_mask,unique_training,unique_heldout,exact,additional_jaccard_at_least_0.60,maximum_five_word_jaccard
+tool public executions,question,False,528,22,0,0,0.03529411764705882
+tool public executions,question,True,236,22,0,0,0.03529411764705882
+tool multiple functions,question,False,528,24,0,0,0.045454545454545456
+tool multiple functions,question,True,236,24,0,0,0.045454545454545456
+tool single-function recovery,question,False,528,24,0,0,0.041666666666666664
+tool single-function recovery,question,True,236,24,0,0,0.041666666666666664
+WikiSQL cold transfer,question,False,528,24,0,0,0.0
+WikiSQL cold transfer,question,True,236,24,0,0,0.0
+calculator word problems,program,False,1168,48,0,0,0.058823529411764705
+calculator word problems,program,True,876,48,0,0,0.058823529411764705
+HotpotQA bridge,question,False,384,40,0,0,0.07142857142857142
+HotpotQA bridge,question,True,384,40,0,0,0.07142857142857142
+MultiWOZ state,dialogue,False,384,28,0,0,0.15384615384615385
+MultiWOZ state,dialogue,True,384,28,0,0,0.15384615384615385
+BoolQ first,passage,False,1535,32,0,1,0.875
+BoolQ first,passage,True,1534,32,1,0,1.0
+BoolQ first,boolq_question,False,1536,64,0,0,0.4
+BoolQ first,boolq_question,True,1536,63,0,0,0.4
+BoolQ second,passage,False,2557,32,0,1,0.8305084745762712
+BoolQ second,passage,True,2556,32,0,1,0.8305084745762712
+BoolQ second,boolq_question,False,3061,64,0,0,0.5
+BoolQ second,boolq_question,True,3061,64,0,0,0.5
