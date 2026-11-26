@@ -5,6 +5,8 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Read the paper](loopqwen.pdf)
 - [Manuscript source](loopqwen.typ)
 - [Machine-readable paired scores and timings for the frozen tool model](typed-transfer.csv)
+- [Selective refinement scores on all 300 passages by source suite and domain](selective-domains.csv)
+- [Fresh source-level loss and accuracy changes](selective-sources.csv)
 - [Per-domain next-token scores, costs and document-level uncertainty](raw-language.csv)
 - [Training lineage, optimizer exposure and checkpoint hashes](model-lineage.csv)
 - [Median and tail tool latency and first-token time](tool-latency.csv)

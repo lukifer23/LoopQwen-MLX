@@ -1,6 +1,7 @@
 """Frozen ordinary first pass and a causal, input-dependent second application."""
 
 import math
+from pathlib import Path
 
 import mlx.core as mx
 from mlx import nn
@@ -9,6 +10,42 @@ from mlx_lm.models.base import create_attention_mask
 from .looped_model import LoopedModel
 from .operand_planner import adapted_attention_layer
 from .recurrence import Span
+
+
+def build(spec):
+    from .model_loader import load_base
+    from .tool_model import quantize_prefix
+
+    text, tok, _ = load_base()
+    quantize_prefix(text, len(text.layers) - 1, 8)
+    mx.random.seed(spec["fit_seed"])
+    model = SelectiveRefinement(text, spec["rank"], spec["initial_gate"])
+    model.eval()
+    return model, tok
+
+
+def load_checkpoint(directory):
+    from .io import digest, read
+    from .research.raw_distillation import check_weights
+
+    directory = Path(directory)
+    inventory = read(directory / "checksums.json")
+    for name in ("registration.json", "fit.json", "refinement.safetensors"):
+        if digest(directory / name) != inventory[name]:
+            raise ValueError(
+                "Selective checkpoint file differs from its inventory: " + name
+            )
+    spec = read(directory / "registration.json")
+    meta = read(directory / "fit.json")
+    if (
+        meta["weights"] != inventory["refinement.safetensors"]
+        or meta["updates"] != spec["updates"]
+    ):
+        raise ValueError("Selective training receipt differs from the supplied weights")
+    model, tok = build(spec)
+    check_weights(model, mx.load(str(directory / "refinement.safetensors")))
+    mx.eval(model.parameters())
+    return model, tok
 
 
 class SelectiveRefinement(LoopedModel):

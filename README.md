@@ -56,6 +56,14 @@ The earlier qualified `tool-language-01` assistant has a 1,544,018,439-byte loss
 .venv/bin/python -m loopqwen tools --checkpoint exports/restored-tool-language-01 --packages --prompt "What version of mlx is installed? Use the tool."
 ```
 
+### Experimental raw-language checkpoint
+
+A Base-initialized two-pass model improved loss, top-one accuracy, elapsed time and peak MLX allocation on each of three raw-text suites. Across 300 passages and 36,126 targets it made **15,076 versus 15,006** correct predictions for Base, reached NLL **3.06194 versus 3.08052**, and took **20.81 versus 24.21 seconds**. Natural history lost four predictions and the fresh loss gain fell below its registered margin. The qualified assistant keeps its prior ordinary-language behavior. To generate a raw continuation with these separate experimental weights, run the following on Apple Silicon. [Weights and verification](research/results/selective-raw-01) · [Scores by domain](paper/selective-domains.csv)
+
+```sh
+.venv/bin/python -m loopqwen generate --checkpoint research/results/selective-raw-01 --prompt "The telescope recorded a faint" --max-tokens 32
+```
+
 ## Current combined checkpoint
 
 Use [the native recurrent checkpoint](research/results/native-language-release-02/model) on Apple Silicon. On two disjoint three-fact induction panels it answered **124/128** correctly. A one-pass model with the same 552,810 trainable parameters, training stories and update count answered **58/128**. Both produced 13 tokens per answer and took about 32 seconds for all 128 questions. With the three-pass weights held fixed, disabling two applications of Qwen layer 15 dropped confirmation accuracy from **62/64 to 19/64**. Untouched Qwen Base answered **2/64 in 654.19 s** at the same 768-token allowance as the loop, which answered **62/64 in 16.02 s**. A second training seed scored 53/64 versus 25/64. [Matched results and limits](docs/CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Same-weights ablation](research/results/native-induction-anchored-bypass-01) · [Full-budget Base comparison](research/results/native-induction-anchored-longbase-01)

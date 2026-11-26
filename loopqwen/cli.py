@@ -242,7 +242,15 @@ def main():
 
         from .evaluation.generation_eval import generate
 
-        if (Path(args.checkpoint) / "config.json").exists():
+        if (Path(args.checkpoint) / "refinement.safetensors").is_file():
+            from .selective_refinement import load_checkpoint
+
+            if args.passes not in (None, 2) or args.offload_dir is not None:
+                parser.error(
+                    "The selective language checkpoint uses two resident native passes"
+                )
+            model, tok = load_checkpoint(args.checkpoint)
+        elif (Path(args.checkpoint) / "config.json").exists():
             from .export_runtime import load_export
 
             model, tok = load_export(args.checkpoint)

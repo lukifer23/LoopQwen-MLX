@@ -16,9 +16,7 @@ from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed, unpack
 from ..evaluation.statistics import exact_mcnemar
 from ..io import digest, read, save
-from ..model_loader import load_base
-from ..selective_refinement import SelectiveRefinement
-from ..tool_model import quantize_prefix
+from ..selective_refinement import build
 from .cache_language import corpus, measure
 from .core import Budget
 from .raw_distillation import check_weights, distributions, load_teacher, pad
@@ -228,12 +226,7 @@ def run(name):
             teachers.append(targets(label, spec, rows, root, budget))
             gc.collect()
             mx.clear_cache()
-        text, tok, _ = load_base()
-        quantize_prefix(text, 23, 8)
-        mx.random.seed(spec["fit_seed"])
-        net = SelectiveRefinement(text, spec["rank"], spec["initial_gate"])
-        del text
-        net.eval()
+        net, tok = build(spec)
         if (root / "fit.json").exists():
             meta = read(root / "fit.json")
             weight = root / "refinement.safetensors"
