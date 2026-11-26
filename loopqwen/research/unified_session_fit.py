@@ -5,6 +5,7 @@ import random
 from collections import Counter
 from functools import partial
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from time import perf_counter
 
 import mlx.core as mx
@@ -82,6 +83,15 @@ def joint_loss(
 
 
 def train(spec, root, budget):
+    with TemporaryDirectory(prefix="frozen-prefix-", dir=root) as temp:
+        previous = mx.set_cache_limit(128 * 2**20)
+        try:
+            fit_from_disk(spec, root, budget, Path(temp))
+        finally:
+            mx.set_cache_limit(previous)
+
+
+def fit_from_disk(spec, root, budget, directory):
     parent = Path(spec["public"])
     assert (
         digest(parent / "checksums.json") == spec["public_sha256"]
@@ -92,7 +102,7 @@ def train(spec, root, budget):
     data = read(spec["training"])
     rows = data["examples"]
     start = perf_counter()
-    bank = features(net, tok, data, budget)
+    bank = features(net, tok, data, budget, directory=directory)
     starts = [visible_start(tok, e[2]) for e in bank]
     counts = Counter(r["stratum"] for r in rows)
     groups = [
@@ -121,7 +131,10 @@ def train(spec, root, budget):
         indices = [rng.choice(group) for group in groups]
         rng.shuffle(indices)
         seen.update(indices)
-        xs = [bank[i] for i in indices]
+        xs = [
+            (mx.load(str(path))["hidden"], offset, reply)
+            for path, offset, reply in (bank[i] for i in indices)
+        ]
         h, rr, ss, targets = batch_inputs(xs)
         replies = [(bank[i][2], starts[i], rows[i]["visible"]) for i in indices]
         weights, first_pos, opposite, binary = supervision(
@@ -159,6 +172,7 @@ def train(spec, root, budget):
             "passes": 2,
             "updates": spec["updates"],
             "turns": len(rows),
+            "frozen_prefix_storage": "lossless safetensors, one file per fitting request",
             "trainable": sum(v.size for v in params.values()),
             "targets": supervised,
             "contrast_examples": binary_examples,

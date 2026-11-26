@@ -58,7 +58,7 @@ def traces(rows):
         yield messages, row["gold"]
 
 
-def features(model, tok, rows, budget):
+def features(model, tok, rows, budget, *, directory=None):
     bank = []
     examples = (
         ((r["messages"], r["visible"], r["thinking"]) for r in rows["examples"])
@@ -75,7 +75,16 @@ def features(model, tok, rows, budget):
         ids = prefix + reply[:-1]
         h = model.prefix_hidden(mx.array([ids]))[0]
         mx.eval(h)
-        bank.append((h, len(prefix) - 1, reply))
+        if directory is None:
+            value = h
+        else:
+            value = directory / f"{len(bank)}.safetensors"
+            mx.save_safetensors(str(value), {"hidden": h})
+            if len(bank) % 256 == 0:
+                restored = mx.load(str(value))["hidden"]
+                if restored.dtype != h.dtype or not mx.array_equal(restored, h).item():
+                    raise ValueError("Serialized native prefix differs from its source")
+        bank.append((value, len(prefix) - 1, reply))
         if len(bank) % 256 == 0:
             print("prepared frozen prefixes", len(bank), flush=True)
     return bank
