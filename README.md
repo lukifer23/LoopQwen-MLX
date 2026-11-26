@@ -6,6 +6,8 @@ On a fresh **131,080-token** register lookup and its counterfactual, the looped 
 
 The full-book test covered 162,714 tokens of Frank Norris’s *McTeague*. The released router chose ordinary depth and matched Base token for token. Both missed the human-written question on the original book and after the character was renamed. [Whole-book comparison](research/results/narrative-full-book-01)
 
+On a separate cold-start stream of 50 field requests, one qualified installation completed **21/50 correctly versus 12/50 for Base** in **83.97 versus 234.20 seconds**. It gained seven net file answers and three SQLite answers, tied on reading and lost one arithmetic answer. Aggregate first-token time more than doubled and peak allocation increased by 5.4 MB. [Five-family comparison with full transcripts](research/results/release-mixed-field-01) · [Per-family scores and timing](paper/mixed-deployment.csv)
+
 ## Research report and executable tools
 
 The [technical paper](paper/loopqwen.pdf) covers matched depth controls, ordinary reasoning, correct tool execution, time, memory and full-history inference on the same 18 GiB M3 Pro. The [evidence index](paper/study-index.csv) links each claim to its preregistration and native output archive. [Figure sources and reproduction](paper/README.md)

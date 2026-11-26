@@ -17,6 +17,8 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Counterfactual conversation scores and paired one-pass replay](conversation-replay.csv)
 - [Direct page-kernel time, peak allocation and correct outputs](prefill-resource-comparisons.csv)
 - [Prompt and post-first-token throughput with actual denominators](long-throughput.csv)
+- [Per-family mixed deployment accuracy, latency, tokens and peak memory](mixed-deployment.csv)
+- [Paired sensitivity to leaving out one entire field family](mixed-family-sensitivity.csv)
 - [Installed and isolated field CLI calls, observations, answers and timings](field-cli.csv)
 - [Installed size, transport bytes and restoration time](transport.csv)
 - [Native time charged across research windows](native-compute.csv)
