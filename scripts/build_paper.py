@@ -25,6 +25,7 @@ def main(verify):
                 if k.startswith(
                     (
                         "bridge-reading-",
+                        "linked-reading-",
                         "narrative-full-book-",
                         "transport-lossless-",
                         "raw-distillation-",

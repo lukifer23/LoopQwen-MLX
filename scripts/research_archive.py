@@ -95,6 +95,10 @@ def verify(root):
         from loopqwen.research.mixed_field import verify as verify_mixed_field
 
         verify_mixed_field(root, decision)
+    if study.startswith("linked-reading-"):
+        from loopqwen.research.linked_reading import verify as verify_linked_reading
+
+        verify_linked_reading(root, decision)
     if study.startswith("bridge-reading-"):
         from loopqwen.research.bridge_reading import verify as verify_bridge_reading
 

@@ -92,6 +92,12 @@ def build():
             "operand-planner-test",
             "question",
         ),
+        (
+            "Linked HotpotQA",
+            ["linked-reading-train", "bridge-reading-train"],
+            "linked-reading-validation",
+            "question",
+        ),
         ("tool public executions", [TYPED], "tool-exec-bfcl-01", "question"),
         ("tool multiple functions", [TYPED], "tool-bfcl-multiple-01", "question"),
         ("tool single-function recovery", [TYPED], "tool-bfcl-math-01", "question"),

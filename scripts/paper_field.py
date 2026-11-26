@@ -16,6 +16,7 @@ def make(paper, results, result, finish):
         ("WikiSQL, cold", "tool-dialogue-table-transfer-01", None, "success"),
         ("Package chains", "tool-dialogue-package-chain-01", None, "success"),
         ("WikiSQL, parser", "table-parser-01", None, "success"),
+        ("HotpotQA, linked", "linked-reading-01", None, "content"),
         ("HotpotQA", "bridge-reading-01", None, "content"),
         (
             "ASDiv",

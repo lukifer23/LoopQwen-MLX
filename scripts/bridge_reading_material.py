@@ -20,7 +20,7 @@ def canonical(text):
     return " ".join(re.findall(r"\w+", text.casefold()))
 
 
-def enroll(split, count, excluded, tok):
+def enroll(split, count, excluded, tok, salt="bridge-reader-912"):
     file = (
         "distractor/"
         + ("train-00000-of-00002" if split == "train" else "validation-00000-of-00001")
@@ -65,7 +65,7 @@ def enroll(split, count, excluded, tok):
                     continue
                 indices = [next(i for i in indices if i != found[0]), found[0]]
             priority = int.from_bytes(
-                hashlib.sha256(("bridge-reader-912:" + r["id"]).encode()).digest(),
+                hashlib.sha256((salt + ":" + r["id"]).encode()).digest(),
                 "big",
             )
             if len(candidates) >= count * 6 and priority >= -candidates[0][0]:
