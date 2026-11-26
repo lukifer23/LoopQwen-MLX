@@ -90,7 +90,7 @@ def book(number, sources):
     url = BOOK_URLS[number]
     text = download(key, url, sources).replace("\r", "")
     boundary = list(
-        re.finditer(r"^\*{3}\s*(?:START|END) OF .*?\*{3}.*$", text, re.I | re.M)
+        re.finditer(r"^\*{3}\s*(?:START|END) OF .*?\*{3}.*$", text, re.IGNORECASE | re.MULTILINE)
     )
     if len(boundary) != 2:
         raise ValueError("Unexpected public-domain book delimiters: " + key)
