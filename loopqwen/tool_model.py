@@ -4,6 +4,7 @@ from copy import deepcopy
 from pathlib import Path
 
 import mlx.core as mx
+from mlx import nn
 from mlx.utils import tree_flatten
 
 from . import REVISION
@@ -11,6 +12,17 @@ from .io import digest, read
 from .looped_model import LoopedModel
 from .recurrence import Span
 from .training.adapters import attach
+
+
+def quantize_prefix(text, start, bits):
+    def frozen_projection(path, module):
+        suffix = any(
+            path.startswith(f"model.layers.{i}.")
+            for i in range(start, len(text.layers))
+        )
+        return not suffix and isinstance(module, (nn.Embedding, nn.Linear))
+
+    nn.quantize(text, group_size=64, bits=bits, class_predicate=frozen_projection)
 
 
 def tool_view(text, start, rank, passes):
@@ -33,16 +45,36 @@ def bind(language_model, folder):
     """Install a tool view without mutating the decoder used by plain-text requests."""
     folder = Path(folder)
     meta = read(folder / "tool-model.json")
-    if meta["base_revision"] != REVISION or meta["schema"] != 1 or meta["passes"] < 2:
+    if (
+        meta["base_revision"] != REVISION
+        or meta["schema"] not in (1, 2)
+        or meta["passes"] < 2
+    ):
         raise ValueError("Incompatible recurrent tool model")
     weights = folder / "tool-adapters.safetensors"
     if digest(weights) != meta["weights"]:
         raise ValueError("Tool adapter checksum mismatch")
-    ordinary = language_model.context_policy.ordinary.text
-    shared = {id(v): v for _, v in tree_flatten(ordinary.parameters())}
-    view = tool_view(
-        deepcopy(ordinary, shared), meta["start_layer"], meta["rank"], meta["passes"]
-    )
+    if meta["schema"] == 2:
+        from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
+
+        from .worker import acquire
+
+        acquire()
+        if not mx.metal.is_available() or mx.default_device() != mx.gpu:
+            raise RuntimeError("The tool decoder requires native MLX Metal")
+        backbone = folder / "quantized-backbone.safetensors"
+        if digest(backbone) != meta["backbone_sha256"]:
+            raise ValueError("Quantized tool backbone differs")
+        cfg = read(folder.parent / "config.json")
+        text = TextModel(TextModelArgs.from_dict(cfg["text_config"]))
+        quantize_prefix(text, meta["start_layer"], meta["prefix_bits"])
+        text.load_weights(str(backbone), strict=True)
+        mx.eval(text.parameters())
+    else:
+        ordinary = language_model.context_policy.ordinary.text
+        shared = {id(v): v for _, v in tree_flatten(ordinary.parameters())}
+        text = deepcopy(ordinary, shared)
+    view = tool_view(text, meta["start_layer"], meta["rank"], meta["passes"])
     tensors = mx.load(str(weights))
     expected = dict(tree_flatten(view.trainable_parameters()))
     if tensors.keys() != expected.keys() or any(
@@ -56,11 +88,20 @@ def bind(language_model, folder):
 
 class Assistant:
     def __init__(self, directory):
-        from .export_runtime import load_export
-
         self.directory = Path(directory)
-        self.language, self.tokenizer = load_export(directory)
+        self.dedicated = read(self.directory / "tool/tool-model.json")["schema"] == 2
+        self.language = None
+        self.tokenizer = None
         self._tool_model = None
+
+    def _load_language(self):
+        if self.language is None:
+            from .export_runtime import load_export
+
+            if self.dedicated:
+                self._tool_model = None
+                mx.clear_cache()
+            self.language, self.tokenizer = load_export(self.directory)
 
     def respond(
         self,
@@ -76,6 +117,18 @@ class Assistant:
             from .tool_session import run
 
             if self._tool_model is None:
+                if self.dedicated:
+                    from mlx_lm.tokenizer_utils import load as load_tokenizer
+
+                    self.language = None
+                    mx.clear_cache()
+                    config = read(self.directory / "config.json")
+                    self.tokenizer = load_tokenizer(
+                        self.directory,
+                        eos_token_ids=[config["text_config"]["eos_token_id"]],
+                    )
+                else:
+                    self._load_language()
                 self._tool_model = bind(self.language, self.directory / "tool")
             return run(
                 self._tool_model,
@@ -90,6 +143,7 @@ class Assistant:
         from .evaluation.generation_eval import generate
         from .tool_session import prompt
 
+        self._load_language()
         text = prompt(self.tokenizer, [dict(role="user", content=question)])
         out = generate(
             self.language,

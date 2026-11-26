@@ -19,10 +19,6 @@ def export(language, language_record, trained, qualification, destination):
         if digest(language / name) != expected:
             raise ValueError("Language export differs: " + name)
     spec = read(trained / "registration.json")
-    if "donor" in spec:
-        raise ValueError(
-            "This shared-backbone export requires a Base-initialized tool adapter"
-        )
     fit = read(trained / "fit.json")
     q = read(qualification / "registration.json")
     d = read(qualification / "decision.json")
@@ -59,20 +55,43 @@ def export(language, language_record, trained, qualification, destination):
         shutil.copyfile(
             trained / "tool-adapters.safetensors", out / "tool-adapters.safetensors"
         )
-        save(
-            out / "tool-model.json",
-            dict(
-                schema=1,
-                base_revision=REVISION,
-                passes=fit["passes"],
-                rank=spec["rank"],
-                start_layer=spec.get("start_layer", 23),
-                weights=fit["weights"],
-                training=trained.name,
-                qualification=qualification.name,
-                qualification_archive=digest(qualification / "checksums.json"),
-            ),
+        meta = dict(
+            schema=1,
+            base_revision=REVISION,
+            passes=fit["passes"],
+            rank=spec["rank"],
+            start_layer=spec.get("start_layer", 23),
+            weights=fit["weights"],
+            training=trained.name,
+            qualification=qualification.name,
+            qualification_archive=digest(qualification / "checksums.json"),
         )
+        if "donor" in spec:
+            import mlx.core as mx
+            from mlx.utils import tree_flatten
+
+            from loopqwen.research.projected_distillation import tutor
+            from loopqwen.tool_model import quantize_prefix
+            from loopqwen.worker import acquire
+
+            acquire()
+            donor, _ = tutor({"teacher": spec["donor"]})
+            quantize_prefix(donor.text, meta["start_layer"], spec["prefix_bits"])
+            backbone = out / "quantized-backbone.safetensors"
+            mx.save_safetensors(
+                str(backbone), dict(tree_flatten(donor.text.parameters()))
+            )
+            meta.update(
+                schema=2,
+                donor=spec["donor"],
+                prefix_bits=spec["prefix_bits"],
+                backbone_sha256=digest(backbone),
+            )
+            shutil.copyfile(
+                worktree / "research/licenses/BFCL-Hermes-APACHE-2.0.txt",
+                out / "Apache-2.0.txt",
+            )
+        save(out / "tool-model.json", meta)
         # The native inference files are also available to offline consumers of the bundled runtime.
         rt = bundle / "runtime"
         for file in (

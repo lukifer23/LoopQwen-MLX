@@ -21,14 +21,20 @@ from loopqwen.research.tool_fit import restore
 from loopqwen.tool_session import SYSTEM, compact, decode_action, prompt
 
 
-def schema(row):
-    f = deepcopy(row["function"][0])
+def normalized_definition(definition):
+    f = deepcopy(definition)
 
     def normalize(node):
         if "type" in node:
-            node["type"] = {"dict": "object", "float": "number"}.get(
-                node["type"], node["type"]
-            )
+            node["type"] = {
+                "dict": "object",
+                "float": "number",
+                "tuple": "array",
+                "int": "integer",
+                "bool": "boolean",
+                "str": "string",
+                "list": "array",
+            }.get(node["type"], node["type"])
         for v in node.get("properties", {}).values():
             normalize(v)
         if "items" in node:
@@ -45,7 +51,7 @@ def render(tok, item):
             dict(
                 role="system",
                 content=SYSTEM
-                + compact([schema(item)])
+                + compact([normalized_definition(f) for f in item["function"]])
                 + "\nUse the supplied function for the user's request.",
             ),
             item["question"][0][0],
@@ -65,18 +71,26 @@ def judgment(item, tokens, tok):
         obj = None
     valid = False
     correct = False
-    if obj and obj["name"] == schema(item)["name"]:
+    definitions = {f["name"]: normalized_definition(f) for f in item["function"]}
+    if obj and obj["name"] in definitions:
         args = obj["arguments"]
-        valid = Draft202012Validator(schema(item)["parameters"]).is_valid(args)
-        truth = item["ground_truth"][0][obj["name"]]
-        correct = (
-            valid
-            and not (args.keys() - truth.keys())
-            and all(
-                (k in args and args[k] in vals) or (k not in args and "" in vals)
-                for k, vals in truth.items()
-            )
+        valid = Draft202012Validator(definitions[obj["name"]]["parameters"]).is_valid(
+            args
         )
+        for option in item["ground_truth"]:
+            truth = option.get(obj["name"])
+            if truth is None:
+                continue
+            if (
+                valid
+                and not (args.keys() - truth.keys())
+                and all(
+                    (k in args and args[k] in vals) or (k not in args and "" in vals)
+                    for k, vals in truth.items()
+                )
+            ):
+                correct = True
+                break
     return dict(complete=True, valid=bool(valid), correct=bool(correct))
 
 

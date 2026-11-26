@@ -18,28 +18,17 @@ from .tool_worlds import tools_for
 
 def build(spec, passes):
     if "donor" in spec:
-        from .projected_distillation import tutor
         from mlx_lm.utils import load_tokenizer
+
+        from .projected_distillation import tutor
 
         donor, _ = tutor({"teacher": spec["donor"]})
         tok = load_tokenizer(local_snapshot())
         text = donor.text
         del donor
-        start = spec["start_layer"]
+        from ..tool_model import quantize_prefix
 
-        def frozen_projection(path, module):
-            # Keep adapted suffix projections in BF16. Compress every eligible frozen projection.
-            suffix = any(
-                path.startswith(f"model.layers.{i}.") for i in range(start, 24)
-            )
-            return not suffix and isinstance(module, (nn.Embedding, nn.Linear))
-
-        nn.quantize(
-            text,
-            group_size=64,
-            bits=spec["prefix_bits"],
-            class_predicate=frozen_projection,
-        )
+        quantize_prefix(text, spec["start_layer"], spec["prefix_bits"])
         mx.eval(text.parameters())
         mx.clear_cache()
     else:

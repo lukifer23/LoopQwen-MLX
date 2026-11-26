@@ -1,12 +1,72 @@
-"""Open a new explicitly authorized execution window for native research work."""
+"""Open or archive a bounded native research window."""
 
+import argparse
+import subprocess
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
-from loopqwen.io import save, read
+
+from loopqwen.io import digest, read, save
 from loopqwen.worker import acquire
 
-if __name__ == "__main__":
+
+def close(path, started, state, now):
+    closed = path.parent / f"closed-{int(started)}.json"
+    if closed.exists():
+        raise SystemExit("This execution window is already closed")
+    ledger = path.parent / f"budget-{int(started)}.json"
+    jobs = read(ledger) if ledger.exists() else []
+    if any(r.get("status") == "unclosed reservation" for r in jobs):
+        raise SystemExit("An unresolved native reservation remains")
+    registry = read("research/registry.json")
+    for name in dict.fromkeys(r["job"] for r in jobs):
+        src = Path("research/results") / name
+        if (
+            not (src / "checksums.json").exists()
+            or digest(src / "checksums.json")
+            != registry["experiments"][name]["archive"]
+        ):
+            raise SystemExit("Archive the completed job first: " + name)
+        if not any(r["id"] == name for r in state["completed"]):
+            state["completed"].append(
+                dict(
+                    id=name,
+                    promoted=read(src / "decision.json")["passed"],
+                    scope=read(src / "registration.json")["question"],
+                    decision=str(src / "decision.json"),
+                )
+            )
+    record = dict(
+        start=started,
+        closed=now,
+        wall_seconds=now - started,
+        native_seconds=sum(r["seconds"] for r in jobs),
+        jobs=jobs,
+    )
+    state.update(active=None, closed_session_start=started)
+    state["native_window"].update(
+        status="closed", end_utc=datetime.fromtimestamp(now, timezone.utc).isoformat()
+    )
+    # Publish the evidence ledger before closing the local lease window.
+    save(f"research/sessions/window-{int(started)}.json", record)
+    save(closed, record)
+    save("research/state.json", state)
+    print(
+        "Archived bounded research session",
+        int(started),
+        record["native_seconds"],
+        "native seconds",
+    )
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--close",
+        action="store_true",
+        help="Record completed jobs and close the current execution window",
+    )
+    args = parser.parse_args()
     acquire()
     path = Path("outputs/research/active-session.json")
     now = time.time()
@@ -18,11 +78,27 @@ if __name__ == "__main__":
             state["session_start_utc"].replace("Z", "+00:00")
         ).timestamp()
     )
+    if args.close:
+        close(path, prior, state, now)
+        return
     if (
         not (path.parent / f"closed-{int(prior)}.json").exists()
         and now - prior < state["limits"]["wall_seconds"]
         and (path.exists() or (path.parent / f"budget-{int(prior)}.json").exists())
     ):
         raise SystemExit("Current local session is still active")
+    stamp = datetime.fromtimestamp(now, timezone.utc).isoformat()
+    state.update(
+        session_start_utc=stamp,
+        starting_revision=subprocess.check_output(
+            ["git", "rev-parse", "--short", "HEAD"], text=True
+        ).strip(),
+        native_window=dict(start_utc=stamp, status="open"),
+    )
     save(path, dict(start=now))
+    save("research/state.json", state)
     print("Opened bounded research session", int(now))
+
+
+if __name__ == "__main__":
+    main()
