@@ -36,6 +36,7 @@ def main(verify):
                         "packed-decode-full-",
                         "session-tokenizer-",
                         "meaning-alignment-",
+                        "draft-program-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

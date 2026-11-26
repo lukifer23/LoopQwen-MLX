@@ -81,10 +81,10 @@ def features(model, tok, rows, budget):
     return bank
 
 
-def fit(model, tok, spec, out, budget):
+def fit(model, tok, spec, out, budget, *, prepare=features):
     start = perf_counter()
     training = read(spec["training"])
-    bank = features(model, tok, training, budget)
+    bank = prepare(model, tok, training, budget)
     pair_count = spec.get("pairs_per_batch", 0)
     if pair_count:
         from .reading_pairs import MatchedExamples
