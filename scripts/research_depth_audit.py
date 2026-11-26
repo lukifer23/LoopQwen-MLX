@@ -26,6 +26,27 @@ def verify(root, decision, read, sha, require, number):
         )
         return
     data = read(panel)
+    native = reg["id"].startswith(("native-induction-", "native-kinship-"))
+    if native:
+        forbidden = {
+            row["story"]
+            for filename in reg.get("exclude", [])
+            for group in read(Path(filename)).values()
+            for row in group
+        }
+        require(
+            all(
+                row["story"] not in forbidden
+                for group in data.values()
+                for row in group
+            ),
+            "Native panel overlaps a preceding study",
+        )
+        if reg.get("task") == "kinship":
+            templates = [row["template"] for group in data.values() for row in group]
+            require(
+                len(templates) == len(set(templates)), "Family story template repeated"
+            )
     if not short:
         stories = [r["story"] for group in data.values() for r in group]
         require(
@@ -109,6 +130,46 @@ def verify(root, decision, read, sha, require, number):
                 and model["updates"] == reg["updates"],
                 "Wrong trained reader",
             )
+
+    if native:
+        counts = set()
+        for arm, desc in reg["arms"].items():
+            if not desc["depth"]:
+                continue
+            if desc.get("fit"):
+                path = (
+                    root / arm
+                    if sum(bool(x.get("fit")) for x in reg["arms"].values()) > 1
+                    else root
+                )
+            else:
+                path = Path(desc["reader"])
+                require(
+                    sha(path / "reader.safetensors") == desc["weights"],
+                    "Different fixed native layer weights",
+                )
+            meta = read(path / "reader.json")
+            require(
+                meta["fit_seed"] == reg["fit_seed"]
+                and meta["updates"] == reg["updates"]
+                and meta["rank"] == reg["rank"],
+                "Unmatched native training configuration",
+            )
+            counts.add(meta["trainable_parameters"])
+            if meta.get("architecture") == "anchored_native":
+                for row, item in zip(outputs[arm], data, strict=True):
+                    stages = row["support_probabilities"]
+                    require(
+                        len(stages) == 3
+                        and all(
+                            len(v) == len(item["facts"]) + 1
+                            and abs(sum(v) - 1) < 1e-4
+                            and all(0 <= x <= 1 for x in v)
+                            for v in stages
+                        ),
+                        "Invalid native attention evidence",
+                    )
+        require(len(counts) == 1, "Native pair has unequal trainable capacity")
 
     def paired(group, first, second):
         diff = [
