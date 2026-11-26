@@ -1,0 +1,48 @@
+{
+  "venue_dialogues": {
+    "wins": 7,
+    "losses": 0,
+    "p": 0.015625,
+    "both_by_service": {
+      "candidate": {
+        "hotel": 2,
+        "restaurant": 5,
+        "attraction": 0
+      },
+      "control": {
+        "hotel": 0,
+        "restaurant": 0,
+        "attraction": 0
+      }
+    },
+    "public_tools": {
+      "candidate": 20,
+      "control": 0
+    }
+  },
+  "passed": false,
+  "metrics": {
+    "candidate": {
+      "success": 34,
+      "path": 34,
+      "correct_answer": 44,
+      "completed": 78,
+      "seconds": 78.8364635030448,
+      "tokens": 5581,
+      "peak_bytes": 1167494178
+    },
+    "control": {
+      "success": 0,
+      "path": 0,
+      "correct_answer": 8,
+      "completed": 14,
+      "seconds": 299.6120130382478,
+      "tokens": 20084,
+      "peak_bytes": 1779937794
+    }
+  },
+  "gains": 34,
+  "losses": 0,
+  "p_exact": 1.1641532182693481e-10,
+  "items": 78
+}
