@@ -1,10 +1,12 @@
 """Own one decoder at a time and retain exact BF16 input rows needed by a long request."""
 
+import json
+import os
 from pathlib import Path
 
 import mlx.core as mx
+import numpy as np
 from mlx import nn
-from safetensors import safe_open
 
 from .mixed_register import build_view
 
@@ -16,13 +18,28 @@ class InputRows(nn.Module):
         size, width = embedding.weight.shape
         if embedding.weight.dtype != mx.bfloat16:
             raise ValueError("Expected original BF16 input embeddings")
-        # The sliced safetensors handle owns the mapping to this specific file. Only
-        # a previously unseen generated token causes another row to be read.
-        with safe_open(path, framework="mlx") as f:
-            source = f.get_slice("model.embed_tokens.weight")
-            if source.get_shape() != [size, width] or source.get_dtype() != "BF16":
+        # Read raw BF16 words without converting through a host floating type.
+        # Keep the opened file alive for the request, including newly emitted IDs.
+        source = path.open("rb")
+        try:
+            header_size = int.from_bytes(source.read(8), "little")
+            if not 0 < header_size <= 100_000_000:
+                raise ValueError("Invalid safetensors header length")
+            tensor = json.loads(source.read(header_size))["model.embed_tokens.weight"]
+            start, end = tensor["data_offsets"]
+            if (
+                tensor["shape"] != [size, width]
+                or tensor["dtype"] != "BF16"
+                or start < 0
+                or end - start != size * width * 2
+                or 8 + header_size + end > os.fstat(source.fileno()).st_size
+            ):
                 raise ValueError("Source embedding does not match the loaded model")
-            object.__setattr__(self, "_source", source)
+        except BaseException:
+            source.close()
+            raise
+        object.__setattr__(self, "_source", source)
+        object.__setattr__(self, "_offset", 8 + header_size + start)
         identifiers = sorted(set(ids))
         if not identifiers or identifiers[0] < 0 or identifiers[-1] >= size:
             raise ValueError("Prompt token outside the original vocabulary")
@@ -41,9 +58,14 @@ class InputRows(nn.Module):
             if not missing or missing[0] < 0 or missing[-1] >= self.index.size:
                 raise ValueError("Input token outside the original vocabulary")
             n = self.rows.shape[0]
-            self.rows = mx.concatenate(
-                [self.rows, *[self._source[k : k + 1] for k in missing]]
+            width = self.rows.shape[1]
+            row_bytes = width * 2
+            raw = b"".join(
+                os.pread(self._source.fileno(), row_bytes, self._offset + k * row_bytes)
+                for k in missing
             )
+            words = np.frombuffer(raw, dtype="<u2").reshape(len(missing), width)
+            self.rows = mx.concatenate([self.rows, mx.array(words).view(mx.bfloat16)])
             self.index[mx.array(missing)] = mx.arange(n, n + len(missing))
             mx.eval(self.rows, self.index)
             self._known.update(missing)
