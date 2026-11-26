@@ -1,13 +1,13 @@
 {
-  "session_start_utc": "2026-11-26T01:36:01.206034+00:00",
-  "starting_revision": "a013ea0",
+  "session_start_utc": "2026-11-26T02:00:01.275770+00:00",
+  "starting_revision": "a625cec",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "deduction-long-base-01",
+  "active": "evidence-language-release-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -293,9 +293,21 @@
       "promoted": true,
       "scope": "What happens with the trained weights frozen when the second Qwen evidence pass is disabled?",
       "decision": "research/results/deduction-bypass-01/decision.json"
+    },
+    {
+      "id": "deduction-long-base-01",
+      "promoted": true,
+      "scope": "Does the loop still beat untouched Base on the confirmation panel when both have 768 tokens for thinking and answering?",
+      "decision": "research/results/deduction-long-base-01/decision.json"
+    },
+    {
+      "id": "deduction-span-bypass-01",
+      "promoted": false,
+      "scope": "With the trained weights and both learned evidence reads retained, does dropping only the second Qwen layer-span execution change accuracy?",
+      "decision": "research/results/deduction-span-bypass-01/decision.json"
     }
   ],
-  "status": "Replicated a learned two-read advantage over equal-training and same-weight one-read controls.",
+  "status": "Verifying combined deployment and human-authored science transfer.",
   "next_action": "Finish the 768-token Base replay, isolate the native span, and run the integrated deployment and public science comparisons.",
   "hypothesis": "A question-directed second read can follow a subject-to-rule link that an ordinary single read misses.",
   "known_limits": [
@@ -345,9 +357,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795653713.8453581,
+  "closed_session_start": 1795656961.206034,
   "native_window": {
-    "start_utc": "2026-11-26T01:36:01.206034+00:00",
+    "start_utc": "2026-11-26T02:00:01.275770+00:00",
     "status": "open"
   }
 }
