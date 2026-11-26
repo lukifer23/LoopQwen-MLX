@@ -307,6 +307,9 @@ def main():
             "svg.fonttype": "none",
         }
     )
+    from paper_systems import write as system_comparisons
+
+    system_comparisons(PAPER, RESULTS, result)
     benchmark_table()
     training_lineage()
     historical()

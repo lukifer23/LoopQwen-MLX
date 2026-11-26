@@ -191,6 +191,9 @@ def run(name):
                         evidence=evidence,
                         score=grade(tok, ids, w["gold"]),
                         seconds=seconds,
+                        selection_seconds=selected_at - at,
+                        decoder_ttft=out["ttft_s"],
+                        generation_seconds=out["elapsed_s"],
                         ttft=selected_at - at + out["ttft_s"],
                         peak=mx.get_peak_memory(),
                     )
@@ -251,6 +254,11 @@ def verify(root, decision):
                 and 0 < len(r["ids"]) <= spec["max_tokens"]
                 and 0 < r["ttft"] <= r["seconds"]
             )
+            assert (
+                r["selection_seconds"] >= 0
+                and r["generation_seconds"] >= r["decoder_ttft"]
+            )
+            assert r["ttft"] == r["selection_seconds"] + r["decoder_ttft"]
             if side == "candidate":
                 e = r["evidence"]
                 assert r["selected"] == pick(e["first"], e["second"])
