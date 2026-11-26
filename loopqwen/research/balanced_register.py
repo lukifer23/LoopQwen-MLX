@@ -28,30 +28,39 @@ class Rebalanced(LoopedModel):
 
 
 class RegisterDispatch:
-    def __init__(self, original, alternative):
+    def __init__(self, original, alternative, route):
+        self.route = route
         self.original = original
         self.alternative = alternative
 
     def choose(self, model, ids, cap):
         selected, name = self.original.choose(model, ids, cap)
         if name == "register" and selected is model:
-            return self.alternative, "rebalanced_register"
+            return self.alternative, self.route
         return selected, name
 
 
-def attach(model):
-    view = Rebalanced(
-        model.text, Span(start=6, length=1, passes=2, mode="stabilized"), alpha=0.35
-    )
-    assert (
-        len(view.sites) == 24
-        and sum(not model.text.layers[i].is_linear for i, p in view.sites) == 5
-    )
+def attach(model, spec):
+    if "local_window" in spec:
+        from ..hybrid_attention import HybridAttention
+
+        view = HybridAttention(model.text, spec["local_window"])
+        route = "hybrid_register"
+    else:
+        view = Rebalanced(
+            model.text, Span(start=6, length=1, passes=2, mode="stabilized"), alpha=0.35
+        )
+        assert (
+            len(view.sites) == 24
+            and sum(not model.text.layers[i].is_linear for i, p in view.sites) == 5
+        )
+        route = "rebalanced_register"
     object.__setattr__(view, "attention_reader", model.attention_reader)
     view.eval()
     object.__setattr__(
-        model, "context_policy", RegisterDispatch(model.context_policy, view)
+        model, "context_policy", RegisterDispatch(model.context_policy, view, route)
     )
+    return view
 
 
 def outcome(rows, items, spec):
@@ -65,7 +74,8 @@ def outcome(rows, items, spec):
         )
     a, b = metrics["candidate"], metrics["control"]
     correct_spans = all(
-        r.get("context_route") == "rebalanced_register"
+        r.get("context_route")
+        == ("hybrid_register" if "local_window" in spec else "rebalanced_register")
         and r["attention_memory"]["start"] <= w["gold_start"]
         and r["attention_memory"]["stop"] >= w["gold_stop"]
         for r, w in zip(rows["candidate"], items, strict=True)
@@ -78,6 +88,27 @@ def outcome(rows, items, spec):
         and a["seconds"] <= b["seconds"]
         and a["peak"] <= b["peak"]
     )
+    if "local_window" in spec:
+        for r in rows["candidate"]:
+            sites = r.get("attention_sites", [])
+            consumed = r["prompt_tokens"] + len(r["token_ids"]) - 1
+            global_sites = {
+                (s["layer"], s["turn"]) for s in sites if s["global_attention"]
+            }
+            proof = (
+                len(sites) == 7
+                and global_sites == {(15, 1), (19, 0), (23, 0)}
+                and all(
+                    s["offset"] == consumed
+                    and (
+                        s["retained"] == consumed
+                        if s["global_attention"]
+                        else 0 < s["retained"] <= spec["local_window"] + 127
+                    )
+                    for s in sites
+                )
+            )
+            passed = passed and proof
     return dict(passed=passed, metrics=metrics, spans=correct_spans, items=len(items))
 
 
@@ -135,9 +166,13 @@ def run(name):
                     m, t, _ = base()
                 else:
                     m, t, _ = load_trained(spec["checkpoint"])
-                    attach(m)
+                    view = attach(m, spec)
                 mx.reset_peak_memory()
                 record = measure(m, t, w, spec["max_tokens"], budget)
+                if side == "candidate":
+                    if "local_window" in spec:
+                        record["attention_sites"] = view.history()
+                    del view
                 rows[side].append(record)
                 print(
                     i,
