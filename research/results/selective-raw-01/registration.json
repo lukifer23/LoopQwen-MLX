@@ -1,0 +1,41 @@
+{
+  "id": "selective-raw-01",
+  "question": "Can a frozen ordinary first pass and a learned data-dependent second pass retain broad prose while improving native next-token predictions across unseen sources?",
+  "training": "research/data/selective-raw-training.json",
+  "material": "research/data/selective-raw-panel.json",
+  "historical_panel": "research/data/raw-distillation-test.json",
+  "historical_sha256": "e006e8bfe3066a544b99d54553740c37131c7bace1c2ce646b626d43ea48b983",
+  "retention_sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+  "teacher": {
+    "repo": "Qwen/Qwen3.5-2B-Base",
+    "revision": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+    "license": "Apache-2.0"
+  },
+  "rank": 48,
+  "initial_gate": 0.12,
+  "fit_seed": 718821,
+  "updates": 1200,
+  "batch": 8,
+  "per_document": 12,
+  "lr": 0.00012,
+  "top": 32,
+  "gold_weight": 0.18,
+  "temperature": 0.5,
+  "live_indices": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    180
+  ],
+  "protocol": "The independently closed global-distillation fit improved 50/52 WikiText articles and pooled NLL but lost 27 legacy-suite top-one predictions. Test a new architecture and objective from the untouched Base weights, without using its failed adapter. Keep layers 0\u201322 at eight bits and the ordinary first application of BF16 native layer 23 entirely frozen. Apply its same original parameters a second time with rank-48 trainable Q/K/V/O adapters; a learned scalar sigmoid gate per position interpolates between the two hidden states. Gate inputs are ordinary causal hidden states only. For training, collect separate top-32 plus remaining probability mass and actual gold log probability from the frozen 2B and original BF16 0.8B Base at 65536 sampled positions across 2048 documents. Selective KD weights the larger teacher by a sigmoid of its true-token log probability advantage over the smaller teacher, then adds ordinary next-token cross-entropy. Supervision and domain IDs are unavailable at inference. Balance original raw-fit documents with 512 different public-domain book passages and 512 different public technical-document passages. All four new 32-passage groups (fiction, natural history, new documentation and science) are frozen before optimization. Screen all new training/evaluation excerpts against previous material by a 24-token exact window. Recheck all 52 older WikiText articles and the 120 untouched retention passages. Both arms use identical raw input sequences with full-vocabulary likelihood, actual top-1, warmed full prediction time, peak bytes and six real incremental cache tests. Record attempted machine time.",
+  "gate": "A release candidate must improve NLL and preserve or improve top-1 separately on every enrolled domain and suite. Require fresh pooled NLL gain >=.015, larger fresh top-1 count, fresh paired document sign-test p<=.05, WikiText NLL gain >=.04, all six autoregressive checks exact, and no greater time or peak on each of fresh/WikiText/legacy suites. Report all domain-specific losses. Close this architecture on a miss. A pass licenses an equally trained one-application model with the same native weights, adaptation, per-token gate, supervision and optimizer budget, then a new source-disjoint replication before replacing the ordinary route.",
+  "limits": {
+    "wall_seconds": 1880,
+    "peak_gib": 8.0,
+    "available_gib": 1.4
+  }
+}
