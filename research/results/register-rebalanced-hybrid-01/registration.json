@@ -1,0 +1,22 @@
+{
+  "id": "register-rebalanced-hybrid-01",
+  "question": "Can preserving every pretrained layer, repeating the native global layer 15 and limiting intermediate KV state to a local window improve both full-history task quality and actual speed over Base?",
+  "material": "research/data/register-hybrid-pilot.json",
+  "seeds": [
+    971255,
+    971355
+  ],
+  "requires": "research/results/native-language-release-02",
+  "prerequisite_sha256": "9a30f346fcc192b6294367574cdb270bdfabe99553a7556861717d7108fc16c8",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "max_tokens": 96,
+  "ttft_ratio": 0.95,
+  "protocol": "After the alternate-site layout missed its prespecified first-token margin, test a distinct local/global attention allocation. Execute all 24 original pretrained layers, with layer 15 repeated at alpha .35. Use full-history native KV sites at the second layer-15 execution and at layers 19 and 23. Four other native attention sites have independent 1024-token rotating caches; all 18 delta sites still scan every input. Use the qualified register reader and identical LoRA weights without retraining. Record offsets and retained key counts at each attention site after generation. The entire input must reach the global sites. Alternate candidate/Base order per request on independent 16K and 32K equal-position swaps. Record actual prefill, generation and peak MLX bytes. No key ranges or values are supplied to the reader.",
+  "gate": "Require 4/4 exact completed answers, localization of every true value span, strictly more correct answers than Base, total first-token time <=95% of Base, no higher total generation time or peak bytes. Verify all 7 active attention site offsets equal the entire consumed token count, three global sites retain all those keys and every local site is bounded. Passing permits a separately preregistered physical 131072+ key-swap comparison. Failure closes the 128K follow-up for this allocation.",
+  "limits": {
+    "wall_seconds": 380,
+    "peak_gib": 6.5,
+    "available_gib": 1.4
+  },
+  "local_window": 1024
+}
