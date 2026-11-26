@@ -8,7 +8,8 @@ from time import perf_counter
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer
 
-from ..evaluation.conversation_questions import catalog, score
+from ..evaluation import conversation_questions, module_questions
+from ..evaluation.conversation_questions import score
 from ..evaluation.mechanism import packed, unpack
 from ..evaluation.statistics import exact_mcnemar
 from ..io import digest, read, save
@@ -59,7 +60,10 @@ def verify(root, decision):
     material = read(spec["material"])
     tok = load_tokenizer(local_snapshot())
     data = {}
-    tools = catalog(material["environment"])
+    provider = (
+        module_questions if spec.get("resource") == "module" else conversation_questions
+    )
+    tools = provider.catalog(material["environment"])
     for side in ("candidate", "control"):
         data[side] = unpack(root / (side + ".json.gz"))
         for r, w in zip(data[side], material["rows"], strict=True):
@@ -69,7 +73,8 @@ def verify(root, decision):
                 replay_exchange(tok, tools, history, t, spec)
             assert (
                 history == r["messages"]
-                and r["score"] == score(w, r["exchanges"])
+                and r["score"]
+                == score(w, r["exchanges"], literal_prefix=spec.get("resource") is None)
                 and r["id"] == w["id"]
                 and r["kind"] == w["kind"]
                 and r["exchanges"][0]["turns"][0]["prompt_ids"] == w["initial_ids"]
@@ -92,7 +97,13 @@ def run(name):
     ):
         raise ValueError("Unqualified source")
     bundle = Path(spec["checkpoint"])
-    if snapshot() != material["environment"] or any(
+    provider = (
+        module_questions if spec.get("resource") == "module" else conversation_questions
+    )
+    environment = (
+        module_questions.snapshot() if spec.get("resource") == "module" else snapshot()
+    )
+    if environment != material["environment"] or any(
         digest(bundle / k) != v for k, v in read(parent / "export-files.json").items()
     ):
         raise ValueError("Changed package inventory or deployed weights")
@@ -112,7 +123,7 @@ def run(name):
                         if side == "candidate"
                         else DenseAssistant(False)
                     )
-                chat = assistant.conversation(catalog())
+                chat = assistant.conversation(provider.catalog())
                 xs = [
                     chat.respond(
                         text,
@@ -131,7 +142,9 @@ def run(name):
                         "kind": w["kind"],
                         "exchanges": xs,
                         "messages": chat.messages,
-                        "score": score(w, xs),
+                        "score": score(
+                            w, xs, literal_prefix=spec.get("resource") is None
+                        ),
                         "wall_s": wall,
                         "peak": mx.get_peak_memory(),
                     }

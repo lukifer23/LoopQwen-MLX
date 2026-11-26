@@ -42,8 +42,9 @@ def catalog(environment=None):
     ]
 
 
-def score(row, exchanges):
+def score(row, exchanges, *, literal_prefix=False):
     first, follow = exchanges
+    module = row.get("resource") == "module"
 
     def calls(tr):
         return [t for t in tr["turns"] if "observation" in t]
@@ -54,27 +55,51 @@ def score(row, exchanges):
         one = (
             first["status"] == "answered"
             and not left
-            and bool(re.search(r"package|library|distribution|name", visible))
+            and bool(
+                re.search(
+                    r"module|file|name"
+                    if module
+                    else r"package|library|distribution|name",
+                    visible,
+                )
+            )
             and bool(re.search(r"\?|which|specify|provide|tell me|need", visible))
         )
     else:
-        one = first["status"] == "answered" and any(
-            t["call"]
-            == {"name": "list_installed", "arguments": {"prefix": row["prefix"]}}
-            and t["observation"] == {"distributions": row["matches"]}
-            for t in left
+
+        def valid_listing(turn):
+            action = turn["call"]
+            if action["name"] != ("list_modules" if module else "list_installed"):
+                return False
+            prefix = action["arguments"]["prefix"]
+            expected = row["prefix"]
+            if not literal_prefix:
+                prefix, expected = prefix.casefold(), expected.casefold()
+            return prefix == expected and turn["observation"] == {
+                ("modules" if module else "distributions"): row["matches"]
+            }
+
+        one = first["status"] == "answered" and any(valid_listing(t) for t in left)
+    value = row["lines"] if module else row["version"]
+
+    def valid_lookup(t):
+        action = t["call"]
+        if module:
+            return action == {
+                "name": "module_lines",
+                "arguments": {"module": row["target"]},
+            } and t["observation"] == {"lines": value}
+        return (
+            action["name"] == "package_version"
+            and canonicalize_name(action["arguments"]["distribution"]) == row["target"]
+            and t["observation"] == {"version": value}
         )
-    found = any(
-        t["call"]["name"] == "package_version"
-        and canonicalize_name(t["call"]["arguments"].get("distribution", ""))
-        == row["target"]
-        and t["observation"] == {"version": row["version"]}
-        for t in right
-    )
+
+    found = any(valid_lookup(t) for t in right)
     correct = (
         follow["status"] == "answered"
         and re.search(
-            r"(?<![\w.])" + re.escape(row["version"]) + r"(?!\w|\.\d)",
+            r"(?<![\w.])" + re.escape(str(value)) + r"(?!\w|\.\d)",
             follow["answer"] or "",
         )
         is not None

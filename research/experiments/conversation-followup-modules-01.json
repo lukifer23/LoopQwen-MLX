@@ -1,0 +1,18 @@
+{
+  "requires": "research/results/tool-language-release-01",
+  "prerequisite_sha256": "d1be2cea938ef4c7486214f903c95a9ebe688917782d89f6ad4c2b32d5d02252",
+  "checkpoint": "exports/tool-language-01",
+  "id": "conversation-followup-modules-01",
+  "question": "Does grounded follow-up accuracy transfer to two previously untrained tools that inspect actual Python standard-library source files when equivalent prefix spellings are graded by real callback behavior?",
+  "material": "research/data/conversation-followup-modules-01.json",
+  "max_tokens": 256,
+  "max_turns": 3,
+  "protocol": "Independent replication motivated by the literal-versus-operational prefix discrepancy in the package study. The previous primary decision remains archived. Different tools, different schemas, sixteen new resources, new questions and real local source files. Alternate eight missing-name requests and eight references to a prior live module listing. Half of the reference first messages capitalize the initial and half use lowercase. The list tool explicitly case-folds prefixes. Accept a listing only when the called prefix case-folds to the requested one and every observed entry equals the actual ordered listing. The final call must request the exact module, return its actual line count and the completed answer must contain that count. Raw emitted arguments, callback observations, original held-out messages, first prompt IDs, complete transcripts, timing and memory are archived. Freeze file SHA-256 digests and line counts for every eligible top-level standard-library module. Both models receive actual previous exchanges, the same user replies, tool schema, thinking and greedy 256-token budget. The same public conversation object is used. No model updates or benchmark routing.",
+  "gate": "At least six additional fully correct conversations, exact paired p<=.05, >=4/8 complete in both families, no higher cold-inclusive total wall time and no higher peak MLX bytes than untouched Base. A miss closes transfer for these tool weights. A pass licenses an equal-training one-pass tool comparison on this same frozen cohort before attributing the gain to recurrence.",
+  "limits": {
+    "wall_seconds": 545,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  },
+  "resource": "module"
+}
