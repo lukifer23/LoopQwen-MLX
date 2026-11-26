@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("passage-copy-"):
+        from loopqwen.research.passage_copy import verify as verify_passage_copy
+
+        verify_passage_copy(root, decision)
     if study.startswith("packed-release-retention-"):
         from loopqwen.research.packed_release import verify as verify_packed_release
 

@@ -31,6 +31,7 @@ def main(verify):
                         "raw-distillation-",
                         "selective-raw-",
                         "packed-release-retention-",
+                        "passage-copy-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",
