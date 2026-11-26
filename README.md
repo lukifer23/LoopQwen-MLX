@@ -64,6 +64,8 @@ A Base-initialized two-pass model improved loss, top-one accuracy, elapsed time 
 .venv/bin/python -m loopqwen generate --checkpoint research/results/selective-raw-01 --prompt "The telescope recorded a faint" --max-tokens 32
 ```
 
+The public generator reproduced the sealed first prediction on a 32-token novel prefix and generated eight tokens through the same cache. [Actual prompt, output IDs and timing](docs/measurements/selective-raw-public-cli.json)
+
 ## Current combined checkpoint
 
 Use [the native recurrent checkpoint](research/results/native-language-release-02/model) on Apple Silicon. On two disjoint three-fact induction panels it answered **124/128** correctly. A one-pass model with the same 552,810 trainable parameters, training stories and update count answered **58/128**. Both produced 13 tokens per answer and took about 32 seconds for all 128 questions. With the three-pass weights held fixed, disabling two applications of Qwen layer 15 dropped confirmation accuracy from **62/64 to 19/64**. Untouched Qwen Base answered **2/64 in 654.19 s** at the same 768-token allowance as the loop, which answered **62/64 in 16.02 s**. A second training seed scored 53/64 versus 25/64. [Matched results and limits](docs/CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Same-weights ablation](research/results/native-induction-anchored-bypass-01) · [Full-budget Base comparison](research/results/native-induction-anchored-longbase-01)

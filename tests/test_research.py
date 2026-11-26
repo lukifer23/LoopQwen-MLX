@@ -190,27 +190,47 @@ def test_stabilized_gate_trains():
     assert model.alpha_logit.item() != old.item()
 
 
-def test_packing_resets_state_at_boundaries():
+@pytest.mark.parametrize("backend", ["reference", "native"])
+def test_packing_resets_state_at_boundaries(backend):
+    from mlx.utils import tree_map
+
     from loopqwen.data.tokenize import pack
     from loopqwen.training.losses import packed_loss_sum
 
-    model, _, _ = setup(config("configs/smoke.yaml"))
+    c = config("configs/smoke.yaml")
+    c["gdn_backend"] = backend
+    model, _, _ = setup(c)
     model.train()
     rows = load_split("train")[:2]
-    val, grad = nn.value_and_grad(model, packed_loss_sum)(model, *pack(rows))
+    packed = pack(rows)
+    batches = [batch([r]) for r in rows]
 
     def separate(m):
-        return sum(loss_sum(m, *batch([r])) for r in rows)
+        return sum(loss_sum(m, *item) for item in batches)
 
-    baseline, ref = nn.value_and_grad(model, separate)(model)
-    assert (
-        abs((val - baseline).item()) / sum(len(r["ids"]) - r["prefix"] for r in rows)
-        < 0.01
-    )
-    assert (
-        max(
-            relative(a, b)
-            for (_, a), (_, b) in zip(tree_flatten(grad), tree_flatten(ref))
+    joint_grad = nn.value_and_grad(model, packed_loss_sum)
+    separate_grad = nn.value_and_grad(model, separate)
+    # The native GDN backward adds concurrent contributions with Metal atomics.
+    # Average independent executions at the same frozen parameters. The reference
+    # backward gives an additional deterministic check with the same tolerance.
+    joint, independent = [], []
+    for _ in range(8 if backend == "native" else 1):
+        val, grad = joint_grad(model, *packed)
+        baseline, ref = separate_grad(model)
+        mx.eval(val, grad, baseline, ref)
+        assert (
+            abs((val - baseline).item())
+            / sum(len(r["ids"]) - r["prefix"] for r in rows)
+            < 0.01
         )
-        < 0.025
+        joint.append(grad)
+        independent.append(ref)
+
+    def mean(*xs):
+        return sum(x.astype(mx.float32) for x in xs) / len(xs)
+
+    actual, expected = (
+        dict(tree_flatten(tree_map(mean, *rs))) for rs in (joint, independent)
     )
+    assert actual.keys() == expected.keys()
+    assert max(relative(v, expected[name]) for name, v in actual.items()) < 0.025
