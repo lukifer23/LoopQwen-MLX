@@ -1,0 +1,26 @@
+{
+  "id": "evidence-language-release-01",
+  "combined": "research/results/conditional-language-02",
+  "material": "research/data/deduction-stories-02.json",
+  "longbase": "research/results/deduction-long-base-01",
+  "reader": "research/results/deduction-regions-01",
+  "context": "research/results/conditional-language-128k",
+  "seed": 199244,
+  "prerequisites": {
+    "conditional-language-02": "29918bb4868966ad88ae5b666f64b72d3da93f1d8b0a506070e7941950ca9572",
+    "conditional-language-128k": "ba463d83923ff7ca6d47a74a30ca814701399824e44e4c004e895524a817ff2b",
+    "deduction-regions-01": "12fd2470e8e8919c2e772a54ad6a74bba1b0e8ed35c3602ea80c17449f105875",
+    "deduction-matched-01": "c6e0d3072ece9ad7420620e0680a76ce1c7c24bb92cd76e7c284a59099067fc8",
+    "deduction-replication-01": "8c70b1098ba3c718943ff0f4239f0947dcd9be052b34e0bd79e683b0685be759",
+    "deduction-bypass-01": "188f50c4200163ae269b907f6153ebd23f3a4186c5b3927898e2b26dafaad4de",
+    "deduction-long-base-01": "d2d39ccc60c939525ca1348bbfce608a47a68528c0684c3011baada91a43a255"
+  },
+  "question": "Can the native default checkpoint deliver the qualified causal reasoning gain while retaining every previously frozen mixed response, raw language likelihood and the 128K counterfactual swap?",
+  "protocol": "Fit a binary scope classifier on 240 positive training stories and the prior combined selector's 384 training requests. Confidence .99, 160 full-batch Adam updates at .003. Keep the previous specialist weights frozen. Run the public native generate path on all 56 confirmation turns against frozen paired streams, all 80 previously tested mixed turns, all 120 raw passages, and both 131083-token resident full-history key swaps with a 96-token allowance. Record every route, output, actual generation time and MLX memory. Compared checkpoints and references are bound by inventory. Long-prompt Base times and token streams are immutable previous measurements of these exact two requests.",
+  "gate": "Require bit-identical 56/56 reasoning and 80/80 mixed token streams and routes, exact raw retention, both retrieved answers and selected gold spans, and <=1.75x the previous paired Base wall seconds on 128K. A failed prerequisite closes this release. Stop on first replay mismatch, memory warning or budget exhaustion. Independently validate the standalone bundled runtime.",
+  "limits": {
+    "wall_seconds": 1550,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  }
+}
