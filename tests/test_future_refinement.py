@@ -1,0 +1,56 @@
+import mlx.core as mx
+from mlx import nn
+from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
+
+from loopqwen.research.future_token_fit import Horizon
+from loopqwen.selective_refinement import SharedRefinement
+from loopqwen.worker import acquire
+
+
+def test_future_supervision_updates_the_causal_shared_block():
+    acquire()
+    mx.random.seed(603)
+    args = TextModelArgs(
+        hidden_size=64,
+        intermediate_size=128,
+        num_hidden_layers=4,
+        num_attention_heads=2,
+        num_key_value_heads=1,
+        head_dim=32,
+        linear_num_value_heads=2,
+        linear_num_key_heads=1,
+        linear_key_head_dim=16,
+        linear_value_head_dim=16,
+        full_attention_interval=4,
+        vocab_size=128,
+        tie_word_embeddings=True,
+    )
+    model = SharedRefinement(TextModel(args), 8, 0.10)
+    model.eval()
+    objective = Horizon(model, 16)
+    ids = mx.array([[3, 17, 6, 21, 11]])
+    prefix = model.prefix_hidden(ids)
+
+    def loss(obj):
+        first = obj.decoder.ordinary(prefix)
+        logits = obj.future_logits(first[:, :-2])
+        return nn.losses.cross_entropy(logits, ids[:, 2:]).mean()
+
+    value, grad = nn.value_and_grad(objective, loss)(objective)
+    assert value.item() > 0
+    assert (
+        mx.abs(grad["decoder"]["refinement"]["self_attn"]["v_proj"]["lora_b"])
+        .sum()
+        .item()
+        > 0
+    )
+    assert mx.abs(grad["up"]["weight"]).sum().item() > 0
+    full = model.hidden(ids)
+    changed = ids.at[:, -1].add(7)
+    assert mx.array_equal(full[:, :-1], model.hidden(changed)[:, :-1]).item()
+    cache = model.make_cache()
+    mx.eval(model.hidden(ids[:, :-1], cache))
+    actual = model.hidden(ids[:, -1:], cache)
+    assert cache.slots[3, 0] is not cache.slots[3, 1]
+    assert cache.slots[3, 0].offset == cache.slots[3, 1].offset == ids.shape[1]
+    assert mx.allclose(actual[:, -1], full[:, -1], atol=1e-4, rtol=1e-4).item()

@@ -6,6 +6,7 @@ import random
 import matplotlib.pyplot as plt
 
 from loopqwen.evaluation.mechanism import unpack
+from loopqwen.io import read
 
 
 def corpus_intervals(rows, seed):
@@ -114,8 +115,6 @@ def selective(paper, results, result, finish):
     """Expose source-level changes on the genuinely new passages."""
     from collections import defaultdict
 
-    from loopqwen.io import read
-
     name = "selective-raw-01"
     root = results / name
     if not (root / "checksums.json").exists():
@@ -183,3 +182,52 @@ def selective(paper, results, result, finish):
                         ],
                     ]
                 )
+
+
+def future_sources(paper, results, result, finish):
+    name = "future-token-prose-01"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    d = result(name)
+    spec = read(root / "registration.json")
+    rows = read(spec["material"])["rows"]
+    categories = {r["source"]: r["category"] for r in rows}
+    names = ("fiction", "memoir", "manual", "encyclopedia")
+    fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.75), sharey=True)
+    with (paper / "future-token-sources.csv").open("w") as stream:
+        out = csv.writer(stream)
+        out.writerow(
+            [
+                "source",
+                "domain",
+                "passages",
+                "tokens",
+                "nll_change_per_token",
+                "additional_correct_top1",
+            ]
+        )
+        for y, domain in enumerate(names):
+            sources = sorted(s for s, c in categories.items() if c == domain)
+            for j, source in enumerate(sources):
+                nll, change, n = d["source_totals"][source]
+                out.writerow(
+                    [
+                        source,
+                        domain,
+                        sum(r["source"] == source for r in rows),
+                        n,
+                        nll / n,
+                        change,
+                    ]
+                )
+                shift = (j - (len(sources) - 1) / 2) * 0.065
+                axes[0].scatter(nll / n, y + shift, color="#11675d", s=17)
+                axes[1].scatter(1000 * change / n, y + shift, color="#536a89", s=17)
+    for ax in axes:
+        ax.axvline(0, color="#888", linewidth=0.8)
+    axes[0].set_yticks(range(4), ["Fiction", "Memoir", "Git manuals", "Encyclopedia"])
+    axes[0].invert_yaxis()
+    axes[0].set_xlabel("NLL change (nats/token)")
+    axes[1].set_xlabel("Net correct per 1,000 tokens")
+    finish(fig, "future-token-sources")

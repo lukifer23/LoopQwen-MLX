@@ -385,11 +385,12 @@ def main():
     from paper_passages import make as plot_passages
     from paper_preferences import make as plot_preferences
     from paper_preferences import plot_conversations
+    from paper_raw import future_sources, selective
     from paper_raw import make as plot_raw
-    from paper_raw import selective
 
     plot_raw(PAPER, RESULTS, result, finish)
     selective(PAPER, RESULTS, result, finish)
+    future_sources(PAPER, RESULTS, result, finish)
     plot_passages(PAPER, RESULTS, result, finish)
     plot_meaning(PAPER, RESULTS, result, finish)
     plot_draft_program(PAPER, RESULTS, result, finish)

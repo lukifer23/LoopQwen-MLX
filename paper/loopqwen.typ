@@ -236,6 +236,10 @@ The release selected its ordinary-depth route on both books. On the original, bo
 = Causal raw-language prediction
 #include "raw-results.typ"
 
+*A longer prediction horizon on the first pass.* Multi-token pretraining has used separate heads to predict future tokens from a shared trunk [47]. Here both applications of native layer 23 share their rank-48 Q/K/V/O adapters. During training a width-192 bottleneck on the first application predicts the token two positions ahead. A gated second application predicts the immediate next token with the tied vocabulary, observed text and two frozen model distributions. Both losses update the same block. During inference the auxiliary bottleneck is absent and the model receives only preceding tokens. Adaptation starts from the original 0.8B Base. The two teacher distributions were recorded on the same 2,048 fitting passages.
+
+The independent test uses 128 passages from 24 sources, comprising four novels, four memoirs, eight Git manuals and eight encyclopedia articles. The enrollment excludes shared 24-token windows with the fit and earlier raw test suites. Both passage and original source are units of analysis for the paired sign test. Two historical suites add 172 passages. Each of six free eight-token generations runs incrementally and from its complete prefixes, with both native final-layer caches inspected. This comparison measures causal text prediction.
+
 = Relationship to prior work
 API-Bank [37] used manually annotated conversations and executable APIs to study calling, retrieval and planning. Our package and file evaluations resolve properties from a live local installation, and our arithmetic evaluations also score a correct final answer when the model avoids a call. The distinction changes which model wins on the human mathematics subset.
 
@@ -350,5 +354,7 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 [45] Dasigi et al. (2021). A dataset of information-seeking questions and answers anchored in research papers. #link("https://aclanthology.org/2021.naacl-main.365/")[NAACL, Qasper].
 
 [46] Rastogi et al. (2020). Towards scalable multi-domain conversational agents, the Schema-Guided Dialogue dataset. #link("https://arxiv.org/abs/1909.05855")[AAAI].
+
+[47] Gloeckle et al. (2024). Better and faster large language models via multi-token prediction. #link("https://proceedings.mlr.press/v235/gloeckle24a.html")[ICML].
 
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].
