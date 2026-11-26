@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-26T15:47:44.461443+00:00",
-  "starting_revision": "cdfbc90",
+  "session_start_utc": "2026-11-26T16:39:40.557974+00:00",
+  "starting_revision": "079e58d",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -529,6 +529,54 @@
       "promoted": true,
       "scope": "How much does the fitted quantized recurrent system improve actual public task execution over its untouched, full-precision instruction-tuned parent?",
       "decision": "research/results/tool-dialogue-instruct-01/decision.json"
+    },
+    {
+      "id": "register-rebalanced-hybrid-01",
+      "promoted": false,
+      "scope": "Can preserving every pretrained layer, repeating the native global layer 15 and limiting intermediate KV state to a local window improve both full-history task quality and actual speed over Base?",
+      "decision": "research/results/register-rebalanced-hybrid-01/decision.json"
+    },
+    {
+      "id": "contrast-boolq-transfer-01",
+      "promoted": false,
+      "scope": "Does training on matched opposing human hypotheses transfer to the remaining independent human-edited BoolQ questions when the recurrent layer starts from the quantized instruction sibling?",
+      "decision": "research/results/contrast-boolq-transfer-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-program-reasoning-01",
+      "promoted": false,
+      "scope": "Does learning to plan executable arithmetic from human solutions improve the actual numeric answers on unseen external word problems as well as their grounding in calculator results?",
+      "decision": "research/results/tool-dialogue-program-reasoning-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-table-transfer-01",
+      "promoted": false,
+      "scope": "Can the unchanged recurrent tool checkpoint answer independently authored database questions by executing scoped lookups and aggregates on real WikiSQL tables?",
+      "decision": "research/results/tool-dialogue-table-transfer-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-package-chain-01",
+      "promoted": false,
+      "scope": "Can the unchanged two-pass tool model use the live package graph to resolve a dependency and then report its installed version?",
+      "decision": "research/results/tool-dialogue-package-chain-01/decision.json"
+    },
+    {
+      "id": "cache-language-01",
+      "promoted": false,
+      "scope": "Can a genuinely repeated native attention layer supply a causal neural-cache distribution that improves held-out raw language prediction and efficiency over untouched Base?",
+      "decision": "research/results/cache-language-01/decision.json"
+    },
+    {
+      "id": "bridge-reading-01",
+      "promoted": false,
+      "scope": "Does native shared-depth document retrieval grounded in human supporting facts improve complete open-vocabulary answers on natural two-hop questions over untouched Base?",
+      "decision": "research/results/bridge-reading-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-counterfactual-01",
+      "promoted": true,
+      "scope": "Does joint rehearsal with counterfactual swaps of observed values yield one recurrent tool checkpoint that retains the prior catalog and public execution gains and transfers to four new domains?",
+      "decision": "research/results/tool-dialogue-counterfactual-01/decision.json"
     }
   ],
   "status": "Running held-out tool reasoning, typed public-function execution and human-edited BoolQ comparisons. See the preregistered stop rules for each.",
@@ -584,9 +632,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795706093.530904,
+  "closed_session_start": 1795708064.4614432,
   "native_window": {
-    "start_utc": "2026-11-26T15:47:44.461443+00:00",
+    "start_utc": "2026-11-26T16:39:40.557974+00:00",
     "status": "open"
   },
   "kinship_transfer": {
