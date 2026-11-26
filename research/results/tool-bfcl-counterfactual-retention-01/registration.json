@@ -1,0 +1,26 @@
+{
+  "id": "tool-bfcl-counterfactual-retention-01",
+  "question": "Does the new two-pass adapter retain established and independently sampled structural function selection against the qualified two-pass tool release?",
+  "source": "research/results/tool-dialogue-counterfactual-01",
+  "archive": "0ad054ef3b840ea0ecd67b5428e537cac706cf83996dc82799c0733331049961",
+  "model": "research/results/tool-dialogue-counterfactual-01",
+  "control_model": "research/results/tool-dialogue-typed-01",
+  "control_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "material": "research/data/tool-counterfactual-bfcl.json",
+  "retention": true,
+  "reference_traces": [
+    "research/results/tool-bfcl-recovery-01",
+    "research/results/tool-bfcl-multiple-01"
+  ],
+  "max_tokens": 384,
+  "net_floor": 0,
+  "p_max": 1.0,
+  "time_ratio": 1.2,
+  "protocol": "Compare two frozen K2 checkpoints with the same donor and decoding protocol. Completely replay the original 24 simple and 24 multiple BFCL questions, plus 24 independently hash-selected multiple-function questions disjoint in function names from training and all earlier panels. Freeze item order and publisher typed argument scorer. Verify that every old control output matches its sealed reference. This is a retention comparison of two trained artifacts.",
+  "gate": "Retain at least 16/24 old simple and 18/24 old competing-schema calls. On fresh schemas require at most one fewer than the prior tool model and require at least equal pooled correct across all 72. All 48 prior control traces exact, total elapsed seconds <=1.20 times previous tool weights. Any failed floor closes replacement and the joint new release. Report paired gains, losses and exact p descriptively.",
+  "limits": {
+    "wall_seconds": 472,
+    "peak_gib": 6.5,
+    "available_gib": 1.4
+  }
+}
