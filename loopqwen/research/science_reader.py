@@ -23,7 +23,7 @@ PANEL = Path("research/data/science-composition-01.json")
 class ScienceReader(nn.Module):
     def __init__(self, width, rank, vocab, letters):
         super().__init__()
-        self.keys = nn.Linear(4 * width, rank)
+        self.fact_keys = nn.Linear(4 * width, rank)
         self.queries = nn.Linear(4 * width, rank)
         self.value = nn.Linear(4 * width, rank)
         self.language = nn.Linear(width, rank)
@@ -47,7 +47,7 @@ class ScienceReader(nn.Module):
         q = (q - self.first_mean) * self.first_scale
         o = (options - self.first_mean) * self.first_scale
         deep = (deep - self.deep_mean) * self.deep_scale
-        k = unit(self.keys(f))
+        k = unit(self.fact_keys(f))
 
         def relevance(x):
             return (unit(self.queries(x)) @ k.swapaxes(-1, -2)) * (10 / k.shape[-1])
