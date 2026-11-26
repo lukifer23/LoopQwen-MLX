@@ -1,0 +1,65 @@
+{
+  "id": "packed-decode-full-01",
+  "question": "Does the qualified single-query operator improve generated-token throughput in the entire deployed 131K assistant while reproducing both correct counterfactual responses and their genuine full histories?",
+  "material": "research/data/register-packed-direct-full-01.json",
+  "checkpoint": "exports/tool-language-packed-03",
+  "max_tokens": 96,
+  "min_speedup": 1.2,
+  "timing_tolerance": 1.02,
+  "peak_tolerance": 1.01,
+  "order": [
+    [
+      "stock",
+      0,
+      0
+    ],
+    [
+      "fused",
+      0,
+      0
+    ],
+    [
+      "fused",
+      1,
+      0
+    ],
+    [
+      "stock",
+      1,
+      0
+    ],
+    [
+      "fused",
+      0,
+      1
+    ],
+    [
+      "stock",
+      0,
+      1
+    ],
+    [
+      "stock",
+      1,
+      1
+    ],
+    [
+      "fused",
+      1,
+      1
+    ]
+  ],
+  "protocol": "The native operator prerequisite passed all four 32K/131K mask and speed gates. Run two complete repetitions of both already-qualified 131,080-token key swaps on the identical certified packed-03 tensors, without training, generation hints or reuse of prompt activations. Reconstruct the installed model, clear the allocator cache, and reset peak before every individual request. Preserve the original native thinking-enabled prompt IDs, greedy 96-token cap and all eight physical attention histories. Continue to use the previous packed implementation for any chunk with more than one query, including the entire prefill. Only candidate single-token dense attention at offsets >=32768 uses the verified kernel. Counterbalance arm order between documents and reverse it on the second repetition. Charge first-token and wall time from routing through the last synchronized generated token. Aggregate post-first-token TPS sums actual further output steps and divides by total wall time less first-token time. Retain every generated ID, attention section, capacity, causal pair count and actual fused call count per layer.",
+  "gate": "Require 8/8 exact historical correct output streams and the same learned source interval, 8/8 full retained site histories on every request, no fused calls in stock and precisely one per further emitted token at each candidate site. Require at least 20% greater aggregate post-first-token TPS with faster decoding on each document and both repetitions. Under thermal and timer variation, aggregate first-token and elapsed time may be at most 2% higher and maximum MLX peak at most 1% higher. Report exact absolute resource changes. Failure closes this integration for default deployment. A pass licenses one fresh direct paired comparison against pinned ordinary Base at a new >=131072-token counterfactual. The previous Base rate is context only; no superiority to Base inferred from an operator or a same-checkpoint crossover.",
+  "limits": {
+    "wall_seconds": 1140,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  },
+  "parent": "research/results/packed-decode-kernel-01",
+  "parent_sha256": "03c56f2366de3bf75fe4a9aa162b16dde1fff24ef34487cc2122d921b33625a2",
+  "release": "research/results/packed-release-retention-01",
+  "release_sha256": "680ee713d2c0949d1bb3c44c8ceeaf26d7f5ecea447ab23891d782bb16ead641",
+  "published": "research/results/register-packed-direct-full-01",
+  "published_sha256": "8598e67ce40761912127c33f70d897860fb90aecca339a3a40d7d5868f9f01e1"
+}
