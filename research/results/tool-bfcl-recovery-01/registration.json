@@ -1,0 +1,18 @@
+{
+  "id": "tool-bfcl-recovery-01",
+  "question": "Does the same frozen typed recurrent checkpoint recover the 24 previously failing BFCL simple math calls, compared directly with untouched Base?",
+  "source": "research/results/tool-dialogue-typed-01",
+  "archive": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "model": "research/results/tool-dialogue-typed-01",
+  "material": "research/data/tool-bfcl-math-01.json",
+  "max_tokens": 384,
+  "net_floor": 5,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "gate": "At least five net publisher-accepted exact calls, paired p<=.05 and no slower than Base. Same prompt, original published signatures, scorer and 384-token budget as tool-bfcl-transfer-01. This is a known regression panel, separate from the blind multiple-function transfer. No training on these questions.",
+  "limits": {
+    "wall_seconds": 410,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
