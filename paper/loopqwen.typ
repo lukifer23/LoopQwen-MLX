@@ -1,0 +1,122 @@
+#set document(title: "Where shared decoder depth earns its cost", author: "LoopQwen-MLX project")
+#set page(paper: "us-letter", margin: (x: 0.86in, top: 0.7in, bottom: 0.76in), footer: context [#set text(size: 8pt, fill: rgb("#51605e"))
+LoopQwen-MLX · Research report #h(1fr) #counter(page).display()])
+#set text(font: "Libertinus Serif", size: 10.7pt, lang: "en")
+#set par(justify: false, leading: 0.62em, spacing: 0.65em)
+#set heading(numbering: "1.")
+#show heading.where(level: 1): it => block(above: 10pt, below: 7pt)[#set text(size: 16pt, fill: rgb("#14574e"))
+#it]
+#show heading.where(level: 2): it => block(above: 8pt, below: 3pt)[#set text(size: 11pt)
+#it]
+#let repo = "https://github.com/lukifer23/LoopQwen-MLX"
+#let tab(..body) = table(columns: (1.65fr,1.05fr,1.05fr), align: (left,center,center), stroke: none, inset: 5pt, fill: (x,y) => if y == 0 {rgb("#deede9")} else if calc.odd(y) {rgb("#f5f7f6")}, ..body)
+#let note(body) = block(inset: 8pt, fill: rgb("#edf4f1"), width: 100%, body)
+#text(size: 26pt, weight: "bold")[Where shared decoder depth earns its cost]
+#linebreak()
+#text(size: 14pt)[Reasoning, executable tool use, and full-history inference on an 18 GiB Apple Silicon machine]
+#v(4pt)
+LoopQwen-MLX project · 26 November 2026 · Technical report
+= Abstract
+We study whether pretrained Qwen3.5-0.8B-Base can answer more questions correctly by applying a decoder layer more than once. We compare the deployed system with untouched Base and separately compare depth under matched supervision. The clearest effect occurs when a repeated native attention layer updates a question from fixed sentence representations. Across two disjoint induction panels it answered 124 of 128 questions correctly, against 58 with a separately trained one-pass layer. The paired difference survived a second training seed, a same-weight bypass, a longer one-pass fit and a class-swap intervention. In contrast, trained recurrent and ordinary-depth arithmetic and entailment models tied on final-answer accuracy. A trained kinship model performed better with one pass.
+
+We extend the comparison to calling external functions, following their observations, comparing returned quantities and asking for missing arguments. We record the generated calls, actual program responses and final answers. The language release also retrieved both answers from 131,083-token register prompts; Base retrieved neither and finished sooner. The combination of these results supports a task-specific account of when shared depth helps. The companion evidence index includes failed gates and identifies the exact registered archives behind the figures.
+
+= Research questions
+*System benefit.* Under identical prompts, thinking policy, scorer and output allowance, does a user receive a correct completed answer sooner? A sparse answer correction, adapter training or a change in response termination can improve this endpoint. Each requires its own attribution test.
+
+*Depth benefit.* With the same data, parameterization and optimizer exposure, does recurrence increase accuracy enough to justify its time and memory? A model run at one pass after training at three also tests dependence on its learned trajectory. The separately trained one-pass control addresses the stronger allocation question.
+
+*Generalization.* Can the learned behavior follow changed evidence, work on new schemas and preserve independent capabilities? We test reworded requests, counterfactual facts, distinct human language datasets, raw prose likelihood and real long-input generation. The tool section distinguishes the authors' controlled environment from independently authored function signatures.
+
+#pagebreak()
+= Model and implementation
+The pinned checkpoint is Qwen/Qwen3.5-0.8B-Base at revision `dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68`. Its text backbone has 752,393,024 parameters, a hidden width of 1,024, 24 decoder layers and a 248,320-entry vocabulary. Every fourth layer uses full attention. Other layers carry gated delta and convolutional state. All model inference, automatic differentiation and optimizer updates in this report use native MLX on an M3 Pro with 18 GiB unified memory. The project pins MLX 0.32.4 and mlx-lm 0.32.2. Timing comparisons are machine-specific. [1]
+
+== Shared computation and state
+The original recurrent decoder embeds its input, executes layers 0–9, repeats the shared 10–15 span, then executes 16–23 and the output projection. For a residual-gated repeated block $F$, later passes compute $h_(k+1) = h_k + alpha (F(h_k) - h_k)$. Repeated sites share weights. Each attention site has its own key/value cache and each linear-attention site has its own recurrent state. Sharing these histories across passes changes the autoregressive model. The implementation checks cache ownership, span, gate and window policy before reuse.
+
+The strongest induction result uses a different placement of recurrence. Layers 0–14 encode the story. Four pooled regions per sentence supply features for a learned compression into one premise token. Starting from the compressed question, the model reapplies native layer 15 to the fixed premises and an evolving question. Low-rank updates modify Q/K/V/O, and a deterministic step encoding identifies the pass. During training, three head pairs receive losses on the publisher's supporting-fact indices. In the matched one-pass model the same head pairs receive those labels on its single call. A learned vocabulary-logit correction incorporates the final state into ordinary full-prompt generation. Support indices are unavailable during evaluation.
+
+The two-read deduction component instead learns retrieval steps and runs the pretrained 10–15 span on sentence states. The register component scans overlapping windows of token-embedding features, scores windows against the query, and biases native attention toward the selected passage at generation. Its full-history decoder still consumes every token. The deployed language policy selects a component from the request, including an ordinary Base path. For induction, both a story gate and a 4,098-parameter question-intent classifier must accept the input.
+
+== Training and comparison rules
+The induction fit uses 1,536 training stories, 3,000 Adam updates, batches of 32 and 552,810 trainable parameters per arm. The question and nine shuffled facts are identical for paired models. We count completed answers, also score four candidate words at a shared prefix, and measure full inference time. We retain all enrolled ambiguous items. The different training seeds change initialization and minibatch order together. The system and depth comparisons answer different questions and have different controls.
+
+The repository freezes ordered material and a threshold before each primary comparison. Timing includes prefill and greedy generation. A short response can win on endpoint latency while using more compute per token. We give seconds, output counts or matched-length comparisons where possible. Two-sided exact paired tests condition on discordant items. Swapped pairs and entailment triplets use their shared underlying unit of analysis. Reported tests are study-specific. Repeated experiments selected promising architectures, so the full collection does not have a single family-wise significance guarantee.
+
+#pagebreak()
+= Reasoning results under matched training
+#figure(image("depth.svg",width: 99%), caption: [Completed answers with a separately trained ordinary-depth control. Counts at right give repeated and one-pass scores. Arithmetic and entailment use the same scoring convention for both arms within their respective depth studies.])
+The three-pass induction model scored 62/64 on both the primary and confirmation panels. The matched single-pass model scored 33/64 and 25/64. The primary had 30 wins and one loss; confirmation had 37 wins and zero losses. At 13 generated tokens per item the paired models took about 16 seconds per panel. Training took 114.63 seconds of optimization at three passes and 42.28 at one. A one-pass answer-only control received 15,000 updates and 163.29 optimizer seconds and scored 28/64. With independently initialized and trained weights, the respective scores were 53/64 and 25/64. The second fit shows both replication of direction and sensitivity to seed. [2]
+
+A same-weights intervention reduced the confirmation score from 62 to 19 when the second and third applications were bypassed. On 32 counterfactual pairs, exchanging two class tokens switched the relevant classmate. The loop answered both versions in 32 pairs and the matched control in one. A separate explicit-rule test gave both models the induction rule in their system prompt. Three passes answered 32/32 and ordinary untouched Base answered 5/32 at 768 output tokens.
+
+The deduction reader answered 112/112 across two panels versus 68/112 with one read. Retaining both learned reads while bypassing the second native span retained 56/56 on confirmation. The causal evidence here concerns information retrieval across reads. Kinship supplies a contrary depth result on human-written CLUTRR stories. Three passes scored 34/64 versus 1/64 for untouched Base, but a separately trained one-pass model scored 44/64. The depth gate closed the reserved official test. [3]
+
+#note[*Interpretation.* The induction controls establish that this trained native layer and its successive states contribute to the measured answers. The evidence concerns short generated stories, a small answer vocabulary and annotated support facts. It places no numerical bound on performance in unrestricted natural language.]
+
+#pagebreak()
+= Language retention, cost and 128K context
+#figure(image("cost.svg",width: 96%),caption: [Measured batch-one elapsed time. The vertical line marks equal time. Controls are labelled separately. The matched induction and deduction accuracy comparisons use short fixed-length outputs; the 768-token Base comparisons shown here allow both arms longer responses.])
+On pooled human inference prompts, blind scoring credited 85/120 to the trained model and 66/120 to Base. Premise-clustered paired randomization gave $p = 0.0070$. On the 80-item pooled arithmetic panel at 1,024 output tokens, reviewed answer content scored 58/80 versus 52/80. In the separate equal-training depth study, the strict arithmetic endpoint was 52/80 for both depths. The same distinction matters for entailment, where the trained dense model tied the recurrent model at 85/120. A combined mixed panel yielded 55/80 versus 41/80 under review and 49/80 versus 33/80 under the strict scorer. Its full runs took 419.12 and 536.26 seconds. [4]
+
+There are regressions. In science composition, the trained candidate completed more correct responses at the registered cap (23 vs 4 of 40), but scored 32 vs 37 on the matched answer probe. On an ordinary prose reading test the context candidate found all 20 supporting passages yet achieved exact match on 9 versus 10 for Base and F1 of 0.392 versus 0.517. Localization and successful answer generation are distinct objectives.
+
+The standalone language release reproduced all 64 induction, 56 deduction and 80 mixed output streams from its qualified predecessors. All 192 negative-intent checks retained their previous route and nine complete greedy replays matched. The ordinary route reproduced NLL 2.982658 on 9,328 targets in 120 passages. This exact tie is a preservation result. On the two 131,083-token register prompts both full-history outputs contained the correct value after swapping equal-width key names. The release took 525.84 s in total with 4.33 GiB peak MLX allocation. Base scored 0/2 in 393.20 s. The pair measures sensitivity to a distant binding within one synthetic document. Broad 128K prose reasoning, long tool sessions, and a population accuracy estimate require separate evidence.
+
+#pagebreak()
+= Executable tool use
+#include "tool-results.typ"
+#pagebreak()
+= Benchmark endpoints and external transfer
+
+#tab([*Endpoint*],[*Recurrent*],[*Control*],
+..csv("benchmarks.csv", row-type: dictionary).map(r => ([#r.endpoint],[#r.recurrent / #r.n],[#r.control / #r.n #r.comparator])).flatten(),
+)
+#v(4pt)
+The public function test contains the first 24 consecutive questions from BFCL v3 simple, with publisher-authored typed, optional and array arguments. Both arms see the original question and function descriptions, the same instruction to use the function and a 384-token thinking allowance. We normalize the publisher's parameter type vocabulary to JSON Schema and check output names, required types and argument alternatives. This first-turn evaluation does not execute a callback. The catalog model completed all 24 turns in 3.78 seconds and supplied zero valid calls. Base completed 12, with eight valid and correct requests in 95.07 seconds. The catalog model frequently asked for a missing quantity even when it was explicit in the question. This failure motivated a separate preregistered training recipe with heterogeneous typed arguments and an external execution endpoint.
+
+== Training and inference costs
+The final-layer tool adapter occupies 3.06 MiB as FP32 factors over the frozen BF16 decoder. Its two fits had identical input batches and 19,364 scored response tokens. Prefix feature preparation took 25.13 seconds for two passes and 25.11 seconds for one. The optimizer consumed 39.47 and 25.11 seconds respectively. The matched run timed full interactive sessions, including multiple fresh prefills, greedy decoding, argument validation and Python callback execution. These are warm-model measurements. Startup, model download and construction of the combined export are outside the session timer. The shared-backbone tool view requires no second copy of the ordinary weights.
+
+#pagebreak()
+= Relationship to prior work
+Universal Transformers share a transformation across depth and study adaptive computation [5]. Geiping and colleagues pretrained a 3.5B recurrent-depth architecture on 800B tokens and scaled latent iterations at inference [6]. Here an already pretrained hybrid decoder is adapted at small scale. The project measures a benefit from a particular supervised recurrent computation, under a matched one-pass budget. The earlier three-seed direct-span study averaged 23.7% versus 32.6% for dense adaptation on out-of-distribution traced problems. Simply repeating the pretrained span was insufficient in that study.
+
+Weston and colleagues' bAbI tasks isolate reasoning operations [2]. Their explicit support labels make direct attention supervision feasible here. CLUTRR varies kinship relation compositions [3]. The narrower induction advantage and the adverse kinship depth comparison illustrate the cost of extrapolating across relation systems. RULER benchmarks multiple effective-context skills across lengths [7]. Our register intervention isolates key identity at fixed positions, alongside separate prose evaluations.
+
+The Berkeley Function-Calling Leaderboard distinguishes argument structure, executable behavior and multi-turn state [8]. τ-bench evaluates conversational agents interacting with stateful environments under domain policies [9]. We borrow the distinction between emitting a plausible call and reaching a verified outcome. Our hidden worlds are deterministic, callbacks are local and read-only, and tasks have short horizons. The separate BFCL slice examines argument transfer. BoolQ supplies naturally occurring human yes/no questions; the Gardner et al. contrast set pairs an original question and a human edit with the same passage [10, 11]. Neither benchmark's aggregate leaderboard score can be inferred from this experiment.
+
+= Limitations and scope
+Public benchmark questions could have appeared in backbone pretraining. Exclusions and disjoint fine-tuning splits establish experiment-level separation. Synthetic worlds have a shared task generator, overlapping entity vocabularies and only a few linguistic constructions. Distinct function names test some schema transfer; the statistical unit is an episode conditional on a small number of domains. Correlation within a domain can make an item-level test optimistic. Single-device timing includes runtime and thermal variability. Peak MLX bytes omit some process and system memory. Adapter training consumes additional compute even when inference finishes sooner.
+
+The model is a conditional system. Its different routes have distinct training histories, including previously adapted language components. The catalog fits start from untouched Base. The independently registered typed-tool experiment uses the official instruction-tuned sibling and records that different initialization. Deployment-level improvements do not establish a positive derivative with respect to recurrent depth. A broad claim would require fresh user-selected tools with richer data types, independently authored multi-turn requests, longer policies, replication across seeds and hardware, and equal-training comparisons on those populations.
+
+= Reproducibility and evidence
+The supplement indexes registered studies and their archive SHA-256 inventories, including negative results and recovered sessions. Each tool record contains the initial IDs, subsequent prompt IDs, sampled IDs, timings, calls, observations and terminal status. The verifier reconstructs typed calls and hidden database values from the frozen worlds, reconstructs subsequent prompts and recomputes the endpoint. Figure sources are recorded in `figure-sources.json`. Build and replay commands accompany the manuscript.
+
+#pagebreak()
+= Sources and artifact guide
+[1] Qwen Team. Qwen3.5-0.8B-Base. #link("https://huggingface.co/Qwen/Qwen3.5-0.8B-Base/tree/dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68")[Pinned checkpoint and text configuration].
+
+[2] Weston et al. (2015). Towards AI-complete question answering. #link("https://arxiv.org/abs/1502.05698")[Paper]. Study IDs `native-induction-anchored-01`, `native-induction-anchored-replication-01`, `native-induction-class-swap-01` and their registered controls.
+
+[3] Sinha et al. (2019). CLUTRR, a diagnostic benchmark for inductive reasoning from text. #link("https://aclanthology.org/D19-1458/")[EMNLP-IJCNLP]. See `native-kinship-01` and `native-kinship-matched-01`.
+
+[4] Cobbe et al. (2021). Training verifiers to solve math word problems. #link("https://arxiv.org/abs/2110.14168")[Paper]. Williams et al. (2018). A broad-coverage challenge corpus for sentence understanding through inference. #link("https://aclanthology.org/N18-1101/")[NAACL]. Camburu et al. (2018). e-SNLI. #link("https://arxiv.org/abs/1812.01193")[Paper]. Patel et al. (2021). Are NLP models really able to solve simple math word problems? #link("https://aclanthology.org/2021.naacl-main.168/")[NAACL]. Study families `learned-exit`, `entailment-triplets` and `conditional-language`.
+
+[5] Dehghani et al. (2019). Universal Transformers. #link("https://arxiv.org/abs/1807.03819")[ICLR].
+
+[6] Geiping et al. (2025). Scaling up test-time compute with latent reasoning. #link("https://arxiv.org/abs/2502.05171")[Paper and model].
+
+[7] Hsieh et al. (2024). RULER. #link("https://arxiv.org/abs/2404.06654")[Paper]. Full-history study `conditional-language-128k`, standalone replay `native-language-release-02`.
+
+[8] Patil et al. (2025). The Berkeley Function Calling Leaderboard. #link("https://proceedings.mlr.press/v267/patil25a.html")[ICML]. The BFCL data are Apache-2.0. Our retained subset uses original questions, signatures and alternative argument values from revision `61fc0608cfd831fcfbbaa676ebdfef0ed963eeda`.
+
+[9] Yao et al. (2024). τ-bench. #link("https://arxiv.org/abs/2406.12045")[Paper].
+
+[10] Clark et al. (2019). BoolQ, exploring the surprising difficulty of natural yes/no questions. #link("https://aclanthology.org/N19-1300/")[NAACL].
+
+[11] Gardner et al. (2020). Evaluating models’ local decision boundaries via contrast sets. #link("https://aclanthology.org/2020.findings-emnlp.117/")[Findings of EMNLP].
+
+*Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

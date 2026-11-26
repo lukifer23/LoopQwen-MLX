@@ -62,7 +62,16 @@ class Assistant:
         self.language, self.tokenizer = load_export(directory)
         self._tool_model = None
 
-    def respond(self, question, tools=(), *, max_tokens=160, max_turns=4):
+    def respond(
+        self,
+        question,
+        tools=(),
+        *,
+        max_tokens=160,
+        max_turns=4,
+        progress=None,
+        reuse_prefix=False,
+    ):
         if tools:
             from .tool_session import run
 
@@ -75,15 +84,46 @@ class Assistant:
                 tools,
                 max_tokens=max_tokens,
                 max_turns=max_turns,
+                progress=progress,
+                reuse_prefix=reuse_prefix,
             )
         from .evaluation.generation_eval import generate
         from .tool_session import prompt
 
         text = prompt(self.tokenizer, [dict(role="user", content=question)])
-        return generate(
+        out = generate(
             self.language,
             self.tokenizer,
             text,
             max_tokens,
             stop_ids=[self.tokenizer.convert_tokens_to_ids("<|im_end|>")],
+            progress=progress,
+        )
+        ids = out["token_ids"]
+        turn = dict(
+            prompt_ids=self.tokenizer.encode(text, add_special_tokens=False),
+            token_ids=ids,
+            seconds=out["elapsed_s"],
+            ttft_s=out["ttft_s"],
+            peak_bytes=out["peak_bytes"],
+        )
+        answer = None
+        status = "token_limit"
+        if ids[-1] in {
+            *self.tokenizer.eos_token_ids,
+            self.tokenizer.convert_tokens_to_ids("<|im_end|>"),
+        }:
+            _, closed, visible = self.tokenizer.decode(ids[:-1]).partition("</think>")
+            if closed:
+                answer = visible.strip()
+                turn["visible"] = answer
+                status = "answered" if answer else "empty_answer"
+            else:
+                status = "unfinished_thinking"
+        return dict(
+            answer=answer,
+            status=status,
+            turns=[turn],
+            seconds=out["elapsed_s"],
+            context_route=out.get("context_route"),
         )
