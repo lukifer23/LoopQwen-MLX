@@ -1,0 +1,82 @@
+{
+  "archive": "29918bb4868966ad88ae5b666f64b72d3da93f1d8b0a506070e7941950ca9572",
+  "verification": {
+    "prompt": "The report lists eight samples. How many samples are there?",
+    "input_ids": [
+      [
+        760,
+        1830,
+        11140,
+        7810,
+        10156,
+        13,
+        2500,
+        1599,
+        10156,
+        513,
+        1017,
+        30
+      ]
+    ],
+    "logits_sha256": "71e0d18202a0e6959effbecc33836bbd4e5e3d39b05de75dbee4255fcf60d966",
+    "unique_parameters": 756444138,
+    "adapter_banks": 3,
+    "bank_logits": {
+      "register": "71e0d18202a0e6959effbecc33836bbd4e5e3d39b05de75dbee4255fcf60d966",
+      "ordinary": "6061baa565754b64008ce0aa8ad4e975f15b00d21689947ee38b7c018aa992f0",
+      "arithmetic": "e41211280bd0a8e9468713d1ee4a2213bc06a28927799fd1d4d3fd28feadaf26",
+      "entailment": "1b6a83ba73bd5cd7df34975da88c8bc7ec5a7a241182147febf3ad9ceda7f9fe"
+    },
+    "fresh_process_verified": true
+  },
+  "probes": [
+    {
+      "id": "ab620ce3e298e3a9b648d01eb9f64dc0b011c9f124a2f3db35f01fd31e16c998",
+      "route": "arithmetic",
+      "switched": false,
+      "input_tokens": 59,
+      "output_tokens": 259,
+      "elapsed_s": 3.7090987080009654
+    },
+    {
+      "id": "f8ebb179311255f5d0f989f50cb71cc3af5033d27e1e014702c4ea4d87256f47",
+      "route": "arithmetic",
+      "switched": true,
+      "input_tokens": 68,
+      "output_tokens": 714,
+      "elapsed_s": 10.797734708001371
+    },
+    {
+      "id": "a2621cd7c56ce93f419e1146041cbe941d71d7c862f4aa903c1727282443c3ba",
+      "route": "entailment",
+      "switched": false,
+      "input_tokens": 62,
+      "output_tokens": 11,
+      "elapsed_s": 0.24876941699767485
+    },
+    {
+      "id": "c5e3d1bdfe82f4ebb8f793d0a454d0cf448141376ae21d4e91470e5ac1aad6c7",
+      "route": "ordinary",
+      "switched": false,
+      "input_tokens": 71,
+      "output_tokens": 386,
+      "elapsed_s": 5.492426791024627
+    },
+    {
+      "id": "50cac23b0f02a298333e8ec84e5c2728a61b05cdcd0de8ddff66ade4bdb36b5c",
+      "route": "register",
+      "switched": false,
+      "input_tokens": 2054,
+      "output_tokens": 30,
+      "elapsed_s": 1.5543234999931883
+    },
+    {
+      "id": "3b5abe0c06f129a00c6335e7045991f5461052af7dc947da1d0d70bb2b5feb8a",
+      "route": "short_arithmetic",
+      "switched": false,
+      "input_tokens": 59,
+      "output_tokens": 33,
+      "elapsed_s": 0.6939194169826806
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "start": 1795653713.8453581,
+  "end": 1795656062.303766,
+  "jobs": [
+    {
+      "job": "conditional-language-02",
+      "seconds": 971.2610931396484,
+      "peak_bytes": 3523224050,
+      "start": 1795653722.415474
+    },
+    {
+      "job": "entailment-dense-01",
+      "seconds": 340.1910140514374,
+      "peak_bytes": 3539809004,
+      "start": 1795654704.082465
+    },
+    {
+      "job": "conditional-language-128k",
+      "seconds": 926.0344541072845,
+      "peak_bytes": 4635066876,
+      "start": 1795655049.1711628
+    }
+  ],
+  "total_native_seconds": 2237.4865612983704,
+  "wall_seconds": 2348.4584078788757,
+  "limits": {
+    "wall_seconds": 7200,
+    "native_seconds": 4500,
+    "iterations": 8,
+    "reassess_consecutive_failures": 3
+  },
+  "archives": {
+    "conditional-language-02": "29918bb4868966ad88ae5b666f64b72d3da93f1d8b0a506070e7941950ca9572",
+    "entailment-dense-01": "f54cc8c2210fec9264d964f0430370d839f21dbe59813dfc37f68ed24e727e5e",
+    "conditional-language-128k": "ba463d83923ff7ca6d47a74a30ca814701399824e44e4c004e895524a817ff2b"
+  },
+  "tests": "79 passed in 34.43s",
+  "export_verification": "bfbdd33558ba465c3e086e3b64e0947ba4f080678fe66b628b4b4e9f90736536",
+  "public_cli": "86f4047ca09b1ec76ba7bd730119d60d77c5cccb14fc1a1d7eb0bb181da9b6ce",
+  "reason": "All registered comparisons, independent semantic reviews, fixed-position full-history qualification, fresh standalone export checks and public CLI replay completed. No native job outstanding."
+}

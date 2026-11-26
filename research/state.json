@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "conditional-language-128k",
+  "active": null,
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -18,10 +18,11 @@
     "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model",
     "register_lookup_through_131078": "research/results/attention-memory-01/model",
     "word_problems_at_1024_vs_base": "research/results/learned-exit-01/model",
-    "human_entailment_vs_base": "research/results/entailment-triplets-01/model"
+    "human_entailment_vs_base": "research/results/entailment-triplets-01/model",
+    "mixed_language_and_register_through_131083": "research/results/conditional-language-02/model"
   },
-  "frontier": "Same learned exit won two independent full-budget pairs: 52/80 versus 46/80 strict, 58/80 versus 52/80 completed content, six paired wins, zero losses, 542.44 versus 592.24 seconds.",
-  "next": "native export and final regression suite",
+  "frontier": "55/80 vs 41/80 reviewed fresh mixed requests, 419.12 vs 536.26 s, zero observed paired losses. Raw language loss exactly preserved. Final full-history swap 2/2 vs 0/2 at 131083 input tokens. Equally trained dense controls tied the individual language specialists on final-answer accuracy.",
+  "next": null,
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -249,10 +250,17 @@
       "promoted": false,
       "scope": "Equal-exposure natural inference depth attribution",
       "reason": "Both trained models 85/120 and 15/40 complete triplets. K2 88/120 probes and 39.13s versus K1 91/120 and 31.92s. Three paired K2 wins and three losses; no extra-depth advantage."
+    },
+    {
+      "id": "conditional-language-128k",
+      "promoted": true,
+      "capacity": true,
+      "scope": "Verified fixed-position full-history key swap",
+      "reason": "Same combined checkpoint as the 80-request pair. 2/2 vs 0/2 at 131083 input tokens, correct values at 13098 and 98294 with every other token fixed. 524.50 vs 393.20 seconds, peak 4.32 GiB. Resident/disk preflight bit-identical output."
     }
   ],
-  "status": "Both matched-depth controls completed. Final full-history fixed-position test running after exact disk and resident preflight.",
-  "next_action": "Finish matched arithmetic attribution, then run the repaired 80-item combined model study, matched natural-inference attribution and qualifying full-history checks.",
+  "status": "Combined reasoning and full-history deployment verified and archived.",
+  "next_action": "The qualified checkpoint is available through native generate and its self-contained export.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
@@ -264,7 +272,9 @@
     "The 256-token advantage is on word problems from one trained lineage. General prose NLL increased by 0.00461.",
     "The deployed rationale adapter completed the full-context turn with an incorrect early ledger value.",
     "The supervised reader returned both correct 128K counterfactual values, but the requests share one synthetic filing register. Natural prose transfer scored 2/12 versus Base 4/12.",
-    "The 512-token recurrent switch won three full-budget arithmetic items and lost one across 48. Its mathematical-content gain was one and GSM8K tied. The natural reader scored 9/24 versus Base 10/24."
+    "The 512-token recurrent switch won three full-budget arithmetic items and lost one across 48. Its mathematical-content gain was one and GSM8K tied. The natural reader scored 9/24 versus Base 10/24.",
+    "The final model matched Base at 2/8 general reading answers. Its long-context retrieval was measured on two related synthetic prompts.",
+    "The trained K1 controls tied K2 on arithmetic and natural inference accuracy and ran faster. The final combined inference router used the specialist on 10 of 36 requests."
   ],
   "rejected": [
     "Frozen prefix cache failed gradient parity",
@@ -299,9 +309,10 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795650045.199389,
+  "closed_session_start": 1795653713.8453581,
   "native_window": {
     "start_utc": "2026-11-26T00:41:53.845358+00:00",
-    "status": "open"
+    "end_utc": "2026-11-26T01:21:02.303766+00:00",
+    "status": "closed"
   }
 }

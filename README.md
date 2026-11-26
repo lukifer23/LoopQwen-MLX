@@ -19,7 +19,7 @@ Consider this statement: People are planting flowers.
 Is the statement supported, contradicted, or left undecided by the information? Answer yes, no, or maybe in that order of meanings.'
 ```
 
-The self-contained native bundle shares the Base weights among three unmerged adapter banks and contains 756,444,138 unique parameters. To rebuild it from the checkpoint, run `.venv/bin/python -m loopqwen export --checkpoint research/results/conditional-language-02/model --output exports/conditional-language-02` in a checkout with the pinned Base weights. [Training and deployment](docs/TRAINING.md#learned-exit-and-natural-inference)
+The self-contained native bundle shares the Base weights among three unmerged adapter banks and contains 756,444,138 unique parameters. A fresh process reproduced each bank’s vocabulary logits, six archived generation paths reproduced their tokens, and the public CLI reproduced the example above. [Standalone replay evidence](docs/measurements/conditional-language-export.json) · [Public CLI output](docs/measurements/conditional-language-cli.json) To rebuild it from the checkpoint, run `.venv/bin/python -m loopqwen export --checkpoint research/results/conditional-language-02/model --output exports/conditional-language-02` in a checkout with the pinned Base weights. [Training and deployment](docs/TRAINING.md#learned-exit-and-natural-inference)
 
 ## Learned full-history retrieval
 
