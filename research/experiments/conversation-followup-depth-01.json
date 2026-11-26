@@ -1,0 +1,28 @@
+{
+  "id": "conversation-followup-depth-01",
+  "question": "On the independently qualified real-module follow-up workload, does repeating the final native Qwen layer improve fully grounded conversations versus its equally trained one-pass sibling?",
+  "requires": "research/results/conversation-followup-modules-01",
+  "prerequisite_sha256": "42be2cca678f13f53fd1ee1cf383b826f79876ed466dbb2d060cf5ed83012eaa",
+  "material": "research/data/conversation-followup-modules-01.json",
+  "resource": "module",
+  "trained_arms": [
+    "research/results/tool-dialogue-typed-01",
+    "research/results/tool-dialogue-typed-depth-01"
+  ],
+  "arm_hashes": [
+    "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+    "fb14a26a9ba668f26f996096f2ed76c90cf8b9e8dbf3c8adf9b4a39be2ae5f93"
+  ],
+  "max_tokens": 256,
+  "max_turns": 3,
+  "net_floor": 3,
+  "time_ratio": 1.15,
+  "peak_ratio": 1.02,
+  "protocol": "Replay the complete frozen module panel, explicit callback-equivalent scoring and identical conversation API. Restore original typed K2 and separately trained K1 using the exact same model-loading path, donor, eight-bit prefix, tokenizer, training seed, 1074 supervised turns, 53271 targets, 802816 parameters and 600 optimizer steps. Exclude checkpoint reconstruction from both arm timers; charge all user and callback turns, no prefix reuse. One trained layer at ordinary depth versus the same trained layer applied twice. Each model sees its actual prior messages. Recount both arm transcripts independently, require the K2 prompt, generated token, call and result streams to replay the independently qualified system exactly. This panel is reused for attribution, not fresh deployment evidence.",
+  "gate": "At least three net additional fully grounded dialogues, paired exact two-sided p<=.05, >=4/8 correct in each family, all previous K2 trajectories identical, total warm elapsed time <=1.15 times K1 and peak warmed MLX memory <=1.02 times K1. Stop at the enrolled items or budget. A miss closes the depth claim for this tool behavior; a pass licenses fresh tools before a broader attribution claim.",
+  "limits": {
+    "wall_seconds": 230,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  }
+}
