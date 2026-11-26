@@ -133,6 +133,7 @@ def write(temp, gen, model, t, state):
         "input_ids": [ids],
         "logits_sha256": logits["recurrent"],
         "unique_parameters": count,
+        "adapter_banks": len(views) - 1,
     }
     if policy:
         audit["bank_logits"] = {
@@ -163,4 +164,5 @@ def write(temp, gen, model, t, state):
         "modules": 0,
         "parameters": count,
         "format": "shared-base-and-native-adapters",
+        "adapter_banks": audit["adapter_banks"],
     }
