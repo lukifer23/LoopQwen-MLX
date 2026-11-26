@@ -63,15 +63,17 @@ def audit(study, annotations=None):
             i for i, r in enumerate(panel) if family == "all" or r["family"] == family
         ]
         ds = [int(flags["candidate"][i]) - int(flags["base"][i]) for i in idx]
-        scores[family] = dict(
-            n=len(idx),
-            wins=ds.count(1),
-            losses=ds.count(-1),
-            correct={arm: sum(v[i] for i in idx) for arm, v in flags.items()},
-        )
-    return dict(
-        archive=digest(root / "checksums.json"), reviewed=len(blind), scores=scores
-    )
+        scores[family] = {
+            "n": len(idx),
+            "wins": ds.count(1),
+            "losses": ds.count(-1),
+            "correct": {arm: sum(v[i] for i in idx) for arm, v in flags.items()},
+        }
+    return {
+        "archive": digest(root / "checksums.json"),
+        "reviewed": len(blind),
+        "scores": scores,
+    }
 
 
 if __name__ == "__main__":

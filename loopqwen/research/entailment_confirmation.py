@@ -57,14 +57,14 @@ def run(name, freeze):
     root = core.OUT / name
     root.mkdir(parents=True, exist_ok=False)
     b = core.Budget(name, s["limits"])
-    result = dict(
-        passed=False,
-        registration=digest(reg),
-        data=digest(panel),
-        weights=s["weights"],
-        qualification=s["qualification"],
-        training=digest(entailment.TRAIN),
-    )
+    result = {
+        "passed": False,
+        "registration": digest(reg),
+        "data": digest(panel),
+        "weights": s["weights"],
+        "qualification": s["qualification"],
+        "training": digest(entailment.TRAIN),
+    }
     try:
         scores, ret = entailment.evaluate(s, rows, s["model"], s["weights"], b, root)
         result.update(

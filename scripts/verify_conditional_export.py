@@ -68,20 +68,20 @@ def main():
         ):
             raise ValueError("The export changed an archived deployment response")
         probes.append(
-            dict(
-                id=row["id"],
-                route=route,
-                switched=switched,
-                input_tokens=len(row["prompt_ids"]),
-                output_tokens=len(val["token_ids"]),
-                elapsed_s=val["elapsed_s"],
-            )
+            {
+                "id": row["id"],
+                "route": route,
+                "switched": switched,
+                "input_tokens": len(row["prompt_ids"]),
+                "output_tokens": len(val["token_ids"]),
+                "elapsed_s": val["elapsed_s"],
+            }
         )
-    result = dict(
-        archive=digest(archived / "checksums.json"),
-        verification=read(local / "verification.json"),
-        probes=probes,
-    )
+    result = {
+        "archive": digest(archived / "checksums.json"),
+        "verification": read(local / "verification.json"),
+        "probes": probes,
+    }
     args.output.parent.mkdir(exist_ok=True, parents=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n")
 

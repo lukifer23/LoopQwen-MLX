@@ -91,10 +91,10 @@ def combined(first, repeat, original_annotations, repeat_annotations):
         r["premise"].casefold() for r in q
     ):
         raise ValueError("Pooled premise clusters overlap")
-    return dict(
-        studies=[first, repeat],
-        scores=summarize(p + q, {arm: a[arm] + b[arm] for arm in a}),
-    )
+    return {
+        "studies": [first, repeat],
+        "scores": summarize(p + q, {arm: a[arm] + b[arm] for arm in a}),
+    }
 
 
 if __name__ == "__main__":

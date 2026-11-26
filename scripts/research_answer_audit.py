@@ -6,9 +6,9 @@ import json
 from pathlib import Path
 
 from loopqwen.evaluation.answers import numeric
+from loopqwen.evaluation.statistics import exact_mcnemar
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read
-from loopqwen.evaluation.statistics import exact_mcnemar
 
 
 def material(study):
@@ -118,13 +118,13 @@ def combined(first, confirmation, initial_annotations, final_annotations):
             pairs = group[key]
             wins = pairs.count([True, False])
             losses = pairs.count([False, True])
-            group[key] = dict(
-                candidate=sum(c for c, _ in pairs),
-                base=sum(b for _, b in pairs),
-                wins=wins,
-                losses=losses,
-                paired_p=exact_mcnemar(wins, losses),
-            )
+            group[key] = {
+                "candidate": sum(c for c, _ in pairs),
+                "base": sum(b for _, b in pairs),
+                "wins": wins,
+                "losses": losses,
+                "paired_p": exact_mcnemar(wins, losses),
+            }
     return {"studies": [first, confirmation], "scores": grouped}
 
 

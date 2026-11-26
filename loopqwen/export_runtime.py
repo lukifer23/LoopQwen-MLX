@@ -31,10 +31,12 @@ def load_export(directory):
     model = LoopedModel(base, Span(**cfg["span"]))
     if cfg.get("export_schema") in (4, 5):
         import hashlib
+
         from mlx.utils import tree_flatten
-        from .training.adapters import attach
+
         from .attention_memory import load_reader
         from .context_policy import attach as attach_context
+        from .training.adapters import attach
 
         label = "context-policy" if cfg["export_schema"] == 4 else "deliberation"
         metadata = directory / (label + ".json")

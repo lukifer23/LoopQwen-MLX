@@ -45,7 +45,7 @@ def material(s):
     if (
         len({r["id"] for r in rows}) != len(rows)
         or [r["prompt_ids"] for r in rows] != [r["prompt_ids"] for r in expected]
-        or set(r["id"] for r in rows).intersection(r["id"] for r in pool)
+        or {r["id"] for r in rows}.intersection(r["id"] for r in pool)
     ):
         raise ValueError("Unpaired attribution cohort")
     return primary, pool, drafts, extra, rows, expected
@@ -64,7 +64,7 @@ def run():
     root = core.OUT / NAME
     root.mkdir(parents=True, exist_ok=False)
     b = core.Budget(NAME, s["limits"])
-    result = dict(registration=digest(REG), data=fingerprint(rows), passed=False)
+    result = {"registration": digest(REG), "data": fingerprint(rows), "passed": False}
     try:
         m, t, state = load_trained(s["initial_dense"])
         if m.span.passes != 1:
@@ -89,14 +89,14 @@ def run():
         bootstrap.release(gen, root / "model")
         w = digest(gen / "adapters.safetensors")
         learned_exit.fit_readout(primary, m, traces, core.atom(t, "</think>"), b, root)
-        policy = dict(
-            version=2,
-            revision=REVISION,
-            finisher_depth=1,
-            switch_after=primary["switch_after"],
-            adapter_sha256=w,
-            readout_sha256=digest(root / "model/exit-readout.safetensors"),
-        )
+        policy = {
+            "version": 2,
+            "revision": REVISION,
+            "finisher_depth": 1,
+            "switch_after": primary["switch_after"],
+            "adapter_sha256": w,
+            "readout_sha256": digest(root / "model/exit-readout.safetensors"),
+        }
         save(root / "model/deliberation.json", policy)
         nt = sum(x["targets"] for x in st["history"])
         if nt != reference["targets"] or st["step"] != reference["updates"]:

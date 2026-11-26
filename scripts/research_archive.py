@@ -812,8 +812,8 @@ def verify_system(root, decision):
 
 
 def verify_exit_attribution(root, decision):
-    from loopqwen.identity import fingerprint
     from loopqwen.evaluation.statistics import exact_mcnemar
+    from loopqwen.identity import fingerprint
 
     s = read(root / "registration.json")
     info = s["expert"]
@@ -917,12 +917,12 @@ def verify_exit_attribution(root, decision):
         summary = {}
         for arm, runs in results.items():
             val = [runs[i] for i in idx]
-            summary[arm] = dict(
-                correct=sum(r["correct"] for r in val),
-                valid=sum(r["answer"] is not None for r in val),
-                seconds=sum(r["seconds"] for r in val),
-                tokens=sum(len(r["token_ids"]) for r in val),
-            )
+            summary[arm] = {
+                "correct": sum(r["correct"] for r in val),
+                "valid": sum(r["answer"] is not None for r in val),
+                "seconds": sum(r["seconds"] for r in val),
+                "tokens": sum(len(r["token_ids"]) for r in val),
+            }
         delta = [
             int(results["recurrent"][i]["correct"])
             - int(results["dense"][i]["correct"])
