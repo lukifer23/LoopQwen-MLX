@@ -161,6 +161,37 @@ def verify(root, decision, read, sha, require, number):
             and u["probe"] >= v["probe"] + reg["probe_floor"]
             and u["seconds"] <= reg["time_ratio"] * v["seconds"]
         )
+    if "pairs" in reg:
+        counts = {}
+        for arm in arms:
+            pairs = {}
+            for r, item in zip(outputs[arm], data, strict=True):
+                pairs.setdefault(item["pair"], []).append((r, item))
+            require(len(pairs) == reg["pairs"], "Invalid intervention count")
+            for group in pairs.values():
+                (u, x), (v, y) = group
+                positions = [
+                    i
+                    for i, (a0, b0) in enumerate(
+                        zip(x["prompt_ids"], y["prompt_ids"], strict=True)
+                    )
+                    if a0 != b0
+                ]
+                require(
+                    x["question"] == y["question"]
+                    and x["answer"] != y["answer"]
+                    and len(positions) == 2
+                    and positions == x["changed_positions"] == y["changed_positions"]
+                    and [x["prompt_ids"][i] for i in positions]
+                    == [y["prompt_ids"][i] for i in reversed(positions)],
+                    "Not a controlled token permutation",
+                )
+            counts[arm] = sum(
+                all(v[0]["correct"] for v in pair) for pair in pairs.values()
+            )
+        x, y = counts.values()
+        require(decision["both_correct"] == counts, "Wrong paired reassignments")
+        passed &= x >= reg["pair_floor"] and x - y >= reg["pair_net"]
     require(passed == decision["passed"], "Incorrect promotion decision")
 
 

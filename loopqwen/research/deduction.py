@@ -33,7 +33,12 @@ WORDS = ("cat", "mouse", "wolf", "sheep")
 def load_material(s, freeze):
     panel = Path(s.get("material", PANEL))
     if freeze:
-        rows = deduction_data.material(s)
+        if "pairs" in s:
+            from .deduction_counterfactual import material
+
+            rows = material(s)
+        else:
+            rows = deduction_data.material(s)
         if panel.exists() and read(panel) != rows:
             raise ValueError("Frozen stories differ")
         if not panel.exists():
@@ -276,6 +281,18 @@ def run(name, freeze=False):
             and a["probe"] >= c["probe"] + s["probe_floor"]
             and a["seconds"] <= c["seconds"] * s["time_ratio"],
         )
+        if "pairs" in s:
+            pair_counts = {}
+            for arm, records in zip(s["arms"], paths, strict=True):
+                pairs = {}
+                for item, record in zip(rows, records, strict=True):
+                    pairs.setdefault(item["pair"], []).append(record["correct"])
+                if len(pairs) != s["pairs"] or any(len(v) != 2 for v in pairs.values()):
+                    raise ValueError("Incomplete pair inventory")
+                pair_counts[arm] = sum(all(v) for v in pairs.values())
+            a, b_control = pair_counts.values()
+            res["both_correct"] = pair_counts
+            res["passed"] &= a >= s["pair_floor"] and a - b_control >= s["pair_net"]
     except (TimeoutError, MemoryError, InterruptedError) as exc:
         res.update(status="interrupted", reason=str(exc))
     finally:

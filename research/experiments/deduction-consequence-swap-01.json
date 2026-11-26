@@ -1,0 +1,53 @@
+{
+  "id": "deduction-consequence-swap-01",
+  "question": "With the person, question and entire token multiset held fixed, does the learned recurrent model change the answer to track a reassigned consequence more reliably than the matched trained one-read control?",
+  "seed": 791291,
+  "sizes": {
+    "train": 240,
+    "primary": 56,
+    "replication": 56
+  },
+  "rank": 64,
+  "updates": 1200,
+  "batch": 32,
+  "fit_seed": 418,
+  "lr": 0.001,
+  "support_weight": 0.7,
+  "arms": {
+    "recurrent": {
+      "depth": 2,
+      "reader": "research/results/deduction-regions-01"
+    },
+    "dense": {
+      "depth": 1,
+      "reader": "research/results/deduction-matched-01"
+    }
+  },
+  "panel": "intervention",
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "Select 32 previously unscored official stories from the failed terminal reader\u2019s untouched confirmation reservation in hash order. Within each, exchange two distinct rule consequence words. Require exactly two swapped single-token positions and a different gold answer. No model outputs used in creating the interventions. Alternate original and swapped order, same free-thinking greedy decoder and score all 64 answers and both members of each pair.",
+  "gate": "Require usual matched gates of eight net answers, four net probes, paired p<.05 and <=1.5x control seconds. Additionally require >=26/32 complete pairs and at least seven more complete pairs than matched single read. No fitting. Stop on warning or budget.",
+  "limits": {
+    "wall_seconds": 380,
+    "peak_gib": 5,
+    "available_gib": 1.5
+  },
+  "architecture": "pooled",
+  "material": "research/data/deduction-consequence-swap-01.json",
+  "exclude_test": [
+    "research/data/deduction-stories-01.json"
+  ],
+  "lexical_weight": 5,
+  "requires": "deduction-bypass-01",
+  "prerequisite_sha256": "188f50c4200163ae269b907f6153ebd23f3a4186c5b3927898e2b26dafaad4de",
+  "reader_weights": {
+    "recurrent": "9667af183a94eeebc5342ae4591b5e9027cf4c459cf0a3a966e21757959c9844",
+    "dense": "73d8befe980d3cd8b6e86f273f72619412bdc5bbd42a001143ce67a2525318d0"
+  },
+  "pairs": 32,
+  "pair_floor": 26,
+  "pair_net": 7
+}
