@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("cache-language-"):
+        from loopqwen.research.cache_language import verify as verify_cache_language
+
+        verify_cache_language(root, decision)
     if study.startswith("tool-language-release-"):
         from scripts.tool_release import verify as verify_tool_release
 
