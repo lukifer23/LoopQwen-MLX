@@ -35,6 +35,13 @@ def add_arguments(p, checkpoint=None):
     p.add_argument(
         "--table", help="Name of the one database table exposed to the assistant"
     )
+    p.add_argument(
+        "--resource",
+        action="append",
+        choices=("calendar", "zone", "unicode", "distribution"),
+        default=[],
+        help="Expose both read-only properties of a local resource. Can be repeated.",
+    )
     p.add_argument("--prompt", required=True)
     p.add_argument(
         "--follow-up",
@@ -75,6 +82,11 @@ def respond(args, parser):
             from .package_tools import tools as packages
 
             supplied.extend(packages())
+        if args.resource:
+            from .resource_tools import tools as local_tools
+
+            for family in dict.fromkeys(args.resource):
+                supplied.extend(local_tools(family))
         if args.database:
             import sqlite3
 
@@ -84,7 +96,9 @@ def respond(args, parser):
             db = resources.enter_context(closing(sqlite3.connect(uri, uri=True)))
             supplied.append(database_tool(db, args.table))
         if not supplied:
-            parser.error("Select a catalog, calculator, packages or a database table")
+            parser.error(
+                "Select a resource, catalog, calculator, packages or a database table"
+            )
         assistant = Assistant(args.checkpoint, tool_adapter=args.tool_adapter)
         options = {
             "max_tokens": args.max_tokens,

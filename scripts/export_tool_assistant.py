@@ -168,6 +168,7 @@ def export(
             "calculator_tool.py",
             "table_tool.py",
             "package_tools.py",
+            "resource_tools.py",
             "tool_cli.py",
             "reserved_cache.py",
             "evaluation/generation_eval.py",

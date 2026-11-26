@@ -1,64 +1,18 @@
 """Score changes of requested property on actual calendar, time-zone, Unicode and package data."""
 
 import re
-import sysconfig
-import unicodedata
-from datetime import date, datetime
+from datetime import date
 from importlib.metadata import PackageNotFoundError, distributions
-from zoneinfo import ZoneInfo
 
-from ..tool_session import Tool
+from ..resource_tools import (
+    OPERATIONS,
+    installed_distribution,
+    read_value,
+    site_packages,
+)
+from ..resource_tools import tools as resource_tools
 from . import executable_tools, program_questions
 from .statistics import exact_mcnemar
-
-# Every operation in a pair accepts the same arguments. The caller supplies the
-# exposed names and order. Values come from the live provider during inference.
-OPERATIONS = {
-    "calendar": (
-        ("weekday_number", "ISO weekday number from Monday (1) to Sunday (7)."),
-        ("day_of_year", "One-based ordinal day within the calendar year."),
-    ),
-    "zone": (
-        (
-            "utc_offset_minutes",
-            "Time zone's total offset east of UTC in minutes at local noon.",
-        ),
-        ("daylight_minutes", "Minutes contributed by daylight saving at local noon."),
-    ),
-    "unicode": (
-        ("character_name", "Official Unicode name of the character."),
-        ("general_category", "Two-letter Unicode general category of the character."),
-    ),
-    "distribution": (
-        ("installed_version", "Installed software distribution version string."),
-        (
-            "number_of_files",
-            "Number of entries in the installed distribution's file inventory.",
-        ),
-    ),
-}
-ARGUMENTS = {
-    "calendar": {"date": "Local date in ISO YYYY-MM-DD format."},
-    "zone": {
-        "zone": "IANA time zone identifier.",
-        "date": "Local date in ISO YYYY-MM-DD format.",
-    },
-    "unicode": {"character": "A single Unicode character."},
-    "distribution": {"distribution": "Installed Python distribution name."},
-}
-
-
-def site_packages():
-    return list(dict.fromkeys(sysconfig.get_path(k) for k in ("purelib", "platlib")))
-
-
-def installed_distribution(name):
-    # An adjacent source checkout may contain an egg-info directory. Only the
-    # environment's installed files belong to this provider.
-    package = next(distributions(name=name, path=site_packages()), None)
-    if package is None:
-        raise PackageNotFoundError(name)
-    return package
 
 
 def installed_inventory():
@@ -75,30 +29,6 @@ def installed_inventory():
         package = installed_distribution(name)
         result[name] = [package.version, len(package.files or ())]
     return result
-
-
-def read_value(family, index, kwargs):
-    if family == "calendar":
-        day = date.fromisoformat(kwargs["date"])
-        return day.isoweekday() if index == 0 else day.timetuple().tm_yday
-    if family == "zone":
-        day = date.fromisoformat(kwargs["date"])
-        value = datetime(
-            day.year, day.month, day.day, 12, tzinfo=ZoneInfo(kwargs["zone"])
-        )
-        delta = value.utcoffset() if index == 0 else value.dst()
-        return int(delta.total_seconds() / 60)
-    if family == "unicode":
-        character = kwargs["character"]
-        return (
-            unicodedata.name(character)
-            if index == 0
-            else unicodedata.category(character)
-        )
-    if family == "distribution":
-        package = installed_distribution(kwargs["distribution"])
-        return package.version if index == 0 else len(package.files or ())
-    raise ValueError("Unknown resource family")
 
 
 def same_resource(family, supplied, expected):
@@ -121,38 +51,19 @@ def same_resource(family, supplied, expected):
 
 
 def tools_for(row, replay):
-    family = row["family"]
-    properties = {
-        k: {"type": "string", "description": v} for k, v in ARGUMENTS[family].items()
-    }
-    schema = dict(
-        type="object",
-        properties=properties,
-        required=list(properties),
-        additionalProperties=False,
+    def lookup(family, index, kwargs):
+        if replay and family == "distribution":
+            from packaging.utils import canonicalize_name
+
+            name = canonicalize_name(kwargs["distribution"])
+            if name not in replay:
+                raise PackageNotFoundError(name)
+            return replay[name][index]
+        return read_value(family, index, kwargs)
+
+    return resource_tools(
+        row["family"], names=row["names"], order=row["order"], lookup=lookup
     )
-
-    def callback(index):
-        def lookup(**kwargs):
-            if replay and family == "distribution":
-                # Preserve the full enrolled environment, including a model's wrong lookup.
-
-                from packaging.utils import canonicalize_name
-
-                name = canonicalize_name(kwargs["distribution"])
-                if name not in replay:
-                    raise PackageNotFoundError(name)
-                value = replay[name][index]
-            else:
-                value = read_value(family, index, kwargs)
-            return {"value": value}
-
-        return lookup
-
-    return [
-        Tool(row["names"][i], OPERATIONS[family][i][1], schema, callback(i))
-        for i in row["order"]
-    ]
 
 
 def workload(material, replay=False):
