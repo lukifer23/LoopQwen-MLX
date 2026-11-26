@@ -315,6 +315,9 @@ def main():
     from paper_panels import generate
 
     generate(PAPER, RESULTS, result, finish)
+    from paper_raw import make as plot_raw
+
+    plot_raw(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"
