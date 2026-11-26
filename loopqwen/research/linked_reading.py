@@ -2,13 +2,13 @@
 
 import argparse
 import gc
-from pathlib import Path
 import random
+from pathlib import Path
 from time import perf_counter
 
 import mlx.core as mx
-import mlx.nn as nn
 import mlx.optimizers as optim
+from mlx import nn
 from mlx.utils import tree_flatten
 from mlx_lm.utils import load_tokenizer
 
@@ -90,17 +90,17 @@ def fit(net, model, tok, spec, root, budget):
     mx.save_safetensors(str(path), weights)
     save(
         root / "fit.json",
-        dict(
-            weights=digest(path),
-            training=digest(Path(spec["training"])),
-            trainable=sum(v.size for v in weights.values()),
-            updates=spec["updates"],
-            depth=spec["depth"],
-            shared_gradient_norms=norms,
-            loss=history,
-            prepare_seconds=prepared,
-            optimizer_seconds=perf_counter() - at - prepared,
-        ),
+        {
+            "weights": digest(path),
+            "training": digest(Path(spec["training"])),
+            "trainable": sum(v.size for v in weights.values()),
+            "updates": spec["updates"],
+            "depth": spec["depth"],
+            "shared_gradient_norms": norms,
+            "loss": history,
+            "prepare_seconds": prepared,
+            "optimizer_seconds": perf_counter() - at - prepared,
+        },
     )
 
 
@@ -166,10 +166,13 @@ def run(name):
                     start, end, length = locate(
                         tok, text, w["titles"][j], w["articles"][j]
                     )
-                    section = dict(
-                        start=start, stop=end, gain=spec["gain"], length=length
-                    )
-                    evidence = dict(first=first, second=second, section=section)
+                    section = {
+                        "start": start,
+                        "stop": end,
+                        "gain": spec["gain"],
+                        "length": length,
+                    }
+                    evidence = {"first": first, "second": second, "section": section}
                     view = FocusedDecoder(model, section)
                 selected_at = perf_counter()
                 out = generate(
@@ -183,20 +186,20 @@ def run(name):
                 seconds = perf_counter() - at
                 ids = out["token_ids"]
                 rows.append(
-                    dict(
-                        id=w["id"],
-                        prompt_ids=tok.encode(text, add_special_tokens=False),
-                        ids=ids,
-                        selected=chosen,
-                        evidence=evidence,
-                        score=grade(tok, ids, w["gold"]),
-                        seconds=seconds,
-                        selection_seconds=selected_at - at,
-                        decoder_ttft=out["ttft_s"],
-                        generation_seconds=out["elapsed_s"],
-                        ttft=selected_at - at + out["ttft_s"],
-                        peak=mx.get_peak_memory(),
-                    )
+                    {
+                        "id": w["id"],
+                        "prompt_ids": tok.encode(text, add_special_tokens=False),
+                        "ids": ids,
+                        "selected": chosen,
+                        "evidence": evidence,
+                        "score": grade(tok, ids, w["gold"]),
+                        "seconds": seconds,
+                        "selection_seconds": selected_at - at,
+                        "decoder_ttft": out["ttft_s"],
+                        "generation_seconds": out["elapsed_s"],
+                        "ttft": selected_at - at + out["ttft_s"],
+                        "peak": mx.get_peak_memory(),
+                    }
                 )
                 del view
                 if len(rows) % 8 == 0:
@@ -264,9 +267,12 @@ def verify(root, decision):
                 assert r["selected"] == pick(e["first"], e["second"])
                 i = r["selected"][-1]
                 a, b, n = locate(tok, text, w["titles"][i], w["articles"][i])
-                assert e["section"] == dict(
-                    start=a, stop=b, length=n, gain=spec["gain"]
-                )
+                assert e["section"] == {
+                    "start": a,
+                    "stop": b,
+                    "length": n,
+                    "gain": spec["gain"],
+                }
             else:
                 assert r["selected"] == [] and r["evidence"] == {}
     assert outcome(data, items, spec) == decision

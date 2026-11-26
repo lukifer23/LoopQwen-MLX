@@ -184,8 +184,9 @@ def test_followup_reuses_real_observations_without_replaying_callbacks():
     reason="Requires the physical tool export",
 )
 def test_cli_followup_reuses_real_observation_and_prompt(tmp_path):
-    from loopqwen.tool_session import initial_messages, prompt
     from mlx_lm.utils import load_tokenizer
+
+    from loopqwen.tool_session import initial_messages, prompt
 
     first = "What version of the Python distribution mlx is installed in this environment? Use the available tool."
     follow = "Repeat the version number from that result."
@@ -209,8 +210,9 @@ def test_cli_followup_reuses_real_observation_and_prompt(tmp_path):
         text=True,
         **child_lease(),
     )
-    from loopqwen.tool_session import compact
     from importlib.metadata import version
+
+    from loopqwen.tool_session import compact
 
     tok = load_tokenizer(BUNDLE)
     a, b = json.loads(output)["exchanges"]
@@ -221,14 +223,17 @@ def test_cli_followup_reuses_real_observation_and_prompt(tmp_path):
         if "observation" in t:
             history.extend(
                 [
-                    dict(role="assistant", content=t["visible"]),
-                    dict(role="tool", content=compact(t["observation"])),
+                    {"role": "assistant", "content": t["visible"]},
+                    {"role": "tool", "content": compact(t["observation"])},
                 ]
             )
             observed.append(t["observation"])
     assert {"version": version("mlx")} in observed
     history.extend(
-        [dict(role="assistant", content=a["answer"]), dict(role="user", content=follow)]
+        [
+            {"role": "assistant", "content": a["answer"]},
+            {"role": "user", "content": follow},
+        ]
     )
     assert b["turns"][0]["prompt_ids"] == tok.encode(
         prompt(tok, history), add_special_tokens=False

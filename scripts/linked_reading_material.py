@@ -1,9 +1,10 @@
 """Freeze new ten-document human reasoning questions with disjoint support titles."""
 
+from bridge_reading_material import canonical, enroll
 from mlx_lm.utils import load_tokenizer
+
 from loopqwen.io import read, save
 from loopqwen.model_loader import local_snapshot
-from bridge_reading_material import canonical, enroll
 
 
 def main():

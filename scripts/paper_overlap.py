@@ -69,7 +69,7 @@ def audit(train, held, mask):
     worst = 0.0
     for q in queries:
         qg = shingle(q)
-        indices = set(i for g in qg for i in posting.get(g, []))
+        indices = {i for g in qg for i in posting.get(g, [])}
         best = max(
             (len(grams[i] & qg) / len(grams[i] | qg) for i in indices), default=0.0
         )
@@ -174,8 +174,9 @@ def build():
 
 
 def reading_sensitivity():
-    from loopqwen.evaluation.mechanism import unpack
     from contrast_study import summarize
+
+    from loopqwen.evaluation.mechanism import unpack
 
     with (ROOT / "paper/reading-overlap-sensitivity.csv").open("w") as handle:
         w = csv.writer(handle)

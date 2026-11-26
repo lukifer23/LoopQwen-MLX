@@ -7,8 +7,8 @@ from pathlib import Path
 from time import perf_counter
 
 import mlx.core as mx
-import mlx.nn as nn
 import mlx.optimizers as optim
+from mlx import nn
 from mlx.utils import tree_flatten
 from mlx_lm.utils import load_tokenizer
 

@@ -1,7 +1,7 @@
 """Learn column, operation and literal pointers with a shared native Qwen layer."""
 
 import mlx.core as mx
-import mlx.nn as nn
+from mlx import nn
 
 from .evidence_loop import unit
 from .operand_planner import LAYER, adapted_attention_layer

@@ -90,12 +90,12 @@ def direct_outcome(rows, items, costs, policy):
 
 def outcome(spec, rows, items):
     costs = {
-        name: dict(
-            ttft=sum(r["ttft_s"] for r in rs),
-            seconds=sum(r["elapsed_s"] for r in rs),
-            peak=max(r["peak_bytes"] for r in rs),
-            correct=sum(r["correct"] for r in rs),
-        )
+        name: {
+            "ttft": sum(r["ttft_s"] for r in rs),
+            "seconds": sum(r["elapsed_s"] for r in rs),
+            "peak": max(r["peak_bytes"] for r in rs),
+            "correct": sum(r["correct"] for r in rs),
+        }
         for name, rs in rows.items()
     }
     policy = spec.get("attention_policy", "reserved")
@@ -159,18 +159,18 @@ def outcome(spec, rows, items):
                 and s["offset"] == consumed
                 for s in sites
             )
-    return dict(
-        passed=bool(
+    return {
+        "passed": bool(
             exact
             and c["correct"] == len(items)
             and c["ttft"] <= spec["ratio"] * b["ttft"]
             and c["seconds"] <= spec.get("elapsed_ratio", 1) * b["seconds"]
             and c["peak"] <= spec.get("peak_ratio", 1) * b["peak"]
         ),
-        exact=exact,
-        metrics=costs,
-        items=len(items),
-    )
+        "exact": exact,
+        "metrics": costs,
+        "items": len(items),
+    }
 
 
 def verify(root, decision):

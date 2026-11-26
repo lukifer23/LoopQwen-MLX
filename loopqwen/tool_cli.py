@@ -77,6 +77,7 @@ def respond(args, parser):
             supplied.extend(packages())
         if args.database:
             import sqlite3
+
             from .table_tool import database_tool
 
             uri = args.database.resolve().as_uri() + "?mode=ro"
@@ -85,11 +86,11 @@ def respond(args, parser):
         if not supplied:
             parser.error("Select a catalog, calculator, packages or a database table")
         assistant = Assistant(args.checkpoint, tool_adapter=args.tool_adapter)
-        options = dict(
-            max_tokens=args.max_tokens,
-            max_turns=args.max_turns,
-            reuse_prefix=args.reuse_prefix,
-        )
+        options = {
+            "max_tokens": args.max_tokens,
+            "max_turns": args.max_turns,
+            "reuse_prefix": args.reuse_prefix,
+        }
         if args.follow_up:
             prompts = [args.prompt, *args.follow_up]
             if any(not text.strip() for text in prompts):

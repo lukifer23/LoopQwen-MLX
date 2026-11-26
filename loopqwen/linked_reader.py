@@ -1,11 +1,12 @@
 """A shared Qwen layer follows learned relations between caller-supplied passages."""
 
-from collections import Counter
-from math import log
 import re
+from collections import Counter
+from itertools import pairwise
+from math import log
 
 import mlx.core as mx
-import mlx.nn as nn
+from mlx import nn
 
 from .evidence_loop import unit
 from .operand_planner import adapted_attention_layer
@@ -16,7 +17,7 @@ class Terms:
         words = re.findall(r"[^\W_]+", text.casefold())
         self.terms = set(words)
         self.text = " " + " ".join(words) + " "
-        self.pairs = set(zip(words, words[1:]))
+        self.pairs = set(pairwise(words))
 
 
 def links(question, titles, articles):
@@ -77,6 +78,10 @@ def features(model, tok, question, titles, articles):
 class LinkedReader(nn.Module):
     def __init__(self, model, rank=64, passes=2):
         super().__init__()
+        if passes not in (1, 2):
+            raise ValueError(
+                "The document reader supports one or two native applications"
+            )
         self.passes = passes
         self.layer = adapted_attention_layer(model)
         width = model.args.hidden_size
@@ -87,42 +92,33 @@ class LinkedReader(nn.Module):
         self.query = nn.Linear(width, rank)
         self.link_score = nn.Linear(rank, 1)
 
+    def read(self, prior, query, relation):
+        context = (0.2 * self.expand(mx.tanh(prior + relation))).astype(mx.bfloat16)
+        hidden = mx.concatenate([context, query], axis=1)
+        # The native short-query kernel has no training VJP below this length.
+        # Mask every padding key, in both training and inference.
+        n = hidden.shape[1]
+        pad = max(0, 16 - n)
+        mask = mx.where(mx.arange(n + pad) < n, 0.0, -1e9).astype(hidden.dtype)
+        hidden = self.layer(
+            mx.pad(hidden, ((0, 0), (0, pad), (0, 0))), mask=mask[None, None, None, :]
+        )
+        query = hidden[:, n - 1 : n]
+        keys = unit(self.key(unit(hidden[:, : n - 1])))
+        score = (keys * unit(self.query(unit(query)))).mean(-1) * 8
+        return query, score
+
     def __call__(self, values, edges):
         embedding = self.project(values.astype(mx.float32))
         prior = embedding[:, :-1]
         query = (0.2 * self.expand(mx.tanh(embedding[:, -1:]))).astype(mx.bfloat16)
         edge = mx.tanh(self.relation(edges))
-        relation = edge[:, 0]
-        scores = []
-        # Both depths see the same edge tensors and supervise the same two labels.
-        # At K=1 the second decision reuses the one-pass states.
-        for hop in range(2):
-            if hop < self.passes:
-                context = (0.2 * self.expand(mx.tanh(prior + relation))).astype(
-                    mx.bfloat16
-                )
-                hidden = mx.concatenate([context, query], axis=1)
-                # This layer reads only the supplied passages and question. Pad one
-                # inert position beyond the native short-query differentiation cutoff.
-                n = hidden.shape[1]
-                pad = max(0, 16 - n)
-                mask = mx.where(mx.arange(n + pad) < n, 0.0, -1e9).astype(hidden.dtype)
-                hidden = self.layer(
-                    mx.pad(hidden, ((0, 0), (0, pad), (0, 0))),
-                    mask=mask[None, None, None, :],
-                )
-                query = hidden[:, n - 1 : n]
-                keys = unit(self.key(unit(hidden[:, : n - 1])))
-            query_state = unit(self.query(unit(query)))
-            score = (keys * query_state).mean(-1) * 8 + self.link_score(relation)[
-                ..., 0
-            ]
-            if hop:
-                score = score + mx.log(mx.maximum(1.0 - attention, 1e-5))
-            scores.append(score)
-            if not hop:
-                attention = mx.softmax(score, axis=-1)
-                relation = (attention[:, :, None, None] * edge[:, 1:]).sum(1) + edge[
-                    :, 0
-                ]
-        return tuple(scores)
+        direct = edge[:, 0]
+        query, semantic = self.read(prior, query, direct)
+        first = semantic + self.link_score(direct)[..., 0]
+        attention = mx.softmax(first, axis=-1)
+        relation = (attention[:, :, None, None] * edge[:, 1:]).sum(1) + direct
+        if self.passes == 2:
+            _, semantic = self.read(prior, query, relation)
+        second = semantic + self.link_score(relation)[..., 0]
+        return first, second + mx.log(mx.maximum(1.0 - attention, 1e-5))
