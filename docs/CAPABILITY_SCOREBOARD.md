@@ -15,6 +15,10 @@ The packed release reproduced 512 next-token decisions and 512 losses after cons
 
 An outside-checkout replay uncovered a difference between shipped and research inference on the 131,084-token pair. Release 03 and the first compact bundle selected the correct spans but returned 876667 twice. Their bundled evidence mask omitted the packed cache class. Both book streams, 12 short outputs and two live tool calls matched. The compact candidate failed its release gate. [Qualification and transcripts](../research/results/packed-release-retention-02) · [Completed repair](../research/results/packed-release-retention-03)
 
+## Required arguments in actual conversations
+
+The state-supervised two-pass model solved 32/54 requests versus 0/54 for Base in 54.86 versus 348.35 s. On the 22 public calls it retained all 17 earlier successes and added three. The missing-input test exposed a separate failure. It asked for the missing argument on 5/16 requests and called prematurely on 9/16. All four complete-and-missing pairs it solved involved files. It solved no complete pair in the time-zone domain. Peak allocation was 1.09 versus 1.66 GiB and accumulated first-token time was 7.25 versus 6.48 s. [Grounded decisions and trained weights](../research/results/dialogue-state-fields-01) · [Each call, answer and real follow-up](../paper/dialogue-state-conversations.csv)
+
 ## Learned tool selection and language transfer
 
 | Measured comparison | Recurrent candidate | Untouched Base |

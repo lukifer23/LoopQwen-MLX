@@ -164,7 +164,9 @@ def plot_conversations(paper, results, result, finish, name, prefix, candidate_l
                 "anchors",
                 "candidate_pairs",
                 "base_pairs",
-                "all_files_cluster_randomization_p",
+                "all_files_cluster_randomization_p"
+                if prefix == "action-preference"
+                else "all_resources_cluster_randomization_p",
             ]
         )
         for document, counts in sorted(document_totals.items()):

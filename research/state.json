@@ -775,7 +775,7 @@
     {
       "id": "session-tokenizer-01",
       "promoted": true,
-      "scope": "How much of the qualified assistant’s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
+      "scope": "How much of the qualified assistant\u2019s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
       "decision": "research/results/session-tokenizer-01/decision.json"
     },
     {
@@ -843,6 +843,11 @@
       "promoted": true,
       "scope": "Does delivering the same additive evidence mask to actual packed KV attention restore both 131K answers that release 03 got wrong, while retaining its original medium and short outputs and accelerating each long decode?",
       "decision": "research/results/packed-release-retention-03/decision.json"
+    },
+    {
+      "id": "dialogue-state-fields-01",
+      "promoted": false,
+      "reason": "32/54 grounded vs 0/54, retained all 17 public successes and added 3. Four of 16 whole live pairs, 5/16 targeted questions with 9 premature calls and slower summed first tokens closed deployment."
     }
   ],
   "status": "The qualified 131K offline assistant is release 04. Active research compares field clarification, free language modeling, combined reasoning and tool use, trained document search and complete Git-tree retrieval under their registered stop rules.",
