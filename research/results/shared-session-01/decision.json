@@ -1,0 +1,372 @@
+{
+  "passed": false,
+  "groups": {
+    "all": {
+      "candidate": {
+        "n": 120,
+        "success": 67,
+        "answer": 76,
+        "completed": 111,
+        "grounded": 26,
+        "seconds": 90.43865550396731,
+        "first": 15.870576419867575,
+        "peak": 1794675678,
+        "tokens": 7007
+      },
+      "control": {
+        "n": 120,
+        "success": 50,
+        "answer": 59,
+        "completed": 75,
+        "grounded": 1,
+        "seconds": 472.51849754329305,
+        "first": 13.63947517221095,
+        "peak": 1805315554,
+        "tokens": 32080
+      },
+      "gains": 36,
+      "losses": 19,
+      "p": 0.030028945411892494,
+      "cluster_p": 0.030028945411892494
+    },
+    "fresh": {
+      "candidate": {
+        "n": 48,
+        "success": 29,
+        "answer": 29,
+        "completed": 47,
+        "grounded": 0,
+        "seconds": 25.13060691888677,
+        "first": 3.3364092537085526,
+        "peak": 1164344878,
+        "tokens": 2253
+      },
+      "control": {
+        "n": 48,
+        "success": 38,
+        "answer": 38,
+        "completed": 44,
+        "grounded": 0,
+        "seconds": 157.8123099571094,
+        "first": 3.278996208216995,
+        "peak": 1778813922,
+        "tokens": 10867
+      },
+      "gains": 4,
+      "losses": 13,
+      "p": 0.049041748046875,
+      "cluster_p": 0.049041748046875
+    },
+    "arithmetic": {
+      "candidate": {
+        "n": 10,
+        "success": 10,
+        "answer": 10,
+        "completed": 10,
+        "grounded": 0,
+        "seconds": 8.922099583083764,
+        "first": 0.9544117910554633,
+        "peak": 1164361454,
+        "tokens": 807
+      },
+      "control": {
+        "n": 10,
+        "success": 3,
+        "answer": 3,
+        "completed": 3,
+        "grounded": 0,
+        "seconds": 44.5045709599508,
+        "first": 0.8943894180119969,
+        "peak": 1778568162,
+        "tokens": 3052
+      },
+      "gains": 7,
+      "losses": 0,
+      "p": 0.015625,
+      "cluster_p": 0.015625
+    },
+    "database": {
+      "candidate": {
+        "n": 12,
+        "success": 2,
+        "answer": 2,
+        "completed": 7,
+        "grounded": 2,
+        "seconds": 12.927178626996465,
+        "first": 1.5447413749643601,
+        "peak": 1164538798,
+        "tokens": 1080
+      },
+      "control": {
+        "n": 12,
+        "success": 0,
+        "answer": 1,
+        "completed": 2,
+        "grounded": 0,
+        "seconds": 67.27619279309874,
+        "first": 1.39889208402019,
+        "peak": 1779372386,
+        "tokens": 4573
+      },
+      "gains": 2,
+      "losses": 0,
+      "p": 0.5,
+      "cluster_p": 0.5
+    },
+    "file": {
+      "candidate": {
+        "n": 8,
+        "success": 8,
+        "answer": 8,
+        "completed": 8,
+        "grounded": 8,
+        "seconds": 3.619995001005009,
+        "first": 0.6719772930373438,
+        "peak": 1143089710,
+        "tokens": 230
+      },
+      "control": {
+        "n": 8,
+        "success": 1,
+        "answer": 1,
+        "completed": 1,
+        "grounded": 1,
+        "seconds": 41.52073720697081,
+        "first": 0.6680832089623436,
+        "peak": 1750882018,
+        "tokens": 2862
+      },
+      "gains": 7,
+      "losses": 0,
+      "p": 0.015625,
+      "cluster_p": 0.015625
+    },
+    "judgment": {
+      "candidate": {
+        "n": 24,
+        "success": 14,
+        "answer": 14,
+        "completed": 24,
+        "grounded": 0,
+        "seconds": 2.461236082832329,
+        "first": 1.7174564187880605,
+        "peak": 1164344878,
+        "tokens": 96
+      },
+      "control": {
+        "n": 24,
+        "success": 18,
+        "answer": 18,
+        "completed": 23,
+        "grounded": 0,
+        "seconds": 74.29716574808117,
+        "first": 1.6395702892332338,
+        "peak": 1778813922,
+        "tokens": 5080
+      },
+      "gains": 2,
+      "losses": 6,
+      "p": 0.2890625,
+      "cluster_p": 0.2890625
+    },
+    "math": {
+      "candidate": {
+        "n": 24,
+        "success": 15,
+        "answer": 15,
+        "completed": 23,
+        "grounded": 0,
+        "seconds": 22.66937083605444,
+        "first": 1.618952834920492,
+        "peak": 1098235374,
+        "tokens": 2157
+      },
+      "control": {
+        "n": 24,
+        "success": 20,
+        "answer": 20,
+        "completed": 21,
+        "grounded": 0,
+        "seconds": 83.51514420902822,
+        "first": 1.6394259189837612,
+        "peak": 1670617798,
+        "tokens": 5787
+      },
+      "gains": 2,
+      "losses": 7,
+      "p": 0.1796875,
+      "cluster_p": 0.1796875
+    },
+    "package": {
+      "candidate": {
+        "n": 10,
+        "success": 0,
+        "answer": 9,
+        "completed": 10,
+        "grounded": 0,
+        "seconds": 9.135446417087223,
+        "first": 0.7900139180128463,
+        "peak": 1164422702,
+        "tokens": 657
+      },
+      "control": {
+        "n": 10,
+        "success": 0,
+        "answer": 0,
+        "completed": 3,
+        "grounded": 0,
+        "seconds": 50.747782793070655,
+        "first": 0.7330418759956956,
+        "peak": 1750245350,
+        "tokens": 3493
+      },
+      "gains": 0,
+      "losses": 0,
+      "p": 1.0,
+      "cluster_p": 1.0
+    },
+    "public": {
+      "candidate": {
+        "n": 22,
+        "success": 16,
+        "answer": 16,
+        "completed": 20,
+        "grounded": 16,
+        "seconds": 17.024825207947288,
+        "first": 2.245680998021271,
+        "peak": 1165797934,
+        "tokens": 1299
+      },
+      "control": {
+        "n": 22,
+        "success": 0,
+        "answer": 8,
+        "completed": 12,
+        "grounded": 0,
+        "seconds": 83.00408962502843,
+        "first": 2.0918042099219747,
+        "peak": 1783171042,
+        "tokens": 5634
+      },
+      "gains": 16,
+      "losses": 0,
+      "p": 3.0517578125e-05,
+      "cluster_p": 3.0517578125e-05
+    },
+    "reading": {
+      "candidate": {
+        "n": 10,
+        "success": 2,
+        "answer": 2,
+        "completed": 9,
+        "grounded": 0,
+        "seconds": 13.678503748960793,
+        "first": 6.327341791067738,
+        "peak": 1794675678,
+        "tokens": 681
+      },
+      "control": {
+        "n": 10,
+        "success": 8,
+        "answer": 8,
+        "completed": 10,
+        "grounded": 0,
+        "seconds": 27.65281420806423,
+        "first": 4.574268167081755,
+        "peak": 1805315554,
+        "tokens": 1599
+      },
+      "gains": 0,
+      "losses": 6,
+      "p": 0.03125,
+      "cluster_p": 0.03125
+    }
+  },
+  "historically_correct_now_lost": {
+    "field": [
+      "5ab6aa4c55429953192ad359",
+      "5a86399e5542994775f60733",
+      "5adfed5e55429942ec259b92",
+      "sql-wikisql-test-5991",
+      "5ab84bab55429934fafe6d49",
+      "5ae60426554299546bf83019",
+      "5a74872655429979e2882978"
+    ],
+    "public": [
+      "exec_simple_1"
+    ]
+  },
+  "routes": {
+    "reasoning": 73,
+    "parent_evidence": 1,
+    "tool": 46
+  },
+  "router_validation": {
+    "False": 1.0,
+    "True": 1.0
+  },
+  "native": {
+    "shared_bytes": 817093316,
+    "combined_bytes": 824302792,
+    "ids": [
+      2235,
+      11,
+      13358,
+      23384,
+      314,
+      12945,
+      5392,
+      13,
+      2500,
+      1599,
+      9378,
+      314,
+      12945,
+      5392,
+      1503,
+      1292,
+      599,
+      30,
+      198,
+      33963,
+      279,
+      1534,
+      23311,
+      4087,
+      13,
+      248046,
+      198,
+      248045,
+      74455,
+      198,
+      248068,
+      198
+    ],
+    "views": {
+      "reasoning": {
+        "weights": 820304580,
+        "layers": 24,
+        "calls": 25,
+        "full": 4699,
+        "incremental": 4699,
+        "max_logit_error": 0.375,
+        "offsets": [
+          32,
+          32
+        ]
+      },
+      "tool": {
+        "weights": 820304580,
+        "layers": 24,
+        "calls": 25,
+        "full": 248069,
+        "incremental": 248069,
+        "max_logit_error": 0.375,
+        "offsets": [
+          32,
+          32
+        ]
+      }
+    }
+  }
+}
