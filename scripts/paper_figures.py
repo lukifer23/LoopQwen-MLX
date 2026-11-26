@@ -357,6 +357,7 @@ def main():
     from paper_passages import make as plot_passages
     from paper_folded import make as plot_folded
     from paper_draft_program import make as plot_draft_program
+    from paper_preferences import make as plot_preferences
     from paper_meaning import make as plot_meaning
     from paper_intents import make as plot_intents
 
@@ -365,6 +366,7 @@ def main():
     plot_passages(PAPER, RESULTS, result, finish)
     plot_meaning(PAPER, RESULTS, result, finish)
     plot_draft_program(PAPER, RESULTS, result, finish)
+    plot_preferences(PAPER, RESULTS, result, finish)
     plot_folded(PAPER, RESULTS, result, finish)
     plot_intents(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)

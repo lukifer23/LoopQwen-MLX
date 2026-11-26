@@ -1,0 +1,110 @@
+"""Plot both sides of file clarification and export every answer and actual action."""
+
+import csv
+
+import matplotlib.pyplot as plt
+
+from loopqwen.evaluation.mechanism import unpack
+from loopqwen.io import digest, read
+from loopqwen.tool_session import compact
+
+
+def make(paper, results, result, finish):
+    name = "action-preference-01"
+    root = results / name
+    if not (root / "checksums.json").is_file():
+        return
+    d = result(name)
+    inventory = read(root / "checksums.json")
+    panel = read(read(root / "registration.json")["material"])["rows"]
+    with (paper / "action-preference-conversations.csv").open("w") as f:
+        out = csv.writer(f)
+        out.writerow(
+            [
+                "id",
+                "anchor",
+                "source",
+                "kind",
+                "arm",
+                "user_messages",
+                "answers",
+                "callbacks_per_exchange",
+                "statuses",
+                "asked_for_missing",
+                "premature_call",
+                "exact_final",
+                "grounded_success",
+                "seconds",
+                "sum_first_token_s",
+                "peak_bytes",
+            ]
+        )
+        for side in ("candidate", "control"):
+            path = root / (side + ".json.gz")
+            assert digest(path) == inventory[path.name]
+            for w, r in zip(panel, unpack(path), strict=True):
+                assert w["id"] == r["id"]
+                xs = r["exchanges"]
+                s = r["score"]
+                events = [
+                    [
+                        {"call": t.get("call"), "observation": t.get("observation")}
+                        for t in x["turns"]
+                        if "call" in t
+                    ]
+                    for x in xs
+                ]
+                out.writerow(
+                    [
+                        r["id"],
+                        w.get("anchor"),
+                        w.get("domain", "BFCL"),
+                        w["kind"],
+                        side,
+                        compact(w["users"]),
+                        compact([x["answer"] for x in xs]),
+                        compact(events),
+                        compact([x["status"] for x in xs]),
+                        s["asked"],
+                        s["premature"],
+                        s["exact"],
+                        s["success"],
+                        r["seconds"],
+                        r["first"],
+                        r["peak"],
+                    ]
+                )
+    fig, ax = plt.subplots(figsize=(6.7, 2.45))
+    labels = [
+        "Both file variants",
+        "Fully specified",
+        "Asked for missing input",
+        "Completed after follow-up",
+        "Public numerical calls",
+    ]
+    for side, offset, marker, color, label in (
+        ("candidate", -0.10, "o", "#146558", "Preference-trained"),
+        ("control", 0.10, "s", "#99552d", "Base"),
+    ):
+        g = d["groups"]
+        nums = [
+            sum(d["pairs"][side]),
+            g["complete"][side]["success"],
+            g["missing"][side]["asked"],
+            g["missing"][side]["success"],
+            g["public"][side]["success"],
+        ]
+        ax.scatter(
+            [100 * n / z for n, z in zip(nums, (16, 16, 16, 16, 22), strict=True)],
+            [i + offset for i in range(5)],
+            s=34,
+            marker=marker,
+            color=color,
+            label=label,
+        )
+    ax.set_yticks(range(5), labels)
+    ax.invert_yaxis()
+    ax.set_xlim(-4, 104)
+    ax.set_xlabel("Share of all enrolled requests or pairs (%)")
+    ax.legend(loc="lower left", bbox_to_anchor=(0, 1), ncol=2, frameon=False)
+    finish(fig, "action-preference")

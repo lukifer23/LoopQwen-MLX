@@ -88,6 +88,15 @@ def write(paper, results, result):
             "correct_answer",
         ),
         (
+            "action-preference-01",
+            "Preference-trained tools",
+            "grounded",
+            54,
+            "candidate",
+            "control",
+            "success",
+        ),
+        (
             "folded-system-01",
             "Single folded backbone",
             "mixed",

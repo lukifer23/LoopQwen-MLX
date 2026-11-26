@@ -307,4 +307,10 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 
 [38] Bae et al. (2025). Relaxed recursive transformers, effective parameter sharing with layer-wise LoRA. #link("https://proceedings.iclr.cc/paper_files/paper/2025/hash/54d6a55225cebbdc16fbb0e45c5bdf2b-Abstract-Conference.html")[ICLR].
 
+[39] NVIDIA. When2Call, preference training data for tool use. #link("https://huggingface.co/datasets/nvidia/When2Call/tree/0582f7749df63a96fdc3070932e83e72396ace53")[Pinned data, CC BY 4.0].
+
+[40] Rafailov et al. (2023). Direct preference optimization, your language model is secretly a reward model. #link("https://arxiv.org/abs/2305.18290")[NeurIPS].
+
+[41] Horst, Hill and Gorman. Palmer Penguins, observations from Palmer Station LTER. #link("https://allisonhorst.github.io/palmerpenguins/")[Publisher and original data].
+
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].
