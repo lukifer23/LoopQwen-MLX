@@ -1,0 +1,19 @@
+{
+  "id": "register-packed-direct-full-01",
+  "question": "Can the qualified 8-bit native page decoder beat ordinary Base in accuracy, first-token time, complete request time and peak bytes on a new physical 131K key swap?",
+  "requires": "research/results/register-packed-direct-pilot-01",
+  "prerequisite_sha256": "b76298c3cf93566f6d8a37bb1dfb78f74e41edc83a39a3e6203409aca36545af",
+  "material": "research/data/register-packed-direct-full-01.json",
+  "seed": 9124203,
+  "attention_policy": "direct_pages",
+  "control": "base",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "max_tokens": 96,
+  "protocol": "Freeze the first eligible equal-width swap starting at seed 9124203 without model inference. Both inputs retain numeric values at the identical token positions. Cold arm reconstruction before each request; AB then BA. Native BF16 dense ordinary Base versus the unchanged qualifying two-pass register decoder with preallocated 8-bit KV, selected interior pages and direct quantized products in dense eight-query tiles. Both arms consume identical IDs, thinking-enabled prompts and greedy 96-token generation. Measure every physical site, packed codes, affine parameters, exact reserved capacity, dense tile counts, causal pair counts, correct answers, TTFT, elapsed and peak. Distinct documents and answers from the earlier BF16 direct trial.",
+  "gate": "Both answers exactly right, more than Base; strictly lower aggregate TTFT and elapsed, at most Base peak MLX bytes, verified physical full history and consumed positions at all eight vs six actual sites. Any miss closes deployment of the packed page policy. A pass licenses a separate natural-prose likelihood and short-output retention audit before any routing promotion.",
+  "limits": {
+    "wall_seconds": 1320,
+    "peak_gib": 7.0,
+    "available_gib": 1.4
+  }
+}
