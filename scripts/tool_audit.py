@@ -43,7 +43,10 @@ def verify(root, decision, read, sha, require):
             calls = []
             answer = None
             status = "turn_limit"
-            require(1 <= len(traj["turns"]) <= spec["max_turns"], "Turn allocation")
+            require(
+                1 <= len(traj["turns"]) <= w.get("turn_cap", spec["max_turns"]),
+                "Turn allocation",
+            )
             for i, t in enumerate(traj["turns"]):
                 require(
                     t["prompt_ids"]

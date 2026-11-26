@@ -119,6 +119,7 @@ def workload(spec, *, replay=False):
                 user_request=r["question"][0][0]["content"] + external.INSTRUCTION
                 if r["provider"] == "bfcl_exec"
                 else r["question"],
+                turn_cap=3 if r["provider"] == "bfcl_exec" else spec["max_turns"],
             )
             for r in material["rows"]
         ]
@@ -219,7 +220,7 @@ def main(name):
                     tok,
                     row["user_request"],
                     catalog(row),
-                    max_turns=spec["max_turns"],
+                    max_turns=row.get("turn_cap", spec["max_turns"]),
                     stop_at_turn_end=spec.get("stop_at_turn_end", False),
                     max_tokens=row.get("generation_cap", spec["max_tokens"]),
                     progress=lambda _: budget.check(),
