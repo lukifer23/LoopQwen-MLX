@@ -13,6 +13,12 @@ from .core import Budget
 from .registered import registered
 
 
+def package_trace(prior, spec):
+    if spec.get("source_trace") == "packed_release":
+        return records(prior / "candidate.json.gz")[0]["tool"]
+    return records(prior / "portable.json.gz")
+
+
 def outcome(spec, report):
     return dict(
         passed=report["bytes"] <= spec["raw_ratio"] * report["raw_bytes"]
@@ -23,8 +29,9 @@ def outcome(spec, report):
     )
 
 
-def verify(root, decision):
-    spec = read(root / "registration.json")
+def verify(root, decision, spec=None):
+    if spec is None:
+        spec = read(root / "registration.json")
     r = read(root / "report.json")
     prior = Path(spec["requires"])
     expected = read(prior / "export-files.json")
@@ -38,8 +45,7 @@ def verify(root, decision):
     from scripts.tool_release import tokens
 
     assert r["identical"] == (restored == orig) and r["offline_parity"] == (
-        tokens(records(root / "portable.json.gz"))
-        == tokens(records(prior / "portable.json.gz"))
+        tokens(records(root / "portable.json.gz")) == tokens(package_trace(prior, spec))
     )
     assert (
         r["raw_bytes"] == sum(read(root / "sizes.json").values())
@@ -59,11 +65,25 @@ def run(name):
         or not read(prior / "decision.json")["passed"]
     ):
         raise ValueError("Unqualified transport source")
-    budget = Budget(name, spec["limits"])
     target = Path(spec["destination"])
     out.mkdir(parents=True, exist_ok=True)
+    if target.exists():
+        report = out / "report.json"
+        if not report.exists() or digest(target) != read(report)["sha256"]:
+            raise FileExistsError(target)
+        decision = outcome(spec, read(report))
+        if not decision["passed"]:
+            raise ValueError("A published archive requires a passing transport receipt")
+        verify(out, decision, spec)
+        save(out / "decision.json", decision)
+        return
+    budget = Budget(name, spec["limits"])
     try:
         original = read(src / INVENTORY)
+        if original != read(prior / "export-files.json"):
+            raise ValueError(
+                "The source bundle differs from the qualified file inventory"
+            )
         original[INVENTORY] = digest(src / INVENTORY)
         sizes = {k: (src / k).stat().st_size for k in original}
         with TemporaryDirectory(dir=src.parent) as tmp:
@@ -92,7 +112,7 @@ def run(name):
             from scripts.tool_release import portable, tokens
 
             test = portable(restored, "mlx")
-            expected = records(prior / "portable.json.gz")
+            expected = package_trace(prior, spec)
             packed(out / "portable.json.gz", test)
             report = dict(
                 bytes=packed_path.stat().st_size,
