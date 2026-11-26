@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "evidence-language-release-01",
+  "active": "science-composition-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -19,9 +19,10 @@
     "register_lookup_through_131078": "research/results/attention-memory-01/model",
     "word_problems_at_1024_vs_base": "research/results/learned-exit-01/model",
     "human_entailment_vs_base": "research/results/entailment-triplets-01/model",
-    "mixed_language_and_register_through_131083": "research/results/conditional-language-02/model"
+    "mixed_language_and_register_through_131083": "research/results/conditional-language-02/model",
+    "combined_deduction_and_128k": "research/results/evidence-language-release-01/model"
   },
-  "frontier": "55/80 vs 41/80 reviewed fresh mixed requests, 419.12 vs 536.26 s, zero observed paired losses. Raw language loss exactly preserved. Final full-history swap 2/2 vs 0/2 at 131083 input tokens. Equally trained dense controls tied the individual language specialists on final-answer accuracy.",
+  "frontier": "Learned evidence reads 112/112 vs matched single read 68/112. Retaining both evidence reads but skipping the repeated six pretrained layers tied at 56/56. Shipped default preserves 80 mixed responses and raw NLL and gets 2/2 at 131083 inputs.",
   "next": null,
   "completed": [
     {
@@ -308,7 +309,7 @@
     }
   ],
   "status": "Verifying combined deployment and human-authored science transfer.",
-  "next_action": "Finish the 768-token Base replay, isolate the native span, and run the integrated deployment and public science comparisons.",
+  "next_action": "Evaluate human science questions and isolate native Qwen recurrence on separate three-fact induction stories.",
   "hypothesis": "A question-directed second read can follow a subject-to-rule link that an ordinary single read misses.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
