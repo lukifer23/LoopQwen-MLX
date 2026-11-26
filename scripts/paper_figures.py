@@ -205,6 +205,7 @@ def training_lineage():
                 "selective-raw-01",
                 "passage-copy-01",
                 "meaning-alignment-01",
+                "draft-program-01",
             }
             if not additional and ("turns" not in fit or "weights" not in fit):
                 continue
@@ -220,6 +221,7 @@ def training_lineage():
                     "selective-raw-01": "raw excerpt",
                     "passage-copy-01": "answer passage",
                     "meaning-alignment-01": "sentence pair",
+                    "draft-program-01": "word problem",
                 }[root.name]
             targets = fit.get("targets", fit.get("seen"))
             writer.writerow(
@@ -344,6 +346,7 @@ def main():
     from paper_raw import make as plot_raw
     from paper_raw import selective
     from paper_passages import make as plot_passages
+    from paper_draft_program import make as plot_draft_program
     from paper_meaning import make as plot_meaning
     from paper_intents import make as plot_intents
 
@@ -351,6 +354,7 @@ def main():
     selective(PAPER, RESULTS, result, finish)
     plot_passages(PAPER, RESULTS, result, finish)
     plot_meaning(PAPER, RESULTS, result, finish)
+    plot_draft_program(PAPER, RESULTS, result, finish)
     plot_intents(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
     from paper_table import make as table_actions
