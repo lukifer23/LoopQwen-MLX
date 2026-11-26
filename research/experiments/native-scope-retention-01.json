@@ -1,0 +1,21 @@
+{
+  "id": "native-scope-retention-01",
+  "material": "research/data/native-induction-anchored-01.json",
+  "prior": "research/results/evidence-language-release-01",
+  "new": "research/results/native-language-release-01",
+  "prerequisites": {
+    "evidence-language-release-01": "d46940aa8d72fc65286507837a0831debe451ec0598f0335a65f57b46ca7a699",
+    "native-language-release-01": "d341723012dc35927da68a22702d89cbea792cf12bb5a5cb05483f3348a76677"
+  },
+  "stories_per_panel": 16,
+  "generation_replays": 9,
+  "generation_cap": 192,
+  "question": "Does adding the native induction reader change the prior deployed routes or answers when the identical story asks for an animal kind, existence or count instead of a color?",
+  "protocol": "Use the first 16 original primary and 16 original confirmation stories, three deterministic alternative questions for each. Preserve every ordered premise on each alternative, ask both deployed checkpoints using identical greedy thinking input and 192-token limit. Check all 96 route decisions and actually decode the first nine paired prompts and the first route mismatch. Require exact output ID parity on these requests and preserve both generation times. Nothing is fitted.",
+  "gate": "Zero route changes across 96 negative intents and zero token differences on the first nine paired generations. Stop at the first change after saving both real responses, a memory warning or deadline.",
+  "limits": {
+    "wall_seconds": 320,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  }
+}
