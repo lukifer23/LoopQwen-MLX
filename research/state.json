@@ -1,13 +1,13 @@
 {
-  "session_start_utc": "2026-11-26T02:36:45.403171+00:00",
-  "starting_revision": "c3eced3",
+  "session_start_utc": "2026-11-26T03:31:32.156134+00:00",
+  "starting_revision": "f94da96",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "native-induction-class-swap-01",
+  "active": "native-induction-long-control-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -356,6 +356,54 @@
       "promoted": true,
       "scope": "Do three actual native Qwen transformer applications beat a separately trained one-pass model at equal supervision?",
       "decision": "research/results/native-induction-anchored-matched-01/decision.json"
+    },
+    {
+      "id": "native-induction-anchored-replication-01",
+      "promoted": true,
+      "scope": "Does the unchanged native recurrent advantage repeat over the matched one-pass control on entirely separate stories?",
+      "decision": "research/results/native-induction-anchored-replication-01/decision.json"
+    },
+    {
+      "id": "native-induction-anchored-bypass-01",
+      "promoted": true,
+      "scope": "Does disabling two native layer applications, holding every trained tensor fixed, remove the reasoning gain?",
+      "decision": "research/results/native-induction-anchored-bypass-01/decision.json"
+    },
+    {
+      "id": "native-induction-anchored-longbase-01",
+      "promoted": true,
+      "scope": "Does the native loop beat untouched Qwen Base on the confirmation stories with an identical 768-token generation allowance?",
+      "decision": "research/results/native-induction-anchored-longbase-01/decision.json"
+    },
+    {
+      "id": "native-language-release-01",
+      "promoted": true,
+      "scope": "Does one standalone 128K-capable model execute the qualified native layer loop and reproduce all previous language, deduction and full-history results?",
+      "decision": "research/results/native-language-release-01/decision.json"
+    },
+    {
+      "id": "native-scope-retention-01",
+      "promoted": false,
+      "scope": "Does adding the native induction reader change the prior deployed routes or answers when the identical story asks for an animal kind, existence or count instead of a color?",
+      "decision": "research/results/native-scope-retention-01/decision.json"
+    },
+    {
+      "id": "native-induction-anchored-seed2-01",
+      "promoted": true,
+      "scope": "Does the effect of three native layer applications reproduce after independently reinitializing and training both depths?",
+      "decision": "research/results/native-induction-anchored-seed2-01/decision.json"
+    },
+    {
+      "id": "native-language-release-02",
+      "promoted": true,
+      "scope": "Can a separate learned question-intent decision prevent the observed unrelated-route regression while retaining every qualified native-loop result in the 128K standalone export?",
+      "decision": "research/results/native-language-release-02/decision.json"
+    },
+    {
+      "id": "native-induction-class-swap-01",
+      "promoted": true,
+      "scope": "Does changing the queried person's class, while holding the question and complete token multiset fixed, change the native loop's conclusion correctly?",
+      "decision": "research/results/native-induction-class-swap-01/decision.json"
     }
   ],
   "status": "Running preregistered native reasoning and attribution comparisons.",
@@ -409,9 +457,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795658401.2757702,
+  "closed_session_start": 1795660605.403171,
   "native_window": {
-    "start_utc": "2026-11-26T02:36:45.403171+00:00",
+    "start_utc": "2026-11-26T03:31:32.156134+00:00",
     "status": "open"
   }
 }
