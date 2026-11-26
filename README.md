@@ -61,17 +61,19 @@ Use `ask --compare-base` to try your own questions on the installed assistant an
   --resource calendar --prompt "Which ISO weekday is 2032-02-29?" --compare-base
 ```
 
+In a two-turn leap-day example, the opt-in intent adapter used `weekday_number` and `day_of_year` to answer **7** and **60** for February 29, 2032. Base reached 384 tokens on both turns. The opening prompt was identical and the follow-up inherited each model’s prior exchange. Recurrent request times, including the first cold load, were 1.29 and 0.54 s, against 6.35 and 5.51 s. Both recurrent first tokens took slightly longer. [Actual command, full generated IDs and callback receipts](docs/measurements/user-calendar-comparison.json)
+
 Add one or more `--follow-up "…"` arguments to keep a conversation open across successive requests. The command reports each reply and the live callbacks it used. Python callers can hold `chat = assistant.conversation(tools)` and call `chat.respond(text)` when the next user message arrives.
 
 The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database data.sqlite --table records` for a read-only table, and `--calculator` for exact arithmetic. With `--trace` the response includes every token, submitted argument, callback result and turn time. For custom tools, create a `Tool(name, description, parameters, callback)` and pass it to `Assistant(directory).respond(question, tools)`. The [package example](examples/local_packages.py) uses the Python environment of the running process.
 
 ### Restore the offline assistant
 
-The earlier qualified `tool-language-01` assistant has a 1,544,018,439-byte lossless archive, 22.68% smaller than ordinary ZIP of the same files. Verified restoration took 7.85 seconds and reproduced the original package-version call in an isolated interpreter. From the repository root, use an unused destination directory. [Archive receipt and SHA-256](research/results/transport-lossless-01)
+The current packed assistant ships locally as `exports/tool-language-packed-03.lqzip`, **1,544,032,264 bytes**. It is 22.68% smaller than ordinary ZIP of the same payload. Verified restoration took 7.07 s. All 63 files and the isolated package-query output matched. The archive SHA-256 is `02ddce5dee22cd193829a430f5d51af5b460a61394f1572bd0d3cb5334ba38ce`. From the repository root, restore into an unused directory. [Release receipt](research/results/transport-lossless-02) · [Earlier assistant transport](research/results/transport-lossless-01)
 
 ```sh
-.venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-01.lqzip exports/restored-tool-language-01
-.venv/bin/python -m loopqwen tools --checkpoint exports/restored-tool-language-01 --packages --prompt "What version of mlx is installed? Use the tool."
+.venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-packed-03.lqzip exports/restored-tool-language-packed-03
+.venv/bin/python -m loopqwen tools --checkpoint exports/restored-tool-language-packed-03 --packages --prompt "What version of mlx is installed? Use the tool."
 ```
 
 ### Experimental raw-language checkpoint

@@ -94,6 +94,9 @@ The field-performance figure compares complete request time and correctness on t
 | `-m loopqwen.research.linked_reading` | Directed evidence relations and actual ten-document HotpotQA answers |
 | `-m loopqwen.research.passage_copy` | Learned vocabulary and copy probabilities on complete human reading passages |
 | `-m loopqwen.research.packed_release` | Isolated two-book, short-output and live-callback crossover with the qualified parent package |
+| `-m loopqwen.research.full_decode` | Repeated complete-decoder 131K requests, every output token and all retained cache sites |
+| `-m loopqwen.research.session_tokenizer` | Four fresh-process streams with real resource calls, switch latency and peak process RSS |
+| `-m loopqwen.research.meaning_alignment` | Human same-anchor semantic judgments across Wikipedia and technical support |
 | `-m loopqwen.research.transport` | Transport size, restored file inventories and isolated native generation |
 
 

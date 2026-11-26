@@ -136,6 +136,8 @@ The installed 2,370,262,907-byte bundle became a 1,996,837,806-byte ZIP or a 1,5
 
 #figure(image("transport.svg",width:93%),caption:[Measured bytes and times for the identical qualified payload. The Base text-weight file is one component of the installed assistant. The complete archive is usable for an offline restoration.])
 
+The qualified packed-03 release replicated the transport result on updated runtime files. Its 63-file payload totals 2,370,301,274 bytes. Ordinary ZIP used 1,996,851,217 bytes and the paired encoding used 1,544,032,264 bytes, 22.68% below ZIP and 34.86% below the installed files. The two encoders took 100.91 and 143.19 s. Restoration and file verification took 7.07 s. An isolated interpreter using the restored runtime then reproduced the reference package lookup and exact native tokens. The release-specific CSV records the two separately qualified archive hashes.
+
 = Human-edited reading questions
 #include "reading-results.typ"
 
@@ -208,7 +210,7 @@ Across the public numerical function requests, competing-schema questions, SQLit
 The model is a conditional system. Its different routes have distinct training histories, including previously adapted language components. The catalog fits start from untouched Base. The independently registered typed-tool experiment uses the official instruction-tuned sibling and records that different initialization. Deployment-level improvements do not establish a positive derivative with respect to recurrent depth. A broad claim would require fresh user-selected tools with richer data types, independently authored multi-turn requests, longer policies, replication across seeds and hardware, and equal-training comparisons on those populations.
 
 = Reproducibility and evidence
-The supplement indexes registered studies and their archive SHA-256 inventories, including negative results and recovered sessions. Each tool record contains the initial IDs, subsequent prompt IDs, sampled IDs, timings, calls, observations and terminal status. The verifier reconstructs typed calls and hidden database values from the frozen worlds, reconstructs subsequent prompts and recomputes the endpoint. Figure sources are recorded in `figure-sources.json`. Build and replay commands accompany the manuscript.
+The supplement indexes registered studies and their archive SHA-256 inventories, including negative results and recovered sessions. Each tool record contains the initial IDs, subsequent prompt IDs, sampled IDs, timings, calls, observations and terminal status. The verifier reconstructs typed calls and hidden database values from the frozen worlds, reconstructs subsequent prompts and recomputes the endpoint. The installed `ask --compare-base` command also accepts an arbitrary local UTF-8 prompt file, optional read-only tools and follow-ups. It times the cold request from before loading each backbone and preserves each model’s own subsequent conversation. In an illustrative calendar exchange outside the registered scoring panels, the two-pass intent adapter returned the correct ISO weekday (7) and ordinal day (60) for February 29, 2032 through separate provider calls in 1.29 and 0.54 s. Ordinary Base exhausted both caps in 6.35 and 5.51 s. The initial prompt IDs matched. Every follow-up inherited the corresponding prior output and observations. These two questions constitute an interface check. Figure sources are recorded in `figure-sources.json`. Build and replay commands accompany the manuscript.
 
 = Sources and artifact guide
 #include "compute-results.typ"
