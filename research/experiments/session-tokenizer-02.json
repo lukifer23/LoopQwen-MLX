@@ -1,0 +1,28 @@
+{
+  "id": "session-tokenizer-02",
+  "question": "Can release 04 carry over the measured tokenizer reuse improvement while giving exactly the same actual 50 mixed field responses and meeting time and memory thresholds?",
+  "release": "research/results/packed-release-retention-03",
+  "release_sha256": "0ab5a14fd561c10a1a359cb801f28efcf8a9f1a903dab410a048503bacdd71d5",
+  "field": "research/results/release-mixed-field-01",
+  "field_sha256": "baf2c37b2da318dada9507e994c244942a47ac918c4879c849f176c86b8a4ef5",
+  "checkpoint": "exports/tool-language-packed-04",
+  "material": "research/data/release-mixed-field-01.json",
+  "order": [
+    "reuse",
+    "stock",
+    "stock",
+    "reuse"
+  ],
+  "max_tokens": 384,
+  "max_turns": 3,
+  "reduction": 0.15,
+  "mlx_tolerance": 1048576,
+  "rss_tolerance": 67108864,
+  "protocol": "The installed runtime qualifies tokenizer reuse by the complete bundle identity. Release 04 changed the register runtime and thereby lost automatic reuse in normal mixed service. Repeat the earlier, successful comparison on the actual qualified release 04, including its ordinary, recurrent and tool routes. The original field stream registered 15 switches. Its eight switches to language and seven switches to tools accounted for 15.24 of 20.33 first-token seconds, versus 4.26 of 9.15 for untouched Base on those same requests. Compare the installed runtime on the identical qualified packed03 weights and same 50 frozen requests. Run four complete streams in fresh processes ordered ABBA with store/restore policy fixed, both using one active backbone. Reuse only the BPE tokenizer after rehashing the full recognized tokenizer inputs on each switch; every model and adapter checksum is still checked by its ordinary loading procedure. No response, prompt KV, model weights or tokenization result are retained by the new option. Count actual distinct successive tokenizer objects by weak identity, per-request true first token from request entry, cold/switch costs, wall, native peak and whole-process Darwin max RSS across each stream. The OS file cache can persist across processes. The old mixed field candidate\u2019s complete tokens, callbacks and score serve only for parity.",
+  "gate": "Require 200 exact individual trajectories across both policies, 32 tokenizer constructions in two ordinary streams vs two for reuse, at least 15% shorter combined first-token time on the 30 switch events and faster switches in each repetition. Aggregate time to first token must improve, complete sessions no slower, peak native allocation within 1 MiB and whole-process maximum resident high water within 64 MiB. A pass qualifies tokenizer reuse for mixed serving on the normal installed release 04. Report both resident-memory measures in absolute bytes and keep the original cold-start Base comparison separate. A miss closes default enablement. Frozen model output equality is required in either case.",
+  "limits": {
+    "wall_seconds": 610,
+    "available_gib": 1.4,
+    "peak_gib": 7.5
+  }
+}
