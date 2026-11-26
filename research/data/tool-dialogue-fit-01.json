@@ -1,0 +1,6770 @@
+[
+  {
+    "id": "fit-27-compare",
+    "kind": "compare",
+    "domain": "fleet",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Rowan",
+      "Juniper",
+      "Amber"
+    ],
+    "places": [
+      "Lake",
+      "East",
+      "Grove"
+    ],
+    "numbers": [
+      96,
+      36,
+      53
+    ],
+    "question": "Which garage has the greater capacity, Lake or East? Reply with its name.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "location": "Lake"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "location": "East"
+        }
+      }
+    ],
+    "gold": "Lake"
+  },
+  {
+    "id": "fit-26-clarify",
+    "kind": "clarify",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Cobalt",
+      "Flint",
+      "Maple"
+    ],
+    "places": [
+      "Central",
+      "South",
+      "Hill"
+    ],
+    "numbers": [
+      13,
+      14,
+      51
+    ],
+    "question": "What is the capacity of my hub?",
+    "expected": [],
+    "gold": "Which hub?"
+  },
+  {
+    "id": "fit-19-compare",
+    "kind": "compare",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Amber",
+      "Flint",
+      "Quartz"
+    ],
+    "places": [
+      "Harbor",
+      "South",
+      "Valley"
+    ],
+    "numbers": [
+      77,
+      82,
+      79
+    ],
+    "question": "Which shelf has the greater width, Harbor or South? Reply with its name.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "Harbor"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "South"
+        }
+      }
+    ],
+    "gold": "South"
+  },
+  {
+    "id": "fit-34-clarify",
+    "kind": "clarify",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Juniper",
+      "Flint",
+      "Cobalt"
+    ],
+    "places": [
+      "Central",
+      "Coast",
+      "Lake"
+    ],
+    "numbers": [
+      30,
+      41,
+      90
+    ],
+    "question": "What is the seats of my hall?",
+    "expected": [],
+    "gold": "Which hall?"
+  },
+  {
+    "id": "fit-12-compare",
+    "kind": "compare",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Cedar",
+      "Cobalt",
+      "Kestrel"
+    ],
+    "places": [
+      "Lake",
+      "Hill",
+      "Grove"
+    ],
+    "numbers": [
+      90,
+      74,
+      73
+    ],
+    "question": "Which hall has the greater seats, Lake or Hill? Reply with its name.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Lake"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Hill"
+        }
+      }
+    ],
+    "gold": "Lake"
+  },
+  {
+    "id": "fit-23-lookup",
+    "kind": "lookup",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Kestrel",
+      "Cedar",
+      "Maple"
+    ],
+    "places": [
+      "Central",
+      "South",
+      "Valley"
+    ],
+    "numbers": [
+      93,
+      96,
+      22
+    ],
+    "question": "Give the capacity of garage Central. Reply with just the number.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Central"
+        }
+      }
+    ],
+    "gold": "93"
+  },
+  {
+    "id": "fit-14-chain",
+    "kind": "chain",
+    "domain": "library",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Flint",
+      "Cedar",
+      "Rowan"
+    ],
+    "places": [
+      "North",
+      "Central",
+      "Hill"
+    ],
+    "numbers": [
+      64,
+      97,
+      81
+    ],
+    "question": "What is the width of the shelf assigned to book Flint? Reply with just the number.",
+    "expected": [
+      {
+        "name": "find_shelf",
+        "arguments": {
+          "identifier": "Flint"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "location": "North"
+        }
+      }
+    ],
+    "gold": "64"
+  },
+  {
+    "id": "fit-0-chain",
+    "kind": "chain",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Quartz",
+      "Juniper",
+      "Willow"
+    ],
+    "places": [
+      "Coast",
+      "Hill",
+      "Harbor"
+    ],
+    "numbers": [
+      44,
+      52,
+      93
+    ],
+    "question": "What is the area of the room assigned to painting Quartz? Reply with just the number.",
+    "expected": [
+      {
+        "name": "locate_art",
+        "arguments": {
+          "painting": "Quartz"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Coast"
+        }
+      }
+    ],
+    "gold": "44"
+  },
+  {
+    "id": "fit-24-clarify",
+    "kind": "clarify",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Amber",
+      "Quartz",
+      "Hazel"
+    ],
+    "places": [
+      "Hill",
+      "Grove",
+      "South"
+    ],
+    "numbers": [
+      98,
+      51,
+      72
+    ],
+    "question": "What is the length of my bed?",
+    "expected": [],
+    "gold": "Which bed?"
+  },
+  {
+    "id": "fit-13-clarify",
+    "kind": "clarify",
+    "domain": "fleet",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Flint",
+      "Cobalt",
+      "Hazel"
+    ],
+    "places": [
+      "East",
+      "Harbor",
+      "South"
+    ],
+    "numbers": [
+      21,
+      50,
+      64
+    ],
+    "question": "What is the capacity of my garage?",
+    "expected": [],
+    "gold": "Which garage?"
+  },
+  {
+    "id": "fit-2-direct",
+    "kind": "direct",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Hazel",
+      "Quartz",
+      "Juniper"
+    ],
+    "places": [
+      "East",
+      "Valley",
+      "Hill"
+    ],
+    "numbers": [
+      67,
+      12,
+      40
+    ],
+    "question": "The capacity values are East = 67 and Valley = 12. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "East"
+  },
+  {
+    "id": "fit-25-chain",
+    "kind": "chain",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Pearl",
+      "Flint",
+      "Cedar"
+    ],
+    "places": [
+      "Valley",
+      "East",
+      "Central"
+    ],
+    "numbers": [
+      93,
+      94,
+      59
+    ],
+    "question": "What is the seats of the hall assigned to course Pearl? Reply with just the number.",
+    "expected": [
+      {
+        "name": "course_building",
+        "arguments": {
+          "course": "Pearl"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Valley"
+        }
+      }
+    ],
+    "gold": "93"
+  },
+  {
+    "id": "fit-11-chain",
+    "kind": "chain",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Quartz",
+      "Cedar",
+      "Flint"
+    ],
+    "places": [
+      "South",
+      "Valley",
+      "Hill"
+    ],
+    "numbers": [
+      85,
+      18,
+      37
+    ],
+    "question": "What is the capacity of the hub assigned to parcel Quartz? Reply with just the number.",
+    "expected": [
+      {
+        "name": "manifest_hub",
+        "arguments": {
+          "identifier": "Quartz"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "South"
+        }
+      }
+    ],
+    "gold": "85"
+  },
+  {
+    "id": "fit-35-direct",
+    "kind": "direct",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Quartz",
+      "Maple",
+      "Pearl"
+    ],
+    "places": [
+      "Valley",
+      "Ridge",
+      "Grove"
+    ],
+    "numbers": [
+      36,
+      97,
+      71
+    ],
+    "question": "The seats values are Valley = 36 and Ridge = 97. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Ridge"
+  },
+  {
+    "id": "fit-24-compare",
+    "kind": "compare",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Juniper",
+      "Flint",
+      "Willow"
+    ],
+    "places": [
+      "Central",
+      "Grove",
+      "Coast"
+    ],
+    "numbers": [
+      38,
+      61,
+      18
+    ],
+    "question": "Which hall has the greater seats, Central or Grove? Reply with its name.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Central"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Grove"
+        }
+      }
+    ],
+    "gold": "Grove"
+  },
+  {
+    "id": "fit-8-clarify",
+    "kind": "clarify",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Cobalt",
+      "Maple",
+      "Willow"
+    ],
+    "places": [
+      "North",
+      "Valley",
+      "Harbor"
+    ],
+    "numbers": [
+      92,
+      54,
+      34
+    ],
+    "question": "What is the capacity of my hub?",
+    "expected": [],
+    "gold": "Which hub?"
+  },
+  {
+    "id": "fit-5-clarify",
+    "kind": "clarify",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Pearl",
+      "Cobalt",
+      "Amber"
+    ],
+    "places": [
+      "Ridge",
+      "Valley",
+      "Lake"
+    ],
+    "numbers": [
+      11,
+      31,
+      29
+    ],
+    "question": "What is the width of my shelf?",
+    "expected": [],
+    "gold": "Which shelf?"
+  },
+  {
+    "id": "fit-33-direct",
+    "kind": "direct",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Willow",
+      "Cedar",
+      "Flint"
+    ],
+    "places": [
+      "Harbor",
+      "Hill",
+      "East"
+    ],
+    "numbers": [
+      98,
+      81,
+      61
+    ],
+    "question": "The capacity values are Harbor = 98 and Hill = 81. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-16-lookup",
+    "kind": "lookup",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Hazel",
+      "Pearl",
+      "Cobalt"
+    ],
+    "places": [
+      "Valley",
+      "East",
+      "Lake"
+    ],
+    "numbers": [
+      61,
+      50,
+      16
+    ],
+    "question": "Give the length of bed Valley. Reply with just the number.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "location": "Valley"
+        }
+      }
+    ],
+    "gold": "61"
+  },
+  {
+    "id": "fit-7-clarify",
+    "kind": "clarify",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Cobalt",
+      "Quartz",
+      "Maple"
+    ],
+    "places": [
+      "Grove",
+      "Harbor",
+      "East"
+    ],
+    "numbers": [
+      69,
+      67,
+      17
+    ],
+    "question": "What is the capacity of my garage?",
+    "expected": [],
+    "gold": "Which garage?"
+  },
+  {
+    "id": "fit-1-direct",
+    "kind": "direct",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Rowan",
+      "Kestrel",
+      "Quartz"
+    ],
+    "places": [
+      "Lake",
+      "North",
+      "Ridge"
+    ],
+    "numbers": [
+      53,
+      35,
+      95
+    ],
+    "question": "The length values are Lake = 53 and North = 35. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Lake"
+  },
+  {
+    "id": "fit-34-direct",
+    "kind": "direct",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Rowan",
+      "Maple",
+      "Amber"
+    ],
+    "places": [
+      "Hill",
+      "West",
+      "North"
+    ],
+    "numbers": [
+      59,
+      14,
+      33
+    ],
+    "question": "The area values are Hill = 59 and West = 14. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Hill"
+  },
+  {
+    "id": "fit-18-lookup",
+    "kind": "lookup",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Cedar",
+      "Pearl",
+      "Amber"
+    ],
+    "places": [
+      "South",
+      "Ridge",
+      "Grove"
+    ],
+    "numbers": [
+      56,
+      44,
+      26
+    ],
+    "question": "Give the capacity of hub South. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "South"
+        }
+      }
+    ],
+    "gold": "56"
+  },
+  {
+    "id": "fit-0-clarify",
+    "kind": "clarify",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Cobalt",
+      "Juniper",
+      "Amber"
+    ],
+    "places": [
+      "Hill",
+      "North",
+      "Lake"
+    ],
+    "numbers": [
+      57,
+      16,
+      15
+    ],
+    "question": "What is the length of my bed?",
+    "expected": [],
+    "gold": "Which bed?"
+  },
+  {
+    "id": "fit-4-clarify",
+    "kind": "clarify",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Maple",
+      "Cobalt",
+      "Pearl"
+    ],
+    "places": [
+      "Lake",
+      "North",
+      "South"
+    ],
+    "numbers": [
+      89,
+      35,
+      13
+    ],
+    "question": "What is the seats of my hall?",
+    "expected": [],
+    "gold": "Which hall?"
+  },
+  {
+    "id": "fit-2-chain",
+    "kind": "chain",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Cobalt",
+      "Quartz",
+      "Flint"
+    ],
+    "places": [
+      "Ridge",
+      "Lake",
+      "Central"
+    ],
+    "numbers": [
+      68,
+      74,
+      47
+    ],
+    "question": "What is the width of the shelf assigned to book Cobalt? Reply with just the number.",
+    "expected": [
+      {
+        "name": "find_shelf",
+        "arguments": {
+          "book": "Cobalt"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "Ridge"
+        }
+      }
+    ],
+    "gold": "68"
+  },
+  {
+    "id": "fit-3-chain",
+    "kind": "chain",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Quartz",
+      "Cobalt",
+      "Juniper"
+    ],
+    "places": [
+      "North",
+      "South",
+      "Coast"
+    ],
+    "numbers": [
+      95,
+      77,
+      80
+    ],
+    "question": "What is the length of the bed assigned to flower Quartz? Reply with just the number.",
+    "expected": [
+      {
+        "name": "plant_location",
+        "arguments": {
+          "flower": "Quartz"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "North"
+        }
+      }
+    ],
+    "gold": "95"
+  },
+  {
+    "id": "fit-6-lookup",
+    "kind": "lookup",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Hazel",
+      "Quartz",
+      "Maple"
+    ],
+    "places": [
+      "East",
+      "Coast",
+      "South"
+    ],
+    "numbers": [
+      27,
+      19,
+      49
+    ],
+    "question": "Give the capacity of hub East. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "East"
+        }
+      }
+    ],
+    "gold": "27"
+  },
+  {
+    "id": "fit-27-clarify",
+    "kind": "clarify",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Willow",
+      "Amber",
+      "Hazel"
+    ],
+    "places": [
+      "North",
+      "Central",
+      "Hill"
+    ],
+    "numbers": [
+      47,
+      14,
+      30
+    ],
+    "question": "What is the area of my room?",
+    "expected": [],
+    "gold": "Which room?"
+  },
+  {
+    "id": "fit-10-compare",
+    "kind": "compare",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Hazel",
+      "Cedar",
+      "Willow"
+    ],
+    "places": [
+      "Hill",
+      "Valley",
+      "North"
+    ],
+    "numbers": [
+      47,
+      88,
+      15
+    ],
+    "question": "Which hub has the greater capacity, Hill or Valley? Reply with its name.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Hill"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Valley"
+        }
+      }
+    ],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-15-lookup",
+    "kind": "lookup",
+    "domain": "library",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Quartz",
+      "Willow",
+      "Pearl"
+    ],
+    "places": [
+      "Hill",
+      "Grove",
+      "Central"
+    ],
+    "numbers": [
+      46,
+      96,
+      16
+    ],
+    "question": "Give the width of shelf Hill. Reply with just the number.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "location": "Hill"
+        }
+      }
+    ],
+    "gold": "46"
+  },
+  {
+    "id": "fit-25-lookup",
+    "kind": "lookup",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Juniper",
+      "Cedar",
+      "Rowan"
+    ],
+    "places": [
+      "Hill",
+      "Grove",
+      "North"
+    ],
+    "numbers": [
+      68,
+      12,
+      42
+    ],
+    "question": "Give the area of room Hill. Reply with just the number.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Hill"
+        }
+      }
+    ],
+    "gold": "68"
+  },
+  {
+    "id": "fit-17-compare",
+    "kind": "compare",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Willow",
+      "Pearl",
+      "Kestrel"
+    ],
+    "places": [
+      "Valley",
+      "Coast",
+      "Harbor"
+    ],
+    "numbers": [
+      31,
+      21,
+      11
+    ],
+    "question": "Which room has the greater area, Valley or Coast? Reply with its name.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Valley"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Coast"
+        }
+      }
+    ],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-16-chain",
+    "kind": "chain",
+    "domain": "fleet",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Kestrel",
+      "Juniper",
+      "Rowan"
+    ],
+    "places": [
+      "Central",
+      "Valley",
+      "North"
+    ],
+    "numbers": [
+      26,
+      98,
+      89
+    ],
+    "question": "What is the capacity of the garage assigned to bus Kestrel? Reply with just the number.",
+    "expected": [
+      {
+        "name": "assigned_garage",
+        "arguments": {
+          "identifier": "Kestrel"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "location": "Central"
+        }
+      }
+    ],
+    "gold": "26"
+  },
+  {
+    "id": "fit-2-lookup",
+    "kind": "lookup",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Kestrel",
+      "Pearl",
+      "Juniper"
+    ],
+    "places": [
+      "Central",
+      "Harbor",
+      "Hill"
+    ],
+    "numbers": [
+      85,
+      44,
+      51
+    ],
+    "question": "Give the seats of hall Central. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Central"
+        }
+      }
+    ],
+    "gold": "85"
+  },
+  {
+    "id": "fit-21-compare",
+    "kind": "compare",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Rowan",
+      "Hazel",
+      "Pearl"
+    ],
+    "places": [
+      "Ridge",
+      "Grove",
+      "Harbor"
+    ],
+    "numbers": [
+      32,
+      30,
+      75
+    ],
+    "question": "Which garage has the greater capacity, Ridge or Grove? Reply with its name.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Ridge"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Grove"
+        }
+      }
+    ],
+    "gold": "Ridge"
+  },
+  {
+    "id": "fit-13-compare",
+    "kind": "compare",
+    "domain": "library",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Hazel",
+      "Maple",
+      "Cobalt"
+    ],
+    "places": [
+      "South",
+      "Hill",
+      "Lake"
+    ],
+    "numbers": [
+      46,
+      62,
+      47
+    ],
+    "question": "Which shelf has the greater width, South or Hill? Reply with its name.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "location": "South"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "location": "Hill"
+        }
+      }
+    ],
+    "gold": "Hill"
+  },
+  {
+    "id": "fit-14-clarify",
+    "kind": "clarify",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Quartz",
+      "Cedar",
+      "Hazel"
+    ],
+    "places": [
+      "Lake",
+      "Ridge",
+      "Valley"
+    ],
+    "numbers": [
+      37,
+      23,
+      32
+    ],
+    "question": "What is the capacity of my hub?",
+    "expected": [],
+    "gold": "Which hub?"
+  },
+  {
+    "id": "fit-34-chain",
+    "kind": "chain",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Flint",
+      "Cobalt",
+      "Maple"
+    ],
+    "places": [
+      "Valley",
+      "Ridge",
+      "East"
+    ],
+    "numbers": [
+      72,
+      20,
+      51
+    ],
+    "question": "What is the capacity of the garage assigned to bus Flint? Reply with just the number.",
+    "expected": [
+      {
+        "name": "assigned_garage",
+        "arguments": {
+          "bus": "Flint"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Valley"
+        }
+      }
+    ],
+    "gold": "72"
+  },
+  {
+    "id": "fit-21-direct",
+    "kind": "direct",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Quartz",
+      "Kestrel",
+      "Pearl"
+    ],
+    "places": [
+      "Harbor",
+      "Central",
+      "Hill"
+    ],
+    "numbers": [
+      54,
+      67,
+      23
+    ],
+    "question": "The capacity values are Harbor = 54 and Central = 67. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Central"
+  },
+  {
+    "id": "fit-24-direct",
+    "kind": "direct",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Willow",
+      "Juniper",
+      "Cobalt"
+    ],
+    "places": [
+      "East",
+      "North",
+      "Hill"
+    ],
+    "numbers": [
+      80,
+      83,
+      20
+    ],
+    "question": "The width values are East = 80 and North = 83. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "North"
+  },
+  {
+    "id": "fit-31-chain",
+    "kind": "chain",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Kestrel",
+      "Flint",
+      "Maple"
+    ],
+    "places": [
+      "North",
+      "Hill",
+      "Lake"
+    ],
+    "numbers": [
+      62,
+      81,
+      49
+    ],
+    "question": "What is the seats of the hall assigned to course Kestrel? Reply with just the number.",
+    "expected": [
+      {
+        "name": "course_building",
+        "arguments": {
+          "course": "Kestrel"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "North"
+        }
+      }
+    ],
+    "gold": "62"
+  },
+  {
+    "id": "fit-5-chain",
+    "kind": "chain",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Cobalt",
+      "Amber",
+      "Cedar"
+    ],
+    "places": [
+      "Central",
+      "South",
+      "West"
+    ],
+    "numbers": [
+      87,
+      56,
+      92
+    ],
+    "question": "What is the capacity of the hub assigned to parcel Cobalt? Reply with just the number.",
+    "expected": [
+      {
+        "name": "manifest_hub",
+        "arguments": {
+          "identifier": "Cobalt"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "Central"
+        }
+      }
+    ],
+    "gold": "87"
+  },
+  {
+    "id": "fit-5-compare",
+    "kind": "compare",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Maple",
+      "Amber",
+      "Hazel"
+    ],
+    "places": [
+      "Coast",
+      "Valley",
+      "East"
+    ],
+    "numbers": [
+      30,
+      83,
+      14
+    ],
+    "question": "Which room has the greater area, Coast or Valley? Reply with its name.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Coast"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Valley"
+        }
+      }
+    ],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-33-clarify",
+    "kind": "clarify",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Hazel",
+      "Amber",
+      "Rowan"
+    ],
+    "places": [
+      "Harbor",
+      "Central",
+      "Hill"
+    ],
+    "numbers": [
+      97,
+      13,
+      59
+    ],
+    "question": "What is the area of my room?",
+    "expected": [],
+    "gold": "Which room?"
+  },
+  {
+    "id": "fit-10-clarify",
+    "kind": "clarify",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Cedar",
+      "Pearl",
+      "Kestrel"
+    ],
+    "places": [
+      "Grove",
+      "South",
+      "Valley"
+    ],
+    "numbers": [
+      17,
+      48,
+      33
+    ],
+    "question": "What is the seats of my hall?",
+    "expected": [],
+    "gold": "Which hall?"
+  },
+  {
+    "id": "fit-30-chain",
+    "kind": "chain",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Maple",
+      "Juniper",
+      "Kestrel"
+    ],
+    "places": [
+      "Ridge",
+      "Hill",
+      "West"
+    ],
+    "numbers": [
+      44,
+      15,
+      55
+    ],
+    "question": "What is the area of the room assigned to painting Maple? Reply with just the number.",
+    "expected": [
+      {
+        "name": "locate_art",
+        "arguments": {
+          "painting": "Maple"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Ridge"
+        }
+      }
+    ],
+    "gold": "44"
+  },
+  {
+    "id": "fit-35-clarify",
+    "kind": "clarify",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Kestrel",
+      "Pearl",
+      "Juniper"
+    ],
+    "places": [
+      "Coast",
+      "Ridge",
+      "North"
+    ],
+    "numbers": [
+      82,
+      28,
+      18
+    ],
+    "question": "What is the width of my shelf?",
+    "expected": [],
+    "gold": "Which shelf?"
+  },
+  {
+    "id": "fit-0-compare",
+    "kind": "compare",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Kestrel",
+      "Quartz",
+      "Willow"
+    ],
+    "places": [
+      "Valley",
+      "Harbor",
+      "East"
+    ],
+    "numbers": [
+      84,
+      68,
+      69
+    ],
+    "question": "Which hall has the greater seats, Valley or Harbor? Reply with its name.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "Valley"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "Harbor"
+        }
+      }
+    ],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-12-direct",
+    "kind": "direct",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Cobalt",
+      "Quartz",
+      "Kestrel"
+    ],
+    "places": [
+      "Central",
+      "Grove",
+      "Lake"
+    ],
+    "numbers": [
+      96,
+      32,
+      41
+    ],
+    "question": "The width values are Central = 96 and Grove = 32. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Central"
+  },
+  {
+    "id": "fit-17-clarify",
+    "kind": "clarify",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Rowan",
+      "Hazel",
+      "Cobalt"
+    ],
+    "places": [
+      "Valley",
+      "Grove",
+      "Lake"
+    ],
+    "numbers": [
+      52,
+      54,
+      16
+    ],
+    "question": "What is the width of my shelf?",
+    "expected": [],
+    "gold": "Which shelf?"
+  },
+  {
+    "id": "fit-3-direct",
+    "kind": "direct",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Maple",
+      "Amber",
+      "Cobalt"
+    ],
+    "places": [
+      "Central",
+      "East",
+      "North"
+    ],
+    "numbers": [
+      37,
+      42,
+      54
+    ],
+    "question": "The capacity values are Central = 37 and East = 42. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "East"
+  },
+  {
+    "id": "fit-3-compare",
+    "kind": "compare",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Maple",
+      "Rowan",
+      "Cedar"
+    ],
+    "places": [
+      "Harbor",
+      "North",
+      "Lake"
+    ],
+    "numbers": [
+      71,
+      46,
+      94
+    ],
+    "question": "Which garage has the greater capacity, Harbor or North? Reply with its name.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Harbor"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "North"
+        }
+      }
+    ],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-21-chain",
+    "kind": "chain",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Kestrel",
+      "Juniper",
+      "Pearl"
+    ],
+    "places": [
+      "South",
+      "Valley",
+      "West"
+    ],
+    "numbers": [
+      59,
+      36,
+      63
+    ],
+    "question": "What is the length of the bed assigned to flower Kestrel? Reply with just the number.",
+    "expected": [
+      {
+        "name": "plant_location",
+        "arguments": {
+          "flower": "Kestrel"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "South"
+        }
+      }
+    ],
+    "gold": "59"
+  },
+  {
+    "id": "fit-25-clarify",
+    "kind": "clarify",
+    "domain": "fleet",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Pearl",
+      "Rowan",
+      "Hazel"
+    ],
+    "places": [
+      "North",
+      "Harbor",
+      "Valley"
+    ],
+    "numbers": [
+      38,
+      74,
+      53
+    ],
+    "question": "What is the capacity of my garage?",
+    "expected": [],
+    "gold": "Which garage?"
+  },
+  {
+    "id": "fit-10-direct",
+    "kind": "direct",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Willow",
+      "Kestrel",
+      "Pearl"
+    ],
+    "places": [
+      "Grove",
+      "West",
+      "Coast"
+    ],
+    "numbers": [
+      80,
+      44,
+      73
+    ],
+    "question": "The area values are Grove = 80 and West = 44. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Grove"
+  },
+  {
+    "id": "fit-26-compare",
+    "kind": "compare",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Rowan",
+      "Quartz",
+      "Willow"
+    ],
+    "places": [
+      "Hill",
+      "Grove",
+      "Valley"
+    ],
+    "numbers": [
+      41,
+      24,
+      54
+    ],
+    "question": "Which bed has the greater length, Hill or Grove? Reply with its name.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Hill"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Grove"
+        }
+      }
+    ],
+    "gold": "Hill"
+  },
+  {
+    "id": "fit-20-clarify",
+    "kind": "clarify",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Maple",
+      "Hazel",
+      "Flint"
+    ],
+    "places": [
+      "Coast",
+      "Hill",
+      "South"
+    ],
+    "numbers": [
+      58,
+      49,
+      29
+    ],
+    "question": "What is the capacity of my hub?",
+    "expected": [],
+    "gold": "Which hub?"
+  },
+  {
+    "id": "fit-20-compare",
+    "kind": "compare",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Pearl",
+      "Quartz",
+      "Maple"
+    ],
+    "places": [
+      "North",
+      "Lake",
+      "Coast"
+    ],
+    "numbers": [
+      59,
+      40,
+      47
+    ],
+    "question": "Which bed has the greater length, North or Lake? Reply with its name.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "North"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Lake"
+        }
+      }
+    ],
+    "gold": "North"
+  },
+  {
+    "id": "fit-19-clarify",
+    "kind": "clarify",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Hazel",
+      "Cobalt",
+      "Rowan"
+    ],
+    "places": [
+      "Harbor",
+      "Hill",
+      "Valley"
+    ],
+    "numbers": [
+      76,
+      37,
+      67
+    ],
+    "question": "What is the capacity of my garage?",
+    "expected": [],
+    "gold": "Which garage?"
+  },
+  {
+    "id": "fit-15-direct",
+    "kind": "direct",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Kestrel",
+      "Hazel",
+      "Cobalt"
+    ],
+    "places": [
+      "Hill",
+      "East",
+      "Coast"
+    ],
+    "numbers": [
+      71,
+      81,
+      87
+    ],
+    "question": "The capacity values are Hill = 71 and East = 81. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "East"
+  },
+  {
+    "id": "fit-29-clarify",
+    "kind": "clarify",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Flint",
+      "Willow",
+      "Maple"
+    ],
+    "places": [
+      "Coast",
+      "Harbor",
+      "Grove"
+    ],
+    "numbers": [
+      41,
+      62,
+      36
+    ],
+    "question": "What is the width of my shelf?",
+    "expected": [],
+    "gold": "Which shelf?"
+  },
+  {
+    "id": "fit-0-direct",
+    "kind": "direct",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Cobalt",
+      "Rowan",
+      "Cedar"
+    ],
+    "places": [
+      "Harbor",
+      "Coast",
+      "West"
+    ],
+    "numbers": [
+      66,
+      52,
+      62
+    ],
+    "question": "The width values are Harbor = 66 and Coast = 52. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-17-lookup",
+    "kind": "lookup",
+    "domain": "fleet",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Cobalt",
+      "Hazel",
+      "Rowan"
+    ],
+    "places": [
+      "Ridge",
+      "Central",
+      "Harbor"
+    ],
+    "numbers": [
+      65,
+      70,
+      85
+    ],
+    "question": "Give the capacity of garage Ridge. Reply with just the number.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "location": "Ridge"
+        }
+      }
+    ],
+    "gold": "65"
+  },
+  {
+    "id": "fit-5-lookup",
+    "kind": "lookup",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Rowan",
+      "Cobalt",
+      "Kestrel"
+    ],
+    "places": [
+      "West",
+      "Coast",
+      "Lake"
+    ],
+    "numbers": [
+      72,
+      87,
+      76
+    ],
+    "question": "Give the capacity of garage West. Reply with just the number.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "West"
+        }
+      }
+    ],
+    "gold": "72"
+  },
+  {
+    "id": "fit-8-compare",
+    "kind": "compare",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Amber",
+      "Flint",
+      "Rowan"
+    ],
+    "places": [
+      "Valley",
+      "West",
+      "North"
+    ],
+    "numbers": [
+      52,
+      73,
+      86
+    ],
+    "question": "Which bed has the greater length, Valley or West? Reply with its name.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Valley"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "West"
+        }
+      }
+    ],
+    "gold": "West"
+  },
+  {
+    "id": "fit-8-lookup",
+    "kind": "lookup",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Flint",
+      "Juniper",
+      "Quartz"
+    ],
+    "places": [
+      "Hill",
+      "North",
+      "Ridge"
+    ],
+    "numbers": [
+      64,
+      72,
+      67
+    ],
+    "question": "Give the seats of hall Hill. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "Hill"
+        }
+      }
+    ],
+    "gold": "64"
+  },
+  {
+    "id": "fit-31-lookup",
+    "kind": "lookup",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Cobalt",
+      "Willow",
+      "Kestrel"
+    ],
+    "places": [
+      "Valley",
+      "Coast",
+      "North"
+    ],
+    "numbers": [
+      28,
+      70,
+      37
+    ],
+    "question": "Give the area of room Valley. Reply with just the number.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Valley"
+        }
+      }
+    ],
+    "gold": "28"
+  },
+  {
+    "id": "fit-18-compare",
+    "kind": "compare",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Hazel",
+      "Maple",
+      "Rowan"
+    ],
+    "places": [
+      "West",
+      "Ridge",
+      "South"
+    ],
+    "numbers": [
+      31,
+      78,
+      62
+    ],
+    "question": "Which hall has the greater seats, West or Ridge? Reply with its name.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "West"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Ridge"
+        }
+      }
+    ],
+    "gold": "Ridge"
+  },
+  {
+    "id": "fit-3-clarify",
+    "kind": "clarify",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Rowan",
+      "Quartz",
+      "Maple"
+    ],
+    "places": [
+      "South",
+      "West",
+      "East"
+    ],
+    "numbers": [
+      59,
+      30,
+      27
+    ],
+    "question": "What is the area of my room?",
+    "expected": [],
+    "gold": "Which room?"
+  },
+  {
+    "id": "fit-15-chain",
+    "kind": "chain",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Flint",
+      "Amber",
+      "Hazel"
+    ],
+    "places": [
+      "Ridge",
+      "Central",
+      "Coast"
+    ],
+    "numbers": [
+      79,
+      64,
+      21
+    ],
+    "question": "What is the length of the bed assigned to flower Flint? Reply with just the number.",
+    "expected": [
+      {
+        "name": "plant_location",
+        "arguments": {
+          "flower": "Flint"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Ridge"
+        }
+      }
+    ],
+    "gold": "79"
+  },
+  {
+    "id": "fit-15-compare",
+    "kind": "compare",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Maple",
+      "Amber",
+      "Juniper"
+    ],
+    "places": [
+      "West",
+      "East",
+      "Ridge"
+    ],
+    "numbers": [
+      28,
+      48,
+      30
+    ],
+    "question": "Which garage has the greater capacity, West or East? Reply with its name.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "West"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "East"
+        }
+      }
+    ],
+    "gold": "East"
+  },
+  {
+    "id": "fit-22-compare",
+    "kind": "compare",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Cedar",
+      "Quartz",
+      "Hazel"
+    ],
+    "places": [
+      "Valley",
+      "North",
+      "Harbor"
+    ],
+    "numbers": [
+      62,
+      46,
+      83
+    ],
+    "question": "Which hub has the greater capacity, Valley or North? Reply with its name.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "Valley"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "North"
+        }
+      }
+    ],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-6-compare",
+    "kind": "compare",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Pearl",
+      "Juniper",
+      "Amber"
+    ],
+    "places": [
+      "Harbor",
+      "South",
+      "Coast"
+    ],
+    "numbers": [
+      87,
+      84,
+      11
+    ],
+    "question": "Which hall has the greater seats, Harbor or South? Reply with its name.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Harbor"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "South"
+        }
+      }
+    ],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-2-compare",
+    "kind": "compare",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Kestrel",
+      "Juniper",
+      "Rowan"
+    ],
+    "places": [
+      "Central",
+      "Coast",
+      "West"
+    ],
+    "numbers": [
+      92,
+      16,
+      11
+    ],
+    "question": "Which bed has the greater length, Central or Coast? Reply with its name.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Central"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Coast"
+        }
+      }
+    ],
+    "gold": "Central"
+  },
+  {
+    "id": "fit-12-chain",
+    "kind": "chain",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Cedar",
+      "Willow",
+      "Rowan"
+    ],
+    "places": [
+      "Harbor",
+      "North",
+      "Central"
+    ],
+    "numbers": [
+      19,
+      39,
+      37
+    ],
+    "question": "What is the area of the room assigned to painting Cedar? Reply with just the number.",
+    "expected": [
+      {
+        "name": "locate_art",
+        "arguments": {
+          "identifier": "Cedar"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "location": "Harbor"
+        }
+      }
+    ],
+    "gold": "19"
+  },
+  {
+    "id": "fit-4-chain",
+    "kind": "chain",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Quartz",
+      "Pearl",
+      "Hazel"
+    ],
+    "places": [
+      "Hill",
+      "Coast",
+      "Lake"
+    ],
+    "numbers": [
+      24,
+      34,
+      18
+    ],
+    "question": "What is the capacity of the garage assigned to bus Quartz? Reply with just the number.",
+    "expected": [
+      {
+        "name": "assigned_garage",
+        "arguments": {
+          "bus": "Quartz"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Hill"
+        }
+      }
+    ],
+    "gold": "24"
+  },
+  {
+    "id": "fit-32-chain",
+    "kind": "chain",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Rowan",
+      "Cedar",
+      "Juniper"
+    ],
+    "places": [
+      "West",
+      "South",
+      "Valley"
+    ],
+    "numbers": [
+      55,
+      29,
+      85
+    ],
+    "question": "What is the width of the shelf assigned to book Rowan? Reply with just the number.",
+    "expected": [
+      {
+        "name": "find_shelf",
+        "arguments": {
+          "book": "Rowan"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "West"
+        }
+      }
+    ],
+    "gold": "55"
+  },
+  {
+    "id": "fit-13-direct",
+    "kind": "direct",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Quartz",
+      "Hazel",
+      "Maple"
+    ],
+    "places": [
+      "Grove",
+      "Hill",
+      "East"
+    ],
+    "numbers": [
+      25,
+      97,
+      85
+    ],
+    "question": "The length values are Grove = 25 and Hill = 97. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Hill"
+  },
+  {
+    "id": "fit-26-chain",
+    "kind": "chain",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Kestrel",
+      "Flint",
+      "Rowan"
+    ],
+    "places": [
+      "Lake",
+      "Harbor",
+      "Central"
+    ],
+    "numbers": [
+      42,
+      67,
+      43
+    ],
+    "question": "What is the width of the shelf assigned to book Kestrel? Reply with just the number.",
+    "expected": [
+      {
+        "name": "find_shelf",
+        "arguments": {
+          "book": "Kestrel"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "Lake"
+        }
+      }
+    ],
+    "gold": "42"
+  },
+  {
+    "id": "fit-20-chain",
+    "kind": "chain",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Pearl",
+      "Juniper",
+      "Amber"
+    ],
+    "places": [
+      "West",
+      "North",
+      "Valley"
+    ],
+    "numbers": [
+      96,
+      56,
+      47
+    ],
+    "question": "What is the width of the shelf assigned to book Pearl? Reply with just the number.",
+    "expected": [
+      {
+        "name": "find_shelf",
+        "arguments": {
+          "book": "Pearl"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "West"
+        }
+      }
+    ],
+    "gold": "96"
+  },
+  {
+    "id": "fit-30-clarify",
+    "kind": "clarify",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Juniper",
+      "Pearl",
+      "Flint"
+    ],
+    "places": [
+      "South",
+      "Lake",
+      "North"
+    ],
+    "numbers": [
+      65,
+      36,
+      35
+    ],
+    "question": "What is the length of my bed?",
+    "expected": [],
+    "gold": "Which bed?"
+  },
+  {
+    "id": "fit-24-lookup",
+    "kind": "lookup",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Hazel",
+      "Kestrel",
+      "Juniper"
+    ],
+    "places": [
+      "Coast",
+      "Hill",
+      "East"
+    ],
+    "numbers": [
+      87,
+      98,
+      49
+    ],
+    "question": "Give the capacity of hub Coast. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Coast"
+        }
+      }
+    ],
+    "gold": "87"
+  },
+  {
+    "id": "fit-27-direct",
+    "kind": "direct",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Juniper",
+      "Pearl",
+      "Cedar"
+    ],
+    "places": [
+      "West",
+      "Central",
+      "East"
+    ],
+    "numbers": [
+      53,
+      89,
+      71
+    ],
+    "question": "The capacity values are West = 53 and Central = 89. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Central"
+  },
+  {
+    "id": "fit-33-chain",
+    "kind": "chain",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Quartz",
+      "Willow",
+      "Kestrel"
+    ],
+    "places": [
+      "North",
+      "Lake",
+      "South"
+    ],
+    "numbers": [
+      47,
+      76,
+      20
+    ],
+    "question": "What is the length of the bed assigned to flower Quartz? Reply with just the number.",
+    "expected": [
+      {
+        "name": "plant_location",
+        "arguments": {
+          "identifier": "Quartz"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "location": "North"
+        }
+      }
+    ],
+    "gold": "47"
+  },
+  {
+    "id": "fit-30-direct",
+    "kind": "direct",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Willow",
+      "Maple",
+      "Cobalt"
+    ],
+    "places": [
+      "Ridge",
+      "Harbor",
+      "Valley"
+    ],
+    "numbers": [
+      24,
+      88,
+      85
+    ],
+    "question": "The width values are Ridge = 24 and Harbor = 88. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-28-compare",
+    "kind": "compare",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Juniper",
+      "Hazel",
+      "Willow"
+    ],
+    "places": [
+      "Grove",
+      "Harbor",
+      "South"
+    ],
+    "numbers": [
+      47,
+      54,
+      83
+    ],
+    "question": "Which hub has the greater capacity, Grove or Harbor? Reply with its name.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Grove"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Harbor"
+        }
+      }
+    ],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-15-clarify",
+    "kind": "clarify",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Flint",
+      "Cobalt",
+      "Cedar"
+    ],
+    "places": [
+      "Central",
+      "North",
+      "Lake"
+    ],
+    "numbers": [
+      92,
+      75,
+      53
+    ],
+    "question": "What is the area of my room?",
+    "expected": [],
+    "gold": "Which room?"
+  },
+  {
+    "id": "fit-12-clarify",
+    "kind": "clarify",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Rowan",
+      "Maple",
+      "Cobalt"
+    ],
+    "places": [
+      "Ridge",
+      "North",
+      "East"
+    ],
+    "numbers": [
+      28,
+      52,
+      35
+    ],
+    "question": "What is the length of my bed?",
+    "expected": [],
+    "gold": "Which bed?"
+  },
+  {
+    "id": "fit-28-chain",
+    "kind": "chain",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Cobalt",
+      "Flint",
+      "Willow"
+    ],
+    "places": [
+      "Grove",
+      "Hill",
+      "South"
+    ],
+    "numbers": [
+      64,
+      96,
+      39
+    ],
+    "question": "What is the capacity of the garage assigned to bus Cobalt? Reply with just the number.",
+    "expected": [
+      {
+        "name": "assigned_garage",
+        "arguments": {
+          "bus": "Cobalt"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Grove"
+        }
+      }
+    ],
+    "gold": "64"
+  },
+  {
+    "id": "fit-26-lookup",
+    "kind": "lookup",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Kestrel",
+      "Flint",
+      "Quartz"
+    ],
+    "places": [
+      "Lake",
+      "Ridge",
+      "Grove"
+    ],
+    "numbers": [
+      94,
+      40,
+      49
+    ],
+    "question": "Give the seats of hall Lake. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "Lake"
+        }
+      }
+    ],
+    "gold": "94"
+  },
+  {
+    "id": "fit-23-chain",
+    "kind": "chain",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Pearl",
+      "Hazel",
+      "Cedar"
+    ],
+    "places": [
+      "Harbor",
+      "East",
+      "Hill"
+    ],
+    "numbers": [
+      48,
+      33,
+      25
+    ],
+    "question": "What is the capacity of the hub assigned to parcel Pearl? Reply with just the number.",
+    "expected": [
+      {
+        "name": "manifest_hub",
+        "arguments": {
+          "parcel": "Pearl"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Harbor"
+        }
+      }
+    ],
+    "gold": "48"
+  },
+  {
+    "id": "fit-22-clarify",
+    "kind": "clarify",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Amber",
+      "Pearl",
+      "Juniper"
+    ],
+    "places": [
+      "North",
+      "West",
+      "Central"
+    ],
+    "numbers": [
+      53,
+      83,
+      87
+    ],
+    "question": "What is the seats of my hall?",
+    "expected": [],
+    "gold": "Which hall?"
+  },
+  {
+    "id": "fit-14-compare",
+    "kind": "compare",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Maple",
+      "Quartz",
+      "Hazel"
+    ],
+    "places": [
+      "Grove",
+      "East",
+      "Ridge"
+    ],
+    "numbers": [
+      80,
+      39,
+      47
+    ],
+    "question": "Which bed has the greater length, Grove or East? Reply with its name.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "location": "Grove"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "location": "East"
+        }
+      }
+    ],
+    "gold": "Grove"
+  },
+  {
+    "id": "fit-7-compare",
+    "kind": "compare",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Maple",
+      "Kestrel",
+      "Amber"
+    ],
+    "places": [
+      "North",
+      "West",
+      "Valley"
+    ],
+    "numbers": [
+      45,
+      46,
+      30
+    ],
+    "question": "Which shelf has the greater width, North or West? Reply with its name.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "North"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "West"
+        }
+      }
+    ],
+    "gold": "West"
+  },
+  {
+    "id": "fit-23-direct",
+    "kind": "direct",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Kestrel",
+      "Rowan",
+      "Juniper"
+    ],
+    "places": [
+      "West",
+      "North",
+      "Hill"
+    ],
+    "numbers": [
+      51,
+      64,
+      97
+    ],
+    "question": "The seats values are West = 51 and North = 64. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "North"
+  },
+  {
+    "id": "fit-14-lookup",
+    "kind": "lookup",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Amber",
+      "Kestrel",
+      "Pearl"
+    ],
+    "places": [
+      "Central",
+      "Grove",
+      "South"
+    ],
+    "numbers": [
+      17,
+      44,
+      45
+    ],
+    "question": "Give the seats of hall Central. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "Central"
+        }
+      }
+    ],
+    "gold": "17"
+  },
+  {
+    "id": "fit-22-chain",
+    "kind": "chain",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Willow",
+      "Amber",
+      "Flint"
+    ],
+    "places": [
+      "West",
+      "South",
+      "Ridge"
+    ],
+    "numbers": [
+      17,
+      72,
+      41
+    ],
+    "question": "What is the capacity of the garage assigned to bus Willow? Reply with just the number.",
+    "expected": [
+      {
+        "name": "assigned_garage",
+        "arguments": {
+          "bus": "Willow"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "West"
+        }
+      }
+    ],
+    "gold": "17"
+  },
+  {
+    "id": "fit-4-compare",
+    "kind": "compare",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Maple",
+      "Hazel",
+      "Amber"
+    ],
+    "places": [
+      "Central",
+      "Valley",
+      "North"
+    ],
+    "numbers": [
+      68,
+      94,
+      22
+    ],
+    "question": "Which hub has the greater capacity, Central or Valley? Reply with its name.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Central"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Valley"
+        }
+      }
+    ],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-19-direct",
+    "kind": "direct",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Flint",
+      "Willow",
+      "Pearl"
+    ],
+    "places": [
+      "East",
+      "Coast",
+      "Grove"
+    ],
+    "numbers": [
+      59,
+      98,
+      15
+    ],
+    "question": "The length values are East = 59 and Coast = 98. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Coast"
+  },
+  {
+    "id": "fit-33-compare",
+    "kind": "compare",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Cedar",
+      "Hazel",
+      "Rowan"
+    ],
+    "places": [
+      "Ridge",
+      "Valley",
+      "Grove"
+    ],
+    "numbers": [
+      28,
+      98,
+      72
+    ],
+    "question": "Which garage has the greater capacity, Ridge or Valley? Reply with its name.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Ridge"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Valley"
+        }
+      }
+    ],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-9-chain",
+    "kind": "chain",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Cobalt",
+      "Flint",
+      "Juniper"
+    ],
+    "places": [
+      "Grove",
+      "West",
+      "Valley"
+    ],
+    "numbers": [
+      85,
+      12,
+      28
+    ],
+    "question": "What is the length of the bed assigned to flower Cobalt? Reply with just the number.",
+    "expected": [
+      {
+        "name": "plant_location",
+        "arguments": {
+          "flower": "Cobalt"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Grove"
+        }
+      }
+    ],
+    "gold": "85"
+  },
+  {
+    "id": "fit-17-chain",
+    "kind": "chain",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Juniper",
+      "Cedar",
+      "Hazel"
+    ],
+    "places": [
+      "Grove",
+      "Central",
+      "West"
+    ],
+    "numbers": [
+      94,
+      88,
+      53
+    ],
+    "question": "What is the capacity of the hub assigned to parcel Juniper? Reply with just the number.",
+    "expected": [
+      {
+        "name": "manifest_hub",
+        "arguments": {
+          "identifier": "Juniper"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "Grove"
+        }
+      }
+    ],
+    "gold": "94"
+  },
+  {
+    "id": "fit-2-clarify",
+    "kind": "clarify",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Rowan",
+      "Cobalt",
+      "Pearl"
+    ],
+    "places": [
+      "East",
+      "Ridge",
+      "Grove"
+    ],
+    "numbers": [
+      72,
+      28,
+      86
+    ],
+    "question": "What is the capacity of my hub?",
+    "expected": [],
+    "gold": "Which hub?"
+  },
+  {
+    "id": "fit-32-compare",
+    "kind": "compare",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Kestrel",
+      "Hazel",
+      "Amber"
+    ],
+    "places": [
+      "Harbor",
+      "Lake",
+      "South"
+    ],
+    "numbers": [
+      16,
+      54,
+      91
+    ],
+    "question": "Which bed has the greater length, Harbor or Lake? Reply with its name.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Harbor"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Lake"
+        }
+      }
+    ],
+    "gold": "Lake"
+  },
+  {
+    "id": "fit-8-direct",
+    "kind": "direct",
+    "domain": "fleet",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Cedar",
+      "Pearl",
+      "Hazel"
+    ],
+    "places": [
+      "Lake",
+      "Grove",
+      "Central"
+    ],
+    "numbers": [
+      80,
+      31,
+      49
+    ],
+    "question": "The capacity values are Lake = 80 and Grove = 31. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Lake"
+  },
+  {
+    "id": "fit-1-chain",
+    "kind": "chain",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Cedar",
+      "Amber",
+      "Maple"
+    ],
+    "places": [
+      "West",
+      "Coast",
+      "Harbor"
+    ],
+    "numbers": [
+      47,
+      81,
+      33
+    ],
+    "question": "What is the seats of the hall assigned to course Cedar? Reply with just the number.",
+    "expected": [
+      {
+        "name": "course_building",
+        "arguments": {
+          "course": "Cedar"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "West"
+        }
+      }
+    ],
+    "gold": "47"
+  },
+  {
+    "id": "fit-35-lookup",
+    "kind": "lookup",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Pearl",
+      "Maple",
+      "Hazel"
+    ],
+    "places": [
+      "Central",
+      "South",
+      "Hill"
+    ],
+    "numbers": [
+      85,
+      68,
+      74
+    ],
+    "question": "Give the capacity of garage Central. Reply with just the number.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Central"
+        }
+      }
+    ],
+    "gold": "85"
+  },
+  {
+    "id": "fit-5-direct",
+    "kind": "direct",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Cobalt",
+      "Maple",
+      "Flint"
+    ],
+    "places": [
+      "Central",
+      "North",
+      "Lake"
+    ],
+    "numbers": [
+      34,
+      23,
+      48
+    ],
+    "question": "The seats values are Central = 34 and North = 23. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Central"
+  },
+  {
+    "id": "fit-31-clarify",
+    "kind": "clarify",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Flint",
+      "Rowan",
+      "Amber"
+    ],
+    "places": [
+      "South",
+      "East",
+      "Valley"
+    ],
+    "numbers": [
+      83,
+      72,
+      39
+    ],
+    "question": "What is the capacity of my garage?",
+    "expected": [],
+    "gold": "Which garage?"
+  },
+  {
+    "id": "fit-29-compare",
+    "kind": "compare",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Cedar",
+      "Flint",
+      "Hazel"
+    ],
+    "places": [
+      "Hill",
+      "Valley",
+      "Grove"
+    ],
+    "numbers": [
+      15,
+      75,
+      26
+    ],
+    "question": "Which room has the greater area, Hill or Valley? Reply with its name.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Hill"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Valley"
+        }
+      }
+    ],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-35-chain",
+    "kind": "chain",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Pearl",
+      "Quartz",
+      "Juniper"
+    ],
+    "places": [
+      "Harbor",
+      "Ridge",
+      "Lake"
+    ],
+    "numbers": [
+      50,
+      58,
+      18
+    ],
+    "question": "What is the capacity of the hub assigned to parcel Pearl? Reply with just the number.",
+    "expected": [
+      {
+        "name": "manifest_hub",
+        "arguments": {
+          "identifier": "Pearl"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "Harbor"
+        }
+      }
+    ],
+    "gold": "50"
+  },
+  {
+    "id": "fit-12-lookup",
+    "kind": "lookup",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Pearl",
+      "Juniper",
+      "Quartz"
+    ],
+    "places": [
+      "North",
+      "Harbor",
+      "Lake"
+    ],
+    "numbers": [
+      75,
+      86,
+      14
+    ],
+    "question": "Give the capacity of hub North. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "North"
+        }
+      }
+    ],
+    "gold": "75"
+  },
+  {
+    "id": "fit-26-direct",
+    "kind": "direct",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Hazel",
+      "Kestrel",
+      "Pearl"
+    ],
+    "places": [
+      "Valley",
+      "Grove",
+      "Lake"
+    ],
+    "numbers": [
+      56,
+      34,
+      18
+    ],
+    "question": "The capacity values are Valley = 56 and Grove = 34. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-8-chain",
+    "kind": "chain",
+    "domain": "library",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Rowan",
+      "Maple",
+      "Pearl"
+    ],
+    "places": [
+      "Hill",
+      "West",
+      "East"
+    ],
+    "numbers": [
+      97,
+      92,
+      35
+    ],
+    "question": "What is the width of the shelf assigned to book Rowan? Reply with just the number.",
+    "expected": [
+      {
+        "name": "find_shelf",
+        "arguments": {
+          "identifier": "Rowan"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "location": "Hill"
+        }
+      }
+    ],
+    "gold": "97"
+  },
+  {
+    "id": "fit-1-compare",
+    "kind": "compare",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Willow",
+      "Maple",
+      "Kestrel"
+    ],
+    "places": [
+      "Hill",
+      "West",
+      "South"
+    ],
+    "numbers": [
+      25,
+      93,
+      23
+    ],
+    "question": "Which shelf has the greater width, Hill or West? Reply with its name.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "Hill"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "West"
+        }
+      }
+    ],
+    "gold": "West"
+  },
+  {
+    "id": "fit-28-clarify",
+    "kind": "clarify",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Kestrel",
+      "Cobalt",
+      "Amber"
+    ],
+    "places": [
+      "South",
+      "Harbor",
+      "Coast"
+    ],
+    "numbers": [
+      25,
+      49,
+      91
+    ],
+    "question": "What is the seats of my hall?",
+    "expected": [],
+    "gold": "Which hall?"
+  },
+  {
+    "id": "fit-16-clarify",
+    "kind": "clarify",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Kestrel",
+      "Pearl",
+      "Quartz"
+    ],
+    "places": [
+      "North",
+      "Central",
+      "West"
+    ],
+    "numbers": [
+      27,
+      52,
+      38
+    ],
+    "question": "What is the seats of my hall?",
+    "expected": [],
+    "gold": "Which hall?"
+  },
+  {
+    "id": "fit-33-lookup",
+    "kind": "lookup",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Maple",
+      "Cobalt",
+      "Willow"
+    ],
+    "places": [
+      "South",
+      "West",
+      "Coast"
+    ],
+    "numbers": [
+      32,
+      88,
+      47
+    ],
+    "question": "Give the width of shelf South. Reply with just the number.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "South"
+        }
+      }
+    ],
+    "gold": "32"
+  },
+  {
+    "id": "fit-11-compare",
+    "kind": "compare",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Cedar",
+      "Maple",
+      "Cobalt"
+    ],
+    "places": [
+      "North",
+      "Harbor",
+      "Ridge"
+    ],
+    "numbers": [
+      43,
+      20,
+      59
+    ],
+    "question": "Which room has the greater area, North or Harbor? Reply with its name.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "North"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Harbor"
+        }
+      }
+    ],
+    "gold": "North"
+  },
+  {
+    "id": "fit-7-chain",
+    "kind": "chain",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Juniper",
+      "Flint",
+      "Amber"
+    ],
+    "places": [
+      "Grove",
+      "Ridge",
+      "North"
+    ],
+    "numbers": [
+      53,
+      65,
+      39
+    ],
+    "question": "What is the seats of the hall assigned to course Juniper? Reply with just the number.",
+    "expected": [
+      {
+        "name": "course_building",
+        "arguments": {
+          "identifier": "Juniper"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "Grove"
+        }
+      }
+    ],
+    "gold": "53"
+  },
+  {
+    "id": "fit-21-lookup",
+    "kind": "lookup",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Flint",
+      "Cobalt",
+      "Quartz"
+    ],
+    "places": [
+      "Hill",
+      "North",
+      "Coast"
+    ],
+    "numbers": [
+      63,
+      38,
+      48
+    ],
+    "question": "Give the width of shelf Hill. Reply with just the number.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "Hill"
+        }
+      }
+    ],
+    "gold": "63"
+  },
+  {
+    "id": "fit-25-compare",
+    "kind": "compare",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Maple",
+      "Pearl",
+      "Cobalt"
+    ],
+    "places": [
+      "North",
+      "Harbor",
+      "West"
+    ],
+    "numbers": [
+      47,
+      15,
+      73
+    ],
+    "question": "Which shelf has the greater width, North or Harbor? Reply with its name.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "North"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "Harbor"
+        }
+      }
+    ],
+    "gold": "North"
+  },
+  {
+    "id": "fit-22-direct",
+    "kind": "direct",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Rowan",
+      "Flint",
+      "Cedar"
+    ],
+    "places": [
+      "North",
+      "Harbor",
+      "Ridge"
+    ],
+    "numbers": [
+      43,
+      25,
+      74
+    ],
+    "question": "The area values are North = 43 and Harbor = 25. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "North"
+  },
+  {
+    "id": "fit-1-clarify",
+    "kind": "clarify",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Pearl",
+      "Willow",
+      "Flint"
+    ],
+    "places": [
+      "West",
+      "Valley",
+      "Grove"
+    ],
+    "numbers": [
+      56,
+      72,
+      61
+    ],
+    "question": "What is the capacity of my garage?",
+    "expected": [],
+    "gold": "Which garage?"
+  },
+  {
+    "id": "fit-23-clarify",
+    "kind": "clarify",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Hazel",
+      "Cobalt",
+      "Amber"
+    ],
+    "places": [
+      "North",
+      "Hill",
+      "West"
+    ],
+    "numbers": [
+      97,
+      14,
+      28
+    ],
+    "question": "What is the width of my shelf?",
+    "expected": [],
+    "gold": "Which shelf?"
+  },
+  {
+    "id": "fit-9-clarify",
+    "kind": "clarify",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Rowan",
+      "Quartz",
+      "Willow"
+    ],
+    "places": [
+      "Valley",
+      "Harbor",
+      "West"
+    ],
+    "numbers": [
+      41,
+      73,
+      33
+    ],
+    "question": "What is the area of my room?",
+    "expected": [],
+    "gold": "Which room?"
+  },
+  {
+    "id": "fit-28-lookup",
+    "kind": "lookup",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Flint",
+      "Rowan",
+      "Willow"
+    ],
+    "places": [
+      "East",
+      "North",
+      "Grove"
+    ],
+    "numbers": [
+      77,
+      33,
+      70
+    ],
+    "question": "Give the length of bed East. Reply with just the number.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "East"
+        }
+      }
+    ],
+    "gold": "77"
+  },
+  {
+    "id": "fit-18-direct",
+    "kind": "direct",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Rowan",
+      "Amber",
+      "Cedar"
+    ],
+    "places": [
+      "Hill",
+      "Valley",
+      "Ridge"
+    ],
+    "numbers": [
+      71,
+      29,
+      70
+    ],
+    "question": "The width values are Hill = 71 and Valley = 29. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Hill"
+  },
+  {
+    "id": "fit-24-chain",
+    "kind": "chain",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Kestrel",
+      "Quartz",
+      "Hazel"
+    ],
+    "places": [
+      "Hill",
+      "Coast",
+      "Valley"
+    ],
+    "numbers": [
+      50,
+      29,
+      52
+    ],
+    "question": "What is the area of the room assigned to painting Kestrel? Reply with just the number.",
+    "expected": [
+      {
+        "name": "locate_art",
+        "arguments": {
+          "identifier": "Kestrel"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "location": "Hill"
+        }
+      }
+    ],
+    "gold": "50"
+  },
+  {
+    "id": "fit-23-compare",
+    "kind": "compare",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Pearl",
+      "Maple",
+      "Quartz"
+    ],
+    "places": [
+      "Ridge",
+      "East",
+      "West"
+    ],
+    "numbers": [
+      64,
+      25,
+      34
+    ],
+    "question": "Which room has the greater area, Ridge or East? Reply with its name.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Ridge"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "East"
+        }
+      }
+    ],
+    "gold": "Ridge"
+  },
+  {
+    "id": "fit-3-lookup",
+    "kind": "lookup",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Rowan",
+      "Pearl",
+      "Flint"
+    ],
+    "places": [
+      "Coast",
+      "Ridge",
+      "Lake"
+    ],
+    "numbers": [
+      21,
+      46,
+      56
+    ],
+    "question": "Give the width of shelf Coast. Reply with just the number.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "Coast"
+        }
+      }
+    ],
+    "gold": "21"
+  },
+  {
+    "id": "fit-28-direct",
+    "kind": "direct",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Cobalt",
+      "Pearl",
+      "Quartz"
+    ],
+    "places": [
+      "Valley",
+      "Harbor",
+      "East"
+    ],
+    "numbers": [
+      95,
+      51,
+      43
+    ],
+    "question": "The area values are Valley = 95 and Harbor = 51. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-25-direct",
+    "kind": "direct",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Hazel",
+      "Amber",
+      "Cedar"
+    ],
+    "places": [
+      "West",
+      "Hill",
+      "Lake"
+    ],
+    "numbers": [
+      26,
+      78,
+      79
+    ],
+    "question": "The length values are West = 26 and Hill = 78. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Hill"
+  },
+  {
+    "id": "fit-11-lookup",
+    "kind": "lookup",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Juniper",
+      "Quartz",
+      "Rowan"
+    ],
+    "places": [
+      "Grove",
+      "Ridge",
+      "South"
+    ],
+    "numbers": [
+      18,
+      20,
+      79
+    ],
+    "question": "Give the capacity of garage Grove. Reply with just the number.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Grove"
+        }
+      }
+    ],
+    "gold": "18"
+  },
+  {
+    "id": "fit-32-lookup",
+    "kind": "lookup",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Quartz",
+      "Cedar",
+      "Amber"
+    ],
+    "places": [
+      "West",
+      "East",
+      "Hill"
+    ],
+    "numbers": [
+      41,
+      64,
+      71
+    ],
+    "question": "Give the seats of hall West. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "West"
+        }
+      }
+    ],
+    "gold": "41"
+  },
+  {
+    "id": "fit-13-chain",
+    "kind": "chain",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Juniper",
+      "Cedar",
+      "Quartz"
+    ],
+    "places": [
+      "Lake",
+      "Central",
+      "South"
+    ],
+    "numbers": [
+      14,
+      54,
+      76
+    ],
+    "question": "What is the seats of the hall assigned to course Juniper? Reply with just the number.",
+    "expected": [
+      {
+        "name": "course_building",
+        "arguments": {
+          "course": "Juniper"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "Lake"
+        }
+      }
+    ],
+    "gold": "14"
+  },
+  {
+    "id": "fit-16-compare",
+    "kind": "compare",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Flint",
+      "Rowan",
+      "Cedar"
+    ],
+    "places": [
+      "Hill",
+      "Coast",
+      "North"
+    ],
+    "numbers": [
+      42,
+      16,
+      20
+    ],
+    "question": "Which hub has the greater capacity, Hill or Coast? Reply with its name.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Hill"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Coast"
+        }
+      }
+    ],
+    "gold": "Hill"
+  },
+  {
+    "id": "fit-7-direct",
+    "kind": "direct",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Juniper",
+      "Pearl",
+      "Kestrel"
+    ],
+    "places": [
+      "Hill",
+      "West",
+      "East"
+    ],
+    "numbers": [
+      18,
+      53,
+      27
+    ],
+    "question": "The length values are Hill = 18 and West = 53. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "West"
+  },
+  {
+    "id": "fit-34-lookup",
+    "kind": "lookup",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Juniper",
+      "Amber",
+      "Quartz"
+    ],
+    "places": [
+      "West",
+      "Central",
+      "Valley"
+    ],
+    "numbers": [
+      45,
+      51,
+      28
+    ],
+    "question": "Give the length of bed West. Reply with just the number.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "West"
+        }
+      }
+    ],
+    "gold": "45"
+  },
+  {
+    "id": "fit-9-compare",
+    "kind": "compare",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Cobalt",
+      "Flint",
+      "Maple"
+    ],
+    "places": [
+      "North",
+      "East",
+      "Central"
+    ],
+    "numbers": [
+      97,
+      22,
+      26
+    ],
+    "question": "Which garage has the greater capacity, North or East? Reply with its name.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "North"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "East"
+        }
+      }
+    ],
+    "gold": "North"
+  },
+  {
+    "id": "fit-30-lookup",
+    "kind": "lookup",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Juniper",
+      "Cobalt",
+      "Amber"
+    ],
+    "places": [
+      "Ridge",
+      "Valley",
+      "East"
+    ],
+    "numbers": [
+      78,
+      52,
+      60
+    ],
+    "question": "Give the capacity of hub Ridge. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "Ridge"
+        }
+      }
+    ],
+    "gold": "78"
+  },
+  {
+    "id": "fit-17-direct",
+    "kind": "direct",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Quartz",
+      "Cobalt",
+      "Flint"
+    ],
+    "places": [
+      "Ridge",
+      "West",
+      "Coast"
+    ],
+    "numbers": [
+      12,
+      78,
+      67
+    ],
+    "question": "The seats values are Ridge = 12 and West = 78. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "West"
+  },
+  {
+    "id": "fit-32-clarify",
+    "kind": "clarify",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Amber",
+      "Flint",
+      "Rowan"
+    ],
+    "places": [
+      "Hill",
+      "Harbor",
+      "Valley"
+    ],
+    "numbers": [
+      70,
+      16,
+      21
+    ],
+    "question": "What is the capacity of my hub?",
+    "expected": [],
+    "gold": "Which hub?"
+  },
+  {
+    "id": "fit-31-direct",
+    "kind": "direct",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Rowan",
+      "Maple",
+      "Juniper"
+    ],
+    "places": [
+      "Lake",
+      "West",
+      "Hill"
+    ],
+    "numbers": [
+      81,
+      20,
+      42
+    ],
+    "question": "The length values are Lake = 81 and West = 20. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Lake"
+  },
+  {
+    "id": "fit-20-direct",
+    "kind": "direct",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Cedar",
+      "Flint",
+      "Quartz"
+    ],
+    "places": [
+      "Valley",
+      "West",
+      "South"
+    ],
+    "numbers": [
+      11,
+      24,
+      31
+    ],
+    "question": "The capacity values are Valley = 11 and West = 24. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "West"
+  },
+  {
+    "id": "fit-11-direct",
+    "kind": "direct",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Cedar",
+      "Rowan",
+      "Flint"
+    ],
+    "places": [
+      "Coast",
+      "Harbor",
+      "East"
+    ],
+    "numbers": [
+      17,
+      91,
+      73
+    ],
+    "question": "The seats values are Coast = 17 and Harbor = 91. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-9-direct",
+    "kind": "direct",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Hazel",
+      "Quartz",
+      "Amber"
+    ],
+    "places": [
+      "West",
+      "Harbor",
+      "North"
+    ],
+    "numbers": [
+      84,
+      58,
+      72
+    ],
+    "question": "The capacity values are West = 84 and Harbor = 58. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "West"
+  },
+  {
+    "id": "fit-9-lookup",
+    "kind": "lookup",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Rowan",
+      "Willow",
+      "Amber"
+    ],
+    "places": [
+      "South",
+      "Hill",
+      "Harbor"
+    ],
+    "numbers": [
+      46,
+      47,
+      45
+    ],
+    "question": "Give the width of shelf South. Reply with just the number.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "South"
+        }
+      }
+    ],
+    "gold": "46"
+  },
+  {
+    "id": "fit-27-lookup",
+    "kind": "lookup",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Cedar",
+      "Maple",
+      "Flint"
+    ],
+    "places": [
+      "South",
+      "Coast",
+      "Grove"
+    ],
+    "numbers": [
+      51,
+      29,
+      88
+    ],
+    "question": "Give the width of shelf South. Reply with just the number.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "shelf": "South"
+        }
+      }
+    ],
+    "gold": "51"
+  },
+  {
+    "id": "fit-29-chain",
+    "kind": "chain",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Cobalt",
+      "Pearl",
+      "Flint"
+    ],
+    "places": [
+      "Central",
+      "Harbor",
+      "Ridge"
+    ],
+    "numbers": [
+      52,
+      46,
+      92
+    ],
+    "question": "What is the capacity of the hub assigned to parcel Cobalt? Reply with just the number.",
+    "expected": [
+      {
+        "name": "manifest_hub",
+        "arguments": {
+          "identifier": "Cobalt"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "Central"
+        }
+      }
+    ],
+    "gold": "52"
+  },
+  {
+    "id": "fit-29-direct",
+    "kind": "direct",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Flint",
+      "Rowan",
+      "Cobalt"
+    ],
+    "places": [
+      "West",
+      "North",
+      "Lake"
+    ],
+    "numbers": [
+      60,
+      85,
+      12
+    ],
+    "question": "The seats values are West = 60 and North = 85. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "North"
+  },
+  {
+    "id": "fit-20-lookup",
+    "kind": "lookup",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Pearl",
+      "Juniper",
+      "Willow"
+    ],
+    "places": [
+      "North",
+      "Grove",
+      "West"
+    ],
+    "numbers": [
+      25,
+      96,
+      59
+    ],
+    "question": "Give the seats of hall North. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "North"
+        }
+      }
+    ],
+    "gold": "25"
+  },
+  {
+    "id": "fit-27-chain",
+    "kind": "chain",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Cedar",
+      "Amber",
+      "Juniper"
+    ],
+    "places": [
+      "Valley",
+      "Coast",
+      "Lake"
+    ],
+    "numbers": [
+      53,
+      40,
+      44
+    ],
+    "question": "What is the length of the bed assigned to flower Cedar? Reply with just the number.",
+    "expected": [
+      {
+        "name": "plant_location",
+        "arguments": {
+          "identifier": "Cedar"
+        }
+      },
+      {
+        "name": "bed_length",
+        "arguments": {
+          "location": "Valley"
+        }
+      }
+    ],
+    "gold": "53"
+  },
+  {
+    "id": "fit-35-compare",
+    "kind": "compare",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Cobalt",
+      "Pearl",
+      "Hazel"
+    ],
+    "places": [
+      "North",
+      "Valley",
+      "South"
+    ],
+    "numbers": [
+      94,
+      58,
+      82
+    ],
+    "question": "Which room has the greater area, North or Valley? Reply with its name.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "North"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Valley"
+        }
+      }
+    ],
+    "gold": "North"
+  },
+  {
+    "id": "fit-10-lookup",
+    "kind": "lookup",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Rowan",
+      "Flint",
+      "Pearl"
+    ],
+    "places": [
+      "Valley",
+      "Ridge",
+      "East"
+    ],
+    "numbers": [
+      57,
+      80,
+      16
+    ],
+    "question": "Give the length of bed Valley. Reply with just the number.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Valley"
+        }
+      }
+    ],
+    "gold": "57"
+  },
+  {
+    "id": "fit-4-lookup",
+    "kind": "lookup",
+    "domain": "garden",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Rowan",
+      "Cobalt",
+      "Maple"
+    ],
+    "places": [
+      "Lake",
+      "South",
+      "Grove"
+    ],
+    "numbers": [
+      17,
+      86,
+      49
+    ],
+    "question": "Give the length of bed Lake. Reply with just the number.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "location": "Lake"
+        }
+      }
+    ],
+    "gold": "17"
+  },
+  {
+    "id": "fit-18-clarify",
+    "kind": "clarify",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "bed_length",
+      "plant_location"
+    ],
+    "names": [
+      "Amber",
+      "Maple",
+      "Rowan"
+    ],
+    "places": [
+      "North",
+      "Hill",
+      "South"
+    ],
+    "numbers": [
+      12,
+      38,
+      49
+    ],
+    "question": "What is the length of my bed?",
+    "expected": [],
+    "gold": "Which bed?"
+  },
+  {
+    "id": "fit-21-clarify",
+    "kind": "clarify",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Cobalt",
+      "Amber",
+      "Kestrel"
+    ],
+    "places": [
+      "Coast",
+      "Valley",
+      "Ridge"
+    ],
+    "numbers": [
+      42,
+      39,
+      22
+    ],
+    "question": "What is the area of my room?",
+    "expected": [],
+    "gold": "Which room?"
+  },
+  {
+    "id": "fit-32-direct",
+    "kind": "direct",
+    "domain": "fleet",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Maple",
+      "Cedar",
+      "Rowan"
+    ],
+    "places": [
+      "Grove",
+      "East",
+      "Coast"
+    ],
+    "numbers": [
+      29,
+      51,
+      79
+    ],
+    "question": "The capacity values are Grove = 29 and East = 51. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "East"
+  },
+  {
+    "id": "fit-22-lookup",
+    "kind": "lookup",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Rowan",
+      "Cobalt",
+      "Maple"
+    ],
+    "places": [
+      "Harbor",
+      "East",
+      "Lake"
+    ],
+    "numbers": [
+      53,
+      80,
+      43
+    ],
+    "question": "Give the length of bed Harbor. Reply with just the number.",
+    "expected": [
+      {
+        "name": "bed_length",
+        "arguments": {
+          "bed": "Harbor"
+        }
+      }
+    ],
+    "gold": "53"
+  },
+  {
+    "id": "fit-19-chain",
+    "kind": "chain",
+    "domain": "campus",
+    "args": [
+      "course",
+      "hall"
+    ],
+    "tools": [
+      "course_building",
+      "hall_seats"
+    ],
+    "names": [
+      "Juniper",
+      "Hazel",
+      "Willow"
+    ],
+    "places": [
+      "West",
+      "Hill",
+      "Central"
+    ],
+    "numbers": [
+      93,
+      54,
+      85
+    ],
+    "question": "What is the seats of the hall assigned to course Juniper? Reply with just the number.",
+    "expected": [
+      {
+        "name": "course_building",
+        "arguments": {
+          "course": "Juniper"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "hall": "West"
+        }
+      }
+    ],
+    "gold": "93"
+  },
+  {
+    "id": "fit-19-lookup",
+    "kind": "lookup",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Amber",
+      "Juniper",
+      "Maple"
+    ],
+    "places": [
+      "Valley",
+      "Ridge",
+      "Harbor"
+    ],
+    "numbers": [
+      53,
+      19,
+      94
+    ],
+    "question": "Give the area of room Valley. Reply with just the number.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "location": "Valley"
+        }
+      }
+    ],
+    "gold": "53"
+  },
+  {
+    "id": "fit-6-direct",
+    "kind": "direct",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Hazel",
+      "Kestrel",
+      "Cedar"
+    ],
+    "places": [
+      "Lake",
+      "East",
+      "Central"
+    ],
+    "numbers": [
+      47,
+      26,
+      63
+    ],
+    "question": "The width values are Lake = 47 and East = 26. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Lake"
+  },
+  {
+    "id": "fit-18-chain",
+    "kind": "chain",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Amber",
+      "Flint",
+      "Kestrel"
+    ],
+    "places": [
+      "Lake",
+      "Grove",
+      "Ridge"
+    ],
+    "numbers": [
+      94,
+      92,
+      48
+    ],
+    "question": "What is the area of the room assigned to painting Amber? Reply with just the number.",
+    "expected": [
+      {
+        "name": "locate_art",
+        "arguments": {
+          "painting": "Amber"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Lake"
+        }
+      }
+    ],
+    "gold": "94"
+  },
+  {
+    "id": "fit-7-lookup",
+    "kind": "lookup",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Hazel",
+      "Cedar",
+      "Maple"
+    ],
+    "places": [
+      "South",
+      "Hill",
+      "Harbor"
+    ],
+    "numbers": [
+      59,
+      38,
+      18
+    ],
+    "question": "Give the area of room South. Reply with just the number.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "location": "South"
+        }
+      }
+    ],
+    "gold": "59"
+  },
+  {
+    "id": "fit-16-direct",
+    "kind": "direct",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Maple",
+      "Cedar",
+      "Amber"
+    ],
+    "places": [
+      "Valley",
+      "North",
+      "Coast"
+    ],
+    "numbers": [
+      65,
+      70,
+      40
+    ],
+    "question": "The area values are Valley = 65 and North = 70. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "North"
+  },
+  {
+    "id": "fit-10-chain",
+    "kind": "chain",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Pearl",
+      "Willow",
+      "Maple"
+    ],
+    "places": [
+      "Grove",
+      "Hill",
+      "Harbor"
+    ],
+    "numbers": [
+      13,
+      28,
+      19
+    ],
+    "question": "What is the capacity of the garage assigned to bus Pearl? Reply with just the number.",
+    "expected": [
+      {
+        "name": "assigned_garage",
+        "arguments": {
+          "bus": "Pearl"
+        }
+      },
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Grove"
+        }
+      }
+    ],
+    "gold": "13"
+  },
+  {
+    "id": "fit-4-direct",
+    "kind": "direct",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Flint",
+      "Quartz",
+      "Amber"
+    ],
+    "places": [
+      "Valley",
+      "West",
+      "Grove"
+    ],
+    "numbers": [
+      96,
+      82,
+      55
+    ],
+    "question": "The area values are Valley = 96 and West = 82. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Valley"
+  },
+  {
+    "id": "fit-6-chain",
+    "kind": "chain",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Amber",
+      "Kestrel",
+      "Cobalt"
+    ],
+    "places": [
+      "West",
+      "Harbor",
+      "South"
+    ],
+    "numbers": [
+      87,
+      46,
+      42
+    ],
+    "question": "What is the area of the room assigned to painting Amber? Reply with just the number.",
+    "expected": [
+      {
+        "name": "locate_art",
+        "arguments": {
+          "painting": "Amber"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "West"
+        }
+      }
+    ],
+    "gold": "87"
+  },
+  {
+    "id": "fit-13-lookup",
+    "kind": "lookup",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Rowan",
+      "Cedar",
+      "Willow"
+    ],
+    "places": [
+      "Coast",
+      "North",
+      "East"
+    ],
+    "numbers": [
+      42,
+      53,
+      82
+    ],
+    "question": "Give the area of room Coast. Reply with just the number.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Coast"
+        }
+      }
+    ],
+    "gold": "42"
+  },
+  {
+    "id": "fit-14-direct",
+    "kind": "direct",
+    "domain": "fleet",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_garage",
+      "garage_capacity"
+    ],
+    "names": [
+      "Cobalt",
+      "Maple",
+      "Rowan"
+    ],
+    "places": [
+      "Coast",
+      "Ridge",
+      "East"
+    ],
+    "numbers": [
+      29,
+      39,
+      73
+    ],
+    "question": "The capacity values are Coast = 29 and Ridge = 39. Which is larger? Reply with its name.",
+    "expected": [],
+    "gold": "Ridge"
+  },
+  {
+    "id": "fit-34-compare",
+    "kind": "compare",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Quartz",
+      "Amber",
+      "Flint"
+    ],
+    "places": [
+      "Coast",
+      "Hill",
+      "Lake"
+    ],
+    "numbers": [
+      58,
+      15,
+      51
+    ],
+    "question": "Which hub has the greater capacity, Coast or Hill? Reply with its name.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Coast"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Hill"
+        }
+      }
+    ],
+    "gold": "Coast"
+  },
+  {
+    "id": "fit-1-lookup",
+    "kind": "lookup",
+    "domain": "museum",
+    "args": [
+      "painting",
+      "room"
+    ],
+    "tools": [
+      "room_area",
+      "locate_art"
+    ],
+    "names": [
+      "Amber",
+      "Hazel",
+      "Maple"
+    ],
+    "places": [
+      "Lake",
+      "Coast",
+      "Ridge"
+    ],
+    "numbers": [
+      77,
+      52,
+      73
+    ],
+    "question": "Give the area of room Lake. Reply with just the number.",
+    "expected": [
+      {
+        "name": "room_area",
+        "arguments": {
+          "room": "Lake"
+        }
+      }
+    ],
+    "gold": "77"
+  },
+  {
+    "id": "fit-30-compare",
+    "kind": "compare",
+    "domain": "campus",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hall_seats",
+      "course_building"
+    ],
+    "names": [
+      "Willow",
+      "Cobalt",
+      "Hazel"
+    ],
+    "places": [
+      "Coast",
+      "Harbor",
+      "Ridge"
+    ],
+    "numbers": [
+      50,
+      52,
+      27
+    ],
+    "question": "Which hall has the greater seats, Coast or Harbor? Reply with its name.",
+    "expected": [
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "Coast"
+        }
+      },
+      {
+        "name": "hall_seats",
+        "arguments": {
+          "location": "Harbor"
+        }
+      }
+    ],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-0-lookup",
+    "kind": "lookup",
+    "domain": "depot",
+    "args": [
+      "parcel",
+      "hub"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Amber",
+      "Quartz",
+      "Cobalt"
+    ],
+    "places": [
+      "Grove",
+      "Ridge",
+      "East"
+    ],
+    "numbers": [
+      62,
+      41,
+      53
+    ],
+    "question": "Give the capacity of hub Grove. Reply with just the number.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "hub": "Grove"
+        }
+      }
+    ],
+    "gold": "62"
+  },
+  {
+    "id": "fit-6-clarify",
+    "kind": "clarify",
+    "domain": "garden",
+    "args": [
+      "flower",
+      "bed"
+    ],
+    "tools": [
+      "plant_location",
+      "bed_length"
+    ],
+    "names": [
+      "Cedar",
+      "Cobalt",
+      "Quartz"
+    ],
+    "places": [
+      "South",
+      "Grove",
+      "East"
+    ],
+    "numbers": [
+      26,
+      54,
+      33
+    ],
+    "question": "What is the length of my bed?",
+    "expected": [],
+    "gold": "Which bed?"
+  },
+  {
+    "id": "fit-31-compare",
+    "kind": "compare",
+    "domain": "library",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "shelf_width",
+      "find_shelf"
+    ],
+    "names": [
+      "Hazel",
+      "Juniper",
+      "Willow"
+    ],
+    "places": [
+      "Central",
+      "Harbor",
+      "North"
+    ],
+    "numbers": [
+      36,
+      37,
+      82
+    ],
+    "question": "Which shelf has the greater width, Central or Harbor? Reply with its name.",
+    "expected": [
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "location": "Central"
+        }
+      },
+      {
+        "name": "shelf_width",
+        "arguments": {
+          "location": "Harbor"
+        }
+      }
+    ],
+    "gold": "Harbor"
+  },
+  {
+    "id": "fit-11-clarify",
+    "kind": "clarify",
+    "domain": "library",
+    "args": [
+      "book",
+      "shelf"
+    ],
+    "tools": [
+      "find_shelf",
+      "shelf_width"
+    ],
+    "names": [
+      "Amber",
+      "Quartz",
+      "Rowan"
+    ],
+    "places": [
+      "Harbor",
+      "Hill",
+      "North"
+    ],
+    "numbers": [
+      58,
+      95,
+      79
+    ],
+    "question": "What is the width of my shelf?",
+    "expected": [],
+    "gold": "Which shelf?"
+  },
+  {
+    "id": "fit-29-lookup",
+    "kind": "lookup",
+    "domain": "fleet",
+    "args": [
+      "bus",
+      "garage"
+    ],
+    "tools": [
+      "garage_capacity",
+      "assigned_garage"
+    ],
+    "names": [
+      "Flint",
+      "Quartz",
+      "Amber"
+    ],
+    "places": [
+      "Valley",
+      "North",
+      "East"
+    ],
+    "numbers": [
+      28,
+      24,
+      30
+    ],
+    "question": "Give the capacity of garage Valley. Reply with just the number.",
+    "expected": [
+      {
+        "name": "garage_capacity",
+        "arguments": {
+          "garage": "Valley"
+        }
+      }
+    ],
+    "gold": "28"
+  }
+]
