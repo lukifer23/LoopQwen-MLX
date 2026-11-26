@@ -24,6 +24,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Paired sensitivity to leaving out one entire field family](mixed-family-sensitivity.csv)
 - [Installed and isolated field CLI calls, observations, answers and timings](field-cli.csv)
 - [Installed size, transport bytes and restoration time](transport.csv)
+- [Release-specific checksums, size reduction, and offline parity](release-transport.csv)
 - [Native time charged across research windows](native-compute.csv)
 - [Study-level evidence index](study-index.csv)
 - [Every registration, threshold, budget and publication status](registry-index.csv)

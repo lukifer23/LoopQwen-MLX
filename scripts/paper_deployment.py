@@ -257,3 +257,110 @@ def providers(paper, results, result):
                     b["seconds"],
                 ]
             )
+
+
+def packed_delivery(paper, results, result):
+    studies = ["transport-lossless-01", "transport-lossless-02"]
+    with (paper / "release-transport.csv").open("w") as output:
+        w = csv.writer(output)
+        w.writerow(
+            [
+                "study",
+                "payload_files",
+                "installed_bytes",
+                "ordinary_zip_bytes",
+                "lossless_bytes",
+                "fraction_smaller_than_zip",
+                "ordinary_zip_seconds",
+                "encode_seconds",
+                "restore_seconds",
+                "all_files_identical",
+                "offline_tool_parity",
+                "archive_sha256",
+            ]
+        )
+        for name in studies:
+            root = results / name
+            if not (root / "checksums.json").exists():
+                continue
+            d = result(name)
+            inventory = read(root / "original.json")
+            assert inventory == read(root / "restored.json") and d["identical"]
+            w.writerow(
+                [
+                    name,
+                    len(inventory),
+                    d["raw_bytes"],
+                    d["ordinary_zip_bytes"],
+                    d["bytes"],
+                    1 - d["bytes"] / d["ordinary_zip_bytes"],
+                    d["ordinary_zip_seconds"],
+                    d["pack_seconds"],
+                    d["restore_seconds"],
+                    d["identical"],
+                    d["offline_parity"],
+                    d["sha256"],
+                ]
+            )
+
+
+def tokenizer_streams(paper, results, result, finish):
+    name = "session-tokenizer-01"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    d = result(name)
+    spec = read(root / "registration.json")
+    rep = {"stock": 0, "reuse": 0}
+    with (paper / "tokenizer-streams.csv").open("w") as f:
+        w = csv.writer(f)
+        w.writerow(
+            [
+                "execution_order",
+                "policy",
+                "repeat",
+                "exact_trajectories",
+                "tokenizer_constructions",
+                "switch_first_token_s",
+                "all_first_token_s",
+                "total_s",
+                "peak_mlx_bytes",
+                "peak_process_rss_bytes",
+            ]
+        )
+        for i, side in enumerate(spec["order"]):
+            j = rep[side]
+            r = d["streams"][side][j]
+            rep[side] += 1
+            w.writerow(
+                [
+                    i + 1,
+                    side,
+                    j + 1,
+                    d["exact"][i],
+                    r["constructions"],
+                    r["switch_ttft"],
+                    r["all_ttft"],
+                    r["seconds"],
+                    r["peak"],
+                    r["rss"],
+                ]
+            )
+    fig, axes = plt.subplots(1, 2, figsize=(7.15, 2.55))
+    for ax, key, title in (
+        (axes[0], "switch_ttft", "First-token time on 15 switches (s)"),
+        (axes[1], "seconds", "Time for all 50 requests (s)"),
+    ):
+        for i, (side, color, label) in enumerate(
+            (("stock", "#9d5932", "Reload"), ("reuse", "#11675d", "Reuse"))
+        ):
+            rs = d["streams"][side]
+            for j, r in enumerate(rs):
+                ax.scatter(
+                    i + (j - 0.5) * 0.09, r[key], c=color, marker=("o", "s")[j], s=35
+                )
+        ax.set_xticks([0, 1], ["Reload", "Reuse"])
+        ax.set_xlim(-0.45, 1.45)
+        ax.set_ylim(bottom=0)
+        ax.set_ylabel(title)
+    finish(fig, "tokenizer-streams")
