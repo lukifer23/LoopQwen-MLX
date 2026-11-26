@@ -13,6 +13,7 @@ from loopqwen.evaluation.language7 import base
 from loopqwen.evaluation.statistics import exact_mcnemar
 from loopqwen.io import read, save
 from loopqwen.research.core import Budget
+from loopqwen.research.registered import registered
 from loopqwen.research.tool_worlds import score, tools_for
 from loopqwen.tool_session import run
 
@@ -91,7 +92,7 @@ def load_arm(arm, spec, folder, budget):
 
 
 def main(name):
-    spec = read(f"research/experiments/{name}.json")
+    spec = registered(name)
     if "requires" in spec:
         from loopqwen.io import digest
 

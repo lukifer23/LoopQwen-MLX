@@ -16,6 +16,7 @@ from loopqwen.evaluation.statistics import exact_mcnemar
 from loopqwen.io import digest, read, save
 from loopqwen.model_loader import local_snapshot
 from loopqwen.research.core import Budget
+from loopqwen.research.registered import registered
 from loopqwen.research.tool_fit import restore
 from loopqwen.tool_session import SYSTEM, compact, decode_action, prompt
 
@@ -128,7 +129,7 @@ def verify(root, decision):
 
 
 def main(name):
-    spec = read(f"research/experiments/{name}.json")
+    spec = registered(name)
     out = Path("outputs/research") / name
     src = Path(spec["source"])
     if (

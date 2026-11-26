@@ -16,6 +16,7 @@ from loopqwen.evaluation.statistics import exact_mcnemar
 from loopqwen.io import digest, read, save
 from loopqwen.model_loader import local_snapshot
 from loopqwen.research.core import Budget
+from loopqwen.research.registered import registered
 from loopqwen.research.tool_fit import fitted
 from loopqwen.tool_session import prompt
 
@@ -117,7 +118,7 @@ def verify(root, decision):
 
 
 def main(name):
-    spec = read(f"research/experiments/{name}.json")
+    spec = registered(name)
     items = read(spec["material"])["rows"]
     out = Path("outputs/research") / name
     if (out / "decision.json").exists():

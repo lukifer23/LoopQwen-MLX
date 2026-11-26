@@ -4,11 +4,12 @@ import argparse
 from pathlib import Path
 from statistics import median
 
-from loopqwen.io import read, save, digest
-from loopqwen.research.core import Budget
-from loopqwen.research.tool_fit import restore
-from loopqwen.research.tool_worlds import tools_for, score
 from loopqwen.evaluation.mechanism import packed, unpack
+from loopqwen.io import digest, read, save
+from loopqwen.research.core import Budget
+from loopqwen.research.registered import registered
+from loopqwen.research.tool_fit import restore
+from loopqwen.research.tool_worlds import score, tools_for
 from loopqwen.tool_session import run
 
 
@@ -90,7 +91,7 @@ def verify(root, decision):
 
 
 def main(name):
-    spec = read(f"research/experiments/{name}.json")
+    spec = registered(name)
     source = Path(spec["qualification"])
     assert (
         digest(source / "checksums.json") == spec["parent_sha256"]

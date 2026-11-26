@@ -11,7 +11,7 @@ import mlx.optimizers as optim
 from mlx.utils import tree_flatten
 
 from ..io import digest, read, save
-from ..model_loader import count, load_base
+from ..model_loader import count, load_base, local_snapshot
 from ..tool_session import compact, initial_messages, prompt
 from .tool_worlds import tools_for
 
@@ -19,15 +19,27 @@ from .tool_worlds import tools_for
 def build(spec, passes):
     if "donor" in spec:
         from .projected_distillation import tutor
-        donor, tok = tutor({"teacher": spec["donor"]})
+        from mlx_lm.utils import load_tokenizer
+
+        donor, _ = tutor({"teacher": spec["donor"]})
+        tok = load_tokenizer(local_snapshot())
         text = donor.text
         del donor
         start = spec["start_layer"]
+
         def frozen_projection(path, module):
             # Keep adapted suffix projections in BF16. Compress every eligible frozen projection.
-            suffix = any(path.startswith(f"model.layers.{i}.") for i in range(start,24))
-            return not suffix and isinstance(module,(nn.Embedding,nn.Linear))
-        nn.quantize(text,group_size=64,bits=spec["prefix_bits"],class_predicate=frozen_projection)
+            suffix = any(
+                path.startswith(f"model.layers.{i}.") for i in range(start, 24)
+            )
+            return not suffix and isinstance(module, (nn.Embedding, nn.Linear))
+
+        nn.quantize(
+            text,
+            group_size=64,
+            bits=spec["prefix_bits"],
+            class_predicate=frozen_projection,
+        )
         mx.eval(text.parameters())
         mx.clear_cache()
     else:

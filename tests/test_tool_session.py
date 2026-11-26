@@ -51,8 +51,12 @@ def test_parse_object_and_concise_answer():
 def test_catalog_supports_arbitrary_json_field_names_and_values():
     from loopqwen.tool_catalog import load_catalog
 
-    definition = {"name": "catalog.record", "description": "Read an entry", "argument": "_rows",
-                  "records": {"a": {"days": [1, 2], "open": False}}}
+    definition = {
+        "name": "catalog.record",
+        "description": "Read an entry",
+        "argument": "_rows",
+        "records": {"a": {"days": [1, 2], "open": False}},
+    }
     tool = load_catalog([definition])[0]
     assert tool.callback(_rows="a") == {"value": definition["records"]["a"]}
     with pytest.raises(KeyError):
@@ -66,6 +70,7 @@ def test_nonfinite_call_rejected():
 
 def test_external_callbacks_compute_from_arguments():
     from loopqwen.evaluation.executable_tools import FUNCTIONS, similarity
+
     assert FUNCTIONS["calculate_displacement"](2, 1, 4) == 16
     assert similarity([1, 0], [0, 1]) == 0
     with pytest.raises(ValueError):
