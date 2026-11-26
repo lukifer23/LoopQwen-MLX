@@ -58,7 +58,10 @@ Use `ask --compare-base` to try your own questions on the installed assistant an
 .venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-03 \
   --prompt-file document-and-question.txt --compare-base --max-tokens 384
 .venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-03 \
-  --resource calendar --prompt "Which ISO weekday is 2032-02-29?" --compare-base
+  --tool-adapter research/results/tool-dialogue-intent-pairs-01 --resource calendar \
+  --prompt "Which ISO weekday number corresponds to the leap day 2032-02-29?" \
+  --follow-up "For 2032-02-29, what was the ordinal day within that year?" \
+  --max-tokens 384 --max-turns 3 --no-reuse-prefix --compare-base --trace
 ```
 
 In a two-turn leap-day example, the opt-in intent adapter used `weekday_number` and `day_of_year` to answer **7** and **60** for February 29, 2032. Base reached 384 tokens on both turns. The opening prompt was identical and the follow-up inherited each model’s prior exchange. Recurrent request times, including the first cold load, were 1.29 and 0.54 s, against 6.35 and 5.51 s. Both recurrent first tokens took slightly longer. [Actual command, full generated IDs and callback receipts](docs/measurements/user-calendar-comparison.json)
