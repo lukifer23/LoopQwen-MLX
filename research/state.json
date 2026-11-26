@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-26T15:14:53.530904+00:00",
-  "starting_revision": "46c7910",
+  "session_start_utc": "2026-11-26T15:47:44.461443+00:00",
+  "starting_revision": "cdfbc90",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -479,6 +479,54 @@
       "promoted": false,
       "scope": "Does response-only training of a repeated native last layer improve both-member correctness on independent human-edited BoolQ questions and shared-prefix yes/no evidence judgments?",
       "decision": "research/results/contrast-boolq-recurrent-01/decision.json"
+    },
+    {
+      "id": "tool-language-release-01",
+      "promoted": true,
+      "scope": "Can a single offline build execute the trained tool sessions and real installed-package queries, then preserve all qualified language, NLL and 131083-token outputs after switching modes?",
+      "decision": "research/results/tool-language-release-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-typed-depth-01",
+      "promoted": false,
+      "scope": "On the same 22 published executions, does a second application improve over a one-pass adapter trained from the same quantized instruction sibling?",
+      "decision": "research/results/tool-dialogue-typed-depth-01/decision.json"
+    },
+    {
+      "id": "tool-bfcl-multiple-01",
+      "promoted": true,
+      "scope": "Does the trained recurrent tool model select the right function and arguments among competing publisher-authored schemas on 24 independently sampled BFCL multiple requests?",
+      "decision": "research/results/tool-bfcl-multiple-01/decision.json"
+    },
+    {
+      "id": "tool-prefix-reuse-01",
+      "promoted": true,
+      "scope": "Does exact full-block reuse of a shared tool-session prefix preserve every generated token and reduce real multi-turn elapsed time?",
+      "decision": "research/results/tool-prefix-reuse-01/decision.json"
+    },
+    {
+      "id": "register-rebalanced-01",
+      "promoted": false,
+      "scope": "Can a fixed 24-site full-history register decoder recover distant values faster and with less peak memory than ordinary Base by replacing global attention layer 7 with a second native GDN layer 6?",
+      "decision": "research/results/register-rebalanced-01/decision.json"
+    },
+    {
+      "id": "tool-bfcl-recovery-01",
+      "promoted": true,
+      "scope": "Does the same frozen typed recurrent checkpoint recover the 24 previously failing BFCL simple math calls, compared directly with untouched Base?",
+      "decision": "research/results/tool-bfcl-recovery-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-unified-01",
+      "promoted": false,
+      "scope": "Can one typed tool model keep the earlier catalog results while improving practical accuracy, elapsed time and peak memory over Base across all eighty episodes?",
+      "decision": "research/results/tool-dialogue-unified-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-instruct-01",
+      "promoted": true,
+      "scope": "How much does the fitted quantized recurrent system improve actual public task execution over its untouched, full-precision instruction-tuned parent?",
+      "decision": "research/results/tool-dialogue-instruct-01/decision.json"
     }
   ],
   "status": "Running held-out tool reasoning, typed public-function execution and human-edited BoolQ comparisons. See the preregistered stop rules for each.",
@@ -534,9 +582,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795703976.523475,
+  "closed_session_start": 1795706093.530904,
   "native_window": {
-    "start_utc": "2026-11-26T15:14:53.530904+00:00",
+    "start_utc": "2026-11-26T15:47:44.461443+00:00",
     "status": "open"
   },
   "kinship_transfer": {
