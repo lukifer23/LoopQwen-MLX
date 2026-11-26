@@ -261,7 +261,11 @@ def providers(paper, results, result):
 
 
 def packed_delivery(paper, results, result):
-    studies = ["transport-lossless-01", "transport-lossless-02", "transport-lossless-03"]
+    studies = [
+        "transport-lossless-01",
+        "transport-lossless-02",
+        "transport-lossless-03",
+    ]
     with (paper / "release-transport.csv").open("w") as output:
         w = csv.writer(output)
         w.writerow(
@@ -305,15 +309,19 @@ def packed_delivery(paper, results, result):
             )
 
 
-def tokenizer_streams(paper, results, result, finish):
-    name = "session-tokenizer-01"
+def tokenizer_streams(paper, results, result, finish, name="session-tokenizer-01"):
+    stem = (
+        "tokenizer-streams"
+        if name == "session-tokenizer-01"
+        else "corrected-tokenizer-streams"
+    )
     root = results / name
     if not (root / "checksums.json").exists():
         return
     d = result(name)
     spec = read(root / "registration.json")
     rep = {"stock": 0, "reuse": 0}
-    with (paper / "tokenizer-streams.csv").open("w") as f:
+    with (paper / (stem + ".csv")).open("w") as f:
         w = csv.writer(f)
         w.writerow(
             [
@@ -364,7 +372,7 @@ def tokenizer_streams(paper, results, result, finish):
         ax.set_xlim(-0.45, 1.45)
         ax.set_ylim(bottom=0)
         ax.set_ylabel(title)
-    finish(fig, "tokenizer-streams")
+    finish(fig, stem)
 
 
 def compact_streams(paper, results, result, finish, name="packed-release-retention-02"):

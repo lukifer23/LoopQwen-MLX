@@ -352,6 +352,7 @@ Each command below uses the saved registration and frozen material. Compute tria
 | `packed-release-retention-03` | `loopqwen.research.packed_release` | Corrected evidence-mask delivery against the shipped release at 131K and 24K, whole books, short reasoning and tools |
 | `dialogue-state-fields-01` | `loopqwen.research.action_preferences` | First-pass field-presence supervision and unconstrained second-pass calls and clarifications |
 | `future-token-prose-01` | `loopqwen.research.selective_raw` | Shared Q/K/V/O at two prediction horizons, paired source-level inference and six complete cache replays |
+| `session-tokenizer-02` | `loopqwen.research.session_tokenizer` | Four cold release-04 repetitions of the same 50 requests with 15 switches, measuring exact outputs and tokenizer identity |
 | `repository-tree-field-01` | `loopqwen.research.narrative_book` | Two genuine project object listings, independently verified PDF sizes and complete native history above 169K |
 | `shared-session-01` | `loopqwen.research.shared_session_study` | One resident instruction backbone, two recurrent views, physically shared weights and a cold 120-request comparison |
 

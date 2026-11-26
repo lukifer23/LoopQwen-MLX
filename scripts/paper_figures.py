@@ -459,6 +459,7 @@ def main():
     compact_streams(PAPER, RESULTS, result, finish, "packed-release-retention-03")
     packed_delivery(PAPER, RESULTS, result)
     tokenizer_streams(PAPER, RESULTS, result, finish)
+    tokenizer_streams(PAPER, RESULTS, result, finish, "session-tokenizer-02")
     providers(PAPER, RESULTS, result)
     index()
     (PAPER / "figure-sources.json").write_text(
