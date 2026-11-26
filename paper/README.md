@@ -5,6 +5,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Read the paper](loopqwen.pdf)
 - [Manuscript source](loopqwen.typ)
 - [Machine-readable paired scores and timings for the frozen tool model](typed-transfer.csv)
+- [Median and tail tool latency and first-token time](tool-latency.csv)
 - [Trajectory-level costs, calls and failure types](tool-trajectories.csv)
 - [Study-level evidence index](study-index.csv)
 - [Every registration, threshold, budget and publication status](registry-index.csv)

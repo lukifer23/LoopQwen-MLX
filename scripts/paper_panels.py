@@ -40,6 +40,7 @@ def wilson(correct, total):
 
 
 def generate(paper, results, result, finish):
+    latency_profile(paper, results, result, finish)
     colors = ["#11675d", "#9d5932"]
     completed = [
         (name, label)
@@ -180,3 +181,78 @@ def generate(paper, results, result, finish):
             fontsize=8,
         )
         finish(fig, "typed-transfer")
+
+
+def latency_profile(paper, results, result, finish):
+    from math import ceil
+    from statistics import median
+
+    from loopqwen.evaluation.mechanism import unpack
+
+    name = "tool-dialogue-typed-01"
+    d = result(name)
+    directory = results / name
+    records = {}
+    with (paper / "tool-latency.csv").open("w") as f:
+        w = csv.writer(f)
+        w.writerow(
+            [
+                "study",
+                "arm",
+                "requests",
+                "median_episode_seconds",
+                "p90_episode_seconds",
+                "median_first_turn_ttft_seconds",
+                "generated_tokens_per_total_second",
+                "peak_mlx_gib",
+            ]
+        )
+        for arm in ("candidate", "control"):
+            rs = unpack(directory / (arm + ".json.gz"))
+            records[arm] = rs
+            trajectories = [r["trajectory"] for r in rs]
+            times = sorted(t["seconds"] for t in trajectories)
+            metrics = d["metrics"][arm]
+            w.writerow(
+                [
+                    name,
+                    arm,
+                    len(rs),
+                    median(times),
+                    times[ceil(0.90 * len(times)) - 1],
+                    median(t["turns"][0]["ttft_s"] for t in trajectories),
+                    metrics["tokens"] / metrics["seconds"],
+                    metrics["peak_bytes"] / 2**30,
+                ]
+            )
+    fig, ax = plt.subplots(figsize=(5.2, 2.45))
+    ordered = sorted(
+        zip(records["candidate"], records["control"], strict=True),
+        key=lambda pair: pair[1]["trajectory"]["seconds"],
+    )
+    x, y = zip(
+        *[(b["trajectory"]["seconds"], a["trajectory"]["seconds"]) for a, b in ordered],
+        strict=True,
+    )
+    extent = max(*x, *y) * 1.06
+    ax.plot(
+        [0, extent], [0, extent], lw=1, ls="--", color="#777777", label="Equal time"
+    )
+    for success, color, mark, label in [
+        (True, "#11675d", "o", "Grounded success"),
+        (False, "#9d5932", "x", "Failed episode"),
+    ]:
+        points = [
+            (b["trajectory"]["seconds"], a["trajectory"]["seconds"])
+            for a, b in ordered
+            if a["score"]["success"] == success
+        ]
+        ax.scatter(*zip(*points, strict=True), marker=mark, c=color, s=24, label=label)
+    ax.set(
+        xlim=(0, extent),
+        ylim=(0, extent),
+        xlabel="Untouched Base · seconds per request",
+        ylabel="Recurrent · seconds per request",
+    )
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    finish(fig, "tool-latency")
