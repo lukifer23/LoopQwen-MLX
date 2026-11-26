@@ -33,7 +33,9 @@ def ordinary_view(model, original_weights=None):
         ):
             raise ValueError("Original projection set differs from the merged decoder")
         text.load_weights(list(original_weights.items()), strict=False)
-    ordinary = LoopedModel(text, Span(passes=1))
+    ordinary = LoopedModel(
+        text, Span(start=model.span.start, length=model.span.length, passes=1)
+    )
     ordinary.eval()
     return ordinary
 

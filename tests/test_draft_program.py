@@ -24,6 +24,7 @@ def test_native_draft_matches_causal_greedy_tokens_and_excludes_proposed_boundar
     net = TextModel(args)
     net.set_dtype(mx.bfloat16)
     recurrent = tool_view(net, 1, 4, 2)
+    recurrent.eval()
     ordinary = ordinary_view(recurrent)
     ids = [17, 33, 20, 75, 9]
     expected = []
