@@ -75,6 +75,13 @@ def main():
     ):
         p = sub.add_parser(name, help=desc)
         p.add_argument("--experiment", default="pilot")
+    p = sub.add_parser("tools", help="Ask a question against local JSON lookup tables")
+    p.add_argument("--checkpoint", type=Path, required=True, help="Combined language and tool export")
+    p.add_argument("--catalog", type=Path, required=True)
+    p.add_argument("--prompt", required=True)
+    p.add_argument("--max-tokens", type=int, default=160)
+    p.add_argument("--max-turns", type=int, default=4)
+    p.add_argument("--trace", action="store_true", help="Include exact prompt and output tokens")
     p = sub.add_parser(
         "generate", help="Generate greedily with a new execution-site cache"
     )
@@ -226,6 +233,17 @@ def main():
 
         path = report(args.experiment)
         result = path if cmd == "report" else Path(path).read_text()
+    elif cmd == "tools":
+        from .io import read
+        from .tool_catalog import load_catalog
+        from .tool_model import Assistant
+
+        assistant = Assistant(args.checkpoint)
+        result = assistant.respond(args.prompt, load_catalog(read(args.catalog)), max_tokens=args.max_tokens, max_turns=args.max_turns)
+        if not args.trace:
+            result = {k:v for k,v in result.items() if k != "turns"} | {
+                "calls": [t["call"] | {"result":t["observation"]} for t in result["turns"] if "observation" in t]
+            }
     elif cmd == "generate":
         from .worker import acquire
 

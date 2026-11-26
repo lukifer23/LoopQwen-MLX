@@ -10,22 +10,16 @@ import mlx.optimizers as optim
 from mlx.utils import tree_flatten
 
 from ..io import digest, read, save
-from ..looped_model import LoopedModel
 from ..model_loader import load_base, count
-from ..recurrence import Span
 from ..tool_session import compact, initial_messages, prompt
-from ..training.adapters import attach
 from .tool_worlds import tools_for
 
 
 def build(spec, passes):
     text,tok,_ = load_base()
     mx.random.seed(spec["fit_seed"])
-    start=spec.get("start_layer",23)
-    model = LoopedModel(text,Span(start=start,length=24-start,passes=passes,mode="stabilized"),alpha=0.35)
-    attach(model,rank=spec["rank"],alpha=2*spec["rank"])
-    # Match trainable parameters at both depths, including the fixed residual coefficient.
-    model.freeze(keys=["alpha_logit"],recurse=False)
+    from ..tool_model import tool_view
+    model=tool_view(text,spec.get("start_layer",23),spec["rank"],passes)
     return model,tok
 
 
@@ -60,6 +54,11 @@ def fit(model,tok,spec,out,budget):
     start=perf_counter()
     bank=features(model,tok,read(spec["training"]),budget)
     prepared=perf_counter()-start
+    if model.span.length > 1:
+        from ..kernels.gdn_backend import select
+        select(model,"native")
+        model.train()
+        model.checkpointing=True
     rng=random.Random(spec["fit_seed"])
     optimizer=optim.AdamW(learning_rate=spec["lr"],weight_decay=0.01)
     def loss_fn(net,h,rr,ss,targets):
