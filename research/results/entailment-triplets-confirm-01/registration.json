@@ -1,0 +1,77 @@
+{
+  "parent": "research/sessions/2026-11-25/gsm-rationale-01/model",
+  "parent_sha256": "6bfea67555caa9c04839a6c502b98b6dbd62093c3a2390c91538a0bc8fff733f",
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "novel_sha256": "b854fc94ec2b4796b6b1700a9e356678bd13117fc7bbf630a0c3f995c7cbf446",
+  "anchor_files": {
+    "howto-sorting.rst": {
+      "sha256": "c0e38a56c301e6968f5630a01e27048f07ca1288ffec45d37e6335fd909d2e4d",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/howto/sorting.rst",
+      "license": "PSF"
+    },
+    "library-collections.rst": {
+      "sha256": "dd9867a9f2f2419a1fbf03c89100f1260041fd6549a785d075d32cb4d36417ee",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/collections.rst",
+      "license": "PSF"
+    },
+    "library-fractions.rst": {
+      "sha256": "ed214dd0c9da914273419f8bba06e8215ebc9802475237dce863c9426a369c29",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/fractions.rst",
+      "license": "PSF"
+    },
+    "library-statistics.rst": {
+      "sha256": "5d12d67adc29c15b0520de33db7db0cf149ce97b40276bb691e5ca9216c495e4",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/library/statistics.rst",
+      "license": "PSF"
+    },
+    "tutorial-datastructures.rst": {
+      "sha256": "c83633cfaa116c223eb4eacaf454f444591257f5340bae4f741726335029cf48",
+      "url": "https://raw.githubusercontent.com/python/cpython/4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5/Doc/tutorial/datastructures.rst",
+      "license": "PSF"
+    }
+  },
+  "id": "entailment-triplets-confirm-01",
+  "seed": 261125831,
+  "per_source_groups": 12,
+  "eval_template": 4,
+  "train_scan": 240000,
+  "character_limit": 730,
+  "updates": 240,
+  "logical_batch": 7,
+  "cap_positions": 384,
+  "lr": 0.00012,
+  "clip": 1,
+  "weight_decay": 0,
+  "depth": 2,
+  "net_floor": 4,
+  "generation_cap": 1024,
+  "files": {
+    "esnli_train_1.csv": {
+      "url": "https://raw.githubusercontent.com/OanaMariaCamburu/e-SNLI/7b585a3f077fdea899780eb0473940522ae44a2e/dataset/esnli_train_1.csv",
+      "sha256": "7311c7bc16ad9f6a9adcd116a62ef991e1803dc0d71e253ce66b975c2aba8ee5"
+    },
+    "esnli_dev.csv": {
+      "url": "https://raw.githubusercontent.com/OanaMariaCamburu/e-SNLI/7b585a3f077fdea899780eb0473940522ae44a2e/dataset/esnli_dev.csv",
+      "sha256": "d7a656d196eea18fd827d6f5486b00f5d4cf469dbf13a252cc211495a186bcb4"
+    },
+    "multinli_1.0.zip": {
+      "url": "https://cims.nyu.edu/~sbowman/multinli/multinli_1.0.zip",
+      "sha256": "049f507b9e36b1fcb756cfd5aeb3b7a0cfcb84bf023793652987f7e7e0957822"
+    }
+  },
+  "credit": "e-SNLI explanations by Camburu et al. under the repository MIT license. Underlying Stanford NLI pairs by Bowman et al., CC BY-SA 4.0. MultiNLI by Williams, Nangia and Bowman, distributed under the source-specific permissive terms described in the publisher's paper. Prompts have been reformatted; human gold relations are mapped to yes/no/maybe.",
+  "question": "Does the same recurrent decoder improve genuinely semantic judgments on new premise triplets under a fourth unseen phrasing?",
+  "training": "One caption premise and one multi-genre premise per update, three human-written hypotheses with three distinct gold relations per premise. Human explanations when supplied, relation supervision otherwise. An additional raw language anchor per update. Use each premise once. Use the released original K2 arithmetic adapter as the initial weights. No donor at training or inference. Data selected before training by hash; evaluation premises excluded. No model-specific prompting, verifier or choice restriction at generation.",
+  "decision": "With the unchanged qualified weights, compare against untouched ordinary-depth Base on 72 questions comprising 12 fresh human-written premises per source and three different gold relations per premise. Exclude every primary training and evaluation premise. Use another held-out instruction, greedy thinking and a common 1024-token limit. Require at least 4 net correct, positive per source, more complete correct triplets, higher common-prefix three-way probe accuracy, total actual generation seconds <=Base and raw V3 NLL <=Base+0.03. Blindly review every completed noncanonical response before promotion, requiring higher content accuracy on both sources. Use premise-cluster randomization, reported separately for each panel. A failed prerequisite closes expansion; enforce registered memory and time limits.",
+  "limits": {
+    "wall_seconds": 1480,
+    "peak_gib": 5.9,
+    "available_gib": 1.5
+  },
+  "qualification": "377952bcab32427d8887ff66ad26248dba4d2d7acb1af3942b8513f6759194b5",
+  "model": "research/results/entailment-triplets-01/model",
+  "weights": "1d69dd71119f57503321dd361348acee5bb9989ac92e82a7f9309a06e9bc4c68",
+  "audit": "docs/measurements/answer-audits/entailment-triplets-01.json",
+  "audit_sha256": "14ba8d9807367f01736082e4f2be0fef102a95ec4c27c956ec6e830f4a1a69cb"
+}

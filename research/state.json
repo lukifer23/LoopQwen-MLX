@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "entailment-triplets-confirm-01",
+  "active": "conditional-depth-128k",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -17,10 +17,11 @@
     "combined_room_and_state": "research/results/joint-trace-01/model at K3",
     "word_problems_at_256_vs_base": "research/sessions/2026-11-25/gsm-rationale-01/model",
     "register_lookup_through_131078": "research/results/attention-memory-01/model",
-    "word_problems_at_1024_vs_base": "research/results/learned-exit-01/model"
+    "word_problems_at_1024_vs_base": "research/results/learned-exit-01/model",
+    "human_entailment_vs_base": "research/results/entailment-triplets-01/model"
   },
   "frontier": "Same learned exit won two independent full-budget pairs: 52/80 versus 46/80 strict, 58/80 versus 52/80 completed content, six paired wins, zero losses, 542.44 versus 592.24 seconds.",
-  "next": "conditional-depth-128k",
+  "next": "learned-exit-dense-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -212,9 +213,15 @@
       "promoted": true,
       "scope": "Mixed 56-request qualification; same model full-history test pending",
       "reason": "34/56 vs 25/56, nine wins and no losses, 289.86 vs 322.33 s. Full-budget arithmetic +3, short arithmetic +2, register lookup +4. Every ordinary response matched and all 120 raw V3 routes retained exact NLL."
+    },
+    {
+      "id": "entailment-triplets-confirm-01",
+      "promoted": true,
+      "scope": "Three-way natural inference on two disjoint panels",
+      "reason": "50/72 vs 39/72 on blind content, 51/72 vs 24/72 on the common likelihood probe, 8 vs 1 perfect triplets, 24.85 vs 574.91 s. Both sources improved on each panel. Across 120 claims blind 85 vs 66, premise-cluster p=0.00703."
     }
   ],
-  "status": "Combined arithmetic and register model qualified across all five workloads. Independent natural inference confirmation is running.",
+  "status": "Natural inference gains replicated. First integrated 128K key swap running. Final arithmetic plus entailment deployment panel frozen.",
   "next_action": "Archive the natural inference primary and run the first integrated deployment comparison with the confirmed arithmetic finisher, short-budget decoder and register reader.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [

@@ -1,0 +1,38 @@
+{
+  "studies": [
+    "entailment-triplets-01",
+    "entailment-triplets-confirm-01"
+  ],
+  "scores": {
+    "all": {
+      "n": 120,
+      "correct": {
+        "candidate": 85,
+        "base": 66
+      },
+      "wins": 33,
+      "losses": 14,
+      "premise_p": 0.007030129432678223
+    },
+    "esnli": {
+      "n": 60,
+      "correct": {
+        "candidate": 43,
+        "base": 30
+      },
+      "wins": 19,
+      "losses": 6,
+      "premise_p": 0.01708984375
+    },
+    "multinli": {
+      "n": 60,
+      "correct": {
+        "candidate": 42,
+        "base": 36
+      },
+      "wins": 14,
+      "losses": 8,
+      "premise_p": 0.2705078125
+    }
+  }
+}

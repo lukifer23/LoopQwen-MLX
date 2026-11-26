@@ -10,7 +10,7 @@ from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read
 
 
-def audit(study, annotations=None):
+def audit(study, annotations=None, *, paired=False):
     path = Path("research/results") / study
     panel = read(Path("research/data") / (study + ".json"))
     prompts = {r["id"]: r for r in panel}
@@ -48,6 +48,17 @@ def audit(study, annotations=None):
         raise ValueError(
             "Every noncanonical completed answer needs a blind human-readable judgment"
         )
+    if paired:
+        return panel, by
+    return {
+        "study": study,
+        "archive": digest(path / "checksums.json"),
+        "reviewed": len(blind),
+        "scores": summarize(panel, by),
+    }
+
+
+def summarize(panel, by):
     result = {}
     for source in ("all", "esnli", "multinli"):
         idx = [
@@ -61,22 +72,47 @@ def audit(study, annotations=None):
             "losses": diffs.count(-1),
             "premise_p": premise_randomization(diffs),
         }
-    return {
-        "study": study,
-        "archive": digest(path / "checksums.json"),
-        "reviewed": len(blind),
-        "scores": result,
-    }
+    return result
+
+
+def combined(first, repeat, original_annotations, repeat_annotations):
+    base_dir = Path("research/results") / first
+    repeat_dir = Path("research/results") / repeat
+    reg = read(repeat_dir / "registration.json")
+    if (
+        reg["qualification"] != digest(base_dir / "checksums.json")
+        or reg["weights"] != read(base_dir / "decision.json")["weights"]
+        or reg["weights"] != read(repeat_dir / "decision.json")["weights"]
+    ):
+        raise ValueError("Unchanged, preregistered confirmation required")
+    p, a = audit(first, original_annotations, paired=True)
+    q, b = audit(repeat, repeat_annotations, paired=True)
+    if {r["premise"].casefold() for r in p}.intersection(
+        r["premise"].casefold() for r in q
+    ):
+        raise ValueError("Pooled premise clusters overlap")
+    return dict(
+        studies=[first, repeat],
+        scores=summarize(p + q, {arm: a[arm] + b[arm] for arm in a}),
+    )
 
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("study")
     p.add_argument("--annotations", type=Path)
+    p.add_argument("--replication")
+    p.add_argument("--replication-annotations", type=Path)
     args = p.parse_args()
-    print(
-        json.dumps(
-            audit(args.study, read(args.annotations) if args.annotations else None),
-            indent=2,
+    if args.replication or args.replication_annotations:
+        if not (args.replication and args.annotations and args.replication_annotations):
+            p.error("Pooling requires both studies and both annotation files")
+        result = combined(
+            args.study,
+            args.replication,
+            read(args.annotations),
+            read(args.replication_annotations),
         )
-    )
+    else:
+        result = audit(args.study, read(args.annotations) if args.annotations else None)
+    print(json.dumps(result, indent=2))
