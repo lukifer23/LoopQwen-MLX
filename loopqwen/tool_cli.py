@@ -13,10 +13,16 @@ def add_arguments(p, checkpoint=None):
         required=checkpoint is None,
         help="Combined language and tool export",
     )
-    p.add_argument(
+    policies = p.add_mutually_exclusive_group()
+    policies.add_argument(
         "--tool-adapter",
         type=Path,
         help="Load a compatible trained tool adapter over the existing frozen backbone",
+    )
+    policies.add_argument(
+        "--session-policy",
+        type=Path,
+        help="Use compatible reasoning and action adapters sharing one resident backbone",
     )
     p.add_argument(
         "--catalog", type=Path, help="JSON file with read-only lookup definitions"
@@ -87,12 +93,21 @@ def add_arguments(p, checkpoint=None):
     )
 
 
+def open_assistant(args):
+    if getattr(args, "session_policy", None) is not None:
+        from .shared_session import SharedAssistant
+
+        return SharedAssistant(args.checkpoint, args.session_policy)
+    from .tool_model import Assistant
+
+    return Assistant(args.checkpoint, tool_adapter=args.tool_adapter)
+
+
 def respond(args, parser):
     from contextlib import ExitStack, closing
 
     from .io import read
     from .tool_catalog import load_catalog
-    from .tool_model import Assistant
 
     if getattr(args, "prompt_file", None) is not None:
         args.prompt = args.prompt_file.read_bytes().decode("utf-8")
@@ -149,7 +164,7 @@ def respond(args, parser):
             from .tool_compare import compare
 
             return compare(args, supplied, options)
-        assistant = Assistant(args.checkpoint, tool_adapter=args.tool_adapter)
+        assistant = open_assistant(args)
         if args.follow_up:
             chat = assistant.conversation(supplied)
             return {

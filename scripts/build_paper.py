@@ -42,6 +42,7 @@ def main(verify):
                         "folded-system-",
                         "action-preference-",
                         "dialogue-state-fields-",
+                        "shared-session-",
                         "report-calculation-",
                         "document-search-field-",
                         "cache-language-",

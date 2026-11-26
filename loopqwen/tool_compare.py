@@ -8,7 +8,7 @@ import mlx.core as mx
 from . import REVISION
 from .evaluation.language7 import base
 from .identity import fingerprint
-from .tool_cli import present
+from .tool_cli import open_assistant, present
 from .tool_model import Assistant
 from .worker import acquire
 
@@ -39,9 +39,7 @@ def compare(args, tools, options):
             start = perf_counter()
             if assistant is None:
                 if side == "recurrent":
-                    assistant = Assistant(
-                        args.checkpoint, tool_adapter=args.tool_adapter
-                    )
+                    assistant = open_assistant(args)
                     if reuse is None:
                         reuse = assistant.reuse_prefix
                 else:
@@ -81,6 +79,11 @@ def compare(args, tools, options):
         "base_revision": REVISION,
         "recurrent_checkpoint": str(args.checkpoint),
         "tool_adapter": str(args.tool_adapter) if args.tool_adapter else None,
+        **(
+            {"session_policy": str(args.session_policy)}
+            if getattr(args, "session_policy", None)
+            else {}
+        ),
         "reuse_prefix": reuse,
         "max_tokens_per_turn": options["max_tokens"],
         "max_turns": options["max_turns"],

@@ -36,7 +36,7 @@ def tools_for(w, field, replay=False):
 
 def judge(w, tr, tok):
     group = w["family"]
-    if group in ("package", "database", "file"):
+    if group in ("package", "database", "file", "reading", "arithmetic"):
         return grade(w, tr, tok)
     done = tr["status"] == "answered"
     if group == "public":
@@ -121,7 +121,7 @@ def native_checks(actor, w):
     return vals
 
 
-def outcome(data, panel, hidden, parity, prior, spec):
+def family_scores(data, panel, prior):
     metrics = {}
     family = lambda w: w["family"]
     for group in ["all", "fresh", *sorted({family(w) for w in panel})]:
@@ -171,6 +171,11 @@ def outcome(data, panel, hidden, parity, prior, spec):
     for w, r in zip(panel, data["candidate"], strict=True):
         if w["id"] in prior and prior[w["id"]] and not r["score"]["success"]:
             retained["public" if w["family"] == "public" else "field"].append(w["id"])
+    return metrics, retained
+
+
+def outcome(data, panel, hidden, parity, prior, spec):
+    metrics, retained = family_scores(data, panel, prior)
     validation = {}
     for source in ("raw", "dialogue"):
         subset = [r for r in hidden if r["domain"] == source]

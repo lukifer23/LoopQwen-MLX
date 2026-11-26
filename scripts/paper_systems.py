@@ -133,6 +133,15 @@ def write(paper, results, result):
             "success",
         ),
         (
+            "shared-session-01",
+            "Shared reasoning and tools",
+            "mixed",
+            120,
+            "candidate",
+            "control",
+            "success",
+        ),
+        (
             "folded-system-01",
             "Single folded backbone",
             "mixed",

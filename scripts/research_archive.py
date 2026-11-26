@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("shared-session-"):
+        from loopqwen.research.shared_session_study import verify as verify_shared_session
+
+        return verify_shared_session(root, decision)
     if study.startswith("document-search-field-"):
         from loopqwen.research.document_search import verify as verify_document_search
 
