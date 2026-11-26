@@ -1,0 +1,11 @@
+{
+ "id":"deduction-loop-01",
+ "question":"Can a tied two-read Qwen evidence loop improve both generated answers and the answer likelihood on unseen English two-fact deduction stories versus untouched Qwen Base?",
+ "seed":143810,"sizes":{"train":240,"primary":64,"replication":64},
+ "rank":64,"updates":700,"batch":32,"fit_seed":418,"lr":0.002,"support_weight":0.15,
+ "arms":{"recurrent":{"depth":2,"fit":true},"base":{"depth":0}},
+ "panel":"primary","generation_cap":192,"net_floor":8,"probe_floor":4,"time_ratio":1.5,
+ "protocol":"One question per deduplicated entire story. Both arms see identical original English statements and question with thinking enabled, unrestricted greedy vocabulary and 192-token first-turn limit. Freeze 64 separate replication stories before fitting. Score complete visible answers, independent four-animal shared-prefix probe, and actual synchronized end-to-end generation seconds including every evidence pass. The adapter is fit on 240 publisher training stories. Both support edges and final full-vocabulary CE are trained. The first native pass encodes every sentence with Qwen layers 0..15; on the second read, re-enter layers 10..15 on those same first-pass states. Marginalize learned latent fact identity. The ordinary full-context Qwen next-token logits always participate.",
+ "gate":"Require >=8 net paired generated answers and exact two-sided McNemar p<.05, >=4 net common-prefix probes, <=1.5x Base time. Failure closes downstream work on this checkpoint. A pass licenses an equal-training K1 comparison, then same-weights disabling of the second hop, and disjoint replication. Never select a checkpoint using test outputs. Stop on budget or memory warning.",
+ "limits":{"wall_seconds":700,"peak_gib":5,"available_gib":1.5}
+}
