@@ -1,0 +1,82 @@
+{
+  "passed": false,
+  "evidence": true,
+  "books_exact": 2,
+  "short_exact": 12,
+  "tool_exact": 2,
+  "register_exact_correct": 0,
+  "metrics": {
+    "candidate": {
+      "register_seconds": 165.99028220801847,
+      "register_ttft": 164.0329218339757,
+      "register_peak": 2525736956,
+      "book_seconds": 48.838756625016686,
+      "book_peak": 2528525920,
+      "book_nll": [
+        3.0096035562455654,
+        3.410125896334648
+      ],
+      "book_top1": [
+        102,
+        90
+      ],
+      "cold": 1.6614596670260653
+    },
+    "control": {
+      "register_seconds": 169.55988170800265,
+      "register_ttft": 166.05600587505614,
+      "register_peak": 3008009692,
+      "book_seconds": 48.59446020802716,
+      "book_peak": 2530604205,
+      "book_nll": [
+        3.0096035562455654,
+        3.410125896334648
+      ],
+      "book_top1": [
+        102,
+        90
+      ],
+      "cold": 1.1929664589697495
+    }
+  },
+  "full_rows_and_outputs": false,
+  "streams": {
+    "candidate": [
+      {
+        "seconds": 113.94953408400761,
+        "rss": 1954709504,
+        "decode_tps": 29.77293263122796,
+        "register_peak": 2525229052,
+        "register_seconds": 82.76743070804514,
+        "register_first": 81.79339162498945
+      },
+      {
+        "seconds": 136.01292058301624,
+        "rss": 1954742272,
+        "decode_tps": 29.49188659475603,
+        "register_peak": 2525736956,
+        "register_seconds": 83.22285149997333,
+        "register_first": 82.23953020898625
+      }
+    ],
+    "control": [
+      {
+        "seconds": 116.06393295899034,
+        "rss": 1956069376,
+        "decode_tps": 16.677043497333862,
+        "register_peak": 3006777541,
+        "register_seconds": 84.85520191700198,
+        "register_first": 83.11628458404448
+      },
+      {
+        "seconds": 137.41252712503774,
+        "rss": 1955708928,
+        "decode_tps": 16.430981238471404,
+        "register_peak": 3008009692,
+        "register_seconds": 84.70467979100067,
+        "register_first": 82.93972129101167
+      }
+    ]
+  },
+  "strict_resources": true
+}
