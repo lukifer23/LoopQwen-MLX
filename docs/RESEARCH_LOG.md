@@ -122,3 +122,7 @@ The quantized two-pass tool model solved 1/24 WikiSQL tasks and 3/14 installed-d
 ### Full-paragraph multi-hop reading
 
 A two-read native retriever trained on 384 publisher-labeled HotpotQA questions selected both supports on 3/40 development questions. It completed all 40 answers and returned the reference phrase on 11, versus 39 completions and 20 correct phrases for untouched Base. The recurrent system lost nine net questions while taking 41.40 versus 120.08 seconds. Its gold-phrase wins/losses were 2/11, exact answers 9/16, and peak MLX memory 2.48/1.68 GiB. The matched-depth and confirmation jobs were conditional on the failed primary. [Preregistered outputs and training weights](../research/results/bridge-reading-01)
+
+### Arithmetic-program transfer
+
+A frozen-prefix extraction issue interrupted the first attempt before optimization. The continued adapter had put its frozen gated-delta prefix in training mode. Returning that prefix to inference mode restored native extraction. Both attempts were charged against the original 1,200-second cap. The completed fit received 640 verified GSM8K programs and 512 general tool rehearsal turns. It increased grounded executions from 0 to 17 on 48 fresh arithmetic requests but returned 17 correct numbers against 20 from Base. ASDiv went from 8/24 to 11/24 and SVAMP from 12/24 to 6/24. The comparisons took 25.52 versus 209.90 s. The matched-depth control for this fit closed on the primary numeric-content loss. [Full program and observation records](../research/results/tool-dialogue-program-reasoning-01)
