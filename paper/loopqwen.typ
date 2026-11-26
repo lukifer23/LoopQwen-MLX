@@ -129,6 +129,13 @@ A balanced crossover on these exact typed weights ran every numerical request fo
 
 After switching from tool use, 64 induction, 56 deduction and 80 mixed language generations matched the previous qualified export in full. All 120 raw prose requests used the ordinary path and all five domain losses matched, including pooled NLL 2.982658. Both complete 131,083-token requests reproduced the correct answer, exact token stream and located evidence span. The pair took 525.82 seconds at a peak of 4.33 GiB. This end-to-end test ties context capacity, ordinary language retention and executable tools to the same export inventory.
 
+== Lossless distribution of the complete assistant
+The qualified bundle contains separate language and tool backbones. We compared ordinary level-six DEFLATE of its complete file inventory with a reversible representation that uses the original Base tensors and the sibling's actual scale and bias to predict quantized weight bytes. The archive stores the residual bytes; the decoder reconstructs the exact original tensor headers and payloads. The encoding is applied before DEFLATE and leaves the installed model precision intact.
+
+The installed 2,370,262,907-byte bundle became a 1,996,837,806-byte ZIP or a 1,544,018,439-byte paired archive. The paired representation saved 34.86% versus the installed bundle and 22.68% versus ordinary ZIP. Its size was 2.60% greater than the 1,504,827,865 bytes of the Base text weights alone. Ordinary ZIP creation took 100.69 s, the custom encoder took 143.71 s, and verified restoration took 7.85 s. Every restored file matched its original SHA-256. A clean offline interpreter using only the restored runtime reproduced the live package-version call, observation and output tokens. Installed size and the cost of switching backbones remain separate deployment measurements.
+
+#figure(image("transport.svg",width:93%),caption:[Measured bytes and times for the identical qualified payload. The Base text-weight file is one component of the installed assistant. The complete archive is usable for an offline restoration.])
+
 = Human-edited reading questions
 #include "reading-results.typ"
 

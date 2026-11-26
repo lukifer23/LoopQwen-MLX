@@ -41,6 +41,15 @@ Add one or more `--follow-up "…"` arguments to keep a conversation open across
 
 The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database data.sqlite --table records` for a read-only table, and `--calculator` for exact arithmetic. With `--trace` the response includes every token, submitted argument, callback result and turn time. For custom tools, create a `Tool(name, description, parameters, callback)` and pass it to `Assistant(directory).respond(question, tools)`. The [package example](examples/local_packages.py) uses the Python environment of the running process.
 
+### Restore the offline assistant
+
+The qualified two-backbone assistant has a 1,544,018,439-byte lossless archive, 22.68% smaller than ordinary ZIP of the same files. Verified restoration took 7.85 seconds and reproduced the original package-version call in an isolated interpreter. From the repository root, use an unused destination directory. [Archive receipt and SHA-256](research/results/transport-lossless-01)
+
+```sh
+.venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-01.lqzip exports/restored-tool-language-01
+.venv/bin/python -m loopqwen tools --checkpoint exports/restored-tool-language-01 --packages --prompt "What version of mlx is installed? Use the tool."
+```
+
 ## Current combined checkpoint
 
 Use [the native recurrent checkpoint](research/results/native-language-release-02/model) on Apple Silicon. On two disjoint three-fact induction panels it answered **124/128** correctly. A one-pass model with the same 552,810 trainable parameters, training stories and update count answered **58/128**. Both produced 13 tokens per answer and took about 32 seconds for all 128 questions. With the three-pass weights held fixed, disabling two applications of Qwen layer 15 dropped confirmation accuracy from **62/64 to 19/64**. Untouched Qwen Base answered **2/64 in 654.19 s** at the same 768-token allowance as the loop, which answered **62/64 in 16.02 s**. A second training seed scored 53/64 versus 25/64. [Matched results and limits](docs/CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Same-weights ablation](research/results/native-induction-anchored-bypass-01) · [Full-budget Base comparison](research/results/native-induction-anchored-longbase-01)
