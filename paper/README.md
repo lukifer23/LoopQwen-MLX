@@ -21,7 +21,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 From the repository root, the following commands rebuild the vector figures, evidence index and PDF. The verification option checks stored predictions and per-file hashes against the independent archive recounts. Some older verifiers require the pinned tokenizer in the local Hugging Face cache.
 
 ```sh
-uv sync --group figures --group paper
+uv sync --group figures --group paper --extra guided
 .venv/bin/python scripts/build_paper.py --verify
 ```
 
@@ -69,3 +69,12 @@ The field-performance figure compares complete request time and correctness on t
 | `-m loopqwen.research.narrative_book` | Whole-novel question and person-name intervention with physical KV offsets |
 | `-m loopqwen.research.register_allocation` | Reserved and incrementally grown full-history storage on identical weights |
 | `-m loopqwen.research.transport` | Transport size, restored file inventories and isolated native generation |
+
+
+The operand, schema and mixed field comparisons use the standard entry points below. Their registrations contain all run caps, sample identities and decision thresholds.
+
+| Runner | Endpoint |
+| --- | --- |
+| `-m loopqwen.research.operand_study` | Choose arithmetic operations and their arguments with a shared native layer, run a real calculator, then decode the answer |
+| `scripts/schema_study.py` | Same-checkpoint comparison of ordinary versus schema-guided generation, with exact prompt and callback replay |
+| `-m loopqwen.research.mixed_field` | One product against ordinary Base on 50 interleaved field requests with cold startup and mode switching |

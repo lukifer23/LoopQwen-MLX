@@ -15,7 +15,6 @@ import mlx.core as mx
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from examples.local_packages import tools as package_tools
 from loopqwen.data import retention3
-from loopqwen.evaluation import executable_tools
 from loopqwen.evaluation.generation_eval import generate
 from loopqwen.evaluation.mechanism import packed, unpack
 from loopqwen.identity import fingerprint
@@ -111,7 +110,7 @@ def check_release(spec, out, budget, decision):
             "Unqualified release parent",
         )
     prefix = None
-    if spec.get("field_cli"):
+    if spec.get("prefix_study"):
         study = Path(spec["prefix_study"])
         reg = read("research/registry.json")["experiments"][study.name]
         require(
@@ -126,6 +125,13 @@ def check_release(spec, out, budget, decision):
         )
         if read(study / "decision.json")["passed"]:
             prefix = study
+    for name, expected in spec.get("additional_qualifications", {}).items():
+        directory = Path(name)
+        require(
+            digest(directory / "checksums.json") == expected
+            and read(directory / "decision.json")["passed"],
+            "Missing qualified tool retention control",
+        )
     if not bundle.exists():
         export(Path(spec["language"]), prior, trained, trained, bundle, prefix)
     meta = read(bundle / "tool/tool-model.json")
@@ -147,15 +153,18 @@ def check_release(spec, out, budget, decision):
     save(out / "tool-model.json", meta)
     assistant = Assistant(bundle)
     source = unpack(trained / "candidate.json.gz")
-    inputs = read(read(trained / "registration.json")["material"])["rows"]
+    from scripts.tool_study import workload
+
+    training_spec = read(trained / "registration.json")
+    inputs, catalog, _ = workload(training_spec)
     checks = []
     for w, expected in zip(inputs, source, strict=True):
         budget.check()
         tr = assistant.respond(
-            w["question"][0][0]["content"] + executable_tools.INSTRUCTION,
-            executable_tools.tools_for(w),
-            max_tokens=384,
-            max_turns=3,
+            w["user_request"],
+            catalog(w),
+            max_tokens=w.get("generation_cap", training_spec["max_tokens"]),
+            max_turns=w.get("turn_cap", training_spec["max_turns"]),
             progress=lambda _: budget.check(),
         )
         checks.append(dict(id=w["id"], trajectory=tr))
@@ -334,7 +343,10 @@ def verify(root, d):
             and d["cli_exact"] == 4,
             "Field CLI replay",
         )
-        prefix_passed = read(Path(spec["prefix_study"]) / "decision.json")["passed"]
+        prefix_passed = bool(
+            spec.get("prefix_study")
+            and read(Path(spec["prefix_study"]) / "decision.json")["passed"]
+        )
         require(
             d["prefix_default"]
             == prefix_passed
@@ -357,7 +369,7 @@ def verify(root, d):
     )
     cases = unpack(root / "tool-replay.json.gz")
     require(
-        d["tool_replayed"] == len(cases) == 22
+        d["tool_replayed"] == len(cases) == spec.get("expected_tool_rows", 22)
         and all(
             tokens(a["trajectory"]) == tokens(b["trajectory"]) and a["id"] == b["id"]
             for a, b in zip(cases, unpack(tools / "candidate.json.gz"), strict=True)
