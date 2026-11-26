@@ -39,6 +39,7 @@ def main(verify):
                         "meaning-alignment-",
                         "draft-program-",
                         "folded-system-",
+                        "action-preference-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

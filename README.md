@@ -72,6 +72,15 @@ Add one or more `--follow-up "…"` arguments to keep a conversation open across
 
 The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database data.sqlite --table records` for a read-only table, and `--calculator` for exact arithmetic. With `--trace` the response includes every token, submitted argument, callback result and turn time. For custom tools, create a `Tool(name, description, parameters, callback)` and pass it to `Assistant(directory).respond(question, tools)`. The [package example](examples/local_packages.py) uses the Python environment of the running process.
 
+The installed assistant can inspect the CSV files you supply. It reads quoted UTF-8 records, counts data rows and looks up a named column at a one-based data row. Multiple files can be exposed in one conversation. To compare both models on a project measurement, run:
+
+```sh
+.venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-03 \
+  --csv paper/mixed-deployment.csv --csv paper/matched-tool-effects.csv \
+  --prompt "What is the value in column correct at data row 2 in mixed-deployment.csv?" \
+  --compare-base --max-tokens 384 --trace
+```
+
 The installed runtime caches the tokenizer for the qualified packed-03 export. Across four fresh 50-request streams with 200 identical outputs, callbacks and outcomes, the change reduced combined wait on 30 tool/language switches from 29.43 to 16.39 s. Peak native allocation stayed at 1,810,571,734 bytes. Maximum process RSS fell from 2.70 to 1.92 GB. Both policies keep one active backbone. Python callers can reproduce the original behavior with `Assistant(directory, reuse_tokenizer=False)`. The self-contained archive retains the runtime identified by its file hashes. [Verified four-stream crossover](research/results/session-tokenizer-01)
 
 ### Restore the offline assistant

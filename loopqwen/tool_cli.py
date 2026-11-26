@@ -42,6 +42,14 @@ def add_arguments(p, checkpoint=None):
         default=[],
         help="Expose both read-only properties of a local resource. Can be repeated.",
     )
+    p.add_argument(
+        "--csv",
+        type=Path,
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="Expose a UTF-8 CSV file for read-only row counts and cell lookups. Can be repeated.",
+    )
     prompts = p.add_mutually_exclusive_group(required=True)
     prompts.add_argument("--prompt")
     prompts.add_argument(
@@ -82,6 +90,10 @@ def respond(args, parser):
         parser.error("--database and --table must be supplied together")
     with ExitStack() as resources:
         supplied = load_catalog(read(args.catalog)) if args.catalog is not None else []
+        if getattr(args, "csv", None):
+            from .csv_tools import tools as csv_tools
+
+            supplied.extend(csv_tools(args.csv))
         if args.calculator:
             from .calculator_tool import tool
 
@@ -107,7 +119,7 @@ def respond(args, parser):
             supplied.append(database_tool(db, args.table))
         if not supplied and not getattr(args, "allow_plain", False):
             parser.error(
-                "Select a resource, catalog, calculator, packages or a database table"
+                "Select a resource, CSV file, catalog, calculator, packages or a database table"
             )
         options = {
             "max_tokens": args.max_tokens,
