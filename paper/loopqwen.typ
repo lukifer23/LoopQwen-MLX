@@ -111,6 +111,9 @@ The recurrent system gained 17 episodes with zero losses. The exact episode-leve
 = Transfer and matched controls for the frozen tool model
 #include "transfer-results.typ"
 
+= Grounding live database and package requests
+#include "field-results.typ"
+
 #pagebreak()
 = Offline deployment qualification
 The tool release contains two text backbones, a shared tokenizer and the local runtime in 2.207 GiB of files. The previous language-only directory occupied 1.443 GiB. An explicit tool list selects the recurrent instruction-initialized tool model. For ordinary requests the wrapper releases the tool backbone and loads the qualified language system. The caller supplies each callback. The export contains no training data lookup or network service used for answering these requests.
@@ -136,6 +139,9 @@ The released decoder repeats layers 10–15, including two global attention site
 Replacing global layer 7 with a second application of gated-delta layer 6 retained all four correct answers at five full-history attention sites. Base answered zero. Aggregate time to first token was 54.30 versus 54.73 s, below the required 5% improvement. A separate 25-site model repeated global layer 15, retained full histories at its second application and layers 19 and 23, and used 1,024-token local windows at four other sites. It located all four true spans and reduced aggregate first-token time to 49.36 versus 54.61 s. It answered zero questions correctly. The remaining global history was large enough to hold the answer, but the new attention schedule changed the decoder's use of it. Both preregistered gates closed further long-context promotion of those graphs.
 
 
+
+= Causal raw-language prediction
+#include "raw-results.typ"
 
 = Relationship to prior work
 Universal Transformers share a transformation across depth and study adaptive computation [5]. Geiping and colleagues pretrained a 3.5B recurrent-depth architecture on 800B tokens and scaled latent iterations at inference [6]. Here an already pretrained hybrid decoder is adapted at small scale. The project measures a benefit from a particular supervised recurrent computation, under a matched one-pass budget. The earlier three-seed direct-span study averaged 23.7% versus 32.6% for dense adaptation on out-of-distribution traced problems. Simply repeating the pretrained span was insufficient in that study.
