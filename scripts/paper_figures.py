@@ -332,6 +332,9 @@ def main():
     compute_cost(ROOT, PAPER)
     from paper_deployment import make as deployment
 
+    from paper_conversations import make as conversations
+
+    conversations(PAPER, RESULTS, result)
     deployment(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
