@@ -32,6 +32,7 @@ def main(verify):
                         "selective-raw-",
                         "packed-release-retention-",
                         "passage-copy-",
+                        "packed-decode-kernel-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

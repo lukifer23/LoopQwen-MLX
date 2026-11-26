@@ -119,3 +119,40 @@ def test_resident_register_cache_is_local_to_the_selected_request():
         cache, slots = resident_cache(model, route, length, 5, block)
         assert not slots
         assert mx.array_equal(model.hidden(prompt, cache), baseline).item()
+
+
+def test_packed_metal_decode_matches_strided_gqa_with_and_without_reader_bias():
+    from mlx_lm.models.base import quantized_scaled_dot_product_attention
+
+    from loopqwen.kernels.packed_decode import attention
+    from loopqwen.worker import acquire
+
+    acquire()
+    mx.random.seed(614152)
+    q = mx.random.normal((1, 8, 1, 256)).astype(mx.bfloat16)
+    # Leave unused capacity between heads to exercise the actual cache strides.
+    bundles = [
+        [
+            part[:, :, :523]
+            for part in mx.quantize(
+                mx.random.normal((1, 2, 557, 256)).astype(mx.bfloat16),
+                group_size=64,
+                bits=8,
+            )
+        ]
+        for _ in range(2)
+    ]
+    pos = mx.arange(523)
+    for mask in (
+        None,
+        "causal",
+        pos >= 276,
+        mx.where(pos < 256, -float("inf"), mx.where(pos > 499, 3.25, 0.0)).astype(
+            mx.bfloat16
+        )[None, None, None, :],
+    ):
+        reference = quantized_scaled_dot_product_attention(
+            mx.array(q), *bundles, 0.0625, mask
+        ).astype(mx.float32)
+        actual = attention(mx.array(q), *bundles, 0.0625, mask).astype(mx.float32)
+        assert mx.allclose(actual, reference, rtol=0.025, atol=0.007).item()
