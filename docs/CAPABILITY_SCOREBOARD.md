@@ -305,3 +305,16 @@ The unchanged natural inference checkpoint answered 50/72 versus 27/72 under the
 ### First integrated full-history capacity
 
 Both models processed two 131,081-token prompts on the M3 Pro. The conditional model returned both requested values in 640.81 seconds; Base returned neither in 493.38 seconds. Archive verification rejected the fixed-position interpretation: two swapped record names occupied four and three tokens, shifting intervening values by one position. The unchanged native measurements are preserved alongside the failed protocol decision. The generator now proves equality of the individual token widths and the complete token-level swap before a new prompt is frozen. [Invalidated intervention and native outputs](../research/results/conditional-depth-128k)
+
+### Combined arithmetic, inference and register model
+
+| Fresh family | Reviewed correct, combined model | Reviewed correct, Base |
+|---|---:|---:|
+| Arithmetic, 1,024 generated tokens | 17/24 | 14/24 |
+| Arithmetic, 256 generated tokens | 7/8 | 1/8 |
+| Natural inference, 1,024 generated tokens | 25/36 | 24/36 |
+| Reading, 256 generated tokens | 2/8 | 2/8 |
+| Register lookup at 2K or 8K input | 4/4 | 0/4 |
+| **All requests** | **55/80** | **41/80** |
+
+The complete model used **419.12 seconds** against **536.26 seconds** for untouched Base, including routing, full-prefix replay and full-history prefill. The strict first-turn scorer gave 49/80 versus 33/80. Blind review credited 14 extra correct answers with zero losses. The conservative selector sent 10/36 inference requests to the inference specialist; the other 26 used ordinary Base. Across those 26 and eight reading requests, all 34 ordinary outputs matched Base token for token. Each of the 120 raw retention passages selected the ordinary path and exactly reproduced Base's 2.9826581 NLL. [Paired requests and deployable checkpoint](../research/results/conditional-language-02) · [Blind annotations](measurements/answer-audits/conditional-language-02.json)

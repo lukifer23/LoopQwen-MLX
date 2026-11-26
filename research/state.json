@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "conditional-language-02",
+  "active": "entailment-dense-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -21,7 +21,7 @@
     "human_entailment_vs_base": "research/results/entailment-triplets-01/model"
   },
   "frontier": "Same learned exit won two independent full-budget pairs: 52/80 versus 46/80 strict, 58/80 versus 52/80 completed content, six paired wins, zero losses, 542.44 versus 592.24 seconds.",
-  "next": "entailment-dense-01",
+  "next": "conditional-language-128k",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -237,9 +237,15 @@
       "promoted": false,
       "scope": "Matched-depth attribution",
       "reason": "Both trained finishers scored 52/80 strict with identical item correctness, 528.14 seconds at K2 versus 524.69 at K1. Raw NLL 2.99538 versus 2.99655. No arithmetic accuracy gain attributable to the extra pass on these panels."
+    },
+    {
+      "id": "conditional-language-02",
+      "promoted": true,
+      "scope": "80-request mixed-model qualification",
+      "reason": "49/80 vs 33/80 strict, 55/80 vs 41/80 after blind review, with 14 reviewed gains and zero losses. 419.12 vs 536.26 s. Ordinary 34/34 token streams and 120 raw inputs preserved. Content gains at both arithmetic budgets, in inference and in register lookup."
     }
   ],
-  "status": "Combined arithmetic and entailment model is under independent mixed evaluation. Matched arithmetic depth comparison complete.",
+  "status": "The combined checkpoint passed its full 80-request comparison and blinded content criterion. Matched NLI attribution and full-context qualification remain.",
   "next_action": "Finish matched arithmetic attribution, then run the repaired 80-item combined model study, matched natural-inference attribution and qualifying full-history checks.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
