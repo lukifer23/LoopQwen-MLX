@@ -435,9 +435,6 @@ def full_decoder(paper, results, result, finish):
 
 
 def direct_fused(paper, results, result, finish):
-    import csv
-    from loopqwen.evaluation.mechanism import unpack
-    from loopqwen.io import read, digest
 
     study = "register-fused-base-full-01"
     root = results / study

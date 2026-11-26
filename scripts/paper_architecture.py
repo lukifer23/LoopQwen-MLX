@@ -2,6 +2,7 @@
 
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
+import itertools
 
 
 def make(finish):
@@ -45,7 +46,7 @@ def make(finish):
         (8.12, 1.78, "Vocabulary-logit\ncorrection"),
     ]
     boxes = [box(x, 2.46, w, label, 0 < i < 4) for i, (x, w, label) in enumerate(row)]
-    for left, right in zip(boxes, boxes[1:]):
+    for left, right in itertools.pairwise(boxes):
         arrow(left[1], 2.76, right[0], 2.76)
     ax.text(
         4.95,
@@ -82,7 +83,7 @@ def make(finish):
         (8.12, 1.78, "Generate a call\nor final answer"),
     ]
     boxes = [box(x, 0.81, w, label, i in (2, 3)) for i, (x, w, label) in enumerate(row)]
-    for left, right in zip(boxes, boxes[1:]):
+    for left, right in itertools.pairwise(boxes):
         arrow(left[1], 1.11, right[0], 1.11)
     ax.plot([9.01, 9.01, 0.89], [0.76, 0.29, 0.29], lw=0.8, color="#425752")
     arrow(0.89, 0.28, 0.89, 0.76)

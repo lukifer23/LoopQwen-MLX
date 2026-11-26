@@ -316,3 +316,18 @@ PYCODE
 ```
 
 The native qualification runner is `python -m loopqwen.research.packed_release packed-release-retention-01`. It alternates isolated offline processes and records actual model outputs, package callbacks, and all per-token target losses on the two books. [Frozen protocol](../research/experiments/packed-release-retention-01.json) · [Archival checks and output traces](../research/results/packed-release-retention-01)
+
+### Reproducing the newer reasoning and file studies
+
+Each command below uses the saved registration and frozen material. Compute trials require the corresponding original weights, the locked MLX environment and an open local research session with its full budget available. Run a single worker at a time. To verify an existing result without fitting it again, use `python scripts/research_archive.py STUDY --verify`. Each archived decision includes the original study registration.
+
+| Study | Native module after `python -m` | What the worker measures |
+| --- | --- | --- |
+| `meaning-alignment-01` | `loopqwen.research.meaning_alignment` | Free and fixed-prefix judgments on changed sentence pairs and full public support posts |
+| `register-fused-base-full-01` | `loopqwen.research.register_allocation` | Physical 131K evidence, prefill and post-first throughput against untouched Base |
+| `packed-decode-kernel-02` | `loopqwen.research.packed_decode` | Query and KV tensor identities, numerical outputs and synchronized times across two native operators |
+| `draft-program-01` | `loopqwen.research.draft_program` | Ordinary-prefix drafts, recurrently generated programs, calculator observations and final human-problem answers |
+| `folded-system-01` | `loopqwen.research.folded_system` | Teacher state reconstruction and user-visible outcomes from one physical recurrent backbone |
+| `action-preference-01` | `loopqwen.research.action_preferences` | Frozen-reference preference fitting and exact executable results after user clarification |
+
+For example, `python -m loopqwen.research.action_preferences action-preference-01` fits from the archived two-pass typed tool weights. The preference builder retains the original source line for every chosen/rejected pair, selects read-oriented topics, normalizes schemas, converts single calls to the installed JSON protocol, and splits distinct questions before fitting. Rebuild the frozen inputs using `python scripts/preference_material.py /tmp/loopqwen-preference-source`. NVIDIA distributed the original When2Call data under CC BY 4.0. The file rows in the two ecological tables come from Kristen Gorman and the Palmer Station LTER, distributed in the Palmer Penguins package. [Original preference data](https://huggingface.co/datasets/nvidia/When2Call) · [Attribution license](https://creativecommons.org/licenses/by/4.0/) · [Original ecological measurements](https://allisonhorst.github.io/palmerpenguins/)
