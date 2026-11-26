@@ -1,13 +1,13 @@
 {
-  "session_start_utc": "2026-11-26T14:39:36.523475+00:00",
-  "starting_revision": "1fcece2",
+  "session_start_utc": "2026-11-26T15:14:53.530904+00:00",
+  "starting_revision": "46c7910",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "tool-dialogue-grounded-01",
+  "active": null,
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -431,6 +431,54 @@
       "promoted": false,
       "scope": "Does native three-pass kinship training beat identical single-pass training?",
       "decision": "research/results/native-kinship-matched-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-diagnostic-01",
+      "promoted": false,
+      "scope": "Can the shipped general release complete a live schema-bound tool interaction better than untouched Base?",
+      "decision": "research/results/tool-dialogue-diagnostic-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-loop-01",
+      "promoted": false,
+      "scope": "Do shared final-layer tool adapters trained only on pinned Base improve end-to-end tool-assisted reasoning across unseen domain schemas and rephrased tasks?",
+      "decision": "research/results/tool-dialogue-loop-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-boundary-01",
+      "promoted": true,
+      "scope": "After correcting Qwen chat turn termination for both arms, do the frozen trained recurrent weights improve complete tool-assisted tasks on a fresh panel?",
+      "decision": "research/results/tool-dialogue-boundary-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-depth-01",
+      "promoted": false,
+      "scope": "With identical training, does executing the shared last layer twice improve live tool outcomes over one pass?",
+      "decision": "research/results/tool-dialogue-depth-01/decision.json"
+    },
+    {
+      "id": "tool-bfcl-transfer-01",
+      "promoted": false,
+      "scope": "Does the frozen controlled-world tool adapter transfer to 24 consecutive publisher-authored BFCL math signatures with typed and optional arguments?",
+      "decision": "research/results/tool-bfcl-transfer-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-grounded-01",
+      "promoted": false,
+      "scope": "Can a recurrent four-layer suffix trained on observed-value rationales and independent multi-argument demonstrations beat Base on fresh executable tasks including comparisons?",
+      "decision": "research/results/tool-dialogue-grounded-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-typed-01",
+      "promoted": true,
+      "scope": "Can an efficiently quantized tool-mode recurrent decoder trained on diverse typed functions execute independently authored numerical requests, ground its final answer in the returned value, and outperform untouched Base?",
+      "decision": "research/results/tool-dialogue-typed-01/decision.json"
+    },
+    {
+      "id": "contrast-boolq-recurrent-01",
+      "promoted": false,
+      "scope": "Does response-only training of a repeated native last layer improve both-member correctness on independent human-edited BoolQ questions and shared-prefix yes/no evidence judgments?",
+      "decision": "research/results/contrast-boolq-recurrent-01/decision.json"
     }
   ],
   "status": "Running held-out tool reasoning, typed public-function execution and human-edited BoolQ comparisons. See the preregistered stop rules for each.",
@@ -486,9 +534,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795663892.156134,
+  "closed_session_start": 1795703976.523475,
   "native_window": {
-    "start_utc": "2026-11-26T14:39:36.523475+00:00",
+    "start_utc": "2026-11-26T15:14:53.530904+00:00",
     "status": "open"
   },
   "kinship_transfer": {
