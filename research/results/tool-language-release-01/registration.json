@@ -1,0 +1,26 @@
+{
+  "id": "tool-language-release-01",
+  "question": "Can a single offline build execute the trained tool sessions and real installed-package queries, then preserve all qualified language, NLL and 131083-token outputs after switching modes?",
+  "tools": "research/results/tool-dialogue-typed-01",
+  "tool_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "language": "exports/native-language-release-02",
+  "language_record": "research/results/native-language-release-02",
+  "language_sha256": "9a30f346fcc192b6294367574cdb270bdfabe99553a7556861717d7108fc16c8",
+  "destination": "exports/tool-language-01",
+  "packages": {
+    "mlx": "0.32.4",
+    "numpy": "2.5.5",
+    "psutil": "7.2.2",
+    "safetensors": "0.8.0",
+    "PyYAML": "6.0.4"
+  },
+  "field_floor": 4,
+  "long_time_limit": 688.1,
+  "protocol": "One export with pinned Base language weights and dedicated quantized recurrent tool weights. Explicit tool list selects the tool model; only one backbone is retained when switching. Re-execute all 22 BFCL numeric sessions and require identical input/output IDs and actual observations. Ask five native version questions answered only with real importlib.metadata calls. Replay the first in a network-off isolated bundled-runtime interpreter. Check exact short streams+routes on 64 induction/56 deduction/80 mixed prompts, all 120 raw prose routes and exact aggregate/domain NLL. End with both physical 131083-token counterfactual generations. Accuracy or token mismatch stops dependent checks. Record any field-floor failure after the mandatory language replays.",
+  "gate": "All 22 tool and 200 language trajectories exact, identical isolated offline trace, >=4/5 correct tool-grounded field answers, exact NLL across 9328 targets, both full-history outputs and correct evidence spans exact, combined long decode <=688.10 seconds (1.75x archived untouched Base). Stop on memory or wall limit.",
+  "limits": {
+    "wall_seconds": 1720,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  }
+}
