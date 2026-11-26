@@ -2,6 +2,7 @@
 
 import csv
 from collections import Counter
+from statistics import median
 
 import matplotlib.pyplot as plt
 
@@ -193,6 +194,53 @@ def matched_effects(paper, results, result, finish):
                 high,
             )
         )
+    with (paper / "matched-tool-latency.csv").open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            [
+                "comparison",
+                "subset",
+                "side",
+                "n",
+                "median_complete_session_s",
+                "median_initial_ttft_ms",
+                "total_generated_tokens",
+                "total_session_s",
+            ]
+        )
+        for name in (joint, study):
+            paired = list(
+                zip(
+                    *(
+                        unpack(results / name / (arm + ".json.gz"))
+                        for arm in ("candidate", "control")
+                    ),
+                    strict=True,
+                )
+            )
+            subsets = {
+                "enrolled": paired,
+                "both_correct": [
+                    p for p in paired if all(r["score"]["success"] for r in p)
+                ],
+            }
+            for key, subset in subsets.items():
+                for j, side in enumerate(("candidate", "control")):
+                    records = [p[j]["trajectory"] for p in subset]
+                    writer.writerow(
+                        [
+                            name,
+                            key,
+                            side,
+                            len(subset),
+                            median(r["seconds"] for r in records),
+                            1000 * median(r["turns"][0]["ttft_s"] for r in records),
+                            sum(
+                                len(t["token_ids"]) for r in records for t in r["turns"]
+                            ),
+                            sum(r["seconds"] for r in records),
+                        ]
+                    )
     with (paper / "matched-tool-effects.csv").open("w") as f:
         writer = csv.writer(f)
         writer.writerow(

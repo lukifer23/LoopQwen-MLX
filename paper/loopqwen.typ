@@ -117,7 +117,6 @@ The recurrent system gained 17 episodes with zero losses. The exact episode-leve
 = Grounding live database and package requests
 #include "field-results.typ"
 
-#pagebreak()
 = Offline deployment qualification
 The tool release contains two text backbones, a shared tokenizer and the local runtime in 2.207 GiB of files. The previous language-only directory occupied 1.443 GiB. An explicit tool list selects the recurrent instruction-initialized tool model. For ordinary requests the wrapper releases the tool backbone and loads the qualified language system. The caller supplies each callback. The export contains no training data lookup or network service used for answering these requests.
 

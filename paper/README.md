@@ -82,3 +82,5 @@ The operand, schema and mixed field comparisons use the standard entry points be
 The native compute ledger records charged attempts for each supported closed session. A charge includes the time spent on model work, preparation and scoring under the native worker lease. It is a wall-time resource measure. [Machine time and original ledger hashes](native-compute.csv)
 
 The matched-tool figure reports paired accuracy differences for the two-pass candidate against untouched Base and the equally trained one-pass checkpoint. Each bootstrap sample keeps all questions from a sampled world or public function together and preserves each panel's size. [Plot](matched-tool-effects.svg) · [Points and 95% descriptive intervals](matched-tool-effects.csv)
+
+The timing supplement gives median first-token and complete-session latency, generated tokens and total wall time for every enrolled tool request. It also reports the subset solved by both arms, so readers can inspect speed when both delivered a correct answer. [Paired timing supplement](matched-tool-latency.csv)

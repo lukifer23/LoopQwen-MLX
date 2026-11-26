@@ -330,6 +330,9 @@ def main():
     from paper_compute import make as compute_cost
 
     compute_cost(ROOT, PAPER)
+    from paper_deployment import make as deployment
+
+    deployment(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"
