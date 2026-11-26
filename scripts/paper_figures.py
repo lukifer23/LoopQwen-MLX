@@ -369,6 +369,7 @@ def main():
     from paper_raw import selective
     from paper_passages import make as plot_passages
     from paper_calculation import make as plot_calculation
+    from paper_documents import make as plot_documents
     from paper_folded import make as plot_folded
     from paper_draft_program import make as plot_draft_program
     from paper_preferences import make as plot_preferences
@@ -382,6 +383,7 @@ def main():
     plot_draft_program(PAPER, RESULTS, result, finish)
     plot_preferences(PAPER, RESULTS, result, finish)
     plot_calculation(PAPER, RESULTS, result, finish)
+    plot_documents(PAPER, RESULTS, result, finish)
     plot_folded(PAPER, RESULTS, result, finish)
     plot_intents(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)

@@ -17,7 +17,11 @@ from loopqwen.document_tools import documents
 from loopqwen.io import digest, read, save
 from loopqwen.model_loader import local_snapshot
 from loopqwen.tool_session import initial_messages, prompt
-from scripts.passage_copy_material import SOURCES, normalized
+
+if __package__:
+    from .passage_copy_material import SOURCES, normalized
+else:
+    from passage_copy_material import SOURCES, normalized
 
 ROOT = Path("data/research_external")
 QASPER = (

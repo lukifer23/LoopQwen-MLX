@@ -201,10 +201,11 @@ def run(name):
                             else DenseAssistant(False)
                         )
                     observed = []
+                    length = len(w["initial_ids"])
 
                     def progress(
                         consumed,
-                        expected=len(w["initial_ids"]),
+                        expected=length,
                         stamps=observed,
                         at=start,
                     ):

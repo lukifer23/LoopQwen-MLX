@@ -134,3 +134,5 @@ The file-dialogue audit compares every enrolled request and follow-up to both th
 The arithmetic draft supplement includes the model-generated reasoning length, emitted program, callback result, final number and wall time for both arms on every fresh human question. [Requests and executions](draft-program-requests.csv) · [Human final-number and grounding scores](draft-program.svg)
 
 The single-backbone study reports both user outcomes and hidden reconstruction. [Scores and resources](folded-system.csv) · [All 184 responses](folded-requests.csv) · [Performance by request type](folded-system.svg)
+
+The document-search study uses complete user-supplied text files and preserves character offsets for each returned passage. Reproduce its pinned sources with `.venv/bin/python -m scripts.document_search_material`. The Qasper source archive and original SQuAD development set are downloaded only when absent. [Human-query retrieval reference](document-retrieval.csv) · [Frozen document comparison](../research/experiments/document-search-field-01.json)

@@ -87,6 +87,16 @@ The installed assistant can inspect the CSV files you supply. It reads quoted UT
 
 In a separate live exchange, the qualified model read a newly created comparison CSV, counted its four records, and returned the correct field value of 96 on a follow-up. Base printed a proposed call as prose on the first request and reached the second output cap. The trace records each actual tool observation and both layer-23 cache states. [Both conversations](docs/measurements/local-csv-comparison.json)
 
+For read-only search over your own text or Markdown files, supply each file using `--document`. The tool returns the original passage, filename and character offsets. For example:
+
+```sh
+.venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-03 \
+  --document docs/TRAINING.md --document docs/CAPABILITY_SCOREBOARD.md \
+  --prompt "In TRAINING.md, what output does the --until option control?" \
+  --max-tokens 384 --trace
+```
+
+
 The installed runtime caches the tokenizer for the qualified packed-03 export. Across four fresh 50-request streams with 200 identical outputs, callbacks and outcomes, the change reduced combined wait on 30 tool/language switches from 29.43 to 16.39 s. Peak native allocation stayed at 1,810,571,734 bytes. Maximum process RSS fell from 2.70 to 1.92 GB. Both policies keep one active backbone. Python callers can reproduce the original behavior with `Assistant(directory, reuse_tokenizer=False)`. The self-contained archive retains the runtime identified by its file hashes. [Verified four-stream crossover](research/results/session-tokenizer-01)
 
 ### Restore the offline assistant

@@ -79,6 +79,15 @@ def write(paper, results, result):
             "correct",
         ),
         (
+            "document-search-field-01",
+            "User-file passage search",
+            "grounded exact",
+            32,
+            "candidate",
+            "control",
+            "grounded",
+        ),
+        (
             "report-calculation-01",
             "Stepwise calculator",
             "final number",
