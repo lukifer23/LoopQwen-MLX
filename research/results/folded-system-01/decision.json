@@ -1,0 +1,330 @@
+{
+  "passed": false,
+  "groups": {
+    "all": {
+      "candidate": {
+        "n": 92,
+        "success": 33,
+        "answer": 39,
+        "completed": 44,
+        "grounded": 22,
+        "seconds": 177.98734974401304,
+        "first": 7.733783576695714,
+        "peak": 1140141770,
+        "tokens": 17955
+      },
+      "control": {
+        "n": 92,
+        "success": 30,
+        "answer": 39,
+        "completed": 51,
+        "grounded": 1,
+        "seconds": 364.7446782940533,
+        "first": 7.298449704016093,
+        "peak": 1779714010,
+        "tokens": 25032
+      },
+      "gains": 21,
+      "losses": 18,
+      "p": 0.7492586247608415,
+      "cluster_p": 0.7492586247608415
+    },
+    "fresh": {
+      "candidate": {
+        "n": 40,
+        "success": 11,
+        "answer": 11,
+        "completed": 13,
+        "grounded": 0,
+        "seconds": 132.1812246631016,
+        "first": 2.603157124714926,
+        "peak": 1139364230,
+        "tokens": 14274
+      },
+      "control": {
+        "n": 40,
+        "success": 29,
+        "answer": 29,
+        "completed": 33,
+        "grounded": 0,
+        "seconds": 122.9533645810443,
+        "first": 2.413081955979578,
+        "peak": 1778424794,
+        "tokens": 8470
+      },
+      "gains": 0,
+      "losses": 18,
+      "p": 7.62939453125e-06,
+      "cluster_p": 7.62939453125e-06
+    },
+    "database": {
+      "candidate": {
+        "n": 12,
+        "success": 0,
+        "answer": 0,
+        "completed": 0,
+        "grounded": 0,
+        "seconds": 12.883702791004907,
+        "first": 1.4721107910154387,
+        "peak": 1140093386,
+        "tokens": 1144
+      },
+      "control": {
+        "n": 12,
+        "success": 0,
+        "answer": 1,
+        "completed": 2,
+        "grounded": 0,
+        "seconds": 66.8950072931475,
+        "first": 1.3893151660449803,
+        "peak": 1779272666,
+        "tokens": 4573
+      },
+      "gains": 0,
+      "losses": 0,
+      "p": 1.0,
+      "cluster_p": 1.0
+    },
+    "file": {
+      "candidate": {
+        "n": 8,
+        "success": 8,
+        "answer": 8,
+        "completed": 8,
+        "grounded": 8,
+        "seconds": 3.622427458933089,
+        "first": 0.6671922919922508,
+        "peak": 1119403466,
+        "tokens": 230
+      },
+      "control": {
+        "n": 8,
+        "success": 1,
+        "answer": 1,
+        "completed": 1,
+        "grounded": 1,
+        "seconds": 41.541746917006094,
+        "first": 0.6700233320007101,
+        "peak": 1752176562,
+        "tokens": 2862
+      },
+      "gains": 7,
+      "losses": 0,
+      "p": 0.015625,
+      "cluster_p": 0.015625
+    },
+    "judgment": {
+      "candidate": {
+        "n": 20,
+        "success": 3,
+        "answer": 3,
+        "completed": 5,
+        "grounded": 0,
+        "seconds": 69.645272996102,
+        "first": 2.0456852489733137,
+        "peak": 1139364230,
+        "tokens": 7441
+      },
+      "control": {
+        "n": 20,
+        "success": 15,
+        "answer": 15,
+        "completed": 19,
+        "grounded": 0,
+        "seconds": 56.07040270703146,
+        "first": 1.805232039943803,
+        "peak": 1778424794,
+        "tokens": 3814
+      },
+      "gains": 0,
+      "losses": 12,
+      "p": 0.00048828125,
+      "cluster_p": 0.00048828125
+    },
+    "math": {
+      "candidate": {
+        "n": 20,
+        "success": 8,
+        "answer": 8,
+        "completed": 8,
+        "grounded": 0,
+        "seconds": 62.53595166699961,
+        "first": 0.5574718757416122,
+        "peak": 1072113902,
+        "tokens": 6833
+      },
+      "control": {
+        "n": 20,
+        "success": 14,
+        "answer": 14,
+        "completed": 14,
+        "grounded": 0,
+        "seconds": 66.88296187401284,
+        "first": 0.6078499160357751,
+        "peak": 1659754742,
+        "tokens": 4656
+      },
+      "gains": 0,
+      "losses": 6,
+      "p": 0.03125,
+      "cluster_p": 0.03125
+    },
+    "package": {
+      "candidate": {
+        "n": 10,
+        "success": 0,
+        "answer": 6,
+        "completed": 7,
+        "grounded": 0,
+        "seconds": 12.171662208042108,
+        "first": 0.7773739990661852,
+        "peak": 1139831498,
+        "tokens": 971
+      },
+      "control": {
+        "n": 10,
+        "success": 0,
+        "answer": 0,
+        "completed": 3,
+        "grounded": 0,
+        "seconds": 50.72959408501629,
+        "first": 0.7327128751203418,
+        "peak": 1749753822,
+        "tokens": 3493
+      },
+      "gains": 0,
+      "losses": 0,
+      "p": 1.0,
+      "cluster_p": 1.0
+    },
+    "public": {
+      "candidate": {
+        "n": 22,
+        "success": 14,
+        "answer": 14,
+        "completed": 16,
+        "grounded": 14,
+        "seconds": 17.12833262293134,
+        "first": 2.2139493699069135,
+        "peak": 1140141770,
+        "tokens": 1336
+      },
+      "control": {
+        "n": 22,
+        "success": 0,
+        "answer": 8,
+        "completed": 12,
+        "grounded": 0,
+        "seconds": 82.62496541783912,
+        "first": 2.093316374870483,
+        "peak": 1779714010,
+        "tokens": 5634
+      },
+      "gains": 14,
+      "losses": 0,
+      "p": 0.0001220703125,
+      "cluster_p": 0.0001220703125
+    }
+  },
+  "historically_correct_now_lost": {
+    "field": [
+      "sql-wikisql-test-4700",
+      "sql-wikisql-test-5991",
+      "sql-wikisql-test-13664"
+    ],
+    "public": [
+      "exec_simple_18",
+      "exec_simple_2",
+      "exec_simple_19",
+      "exec_simple_3"
+    ]
+  },
+  "hidden_validation": {
+    "raw": {
+      "uncorrected": 0.20704797375947237,
+      "skip": 0.12338513066060841,
+      "learned": 0.07489316433202475
+    },
+    "dialogue": {
+      "uncorrected": 0.31456500850617886,
+      "skip": 0.19819483254104853,
+      "learned": 0.033196701493579894
+    }
+  },
+  "cache_parity": {
+    "plain": {
+      "unique_layers": 23,
+      "model_parameter_bytes": 796528736,
+      "combined_parameter_bytes": 799740004,
+      "shared_parameter_bytes": 796528736,
+      "calls": 24,
+      "states": 24,
+      "first": 90700,
+      "incremental": 90700,
+      "max_logit_error": 0.31640625,
+      "shared_input_tokens": [
+        22147,
+        337,
+        635,
+        279,
+        3240,
+        369,
+        1245,
+        198,
+        15666,
+        9542,
+        466,
+        874,
+        3018,
+        383,
+        279,
+        20438,
+        13,
+        248046,
+        198,
+        248045,
+        74455,
+        198,
+        248068,
+        198
+      ]
+    },
+    "tool": {
+      "unique_layers": 23,
+      "model_parameter_bytes": 799740004,
+      "combined_parameter_bytes": 799740004,
+      "shared_parameter_bytes": 796528736,
+      "calls": 25,
+      "states": 25,
+      "first": 248069,
+      "incremental": 248069,
+      "max_logit_error": 0.28125,
+      "shared_input_tokens": [
+        22147,
+        337,
+        635,
+        279,
+        3240,
+        369,
+        1245,
+        198,
+        15666,
+        9542,
+        466,
+        874,
+        3018,
+        383,
+        279,
+        20438,
+        13,
+        248046,
+        198,
+        248045,
+        74455,
+        198,
+        248068,
+        198
+      ]
+    }
+  }
+}
