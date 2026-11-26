@@ -14,13 +14,22 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--study",
-        choices=("attention-memory-01", "attention-memory-128k", "prose-reading-01"),
+        choices=(
+            "attention-memory-01",
+            "attention-memory-128k",
+            "prose-reading-01",
+            "conditional-language-128k",
+            "native-induction-anchored-01",
+        ),
         default="attention-memory-01",
     )
     parser.add_argument("--index", type=int, default=0)
     args = parser.parse_args()
     data = read(Path("research/data") / (args.study + ".json"))
-    items = data["panel"] if isinstance(data, dict) else data
+    if args.study == "native-induction-anchored-01":
+        items = data["replication"]
+    else:
+        items = data["panel"] if isinstance(data, dict) else data
     if not 0 <= args.index < len(items):
         parser.error(f"Choose a prompt index from 0 through {len(items) - 1}")
     t = load_tokenizer(local_snapshot())
