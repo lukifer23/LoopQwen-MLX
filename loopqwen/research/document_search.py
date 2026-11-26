@@ -56,9 +56,10 @@ def grade(w, trajectory):
     }
 
 
-def outcome(panel, arms, index):
+def outcome(panel, arms, index, *, validation=None):
     groups = {}
-    for family in ("all", "SQuAD", "Qasper"):
+    sources = list(dict.fromkeys(w["source"] for w in panel))
+    for family in ("all", *sources):
         ix = [i for i, w in enumerate(panel) if family in ("all", w["source"])]
         group = {}
         for side, rs in arms.items():
@@ -96,7 +97,7 @@ def outcome(panel, arms, index):
                 g["candidate"][k] >= g["control"][k]
                 for k in ("correct", "f1", "completed")
             )
-            for g in (groups["SQuAD"], groups["Qasper"])
+            for g in (groups[k] for k in sources)
         )
         and a["correct"] >= b["correct"] + 4
         and a["peak"] < b["peak"]
@@ -105,7 +106,26 @@ def outcome(panel, arms, index):
             for k in ("seconds", "first")
         )
     )
-    return {"passed": bool(passed), "groups": groups, "index_seconds": index}
+    result = {"passed": bool(passed), "groups": groups, "index_seconds": index}
+    if validation is not None:
+        result["first_pass_evidence"] = validation
+        result["passed"] = bool(
+            passed
+            and a["grounded"] >= max(14, b["grounded"] + 8)
+            and a["correct"] >= b["correct"] + 6
+            and a["evidence"] >= 20
+            and groups["SQuAD"]["candidate"]["grounded"] >= 4
+            and min(ok / n for ok, n in validation.values()) >= 0.65
+        )
+    return result
+
+
+def measured(spec, root, panel, arms, index):
+    if "initial_adapter" not in spec:
+        return outcome(panel, arms, index)
+    from .document_evidence_fit import validation
+
+    return outcome(panel, arms, index, validation=validation(root, spec))
 
 
 def verify(root, decision):
@@ -114,6 +134,11 @@ def verify(root, decision):
     spec = read(root / "registration.json")
     mat = read(spec["material"])
     panel = mat["rows"]
+    if "initial_adapter" in spec:
+        from scripts.document_evidence_material import training
+        from scripts.document_search_material import DATA
+
+        assert training(mat, read(DATA)) == read(spec["training"])
     tok = load_tokenizer(local_snapshot())
     arms = {}
     with open_panel(mat) as tools:
@@ -146,7 +171,10 @@ def verify(root, decision):
                     )
             arms[side] = rows
     index = read(root / "index.json")
-    assert all(index[s] > 0 for s in arms) and outcome(panel, arms, index) == decision
+    assert (
+        all(index[s] > 0 for s in arms)
+        and measured(spec, root, panel, arms, index) == decision
+    )
 
 
 def run(name):
@@ -174,6 +202,16 @@ def run(name):
     index_path = root / "index.json"
     index = read(index_path) if index_path.is_file() else {}
     try:
+        adapter = None
+        if "initial_adapter" in spec:
+            from .document_evidence_fit import fit
+
+            save(root / "registration.json", spec)
+            if not (root / "fit.json").is_file():
+                fit(spec, root, budget)
+            gc.collect()
+            mx.clear_cache()
+            adapter = root
         for side in ("candidate", "control"):
             path = root / (side + ".json.gz")
             if path.exists():
@@ -196,7 +234,7 @@ def run(name):
                     start = perf_counter()
                     if model is None:
                         model = (
-                            Assistant(bundle)
+                            Assistant(bundle, tool_adapter=adapter)
                             if side == "candidate"
                             else DenseAssistant(False)
                         )
@@ -250,7 +288,7 @@ def run(name):
                 del model
                 gc.collect()
                 mx.clear_cache()
-        save(root / "decision.json", outcome(mat["rows"], arms, index))
+        save(root / "decision.json", measured(spec, root, mat["rows"], arms, index))
     finally:
         budget.close()
 

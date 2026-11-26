@@ -71,7 +71,7 @@ def verify(root):
         from loopqwen.research.shared_session_study import verify as verify_shared_session
 
         return verify_shared_session(root, decision)
-    if study.startswith("document-search-field-"):
+    if study.startswith(("document-search-field-", "document-evidence-")):
         from loopqwen.research.document_search import verify as verify_document_search
 
         return verify_document_search(root, decision)

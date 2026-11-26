@@ -11,14 +11,23 @@ from loopqwen.io import digest, read
 from loopqwen.tool_session import compact
 
 
-def make(paper, results, result, finish):
-    name = "document-search-field-01"
-    mat = read(Path("research/data") / (name + ".json"))
+def make(paper, results, result, finish, name="document-search-field-01"):
+    spec = read(Path("research/experiments") / (name + ".json"))
+    mat = read(spec["material"])
+    trained = "initial_adapter" in spec
+    prefix = "document-evidence" if trained else "document-search"
     panel = mat["rows"]
     available = {}
     with (
         open_panel(mat) as (search,),
-        (paper / "document-retrieval.csv").open("w") as stream,
+        (
+            paper
+            / (
+                "document-evidence-retrieval.csv"
+                if trained
+                else "document-retrieval.csv"
+            )
+        ).open("w") as stream,
     ):
         out = csv.writer(stream)
         out.writerow(
@@ -59,7 +68,7 @@ def make(paper, results, result, finish):
         return
     decision = result(name)
     sums = read(root / "checksums.json")
-    with (paper / "document-search-responses.csv").open("w") as stream:
+    with (paper / (prefix + "-responses.csv")).open("w") as stream:
         out = csv.writer(stream)
         out.writerow(
             [
@@ -119,8 +128,9 @@ def make(paper, results, result, finish):
                         r["peak"],
                     ]
                 )
-    fig, axes = plt.subplots(1, 2, figsize=(7.15, 2.55), sharey=True)
-    for ax, source in zip(axes, ("SQuAD", "Qasper"), strict=True):
+    sources = ["SQuAD", "Qasper"] + (["Project guides"] if trained else [])
+    fig, axes = plt.subplots(1, len(sources), figsize=(7.15, 2.55), sharey=True)
+    for ax, source in zip(axes, sources, strict=True):
         g = decision["groups"][source]
         for i, (key, label) in enumerate(
             (
@@ -148,7 +158,8 @@ def make(paper, results, result, finish):
             available[w["id"]] for w in panel if w["source"] == source
         )
         ax.set_title(
-            f"{source} · verbatim query retrieves {available_count}/16", fontsize=9
+            f"{source} · verbatim query {available_count}/{g['candidate']['n']}",
+            fontsize=8,
         )
     axes[0].set_yticks(
         range(4), ["Tool called", "Reference seen", "Exact answer", "Grounded exact"]
@@ -161,4 +172,4 @@ def make(paper, results, result, finish):
         ncol=2,
         fontsize=8,
     )
-    finish(fig, "document-search")
+    finish(fig, prefix)

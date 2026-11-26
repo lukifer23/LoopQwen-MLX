@@ -333,6 +333,8 @@ Each command below uses the saved registration and frozen material. Compute tria
 | `packed-release-retention-02` | `loopqwen.research.packed_release` | Four outside-checkout workload streams, original 131K outputs, exact book probabilities and real calls |
 | `report-calculation-01` | `loopqwen.research.report_calculation` | Issuer-disjoint financial reports and external school tables, actual intermediate operations, final answer and cost |
 | `document-search-field-01` | `loopqwen.research.document_search` | Caller-supplied full files, native model queries and returned character spans on human questions |
+| `document-evidence-01` | `loopqwen.research.document_search` | Native first-pass evidence supervision during actual document searches, followed by free recurrent answers on 40 files |
+| `packed-release-retention-03` | `loopqwen.research.packed_release` | Corrected evidence-mask delivery against the shipped release at 131K and 24K, whole books, short reasoning and tools |
 | `dialogue-state-fields-01` | `loopqwen.research.action_preferences` | First-pass field-presence supervision and unconstrained second-pass calls and clarifications |
 | `future-token-prose-01` | `loopqwen.research.selective_raw` | Shared Q/K/V/O at two prediction horizons, paired source-level inference and six complete cache replays |
 | `shared-session-01` | `loopqwen.research.shared_session_study` | One resident instruction backbone, two recurrent views, physically shared weights and a cold 120-request comparison |
@@ -352,3 +354,6 @@ After archiving the fit, run your own question with the same policy and ordinary
   --prompt "We packed four crates with 18 jars each. Five jars broke. How many are intact?" \
   --max-tokens 384 --max-turns 3 --no-reuse-prefix --compare-base --trace
 ```
+
+
+For the trained document reader, regenerate the 40-file evaluation and all fitting searches with `python -m scripts.document_evidence_material`. The source builder opens the original SQuAD and QuAC material, actually calls the same SQLite-backed tool that users receive, and labels the returned character intervals. The archive verifier rebuilds the fitting dialogs and executes every evaluation search again. To fit and evaluate, run `python -m loopqwen.research.document_search document-evidence-01`. After archiving the checkpoint, pass `--tool-adapter research/results/document-evidence-01` alongside `--document your-file.txt` to `python -m loopqwen ask`. [Frozen registration](../research/experiments/document-evidence-01.json)

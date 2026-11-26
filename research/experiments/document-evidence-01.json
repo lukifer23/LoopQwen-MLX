@@ -1,0 +1,36 @@
+{
+  "id": "document-evidence-01",
+  "question": "Can a recurrent model learn to issue useful real document searches and bind its final answer to an observed passage, including on unseen scientific papers and on this project\u2019s own user guides?",
+  "material": "research/data/document-evidence-panel.json",
+  "checkpoint": "exports/tool-language-packed-03",
+  "requires": "research/results/packed-release-retention-01",
+  "prerequisite_sha256": "680ee713d2c0949d1bb3c44c8ceeaf26d7f5ecea447ab23891d782bb16ead641",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "protocol": "Initialize from the separately qualified typed tool checkpoint and its actual frozen instruction sibling. The earlier zero-shot transfer supplied no weights or supervised labels. Enroll 640 human questions from SQuAD and first-turn QuAC train across 304 full source documents or QuAC sections, with 20 complete titles reserved for source validation. Expose genuine SQLite FTS5 catalogs of 16 files. Teach the user question as a search query. Execute that call and train the next free answer on the actual character-matched original annotation, with a short abstention when no returned excerpt covers the source location. Include live empty filename-only queries and supervised recovery to a content query, plus 192 original typed-tool response targets. On the first application of shared layer 23, train a 96-wide dot-product head on presence of the actual annotated span at each returned passage end. On the second application supervise the free next-token action or answer. The auxiliary head is discarded for serving. Equal search/read/rehearsal strata with an extra alternating search/read example. Single trained checkpoint and original pinned ordinary BF16 Base. Freeze new publisher questions on 16 previously unenrolled SQuAD articles and 16 previously unenrolled Qasper papers. Eight local author-written questions use eight genuinely committed project guides. Each model sees all 40 filenames and identical input IDs, emits free searches and answers, thinking enabled, 384 tokens per turn and three turns. Record every call, original returned character location, final text, all cache histories and actual cold first, full and peak resources including environment reconstruction. No local fitting uses the test papers, articles or manuals. The opening turn, actual user question and optional filename are the only inputs to search; gold labels only score its result.",
+  "gate": "Require at least 14/40 completed exact answers grounded in a returned human-annotated source location and eight net above Base, exact paired p<=.05. All three source cohorts gain at least two grounded answers; SQuAD at least four. No fewer exact answers or completed requests and no lower mean token F1 in each source. Overall correct final answers at least six above Base and relevant annotated source locations retrieved on at least 20 requests. Both classes of the first-pass passage-evidence head score at least 65% on the document-held-out validation examples. Strictly lower summed first-token time and wall inclusive of indexing, and lower peak allocation. Full register, mixed assistant and depth attribution would require separate qualification; a failure closes this fit and its downstream jobs. A pass licenses an independent exact changed-source replay on actual user files and matched one-application training before an architectural claim.",
+  "limits": {
+    "wall_seconds": 2100,
+    "peak_gib": 8.0,
+    "available_gib": 1.4
+  },
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "rank": 32,
+  "start_layer": 23,
+  "training": "research/data/document-evidence-training.json",
+  "initial_adapter": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "fit_seed": 713408,
+  "updates": 1450,
+  "batch": 4,
+  "lr": 0.0001,
+  "state_width": 96,
+  "field_weight": 0.25
+}

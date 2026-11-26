@@ -45,6 +45,7 @@ def main(verify):
                         "shared-session-",
                         "report-calculation-",
                         "document-search-field-",
+                        "document-evidence-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

@@ -79,6 +79,15 @@ def write(paper, results, result):
             "correct",
         ),
         (
+            "document-evidence-01",
+            "Document evidence reader",
+            "grounded exact",
+            40,
+            "candidate",
+            "control",
+            "grounded",
+        ),
+        (
             "document-search-field-01",
             "User-file passage search",
             "grounded exact",

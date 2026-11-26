@@ -4,6 +4,7 @@ import hashlib
 import json
 import random
 import re
+import subprocess
 import tarfile
 from collections import Counter
 from contextlib import contextmanager
@@ -94,17 +95,26 @@ def open_panel(mat):
     with TemporaryDirectory() as tmp:
         paths = []
         for doc in mat["documents"]:
-            text = article(doc["source"], bank[doc["source"]][doc["key"]])
+            if doc["source"] == "Project guides":
+                payload = subprocess.check_output(
+                    ["git", "show", doc["revision"] + ":" + doc["key"]]
+                )
+            else:
+                payload = article(
+                    doc["source"], bank[doc["source"]][doc["key"]]
+                ).encode()
             path = Path(tmp) / doc["document"]
-            path.write_bytes(text.encode())
+            path.write_bytes(payload)
             assert digest(path) == doc["sha256"]
             paths.append(path)
         with documents(paths) as tools:
             yield tools
 
 
-def main():
-    rng = random.Random(7145981)
+def build(
+    path=DATA, seed=7145981, previous_documents=(), extra_documents=(), extra_rows=()
+):
+    rng = random.Random(seed)
     bank = inventories()
     tok = load_tokenizer(local_snapshot())
     material = {
@@ -137,6 +147,8 @@ def main():
         count = 0
         for key in keys:
             a = docs[key]
+            if (family, key) in previous_documents:
+                continue
             if (
                 family == "SQuAD"
                 and normalized(a["title"].replace("_", " ")) in excluded
@@ -196,6 +208,8 @@ def main():
             if count == 16:
                 break
         assert count == 16, (family, count)
+    material["documents"].extend(extra_documents)
+    material["rows"].extend(extra_rows)
     rng.shuffle(material["rows"])
     with open_panel(material) as tools:
         for w in material["rows"]:
@@ -203,8 +217,8 @@ def main():
                 prompt(tok, initial_messages(w["request"], tools)),
                 add_special_tokens=False,
             )
-    save(DATA, material)
+    save(path, material)
 
 
 if __name__ == "__main__":
-    main()
+    build()

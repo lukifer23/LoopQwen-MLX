@@ -56,9 +56,9 @@ class StateFit(nn.Module):
         return (keys * q[:, None]).sum(-1) * self.width**-0.5 + self.bias
 
 
-def prepare(state, tok, rows, budget):
+def prepare(state, tok, rows, budget, locator=fields):
     bank = features(state.decoder, tok, {"examples": rows}, budget)
-    return [(entry, *fields(tok, r)) for entry, r in zip(bank, rows, strict=True)]
+    return [(entry, *locator(tok, r)) for entry, r in zip(bank, rows, strict=True)]
 
 
 def tensors(samples):
@@ -73,15 +73,17 @@ def tensors(samples):
     )
 
 
-def train(decoder, tok, spec, root, budget):
+def train(
+    decoder, tok, spec, root, budget, *, locator=fields, kinds=("ask", "call", "replay")
+):
     mx.random.seed(spec["fit_seed"])
     decoder.eval()
     state = StateFit(decoder, spec["state_width"])
     data = read(spec["training"])
     rows = data["examples"]
     start = perf_counter()
-    bank = prepare(state, tok, rows, budget)
-    held = prepare(state, tok, data["validation"], budget)
+    bank = prepare(state, tok, rows, budget, locator)
+    held = prepare(state, tok, data["validation"], budget, locator)
     prepared = perf_counter() - start
     layer = decoder.span.start
     assert (
@@ -107,8 +109,7 @@ def train(decoder, tok, spec, root, budget):
     vg = nn.value_and_grad(state, loss)
     rng = random.Random(spec["fit_seed"])
     strata = [
-        [i for i, r in enumerate(rows) if r.get("kind", "replay") == k]
-        for k in ("ask", "call", "replay")
+        [i for i, r in enumerate(rows) if r.get("kind", "replay") == k] for k in kinds
     ]
     seen = set()
     targets = 0
