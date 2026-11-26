@@ -1,0 +1,63 @@
+{
+  "id": "tool-dialogue-counterfactual-01",
+  "question": "Does joint rehearsal with counterfactual swaps of observed values yield one recurrent tool checkpoint that retains the prior catalog and public execution gains and transfers to four new domains?",
+  "workload": "mixed_tool_retention",
+  "candidate": "train_loop",
+  "control": "base",
+  "training": "research/data/tool-counterfactual-training.json",
+  "material": "research/data/tool-counterfactual-retention.json",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "fit_seed": 189784,
+  "rank": 32,
+  "batch": 8,
+  "lr": 6.5e-05,
+  "updates": 1000,
+  "max_tokens": 384,
+  "max_turns": 4,
+  "stop_at_turn_end": true,
+  "net_floor": 28,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "gate": "On 132 requests require 28 net additional successes, two-sided exact paired p<=.05, no slower and no larger peak allocation than untouched Base. Simultaneously meet every first catalog family floor (5 lookup,4 chain,1 compare,4 direct,6 clarify), at least 38/50 on the stronger second panel, 17/22 original public executions, and at least 20/30 across fresh schemas with at least 3/6 chains and 3/6 comparisons. Failure closes universal replacement for this fit. A pass licenses matched ordinary-depth training, structural transfer checks and a joint standalone package; these are prerequisites before replacing the qualified build.",
+  "protocol": "One shared rank-32 final decoder adapter starts from the previously qualified typed two-pass weights. Jointly rehearse distinct training turns from the earlier utility and multi-turn curricula. Add 320 newly generated pairs in eight unrelated utility settings. Swap two numerical readings, alternate quantities given in the user message or supplied only by two real callbacks, vary integer/decimal values, which quantity wins, and larger/smaller requests. Require the winner to reverse. Teacher-force the whole response and impose a .3-weighted paired margin on the first divergent output token for the two members. Four paired turns and four regular turns per update. No BFCL training or field-test fine-tuning. Freeze 80 archived catalog episodes, all 22 public numeric executions, and 30 fresh catalogs over four previously unavailable schema domains. Both arms receive identical ordered requests, tokenizer, chat thinking policy, callback, scorer and per-panel caps. Correctness requires correct call path and grounded final answer or call-free direct response/clarification.",
+  "limits": {
+    "wall_seconds": 1450,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "initial_adapter": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "pairs_per_batch": 2,
+  "ranking_weight": 0.3,
+  "retention_floors": {
+    "catalog": {
+      "all": 20,
+      "lookup": 5,
+      "chain": 4,
+      "compare": 1,
+      "direct": 4,
+      "clarify": 6
+    },
+    "grounded": {
+      "all": 38
+    },
+    "public": {
+      "all": 17
+    },
+    "fresh": {
+      "all": 20,
+      "chain": 3,
+      "compare": 3
+    }
+  }
+}
