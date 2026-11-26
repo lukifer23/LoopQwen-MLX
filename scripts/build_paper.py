@@ -26,6 +26,7 @@ def main(verify):
                     (
                         "bridge-reading-",
                         "narrative-full-book-",
+                        "transport-lossless-",
                         "cache-language-",
                         "tool-",
                         "contrast-boolq-",
