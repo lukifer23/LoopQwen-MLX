@@ -56,3 +56,28 @@ def test_publisher_queries_reproduce_both_denotations_and_require_an_observation
             dict(call=dict(name=tool.name, arguments=args), observation=obs)
         )
         assert table_questions.score(row, tr)["success"]
+
+
+def test_span_pointer_query_preserves_literals_for_live_sqlite():
+    from loopqwen.table_spans import actions, arguments
+
+    row = {
+        "question": "What is the total amount in North-East for sales above 1,200?",
+        "columns": ["region", "sales", "amount"],
+        "sql": {"sel": 2, "agg": 4, "conds": [[0, 0, "north-east"], [1, 1, 1200]]},
+    }
+    selected = actions(row)
+    assert selected is not None
+    args = arguments(row["question"], row["columns"], 2, 4, selected)
+    with closing(sqlite3.connect(":memory:")) as db:
+        db.execute("create table records(region text, sales real, amount real)")
+        db.executemany(
+            "insert into records values(?,?,?)",
+            [
+                ("north-east", 1300, 4),
+                ("North-East", 1400, 7),
+                ("north-east", 1000, 50),
+                ("north-west", 1500, 100),
+            ],
+        )
+        assert database_tool(db, "records").callback(**args)["values"] == [11]
