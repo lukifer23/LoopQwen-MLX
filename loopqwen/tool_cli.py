@@ -95,6 +95,12 @@ def add_arguments(p, checkpoint=None):
 
 def open_assistant(args):
     if getattr(args, "session_policy", None) is not None:
+        from .io import read
+
+        if read(args.session_policy / "registration.json").get("unified"):
+            from .unified_session import UnifiedAssistant
+
+            return UnifiedAssistant(args.checkpoint, args.session_policy)
         from .shared_session import SharedAssistant
 
         return SharedAssistant(args.checkpoint, args.session_policy)

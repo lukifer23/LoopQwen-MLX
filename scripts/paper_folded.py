@@ -9,8 +9,15 @@ from loopqwen.io import digest, read
 
 
 def make(paper, results, result, finish, name="folded-system-01"):
-    shared = name == "shared-session-01"
-    prefix = "shared-session" if shared else "folded-system"
+    unified = name == "shared-session-unified-01"
+    shared = name.startswith("shared-session-")
+    prefix = (
+        "unified-session"
+        if unified
+        else "shared-session"
+        if shared
+        else "folded-system"
+    )
     root = results / name
     if not (root / "checksums.json").is_file():
         return
@@ -33,6 +40,8 @@ def make(paper, results, result, finish, name="folded-system-01"):
             "arithmetic": "Field calculator",
             "reading": "Field reading",
         }
+    if unified:
+        labels["user_extraction"] = "Human extraction"
     with (paper / (prefix + ".csv")).open("w") as output:
         w = csv.writer(output)
         w.writerow(
@@ -62,7 +71,7 @@ def make(paper, results, result, finish, name="folded-system-01"):
                 )
     checks = read(root / "checksums.json")
     subjects = read(read(root / "registration.json")["material"])["rows"]
-    request_file = "shared-session-requests.csv" if shared else "folded-requests.csv"
+    request_file = (prefix + "-requests.csv") if shared else "folded-requests.csv"
     with (paper / request_file).open("w") as output:
         w = csv.writer(output)
         w.writerow(
@@ -123,7 +132,11 @@ def make(paper, results, result, finish, name="folded-system-01"):
                 -0.10,
                 "#11675d",
                 "o",
-                "Shared views" if shared else "Folded",
+                "Unified decoder"
+                if unified
+                else "Shared views"
+                if shared
+                else "Folded",
             ),
             ("control", 0.10, "#9d5932", "s", "Untouched Base"),
         ):
@@ -146,3 +159,58 @@ def make(paper, results, result, finish, name="folded-system-01"):
         frameon=False, loc="lower left", bbox_to_anchor=(-0.07, 1), ncol=2, fontsize=8
     )
     finish(fig, prefix)
+
+
+def shared_objective(paper, results, result):
+    """Replay optimizer draws and sum the per-task cross-entropy weights actually used."""
+    import random
+    from collections import defaultdict
+    from mlx_lm.utils import load_tokenizer
+    from loopqwen.model_loader import local_snapshot
+
+    name = "shared-session-01"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    result(name)
+    spec = read(root / "registration.json")
+    data = read(spec["training"])["examples"]
+    tok = load_tokenizer(local_snapshot())
+    lengths = []
+    stats = defaultdict(lambda: [0, 0, 0, 0, 0.0])
+    for w in data:
+        text = (
+            (w["thinking"] + "\n" if w["thinking"] else "")
+            + "</think>\n\n"
+            + w["visible"]
+        )
+        n = len(tok.encode(text, add_special_tokens=False)) + 1
+        lengths.append(n)
+        s = stats[w["source"]]
+        s[0] += 1
+        s[1] += n
+    rng = random.Random(spec["fit_seed"])
+    for _ in range(spec["updates"]):
+        ix = rng.sample(range(len(data)), spec["batch"])
+        total = sum(lengths[i] for i in ix)
+        for i in ix:
+            s = stats[data[i]["source"]]
+            s[2] += 1
+            s[3] += lengths[i]
+            s[4] += lengths[i] / total / spec["updates"]
+    assert sum(s[3] for s in stats.values()) == read(root / "fit.json")["targets"]
+    assert abs(sum(s[4] for s in stats.values()) - 1) < 1e-8
+    with (paper / "shared-objective-weights.csv").open("w") as f:
+        w = csv.writer(f)
+        w.writerow(
+            [
+                "source",
+                "fitting_examples",
+                "available_response_tokens",
+                "sampled_examples",
+                "sampled_response_tokens",
+                "fraction_of_averaged_loss_weight",
+            ]
+        )
+        for source, values in sorted(stats.items()):
+            w.writerow([source, *values])

@@ -27,7 +27,7 @@ from .registered import registered
 
 
 def tools_for(w, field, replay=False):
-    if w["family"] in ("math", "judgment"):
+    if w["family"] in ("math", "judgment", "user_extraction"):
         return []
     if w["family"] == "public":
         return executable_tools.tools_for(w)
@@ -45,6 +45,23 @@ def judge(w, tr, tok):
             "success": scored["success"],
             "answer": scored["correct_answer"],
             "grounded": scored["success"],
+            "completed": done,
+        }
+    if group == "user_extraction":
+        from .bridge_reading import units
+
+        answer = units(tr["answer"] or "")
+        gold = units(w["gold"])
+        exact = done and bool(gold) and answer == gold
+        contains = (
+            done
+            and bool(gold)
+            and (" " + " ".join(gold) + " ") in (" " + " ".join(answer) + " ")
+        )
+        return {
+            "success": exact,
+            "answer": contains,
+            "grounded": None,
             "completed": done,
         }
     if group == "judgment":
@@ -130,7 +147,7 @@ def family_scores(data, panel, prior):
             for i, w in enumerate(panel)
             if group in ("all", family(w))
             or group == "fresh"
-            and family(w) in ("math", "judgment")
+            and family(w) in ("math", "judgment", "user_extraction")
         ]
         cell = {}
         for side, rows in data.items():

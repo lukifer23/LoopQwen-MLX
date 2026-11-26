@@ -35,18 +35,25 @@ def opening(text):
     return tuple(norm(text)[:8])
 
 
-def panel(tok, field):
+def panel(
+    tok,
+    field,
+    *,
+    prior=PRIOR,
+    selection="shared-new",
+    destination="shared-session-panel.json",
+):
     external_math = external()
     path = parquet("google/boolq", "data/validation-00000-of-00001.parquet", BOOL_REV)
     labels = pq.read_table(path).to_pylist()
     excluded = former(
-        {q for _, q, _ in external_math} | {w["passage"] for w in labels}, prior=PRIOR
+        {q for _, q, _ in external_math} | {w["passage"] for w in labels}, prior=prior
     )
     blocked = {opening(q) for q in excluded}
     rows = []
     counts = Counter()
     for source, question, gold in sorted(
-        external_math, key=lambda r: sha("shared-new-math" + r[1])
+        external_math, key=lambda r: sha(selection + "-math" + r[1])
     ):
         if gold is None or counts[source] == 12 or opening(question) in blocked:
             continue
@@ -62,7 +69,7 @@ def panel(tok, field):
         counts[source] += 1
         blocked.add(opening(question))
     for r in sorted(
-        labels, key=lambda r: sha("shared-new-reading" + r["passage"] + r["question"])
+        labels, key=lambda r: sha(selection + "-reading" + r["passage"] + r["question"])
     ):
         if counts[r["answer"]] == 12 or opening(r["passage"]) in blocked:
             continue
@@ -110,14 +117,15 @@ def panel(tok, field):
         assert w.get("initial_ids", ids) == ids
         w["initial_ids"] = ids
     assert len(rows) == len({w["id"] for w in rows}) == 120
-    save(
-        DATA / "shared-session-panel.json",
-        {
-            "rows": rows,
-            "field_sha256": digest(DATA / "release-mixed-field-01.json"),
-            "previous_inputs": PRIOR,
-        },
-    )
+    if destination:
+        save(
+            DATA / destination,
+            {
+                "rows": rows,
+                "field_sha256": digest(DATA / "release-mixed-field-01.json"),
+                "previous_inputs": prior,
+            },
+        )
     return rows
 
 
@@ -298,7 +306,9 @@ def main():
             ]:
                 continue
             block = re.search(r"<tools>(.*?)</tools>", msgs[0]["content"], re.DOTALL)
-            calls = re.search(r"<tool_call>(.*?)</tool_call>", msgs[2]["content"], re.DOTALL)
+            calls = re.search(
+                r"<tool_call>(.*?)</tool_call>", msgs[2]["content"], re.DOTALL
+            )
             if not block or not calls:
                 continue
             try:

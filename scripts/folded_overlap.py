@@ -35,6 +35,7 @@ def audit(train, panel, path):
         clean = (
             w["question"]
             .removesuffix("\nGive the final numeric answer.")
+            .removesuffix("\n\nReturn only the answer.")
             .removesuffix("\nAnswer yes or no based on the passage.")
             .removeprefix("Passage\n")
             .replace("\n\nQuestion\n", "\n")
@@ -103,7 +104,9 @@ def audit(train, panel, path):
 
 def fresh(spec):
     return [
-        r for r in read(spec["material"])["rows"] if r["family"] in ("judgment", "math")
+        r
+        for r in read(spec["material"])["rows"]
+        if r["family"] in ("judgment", "math", "user_extraction")
     ]
 
 
@@ -136,6 +139,12 @@ def main():
     )
     corpora.extend(("typed:" + str(i), context(r)) for i, r in enumerate(typed))
     audit(corpora, fresh(shared), Path("paper/shared-training-overlap.csv"))
+    unified = registered("shared-session-unified-01")
+    joint = read(unified["training"])["examples"]
+    records = [
+        (str(w.get("source", "typed")) + ":" + str(w["id"]), context(w)) for w in joint
+    ]
+    audit(records, fresh(unified), Path("paper/unified-training-overlap.csv"))
 
 
 if __name__ == "__main__":

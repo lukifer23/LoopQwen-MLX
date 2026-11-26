@@ -90,3 +90,37 @@ def test_second_pass_can_learn_a_return_without_changing_the_ordinary_state():
     last = model.hidden(ids[:, -1:], cache)
     assert cache.slots[3, 0] is not cache.slots[3, 1]
     assert mx.allclose(last, model.hidden(ids)[:, -1:], atol=1e-4, rtol=1e-4).item()
+
+
+def test_joint_answer_objective_differentiates_the_shared_native_attention():
+    from functools import partial
+
+    from loopqwen.research.unified_session_fit import joint_loss
+    from loopqwen.tool_model import tool_view
+
+    acquire()
+    mx.random.seed(830)
+    model = tool_view(tiny_text_decoder(), 3, 8, 2)
+    model.eval()
+    h = model.prefix_hidden(mx.array([[1, 2, 3, 4], [1, 3, 5, 7]]))
+    loss = partial(joint_loss, first_weight=0.18, contrast_weight=0.20)
+    value, grads = nn.value_and_grad(model, loss)(
+        model,
+        h,
+        mx.array([0, 0, 1]),
+        mx.array([2, 3, 2]),
+        mx.array([11, 99, 12]),
+        mx.array([0.25, 0.25, 0.5]),
+        mx.array([0, 2]),
+        mx.array([12, 11]),
+        mx.array([1.0, 1.0]),
+    )
+    assert mx.isfinite(value).item()
+    from mlx.utils import tree_flatten
+
+    updated = [
+        mx.sum(mx.abs(v)).item()
+        for k, v in tree_flatten(grads)
+        if k.endswith("v_proj.lora_b")
+    ]
+    assert len(updated) == 1 and updated[0] > 0

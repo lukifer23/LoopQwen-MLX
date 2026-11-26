@@ -142,6 +142,15 @@ def write(paper, results, result):
             "success",
         ),
         (
+            "shared-session-unified-01",
+            "Unified recurrent assistant",
+            "mixed",
+            144,
+            "candidate",
+            "control",
+            "success",
+        ),
+        (
             "shared-session-01",
             "Shared reasoning and tools",
             "mixed",

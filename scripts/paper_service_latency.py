@@ -14,6 +14,7 @@ def make(paper, results, result, finish):
     studies = (
         ("release-mixed-field-01", "Released assistant", 50),
         ("shared-session-01", "Shared reasoning and tools", 120),
+        ("shared-session-unified-01", "Unified decoder", 144),
     )
     available = [s for s in studies if (results / s[0] / "checksums.json").is_file()]
     fig, axes = plt.subplots(

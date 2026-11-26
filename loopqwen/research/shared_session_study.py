@@ -17,6 +17,7 @@ from ..model_loader import local_snapshot
 from ..shared_session import SharedAssistant
 from ..tool_compare import DenseAssistant
 from ..tool_session import initial_messages, prompt
+from ..unified_session import UnifiedAssistant
 from .core import Budget
 from .evidence_gate_fit import fit_gate
 from .folded_system import family_scores, judge, old_scores, tools_for
@@ -50,12 +51,17 @@ def native_receipt(actor, row):
         )
     first, second = exported_arrays(a), exported_arrays(b)
     ids = row["initial_ids"][-32:]
+    gate_weights = (
+        {} if isinstance(actor, UnifiedAssistant) else exported_arrays(actor.gate)
+    )
     receipt = {
         "shared_bytes": sum(first[k] for k in first.keys() & second.keys()),
-        "combined_bytes": sum((first | second | exported_arrays(actor.gate)).values()),
+        "combined_bytes": sum((first | second | gate_weights).values()),
         "ids": ids,
         "views": {},
     }
+    if isinstance(actor, UnifiedAssistant):
+        receipt["same_model_object"] = a is b
     for label, net in (("reasoning", a), ("tool", b)):
         cache = net.make_cache()
         assert (
@@ -85,13 +91,21 @@ def decision(spec, rows, panel, receipt, router):
     a, b = groups["all"]["candidate"], groups["all"]["control"]
     fresh = groups["fresh"]
     routes = Counter(r["trajectory"]["short_policy_route"] for r in rows["candidate"])
-    held = router["validation"]
     accuracy = {}
-    for external in (False, True):
-        vals = [r for r in held if r["external"] == external]
-        accuracy[str(external)] = sum(
-            (r["p"] >= spec["plain_cutoff"]) == external for r in vals
-        ) / len(vals)
+    if spec.get("unified"):
+        policy_ok = (
+            receipt["same_model_object"]
+            and receipt["shared_bytes"] == receipt["combined_bytes"]
+        )
+        required_gains = ("math", "judgment", "user_extraction")
+    else:
+        for external in (False, True):
+            vals = [r for r in router["validation"] if r["external"] == external]
+            accuracy[str(external)] = sum(
+                (r["p"] >= spec["plain_cutoff"]) == external for r in vals
+            ) / len(vals)
+        policy_ok = min(accuracy.values()) >= 0.85
+        required_gains = ("math", "judgment")
     passed = (
         a["success"] >= b["success"] + spec["gain"]
         and groups["all"]["p"] <= 0.05
@@ -104,12 +118,12 @@ def decision(spec, rows, panel, receipt, router):
         )
         and all(
             groups[k]["candidate"]["success"] >= groups[k]["control"]["success"] + 1
-            for k in ("math", "judgment")
+            for k in required_gains
         )
         and a["grounded"] >= b["grounded"] + 12
         and not any(lost.values())
         and all(a[k] < b[k] for k in ("seconds", "first", "peak"))
-        and min(accuracy.values()) >= 0.85
+        and policy_ok
         and receipt["shared_bytes"]
         >= 0.98 * min(v["weights"] for v in receipt["views"].values())
         and all(
@@ -141,18 +155,39 @@ def verify(root, d):
         and meta["turns"] == len(training["examples"])
     )
     assert meta["weights"] == digest(root / "tool-adapters.safetensors")
-    router = read(root / "router.json")
-    assert (
-        router["weights"] == digest(root / "router.safetensors")
-        and router["updates"] == spec["gate_updates"]
-    )
-    assert [
-        (w["id"], w["external"])
-        for w in training["router"]
-        if w["split"] == "validation"
-    ] == [(w["id"], w["external"]) for w in router["validation"]]
-    assert all(0 <= w["p"] <= 1 for w in router["validation"])
+    router = None
+    if spec.get("unified"):
+        from .unified_session_fit import verify_sources
+
+        verify_sources(spec, training, panel)
+        assert meta["source_counts"] == Counter(
+            w["stratum"] for w in training["examples"]
+        )
+        assert meta["contrast_examples"] > 0 and meta["distinct_training_rows"] > 0
+        assert meta["sampled_by_source"] == {g: spec["updates"] for g in spec["strata"]}
+        assert digest(Path(spec["material"])) == spec["panel_sha256"]
+        assert meta["training"] == spec["training_sha256"]
+        assert (
+            len(panel) == 144
+            and sum(w["family"] == "user_extraction" for w in panel) == 24
+        )
+    else:
+        router = read(root / "router.json")
+        assert (
+            router["weights"] == digest(root / "router.safetensors")
+            and router["updates"] == spec["gate_updates"]
+        )
+        assert [
+            (w["id"], w["external"])
+            for w in training["router"]
+            if w["split"] == "validation"
+        ] == [(w["id"], w["external"]) for w in router["validation"]]
+        assert all(0 <= w["p"] <= 1 for w in router["validation"])
     tok = load_tokenizer(local_snapshot())
+    if spec.get("unified"):
+        from .unified_session_fit import verify_sampling
+
+        verify_sampling(spec, training["examples"], meta, tok)
     data = {}
     for side in ("candidate", "control"):
         arm = unpack(root / (side + ".json.gz"))
@@ -182,7 +217,7 @@ def verify(root, d):
             )
             sites = {(i, 0) for i in (3, 7, 11, 15, 19, 23)}
             route = tr.get("short_policy_route")
-            if side == "candidate" and route in ("reasoning", "tool"):
+            if side == "candidate" and route in ("reasoning", "tool", "unified"):
                 sites.add((23, 1))
             for t in tr["turns"]:
                 kv = t["kv_history"]
@@ -194,7 +229,13 @@ def verify(root, d):
                     == len(t["prompt_ids"]) + len(t["token_ids"]) - 1
                     for v in kv
                 )
-            if side == "candidate" and tools:
+            if spec.get("unified") and side == "candidate":
+                assert route in (
+                    ("unified",)
+                    if tools
+                    else ("unified", "parent_long", "parent_evidence")
+                )
+            elif side == "candidate" and tools:
                 assert 0 <= tr["external_probability"] <= 1 and (
                     tr["short_policy_route"] == "reasoning"
                 ) == (tr["external_probability"] < spec["plain_cutoff"])
@@ -237,7 +278,12 @@ def run(name):
     budget = Budget(name, spec["limits"])
     data = {}
     try:
-        if not (root / "router.json").is_file():
+        if spec.get("unified"):
+            if not (root / "fit.json").is_file():
+                from .unified_session_fit import train
+
+                train(spec, root, budget)
+        elif not (root / "router.json").is_file():
             model, tok = (
                 restore(root)
                 if (root / "fit.json").exists()
@@ -260,11 +306,13 @@ def run(name):
                 mx.reset_peak_memory()
                 at = perf_counter()
                 if actor is None:
-                    actor = (
-                        SharedAssistant(checkpoint, root)
-                        if side == "candidate"
-                        else DenseAssistant(False)
-                    )
+                    if side == "control":
+                        actor = DenseAssistant(False)
+                    else:
+                        service = (
+                            UnifiedAssistant if spec.get("unified") else SharedAssistant
+                        )
+                        actor = service(checkpoint, root)
                 stamps = []
 
                 expected_tokens = len(w["initial_ids"])
@@ -319,7 +367,7 @@ def run(name):
                 data,
                 panel,
                 read(root / "native.json"),
-                read(root / "router.json"),
+                None if spec.get("unified") else read(root / "router.json"),
             ),
         )
     finally:
