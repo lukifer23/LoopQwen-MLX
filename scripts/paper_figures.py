@@ -407,6 +407,7 @@ def main():
     plot_calculation(PAPER, RESULTS, result, finish)
     plot_documents(PAPER, RESULTS, result, finish)
     plot_folded(PAPER, RESULTS, result, finish)
+    plot_folded(PAPER, RESULTS, result, finish, "shared-session-01")
     plot_intents(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
     from paper_table import make as table_actions

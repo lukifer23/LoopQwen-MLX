@@ -8,6 +8,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Every full 131K request in counterbalanced execution order](full-decoder.csv)
 - [Manuscript source](loopqwen.typ)
 - [Both tool families and final-answer accuracy across 78 requests](intent-scores.csv)
+- [Every financial and school-table answer, intermediate call, returned value and prompt length](report-calculation-requests.csv)
 - [Executed calculator programs, returned values and final answers on the 24 human questions](intent-arithmetic-actions.csv)
 - [The selected action, arguments and actual result for each of 32 live requests](resource-actions.csv)
 - [Machine-readable paired scores and timings for the frozen tool model](typed-transfer.csv)

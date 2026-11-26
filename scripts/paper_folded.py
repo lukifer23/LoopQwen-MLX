@@ -8,8 +8,9 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read
 
 
-def make(paper, results, result, finish):
-    name = "folded-system-01"
+def make(paper, results, result, finish, name="folded-system-01"):
+    shared = name == "shared-session-01"
+    prefix = "shared-session" if shared else "folded-system"
     root = results / name
     if not (root / "checksums.json").is_file():
         return
@@ -26,7 +27,13 @@ def make(paper, results, result, finish):
         "package": "Installed packages",
         "all": "All requests",
     }
-    with (paper / "folded-system.csv").open("w") as output:
+    if shared:
+        labels = {
+            **labels,
+            "arithmetic": "Field calculator",
+            "reading": "Field reading",
+        }
+    with (paper / (prefix + ".csv")).open("w") as output:
         w = csv.writer(output)
         w.writerow(
             [
@@ -55,7 +62,8 @@ def make(paper, results, result, finish):
                 )
     checks = read(root / "checksums.json")
     subjects = read(read(root / "registration.json")["material"])["rows"]
-    with (paper / "folded-requests.csv").open("w") as output:
+    request_file = "shared-session-requests.csv" if shared else "folded-requests.csv"
+    with (paper / request_file).open("w") as output:
         w = csv.writer(output)
         w.writerow(
             [
@@ -73,6 +81,7 @@ def make(paper, results, result, finish):
                 "return_status",
                 "answer",
             ]
+            + (["route", "external_probability"] if shared else [])
         )
         for side in ("candidate", "control"):
             f = root / (side + ".json.gz")
@@ -96,12 +105,26 @@ def make(paper, results, result, finish):
                         rec["trajectory"]["status"],
                         rec["trajectory"]["answer"],
                     ]
+                    + (
+                        [
+                            rec["trajectory"].get("short_policy_route"),
+                            rec["trajectory"].get("external_probability"),
+                        ]
+                        if shared
+                        else []
+                    )
                 )
     fig, (score, latency) = plt.subplots(1, 2, figsize=(7.3, 3.3), sharey=True)
     for i, (key, label) in enumerate(labels.items()):
         g = all_groups[key]
         for side, direction, color, marker, title in (
-            ("candidate", -0.10, "#11675d", "o", "Folded"),
+            (
+                "candidate",
+                -0.10,
+                "#11675d",
+                "o",
+                "Shared views" if shared else "Folded",
+            ),
             ("control", 0.10, "#9d5932", "s", "Untouched Base"),
         ):
             v = g[side]
@@ -122,4 +145,4 @@ def make(paper, results, result, finish):
     score.legend(
         frameon=False, loc="lower left", bbox_to_anchor=(-0.07, 1), ncol=2, fontsize=8
     )
-    finish(fig, "folded-system")
+    finish(fig, prefix)
