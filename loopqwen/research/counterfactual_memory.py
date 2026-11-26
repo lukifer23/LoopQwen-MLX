@@ -93,6 +93,14 @@ def run(freeze, registration=REG, dataset=DATA):
         or digest(parent / "checksums.json") != s["qualification_sha256"]
     ):
         raise ValueError("Missing qualified reader")
+    if "audit" in s:
+        from scripts.research_mixed_audit import qualified
+
+        annotations = Path(s["audit"])
+        if digest(annotations) != s["audit_sha256"] or not qualified(
+            parent.name, read(annotations)
+        ):
+            raise ValueError("Combined content audit prerequisite failed")
     parity_source = Path(s.get("parity_reference", parent))
     if (
         "parity_reference" in s

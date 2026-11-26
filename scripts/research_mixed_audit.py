@@ -76,6 +76,13 @@ def audit(study, annotations=None):
     }
 
 
+def qualified(study, annotations):
+    scores = audit(study, annotations)["scores"]
+    return all(v["wins"] >= v["losses"] for v in scores.values()) and all(
+        scores[k]["wins"] > scores[k]["losses"] for k in ("all", "entailment")
+    )
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("study")

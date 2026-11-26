@@ -1908,6 +1908,15 @@ def verify_full_memory(root, decision):
         and sha(root / "registration.json") == decision["registration"],
         "Full-context prerequisite and identities",
     )
+    if "audit" in reg:
+        from scripts.research_mixed_audit import qualified
+
+        annotations = Path(reg["audit"])
+        require(
+            sha(annotations) == reg["audit_sha256"]
+            and qualified(parent.name, read(annotations)),
+            "Combined answer-content qualification",
+        )
     first, second = data["panel"]
     a, b = first["prompt_ids"], second["prompt_ids"]
     (i, j), (k, l) = data["key_spans"]
