@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "evidence": true,
+  "books_exact": 2,
+  "short_exact": 12,
+  "tool_exact": 2,
+  "register_exact_correct": 2,
+  "metrics": {
+    "candidate": {
+      "register_seconds": 165.7795060420176,
+      "register_ttft": 163.76876191602787,
+      "register_peak": 2525652988,
+      "book_seconds": 48.57544887502445,
+      "book_peak": 2528739188,
+      "book_nll": [
+        3.0096035562455654,
+        3.410125896334648
+      ],
+      "book_top1": [
+        102,
+        90
+      ],
+      "cold": 1.3900995839503594
+    },
+    "control": {
+      "register_seconds": 168.75417537498288,
+      "register_ttft": 165.38943087495863,
+      "register_peak": 3007927768,
+      "book_seconds": 48.468299125961494,
+      "book_peak": 2530620589,
+      "book_nll": [
+        3.0096035562455654,
+        3.410125896334648
+      ],
+      "book_top1": [
+        102,
+        90
+      ],
+      "cold": 1.3140714159817435
+    }
+  },
+  "full_rows_and_outputs": true,
+  "streams": {
+    "candidate": [
+      {
+        "seconds": 130.18473833298776,
+        "rss": 1952890880,
+        "decode_tps": 29.33552628434928,
+        "register_peak": 2525245436,
+        "register_seconds": 82.71235391701339,
+        "register_first": 81.72379145800369
+      },
+      {
+        "seconds": 152.01000691700028,
+        "rss": 1952448512,
+        "decode_tps": 28.370690785013373,
+        "register_peak": 2525652988,
+        "register_seconds": 83.06715212500421,
+        "register_first": 82.04497045802418
+      }
+    ],
+    "control": [
+      {
+        "seconds": 131.8594526249799,
+        "rss": 1953857536,
+        "decode_tps": 17.243372836670268,
+        "register_peak": 3006817989,
+        "register_seconds": 84.500237500004,
+        "register_first": 82.8184319579741
+      },
+      {
+        "seconds": 152.74528216698673,
+        "rss": 1955119104,
+        "decode_tps": 17.231759869984284,
+        "register_peak": 3007927768,
+        "register_seconds": 84.25393787497887,
+        "register_first": 82.57099891698454
+      }
+    ]
+  },
+  "strict_resources": true
+}
