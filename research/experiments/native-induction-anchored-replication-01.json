@@ -1,0 +1,49 @@
+{
+  "id": "native-induction-anchored-replication-01",
+  "question": "Does the unchanged native recurrent advantage repeat over the matched one-pass control on entirely separate stories?",
+  "requires": "native-induction-anchored-matched-01",
+  "prerequisite_sha256": "f717e8c4b998cd883a229f693a75118900da0f0c25408520dd3b833926c67811",
+  "material": "research/data/native-induction-anchored-01.json",
+  "seed": 431908,
+  "sizes": {
+    "train": 1536,
+    "primary": 64,
+    "replication": 64
+  },
+  "fit_seed": 5101,
+  "rank": 64,
+  "lr": 0.00045,
+  "batch": 32,
+  "updates": 3000,
+  "auxiliary": 1.2,
+  "panel": "replication",
+  "arms": {
+    "recurrent": {
+      "depth": 3,
+      "reader": "research/results/native-induction-anchored-01",
+      "weights": "67264d560c70d48a5e7fe49679fc7ecd0b6872c997495fe8ecd416c6a1caa759"
+    },
+    "dense": {
+      "depth": 1,
+      "reader": "research/results/native-induction-anchored-matched-01",
+      "weights": "deea8d40ce87bac35b6fe94b701c29f9c8cb497f67621b5532126faf2fed8cbf"
+    }
+  },
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "Use 1536 new publisher training stories and two fresh 64-story test panels, all disjoint from every story in the preceding induction experiment. Permute all nine static premises. Keep their compressed latent states fixed and update the question by applying the same native Qwen layer 15 and its Q/K/V/O LoRA three times. Add a fixed sinusoidal step code with no learned per-pass parameters. During training supervise actual post-RoPE last-query attention probabilities for three different pairs of heads against annotated supporting facts, plus the answer-token loss on the final native state and full-vocabulary response loss. In an equal-training single-pass control all three head pairs receive their respective labels on the same native call. At generation only the native transformer produces the refined state; no auxiliary support labels or scores enter the prediction. Same ordered first-turn thinking prompts and 192 genuine decode tokens, same scorer and common answer probe for the frozen primary pair. Cache all predictions, attention diagnostics and times. All fixed learned tensors are bound by checksum. Hold every response, support, optimizer setting and training seed fixed for the independently fitted single-pass control. No additional training on confirmation or bypass arms.",
+  "gate": "At least 8 net generated answers, exact two-sided paired p<.05, at least 4 net common-prefix color probes, and at most 1.50x Base generation seconds. Stop on memory warning or time limit. Only a pass licenses an identically supervised one-layer-execution comparison and subsequent independent replication.",
+  "limits": {
+    "wall_seconds": 1450,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "exclude": [
+    "research/data/native-induction-01.json"
+  ],
+  "architecture": "anchored_native",
+  "decay_start": 1800,
+  "isolated_answer_weight": 1.0
+}
