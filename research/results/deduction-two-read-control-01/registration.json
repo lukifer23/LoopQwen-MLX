@@ -1,0 +1,50 @@
+{
+  "id": "deduction-two-read-control-01",
+  "question": "If we retrain both evidence reads on native ordinary-depth Qwen features, is a second execution of the six pretrained layers independently necessary to match the learned recurrent model?",
+  "seed": 143810,
+  "sizes": {
+    "train": 240,
+    "primary": 56,
+    "replication": 56
+  },
+  "rank": 64,
+  "updates": 1200,
+  "batch": 32,
+  "fit_seed": 418,
+  "lr": 0.001,
+  "support_weight": 0.7,
+  "arms": {
+    "recurrent": {
+      "depth": 2,
+      "reader": "research/results/deduction-regions-01"
+    },
+    "single_span": {
+      "depth": 2,
+      "span_passes": 1,
+      "fit": true
+    }
+  },
+  "panel": "replication",
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "Use identically ordered tokenized user turns, native unrestricted greedy first-turn decoding, identical generation limits, common-prefix animal probes and end-to-end timings. The two variants use the same pretrained decoder and native layers 10..15 for recurrent evidence. An equal-training fit repeats the original seed, parameters, optimizer, steps, all training targets including both support labels, and all 240 stories. No selection or fitting on test. All fixed-weight arms are bound by digest. Preserve all hyperparameters and all input IDs, support targets, generated-answer labels and scorer from the successful paired test. The span-only conditions retain both learned evidence reads and the complete full-vocabulary decoder; they feed the first-pass sentence states to the second read in place of re-entering layers 10..15. All other operations remain identical. Compare actual cost and common-prefix probes.",
+  "gate": "Evidence for superiority in this diagnostic requires eight net additional correct responses, paired exact p<.05, four net probes and at most 1.5x control time. A tie leaves incremental superiority over this comparison unestablished. Do not use the diagnostic to tune this checkpoint.",
+  "limits": {
+    "wall_seconds": 700,
+    "peak_gib": 5,
+    "available_gib": 1.5
+  },
+  "architecture": "pooled",
+  "material": "research/data/deduction-stories-02.json",
+  "exclude_test": [
+    "research/data/deduction-stories-01.json"
+  ],
+  "lexical_weight": 5,
+  "requires": "deduction-bypass-01",
+  "prerequisite_sha256": "188f50c4200163ae269b907f6153ebd23f3a4186c5b3927898e2b26dafaad4de",
+  "reader_weights": {
+    "recurrent": "9667af183a94eeebc5342ae4591b5e9027cf4c459cf0a3a966e21757959c9844"
+  }
+}
