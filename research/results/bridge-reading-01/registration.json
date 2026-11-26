@@ -1,0 +1,29 @@
+{
+  "id": "bridge-reading-01",
+  "question": "Does native shared-depth document retrieval grounded in human supporting facts improve complete open-vocabulary answers on natural two-hop questions over untouched Base?",
+  "training": "research/data/bridge-reading-train.json",
+  "material": "research/data/bridge-reading-validation.json",
+  "start_layer": 23,
+  "rank": 32,
+  "lr": 0.0001,
+  "batch": 2,
+  "updates": 500,
+  "fit_seed": 443891,
+  "reader_seed": 37191,
+  "reader_rank": 48,
+  "reader_lr": 0.0004,
+  "reader_updates": 1300,
+  "reader_batch": 12,
+  "gain": 4.0,
+  "max_tokens": 384,
+  "net_floor": 5,
+  "f1_floor": 0.08,
+  "retrieval_floor": 12,
+  "protocol": "384 human HotpotQA bridge training contexts from the first official training shard and 40 dev distractor contexts with complete original question and all ten original paragraphs. Select independent support titles and question texts across all enrolled rows. Short-context inclusion chosen before inference (all original documents, up to 1664 prompt tokens). For training only, the unique supporting paragraph explicitly containing the reference answer is the terminal label. Both systems receive exactly the same complete thinking-enabled text IDs and 384-token budget. Start from the BF16 pinned Base. Fit an ordinary-depth rank-32 final-layer answer adapter on the 384 complete training requests. Two uses of the frozen-backbone native layer 15 plus LoRA and learned document compression refine the question against full-document representations. Two distinct pairs of native Q/K scoring heads learn document 1 and document 2. At generation the learned second document receives a fixed +4 key attention bias at the upper full-attention sites when completing the prompt; every input token stays in the native generator KV history. No gold documents, external retrieval, forced answer vocabulary or oracle spans at inference. Time includes all per-document encoding, selection and decoder generation. Score official-style normalized exact and token-F1 and whether the complete visible text contains the reference phrase.",
+  "gate": ">=5 net more completed answers containing the reference phrase than Base, two-sided paired p<=.05, >=.08 mean token-F1 gain and no lower exact match. Retrieve both annotated documents on >=12/40 (unguided pair probability 1/45). Total elapsed seconds including document representation must not exceed Base. Stop on memory pressure or budget. Passing qualifies a separately trained ordinary-depth evidence selector with identical head count, generator, fitting exposure and labels, then an independent bridge panel. Failure closes this model and downstream attribution.",
+  "limits": {
+    "wall_seconds": 1650,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
