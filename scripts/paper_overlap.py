@@ -46,6 +46,15 @@ def text(row, field):
         from loopqwen.evaluation.table_questions import INSTRUCTION
 
         value = value.removesuffix(INSTRUCTION)
+    if field == "intent_question":
+        from loopqwen.evaluation import (
+            executable_tools,
+            program_questions,
+            table_questions,
+        )
+
+        for util in (executable_tools, program_questions, table_questions):
+            value = value.removesuffix(util.INSTRUCTION)
     return value
 
 
@@ -82,6 +91,12 @@ def audit(train, held, mask):
 
 def build():
     studies = [
+        (
+            "Semantic tool choice, human arithmetic and public retention",
+            [TYPED, "paired-intent-training"],
+            "paired-intent-panel",
+            "intent_question",
+        ),
         (
             "fresh competing schemas after rehearsal",
             [TYPED, "tool-counterfactual-training"],
