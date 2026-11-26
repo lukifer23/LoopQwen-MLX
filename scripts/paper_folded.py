@@ -4,8 +4,25 @@ import csv
 
 import matplotlib.pyplot as plt
 
+from loopqwen.evaluation import executable_tools, table_questions
 from loopqwen.evaluation.mechanism import unpack
+from loopqwen.tool_session import compact
 from loopqwen.io import digest, read
+
+
+def user_evidence(item, trajectory):
+    if item["family"] == "database":
+        [reference] = table_questions.reference(item)
+    elif item["family"] == "public":
+        _, reference = executable_tools.oracle(item)
+    else:
+        reference = item["gold"]
+    history = [
+        {k: t[k] for k in ("call", "observation") if k in t}
+        for t in trajectory["turns"]
+        if "call" in t
+    ]
+    return [item.get("user_request", item["question"]), reference, compact(history)]
 
 
 def make(paper, results, result, finish, name="folded-system-01"):
@@ -91,6 +108,7 @@ def make(paper, results, result, finish, name="folded-system-01"):
                 "answer",
             ]
             + (["route", "external_probability"] if shared else [])
+            + ["request", "reference", "calls_and_observations"]
         )
         for side in ("candidate", "control"):
             f = root / (side + ".json.gz")
@@ -122,6 +140,7 @@ def make(paper, results, result, finish, name="folded-system-01"):
                         if shared
                         else []
                     )
+                    + user_evidence(item, rec["trajectory"])
                 )
     fig, (score, latency) = plt.subplots(1, 2, figsize=(7.3, 3.3), sharey=True)
     for i, (key, label) in enumerate(labels.items()):
