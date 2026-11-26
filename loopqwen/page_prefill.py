@@ -153,7 +153,12 @@ class DirectPackedPageCache(PackedPageCache):
 
     def dense_attention(self, q, k, v, scale, mask):
         length = q.shape[2]
-        if self.fused_decode and length == 1 and self.offset >= 32768:
+        if (
+            self.fused_decode
+            and length == 1
+            and self.offset >= 32768
+            and self.offset > self.prompt_length
+        ):
             from .kernels.packed_decode import attention
 
             # Single-query partitions feed the next native layer directly. The

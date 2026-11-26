@@ -156,3 +156,23 @@ def test_packed_metal_decode_matches_strided_gqa_with_and_without_reader_bias():
         ).astype(mx.float32)
         actual = attention(mx.array(q), *bundles, 0.0625, mask).astype(mx.float32)
         assert mx.allclose(actual, reference, rtol=0.025, atol=0.007).item()
+
+
+def test_fused_output_attention_preserves_single_token_end_of_long_prefill():
+    from loopqwen.page_prefill import DirectPackedPageCache
+    from loopqwen.worker import acquire
+
+    acquire()
+    mx.random.seed(93471)
+    n = 32769
+    cache = DirectPackedPageCache(n, n + 4, fused_decode=True)
+    row = mx.random.normal((1, 2, 1, 256)).astype(mx.bfloat16)
+    history = mx.broadcast_to(row, (1, 2, n - 1, 256))
+    mx.eval(cache.update_and_fetch(history, history))
+    query = mx.random.normal((1, 8, 1, 256)).astype(mx.bfloat16)
+    for expected_calls in (0, 1):
+        k, v = cache.update_and_fetch(row, row)
+        hidden = cache.dense_attention(query, k, v, 0.0625, None)
+        assert mx.isfinite(hidden).all().item()
+        assert cache.report()["fused_queries"] == expected_calls
+    assert cache.physical_length() == cache.offset == n + 1
