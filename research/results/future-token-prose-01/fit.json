@@ -1,0 +1,66 @@
+{
+  "weights": "5859de14a17016f7a6f2ec3819f042cd3a2b05a01d1e5ec44d24fc065c7e9929",
+  "training": "86ae4708925a3bc3b4e05baa8d53c85b2f9b3578d8e4e6c10d37ea6d04d69f44",
+  "trainable": 541697,
+  "parameters": [
+    "gate.bias",
+    "gate.weight",
+    "refinement.self_attn.k_proj.lora_a",
+    "refinement.self_attn.k_proj.lora_b",
+    "refinement.self_attn.o_proj.lora_a",
+    "refinement.self_attn.o_proj.lora_b",
+    "refinement.self_attn.q_proj.lora_a",
+    "refinement.self_attn.q_proj.lora_b",
+    "refinement.self_attn.v_proj.lora_a",
+    "refinement.self_attn.v_proj.lora_b"
+  ],
+  "updates": 1800,
+  "seen": 172800,
+  "future_targets": 172800,
+  "future_head": "8516b0663432e993807011648f973aa7dff84d7c5b3086e8b2f7f9563273bb3b",
+  "aux_parameters": 393216,
+  "prepare_seconds": 77.82239604200004,
+  "optimizer_seconds": 254.57871845801128,
+  "loss": [
+    [
+      1,
+      3.1463639736175537
+    ],
+    [
+      201,
+      2.8485960960388184
+    ],
+    [
+      401,
+      2.9632954597473145
+    ],
+    [
+      601,
+      2.338557243347168
+    ],
+    [
+      801,
+      2.0423810482025146
+    ],
+    [
+      1001,
+      2.9104840755462646
+    ],
+    [
+      1201,
+      2.658461332321167
+    ],
+    [
+      1401,
+      2.7075226306915283
+    ],
+    [
+      1601,
+      3.0066394805908203
+    ],
+    [
+      1800,
+      2.6198761463165283
+    ]
+  ]
+}

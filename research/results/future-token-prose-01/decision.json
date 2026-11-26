@@ -1,0 +1,343 @@
+{
+  "passed": false,
+  "quality_by_domain": false,
+  "fresh_wins": 31,
+  "fresh_losses": 97,
+  "p_exact": 4.155995426933083e-09,
+  "live_parity": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "scores": {
+    "candidate": {
+      "pooled": {
+        "tokens": 36991,
+        "nll": 3.1232643826391158,
+        "top1": 15050,
+        "seconds": 21.195309335598722,
+        "peak": 1270485118
+      },
+      "fresh": {
+        "tokens": 14351,
+        "nll": 3.2907137402148043,
+        "top1": 5494,
+        "seconds": 8.192206630541477,
+        "peak": 1120227032
+      },
+      "wiki": {
+        "tokens": 13312,
+        "nll": 3.0692398834411714,
+        "top1": 5627,
+        "seconds": 6.904996998840943,
+        "peak": 1270485118
+      },
+      "legacy": {
+        "tokens": 9328,
+        "nll": 2.9427442714421095,
+        "top1": 3929,
+        "seconds": 6.098105706216302,
+        "peak": 1270485118
+      },
+      "code_description": {
+        "tokens": 1733,
+        "nll": 2.5052052453197637,
+        "top1": 820,
+        "seconds": 1.1617197880405001,
+        "peak": 1270485118
+      },
+      "encyclopedia": {
+        "tokens": 3697,
+        "nll": 2.76138507174682,
+        "top1": 1646,
+        "seconds": 2.0860664190840907,
+        "peak": 1120227032
+      },
+      "fiction": {
+        "tokens": 3220,
+        "nll": 3.53276447205711,
+        "top1": 1087,
+        "seconds": 1.8875291700824164,
+        "peak": 1120227032
+      },
+      "general_prose": {
+        "tokens": 1911,
+        "nll": 3.7603215522936697,
+        "top1": 622,
+        "seconds": 1.2275491220643744,
+        "peak": 1270485118
+      },
+      "manual": {
+        "tokens": 3428,
+        "nll": 3.1954230036412232,
+        "top1": 1395,
+        "seconds": 2.024915997113567,
+        "peak": 1120227032
+      },
+      "memoir": {
+        "tokens": 4006,
+        "nll": 3.6661958609756997,
+        "top1": 1366,
+        "seconds": 2.1936950442614034,
+        "peak": 1120227032
+      },
+      "reference": {
+        "tokens": 1680,
+        "nll": 2.415070811011875,
+        "top1": 853,
+        "seconds": 1.1136967120110057,
+        "peak": 1270485118
+      },
+      "scientific_exposition": {
+        "tokens": 2291,
+        "nll": 3.10964242010605,
+        "top1": 864,
+        "seconds": 1.4290802910691127,
+        "peak": 1270485118
+      },
+      "technical_explanation": {
+        "tokens": 1713,
+        "nll": 2.7676086634423434,
+        "top1": 770,
+        "seconds": 1.1660597930313088,
+        "peak": 1270485118
+      },
+      "wikitext": {
+        "tokens": 13312,
+        "nll": 3.0692398834411714,
+        "top1": 5627,
+        "seconds": 6.904996998840943,
+        "peak": 1270485118
+      }
+    },
+    "control": {
+      "pooled": {
+        "tokens": 36991,
+        "nll": 3.16087496927804,
+        "top1": 14977,
+        "seconds": 24.273084796674084,
+        "peak": 1974638552
+      },
+      "fresh": {
+        "tokens": 14351,
+        "nll": 3.2726477244042838,
+        "top1": 5526,
+        "seconds": 9.323314379085787,
+        "peak": 1778603047
+      },
+      "wiki": {
+        "tokens": 13312,
+        "nll": 3.16532964601897,
+        "top1": 5555,
+        "seconds": 7.737879372551106,
+        "peak": 1974638552
+      },
+      "legacy": {
+        "tokens": 9328,
+        "nll": 2.9825568447505955,
+        "top1": 3896,
+        "seconds": 7.211891045037191,
+        "peak": 1974638552
+      },
+      "code_description": {
+        "tokens": 1733,
+        "nll": 2.5793195742822146,
+        "top1": 822,
+        "seconds": 1.3761110019404441,
+        "peak": 1974638552
+      },
+      "encyclopedia": {
+        "tokens": 3697,
+        "nll": 2.7501363395465677,
+        "top1": 1648,
+        "seconds": 2.3734757531783544,
+        "peak": 1778603047
+      },
+      "fiction": {
+        "tokens": 3220,
+        "nll": 3.526289159031701,
+        "top1": 1090,
+        "seconds": 2.1804517487762496,
+        "peak": 1777829322
+      },
+      "general_prose": {
+        "tokens": 1911,
+        "nll": 3.7592795437136006,
+        "top1": 604,
+        "seconds": 1.4638292937888764,
+        "peak": 1974638552
+      },
+      "manual": {
+        "tokens": 3428,
+        "nll": 3.158788688361876,
+        "top1": 1414,
+        "seconds": 2.3050705031491816,
+        "peak": 1778603047
+      },
+      "memoir": {
+        "tokens": 4006,
+        "nll": 3.6484110658601185,
+        "top1": 1374,
+        "seconds": 2.464316373982001,
+        "peak": 1777829322
+      },
+      "reference": {
+        "tokens": 1680,
+        "nll": 2.4812959941871786,
+        "top1": 849,
+        "seconds": 1.31659595615929,
+        "peak": 1974638552
+      },
+      "scientific_exposition": {
+        "tokens": 2291,
+        "nll": 3.104199158575278,
+        "top1": 858,
+        "seconds": 1.673096792132128,
+        "peak": 1974638552
+      },
+      "technical_explanation": {
+        "tokens": 1713,
+        "nll": 2.8529180823323754,
+        "top1": 763,
+        "seconds": 1.382258001016453,
+        "peak": 1974638552
+      },
+      "wikitext": {
+        "tokens": 13312,
+        "nll": 3.16532964601897,
+        "top1": 5555,
+        "seconds": 7.737879372551106,
+        "peak": 1974638552
+      }
+    }
+  },
+  "continuation_parity": true,
+  "source_totals": {
+    "lewis-carroll_alices-adventures-in-wonderland": [
+      3.429307390782924,
+      -4,
+      861
+    ],
+    "mary-shelley_frankenstein": [
+      13.766523852362297,
+      0,
+      889
+    ],
+    "robert-louis-stevenson_treasure-island": [
+      -0.2344369227066636,
+      -1,
+      723
+    ],
+    "arthur-conan-doyle_the-adventures-of-sherlock-holmes": [
+      3.889113621378783,
+      2,
+      747
+    ],
+    "frederick-douglass_narrative-of-the-life-of-frederick-douglass": [
+      13.388392473163549,
+      0,
+      1024
+    ],
+    "benjamin-franklin_the-autobiography-of-benjamin-franklin": [
+      3.5002225331845693,
+      1,
+      960
+    ],
+    "henry-adams_the-education-of-henry-adams": [
+      32.829032988403924,
+      -9,
+      1020
+    ],
+    "john-muir_my-first-summer-in-the-sierra": [
+      21.528241238265764,
+      0,
+      1002
+    ],
+    "git-status": [
+      8.422275424818508,
+      -3,
+      371
+    ],
+    "git-diff": [
+      27.91833595331991,
+      -6,
+      512
+    ],
+    "git-log": [
+      18.791014599511982,
+      -4,
+      319
+    ],
+    "git-worktree": [
+      10.022387353470549,
+      -3,
+      406
+    ],
+    "git-branch": [
+      15.920569499954581,
+      0,
+      491
+    ],
+    "git-switch": [
+      23.081360980781028,
+      0,
+      408
+    ],
+    "git-restore": [
+      3.8172799315034354,
+      1,
+      435
+    ],
+    "git-tag": [
+      17.609209034242667,
+      -4,
+      486
+    ],
+    "Montana": [
+      4.549170647806022,
+      1,
+      512
+    ],
+    "Solar_energy": [
+      9.132851797327021,
+      -3,
+      418
+    ],
+    "Fr\u00e9d\u00e9ric_Chopin": [
+      2.2759398199850693,
+      -1,
+      512
+    ],
+    "Portugal": [
+      -1.8087802556692623,
+      -1,
+      466
+    ],
+    "New_York_City": [
+      4.606786153599387,
+      -3,
+      454
+    ],
+    "Classical_music": [
+      6.229243204696104,
+      -3,
+      420
+    ],
+    "Alps": [
+      3.3473413159663323,
+      3,
+      457
+    ],
+    "Daylight_saving_time": [
+      13.254010260621726,
+      5,
+      458
+    ]
+  },
+  "source_wins": 2,
+  "source_losses": 22,
+  "source_p": 3.5881996154785156e-05
+}
