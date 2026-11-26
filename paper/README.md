@@ -27,7 +27,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 From the repository root, the following commands rebuild the vector figures, evidence index and PDF. The verification option checks stored predictions and per-file hashes against the independent archive recounts. Some older verifiers require the pinned tokenizer in the local Hugging Face cache.
 
 ```sh
-uv sync --group figures --group paper --extra guided
+uv sync --locked --group data --group figures --group paper --extra guided
 .venv/bin/python scripts/build_paper.py --verify
 ```
 

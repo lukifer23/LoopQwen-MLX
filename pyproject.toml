@@ -20,6 +20,7 @@ guided = ["llguidance==1.9.1"]
 [project.scripts]
 loopqwen = "loopqwen.cli:main"
 [dependency-groups]
+data = ["pyarrow==26.0.1"]
 dev = ["pytest", "ruff"]
 figures = [
     "matplotlib>=3.9,<4",
