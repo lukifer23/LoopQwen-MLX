@@ -127,6 +127,8 @@ The packaged tool branch reproduced all 22 public trajectories, including every 
 
 Across the 22 numerical sessions the median time to a terminal outcome fell from 4.197 s to 0.614 s. The nearest-rank 90th percentiles were 5.602 and 1.016 s. Median first-turn time to the first token was slightly higher for the recurrent system (92.81 ms versus 91.46 ms). Aggregate generated tokens per session-second were 71.57 versus 68.02, including repeated prefill and callback time. The endpoint speed advantage comes primarily from shorter conversations.
 
+A balanced crossover on these exact typed weights ran every numerical request four times. The two full-prefill measurements per request totaled 30.14 s across the panel; prefix reuse totaled 27.85 s. All 88 trajectories retained identical generated tokens, function arguments and actual observations. Reuse saved session time on 19 of 22 requests. The largest per-request slowdown was 1.7%. The checkpoint-specific policy reuses 6,656 token positions across the measured sessions.
+
 After switching from tool use, 64 induction, 56 deduction and 80 mixed language generations matched the previous qualified export in full. All 120 raw prose requests used the ordinary path and all five domain losses matched, including pooled NLL 2.982658. Both complete 131,083-token requests reproduced the correct answer, exact token stream and located evidence span. The pair took 525.82 seconds at a peak of 4.33 GiB. This end-to-end test ties context capacity, ordinary language retention and executable tools to the same export inventory.
 
 #pagebreak()
@@ -142,6 +144,8 @@ The released decoder repeats layers 10–15, including two global attention site
 Replacing global layer 7 with a second application of gated-delta layer 6 retained all four correct answers at five full-history attention sites. Base answered zero. Aggregate time to first token was 54.30 versus 54.73 s, below the required 5% improvement. A separate 25-site model repeated global layer 15, retained full histories at its second application and layers 19 and 23, and used 1,024-token local windows at four other sites. It located all four true spans and reduced aggregate first-token time to 49.36 versus 54.61 s. It answered zero questions correctly. The remaining global history was large enough to hold the answer, but the new attention schedule changed the decoder's use of it. Both preregistered gates closed further long-context promotion of those graphs.
 
 
+
+A third study kept the released eight-global-site graph intact and changed only the allocation of full-history keys and values. All four outputs, selected spans and consumed offsets matched. Reserving the full prompt and decoding allowance used 2.29 GiB at peak versus 2.37 GiB with incremental allocation. Summed first-token time was 74.45 versus 76.12 s, a 2.20% saving. Total time was 77.35 versus 79.01 s. This fell short of the registered 5% threshold, closing the additional physical 128K trial for this allocation policy.
 
 = Causal raw-language prediction
 #include "raw-results.typ"
