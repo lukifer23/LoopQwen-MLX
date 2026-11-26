@@ -24,4 +24,6 @@ The fit solved both inventories for seven of 28 dialogues against zero for Base 
 
 #figure(image("sql-action-audit.svg", width: 91%), caption: [First-call agreement with the publisher’s SQL operation, result column and complete filter set. The last two rows independently check the actual returned values on two table populations and the model’s completed answer. Every enrolled question is in each denominator.])
 
+For the arithmetic and schema pointer models the first decision is a learned structured action. The runtime serializes its selected fields directly and charges that computation as first-token time. Subsequent model tokens are freely generated after executing the callback. The comparison therefore measures the entire structured system.
+
 For the free decoder on 36 tables, 12 first calls chose the reference operation, 22 chose the reference output column and 14 reproduced the full filter set. Six matched all three. Eight produced the correct grounded answer. A different SQL expression can compute the same value on both enrolled populations, so the two execution checks and the structural audit measure different properties.

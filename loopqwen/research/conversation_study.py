@@ -22,7 +22,61 @@ from .mixed_field import DenseAssistant, replay_exchange
 from .registered import registered
 
 
-def outcome(data):
+class FittedConversation(Assistant):
+    """Expose two equally fitted checkpoints through the same conversation API."""
+
+    def __init__(self, source):
+        from .tool_fit import restore
+
+        self._tool_model, self.tokenizer = restore(source)
+        self.reuse_prefix = False
+        self.dedicated = True
+
+
+def matched_sources(spec):
+    roots = [Path(s) for s in spec["trained_arms"]]
+    for root, h in zip(roots, spec["arm_hashes"], strict=True):
+        if digest(root / "checksums.json") != h:
+            raise ValueError("Changed checkpoint archive")
+    fits = [read(root / "fit.json") for root in roots]
+    rules = [read(root / "registration.json") for root in roots]
+    if (
+        [f["passes"] for f in fits] != [2, 1]
+        or any(
+            fits[0][k] != fits[1][k]
+            for k in ("training", "trainable", "updates", "targets", "turns")
+        )
+        or any(
+            rules[0][k] != rules[1][k]
+            for k in (
+                "donor",
+                "prefix_bits",
+                "fit_seed",
+                "rank",
+                "batch",
+                "updates",
+                "lr",
+            )
+        )
+    ):
+        raise ValueError("Mismatched supervised depth control")
+    return dict(zip(("candidate", "control"), roots, strict=True))
+
+
+def trajectory_ids(rows):
+    return [
+        [
+            [
+                (t["prompt_ids"], t["token_ids"], t.get("call"), t.get("observation"))
+                for t in exchange["turns"]
+            ]
+            for exchange in r["exchanges"]
+        ]
+        for r in rows
+    ]
+
+
+def outcome(data, spec=None):
     metrics = {}
     for name, rows in data.items():
         metrics[name] = {
@@ -42,7 +96,7 @@ def outcome(data):
     ]
     p = exact_mcnemar(diffs.count(1), diffs.count(-1))
     a, b = metrics["candidate"], metrics["control"]
-    return {
+    summary = {
         "passed": sum(diffs) >= 6
         and p <= 0.05
         and min(a["families"].values()) >= 4
@@ -53,6 +107,20 @@ def outcome(data):
         "losses": diffs.count(-1),
         "p_exact": p,
     }
+    if spec and spec.get("trained_arms"):
+        reference = unpack(Path(spec["requires"]) / "candidate.json.gz")
+        summary["qualified_candidate_replayed"] = trajectory_ids(
+            reference
+        ) == trajectory_ids(data["candidate"])
+        summary["passed"] = (
+            summary["qualified_candidate_replayed"]
+            and sum(diffs) >= spec["net_floor"]
+            and p <= 0.05
+            and min(a["families"].values()) >= 4
+            and a["seconds"] <= spec["time_ratio"] * b["seconds"]
+            and a["peak"] <= spec["peak_ratio"] * b["peak"]
+        )
+    return summary
 
 
 def verify(root, decision):
@@ -81,7 +149,9 @@ def verify(root, decision):
                 and r["wall_s"] >= sum(x["seconds"] for x in r["exchanges"])
                 and r["peak"] > 0
             )
-    assert outcome(data) == decision
+    if spec.get("trained_arms"):
+        matched_sources(spec)
+    assert outcome(data, spec) == decision
 
 
 def run(name):
@@ -96,22 +166,27 @@ def run(name):
         or digest(parent / "checksums.json") != spec["prerequisite_sha256"]
     ):
         raise ValueError("Unqualified source")
-    bundle = Path(spec["checkpoint"])
+    fitted = matched_sources(spec) if spec.get("trained_arms") else None
+    bundle = Path(spec["checkpoint"]) if not fitted else None
     provider = (
         module_questions if spec.get("resource") == "module" else conversation_questions
     )
     environment = (
         module_questions.snapshot() if spec.get("resource") == "module" else snapshot()
     )
-    if environment != material["environment"] or any(
-        digest(bundle / k) != v for k, v in read(parent / "export-files.json").items()
+    if environment != material["environment"] or (
+        bundle is not None
+        and any(
+            digest(bundle / k) != v
+            for k, v in read(parent / "export-files.json").items()
+        )
     ):
         raise ValueError("Changed package inventory or deployed weights")
     budget = Budget(name, spec["limits"])
     data = {}
     try:
         for side in ("candidate", "control"):
-            assistant = None
+            assistant = FittedConversation(fitted[side]) if fitted else None
             rs = []
             for w in material["rows"]:
                 mx.synchronize()
@@ -156,7 +231,7 @@ def run(name):
             del assistant
             gc.collect()
             mx.clear_cache()
-        save(root / "decision.json", outcome(data))
+        save(root / "decision.json", outcome(data, spec))
     finally:
         budget.close()
 
