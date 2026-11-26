@@ -528,3 +528,73 @@ def verify_science(root, d, read, sha, require):
         ),
         "Invalid science decision",
     )
+
+
+def verify_scope(root, decision, read, sha, require):
+    from mlx_lm.utils import load_tokenizer
+
+    from loopqwen.identity import fingerprint
+    from loopqwen.model_loader import local_snapshot
+    from loopqwen.research.deduction_data import prompt
+    from loopqwen.research.induction_scope import questions
+
+    s = read(root / "registration.json")
+    require(
+        sha(root / "registration.json") == decision["registration"],
+        "Scope registration changed",
+    )
+    t = load_tokenizer(local_snapshot())
+    data = read(Path(s["material"]))
+    expected = [
+        (r, q)
+        for stage in ("primary", "replication")
+        for r in data[stage][: s["stories_per_panel"]]
+        for q in questions(r)
+    ]
+    records = (
+        read(root / "scope.json.gz")["records"]
+        if (root / "scope.json.gz").exists()
+        else []
+    )
+    require(len(records) == decision["requests"] <= len(expected), "Wrong scope count")
+    mismatches = []
+    for i, v in enumerate(records):
+        row, query = expected[i]
+        ids = t.encode(prompt(t, row["facts"], query), add_special_tokens=False)
+        require(
+            row["id"] == v["story"]
+            and query == v["question"]
+            and fingerprint(ids) == v["input_sha256"],
+            "Changed scope question",
+        )
+        replay = i < s["generation_replays"] or v["new"] != v["prior"]
+        require(
+            ("new_tokens" in v) == ("prior_tokens" in v) == replay,
+            "Incomplete scope generation",
+        )
+        if replay:
+            require(
+                all(
+                    0 < len(v[a + "_tokens"]) <= s["generation_cap"]
+                    and t.decode(v[a + "_tokens"]) == v[a + "_text"]
+                    and v[a + "_seconds"] > 0
+                    for a in ("new", "prior")
+                ),
+                "Invalid scope output or timing",
+            )
+        mismatches.append(
+            v["new"] != v["prior"] or v.get("new_tokens") != v.get("prior_tokens")
+        )
+    require(
+        decision["replays"] == sum("new_tokens" in v for v in records),
+        "Wrong scope replay count",
+    )
+    require(
+        decision["passed"] == (len(records) == len(expected) and not any(mismatches)),
+        "Wrong scope decision",
+    )
+    if decision["status"] == "failed":
+        require(
+            mismatches and mismatches[-1] and not any(mismatches[:-1]),
+            "Invalid scope stop rule",
+        )

@@ -86,6 +86,10 @@ def verify(root):
         from scripts.research_depth_audit import verify_release
 
         verify_release(root, decision, read, sha, require)
+    if study.startswith("native-scope-retention-"):
+        from scripts.research_depth_audit import verify_scope
+
+        verify_scope(root, decision, read, sha, require)
     if study.startswith("science-composition-"):
         from scripts.research_depth_audit import verify_science
 
