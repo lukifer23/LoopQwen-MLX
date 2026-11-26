@@ -13,6 +13,7 @@ from .. import REVISION
 from ..evidence_loop import (
     EvidenceLoop,
     PooledEvidence,
+    passage,
     pooled_states,
     prepare,
     sentence_states,
@@ -181,7 +182,10 @@ def evaluate(model, t, net, rows, depth, s, b, path):
         view = model
         attn = []
         if depth:
-            view, first, last = prepare(model, t, net, r["facts"], r["question"], depth)
+            parts = passage(t, r["prompt_ids"])
+            if parts != (r["facts"], r["question"]):
+                raise ValueError("Passage differs from the user tokens")
+            view, first, last = prepare(model, t, net, *parts, depth)
             attn = [first, last]
         v = core.generate(
             view, t, r["prompt_ids"], s["generation_cap"], b.check, thinking=True
@@ -224,7 +228,11 @@ def run(name, freeze=False):
     if freeze:
         return
     prior = s.get("requires")
-    if prior and not read(Path("research/results") / prior / "decision.json")["passed"]:
+    if prior and (
+        not read(Path("research/results") / prior / "decision.json")["passed"]
+        or digest(Path("research/results") / prior / "checksums.json")
+        != s["prerequisite_sha256"]
+    ):
         raise ValueError("Previous paired gate failed")
     b = core.Budget(name, s["limits"])
     out = core.OUT / name
@@ -244,7 +252,10 @@ def run(name, freeze=False):
             if spec.get("fit"):
                 net = fit(model, t, data["train"], depth, s, b, out)
             elif depth:
-                net = restore(model, Path(spec["reader"]))
+                folder = Path(spec["reader"])
+                if digest(folder / "reader.safetensors") != s["reader_weights"][arm]:
+                    raise ValueError("Changed preregistered reader")
+                net = restore(model, folder)
             records = evaluate(
                 model, t, net, rows, depth, s, b, out / (arm + ".json.gz")
             )

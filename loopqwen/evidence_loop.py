@@ -143,3 +143,21 @@ class PooledEvidence(EvidenceLoop):
             self.output(language)
             + mx.sigmoid(self.gate(language)) * self.content(memory)[:, None, :]
         )
+
+
+def passage(t, ids):
+    """Read the last user turn as newline-separated statements followed by a question."""
+    if 248045 not in ids or 248046 not in ids:
+        return None
+    # Only the user message preceding the currently open assistant turn qualifies.
+    text = t.decode(ids)
+    prefix, sep, tail = text.rpartition("<|im_start|>user\n")
+    if not sep:
+        return None
+    body, end, assistant = tail.partition("<|im_end|>")
+    if not end or assistant.strip() != "<|im_start|>assistant\n<think>":
+        return None
+    lines = [v.strip() for v in body.splitlines() if v.strip()]
+    if len(lines) < 3 or not lines[-1].endswith("?"):
+        return None
+    return lines[:-1], lines[-1]
