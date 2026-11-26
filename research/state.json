@@ -1,13 +1,13 @@
 {
-  "session_start_utc": "2026-11-26T02:00:01.275770+00:00",
-  "starting_revision": "a625cec",
+  "session_start_utc": "2026-11-26T02:36:45.403171+00:00",
+  "starting_revision": "c3eced3",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "native-induction-anchored-matched-01",
+  "active": "native-induction-anchored-replication-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -306,6 +306,54 @@
       "promoted": false,
       "scope": "With the trained weights and both learned evidence reads retained, does dropping only the second Qwen layer-span execution change accuracy?",
       "decision": "research/results/deduction-span-bypass-01/decision.json"
+    },
+    {
+      "id": "evidence-language-release-01",
+      "promoted": true,
+      "scope": "Can the native default checkpoint deliver the qualified causal reasoning gain while retaining every previously frozen mixed response, raw language likelihood and the 128K counterfactual swap?",
+      "decision": "research/results/evidence-language-release-01/decision.json"
+    },
+    {
+      "id": "science-composition-01",
+      "promoted": false,
+      "scope": "Does learned recurrent evidence retrieval and option matching improve human-authored QASC science questions and answer likelihood over untouched Base?",
+      "decision": "research/results/science-composition-01/decision.json"
+    },
+    {
+      "id": "native-induction-01",
+      "promoted": false,
+      "scope": "Can three executions of one trained native Qwen transformer layer infer an unseen individual's color from three facts with no explicit memory retrieval at inference, beating untouched Qwen Base?",
+      "decision": "research/results/native-induction-01/decision.json"
+    },
+    {
+      "id": "deduction-second-seed-01",
+      "promoted": true,
+      "scope": "Is the matched confirmation advantage reproducible under independently initialized learned tensors and a different training sample order?",
+      "decision": "research/results/deduction-second-seed-01/decision.json"
+    },
+    {
+      "id": "deduction-two-read-control-01",
+      "promoted": false,
+      "scope": "If we retrain both evidence reads on native ordinary-depth Qwen features, is a second execution of the six pretrained layers independently necessary to match the learned recurrent model?",
+      "decision": "research/results/deduction-two-read-control-01/decision.json"
+    },
+    {
+      "id": "deduction-consequence-swap-01",
+      "promoted": true,
+      "scope": "With the person, question and entire token multiset held fixed, does the learned recurrent model change the answer to track a reassigned consequence more reliably than the matched trained one-read control?",
+      "decision": "research/results/deduction-consequence-swap-01/decision.json"
+    },
+    {
+      "id": "native-induction-anchored-01",
+      "promoted": true,
+      "scope": "Can training the actual native Qwen attention probabilities to locate successive supporting facts, with stable premise tokens at each pass, produce a reproducible induction gain?",
+      "decision": "research/results/native-induction-anchored-01/decision.json"
+    },
+    {
+      "id": "native-induction-anchored-matched-01",
+      "promoted": true,
+      "scope": "Do three actual native Qwen transformer applications beat a separately trained one-pass model at equal supervision?",
+      "decision": "research/results/native-induction-anchored-matched-01/decision.json"
     }
   ],
   "status": "Running preregistered native reasoning and attribution comparisons.",
@@ -359,9 +407,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795656961.206034,
+  "closed_session_start": 1795658401.2757702,
   "native_window": {
-    "start_utc": "2026-11-26T02:00:01.275770+00:00",
+    "start_utc": "2026-11-26T02:36:45.403171+00:00",
     "status": "open"
   }
 }
