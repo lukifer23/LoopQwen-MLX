@@ -154,8 +154,11 @@ def test_packed_metal_decode_matches_strided_gqa_with_and_without_reader_bias():
         reference = quantized_scaled_dot_product_attention(
             mx.array(q), *bundles, 0.0625, mask
         ).astype(mx.float32)
-        actual = attention(mx.array(q), *bundles, 0.0625, mask).astype(mx.float32)
-        assert mx.allclose(actual, reference, rtol=0.025, atol=0.007).item()
+        for factored in (False, True):
+            actual = attention(
+                mx.array(q), *bundles, 0.0625, mask, factored=factored
+            ).astype(mx.float32)
+            assert mx.allclose(actual, reference, rtol=0.025, atol=0.007).item()
 
 
 def test_fused_output_attention_preserves_single_token_end_of_long_prefill():

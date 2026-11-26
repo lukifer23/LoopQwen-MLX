@@ -90,7 +90,7 @@ def merge_partitions(partial):
     return merged.astype(mx.bfloat16)[None, :, None, :]
 
 
-def attention(query, key, value, scale, mask=None):
+def attention(query, key, value, scale, mask=None, *, factored=False):
     """One resident request with eight query heads and two native KV heads."""
     if query.shape != (1, 8, 1, 256) or query.dtype != mx.bfloat16 or scale != 0.0625:
         raise ValueError(
@@ -115,13 +115,23 @@ def attention(query, key, value, scale, mask=None):
     if use_bias:
         if mask.size != length:
             raise ValueError("The decoder bias must cover the entire consumed history")
-        bias = mx.where(mask, 0.0, mx.finfo(mx.bfloat16).min) if mask.dtype == mx.bool_ else mask
+        bias = (
+            mx.where(mask, 0.0, mx.finfo(mx.bfloat16).min)
+            if mask.dtype == mx.bool_
+            else mask
+        )
         bias = bias.reshape(length).astype(mx.bfloat16)
     else:
         bias = mx.zeros((1,), mx.bfloat16)
     block = 256
     parts = (length + block - 1) // block
-    partial = partition_kernel()(
+    if factored:
+        from .factored_decode import partition_kernel as factored_kernel
+
+        kernel = factored_kernel()
+    else:
+        kernel = partition_kernel()
+    partial = kernel(
         inputs=[query, *key, *value, bias],
         template=[("Block", block), ("HasBias", use_bias)],
         grid=(128 * parts, 2, 1),

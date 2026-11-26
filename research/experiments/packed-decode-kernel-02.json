@@ -1,0 +1,29 @@
+{
+  "id": "packed-decode-kernel-02",
+  "question": "Can factoring affine KV products and sharing each online softmax rescale across eight physical rows cut another 15% of long-history single-query time against the verified fused kernel?",
+  "parent": "research/results/register-packed-direct-full-01",
+  "parent_sha256": "8598e67ce40761912127c33f70d897860fb90aecca339a3a40d7d5868f9f01e1",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "material": "research/data/register-packed-direct-full-01.json",
+  "lengths": [
+    4112,
+    32784,
+    131080
+  ],
+  "queries": 8,
+  "repeats": 4,
+  "max_error": 0.03,
+  "min_cosine": 0.999,
+  "min_speedup": 1.15,
+  "protocol": "One timed pair. The prior same-weight fused kernel gave 26.25 versus 27.81 post-first tokens/s against ordinary Base on the fresh direct 131084-token input. Factor the group scale and zero term out of each packed key dot and value accumulation; share running maximum updates across eight scores. Identical partition size, BF16 scoring, full KV, dtype and output merge. Test the new implementation against the previously measured scalar online fused kernel, on exactly the same actual Qwen queries, KV codes, affine factors, mask and prefixes as the sealed operator archive; require matching SHA-256 of all tensors. Verify four mask patterns on strided cache before starting. At 4112, 32784 and 131080 tokens use eight real final-position queries per length with two masks, four alternating timed repeats each. Compare every new numerical output to the sealed native stock outputs. Neither study changes release weights or decoding.",
+  "gate": "Max normalized vector error <=.03, min cosine >=.999 versus original stock at every point, identical cache and query bytes to the reference study, and >=1.15x reduction in median measured elapsed kernel time versus prior fused for both mask conditions at both 32K and 131K. Report the 4K points regardless of speed. A miss closes this operator. A pass licenses one independently frozen 131K pair against untouched Base requiring higher post-first and prompt throughput, answer accuracy, first and full time and peak, plus exact output parity against the old kernel on the prior same-weight requests before deployment. No attribution to full-system throughput from the kernel alone.",
+  "limits": {
+    "wall_seconds": 330,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  },
+  "reference_operator": "research/results/packed-decode-kernel-01",
+  "reference_sha256": "03c56f2366de3bf75fe4a9aa162b16dde1fff24ef34487cc2122d921b33625a2",
+  "motivation": "research/results/register-fused-base-full-01",
+  "motivation_sha256": "46c89a3047672931555ddb6dd26c9c2ac1d0e920a2cf0bae05758c5262173a21"
+}
