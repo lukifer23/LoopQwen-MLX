@@ -291,3 +291,28 @@ print(first["answer"], follow["answer"])
 Multi-user-turn callers can use the installed CLI with repeated follow-up arguments, or retain a conversation from the Python assistant. The release workload replays actual package and interpreter callbacks. Its equal-training control restores the one- and two-pass adapters, checks identical supervision and reconstructs every prompt and observation from both users’ messages. [Module evaluation](../research/results/conversation-followup-modules-01) · [Equal-training registration](../research/experiments/conversation-followup-depth-01.json)
 
 The linked document reader runs with `python -m loopqwen.research.linked_reading linked-reading-01`. Its material builder excludes earlier human questions and support titles before enrolling the new fit and evaluation. The reader exposes its two document scores per item. The archive verifier reconstructs the selected indices, the full input IDs and the attention window, then regrades the complete unforced answer. [Training and evaluation registration](../research/experiments/linked-reading-01.json)
+
+### Rebuild the field and packed-register releases
+
+The field release requires the qualified language and typed-tool exports and the published typed prefix crossover. The packed-register release also requires the sealed physical 131K comparison. The following entry points verify the published artifacts without regenerating the models.
+
+```sh
+.venv/bin/python scripts/research_archive.py tool-language-release-02 --verify
+.venv/bin/python scripts/research_archive.py register-packed-direct-full-01 --verify
+.venv/bin/python scripts/research_archive.py packed-release-retention-01 --verify
+```
+
+To reconstruct the packed-register bundle from an existing verified field export, run the following from the repository root at the qualification revision. It verifies both published qualifications and every parent file before building the new directory. The same output path can be reused when its contents match exactly.
+
+```sh
+.venv/bin/python - <<'PYCODE'
+from pathlib import Path
+from scripts.export_packed_register import build
+
+r = Path("research/results")
+build(Path("exports/tool-language-field-02"), r / "tool-language-release-02",
+      Path("exports/tool-language-packed-03"), r / "register-packed-direct-full-01")
+PYCODE
+```
+
+The native qualification runner is `python -m loopqwen.research.packed_release packed-release-retention-01`. It alternates isolated offline processes and records actual model outputs, package callbacks, and all per-token target losses on the two books. [Frozen protocol](../research/experiments/packed-release-retention-01.json) · [Archival checks and output traces](../research/results/packed-release-retention-01)
