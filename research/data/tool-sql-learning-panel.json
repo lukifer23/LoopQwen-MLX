@@ -1,0 +1,6926 @@
+{
+  "source": "cffb423077756d04c1bac5bcd45167c86903fbcb",
+  "rows": [
+    {
+      "id": "exec_simple_12",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've put $5000 into a fixed deposit offering a 5% annual interest rate, and I'm planning to let it grow for 10 years. Could you calculate the future value of this investment for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_future_value",
+          "description": "Calculates the future value of an investment.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "present_value": {
+                "type": "float",
+                "description": "The present value of the investment, in dollars."
+              },
+              "interest_rate": {
+                "type": "float",
+                "description": "The interest rate of the investment, ranging from 0 to 1."
+              },
+              "periods": {
+                "type": "integer",
+                "description": "The number of periods, in years."
+              }
+            },
+            "required": [
+              "present_value",
+              "interest_rate",
+              "periods"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_future_value(present_value=5000, interest_rate=0.05, periods=10)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_7",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During the high-speed chase, when the driver accelerated the vehicle, it was initially moving at 25 meters per second. With the sudden push on the gas pedal, the car accelerated at 15 meters per second squared, and this went on for 8 seconds. I need to calculate the displacement of the vehicle over that time. Can you provide me with that information?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_displacement",
+          "description": "Calculates the displacement of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_displacement(initial_velocity=25.0, acceleration=15.0, time=8)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_1",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During last night's basketball game, one of the star players was on fire, attempting a whopping 30 free throws. It's generally known that the average success rate for free throws hovers around 50%. I'm curious, with that success probability, what are the chances that the player made exactly 15 out of those 30 attempts?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calc_binomial_probability",
+          "description": "Calculates the probability of getting k successes in n trials.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of trials."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of successes."
+              },
+              "p": {
+                "type": "float",
+                "description": "The probability of success."
+              }
+            },
+            "required": [
+              "n",
+              "k",
+              "p"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calc_binomial_probability(n=30, k=15, p=0.5)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-11098",
+      "table_id": "2-10791466-4",
+      "question": "What's the total number of picks of a team that had june longalong?",
+      "columns": [
+        "Pick",
+        "Player",
+        "Country of origin*",
+        "PBA team",
+        "College"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          21.0,
+          "dave bautista",
+          "philippines",
+          "red bull thunder",
+          "angeles"
+        ],
+        [
+          22.0,
+          "fernan dino manuel",
+          "philippines",
+          "shell turbo chargers",
+          "san beda"
+        ],
+        [
+          23.0,
+          "marlon piodo",
+          "philippines",
+          "barangay ginebra kings",
+          "san jose"
+        ],
+        [
+          24.0,
+          "ramon jose",
+          "philippines",
+          "pop cola panthers",
+          "la salle-manila"
+        ],
+        [
+          25.0,
+          "june longalong",
+          "philippines",
+          "mobiline phone pals",
+          "perpetual help"
+        ],
+        [
+          26.0,
+          "michael almonte",
+          "philippines",
+          "sta. lucia realtors",
+          "san jose"
+        ],
+        [
+          27.0,
+          "allan salangsang",
+          "philippines",
+          "tanduay rhum masters",
+          "letran"
+        ],
+        [
+          28.0,
+          "michael garcia",
+          "philippines",
+          "alaska aces",
+          "letran"
+        ],
+        [
+          29.0,
+          "paul guerrero",
+          "philippines",
+          "purefoods tender juicy hotdogs",
+          "letran"
+        ],
+        [
+          30.0,
+          "jeremy anciete",
+          "united states",
+          "san miguel beermen",
+          "north park"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            1,
+            0,
+            "june longalong"
+          ]
+        ],
+        "agg": 4
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-13728",
+      "table_id": "2-18639024-2",
+      "question": "What is the total teams during the 2012-13 season?",
+      "columns": [
+        "Season",
+        "Teams",
+        "Minor Ladder Position",
+        "Finals Qualification",
+        "Final Ladder Position",
+        "ACL Qualification",
+        "ACL Placing"
+      ],
+      "types": [
+        "text",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "2005-06",
+          8.0,
+          "7th",
+          "dnq",
+          "7th",
+          "dnq",
+          "n/a"
+        ],
+        [
+          "2006-07",
+          8.0,
+          "premiers",
+          "qualified",
+          "champions",
+          "qualified for 2008",
+          "dnq"
+        ],
+        [
+          "2007-08",
+          8.0,
+          "5th",
+          "dnq",
+          "5th",
+          "dnq",
+          "group stages (2nd)"
+        ],
+        [
+          "2008-09",
+          8.0,
+          "premiers",
+          "qualified",
+          "champions",
+          "qualified for 2010",
+          "dnq"
+        ],
+        [
+          "2009-10",
+          10.0,
+          "2nd",
+          "qualified",
+          "2nd",
+          "qualified for 2011",
+          "group stages (4th)"
+        ],
+        [
+          "2010-11",
+          11.0,
+          "5th",
+          "qualified",
+          "5th",
+          "dnq",
+          "group stages (4th)"
+        ],
+        [
+          "2011-12",
+          10.0,
+          "8th",
+          "dnq",
+          "8th",
+          "dnq",
+          "dnq"
+        ],
+        [
+          "2012-13",
+          10.0,
+          "3rd",
+          "qualified",
+          "3rd",
+          "dnq",
+          "dnq"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            0,
+            0,
+            "2012-13"
+          ]
+        ],
+        "agg": 4
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_9",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a physics simulation and I have a micro-particle here charged at 7.8 coulombs. It's placed in an electromagnetic field with a voltage of 15.2 volts. Can you calculate the electrostatic potential energy for this particle in the given field?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_electrostatic_potential_energy",
+          "description": "Calculates the electrostatic potential energy.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "charge": {
+                "type": "float",
+                "description": "The charge of the object, in coulombs."
+              },
+              "voltage": {
+                "type": "float",
+                "description": "The voltage of the object, in volts."
+              }
+            },
+            "required": [
+              "charge",
+              "voltage"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_electrostatic_potential_energy(charge=7.8, voltage=15.2)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-7560",
+      "table_id": "2-16028459-1",
+      "question": "What number pick was Paul Seymour in round 1?",
+      "columns": [
+        "Round",
+        "Pick",
+        "Player",
+        "Position",
+        "College"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          7.0,
+          "paul seymour",
+          "offensive tackle",
+          "michigan"
+        ],
+        [
+          1.0,
+          26.0,
+          "joe delamielleure",
+          "offensive guard",
+          "michigan state"
+        ],
+        [
+          2.0,
+          32.0,
+          "jeff winans",
+          "defensive tackle",
+          "usc"
+        ],
+        [
+          3.0,
+          57.0,
+          "joe ferguson",
+          "quarterback",
+          "arkansas"
+        ],
+        [
+          3.0,
+          77.0,
+          "bob kampa",
+          "defensive tackle",
+          "california"
+        ],
+        [
+          5.0,
+          110.0,
+          "wallace francis",
+          "wide receiver",
+          "arkansas state"
+        ],
+        [
+          6.0,
+          136.0,
+          "john skorupan",
+          "linebacker",
+          "penn state"
+        ],
+        [
+          7.0,
+          162.0,
+          "brian mcconnell",
+          "linebacker",
+          "michigan state"
+        ],
+        [
+          14.0,
+          344.0,
+          "merv krakau",
+          "linebacker",
+          "iowa state"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            2,
+            0,
+            "paul seymour"
+          ]
+        ],
+        "agg": 4
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_17",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "In my current research on plant genetics, I'm exploring the genetic diversity within a specific species. It's fascinating work, and I've managed to isolate 30 unique genes. The next step in my study involves figuring out the possible combinations if I were to select 7 of these genes at a time for a more detailed analysis. Could you calculate the number of different permutations for 7 genes out of the total 30?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_permutations",
+          "description": "Calculates the number of permutations of k elements from a set of n elements.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of elements in the set."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of elements to choose."
+              }
+            },
+            "required": [
+              "n",
+              "k"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_permutations(n=30, k=7)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_4",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a physics experiment and need to calculate the density of an object I have. It weighs 50 kilograms and takes up a space of 10 cubic meters. Could you help me figure out its density?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_density",
+          "description": "Calculates the density of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "mass": {
+                "type": "float",
+                "description": "The mass of the object, in kilograms."
+              },
+              "volume": {
+                "type": "float",
+                "description": "The volume of the object, in cubic meters."
+              }
+            },
+            "required": [
+              "mass",
+              "volume"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_density(mass=50.0, volume=10.0)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-13226",
+      "table_id": "2-18007110-1",
+      "question": "What is the sum of the to par with a 76-77-74-75=302 score?",
+      "columns": [
+        "Place",
+        "Player",
+        "Country",
+        "Score",
+        "To par",
+        "Money ( $ )"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "t1",
+          "bobby jones (a)",
+          "united states",
+          "69-75-71-79=294",
+          6.0,
+          "playoff"
+        ],
+        [
+          "t1",
+          "al espinosa",
+          "united states",
+          "70-72-77-75=294",
+          6.0,
+          "playoff"
+        ],
+        [
+          "t3",
+          "gene sarazen",
+          "united states",
+          "71-71-76-78=296",
+          8.0,
+          "700"
+        ],
+        [
+          "t3",
+          "denny shute",
+          "united states",
+          "73-71-76-76=296",
+          8.0,
+          "700"
+        ],
+        [
+          "t5",
+          "tommy armour",
+          "scotland united states",
+          "74-71-76-76=297",
+          9.0,
+          "550"
+        ],
+        [
+          "t5",
+          "george von elm (a)",
+          "united states",
+          "79-70-74-74=297",
+          9.0,
+          "0"
+        ],
+        [
+          "7",
+          "henry ciuci",
+          "united states",
+          "78-74-72-75=299",
+          11.0,
+          "450"
+        ],
+        [
+          "t8",
+          "leo diegel",
+          "united states",
+          "74-74-76-77=301",
+          13.0,
+          "300"
+        ],
+        [
+          "t8",
+          "peter o'hara",
+          "united states",
+          "74-76-73-78=301",
+          13.0,
+          "300"
+        ],
+        [
+          "10",
+          "horton smith",
+          "united states",
+          "76-77-74-75=302",
+          14.0,
+          "150"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            3,
+            0,
+            "76-77-74-75=302"
+          ]
+        ],
+        "agg": 4
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_15",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a report about a basketball player's average performance throughout the season. The data I have includes the points they scored in each game: 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160. To complete my analysis, I need to calculate the mean score per game. Can you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_mean",
+          "description": "Calculates the mean of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_mean(numbers=[15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-875",
+      "table_id": "1-13762472-4",
+      "question": " how many\u00a0high assists with\u00a0record\u00a0being 15-11",
+      "columns": [
+        "Game",
+        "Date",
+        "Team",
+        "Score",
+        "High points",
+        "High rebounds",
+        "High assists",
+        "Location Attendance",
+        "Record"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          16.0,
+          "december 2",
+          "@ sacramento",
+          "w 98\u201387 (ot)",
+          "dwyane wade (27)",
+          "udonis haslem (8)",
+          "jason williams (8)",
+          "arco arena",
+          "10-6"
+        ],
+        [
+          17.0,
+          "december 3",
+          "@ denver",
+          "l 99\u2013101 (ot)",
+          "dwyane wade (32)",
+          "james posey (10)",
+          "dwyane wade (6)",
+          "pepsi center",
+          "10-7"
+        ],
+        [
+          18.0,
+          "december 5",
+          "@ l.a. clippers",
+          "l 89\u201399 (ot)",
+          "dwyane wade (29)",
+          "alonzo mourning (12)",
+          "jason williams (9)",
+          "staples center",
+          "10-8"
+        ],
+        [
+          19.0,
+          "december 7",
+          "@ san antonio",
+          "l 84\u201398 (ot)",
+          "dwyane wade (31)",
+          "alonzo mourning (7)",
+          "dwyane wade (10)",
+          "sbc center",
+          "10-9"
+        ],
+        [
+          20.0,
+          "december 9",
+          "denver",
+          "l 92\u2013100 (ot)",
+          "dwyane wade (37)",
+          "dwyane wade (10)",
+          "antoine walker (5)",
+          "american airlines arena",
+          "10-10"
+        ],
+        [
+          21.0,
+          "december 11",
+          "washington",
+          "w 104\u2013101 (ot)",
+          "dwyane wade (41)",
+          "shaquille o'neal (11)",
+          "dwyane wade (8)",
+          "american airlines arena",
+          "11-10"
+        ],
+        [
+          22.0,
+          "december 13",
+          "@ chicago",
+          "w 100\u201397 (ot)",
+          "shaquille o'neal (30)",
+          "alonzo mourning (12)",
+          "dwyane wade (11)",
+          "united center",
+          "12-10"
+        ],
+        [
+          23.0,
+          "december 14",
+          "@ milwaukee",
+          "w 100\u201383 (ot)",
+          "dwyane wade (27)",
+          "udonis haslem (10)",
+          "dwyane wade (7)",
+          "bradley center",
+          "13-10"
+        ],
+        [
+          24.0,
+          "december 16",
+          "@ philadelphia",
+          "w 112\u2013105 (ot)",
+          "dwyane wade (32)",
+          "shaquille o'neal (13)",
+          "gary payton (5)",
+          "wachovia center",
+          "14-10"
+        ],
+        [
+          25.0,
+          "december 17",
+          "@ cleveland",
+          "l 107\u2013115 (ot)",
+          "dwyane wade (33)",
+          "shaquille o'neal (6)",
+          "dwyane wade , antoine walker (7)",
+          "quicken loans arena",
+          "14-11"
+        ],
+        [
+          26.0,
+          "december 20",
+          "atlanta",
+          "w 111\u201392 (ot)",
+          "shaquille o'neal (28)",
+          "shaquille o'neal (10)",
+          "gary payton (8)",
+          "american airlines arena",
+          "15-11"
+        ],
+        [
+          27.0,
+          "december 23",
+          "new jersey",
+          "l 88\u201395 (ot)",
+          "shaquille o'neal (24)",
+          "shaquille o'neal (14)",
+          "dwyane wade (7)",
+          "american airlines arena",
+          "15-12"
+        ],
+        [
+          28.0,
+          "december 25",
+          "l.a. lakers",
+          "w 97\u201392 (ot)",
+          "gary payton (21)",
+          "shaquille o'neal (17)",
+          "dwyane wade (5)",
+          "american airlines arena",
+          "16-12"
+        ],
+        [
+          29.0,
+          "december 27",
+          "millwaukee",
+          "w 109\u201398 (ot)",
+          "dwyane wade (35)",
+          "shaquille o'neal (8)",
+          "dwyane wade , jason williams (7)",
+          "american airlines arena",
+          "17-12"
+        ],
+        [
+          30.0,
+          "december 29",
+          "@ detroit",
+          "l 101\u2013106 (ot)",
+          "dwyane wade (33)",
+          "udonis haslem (10)",
+          "dwyane wade (9)",
+          "the palace of auburn hills",
+          "17-13"
+        ]
+      ],
+      "sql": {
+        "sel": 6,
+        "conds": [
+          [
+            8,
+            0,
+            "15-11"
+          ]
+        ],
+        "agg": 3
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-1315",
+      "table_id": "1-1571238-2",
+      "question": "When the team is lake superior state how many times did they place fourth?",
+      "columns": [
+        "Team",
+        "Titles",
+        "Runner-up",
+        "Third place",
+        "Fourth place",
+        "Years participated"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "michigan",
+          15.0,
+          13.0,
+          10.0,
+          5.0,
+          43.0
+        ],
+        [
+          "michigan state",
+          12.0,
+          13.0,
+          10.0,
+          4.0,
+          39.0
+        ],
+        [
+          "michigan tech",
+          10.0,
+          12.0,
+          10.0,
+          16.0,
+          48.0
+        ],
+        [
+          "north dakota",
+          2.0,
+          1.0,
+          0.0,
+          1.0,
+          4.0
+        ],
+        [
+          "toronto",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "new hampshire",
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          2.0
+        ],
+        [
+          "colorado college",
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          3.0
+        ],
+        [
+          "western michigan",
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          3.0
+        ],
+        [
+          "wisconsin",
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          3.0
+        ],
+        [
+          "boston college",
+          1.0,
+          0.0,
+          3.0,
+          0.0,
+          4.0
+        ],
+        [
+          "notre dame",
+          1.0,
+          0.0,
+          0.0,
+          3.0,
+          4.0
+        ],
+        [
+          "boston university",
+          1.0,
+          0.0,
+          4.0,
+          0.0,
+          5.0
+        ],
+        [
+          "harvard",
+          1.0,
+          0.0,
+          2.0,
+          2.0,
+          5.0
+        ],
+        [
+          "maine",
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "ohio state",
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "rensselaer polytechnic institute",
+          0.0,
+          2.0,
+          0.0,
+          0.0,
+          2.0
+        ],
+        [
+          "lake superior state",
+          0.0,
+          1.0,
+          1.0,
+          1.0,
+          3.0
+        ],
+        [
+          "northern michigan",
+          0.0,
+          1.0,
+          2.0,
+          2.0,
+          5.0
+        ],
+        [
+          "colgate",
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          "dartmouth",
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          "providence",
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          "brown",
+          0.0,
+          0.0,
+          1.0,
+          1.0,
+          2.0
+        ],
+        [
+          "cornell",
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "princeton",
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "st lawrence",
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "yale",
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "bowling green",
+          0.0,
+          0.0,
+          0.0,
+          2.0,
+          2.0
+        ],
+        [
+          "pennsylvania",
+          0.0,
+          0.0,
+          0.0,
+          2.0,
+          2.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            0,
+            0,
+            "Lake Superior State"
+          ]
+        ],
+        "agg": 2
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_2",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm currently tweaking a machine learning model and I need to understand the similarity between two objects in my dataset. Their characteristics are expressed in the feature vectors [0.5, 0.7, 0.2, 0.9, 0.1] for the first object and [0.4, 0.6, 0.3, 0.8, 0.2] for the second one. Could you calculate the cosine similarity between these two feature vectors to help me determine how similar these objects are?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_cosine_similarity",
+          "description": "Calculates the cosine similarity of two vectors.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "vectorA": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The first vector."
+              },
+              "vectorB": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The second vector."
+              }
+            },
+            "required": [
+              "vectorA",
+              "vectorB"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_cosine_similarity(vectorA=[0.5, 0.7, 0.2, 0.9, 0.1], vectorB=[0.4, 0.6, 0.3, 0.8, 0.2])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-4037",
+      "table_id": "1-2847477-2",
+      "question": "What is the area of \u7f57\u5c71\u53bf?",
+      "columns": [
+        "English Name",
+        "Simplified",
+        "Traditional",
+        "Pinyin",
+        "Area",
+        "Population",
+        "Density"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "shihe district",
+          "\u6d49\u6cb3\u533a",
+          "\u6d49\u6cb3\u5340",
+          "sh\u012bh\u00e9 q\u016b",
+          1512.0,
+          594351.0,
+          393.0
+        ],
+        [
+          "pingqiao district",
+          "\u5e73\u6865\u533a",
+          "\u5e73\u6a4b\u5340",
+          "p\u00edngqi\u00e1o q\u016b",
+          1889.0,
+          635608.0,
+          336.0
+        ],
+        [
+          "huangchuan county",
+          "\u6f62\u5ddd\u53bf",
+          "\u6f62\u5ddd\u7e23",
+          "hu\u00e1ngchu\u0101n xi\u00e0n",
+          1638.0,
+          630333.0,
+          385.0
+        ],
+        [
+          "huaibin county",
+          "\u6dee\u6ee8\u53bf",
+          "\u6dee\u6ff1\u7e23",
+          "hu\u00e1ib\u012bn xi\u00e0n",
+          1208.0,
+          570156.0,
+          472.0
+        ],
+        [
+          "xi county",
+          "\u606f\u53bf",
+          "\u606f\u7e23",
+          "x\u012b xi\u00e0n",
+          1835.0,
+          793746.0,
+          433.0
+        ],
+        [
+          "xin county",
+          "\u65b0\u53bf",
+          "\u606f\u7e23",
+          "x\u012bn xi\u00e0n",
+          1612.0,
+          275285.0,
+          171.0
+        ],
+        [
+          "shangcheng county",
+          "\u5546\u57ce\u53bf",
+          "\u5546\u57ce\u7e23",
+          "sh\u0101ngch\u00e9ng xi\u00e0n",
+          2130.0,
+          495491.0,
+          233.0
+        ],
+        [
+          "gushi county",
+          "\u56fa\u59cb\u53bf",
+          "\u56fa\u59cb\u7e23",
+          "g\u00f9sh\u01d0 xi\u00e0n",
+          2946.0,
+          1023857.0,
+          348.0
+        ],
+        [
+          "luoshan county",
+          "\u7f57\u5c71\u53bf",
+          "\u7f85\u5c71\u7e23",
+          "lu\u00f3sh\u0101n xi\u00e0n",
+          2065.0,
+          504542.0,
+          244.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            1,
+            0,
+            "\u7f57\u5c71\u53bf"
+          ]
+        ],
+        "agg": 0
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-2427",
+      "table_id": "1-21132404-1",
+      "question": "How many seats were there in 2001 when there were 11 seats in 2006?",
+      "columns": [
+        "Political parties",
+        "% 2006",
+        "Seats 2006",
+        "% 2001",
+        "Seats 2001",
+        "% 1997"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "social democratic party of germany",
+          "43.5",
+          5.0,
+          "38.8",
+          4.0,
+          "46.6"
+        ],
+        [
+          "christian democratic union",
+          "33.7",
+          3.0,
+          "35.7",
+          4.0,
+          "38.9"
+        ],
+        [
+          "free democratic party",
+          "8.4",
+          1.0,
+          "16.7",
+          2.0,
+          "4.2"
+        ],
+        [
+          "the republicans",
+          "7.7",
+          1.0,
+          "7.0",
+          1.0,
+          "0"
+        ],
+        [
+          "alliance '90/the greens",
+          "6.7",
+          1.0,
+          "1.7",
+          0.0,
+          "10.2"
+        ],
+        [
+          "total",
+          "100.0",
+          11.0,
+          "100.0",
+          11.0,
+          "100.0"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            2,
+            0,
+            11
+          ]
+        ],
+        "agg": 2
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_11",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got a physics experiment where I'm dropping a ball from a certain height, and I know that the initial velocity is zero because I'm letting it fall freely. Gravity is doing all the work here at 9.8 m/s\u00b2. After 7 seconds, I want to calculate what the final velocity will be. Can we get that sorted out?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_final_velocity",
+          "description": "Calculates the final velocity of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_final_velocity(initial_velocity=0, acceleration=9.8, time=7)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-13341",
+      "table_id": "2-19001916-2",
+      "question": "How much Voltage (kV) has a Country of argentina, and a Power (MW) larger than 30, and a Supply point of yacyret\u00e1?",
+      "columns": [
+        "Entities",
+        "Country",
+        "Supply point",
+        "Voltage (kV)",
+        "Power (MW)"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "furnas, electrosul, electrobras",
+          "brazil",
+          "itaipu",
+          500.0,
+          "7,000"
+        ],
+        [
+          "ebisa",
+          "argentina",
+          "yacyret\u00e1",
+          500.0,
+          "1,540"
+        ],
+        [
+          "enersul",
+          "brazil",
+          "pedro juan caballero",
+          23.0,
+          3.0
+        ],
+        [
+          "copel",
+          "brazil",
+          "acaray",
+          132.0,
+          50.0
+        ],
+        [
+          "emsa",
+          "argentina",
+          "c.a. l\u00f3pez",
+          132.0,
+          30.0
+        ],
+        [
+          "transnea/edefor",
+          "argentina",
+          "guarambar\u00e9",
+          220.0,
+          80.0
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            1,
+            0,
+            "argentina"
+          ],
+          [
+            4,
+            1,
+            30
+          ],
+          [
+            2,
+            0,
+            "yacyret\u00e1"
+          ]
+        ],
+        "agg": 3
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_5",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got this strange object we've come across in our scientific research. It's pretty hefty, weighing in at 120 kilograms, and it takes up about 30 cubic meters of space. Can you help me calculate its density?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_density",
+          "description": "Calculates the density of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "mass": {
+                "type": "float",
+                "description": "The mass of the object, in kilograms."
+              },
+              "volume": {
+                "type": "float",
+                "description": "The volume of the object, in cubic meters."
+              }
+            },
+            "required": [
+              "mass",
+              "volume"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_density(mass=120.0, volume=30.0)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_6",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During our advanced physics experiment, we've been tracking this unique object which initially was moving at 15 m/s. It's been accelerating at a rate of 9.8 m/s\u00b2, and this has been going on for exactly 10 seconds. I need to calculate the total displacement of the object over this period. Can you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_displacement",
+          "description": "Calculates the displacement of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_displacement(initial_velocity=15.0, acceleration=9.8, time=10)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-13236",
+      "table_id": "2-176533-1",
+      "question": "With an Area km 2 of less than 130.68, what is McAdam's Population?",
+      "columns": [
+        "Official Name",
+        "Status",
+        "Area km 2",
+        "Population",
+        "Census Ranking"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "fredericton",
+          "city",
+          130.68,
+          "56,224",
+          "90 of 5,008"
+        ],
+        [
+          "new maryland",
+          "village",
+          21.23,
+          "4,232",
+          "791 of 5,008"
+        ],
+        [
+          "upper miramichi",
+          "rural community",
+          "1,835.01",
+          "2,373",
+          "1,180 of 5,008"
+        ],
+        [
+          "mcadam",
+          "village",
+          14.47,
+          "1,284",
+          "1,773 of 5,008"
+        ],
+        [
+          "nackawic",
+          "town",
+          8.4,
+          "1,049",
+          "2,016 of 5,008"
+        ],
+        [
+          "stanley",
+          "village",
+          17.34,
+          419.0,
+          "3,234 of 5,008"
+        ],
+        [
+          "canterbury",
+          "village",
+          5.34,
+          331.0,
+          "3,527 of 5,008"
+        ],
+        [
+          "harvey",
+          "village",
+          2.46,
+          363.0,
+          "3,420 of 5,008"
+        ],
+        [
+          "millville",
+          "village",
+          12.16,
+          307.0,
+          "3,612 of 5,008"
+        ],
+        [
+          "meductic",
+          "village",
+          5.57,
+          270.0,
+          "3,741 of 5,008"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            2,
+            2,
+            130.68
+          ],
+          [
+            0,
+            0,
+            "mcadam"
+          ]
+        ],
+        "agg": 4
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_10",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During a training exercise, we're analyzing a simulation of a high-speed chase where a vehicle starts from a standstill and then accelerates constantly. We've clocked the acceleration at 9.8 meters per second squared and the time span for this acceleration is 12 seconds. I need to calculate the final velocity of the vehicle at the end of this time frame. Can you give me that figure?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_final_velocity",
+          "description": "Calculates the final velocity of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_final_velocity(initial_velocity=0, acceleration=9.8, time=12)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_21",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on the design for a triangular dam, and I've settled on the dimensions. The base is going to be 700 meters, and the height will be at 450 meters. I need to calculate the total area that the face of this dam will cover. Can you help me figure out what that area would be with these measurements?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_triangle_area",
+          "description": "Calculates the area of a triangle given its base and height.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "base": {
+                "type": "integer",
+                "description": "The base of the triangle, in meters."
+              },
+              "height": {
+                "type": "integer",
+                "description": "The height of the triangle, in meters."
+              }
+            },
+            "required": [
+              "base",
+              "height"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_triangle_area(base=700, height=450)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-1682",
+      "table_id": "1-17359181-1",
+      "question": "How many values of goal average 1 occur when the value of goals against is 92?",
+      "columns": [
+        "Position",
+        "Team",
+        "Played",
+        "Won",
+        "Drawn",
+        "Lost",
+        "Goals For",
+        "Goals Against",
+        "Goal Average 1",
+        "Points 2"
+      ],
+      "types": [
+        "real",
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1.0,
+          "wigan athletic",
+          46.0,
+          33.0,
+          6.0,
+          7.0,
+          94.0,
+          38.0,
+          "2.47",
+          72.0
+        ],
+        [
+          2.0,
+          "runcorn",
+          46.0,
+          30.0,
+          8.0,
+          8.0,
+          102.0,
+          42.0,
+          "2.43",
+          68.0
+        ],
+        [
+          3.0,
+          "altrincham",
+          46.0,
+          26.0,
+          12.0,
+          8.0,
+          87.0,
+          43.0,
+          "2.02",
+          64.0
+        ],
+        [
+          4.0,
+          "stafford rangers",
+          46.0,
+          25.0,
+          13.0,
+          8.0,
+          81.0,
+          39.0,
+          "2.08",
+          63.0
+        ],
+        [
+          5.0,
+          "scarborough",
+          46.0,
+          24.0,
+          12.0,
+          10.0,
+          75.0,
+          45.0,
+          "1.67",
+          60.0
+        ],
+        [
+          6.0,
+          "mossley",
+          46.0,
+          23.0,
+          11.0,
+          12.0,
+          78.0,
+          52.0,
+          "1.50",
+          57.0
+        ],
+        [
+          7.0,
+          "gateshead united",
+          46.0,
+          22.0,
+          12.0,
+          12.0,
+          74.0,
+          48.0,
+          "1.54",
+          56.0
+        ],
+        [
+          8.0,
+          "goole town",
+          46.0,
+          19.0,
+          12.0,
+          15.0,
+          75.0,
+          71.0,
+          "1.06",
+          50.0
+        ],
+        [
+          9.0,
+          "northwich victoria",
+          46.0,
+          18.0,
+          12.0,
+          16.0,
+          83.0,
+          71.0,
+          "1.17",
+          48.0
+        ],
+        [
+          10.0,
+          "great harwood",
+          46.0,
+          17.0,
+          14.0,
+          15.0,
+          69.0,
+          66.0,
+          "1.05",
+          48.0
+        ],
+        [
+          11.0,
+          "matlock town",
+          46.0,
+          19.0,
+          8.0,
+          19.0,
+          87.0,
+          79.0,
+          "1.10",
+          46.0
+        ],
+        [
+          12.0,
+          "boston united",
+          46.0,
+          16.0,
+          14.0,
+          16.0,
+          64.0,
+          63.0,
+          "1.02",
+          46.0
+        ],
+        [
+          13.0,
+          "morecambe",
+          46.0,
+          14.0,
+          15.0,
+          17.0,
+          71.0,
+          87.0,
+          "0.82",
+          43.0
+        ],
+        [
+          14.0,
+          "worksop town",
+          46.0,
+          14.0,
+          14.0,
+          18.0,
+          69.0,
+          66.0,
+          "1.05",
+          42.0
+        ],
+        [
+          15.0,
+          "south liverpool",
+          46.0,
+          14.0,
+          14.0,
+          18.0,
+          59.0,
+          71.0,
+          "0.83",
+          42.0
+        ],
+        [
+          16.0,
+          "buxton",
+          46.0,
+          11.0,
+          17.0,
+          18.0,
+          50.0,
+          77.0,
+          "0.65",
+          39.0
+        ],
+        [
+          17.0,
+          "macclesfield town",
+          46.0,
+          11.0,
+          14.0,
+          21.0,
+          46.0,
+          62.0,
+          "0.74",
+          36.0
+        ],
+        [
+          18.0,
+          "lancaster city",
+          46.0,
+          13.0,
+          10.0,
+          23.0,
+          53.0,
+          76.0,
+          "0.70",
+          36.0
+        ],
+        [
+          19.0,
+          "bangor city",
+          46.0,
+          13.0,
+          9.0,
+          24.0,
+          56.0,
+          67.0,
+          "0.84",
+          35.0
+        ],
+        [
+          20.0,
+          "gainsborough trinity",
+          46.0,
+          10.0,
+          15.0,
+          21.0,
+          46.0,
+          79.0,
+          "0.58",
+          35.0
+        ],
+        [
+          21.0,
+          "skelmersdale united",
+          46.0,
+          13.0,
+          7.0,
+          26.0,
+          63.0,
+          93.0,
+          "0.68",
+          33.0
+        ],
+        [
+          22.0,
+          "barrow",
+          46.0,
+          9.0,
+          15.0,
+          22.0,
+          45.0,
+          72.0,
+          "0.63",
+          33.0
+        ],
+        [
+          23.0,
+          "netherfield",
+          46.0,
+          12.0,
+          8.0,
+          26.0,
+          43.0,
+          92.0,
+          "0.47",
+          32.0
+        ]
+      ],
+      "sql": {
+        "sel": 8,
+        "conds": [
+          [
+            7,
+            0,
+            92
+          ]
+        ],
+        "agg": 3
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-2989",
+      "table_id": "1-24066938-1",
+      "question": "How many measurements of the Czech Republic's population density are recorded in this table?",
+      "columns": [
+        "Member State",
+        "Population in thousands",
+        "Population % of EU",
+        "Area km 2",
+        "Area % of EU",
+        "Pop. density People/km 2"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "eu",
+          "502,519.9",
+          "100",
+          4324782.0,
+          "100",
+          "116.0"
+        ],
+        [
+          "austria",
+          "8,404.2",
+          "1.67",
+          83858.0,
+          "1.9",
+          "99.7"
+        ],
+        [
+          "belgium",
+          "10,951.7",
+          "2.15",
+          30510.0,
+          "0.7",
+          "352.0"
+        ],
+        [
+          "bulgaria",
+          "7,504.9",
+          "1.49",
+          110912.0,
+          "2.5",
+          "68.5"
+        ],
+        [
+          "cyprus",
+          "804.4",
+          "0.16",
+          9250.0,
+          "0.2",
+          "86.6"
+        ],
+        [
+          "czech republic",
+          "10,532.8",
+          "2.1",
+          78866.0,
+          "1.8",
+          "132.8"
+        ],
+        [
+          "denmark",
+          "5,560.6",
+          "1.1",
+          43094.0,
+          "1.0",
+          "128.1"
+        ],
+        [
+          "estonia",
+          "1,340.2",
+          "0.27",
+          45226.0,
+          "1.0",
+          "29.6"
+        ],
+        [
+          "finland",
+          "5,375.3",
+          "1.07",
+          337030.0,
+          "7.6",
+          "15.8"
+        ],
+        [
+          "france",
+          "65,075.3",
+          "12.95",
+          643548.0,
+          "14.6",
+          "99.6"
+        ],
+        [
+          "germany",
+          "81,751.6",
+          "16.27",
+          357021.0,
+          "8.1",
+          "229.9"
+        ],
+        [
+          "greece",
+          "11,325.9",
+          "2.25",
+          131957.0,
+          "3.0",
+          "85.4"
+        ],
+        [
+          "hungary",
+          "9,985.7",
+          "1.99",
+          93030.0,
+          "2.1",
+          "107.8"
+        ],
+        [
+          "ireland",
+          "4,480.8",
+          "0.89",
+          70280.0,
+          "1.6",
+          "64.3"
+        ],
+        [
+          "italy",
+          "60,626.4",
+          "12.06",
+          301320.0,
+          "6.8",
+          "200.4"
+        ],
+        [
+          "latvia",
+          "2,229.6",
+          "0.44",
+          64589.0,
+          "1.5",
+          "35.0"
+        ],
+        [
+          "lithuania",
+          "3,244.6",
+          "0.65",
+          65200.0,
+          "1.5",
+          "51.4"
+        ],
+        [
+          "luxembourg",
+          "511.8",
+          "0.1",
+          2586.0,
+          "0.1",
+          "190.1"
+        ],
+        [
+          "malta",
+          "417.6",
+          "0.08",
+          316.0,
+          "0.0",
+          "1,305.7"
+        ],
+        [
+          "netherlands",
+          "16,655.8",
+          "3.3",
+          41526.0,
+          "0.9",
+          "396.9"
+        ],
+        [
+          "poland",
+          "38,200.0",
+          "7.6",
+          312685.0,
+          "7.1",
+          "121.9"
+        ],
+        [
+          "portugal",
+          "10,636.9",
+          "2.12",
+          92931.0,
+          "2.1",
+          "114.4"
+        ],
+        [
+          "romania",
+          "19,043.8",
+          "4.26",
+          238391.0,
+          "5.4",
+          "90.2"
+        ],
+        [
+          "spain",
+          "47,190.4",
+          "9.18",
+          504782.0,
+          "11.4",
+          "93.4"
+        ],
+        [
+          "slovakia",
+          "5,435.3",
+          "1.08",
+          48845.0,
+          "1.1",
+          "110.8"
+        ],
+        [
+          "slovenia",
+          "2,050.1",
+          "0.41",
+          20253.0,
+          "0.5",
+          "101.4"
+        ],
+        [
+          "sweden",
+          "9,415.6",
+          "1.87",
+          449964.0,
+          "10.2",
+          "20.6"
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            0,
+            0,
+            "Czech Republic"
+          ]
+        ],
+        "agg": 3
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_20",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm currently working on an architectural project where we're designing a new triangular-shaped park. We've finally settled on the dimensions, and we're planning for the base to be 500 meters long with a height of 300 meters. Could you calculate the area of this park for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_triangle_area",
+          "description": "Calculates the area of a triangle given its base and height.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "base": {
+                "type": "integer",
+                "description": "The base of the triangle, in meters."
+              },
+              "height": {
+                "type": "integer",
+                "description": "The height of the triangle, in meters."
+              }
+            },
+            "required": [
+              "base",
+              "height"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_triangle_area(base=500, height=300)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-15582",
+      "table_id": "2-12333215-4",
+      "question": "What is the average score with lee westwood as the player?",
+      "columns": [
+        "Place",
+        "Player",
+        "Country",
+        "Score",
+        "To par"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "1",
+          "graeme storm",
+          "england",
+          65.0,
+          "\u20135"
+        ],
+        [
+          "2",
+          "john daly",
+          "united states",
+          67.0,
+          "\u20133"
+        ],
+        [
+          "t3",
+          "stephen ames",
+          "canada",
+          68.0,
+          "\u20132"
+        ],
+        [
+          "t3",
+          "woody austin",
+          "united states",
+          68.0,
+          "\u20132"
+        ],
+        [
+          "t3",
+          "arron oberholser",
+          "united states",
+          68.0,
+          "\u20132"
+        ],
+        [
+          "t5",
+          "markus brier",
+          "austria",
+          69.0,
+          "\u20131"
+        ],
+        [
+          "t5",
+          "p\u00e1draig harrington",
+          "ireland",
+          69.0,
+          "\u20131"
+        ],
+        [
+          "t5",
+          "geoff ogilvy",
+          "australia",
+          69.0,
+          "\u20131"
+        ],
+        [
+          "t5",
+          "john senden",
+          "australia",
+          69.0,
+          "\u20131"
+        ],
+        [
+          "t5",
+          "camilo villegas",
+          "colombia",
+          69.0,
+          "\u20131"
+        ],
+        [
+          "t5",
+          "lee westwood",
+          "england",
+          69.0,
+          "\u20131"
+        ],
+        [
+          "t5",
+          "mark wilson",
+          "united states",
+          69.0,
+          "\u20131"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            1,
+            0,
+            "lee westwood"
+          ]
+        ],
+        "agg": 5
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_19",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've been tracking the scoring performance of a certain basketball player across the last 12 games to get insights into his consistency. The points he scored in each game are as follows: 30, 20, 25, 12, 59, 23, 64, 21, 67, 12, 23, and 43. I need to calculate the standard deviation of this scoring to better understand the variability and predictability of his performance. Could you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_standard_deviation",
+          "description": "Calculates the standard deviation of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_standard_deviation(numbers=[30,20,25,12,59,23,64,21,67,12,23,43])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-14029",
+      "table_id": "2-18646111-1",
+      "question": "what is the date when the medal is bronze for athletics?",
+      "columns": [
+        "Medal",
+        "Name",
+        "Sport",
+        "Event",
+        "Date"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          "gold",
+          "thomas geierspichler",
+          "athletics",
+          "men's marathon - t52",
+          17.0
+        ],
+        [
+          "gold",
+          "andrea scherney",
+          "athletics",
+          "women's long jump - f44",
+          9.0
+        ],
+        [
+          "gold",
+          "wolfgang schattauer",
+          "cycling",
+          "men's individual road time trial - hc a",
+          12.0
+        ],
+        [
+          "gold",
+          "andreas vevera",
+          "table tennis",
+          "men's singles - tt1",
+          11.0
+        ],
+        [
+          "silver",
+          "wolfgang eibeck",
+          "cycling",
+          "men's individual road time trial - lc1",
+          12.0
+        ],
+        [
+          "bronze",
+          "thomas geierspichler",
+          "athletics",
+          "men's 800 m - t52",
+          16.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            2,
+            0,
+            "athletics"
+          ],
+          [
+            0,
+            0,
+            "bronze"
+          ]
+        ],
+        "agg": 5
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-2330",
+      "table_id": "1-2076516-1",
+      "question": "When university of north carolina at charlotte is the school what is the lowest enrollment in 2012?",
+      "columns": [
+        "School",
+        "Location(s)",
+        "Control",
+        "Type",
+        "Enrollment (2012)",
+        "Founded"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "appalachian state university",
+          "boone",
+          "public",
+          "master's university",
+          17589.0,
+          1899.0
+        ],
+        [
+          "east carolina university",
+          "greenville",
+          "public",
+          "doctoral/research university",
+          26946.0,
+          1907.0
+        ],
+        [
+          "elizabeth city state university",
+          "elizabeth city",
+          "public",
+          "master's university",
+          2878.0,
+          1891.0
+        ],
+        [
+          "fayetteville state university",
+          "fayetteville",
+          "public",
+          "master's university",
+          6060.0,
+          1867.0
+        ],
+        [
+          "north carolina central university",
+          "durham",
+          "public",
+          "master's university",
+          8604.0,
+          1909.0
+        ],
+        [
+          "north carolina state university",
+          "raleigh",
+          "public",
+          "doctoral/research university",
+          34340.0,
+          1887.0
+        ],
+        [
+          "university of north carolina at asheville",
+          "asheville",
+          "public",
+          "master's university",
+          3751.0,
+          1927.0
+        ],
+        [
+          "university of north carolina at chapel hill",
+          "chapel hill",
+          "public",
+          "doctoral/research university",
+          29282.0,
+          1789.0
+        ],
+        [
+          "university of north carolina at charlotte",
+          "charlotte",
+          "public",
+          "doctoral/research university",
+          26232.0,
+          1946.0
+        ],
+        [
+          "university of north carolina at greensboro",
+          "greensboro",
+          "public",
+          "doctoral/research university",
+          18516.0,
+          1891.0
+        ],
+        [
+          "university of north carolina at pembroke",
+          "pembroke",
+          "public",
+          "master's university",
+          6269.0,
+          1887.0
+        ],
+        [
+          "university of north carolina at wilmington",
+          "wilmington",
+          "public",
+          "master's university",
+          13733.0,
+          1947.0
+        ],
+        [
+          "university of north carolina school of the arts",
+          "winston-salem",
+          "public",
+          "special focus institution",
+          808.0,
+          1963.0
+        ],
+        [
+          "western carolina university",
+          "cullowhee",
+          "public",
+          "master's university",
+          9608.0,
+          1889.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            0,
+            0,
+            "University of North Carolina at Charlotte"
+          ]
+        ],
+        "agg": 2
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-53",
+      "table_id": "1-105344-2",
+      "question": "Of the years that had exactly 17096 departures, what is the greatest number of aircraft kilometers flown?",
+      "columns": [
+        "Year",
+        "Aircraft kilometers",
+        "Departures",
+        "Flying hours",
+        "Passengers",
+        "Seat factor",
+        "Employees",
+        "Profit/loss"
+      ],
+      "types": [
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          2002.0,
+          37767709.0,
+          17096.0,
+          55970.0,
+          1339779.0,
+          "66%",
+          3008.0,
+          "loss 3,044,000 jod"
+        ],
+        [
+          2003.0,
+          36933462.0,
+          16202.0,
+          54972.0,
+          1404588.0,
+          "68%",
+          3162.0,
+          "loss 9,753,000 jod"
+        ],
+        [
+          2004.0,
+          44557377.0,
+          19148.0,
+          66004.0,
+          1736637.0,
+          "71%",
+          3313.0,
+          "profit 15,327,000 jod"
+        ],
+        [
+          2005.0,
+          45557377.0,
+          20777.0,
+          68883.0,
+          1821329.0,
+          "69%",
+          3557.0,
+          "profit 20,516,000 jod"
+        ],
+        [
+          2006.0,
+          52274917.0,
+          25661.0,
+          77374.0,
+          2004559.0,
+          "66%",
+          3799.0,
+          "profit 6,135,000 jod"
+        ],
+        [
+          2007.0,
+          56055803.0,
+          30244.0,
+          88378.0,
+          2288000.0,
+          "71%",
+          4275.0,
+          "profit 24,111,000 jod"
+        ],
+        [
+          2008.0,
+          64379058.0,
+          34285.0,
+          101381.0,
+          2701000.0,
+          "72%",
+          4507.0,
+          "loss 23,400,000 jod"
+        ],
+        [
+          2009.0,
+          66017391.0,
+          35715.0,
+          105579.0,
+          2668590.0,
+          "68%",
+          4399.0,
+          "profit 28,614,000 jod"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            2,
+            0,
+            17096
+          ]
+        ],
+        "agg": 1
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-8989",
+      "table_id": "2-16380780-1",
+      "question": "what is the earliest began when the court surface is clay in hamburg?",
+      "columns": [
+        "Tournament",
+        "Country",
+        "Location",
+        "Began",
+        "Court surface"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "indian wells masters",
+          "united states",
+          "indian wells",
+          1974.0,
+          "hard"
+        ],
+        [
+          "miami masters",
+          "united states",
+          "key biscayne",
+          1985.0,
+          "hard"
+        ],
+        [
+          "monte carlo masters",
+          "monaco",
+          "roquebrune-cap-martin , france",
+          1897.0,
+          "clay"
+        ],
+        [
+          "rome masters",
+          "italy",
+          "rome",
+          1930.0,
+          "clay"
+        ],
+        [
+          "hamburg masters",
+          "germany",
+          "hamburg",
+          1892.0,
+          "clay"
+        ],
+        [
+          "canada masters",
+          "canada",
+          "montreal / toronto",
+          1881.0,
+          "hard"
+        ],
+        [
+          "cincinnati masters",
+          "united states",
+          "mason, ohio",
+          1899.0,
+          "hard"
+        ],
+        [
+          "essen masters",
+          "germany",
+          "essen",
+          1990.0,
+          "carpet (i)"
+        ],
+        [
+          "paris masters",
+          "france",
+          "paris",
+          1968.0,
+          "carpet (i)"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            4,
+            0,
+            "clay"
+          ],
+          [
+            2,
+            0,
+            "hamburg"
+          ]
+        ],
+        "agg": 2
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-2210",
+      "table_id": "1-1999350-1",
+      "question": "What is the total number of playoffs held in exactly 2006?",
+      "columns": [
+        "Year",
+        "Division",
+        "League",
+        "Regular Season",
+        "Playoffs",
+        "Open Canada Cup"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          2005.0,
+          4.0,
+          "usl pdl",
+          "3rd, northeast",
+          "did not qualify",
+          "did not participate"
+        ],
+        [
+          2006.0,
+          4.0,
+          "usl pdl",
+          "2nd, new england",
+          "did not qualify",
+          "did not participate"
+        ],
+        [
+          2007.0,
+          4.0,
+          "usl pdl",
+          "7th, northeast",
+          "did not qualify",
+          "did not participate"
+        ],
+        [
+          2008.0,
+          4.0,
+          "usl pdl",
+          "2nd, new england",
+          "did not qualify",
+          "n/a"
+        ],
+        [
+          2009.0,
+          4.0,
+          "usl pdl",
+          "1st, northeast",
+          "divisional finals",
+          "n/a"
+        ],
+        [
+          2010.0,
+          4.0,
+          "usl pdl",
+          "1st, northeast",
+          "conference finals",
+          "n/a"
+        ],
+        [
+          2011.0,
+          4.0,
+          "usl pdl",
+          "4th, northeast",
+          "did not qualify",
+          "n/a"
+        ],
+        [
+          2012.0,
+          4.0,
+          "usl pdl",
+          "1st, northeast",
+          "conference finals",
+          "n/a"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            0,
+            0,
+            2006
+          ]
+        ],
+        "agg": 3
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-1599",
+      "table_id": "1-170961-2",
+      "question": "At census ranking 1,184 of 5,008, what was the minimum population?",
+      "columns": [
+        "Official Name",
+        "Status",
+        "Area km 2",
+        "Population",
+        "Census Ranking"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "wakefield",
+          "parish",
+          "196.42",
+          2703.0,
+          "1,079 of 5,008"
+        ],
+        [
+          "kent",
+          "parish",
+          "839.79",
+          2361.0,
+          "1,184 of 5,008"
+        ],
+        [
+          "woodstock",
+          "parish",
+          "197.45",
+          2148.0,
+          "1,258 of 5,008"
+        ],
+        [
+          "brighton",
+          "parish",
+          "508.30",
+          1834.0,
+          "1,402 of 5,008"
+        ],
+        [
+          "wicklow",
+          "parish",
+          "195.50",
+          1753.0,
+          "1,441 of 5,008"
+        ],
+        [
+          "northampton",
+          "parish",
+          "243.31",
+          1599.0,
+          "1,537 of 5,008"
+        ],
+        [
+          "richmond",
+          "parish",
+          "258.82",
+          1414.0,
+          "1,666 of 5,008"
+        ],
+        [
+          "peel",
+          "parish",
+          "113.12",
+          1257.0,
+          "1,779 of 5,008"
+        ],
+        [
+          "wilmot",
+          "parish",
+          "191.43",
+          1143.0,
+          "1,888 of 5,008"
+        ],
+        [
+          "aberdeen",
+          "parish",
+          "447.91",
+          959.0,
+          "2,105 of 5,008"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            4,
+            0,
+            "1,184 of 5,008"
+          ]
+        ],
+        "agg": 2
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-8281",
+      "table_id": "2-1632976-1",
+      "question": "Which Channel has an Aspect of 4:3 and a Programming of me-tv?",
+      "columns": [
+        "Channel",
+        "Video",
+        "Aspect",
+        "PSIP Short Name",
+        "Programming"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          56.1,
+          "720p",
+          "16:9",
+          "kdoc-hd",
+          "main kdoc-tv programming"
+        ],
+        [
+          56.2,
+          "480i",
+          "4:3",
+          "esne",
+          "spanish catholic"
+        ],
+        [
+          56.3,
+          "480i",
+          "4:3",
+          "metvla",
+          "me-tv"
+        ],
+        [
+          56.4,
+          "480i",
+          "4:3",
+          "ndoc",
+          "s infomercial"
+        ],
+        [
+          56.5,
+          "480i",
+          "4:3",
+          "ibc-tv",
+          "ibc-tv (vietnamese)"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "4:3"
+          ],
+          [
+            4,
+            0,
+            "me-tv"
+          ]
+        ],
+        "agg": 0
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-9050",
+      "table_id": "2-17323267-4",
+      "question": "What is average December when game is 30?",
+      "columns": [
+        "Game",
+        "December",
+        "Opponent",
+        "Score",
+        "Record"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          22.0,
+          2.0,
+          "toronto maple leafs",
+          "4 - 2",
+          "7-10-5"
+        ],
+        [
+          23.0,
+          5.0,
+          "chicago black hawks",
+          "2 - 2",
+          "7-10-6"
+        ],
+        [
+          24.0,
+          8.0,
+          "@ toronto maple leafs",
+          "0 - 0",
+          "7-10-7"
+        ],
+        [
+          25.0,
+          9.0,
+          "detroit red wings",
+          "4 - 2",
+          "8-10-7"
+        ],
+        [
+          26.0,
+          13.0,
+          "@ detroit red wings",
+          "2 - 1",
+          "8-11-7"
+        ],
+        [
+          27.0,
+          15.0,
+          "@ toronto maple leafs",
+          "2 - 1",
+          "8-12-7"
+        ],
+        [
+          28.0,
+          16.0,
+          "montreal canadiens",
+          "4 - 2",
+          "9-12-7"
+        ],
+        [
+          29.0,
+          21.0,
+          "@ chicago black hawks",
+          "3 - 2",
+          "10-12-7"
+        ],
+        [
+          30.0,
+          23.0,
+          "toronto maple leafs",
+          "3 - 1",
+          "10-13-7"
+        ],
+        [
+          31.0,
+          25.0,
+          "@ detroit red wings",
+          "8 - 1",
+          "10-14-7"
+        ],
+        [
+          32.0,
+          27.0,
+          "chicago black hawks",
+          "3 - 2",
+          "11-14-7"
+        ],
+        [
+          33.0,
+          29.0,
+          "@ montreal canadiens",
+          "6 - 3",
+          "11-15-7"
+        ],
+        [
+          34.0,
+          31.0,
+          "detroit red wings",
+          "1 - 0",
+          "11-16-7"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            0,
+            0,
+            30
+          ]
+        ],
+        "agg": 5
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_0",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've been playing a game where rolling a six is somehow more likely than usual, and the chance of it happening on a single roll is 60%. I'm curious, if I roll the die 20 times, what are the odds that I'll get exactly five sixes?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calc_binomial_probability",
+          "description": "Calculates the probability of getting k successes in n trials.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of trials."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of successes."
+              },
+              "p": {
+                "type": "float",
+                "description": "The probability of success."
+              }
+            },
+            "required": [
+              "n",
+              "k",
+              "p"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calc_binomial_probability(n=20, k=5, p=0.6)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-15772",
+      "table_id": "2-12312742-1",
+      "question": "What is the greatest number of losses a team that played fewer than 25 games in 2010 had?",
+      "columns": [
+        "Season",
+        "Team Name",
+        "Games",
+        "Losses",
+        "Points"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "1994",
+          "north shore indians",
+          20.0,
+          15.0,
+          10.0
+        ],
+        [
+          "1995",
+          "north shore indians",
+          25.0,
+          13.0,
+          19.0
+        ],
+        [
+          "1996",
+          "north shore indians",
+          20.0,
+          7.0,
+          25.0
+        ],
+        [
+          "1997",
+          "north shore indians",
+          20.0,
+          9.0,
+          22.0
+        ],
+        [
+          "1998",
+          "north shore indians",
+          25.0,
+          11.0,
+          27.0
+        ],
+        [
+          "1999",
+          "north shore indians",
+          25.0,
+          14.0,
+          21.0
+        ],
+        [
+          "2000",
+          "okanagan thunder",
+          25.0,
+          19.0,
+          11.0
+        ],
+        [
+          "2001",
+          "okanagan thunder",
+          20.0,
+          15.0,
+          10.0
+        ],
+        [
+          "2002",
+          "north shore thunder",
+          20.0,
+          15.0,
+          9.0
+        ],
+        [
+          "2003",
+          "north shore thunder",
+          20.0,
+          11.0,
+          16.0
+        ],
+        [
+          "2004",
+          "langley thunder",
+          20.0,
+          19.0,
+          2.0
+        ],
+        [
+          "2005",
+          "langley thunder",
+          17.0,
+          15.0,
+          4.0
+        ],
+        [
+          "2006",
+          "langley thunder",
+          18.0,
+          16.0,
+          4.0
+        ],
+        [
+          "2007",
+          "langley thunder",
+          18.0,
+          12.0,
+          12.0
+        ],
+        [
+          "2008",
+          "langley thunder",
+          18.0,
+          15.0,
+          6.0
+        ],
+        [
+          "2009",
+          "langley thunder",
+          18.0,
+          7.0,
+          21.0
+        ],
+        [
+          "2010",
+          "langley thunder",
+          18.0,
+          12.0,
+          12.0
+        ],
+        [
+          "2011",
+          "langley thunder",
+          18.0,
+          8.0,
+          18.0
+        ],
+        [
+          "total",
+          "18 seasons",
+          365.0,
+          233.0,
+          249.0
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            2,
+            2,
+            25
+          ],
+          [
+            0,
+            0,
+            "2010"
+          ]
+        ],
+        "agg": 1
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-7856",
+      "table_id": "2-17085981-1",
+      "question": "What is the Capacity of the Rainer Kraft's Stadium?",
+      "columns": [
+        "Team",
+        "Head Coach",
+        "City",
+        "Stadium",
+        "Capacity"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          "vfr aalen",
+          "rainer scharinger",
+          "aalen",
+          "st\u00e4dtisches waldstadion",
+          "11,183"
+        ],
+        [
+          "fc erzgebirge aue",
+          "heiko weber",
+          "aue",
+          "erzgebirgsstadion",
+          "16,350"
+        ],
+        [
+          "1. fc union berlin",
+          "uwe neuhaus",
+          "berlin",
+          "friedrich-ludwig-jahn-sportpark 1",
+          "19,708"
+        ],
+        [
+          "eintracht braunschweig",
+          "torsten lieberknecht",
+          "braunschweig",
+          "eintracht-stadion",
+          "23,500"
+        ],
+        [
+          "sv werder bremen ii",
+          "thomas wolter",
+          "bremen",
+          "weserstadion platz 11",
+          "5,500"
+        ],
+        [
+          "sv wacker burghausen",
+          "ralf santelli (interim)",
+          "burghausen",
+          "wacker arena",
+          "8,400"
+        ],
+        [
+          "dynamo dresden",
+          "ruud kaiser",
+          "dresden",
+          "rudolf harbig stadion",
+          "23,940"
+        ],
+        [
+          "fortuna d\u00fcsseldorf",
+          "norbert meier",
+          "d\u00fcsseldorf",
+          "ltu-arena",
+          "51,500"
+        ],
+        [
+          "kickers emden",
+          "stefan emmerling",
+          "emden",
+          "embdena-stadion",
+          "7,200"
+        ],
+        [
+          "fc rot-wei\u00df erfurt",
+          "henri fuchs (interim)",
+          "erfurt",
+          "steigerwaldstadion",
+          "20,000"
+        ],
+        [
+          "fc carl zeiss jena",
+          "marc fascher",
+          "jena",
+          "ernst-abbe-sportfeld",
+          "15,610"
+        ],
+        [
+          "fc bayern munich ii",
+          "mehmet scholl (interim)",
+          "munich",
+          "gr\u00fcnwalder stadion",
+          "10,240"
+        ],
+        [
+          "kickers offenbach",
+          "hans-j\u00fcrgen boysen",
+          "offenbach am main",
+          "bieberer berg stadion",
+          "31,500"
+        ],
+        [
+          "sc paderborn 07",
+          "andr\u00e9 schubert (interim)",
+          "paderborn",
+          "paragon arena",
+          "15,300"
+        ],
+        [
+          "ssv jahn regensburg",
+          "markus weinzierl",
+          "regensburg",
+          "jahnstadion",
+          "11,800"
+        ],
+        [
+          "sv sandhausen",
+          "gerd dais",
+          "sandhausen",
+          "hardtwaldstadion",
+          "11,544"
+        ],
+        [
+          "stuttgarter kickers",
+          "rainer kraft",
+          "stuttgart",
+          "gazi-stadion auf der waldau",
+          "11,436"
+        ],
+        [
+          "vfb stuttgart ii",
+          "rainer adrion",
+          "stuttgart",
+          "gazi-stadion auf der waldau",
+          "11,436"
+        ],
+        [
+          "spvgg unterhaching",
+          "ralph hasenh\u00fcttl",
+          "unterhaching",
+          "generali sportpark",
+          "15,053"
+        ],
+        [
+          "wuppertaler sv borussia",
+          "uwe fuchs",
+          "wuppertal",
+          "zoo-stadion",
+          "28,000"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            1,
+            0,
+            "rainer kraft"
+          ]
+        ],
+        "agg": 5
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_18",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "To better understand the volatility and risk associated with this particular stock, I need to calculate the standard deviation of its daily closing prices over the past 10 trading days. Here are the figures I've gathered: 1000, 2000, 3000, 4000, 5000, 7000, 9000, 15000, 20000, and 30000. Can you provide me with the standard deviation for these closing prices?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_standard_deviation",
+          "description": "Calculates the standard deviation of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_standard_deviation(numbers=[1000,2000,3000,4000,5000,7000,9000,15000,20000,30000])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-8396",
+      "table_id": "2-16454472-15",
+      "question": "What is the lowest number of FA Cup goals for players with 12 League goals and 14 total goals?",
+      "columns": [
+        "Scorer",
+        "Club",
+        "League goals",
+        "FA Cup goals",
+        "League Cup goals",
+        "Total"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "malcolm macdonald",
+          "luton town",
+          "24",
+          1.0,
+          2.0,
+          27.0
+        ],
+        [
+          "george jones",
+          "bury",
+          "26",
+          0.0,
+          0.0,
+          26.0
+        ],
+        [
+          "les chappell",
+          "reading",
+          "25",
+          0.0,
+          0.0,
+          25.0
+        ],
+        [
+          "steve earle",
+          "fulham",
+          "22",
+          0.0,
+          1.0,
+          23.0
+        ],
+        [
+          "george kerr",
+          "bury",
+          "20",
+          2.0,
+          1.0,
+          23.0
+        ],
+        [
+          "jimmy convay",
+          "fulham",
+          "22",
+          0.0,
+          0.0,
+          22.0
+        ],
+        [
+          "ted macdougall",
+          "bournemouth & boscombe athletic",
+          "21",
+          0.0,
+          1.0,
+          22.0
+        ],
+        [
+          "george andrews",
+          "shrewsbury town / southport",
+          "13+6",
+          0.0,
+          2.0,
+          21.0
+        ],
+        [
+          "reg jenkins",
+          "rochdale",
+          "20",
+          0.0,
+          0.0,
+          20.0
+        ],
+        [
+          "george yardley",
+          "tranmere rovers",
+          "17",
+          2.0,
+          1.0,
+          20.0
+        ],
+        [
+          "terry bell",
+          "reading / hartlepool united",
+          "2+15",
+          2.0,
+          1.0,
+          20.0
+        ],
+        [
+          "mickey bullock",
+          "orient",
+          "19",
+          0.0,
+          0.0,
+          19.0
+        ],
+        [
+          "dudley roberts",
+          "mansfield town",
+          "18",
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          "mike bickle",
+          "plymouth argyle",
+          "18",
+          0.0,
+          0.0,
+          18.0
+        ],
+        [
+          "bobby ham",
+          "bradford city",
+          "16",
+          0.0,
+          2.0,
+          18.0
+        ],
+        [
+          "robin stubbs",
+          "bristol rovers",
+          "15",
+          2.0,
+          0.0,
+          17.0
+        ],
+        [
+          "alan gilliver",
+          "brighton & hove albion",
+          "13",
+          2.0,
+          2.0,
+          17.0
+        ],
+        [
+          "terry harkin",
+          "shrewsbury town",
+          "16",
+          0.0,
+          0.0,
+          16.0
+        ],
+        [
+          "tony field",
+          "southport",
+          "16",
+          0.0,
+          0.0,
+          16.0
+        ],
+        [
+          "alan welsh",
+          "torquay united",
+          "16",
+          0.0,
+          0.0,
+          16.0
+        ],
+        [
+          "john rudge",
+          "torquay united",
+          "14",
+          1.0,
+          1.0,
+          16.0
+        ],
+        [
+          "john evans",
+          "barnsley",
+          "15",
+          0.0,
+          0.0,
+          15.0
+        ],
+        [
+          "tony buck",
+          "rochdale",
+          "15",
+          0.0,
+          0.0,
+          15.0
+        ],
+        [
+          "malcolm partridge",
+          "mansfield town",
+          "13",
+          2.0,
+          0.0,
+          15.0
+        ],
+        [
+          "brian yeo",
+          "gillingham",
+          "9",
+          5.0,
+          1.0,
+          15.0
+        ],
+        [
+          "bobby williams",
+          "reading",
+          "14",
+          0.0,
+          0.0,
+          14.0
+        ],
+        [
+          "ray graydon",
+          "bristol rovers",
+          "13",
+          1.0,
+          0.0,
+          14.0
+        ],
+        [
+          "dennis butler",
+          "rochdale",
+          "12",
+          2.0,
+          0.0,
+          14.0
+        ],
+        [
+          "mike green",
+          "gillingham",
+          "11",
+          3.0,
+          0.0,
+          14.0
+        ],
+        [
+          "derek smith",
+          "tranmere rovers",
+          "11",
+          2.0,
+          1.0,
+          14.0
+        ],
+        [
+          "ken beamish",
+          "tranmere rovers",
+          "10",
+          3.0,
+          1.0,
+          14.0
+        ],
+        [
+          "peter middleton",
+          "bradford city",
+          "11",
+          2.0,
+          0.0,
+          13.0
+        ],
+        [
+          "dai jones",
+          "mansfield town",
+          "11",
+          2.0,
+          0.0,
+          13.0
+        ],
+        [
+          "colin taylor",
+          "walsall",
+          "9",
+          4.0,
+          0.0,
+          13.0
+        ],
+        [
+          "dean",
+          "bournemouth & boscombe athletic",
+          "12",
+          0.0,
+          0.0,
+          12.0
+        ],
+        [
+          "carl gilbert",
+          "bristol rovers",
+          "12",
+          0.0,
+          0.0,
+          12.0
+        ],
+        [
+          "barrie fairbrother",
+          "orient",
+          "12",
+          0.0,
+          0.0,
+          12.0
+        ],
+        [
+          "john regan",
+          "doncaster rovers",
+          "12",
+          0.0,
+          0.0,
+          12.0
+        ],
+        [
+          "matt tees",
+          "luton town",
+          "11",
+          1.0,
+          0.0,
+          12.0
+        ],
+        [
+          "john collins",
+          "luton town",
+          "10",
+          2.0,
+          0.0,
+          12.0
+        ],
+        [
+          "richard moir",
+          "shrewsbury town",
+          "10",
+          2.0,
+          0.0,
+          12.0
+        ],
+        [
+          "alex dawson",
+          "brighton & hove albion",
+          "9",
+          2.0,
+          1.0,
+          12.0
+        ],
+        [
+          "jim mulvaney",
+          "barrow",
+          "11",
+          0.0,
+          0.0,
+          11.0
+        ],
+        [
+          "kit napier",
+          "brighton & hove albion",
+          "10",
+          1.0,
+          0.0,
+          11.0
+        ],
+        [
+          "eddie loyden",
+          "barnsley",
+          "9",
+          2.0,
+          0.0,
+          11.0
+        ],
+        [
+          "harold jarman",
+          "bristol rovers",
+          "10",
+          0.0,
+          0.0,
+          10.0
+        ],
+        [
+          "ken pound",
+          "gillingham",
+          "9",
+          1.0,
+          0.0,
+          10.0
+        ],
+        [
+          "rowlands",
+          "stockport",
+          "9",
+          1.0,
+          0.0,
+          10.0
+        ],
+        [
+          "bill atkins",
+          "halifax town / portsmouth",
+          "7+2",
+          1.0,
+          0.0,
+          10.0
+        ],
+        [
+          "les o\u2019neill",
+          "bradford city",
+          "8",
+          2.0,
+          0.0,
+          10.0
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            2,
+            0,
+            "12"
+          ],
+          [
+            5,
+            0,
+            14
+          ]
+        ],
+        "agg": 2
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-12685",
+      "table_id": "2-17634290-8",
+      "question": "How many goals for Kenton have a transfer window of Summer?",
+      "columns": [
+        "Name",
+        "Country",
+        "Type",
+        "Transfer window",
+        "Transfer fee",
+        "Apps",
+        "Goals"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "thompson",
+          "eng",
+          "retired",
+          "summer",
+          "n/a",
+          25.0,
+          5.0
+        ],
+        [
+          "kenton",
+          "eng",
+          "out of contract",
+          "summer",
+          "n/a",
+          16.0,
+          0.0
+        ],
+        [
+          "constantine",
+          "eng",
+          "transferred",
+          "summer",
+          "free",
+          6.0,
+          2.0
+        ],
+        [
+          "ameobi",
+          "eng",
+          "transferred",
+          "summer",
+          "\u00a3 30k",
+          2.0,
+          0.0
+        ],
+        [
+          "elding",
+          "eng",
+          "transferred",
+          "summer",
+          "\u00a3160k",
+          9.0,
+          1.0
+        ],
+        [
+          "sorsa",
+          "fin",
+          "released",
+          "summer",
+          "n/a",
+          0.0,
+          0.0
+        ],
+        [
+          "bayly",
+          "ire",
+          "released",
+          "summer",
+          "n/a",
+          3.0,
+          0.0
+        ],
+        [
+          "weston",
+          "eng",
+          "transferred",
+          "summer",
+          "free",
+          11.0,
+          1.0
+        ],
+        [
+          "carole",
+          "fra",
+          "released",
+          "summer",
+          "n/a",
+          52.0,
+          3.0
+        ],
+        [
+          "assoumani",
+          "mli fra",
+          "out of contract",
+          "winter",
+          "n/a",
+          1.0,
+          0.0
+        ],
+        [
+          "westlake",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          52.0,
+          3.0
+        ],
+        [
+          "christie",
+          "eng",
+          "released 1",
+          "winter",
+          "n/a",
+          5.0,
+          1.0
+        ],
+        [
+          "gardner",
+          "eng lux",
+          "released",
+          "winter",
+          "n/a",
+          2.0,
+          0.0
+        ],
+        [
+          "telfer",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          18.0,
+          0.0
+        ],
+        [
+          "lund",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          0.0,
+          0.0
+        ],
+        [
+          "booth",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          0.0,
+          0.0
+        ],
+        [
+          "cartman",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          0.0,
+          0.0
+        ],
+        [
+          "edwards",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          0.0,
+          0.0
+        ],
+        [
+          "jerome",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          0.0,
+          0.0
+        ],
+        [
+          "ovington",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          0.0,
+          0.0
+        ],
+        [
+          "wilkinson",
+          "eng",
+          "released",
+          "winter",
+          "n/a",
+          0.0,
+          0.0
+        ]
+      ],
+      "sql": {
+        "sel": 6,
+        "conds": [
+          [
+            3,
+            0,
+            "summer"
+          ],
+          [
+            0,
+            0,
+            "kenton"
+          ]
+        ],
+        "agg": 3
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-5740",
+      "table_id": "2-14415326-2",
+      "question": "What is the average weight of Jeremy Case, who plays guard?",
+      "columns": [
+        "Name",
+        "Position",
+        "Height",
+        "Weight",
+        "Year",
+        "Home Town"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "darrell arthur",
+          "forward",
+          "6\u20139",
+          230.0,
+          "freshman",
+          "dallas, tx"
+        ],
+        [
+          "brennan bechard",
+          "guard",
+          "6\u20130",
+          183.0,
+          "sophomore",
+          "lawrence, ks"
+        ],
+        [
+          "jeremy case",
+          "guard",
+          "6\u20131",
+          182.0,
+          "junior",
+          "mcalester, ok"
+        ],
+        [
+          "mario chalmers",
+          "guard",
+          "6\u20131",
+          195.0,
+          "sophomore",
+          "anchorage, ak"
+        ],
+        [
+          "sherron collins",
+          "guard",
+          "5\u201311",
+          200.0,
+          "freshman",
+          "chicago, il"
+        ],
+        [
+          "darnell jackson",
+          "forward",
+          "6\u20138",
+          250.0,
+          "junior",
+          "oklahoma city, ok"
+        ],
+        [
+          "sasha kaun",
+          "center",
+          "6\u201311",
+          245.0,
+          "junior",
+          "melbourne, fl"
+        ],
+        [
+          "matt kleinmann",
+          "center",
+          "6\u201310",
+          247.0,
+          "sophomore",
+          "overland park, ks"
+        ],
+        [
+          "brady morningstar",
+          "guard",
+          "6\u20133",
+          185.0,
+          "freshman",
+          "lawrence, ks"
+        ],
+        [
+          "russell robinson",
+          "guard",
+          "6\u20131",
+          200.0,
+          "junior",
+          "new york city, ny"
+        ],
+        [
+          "brandon rush",
+          "guard",
+          "6\u20136",
+          210.0,
+          "sophomore",
+          "kansas city, mo"
+        ],
+        [
+          "rodrick stewart",
+          "guard",
+          "6\u20134",
+          205.0,
+          "sophomore",
+          "seattle, wa"
+        ],
+        [
+          "brad witherspoon",
+          "guard",
+          "6\u20131",
+          180.0,
+          "junior",
+          "humboldt, ks"
+        ],
+        [
+          "julian wright",
+          "forward",
+          "6\u20138",
+          225.0,
+          "sophomore",
+          "chicago heights, il"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            1,
+            0,
+            "guard"
+          ],
+          [
+            0,
+            0,
+            "jeremy case"
+          ]
+        ],
+        "agg": 5
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-14306",
+      "table_id": "2-18826631-4",
+      "question": "Name the highest Bronze which has a Gold larger than 2 and a Rank of total?",
+      "columns": [
+        "Rank",
+        "Nation",
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Total"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "1",
+          "hungary",
+          7.0,
+          5.0,
+          5.0,
+          17.0
+        ],
+        [
+          "2",
+          "germany",
+          5.0,
+          3.0,
+          3.0,
+          11.0
+        ],
+        [
+          "3",
+          "russia",
+          2.0,
+          2.0,
+          6.0,
+          10.0
+        ],
+        [
+          "4",
+          "italy",
+          2.0,
+          3.0,
+          1.0,
+          6.0
+        ],
+        [
+          "5",
+          "canada",
+          4.0,
+          1.0,
+          0.0,
+          5.0
+        ],
+        [
+          "6",
+          "australia",
+          2.0,
+          1.0,
+          1.0,
+          4.0
+        ],
+        [
+          "7",
+          "czech republic",
+          2.0,
+          1.0,
+          1.0,
+          4.0
+        ],
+        [
+          "8",
+          "romania",
+          0.0,
+          2.0,
+          1.0,
+          3.0
+        ],
+        [
+          "9",
+          "ukraine",
+          0.0,
+          1.0,
+          2.0,
+          3.0
+        ],
+        [
+          "10",
+          "israel",
+          1.0,
+          1.0,
+          0.0,
+          2.0
+        ],
+        [
+          "11",
+          "slovakia",
+          1.0,
+          1.0,
+          0.0,
+          2.0
+        ],
+        [
+          "12",
+          "norway",
+          0.0,
+          1.0,
+          1.0,
+          2.0
+        ],
+        [
+          "13",
+          "sweden",
+          0.0,
+          1.0,
+          1.0,
+          2.0
+        ],
+        [
+          "14",
+          "yugoslavia",
+          0.0,
+          1.0,
+          1.0,
+          2.0
+        ],
+        [
+          "15",
+          "spain",
+          0.0,
+          0.0,
+          2.0,
+          2.0
+        ],
+        [
+          "16",
+          "belarus",
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          "17",
+          "poland",
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          "18",
+          "argentina",
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "total",
+          "total",
+          26.0,
+          26.0,
+          26.0,
+          78.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            2,
+            1,
+            2
+          ],
+          [
+            0,
+            0,
+            "total"
+          ]
+        ],
+        "agg": 1
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-13742",
+      "table_id": "2-18752903-1",
+      "question": "What is the Week of the game against Minnesota Vikings?",
+      "columns": [
+        "Week",
+        "Date",
+        "Opponent",
+        "Result",
+        "Attendance"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          "september 12, 2004",
+          "seattle seahawks",
+          "l 21-7",
+          "64,900"
+        ],
+        [
+          2.0,
+          "september 19, 2004",
+          "san francisco 49ers",
+          "w 30-27",
+          "64,900"
+        ],
+        [
+          3.0,
+          "september 26, 2004",
+          "at st. louis rams",
+          "w 28-25",
+          "65,856"
+        ],
+        [
+          4.0,
+          "october 3, 2004",
+          "at arizona cardinals",
+          "l 34-10",
+          "28,109"
+        ],
+        [
+          5.0,
+          "october 10, 2004",
+          "tampa bay buccaneers",
+          "l 20-17",
+          "64,900"
+        ],
+        [
+          6.0,
+          "october 17, 2004",
+          "minnesota vikings",
+          "l 38-31",
+          "64,900"
+        ],
+        [
+          7.0,
+          "october 24, 2004",
+          "at oakland raiders",
+          "w 31-26",
+          "45,337"
+        ],
+        [
+          8.0,
+          "bye",
+          "bye",
+          "bye",
+          "bye"
+        ],
+        [
+          9.0,
+          "november 7, 2004",
+          "at san diego chargers",
+          "l 43-17",
+          "59,662"
+        ],
+        [
+          10.0,
+          "november 14, 2004",
+          "kansas city chiefs",
+          "w 27-20",
+          "64,900"
+        ],
+        [
+          11.0,
+          "november 21, 2004",
+          "denver broncos",
+          "l 34-13",
+          "64,900"
+        ],
+        [
+          12.0,
+          "november 28, 2004",
+          "at atlanta falcons",
+          "l 24-21",
+          "70,521"
+        ],
+        [
+          13.0,
+          "december 5, 2004",
+          "carolina panthers",
+          "l 32-21",
+          "58,878"
+        ],
+        [
+          14.0,
+          "december 12, 2004",
+          "at dallas cowboys",
+          "w 27-13",
+          "64,056"
+        ],
+        [
+          15.0,
+          "december 19, 2004",
+          "at tampa bay buccaneers",
+          "w 21-17",
+          "65,075"
+        ],
+        [
+          16.0,
+          "december 26, 2004",
+          "atlanta falcons",
+          "w 26-13",
+          "64,900"
+        ],
+        [
+          17.0,
+          "january 2, 2005",
+          "at carolina panthers",
+          "w 21-18",
+          "73,302"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "minnesota vikings"
+          ]
+        ],
+        "agg": 1
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-5203",
+      "table_id": "2-14509824-5",
+      "question": "What is the round of Jimmy Drolet from Canada?",
+      "columns": [
+        "Round",
+        "Player",
+        "Position",
+        "Nationality",
+        "College/Junior/Club Team"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          "brad brown",
+          "defenceman",
+          "canada",
+          "north bay centennials (ohl)"
+        ],
+        [
+          2.0,
+          "jose theodore",
+          "goalie",
+          "canada",
+          "st-jean lynx (qmjhl)"
+        ],
+        [
+          3.0,
+          "chris murray",
+          "right wing",
+          "canada",
+          "kamloops blazers (whl)"
+        ],
+        [
+          3.0,
+          "marko kiprusoff",
+          "defenceman",
+          "finland",
+          "tps (finland)"
+        ],
+        [
+          3.0,
+          "martin belanger",
+          "defence",
+          "canada",
+          "granby bisons (qmjhl)"
+        ],
+        [
+          4.0,
+          "arto kuki",
+          "center",
+          "finland",
+          "espoo blues (fin)"
+        ],
+        [
+          5.0,
+          "jimmy drolet",
+          "defenceman",
+          "canada",
+          "st. hyacinthe lasers (qmjhl)"
+        ],
+        [
+          6.0,
+          "joel irving",
+          "center",
+          "canada",
+          "regina pat canadiens (midget aaa)"
+        ],
+        [
+          7.0,
+          "jessie rezansoff",
+          "right wing",
+          "canada",
+          "regina pats (whl)"
+        ],
+        [
+          8.0,
+          "peter strom",
+          "left wing",
+          "sweden",
+          "fr\u00f6lunda hc (sweden)"
+        ],
+        [
+          9.0,
+          "tomas vokoun",
+          "goalie",
+          "czechoslovakia",
+          "kladno (czech)"
+        ],
+        [
+          10.0,
+          "chris aldous",
+          "defence",
+          "united states",
+          "northwood prep. (n.y)"
+        ],
+        [
+          11.0,
+          "ross parsons",
+          "defenceman",
+          "canada",
+          "regina pats (whl)"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            3,
+            0,
+            "canada"
+          ],
+          [
+            1,
+            0,
+            "jimmy drolet"
+          ]
+        ],
+        "agg": 0
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-1195",
+      "table_id": "1-15187735-5",
+      "question": "Kitchen knives is segment a of what episode? ",
+      "columns": [
+        "Series Ep.",
+        "Episode",
+        "Netflix",
+        "Segment A",
+        "Segment B",
+        "Segment C",
+        "Segment D"
+      ],
+      "types": [
+        "text",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "5-01",
+          53.0,
+          "s03e01",
+          "paving asphalt",
+          "marshmallow cookies",
+          "s loudspeaker",
+          "electronic door locks"
+        ],
+        [
+          "5-02",
+          54.0,
+          "s03e02",
+          "wood burning stoves",
+          "orthoses",
+          "ballet slippers",
+          "es bus"
+        ],
+        [
+          "5-03",
+          55.0,
+          "s03e03",
+          "robotic arms",
+          "s tattoo",
+          "s sanitary napkin",
+          "concrete s pipe"
+        ],
+        [
+          "5-04",
+          56.0,
+          "s03e04",
+          "hockey gloves",
+          "snack cakes",
+          "remoulded tires",
+          "wastewater treatment"
+        ],
+        [
+          "5-05",
+          57.0,
+          "s03e05",
+          "s ambulance",
+          "dining room tables",
+          "diatonic s accordion",
+          "s acrylic award"
+        ],
+        [
+          "5-06",
+          58.0,
+          "s03e06",
+          "alkaline batteries",
+          "s wheelchair",
+          "s flute",
+          "cowboy boots"
+        ],
+        [
+          "5-07",
+          59.0,
+          "s03e07",
+          "golf balls",
+          "furniture handles",
+          "parking meters",
+          "room dividers"
+        ],
+        [
+          "5-08",
+          60.0,
+          "s03e08",
+          "suits of armour",
+          "street light poles",
+          "bent hardwood",
+          "membrane switches"
+        ],
+        [
+          "5-09",
+          61.0,
+          "s03e09",
+          "sulkies",
+          "bagpipes",
+          "yule logs",
+          "fishing lures"
+        ],
+        [
+          "5-10",
+          62.0,
+          "s03e10",
+          "goalie pads",
+          "lapel pins",
+          "cardboard boxes",
+          "crystal wine glasses"
+        ],
+        [
+          "5-11",
+          63.0,
+          "s03e11",
+          "cement",
+          "caskets",
+          "soft drinks",
+          "glider rockers"
+        ],
+        [
+          "5-12",
+          64.0,
+          "s03e12",
+          "kitchen knives",
+          "s mannequin",
+          "s sock",
+          "hypodermic needles"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            3,
+            0,
+            "Kitchen Knives"
+          ]
+        ],
+        "agg": 0
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-8831",
+      "table_id": "2-17323274-3",
+      "question": "What is the highest November date that has a game under 19 and opponents of the Minnesota North Stars?",
+      "columns": [
+        "Game",
+        "November",
+        "Opponent",
+        "Score",
+        "Record"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          10.0,
+          1.0,
+          "chicago black hawks",
+          "5 - 2",
+          "7-2-1"
+        ],
+        [
+          11.0,
+          4.0,
+          "@ california golden seals",
+          "3 - 1",
+          "7-3-1"
+        ],
+        [
+          12.0,
+          7.0,
+          "@ los angeles kings",
+          "6 - 2",
+          "8-3-1"
+        ],
+        [
+          13.0,
+          11.0,
+          "pittsburgh penguins",
+          "3 - 3",
+          "8-3-2"
+        ],
+        [
+          14.0,
+          14.0,
+          "@ chicago black hawks",
+          "2 - 1",
+          "8-4-2"
+        ],
+        [
+          15.0,
+          15.0,
+          "toronto maple leafs",
+          "4 - 2",
+          "9-4-2"
+        ],
+        [
+          16.0,
+          18.0,
+          "@ los angeles kings",
+          "5 - 3",
+          "10-4-2"
+        ],
+        [
+          17.0,
+          21.0,
+          "@ montreal canadiens",
+          "5 - 4",
+          "11-4-2"
+        ],
+        [
+          18.0,
+          22.0,
+          "minnesota north stars",
+          "2 - 0",
+          "12-4-2"
+        ],
+        [
+          19.0,
+          25.0,
+          "@ philadelphia flyers",
+          "3 - 1",
+          "12-5-2"
+        ],
+        [
+          20.0,
+          26.0,
+          "@ buffalo sabres",
+          "2 - 2",
+          "12-5-3"
+        ],
+        [
+          21.0,
+          28.0,
+          "boston bruins",
+          "3 - 3",
+          "12-5-4"
+        ],
+        [
+          22.0,
+          29.0,
+          "pittsburgh penguins",
+          "6 - 2",
+          "13-5-4"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            0,
+            2,
+            19
+          ],
+          [
+            2,
+            0,
+            "minnesota north stars"
+          ]
+        ],
+        "agg": 1
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_8",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During our physics lab session, we're experimenting with electric fields and their effects on charged particles. We've placed a particle that carries a charge of 5 coulombs within a field where there's a voltage of 10 volts. I need to calculate the electrostatic potential energy for this scenario. Could you work that out for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_electrostatic_potential_energy",
+          "description": "Calculates the electrostatic potential energy.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "charge": {
+                "type": "float",
+                "description": "The charge of the object, in coulombs."
+              },
+              "voltage": {
+                "type": "float",
+                "description": "The voltage of the object, in volts."
+              }
+            },
+            "required": [
+              "charge",
+              "voltage"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_electrostatic_potential_energy(charge=5.0, voltage=10.0)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-15709",
+      "table_id": "2-1235746-1",
+      "question": "What year has more than 0 points?",
+      "columns": [
+        "Year",
+        "Entrant",
+        "Chassis",
+        "Engine",
+        "Points"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1962.0,
+          "john love",
+          "cooper t55",
+          "climax straight-4",
+          0.0
+        ],
+        [
+          1963.0,
+          "john love",
+          "cooper t55",
+          "climax straight-4",
+          0.0
+        ],
+        [
+          1964.0,
+          "cooper car company",
+          "cooper t73",
+          "climax v8",
+          0.0
+        ],
+        [
+          1965.0,
+          "john love",
+          "cooper t55",
+          "climax straight-4",
+          0.0
+        ],
+        [
+          1967.0,
+          "john love",
+          "cooper t79",
+          "climax straight-4",
+          6.0
+        ],
+        [
+          1968.0,
+          "team gunston",
+          "brabham bt20",
+          "repco v8",
+          0.0
+        ],
+        [
+          1969.0,
+          "team gunston",
+          "lotus 49",
+          "cosworth v8",
+          0.0
+        ],
+        [
+          1970.0,
+          "team gunston",
+          "lotus 49",
+          "cosworth v8",
+          0.0
+        ],
+        [
+          1971.0,
+          "team peco/gunston",
+          "march 701",
+          "cosworth v8",
+          0.0
+        ],
+        [
+          1972.0,
+          "team gunston",
+          "surtees ts9",
+          "cosworth v8",
+          0.0
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            4,
+            1,
+            0
+          ]
+        ],
+        "agg": 0
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_13",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got $8000 that I'm planning to drop into a savings account with a sweet annual interest rate of 4%. I'm not touching it for 15 years. I'm curious about the future value of this investment after that time. Can you crunch the numbers for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_future_value",
+          "description": "Calculates the future value of an investment.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "present_value": {
+                "type": "float",
+                "description": "The present value of the investment, in dollars."
+              },
+              "interest_rate": {
+                "type": "float",
+                "description": "The interest rate of the investment, ranging from 0 to 1."
+              },
+              "periods": {
+                "type": "integer",
+                "description": "The number of periods, in years."
+              }
+            },
+            "required": [
+              "present_value",
+              "interest_rate",
+              "periods"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_future_value(present_value=8000, interest_rate=0.04, periods=15)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_16",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm developing a new encryption algorithm and I'm currently focused on the permutations aspect. I need to know how many unique arrangements are possible if I take 5 characters from the standard English alphabet, which has 26 letters. This calculation is crucial for understanding the complexity of the encryption. Can you run the permutations calculation with these values?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_permutations",
+          "description": "Calculates the number of permutations of k elements from a set of n elements.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of elements in the set."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of elements to choose."
+              }
+            },
+            "required": [
+              "n",
+              "k"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_permutations(n=26, k=5)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-4268",
+      "table_id": "1-30007505-1",
+      "question": "Name the semifinalists for singapore",
+      "columns": [
+        "Rank",
+        "Country/Territory",
+        "Mister International",
+        "1st runner-up",
+        "2nd runner-up",
+        "3rd runner-up",
+        "4th runner-up",
+        "Semifinalists",
+        "Total"
+      ],
+      "types": [
+        "real",
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          1.0,
+          "lebanon",
+          2.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          5.0
+        ],
+        [
+          2.0,
+          "brazil",
+          2.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          5.0
+        ],
+        [
+          3.0,
+          "vietnam",
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          3.0
+        ],
+        [
+          4.0,
+          "bolivia",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          2.0
+        ],
+        [
+          5.0,
+          "great britain",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          7.0,
+          "spain",
+          0.0,
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          2.0
+        ],
+        [
+          8.0,
+          "venezuela",
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          5.0,
+          7.0
+        ],
+        [
+          9.0,
+          "singapore",
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          4.0,
+          5.0
+        ],
+        [
+          10.0,
+          "south korea",
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          2.0,
+          3.0
+        ],
+        [
+          11.0,
+          "czech republic",
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          12.0,
+          "greece",
+          0.0,
+          0.0,
+          2.0,
+          0.0,
+          1.0,
+          1.0,
+          4.0
+        ],
+        [
+          13.0,
+          "indonesia",
+          0.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0,
+          4.0,
+          6.0
+        ],
+        [
+          14.0,
+          "slovenia",
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          3.0,
+          4.0
+        ],
+        [
+          15.0,
+          "china",
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          16.0,
+          "france",
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          2.0,
+          3.0
+        ],
+        [
+          17.0,
+          "latvia",
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          2.0
+        ],
+        [
+          18.0,
+          "croatia",
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          19.0,
+          "usa",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          3.0,
+          4.0
+        ],
+        [
+          20.0,
+          "slovak republic",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0,
+          2.0
+        ],
+        [
+          21.0,
+          "netherlands",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          21.0,
+          "poland",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          23.0,
+          "philippines",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          4.0,
+          4.0
+        ],
+        [
+          24.0,
+          "belgium",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          3.0,
+          3.0
+        ],
+        [
+          25.0,
+          "india",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          2.0,
+          2.0
+        ],
+        [
+          25.0,
+          "italy",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          2.0,
+          2.0
+        ],
+        [
+          25.0,
+          "sri lanka",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          2.0,
+          2.0
+        ],
+        [
+          25.0,
+          "taiwan",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          2.0,
+          2.0
+        ],
+        [
+          25.0,
+          "turkey",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          2.0,
+          2.0
+        ],
+        [
+          30.0,
+          "austria",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "bosnia & herzegovina",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "chile",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "colombia",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "costa rica",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "denmark",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "ireland",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "macedonia",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "malaysia",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "mexico",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "namibia",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "new zealand",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "nigeria",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "norway",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "puerto rico",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "serbia",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          30.0,
+          "sweden",
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ]
+      ],
+      "sql": {
+        "sel": 7,
+        "conds": [
+          [
+            1,
+            0,
+            "Singapore"
+          ]
+        ],
+        "agg": 0
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "exec_simple_3",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a project that involves comparing the attributes of different entities to determine how similar they are. I have two entities represented by numerical arrays, and I need to use cosine similarity as a measure of similarity between them. The attributes for the first entity are [0.3, 0.8, 0.1, 0.6, 0.2], and for the second entity, they are [0.5, 0.7, 0.4, 0.9, 0.3]. Could you calculate the cosine similarity for these two vectors for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_cosine_similarity",
+          "description": "Calculates the cosine similarity of two vectors.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "vectorA": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The first vector."
+              },
+              "vectorB": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The second vector."
+              }
+            },
+            "required": [
+              "vectorA",
+              "vectorB"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_cosine_similarity(vectorA=[0.3, 0.8, 0.1, 0.6, 0.2], vectorB=[0.5, 0.7, 0.4, 0.9, 0.3])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_14",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "As part of my data analysis project, I've been tasked with examining the temperature trends over the past month. I've collected a set of daily temperature readings that I need to interpret. The dataset includes temperatures ranging from 22 to 80 degrees Celsius, incrementing by 2 each day. To gain a better understanding of the overall climate patterns, could you calculate the average temperature for this period using these values?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_mean",
+          "description": "Calculates the mean of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_mean(numbers=[22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "wikisql-test-5688",
+      "table_id": "2-1419115-1",
+      "question": "When the Per capita income is $29,194, what is the average population?",
+      "columns": [
+        "County",
+        "Per capita income",
+        "Median household income",
+        "Median family income",
+        "Population",
+        "Number of households"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "rockingham",
+          "$37,422",
+          "$77,470",
+          "$92,835",
+          "295,223",
+          "115,033"
+        ],
+        [
+          "hillsborough",
+          "$33,653",
+          "$70,591",
+          "$83,636",
+          "400,721",
+          "155,466"
+        ],
+        [
+          "new hampshire",
+          "$32,357",
+          "$64,664",
+          "$78,310",
+          "1,316,470",
+          "518,973"
+        ],
+        [
+          "merrimack",
+          "$31,403",
+          "$65,722",
+          "$78,998",
+          "146,445",
+          "57,069"
+        ],
+        [
+          "belknap",
+          "$29,449",
+          "$56,921",
+          "$67,768",
+          "60,088",
+          "24,766"
+        ],
+        [
+          "strafford",
+          "$29,405",
+          "$59,082",
+          "$74,319",
+          "123,143",
+          "47,100"
+        ],
+        [
+          "carroll",
+          "$29,194",
+          "$50,555",
+          "$60,530",
+          "47,818",
+          "21,052"
+        ],
+        [
+          "grafton",
+          "$29,090",
+          "$53,000",
+          "$66,701",
+          "89,118",
+          "35,986"
+        ],
+        [
+          "united states",
+          "$27,915",
+          "$52,762",
+          "$64,293",
+          "308,745,538",
+          "116,716,292"
+        ],
+        [
+          "cheshire",
+          "$27,459",
+          "$55,241",
+          "$69,203",
+          "77,117",
+          "30,204"
+        ],
+        [
+          "sullivan",
+          "$27,223",
+          "$51,678",
+          "$63,682",
+          "43,742",
+          "18,126"
+        ],
+        [
+          "coos",
+          "$23,580",
+          "$41,087",
+          "$52,676",
+          "33,055",
+          "14,171"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            1,
+            0,
+            "$29,194"
+          ]
+        ],
+        "agg": 5
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-6530",
+      "table_id": "2-15098383-3",
+      "question": "What is year that has points larger than 46, and a rank of 6th?",
+      "columns": [
+        "Year",
+        "Class",
+        "Team",
+        "Points",
+        "Rank",
+        "Wins"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "real",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1987.0,
+          "250cc",
+          "honda",
+          20.0,
+          "13th",
+          0.0
+        ],
+        [
+          1988.0,
+          "250cc",
+          "honda",
+          68.0,
+          "10th",
+          0.0
+        ],
+        [
+          1989.0,
+          "250cc",
+          "honda",
+          116.0,
+          "6th",
+          0.0
+        ],
+        [
+          1990.0,
+          "250cc",
+          "honda",
+          100.0,
+          "7th",
+          0.0
+        ],
+        [
+          1991.0,
+          "250cc",
+          "honda",
+          142.0,
+          "5th",
+          0.0
+        ],
+        [
+          1992.0,
+          "250cc",
+          "honda",
+          46.0,
+          "9th",
+          0.0
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            3,
+            1,
+            46
+          ],
+          [
+            4,
+            0,
+            "6th"
+          ]
+        ],
+        "agg": 4
+      },
+      "provider": "wikisql"
+    },
+    {
+      "id": "wikisql-test-14962",
+      "table_id": "2-12446715-3",
+      "question": "What is the highest Lane used by a racer from Malta?",
+      "columns": [
+        "Heat",
+        "Lane",
+        "Name",
+        "Nationality",
+        "Time"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          7.0,
+          4.0,
+          "inge de bruijn",
+          "netherlands",
+          "57.60"
+        ],
+        [
+          5.0,
+          4.0,
+          "jenny thompson",
+          "united states",
+          "57.66"
+        ],
+        [
+          7.0,
+          5.0,
+          "petria thomas",
+          "australia",
+          "58.52"
+        ],
+        [
+          7.0,
+          3.0,
+          "otylia j\u0119drzejczak",
+          "poland",
+          "58.66"
+        ],
+        [
+          6.0,
+          4.0,
+          "dara torres",
+          "united states",
+          "58.76"
+        ],
+        [
+          6.0,
+          5.0,
+          "martina moravcov\u00e1",
+          "slovakia",
+          "58.95"
+        ],
+        [
+          5.0,
+          3.0,
+          "junko onishi",
+          "japan",
+          "59.11"
+        ],
+        [
+          6.0,
+          6.0,
+          "mette jacobsen",
+          "denmark",
+          "59.45"
+        ],
+        [
+          5.0,
+          5.0,
+          "susie o'neill",
+          "australia",
+          "59.49"
+        ],
+        [
+          7.0,
+          8.0,
+          "natalya sutyagina",
+          "russia",
+          "59.50"
+        ],
+        [
+          6.0,
+          3.0,
+          "johanna sj\u00f6berg",
+          "sweden",
+          "59.59"
+        ],
+        [
+          5.0,
+          7.0,
+          "franziska van almsick",
+          "germany",
+          "59.72"
+        ],
+        [
+          6.0,
+          7.0,
+          "diana mocanu",
+          "romania",
+          "59.72"
+        ],
+        [
+          4.0,
+          3.0,
+          "sophia skou",
+          "denmark",
+          "59.79"
+        ],
+        [
+          5.0,
+          6.0,
+          "anna-karin kammerling",
+          "sweden",
+          "59.88"
+        ],
+        [
+          7.0,
+          7.0,
+          "mandy loots",
+          "south africa",
+          "59.94"
+        ],
+        [
+          6.0,
+          1.0,
+          "c\u00e9cile jeanson",
+          "france",
+          "59.96"
+        ],
+        [
+          6.0,
+          2.0,
+          "liu limin",
+          "china",
+          "59.98"
+        ],
+        [
+          7.0,
+          2.0,
+          "vered borochovski",
+          "israel",
+          "1:00.34"
+        ],
+        [
+          4.0,
+          4.0,
+          "jen button",
+          "canada",
+          "1:00.83"
+        ],
+        [
+          5.0,
+          8.0,
+          "jessica deglau",
+          "canada",
+          "1:00.97"
+        ],
+        [
+          7.0,
+          6.0,
+          "maki mita",
+          "japan",
+          "1:00.97"
+        ],
+        [
+          4.0,
+          7.0,
+          "fabienne dufour",
+          "belgium",
+          "1:01.15"
+        ],
+        [
+          4.0,
+          8.0,
+          "orsolya ferenczy",
+          "hungary",
+          "1:01.15"
+        ],
+        [
+          7.0,
+          1.0,
+          "ruan yi",
+          "china",
+          "1:01.16"
+        ],
+        [
+          6.0,
+          8.0,
+          "joscelin yeo",
+          "singapore",
+          "1:01.28"
+        ],
+        [
+          5.0,
+          2.0,
+          "daniela samulski",
+          "germany",
+          "1:01.31"
+        ],
+        [
+          4.0,
+          6.0,
+          "renate du plessis",
+          "south africa",
+          "1:01.32"
+        ],
+        [
+          4.0,
+          5.0,
+          "mar\u00eda pel\u00e1ez",
+          "spain",
+          "1:01.47"
+        ],
+        [
+          4.0,
+          2.0,
+          "margaretha pedder",
+          "great britain",
+          "1:01.53"
+        ],
+        [
+          5.0,
+          1.0,
+          "yekaterina vinogradova",
+          "russia",
+          "1:01.54"
+        ],
+        [
+          3.0,
+          3.0,
+          "maria papadopoulou",
+          "cyprus",
+          "1:01.64"
+        ],
+        [
+          4.0,
+          1.0,
+          "marja p\u00e4rssinen",
+          "finland",
+          "1:01.94"
+        ],
+        [
+          3.0,
+          5.0,
+          "zampia melachroinou",
+          "greece",
+          "1:02.06"
+        ],
+        [
+          3.0,
+          2.0,
+          "lee bo-eun",
+          "south korea",
+          "1:02.22"
+        ],
+        [
+          3.0,
+          8.0,
+          "fab\u00edola molina",
+          "brazil",
+          "1:02.77"
+        ],
+        [
+          3.0,
+          4.0,
+          "praphalsai minpraphal",
+          "thailand",
+          "1:02.99"
+        ],
+        [
+          3.0,
+          6.0,
+          "mariya ogurtsova",
+          "ukraine",
+          "1:03.00"
+        ],
+        [
+          3.0,
+          1.0,
+          "eydis konr\u00e1dsd\u00f3ttir",
+          "iceland",
+          "1:03.27"
+        ],
+        [
+          3.0,
+          7.0,
+          "siobhan cropper",
+          "trinidad and tobago",
+          "1:03.34"
+        ],
+        [
+          2.0,
+          4.0,
+          "hsieh shu-ting",
+          "chinese taipei",
+          "1:03.52"
+        ],
+        [
+          2.0,
+          3.0,
+          "yan kay flora kong",
+          "hong kong",
+          "1:04.09"
+        ],
+        [
+          2.0,
+          2.0,
+          "ayse diker",
+          "turkey",
+          "1:04.65"
+        ],
+        [
+          2.0,
+          5.0,
+          "mar\u00eda del pilar pereyra",
+          "argentina",
+          "1:04.75"
+        ],
+        [
+          1.0,
+          4.0,
+          "lisa de la motte",
+          "swaziland",
+          "1:06.70"
+        ],
+        [
+          1.0,
+          3.0,
+          "angela galea",
+          "malta",
+          "1:07.88"
+        ],
+        [
+          2.0,
+          7.0,
+          "ellen lendra hight",
+          "zambia",
+          "1:09.34"
+        ],
+        [
+          2.0,
+          6.0,
+          "mariya bugakova",
+          "uzbekistan",
+          "1:09.94"
+        ],
+        [
+          1.0,
+          5.0,
+          "tracy ann route",
+          "federated states of micronesia",
+          "1:13.53"
+        ],
+        [
+          2.0,
+          1.0,
+          "kenza bennaceur",
+          "algeria",
+          "dns"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            3,
+            0,
+            "malta"
+          ]
+        ],
+        "agg": 1
+      },
+      "provider": "wikisql"
+    }
+  ]
+}

@@ -73,6 +73,52 @@ def summarize(records, spec):
             and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
         )
     details = {}
+    if spec.get("workload") == "sql_transfer_retention":
+        groups = read(spec["material"])["rows"]
+        metrics_by_group = {}
+        for side, rs in records.items():
+            grouped = {
+                key: [0, 0]
+                for key in (
+                    "public",
+                    "value",
+                    "maximum",
+                    "minimum",
+                    "count",
+                    "sum",
+                    "average",
+                )
+            }
+            for r, w in zip(rs, groups, strict=True):
+                group = (
+                    ("value", "maximum", "minimum", "count", "sum", "average")[
+                        w["sql"]["agg"]
+                    ]
+                    if w["provider"] == "wikisql"
+                    else "public"
+                )
+                grouped[group][0] += r["score"]["success"]
+                grouped[group][1] += 1
+            metrics_by_group[side] = grouped
+        diff = [
+            int(a["score"]["success"]) - int(b["score"]["success"])
+            for (a, b), w in zip(pairs, groups, strict=True)
+            if w["provider"] == "wikisql"
+        ]
+        sql_p = exact_mcnemar(diff.count(1), diff.count(-1))
+        details["table_transfer"] = dict(
+            by_group=metrics_by_group, net=sum(diff), p_exact=sql_p
+        )
+        passed = (
+            passed
+            and sum(diff) >= spec["sql_net_floor"]
+            and sql_p <= spec["p_max"]
+            and all(
+                v[0] >= spec["public_floor" if k == "public" else "operation_floor"]
+                for k, v in metrics_by_group["candidate"].items()
+            )
+            and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
+        )
     if spec.get("workload") == "venue_dialogues":
         from loopqwen.evaluation.venue_dialogues import paired_result
 
@@ -157,6 +203,27 @@ def workload(spec, *, replay=False):
             )
 
         return items, catalog, judge
+    if spec.get("workload") == "sql_transfer_retention":
+        from loopqwen.evaluation import executable_tools, table_questions
+
+        items = []
+        for r in material["rows"]:
+            public = r["provider"] == "bfcl_exec"
+            question = (
+                r["question"][0][0]["content"] + executable_tools.INSTRUCTION
+                if public
+                else r["question"] + table_questions.INSTRUCTION
+            )
+            items.append(dict(r, user_request=question))
+
+        def provider(r):
+            return executable_tools if r["provider"] == "bfcl_exec" else table_questions
+
+        return (
+            items,
+            lambda r: provider(r).tools_for(r),
+            lambda r, t: provider(r).score(r, t),
+        )
     if spec.get("workload") == "venue_dialogues":
         from loopqwen.evaluation import venue_dialogues
 

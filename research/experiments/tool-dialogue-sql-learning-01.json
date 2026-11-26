@@ -1,0 +1,43 @@
+{
+  "id": "tool-dialogue-sql-learning-01",
+  "question": "Can the learned recurrent assistant execute real human table questions across all six SQL operations on previously unseen tables while preserving its public numerical tool behavior?",
+  "workload": "sql_transfer_retention",
+  "candidate": "train_loop",
+  "control": "base",
+  "training": "research/data/tool-sql-learning-training.json",
+  "material": "research/data/tool-sql-learning-panel.json",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "fit_seed": 172803,
+  "rank": 32,
+  "batch": 4,
+  "lr": 7.5e-05,
+  "updates": 900,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "stop_at_turn_end": true,
+  "net_floor": 8,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "gate": "On the 36 new tables require at least eight net more grounded answers than Base and exact paired p<=.05. Require >=2/6 correct for every operation and retain >=17/22 prior public executions. On all 58 sessions require significant paired net gain >=8, no higher aggregate actual seconds or MLX peak. Stop at memory or time limit. A pass licenses an equally trained one-pass control and replication on untouched tables before releasing a database-trained update.",
+  "protocol": "Continue the qualified typed two-pass final-layer adapter. Fit on 768 different WikiSQL training tables, 128 per operation, using one original human question and two actual turns per table. Audit the generated target arguments on the publisher database and a separately reconstructed SQLite table. Rehearse 512 general tool turns. Test on 36 fresh official test tables with six per operation and 22 original public numerical tool executions. Exclude all training and historical table IDs and exact case-folded questions. No test tables, headers or observations appear in the prompt except the normal caller-supplied tool schema and observations produced by the model. Require correct final number and last real callback denotation on the original table plus independent row-resampling. Thinking, prompt IDs, greedy policy, cap 384 and maximum three turns match Base everywhere. The earlier cold WikiSQL weights are closed. No training traces or item-specific branches in the runtime.",
+  "limits": {
+    "wall_seconds": 1300,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "initial_adapter": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "sql_net_floor": 8,
+  "operation_floor": 2,
+  "public_floor": 17
+}

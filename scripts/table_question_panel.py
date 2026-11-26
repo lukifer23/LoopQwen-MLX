@@ -18,7 +18,7 @@ URL = "https://raw.githubusercontent.com/salesforce/WikiSQL/" + REV + "/data.tar
 SHA = "755c728ab188e364575705c8641f3fafd86fb089cb8b08e8c03f01832aae0881"
 
 
-def make():
+def select(split, per_operation, seed, excluded=(), excluded_questions=()):
     root = Path("data/research_external/wikisql")
     root.mkdir(parents=True, exist_ok=True)
     source = root / "source.tar.bz2"
@@ -27,29 +27,32 @@ def make():
             shutil.copyfileobj(response, f)
     assert digest(source) == SHA
     with tarfile.open(source, "r:bz2") as t:
-        queries = [json.loads(line) for line in t.extractfile("data/test.jsonl")]
+        queries = [json.loads(line) for line in t.extractfile(f"data/{split}.jsonl")]
         tables = {
-            r["id"]: r for r in map(json.loads, t.extractfile("data/test.tables.jsonl"))
+            r["id"]: r
+            for r in map(json.loads, t.extractfile(f"data/{split}.tables.jsonl"))
         }
-        with (root / "test.db").open("wb") as f:
-            shutil.copyfileobj(t.extractfile("data/test.db"), f)
+        with (root / (split + ".db")).open("wb") as f:
+            shutil.copyfileobj(t.extractfile(f"data/{split}.db"), f)
     selected = []
-    seen = set()
+    seen = set(excluded)
+    skip_questions = set(excluded_questions)
     counts = [0] * 6
     keyed = sorted(
         enumerate(queries),
-        key=lambda u: hashlib.sha256(
-            ("sqlite-transfer-6905:" + str(u[0])).encode()
-        ).digest(),
+        key=lambda u: hashlib.sha256((seed + ":" + str(u[0])).encode()).digest(),
     )
     with closing(
-        sqlite3.connect((root / "test.db").resolve().as_uri() + "?mode=ro", uri=True)
+        sqlite3.connect(
+            (root / (split + ".db")).resolve().as_uri() + "?mode=ro", uri=True
+        )
     ) as c:
         for i, q in keyed:
             name, sql = q["table_id"], q["sql"]
             k = sql["agg"]
             if (
-                counts[k] == 4
+                counts[k] == per_operation
+                or q["question"].casefold().strip() in skip_questions
                 or name in seen
                 or not sql["conds"]
                 or any(op not in range(3) for _, op, _ in sql["conds"])
@@ -99,7 +102,7 @@ def make():
             ):
                 continue
             row = dict(
-                id="wikisql-test-" + str(i),
+                id="wikisql-" + split + "-" + str(i),
                 table_id=name,
                 question=q["question"],
                 columns=cols,
@@ -112,14 +115,20 @@ def make():
             seen.add(name)
             counts[k] += 1
             selected.append(row)
-            if len(selected) == 24:
+            if len(selected) == 6 * per_operation:
                 break
-    assert counts == [4] * 6
+    if counts != [per_operation] * 6:
+        raise ValueError(f"Insufficient eligible {split} tables {counts}")
+    return selected
+
+
+def make():
+    selected = select("test", 4, "sqlite-transfer-6905")
     save(
         "research/data/tool-table-queries-01.json",
         dict(source=URL, sha256=SHA, rows=selected),
     )
-    print(len(selected), "distinct test tables; published aggregation counts", counts)
+    print(len(selected), "distinct test tables with four questions per operation")
 
 
 if __name__ == "__main__":
