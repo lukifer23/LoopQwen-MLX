@@ -136,6 +136,76 @@ def material(s):
                 "aliases": [a["text"] for a in qa["answers"]],
             }
         )
+    if "additional_reading" in s:
+        src = s["additional_reading"]
+        source = Path("data/research_external") / src["file"]
+        if not source.exists():
+            from urllib.request import urlopen
+            import hashlib
+
+            with urlopen(src["url"], timeout=60) as response:
+                raw = response.read()
+            if hashlib.sha256(raw).hexdigest() != src["sha256"]:
+                raise ValueError("Reading validation source changed")
+            source.write_bytes(raw)
+        if digest(source) != src["sha256"]:
+            raise ValueError("Reading validation source differs")
+        used = {
+            v.replace("_", " ").casefold()
+            for v in titles | {r["source"] for r in panel if r["family"] == "reading"}
+        }
+        articles = sorted(
+            read(source)["data"],
+            key=lambda a: fingerprint([s["seed"], a["title"], a["section_title"]]),
+        )
+        count = 0
+        for a in articles:
+            title = a["title"].replace("_", " ").casefold()
+            if title in used:
+                continue
+            section = a["paragraphs"][0]
+            q = section["qas"][0]
+            passage = section["context"].removesuffix("CANNOTANSWER").strip()
+            aliases = [
+                r["text"].strip()
+                for r in q["answers"]
+                if r["text"].strip() != "CANNOTANSWER"
+            ]
+            if len(aliases) <= len(q["answers"]) // 2 or not all(
+                ans in passage for ans in aliases
+            ):
+                continue
+            prompt = (
+                a["title"]
+                + " — "
+                + a["section_title"]
+                + "\n"
+                + passage
+                + "\n\nQuestion: "
+                + q["question"]
+                + "\nGive the shortest phrase from the article that answers the question."
+            )
+            panel.append(
+                {
+                    "id": q["id"],
+                    "family": "reading",
+                    "source": a["title"],
+                    "corpus": "QuAC validation",
+                    "cap": 256,
+                    "prompt_ids": route_training.chat(t, prompt),
+                    "aliases": aliases,
+                }
+            )
+            used.add(title)
+            count += 1
+            if count == src["count"]:
+                break
+        if count != src["count"]:
+            raise ValueError("Incomplete supplementary reading cohort")
+    if sum(r["family"] == "reading" for r in panel) != 8:
+        raise ValueError(
+            "Eight distinct held-out reading articles are required before measurement"
+        )
     for i in range(4):
         r = memory_data.make_item(
             t,

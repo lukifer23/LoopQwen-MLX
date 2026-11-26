@@ -142,7 +142,11 @@ def verify(root):
         verify_shared_budget(root, decision)
     if study == "attention-memory-01":
         verify_attention_memory(root, decision)
-    if study in ("conditional-depth-01", "conditional-language-01"):
+    if study in (
+        "conditional-depth-01",
+        "conditional-language-01",
+        "conditional-language-02",
+    ):
         verify_system(root, decision)
     if study in ("entailment-triplets-01", "entailment-triplets-confirm-01"):
         verify_entailment(root, decision)
@@ -675,6 +679,31 @@ def verify_system(root, decision):
         and sha(train) == decision["training"]
         and sha(root / "registration.json") == decision["registration"],
         "Conditional comparison identity",
+    )
+    if decision["status"] == "incomplete_frozen_cohort":
+        require(
+            not decision["passed"]
+            and decision["reason"]
+            and not any(
+                (root / p).exists()
+                for p in ("candidate.json.gz", "base.json.gz", "model")
+            ),
+            "Closed before native measurement",
+        )
+        families = {
+            k: sum(r["family"] == k for r in data) for k in {r["family"] for r in data}
+        }
+        require(
+            families == decision["counts"]
+            and families["reading"] < 8
+            and len(data) < 44 + 6 * reg["relation_groups_per_source"],
+            "Registered reading cohort incomplete",
+        )
+        return
+    require(
+        sum(r["family"] == "reading" for r in data) == 8
+        and len({r["source"] for r in data if r["family"] == "reading"}) == 8,
+        "Eight distinct reading articles",
     )
     require(
         len({r["id"] for r in data})
