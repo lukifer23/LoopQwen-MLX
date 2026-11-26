@@ -169,6 +169,7 @@ def export(
             "table_tool.py",
             "package_tools.py",
             "tool_cli.py",
+            "reserved_cache.py",
             "evaluation/generation_eval.py",
         ):
             shutil.copyfile(worktree / "loopqwen" / file, rt / file)

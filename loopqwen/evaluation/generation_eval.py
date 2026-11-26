@@ -191,8 +191,7 @@ def generate(
     if section is not None:
         result["attention_memory"] = section
     if record_kv_history:
-        from mlx_lm.models.cache import KVCache
-        from ..page_prefill import PackedPageCache
+        from mlx_lm.models.cache import KVCache, QuantizedKVCache
 
         if disk is not None:
             raise ValueError("Resident history measurements require a resident cache")
@@ -201,12 +200,12 @@ def generate(
                 layer=i,
                 turn=p,
                 offset=slot.offset,
-                retained=slot.physical_length()
-                if isinstance(slot, PackedPageCache)
+                retained=slot.keys_and_values()[0][0].shape[2]
+                if isinstance(slot, QuantizedKVCache)
                 else slot.keys_and_values()[0].shape[2],
             )
             for (i, p), slot in cache.slots.items()
-            if isinstance(slot, (KVCache, PackedPageCache))
+            if isinstance(slot, (KVCache, QuantizedKVCache))
         ]
     if disk is not None:
         result["scratch_bytes"] = disk.scratch_bytes
