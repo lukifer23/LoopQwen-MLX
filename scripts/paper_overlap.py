@@ -18,6 +18,8 @@ def rows(name):
 
 
 def text(row, field):
+    if field == "source_passage":
+        return row["passage"]
     if "turns" in row:
         value = "\n".join(
             ("Visitor" if t["speaker"] == "USER" else "Agent") + ": " + t["utterance"]
@@ -97,6 +99,13 @@ def build():
             ["linked-reading-train", "bridge-reading-train"],
             "linked-reading-validation",
             "question",
+        ),
+        ("Passage copy reader", ["passage-copy-train"], "passage-copy-dev", "question"),
+        (
+            "Passage copy reader",
+            ["passage-copy-train"],
+            "passage-copy-dev",
+            "source_passage",
         ),
         ("tool public executions", [TYPED], "tool-exec-bfcl-01", "question"),
         ("tool multiple functions", [TYPED], "tool-bfcl-multiple-01", "question"),

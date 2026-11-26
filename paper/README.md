@@ -73,6 +73,10 @@ The field-performance figure compares complete request time and correctness on t
 | `-m loopqwen.research.raw_distillation` | Native 2B teacher probabilities and recurrent 0.8B student next-token likelihood |
 | `-m loopqwen.research.narrative_book` | Whole-novel question and person-name intervention with physical KV offsets |
 | `-m loopqwen.research.register_allocation` | Reserved and incrementally grown full-history storage on identical weights |
+| `-m loopqwen.research.selective_raw` | Selective larger-teacher supervision, 300 raw passages and incremental cache parity |
+| `-m loopqwen.research.linked_reading` | Directed evidence relations and actual ten-document HotpotQA answers |
+| `-m loopqwen.research.passage_copy` | Learned vocabulary and copy probabilities on complete human reading passages |
+| `-m loopqwen.research.packed_release` | Isolated two-book, short-output and live-callback crossover with the qualified parent package |
 | `-m loopqwen.research.transport` | Transport size, restored file inventories and isolated native generation |
 
 
