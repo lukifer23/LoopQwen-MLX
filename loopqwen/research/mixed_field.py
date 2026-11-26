@@ -9,13 +9,13 @@ import mlx.core as mx
 from jsonschema import ValidationError, validate
 from mlx_lm.utils import load_tokenizer
 
-from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed, unpack
 from ..evaluation.mixed_field import catalog, grade
 from ..evaluation.statistics import exact_mcnemar
 from ..io import digest, read, save
 from ..model_loader import local_snapshot
 from ..package_tools import snapshot
+from ..tool_compare import DenseAssistant
 from ..tool_model import Assistant
 from ..tool_session import compact, decode_action, initial_messages, prompt
 from .core import Budget
@@ -95,16 +95,6 @@ def bundle_for(spec):
         if digest(bundle / path) != sha:
             raise ValueError("Changed release file " + path)
     return chosen, bundle
-
-
-class DenseAssistant(Assistant):
-    """Expose the identical public decoding protocol with one untouched dense model."""
-
-    def __init__(self, reuse):
-        self.language, self.tokenizer, _ = base()
-        self._tool_model = self.language
-        self.reuse_prefix = reuse
-        self.dedicated = False
 
 
 def measure_request(assistant, factory, row, material, spec, check):

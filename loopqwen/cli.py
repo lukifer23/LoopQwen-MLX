@@ -75,10 +75,20 @@ def main():
     ):
         p = sub.add_parser(name, help=desc)
         p.add_argument("--experiment", default="pilot")
-    p = sub.add_parser("tools", help="Ask the recurrent assistant to use local tools")
     from .tool_cli import add_arguments
 
-    add_arguments(p)
+    for name, help_text in (
+        ("tools", "Ask the recurrent assistant to use local tools"),
+        ("ask", "Ask the offline assistant a question with optional local tools"),
+    ):
+        p = sub.add_parser(name, help=help_text)
+        add_arguments(p)
+        p.set_defaults(allow_plain=name == "ask")
+        p.add_argument(
+            "--compare-base",
+            action="store_true",
+            help="Repeat each read-only request on untouched Base and report both answers, calls, times and peak bytes",
+        )
     p = sub.add_parser(
         "generate", help="Generate greedily with a new execution-site cache"
     )
@@ -230,7 +240,7 @@ def main():
 
         path = report(args.experiment)
         result = path if cmd == "report" else Path(path).read_text()
-    elif cmd == "tools":
+    elif cmd in ("ask", "tools"):
         from .tool_cli import respond
 
         result = respond(args, parser)

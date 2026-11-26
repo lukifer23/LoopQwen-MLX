@@ -238,3 +238,54 @@ def test_cli_followup_reuses_real_observation_and_prompt(tmp_path):
     assert b["turns"][0]["prompt_ids"] == tok.encode(
         prompt(tok, history), add_special_tokens=False
     )
+
+
+@pytest.mark.skipif(
+    not (BUNDLE / "tool-export-files.json").is_file(),
+    reason="Requires the physical offline assistant and its pinned Base",
+)
+def test_own_prompt_file_compares_two_real_decoders_on_the_identical_thinking_prompt(
+    tmp_path,
+):
+    from mlx_lm.utils import load_tokenizer
+
+    from loopqwen import REVISION
+    from loopqwen.identity import fingerprint
+    from loopqwen.model_loader import local_snapshot
+    from loopqwen.tool_session import prompt
+
+    question = "A shop opens after the bakery and before the school. Which opens last?"
+    source = tmp_path / "question.txt"
+    source.write_text(question)
+    cmd = [
+        sys.executable,
+        "-m",
+        "loopqwen",
+        "ask",
+        "--checkpoint",
+        str(BUNDLE),
+        "--prompt-file",
+        str(source),
+        "--compare-base",
+        "--max-tokens",
+        "4",
+        "--trace",
+    ]
+    result = json.loads(subprocess.check_output(cmd, text=True, **child_lease()))
+    tok = load_tokenizer(local_snapshot())
+    expected = tok.encode(
+        prompt(tok, [{"role": "user", "content": question}]), add_special_tokens=False
+    )
+    assert result["base_revision"] == REVISION and result[
+        "conversation_prompt_matches"
+    ] == [True]
+    for arm in result["runs"].values():
+        (row,) = arm
+        assert row["initial_sha256"] == fingerprint(expected)
+        assert (
+            row["turns"][0]["prompt_ids"] == expected and 0 < row["output_tokens"] <= 4
+        )
+        assert (
+            row["request_seconds"] >= row["first_token_seconds"] > 0
+            and row["peak_mlx_bytes"] > 0
+        )

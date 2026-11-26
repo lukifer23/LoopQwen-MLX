@@ -1,0 +1,92 @@
+"""Compare read-only requests from the installed CLI on two actual local decoders."""
+
+import gc
+from time import perf_counter
+
+import mlx.core as mx
+
+from . import REVISION
+from .evaluation.language7 import base
+from .identity import fingerprint
+from .tool_cli import present
+from .tool_model import Assistant
+
+
+class DenseAssistant(Assistant):
+    """Run the same conversation protocol with the untouched ordinary-depth checkpoint."""
+
+    def __init__(self, reuse):
+        self.language, self.tokenizer, _ = base()
+        self._tool_model = self.language
+        self.reuse_prefix = reuse
+        self.dedicated = False
+
+
+def compare(args, tools, options):
+    prompts = [args.prompt, *args.follow_up]
+    outputs = {}
+    reuse = options["reuse_prefix"]
+    for side in ("recurrent", "base"):
+        assistant = chat = None
+        rows = []
+        gc.collect()
+        mx.clear_cache()
+        for text in prompts:
+            mx.synchronize()
+            mx.reset_peak_memory()
+            start = perf_counter()
+            if assistant is None:
+                if side == "recurrent":
+                    assistant = Assistant(
+                        args.checkpoint, tool_adapter=args.tool_adapter
+                    )
+                    if reuse is None:
+                        reuse = assistant.reuse_prefix
+                else:
+                    assistant = DenseAssistant(reuse)
+                chat = assistant.conversation(tools)
+            observed_at = {}
+
+            def observe(consumed, times=observed_at, at=start):
+                if consumed not in times:
+                    times[consumed] = perf_counter() - at
+
+            response = chat.respond(text, **options, progress=observe)
+            mx.synchronize()
+            elapsed = perf_counter() - start
+            turns = response["turns"]
+            initial = turns[0]["prompt_ids"]
+            rows.append(
+                {
+                    "question": text,
+                    "initial_tokens": len(initial),
+                    "initial_sha256": fingerprint(initial),
+                    "output_tokens": sum(len(t["token_ids"]) for t in turns),
+                    "request_seconds": elapsed,
+                    "first_token_seconds": observed_at[len(initial)],
+                    "peak_mlx_bytes": mx.get_peak_memory(),
+                    **present(response, args.trace),
+                }
+            )
+        outputs[side] = rows
+        del chat, assistant
+    if (
+        outputs["recurrent"][0]["initial_sha256"]
+        != outputs["base"][0]["initial_sha256"]
+    ):
+        raise ValueError("Initial prompt tokens differ across assistants")
+    return {
+        "base_revision": REVISION,
+        "recurrent_checkpoint": str(args.checkpoint),
+        "tool_adapter": str(args.tool_adapter) if args.tool_adapter else None,
+        "reuse_prefix": reuse,
+        "max_tokens_per_turn": options["max_tokens"],
+        "max_turns": options["max_turns"],
+        "order": ["recurrent", "base"],
+        "initial_prompt_identical": True,
+        "conversation_prompt_matches": [
+            a["initial_sha256"] == b["initial_sha256"]
+            for a, b in zip(outputs["recurrent"], outputs["base"], strict=True)
+        ],
+        "runs": outputs,
+    }

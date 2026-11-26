@@ -42,7 +42,13 @@ def add_arguments(p, checkpoint=None):
         default=[],
         help="Expose both read-only properties of a local resource. Can be repeated.",
     )
-    p.add_argument("--prompt", required=True)
+    prompts = p.add_mutually_exclusive_group(required=True)
+    prompts.add_argument("--prompt")
+    prompts.add_argument(
+        "--prompt-file",
+        type=Path,
+        help="Read the complete UTF-8 user request from disk",
+    )
     p.add_argument(
         "--follow-up",
         action="append",
@@ -70,6 +76,8 @@ def respond(args, parser):
     from .tool_catalog import load_catalog
     from .tool_model import Assistant
 
+    if getattr(args, "prompt_file", None) is not None:
+        args.prompt = args.prompt_file.read_bytes().decode("utf-8")
     if bool(args.database) != bool(args.table):
         parser.error("--database and --table must be supplied together")
     with ExitStack() as resources:
@@ -94,21 +102,27 @@ def respond(args, parser):
 
             uri = args.database.resolve().as_uri() + "?mode=ro"
             db = resources.enter_context(closing(sqlite3.connect(uri, uri=True)))
+            if getattr(args, "compare_base", False):
+                db.execute("BEGIN")
             supplied.append(database_tool(db, args.table))
-        if not supplied:
+        if not supplied and not getattr(args, "allow_plain", False):
             parser.error(
                 "Select a resource, catalog, calculator, packages or a database table"
             )
-        assistant = Assistant(args.checkpoint, tool_adapter=args.tool_adapter)
         options = {
             "max_tokens": args.max_tokens,
             "max_turns": args.max_turns,
             "reuse_prefix": args.reuse_prefix,
         }
+        prompts = [args.prompt, *args.follow_up]
+        if any(not text.strip() for text in prompts):
+            parser.error("Every conversation message needs text")
+        if getattr(args, "compare_base", False):
+            from .tool_compare import compare
+
+            return compare(args, supplied, options)
+        assistant = Assistant(args.checkpoint, tool_adapter=args.tool_adapter)
         if args.follow_up:
-            prompts = [args.prompt, *args.follow_up]
-            if any(not text.strip() for text in prompts):
-                parser.error("Every conversation message needs text")
             chat = assistant.conversation(supplied)
             return {
                 "exchanges": [

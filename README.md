@@ -52,6 +52,15 @@ The parent release `exports/tool-language-field-02` established the field CLI an
 
 For text inference, `generate --checkpoint exports/tool-language-packed-03 --prompt-file document-and-question.txt --thinking --max-tokens 96` reads the entire UTF-8 input through the same installed `python -m loopqwen` entry point. The returned `context_route` identifies the selected decoder.
 
+Use `ask --compare-base` to try your own questions on the installed assistant and untouched ordinary Base. It runs them sequentially with the same opening prompt IDs and thinking budget. You get both replies, executed calls and observations, output counts, measured first-token and full-request time, and peak MLX bytes. The first request includes model loading. Follow-ups preserve each model’s own conversation and report whether the resulting prompt IDs still match. A single run uses recurrent-first order and the OS file cache can persist.
+
+```sh
+.venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-03 \
+  --prompt-file document-and-question.txt --compare-base --max-tokens 384
+.venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-03 \
+  --resource calendar --prompt "Which ISO weekday is 2032-02-29?" --compare-base
+```
+
 Add one or more `--follow-up "…"` arguments to keep a conversation open across successive requests. The command reports each reply and the live callbacks it used. Python callers can hold `chat = assistant.conversation(tools)` and call `chat.respond(text)` when the next user message arrives.
 
 The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database data.sqlite --table records` for a read-only table, and `--calculator` for exact arithmetic. With `--trace` the response includes every token, submitted argument, callback result and turn time. For custom tools, create a `Tool(name, description, parameters, callback)` and pass it to `Assistant(directory).respond(question, tools)`. The [package example](examples/local_packages.py) uses the Python environment of the running process.
