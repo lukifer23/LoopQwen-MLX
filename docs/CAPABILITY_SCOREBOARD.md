@@ -6,6 +6,18 @@ The qualified installation is `exports/tool-language-packed-03`. Its parent repr
 
 The packed release reproduced 512 next-token decisions and 512 losses after consuming two entire books, all 12 shorter requests and two actual installed-version trajectories. Its two further 24,593-token register generations completed in 32.44 versus 37.52 s for the previous release with 13.74% lower peak. The independent 131,080-token comparison of that register policy against Base scored 2/2 versus 0/2 in 171.88 versus 391.67 s with 25.99% lower peak and slower post-first-token generation. [Offline crossover](../research/results/packed-release-retention-01) · [Physical 131K comparison](../research/results/register-packed-direct-full-01)
 
+## Learned tool selection and language transfer
+
+| Measured comparison | Recurrent candidate | Untouched Base |
+| --- | ---: | ---: |
+| Grounded execution, 78 public, human math and live resource requests | 45 correct in 54.56 s | 0 correct in 333.15 s |
+| Both requested properties of the same live resource | 6/16 | 0/16 |
+| Final numeric answer on the 24 human word problems | 6/24 | 14/24 |
+| Human single-passage exact answers and mean token F1 | 13/64 and 0.419 | 16/64 and 0.495 |
+| Raw next-token decisions on 300 passages, 36,126 targets | 15,076 in 20.81 s | 15,006 in 24.21 s |
+
+The tool fit retained all 17 prior public successes and reached 19/22. The reading fit used less peak memory and completed every question in 17.73 s versus 145.60 s. The raw fit improved all three suites in aggregate, with 17 of 18 additional fresh correct tokens coming from one Python reference. The three protocols retain their original domain gates. [Tool trajectories](../research/results/tool-dialogue-intent-pairs-01) · [Human reading](../paper/passage-scores.csv) · [Raw text](../paper/selective-domains.csv)
+
 ## Executable tools and human reading
 
 | Frozen comparison | Recurrent | Comparator | Actual seconds (recurrent / comparator) |

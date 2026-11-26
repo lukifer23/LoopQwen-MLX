@@ -1,0 +1,153 @@
+[
+  {
+    "id": "calendar-2-0",
+    "command": [
+      "-m",
+      "loopqwen",
+      "tools",
+      "--checkpoint",
+      "exports/tool-language-packed-03",
+      "--tool-adapter",
+      "research/results/tool-dialogue-intent-pairs-01",
+      "--resource",
+      "calendar",
+      "--prompt",
+      "Look up the ISO day of the week for 2026-11-26. I need the numeric code.",
+      "--max-tokens",
+      "384",
+      "--max-turns",
+      "3",
+      "--no-reuse-prefix",
+      "--trace"
+    ],
+    "input_tokens": 217,
+    "generated": [
+      24,
+      4
+    ],
+    "all_tokens_equal": true,
+    "calls": [
+      {
+        "call": {
+          "name": "weekday_number",
+          "arguments": {
+            "date": "2026-11-26"
+          }
+        },
+        "observation": {
+          "value": 4
+        }
+      }
+    ],
+    "answer": "4",
+    "gold": 4,
+    "score": {
+      "success": true,
+      "path": true,
+      "correct_answer": true,
+      "completed": true
+    },
+    "seconds": 0.4784855420002714
+  },
+  {
+    "id": "calendar-2-1",
+    "command": [
+      "-m",
+      "loopqwen",
+      "tools",
+      "--checkpoint",
+      "exports/tool-language-packed-03",
+      "--tool-adapter",
+      "research/results/tool-dialogue-intent-pairs-01",
+      "--resource",
+      "calendar",
+      "--prompt",
+      "What was the ordinal day within the year for 2026-11-26?",
+      "--max-tokens",
+      "384",
+      "--max-turns",
+      "3",
+      "--no-reuse-prefix",
+      "--trace"
+    ],
+    "input_tokens": 211,
+    "generated": [
+      25,
+      6
+    ],
+    "all_tokens_equal": true,
+    "calls": [
+      {
+        "call": {
+          "name": "day_of_year",
+          "arguments": {
+            "date": "2026-11-26"
+          }
+        },
+        "observation": {
+          "value": 330
+        }
+      }
+    ],
+    "answer": "330",
+    "gold": 330,
+    "score": {
+      "success": true,
+      "path": true,
+      "correct_answer": true,
+      "completed": true
+    },
+    "seconds": 0.4972825000004377
+  },
+  {
+    "id": "zone-0-1",
+    "command": [
+      "-m",
+      "loopqwen",
+      "tools",
+      "--checkpoint",
+      "exports/tool-language-packed-03",
+      "--tool-adapter",
+      "research/results/tool-dialogue-intent-pairs-01",
+      "--resource",
+      "zone",
+      "--prompt",
+      "For local noon on 2024-07-14 in Europe/Paris, how many minutes of the offset came from daylight saving?",
+      "--max-tokens",
+      "384",
+      "--max-turns",
+      "3",
+      "--no-reuse-prefix",
+      "--trace"
+    ],
+    "input_tokens": 254,
+    "generated": [
+      31,
+      6
+    ],
+    "all_tokens_equal": true,
+    "calls": [
+      {
+        "call": {
+          "name": "utc_offset_minutes",
+          "arguments": {
+            "zone": "Europe/Paris",
+            "date": "2024-07-14"
+          }
+        },
+        "observation": {
+          "value": 120
+        }
+      }
+    ],
+    "answer": "120",
+    "gold": 60,
+    "score": {
+      "success": false,
+      "path": false,
+      "correct_answer": false,
+      "completed": true
+    },
+    "seconds": 0.5909164590120781
+  }
+]
