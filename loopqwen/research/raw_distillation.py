@@ -33,8 +33,7 @@ def pad(rows):
     return mx.array([s + [0] * (n - len(s)) for s in seq])
 
 
-def teacher_targets(spec, rows, out, budget):
-    t = spec["teacher"]
+def load_teacher(t):
     d = Path(
         snapshot_download(
             t["repo"],
@@ -52,10 +51,14 @@ def teacher_targets(spec, rows, out, budget):
     net = LoopedModel(outer.language_model, Span(passes=1))
     net.eval()
     del outer
-    shape = (len(rows), len(rows[0]["positions"]), spec["top"])
+    return net
+
+
+def distributions(net, rows, top, budget, *, with_gold=False):
+    shape = (len(rows), len(rows[0]["positions"]), top)
     indices = np.empty(shape, dtype=np.uint32)
     masses = np.empty(shape, dtype=np.float32)
-    start = perf_counter()
+    gold_logp = np.empty(shape[:2], dtype=np.float32) if with_gold else None
     for i in range(0, len(rows), 4):
         batch = rows[i : i + 4]
         h = net.hidden(pad(batch))
@@ -68,13 +71,20 @@ def teacher_targets(spec, rows, out, budget):
         for j in range(len(batch)):
             for k in range(0, shape[1], 16):
                 z = net.project(states[j, k : k + 16]).astype(mx.float32)
-                winners = mx.argpartition(-z, spec["top"] - 1, axis=-1)[
-                    ..., : spec["top"]
-                ]
-                mass = mx.exp(
-                    mx.take_along_axis(z, winners, axis=-1)
-                    - mx.logsumexp(z, axis=-1, keepdims=True)
-                )
+                winners = mx.argpartition(-z, top - 1, axis=-1)[..., :top]
+                log_norm = mx.logsumexp(z, axis=-1, keepdims=True)
+                mass = mx.exp(mx.take_along_axis(z, winners, axis=-1) - log_norm)
+                if with_gold:
+                    gold = mx.array(
+                        [
+                            batch[j]["ids"][pos + 1]
+                            for pos in batch[j]["positions"][k : k + 16]
+                        ]
+                    )
+                    logp = (
+                        mx.take_along_axis(z, gold[:, None], -1)[:, 0] - log_norm[:, 0]
+                    )
+                    gold_logp[i + j, k : k + 16] = np.asarray(logp)
                 mx.eval(winners, mass)
                 indices[i + j, k : k + 16] = np.asarray(winners)
                 masses[i + j, k : k + 16] = np.asarray(mass)
@@ -84,6 +94,18 @@ def teacher_targets(spec, rows, out, budget):
             print("teacher documents", i, flush=True)
     idx, p = mx.array(indices), mx.array(masses)
     mx.eval(idx, p)
+    values = {"ids": idx, "mass": p}
+    if with_gold:
+        values["gold_logp"] = mx.array(gold_logp)
+    return values
+
+
+def teacher_targets(spec, rows, out, budget):
+    t = spec["teacher"]
+    net = load_teacher(t)
+    start = perf_counter()
+    values = distributions(net, rows, spec["top"], budget)
+    idx, p = values["ids"], values["mass"]
     f = out / "teacher-targets.safetensors"
     mx.save_safetensors(str(f), {"ids": idx, "mass": p})
     save(

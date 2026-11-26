@@ -1,0 +1,20 @@
+Selective raw-language study
+
+Public-domain book text comes from Project Gutenberg editions mirrored by GITenberg.
+The training editions are Pride and Prejudice (1342), Moby-Dick (2701), On the
+Origin of Species (1228) and Walden (205). The independently held-out editions are
+The Call of the Wild (215) and The Voyage of the Beagle (944). The material builder
+uses commit-specific files and excludes their Gutenberg headers and footers.
+Each source URL and SHA-256 is preserved in the frozen data manifests.
+
+CPython documentation is distributed under the Python Software Foundation
+License. A copy accompanies the existing retained technical corpus at
+data/v3_retention/PSF-LICENSE. The new material uses other named files from the
+pinned CPython revision 4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5.
+
+The independently held-out science paragraphs are support passages from the
+Allen Institute for AI's SciQ test split at revision
+2c94ad3e1aafab77146f384e23536f97a4849815. Earlier fitting data also contain
+SciQ training support and SQuAD encyclopedia passages as recorded in the
+original raw-distillation provenance. Only natural text is used for next-token
+prediction. The fitted and held-out token sequences have a 24-token exclusion.

@@ -70,6 +70,15 @@ def write(paper, results, result):
             "correct",
         ),
         (
+            "register-packed-direct-full-01",
+            "Direct 8-bit pages, 131K",
+            "exact",
+            2,
+            "direct_pages",
+            "base",
+            "correct",
+        ),
+        (
             "narrative-full-book-01",
             "Whole novel, 162K",
             "exact",

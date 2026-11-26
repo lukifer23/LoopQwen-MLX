@@ -142,6 +142,12 @@ def resources(paper, results, result, finish):
             "pages",
             "Direct 8-bit vs BF16 pages · 16K/32K",
         ),
+        (
+            "register-packed-direct-full-01",
+            "direct_pages",
+            "base",
+            "Direct 8-bit pages vs Base · 131K",
+        ),
     )
     panels = []
     with (paper / "prefill-resource-comparisons.csv").open("w") as file:

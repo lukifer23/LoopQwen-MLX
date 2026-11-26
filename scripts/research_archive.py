@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("selective-raw-"):
+        from loopqwen.research.selective_raw import verify as verify_selective_raw
+
+        verify_selective_raw(root, decision)
     if study.startswith("raw-distillation-"):
         from loopqwen.research.raw_distillation import verify as verify_raw
 

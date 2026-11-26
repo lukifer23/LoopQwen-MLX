@@ -82,9 +82,9 @@ def reference(index, n):
     return "n" + str(index) if index < n else "r" + str(index - n)
 
 
-def adapted_attention_layer(model):
-    """A native layer with the frozen donor arrays and four trainable rank-eight adapters."""
-    original = model.text.layers[LAYER]
+def adapted_attention_layer(model, layer_index=LAYER, rank=8):
+    """A native layer with the frozen donor arrays and four trainable projection adapters."""
+    original = model.text.layers[layer_index]
     layer = deepcopy(
         original, {id(v): v for _, v in tree_flatten(original.parameters())}
     )
@@ -93,7 +93,9 @@ def adapted_attention_layer(model):
         setattr(
             layer.self_attn,
             k,
-            LoRALinear.from_base(getattr(layer.self_attn, k), r=8, scale=2, dropout=0),
+            LoRALinear.from_base(
+                getattr(layer.self_attn, k), r=rank, scale=2, dropout=0
+            ),
         )
     adapted = {k for k, v in tree_flatten(layer.trainable_parameters())}
     expected = {

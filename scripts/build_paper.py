@@ -29,6 +29,7 @@ def main(verify):
                         "narrative-full-book-",
                         "transport-lossless-",
                         "raw-distillation-",
+                        "selective-raw-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",
