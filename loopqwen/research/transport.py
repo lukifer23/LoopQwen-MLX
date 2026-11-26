@@ -39,9 +39,7 @@ def verify(root, decision, spec=None):
     # The release inventory hashes all payloads and is itself restored byte for byte.
     restored = read(root / "restored.json")
     orig = read(root / "original.json")
-    assert restored == orig and {k: h for k, h in orig.items() if k != INVENTORY} == {
-        k: h for k, h in expected.items() if k != INVENTORY
-    }
+    assert restored == orig == expected
     from scripts.tool_release import tokens
 
     assert r["identical"] == (restored == orig) and r["offline_parity"] == (
@@ -49,6 +47,7 @@ def verify(root, decision, spec=None):
     )
     assert (
         r["raw_bytes"] == sum(read(root / "sizes.json").values())
+        and read(root / "sizes.json").keys() == expected.keys()
         and outcome(spec, r) == decision
     )
 
