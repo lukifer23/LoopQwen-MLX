@@ -2,6 +2,7 @@
 
 import csv
 import json
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 
@@ -366,15 +367,39 @@ def tokenizer_streams(paper, results, result, finish):
     finish(fig, "tokenizer-streams")
 
 
-def compact_streams(paper, results, result, finish):
-    name = "packed-release-retention-02"
+def compact_streams(paper, results, result, finish, name="packed-release-retention-02"):
+    from mlx_lm.utils import load_tokenizer
+    from loopqwen.evaluation.language7 import interpret
+    from loopqwen.model_loader import local_snapshot
+    from loopqwen.research.compact_retention import material
+
     root = results / name
     if not (root / "checksums.json").is_file():
         return
     decision = result(name)
     inventory = read(root / "checksums.json")
+    spec = read(root / "registration.json")
+    mat = material(spec)
+    tok = load_tokenizer(local_snapshot())
+    ends = {*tok.eos_token_ids, tok.convert_tokens_to_ids("<|im_end|>")}
+
+    def answer(row):
+        return interpret(
+            row["token_ids"],
+            tok.convert_tokens_to_ids("<think>"),
+            tok.convert_tokens_to_ids("</think>"),
+            ends,
+            tok,
+        )["visible"]
+
+    prefix = (
+        "repaired-register-streams"
+        if spec.get("packed_reader")
+        else "compact-register-streams"
+    )
+    prior = unpack(Path(spec["historical_register"]) / "direct_pages.json.gz")
     fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.35))
-    with (paper / "compact-register-streams.csv").open("w") as f:
+    with (paper / (prefix + ".csv")).open("w") as f:
         writer = csv.writer(f)
         writer.writerow(
             [
@@ -398,6 +423,13 @@ def compact_streams(paper, results, result, finish):
                 "book_tail_targets",
                 "short_generations",
                 "package",
+                "expected_full",
+                "actual_full",
+                "historical_full_tokens_exact",
+                "biased_predictions_by_site",
+                "medium_tokens",
+                "expected_medium",
+                "actual_medium",
             ]
         )
         for arm, indices, color, label in (
@@ -438,6 +470,23 @@ def compact_streams(paper, results, result, finish):
                         len(r["book"]["nll"]),
                         len(r["short"]),
                         ("mlx", "numpy")[i],
+                        mat["register"]["panel"][i]["gold"],
+                        answer(z),
+                        z["token_ids"] == prior[i]["token_ids"],
+                        json.dumps(
+                            [
+                                [v["layer"], v["turn"], v["reader_biased_queries"]]
+                                for v in z["page_sites"]
+                                if "reader_biased_queries" in v
+                            ]
+                        ),
+                        r["medium_register"]["prompt_tokens"]
+                        if "medium_register" in r
+                        else "",
+                        mat["medium_register"]["panel"][i]["gold"]
+                        if "medium_register" in r
+                        else "",
+                        answer(r["medium_register"]) if "medium_register" in r else "",
                     ]
                 )
                 values = (
@@ -461,4 +510,4 @@ def compact_streams(paper, results, result, finish):
     axes[0].legend(
         frameon=False, loc="lower center", bbox_to_anchor=(0.5, 1), ncol=2, fontsize=8
     )
-    finish(fig, "compact-register-streams")
+    finish(fig, prefix)

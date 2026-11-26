@@ -78,26 +78,26 @@ def guides():
         pos = text.index(quotation) + quotation.index(gold)
         filename = Path(key).name
         docs.append(
-            dict(
-                source="Project guides",
-                key=key,
-                revision=REVISION,
-                title=name,
-                document=filename,
-                sha256=hashlib.sha256(src).hexdigest(),
-                characters=len(text),
-            )
+            {
+                "source": "Project guides",
+                "key": key,
+                "revision": REVISION,
+                "title": name,
+                "document": filename,
+                "sha256": hashlib.sha256(src).hexdigest(),
+                "characters": len(text),
+            }
         )
         rows.append(
-            dict(
-                source="Project guides",
-                id=name,
-                document=filename,
-                question=question,
-                request=f"Check {filename}. {question} Give just the answer.",
-                refs=[gold],
-                answer_ranges=[[pos, pos + len(gold)]],
-            )
+            {
+                "source": "Project guides",
+                "id": name,
+                "document": filename,
+                "question": question,
+                "request": f"Check {filename}. {question} Give just the answer.",
+                "refs": [gold],
+                "answer_ranges": [[pos, pos + len(gold)]],
+            }
         )
     return docs, rows
 
@@ -161,6 +161,95 @@ def training_documents(blocked, rng):
     return docs
 
 
+def episode(rng, tools, path, family, title, body, item, reserved, include_retry):
+    ident, question, gold, evidence = item
+    examples, validation = [], []
+    wording = rng.choice(
+        [
+            f"Look in {path.name}. {question} Answer briefly.",
+            f"Use {path.name} to answer this question: {question}",
+            f"{question} Please check {path.name} and give the short answer.",
+        ]
+    )
+    opening = initial_messages(wording, tools)
+
+    def event(query):
+        call = compact(
+            {
+                "name": "search_documents",
+                "arguments": {
+                    "query": query,
+                    "document": path.name,
+                },
+            }
+        )
+        obs = tools[0].callback(query=query, document=path.name)
+        return call, obs
+
+    call, obs = event(question)
+    ranges = [
+        (o.start() + m.start(), o.start() + m.end())
+        for o in re.finditer(re.escape(evidence), body)
+        for m in re.finditer(re.escape(gold), evidence)
+    ]
+    labels = {
+        str(i + 1): any(h["start"] <= a < b <= h["stop"] for a, b in ranges)
+        for i, h in enumerate(obs["passages"])
+    }
+    located = any(labels.values())
+
+    def add(suffix, messages, target):
+        row = {
+            "id": ident + suffix,
+            "source": family,
+            "kind": "read" if suffix == "-read" else "search",
+            "messages": list(messages),
+            "thinking": "",
+            "visible": target,
+        }
+        if suffix == "-read":
+            row["known"] = labels
+        if reserved:
+            if suffix == "-read" and labels:
+                validation.append(row)
+        else:
+            examples.append(row)
+
+    add("-search", opening, call)
+    messages = [
+        *opening,
+        {"role": "assistant", "content": call},
+        {"role": "tool", "content": compact(obs)},
+    ]
+    add(
+        "-read",
+        messages,
+        gold if located else "I couldn't verify the answer in the returned passages.",
+    )
+    if include_retry:
+        wrong, empty = event(path.name)
+        if not empty["passages"]:
+            add(
+                "-retry",
+                [
+                    *opening,
+                    {"role": "assistant", "content": wrong},
+                    {"role": "tool", "content": compact(empty)},
+                ],
+                call,
+            )
+    summary = {
+        "id": ident,
+        "source": family,
+        "title": title,
+        "question": question,
+        "document_sha256": hashlib.sha256(body.encode()).hexdigest(),
+        "question_query_found": located,
+        "split": "validation" if reserved else "train",
+    }
+    return examples, validation, summary
+
+
 def training(held, old):
     rng = random.Random(98561)
     blocked = {
@@ -198,109 +287,31 @@ def training(held, old):
                 for (family, title, body, questions), path in zip(
                     group, files, strict=True
                 ):
-                    for ident, question, gold, evidence in questions:
-                        wording = rng.choice(
-                            [
-                                f"Look in {path.name}. {question} Answer briefly.",
-                                f"Use {path.name} to answer this question: {question}",
-                                f"{question} Please check {path.name} and give the short answer.",
-                            ]
+                    for item in questions:
+                        turns, held_turns, measured = episode(
+                            rng,
+                            tools,
+                            path,
+                            family,
+                            title,
+                            body,
+                            item,
+                            (family, title) in held_titles,
+                            len(episodes) % 5 == 0,
                         )
-                        opening = initial_messages(wording, tools)
-
-                        def event(query):
-                            call = compact(
-                                {
-                                    "name": "search_documents",
-                                    "arguments": {
-                                        "query": query,
-                                        "document": path.name,
-                                    },
-                                }
-                            )
-                            obs = tools[0].callback(query=query, document=path.name)
-                            return call, obs
-
-                        call, obs = event(question)
-                        ranges = [
-                            (o.start() + m.start(), o.start() + m.end())
-                            for o in re.finditer(re.escape(evidence), body)
-                            for m in re.finditer(re.escape(gold), evidence)
-                        ]
-                        labels = {
-                            str(i + 1): any(
-                                h["start"] <= a < b <= h["stop"] for a, b in ranges
-                            )
-                            for i, h in enumerate(obs["passages"])
-                        }
-                        located = any(labels.values())
-                        reserved = (family, title) in held_titles
-
-                        def add(suffix, messages, target):
-                            row = dict(
-                                id=ident + suffix,
-                                source=family,
-                                kind="read" if suffix == "-read" else "search",
-                                messages=list(messages),
-                                thinking="",
-                                visible=target,
-                            )
-                            if suffix == "-read":
-                                row["known"] = labels
-                            if reserved:
-                                if suffix == "-read" and labels:
-                                    validation.append(row)
-                            else:
-                                examples.append(row)
-
-                        add("-search", opening, call)
-                        messages = [
-                            *opening,
-                            dict(role="assistant", content=call),
-                            dict(role="tool", content=compact(obs)),
-                        ]
-                        add(
-                            "-read",
-                            messages,
-                            gold
-                            if located
-                            else "I couldn't verify the answer in the returned passages.",
-                        )
-                        if len(episodes) % 5 == 0:
-                            wrong, empty = event(path.name)
-                            if not empty["passages"]:
-                                add(
-                                    "-retry",
-                                    [
-                                        *opening,
-                                        dict(role="assistant", content=wrong),
-                                        dict(role="tool", content=compact(empty)),
-                                    ],
-                                    call,
-                                )
-                        episodes.append(
-                            dict(
-                                id=ident,
-                                source=family,
-                                title=title,
-                                question=question,
-                                document_sha256=hashlib.sha256(
-                                    body.encode()
-                                ).hexdigest(),
-                                question_query_found=located,
-                                split="validation" if reserved else "train",
-                            )
-                        )
+                        examples.extend(turns)
+                        validation.extend(held_turns)
+                        episodes.append(measured)
     assert len(episodes) == len({e["id"] for e in episodes}) == 640
     typed = read(ROOT / "tool-dialogue-typed-training.json")["examples"]
     examples.extend(rng.sample(typed, 192))
     rng.shuffle(examples)
-    return dict(
-        episodes=episodes,
-        examples=examples,
-        validation=validation,
-        sources={name: list(SOURCES[name, "train"]) for name in ("SQuAD", "QuAC")},
-    )
+    return {
+        "episodes": episodes,
+        "examples": examples,
+        "validation": validation,
+        "sources": {name: list(SOURCES[name, "train"]) for name in ("SQuAD", "QuAC")},
+    }
 
 
 def main():

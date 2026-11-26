@@ -453,6 +453,7 @@ def main():
     deployment(PAPER, RESULTS, result, finish)
     transport(PAPER, RESULTS, result, finish)
     compact_streams(PAPER, RESULTS, result, finish)
+    compact_streams(PAPER, RESULTS, result, finish, "packed-release-retention-03")
     packed_delivery(PAPER, RESULTS, result)
     tokenizer_streams(PAPER, RESULTS, result, finish)
     providers(PAPER, RESULTS, result)
