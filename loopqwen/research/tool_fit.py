@@ -17,7 +17,21 @@ from .tool_worlds import tools_for
 
 
 def build(spec, passes):
-    text, tok, _ = load_base()
+    if "donor" in spec:
+        from .projected_distillation import tutor
+        donor, tok = tutor({"teacher": spec["donor"]})
+        text = donor.text
+        del donor
+        start = spec["start_layer"]
+        def frozen_projection(path, module):
+            # Keep adapted suffix projections in BF16. Compress every eligible frozen projection.
+            suffix = any(path.startswith(f"model.layers.{i}.") for i in range(start,24))
+            return not suffix and isinstance(module,(nn.Embedding,nn.Linear))
+        nn.quantize(text,group_size=64,bits=spec["prefix_bits"],class_predicate=frozen_projection)
+        mx.eval(text.parameters())
+        mx.clear_cache()
+    else:
+        text, tok, _ = load_base()
     mx.random.seed(spec["fit_seed"])
     from ..tool_model import tool_view
 
