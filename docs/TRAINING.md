@@ -317,6 +317,21 @@ PYCODE
 
 The native qualification runner is `python -m loopqwen.research.packed_release packed-release-retention-01`. It alternates isolated offline processes and records actual model outputs, package callbacks, and all per-token target losses on the two books. [Frozen protocol](../research/experiments/packed-release-retention-01.json) · [Archival checks and output traces](../research/results/packed-release-retention-01)
 
+To reconstruct corrected release 04 from qualified release 03, use the following build. It pins the packed evidence-mask implementation and its operator instrumentation. The archival check verifies the four original outside-checkout workload streams.
+
+```sh
+.venv/bin/python - <<'PYCODE'
+from pathlib import Path
+from scripts.export_packed_register import build
+
+r = Path("research/results")
+build(Path("exports/tool-language-packed-03"), r / "packed-release-retention-01",
+      Path("exports/tool-language-packed-04"), r / "register-mixed-weight-full-01",
+      compact=True, packed_reader=True)
+PYCODE
+.venv/bin/python scripts/research_archive.py packed-release-retention-03 --verify
+```
+
 ### Reproducing the newer reasoning and file studies
 
 Each command below uses the saved registration and frozen material. Compute trials require the corresponding original weights, the locked MLX environment and an open local research session with its full budget available. Run a single worker at a time. To verify an existing result without fitting it again, use `python scripts/research_archive.py STUDY --verify`. Each archived decision includes the original study registration.

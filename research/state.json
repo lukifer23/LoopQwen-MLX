@@ -31,9 +31,10 @@
     "full_history_same_weight_fused_decode": "research/results/packed-decode-full-01",
     "lossless_packed_release_transport": "research/results/transport-lossless-02",
     "installed_mode_switch_03": "research/results/session-tokenizer-01",
-    "measured_register_131086_rates_and_accuracy_vs_base": "research/results/register-mixed-weight-full-01"
+    "measured_register_131086_rates_and_accuracy_vs_base": "research/results/register-mixed-weight-full-01",
+    "corrected_packed_offline_assistant": "research/results/packed-release-retention-03"
   },
-  "frontier": "Packed release 03 retains 512 book targets, 12 short generations and two live tools. Its parent field stream was 21/50 vs 12/50 for untouched Base, 83.97 vs 234.20 s with one fewer arithmetic answer. The verified installed tokenizer switch preserved all 200 cold-stream outputs and reduced cumulative switching wait by 44.3%. On a fresh 131086-token register swap, the mixed-weight loop retrieved 2/2 vs 0/2, took 167.39 vs 390.86 seconds including conversion, emitted 29.27 vs 27.42 post-first tokens/s and used 3.32 vs 3.78 GiB. Offline release qualification is separate. On the preceding physical 131084-token register pair the experimental fused model scored 2/2 vs 0/2 Base in 169.85 vs 390.94 s, 2.80 vs 3.78 GiB, but post-first output ran at 26.25 vs 27.81 tokens/s. On identical weights and 131080-token histories, fused decode was 26.10 vs 17.09 tokens/s. On both 162K natural-book questions shipped ordinary fallback reproduced Base, both wrong. K3 induction beat matched K1 124/128 vs 58/128. The 112/132 vs 15/132 joint tool advantage against Base and 45/78 vs 0/78 intent-adapter grounded advantage do not establish matched depth superiority. For semantic alignment, Wikipedia whole pairs were 20/24 vs 0/24, AskUbuntu 0/16 each. The selective raw decoder gained 70 top-one decisions across three suites while missing domain-level safeguards.",
+  "frontier": "Packed release 04 recovered both historical 131084-token outputs while unchanged release 03 missed both. It retained both original 24593-token outputs, all 512 book targets, 12 short generations and both live tools. Corrected versus shipping per-swap output rates were 29.34/28.37 versus 17.24/17.23 tokens/s at 2.35 versus 2.80 GiB register peak. Its parent field stream was 21/50 vs 12/50 for untouched Base, 83.97 vs 234.20 s with one fewer arithmetic answer. The verified installed tokenizer switch preserved all 200 cold-stream outputs and reduced cumulative switching wait by 44.3%. On a fresh 131086-token register swap, the mixed-weight loop retrieved 2/2 vs 0/2, took 167.39 vs 390.86 seconds including conversion, emitted 29.27 vs 27.42 post-first tokens/s and used 3.32 vs 3.78 GiB. The corrected offline qualification is a separate paired historical replay. On the preceding physical 131084-token register pair the experimental fused model scored 2/2 vs 0/2 Base in 169.85 vs 390.94 s, 2.80 vs 3.78 GiB, but post-first output ran at 26.25 vs 27.81 tokens/s. On identical weights and 131080-token histories, fused decode was 26.10 vs 17.09 tokens/s. On both 162K natural-book questions shipped ordinary fallback reproduced Base, both wrong. K3 induction beat matched K1 124/128 vs 58/128. The 112/132 vs 15/132 joint tool advantage against Base and 45/78 vs 0/78 intent-adapter grounded advantage do not establish matched depth superiority. For semantic alignment, Wikipedia whole pairs were 20/24 vs 0/24, AskUbuntu 0/16 each. The selective raw decoder gained 70 top-one decisions across three suites while missing domain-level safeguards.",
   "next": null,
   "completed": [
     {
@@ -774,7 +775,7 @@
     {
       "id": "session-tokenizer-01",
       "promoted": true,
-      "scope": "How much of the qualified assistant\u2019s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
+      "scope": "How much of the qualified assistant’s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
       "decision": "research/results/session-tokenizer-01/decision.json"
     },
     {
@@ -844,7 +845,7 @@
       "decision": "research/results/packed-release-retention-03/decision.json"
     }
   ],
-  "status": "Running held-out tool reasoning, typed public-function execution and human-edited BoolQ comparisons. See the preregistered stop rules for each.",
+  "status": "The qualified 131K offline assistant is release 04. Active research compares field clarification, free language modeling, combined reasoning and tool use, trained document search and complete Git-tree retrieval under their registered stop rules.",
   "next_action": null,
   "hypothesis": null,
   "known_limits": [
