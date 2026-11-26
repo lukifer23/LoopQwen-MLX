@@ -1,0 +1,12 @@
+{
+ "id":"science-composition-01","requires":"research/results/deduction-replication-01",
+ "question":"Does learned recurrent evidence retrieval and option matching improve human-authored QASC science questions and answer likelihood over untouched Base?",
+ "source":"Official AllenAI QASC dataset, SHA256 a7b3f2244f768974c609fd621346c931a72715609f171cb5544fc1da2a2ad55c.",
+ "protocol":"Controlled supplied-evidence evaluation. Present the two original support facts and four other science sentences, their order and the eight original answer choices independently shuffled. Reserve one example per distinct support, with no shared question, original supporting or distractor sentence across primary, confirmation and training splits. Each split uses its own eight donor questions. Fit no evaluation data. Frozen Qwen ordinary decoding and two tied Qwen evidence reads, native full vocabulary greedy first turn and open thinking for both arms. Recompute accuracy, common-prefix option probes, latency including full evidence processing and exact paired statistics. Public wording and choices, no gold support positions or labels supplied at inference. One final training checkpoint, no checkpoint selection. This study measures provided-evidence QA, not corpus retrieval.",
+ "gate":"Require >=6 net correct, paired two-sided p<0.05, at least two more correct common-prefix probes, and <=1.5 times Base seconds. Failures close all depth attribution and replication for this version. A pass qualifies equal-training depth attribution. Stop on memory warning or time limit.",
+ "seed":79413,"donor_pool":8,"sizes":{"train":384,"primary":40,"replication":40},
+ "rank":48,"fit_seed":914,"lr":0.0008,"updates":800,"batch":24,
+ "panel":"primary","generation_cap":256,"net_floor":6,"probe_floor":2,"time_ratio":1.5,
+ "arms":{"recurrent":{"depth":2,"fit":true},"base":{"depth":0}},
+ "limits":{"wall_seconds":720,"peak_gib":6,"available_gib":1.5}
+}
