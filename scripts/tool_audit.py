@@ -2,6 +2,7 @@
 from collections import Counter
 import json
 import re
+from pathlib import Path
 
 from mlx_lm.utils import load_tokenizer
 from jsonschema import validate
@@ -14,8 +15,11 @@ from scripts.tool_study import summarize
 
 def verify(root, decision, read, sha, require):
     spec = read(root / "registration.json")
-    items = read(__import__("pathlib").Path(spec["material"]))
+    items = read(Path(spec["material"]))
     tokenizer = load_tokenizer(local_snapshot())
+    stop_ids=set(tokenizer.eos_token_ids)
+    if spec.get("stop_at_turn_end"):
+        stop_ids.add(tokenizer.convert_tokens_to_ids("<|im_end|>"))
     arms = {}
     for side in ("candidate","control"):
         rows = read(root / (side+".json.gz"))
@@ -34,7 +38,7 @@ def verify(root, decision, read, sha, require):
                 ids = t["token_ids"]
                 require(1 <= len(ids) <= spec["max_tokens"] and 0 < t["ttft_s"] <= t["seconds"] <= traj["seconds"], "Turn budget or timing")
                 raw = tokenizer.decode(ids[:-1])
-                if ids[-1] not in tokenizer.eos_token_ids:
+                if ids[-1] not in stop_ids:
                     require(len(ids) == spec["max_tokens"], "Incomplete capped output")
                     status = "token_limit"
                 elif "</think>" not in raw:
@@ -85,5 +89,4 @@ def verify(root, decision, read, sha, require):
     require(summarize(arms,spec) == decision,"Tool summary mismatch")
     if (root/"fit.json").exists():
         meta=read(root/"fit.json")
-        from pathlib import Path
         require(meta["weights"] == sha(root/"tool-adapters.safetensors") and meta["training"] == sha(Path(spec["training"])) and meta["updates"]==spec["updates"],"Tool fit lineage")

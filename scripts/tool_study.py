@@ -63,7 +63,7 @@ def main(name):
             for row in items:
                 budget.check()
                 traj = run(model,tok,row["question"],tools_for(row),max_turns=spec["max_turns"],
-                           max_tokens=spec["max_tokens"],progress=lambda _:budget.check())
+                           stop_at_turn_end=spec.get("stop_at_turn_end",False),max_tokens=spec["max_tokens"],progress=lambda _:budget.check())
                 arm.append(dict(id=row["id"],trajectory=traj,score=score(row,traj)))
                 print(side,row["id"],traj["status"],traj["answer"],arm[-1]["score"]["success"],flush=True)
             (out/(side+".json.gz")).write_bytes(gzip.compress(json.dumps(arm).encode(),mtime=0))

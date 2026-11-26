@@ -61,7 +61,7 @@ def decode_action(visible):
     return obj
 
 
-def run(model, tokenizer, question, tools, *, max_tokens=128, max_turns=4, progress=None):
+def run(model, tokenizer, question, tools, *, max_tokens=128, max_turns=4, progress=None, stop_at_turn_end=True):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
     if not 1 <= max_turns <= 64:
         raise ValueError("max_turns must be between 1 and 64")
@@ -74,6 +74,9 @@ def run(model, tokenizer, question, tools, *, max_tokens=128, max_turns=4, progr
             raise ValueError("Invalid tool")
         Draft202012Validator.check_schema(tool.parameters)
         validators[tool.name] = Draft202012Validator(tool.parameters, registry=Registry())
+    stop_ids = set(tokenizer.eos_token_ids)
+    if stop_at_turn_end:
+        stop_ids.add(tokenizer.convert_tokens_to_ids("<|im_end|>"))
     messages = initial_messages(question, tools)
     turns = []
     answer = None
@@ -81,12 +84,12 @@ def run(model, tokenizer, question, tools, *, max_tokens=128, max_turns=4, progr
     start = perf_counter()
     for _ in range(max_turns):
         request = prompt(tokenizer, messages)
-        out = generate(model, tokenizer, request, max_tokens=max_tokens, progress=progress)
+        out = generate(model, tokenizer, request, max_tokens=max_tokens, progress=progress, stop_ids=stop_ids)
         ids = out["token_ids"]
         row = dict(prompt_ids=tokenizer.encode(request, add_special_tokens=False), token_ids=ids,
                    seconds=out["elapsed_s"], ttft_s=out["ttft_s"], peak_bytes=out["peak_bytes"])
         turns.append(row)
-        if ids[-1] not in tokenizer.eos_token_ids:
+        if ids[-1] not in stop_ids:
             status = "token_limit"
             break
         raw = tokenizer.decode(ids[:-1])

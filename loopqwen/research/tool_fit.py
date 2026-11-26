@@ -88,7 +88,7 @@ def fit(model,tok,spec,out,budget):
     elapsed=perf_counter()-start
     weights=dict(tree_flatten(model.trainable_parameters()))
     mx.save_safetensors(str(out/"tool-adapters.safetensors"),weights)
-    save(out/"fit.json",dict(passes=model.span.passes,training=digest(spec["training"]),trainable=count(model,True),
+    save(out/"fit.json",dict(passes=model.span.passes,training=digest(Path(spec["training"])),trainable=count(model,True),
                              turns=len(bank),updates=spec["updates"],targets=targets_seen,prepare_seconds=prepared,
                              optimizer_seconds=elapsed,weights=digest(out/"tool-adapters.safetensors"),loss=logs))
 

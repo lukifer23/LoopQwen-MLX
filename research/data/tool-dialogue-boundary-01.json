@@ -1,0 +1,1130 @@
+[
+  {
+    "id": "boundary-4-chain",
+    "kind": "chain",
+    "domain": "printing",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_press",
+      "press_speed"
+    ],
+    "names": [
+      "Cedar",
+      "Kestrel",
+      "Cobalt"
+    ],
+    "places": [
+      "Valley",
+      "South",
+      "Harbor"
+    ],
+    "numbers": [
+      27,
+      30,
+      43
+    ],
+    "question": "I have order Cedar. Find its assigned press, then tell me that site's speed. Just the number.",
+    "expected": [
+      {
+        "name": "assigned_press",
+        "arguments": {
+          "identifier": "Cedar"
+        }
+      },
+      {
+        "name": "press_speed",
+        "arguments": {
+          "location": "Valley"
+        }
+      }
+    ],
+    "gold": "27"
+  },
+  {
+    "id": "boundary-0-compare",
+    "kind": "compare",
+    "domain": "observatory",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "station_elevation",
+      "instrument_station"
+    ],
+    "names": [
+      "Pearl",
+      "Juniper",
+      "Cobalt"
+    ],
+    "places": [
+      "Harbor",
+      "East",
+      "Lake"
+    ],
+    "numbers": [
+      33,
+      73,
+      53
+    ],
+    "question": "Compare Harbor with East using the recorded elevation. Name the station with the higher value.",
+    "expected": [
+      {
+        "name": "station_elevation",
+        "arguments": {
+          "location": "Harbor"
+        }
+      },
+      {
+        "name": "station_elevation",
+        "arguments": {
+          "location": "East"
+        }
+      }
+    ],
+    "gold": "East"
+  },
+  {
+    "id": "boundary-3-clarify",
+    "kind": "clarify",
+    "domain": "market",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "district_population",
+      "locate_stall"
+    ],
+    "names": [
+      "Quartz",
+      "Cedar",
+      "Cobalt"
+    ],
+    "places": [
+      "Ridge",
+      "Lake",
+      "Grove"
+    ],
+    "numbers": [
+      34,
+      79,
+      92
+    ],
+    "question": "Tell me my district's population. I haven't specified which district yet.",
+    "expected": [],
+    "gold": "Which district?"
+  },
+  {
+    "id": "boundary-3-compare",
+    "kind": "compare",
+    "domain": "printing",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_press",
+      "press_speed"
+    ],
+    "names": [
+      "Quartz",
+      "Cedar",
+      "Hazel"
+    ],
+    "places": [
+      "Harbor",
+      "North",
+      "Central"
+    ],
+    "numbers": [
+      26,
+      93,
+      19
+    ],
+    "question": "Compare Harbor with North using the recorded speed. Name the press with the higher value.",
+    "expected": [
+      {
+        "name": "press_speed",
+        "arguments": {
+          "location": "Harbor"
+        }
+      },
+      {
+        "name": "press_speed",
+        "arguments": {
+          "location": "North"
+        }
+      }
+    ],
+    "gold": "North"
+  },
+  {
+    "id": "boundary-0-lookup",
+    "kind": "lookup",
+    "domain": "festival",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "stage_assignment",
+      "stage_capacity"
+    ],
+    "names": [
+      "Willow",
+      "Hazel",
+      "Cobalt"
+    ],
+    "places": [
+      "Ridge",
+      "Hill",
+      "West"
+    ],
+    "numbers": [
+      57,
+      25,
+      42
+    ],
+    "question": "For the stage called Ridge, look up its capacity. Return the number only.",
+    "expected": [
+      {
+        "name": "stage_capacity",
+        "arguments": {
+          "location": "Ridge"
+        }
+      }
+    ],
+    "gold": "57"
+  },
+  {
+    "id": "boundary-0-clarify",
+    "kind": "clarify",
+    "domain": "festival",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "stage_capacity",
+      "stage_assignment"
+    ],
+    "names": [
+      "Cobalt",
+      "Hazel",
+      "Kestrel"
+    ],
+    "places": [
+      "Ridge",
+      "West",
+      "South"
+    ],
+    "numbers": [
+      79,
+      61,
+      86
+    ],
+    "question": "Tell me my stage's capacity. I haven't specified which stage yet.",
+    "expected": [],
+    "gold": "Which stage?"
+  },
+  {
+    "id": "boundary-1-compare",
+    "kind": "compare",
+    "domain": "market",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_stall",
+      "district_population"
+    ],
+    "names": [
+      "Juniper",
+      "Willow",
+      "Maple"
+    ],
+    "places": [
+      "Coast",
+      "Harbor",
+      "North"
+    ],
+    "numbers": [
+      83,
+      96,
+      71
+    ],
+    "question": "Compare Coast with Harbor using the recorded population. Name the district with the higher value.",
+    "expected": [
+      {
+        "name": "district_population",
+        "arguments": {
+          "location": "Coast"
+        }
+      },
+      {
+        "name": "district_population",
+        "arguments": {
+          "location": "Harbor"
+        }
+      }
+    ],
+    "gold": "Harbor"
+  },
+  {
+    "id": "boundary-1-direct",
+    "kind": "direct",
+    "domain": "festival",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "stage_capacity",
+      "stage_assignment"
+    ],
+    "names": [
+      "Cedar",
+      "Pearl",
+      "Juniper"
+    ],
+    "places": [
+      "Harbor",
+      "West",
+      "Grove"
+    ],
+    "numbers": [
+      48,
+      39,
+      40
+    ],
+    "question": "Use these figures: Harbor has 48, West has 39. Give only the name with the higher figure.",
+    "expected": [],
+    "gold": "Harbor"
+  },
+  {
+    "id": "boundary-0-direct",
+    "kind": "direct",
+    "domain": "market",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_stall",
+      "district_population"
+    ],
+    "names": [
+      "Cobalt",
+      "Juniper",
+      "Flint"
+    ],
+    "places": [
+      "Lake",
+      "Coast",
+      "Ridge"
+    ],
+    "numbers": [
+      59,
+      73,
+      88
+    ],
+    "question": "Use these figures: Lake has 59, Coast has 73. Give only the name with the higher figure.",
+    "expected": [],
+    "gold": "Coast"
+  },
+  {
+    "id": "boundary-5-chain",
+    "kind": "chain",
+    "domain": "observatory",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "station_elevation",
+      "instrument_station"
+    ],
+    "names": [
+      "Pearl",
+      "Willow",
+      "Juniper"
+    ],
+    "places": [
+      "North",
+      "Lake",
+      "Grove"
+    ],
+    "numbers": [
+      79,
+      67,
+      16
+    ],
+    "question": "I have instrument Pearl. Find its assigned station, then tell me that site's elevation. Just the number.",
+    "expected": [
+      {
+        "name": "instrument_station",
+        "arguments": {
+          "identifier": "Pearl"
+        }
+      },
+      {
+        "name": "station_elevation",
+        "arguments": {
+          "location": "North"
+        }
+      }
+    ],
+    "gold": "79"
+  },
+  {
+    "id": "boundary-1-chain",
+    "kind": "chain",
+    "domain": "observatory",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "instrument_station",
+      "station_elevation"
+    ],
+    "names": [
+      "Cobalt",
+      "Maple",
+      "Flint"
+    ],
+    "places": [
+      "Coast",
+      "Valley",
+      "Lake"
+    ],
+    "numbers": [
+      30,
+      11,
+      94
+    ],
+    "question": "I have instrument Cobalt. Find its assigned station, then tell me that site's elevation. Just the number.",
+    "expected": [
+      {
+        "name": "instrument_station",
+        "arguments": {
+          "identifier": "Cobalt"
+        }
+      },
+      {
+        "name": "station_elevation",
+        "arguments": {
+          "location": "Coast"
+        }
+      }
+    ],
+    "gold": "30"
+  },
+  {
+    "id": "boundary-2-chain",
+    "kind": "chain",
+    "domain": "market",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "district_population",
+      "locate_stall"
+    ],
+    "names": [
+      "Juniper",
+      "Hazel",
+      "Amber"
+    ],
+    "places": [
+      "Grove",
+      "East",
+      "North"
+    ],
+    "numbers": [
+      47,
+      83,
+      92
+    ],
+    "question": "I have stall Juniper. Find its assigned district, then tell me that site's population. Just the number.",
+    "expected": [
+      {
+        "name": "locate_stall",
+        "arguments": {
+          "identifier": "Juniper"
+        }
+      },
+      {
+        "name": "district_population",
+        "arguments": {
+          "location": "Grove"
+        }
+      }
+    ],
+    "gold": "47"
+  },
+  {
+    "id": "boundary-4-clarify",
+    "kind": "clarify",
+    "domain": "festival",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "stage_capacity",
+      "stage_assignment"
+    ],
+    "names": [
+      "Flint",
+      "Kestrel",
+      "Quartz"
+    ],
+    "places": [
+      "Valley",
+      "Hill",
+      "Lake"
+    ],
+    "numbers": [
+      46,
+      65,
+      96
+    ],
+    "question": "Tell me my stage's capacity. I haven't specified which stage yet.",
+    "expected": [],
+    "gold": "Which stage?"
+  },
+  {
+    "id": "boundary-4-direct",
+    "kind": "direct",
+    "domain": "market",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_stall",
+      "district_population"
+    ],
+    "names": [
+      "Amber",
+      "Pearl",
+      "Juniper"
+    ],
+    "places": [
+      "Lake",
+      "Ridge",
+      "North"
+    ],
+    "numbers": [
+      15,
+      84,
+      49
+    ],
+    "question": "Use these figures: Lake has 15, Ridge has 84. Give only the name with the higher figure.",
+    "expected": [],
+    "gold": "Ridge"
+  },
+  {
+    "id": "boundary-5-direct",
+    "kind": "direct",
+    "domain": "festival",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "stage_assignment",
+      "stage_capacity"
+    ],
+    "names": [
+      "Kestrel",
+      "Hazel",
+      "Cedar"
+    ],
+    "places": [
+      "Coast",
+      "South",
+      "Ridge"
+    ],
+    "numbers": [
+      88,
+      43,
+      61
+    ],
+    "question": "Use these figures: Coast has 88, South has 43. Give only the name with the higher figure.",
+    "expected": [],
+    "gold": "Coast"
+  },
+  {
+    "id": "boundary-0-chain",
+    "kind": "chain",
+    "domain": "printing",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_press",
+      "press_speed"
+    ],
+    "names": [
+      "Juniper",
+      "Flint",
+      "Quartz"
+    ],
+    "places": [
+      "Harbor",
+      "Hill",
+      "Lake"
+    ],
+    "numbers": [
+      55,
+      19,
+      51
+    ],
+    "question": "I have order Juniper. Find its assigned press, then tell me that site's speed. Just the number.",
+    "expected": [
+      {
+        "name": "assigned_press",
+        "arguments": {
+          "identifier": "Juniper"
+        }
+      },
+      {
+        "name": "press_speed",
+        "arguments": {
+          "location": "Harbor"
+        }
+      }
+    ],
+    "gold": "55"
+  },
+  {
+    "id": "boundary-2-direct",
+    "kind": "direct",
+    "domain": "printing",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_press",
+      "press_speed"
+    ],
+    "names": [
+      "Hazel",
+      "Cobalt",
+      "Kestrel"
+    ],
+    "places": [
+      "Harbor",
+      "East",
+      "Valley"
+    ],
+    "numbers": [
+      45,
+      46,
+      21
+    ],
+    "question": "Use these figures: Harbor has 45, East has 46. Give only the name with the higher figure.",
+    "expected": [],
+    "gold": "East"
+  },
+  {
+    "id": "boundary-4-lookup",
+    "kind": "lookup",
+    "domain": "festival",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "stage_assignment",
+      "stage_capacity"
+    ],
+    "names": [
+      "Amber",
+      "Kestrel",
+      "Pearl"
+    ],
+    "places": [
+      "Central",
+      "East",
+      "Hill"
+    ],
+    "numbers": [
+      77,
+      28,
+      53
+    ],
+    "question": "For the stage called Central, look up its capacity. Return the number only.",
+    "expected": [
+      {
+        "name": "stage_capacity",
+        "arguments": {
+          "location": "Central"
+        }
+      }
+    ],
+    "gold": "77"
+  },
+  {
+    "id": "boundary-2-lookup",
+    "kind": "lookup",
+    "domain": "observatory",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "instrument_station",
+      "station_elevation"
+    ],
+    "names": [
+      "Cedar",
+      "Hazel",
+      "Kestrel"
+    ],
+    "places": [
+      "Harbor",
+      "North",
+      "South"
+    ],
+    "numbers": [
+      72,
+      82,
+      89
+    ],
+    "question": "For the station called Harbor, look up its elevation. Return the number only.",
+    "expected": [
+      {
+        "name": "station_elevation",
+        "arguments": {
+          "location": "Harbor"
+        }
+      }
+    ],
+    "gold": "72"
+  },
+  {
+    "id": "boundary-3-lookup",
+    "kind": "lookup",
+    "domain": "market",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_stall",
+      "district_population"
+    ],
+    "names": [
+      "Cedar",
+      "Flint",
+      "Quartz"
+    ],
+    "places": [
+      "Lake",
+      "South",
+      "East"
+    ],
+    "numbers": [
+      18,
+      31,
+      96
+    ],
+    "question": "For the district called Lake, look up its population. Return the number only.",
+    "expected": [
+      {
+        "name": "district_population",
+        "arguments": {
+          "location": "Lake"
+        }
+      }
+    ],
+    "gold": "18"
+  },
+  {
+    "id": "boundary-4-compare",
+    "kind": "compare",
+    "domain": "observatory",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "instrument_station",
+      "station_elevation"
+    ],
+    "names": [
+      "Quartz",
+      "Juniper",
+      "Rowan"
+    ],
+    "places": [
+      "Central",
+      "Lake",
+      "Hill"
+    ],
+    "numbers": [
+      78,
+      16,
+      52
+    ],
+    "question": "Compare Central with Lake using the recorded elevation. Name the station with the higher value.",
+    "expected": [
+      {
+        "name": "station_elevation",
+        "arguments": {
+          "location": "Central"
+        }
+      },
+      {
+        "name": "station_elevation",
+        "arguments": {
+          "location": "Lake"
+        }
+      }
+    ],
+    "gold": "Central"
+  },
+  {
+    "id": "boundary-3-chain",
+    "kind": "chain",
+    "domain": "festival",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "stage_assignment",
+      "stage_capacity"
+    ],
+    "names": [
+      "Willow",
+      "Kestrel",
+      "Maple"
+    ],
+    "places": [
+      "North",
+      "Lake",
+      "West"
+    ],
+    "numbers": [
+      79,
+      25,
+      29
+    ],
+    "question": "I have act Willow. Find its assigned stage, then tell me that site's capacity. Just the number.",
+    "expected": [
+      {
+        "name": "stage_assignment",
+        "arguments": {
+          "identifier": "Willow"
+        }
+      },
+      {
+        "name": "stage_capacity",
+        "arguments": {
+          "location": "North"
+        }
+      }
+    ],
+    "gold": "79"
+  },
+  {
+    "id": "boundary-1-clarify",
+    "kind": "clarify",
+    "domain": "printing",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_press",
+      "press_speed"
+    ],
+    "names": [
+      "Flint",
+      "Willow",
+      "Cedar"
+    ],
+    "places": [
+      "Hill",
+      "Central",
+      "North"
+    ],
+    "numbers": [
+      22,
+      60,
+      52
+    ],
+    "question": "Tell me my press's speed. I haven't specified which press yet.",
+    "expected": [],
+    "gold": "Which press?"
+  },
+  {
+    "id": "boundary-5-clarify",
+    "kind": "clarify",
+    "domain": "printing",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "press_speed",
+      "assigned_press"
+    ],
+    "names": [
+      "Rowan",
+      "Kestrel",
+      "Maple"
+    ],
+    "places": [
+      "Valley",
+      "West",
+      "Grove"
+    ],
+    "numbers": [
+      27,
+      63,
+      86
+    ],
+    "question": "Tell me my press's speed. I haven't specified which press yet.",
+    "expected": [],
+    "gold": "Which press?"
+  },
+  {
+    "id": "boundary-2-clarify",
+    "kind": "clarify",
+    "domain": "observatory",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "instrument_station",
+      "station_elevation"
+    ],
+    "names": [
+      "Juniper",
+      "Willow",
+      "Flint"
+    ],
+    "places": [
+      "Valley",
+      "Ridge",
+      "Lake"
+    ],
+    "numbers": [
+      68,
+      74,
+      85
+    ],
+    "question": "Tell me my station's elevation. I haven't specified which station yet.",
+    "expected": [],
+    "gold": "Which station?"
+  },
+  {
+    "id": "boundary-5-compare",
+    "kind": "compare",
+    "domain": "market",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "district_population",
+      "locate_stall"
+    ],
+    "names": [
+      "Cobalt",
+      "Flint",
+      "Juniper"
+    ],
+    "places": [
+      "Hill",
+      "East",
+      "Grove"
+    ],
+    "numbers": [
+      45,
+      88,
+      15
+    ],
+    "question": "Compare Hill with East using the recorded population. Name the district with the higher value.",
+    "expected": [
+      {
+        "name": "district_population",
+        "arguments": {
+          "location": "Hill"
+        }
+      },
+      {
+        "name": "district_population",
+        "arguments": {
+          "location": "East"
+        }
+      }
+    ],
+    "gold": "East"
+  },
+  {
+    "id": "boundary-5-lookup",
+    "kind": "lookup",
+    "domain": "printing",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "assigned_press",
+      "press_speed"
+    ],
+    "names": [
+      "Amber",
+      "Rowan",
+      "Pearl"
+    ],
+    "places": [
+      "Valley",
+      "Hill",
+      "Harbor"
+    ],
+    "numbers": [
+      29,
+      26,
+      94
+    ],
+    "question": "For the press called Valley, look up its speed. Return the number only.",
+    "expected": [
+      {
+        "name": "press_speed",
+        "arguments": {
+          "location": "Valley"
+        }
+      }
+    ],
+    "gold": "29"
+  },
+  {
+    "id": "boundary-3-direct",
+    "kind": "direct",
+    "domain": "observatory",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "station_elevation",
+      "instrument_station"
+    ],
+    "names": [
+      "Amber",
+      "Hazel",
+      "Willow"
+    ],
+    "places": [
+      "South",
+      "Central",
+      "West"
+    ],
+    "numbers": [
+      51,
+      87,
+      32
+    ],
+    "question": "Use these figures: South has 51, Central has 87. Give only the name with the higher figure.",
+    "expected": [],
+    "gold": "Central"
+  },
+  {
+    "id": "boundary-2-compare",
+    "kind": "compare",
+    "domain": "festival",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "stage_capacity",
+      "stage_assignment"
+    ],
+    "names": [
+      "Maple",
+      "Willow",
+      "Rowan"
+    ],
+    "places": [
+      "Valley",
+      "East",
+      "Central"
+    ],
+    "numbers": [
+      50,
+      74,
+      51
+    ],
+    "question": "Compare Valley with East using the recorded capacity. Name the stage with the higher value.",
+    "expected": [
+      {
+        "name": "stage_capacity",
+        "arguments": {
+          "location": "Valley"
+        }
+      },
+      {
+        "name": "stage_capacity",
+        "arguments": {
+          "location": "East"
+        }
+      }
+    ],
+    "gold": "East"
+  },
+  {
+    "id": "boundary-1-lookup",
+    "kind": "lookup",
+    "domain": "printing",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "press_speed",
+      "assigned_press"
+    ],
+    "names": [
+      "Pearl",
+      "Willow",
+      "Flint"
+    ],
+    "places": [
+      "Hill",
+      "Central",
+      "Valley"
+    ],
+    "numbers": [
+      90,
+      70,
+      15
+    ],
+    "question": "For the press called Hill, look up its speed. Return the number only.",
+    "expected": [
+      {
+        "name": "press_speed",
+        "arguments": {
+          "location": "Hill"
+        }
+      }
+    ],
+    "gold": "90"
+  }
+]
