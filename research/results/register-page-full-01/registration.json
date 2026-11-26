@@ -1,0 +1,19 @@
+{
+  "id": "register-page-full-01",
+  "question": "Does the qualifying causal page-prefill recurrent decoder retrieve both changed answers, finish sooner and use no more peak memory than ordinary Base at physical 131K context?",
+  "material": "research/data/register-page-full-01.json",
+  "requires": "research/results/register-page-prefill-01",
+  "prerequisite_sha256": "d9e84b385ff722397fea401cc02627dac16ec420d938422d5d821d37a881112f",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "max_tokens": 96,
+  "protocol": "Fresh fixed equal-width key swap in a 131073-token document from seed 731109. The query and the position of every numeric value remain fixed, while the named record changes between approximately one tenth and three quarters of the input. Two direct arms, AB/BA order, reloaded weights, identical initial IDs and 96-token greedy thinking budget. Use the qualified language model with unmodified causal page selection (128-token page, 16 chosen, 15 recent, first kept, at least 512 dense final prompt tokens), versus pinned untouched dense Base at ordinary depth. Record all eight vs six physical global KV offsets, outputs, actual initial latency, end-to-end seconds and maximum MLX bytes. This pair is one counterfactual test of register lookup; natural prose has an independent full-book study.",
+  "gate": "Require both correct answers, strictly more than Base, lower summed TTFT and elapsed seconds, at most the peak allocation of Base, every required site retaining every consumed position and correctly accounted genuinely sparse work. Report the narrower accuracy-plus-time comparison independently. A memory loss closes all-resource promotion even if the quality and latency improve. Whole-prose retention remains a prerequisite for default deployment. Stop within the wall and memory caps.",
+  "limits": {
+    "wall_seconds": 1340,
+    "peak_gib": 6.8,
+    "available_gib": 1.4
+  },
+  "attention_policy": "pages",
+  "seed": 731109,
+  "control": "base"
+}
