@@ -25,6 +25,7 @@ def verify(root, decision, read, sha, require):
         "venue_dialogues",
         "sql_transfer_retention",
         "schema_actions",
+        "paired_resource_intents",
     )
     tokenizer = load_tokenizer(local_snapshot())
     stop_ids = set(tokenizer.eos_token_ids)

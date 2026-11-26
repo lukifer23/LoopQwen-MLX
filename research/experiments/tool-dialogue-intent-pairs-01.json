@@ -1,0 +1,43 @@
+{
+  "id": "tool-dialogue-intent-pairs-01",
+  "question": "Can paired semantic tool selection and executed calculator-error recovery improve a single free-decoding recurrent model on previously untrained live interfaces while retaining human arithmetic and every qualified public execution?",
+  "workload": "paired_resource_intents",
+  "candidate": "train_loop",
+  "control": "base",
+  "initial_adapter": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "training": "research/data/paired-intent-training.json",
+  "material": "research/data/paired-intent-panel.json",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "rank": 32,
+  "fit_seed": 483733,
+  "updates": 1200,
+  "batch": 8,
+  "pairs_per_batch": 2,
+  "ranking_weight": 0.35,
+  "lr": 5.5e-05,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "stop_at_turn_end": true,
+  "net_floor": 12,
+  "pair_gain": 6,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "protocol": "Continue the qualified instruction-sibling Qwen final-layer K2 adapter. Train with 142 paired changes of intent selected from 284 distinct previously unused published Hermes/Glaive demonstrations involving 40 genuine function names. Each pair uses identical two-function schema IDs and order under its two original questions; half use previously unseen opaque aliases. Train response CE and a margin on the first divergent action token. Mix 384 actual executed annotated GSM8K programs and their answers, 192 real invalid-expression errors followed by a corrected action, 192 WikiSQL training-table calls and replies and 384 prior typed rehearsal turns. No field evaluation prompt is a demonstration. The tutor's public demonstrations are synthetic. Corpus source hashes, example IDs, formulas and negatives are saved. No grammar, dynamic task classifier, label-based action restriction or hidden retries. One trained model versus ordinary untouched BF16 Base at the same 384 output tokens, three turns, greedy thinking, stop policy, callback and sealed prompt IDs. Sixteen pairs each ask two distinct questions about the same real object, with different correct functions and values: four Python installed distributions, four actual Unicode characters, four dates and four IANA zone/date combinations. Half the pairs per family have freshly randomized opaque tool names. The 32 English requests are project-authored. Twenty-four fresh publisher ASDiv and SVAMP questions (12 each), excluding previous material and shared openings, use the same unchanged calculator. Retest 22 public numerical functions for regression. Counterfactual resource correctness requires the right single actual callback, observed value and completed response, twice for a pair. Charge full interactive model and callback time; weights warm. Replay archived actions, including incorrect real lookups, and actual unaffected public observations during verification.",
+  "gate": "At least twelve net additional grounded tasks over all 78, exact paired p<=.05, no greater aggregate time or peak. Require six net additional wholly correct resource pairs and exact two-sided pair p<=.05. In each resource family require at least four of eight strict successes and a positive net gain. At least as many correct final numbers as Base separately on ASDiv and SVAMP, and no loss of any of the 17 previously successful public executions. Report every family, opaque/name-revealing pairs, extra calls and both numerical content and strict grounded output. A pass licenses a matched K1 initialized from its equally trained typed K1 sibling and an independent fresh field replication; a miss closes this checkpoint for promotion.",
+  "limits": {
+    "wall_seconds": 1600,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}

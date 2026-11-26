@@ -33,7 +33,7 @@ def sha(s):
     return hashlib.sha256(s.encode()).hexdigest()
 
 
-def former(rows):
+def former(rows, prior=PRIOR):
     keys = {tuple(norm(q)[:8]) for q in rows}
     blocked = set()
 
@@ -52,11 +52,11 @@ def former(rows):
                 visit(v)
 
     names = subprocess.check_output(
-        ["git", "ls-tree", "-r", "--name-only", PRIOR, "research/data"], text=True
+        ["git", "ls-tree", "-r", "--name-only", prior, "research/data"], text=True
     ).splitlines()
     for f in names:
         if f.endswith(".json"):
-            visit(json.loads(subprocess.check_output(["git", "show", PRIOR + ":" + f])))
+            visit(json.loads(subprocess.check_output(["git", "show", prior + ":" + f])))
     old = set().union(
         *json.loads(
             gzip.decompress(

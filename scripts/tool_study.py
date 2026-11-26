@@ -277,6 +277,11 @@ def summarize(records, spec):
             and all(x >= 0 for x in by_source.values())
             and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
         )
+    if spec.get("workload") == "paired_resource_intents":
+        from loopqwen.evaluation.paired_tool_intents import decision
+
+        details["resource_intents"], qualified = decision(records, spec, metrics)
+        passed = passed and qualified
     return dict(
         **details,
         passed=passed,
@@ -290,6 +295,10 @@ def summarize(records, spec):
 
 def workload(spec, *, replay=False):
     material = read(spec["material"])
+    if spec.get("workload") == "paired_resource_intents":
+        from loopqwen.evaluation.paired_tool_intents import workload as resource_intents
+
+        return resource_intents(material, replay)
     if spec.get("workload") == "mixed_tool_retention":
         from loopqwen.evaluation import executable_tools as external
 
