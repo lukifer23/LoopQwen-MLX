@@ -1,4 +1,5 @@
 """Private key/value worlds for reproducible tool interaction and grounded decisions."""
+
 import random
 import re
 from collections import Counter
@@ -15,15 +16,29 @@ DOMAINS = {
     "fleet": ("bus", "garage", "capacity", "assigned_garage", "garage_capacity"),
     "festival": ("act", "stage", "capacity", "stage_assignment", "stage_capacity"),
     "printing": ("order", "press", "speed", "assigned_press", "press_speed"),
-    "observatory": ("instrument", "station", "elevation", "instrument_station", "station_elevation"),
+    "observatory": (
+        "instrument",
+        "station",
+        "elevation",
+        "instrument_station",
+        "station_elevation",
+    ),
     "railway": ("service", "platform", "length", "service_platform", "platform_length"),
     "tournament": ("team", "arena", "capacity", "home_arena", "arena_capacity"),
     "warehouse": ("shipment", "dock", "clearance", "shipment_dock", "dock_clearance"),
     "archive": ("collection", "vault", "volume", "collection_vault", "vault_volume"),
-    "market": ("stall", "district", "population", "locate_stall", "district_population"),
+    "market": (
+        "stall",
+        "district",
+        "population",
+        "locate_stall",
+        "district_population",
+    ),
 }
 NAMES = "Juniper Cobalt Maple Amber Kestrel Rowan Willow Flint Cedar Quartz Hazel Pearl".split()
-PLACES = "North East West South Central Harbor Valley Grove Ridge Hill Lake Coast".split()
+PLACES = (
+    "North East West South Central Harbor Valley Grove Ridge Hill Lake Coast".split()
+)
 KINDS = ("lookup", "chain", "compare", "direct", "clarify")
 
 
@@ -37,7 +52,9 @@ def make(seed, domains, per_kind, style, prefix):
             names = rng.sample(NAMES, 3)
             places = rng.sample(PLACES, 3)
             numbers = rng.sample(range(11, 99), 3)
-            arg = (source, place) if style != "alternate" else ("identifier", "location")
+            arg = (
+                (source, place) if style != "alternate" else ("identifier", "location")
+            )
             ops = [link, measure]
             if rng.random() < 0.5:
                 ops.reverse()
@@ -64,10 +81,28 @@ def make(seed, domains, per_kind, style, prefix):
             calls = [dict(name=measure, arguments={arg[1]: p}) for p in places[:2]]
             expected = [[calls[0]], [link_call, calls[0]], calls, [], []][idx]
             winner = a if numbers[0] > numbers[1] else b
-            gold = [str(numbers[0]), str(numbers[0]), winner, winner, f"Which {place}?"][idx]
-            rows.append(dict(id=f"{prefix}-{k}-{kind}", kind=kind, domain=domain, args=list(arg),
-                             tools=ops, names=names, places=places, numbers=numbers,
-                             question=questions[idx], expected=expected, gold=gold))
+            gold = [
+                str(numbers[0]),
+                str(numbers[0]),
+                winner,
+                winner,
+                f"Which {place}?",
+            ][idx]
+            rows.append(
+                dict(
+                    id=f"{prefix}-{k}-{kind}",
+                    kind=kind,
+                    domain=domain,
+                    args=list(arg),
+                    tools=ops,
+                    names=names,
+                    places=places,
+                    numbers=numbers,
+                    question=questions[idx],
+                    expected=expected,
+                    gold=gold,
+                )
+            )
     rng.shuffle(rows)
     return rows
 
@@ -76,13 +111,32 @@ def tools_for(row):
     source, place, metric, link, measure = DOMAINS[row["domain"]]
     catalog = {}
     for name, key, description, keys, values in [
-        (link, row["args"][0], f"Return the assigned {place} for a named {source}.", row["names"], row["places"]),
-        (measure, row["args"][1], f"Return the recorded {metric} for a named {place}.", row["places"], row["numbers"]),
+        (
+            link,
+            row["args"][0],
+            f"Return the assigned {place} for a named {source}.",
+            row["names"],
+            row["places"],
+        ),
+        (
+            measure,
+            row["args"][1],
+            f"Return the recorded {metric} for a named {place}.",
+            row["places"],
+            row["numbers"],
+        ),
     ]:
         table = dict(zip(keys, values, strict=True))
+
         def callback(_table=table, _key=key, **kwargs):
             return {"value": _table[kwargs[_key]]}
-        schema = dict(type="object", properties={key: {"type": "string"}}, required=[key], additionalProperties=False)
+
+        schema = dict(
+            type="object",
+            properties={key: {"type": "string"}},
+            required=[key],
+            additionalProperties=False,
+        )
         catalog[name] = Tool(name, description, schema, callback)
     return [catalog[name] for name in row["tools"]]
 
@@ -91,13 +145,20 @@ def score(row, trajectory):
     turns = trajectory["turns"]
     actual = [t["call"] for t in turns if "observation" in t]
     planned = row["expected"]
-    path = (Counter(compact(c) for c in actual) == Counter(compact(c) for c in planned)
-            if row["kind"] == "compare" else actual == planned)
+    path = (
+        Counter(compact(c) for c in actual) == Counter(compact(c) for c in planned)
+        if row["kind"] == "compare"
+        else actual == planned
+    )
     answer = (trajectory["answer"] or "").strip()
     if row["kind"] == "clarify":
         place = DOMAINS[row["domain"]][1]
         correct = bool(re.search(r"\b" + place + r"\b", answer, re.I) and "?" in answer)
     else:
         correct = answer.strip(" .!\n").casefold() == row["gold"].casefold()
-    return dict(success=path and correct and trajectory["status"] == "answered", path=path,
-                correct_answer=correct, completed=trajectory["status"] == "answered")
+    return dict(
+        success=path and correct and trajectory["status"] == "answered",
+        path=path,
+        correct_answer=correct,
+        completed=trajectory["status"] == "answered",
+    )

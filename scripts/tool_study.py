@@ -1,4 +1,5 @@
 """Execute a frozen two-model tool comparison under a native research lease."""
+
 import argparse
 import gc
 import gzip
@@ -9,33 +10,74 @@ import mlx.core as mx
 
 from loopqwen.deployment import load_trained
 from loopqwen.evaluation.language7 import base
+from loopqwen.evaluation.statistics import exact_mcnemar
 from loopqwen.io import read, save
 from loopqwen.research.core import Budget
 from loopqwen.research.tool_worlds import score, tools_for
 from loopqwen.tool_session import run
 
 
-from loopqwen.evaluation.statistics import exact_mcnemar
-
-
 def summarize(records, spec):
     metrics = {}
     for arm, rows in records.items():
-        metrics[arm] = {key: sum(r["score"][key] for r in rows) for key in rows[0]["score"]}
-        metrics[arm].update(seconds=sum(r["trajectory"]["seconds"] for r in rows),
-                            tokens=sum(len(t["token_ids"]) for r in rows for t in r["trajectory"]["turns"]),
-                            peak_bytes=max(t["peak_bytes"] for r in rows for t in r["trajectory"]["turns"]))
-    pairs = list(zip(records["candidate"],records["control"],strict=True))
-    gains = sum(a["score"]["success"] and not b["score"]["success"] for a,b in pairs)
-    losses = sum(b["score"]["success"] and not a["score"]["success"] for a,b in pairs)
+        metrics[arm] = {
+            key: sum(r["score"][key] for r in rows) for key in rows[0]["score"]
+        }
+        metrics[arm].update(
+            seconds=sum(r["trajectory"]["seconds"] for r in rows),
+            tokens=sum(
+                len(t["token_ids"]) for r in rows for t in r["trajectory"]["turns"]
+            ),
+            peak_bytes=max(
+                t["peak_bytes"] for r in rows for t in r["trajectory"]["turns"]
+            ),
+        )
+    pairs = list(zip(records["candidate"], records["control"], strict=True))
+    gains = sum(a["score"]["success"] and not b["score"]["success"] for a, b in pairs)
+    losses = sum(b["score"]["success"] and not a["score"]["success"] for a, b in pairs)
     p = exact_mcnemar(gains, losses)
-    passed = (gains-losses >= spec["net_floor"] and p <= spec["p_max"] and
-              metrics["candidate"]["seconds"] <= metrics["control"]["seconds"] * spec["time_ratio"])
+    passed = (
+        gains - losses >= spec["net_floor"]
+        and p <= spec["p_max"]
+        and metrics["candidate"]["seconds"]
+        <= metrics["control"]["seconds"] * spec["time_ratio"]
+    )
     for kind, minimum in spec.get("family_minimum", {}).items():
         items = read(spec["material"])
-        successes = sum(row["score"]["success"] for row, item in zip(records["candidate"], items, strict=True) if item["kind"] == kind)
+        successes = sum(
+            row["score"]["success"]
+            for row, item in zip(records["candidate"], items, strict=True)
+            if item["kind"] == kind
+        )
         passed = passed and successes >= minimum
-    return dict(passed=passed,metrics=metrics,gains=gains,losses=losses,p_exact=p,items=len(pairs))
+    return dict(
+        passed=passed,
+        metrics=metrics,
+        gains=gains,
+        losses=losses,
+        p_exact=p,
+        items=len(pairs),
+    )
+
+
+def workload(spec):
+    material = read(spec["material"])
+    if spec.get("workload") == "bfcl_exec":
+        from loopqwen.evaluation import executable_tools as external
+
+        items = [
+            dict(
+                row,
+                user_request=row["question"][0][0]["content"] + external.INSTRUCTION,
+            )
+            for row in material["rows"]
+        ]
+        return items, external.tools_for, external.score
+    return (
+        [dict(row, user_request=row["question"]) for row in material],
+        tools_for,
+        score,
+    )
 
 
 def load_arm(arm, spec, folder, budget):
@@ -44,6 +86,7 @@ def load_arm(arm, spec, folder, budget):
     if arm == "release02":
         return load_trained("research/results/native-language-release-02/model")[:2]
     from loopqwen.research.tool_fit import fitted
+
     return fitted(arm, spec, folder, budget)
 
 
@@ -51,42 +94,66 @@ def main(name):
     spec = read(f"research/experiments/{name}.json")
     if "requires" in spec:
         from loopqwen.io import digest
-        prerequisite=Path(spec["requires"])
-        if digest(prerequisite/"checksums.json") != spec["prerequisite_sha256"] or not read(prerequisite/"decision.json")["passed"]:
+
+        prerequisite = Path(spec["requires"])
+        if (
+            digest(prerequisite / "checksums.json") != spec["prerequisite_sha256"]
+            or not read(prerequisite / "decision.json")["passed"]
+        ):
             raise ValueError("Tool study prerequisite failed")
-    out = Path("outputs/research")/name
-    if (out/"decision.json").exists():
+    out = Path("outputs/research") / name
+    if (out / "decision.json").exists():
         raise ValueError("Completed run exists")
-    out.mkdir(parents=True,exist_ok=True)
-    items = read(spec["material"])
-    budget = Budget(name,spec["limits"])
+    out.mkdir(parents=True, exist_ok=True)
+    items, catalog, judge = workload(spec)
+    budget = Budget(name, spec["limits"])
     records = {}
     try:
-        for side in ("candidate","control"):
-            model, tok = load_arm(spec[side],spec,out,budget)
+        for side in ("candidate", "control"):
+            model, tok = load_arm(spec[side], spec, out, budget)
             mx.reset_peak_memory()
             arm = []
             for row in items:
                 budget.check()
-                traj = run(model,tok,row["question"],tools_for(row),max_turns=spec["max_turns"],
-                           stop_at_turn_end=spec.get("stop_at_turn_end",False),max_tokens=spec["max_tokens"],progress=lambda _:budget.check())
-                arm.append(dict(id=row["id"],trajectory=traj,score=score(row,traj)))
-                print(side,row["id"],traj["status"],traj["answer"],arm[-1]["score"]["success"],flush=True)
-            (out/(side+".json.gz")).write_bytes(gzip.compress(json.dumps(arm).encode(),mtime=0))
+                traj = run(
+                    model,
+                    tok,
+                    row["user_request"],
+                    catalog(row),
+                    max_turns=spec["max_turns"],
+                    stop_at_turn_end=spec.get("stop_at_turn_end", False),
+                    max_tokens=spec["max_tokens"],
+                    progress=lambda _: budget.check(),
+                )
+                arm.append(dict(id=row["id"], trajectory=traj, score=judge(row, traj)))
+                print(
+                    side,
+                    row["id"],
+                    traj["status"],
+                    traj["answer"],
+                    arm[-1]["score"]["success"],
+                    flush=True,
+                )
+            (out / (side + ".json.gz")).write_bytes(
+                gzip.compress(json.dumps(arm).encode(), mtime=0)
+            )
             records[side] = arm
-            del model,tok
+            del model, tok
             gc.collect()
             mx.clear_cache()
-        assert all(a["trajectory"]["turns"][0]["prompt_ids"]==b["trajectory"]["turns"][0]["prompt_ids"]
-                   for a,b in zip(records["candidate"],records["control"],strict=True))
-        decision = summarize(records,spec)
-        save(out/"decision.json",decision)
-        print(decision,flush=True)
+        assert all(
+            a["trajectory"]["turns"][0]["prompt_ids"]
+            == b["trajectory"]["turns"][0]["prompt_ids"]
+            for a, b in zip(records["candidate"], records["control"], strict=True)
+        )
+        decision = summarize(records, spec)
+        save(out / "decision.json", decision)
+        print(decision, flush=True)
     finally:
         budget.close()
 
 
 if __name__ == "__main__":
-    parser=argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("name")
     main(parser.parse_args().name)

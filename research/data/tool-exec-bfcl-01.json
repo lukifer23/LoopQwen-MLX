@@ -1,0 +1,931 @@
+{
+  "repository": "gorilla-llm/Berkeley-Function-Calling-Leaderboard",
+  "revision": "61fc0608cfd831fcfbbaa676ebdfef0ed963eeda",
+  "sha256": "120eb383a8ec801b47e56d7337b61158944ae35b935c86e8d846948fa27215f6",
+  "rows": [
+    {
+      "id": "exec_simple_0",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've been playing a game where rolling a six is somehow more likely than usual, and the chance of it happening on a single roll is 60%. I'm curious, if I roll the die 20 times, what are the odds that I'll get exactly five sixes?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calc_binomial_probability",
+          "description": "Calculates the probability of getting k successes in n trials.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of trials."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of successes."
+              },
+              "p": {
+                "type": "float",
+                "description": "The probability of success."
+              }
+            },
+            "required": [
+              "n",
+              "k",
+              "p"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calc_binomial_probability(n=20, k=5, p=0.6)"
+      ]
+    },
+    {
+      "id": "exec_simple_1",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During last night's basketball game, one of the star players was on fire, attempting a whopping 30 free throws. It's generally known that the average success rate for free throws hovers around 50%. I'm curious, with that success probability, what are the chances that the player made exactly 15 out of those 30 attempts?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calc_binomial_probability",
+          "description": "Calculates the probability of getting k successes in n trials.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of trials."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of successes."
+              },
+              "p": {
+                "type": "float",
+                "description": "The probability of success."
+              }
+            },
+            "required": [
+              "n",
+              "k",
+              "p"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calc_binomial_probability(n=30, k=15, p=0.5)"
+      ]
+    },
+    {
+      "id": "exec_simple_2",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm currently tweaking a machine learning model and I need to understand the similarity between two objects in my dataset. Their characteristics are expressed in the feature vectors [0.5, 0.7, 0.2, 0.9, 0.1] for the first object and [0.4, 0.6, 0.3, 0.8, 0.2] for the second one. Could you calculate the cosine similarity between these two feature vectors to help me determine how similar these objects are?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_cosine_similarity",
+          "description": "Calculates the cosine similarity of two vectors.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "vectorA": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The first vector."
+              },
+              "vectorB": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The second vector."
+              }
+            },
+            "required": [
+              "vectorA",
+              "vectorB"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_cosine_similarity(vectorA=[0.5, 0.7, 0.2, 0.9, 0.1], vectorB=[0.4, 0.6, 0.3, 0.8, 0.2])"
+      ]
+    },
+    {
+      "id": "exec_simple_3",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a project that involves comparing the attributes of different entities to determine how similar they are. I have two entities represented by numerical arrays, and I need to use cosine similarity as a measure of similarity between them. The attributes for the first entity are [0.3, 0.8, 0.1, 0.6, 0.2], and for the second entity, they are [0.5, 0.7, 0.4, 0.9, 0.3]. Could you calculate the cosine similarity for these two vectors for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_cosine_similarity",
+          "description": "Calculates the cosine similarity of two vectors.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "vectorA": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The first vector."
+              },
+              "vectorB": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The second vector."
+              }
+            },
+            "required": [
+              "vectorA",
+              "vectorB"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_cosine_similarity(vectorA=[0.3, 0.8, 0.1, 0.6, 0.2], vectorB=[0.5, 0.7, 0.4, 0.9, 0.3])"
+      ]
+    },
+    {
+      "id": "exec_simple_4",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a physics experiment and need to calculate the density of an object I have. It weighs 50 kilograms and takes up a space of 10 cubic meters. Could you help me figure out its density?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_density",
+          "description": "Calculates the density of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "mass": {
+                "type": "float",
+                "description": "The mass of the object, in kilograms."
+              },
+              "volume": {
+                "type": "float",
+                "description": "The volume of the object, in cubic meters."
+              }
+            },
+            "required": [
+              "mass",
+              "volume"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_density(mass=50.0, volume=10.0)"
+      ]
+    },
+    {
+      "id": "exec_simple_5",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got this strange object we've come across in our scientific research. It's pretty hefty, weighing in at 120 kilograms, and it takes up about 30 cubic meters of space. Can you help me calculate its density?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_density",
+          "description": "Calculates the density of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "mass": {
+                "type": "float",
+                "description": "The mass of the object, in kilograms."
+              },
+              "volume": {
+                "type": "float",
+                "description": "The volume of the object, in cubic meters."
+              }
+            },
+            "required": [
+              "mass",
+              "volume"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_density(mass=120.0, volume=30.0)"
+      ]
+    },
+    {
+      "id": "exec_simple_6",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During our advanced physics experiment, we've been tracking this unique object which initially was moving at 15 m/s. It's been accelerating at a rate of 9.8 m/s\u00b2, and this has been going on for exactly 10 seconds. I need to calculate the total displacement of the object over this period. Can you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_displacement",
+          "description": "Calculates the displacement of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_displacement(initial_velocity=15.0, acceleration=9.8, time=10)"
+      ]
+    },
+    {
+      "id": "exec_simple_7",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During the high-speed chase, when the driver accelerated the vehicle, it was initially moving at 25 meters per second. With the sudden push on the gas pedal, the car accelerated at 15 meters per second squared, and this went on for 8 seconds. I need to calculate the displacement of the vehicle over that time. Can you provide me with that information?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_displacement",
+          "description": "Calculates the displacement of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_displacement(initial_velocity=25.0, acceleration=15.0, time=8)"
+      ]
+    },
+    {
+      "id": "exec_simple_8",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During our physics lab session, we're experimenting with electric fields and their effects on charged particles. We've placed a particle that carries a charge of 5 coulombs within a field where there's a voltage of 10 volts. I need to calculate the electrostatic potential energy for this scenario. Could you work that out for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_electrostatic_potential_energy",
+          "description": "Calculates the electrostatic potential energy.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "charge": {
+                "type": "float",
+                "description": "The charge of the object, in coulombs."
+              },
+              "voltage": {
+                "type": "float",
+                "description": "The voltage of the object, in volts."
+              }
+            },
+            "required": [
+              "charge",
+              "voltage"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_electrostatic_potential_energy(charge=5.0, voltage=10.0)"
+      ]
+    },
+    {
+      "id": "exec_simple_9",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a physics simulation and I have a micro-particle here charged at 7.8 coulombs. It's placed in an electromagnetic field with a voltage of 15.2 volts. Can you calculate the electrostatic potential energy for this particle in the given field?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_electrostatic_potential_energy",
+          "description": "Calculates the electrostatic potential energy.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "charge": {
+                "type": "float",
+                "description": "The charge of the object, in coulombs."
+              },
+              "voltage": {
+                "type": "float",
+                "description": "The voltage of the object, in volts."
+              }
+            },
+            "required": [
+              "charge",
+              "voltage"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_electrostatic_potential_energy(charge=7.8, voltage=15.2)"
+      ]
+    },
+    {
+      "id": "exec_simple_10",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During a training exercise, we're analyzing a simulation of a high-speed chase where a vehicle starts from a standstill and then accelerates constantly. We've clocked the acceleration at 9.8 meters per second squared and the time span for this acceleration is 12 seconds. I need to calculate the final velocity of the vehicle at the end of this time frame. Can you give me that figure?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_final_velocity",
+          "description": "Calculates the final velocity of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_final_velocity(initial_velocity=0, acceleration=9.8, time=12)"
+      ]
+    },
+    {
+      "id": "exec_simple_11",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got a physics experiment where I'm dropping a ball from a certain height, and I know that the initial velocity is zero because I'm letting it fall freely. Gravity is doing all the work here at 9.8 m/s\u00b2. After 7 seconds, I want to calculate what the final velocity will be. Can we get that sorted out?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_final_velocity",
+          "description": "Calculates the final velocity of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_final_velocity(initial_velocity=0, acceleration=9.8, time=7)"
+      ]
+    },
+    {
+      "id": "exec_simple_12",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've put $5000 into a fixed deposit offering a 5% annual interest rate, and I'm planning to let it grow for 10 years. Could you calculate the future value of this investment for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_future_value",
+          "description": "Calculates the future value of an investment.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "present_value": {
+                "type": "float",
+                "description": "The present value of the investment, in dollars."
+              },
+              "interest_rate": {
+                "type": "float",
+                "description": "The interest rate of the investment, ranging from 0 to 1."
+              },
+              "periods": {
+                "type": "integer",
+                "description": "The number of periods, in years."
+              }
+            },
+            "required": [
+              "present_value",
+              "interest_rate",
+              "periods"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_future_value(present_value=5000, interest_rate=0.05, periods=10)"
+      ]
+    },
+    {
+      "id": "exec_simple_13",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got $8000 that I'm planning to drop into a savings account with a sweet annual interest rate of 4%. I'm not touching it for 15 years. I'm curious about the future value of this investment after that time. Can you crunch the numbers for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_future_value",
+          "description": "Calculates the future value of an investment.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "present_value": {
+                "type": "float",
+                "description": "The present value of the investment, in dollars."
+              },
+              "interest_rate": {
+                "type": "float",
+                "description": "The interest rate of the investment, ranging from 0 to 1."
+              },
+              "periods": {
+                "type": "integer",
+                "description": "The number of periods, in years."
+              }
+            },
+            "required": [
+              "present_value",
+              "interest_rate",
+              "periods"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_future_value(present_value=8000, interest_rate=0.04, periods=15)"
+      ]
+    },
+    {
+      "id": "exec_simple_14",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "As part of my data analysis project, I've been tasked with examining the temperature trends over the past month. I've collected a set of daily temperature readings that I need to interpret. The dataset includes temperatures ranging from 22 to 80 degrees Celsius, incrementing by 2 each day. To gain a better understanding of the overall climate patterns, could you calculate the average temperature for this period using these values?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_mean",
+          "description": "Calculates the mean of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_mean(numbers=[22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80])"
+      ]
+    },
+    {
+      "id": "exec_simple_15",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a report about a basketball player's average performance throughout the season. The data I have includes the points they scored in each game: 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160. To complete my analysis, I need to calculate the mean score per game. Can you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_mean",
+          "description": "Calculates the mean of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_mean(numbers=[15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160])"
+      ]
+    },
+    {
+      "id": "exec_simple_16",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm developing a new encryption algorithm and I'm currently focused on the permutations aspect. I need to know how many unique arrangements are possible if I take 5 characters from the standard English alphabet, which has 26 letters. This calculation is crucial for understanding the complexity of the encryption. Can you run the permutations calculation with these values?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_permutations",
+          "description": "Calculates the number of permutations of k elements from a set of n elements.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of elements in the set."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of elements to choose."
+              }
+            },
+            "required": [
+              "n",
+              "k"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_permutations(n=26, k=5)"
+      ]
+    },
+    {
+      "id": "exec_simple_17",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "In my current research on plant genetics, I'm exploring the genetic diversity within a specific species. It's fascinating work, and I've managed to isolate 30 unique genes. The next step in my study involves figuring out the possible combinations if I were to select 7 of these genes at a time for a more detailed analysis. Could you calculate the number of different permutations for 7 genes out of the total 30?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_permutations",
+          "description": "Calculates the number of permutations of k elements from a set of n elements.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of elements in the set."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of elements to choose."
+              }
+            },
+            "required": [
+              "n",
+              "k"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_permutations(n=30, k=7)"
+      ]
+    },
+    {
+      "id": "exec_simple_18",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "To better understand the volatility and risk associated with this particular stock, I need to calculate the standard deviation of its daily closing prices over the past 10 trading days. Here are the figures I've gathered: 1000, 2000, 3000, 4000, 5000, 7000, 9000, 15000, 20000, and 30000. Can you provide me with the standard deviation for these closing prices?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_standard_deviation",
+          "description": "Calculates the standard deviation of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_standard_deviation(numbers=[1000,2000,3000,4000,5000,7000,9000,15000,20000,30000])"
+      ]
+    },
+    {
+      "id": "exec_simple_19",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've been tracking the scoring performance of a certain basketball player across the last 12 games to get insights into his consistency. The points he scored in each game are as follows: 30, 20, 25, 12, 59, 23, 64, 21, 67, 12, 23, and 43. I need to calculate the standard deviation of this scoring to better understand the variability and predictability of his performance. Could you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_standard_deviation",
+          "description": "Calculates the standard deviation of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_standard_deviation(numbers=[30,20,25,12,59,23,64,21,67,12,23,43])"
+      ]
+    },
+    {
+      "id": "exec_simple_20",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm currently working on an architectural project where we're designing a new triangular-shaped park. We've finally settled on the dimensions, and we're planning for the base to be 500 meters long with a height of 300 meters. Could you calculate the area of this park for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_triangle_area",
+          "description": "Calculates the area of a triangle given its base and height.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "base": {
+                "type": "integer",
+                "description": "The base of the triangle, in meters."
+              },
+              "height": {
+                "type": "integer",
+                "description": "The height of the triangle, in meters."
+              }
+            },
+            "required": [
+              "base",
+              "height"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_triangle_area(base=500, height=300)"
+      ]
+    },
+    {
+      "id": "exec_simple_21",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on the design for a triangular dam, and I've settled on the dimensions. The base is going to be 700 meters, and the height will be at 450 meters. I need to calculate the total area that the face of this dam will cover. Can you help me figure out what that area would be with these measurements?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_triangle_area",
+          "description": "Calculates the area of a triangle given its base and height.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "base": {
+                "type": "integer",
+                "description": "The base of the triangle, in meters."
+              },
+              "height": {
+                "type": "integer",
+                "description": "The height of the triangle, in meters."
+              }
+            },
+            "required": [
+              "base",
+              "height"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_triangle_area(base=700, height=450)"
+      ]
+    }
+  ]
+}
