@@ -100,3 +100,7 @@ Three further comparisons tested the native-layer attribution. Reinitializing bo
 
 
 On human-paraphrased CLUTRR family stories, the three-pass reader answered 34/64 versus 1/64 for untouched Base. The equally trained one-pass control answered 44/64 with the same response length. This failed the matched-depth gate and closed the remaining kinship jobs. The overall project ships the verified induction reader with the prior language and register routes. [Primary kinship comparison](../research/results/native-kinship-01) · [Matched control and stopping decision](../research/results/native-kinship-matched-01)
+
+## Executable tool sessions, November 26
+
+The unmodified release and Base completed 0/5 live sessions. The first native final-layer adapter fit hit a metadata path serialization error after writing its weights. The charged retry reproduced the exact weight SHA-256. The original executor missed the Qwen message-end marker, causing a 6/30 tie. With fresh requests and the boundary corrected identically for both arms, those weights achieved 20/30 vs 5/30. Matched K1 reached 19/30. The catalog adapter then returned zero accepted calls on the first 24 published BFCL simple questions, versus eight for Base. The broader supervised suffix achieved 38/50 vs 7/50 in new catalogs but missed both family floors. The individual registrations, trajectories, timings and negative decisions remain in the [study index](../paper/study-index.csv). The [paper](../paper/loopqwen.pdf) reports each comparison according to its own endpoint.
