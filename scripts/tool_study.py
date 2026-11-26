@@ -3,7 +3,6 @@ import argparse
 import gc
 import gzip
 import json
-import math
 from pathlib import Path
 
 import mlx.core as mx
@@ -16,9 +15,7 @@ from loopqwen.research.tool_worlds import score, tools_for
 from loopqwen.tool_session import run
 
 
-def paired_p(gains, losses):
-    n = gains + losses
-    return min(1., 2 * sum(math.comb(n, i) for i in range(min(gains, losses)+1)) / (2**n))
+from loopqwen.evaluation.statistics import exact_mcnemar
 
 
 def summarize(records, spec):
@@ -31,7 +28,7 @@ def summarize(records, spec):
     pairs = list(zip(records["candidate"],records["control"],strict=True))
     gains = sum(a["score"]["success"] and not b["score"]["success"] for a,b in pairs)
     losses = sum(b["score"]["success"] and not a["score"]["success"] for a,b in pairs)
-    p = paired_p(gains, losses)
+    p = exact_mcnemar(gains, losses)
     passed = (gains-losses >= spec["net_floor"] and p <= spec["p_max"] and
               metrics["candidate"]["seconds"] <= metrics["control"]["seconds"] * spec["time_ratio"])
     for kind, minimum in spec.get("family_minimum", {}).items():

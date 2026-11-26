@@ -17,7 +17,7 @@ from loopqwen.model_loader import local_snapshot
 from loopqwen.research.core import Budget
 from loopqwen.research.tool_fit import restore
 from loopqwen.tool_session import compact,decode_action,prompt,SYSTEM
-from scripts.tool_study import paired_p
+from loopqwen.evaluation.statistics import exact_mcnemar
 
 
 def schema(row):
@@ -65,7 +65,7 @@ def summary(rows,spec):
     pairs=list(zip(rows["candidate"],rows["control"],strict=True))
     wins=sum(a["correct"] and not b["correct"] for a,b in pairs)
     losses=sum(b["correct"] and not a["correct"] for a,b in pairs)
-    p=paired_p(wins,losses)
+    p=exact_mcnemar(wins,losses)
     passed=(wins-losses>=spec["net_floor"] and p<=spec["p_max"] and
             scores["candidate"]["seconds"]<=scores["control"]["seconds"]*spec["time_ratio"])
     return dict(passed=passed,metrics=scores,gains=wins,losses=losses,p_exact=p,items=len(pairs))
