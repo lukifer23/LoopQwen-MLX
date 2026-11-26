@@ -297,3 +297,66 @@ def test_own_prompt_file_compares_two_real_decoders_on_the_identical_thinking_pr
             row["request_seconds"] >= row["first_token_seconds"] > 0
             and row["peak_mlx_bytes"] > 0
         )
+
+
+@pytest.mark.skipif(
+    not (BUNDLE / "tool-export-files.json").is_file(),
+    reason="Requires the physical export and pinned Base",
+)
+@pytest.mark.parametrize("thinking", [False, True])
+def test_generate_compares_user_file_on_two_loaded_native_checkpoints(
+    tmp_path, thinking
+):
+    from mlx_lm.utils import load_tokenizer
+
+    from loopqwen import REVISION
+    from loopqwen.identity import fingerprint
+    from loopqwen.model_loader import local_snapshot
+    from loopqwen.tool_session import prompt
+
+    text = "In the 1890 census,\r\nthe enumeration"
+    path = tmp_path / "passage.txt"
+    path.write_bytes(text.encode())
+    args = [
+        sys.executable,
+        "-m",
+        "loopqwen",
+        "generate",
+        "--checkpoint",
+        str(BUNDLE),
+        "--compare-base",
+        "--prompt-file",
+        str(path),
+        "--max-tokens",
+        "2",
+    ]
+    if thinking:
+        args.append("--thinking")
+    result = json.loads(subprocess.check_output(args, **child_lease()))
+    tok = load_tokenizer(local_snapshot())
+    expected = prompt(tok, [{"role": "user", "content": text}]) if thinking else text
+    ids = tok.encode(expected, add_special_tokens=False)
+    assert result["prompt"] == expected and result["base_revision"] == REVISION
+    assert result["initial_prompt_identical"] and result["order"] == [
+        "recurrent",
+        "base",
+    ]
+    assert result["stop_ids"] == sorted(
+        set(tok.eos_token_ids)
+        | (
+            set(tok.encode("<|im_end|>", add_special_tokens=False))
+            if thinking
+            else set()
+        )
+    )
+    for row in result["runs"].values():
+        assert row["initial_sha256"] == fingerprint(ids) and row[
+            "prompt_tokens"
+        ] == len(ids)
+        assert (
+            row["request_seconds"]
+            >= row["cold_first_seconds"]
+            > row["load_seconds"]
+            > 0
+        )
+        assert 0 < len(row["token_ids"]) <= 2 and row["peak_bytes"] > 0

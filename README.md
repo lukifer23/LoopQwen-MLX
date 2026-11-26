@@ -58,7 +58,7 @@ The parent release `exports/tool-language-field-02` established the field CLI an
 .venv/bin/python -m loopqwen tools --checkpoint exports/tool-language-packed-03 --packages --prompt "What version of numpy is installed?" --max-tokens 256
 ```
 
-For text inference, `generate --checkpoint exports/tool-language-packed-04 --prompt-file document-and-question.txt --thinking --max-tokens 96` reads the entire UTF-8 input through the same installed `python -m loopqwen` entry point. The returned `context_route` identifies the selected decoder.
+For text inference, `generate --checkpoint exports/tool-language-packed-04 --prompt-file document-and-question.txt --thinking --max-tokens 96` reads the entire UTF-8 input through the same installed `python -m loopqwen` entry point. The returned `context_route` identifies the selected decoder. Add `--compare-base` to run the entire input through both the checkpoint and untouched Base. The JSON includes both completions, a verified prompt-token hash, cold first-token and total seconds, output rates and peak MLX bytes. Omit `--thinking` for raw text continuations.
 
 Use `ask --compare-base` to try your own questions on the installed assistant and untouched ordinary Base. It runs them sequentially with the same opening prompt IDs and thinking budget. You get both replies, executed calls and observations, output counts, measured first-token and full-request time, and peak MLX bytes. The first request includes model loading. Follow-ups preserve each model’s own conversation and report whether the resulting prompt IDs still match. A single run uses recurrent-first order and the OS file cache can persist.
 

@@ -95,6 +95,11 @@ def main():
     p.add_argument(
         "--checkpoint", required=True, help="Adapter checkpoint or merged export"
     )
+    p.add_argument(
+        "--compare-base",
+        action="store_true",
+        help="Generate from the same input IDs on the candidate and pinned ordinary Base, including cold timing",
+    )
     prompts = p.add_mutually_exclusive_group(required=True)
     p.add_argument(
         "--offload-dir",
@@ -245,57 +250,9 @@ def main():
 
         result = respond(args, parser)
     elif cmd == "generate":
-        from .worker import acquire
+        from .generate_cli import run
 
-        acquire()
-        from dataclasses import replace
-
-        from .evaluation.generation_eval import generate
-
-        if (Path(args.checkpoint) / "refinement.safetensors").is_file():
-            from .selective_refinement import load_checkpoint
-
-            if args.passes not in (None, 2) or args.offload_dir is not None:
-                parser.error(
-                    "The selective language checkpoint uses two resident native passes"
-                )
-            model, tok = load_checkpoint(args.checkpoint)
-        elif (Path(args.checkpoint) / "config.json").exists():
-            from .export_runtime import load_export
-
-            model, tok = load_export(args.checkpoint)
-        else:
-            from .deployment import load_trained
-
-            model, tok, _ = load_trained(args.checkpoint)
-        if args.passes:
-            model.span = replace(model.span, passes=args.passes)
-        prompt = (
-            args.prompt_file.read_bytes().decode("utf-8")
-            if args.prompt_file
-            else args.prompt
-        )
-        stop_ids = ()
-        if args.thinking:
-            prompt = tok.apply_chat_template(
-                [{"role": "user", "content": prompt}],
-                tokenize=False,
-                add_generation_prompt=True,
-                enable_thinking=True,
-            )
-            stop_ids = tok.encode("<|im_end|>", add_special_tokens=False)
-            if not prompt.endswith("<think>\n") or len(stop_ids) != 1:
-                raise ValueError(
-                    "Tokenizer does not support the pinned thinking-turn protocol"
-                )
-        result = generate(
-            model,
-            tok,
-            prompt,
-            args.max_tokens,
-            offload_dir=args.offload_dir,
-            stop_ids=stop_ids,
-        )
+        result = run(args, parser)
     elif cmd == "export":
         from .export import export
 
