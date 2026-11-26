@@ -176,7 +176,7 @@ def training_lineage():
     columns = [
         "study",
         "training_parent",
-        "base_revision",
+        "backbone_revision",
         "shared_layer_start",
         "shared_passes",
         "rank",

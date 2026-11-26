@@ -40,6 +40,7 @@ def wilson(correct, total):
 
 
 def generate(paper, results, result, finish):
+    register_costs(paper, result, finish, results)
     latency_profile(paper, results, result, finish)
     colors = ["#11675d", "#9d5932"]
     completed = [
@@ -256,3 +257,93 @@ def latency_profile(paper, results, result, finish):
     )
     ax.legend(frameon=False, fontsize=8, loc="upper left")
     finish(fig, "tool-latency")
+
+
+def register_costs(paper, result, finish, results):
+    from statistics import mean
+    from loopqwen.evaluation.mechanism import unpack
+
+    studies = [
+        ("register-rebalanced-01", "Five global sites"),
+        ("register-rebalanced-hybrid-01", "Three global sites"),
+    ]
+    fig, axes = plt.subplots(
+        1, 3, figsize=(7.4, 2.7), gridspec_kw={"width_ratios": [1, 1, 1.15]}
+    )
+    with (paper / "register-efficiency.csv").open("w") as f:
+        w = csv.writer(f)
+        w.writerow(
+            [
+                "study",
+                "arm",
+                "input_tokens",
+                "correct",
+                "ttft_seconds",
+                "elapsed_seconds",
+                "peak_bytes",
+            ]
+        )
+        for idx, (study, label) in enumerate(studies):
+            scores = result(study)["metrics"]
+            ax = axes[idx]
+            ax.set_title(label)
+            for side, offset, color, marker in [
+                ("candidate", -0.28, "#11675d", "o"),
+                ("control", 0.28, "#9d5932", "s"),
+            ]:
+                rs = unpack(results / study / (side + ".json.gz"))
+                for r in rs:
+                    w.writerow(
+                        [
+                            study,
+                            side,
+                            r["prompt_tokens"],
+                            r["correct"],
+                            r["ttft_s"],
+                            r["elapsed_s"],
+                            r["peak_bytes"],
+                        ]
+                    )
+                lengths = [round(r["prompt_tokens"] / 1024) for r in rs]
+                ax.scatter(
+                    [x + offset for x in lengths],
+                    [r["ttft_s"] for r in rs],
+                    s=25,
+                    marker=marker,
+                    color=color,
+                )
+                xs = sorted(set(lengths))
+                ax.plot(
+                    [x + offset for x in xs],
+                    [
+                        mean(r["ttft_s"] for r, k in zip(rs, lengths) if k == x)
+                        for x in xs
+                    ],
+                    color=color,
+                    lw=1,
+                    label="Recurrent" if side == "candidate" else "Base",
+                )
+                axes[2].scatter(
+                    scores[side]["correct"],
+                    idx + offset / 2,
+                    s=40,
+                    marker=marker,
+                    color=color,
+                    zorder=3,
+                )
+            ax.set(
+                xticks=[16, 32], xlim=[13, 35], ylim=[0, 22], xlabel="Input (Ki tokens)"
+            )
+        axes[0].set_ylabel("Time to first token (s)")
+        axes[1].set_yticklabels([])
+        axes[2].set(
+            yticks=[0, 1],
+            yticklabels=["Five global", "Three global"],
+            xticks=[0, 1, 2, 3, 4],
+            xlim=[-0.4, 4.4],
+            ylim=[1.5, -0.5],
+            xlabel="Correct requests (of 4)",
+        )
+        axes[2].set_title("Completed answers")
+        axes[0].legend(loc="upper left", frameon=False, fontsize=8)
+    finish(fig, "register-efficiency")

@@ -10,3 +10,5 @@ In a separate execution optimization, 12 earlier multi-turn catalog requests wer
 
 
 With the same frozen weights on the two older catalog panels together, the system scored 53/80 versus 12/80 for Base in 40.77 versus 170.62 s. There were 46 gains and five lost Base successes. It achieved 22/30 on the first panel but only 31/50 on the second, below the previously recorded 38/50. In the latter panel it answered two of ten direct numerical comparisons correctly, against ten for the separately trained four-layer model. The preregistered single-checkpoint retention gate failed.
+
+We also replaced Base with the untouched instruction-tuned sibling used to initialize the tool fit. On the same 22 requests the trained model completed 17 executions in 15.18 s. The sibling spent its entire 384-token allowance on every first turn, produced no completed calls and took 123.78 s. This comparison measures adaptation to the project's shared JSON protocol at a fixed budget. It leaves performance with the vendor's own tool template and longer thinking budgets open.
