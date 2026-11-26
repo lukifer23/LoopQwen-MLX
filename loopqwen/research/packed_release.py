@@ -152,7 +152,7 @@ def outcome(data, mat, spec):
             tok,
         )
         correct += (
-            z["token_ids"] == y["token_ids"]
+            (spec.get("packed_reader", False) or z["token_ids"] == y["token_ids"])
             and z["token_ids"][-1] in end_ids
             and numeric(parsed["visible"]) == expected["gold"]
         )
@@ -197,6 +197,8 @@ def verify(root, decision):
         from scripts.export_packed_register import COMPACT_RUNTIME
 
         additional = {"runtime/" + k for k in COMPACT_RUNTIME}
+    if spec.get("packed_reader"):
+        additional.add("runtime/attention_memory.py")
     assert "config.json" in changed and changed <= additional | {
         "README.md",
         "config.json",
@@ -251,7 +253,12 @@ def run(name):
     budget = Budget(name, spec["limits"])
     try:
         inventory = build(
-            baseline, parent, staged, full, compact=spec.get("compact", False)
+            baseline,
+            parent,
+            staged,
+            full,
+            compact=spec.get("compact", False),
+            packed_reader=spec.get("packed_reader", False),
         )
         save(out / "export-files.json", inventory)
         runs = {s: [] for s in SIDES}

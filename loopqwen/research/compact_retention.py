@@ -12,12 +12,23 @@ def material(spec):
         source = Path(spec["register_material"])
         if digest(source) != spec["register_material_sha256"]:
             raise ValueError("Long retention input differs from the frozen document")
+        if spec.get("packed_reader"):
+            mat["medium_register"] = mat["register"]
         mat["register"] = read(source)[0]
     return mat
 
 
 def qualify(decision, data, mat, spec):
     reference = unpack(Path(spec["historical_register"]) / "direct_pages.json.gz")
+    repair = spec.get("packed_reader", False)
+    if repair:
+        prior = Path(spec["failure_archive"])
+        assert digest(prior / "checksums.json") == spec["failure_sha256"]
+        historical_control = unpack(prior / "control.json.gz")
+        medium = unpack(Path(spec["parent"]) / "candidate.json.gz")
+        assert (
+            read(Path(spec["parent"]) / "decision.json")["register_exact_correct"] == 2
+        )
     rows_ok = True
     streams = {}
     for side, records in data.items():
@@ -25,11 +36,31 @@ def qualify(decision, data, mat, spec):
         for i, r in enumerate(records):
             z = r["register"]
             n = len(z["token_ids"])
+            expected_ids = reference[i]["token_ids"]
+            if repair and side == "control":
+                expected_ids = historical_control[i]["register"]["token_ids"]
+                rows_ok &= expected_ids != reference[i]["token_ids"]
             rows_ok &= (
                 n > 1
                 and z["prompt_tokens"] >= 131072
-                and z["token_ids"] == reference[i]["token_ids"]
+                and z["token_ids"] == expected_ids
             )
+            if repair:
+                mid = r["medium_register"]
+                stock = medium[i]["register"]
+                rows_ok &= (
+                    mid["input_sha256"] == stock["input_sha256"]
+                    and mid["token_ids"] == stock["token_ids"]
+                    and mid["context_route"] == stock["context_route"] == "register"
+                    and mid["kv_history"] == stock["kv_history"]
+                )
+                if side == "candidate":
+                    for request in (mid, z):
+                        rows_ok &= all(
+                            v["reader_biased_queries"]
+                            == (len(request["token_ids"]) if v["layer"] >= 8 else 0)
+                            for v in request["page_sites"]
+                        )
             rows_ok &= all(
                 v.get("fused_queries", 0) == (n - 1 if side == "candidate" else 0)
                 for v in z["page_sites"]

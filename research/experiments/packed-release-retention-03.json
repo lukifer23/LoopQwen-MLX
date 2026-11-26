@@ -1,0 +1,33 @@
+{
+  "id": "packed-release-retention-03",
+  "question": "Does delivering the same additive evidence mask to actual packed KV attention restore both 131K answers that release 03 got wrong, while retaining its original medium and short outputs and accelerating each long decode?",
+  "full": "research/results/register-mixed-weight-full-01",
+  "parent": "research/results/packed-release-retention-01",
+  "material": "research/data/packed-release-retention-01.json",
+  "requirements": {
+    "register-mixed-weight-full-01": "128f3a891312ee9cad2e418c5542646b8af3e07ba7da55a48297ee33b7afa51e",
+    "packed-release-retention-01": "75811591815d33b0e0c89ff7c87c4a8ff1beeede5e10cfe695c1c4d734f59df0"
+  },
+  "staging": "outputs/research-artifacts/corrected-reader-release-candidate",
+  "destination": "exports/tool-language-packed-04",
+  "packages": {
+    "mlx": "0.32.4",
+    "numpy": "2.5.5"
+  },
+  "time_ratio": 1.0,
+  "protocol": "The earlier released reader selected both correct 131084-token spans, but its serialized mask implementation accepted only KVCache while the actual packed storage subclasses QuantizedKVCache. Both bundled systems returned the same incorrect 876667 for both documents. This delivery repair rebuilds from the qualified original packed-03 and the passing mixed-weight direct comparison. Deliver the independently used research attention_memory implementation and count additive mask queries in the native packed operator. Compare the repaired compact runtime directly to the unchanged released 03 in the same four isolated cold AB/BA streams. Keep every original 131084-token prompt, short generation, book and live tool request. Also reproduce both shorter 24593-token queries from the original passing release within the streams. Use original model weights and identical prompt IDs, thinking, cap, callbacks and workload order. Preserve the prior failed archive in full. The 131K documents are diagnosed historical retention inputs, not new generalization data.",
+  "gate": "On both 131K inputs, the candidate must reproduce every token from the independent correct fused research run, and the cold original release must reproduce both measured failing control streams. Both located gold spans and all eight physical histories must match their inputs. The repaired candidate must apply the additive reader mask to every prediction on all six eligible physical sites of both 131K and both medium requests; the other two sites must receive zero. Both current arms must reproduce every token and cache length from each previously successful 24593-token request. Retain all 512 book conditional predictions and losses, 12 short outputs, two correct actual tool sessions, counts for exact embedding rows, 72 converted maps and every fused call. The earlier resource requirements stand unchanged: >=12% higher output rate and lower GPU peak per full request, no higher worst process RSS, summed register wall or total cold workload time. A miss closes this repaired bundle without promotion. A pass publishes the complete offline export and licenses exact portable archive restoration.",
+  "limits": {
+    "wall_seconds": 1320,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "register_material": "research/data/register-fused-base-full-01.json",
+  "register_material_sha256": "13cf6d7ad5d3acb79dcc3043651cabe67e321584d15e2049249a0a45f6aab7f4",
+  "historical_register": "research/results/register-fused-base-full-01",
+  "compact": true,
+  "rate_margin": 0.12,
+  "packed_reader": true,
+  "failure_archive": "research/results/packed-release-retention-02",
+  "failure_sha256": "d1c6362b2b77ff87b64dd4b3f71aa2b3616ba4cfe036e18a2039a7f2bf6151bb"
+}

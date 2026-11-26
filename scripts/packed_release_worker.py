@@ -106,6 +106,11 @@ def main():
     rows = material["short"][block * 6 : (block + 1) * 6]
     first = [generation(r, r["cap"]) for r in rows[:3]]
     register = generation(material["register"]["panel"][block], 96)
+    extra = {}
+    if "medium_register" in material:
+        extra["medium_register"] = generation(
+            material["medium_register"]["panel"][block], 96
+        )
     mx.reset_peak_memory()
     prose = book(assistant.language, material["books"][block], check)
     last = [generation(r, r["cap"]) for r in rows[3:]]
@@ -132,6 +137,7 @@ def main():
                 ).ru_maxrss,
                 "short": first + last,
                 "register": register,
+                **extra,
                 "book": prose,
                 "tool": trajectory,
             },

@@ -14,6 +14,7 @@ RUNTIME_REVISION = "0880d1e830e8013aa3a1591eb3967273928796c2"
 
 COMPACT_REVISION = "9a39af860322ee28b446315980a5f1b8845a7da4"
 FUSED_REVISION = "6faf8a27e107f1021dcb13c3eacbe48560f0cc4c"
+READER_REVISION = "26fcce669d4608a82e34c700fba0a18e33ad8fde"
 COMPACT_RUNTIME = (
     "export_runtime.py",
     "register_session.py",
@@ -24,7 +25,7 @@ COMPACT_RUNTIME = (
 )
 
 
-def build(source, parent, destination, full, *, compact=False):
+def build(source, parent, destination, full, *, compact=False, packed_reader=False):
     original = read(parent / "export-files.json")
     if (
         not read(parent / "decision.json")["passed"]
@@ -51,7 +52,10 @@ def build(source, parent, destination, full, *, compact=False):
             cfg["register_weights"] = "affine8-mlp-output-exact-input-v1"
         save(staging / "config.json", cfg)
         repository = Path(__file__).resolve().parents[1]
-        for name in COMPACT_RUNTIME if compact else RUNTIME:
+        files_to_copy = COMPACT_RUNTIME if compact else RUNTIME
+        if packed_reader:
+            files_to_copy = (*files_to_copy, "attention_memory.py")
+        for name in files_to_copy:
             revision = RUNTIME_REVISION
             if compact:
                 revision = (
@@ -59,6 +63,8 @@ def build(source, parent, destination, full, *, compact=False):
                     if name == "kernels/packed_decode.py"
                     else COMPACT_REVISION
                 )
+            if packed_reader and name in ("attention_memory.py", "page_prefill.py"):
+                revision = READER_REVISION
             payload = subprocess.check_output(
                 [
                     "git",
