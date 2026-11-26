@@ -1,0 +1,24 @@
+{
+  "id": "table-parser-01",
+  "question": "Can learned column and literal pointers through one shared native Qwen layer turn the actual table schema and a human question into correct executable aggregates on new databases?",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "training": "research/data/table-parser-training.json",
+  "material": "research/data/table-parser-panel.json",
+  "tool_description": "Read values or compute an aggregate over matching rows in records.",
+  "fit_seed": 6042983,
+  "rank": 96,
+  "depth": 2,
+  "updates": 2200,
+  "batch": 16,
+  "lr": 0.0003,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "protocol": "Named response to the free-SQL fit on 768 tables: it solved eight of 36 unseen queries but none of six sums and only one count. Use a different learned semantic action decoder. 2304 distinct WikiSQL publisher training tables, 384 examples per aggregate including non-numeric outputs, all conditions tied to spans in the user question and all reconstructed queries executed against the official training database. Exclude held-out table IDs, number-normalized exact questions and normalized five-gram Jaccard >=.60 against enrolled field/table panels. Frozen layer 0-14 activations encode the complete common schema and user prompt, with offset-aligned header and word representations. Fit a rank-96 head, rank-eight Q/K/V/O adapters and the same native layer 15 used twice per first-call decision. Five readouts select the aggregate, result column, number of filters and up to four ordered column/operator/start/end tuples. Later turns freely decode from the independently qualified K2 tool checkpoint after the real callback. Test all 48 new official test tables (8 per operation, no selection on span alignment at evaluation) against untouched ordinary Base with identical thinking, tool definitions, prompt IDs, output and turn caps. On every item require correct denotation on the actual table and on an independently resampled version plus a correct completed answer. This comparison tests the structured system on caller-visible table schemas. Broader databases require a new independently sourced test.",
+  "gate": "At least twelve net additional complete grounded correct queries, exact paired p<=.05, >=3/8 on each of all six operations, more correct final answers regardless of execution, no higher total session time or peak MLX memory than Base. A miss closes this parser. A pass licenses a separately trained K1 parser with the same layer, head, samples, targets, updates, action space and unchanged K2 answer decoder plus a new external database family before default routing.",
+  "limits": {
+    "wall_seconds": 1560,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
