@@ -194,6 +194,15 @@ def generate(
         "peak_bytes": mx.get_peak_memory(),
         "active_bytes": mx.get_active_memory(),
     }
+    precision = getattr(model, "weight_precision_receipt", None)
+    if precision is not None:
+        inputs_used = model.text.model.embed_tokens
+        result["weight_precision"] = {
+            **precision,
+            "actual_projections": model.projection_calls,
+            "prompt_embedding_rows": inputs_used.initial_rows,
+            "final_embedding_rows": inputs_used.rows.shape[0],
+        }
     if tool_prefix is not None:
         result["reused_prompt_tokens"] = tool_prefix.reused
     if reserve_full_kv:

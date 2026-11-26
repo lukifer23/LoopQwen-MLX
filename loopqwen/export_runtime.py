@@ -11,7 +11,7 @@ from .looped_model import LoopedModel
 from .recurrence import Span
 
 
-def load_export(directory, *, _load_tokenizer=load_tokenizer):
+def load_export(directory, *, _load_tokenizer=load_tokenizer, _manage_register=True):
     from .worker import acquire
 
     acquire()
@@ -114,6 +114,23 @@ def load_export(directory, *, _load_tokenizer=load_tokenizer):
         ):
             raise ValueError("Unsupported register prefill policy")
         object.__setattr__(model, "packed_register_prefill", True)
+    if _manage_register and "register_weights" in cfg:
+        if cfg[
+            "register_weights"
+        ] != "affine8-mlp-output-exact-input-v1" or not getattr(
+            model, "packed_register_prefill", False
+        ):
+            raise ValueError("Unsupported long-register weight policy")
+        from .register_session import RegisterSession
+
+        def reload():
+            return load_export(
+                directory,
+                _load_tokenizer=lambda *args, **kwargs: tokenizer,
+                _manage_register=False,
+            )[0]
+
+        model = RegisterSession(model, reload, directory / "model.safetensors")
     return model, tokenizer
 
 

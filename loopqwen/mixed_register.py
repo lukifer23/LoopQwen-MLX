@@ -34,12 +34,13 @@ class RegisterPolicy:
         return self.original.views()
 
 
-def build_view(model):
+def build_view(model, *, reset_peak=True):
     if not model.args.tie_word_embeddings:
         raise ValueError("The original output head must use the input embedding")
     start = perf_counter()
     mx.synchronize()
-    mx.reset_peak_memory()
+    if reset_peak:
+        mx.reset_peak_memory()
     shared = {id(a): a for _, a in tree_flatten(model.text.parameters())}
     text = deepcopy(model.text, shared)
     bits = 8
