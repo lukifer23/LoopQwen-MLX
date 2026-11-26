@@ -13,3 +13,12 @@ The original conversations were filtered for read-only calls with typed argument
 The retained chat messages are reserialized into the local JSON protocol.
 Original conversation identifiers are recorded in each training row.
 See BFCL-Hermes-APACHE-2.0.txt for the license.
+
+Table-query questions, reference query annotations and Wikipedia table data
+come from Zhong, Xiong and Socher, WikiSQL (Salesforce Research, 2017).
+The subset includes 24 distinct official test tables. The preparation script
+preserves original questions and selects numeric scalar denotations. Column
+names are restored on the publisher's SQLite values. The table tool and the
+second denotation check on resampled rows were developed for this project.
+https://github.com/salesforce/WikiSQL/tree/cffb423077756d04c1bac5bcd45167c86903fbcb
+See WIKISQL-BSD.txt and the source repository for attribution.

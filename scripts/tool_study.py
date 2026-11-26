@@ -82,6 +82,14 @@ def summarize(records, spec):
 
 def workload(spec):
     material = read(spec["material"])
+    if spec.get("workload") == "table_questions":
+        from loopqwen.evaluation import table_questions
+
+        items = [
+            dict(r, user_request=r["question"] + table_questions.INSTRUCTION)
+            for r in material["rows"]
+        ]
+        return items, table_questions.tools_for, table_questions.score
     if spec.get("workload") == "bfcl_exec":
         from loopqwen.evaluation import executable_tools as external
 

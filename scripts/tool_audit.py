@@ -17,7 +17,7 @@ from scripts.tool_study import summarize, workload
 def verify(root, decision, read, sha, require):
     spec = read(root / "registration.json")
     items, catalog_for, judge = workload(spec)
-    external = spec.get("workload") == "bfcl_exec"
+    external = spec.get("workload") in ("bfcl_exec", "table_questions")
     tokenizer = load_tokenizer(local_snapshot())
     stop_ids = set(tokenizer.eos_token_ids)
     if spec.get("stop_at_turn_end"):

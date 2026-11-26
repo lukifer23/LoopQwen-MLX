@@ -1,0 +1,3695 @@
+{
+  "source": "https://raw.githubusercontent.com/salesforce/WikiSQL/cffb423077756d04c1bac5bcd45167c86903fbcb/data.tar.bz2",
+  "sha256": "755c728ab188e364575705c8641f3fafd86fb089cb8b08e8c03f01832aae0881",
+  "rows": [
+    {
+      "id": "wikisql-test-11808",
+      "table_id": "2-1122223-1",
+      "question": "What is the total number of Grids for Chuck Daigh?",
+      "columns": [
+        "Driver",
+        "Constructor",
+        "Laps",
+        "Time/Retired",
+        "Grid"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          "jack brabham",
+          "cooper - climax",
+          36.0,
+          "2:21:37.3",
+          1.0
+        ],
+        [
+          "bruce mclaren",
+          "cooper - climax",
+          36.0,
+          "+ 1:03.3",
+          14.0
+        ],
+        [
+          "olivier gendebien",
+          "cooper - climax",
+          35.0,
+          "+ 1 lap",
+          5.0
+        ],
+        [
+          "phil hill",
+          "ferrari",
+          35.0,
+          "+ 1 lap",
+          4.0
+        ],
+        [
+          "jim clark",
+          "lotus - climax",
+          34.0,
+          "+ 2 laps",
+          10.0
+        ],
+        [
+          "lucien bianchi",
+          "cooper - climax",
+          28.0,
+          "+ 8 laps",
+          15.0
+        ],
+        [
+          "graham hill",
+          "brm",
+          35.0,
+          "engine",
+          6.0
+        ],
+        [
+          "alan stacey",
+          "lotus - climax",
+          24.0,
+          "fatal accident",
+          17.0
+        ],
+        [
+          "willy mairesse",
+          "ferrari",
+          23.0,
+          "transmission",
+          13.0
+        ],
+        [
+          "wolfgang von trips",
+          "ferrari",
+          22.0,
+          "transmission",
+          11.0
+        ],
+        [
+          "chris bristow",
+          "cooper - climax",
+          19.0,
+          "fatal accident",
+          9.0
+        ],
+        [
+          "chuck daigh",
+          "scarab",
+          16.0,
+          "engine",
+          18.0
+        ],
+        [
+          "jo bonnier",
+          "brm",
+          14.0,
+          "engine",
+          7.0
+        ],
+        [
+          "innes ireland",
+          "lotus - climax",
+          13.0,
+          "accident",
+          8.0
+        ],
+        [
+          "dan gurney",
+          "brm",
+          4.0,
+          "engine",
+          12.0
+        ],
+        [
+          "tony brooks",
+          "cooper - climax",
+          2.0,
+          "gearbox",
+          2.0
+        ],
+        [
+          "lance reventlow",
+          "scarab",
+          1.0,
+          "engine",
+          16.0
+        ],
+        [
+          "stirling moss",
+          "lotus - climax",
+          0.0,
+          "accident",
+          3.0
+        ],
+        [
+          "mike taylor",
+          "lotus - climax",
+          0.0,
+          "accident",
+          19.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            0,
+            0,
+            "chuck daigh"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-4308",
+      "table_id": "1-30133-1",
+      "question": "How many export volume of goods/services values are associated with GDP at constant prices values of 3.072?",
+      "columns": [
+        "Year",
+        "GDP at constant prices (THB trillions)",
+        "GDP at constant prices growth rate (percent change)",
+        "GDP at current prices (USD billions)",
+        "Export volume of goods and services (percent change)",
+        "Current account balance (percent of GDP)"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1995.0,
+          "2.941",
+          "9.2",
+          "168.019",
+          "15.4",
+          "-7.9"
+        ],
+        [
+          1996.0,
+          "3.115",
+          "5.9",
+          "181.948",
+          "-5.5",
+          "-7.9"
+        ],
+        [
+          1997.0,
+          "3.072",
+          "-1.4",
+          "150.891",
+          "7.2",
+          "-2.0"
+        ],
+        [
+          1998.0,
+          "2.749",
+          "-10.5",
+          "111.860",
+          "8.2",
+          "12.8"
+        ],
+        [
+          1999.0,
+          "2.871",
+          "4.4",
+          "122.630",
+          "9.0",
+          "10.2"
+        ],
+        [
+          2000.0,
+          "3.008",
+          "4.8",
+          "122.725",
+          "17.5",
+          "7.6"
+        ],
+        [
+          2001.0,
+          "3.073",
+          "2.2",
+          "115.536",
+          "-4.2",
+          "4.4"
+        ],
+        [
+          2002.0,
+          "3.237",
+          "5.3",
+          "126.877",
+          "12.0",
+          "3.7"
+        ],
+        [
+          2003.0,
+          "3.467",
+          "7.1",
+          "142.640",
+          "7.0",
+          "3.4"
+        ],
+        [
+          2004.0,
+          "3.686",
+          "6.3",
+          "161.340",
+          "9.6",
+          "1.7"
+        ],
+        [
+          2005.0,
+          "3.856",
+          "4.6",
+          "176.352",
+          "4.1",
+          "-4.3"
+        ],
+        [
+          2006.0,
+          "4.054",
+          "5.1",
+          "207.089",
+          "12.5",
+          "1.2"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            1,
+            0,
+            "3.072"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-13085",
+      "table_id": "2-18178534-10",
+      "question": "What is the total against on 15/10/1999?",
+      "columns": [
+        "Opposing Teams",
+        "Against",
+        "Date",
+        "Venue",
+        "Status"
+      ],
+      "types": [
+        "text",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "scotland",
+          21.0,
+          "20/02/1999",
+          "twickenham , london",
+          "five nations"
+        ],
+        [
+          "ireland",
+          15.0,
+          "06/03/1999",
+          "lansdowne road , dublin",
+          "five nations"
+        ],
+        [
+          "france",
+          10.0,
+          "20/03/1999",
+          "twickenham , london",
+          "five nations"
+        ],
+        [
+          "wales",
+          32.0,
+          "11/04/1999",
+          "wembley stadium , london",
+          "five nations"
+        ],
+        [
+          "australia",
+          22.0,
+          "26/06/1999",
+          "stadium australia , sydney",
+          "test match"
+        ],
+        [
+          "u.s.a.",
+          8.0,
+          "21/08/1999",
+          "twickenham , london",
+          "test match"
+        ],
+        [
+          "canada",
+          11.0,
+          "28/08/1999",
+          "twickenham , london",
+          "test match"
+        ],
+        [
+          "italy",
+          7.0,
+          "02/10/1999",
+          "twickenham , london",
+          "1999 rugby world cup"
+        ],
+        [
+          "new zealand",
+          30.0,
+          "09/10/1999",
+          "twickenham , london",
+          "1999 rugby world cup"
+        ],
+        [
+          "tonga",
+          10.0,
+          "15/10/1999",
+          "twickenham , london",
+          "1999 rugby world cup"
+        ],
+        [
+          "fiji",
+          24.0,
+          "20/10/1999",
+          "twickenham , london",
+          "1999 rugby world cup"
+        ],
+        [
+          "south africa",
+          44.0,
+          "24/10/1999",
+          "stade de france , saint-denis",
+          "1999 rugby world cup"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            2,
+            0,
+            "15/10/1999"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-2053",
+      "table_id": "1-1939405-2",
+      "question": "How many Latin Americans were there in 2001 in the province with 0.0% 2001 and 0.2% 2011?",
+      "columns": [
+        "Province",
+        "Latin Americans 2001",
+        "% 2001",
+        "Latin Americans 2011",
+        "% 2011"
+      ],
+      "types": [
+        "text",
+        "real",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "ontario",
+          106835.0,
+          "0.9%",
+          172560.0,
+          "1.4%"
+        ],
+        [
+          "quebec",
+          59520.0,
+          "0.8%",
+          116380.0,
+          "1.5%"
+        ],
+        [
+          "alberta",
+          18745.0,
+          "0.6%",
+          41305.0,
+          "1.2%"
+        ],
+        [
+          "british columbia",
+          23885.0,
+          "0.6%",
+          35465.0,
+          "0.8%"
+        ],
+        [
+          "manitoba",
+          4775.0,
+          "0.4%",
+          9140.0,
+          "0.8%"
+        ],
+        [
+          "saskatchewan",
+          2010.0,
+          "0.2%",
+          3255.0,
+          "0.3%"
+        ],
+        [
+          "nova scotia",
+          520.0,
+          "0.0%",
+          1360.0,
+          "0.2%"
+        ],
+        [
+          "new brunswick",
+          425.0,
+          "0.0%",
+          1160.0,
+          "0.2%"
+        ],
+        [
+          "prince edward island",
+          75.0,
+          "0.1%",
+          235.0,
+          "0.2%"
+        ],
+        [
+          "newfoundland and labrador",
+          80.0,
+          "0.0%",
+          185.0,
+          "0.0%"
+        ],
+        [
+          "yukon",
+          45.0,
+          "0.1%",
+          105.0,
+          "0.3%"
+        ],
+        [
+          "northwest territories",
+          60.0,
+          "0.2%",
+          105.0,
+          "0.3%"
+        ],
+        [
+          "nunavut",
+          10.0,
+          "0.0%",
+          30.0,
+          "0.1%"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            2,
+            0,
+            "0.0%"
+          ],
+          [
+            4,
+            0,
+            "0.2%"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-11852",
+      "table_id": "2-11783707-4",
+      "question": "What is the average for the RB with an 8 yard long?",
+      "columns": [
+        "Player",
+        "Car.",
+        "Yards",
+        "Avg.",
+        "TD's",
+        "Long"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "josh white",
+          93.0,
+          278.0,
+          3.0,
+          10.0,
+          22.0
+        ],
+        [
+          "will pettis",
+          14.0,
+          33.0,
+          2.4,
+          2.0,
+          8.0
+        ],
+        [
+          "clint dolezel",
+          10.0,
+          5.0,
+          0.5,
+          1.0,
+          4.0
+        ],
+        [
+          "marcus nash",
+          4.0,
+          5.0,
+          1.3,
+          3.0,
+          3.0
+        ],
+        [
+          "andrae thurman",
+          1.0,
+          4.0,
+          4.0,
+          0.0,
+          4.0
+        ],
+        [
+          "willis marshall",
+          4.0,
+          2.0,
+          0.5,
+          2.0,
+          2.0
+        ],
+        [
+          "nick browder",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          "duke pettijohn",
+          3.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            5,
+            0,
+            8
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-12784",
+      "table_id": "2-17632217-1",
+      "question": "What is the sum of the season with 8 clubs and shanghai as the runners-up?",
+      "columns": [
+        "Season",
+        "Winners",
+        "Total wins",
+        "Runners-up",
+        "Third-place",
+        "Number of clubs"
+      ],
+      "types": [
+        "real",
+        "text",
+        "real",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1987.0,
+          "liaoning",
+          1.0,
+          "tianjin",
+          "shanghai",
+          8.0
+        ],
+        [
+          1988.0,
+          "liaoning",
+          2.0,
+          "shandong",
+          "shanghai",
+          21.0
+        ],
+        [
+          1989.0,
+          "china b",
+          1.0,
+          "liaoning",
+          "shanghai",
+          8.0
+        ],
+        [
+          1990.0,
+          "liaoning",
+          3.0,
+          "august 1st",
+          "dalian",
+          8.0
+        ],
+        [
+          1991.0,
+          "liaoning",
+          4.0,
+          "shanghai",
+          "beijing",
+          8.0
+        ],
+        [
+          1992.0,
+          "liaoning",
+          5.0,
+          "guangzhou fc",
+          "dalian",
+          8.0
+        ],
+        [
+          1993.0,
+          "liaoning",
+          6.0,
+          "guangdong",
+          "beijing",
+          8.0
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            5,
+            0,
+            8
+          ],
+          [
+            3,
+            0,
+            "shanghai"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-2338",
+      "table_id": "1-2076490-1",
+      "question": "What year is the founding year, for the school that had an enrollment in 2005 of 963?",
+      "columns": [
+        "School",
+        "Location(s)",
+        "Control",
+        "Type",
+        "Enrollment (2005)",
+        "Founded"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          "antioch university new england",
+          "keene",
+          "private",
+          "doctoral/research university",
+          "898",
+          1964.0
+        ],
+        [
+          "colby-sawyer college",
+          "new london",
+          "private",
+          "baccalaureate college",
+          "971",
+          1837.0
+        ],
+        [
+          "the college of saint mary magdalen",
+          "warner",
+          "private ( catholic )",
+          "baccalaureate college",
+          "69",
+          1974.0
+        ],
+        [
+          "community college system of new hampshire",
+          "seven locations",
+          "public",
+          "associates colleges",
+          "24,000+",
+          1965.0
+        ],
+        [
+          "daniel webster college",
+          "nashua",
+          "private ( for-profit )",
+          "baccalaureate college",
+          "963",
+          1965.0
+        ],
+        [
+          "dartmouth college",
+          "hanover",
+          "private",
+          "research university",
+          "5,780",
+          1769.0
+        ],
+        [
+          "franklin pierce university",
+          "rindge",
+          "private",
+          "baccalaureate college",
+          "2,642",
+          1962.0
+        ],
+        [
+          "granite state college",
+          "concord",
+          "public",
+          "baccalaureate college",
+          "1,540",
+          1972.0
+        ],
+        [
+          "hesser college",
+          "five locations",
+          "private ( for-profit )",
+          "baccalaureate college",
+          "3,440",
+          1900.0
+        ],
+        [
+          "keene state college",
+          "keene",
+          "public",
+          "master's university",
+          "4,846",
+          1909.0
+        ],
+        [
+          "lebanon college",
+          "lebanon",
+          "private",
+          "associates college",
+          "322",
+          1956.0
+        ],
+        [
+          "new england college",
+          "henniker and online",
+          "private",
+          "baccalaureate college",
+          "1,367",
+          1946.0
+        ],
+        [
+          "new hampshire institute of art",
+          "manchester",
+          "private",
+          "special-focus institution",
+          "220",
+          1898.0
+        ],
+        [
+          "plymouth state university",
+          "plymouth",
+          "public",
+          "master's university",
+          "5,264",
+          1871.0
+        ],
+        [
+          "rivier university",
+          "nashua",
+          "private ( catholic )",
+          "master's university",
+          "2,216",
+          1933.0
+        ],
+        [
+          "saint anselm college",
+          "goffstown",
+          "private ( catholic )",
+          "baccalaureate college",
+          "1,986",
+          1889.0
+        ],
+        [
+          "southern new hampshire university",
+          "manchester",
+          "private",
+          "master's university",
+          "6,186",
+          1932.0
+        ],
+        [
+          "thomas more college of liberal arts",
+          "merrimack",
+          "private ( catholic )",
+          "baccalaureate college",
+          "84",
+          1978.0
+        ],
+        [
+          "university of new hampshire",
+          "durham",
+          "public",
+          "research university",
+          "14,511",
+          1866.0
+        ],
+        [
+          "university of new hampshire at manchester",
+          "manchester",
+          "public",
+          "baccalaureate college",
+          "1,096",
+          1985.0
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            4,
+            0,
+            "963"
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-1041",
+      "table_id": "1-14342480-7",
+      "question": "How many points were scored by someone who's position was right tackle?",
+      "columns": [
+        "Player",
+        "Position",
+        "Starter",
+        "Touchdowns",
+        "Extra points",
+        "Field goals",
+        "Points"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "tom hammond",
+          "fullback",
+          "yes",
+          3.0,
+          8.0,
+          0.0,
+          23.0
+        ],
+        [
+          "herb graver",
+          "right halfback",
+          "yes",
+          3.0,
+          0.0,
+          0.0,
+          15.0
+        ],
+        [
+          "joe maddock",
+          "right tackle",
+          "yes",
+          3.0,
+          0.0,
+          0.0,
+          15.0
+        ],
+        [
+          "duncan thompson",
+          "right halfback",
+          "no",
+          2.0,
+          0.0,
+          0.0,
+          10.0
+        ],
+        [
+          "joe curtis",
+          "left tackle",
+          "yes",
+          1.0,
+          5.0,
+          0.0,
+          10.0
+        ],
+        [
+          "fred norcross",
+          "left halfback",
+          "yes",
+          1.0,
+          0.0,
+          0.0,
+          5.0
+        ],
+        [
+          "rolla bigelow",
+          "left halfback",
+          "no",
+          1.0,
+          0.0,
+          0.0,
+          5.0
+        ]
+      ],
+      "sql": {
+        "sel": 6,
+        "conds": [
+          [
+            1,
+            0,
+            "Right tackle"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-10174",
+      "table_id": "2-11947374-3",
+      "question": "How many runners up for the team that won in 1993?",
+      "columns": [
+        "Team",
+        "Winners",
+        "Runners-up",
+        "Years won",
+        "Years runner-up"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "barcelona",
+          4.0,
+          2.0,
+          "1979 , 1982 , 1989 , 1997",
+          "1969 , 1991"
+        ],
+        [
+          "anderlecht",
+          2.0,
+          2.0,
+          "1976 , 1978",
+          "1977 , 1990"
+        ],
+        [
+          "milan",
+          2.0,
+          1.0,
+          "1968 , 1973",
+          "1974"
+        ],
+        [
+          "chelsea",
+          2.0,
+          0.0,
+          "1971 , 1998",
+          "\u2014"
+        ],
+        [
+          "dynamo kyiv",
+          2.0,
+          0.0,
+          "1975 , 1986",
+          "\u2014"
+        ],
+        [
+          "atl\u00e9tico madrid",
+          1.0,
+          2.0,
+          "1962",
+          "1963 , 1986"
+        ],
+        [
+          "rangers",
+          1.0,
+          2.0,
+          "1972",
+          "1961 , 1967"
+        ],
+        [
+          "arsenal",
+          1.0,
+          2.0,
+          "1994",
+          "1980 , 1995"
+        ],
+        [
+          "fiorentina",
+          1.0,
+          1.0,
+          "1961",
+          "1962"
+        ],
+        [
+          "west ham united",
+          1.0,
+          1.0,
+          "1965",
+          "1976"
+        ],
+        [
+          "hamburg",
+          1.0,
+          1.0,
+          "1977",
+          "1968"
+        ],
+        [
+          "ajax",
+          1.0,
+          1.0,
+          "1987",
+          "1988"
+        ],
+        [
+          "sampdoria",
+          1.0,
+          1.0,
+          "1990",
+          "1989"
+        ],
+        [
+          "parma",
+          1.0,
+          1.0,
+          "1993",
+          "1994"
+        ],
+        [
+          "paris saint-germain",
+          1.0,
+          1.0,
+          "1996",
+          "1997"
+        ],
+        [
+          "tottenham hotspur",
+          1.0,
+          0.0,
+          "1963",
+          "\u2014"
+        ],
+        [
+          "sporting cp",
+          1.0,
+          0.0,
+          "1964",
+          "\u2014"
+        ],
+        [
+          "borussia dortmund",
+          1.0,
+          0.0,
+          "1966",
+          "\u2014"
+        ],
+        [
+          "bayern munich",
+          1.0,
+          0.0,
+          "1967",
+          "\u2014"
+        ],
+        [
+          "slovan bratislava",
+          1.0,
+          0.0,
+          "1969",
+          "\u2014"
+        ],
+        [
+          "manchester city",
+          1.0,
+          0.0,
+          "1970",
+          "\u2014"
+        ],
+        [
+          "1. fc magdeburg",
+          1.0,
+          0.0,
+          "1974",
+          "\u2014"
+        ],
+        [
+          "valencia",
+          1.0,
+          0.0,
+          "1980",
+          "\u2014"
+        ],
+        [
+          "dinamo tbilisi",
+          1.0,
+          0.0,
+          "1981",
+          "\u2014"
+        ],
+        [
+          "aberdeen",
+          1.0,
+          0.0,
+          "1983",
+          "\u2014"
+        ],
+        [
+          "juventus",
+          1.0,
+          0.0,
+          "1984",
+          "\u2014"
+        ],
+        [
+          "everton",
+          1.0,
+          0.0,
+          "1985",
+          "\u2014"
+        ],
+        [
+          "mechelen",
+          1.0,
+          0.0,
+          "1988",
+          "\u2014"
+        ],
+        [
+          "manchester united",
+          1.0,
+          0.0,
+          "1991",
+          "\u2014"
+        ],
+        [
+          "werder bremen",
+          1.0,
+          0.0,
+          "1992",
+          "\u2014"
+        ],
+        [
+          "real zaragoza",
+          1.0,
+          0.0,
+          "1995",
+          "\u2014"
+        ],
+        [
+          "lazio",
+          1.0,
+          0.0,
+          "1999",
+          "\u2014"
+        ],
+        [
+          "real madrid",
+          0.0,
+          2.0,
+          "\u2014",
+          "1971 , 1983"
+        ],
+        [
+          "rapid wien",
+          0.0,
+          2.0,
+          "\u2014",
+          "1985 , 1996"
+        ],
+        [
+          "mtk hung\u00e1ria",
+          0.0,
+          1.0,
+          "\u2014",
+          "1964"
+        ],
+        [
+          "1860 munich",
+          0.0,
+          1.0,
+          "\u2014",
+          "1965"
+        ],
+        [
+          "liverpool",
+          0.0,
+          1.0,
+          "\u2014",
+          "1966"
+        ],
+        [
+          "g\u00f3rnik zabrze",
+          0.0,
+          1.0,
+          "\u2014",
+          "1970"
+        ],
+        [
+          "dynamo moscow",
+          0.0,
+          1.0,
+          "\u2014",
+          "1972"
+        ],
+        [
+          "leeds united",
+          0.0,
+          1.0,
+          "\u2014",
+          "1973"
+        ],
+        [
+          "ferencv\u00e1ros",
+          0.0,
+          1.0,
+          "\u2014",
+          "1975"
+        ],
+        [
+          "austria wien",
+          0.0,
+          1.0,
+          "\u2014",
+          "1978"
+        ],
+        [
+          "fortuna d\u00fcsseldorf",
+          0.0,
+          1.0,
+          "\u2014",
+          "1979"
+        ],
+        [
+          "carl zeiss jena",
+          0.0,
+          1.0,
+          "\u2014",
+          "1981"
+        ],
+        [
+          "standard li\u00e8ge",
+          0.0,
+          1.0,
+          "\u2014",
+          "1982"
+        ],
+        [
+          "porto",
+          0.0,
+          1.0,
+          "\u2014",
+          "1984"
+        ],
+        [
+          "1. fc lokomotive leipzig",
+          0.0,
+          1.0,
+          "\u2014",
+          "1987"
+        ],
+        [
+          "as monaco",
+          0.0,
+          1.0,
+          "\u2014",
+          "1992"
+        ],
+        [
+          "royal antwerp",
+          0.0,
+          1.0,
+          "\u2014",
+          "1993"
+        ],
+        [
+          "stuttgart",
+          0.0,
+          1.0,
+          "\u2014",
+          "1998"
+        ],
+        [
+          "real mallorca",
+          0.0,
+          1.0,
+          "\u2014",
+          "1999"
+        ]
+      ],
+      "sql": {
+        "sel": 2,
+        "conds": [
+          [
+            3,
+            0,
+            "1993"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-12858",
+      "table_id": "2-18284277-1",
+      "question": "What's the highest time for the 1995 200 metres event?",
+      "columns": [
+        "Year",
+        "Competition",
+        "Venue",
+        "Position",
+        "Event",
+        "Time"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1995.0,
+          "world championships",
+          "gothenburg",
+          "3rd",
+          "4x100 m relay",
+          39.07
+        ],
+        [
+          1995.0,
+          "summer universiade",
+          "fukuoka",
+          "3rd",
+          "4x100 m relay",
+          39.64
+        ],
+        [
+          1995.0,
+          "military world games",
+          "rome",
+          "1st",
+          "4x100 m relay",
+          40.2
+        ],
+        [
+          1995.0,
+          "military world games",
+          "rome",
+          "3rd",
+          "200 metres",
+          21.0
+        ],
+        [
+          1997.0,
+          "mediterranean games",
+          "bari",
+          "1st",
+          "4x100 m relay",
+          38.61
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            0,
+            0,
+            1995
+          ],
+          [
+            4,
+            0,
+            "200 metres"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-4812",
+      "table_id": "2-10701045-6",
+      "question": "What was the crowd size at the match that had an away team score of 6.8 (44)?",
+      "columns": [
+        "Home team",
+        "Home team score",
+        "Away team",
+        "Away team score",
+        "Venue",
+        "Crowd",
+        "Date"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "geelong",
+          "20.15 (135)",
+          "st kilda",
+          "5.11 (41)",
+          "kardinia park",
+          "24,000",
+          "27 may 1950"
+        ],
+        [
+          "collingwood",
+          "14.14 (98)",
+          "richmond",
+          "16.11 (107)",
+          "victoria park",
+          "24,000",
+          "27 may 1950"
+        ],
+        [
+          "carlton",
+          "16.13 (109)",
+          "footscray",
+          "16.10 (106)",
+          "princes park",
+          "16,500",
+          "27 may 1950"
+        ],
+        [
+          "south melbourne",
+          "20.14 (134)",
+          "hawthorn",
+          "10.14 (74)",
+          "lake oval",
+          "9,500",
+          "27 may 1950"
+        ],
+        [
+          "melbourne",
+          "13.17 (95)",
+          "fitzroy",
+          "6.8 (44)",
+          "mcg",
+          "21,000",
+          "27 may 1950"
+        ],
+        [
+          "north melbourne",
+          "13.8 (86)",
+          "essendon",
+          "11.5 (71)",
+          "arden street oval",
+          "25,000",
+          "27 may 1950"
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            3,
+            0,
+            "6.8 (44)"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-14748",
+      "table_id": "2-1305286-4",
+      "question": "Which year did The Adventures of Tintin come out?",
+      "columns": [
+        "Year",
+        "Category",
+        "Film",
+        "Winner/Nominee(s)",
+        "Result"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          2002.0,
+          "best animated feature",
+          "jimmy neutron: boy genius",
+          "steve oedekerk john a. davis",
+          "nominated"
+        ],
+        [
+          2003.0,
+          "best original song",
+          "the wild thornberrys movie",
+          "paul simon (\" father and daughter \")",
+          "nominated"
+        ],
+        [
+          2005.0,
+          "best makeup",
+          "lemony snicket's a series of unfortunate events",
+          "valli o'reilly bill corso",
+          "won"
+        ],
+        [
+          2005.0,
+          "best original score",
+          "lemony snicket's a series of unfortunate events",
+          "thomas newman",
+          "nominated"
+        ],
+        [
+          2012.0,
+          "best animated feature",
+          "rango",
+          "gore verbinski",
+          "won"
+        ],
+        [
+          2012.0,
+          "best original score",
+          "the adventures of tintin",
+          "john williams",
+          "nominated"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "the adventures of tintin"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-3429",
+      "table_id": "1-25774493-11",
+      "question": "How many games did he lead team in rebounding in the season when his 5 blocks stat is 10?",
+      "columns": [
+        "Season",
+        "Led team in scoring",
+        "Led team in rebounding",
+        "30 points",
+        "20 rebounds",
+        "10 rebounds",
+        "20-20",
+        "Double double",
+        "5 blocks"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "2004\u201305",
+          6.0,
+          55.0,
+          0.0,
+          3.0,
+          43.0,
+          0.0,
+          32.0,
+          2.0
+        ],
+        [
+          "2005\u201306",
+          20.0,
+          70.0,
+          0.0,
+          3.0,
+          62.0,
+          2.0,
+          60.0,
+          2.0
+        ],
+        [
+          "2006\u201307",
+          33.0,
+          74.0,
+          6.0,
+          4.0,
+          64.0,
+          4.0,
+          60.0,
+          5.0
+        ],
+        [
+          "2007\u201308",
+          34.0,
+          76.0,
+          11.0,
+          11.0,
+          72.0,
+          8.0,
+          69.0,
+          8.0
+        ],
+        [
+          "2008\u201309",
+          39.0,
+          70.0,
+          9.0,
+          10.0,
+          63.0,
+          9.0,
+          63.0,
+          15.0
+        ],
+        [
+          "2009\u201310",
+          35.0,
+          70.0,
+          5.0,
+          9.0,
+          70.0,
+          3.0,
+          64.0,
+          13.0
+        ],
+        [
+          "2010\u201311",
+          55.0,
+          71.0,
+          16.0,
+          8.0,
+          68.0,
+          6.0,
+          66.0,
+          10.0
+        ],
+        [
+          "2011\u201312",
+          28.0,
+          48.0,
+          5.0,
+          10.0,
+          44.0,
+          9.0,
+          43.0,
+          3.0
+        ],
+        [
+          "2012\u201313",
+          15.0,
+          55.0,
+          3.0,
+          4.0,
+          54.0,
+          1.0,
+          48.0,
+          7.0
+        ],
+        [
+          "regular season",
+          265.0,
+          589.0,
+          55.0,
+          62.0,
+          540.0,
+          42.0,
+          505.0,
+          65.0
+        ],
+        [
+          "playoffs",
+          24.0,
+          52.0,
+          6.0,
+          7.0,
+          45.0,
+          5.0,
+          42.0,
+          11.0
+        ]
+      ],
+      "sql": {
+        "sel": 2,
+        "conds": [
+          [
+            8,
+            0,
+            10
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-4638",
+      "table_id": "2-10710364-2",
+      "question": "What is the child sex ration for the population with 37.7% work participation?",
+      "columns": [
+        "Religious group",
+        "Population %",
+        "Growth (1991\u20132001)",
+        "Sex ratio (total)",
+        "Literacy (%)",
+        "Work participation (%)",
+        "Sex ratio (rural)",
+        "Sex ratio (urban)",
+        "Sex ratio (child)"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text",
+        "text",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "hindu",
+          "80.46%",
+          "20.3%",
+          931.0,
+          "65.1%",
+          "40.4%",
+          944.0,
+          894.0,
+          925.0
+        ],
+        [
+          "muslim",
+          "13.43%",
+          "29.3%",
+          936.0,
+          "59.1%",
+          "31.3%",
+          953.0,
+          907.0,
+          950.0
+        ],
+        [
+          "christian",
+          "2.34%",
+          "22.6%",
+          1009.0,
+          "80.3%",
+          "39.7%",
+          1001.0,
+          1026.0,
+          964.0
+        ],
+        [
+          "sikh",
+          "1.87%",
+          "18.2%",
+          893.0,
+          "69.4%",
+          "37.7%",
+          895.0,
+          886.0,
+          786.0
+        ],
+        [
+          "buddhist",
+          "0.77%",
+          "18.2%",
+          953.0,
+          "72.7%",
+          "40.6%",
+          958.0,
+          944.0,
+          942.0
+        ],
+        [
+          "animist , others",
+          "0.72%",
+          "103.1%",
+          992.0,
+          "47.0%",
+          "48.4%",
+          995.0,
+          966.0,
+          976.0
+        ],
+        [
+          "jain",
+          "0.41%",
+          "26.0%",
+          940.0,
+          "94.1%",
+          "32.9%",
+          937.0,
+          941.0,
+          870.0
+        ]
+      ],
+      "sql": {
+        "sel": 8,
+        "conds": [
+          [
+            5,
+            0,
+            "37.7%"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-5459",
+      "table_id": "2-14292964-18",
+      "question": "What was the average position of car number 59?",
+      "columns": [
+        "Pos.",
+        "Car #",
+        "Driver",
+        "Make",
+        "Team"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          23.0,
+          "johnny benson",
+          "toyota",
+          "bill davis racing"
+        ],
+        [
+          2.0,
+          99.0,
+          "erik darnell",
+          "ford",
+          "roush fenway racing"
+        ],
+        [
+          3.0,
+          30.0,
+          "todd bodine",
+          "toyota",
+          "germain racing"
+        ],
+        [
+          4.0,
+          2.0,
+          "jack sprague",
+          "chevy",
+          "kevin harvick incorporated"
+        ],
+        [
+          5.0,
+          33.0,
+          "ron hornaday",
+          "chevy",
+          "kevin harvick incorporated"
+        ],
+        [
+          6.0,
+          6.0,
+          "colin braun r",
+          "ford",
+          "roush fenway racing"
+        ],
+        [
+          7.0,
+          4.0,
+          "stacy compton",
+          "dodge",
+          "bobby hamilton racing-virginia"
+        ],
+        [
+          8.0,
+          59.0,
+          "ted musgrave",
+          "toyota",
+          "ht motorsports"
+        ],
+        [
+          9.0,
+          11.0,
+          "david starr",
+          "toyota",
+          "red horse racing"
+        ],
+        [
+          10.0,
+          8.0,
+          "chad mccumbee",
+          "chevrolet",
+          "mrd motorsports"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            1,
+            0,
+            59
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-936",
+      "table_id": "1-14125006-1",
+      "question": "What's Yurchikhin Fyodor Yurchikhin's number? ",
+      "columns": [
+        "Number",
+        "Astronaut",
+        "Agency",
+        "Total EVAs",
+        "Total Time Hours:Minutes"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          "solovyev anatoly solovyev",
+          "rsa",
+          16.0,
+          "82:22"
+        ],
+        [
+          2.0,
+          "lopez-alegria michael lopez-alegria",
+          "nasa",
+          10.0,
+          "67:40"
+        ],
+        [
+          3.0,
+          "ross jerry l. ross",
+          "nasa",
+          9.0,
+          "58:32"
+        ],
+        [
+          4.0,
+          "grunsfeld john m. grunsfeld",
+          "nasa",
+          8.0,
+          "58:30"
+        ],
+        [
+          5.0,
+          "yurchikhin fyodor yurchikhin",
+          "rsa",
+          8.0,
+          "51:53"
+        ],
+        [
+          6.0,
+          "williams sunita williams",
+          "nasa",
+          7.0,
+          "50:40"
+        ],
+        [
+          7.0,
+          "smith steven l. smith",
+          "nasa",
+          7.0,
+          "49:48"
+        ],
+        [
+          8.0,
+          "fincke michael fincke",
+          "nasa",
+          9.0,
+          "48:37"
+        ],
+        [
+          9.0,
+          "bowen stephen g. bowen",
+          "nasa",
+          7.0,
+          "47:18"
+        ],
+        [
+          10.0,
+          "parazynski scott e. parazynski",
+          "nasa",
+          7.0,
+          "47:05"
+        ],
+        [
+          11.0,
+          "tanner joseph r. tanner",
+          "nasa",
+          7.0,
+          "46:29"
+        ],
+        [
+          12.0,
+          "curbeam robert l. curbeam",
+          "nasa",
+          7.0,
+          "45:34"
+        ],
+        [
+          13.0,
+          "budarin nikolai budarin",
+          "rsa",
+          8.0,
+          "44:25"
+        ],
+        [
+          14.0,
+          "wheelock douglas h. wheelock",
+          "nasa",
+          6.0,
+          "43:30"
+        ],
+        [
+          15.0,
+          "newman james h. newman",
+          "nasa",
+          6.0,
+          "43:13"
+        ],
+        [
+          16.0,
+          "onufrienko yuri onufrienko",
+          "rsa",
+          8.0,
+          "42:33"
+        ],
+        [
+          17.0,
+          "linnehan richard linnehan",
+          "nasa",
+          6.0,
+          "42:23"
+        ],
+        [
+          18.0,
+          "feustel andrew j. feustel",
+          "nasa",
+          6.0,
+          "42:18"
+        ],
+        [
+          19.0,
+          "fossun michael fossum",
+          "nasa",
+          6.0,
+          "42:01"
+        ],
+        [
+          20.0,
+          "wolf david wolf",
+          "nasa",
+          7.0,
+          "41:17"
+        ],
+        [
+          21.0,
+          "musabeyev talgat musabayev",
+          "rsa",
+          7.0,
+          "41:13"
+        ],
+        [
+          22.0,
+          "sellers piers sellers",
+          "nasa",
+          6.0,
+          "41:10"
+        ],
+        [
+          23.0,
+          "krikalev sergei krikalev",
+          "rsa",
+          8.0,
+          "41:08"
+        ],
+        [
+          24.0,
+          "avdeyev sergei avdeyev",
+          "rsa",
+          8.0,
+          "41:00"
+        ],
+        [
+          25.0,
+          "whitson peggy whitson",
+          "nasa",
+          6.0,
+          "39:46"
+        ],
+        [
+          26.0,
+          "tani daniel m. tani",
+          "nasa",
+          6.0,
+          "39:11"
+        ],
+        [
+          27.0,
+          "mastracchio richard mastracchio",
+          "nasa",
+          6.0,
+          "38:30"
+        ],
+        [
+          28.0,
+          "anderson clayton anderson",
+          "nasa",
+          6.0,
+          "38:28"
+        ],
+        [
+          29.0,
+          "vinogradov pavel vinogradov",
+          "rsa",
+          7.0,
+          "38:25"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            1,
+            0,
+            "Yurchikhin Fyodor Yurchikhin"
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-13488",
+      "table_id": "2-18395141-2",
+      "question": "What is the least total number of medals when the bronze medals is 1, and Czech Republic (CZE) is the nation?",
+      "columns": [
+        "Rank",
+        "Nation",
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Total"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "1",
+          "brazil (bra)",
+          2.0,
+          0.0,
+          1.0,
+          3.0
+        ],
+        [
+          "1",
+          "south korea (kor)",
+          2.0,
+          0.0,
+          1.0,
+          3.0
+        ],
+        [
+          "3",
+          "portugal (por)",
+          1.0,
+          3.0,
+          1.0,
+          5.0
+        ],
+        [
+          "4",
+          "great britain (gbr)",
+          1.0,
+          1.0,
+          0.0,
+          2.0
+        ],
+        [
+          "4",
+          "hong kong (hkg)",
+          1.0,
+          1.0,
+          0.0,
+          2.0
+        ],
+        [
+          "6",
+          "spain (esp)",
+          0.0,
+          1.0,
+          2.0,
+          3.0
+        ],
+        [
+          "7",
+          "greece (gre)",
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          "8",
+          "czech republic (cze)",
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "8",
+          "ireland (irl)",
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "total",
+          "total",
+          7.0,
+          7.0,
+          7.0,
+          21.0
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            4,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            "czech republic (cze)"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-1509",
+      "table_id": "1-16729076-1",
+      "question": "what is the attendance where the game site is kingdome?",
+      "columns": [
+        "Week",
+        "Date",
+        "Opponent",
+        "Result",
+        "Game site",
+        "Record",
+        "Attendance"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1.0,
+          "september 3",
+          "oakland raiders",
+          "w 14\u20136",
+          "mile high stadium",
+          "1\u20130",
+          75092.0
+        ],
+        [
+          2.0,
+          "september 11",
+          "at minnesota vikings",
+          "l 9\u201312 (ot)",
+          "metropolitan stadium",
+          "1\u20131",
+          46508.0
+        ],
+        [
+          3.0,
+          "september 17",
+          "san diego chargers",
+          "w 27\u201314",
+          "mile high stadium",
+          "2\u20131",
+          74983.0
+        ],
+        [
+          4.0,
+          "september 24",
+          "at kansas city chiefs",
+          "w 23\u201317 (ot)",
+          "arrowhead stadium",
+          "3\u20131",
+          60593.0
+        ],
+        [
+          5.0,
+          "october 1",
+          "seattle seahawks",
+          "w 28\u20137",
+          "mile high stadium",
+          "4\u20131",
+          74989.0
+        ],
+        [
+          6.0,
+          "october 8",
+          "at san diego chargers",
+          "l 0\u201323",
+          "san diego stadium",
+          "4\u20132",
+          50077.0
+        ],
+        [
+          7.0,
+          "october 16",
+          "chicago bears",
+          "w 16\u20137",
+          "mile high stadium",
+          "5\u20132",
+          75008.0
+        ],
+        [
+          8.0,
+          "october 22",
+          "at baltimore colts",
+          "l 6\u20137",
+          "memorial stadium",
+          "5\u20133",
+          54057.0
+        ],
+        [
+          9.0,
+          "october 29",
+          "at seattle seahawks",
+          "w 20\u201317 (ot)",
+          "kingdome",
+          "6\u20133",
+          62948.0
+        ],
+        [
+          10.0,
+          "november 5",
+          "new york jets",
+          "l 28\u201331",
+          "mile high stadium",
+          "6\u20134",
+          74983.0
+        ],
+        [
+          11.0,
+          "november 12",
+          "at cleveland browns",
+          "w 19\u20137",
+          "cleveland stadium",
+          "7\u20134",
+          70856.0
+        ],
+        [
+          12.0,
+          "november 19",
+          "green bay packers",
+          "w 16\u20133",
+          "mile high stadium",
+          "8\u20134",
+          74965.0
+        ],
+        [
+          13.0,
+          "november 23",
+          "at detroit lions",
+          "l 14\u201317",
+          "pontiac silverdome",
+          "8\u20135",
+          71785.0
+        ],
+        [
+          14.0,
+          "december 3",
+          "at oakland raiders",
+          "w 21\u20136",
+          "oakland-alameda county coliseum",
+          "9\u20135",
+          53932.0
+        ],
+        [
+          15.0,
+          "december 10",
+          "kansas city chiefs",
+          "w 24\u20133",
+          "mile high stadium",
+          "10\u20135",
+          74149.0
+        ]
+      ],
+      "sql": {
+        "sel": 6,
+        "conds": [
+          [
+            4,
+            0,
+            "Kingdome"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-9671",
+      "table_id": "2-17221632-4",
+      "question": "What is the average React, when Mark is less than 7.93?",
+      "columns": [
+        "Lane",
+        "Name",
+        "Country",
+        "Mark",
+        "React"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          5.0,
+          "lolo jones",
+          "united states",
+          7.8,
+          0.161
+        ],
+        [
+          3.0,
+          "candice davis",
+          "united states",
+          7.93,
+          0.145
+        ],
+        [
+          6.0,
+          "anay tejeda",
+          "cuba",
+          7.98,
+          0.184
+        ],
+        [
+          8.0,
+          "lacena golding-clarke",
+          "jamaica",
+          8.01,
+          0.227
+        ],
+        [
+          1.0,
+          "aleksandra antonova",
+          "russia",
+          8.02,
+          0.165
+        ],
+        [
+          2.0,
+          "yevgeniya snihur",
+          "ukraine",
+          8.12,
+          0.237
+        ],
+        [
+          7.0,
+          "yuliya kondakova",
+          "russia",
+          10.19,
+          0.239
+        ],
+        [
+          4.0,
+          "josephine onyia",
+          "spain",
+          43.72,
+          0.253
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            3,
+            2,
+            7.93
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-15244",
+      "table_id": "2-1234983-2",
+      "question": "How many points did Corbari Italia earn in 1985?",
+      "columns": [
+        "Year",
+        "Entrant",
+        "Chassis",
+        "Engine",
+        "Points"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1985.0,
+          "pmc motorsport",
+          "williams fw08",
+          "cosworth",
+          8.0
+        ],
+        [
+          1985.0,
+          "corbari italia",
+          "march 85b",
+          "cosworth",
+          8.0
+        ],
+        [
+          1986.0,
+          "corbari italia",
+          "march 86b",
+          "cosworth",
+          0.0
+        ],
+        [
+          1987.0,
+          "first racing",
+          "march 87b",
+          "cosworth",
+          12.0
+        ],
+        [
+          1987.0,
+          "first racing",
+          "march 87b",
+          "judd",
+          12.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            1,
+            0,
+            "corbari italia"
+          ],
+          [
+            0,
+            0,
+            1985
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-3821",
+      "table_id": "1-27615896-20",
+      "question": "What's Kaia Kanepi's Sd?",
+      "columns": [
+        "Sd",
+        "Rk",
+        "Player",
+        "Points",
+        "Points defending",
+        "Points won",
+        "New points",
+        "Status"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "real",
+        "text",
+        "real",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          1.0,
+          "caroline wozniacki",
+          7485.0,
+          "900",
+          500.0,
+          7085.0,
+          "quarterfinals lost to kim clijsters [11]"
+        ],
+        [
+          2.0,
+          2.0,
+          "petra kvitov\u00e1",
+          7290.0,
+          "500",
+          900.0,
+          7690.0,
+          "semifinals lost to maria sharapova [4]"
+        ],
+        [
+          4.0,
+          4.0,
+          "maria sharapova",
+          6440.0,
+          "280",
+          1400.0,
+          7560.0,
+          "runner-up, final lost to victoria azarenka [3]"
+        ],
+        [
+          5.0,
+          5.0,
+          "li na",
+          5570.0,
+          "1,400",
+          280.0,
+          4450.0,
+          "fourth round lost to kim clijsters [11]"
+        ],
+        [
+          6.0,
+          6.0,
+          "samantha stosur",
+          5585.0,
+          "160",
+          5.0,
+          5430.0,
+          "first round lost to sorana c\u00eerstea"
+        ],
+        [
+          7.0,
+          7.0,
+          "vera zvonareva",
+          5435.0,
+          "900",
+          160.0,
+          4695.0,
+          "third round lost to ekaterina makarova"
+        ],
+        [
+          8.0,
+          8.0,
+          "agnieszka radwa\u0144ska",
+          5330.0,
+          "500",
+          500.0,
+          5330.0,
+          "quarterfinals lost to victoria azarenka [3]"
+        ],
+        [
+          9.0,
+          9.0,
+          "marion bartoli",
+          4710.0,
+          "100",
+          160.0,
+          4770.0,
+          "third round lost to zheng jie"
+        ],
+        [
+          10.0,
+          11.0,
+          "francesca schiavone",
+          4040.0,
+          "500",
+          100.0,
+          3640.0,
+          "second round lost to romina oprandi"
+        ],
+        [
+          11.0,
+          12.0,
+          "kim clijsters",
+          3041.0,
+          "2,000",
+          900.0,
+          1941.0,
+          "semifinals lost to victoria azarenka [3]"
+        ],
+        [
+          12.0,
+          13.0,
+          "serena williams",
+          3300.0,
+          "0",
+          280.0,
+          3580.0,
+          "fourth round lost to ekaterina makarova"
+        ],
+        [
+          13.0,
+          14.0,
+          "jelena jankovi\u0107",
+          3115.0,
+          "100",
+          280.0,
+          3295.0,
+          "fourth round lost to caroline wozniacki [1]"
+        ],
+        [
+          14.0,
+          15.0,
+          "sabine lisicki",
+          2903.0,
+          "(40)",
+          280.0,
+          3143.0,
+          "fourth round lost to maria sharapova [4]"
+        ],
+        [
+          15.0,
+          16.0,
+          "anastasia pavlyuchenkova",
+          2795.0,
+          "160",
+          100.0,
+          2735.0,
+          "second round lost to vania king"
+        ],
+        [
+          16.0,
+          17.0,
+          "peng shuai",
+          2760.0,
+          "280",
+          100.0,
+          2580.0,
+          "second round lost to iveta bene\u0161ov\u00e1"
+        ],
+        [
+          17.0,
+          18.0,
+          "dominika cibulkov\u00e1",
+          2695.0,
+          "160",
+          100.0,
+          2635.0,
+          "second round lost to gr\u00e9ta arn"
+        ],
+        [
+          18.0,
+          19.0,
+          "svetlana kuznetsova",
+          2646.0,
+          "280",
+          160.0,
+          2526.0,
+          "third round lost to sabine lisicki [14]"
+        ],
+        [
+          19.0,
+          20.0,
+          "flavia pennetta",
+          2570.0,
+          "280",
+          5.0,
+          2295.0,
+          "first round lost to nina bratchikova [q]"
+        ],
+        [
+          20.0,
+          21.0,
+          "daniela hantuchov\u00e1",
+          2295.0,
+          "5",
+          160.0,
+          2450.0,
+          "third round lost to kim clijsters [11]"
+        ],
+        [
+          21.0,
+          22.0,
+          "ana ivanovic",
+          2260.0,
+          "5",
+          280.0,
+          2535.0,
+          "fourth round lost to petra kvitov\u00e1 [2]"
+        ],
+        [
+          22.0,
+          23.0,
+          "julia g\u00f6rges",
+          2225.0,
+          "160",
+          280.0,
+          2345.0,
+          "fourth round lost to agnieszka radwa\u0144ska [8]"
+        ],
+        [
+          23.0,
+          24.0,
+          "roberta vinci",
+          2115.0,
+          "5",
+          100.0,
+          2210.0,
+          "second round lost to zheng jie"
+        ],
+        [
+          24.0,
+          25.0,
+          "lucie \u0161af\u00e1\u0159ov\u00e1",
+          2120.0,
+          "160",
+          5.0,
+          1965.0,
+          "first round lost to christina mchale"
+        ],
+        [
+          25.0,
+          26.0,
+          "kaia kanepi",
+          2049.0,
+          "100",
+          100.0,
+          2049.0,
+          "second round lost to ekaterina makarova"
+        ],
+        [
+          26.0,
+          27.0,
+          "anabel medina garrigues",
+          1950.0,
+          "5",
+          160.0,
+          2105.0,
+          "third round retired against li na [5]"
+        ],
+        [
+          27.0,
+          28.0,
+          "maria kirilenko",
+          1930.0,
+          "100",
+          160.0,
+          1990.0,
+          "third round retired against petra kvitov\u00e1 [2]"
+        ],
+        [
+          28.0,
+          29.0,
+          "yanina wickmayer",
+          2050.0,
+          "100",
+          5.0,
+          1955.0,
+          "first round lost to galina voskoboeva"
+        ],
+        [
+          29.0,
+          30.0,
+          "nadia petrova",
+          1765.0,
+          "160",
+          100.0,
+          1705.0,
+          "second round lost to sara errani"
+        ],
+        [
+          30.0,
+          31.0,
+          "angelique kerber",
+          1810.0,
+          "5",
+          160.0,
+          1965.0,
+          "third round lost to maria sharapova [4]"
+        ],
+        [
+          31.0,
+          32.0,
+          "monica niculescu",
+          1725.0,
+          "160",
+          160.0,
+          1725.0,
+          "third round lost to caroline wozniacki [1]"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "Kaia Kanepi"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-15618",
+      "table_id": "2-13009581-2",
+      "question": "What is the highest round reached by an oppo ent of JR schumacher?",
+      "columns": [
+        "Res.",
+        "Record",
+        "Opponent",
+        "Method",
+        "Event",
+        "Round",
+        "Time",
+        "Location"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "win",
+          "15-5",
+          "justin guthrie",
+          "submission (triangle choke)",
+          "crowbar mma - winter brawl",
+          2.0,
+          "1:57",
+          "fargo, north dakota , united states"
+        ],
+        [
+          "win",
+          "14-5",
+          "anthony smith",
+          "tko (punches)",
+          "crowbar mma: fall brawl",
+          2.0,
+          "1:28",
+          "fargo, north dakota , united states"
+        ],
+        [
+          "loss",
+          "13-5",
+          "ryan jensen",
+          "submission (guillotine choke)",
+          "ufc 114",
+          1.0,
+          "1:06",
+          "las vegas, nevada , united states"
+        ],
+        [
+          "loss",
+          "13-4",
+          "nick catone",
+          "decision (split)",
+          "ufc fight night: maynard vs. diaz",
+          3.0,
+          "5:00",
+          "fairfax, virginia , united states"
+        ],
+        [
+          "win",
+          "13-3",
+          "james head",
+          "decision (unanimous)",
+          "pro battle mma",
+          3.0,
+          "5:00",
+          "springdale, arkansas , united states"
+        ],
+        [
+          "win",
+          "12-3",
+          "cleburn walker",
+          "submission (rear naked choke)",
+          "5150 comabt: rumble at the rally",
+          1.0,
+          "3:02",
+          "sparks, oklahoma , united states"
+        ],
+        [
+          "win",
+          "11-3",
+          "dave vitkay",
+          "tko (punches)",
+          "wild bill's fight night 19",
+          1.0,
+          "2:05",
+          "duluth, georgia , united states"
+        ],
+        [
+          "win",
+          "10-3",
+          "shane dezee",
+          "tko (punches)",
+          "extreme beatdown",
+          1.0,
+          "1:34",
+          "san carlos, arizona , united states"
+        ],
+        [
+          "win",
+          "9-3",
+          "jr schumacher",
+          "tko (punches)",
+          "mtxafn 2 - evolution",
+          1.0,
+          "3:13",
+          "las vegas, nevada , united states"
+        ],
+        [
+          "loss",
+          "8-3",
+          "ryan jimmo",
+          "decision (unanimous)",
+          "xmma 6 - house of pain",
+          3.0,
+          "5:00",
+          "montreal , canada"
+        ],
+        [
+          "win",
+          "8-2",
+          "bernard rutherford",
+          "tko",
+          "wild bill's - fight night 15",
+          1.0,
+          "2:37",
+          "duluth, georgia , united states"
+        ],
+        [
+          "win",
+          "7-2",
+          "chris camozzi",
+          "submission (armbar)",
+          "mfc 15- rags to riches",
+          3.0,
+          "1:45",
+          "edmonton , canada"
+        ],
+        [
+          "win",
+          "6-2",
+          "victor moreno",
+          "tko (punches)",
+          "mtxafn - let's get it on",
+          1.0,
+          "1:38",
+          "las vegas, nevada , united states"
+        ],
+        [
+          "loss",
+          "5-2",
+          "bryan baker",
+          "tko (punches)",
+          "wec 30",
+          1.0,
+          "4:15",
+          "las vegas, nevada , united states"
+        ],
+        [
+          "win",
+          "5-1",
+          "jesse taylor",
+          "submission( armbar )",
+          "tuff-n-uff 2",
+          1.0,
+          "1:21",
+          "las vegas, nevada , united states"
+        ],
+        [
+          "win",
+          "4-1",
+          "tim peacock",
+          "submission ( triangle choke )",
+          "wfc: desert storm",
+          1.0,
+          "0:50",
+          "camp verde, arizona , united states"
+        ],
+        [
+          "win",
+          "3-1",
+          "michael gonzalez",
+          "submission ( rear naked choke )",
+          "cage fighting federation",
+          1.0,
+          "n/a",
+          "silver city, new mexico , united states"
+        ],
+        [
+          "loss",
+          "2-1",
+          "matt hamill",
+          "tko (strikes)",
+          "the ultimate fighter 3 finale",
+          1.0,
+          "4:47",
+          "las vegas, nevada , united states"
+        ],
+        [
+          "win",
+          "2-0",
+          "scott svobada",
+          "submission ( rear naked choke )",
+          "usa mma: pacific northwest invitational 1",
+          1.0,
+          "n/a",
+          "tacoma, washington , united states"
+        ],
+        [
+          "win",
+          "1-0",
+          "arturo segovia",
+          "submission ( armbar )",
+          "ritc 72: welcome to the fort",
+          2.0,
+          "2:14",
+          "glendale, arizona , united states"
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            2,
+            0,
+            "jr schumacher"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-10533",
+      "table_id": "2-1122077-1",
+      "question": "What is the average rank of one who is at 76 laps?",
+      "columns": [
+        "Grid",
+        "Constructor",
+        "Qual",
+        "Rank",
+        "Laps",
+        "Time/retired"
+      ],
+      "types": [
+        "real",
+        "text",
+        "real",
+        "real",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          "kurtis kraft - offenhauser",
+          138.39,
+          1.0,
+          200.0,
+          "3:53:01.69"
+        ],
+        [
+          12.0,
+          "kurtis kraft - offenhauser",
+          137.31,
+          8.0,
+          200.0,
+          "+3:30.87"
+        ],
+        [
+          9.0,
+          "kurtis kraft - offenhauser",
+          137.53,
+          5.0,
+          200.0,
+          "+4:11.50"
+        ],
+        [
+          2.0,
+          "kurtis kraft - offenhauser",
+          137.54,
+          4.0,
+          200.0,
+          "+4:39.24"
+        ],
+        [
+          3.0,
+          "kurtis kraft - offenhauser",
+          136.6,
+          13.0,
+          200.0,
+          "+7:49.64"
+        ],
+        [
+          21.0,
+          "kurtis kraft - offenhauser",
+          135.74,
+          23.0,
+          200.0,
+          "+8:10.21"
+        ],
+        [
+          25.0,
+          "kurtis kraft - offenhauser",
+          135.66,
+          27.0,
+          200.0,
+          "+8:46.02"
+        ],
+        [
+          20.0,
+          "stevens - offenhauser",
+          135.92,
+          22.0,
+          200.0,
+          "+10:04.55"
+        ],
+        [
+          6.0,
+          "kuzma - offenhauser",
+          136.02,
+          20.0,
+          196.0,
+          "accident"
+        ],
+        [
+          32.0,
+          "kurtis kraft - offenhauser",
+          135.26,
+          31.0,
+          193.0,
+          "+7 laps"
+        ],
+        [
+          26.0,
+          "kurtis kraft - novi",
+          135.46,
+          30.0,
+          191.0,
+          "accident"
+        ],
+        [
+          19.0,
+          "kurtis kraft - offenhauser",
+          135.93,
+          21.0,
+          190.0,
+          "+10 laps"
+        ],
+        [
+          4.0,
+          "kuzma - offenhauser",
+          136.38,
+          15.0,
+          184.0,
+          "engine"
+        ],
+        [
+          31.0,
+          "schroeder - offenhauser",
+          135.5,
+          29.0,
+          183.0,
+          "+17 laps"
+        ],
+        [
+          28.0,
+          "kurtis kraft - offenhauser",
+          137.86,
+          2.0,
+          177.0,
+          "magneto"
+        ],
+        [
+          10.0,
+          "kurtis kraft - offenhauser",
+          137.46,
+          6.0,
+          177.0,
+          "axle"
+        ],
+        [
+          14.0,
+          "kurtis kraft - offenhauser",
+          137.11,
+          10.0,
+          176.0,
+          "+24 laps"
+        ],
+        [
+          22.0,
+          "kurtis kraft - offenhauser",
+          135.72,
+          25.0,
+          169.0,
+          "oil leak"
+        ],
+        [
+          18.0,
+          "kurtis kraft - offenhauser",
+          136.16,
+          17.0,
+          166.0,
+          "oil leak"
+        ],
+        [
+          29.0,
+          "kuzma - offenhauser",
+          136.87,
+          11.0,
+          151.0,
+          "suspension"
+        ],
+        [
+          23.0,
+          "turner - offenhauser",
+          135.7,
+          26.0,
+          146.0,
+          "transmission"
+        ],
+        [
+          24.0,
+          "kuzma - offenhauser",
+          135.66,
+          28.0,
+          115.0,
+          "accident"
+        ],
+        [
+          7.0,
+          "kurtis kraft - offenhauser",
+          135.73,
+          24.0,
+          107.0,
+          "overheating"
+        ],
+        [
+          27.0,
+          "lesovsky - offenhauser",
+          135.26,
+          32.0,
+          94.0,
+          "ignition"
+        ],
+        [
+          17.0,
+          "kurtis kraft - offenhauser",
+          136.21,
+          16.0,
+          89.0,
+          "magneto"
+        ],
+        [
+          8.0,
+          "kurtis kraft - offenhauser",
+          137.66,
+          3.0,
+          86.0,
+          "engine"
+        ],
+        [
+          15.0,
+          "watson - offenhauser",
+          136.86,
+          12.0,
+          76.0,
+          "accident"
+        ],
+        [
+          13.0,
+          "kurtis kraft - offenhauser",
+          137.26,
+          9.0,
+          53.0,
+          "accident"
+        ],
+        [
+          16.0,
+          "kuzma - offenhauser",
+          136.56,
+          14.0,
+          42.0,
+          "fuel leak"
+        ],
+        [
+          30.0,
+          "kurtis kraft - offenhauser",
+          136.09,
+          18.0,
+          30.0,
+          "magneto"
+        ],
+        [
+          11.0,
+          "bromme - offenhauser",
+          137.43,
+          7.0,
+          14.0,
+          "oil leak"
+        ],
+        [
+          33.0,
+          "del roy - offenhauser",
+          135.26,
+          33.0,
+          6.0,
+          "ignition"
+        ],
+        [
+          5.0,
+          "stevens - offenhauser",
+          136.06,
+          19.0,
+          3.0,
+          "accident"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            4,
+            0,
+            76
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-5836",
+      "table_id": "2-15003874-4",
+      "question": "Notes of bbc radio 4, and a Director of peter kavanagh includes which average year?",
+      "columns": [
+        "Year",
+        "Title",
+        "Role",
+        "Director",
+        "Notes"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          2002.0,
+          "the angry brigade",
+          "john barker",
+          "peter kavanagh",
+          "bbc radio 4"
+        ],
+        [
+          2006.0,
+          "dracula",
+          "jonathan harker",
+          "marion nancarrow",
+          "bbc world service"
+        ],
+        [
+          2006.0,
+          "another country",
+          "tommy judd",
+          "marc beeby",
+          "bbc radio 4"
+        ],
+        [
+          2007.0,
+          "caesar iii: an empire without end",
+          "romulus",
+          "jeremy mortimer",
+          "bbc radio 4"
+        ],
+        [
+          2008.0,
+          "othello",
+          "cassio",
+          "michael grandage",
+          "bbc radio 3"
+        ],
+        [
+          2008.0,
+          "the leopard",
+          "tancredi",
+          "lucy bailey",
+          "bbc radio 3"
+        ],
+        [
+          2008.0,
+          "cyrano de bergerac",
+          "christian",
+          "david timson",
+          "bbc radio 3"
+        ],
+        [
+          2009.0,
+          "carnival",
+          "lords of misrule",
+          "zahid warley",
+          "bbc radio 3"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            4,
+            0,
+            "bbc radio 4"
+          ],
+          [
+            3,
+            0,
+            "peter kavanagh"
+          ]
+        ],
+        "agg": 5
+      }
+    }
+  ]
+}
