@@ -34,6 +34,10 @@ def summarize(records, spec):
     p = paired_p(gains, losses)
     passed = (gains-losses >= spec["net_floor"] and p <= spec["p_max"] and
               metrics["candidate"]["seconds"] <= metrics["control"]["seconds"] * spec["time_ratio"])
+    for kind, minimum in spec.get("family_minimum", {}).items():
+        items = read(spec["material"])
+        successes = sum(row["score"]["success"] for row, item in zip(records["candidate"], items, strict=True) if item["kind"] == kind)
+        passed = passed and successes >= minimum
     return dict(passed=passed,metrics=metrics,gains=gains,losses=losses,p_exact=p,items=len(pairs))
 
 
@@ -48,6 +52,11 @@ def load_arm(arm, spec, folder, budget):
 
 def main(name):
     spec = read(f"research/experiments/{name}.json")
+    if "requires" in spec:
+        from loopqwen.io import digest
+        prerequisite=Path(spec["requires"])
+        if digest(prerequisite/"checksums.json") != spec["prerequisite_sha256"] or not read(prerequisite/"decision.json")["passed"]:
+            raise ValueError("Tool study prerequisite failed")
     out = Path("outputs/research")/name
     if (out/"decision.json").exists():
         raise ValueError("Completed run exists")

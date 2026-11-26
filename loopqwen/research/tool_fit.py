@@ -21,7 +21,8 @@ from .tool_worlds import tools_for
 def build(spec, passes):
     text,tok,_ = load_base()
     mx.random.seed(spec["fit_seed"])
-    model = LoopedModel(text,Span(start=23,length=1,passes=passes,mode="stabilized"),alpha=0.35)
+    start=spec.get("start_layer",23)
+    model = LoopedModel(text,Span(start=start,length=24-start,passes=passes,mode="stabilized"),alpha=0.35)
     attach(model,rank=spec["rank"],alpha=2*spec["rank"])
     # Match trainable parameters at both depths, including the fixed residual coefficient.
     model.freeze(keys=["alpha_logit"],recurse=False)
@@ -43,10 +44,11 @@ def traces(rows):
 
 def features(model,tok,rows,budget):
     bank=[]
-    for messages,visible in traces(rows):
+    examples = ((r["messages"],r["visible"],r["thinking"]) for r in rows["examples"]) if isinstance(rows,dict) else ((m,v,"") for m,v in traces(rows))
+    for messages,visible,thinking in examples:
         budget.check()
         prefix=tok.encode(prompt(tok,messages),add_special_tokens=False)
-        reply=tok.encode("</think>\n\n"+visible,add_special_tokens=False)+[tok.convert_tokens_to_ids("<|im_end|>")]
+        reply=tok.encode((thinking+"\n" if thinking else "")+"</think>\n\n"+visible,add_special_tokens=False)+[tok.convert_tokens_to_ids("<|im_end|>")]
         ids=prefix+reply[:-1]
         h=model.prefix_hidden(mx.array([ids]))[0]
         mx.eval(h)
@@ -61,7 +63,7 @@ def fit(model,tok,spec,out,budget):
     rng=random.Random(spec["fit_seed"])
     optimizer=optim.AdamW(learning_rate=spec["lr"],weight_decay=0.01)
     def loss_fn(net,h,rr,ss,targets):
-        h=net._execute(h,net.span.sites(24)[23:])
+        h=net._execute(h,net.sites[net.span.start:])
         final=net.text.model.norm(h[rr,ss])
         return nn.losses.cross_entropy(net.project(final).astype(mx.float32),targets).mean()
     vg=nn.value_and_grad(model,loss_fn)

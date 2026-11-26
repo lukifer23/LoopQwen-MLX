@@ -16,6 +16,10 @@ DOMAINS = {
     "festival": ("act", "stage", "capacity", "stage_assignment", "stage_capacity"),
     "printing": ("order", "press", "speed", "assigned_press", "press_speed"),
     "observatory": ("instrument", "station", "elevation", "instrument_station", "station_elevation"),
+    "railway": ("service", "platform", "length", "service_platform", "platform_length"),
+    "tournament": ("team", "arena", "capacity", "home_arena", "arena_capacity"),
+    "warehouse": ("shipment", "dock", "clearance", "shipment_dock", "dock_clearance"),
+    "archive": ("collection", "vault", "volume", "collection_vault", "vault_volume"),
     "market": ("stall", "district", "population", "locate_stall", "district_population"),
 }
 NAMES = "Juniper Cobalt Maple Amber Kestrel Rowan Willow Flint Cedar Quartz Hazel Pearl".split()

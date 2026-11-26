@@ -1,0 +1,30 @@
+{
+  "id": "tool-dialogue-grounded-01",
+  "question": "Can a recurrent four-layer suffix trained on observed-value rationales and independent multi-argument demonstrations beat Base on fresh executable tasks including comparisons?",
+  "candidate": "train_loop",
+  "control": "base",
+  "training": "research/data/tool-dialogue-grounded-training.json",
+  "material": "research/data/tool-dialogue-grounded-01.json",
+  "start_layer": 20,
+  "fit_seed": 9147,
+  "rank": 16,
+  "batch": 4,
+  "lr": 0.00015,
+  "updates": 760,
+  "max_tokens": 160,
+  "max_turns": 4,
+  "stop_at_turn_end": true,
+  "net_floor": 12,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "family_minimum": {
+    "compare": 6,
+    "chain": 7
+  },
+  "gate": "Require at least 12 net successes per 50 questions, exact paired p <= .05, no slower than Base, at least 6/10 two-value comparisons and 7/10 dependent chains. Stop on resource limit or memory warning. Failure closes release and matched-depth claims for this fit. Fit once from untouched Base, no teacher model. Fresh domains and mixed independent wording. If positive independently test larger-schema and counterfactual transfer.",
+  "limits": {
+    "wall_seconds": 1250,
+    "peak_gib": 8.0,
+    "available_gib": 1.4
+  }
+}
