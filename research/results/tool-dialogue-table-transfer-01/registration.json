@@ -1,0 +1,23 @@
+{
+  "id": "tool-dialogue-table-transfer-01",
+  "question": "Can the unchanged recurrent tool checkpoint answer independently authored database questions by executing scoped lookups and aggregates on real WikiSQL tables?",
+  "workload": "table_questions",
+  "candidate": "restore:research/results/tool-dialogue-typed-01",
+  "control": "base",
+  "material": "research/data/tool-table-queries-01.json",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "stop_at_turn_end": true,
+  "net_floor": 5,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "gate": "At least five net additional end-to-end successes, exact paired p<=.05 and no more actual seconds than untouched Base on 24 enrolled independent tables. Stop at the resource caps. If this cold transfer fails, retain it as a failure and close zero-shot database qualification for these weights.",
+  "protocol": "24 original WikiSQL official test questions on 24 separate tables, selected in seeded SHA order with four different tables per aggregate category (lookup, minimum, maximum, count, sum, mean). At least one predicate and a single finite nonzero numeric publisher denotation. Both models see only the question, human column names, generic operation/filter interface and standard instruction. Model-supplied arguments determine the result of a real parameterized SQLite SELECT. Full tables stay outside the prompt. Strict success requires the correct last observed result, the same last call matching the reference query on an independently row-resampled table, and a single correct visible numeric answer. No WikiSQL training or item-specific routines. Identical input IDs, native thinking, greedy full-vocabulary decoding, 384 per turn, max three turns. No free-text SQL, hard-coded answer, oracle tool selection or generation constraint.",
+  "limits": {
+    "wall_seconds": 545,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4"
+}
