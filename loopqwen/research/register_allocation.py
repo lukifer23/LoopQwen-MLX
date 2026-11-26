@@ -20,7 +20,7 @@ from .ledger_curriculum import measure
 from .registered import registered
 
 
-def direct_outcome(spec, rows, items, costs):
+def direct_outcome(rows, items, costs):
     evidence = True
     ordinary = {(i, 0) for i in (3, 7, 11, 15, 19, 23)}
     recurrent = ordinary | {(11, 1), (15, 1)}
@@ -28,7 +28,7 @@ def direct_outcome(spec, rows, items, costs):
         for w, r in zip(items, arm, strict=True):
             n = len(w["prompt_ids"])
             consumed = n + len(r["token_ids"]) - 1
-            sites = r["kv_history"]
+            sites = r.get("kv_history", [])
             evidence &= (
                 r["input_sha256"] == fingerprint(w["prompt_ids"])
                 and n >= 131072
@@ -38,10 +38,11 @@ def direct_outcome(spec, rows, items, costs):
                 and all(s["offset"] == s["retained"] == consumed for s in sites)
             )
             if side == "pages":
-                section = r["attention_memory"]
+                section = r.get("attention_memory")
                 selected = r["page_sites"]
                 evidence &= (
-                    r["context_route"] == "register"
+                    section is not None
+                    and r.get("context_route") == "register"
                     and section["start"]
                     <= w["gold_start"]
                     <= w["gold_stop"]
@@ -84,7 +85,7 @@ def outcome(spec, rows, items):
         for name, rs in rows.items()
     }
     if spec.get("control") == "base":
-        return direct_outcome(spec, rows, items, costs)
+        return direct_outcome(rows, items, costs)
     policy = spec.get("attention_policy", "reserved")
     c, b = costs[policy], costs["stock"]
     exact = True
@@ -200,11 +201,19 @@ def run(name):
     budget = Budget(name, spec["limits"])
     policy = spec.get("attention_policy", "reserved")
     control = spec.get("control", "stock")
-    rows = {policy: [], control: []}
     items = flatten(spec)
     try:
+        from .paired_progress import resume
+
+        rows = (
+            resume(root, spec, items, (policy, control))
+            if control == "base"
+            else {policy: [], control: []}
+        )
         for i, item in enumerate(items):
             for side in (policy, control) if i % 2 == 0 else (control, policy):
+                if len(rows[side]) > i:
+                    continue
                 if side == "base":
                     from ..evaluation.language7 import base
 
@@ -232,6 +241,8 @@ def run(name):
                     ]
                     del slots
                 rows[side].append(record)
+                if control == "base":
+                    packed(root / (side + ".json.gz"), rows[side])
                 print(
                     i,
                     side,

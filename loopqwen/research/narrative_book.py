@@ -115,13 +115,17 @@ def run(name):
     for file, h in read(parent / "export-files.json").items():
         if digest(bundle / file) != h:
             raise ValueError("Different deployed file: " + file)
-    data = {"candidate": [], "control": []}
     budget = Budget(name, spec["limits"])
     try:
+        from .paired_progress import resume
+
+        data = resume(out, spec, material["panel"], ("candidate", "control"))
         for i, w in enumerate(material["panel"]):
             for side in (
                 ("candidate", "control") if i == 0 else ("control", "candidate")
             ):
+                if len(data[side]) > i:
+                    continue
                 model, tok = load_export(bundle) if side == "candidate" else base()[:2]
                 ids = w["prompt_ids"]
                 text = tok.decode(ids)
