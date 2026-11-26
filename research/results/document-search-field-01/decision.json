@@ -1,0 +1,96 @@
+{
+  "passed": false,
+  "groups": {
+    "all": {
+      "candidate": {
+        "n": 32,
+        "correct": 1,
+        "grounded": 1,
+        "evidence": 6,
+        "called": 32,
+        "completed": 29,
+        "f1": 0.06265096618357488,
+        "seconds": 50.927567205100786,
+        "first": 6.496843915199861,
+        "peak": 1183920162
+      },
+      "control": {
+        "n": 32,
+        "correct": 0,
+        "grounded": 0,
+        "evidence": 0,
+        "called": 0,
+        "completed": 28,
+        "f1": 0.03648740964917435,
+        "seconds": 99.31484429194825,
+        "first": 5.944432954827789,
+        "peak": 1779108826
+      },
+      "gains": 1,
+      "losses": 0,
+      "p": 1.0
+    },
+    "SQuAD": {
+      "candidate": {
+        "n": 16,
+        "correct": 1,
+        "grounded": 1,
+        "evidence": 6,
+        "called": 16,
+        "completed": 13,
+        "f1": 0.12530193236714976,
+        "seconds": 29.233015707111917,
+        "first": 2.813060790183954,
+        "peak": 1183920162
+      },
+      "control": {
+        "n": 16,
+        "correct": 0,
+        "grounded": 0,
+        "evidence": 0,
+        "called": 0,
+        "completed": 16,
+        "f1": 0.05005411255411255,
+        "seconds": 40.38469404197531,
+        "first": 2.675866415956989,
+        "peak": 1779076058
+      },
+      "gains": 1,
+      "losses": 0,
+      "p": 1.0
+    },
+    "Qasper": {
+      "candidate": {
+        "n": 16,
+        "correct": 0,
+        "grounded": 0,
+        "evidence": 0,
+        "called": 16,
+        "completed": 16,
+        "f1": 0.0,
+        "seconds": 21.69455149798887,
+        "first": 3.683783125015907,
+        "peak": 1166234658
+      },
+      "control": {
+        "n": 16,
+        "correct": 0,
+        "grounded": 0,
+        "evidence": 0,
+        "called": 0,
+        "completed": 12,
+        "f1": 0.022920706744236158,
+        "seconds": 58.93015024997294,
+        "first": 3.2685665388708003,
+        "peak": 1779108826
+      },
+      "gains": 0,
+      "losses": 0,
+      "p": 1.0
+    }
+  },
+  "index_seconds": {
+    "candidate": 0.14332708303118125,
+    "control": 0.15123762498842552
+  }
+}

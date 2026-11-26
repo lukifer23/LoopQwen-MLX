@@ -1,0 +1,17 @@
+{
+  "id": "document-search-field-01",
+  "question": "Can the qualified offline two-pass tool model use an ordinary local full-text search API to read unfamiliar articles and scientific papers and return answers supported by the retrieved original text?",
+  "material": "research/data/document-search-field-01.json",
+  "checkpoint": "exports/tool-language-packed-03",
+  "requires": "research/results/packed-release-retention-01",
+  "prerequisite_sha256": "680ee713d2c0949d1bb3c44c8ceeaf26d7f5ecea447ab23891d782bb16ead641",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "protocol": "Independent external transfer of the qualified released tool weights, with no updates, no outcome-based prompt selection, no adapter chosen by domain and no supplied solution or search query. Test 16 public SQuAD development articles and 16 Qasper official test articles, one original human question per distinct document with at least two agreeing short extractive votes and a majority among eligible extractive annotations. Some SQuAD titles appeared in earlier research; exclude the former passage-copy fitting titles, old scored passages and known source IDs when sampling. The Qasper document renderer includes title, abstract, all supplied section headings and paragraphs; figures and tables are outside this text-only task. Both arms use the same actual UTF-8 source files, optional document scoping and SQLite FTS5 BM25 callback returning the three best original excerpts with character ranges. The question identifies the supplied file explicitly. Compare the normal shipped K2 tool path against untouched ordinary BF16 Base in the same shuffled 32-request order, same thinking-enabled initial IDs, greedy 384 tokens per assistant turn, at most three turns, full native cache histories, no prefix reuse. Each arm starts cold, charges model loading and all callbacks. Independently time the common corpus reconstruction and index build for each arm and add it once to wall and first-token totals. Evaluate answer-only content regardless of callback, normalized exact, token F1, actual passage retrieval containing the publisher-approved answer at its annotated location, and exact grounded answers. Verify each callback and prompt with the original files. This is external tool-assisted reading; file size is independent of the decoder context length.",
+  "gate": "12 of 32 exact location-grounded answers and six net above Base with exact two-sided matched p<=.05. Gain at least two grounded answers on each source. No decrease in normalized exact, mean token F1 or completed requests in either source. At least four net additional correct final answers, strictly lower cold-inclusive total and summed first-token times including index construction, and strictly lower peak. A miss closes generalization of these unchanged weights on this tool. A pass licenses independent user-written document and source-change tests plus an equally trained one-pass control before a claim about depth.",
+  "limits": {
+    "wall_seconds": 780,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
