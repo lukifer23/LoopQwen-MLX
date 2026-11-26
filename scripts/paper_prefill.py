@@ -220,6 +220,12 @@ def resources(paper, results, result, finish):
             "base",
             "Direct 8-bit pages vs Base · 131K",
         ),
+        (
+            "register-fused-base-full-01",
+            "direct_pages",
+            "base",
+            "Fused 8-bit pages vs Base · fresh 131K",
+        ),
     )
     with (paper / "long-throughput.csv").open("w") as f:
         w = csv.writer(f)

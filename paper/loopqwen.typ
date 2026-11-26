@@ -171,7 +171,13 @@ On two fresh 24,593-token documents both packages returned both correct answers 
 
 #figure(image("packed-decode.svg",width:94%),caption:[Single-query attention latency on physical Qwen cache rows. Small points show the four-repeat median of each actual query. The two panels compare the ordinary causal history and an additive learned register bias on the same tensors.])
 
+Each Metal partition maintains a running maximum, exponential sum and weighted-value sum in FP32. A second native reduction combines the partitions before rounding the output to BF16. The online normalizer [35] and work partitioning in FlashAttention-2 [36] give the mathematical and systems context. Our measurements concern batch-one Apple GPU decoding over native affine 8-bit cache rows.
+
 At 4,112 tokens the existing operator was faster in both conditions. At 32,784 tokens the fused operator was 1.22× and 1.24× as fast for the plain and reader masks. At 131,080 tokens it took 2.42 and 2.48 ms against 4.67 and 4.69 ms, respectively. Maximum scaled absolute difference was 0.00758 and minimum cosine similarity was 0.999993. Peak additional workspace increased from 2.25 MB to 8.83 MB in the longest reader condition. The registered operator threshold passed. The full-model crossover measures both complete counterfactual requests twice per policy, including every prefill block and generated token. The single-query integration begins at 32,768 retained positions and preserves the existing multi-query prefill path.
+
+#figure(image("full-decoder.svg",width:95%),caption:[Every 131,080-token request, in execution order. Both implementations used the same model and emitted the same 31 tokens for each paired input. Two counterbalanced repetitions expose variation in prefill time.])
+
+All eight complete requests reproduced the historical correct tokens and selected source span. The four fused requests retained every key and value and made 960 single-query fused site calls (30 further output tokens across eight sites on four requests). Pooled post-first-token speed was 26.10 versus 17.09 tokens/s, a 52.7% gain. The 120 further tokens took 4.60 versus 7.02 s. Summed first-token time was 336.18 versus 335.50 s, and full requests took 340.78 versus 342.53 s. Maximum MLX allocation differed by only 16,384 bytes (3,004,426,260 versus 3,004,442,644). Thus a substantial change in output rate saved 1.75 seconds over these four long reads. The direct Base comparison uses a fresh 131,084-token counterfactual with every numeric value fixed in place.
 
 
 == An entire natural novel
@@ -183,6 +189,8 @@ The release selected its ordinary-depth route on both books. On the original, bo
 #include "raw-results.typ"
 
 = Relationship to prior work
+API-Bank [37] used manually annotated conversations and executable APIs to study calling, retrieval and planning. Our package and file evaluations resolve properties from a live local installation, and our arithmetic evaluations also score a correct final answer when the model avoids a call. The distinction changes which model wins on the human mathematics subset.
+
 Universal Transformers share a transformation across depth and study adaptive computation [5]. Geiping and colleagues pretrained a 3.5B recurrent-depth architecture on 800B tokens and scaled latent iterations at inference [6]. Here an already pretrained hybrid decoder is adapted at small scale. The project measures a benefit from a particular supervised recurrent computation, under a matched one-pass budget. The earlier three-seed direct-span study averaged 23.7% versus 32.6% for dense adaptation on out-of-distribution traced problems. Simply repeating the pretrained span was insufficient in that study.
 
 Weston and colleagues' bAbI tasks isolate reasoning operations [2]. Their explicit support labels make direct attention supervision feasible here. CLUTRR varies kinship relation compositions [3]. The narrower induction advantage and the adverse kinship depth comparison illustrate the cost of extrapolating across relation systems. RULER benchmarks multiple effective-context skills across lengths [7]. Our register intervention isolates key identity at fixed positions, alongside separate prose evaluations.
@@ -270,5 +278,11 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 [33] Chen et al. (2017). Enhanced LSTM for natural language inference. #link("https://aclanthology.org/P17-1152/")[ACL].
 
 [34] Yao et al. (2023). ReAct, synergizing reasoning and acting in language models. #link("https://arxiv.org/abs/2210.03629")[ICLR].
+
+[35] Milakov and Gimelshein (2018). Online normalizer calculation for softmax. #link("https://arxiv.org/abs/1805.02867")[Paper].
+
+[36] Dao (2024). FlashAttention-2, faster attention with better parallelism and work partitioning. #link("https://arxiv.org/abs/2307.08691")[ICLR].
+
+[37] Li et al. (2023). API-Bank, a comprehensive benchmark for tool-augmented LLMs. #link("https://aclanthology.org/2023.emnlp-main.187/")[EMNLP].
 
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

@@ -3,6 +3,7 @@
 The manuscript covers the original shared-span experiments, the matched reasoning controls, the standalone 128K language model, and the addition of executable tool sessions. The paper's numerical results come from native Apple Silicon MLX runs.
 
 - [Read the paper](loopqwen.pdf)
+- [Every full 131K request in counterbalanced execution order](full-decoder.csv)
 - [Manuscript source](loopqwen.typ)
 - [Both tool families and final-answer accuracy across 78 requests](intent-scores.csv)
 - [Executed calculator programs, returned values and final answers on the 24 human questions](intent-arithmetic-actions.csv)
@@ -88,6 +89,7 @@ The field-performance figure compares complete request time and correctness on t
 | `-m loopqwen.research.raw_distillation` | Native 2B teacher probabilities and recurrent 0.8B student next-token likelihood |
 | `-m loopqwen.research.narrative_book` | Whole-novel question and person-name intervention with physical KV offsets |
 | `-m loopqwen.research.register_allocation` | Reserved and incrementally grown full-history storage on identical weights |
+| `-m loopqwen.research.draft_program` | Actual generated reasoning prefixes, native recurrent action training, live calculator observations and fresh human arithmetic |
 | `-m loopqwen.research.selective_raw` | Selective larger-teacher supervision, 300 raw passages and incremental cache parity |
 | `-m loopqwen.research.linked_reading` | Directed evidence relations and actual ten-document HotpotQA answers |
 | `-m loopqwen.research.passage_copy` | Learned vocabulary and copy probabilities on complete human reading passages |
