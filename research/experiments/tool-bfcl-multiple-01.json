@@ -1,0 +1,18 @@
+{
+  "id": "tool-bfcl-multiple-01",
+  "question": "Does the trained recurrent tool model select the right function and arguments among competing publisher-authored schemas on 24 independently sampled BFCL multiple requests?",
+  "source": "research/results/tool-dialogue-typed-01",
+  "archive": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "model": "research/results/tool-dialogue-typed-01",
+  "material": "research/data/tool-bfcl-multiple-01.json",
+  "max_tokens": 384,
+  "net_floor": 5,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "gate": "At least five net additional complete typed publisher-accepted calls on 24 items, two-sided exact paired p <= .05 and no slower than untouched Base. Report completion, schema validity, exact argument accuracy, and actual time for the ordered pairs. All candidate names must be absent from the typed fit and both earlier public panels. Stop on budget or memory. Failure closes general multiple-function promotion for this checkpoint.",
+  "limits": {
+    "wall_seconds": 410,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
