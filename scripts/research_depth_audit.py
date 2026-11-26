@@ -42,6 +42,36 @@ def verify(root, decision, read, sha, require, number):
             ),
             "Native panel overlaps a preceding study",
         )
+        if reg.get("instruction"):
+            from mlx_lm.utils import load_tokenizer
+
+            from loopqwen.model_loader import local_snapshot
+            from loopqwen.research.induction_data import bindings
+
+            tokenizer = load_tokenizer(local_snapshot())
+            for rows in data.values():
+                for row in rows:
+                    _, examples = bindings(row["facts"], row["question"])
+                    rebuilt = tokenizer.apply_chat_template(
+                        [
+                            {"role": "system", "content": reg["instruction"]},
+                            {
+                                "role": "user",
+                                "content": "\n".join([*row["facts"], row["question"]]),
+                            },
+                        ],
+                        tokenize=False,
+                        add_generation_prompt=True,
+                        enable_thinking=True,
+                    )
+                    require(
+                        len(examples) == 1
+                        and examples[0][2] == row["answer"]
+                        and reg["instruction"] in rebuilt
+                        and tokenizer.encode(rebuilt, add_special_tokens=False)
+                        == row["prompt_ids"],
+                        "Missing task rule or ambiguous instructed story",
+                    )
         if reg.get("task") == "kinship":
             templates = [row["template"] for group in data.values() for row in group]
             require(
