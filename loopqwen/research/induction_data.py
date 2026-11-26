@@ -8,7 +8,7 @@ from urllib.request import urlopen
 from mlx_lm.utils import load_tokenizer
 
 from ..identity import fingerprint
-from ..io import digest
+from ..io import digest, read
 from ..model_loader import local_snapshot
 from .deduction_data import prompt
 
@@ -28,7 +28,12 @@ def material(s):
     if digest(archive) != SHA:
         raise ValueError("Wrong bAbI induction release")
     tok = load_tokenizer(local_snapshot())
-    used = set()
+    used = {
+        r["story"]
+        for f in s.get("exclude", [])
+        for split in read(f).values()
+        for r in split
+    }
     data = {}
     with tarfile.open(archive) as tar:
         for name, size in s["sizes"].items():

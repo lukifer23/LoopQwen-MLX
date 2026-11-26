@@ -100,3 +100,64 @@ class NativeEvidence(nn.Module):
                 nn.losses.cross_entropy(logits, support[:, i], reduction="mean")
             )
         return sum(losses) / len(losses)
+
+
+class AnchoredNativeEvidence(NativeEvidence):
+    """Refine a single question state by native attention to stable sentence tokens."""
+
+    def __init__(self, model, rank, vocab):
+        super().__init__(model, rank, vocab)
+        del self.support_keys
+        del self.support_queries
+
+    def states(self, facts, q, depth):
+        x = (mx.concatenate([facts, q[:, None]], axis=1) - self.center) * self.scale
+        h = (0.2 * self.expand(mx.tanh(self.compress(x)))).astype(mx.bfloat16)
+        source, query = h[:, :-1], h[:, -1:]
+        mask = create_attention_mask(h)
+        queries = []
+        inputs = []
+        # Deterministic step codes distinguish the iterations without giving the
+        # recurrent arm an extra trainable vector per pass.
+        freq = mx.exp(
+            -mx.arange(query.shape[-1], dtype=mx.float32) * 6 / query.shape[-1]
+        )
+        for i in range(depth):
+            state = (query + 0.04 * mx.sin(i * freq)).astype(query.dtype)
+            h = mx.concatenate([source, state], axis=1)
+            inputs.append(h)
+            query = self.layer(h, mask=mask)[:, -1:]
+            queries.append(unit(query[:, 0]))
+        return queries, inputs
+
+    def native_scores(self, h):
+        # Reconstruct only the final query row from the very Q/K tensors, RoPE
+        # positions and scaling that the native scaled-dot-product operator uses.
+        attn = self.layer.self_attn
+        x = self.layer.input_layernorm(h)
+        b, n, _ = x.shape
+        q, _ = mx.split(
+            attn.q_proj(x).reshape(b, n, attn.num_attention_heads, -1),
+            2,
+            axis=-1,
+        )
+        q = attn.q_norm(q).transpose(0, 2, 1, 3)
+        k = attn.k_norm(
+            attn.k_proj(x).reshape(b, n, attn.num_key_value_heads, -1)
+        ).transpose(0, 2, 1, 3)
+        q = attn.rope(q)[:, :, -1:]
+        k = attn.rope(k)
+        k = mx.repeat(k, attn.num_attention_heads // attn.num_key_value_heads, axis=1)
+        return mx.sum(q.astype(mx.float32) * k.astype(mx.float32), axis=-1) * attn.scale
+
+    def auxiliary(self, queries, inputs, support):
+        del queries
+        logits = [self.native_scores(h) for h in inputs]
+        loss = []
+        for i in range(3):
+            # Separate supervised head pairs allow the one-pass twin to assign
+            # different mass to each of the three annotated facts at the same exit.
+            z = logits[min(i, len(logits) - 1)][:, 2 * i : 2 * i + 2, :]
+            labels = mx.broadcast_to(support[:, i : i + 1], z.shape[:-1])
+            loss.append(nn.losses.cross_entropy(z, labels, reduction="mean"))
+        return sum(loss) / 3

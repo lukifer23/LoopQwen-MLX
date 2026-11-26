@@ -16,7 +16,7 @@ from ..evaluation.mechanism import packed
 from ..evaluation.statistics import exact_mcnemar
 from ..evidence_loop import EvidenceView, passage
 from ..io import digest, read, save
-from ..native_evidence import NativeEvidence, prefix_regions
+from ..native_evidence import AnchoredNativeEvidence, NativeEvidence, prefix_regions
 from . import core, deduction, induction_data
 
 PANEL = Path("research/data/native-induction-01.json")
@@ -27,13 +27,28 @@ def fit(model, t, rows, depth, s, b, out):
         model, t, rows, depth, b, prefix_regions, response=induction_data.response
     )
     mx.random.seed(s["fit_seed"])
-    net = NativeEvidence(model, s["rank"], vocab)
+    cls = (
+        AnchoredNativeEvidence
+        if s.get("architecture") == "anchored_native"
+        else NativeEvidence
+    )
+    net = cls(model, s["rank"], vocab)
     net.center = features.mean(0)
     net.scale = mx.rsqrt(mx.var(features, axis=0) + 0.0001)
     columns = mx.array(
         [vocab.index(core.atom(t, " " + w)) for w in induction_data.WORDS]
     )
-    optimizer = optim.Adam(s["lr"])
+    lr = s["lr"]
+    if "decay_start" in s:
+        lr = optim.join_schedules(
+            [
+                optim.linear_schedule(0.1 * lr, lr, 50),
+                optim.linear_schedule(lr, lr, 1),
+                optim.cosine_decay(lr, s["updates"] - s["decay_start"], end=0.1 * lr),
+            ],
+            [50, s["decay_start"]],
+        )
+    optimizer = optim.Adam(lr)
 
     def loss(net, f, q, h, z, rest, y, support):
         queries, facts = net.states(f, q, depth)
@@ -44,9 +59,15 @@ def fit(model, t, rows, depth, s, b, out):
             - mx.take_along_axis(logits, y[..., None], axis=-1)[..., 0]
         )
         weight = 1 + 5 * mx.any(y[..., None] == columns, axis=-1)
-        return mx.sum(weight * nll) / mx.sum(weight) + s["auxiliary"] * net.auxiliary(
+        total = mx.sum(weight * nll) / mx.sum(weight) + s["auxiliary"] * net.auxiliary(
             queries, facts, support
         )
+        if s.get("isolated_answer_weight"):
+            labels = mx.any(y[..., None] == columns, axis=1).argmax(axis=-1)
+            total = total + s["isolated_answer_weight"] * nn.losses.cross_entropy(
+                net.content(memory)[:, columns], labels, reduction="mean"
+            )
+        return total
 
     vg = nn.value_and_grad(net, loss)
     rng = random.Random(s["fit_seed"])
@@ -77,6 +98,7 @@ def fit(model, t, rows, depth, s, b, out):
         out / "reader.json",
         {
             "depth": depth,
+            "architecture": s.get("architecture", "native"),
             "base": REVISION,
             "rank": s["rank"],
             "vocab": vocab,
@@ -101,7 +123,12 @@ def restore(model, folder, expected):
         or spec["base"] != REVISION
     ):
         raise ValueError("Wrong native reader lineage")
-    net = NativeEvidence(model, spec["rank"], spec["vocab"])
+    cls = (
+        AnchoredNativeEvidence
+        if spec.get("architecture") == "anchored_native"
+        else NativeEvidence
+    )
+    net = cls(model, spec["rank"], spec["vocab"])
     weights = mx.load(str(path))
     if set(weights) != set(dict(tree_flatten(net.trainable_parameters()))) | {
         "center",
@@ -115,15 +142,16 @@ def restore(model, folder, expected):
 def run(name, freeze):
     reg = Path("research/experiments") / (name + ".json")
     s = read(reg)
+    panel = Path(s.get("material", PANEL))
     if freeze:
         data = induction_data.material(s)
-        if PANEL.exists() and read(PANEL) != data:
+        if panel.exists() and read(panel) != data:
             raise ValueError("Induction material changed")
-        if not PANEL.exists():
-            save(PANEL, data)
+        if not panel.exists():
+            save(panel, data)
         return
     idx = read("research/registry.json")
-    if idx["datasets"][str(PANEL)]["sha256"] != digest(PANEL) or idx["experiments"][
+    if idx["datasets"][str(panel)]["sha256"] != digest(panel) or idx["experiments"][
         name
     ]["registration"] != digest(reg):
         raise ValueError("Unregistered induction comparison")
@@ -137,9 +165,9 @@ def run(name, freeze):
     out = core.OUT / name
     out.mkdir(exist_ok=False, parents=True)
     b = core.Budget(name, s["limits"])
-    result = {"data": digest(PANEL), "registration": digest(reg), "passed": False}
+    result = {"data": digest(panel), "registration": digest(reg), "passed": False}
     try:
-        data = read(PANEL)
+        data = read(panel)
         rows = data[s["panel"]]
         model, t, _ = base()
         words = [core.atom(t, " " + w) for w in induction_data.WORDS]
@@ -165,7 +193,7 @@ def run(name, freeze):
                     if parts != (r["facts"], r["question"]):
                         raise ValueError("Different story tokens")
                     f, _ = prefix_regions(model, t, [*parts[0], parts[1]], 1)
-                    q, _ = net.states(f[None, :-1], f[None, -1], depth)
+                    q, stage_inputs = net.states(f[None, :-1], f[None, -1], depth)
                     view = EvidenceView(model, net, net.readout(q[-1]))
                 v = core.generate(
                     view,
@@ -179,6 +207,18 @@ def run(name, freeze):
                 logits = view.project(
                     view.hidden(mx.array([r["prompt_ids"] + common]))[:, -1]
                 )[0, mx.array(words)].tolist()
+                heads = {}
+                if depth and isinstance(net, AnchoredNativeEvidence):
+                    support_scores = [net.native_scores(h) for h in stage_inputs]
+                    heads["support_probabilities"] = [
+                        mx.softmax(
+                            support_scores[min(i, depth - 1)][:, 2 * i : 2 * i + 2],
+                            axis=-1,
+                        )
+                        .mean(axis=1)[0]
+                        .tolist()
+                        for i in range(3)
+                    ]
                 ans = (
                     induction_data.answer(v["visible"], r["question"])
                     if v["complete"]
@@ -195,6 +235,7 @@ def run(name, freeze):
                         ],
                         probe_logits=logits,
                         end_to_end=total,
+                        **heads,
                     )
                 )
                 packed(out / (arm + ".json.gz"), {"records": samples})
