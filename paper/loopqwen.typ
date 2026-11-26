@@ -13,7 +13,7 @@ LoopQwen-MLX · Research report #h(1fr) #counter(page).display()])
 #let note(body) = block(inset: 8pt, fill: rgb("#edf4f1"), width: 100%, body)
 #text(size: 23.5pt, weight: "bold")[Where shared decoder depth earns its cost]
 #linebreak()
-#text(size: 14pt)[Reasoning, executable tool use, and full-history inference on an 18 GiB Apple Silicon machine]
+#text(size: 14pt)[Reasoning, tool use, and 128K-context inference on an 18 GiB M3 Pro]
 #v(4pt)
 LoopQwen-MLX project · 26 November 2026 · Technical report
 = Abstract
@@ -226,7 +226,9 @@ The native unit check passed for all four mask patterns and every full-size quer
 
 #figure(image("mixed-weight-full.svg",width:93%),caption:[Prompt and post-first output throughput and peak native allocation over the two 131,086-token requests. Prompt throughput in the figure excludes the separately charged 0.130 s of conversion. The supplement lists both individual measurements.])
 
-The candidate emitted 418695 and 492528 in two 30-token outputs. Base exhausted its 96-token allowance twice. The eight recurrent global attention sites each held 131,115 consumed positions. All six Base sites held 131,181. The recurrent output rates were 29.59 and 28.95 tokens/s versus 27.39 and 27.44 for Base. Pooled prompt throughput was 1,586 versus 683 tokens/s. Each conversion allocated 550,928,384 additional bytes of resident weights. Combined conversion time was 0.130 s with an absolute setup peak of 2,061,069,014 bytes. Charging conversion to both initialization and completion, first-token time summed to 165.41 versus 383.93 s, and complete time to 167.39 versus 390.86 s. The maximum inference peaks were 3,561,069,076 versus 4,059,680,512 bytes. The model passed all individual and pooled thresholds on this document. Its peak exceeded that of the previous BF16-weight fused comparison, which retained fewer simultaneous weight representations. The following offline qualification examines whether a request can own the compact view, release the original decoder, and reload it for ordinary text.
+The candidate emitted 418695 and 492528 in two 30-token outputs. Base exhausted its 96-token allowance twice. The eight recurrent global attention sites each held 131,115 consumed positions. All six Base sites held 131,181. The recurrent output rates were 29.59 and 28.95 tokens/s versus 27.39 and 27.44 for Base. Pooled prompt throughput was 1,586 versus 683 tokens/s.
+
+Each conversion allocated 550,928,384 additional bytes of resident weights. Combined conversion time was 0.130 s with an absolute setup peak of 2,061,069,014 bytes. Charging conversion to both initialization and completion, first-token time summed to 165.41 versus 383.93 s, and complete time to 167.39 versus 390.86 s. The maximum inference peaks were 3,561,069,076 versus 4,059,680,512 bytes. The model passed all individual and pooled thresholds on this document. Its peak exceeded that of the previous BF16-weight fused comparison, which retained fewer simultaneous weight representations. The following offline qualification examines whether a request can own the compact view, release the original decoder, and reload it for ordinary text.
 
 == An entire natural novel
 We tested the offline assistant on Frank Norris's _McTeague_ using a human-written NarrativeQA question about who reports McTeague's missing dental license to City Hall [19]. Both publisher annotators named Marcus. In the second version we changed all 440 occurrences of Marcus, 24 of Mark and 65 of Schouler to Felix, Ned and Radford respectively. We kept the question and every chapter. The two prompts contained 162,714 and 162,711 tokens.
