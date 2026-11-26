@@ -14,6 +14,11 @@ def add_arguments(p, checkpoint=None):
         help="Combined language and tool export",
     )
     p.add_argument(
+        "--tool-adapter",
+        type=Path,
+        help="Load a compatible trained tool adapter over the existing frozen backbone",
+    )
+    p.add_argument(
         "--catalog", type=Path, help="JSON file with read-only lookup definitions"
     )
     p.add_argument(
@@ -72,7 +77,7 @@ def respond(args, parser):
             supplied.append(database_tool(db, args.table))
         if not supplied:
             parser.error("Select a catalog, calculator, packages or a database table")
-        result = Assistant(args.checkpoint).respond(
+        result = Assistant(args.checkpoint, tool_adapter=args.tool_adapter).respond(
             args.prompt,
             supplied,
             max_tokens=args.max_tokens,

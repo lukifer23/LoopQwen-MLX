@@ -8,6 +8,14 @@ The [technical paper](paper/loopqwen.pdf) covers matched depth controls, ordinar
 
 The latest joint two-pass tool checkpoint completed **112/132** tasks versus **15/132** for untouched Base in **69.55 versus 323.35 seconds**. It scored 26/30 and 42/50 on the two catalog panels, 18/22 on human-authored executable questions and 26/30 across four new catalog domains. On 102 requests shared with the earlier typed checkpoint it gained 21 correct tasks and lost five. All five losses involved comparisons. It subsequently lost four of 72 structural calls against the previous tool checkpoint, closing its release replacement gate. [New checkpoint and exact measurements](research/results/tool-dialogue-counterfactual-01) · [Paired gains and losses](paper/joint-tools.csv)
 
+The installed CLI can run that checkpoint using its 3.06 MiB adapter and the already packaged frozen weights. The following command reads the local Python environment.
+
+```sh
+.venv/bin/python -m loopqwen tools --checkpoint exports/tool-language-01 \
+  --tool-adapter research/results/tool-dialogue-counterfactual-01 --packages \
+  --prompt "What version of the Python distribution mlx is installed? Use the tool." --trace
+```
+
 On 22 publisher-authored numerical requests the trained two-pass tool model executed the right function with correct arguments and returned the computed answer on **17/22**. Untouched Qwen Base achieved **0/22** complete executions and gave eight correct numbers without calling the function. The recurrent model took **15.15 s** and peaked at **1.08 GiB** versus **82.82 s** and **1.66 GiB** for Base. The tool model shares the final Qwen layer across two applications. Its 8-bit prefix comes from the official instruction-tuned sibling. Training, initialization and precision all contribute to this system comparison. [Predictions, actual callback results and decision](research/results/tool-dialogue-typed-01)
 
 The same weights chose correct names and arguments on **18/24 versus 8/24** multiple-function requests and **16/24 versus 8/24** single-function requests. On the original 22 executions an equally trained one-pass model scored **18/22** against **17/22** for the recurrent model. Shared depth has a demonstrated causal advantage on the induction task; the tool results establish a trained-system advantage over Base. [Independent multi-schema comparison](research/results/tool-bfcl-multiple-01) · [Matched one-pass tool comparison](research/results/tool-dialogue-typed-depth-01)

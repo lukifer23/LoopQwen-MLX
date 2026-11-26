@@ -60,7 +60,7 @@ def with_adapter(model, weights, expected_digest):
     return view
 
 
-def bind(language_model, folder):
+def bind(language_model, folder, adapter=None):
     """Install a tool view without mutating the decoder used by plain-text requests."""
     folder = Path(folder)
     meta = read(folder / "tool-model.json")
@@ -71,7 +71,36 @@ def bind(language_model, folder):
     ):
         raise ValueError("Incompatible recurrent tool model")
     weights = folder / "tool-adapters.safetensors"
-    if digest(weights) != meta["weights"]:
+    expected_digest = meta["weights"]
+    if adapter is not None:
+        adapter = Path(adapter)
+        spec = read(adapter / "registration.json")
+        fit = read(adapter / "fit.json")
+        identity = ("donor", "prefix_bits", "rank", "start_layer")
+        if (
+            any(
+                spec.get(k, 23 if k == "start_layer" else None) != meta.get(k)
+                for k in identity
+            )
+            or fit["passes"] != meta["passes"]
+        ):
+            raise ValueError(
+                "Tool adapter uses a different backbone, quantization or recurrent graph"
+            )
+        weights = adapter / "tool-adapters.safetensors"
+        expected_digest = fit["weights"]
+        inventory = adapter / "checksums.json"
+        if inventory.is_file():
+            checks = read(inventory)
+            if (
+                any(
+                    digest(adapter / k) != checks[k]
+                    for k in ("registration.json", "fit.json")
+                )
+                or checks[weights.name] != expected_digest
+            ):
+                raise ValueError("Tool adapter evidence changed")
+    if digest(weights) != expected_digest:
         raise ValueError("Tool adapter checksum mismatch")
     if meta["schema"] == 2:
         from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
@@ -106,14 +135,18 @@ def bind(language_model, folder):
 
 
 class Assistant:
-    def __init__(self, directory):
+    def __init__(self, directory, *, tool_adapter=None):
         self.directory = Path(directory)
+        self.tool_adapter = Path(tool_adapter) if tool_adapter is not None else None
         meta = read(self.directory / "tool/tool-model.json")
         self.dedicated = meta["schema"] == 2
         policy = meta.get("prefix_reuse")
         if policy is not None and policy["checkpoint"] != meta["weights"]:
             raise ValueError("Prefix policy belongs to different tool weights")
-        self.reuse_prefix = policy is not None
+        self.reuse_prefix = policy is not None and (
+            self.tool_adapter is None
+            or read(self.tool_adapter / "fit.json")["weights"] == meta["weights"]
+        )
         self.language = None
         self.tokenizer = None
         self._tool_model = None
@@ -153,7 +186,9 @@ class Assistant:
                     )
                 else:
                     self._load_language()
-                self._tool_model = bind(self.language, self.directory / "tool")
+                self._tool_model = bind(
+                    self.language, self.directory / "tool", self.tool_adapter
+                )
             return run(
                 self._tool_model,
                 self.tokenizer,

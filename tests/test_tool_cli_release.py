@@ -104,3 +104,33 @@ def test_real_tool_cli_matches_public_api(tmp_path):
             del assistant
             gc.collect()
             mx.clear_cache()
+
+
+@pytest.mark.skipif(
+    not (BUNDLE / "tool-export-files.json").is_file(),
+    reason="Requires the physical two-backbone tool export",
+)
+def test_small_adapter_overlay_reproduces_changed_public_execution():
+    from loopqwen.evaluation import executable_tools
+    from loopqwen.evaluation.mechanism import unpack
+    from loopqwen.io import read
+    from scripts.tool_release import tokens
+
+    joint = Path("research/results/tool-dialogue-counterfactual-01")
+    item = next(
+        w
+        for w in read("research/data/tool-exec-bfcl-01.json")["rows"]
+        if w["id"] == "exec_simple_15"
+    )
+    expected = next(
+        r for r in unpack(joint / "candidate.json.gz") if r["id"] == item["id"]
+    )
+    assistant = Assistant(BUNDLE, tool_adapter=joint)
+    result = assistant.respond(
+        item["question"][0][0]["content"] + executable_tools.INSTRUCTION,
+        executable_tools.tools_for(item),
+        max_tokens=384,
+        max_turns=3,
+    )
+    assert tokens(result) == tokens(expected["trajectory"])
+    assert executable_tools.score(item, result)["success"]
