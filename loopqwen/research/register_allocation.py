@@ -1,4 +1,4 @@
-"""Evaluate contiguous full-history KV reservation on the qualified language decoder."""
+"""Paired full-history prefill comparisons against the stock language decoder."""
 
 import argparse
 import gc
@@ -30,25 +30,58 @@ def outcome(spec, rows, items):
         )
         for name, rs in rows.items()
     }
-    c, b = costs["reserved"], costs["stock"]
+    policy = spec.get("attention_policy", "reserved")
+    c, b = costs[policy], costs["stock"]
     exact = True
-    for a, o, w in zip(rows["reserved"], rows["stock"], items, strict=True):
+    for a, o, w in zip(rows[policy], rows["stock"], items, strict=True):
         sec = a["attention_memory"]
-        sites = a["reserved_sites"]
         exact &= (
             a["input_sha256"] == o["input_sha256"] == fingerprint(w["prompt_ids"])
             and a["token_ids"] == o["token_ids"]
             and sec == o["attention_memory"]
             and sec["start"] <= w["gold_start"] <= w["gold_stop"] <= sec["stop"]
             and a["context_route"] == o["context_route"] == "register"
-            and {(s["layer"], s["turn"]) for s in sites}
-            == {(3, 0), (7, 0), (11, 0), (11, 1), (15, 0), (15, 1), (19, 0), (23, 0)}
-            and all(
+        )
+        expected = {
+            (3, 0),
+            (7, 0),
+            (11, 0),
+            (11, 1),
+            (15, 0),
+            (15, 1),
+            (19, 0),
+            (23, 0),
+        }
+        consumed = len(w["prompt_ids"]) + len(a["token_ids"]) - 1
+        if policy == "pages":
+            sites = a["page_sites"]
+            exact &= (
+                {(s["layer"], s["turn"]) for s in sites} == expected
+                and all(
+                    s["sparse_blocks"] > 0
+                    and s["retained"] == s["offset"] == consumed
+                    and s["dense_queries"] + s["sparse_blocks"] * 128 == consumed
+                    and s["dense_queries"] >= 512
+                    and s["possible"] == consumed * (consumed + 1) // 2
+                    and 0 < s["attended"] < s["possible"]
+                    for s in sites
+                )
+                and all(
+                    {(s["layer"], s["turn"]) for s in r["kv_history"]} == expected
+                    and all(
+                        s["retained"] == s["offset"] == consumed
+                        for s in r["kv_history"]
+                    )
+                    for r in (a, o)
+                )
+            )
+        else:
+            sites = a["reserved_sites"]
+            exact &= {(s["layer"], s["turn"]) for s in sites} == expected and all(
                 s["capacity"] == len(w["prompt_ids"]) + spec["max_tokens"] - 1
-                and s["offset"] == len(w["prompt_ids"]) + len(a["token_ids"]) - 1
+                and s["offset"] == consumed
                 for s in sites
             )
-        )
     return dict(
         passed=bool(
             exact
@@ -68,7 +101,10 @@ def verify(root, decision):
     items = flatten(spec)
     tok = load_tokenizer(local_snapshot())
     term = {*tok.eos_token_ids, tok.convert_tokens_to_ids("<|im_end|>")}
-    rows = {k: unpack(root / (k + ".json.gz")) for k in ("reserved", "stock")}
+    rows = {
+        k: unpack(root / (k + ".json.gz"))
+        for k in (spec.get("attention_policy", "reserved"), "stock")
+    }
     for rs in rows.values():
         for row, w in zip(rs, items, strict=True):
             ids = row["token_ids"]
@@ -98,12 +134,17 @@ def run(name):
         and read(parent / "decision.json")["passed"]
     )
     budget = Budget(name, spec["limits"])
-    rows = {"reserved": [], "stock": []}
+    policy = spec.get("attention_policy", "reserved")
+    rows = {policy: [], "stock": []}
     items = flatten(spec)
     try:
         for i, item in enumerate(items):
-            for side in ("reserved", "stock") if i % 2 == 0 else ("stock", "reserved"):
+            for side in (policy, "stock") if i % 2 == 0 else ("stock", policy):
                 model, tok, _ = load_trained(spec["checkpoint"])
+                if side == "pages":
+                    from ..page_prefill import attach
+
+                    slots = attach(model, len(item["prompt_ids"]))
                 mx.reset_peak_memory()
                 record = measure(
                     model,
@@ -112,7 +153,14 @@ def run(name):
                     spec["max_tokens"],
                     budget,
                     reserve_full_kv=side == "reserved",
+                    record_kv_history=policy == "pages",
                 )
+                if side == "pages":
+                    record["page_sites"] = [
+                        dict(layer=i, turn=p, **slot.report())
+                        for (i, p), slot in slots.items()
+                    ]
+                    del slots
                 rows[side].append(record)
                 print(
                     i,

@@ -36,6 +36,7 @@ def main(verify):
                         "contrast-boolq-",
                         "register-rebalanced-",
                         "register-allocation-",
+                        "register-page-prefill-",
                         "native-language-release-02",
                     )
                 )

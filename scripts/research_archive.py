@@ -99,7 +99,7 @@ def verify(root):
         from scripts.tool_release import verify as verify_tool_release
 
         verify_tool_release(root, decision)
-    if study.startswith("register-allocation-"):
+    if study.startswith(("register-allocation-", "register-page-prefill-")):
         from loopqwen.research.register_allocation import verify as verify_allocation
 
         verify_allocation(root, decision)
