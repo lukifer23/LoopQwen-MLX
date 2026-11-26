@@ -26,6 +26,18 @@ def make(paper, results, result, finish):
     new = records(name, "candidate")
     base = records(name, "control")
     items = read(read(results / name / "registration.json")["material"])["rows"]
+    common = {
+        w["id"]: w
+        for w in read("research/data/tool-dialogue-unified-01.json")
+        + read("research/data/tool-exec-bfcl-01.json")["rows"]
+    }
+    for w in items:
+        if w["id"] in common:
+            assert all(w[k] == v for k, v in common[w["id"]].items())
+            assert (
+                new[w["id"]]["trajectory"]["turns"][0]["prompt_ids"]
+                == old[w["id"]]["trajectory"]["turns"][0]["prompt_ids"]
+            )
     sources = [
         ("Original catalogs", "catalog"),
         ("Grounded catalogs", "grounded"),
