@@ -2,11 +2,12 @@
 
 import csv
 import random
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 
 from loopqwen.evaluation.mechanism import unpack
-from loopqwen.io import read
+from loopqwen.io import digest, read
 
 
 def corpus_intervals(rows, seed):
@@ -122,6 +123,11 @@ def selective(paper, results, result, finish):
     d = result(name)
     spec = read(root / "registration.json")
     new = read(spec["material"])["rows"]
+    attribution = read(Path("research/data/selective-manual-attribution.json"))
+    assert (
+        digest(Path(spec["material"]))
+        == attribution["frozen_datasets"]["selective-raw-panel"]
+    )
     a, b = (
         unpack(root / (side + ".json.gz"))[: len(new)]
         for side in ("candidate", "control")
@@ -134,7 +140,12 @@ def selective(paper, results, result, finish):
             int(x == z) - int(y == z)
             for x, y, z in zip(u["ids"], v["ids"], gold, strict=True)
         )
-        sources[w["source"]].append((sum(u["nll"]) - sum(v["nll"]), change, len(gold)))
+        source = (
+            attribution["rows"][w["id"]]["source"]
+            if w["category"] == "new_documentation"
+            else w["source"]
+        )
+        sources[source].append((sum(u["nll"]) - sum(v["nll"]), change, len(gold)))
     names = {"pg215": "The Call of the Wild", "pg944": "The Voyage of the Beagle"}
     fig, (left, right) = plt.subplots(1, 2, figsize=(8.2, 3.25), sharey=True)
     with (paper / "selective-sources.csv").open("w") as f:
@@ -184,8 +195,9 @@ def selective(paper, results, result, finish):
                 )
 
 
-def future_sources(paper, results, result, finish):
-    name = "future-token-prose-01"
+def future_sources(paper, results, result, finish, name="future-token-prose-01"):
+    projected = name.startswith("selective-raw-return-")
+    stem = "source-balanced-works" if projected else "future-token-sources"
     root = results / name
     if not (root / "checksums.json").exists():
         return
@@ -193,9 +205,13 @@ def future_sources(paper, results, result, finish):
     spec = read(root / "registration.json")
     rows = read(spec["material"])["rows"]
     categories = {r["source"]: r["category"] for r in rows}
-    names = ("fiction", "memoir", "manual", "encyclopedia")
+    names = (
+        ("books", "manuals", "encyclopedia")
+        if projected
+        else ("fiction", "memoir", "manual", "encyclopedia")
+    )
     fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.75), sharey=True)
-    with (paper / "future-token-sources.csv").open("w") as stream:
+    with (paper / (stem + ".csv")).open("w") as stream:
         out = csv.writer(stream)
         out.writerow(
             [
@@ -226,8 +242,13 @@ def future_sources(paper, results, result, finish):
                 axes[1].scatter(1000 * change / n, y + shift, color="#536a89", s=17)
     for ax in axes:
         ax.axvline(0, color="#888", linewidth=0.8)
-    axes[0].set_yticks(range(4), ["Fiction", "Memoir", "Git manuals", "Encyclopedia"])
+    labels = (
+        ["PG-19 books", "Python manuals", "Encyclopedia"]
+        if projected
+        else ["Fiction", "Memoir", "Git manuals", "Encyclopedia"]
+    )
+    axes[0].set_yticks(range(len(labels)), labels)
     axes[0].invert_yaxis()
     axes[0].set_xlabel("NLL change (nats/token)")
     axes[1].set_xlabel("Net correct per 1,000 tokens")
-    finish(fig, "future-token-sources")
+    finish(fig, stem)

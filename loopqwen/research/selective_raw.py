@@ -117,7 +117,10 @@ def fit(net, rows, balances, spec, teachers, root, budget):
             log.append([step + 1, val.item()])
             print("selective update", *log[-1], flush=True)
     weights = dict(tree_flatten(net.trainable_parameters()))
-    if not all(k.startswith(("gate.", "refinement.self_attn.")) for k in weights):
+    prefixes = ("gate.", "refinement.self_attn.")
+    if "return_width" in spec:
+        prefixes += ("return_down.", "return_up.")
+    if not all(k.startswith(prefixes) for k in weights):
         raise ValueError("Ordinary decoder was modified by the fit")
     f = root / "refinement.safetensors"
     mx.save_safetensors(str(f), weights)
@@ -142,21 +145,30 @@ def material(spec):
         raise ValueError("Changed historical WikiText evaluation")
     old = corpus(dict(spec, material=spec["historical_panel"]))
     fresh = read(spec["material"])["rows"]
-    return [dict(row, suite="fresh") for row in fresh] + [
-        dict(row, suite="wiki" if row["category"] == "wikitext" else "legacy")
-        for row in old
-    ]
+    prior = []
+    if "prior_works" in spec:
+        path = Path(spec["prior_works"])
+        assert digest(path) == spec["prior_sha256"]
+        prior = [
+            dict(row, suite="prior_works", category="prior_" + row["category"])
+            for row in read(path)["rows"]
+        ]
+    return (
+        [dict(row, suite="fresh") for row in fresh]
+        + prior
+        + [
+            dict(row, suite="wiki" if row["category"] == "wikitext" else "legacy")
+            for row in old
+        ]
+    )
 
 
-def outcome(data, items, live, *, future=False, streams=None):
+def outcome(data, items, live, *, streams=None):
     metrics = {}
-    groups = [
-        "pooled",
-        "fresh",
-        "wiki",
-        "legacy",
-        *sorted({r["category"] for r in items}),
-    ]
+    suites = ["fresh", "wiki", "legacy"]
+    if any(r["suite"] == "prior_works" for r in items):
+        suites.append("prior_works")
+    groups = ["pooled", *suites, *sorted({r["category"] for r in items})]
     for side, rows in data.items():
         metrics[side] = {}
         for key in groups:
@@ -197,7 +209,7 @@ def outcome(data, items, live, *, future=False, streams=None):
         and all(live)
         and all(
             a[k]["seconds"] <= b[k]["seconds"] and a[k]["peak"] <= b[k]["peak"]
-            for k in ("fresh", "wiki", "legacy")
+            for k in suites
         )
     )
     decision = {
@@ -209,7 +221,7 @@ def outcome(data, items, live, *, future=False, streams=None):
         "live_parity": live,
         "scores": metrics,
     }
-    if future:
+    if streams is not None:
         from .future_token_fit import check_continuations, source_decision
 
         traces, indices = streams
@@ -254,8 +266,24 @@ def run(name):
                 raise ValueError("Different selective fit")
             check_weights(net, mx.load(str(weight)))
         else:
-            groups = [list(range(1024)), list(range(1024, len(rows)))]
+            if "return_width" in spec:
+                from .source_balanced import return_receipt
+
+                save(root / "initial-return.json", return_receipt(net, rows[0]["ids"]))
+                groups = [
+                    [i for i, r in enumerate(rows) if r["category"] == domain]
+                    for domain in spec["training_domains"]
+                ]
+                assert all(len(g) == 1024 for g in groups)
+            else:
+                groups = [list(range(1024)), list(range(1024, len(rows)))]
             fitting(net, rows, groups, spec, teachers, root, budget)
+        if "return_width" in spec:
+            from .source_balanced import return_receipt
+
+            final_return = return_receipt(net, rows[0]["ids"])
+            assert final_return["max_hidden_change"] > 0
+            save(root / "trained-return.json", final_return)
         del teachers
         for side in ("candidate", "control"):
             if side == "control":
@@ -286,7 +314,7 @@ def run(name):
                         }
                     )
                 save(root / "live.json", live)
-                if spec.get("future_width"):
+                if spec.get("future_width") or "return_width" in spec:
                     from .future_token_fit import free_continuations
 
                     traces = free_continuations(
@@ -307,7 +335,6 @@ def run(name):
                 data,
                 items,
                 parity,
-                future=bool(spec.get("future_width")),
                 streams=streams,
             ),
         )
@@ -323,8 +350,8 @@ def verify(root, d):
     rows = read(spec["training"])["rows"]
     meta = read(root / "fit.json")
     assert (
-        len(rows) == 2048
-        and len(items) == 300
+        len(rows) == (3072 if "return_width" in spec else 2048)
+        and len(items) == (396 if "return_width" in spec else 300)
         and meta["training"] == digest(Path(spec["training"]))
     )
     assert (
@@ -352,6 +379,10 @@ def verify(root, d):
         )
         assert meta["future_head"] == digest(root / "future-head.safetensors")
         assert all(digest(root / k) == v for k, v in spec["teacher_files"].items())
+    if "return_width" in spec:
+        from .source_balanced import check_material
+
+        check_material(root, spec, items, rows)
     data = {
         side: unpack(root / (side + ".json.gz")) for side in ("candidate", "control")
     }
@@ -378,11 +409,14 @@ def verify(root, d):
     ]
     streams = (
         (read(root / "continuations.json"), spec["live_indices"])
-        if spec.get("future_width")
+        if spec.get("future_width") or "return_width" in spec
         else None
     )
     assert d == outcome(
-        data, items, parity, future=bool(spec.get("future_width")), streams=streams
+        data,
+        items,
+        parity,
+        streams=streams,
     )
 
 

@@ -22,3 +22,16 @@ prediction. The fitted and held-out token sequences have a 24-token exclusion.
 The separate packed-release audit uses all narrative chapters of A Christmas Carol
 (46) and The Strange Case of Dr. Jekyll and Mr. Hyde (43). Their commit-specific
 GITenberg editions and SHA-256 digests are in the frozen packed-release manifest.
+
+The source-balanced corpus includes excerpts from PG-19, collected by DeepMind
+from Project Gutenberg books published before 1919. The original work ID, Google
+Cloud object generation, publisher split and exact SHA-256 are recorded for each
+sampled book. Project Gutenberg works are distributed under the terms stated in
+their original editions. The PG-19 release and its preprocessing are described
+at https://github.com/google-deepmind/pg19 . CPython documentation excerpts are
+from the Python Software Foundation project at revision
+4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5, with license and attribution at
+https://docs.python.org/3/license.html . Wikipedia text in SQuAD 1.1 is by
+Wikipedia contributors, distributed by Rajpurkar et al. under CC BY-SA 4.0.
+The derived SQuAD windows retain this attribution and license. Each work has an
+original title or file path, window offsets and intact source hash in the corpus.

@@ -351,6 +351,7 @@ Each command below uses the saved registration and frozen material. Compute tria
 | `document-evidence-01` | `loopqwen.research.document_search` | Native first-pass evidence supervision during actual document searches, followed by free recurrent answers on 40 files |
 | `packed-release-retention-03` | `loopqwen.research.packed_release` | Corrected evidence-mask delivery against the shipped release at 131K and 24K, whole books, short reasoning and tools |
 | `dialogue-state-fields-01` | `loopqwen.research.action_preferences` | First-pass field-presence supervision and unconstrained second-pass calls and clarifications |
+| `selective-raw-return-01` | `loopqwen.research.selective_raw` | A zero-initialized learned return from the second native layer application, trained across 320 real works and tested on 24 additional works |
 | `future-token-prose-01` | `loopqwen.research.selective_raw` | Shared Q/K/V/O at two prediction horizons, paired source-level inference and six complete cache replays |
 | `session-tokenizer-02` | `loopqwen.research.session_tokenizer` | Four cold release-04 repetitions of the same 50 requests with 15 switches, measuring exact outputs and tokenizer identity |
 | `repository-tree-field-01` | `loopqwen.research.narrative_book` | Two genuine project object listings, independently verified PDF sizes and complete native history above 169K |
@@ -383,3 +384,5 @@ The repository-tree field check uses one practical question against the *complet
 .venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-04 \
   --prompt-file /tmp/loopqwen-tree-question.txt --max-tokens 160 --compare-base --trace
 ```
+
+Recreate the work-balanced token windows with `.venv/bin/python scripts/source_balanced_material.py`. The script uses pinned PG-19 book generations, the CPython documentation at a fixed commit, and the SQuAD article sources. Training and primary evaluation are split by complete work and screened for shared 24-token spans. The ordinary 8-bit first pass is frozen, and the 64-channel projection starts at zero. Run `.venv/bin/python -m loopqwen.research.selective_raw selective-raw-return-01` in an open research session. [Study and thresholds](../research/experiments/selective-raw-return-01.json) · [Source and license information](../research/licenses/SELECTIVE-PROSE-NOTICE.txt)

@@ -90,7 +90,9 @@ def book(number, sources):
     url = BOOK_URLS[number]
     text = download(key, url, sources).replace("\r", "")
     boundary = list(
-        re.finditer(r"^\*{3}\s*(?:START|END) OF .*?\*{3}.*$", text, re.IGNORECASE | re.MULTILINE)
+        re.finditer(
+            r"^\*{3}\s*(?:START|END) OF .*?\*{3}.*$", text, re.IGNORECASE | re.MULTILINE
+        )
     )
     if len(boundary) != 2:
         raise ValueError("Unexpected public-domain book delimiters: " + key)
@@ -141,7 +143,7 @@ def main():
                 set(texts),
                 key=lambda s: hashlib.sha256(("selective-7318" + s).encode()).digest(),
             )
-            pools.append(iter((label, t) for t in texts))
+            pools.append(iter(zip([label] * len(texts), texts, strict=True)))
         out = []
         while pools and len(out) < n:
             next_pools = []
@@ -197,6 +199,16 @@ def main():
     for r in added:
         r["positions"] = sorted(rng.sample(range(8, len(r["ids"]) - 1), 32))
     assert len(previous) == len(added) == 1024 and len(new) == 128
+    # The sealed studies used the final iterator label on the multi-manual groups.
+    # Reproduce their immutable metadata. The publisher audit records the actual work
+    # for every token-identical row; new consumers use those corrected identities.
+    for rows, category, archived_label in (
+        (new, "new_documentation", TEST_DOCS[-1]),
+        (added, "documentation", TRAIN_DOCS[-1]),
+    ):
+        for row in rows:
+            if row["category"] == category:
+                row["source"] = archived_label
     save(
         DATA / "selective-raw-training.json",
         {

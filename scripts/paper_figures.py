@@ -214,6 +214,8 @@ def training_lineage():
             fit = read(fit_path)
             additional = root.name in {
                 "selective-raw-01",
+                "future-token-prose-01",
+                "selective-raw-return-01",
                 "passage-copy-01",
                 "meaning-alignment-01",
                 "draft-program-01",
@@ -237,6 +239,8 @@ def training_lineage():
                 count = len(read(spec["training"])["rows"])
                 unit = {
                     "selective-raw-01": "raw excerpt",
+                    "future-token-prose-01": "raw excerpt",
+                    "selective-raw-return-01": "raw excerpt",
                     "passage-copy-01": "answer passage",
                     "meaning-alignment-01": "sentence pair",
                     "draft-program-01": "word problem",
@@ -263,11 +267,18 @@ def training_lineage():
                     spec["rank"],
                     spec.get("prefix_bits", 8 if additional else "BF16"),
                     fit.get("trainable", fit.get("parameters"))
-                    + fit.get("state_head_parameters", 0),
+                    + fit.get("state_head_parameters", 0)
+                    + fit.get("aux_parameters", 0),
                     turns,
                     fit["updates"],
                     targets
-                    if root.name not in ("selective-raw-01", "folded-system-01")
+                    if root.name
+                    not in (
+                        "selective-raw-01",
+                        "selective-raw-return-01",
+                        "future-token-prose-01",
+                        "folded-system-01",
+                    )
                     else "",
                     fit["prepare_seconds"],
                     fit["optimizer_seconds"],
@@ -394,6 +405,7 @@ def main():
     plot_raw(PAPER, RESULTS, result, finish)
     selective(PAPER, RESULTS, result, finish)
     future_sources(PAPER, RESULTS, result, finish)
+    future_sources(PAPER, RESULTS, result, finish, "selective-raw-return-01")
     plot_passages(PAPER, RESULTS, result, finish)
     plot_meaning(PAPER, RESULTS, result, finish)
     plot_draft_program(PAPER, RESULTS, result, finish)

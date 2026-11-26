@@ -275,6 +275,11 @@ The pooled comparison favored the two-pass decoder by 73 correct next tokens on 
 
 Cached and fresh computation produced the same eight freely generated tokens on each of six independent prefixes with seven full attention histories. A separate installed CLI test generated a 48-token continuation about a library custodian. It repeatedly transferred a box between people. The archived output gives an example of the model’s free prose. The fresh-source result closed promotion.
 
+
+*Learning a correction across distinct works.* The two-horizon training mixture included 512 documentation windows from 23 Python manuals. Our next training mixture limits each work’s contribution. Its 3,072 windows come from 64 PG-19 training books [51], 128 CPython manuals and 128 Wikipedia articles. Each of the three domains contributes 1,024 windows. Twenty-four additional works supply 96 test windows. An exact 24-token substring screen excludes duplicated passages across partitions and prior raw evaluations. The source mix is small enough to audit at the level of each book or manual. Dolma documents the use and curation of diverse sources at pretraining scale [52].
+
+Starting again from pinned Base, we freeze the ordinary first application, reapply the same BF16 layer with rank-32 attention adapters, and project the difference of normalized states through a learned 64-channel bottleneck. A scalar gate and the ordinary state’s RMS scale the return to the residual stream. The final projection starts at zero. The training objective uses new supervision from the two frozen native teachers and actually observed next tokens. This study changes both the corpus and how the repeated layer affects the ordinary state. Its primary comparison with untouched Base measures their joint effect. Work-specific results and 128 separate prior-work retention windows are prespecified.
+
 = Relationship to prior work
 API-Bank [37] used manually annotated conversations and executable APIs to study calling, retrieval and planning. Our package and file evaluations resolve properties from a live local installation, and our arithmetic evaluations also score a correct final answer when the model avoids a call. The distinction changes which model wins on the human mathematics subset.
 
@@ -399,5 +404,9 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 [49] Lu et al. (2025). ToolSandbox, a stateful, conversational, interactive evaluation benchmark for LLM tool use capabilities. #link("https://aclanthology.org/2025.findings-naacl.65/")[Findings of NAACL].
 
 [50] Zhu et al. (2021). TAT-QA, a question answering benchmark on a hybrid of tabular and textual content in finance. #link("https://aclanthology.org/2021.acl-long.254/")[ACL-IJCNLP].
+
+[51] Rae et al. (2020). Compressive transformers for long-range sequence modelling. #link("https://github.com/google-deepmind/pg19")[PG-19 release and book-level partitions].
+
+[52] Soldaini et al. (2024). Dolma, an open corpus of three trillion tokens for language model pretraining research. #link("https://aclanthology.org/2024.acl-long.840/")[ACL].
 
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

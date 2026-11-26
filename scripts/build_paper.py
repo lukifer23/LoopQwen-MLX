@@ -18,6 +18,11 @@ def main(verify):
     subprocess.run([sys.executable, "scripts/paper_overlap.py"], cwd=ROOT, check=True)
     subprocess.run([sys.executable, "scripts/folded_overlap.py"], cwd=ROOT, check=True)
     if verify:
+        subprocess.run(
+            [sys.executable, "scripts/selective_source_audit.py", "--verify"],
+            cwd=ROOT,
+            check=True,
+        )
         tracked = read(ROOT / "paper/figure-sources.json")
         tracked.update(
             {

@@ -22,7 +22,12 @@ def build(spec):
     implementation = (
         SharedRefinement if spec.get("future_width") else SelectiveRefinement
     )
-    model = implementation(text, spec["rank"], spec["initial_gate"])
+    if "return_width" in spec:
+        model = ProjectedRefinement(
+            text, spec["rank"], spec["initial_gate"], spec["return_width"]
+        )
+    else:
+        model = implementation(text, spec["rank"], spec["initial_gate"])
     model.eval()
     return model, tok
 
@@ -68,6 +73,9 @@ class SelectiveRefinement(LoopedModel):
             cache=slot,
         )
 
+    def correction(self, ordinary, changed):
+        return changed - ordinary
+
     def refine(self, ordinary, slot=None, window_size=None, observer=None):
         changed = self.refinement(
             ordinary,
@@ -75,7 +83,9 @@ class SelectiveRefinement(LoopedModel):
             cache=slot,
         )
         gate = mx.sigmoid(self.gate(self.text.model.norm(ordinary).astype(mx.float32)))
-        hidden = ordinary + gate.astype(ordinary.dtype) * (changed - ordinary)
+        hidden = ordinary + gate.astype(ordinary.dtype) * self.correction(
+            ordinary, changed
+        )
         if observer is not None:
             observer("exit", 1, hidden)
         return self.text.model.norm(hidden), gate[..., 0]
@@ -113,3 +123,23 @@ class SharedRefinement(SelectiveRefinement):
             mask=create_attention_mask(prefix, slot, window_size=window_size),
             cache=slot,
         )
+
+
+class ProjectedRefinement(SelectiveRefinement):
+    """Learn how much of each recurrent feature to return to the frozen residual stream."""
+
+    def __init__(self, text, rank, initial_gate, width):
+        super().__init__(text, rank, initial_gate)
+        self.return_down = nn.Linear(self.args.hidden_size, width, bias=False)
+        self.return_up = nn.Linear(width, self.args.hidden_size, bias=False)
+        self.return_up.weight = mx.zeros_like(self.return_up.weight)
+
+    def correction(self, ordinary, changed):
+        norm = self.text.model.norm
+        difference = (norm(changed) - norm(ordinary)).astype(mx.float32)
+        rms = mx.sqrt(
+            mx.mean(mx.square(ordinary.astype(mx.float32)), axis=-1, keepdims=True)
+            + 1e-6
+        )
+        change = self.return_up(nn.silu(self.return_down(difference))) * rms
+        return change.astype(ordinary.dtype)

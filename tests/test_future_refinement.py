@@ -3,13 +3,11 @@ from mlx import nn
 from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
 
 from loopqwen.research.future_token_fit import Horizon
-from loopqwen.selective_refinement import SharedRefinement
+from loopqwen.selective_refinement import ProjectedRefinement, SharedRefinement
 from loopqwen.worker import acquire
 
 
-def test_future_supervision_updates_the_causal_shared_block():
-    acquire()
-    mx.random.seed(603)
+def tiny_text_decoder():
     args = TextModelArgs(
         hidden_size=64,
         intermediate_size=128,
@@ -25,7 +23,13 @@ def test_future_supervision_updates_the_causal_shared_block():
         vocab_size=128,
         tie_word_embeddings=True,
     )
-    model = SharedRefinement(TextModel(args), 8, 0.10)
+    return TextModel(args)
+
+
+def test_future_supervision_updates_the_causal_shared_block():
+    acquire()
+    mx.random.seed(603)
+    model = SharedRefinement(tiny_text_decoder(), 8, 0.10)
     model.eval()
     objective = Horizon(model, 16)
     ids = mx.array([[3, 17, 6, 21, 11]])
@@ -54,3 +58,35 @@ def test_future_supervision_updates_the_causal_shared_block():
     assert cache.slots[3, 0] is not cache.slots[3, 1]
     assert cache.slots[3, 0].offset == cache.slots[3, 1].offset == ids.shape[1]
     assert mx.allclose(actual[:, -1], full[:, -1], atol=1e-4, rtol=1e-4).item()
+
+
+def test_second_pass_can_learn_a_return_without_changing_the_ordinary_state():
+    from loopqwen.research.source_balanced import return_receipt
+
+    acquire()
+    mx.random.seed(671)
+    model = ProjectedRefinement(tiny_text_decoder(), 8, 0.25, 16)
+    model.eval()
+    tokens = [3, 17, 6, 21, 11]
+    initial = return_receipt(model, tokens)
+    assert initial["max_hidden_change"] == 0
+    assert all(initial["shared_original_projections"].values())
+    ids = mx.array([tokens])
+    ordinary = model.ordinary(model.prefix_hidden(ids))
+    mx.eval(ordinary)
+
+    def loss(net):
+        z = net.project(net.hidden(ids)[:, :-1])
+        return nn.losses.cross_entropy(z, ids[:, 1:]).mean()
+
+    _, grad = nn.value_and_grad(model, loss)(model)
+    update = grad["return_up"]["weight"]
+    assert mx.sum(mx.abs(update)).item() > 0
+    model.return_up.weight = model.return_up.weight - 0.05 * update
+    assert return_receipt(model, tokens)["max_hidden_change"] > 0
+    assert mx.array_equal(ordinary, model.ordinary(model.prefix_hidden(ids))).item()
+    cache = model.make_cache()
+    mx.eval(model.hidden(ids[:, :-1], cache))
+    last = model.hidden(ids[:, -1:], cache)
+    assert cache.slots[3, 0] is not cache.slots[3, 1]
+    assert mx.allclose(last, model.hidden(ids)[:, -1:], atol=1e-4, rtol=1e-4).item()
