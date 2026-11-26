@@ -84,3 +84,5 @@ The native compute ledger records charged attempts for each supported closed ses
 The matched-tool figure reports paired accuracy differences for the two-pass candidate against untouched Base and the equally trained one-pass checkpoint. Each bootstrap sample keeps all questions from a sampled world or public function together and preserves each panel's size. [Plot](matched-tool-effects.svg) · [Points and 95% descriptive intervals](matched-tool-effects.csv)
 
 The timing supplement gives median first-token and complete-session latency, generated tokens and total wall time for every enrolled tool request. It also reports the subset solved by both arms, so readers can inspect speed when both delivered a correct answer. [Paired timing supplement](matched-tool-latency.csv)
+
+Two source supplements track actual follow-up context and actual attention work. [Per-dialogue registered and callback-equivalent outcomes](conversation-replay.csv) · [Full-history causal attention work, offsets and timing](page-prefill.csv)

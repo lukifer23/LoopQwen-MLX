@@ -146,6 +146,13 @@ Replacing global layer 7 with a second application of gated-delta layer 6 retain
 
 A third study kept the released eight-global-site graph intact and changed only the allocation of full-history keys and values. All four outputs, selected spans and consumed offsets matched. Reserving the full prompt and decoding allowance used 2.29 GiB at peak versus 2.37 GiB with incremental allocation. Summed first-token time was 74.45 versus 76.12 s, a 2.20% saving. Total time was 77.35 versus 79.01 s. This fell short of the registered 5% threshold, closing the additional physical 128K trial for this allocation policy.
 
+== Causal page selection during prefill
+The retriever keeps every K/V row at all eight global sites. For an interior 128-token query block it uses the first query, which is causally visible throughout that block, to rank mean keys of completed pages. It attends the first page, sixteen selected historical pages, fifteen recent pages and all causally available tokens in the current page. The last 512 input tokens and every output token receive dense full-history attention. Earlier hidden states can differ, so the comparison requires exact output IDs and evidence spans. MInference and FlexPrefill motivate sparse computation during prefill. Their hardware, page-selection policies and measured speedups differ from this native MLX design. [22, 23]
+
+#figure(image("page-prefill.svg",width: 95%),caption: [Directly measured time to first token and the proportion of causal query–key pairs attended. Every global site physically retained every consumed position. The two pilot arms use identical recurrent weights.])
+
+On two 16,400-token inputs and two 32,783-token inputs all four outputs matched stock token for token. Summed first-token time fell from 76.09 to 58.48 s (23.13%). Total time fell from 78.96 to 61.34 s. Maximum MLX allocation fell from 2,545,878,064 to 2,535,916,474 bytes. The mechanism attended 31.20% of the available causal query–key pairs across the four requests. Each smaller request retained 16,429 physical positions at every site and each longer request retained 32,813.
+
 = Causal raw-language prediction
 #include "raw-results.typ"
 
@@ -214,5 +221,8 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 
 [21] Koncel-Kedziorski et al. (2016). MAWPS, a math word problem repository. #link("https://aclanthology.org/N16-1136/")[NAACL].
 
+[22] Jiang et al. (2024). MInference 1.0, accelerating pre-filling for long-context LLMs via dynamic sparse attention. #link("https://proceedings.neurips.cc/paper_files/paper/2024/hash/5dfbe6f5671e82c76841ba687a8a9ecb-Abstract-Conference.html")[NeurIPS].
+
+[23] Lai et al. (2025). FlexPrefill, a context-aware sparse attention mechanism for efficient long-sequence inference. #link("https://proceedings.iclr.cc/paper_files/paper/2025/hash/03645743ea35690f30d795d6bac149a5-Abstract-Conference.html")[ICLR].
 
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

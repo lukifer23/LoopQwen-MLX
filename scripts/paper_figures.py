@@ -334,6 +334,9 @@ def main():
 
     from paper_conversations import make as conversations
 
+    from paper_prefill import make as prefill
+
+    prefill(PAPER, RESULTS, result, finish)
     conversations(PAPER, RESULTS, result)
     deployment(PAPER, RESULTS, result, finish)
     index()
