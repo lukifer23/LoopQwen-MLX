@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-26T16:39:40.557974+00:00",
-  "starting_revision": "079e58d",
+  "session_start_utc": "2026-11-26T17:19:15.851319+00:00",
+  "starting_revision": "0cfb564",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -578,6 +578,54 @@
       "promoted": true,
       "scope": "Does joint rehearsal with counterfactual swaps of observed values yield one recurrent tool checkpoint that retains the prior catalog and public execution gains and transfers to four new domains?",
       "decision": "research/results/tool-dialogue-counterfactual-01/decision.json"
+    },
+    {
+      "id": "tool-prefix-typed-01",
+      "promoted": true,
+      "scope": "Does aligned state reuse reduce actual end-to-end execution time with the shipped typed tool weights while preserving every published trajectory?",
+      "decision": "research/results/tool-prefix-typed-01/decision.json"
+    },
+    {
+      "id": "register-allocation-01",
+      "promoted": false,
+      "scope": "Can reserving contiguous full-history MLX key/value storage before the first update improve time to first token without increasing peak memory or changing any answer?",
+      "decision": "research/results/register-allocation-01/decision.json"
+    },
+    {
+      "id": "tool-bfcl-counterfactual-retention-01",
+      "promoted": false,
+      "scope": "Does the new two-pass adapter retain established and independently sampled structural function selection against the qualified two-pass tool release?",
+      "decision": "research/results/tool-bfcl-counterfactual-retention-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-counterfactual-depth-01",
+      "promoted": false,
+      "scope": "Does the improved multi-domain tool system retain its gains against an equally trained single-pass sibling, and is there paired evidence for extra depth?",
+      "decision": "research/results/tool-dialogue-counterfactual-depth-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-observation-policy-01",
+      "promoted": false,
+      "scope": "Can one frozen recurrent backbone preserve original first-turn tool behavior exactly and use the improved observation adapter for follow-ups without losing any previously correct task?",
+      "decision": "research/results/tool-dialogue-observation-policy-01/decision.json"
+    },
+    {
+      "id": "operand-planner-01",
+      "promoted": false,
+      "scope": "Can a shared native Qwen layer trained to select arithmetic operands and intermediate values improve the final numbers on unseen human word problems without paying more time or memory than Base?",
+      "decision": "research/results/operand-planner-01/decision.json"
+    },
+    {
+      "id": "tool-dialogue-venue-state-02",
+      "promoted": false,
+      "scope": "Can the recurrent tool system recover changed preferences across real human conversations, issue an exact SQLite query and report different correct counts when the inventory changes, including an entirely held-out dialogue service?",
+      "decision": "research/results/tool-dialogue-venue-state-02/decision.json"
+    },
+    {
+      "id": "conversation-followup-01",
+      "promoted": false,
+      "scope": "Can the shipping recurrent tool weights complete real two-user-turn clarifications and resolve a reference to an earlier live observation?",
+      "decision": "research/results/conversation-followup-01/decision.json"
     }
   ],
   "status": "Running held-out tool reasoning, typed public-function execution and human-edited BoolQ comparisons. See the preregistered stop rules for each.",
@@ -633,9 +681,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795708064.4614432,
+  "closed_session_start": 1795711180.557974,
   "native_window": {
-    "start_utc": "2026-11-26T16:39:40.557974+00:00",
+    "start_utc": "2026-11-26T17:19:15.851319+00:00",
     "status": "open"
   },
   "kinship_transfer": {
