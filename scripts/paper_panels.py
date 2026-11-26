@@ -1,6 +1,8 @@
 """Plot independent human-reading decisions and single-checkpoint tool transfer."""
 
 import csv
+from math import sqrt
+from statistics import NormalDist
 
 import matplotlib.pyplot as plt
 
@@ -26,6 +28,15 @@ TOOLS = {
         "success",
     ),
 }
+
+
+def wilson(correct, total):
+    z = NormalDist().inv_cdf(0.975)
+    rate = correct / total
+    scale = 1 + z * z / total
+    center = (rate + z * z / (2 * total)) / scale
+    width = z * sqrt(rate * (1 - rate) / total + z * z / (4 * total**2)) / scale
+    return max(0.0, center - width), min(1.0, center + width)
 
 
 def generate(paper, results, result, finish):
@@ -102,6 +113,8 @@ def generate(paper, results, result, finish):
                 r["losses"],
                 r["p_exact"],
                 r["passed"],
+                *wilson(c[endpoint], r["items"]),
+                *wilson(b[endpoint], r["items"]),
             ]
         )
     with (paper / "typed-transfer.csv").open("w") as f:
@@ -121,6 +134,10 @@ def generate(paper, results, result, finish):
                 "paired_losses",
                 "p_exact",
                 "gate_passed",
+                "recurrent_ci_low",
+                "recurrent_ci_high",
+                "control_ci_low",
+                "control_ci_high",
             ]
         )
         w.writerows(rows)
@@ -129,9 +146,21 @@ def generate(paper, results, result, finish):
         for i, r in enumerate(rows):
             _, _, _, _, n, a, b, *_ = r
             ax.plot([100 * a / n, 100 * b / n], [i, i], zorder=1, color="#98aaa5", lw=2)
-            ax.scatter(100 * a / n, i - 0.04, color=colors[0], s=36, zorder=3)
+            for y, bounds, color in [
+                (i - 0.08, r[-4:-2], colors[0]),
+                (i + 0.08, r[-2:], colors[1]),
+            ]:
+                ax.plot(
+                    [100 * v for v in bounds],
+                    [y, y],
+                    color=color,
+                    lw=1.2,
+                    zorder=2,
+                    alpha=0.8,
+                )
+            ax.scatter(100 * a / n, i - 0.08, color=colors[0], s=36, zorder=3)
             ax.scatter(
-                100 * b / n, i + 0.04, color=colors[1], marker="s", s=35, zorder=3
+                100 * b / n, i + 0.08, color=colors[1], marker="s", s=35, zorder=3
             )
             ax.text(104, i, f"{a} / {b} of {n}", va="center", fontsize=8)
         ax.set_yticks(range(len(rows)), [r[1] + " · " + r[2] for r in rows])
