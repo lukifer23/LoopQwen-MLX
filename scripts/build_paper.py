@@ -25,6 +25,7 @@ def main(verify):
                 if k.startswith(
                     (
                         "bridge-reading-",
+                        "narrative-full-book-",
                         "cache-language-",
                         "tool-",
                         "contrast-boolq-",

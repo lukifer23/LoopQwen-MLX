@@ -17,6 +17,7 @@ def generate(
     prefill_block=128,
     tool_prefix=None,
     reserve_full_kv=False,
+    record_kv_history=False,
 ):
     if type(prefill_block) is not int or prefill_block < 1:
         raise ValueError("Prefill block must be a positive integer")
@@ -186,6 +187,21 @@ def generate(
         result["context_route"] = route
     if section is not None:
         result["attention_memory"] = section
+    if record_kv_history:
+        from mlx_lm.models.cache import KVCache
+
+        if disk is not None:
+            raise ValueError("Resident history measurements require a resident cache")
+        result["kv_history"] = [
+            dict(
+                layer=i,
+                turn=p,
+                offset=slot.offset,
+                retained=slot.keys_and_values()[0].shape[2],
+            )
+            for (i, p), slot in cache.slots.items()
+            if isinstance(slot, KVCache)
+        ]
     if disk is not None:
         result["scratch_bytes"] = disk.scratch_bytes
     return result
