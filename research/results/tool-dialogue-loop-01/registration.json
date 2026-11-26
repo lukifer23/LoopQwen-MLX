@@ -1,0 +1,24 @@
+{
+  "id": "tool-dialogue-loop-01",
+  "question": "Do shared final-layer tool adapters trained only on pinned Base improve end-to-end tool-assisted reasoning across unseen domain schemas and rephrased tasks?",
+  "candidate": "train_loop",
+  "control": "base",
+  "training": "research/data/tool-dialogue-fit-01.json",
+  "material": "research/data/tool-dialogue-loop-01.json",
+  "max_tokens": 128,
+  "max_turns": 4,
+  "fit_seed": 7237,
+  "rank": 32,
+  "batch": 4,
+  "lr": 0.0003,
+  "updates": 450,
+  "net_floor": 8,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "gate": "At least eight net exact executed successes among thirty, two-sided exact paired p <= .05, at most Base trajectory seconds. Stop on resource limit or memory warning. Failure closes matched-depth and release for this fit. If passed compare separately trained one-pass control with identical exposure. Report each family and failures.",
+  "limits": {
+    "wall_seconds": 1500,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  }
+}
