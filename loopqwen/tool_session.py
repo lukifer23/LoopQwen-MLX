@@ -88,6 +88,7 @@ def run(
     reuse_prefix=False,
     schema_guided=False,
     first_turn_decoder=None,
+    observation_model=None,
 ):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
     if not 1 <= max_turns <= 64:
@@ -130,14 +131,18 @@ def run(
             if not turns and first_turn_decoder is not None
             else generate
         )
+        active_model = (
+            observation_model if turns and observation_model is not None else model
+        )
+        prefix = tool_prefix if turns or observation_model is None else None
         out = decoder(
-            model,
+            active_model,
             tokenizer,
             request,
             max_tokens=max_tokens,
             progress=progress,
             stop_ids=stop_ids,
-            tool_prefix=tool_prefix,
+            tool_prefix=prefix,
             **({"tool_grammar": grammar} if grammar is not None else {}),
         )
         ids = out["token_ids"]
@@ -149,7 +154,7 @@ def run(
             peak_bytes=out["peak_bytes"],
         )
         if tool_prefix is not None:
-            row["reused_prompt_tokens"] = out["reused_prompt_tokens"]
+            row["reused_prompt_tokens"] = out.get("reused_prompt_tokens", 0)
         if grammar is not None:
             row["replaced_by_schema"] = grammar.replaced
         turns.append(row)

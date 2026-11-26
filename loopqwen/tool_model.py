@@ -41,6 +41,25 @@ def tool_view(text, start, rank, passes):
     return model
 
 
+def with_adapter(model, weights, expected_digest):
+    """Create a second recurrent view sharing the immutable donor arrays."""
+    if digest(weights) != expected_digest:
+        raise ValueError("Observation adapter checksum mismatch")
+    shared = {id(v): v for _, v in tree_flatten(model.parameters())}
+    view = deepcopy(model, shared)
+    tensors = mx.load(str(weights))
+    expected = dict(tree_flatten(view.trainable_parameters()))
+    if tensors.keys() != expected.keys() or any(
+        v.shape != expected[k].shape for k, v in tensors.items()
+    ):
+        raise ValueError(
+            "Observation adapter is incompatible with the first-turn graph"
+        )
+    view.load_weights(list(tensors.items()), strict=False)
+    view.eval()
+    return view
+
+
 def bind(language_model, folder):
     """Install a tool view without mutating the decoder used by plain-text requests."""
     folder = Path(folder)

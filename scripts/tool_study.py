@@ -73,6 +73,34 @@ def summarize(records, spec):
             and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
         )
     details = {}
+    if spec.get("observation_adapter"):
+        from loopqwen.evaluation.mechanism import unpack
+
+        prior = unpack(Path(spec["observation_adapter"]) / "candidate.json.gz")
+        first_equal = True
+        joint_losses = 0
+        for (a, b), ref in zip(pairs, prior, strict=True):
+            if a["id"] != ref["id"]:
+                raise ValueError("Different joint reference request")
+            first_equal &= (
+                a["trajectory"]["turns"][0]["token_ids"]
+                == b["trajectory"]["turns"][0]["token_ids"]
+            )
+            joint_losses += int(ref["score"]["success"] and not a["score"]["success"])
+        passed = (
+            passed
+            and first_equal
+            and losses == 0
+            and joint_losses == 0
+            and metrics["candidate"]["peak_bytes"]
+            <= metrics["control"]["peak_bytes"] + spec["extra_bytes"]
+        )
+        details["observation_policy"] = dict(
+            first_turns_equal=first_equal,
+            lost_from_joint=joint_losses,
+            lost_from_original=losses,
+        )
+
     if spec.get("matched_retention"):
         from loopqwen.evaluation.mechanism import unpack
         from scripts.tool_release import tokens
@@ -385,6 +413,28 @@ def main(name):
     try:
         for side in ("candidate", "control"):
             model, tok = load_arm(spec[side], spec, out, budget)
+            observation_model = None
+            if side == "candidate" and spec.get("observation_adapter"):
+                from loopqwen.tool_model import with_adapter
+
+                new = Path(spec["observation_adapter"])
+                old = Path(spec["candidate"].removeprefix("restore:"))
+                reference = read(new / "registration.json")
+                if (
+                    digest(new / "checksums.json") != spec["observation_archive"]
+                    or not read(new / "decision.json")["passed"]
+                    or reference["initial_sha256"] != digest(old / "checksums.json")
+                    or any(
+                        reference[k] != read(old / "registration.json")[k]
+                        for k in ("prefix_bits", "rank", "start_layer", "donor")
+                    )
+                ):
+                    raise ValueError("Different tool view lineage")
+                observation_model = with_adapter(
+                    model,
+                    new / "tool-adapters.safetensors",
+                    read(new / "fit.json")["weights"],
+                )
             mx.reset_peak_memory()
             arm = []
             for row in items:
@@ -398,6 +448,7 @@ def main(name):
                     stop_at_turn_end=spec.get("stop_at_turn_end", False),
                     max_tokens=row.get("generation_cap", spec["max_tokens"]),
                     progress=lambda _: budget.check(),
+                    observation_model=observation_model,
                 )
                 arm.append(dict(id=row["id"], trajectory=traj, score=judge(row, traj)))
                 print(
@@ -412,7 +463,7 @@ def main(name):
                 gzip.compress(json.dumps(arm).encode(), mtime=0)
             )
             records[side] = arm
-            del model, tok
+            del model, tok, observation_model
             gc.collect()
             mx.clear_cache()
         assert all(
