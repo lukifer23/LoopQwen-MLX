@@ -1,0 +1,45 @@
+{
+  "schema": {
+    "by_provider": {
+      "bfcl_exec": {
+        "candidate": 20,
+        "control": 17
+      },
+      "wikisql": {
+        "candidate": 6,
+        "control": 4
+      }
+    },
+    "invalid": {
+      "candidate": 0,
+      "control": 17
+    },
+    "replaced": 20,
+    "stock_parity": true
+  },
+  "passed": false,
+  "metrics": {
+    "candidate": {
+      "success": 26,
+      "path": 27,
+      "correct_answer": 27,
+      "completed": 55,
+      "seconds": 57.749819456017576,
+      "tokens": 4261,
+      "peak_bytes": 1160608802
+    },
+    "control": {
+      "success": 21,
+      "path": 22,
+      "correct_answer": 21,
+      "completed": 39,
+      "seconds": 47.59161858484731,
+      "tokens": 3594,
+      "peak_bytes": 1160543266
+    }
+  },
+  "gains": 5,
+  "losses": 0,
+  "p_exact": 0.0625,
+  "items": 58
+}
