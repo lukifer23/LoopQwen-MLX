@@ -17,6 +17,7 @@ def export(
     qualification,
     destination,
     prefix_qualification=None,
+    backbone_release=None,
 ):
     cfg = read(language / "config.json")
     if cfg["base_revision"] != REVISION or cfg["export_schema"] != 4:
@@ -101,20 +102,47 @@ def export(
             qualification_archive=digest(qualification / "checksums.json"),
         )
         if "donor" in spec:
-            import mlx.core as mx
-            from mlx.utils import tree_flatten
-
-            from loopqwen.research.projected_distillation import tutor
-            from loopqwen.tool_model import quantize_prefix
-            from loopqwen.worker import acquire
-
-            acquire()
-            donor, _ = tutor({"teacher": spec["donor"]})
-            quantize_prefix(donor.text, meta["start_layer"], spec["prefix_bits"])
             backbone = out / "quantized-backbone.safetensors"
-            mx.save_safetensors(
-                str(backbone), dict(tree_flatten(donor.text.parameters()))
-            )
+            if backbone_release is not None:
+                record = read(backbone_release / "registration.json")
+                if (
+                    digest(backbone_release / "checksums.json")
+                    != reg[backbone_release.name]["archive"]
+                    or not all(
+                        digest(backbone_release / k) == v
+                        for k, v in read(backbone_release / "checksums.json").items()
+                    )
+                    or not read(backbone_release / "decision.json")["passed"]
+                ):
+                    raise ValueError("Unqualified source backbone release")
+                inventory = read(backbone_release / "export-files.json")
+                source = Path(record["destination"])
+                source_meta = read(source / "tool/tool-model.json")
+                path = "tool/quantized-backbone.safetensors"
+                if (
+                    digest(source / "tool/tool-model.json")
+                    != inventory["tool/tool-model.json"]
+                    or source_meta.get("donor") != spec["donor"]
+                    or source_meta.get("prefix_bits") != spec["prefix_bits"]
+                    or source_meta.get("start_layer") != meta["start_layer"]
+                    or source_meta.get("backbone_sha256") != inventory[path]
+                    or digest(source / path) != inventory[path]
+                ):
+                    raise ValueError("Different frozen weights or quantization")
+                shutil.copyfile(source / path, backbone)
+            else:
+                import mlx.core as mx
+                from mlx.utils import tree_flatten
+                from loopqwen.research.projected_distillation import tutor
+                from loopqwen.tool_model import quantize_prefix
+                from loopqwen.worker import acquire
+
+                acquire()
+                donor, _ = tutor({"teacher": spec["donor"]})
+                quantize_prefix(donor.text, meta["start_layer"], spec["prefix_bits"])
+                mx.save_safetensors(
+                    str(backbone), dict(tree_flatten(donor.text.parameters()))
+                )
             meta.update(
                 schema=2,
                 donor=spec["donor"],
@@ -180,5 +208,10 @@ if __name__ == "__main__":
         "--prefix-qualification",
         type=Path,
         help="Successful output-identical crossover for these exact tool weights",
+    )
+    parser.add_argument(
+        "--backbone-release",
+        type=Path,
+        help="Reuse byte-identical frozen weights from a sealed prior tool release",
     )
     print(export(**vars(parser.parse_args())))

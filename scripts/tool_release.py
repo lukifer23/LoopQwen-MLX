@@ -133,10 +133,22 @@ def check_release(spec, out, budget, decision):
             "Missing qualified tool retention control",
         )
     if not bundle.exists():
-        export(Path(spec["language"]), prior, trained, trained, bundle, prefix)
+        export(
+            Path(spec["language"]),
+            prior,
+            trained,
+            trained,
+            bundle,
+            prefix,
+            Path(spec["backbone_release"]) if "backbone_release" in spec else None,
+        )
     meta = read(bundle / "tool/tool-model.json")
     require(
-        meta["qualification_archive"] == spec["tool_sha256"], "Different tool export"
+        meta["qualification_archive"] == spec["tool_sha256"]
+        and meta["weights"]
+        == read(trained / "fit.json")["weights"]
+        == digest(bundle / "tool/tool-adapters.safetensors"),
+        "Different tool export",
     )
     if spec.get("field_cli"):
         require(
