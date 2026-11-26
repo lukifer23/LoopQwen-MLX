@@ -29,6 +29,8 @@ The same learned-exit checkpoint answered **52/80** word problems correctly agai
 
 The model uses ordinary depth for the first 704 generated tokens. If the thought remains open, it reprocesses the entire sequence at recurrent depth and chooses subsequent tokens from the full vocabulary. To run this checkpoint, pass `--checkpoint research/results/learned-exit-01/model --thinking --max-tokens 1024` to the native `generate` command. The self-contained native export reproduces the measured token stream through a real depth switch.
 
+![Blinded answer accuracy and mean generation seconds across the four arithmetic and inference comparisons](docs/measurements/replicated-reasoning.png)
+
 ## Thinking-enabled word problems
 
 The stabilized K=2 checkpoint trained on 128 publisher-written GSM8K explanations answered **13/32** development questions correctly in **64.6 seconds**. Untouched Qwen Base K=1 answered **1/32** in **118.1 seconds** on identical prompts with a 256-token limit. The candidate produced 32 scorable answers and Base produced one. The candidate fixed 13 Base errors and lost one correct answer. Its prose-retention NLL was 2.9873 against Base at 2.9827. These 32 questions had been used in earlier development studies. [Checkpoint and per-question outputs](research/sessions/2026-11-25/gsm-rationale-01) · [End-to-end review](docs/PROJECT_REVIEW.md)
