@@ -247,10 +247,13 @@ class Assistant:
                 status = "unfinished_thinking"
         if answer and _messages is not None:
             messages.append(dict(role="assistant", content=answer))
-        return dict(
+        result = dict(
             answer=answer,
             status=status,
             turns=[turn],
             seconds=out["elapsed_s"],
             context_route=out.get("context_route"),
         )
+        if "prefill_policy" in out:
+            result["prefill_policy"] = out["prefill_policy"]
+        return result
