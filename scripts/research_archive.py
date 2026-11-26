@@ -167,6 +167,7 @@ def verify(root):
             "register-page-full-",
             "register-packed-",
             "register-fused-base-",
+            "register-mixed-weight-",
         )
     ):
         from loopqwen.research.register_allocation import verify as verify_allocation

@@ -149,6 +149,42 @@ def outcome(spec, rows, items):
                 and fused["peak"] < base["peak"]
                 and all(fused[k] > base[k] for k in ("prefill_tps", "decode_tps")),
             )
+        if spec.get("mixed_register"):
+            records = rows[policy]
+            receipts = [r["weight_precision"] for r in records]
+            expected = {
+                f"layers.{i}.mlp.{p}"
+                for i in range(24)
+                for p in ("gate_proj", "up_proj", "down_proj")
+            }
+            actual = all(
+                set(q["projections"]) == expected
+                and q["shared_input_embedding"]
+                and q["actual_projections"] == len(r["token_ids"])
+                and q["bits"] == 8
+                and q["group_size"] == 64
+                and q["new_resident_tensor_bytes"] > 0
+                and q["setup_peak"] > 0
+                and q["setup_s"] > 0
+                for r, q in zip(records, receipts, strict=True)
+            )
+            decision["actual_weight_precision"] = actual
+            decision["setup_seconds"] = sum(q["setup_s"] for q in receipts)
+            decision["setup_peak"] = max(q["setup_peak"] for q in receipts)
+            individual_rates = all(
+                r["decode_tps"] > base["decode_tps"]
+                and r["prefill_tps"] > base["prefill_tps"]
+                for r, base in zip(records, rows[control], strict=True)
+            )
+            setup_costs = decision["setup_peak"] < costs[control]["peak"] and all(
+                costs[policy][k] + decision["setup_seconds"] < costs[control][k]
+                for k in ("ttft", "seconds")
+            )
+            decision["both_rate_pairs"] = individual_rates
+            decision["including_conversion"] = setup_costs
+            decision["passed"] = bool(
+                decision["passed"] and actual and individual_rates and setup_costs
+            )
         return decision
     c, b = costs[policy], costs[control]
     exact = True
@@ -307,6 +343,11 @@ def run(name):
 
                     model, tok = load_export(Path(spec["fused_export"]))
                     object.__setattr__(model, "fused_packed_decode", True)
+                    if spec.get("mixed_register"):
+                        from ..mixed_register import install as install_precision
+
+                        install_precision(model, minimum=spec["weight_minimum"])
+                        budget.check()
                 else:
                     model, tok, _ = load_trained(spec["checkpoint"])
                 if (
@@ -343,6 +384,13 @@ def run(name):
                         for (i, p), slot in slots.items()
                     ]
                     del slots
+                if side == policy and spec.get("mixed_register"):
+                    active = model.context_policy
+                    record["weight_precision"] = {
+                        **active.receipt,
+                        "actual_projections": active.view.projection_calls,
+                    }
+                    del active
                 rows[side].append(record)
                 if control in ("base", "pages"):
                     packed(root / (side + ".json.gz"), rows[side])

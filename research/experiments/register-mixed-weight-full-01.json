@@ -1,0 +1,23 @@
+{
+  "id": "register-mixed-weight-full-01",
+  "question": "Can an input-preserving eight-bit feed-forward and output view of the qualified recurrent register decoder beat native ordinary Base on both fresh physical 131K swaps in accuracy, input and output rates, first and full latency, and peak?",
+  "requires": "research/results/packed-decode-full-01",
+  "prerequisite_sha256": "42526fe949f35ef7002f2f870088139264948063f9953f9772f45b3deaa922fd",
+  "material": "research/data/register-mixed-weight-full-01.json",
+  "seed": 67248719,
+  "attention_policy": "direct_pages",
+  "control": "base",
+  "max_tokens": 96,
+  "protocol": "New weight-bandwidth intervention, independent of the closed factored KV operator. Use the previously qualified original fused KV kernel and verified packed-03 release. The normal classifier sees the original BF16 input embeddings. After it selects register at >=32768 positions, use weight-only affine 8-bit groups of 64 for the 72 feed-forward linear maps and the vocabulary output projection. Preserve original input embeddings, attention and gated-delta projections, adapter weights, recurrence and evidence reader. Other routes retain their original objects. Record quantized arrays' additional resident bytes, every real vocabulary projection, setup seconds and peak from conversion, and all original full-history receipts. One previously unseen equal-width key swap at seed 67248719 (131086 tokens per prompt). Two 96-token thinking-enabled greedy measurements per arm in AB/BA order; control is pinned BF16 Base. Each model emits its natural output. Preregistered measurement starts after the common loading stage; separately charge each incremental conversion against candidate request and first-token times and peak. No reduced sequence length and no oracle input.",
+  "gate": "Require both distinct exact completed answers beating Base, selected target intervals and full physical histories on every site, 8 versus 6. Verify every actual single-token fused call and all 72 converted maps and output projections. Beat Base on aggregated peak, first-token and complete times and both pooled prompt and post-first rates; BOTH individual swaps must also beat Base on BOTH rates. Require additional conversion time plus warm times to remain lower on first and full, with setup peak below Base's measured peak. A miss closes this precision configuration. Passing licenses only a separate export plus exact short-language, book, tool and old long-response retention with outside-checkout replay before deployment.",
+  "limits": {
+    "wall_seconds": 1320,
+    "peak_gib": 7.0,
+    "available_gib": 1.4
+  },
+  "release": "research/results/packed-release-retention-01",
+  "release_sha256": "680ee713d2c0949d1bb3c44c8ceeaf26d7f5ecea447ab23891d782bb16ead641",
+  "fused_export": "exports/tool-language-packed-03",
+  "mixed_register": true,
+  "weight_minimum": 32768
+}

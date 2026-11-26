@@ -55,6 +55,7 @@ def main(verify):
                         "register-page-full-",
                         "register-packed-",
                         "register-fused-base-",
+                        "register-mixed-weight-",
                         "native-language-release-02",
                     )
                 )
