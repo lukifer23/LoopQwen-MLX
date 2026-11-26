@@ -318,3 +318,16 @@ Both models processed two 131,081-token prompts on the M3 Pro. The conditional m
 | **All requests** | **55/80** | **41/80** |
 
 The complete model used **419.12 seconds** against **536.26 seconds** for untouched Base, including routing, full-prefix replay and full-history prefill. The strict first-turn scorer gave 49/80 versus 33/80. Blind review credited 14 extra correct answers with zero losses. The conservative selector sent 10/36 inference requests to the inference specialist; the other 26 used ordinary Base. Across those 26 and eight reading requests, all 34 ordinary outputs matched Base token for token. Each of the 120 raw retention passages selected the ordinary path and exactly reproduced Base's 2.9826581 NLL. [Paired requests and deployable checkpoint](../research/results/conditional-language-02) · [Blind annotations](measurements/answer-audits/conditional-language-02.json)
+
+### What the extra pass contributed under equal training
+
+| Same questions and training exposure | K2 | Trained K1 |
+|---|---:|---:|
+| Arithmetic answers across 80 questions | 52 | 52 |
+| Arithmetic generation seconds | 528.14 | 524.69 |
+| Natural inference judgments across 120 claims | 85 | 85 |
+| Complete natural inference triplets across 40 premises | 15 | 15 |
+| Three-way vocabulary probe across 120 claims | 88 | 91 |
+| Natural inference generation seconds | 39.13 | 31.92 |
+
+Both arithmetic finishers agreed on every item's correctness. The two inference models differed on six judged items, with three correct only at each depth. Training achieved a reproducible gain over untouched Base. These paired depth controls found equal final-answer accuracy and lower elapsed time for trained K1. [Arithmetic attribution](../research/results/learned-exit-dense-01) · [Natural inference attribution](../research/results/entailment-dense-01)
