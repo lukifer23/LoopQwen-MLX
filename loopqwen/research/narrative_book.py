@@ -4,6 +4,7 @@ import argparse
 import gc
 import re
 from pathlib import Path
+from time import perf_counter
 
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer
@@ -78,25 +79,49 @@ def outcome(data, material):
     )
 
 
+def scored(spec, tok, ids, material, i):
+    if spec.get("git_listing"):
+        from .repository_tree_field import grade as tree_grade
+
+        pair = material["panel"]
+        return tree_grade(tok, ids, pair[i]["gold"], pair[1 - i]["gold"])
+    return grade(tok, ids, spec["accepted_names"][i], spec["accepted_names"][1 - i])
+
+
+def measured(spec, data, material):
+    result = outcome(data, material)
+    if spec.get("git_listing"):
+        from .repository_tree_field import qualify
+
+        return qualify(result, data, material)
+    return result
+
+
 def verify(root, decision):
     spec = read(root / "registration.json")
     material = read(spec["material"])
+    if spec.get("git_listing"):
+        from scripts.repository_tree_material import build
+
+        assert material == build()
     tok = load_tokenizer(local_snapshot())
     data = {}
     for side in ("candidate", "control"):
         data[side] = unpack(root / (side + ".json.gz"))
         for i, (r, w) in enumerate(zip(data[side], material["panel"], strict=True)):
-            assert r["id"] == w["id"] and r["grade"] == grade(
-                tok,
-                r["token_ids"],
-                spec["accepted_names"][i],
-                spec["accepted_names"][1 - i],
+            assert r["id"] == w["id"] and r["grade"] == scored(
+                spec, tok, r["token_ids"], material, i
             )
+            if spec.get("git_listing"):
+                assert (
+                    0 < r["load_seconds"] < r["cold_seconds"]
+                    and r["cold_seconds"] >= r["load_seconds"] + r["elapsed_s"]
+                )
             assert (
                 len(r["token_ids"]) <= spec["max_tokens"]
                 and 0 < r["ttft_s"] <= r["elapsed_s"]
             )
-    assert outcome(data, material) == decision
+    assert measured(spec, data, material) == decision
 
 
 def run(name):
@@ -126,31 +151,44 @@ def run(name):
             ):
                 if len(data[side]) > i:
                     continue
+                start = perf_counter()
+                mx.reset_peak_memory()
                 model, tok = load_export(bundle) if side == "candidate" else base()[:2]
                 ids = w["prompt_ids"]
                 text = tok.decode(ids)
                 assert tok.encode(text, add_special_tokens=False) == ids
-                mx.reset_peak_memory()
+                loaded = perf_counter() - start
+                if not spec.get("git_listing"):
+                    mx.reset_peak_memory()
+                load_peak = mx.get_peak_memory()
+                first = []
+
+                def observe(consumed, start=start, length=len(ids), first=first):
+                    if consumed == length and not first:
+                        first.append(perf_counter() - start)
+                    budget.check()
+
                 res = generate(
                     model,
                     tok,
                     text,
                     spec["max_tokens"],
                     stop_ids=[tok.convert_tokens_to_ids("<|im_end|>")],
-                    progress=lambda _: budget.check(),
+                    progress=observe,
                     record_kv_history=True,
                 )
                 del res["prompt"]
                 res.update(
                     id=w["id"],
                     input_sha256=fingerprint(ids),
-                    grade=grade(
-                        tok,
-                        res["token_ids"],
-                        spec["accepted_names"][i],
-                        spec["accepted_names"][1 - i],
-                    ),
+                    grade=scored(spec, tok, res["token_ids"], material, i),
                 )
+                if spec.get("git_listing"):
+                    assert len(first) == 1
+                    res["cold_first_seconds"] = first[0]
+                    res["cold_seconds"] = perf_counter() - start
+                    res["load_seconds"] = loaded
+                    res["peak_bytes"] = max(load_peak, res["peak_bytes"])
                 data[side].append(res)
                 packed(out / (side + ".json.gz"), data[side])
                 print(
@@ -164,7 +202,7 @@ def run(name):
                 del model, tok
                 gc.collect()
                 mx.clear_cache()
-        save(out / "decision.json", outcome(data, material))
+        save(out / "decision.json", measured(spec, data, material))
     finally:
         budget.close()
 

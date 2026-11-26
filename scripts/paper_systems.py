@@ -196,6 +196,15 @@ def write(paper, results, result):
             "correct",
         ),
         (
+            "repository-tree-field-01",
+            "Two Git trees, 169K+",
+            "exact",
+            2,
+            "candidate",
+            "control",
+            "correct",
+        ),
+        (
             "narrative-full-book-01",
             "Whole novel, 162K",
             "exact",
@@ -237,6 +246,15 @@ def write(paper, results, result):
             else:
                 arms = d["metrics"]
             a, b = (arms[s] for s in (first, second))
+            if "tree_read_evidence" in d:
+                a, b = (
+                    {
+                        **arms[s],
+                        "seconds": d["resources"][s]["cold_seconds"],
+                        "ttft": d["resources"][s]["cold_first"],
+                    }
+                    for s in (first, second)
+                )
             peak = "peak_bytes" if "peak_bytes" in a else "peak"
             index = d.get("index_seconds", {})
             ca = d.get("setup_seconds", 0) + index.get(first, 0)

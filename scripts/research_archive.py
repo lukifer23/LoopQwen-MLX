@@ -132,7 +132,7 @@ def verify(root):
         from loopqwen.research.transport import verify as verify_transport
 
         verify_transport(root, decision)
-    if study.startswith("narrative-full-book-"):
+    if study.startswith(("narrative-full-book-", "repository-tree-field-")):
         from loopqwen.research.narrative_book import verify as verify_narrative
 
         verify_narrative(root, decision)

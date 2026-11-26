@@ -28,6 +28,7 @@ def main(verify):
                         "bridge-reading-",
                         "linked-reading-",
                         "narrative-full-book-",
+                        "repository-tree-field-",
                         "transport-lossless-",
                         "raw-distillation-",
                         "selective-raw-",
