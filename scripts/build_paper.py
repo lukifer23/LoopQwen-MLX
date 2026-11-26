@@ -23,6 +23,7 @@ def main(verify):
                 for k, v in read(ROOT / "research/registry.json")["experiments"].items()
                 if k.startswith(
                     (
+                        "bridge-reading-",
                         "cache-language-",
                         "tool-",
                         "contrast-boolq-",
