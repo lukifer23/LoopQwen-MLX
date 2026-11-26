@@ -51,6 +51,25 @@ def summarize(records, spec):
             if item["kind"] == kind
         )
         passed = passed and successes >= minimum
+    if spec.get("retention_floors"):
+        items = read(spec["material"])
+        for panel, criteria in spec["retention_floors"].items():
+            paired = [
+                (r, i)
+                for r, i in zip(records["candidate"], items, strict=True)
+                if i["panel"] == panel
+            ]
+            for family, floor in criteria.items():
+                count = sum(
+                    r["score"]["success"]
+                    for r, i in paired
+                    if family == "all" or i["kind"] == family
+                )
+                passed = passed and count >= floor
+        passed = (
+            passed
+            and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
+        )
     return dict(
         passed=passed,
         metrics=metrics,
@@ -84,6 +103,13 @@ def workload(spec):
 def load_arm(arm, spec, folder, budget):
     if arm == "base":
         return base()[:2]
+    if arm == "instruct":
+        from mlx_lm.utils import load_tokenizer
+        from loopqwen.model_loader import local_snapshot
+        from loopqwen.research.projected_distillation import tutor
+
+        model, _ = tutor({"teacher": spec["donor"]})
+        return model, load_tokenizer(local_snapshot())
     if arm == "release02":
         return load_trained("research/results/native-language-release-02/model")[:2]
     from loopqwen.research.tool_fit import fitted
@@ -123,7 +149,7 @@ def main(name):
                     catalog(row),
                     max_turns=spec["max_turns"],
                     stop_at_turn_end=spec.get("stop_at_turn_end", False),
-                    max_tokens=spec["max_tokens"],
+                    max_tokens=row.get("generation_cap", spec["max_tokens"]),
                     progress=lambda _: budget.check(),
                 )
                 arm.append(dict(id=row["id"], trajectory=traj, score=judge(row, traj)))

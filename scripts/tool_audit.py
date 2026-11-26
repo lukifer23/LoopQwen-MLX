@@ -30,6 +30,7 @@ def verify(root, decision, read, sha, require):
         )
         for row, w in zip(rows, items, strict=True):
             traj = row["trajectory"]
+            cap = w.get("generation_cap", spec["max_tokens"])
             tools = catalog_for(w)
             catalog = {t.name: t for t in tools}
             messages = initial_messages(w["user_request"], tools)
@@ -47,13 +48,13 @@ def verify(root, decision, read, sha, require):
                 )
                 ids = t["token_ids"]
                 require(
-                    1 <= len(ids) <= spec["max_tokens"]
+                    1 <= len(ids) <= cap
                     and 0 < t["ttft_s"] <= t["seconds"] <= traj["seconds"],
                     "Turn budget or timing",
                 )
                 raw = tokenizer.decode(ids[:-1])
                 if ids[-1] not in stop_ids:
-                    require(len(ids) == spec["max_tokens"], "Incomplete capped output")
+                    require(len(ids) == cap, "Incomplete capped output")
                     status = "token_limit"
                 elif "</think>" not in raw:
                     status = "unfinished_thinking"
