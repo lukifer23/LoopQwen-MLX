@@ -10,6 +10,7 @@ from .evaluation.language7 import base
 from .identity import fingerprint
 from .tool_cli import present
 from .tool_model import Assistant
+from .worker import acquire
 
 
 class DenseAssistant(Assistant):
@@ -23,6 +24,7 @@ class DenseAssistant(Assistant):
 
 
 def compare(args, tools, options):
+    acquire()
     prompts = [args.prompt, *args.follow_up]
     outputs = {}
     reuse = options["reuse_prefix"]
