@@ -135,6 +135,32 @@ def make(paper, results, result, finish):
                         r["peak"],
                     ]
                 )
+    from loopqwen.evaluation.relations import cluster_randomization
+
+    document_totals = {}
+    for item in panel:
+        if item["kind"] != "complete":
+            continue
+        name = item["call"]["arguments"]["document"]
+        j = item["anchor"]
+        totals = document_totals.setdefault(name, [0, 0, 0])
+        totals[0] += 1
+        totals[1] += int(d["pairs"]["candidate"][j])
+        totals[2] += int(d["pairs"]["control"][j])
+    probability = cluster_randomization([a - b for _, a, b in document_totals.values()])
+    with (paper / "action-preference-documents.csv").open("w") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(
+            [
+                "document",
+                "anchors",
+                "candidate_pairs",
+                "base_pairs",
+                "all_files_cluster_randomization_p",
+            ]
+        )
+        for document, counts in sorted(document_totals.items()):
+            writer.writerow([document, *counts, probability])
     fig, ax = plt.subplots(figsize=(6.7, 2.45))
     labels = [
         "Both file variants",

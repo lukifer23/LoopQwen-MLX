@@ -1,6 +1,8 @@
 """Measure clarification, execution after a follow-up, and retained numerical calls."""
 
 import argparse
+import csv
+import io
 import gc
 import re
 from contextlib import contextmanager
@@ -202,6 +204,30 @@ def outcome(spec, material, data, validation):
 def verify(root, decision):
     spec = read(root / "registration.json")
     material = read(spec["material"])
+    # Reconstruct the registered scalar independently of the live tool callbacks.
+    sheets = {
+        name: list(csv.DictReader(io.StringIO(record["text"], newline="")))
+        for name, record in material["sheets"].items()
+    }
+    anchors = {}
+    for item in material["rows"]:
+        if item["kind"] == "public":
+            continue
+        args = item["call"]["arguments"]
+        records = sheets[args["document"]]
+        scalar = (
+            len(records)
+            if item["call"]["name"] == "csv_row_count"
+            else records[args["row"] - 1][args["column"]]
+        )
+        assert scalar == item["gold"]
+        anchors.setdefault(item["anchor"], []).append(item)
+    assert len(anchors) == 16 and all(
+        {w["kind"] for w in pair} == {"complete", "missing"}
+        and len(pair) == 2
+        and pair[0]["call"] == pair[1]["call"]
+        for pair in anchors.values()
+    )
     meta = read(root / "fit.json")
     assert meta["weights"] == digest(root / "tool-adapters.safetensors") and meta[
         "training"
