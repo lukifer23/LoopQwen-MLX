@@ -1,0 +1,51 @@
+{
+  "id": "native-language-release-02",
+  "combined": "research/results/conditional-language-02",
+  "material": "research/data/deduction-stories-02.json",
+  "longbase": "research/results/deduction-long-base-01",
+  "reader": "research/results/deduction-regions-01",
+  "context": "research/results/conditional-language-128k",
+  "seed": 915023,
+  "prerequisites": {
+    "conditional-language-02": "29918bb4868966ad88ae5b666f64b72d3da93f1d8b0a506070e7941950ca9572",
+    "conditional-language-128k": "ba463d83923ff7ca6d47a74a30ca814701399824e44e4c004e895524a817ff2b",
+    "deduction-regions-01": "12fd2470e8e8919c2e772a54ad6a74bba1b0e8ed35c3602ea80c17449f105875",
+    "deduction-matched-01": "c6e0d3072ece9ad7420620e0680a76ce1c7c24bb92cd76e7c284a59099067fc8",
+    "deduction-replication-01": "8c70b1098ba3c718943ff0f4239f0947dcd9be052b34e0bd79e683b0685be759",
+    "deduction-bypass-01": "188f50c4200163ae269b907f6153ebd23f3a4186c5b3927898e2b26dafaad4de",
+    "deduction-long-base-01": "d2d39ccc60c939525ca1348bbfce608a47a68528c0684c3011baada91a43a255",
+    "evidence-language-release-01": "d46940aa8d72fc65286507837a0831debe451ec0598f0335a65f57b46ca7a699",
+    "native-induction-anchored-01": "6fd54c8d6030b99df8ef98ee658c690df0efd0e23d40d0b0a0c4cb8f8eba91d9",
+    "native-induction-anchored-matched-01": "f717e8c4b998cd883a229f693a75118900da0f0c25408520dd3b833926c67811",
+    "native-induction-anchored-replication-01": "bd9b11c58c0aeaa1ddcf72befa95114eb1610bf84d5e9a86cc614827e9b7ad7f",
+    "native-induction-anchored-bypass-01": "46cfe239e2227070bcdaa1ed53059aabafcaeac194fa573a38f691f47581d143",
+    "native-induction-anchored-longbase-01": "d5ffc1d8197f0b8215676fe3473e674d2360908ae9d0dc61c6f97510bf172bfb",
+    "native-language-release-01": "d341723012dc35927da68a22702d89cbea792cf12bb5a5cb05483f3348a76677"
+  },
+  "question": "Can a separate learned question-intent decision prevent the observed unrelated-route regression while retaining every qualified native-loop result in the 128K standalone export?",
+  "protocol": "Freeze the entire already qualified native release. On training questions alone, fit a two-logit linear MLX head from pinned Qwen token embedding features. Use every distinct genuine training color question and distinct training-only alternative intents (animal type, existence, location, counts, fear, inverse and yes/no color questions), balanced cross-entropy, fixed seed, Adam .003 for 320 updates, confidence .99. Preserve the existing prompt-level gate as well. Export and independently reload, then compare 192 same-narrative off-task inputs with the pre-induction deployment across six question wordings, require all 192 routes and initial nine actual greedy token streams identical, stopping on the first difference. Then require all 64 native, 56 deduction and 80 mixed short streams and routes exactly; exact raw language retention over 120 passages; both 131083-token resident full-history key swaps correct and unchanged. Store actual timing, input commitments, tokens, memory and the standalone artifact inventory.",
+  "gate": "Stop on the first route, answer stream, likelihood or memory discrepancy or budget exhaustion. Require all 192 intent negatives retain their prior route, first nine paired generations identical, all 200 prior positive/mixed generations identical, exact 120-passage NLL, 2/2 physical 128K retrieval with correctly selected spans and <=1.75x the measured Base long latency. Do not promote an incomplete result.",
+  "limits": {
+    "wall_seconds": 1750,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "parent": "research/results/native-language-release-01",
+  "induction": {
+    "reader": "research/results/native-induction-anchored-01",
+    "longbase": "research/results/native-induction-anchored-longbase-01",
+    "material": "research/data/native-induction-anchored-01.json"
+  },
+  "export": "exports/native-language-release-02",
+  "intent_scope": {
+    "material": "research/data/native-induction-anchored-01.json",
+    "prior": "research/results/evidence-language-release-01",
+    "stories_per_panel": 16,
+    "generation_replays": 9,
+    "generation_cap": 192,
+    "extended": true
+  },
+  "observations": {
+    "native-scope-retention-01": "275d7e85053749b98fa7320e2e8047434c401fc9be07aa858d43af51276c8ee9"
+  }
+}

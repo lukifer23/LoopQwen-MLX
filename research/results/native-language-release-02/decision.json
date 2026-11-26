@@ -1,0 +1,60 @@
+{
+  "registration": "c4f72bca7686b6ff92ac4d602407aaf4033b9f3a11792d2a2699701fbf5b12ea",
+  "passed": true,
+  "policy": "0b7115b1b01a79bfb3ed5e1b4ded238534770a16eb4e0e1b16348de3a8d3f55f",
+  "intent_scope": {
+    "requests": 192,
+    "replays": 9,
+    "passed": true,
+    "status": "completed"
+  },
+  "native_induction": {
+    "identical": 64,
+    "seconds": 16.045387711084913
+  },
+  "deduction": {
+    "identical": 56,
+    "seconds": 14.855884998105466
+  },
+  "mixed": {
+    "identical": 80,
+    "seconds": 418.16910308701335
+  },
+  "retention": {
+    "nll": 2.9826581153386043,
+    "by_domain": {
+      "code_description": {
+        "loss": 4470.292913913727,
+        "tokens": 1733,
+        "nll": 2.5795112024891673
+      },
+      "general_prose": {
+        "loss": 7185.204305648804,
+        "tokens": 1911,
+        "nll": 3.759918527288751
+      },
+      "reference": {
+        "loss": 4169.751423716545,
+        "tokens": 1680,
+        "nll": 2.481994895069372
+      },
+      "scientific_exposition": {
+        "loss": 7110.921858847141,
+        "tokens": 2291,
+        "nll": 3.1038506585976173
+      },
+      "technical_explanation": {
+        "loss": 4886.064397752285,
+        "tokens": 1713,
+        "nll": 2.852343489639396
+      }
+    },
+    "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+  },
+  "raw_requests": 120,
+  "context": {
+    "correct": 2,
+    "seconds": 525.8365125840064
+  },
+  "status": "completed"
+}
