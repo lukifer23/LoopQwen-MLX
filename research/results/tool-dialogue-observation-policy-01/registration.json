@@ -1,0 +1,26 @@
+{
+  "id": "tool-dialogue-observation-policy-01",
+  "question": "Can one frozen recurrent backbone preserve original first-turn tool behavior exactly and use the improved observation adapter for follow-ups without losing any previously correct task?",
+  "workload": "mixed_tool_retention",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "observation_adapter": "research/results/tool-dialogue-counterfactual-01",
+  "observation_archive": "0ad054ef3b840ea0ecd67b5428e537cac706cf83996dc82799c0733331049961",
+  "candidate": "restore:research/results/tool-dialogue-typed-01",
+  "control": "restore:research/results/tool-dialogue-typed-01",
+  "material": "research/data/tool-counterfactual-retention.json",
+  "max_tokens": 384,
+  "max_turns": 4,
+  "stop_at_turn_end": true,
+  "net_floor": 6,
+  "p_max": 0.05,
+  "time_ratio": 1.1,
+  "extra_bytes": 16777216,
+  "protocol": "Direct engineering crossover between the shipping typed K2 and two K2 adapter views of its identical shared quantized backbone. Both use the exact original weights and greedy policy on every first turn. Only receipt of an actual callback observation selects the joint adapter for later turns. The same rule applies to any caller-provided schema. No benchmark identifiers, oracle, best-of sampling, extra model passes per token or extra turn budget. Execute every callback. Compare all 132 complete sessions, original 102 prior measurements and the existing 132 joint references. Verify every initial output token sequence is unchanged. The change is independent of the failed attempt to replace the first-turn adapter everywhere.",
+  "gate": "At least six net additional complete correct sessions over original K2 and p<=.05, exactly identical first turns, zero formerly correct items lost relative to either original K2 or the full joint K2, end-to-end time <=1.10 times original K2 and peak <=16 MiB higher. Failure closes this fixed two-adapter policy. A pass licenses a direct untouched Base comparison on fresh field sessions and stored-output qualification before deployment. The single-adapter replacement remains closed by its structural regression.",
+  "limits": {
+    "wall_seconds": 495,
+    "peak_gib": 6.8,
+    "available_gib": 1.4
+  }
+}
