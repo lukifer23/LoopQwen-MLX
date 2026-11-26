@@ -21,7 +21,14 @@ def main(verify):
             {
                 k: True
                 for k, v in read(ROOT / "research/registry.json")["experiments"].items()
-                if k.startswith(("tool-", "native-language-release-02"))
+                if k.startswith(
+                    (
+                        "tool-",
+                        "contrast-boolq-",
+                        "register-rebalanced-",
+                        "native-language-release-02",
+                    )
+                )
                 and v["archive"]
             }
         )

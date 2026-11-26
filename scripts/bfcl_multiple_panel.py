@@ -27,7 +27,9 @@ if __name__ == "__main__":
     ]
     labels = {r["id"]: r["ground_truth"] for r in labels}
     seen = set()
+    from loopqwen.tool_session import SYSTEM
     for r in read("research/data/tool-dialogue-typed-training.json")["examples"]:
+        seen.update(f["name"] for f in json.loads(r["messages"][0]["content"].removeprefix(SYSTEM)))
         if r["visible"].startswith('{"name"'):
             seen.add(json.loads(r["visible"])["name"])
     for r in (

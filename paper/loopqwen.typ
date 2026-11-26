@@ -19,7 +19,7 @@ LoopQwen-MLX project · 26 November 2026 · Technical report
 = Abstract
 We study whether pretrained Qwen3.5-0.8B-Base can answer more questions correctly by applying a decoder layer more than once. We compare the deployed system with untouched Base and separately compare depth under matched supervision. The clearest effect occurs when a repeated native attention layer updates a question from fixed sentence representations. Across two disjoint induction panels it answered 124 of 128 questions correctly, against 58 with a separately trained one-pass layer. The paired difference survived a second training seed, a same-weight bypass, a longer one-pass fit and a class-swap intervention. In contrast, trained recurrent and ordinary-depth arithmetic and entailment models tied on final-answer accuracy. A trained kinship model performed better with one pass.
 
-We extend the comparison to calling external functions, following their observations, comparing returned quantities and asking for missing arguments. We record the generated calls, actual program responses and final answers. The language release also retrieved both answers from 131,083-token register prompts; Base retrieved neither and finished sooner. The combination of these results supports a task-specific account of when shared depth helps. The companion evidence index includes failed gates and identifies the exact registered archives behind the figures.
+We extend the comparison to calling external functions, following their observations, comparing returned quantities and asking for missing arguments. We record the generated calls, actual program responses and final answers. A tool-mode model initialized from the instruction-tuned Qwen sibling and fitted on unrelated demonstrations then executed 17/22 publisher-authored numerical requests correctly, versus 0/22 for untouched Base. Base answered eight numerically without the required call. The language release also retrieved both answers from 131,083-token register prompts; Base retrieved neither and finished sooner. The combination of these results supports a task-specific account of when shared depth helps. The companion evidence index includes failed gates and identifies the exact registered archives behind the figures.
 
 = Research questions
 *System benefit.* Under identical prompts, thinking policy, scorer and output allowance, does a user receive a correct completed answer sooner? A sparse answer correction, adapter training or a change in response termination can improve this endpoint. Each requires its own attribution test.
@@ -78,6 +78,38 @@ The public function test contains the first 24 consecutive questions from BFCL v
 
 == Training and inference costs
 The final-layer tool adapter occupies 3.06 MiB as FP32 factors over the frozen BF16 decoder. Its two fits had identical input batches and 19,364 scored response tokens. Prefix feature preparation took 25.13 seconds for two passes and 25.11 seconds for one. The optimizer consumed 39.47 and 25.11 seconds respectively. The matched run timed full interactive sessions, including multiple fresh prefills, greedy decoding, argument validation and Python callback execution. These are warm-model measurements. Startup, model download and construction of the combined export are outside the session timer. The shared-backbone tool view requires no second copy of the ordinary weights.
+
+#pagebreak()
+= Grounded reasoning over tool observations
+The second Base-initialized fit repeats layers 20–23 twice. Each active pass includes three gated delta layers and one global attention layer. The repeated suffix has 1,803,776 trainable LoRA parameters. All preceding decoder features are cached during fitting. Written numeric comparisons and short intermediate references supervise the model's generated reasoning before the chat boundary. We also include 89 unrelated read-only demonstrations from the Hermes/Glaive corpus across 31 called function names. The resulting 818 teaching turns receive 760 AdamW updates, minibatches of four, and 64,707 response targets. Native Gated DeltaNet differentiation and activation checkpointing support training on the 18 GiB device. Feature preparation took 54.66 seconds and optimization took 647.85 seconds.
+
+Ten episodes per task family span railway, tournament, warehouse and archive catalogs. Half the requests use a new wording construction. On this fresh panel the trained model completed all 50 episodes and succeeded on 38 episodes, versus 7/50 for Base. The two arms used 1,486 and 8,040 output tokens and took 35.43 and 119.05 seconds. The trained model gained 31 items with zero losses; the episode-level exact paired test gives $p < 10^(-8)$. Its end-to-end successes were 9/10 lookups, 6/10 chains, 4/10 comparisons, 10/10 direct answers and 9/10 clarifications. The four domains had net gains of 9, 7, 8 and 7 in the order given above.
+
+The gate required at least 7/10 chains and 6/10 comparisons. The fit failed both floors. In six comparisons the model named a site without calling either data source. In another case it used an entity name as the key for a location measurement and repeated the error after the lookup failed. A finish marker and a plausible answer do not establish grounding. Counting final text alone would credit 42/50. The failed gate closed this checkpoint's deployment and its matched-depth follow-up.
+
+#figure(image("trajectory-outcomes.svg",width:95%),caption: [Mutually exclusive terminal outcomes. The width is the share of enrolled episodes in that arm. A valid final answer supported by an incorrect or missing call falls in the finished, incorrect category.])
+
+#pagebreak()
+= External execution with typed arguments
+The first catalog adapter learned to ask for a missing entity on a multi-argument request where every quantity was given. We addressed the input distribution and the starting model in a new trial. The typed model starts from Qwen3.5-0.8B at revision `2fc06364715b967f1860aea9cf38778875588b17`, an instruction-tuned sibling of the pinned Base. Frozen embeddings and linear weights outside layer 23 use affine 8-bit quantization in groups of 64. Layer 23 remains BF16 with shared rank-32 adapters and runs twice. Both study arms use the pinned Base tokenizer, identical chat messages, EOS and turn-end IDs, and free greedy decoding.
+
+The new curriculum contains 384 two-turn interactions with eight local utilities covering dates, shopping, calibration, strings and lists, 89 public demonstrations and 128 controlled teaching turns. We generated a real callback result for each local training request. In total 1,074 supervised turns supplied 53,271 sampled response targets over 600 AdamW updates, batch four. The learning rate was 0.00012. Native feature preparation took 92.17 seconds, followed by 76.45 optimizer seconds. The trial changes training, parent checkpoint, recurrent depth and precision relative to Base.
+
+The first 22 consecutive BFCL v3 executable-simple questions specify 11 numerical functions with two questions apiece. The original user request and typed signature are exposed, alongside the same instruction to call and report the returned number. A local callback executes with the generated arguments. Both models receive the actual returned value rounded to seven significant digits. The evaluator separately reads the publisher's literal name and arguments, executes the reference function and requires a final number within 0.5% relative error. For the reported success, the model must also have executed exactly one correctly typed publisher call. The three-turn limit and 384-token allowance apply separately to both arms. These results describe a local BFCL subset and score.
+
+#tab([*On 22 public requests*],[*Typed recurrent*],[*Untouched Base*],
+[Correct executed task],[17 / 22],[0 / 22],
+[Correct final number],[17 / 22],[8 / 22],
+[Completed final answer],[19 / 22],[12 / 22],
+[Generated tokens],[1,084],[5,634],
+[Full session time],[15.15 s],[82.82 s],
+[Peak MLX allocation, warm model],[1.08 GiB],[1.66 GiB],
+)
+The recurrent system gained 17 episodes with zero losses. The exact episode-level paired test gives $p = 0.0000153$; a sign-flip sensitivity test by function gives $p = 0.00391$. It supplied 5 and 4 where the two compound-interest calls required 0.05 and 0.04. The resulting callback outputs were faithfully reported and numerically wrong for the requested question. The two long-list means and one velocity call failed argument parsing or validation. This decomposition distinguishes parameter grounding from fidelity to the observation.
+
+#pagebreak()
+= Human-edited reading questions
+#include "reading-results.typ"
 
 #pagebreak()
 = Relationship to prior work

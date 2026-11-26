@@ -222,6 +222,10 @@ def main():
     benchmark_table()
     historical()
     tools_figure()
+    trajectory_details()
+    from paper_panels import generate
+
+    generate(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"
@@ -273,6 +277,123 @@ def tools_figure():
     ax.set(ylabel="Successful episodes / 6", ylim=(0, 7), yticks=range(0, 7, 2))
     ax.legend(loc="upper center", bbox_to_anchor=(0.5, 1.22), ncol=2, frameon=False)
     finish(fig, "tools")
+
+
+def trajectory_details():
+    from loopqwen.evaluation.mechanism import unpack
+
+    studies = [
+        "tool-dialogue-boundary-01",
+        "tool-dialogue-grounded-01",
+        "tool-dialogue-typed-01",
+    ]
+    colors = ["#11675d", "#d69e4a", "#a94d3d", "#667784"]
+    outcomes = ["Executed success", "Finished, incorrect", "Invalid call", "Incomplete"]
+    bars = []
+    with (PAPER / "tool-trajectories.csv").open("w") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(
+            [
+                "study",
+                "arm",
+                "id",
+                "family",
+                "success",
+                "valid_path",
+                "correct_answer",
+                "status",
+                "executed_calls",
+                "generated_tokens",
+                "seconds",
+            ]
+        )
+        for study in studies:
+            if not (RESULTS / study / "checksums.json").exists():
+                continue
+            result(study)
+            material = read(
+                ROOT / read(RESULTS / study / "registration.json")["material"]
+            )
+            items = material["rows"] if isinstance(material, dict) else material
+            for side in ("candidate", "control"):
+                counts = [0, 0, 0, 0]
+                path = RESULTS / study / (side + ".json.gz")
+                if digest(path) != read(RESULTS / study / "checksums.json")[path.name]:
+                    raise ValueError("Tool trajectory checksum mismatch")
+                for r, item in zip(unpack(path), items, strict=True):
+                    assert r["id"] == item["id"]
+                    score = r["score"]
+                    traj = r["trajectory"]
+                    status = traj["status"]
+                    counts[
+                        0
+                        if score["success"]
+                        else 1
+                        if status == "answered"
+                        else 2
+                        if status == "invalid_call"
+                        else 3
+                    ] += 1
+                    family = item.get("kind") or item["function"][0]["name"]
+                    writer.writerow(
+                        [
+                            study,
+                            side,
+                            item["id"],
+                            family,
+                            int(score["success"]),
+                            int(score["path"]),
+                            int(score["correct_answer"]),
+                            status,
+                            sum("observation" in t for t in traj["turns"]),
+                            sum(len(t["token_ids"]) for t in traj["turns"]),
+                            traj["seconds"],
+                        ]
+                    )
+                short = {
+                    "tool-dialogue-boundary-01": "Catalog",
+                    "tool-dialogue-grounded-01": "Four-layer",
+                    "tool-dialogue-typed-01": "Public execution",
+                }[study]
+                bars.append(
+                    (
+                        short + (" · recurrent" if side == "candidate" else " · Base"),
+                        counts,
+                    )
+                )
+    fig, ax = plt.subplots(figsize=(6.7, 2.6))
+    for i, (name, counts) in enumerate(bars):
+        total = sum(counts)
+        loc = 0
+        for j, (c, num) in enumerate(zip(colors, counts, strict=True)):
+            fraction = 100 * num / total
+            if num:
+                ax.barh(i, fraction, left=loc, color=c, height=0.66)
+                if fraction >= 8:
+                    ax.text(
+                        loc + fraction * 0.5,
+                        i,
+                        str(num),
+                        ha="center",
+                        va="center",
+                        color="white" if j != 1 else "#232323",
+                        fontsize=8,
+                    )
+            loc += fraction
+    for col, label in zip(colors, outcomes, strict=True):
+        ax.barh([], [], color=col, label=label)
+    ax.set_yticks(range(len(bars)), [v[0] for v in bars])
+    ax.invert_yaxis()
+    ax.set_xlim(0, 100)
+    ax.set_xlabel("Share of all episodes (%) · labels give counts")
+    ax.legend(
+        loc="upper center",
+        bbox_to_anchor=(0.5, 1.25),
+        ncol=2,
+        frameon=False,
+        fontsize=8,
+    )
+    finish(fig, "trajectory-outcomes")
 
 
 if __name__ == "__main__":
