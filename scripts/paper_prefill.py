@@ -440,15 +440,21 @@ def full_decoder(paper, results, result, finish):
     finish(fig, "full-decoder")
 
 
-def direct_fused(paper, results, result, finish):
-
-    study = "register-fused-base-full-01"
+def direct_fused(
+    paper,
+    results,
+    result,
+    finish,
+    *,
+    study="register-fused-base-full-01",
+    prefix="fused-base",
+):
     root = results / study
     if not (root / "checksums.json").is_file():
         return
     rates = result(study)["throughput"]
     sums = read(root / "checksums.json")
-    with (paper / "fused-base-requests.csv").open("w") as stream:
+    with (paper / (prefix + "-requests.csv")).open("w") as stream:
         w = csv.writer(stream)
         w.writerow(
             [
@@ -519,4 +525,4 @@ def direct_fused(paper, results, result, finish):
         ax.invert_yaxis()
         ax.set_xlim(0, ax.get_xlim()[1] * 1.35)
         ax.set_xlabel(label)
-    finish(fig, "fused-base-full")
+    finish(fig, prefix + "-full")

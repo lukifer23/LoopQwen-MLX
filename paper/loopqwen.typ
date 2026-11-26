@@ -147,6 +147,12 @@ After decoding the actual 1,024 fitting contexts to text and masking quantities,
 
 The public comparison uses 20 fresh human word problems, 20 fresh human BoolQ questions, all 22 retention calls from the public numerical suite and the 30 live file, database and package requests of the field benchmark. We preserve each initial prompt ID, repeat the same shuffled 92-request stream on untouched ordinary Base and include the initial load, subsequent switches, actual tool observations and terminal outcomes. Any lost previously correct public action within these subsets closes deployment. A matched one-application attribution study and independent long-context qualification require a passing direct result first.
 
+The correction used 590,848 parameters and 2,363,392 bytes in place of 22,927,968 original layer bytes. Both serving views together occupied 799,740,004 unique parameter bytes. On held-out prose, normalized hidden error fell from 0.2070 with uncompensated repetition to 0.0749. On held-out tool dialogue it fell from 0.3146 to 0.0332. The two views each reproduced their incremental top token. These local checks preceded the independent user-level readout.
+
+#figure(image("folded-system.svg",width:100%),caption:[User successes and mean elapsed seconds on the same 92 requests. Strict tool success requires the recorded execution. Fresh human questions use the completed visible answer.])
+
+The folded model succeeded on 33/92 requests versus 30/92 for ordinary Base, with 21 paired gains and 18 losses (item and cluster $p=0.749$). Both supplied 39 correct final answers. The folded model executed 22 grounded actions versus one, including eight of eight file requests versus one. It lost three historically successful database actions and four public numerical actions. On the 40 fresh human requests, all 18 disagreements favored Base. Mathematics scored 8/20 versus 14/20 and BoolQ scored 3/20 versus 15/20. Asked whether Bruce Forsyth hosted _The Price Is Right_, the candidate exhausted its 384-token allowance before answering. Base completed the correct “Yes.” Across all requests the folded model took 177.99 versus 364.74 s and peaked at 1.06 versus 1.66 GiB. Summed time to first token was 7.73 versus 7.30 s. This fit missed the promotion and one-pass attribution thresholds.
+
 == Lossless distribution of the complete assistant
 The qualified bundle contains separate language and tool backbones. We compared ordinary level-six DEFLATE of its complete file inventory with a reversible representation that uses the original Base tensors and the sibling's actual scale and bias to predict quantized weight bytes. The archive stores the residual bytes; the decoder reconstructs the exact original tensor headers and payloads. The encoding is applied before DEFLATE and leaves the installed model precision intact.
 
@@ -325,5 +331,11 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 [40] Rafailov et al. (2023). Direct preference optimization, your language model is secretly a reward model. #link("https://arxiv.org/abs/2305.18290")[NeurIPS].
 
 [41] Horst, Hill and Gorman. Palmer Penguins, observations from Palmer Station LTER. #link("https://allisonhorst.github.io/palmerpenguins/")[Publisher and original data].
+
+[42] Chen et al. (2021). FinQA, a dataset of numerical reasoning over financial data. #link("https://aclanthology.org/2021.emnlp-main.300/")[EMNLP].
+
+[43] Lu et al. (2023). Dynamic prompt learning via policy gradient for semi-structured mathematical reasoning. #link("https://arxiv.org/abs/2209.14610")[ICLR, TabMWP].
+
+[44] Schick et al. (2023). Toolformer, language models can teach themselves to use tools. #link("https://arxiv.org/abs/2302.04761")[NeurIPS].
 
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

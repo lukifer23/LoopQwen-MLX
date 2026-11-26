@@ -92,6 +92,8 @@ The field-performance figure compares complete request time and correctness on t
 | `-m loopqwen.research.narrative_book` | Whole-novel question and person-name intervention with physical KV offsets |
 | `-m loopqwen.research.register_allocation` | Reserved and incrementally grown full-history storage on identical weights |
 | `-m loopqwen.research.folded_system` | One physical gated-delta block at two instruction-model depths, hidden reconstruction, 40 new human questions and 52 historical public/field actions |
+| `-m loopqwen.research.report_calculation` | Full issuer-disjoint report and table prompts, alternating real calculator calls, final-number accuracy and numerical reuse |
+| `-m loopqwen.research.action_preferences` | External response preferences, targeted file clarification, real CSV reads and public tool retention |
 | `-m loopqwen.research.draft_program` | Actual generated reasoning prefixes, native recurrent action training, live calculator observations and fresh human arithmetic |
 | `-m loopqwen.research.selective_raw` | Selective larger-teacher supervision, 300 raw passages and incremental cache parity |
 | `-m loopqwen.research.linked_reading` | Directed evidence relations and actual ten-document HotpotQA answers |
@@ -130,3 +132,5 @@ The fresh 131K direct comparison reports unaggregated prompt and output rates, d
 The file-dialogue audit compares every enrolled request and follow-up to both the external preference-fitting questions and the original tool-training replay. It reports exact and near matches with and without numerical normalization. [Input overlap](action-preference-inputs.csv)
 
 The arithmetic draft supplement includes the model-generated reasoning length, emitted program, callback result, final number and wall time for both arms on every fresh human question. [Requests and executions](draft-program-requests.csv) · [Human final-number and grounding scores](draft-program.svg)
+
+The single-backbone study reports both user outcomes and hidden reconstruction. [Scores and resources](folded-system.csv) · [All 184 responses](folded-requests.csv) · [Performance by request type](folded-system.svg)

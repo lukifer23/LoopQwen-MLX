@@ -67,7 +67,7 @@ def build_view(model):
             if not isinstance(compact, nn.QuantizedLinear) or not isinstance(
                 getattr(b.mlp, name), nn.Linear
             ):
-                raise ValueError(
+                raise TypeError(
                     "Only the new register view may convert the original feed-forward weights"
                 )
             paths.append(f"layers.{i}.mlp.{name}")

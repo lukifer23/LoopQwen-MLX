@@ -368,6 +368,7 @@ def main():
     from paper_raw import make as plot_raw
     from paper_raw import selective
     from paper_passages import make as plot_passages
+    from paper_calculation import make as plot_calculation
     from paper_folded import make as plot_folded
     from paper_draft_program import make as plot_draft_program
     from paper_preferences import make as plot_preferences
@@ -380,6 +381,7 @@ def main():
     plot_meaning(PAPER, RESULTS, result, finish)
     plot_draft_program(PAPER, RESULTS, result, finish)
     plot_preferences(PAPER, RESULTS, result, finish)
+    plot_calculation(PAPER, RESULTS, result, finish)
     plot_folded(PAPER, RESULTS, result, finish)
     plot_intents(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
@@ -412,6 +414,14 @@ def main():
     decode_operator(PAPER, RESULTS, result, finish, "packed-decode-kernel-02")
     full_decoder(PAPER, RESULTS, result, finish)
     direct_fused(PAPER, RESULTS, result, finish)
+    direct_fused(
+        PAPER,
+        RESULTS,
+        result,
+        finish,
+        study="register-mixed-weight-full-01",
+        prefix="mixed-weight",
+    )
     conversations(PAPER, RESULTS, result)
     deployment(PAPER, RESULTS, result, finish)
     transport(PAPER, RESULTS, result, finish)

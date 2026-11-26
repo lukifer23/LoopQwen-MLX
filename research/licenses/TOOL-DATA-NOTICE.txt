@@ -64,3 +64,29 @@ training fold is used. Training questions similar to the external transfer
 sources are removed before sampling.
 https://aclanthology.org/N16-1136/
 https://github.com/arkilpatel/SVAMP/tree/78e727689e1c1bebfc4be39c446898e8e10b0518/data/cv_mawps
+
+NVIDIA When2Call, by NVIDIA, is distributed under CC BY 4.0. The local study
+selects response pairs, converts the schema to the local tool format, and
+renders chosen and rejected answers for the native tokenizer.
+https://huggingface.co/datasets/nvidia/When2Call/tree/0582f7749df63a96fdc3070932e83e72396ace53
+https://creativecommons.org/licenses/by/4.0/
+
+The two Palmer Penguins CSV files use observations collected by Kristen Gorman
+and Palmer Station Antarctica LTER, distributed by Allison Horst, Alison Hill
+and Kristen Gorman under CC0. The project supplies the questions and uses
+the two published sheets in their original form.
+https://allisonhorst.github.io/palmerpenguins/
+
+The financial examples use FinQA by Chen et al. (EMNLP 2021). See FINQA-MIT.txt.
+The project renders the report and table in text, executes arithmetic programs,
+and converts fitting examples to successive calculator exchanges.
+https://github.com/czyssrs/FinQA/tree/0f16e2867befa6840783e58be38c9efb9229d742
+https://aclanthology.org/2021.emnlp-main.300/
+
+TabMWP data are by Lu et al. (ICLR 2023). The 24 evaluation tables, adapted
+prompts and corresponding table/question text in the supplements are available
+under the source dataset's CC BY-NC-SA 4.0 license. The project selects
+free-response questions, renders the tables as text, and adds the shared
+calculator instruction. The local training set contains no TabMWP examples.
+https://github.com/lupantech/PromptPG/tree/5a1a52214521590b075f545b76a4f5ce666345e3
+https://creativecommons.org/licenses/by-nc-sa/4.0/
