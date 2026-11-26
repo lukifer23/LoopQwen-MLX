@@ -1,0 +1,54 @@
+{
+  "id": "native-induction-class-swap-01",
+  "question": "Does changing the queried person's class, while holding the question and complete token multiset fixed, change the native loop's conclusion correctly?",
+  "requires": "native-induction-anchored-bypass-01",
+  "prerequisite_sha256": "46cfe239e2227070bcdaa1ed53059aabafcaeac194fa573a38f691f47581d143",
+  "material": "research/data/native-induction-class-swap-01.json",
+  "seed": 8813522,
+  "sizes": {
+    "train": 1536,
+    "primary": 64,
+    "replication": 64
+  },
+  "fit_seed": 5101,
+  "rank": 64,
+  "lr": 0.00045,
+  "batch": 32,
+  "updates": 3000,
+  "auxiliary": 1.2,
+  "panel": "intervention",
+  "arms": {
+    "recurrent": {
+      "depth": 3,
+      "reader": "research/results/native-induction-anchored-01",
+      "weights": "67264d560c70d48a5e7fe49679fc7ecd0b6872c997495fe8ecd416c6a1caa759"
+    },
+    "dense": {
+      "depth": 1,
+      "reader": "research/results/native-induction-anchored-matched-01",
+      "weights": "deea8d40ce87bac35b6fe94b701c29f9c8cb497f67621b5532126faf2fed8cbf"
+    }
+  },
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "From 500 hash-selected, previously unused official test stories retain 32 unique stories with one supporting classmate. Swap the class terms of two individuals. Require one supporting classmate after reassignment, different gold colors and exactly two exchanged single tokens. No predictions enter selection. Alternate before/after ordering. Both models receive the same raw prompts, 192 token allowance and first-turn answer scorer. Reuse learned weights with no training. Score each entire pair as a single independent unit in the primary statistical test.",
+  "gate": "Require both versions correct on >=24 of 32 pairs, at least seven net whole pairs over the independently trained one-pass model, exact two-sided paired p<.05 by original story, >=8 net answers and >=4 net probes with <=1.50x measured control seconds. Stop on budget or memory warning.",
+  "limits": {
+    "wall_seconds": 360,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "exclude": [
+    "research/data/native-induction-01.json",
+    "research/data/native-induction-anchored-01.json"
+  ],
+  "architecture": "anchored_native",
+  "decay_start": 1800,
+  "isolated_answer_weight": 1.0,
+  "class_swap": true,
+  "pairs": 32,
+  "pair_floor": 24,
+  "pair_net": 7
+}
