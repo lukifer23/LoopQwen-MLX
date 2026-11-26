@@ -6,6 +6,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Four process-isolated 50-request streams and tokenizer counts](tokenizer-streams.csv)
 - [131K mixed-weight requests, prefill and decode rates, setup costs and physical histories](mixed-weight-requests.csv)
 - [Every full 131K request in counterbalanced execution order](full-decoder.csv)
+- [Repaired release 04, including all answers, medium replays and numbers of biased native queries](repaired-register-streams.csv)
 - [All four compact offline workload streams, with native and process memory](compact-register-streams.csv)
 - [Every article and paper response with returned character ranges](document-search-responses.csv)
 - [Manuscript source](loopqwen.typ)

@@ -43,7 +43,9 @@ A two-pass semantic alignment model answered 44/48 Wikipedia paraphrase comparis
 
 ## Run the offline assistant
 
-The latest qualified offline assistant is **`exports/tool-language-packed-03`**. It enables packed prefill on register requests of at least 16,384 tokens. In an isolated comparison against its parent it answered both 24,593-token swaps identically in 32.44 versus 37.52 s, with peak allocation of 1.94 versus 2.25 GiB. It also reproduced all 512 per-token losses and predictions after reading two whole books, 12 short generations and two actual package calls. [Deployment qualification](research/results/packed-release-retention-01)
+The latest qualified offline assistant is **`exports/tool-language-packed-04`**. On two 131,084-token requests it returned the correct changed values, 307958 and 481506. Release 03 returned the same incorrect value twice. The repaired bundle applies the learned evidence mask to packed attention and uses compact weights for long register requests. Post-first decoding reached 29.34 and 28.37 versus 17.24 and 17.23 tokens/s with peak MLX allocation of 2.35 versus 2.80 GiB. Both 24K outputs, all 512 book next-token decisions and losses, 12 short generations and two live package replies matched their qualified references. [Complete isolated crossover](research/results/packed-release-retention-03) · [Answers, speed and memory per request](paper/repaired-register-streams.csv)
+
+The earlier release `exports/tool-language-packed-03` enables packed prefill on register requests of at least 16,384 tokens. In an isolated comparison against its parent it answered both 24,593-token swaps identically in 32.44 versus 37.52 s, with peak allocation of 1.94 versus 2.25 GiB. It also reproduced all 512 per-token losses and predictions after reading two whole books, 12 short generations and two actual package calls. [Deployment qualification](research/results/packed-release-retention-01)
 
 On a separate 131,084-token replay, the isolated packed-03 bundle located the correct passages but produced the wrong code on both requests. Its bundled evidence-mask code skipped packed caches. The direct 131K research result uses a runtime that applies the mask. [Isolated outputs](research/results/packed-release-retention-02)
 
@@ -54,7 +56,7 @@ The parent release `exports/tool-language-field-02` established the field CLI an
 .venv/bin/python -m loopqwen tools --checkpoint exports/tool-language-packed-03 --packages --prompt "What version of numpy is installed?" --max-tokens 256
 ```
 
-For text inference, `generate --checkpoint exports/tool-language-packed-03 --prompt-file document-and-question.txt --thinking --max-tokens 96` reads the entire UTF-8 input through the same installed `python -m loopqwen` entry point. The returned `context_route` identifies the selected decoder.
+For text inference, `generate --checkpoint exports/tool-language-packed-04 --prompt-file document-and-question.txt --thinking --max-tokens 96` reads the entire UTF-8 input through the same installed `python -m loopqwen` entry point. The returned `context_route` identifies the selected decoder.
 
 Use `ask --compare-base` to try your own questions on the installed assistant and untouched ordinary Base. It runs them sequentially with the same opening prompt IDs and thinking budget. You get both replies, executed calls and observations, output counts, measured first-token and full-request time, and peak MLX bytes. The first request includes model loading. Follow-ups preserve each model’s own conversation and report whether the resulting prompt IDs still match. A single run uses recurrent-first order and the OS file cache can persist.
 
@@ -103,7 +105,7 @@ The installed runtime caches the tokenizer for the qualified packed-03 export. A
 
 ### Restore the offline assistant
 
-The current packed assistant ships locally as `exports/tool-language-packed-03.lqzip`, **1,544,032,264 bytes**. It is 22.68% smaller than ordinary ZIP of the same payload. Verified restoration took 7.07 s. All 63 files and the isolated package-query output matched. The archive SHA-256 is `02ddce5dee22cd193829a430f5d51af5b460a61394f1572bd0d3cb5334ba38ce`. From the repository root, restore into an unused directory. [Release receipt](research/results/transport-lossless-02) · [Earlier assistant transport](research/results/transport-lossless-01)
+Release 03 is also available locally as `exports/tool-language-packed-03.lqzip`, **1,544,032,264 bytes**. It is 22.68% smaller than ordinary ZIP of the same payload. Verified restoration took 7.07 s. All 63 files and the isolated package-query output matched. The archive SHA-256 is `02ddce5dee22cd193829a430f5d51af5b460a61394f1572bd0d3cb5334ba38ce`. From the repository root, restore into an unused directory. [Release receipt](research/results/transport-lossless-02) · [Earlier assistant transport](research/results/transport-lossless-01)
 
 ```sh
 .venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-packed-03.lqzip exports/restored-tool-language-packed-03

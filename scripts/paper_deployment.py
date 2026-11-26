@@ -261,7 +261,7 @@ def providers(paper, results, result):
 
 
 def packed_delivery(paper, results, result):
-    studies = ["transport-lossless-01", "transport-lossless-02"]
+    studies = ["transport-lossless-01", "transport-lossless-02", "transport-lossless-03"]
     with (paper / "release-transport.csv").open("w") as output:
         w = csv.writer(output)
         w.writerow(
