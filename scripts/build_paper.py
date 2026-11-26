@@ -37,6 +37,7 @@ def main(verify):
                         "session-tokenizer-",
                         "meaning-alignment-",
                         "draft-program-",
+                        "folded-system-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

@@ -135,6 +135,12 @@ Four fresh processes each served the same 50 requests, with policies in ABBA ord
 
 #figure(image("tokenizer-streams.svg",width:94%),caption:[Each point measures one entire 50-request stream in a fresh process. Switch latency includes all work from the incoming request to its first emitted token.])
 
+== Folding adjacent native layers into one mixed-use backbone
+
+The released assistant changes backbones when a caller switches between tools and ordinary language. Bae et al. [38] initialized recursive models from unshared transformers and used depth-specific adapters to recover specialization. We test a local conversion of the qualified instruction sibling. We discard gated-delta layer 21 and run the same physical layer 20 twice, maintaining two convolution and delta states. A rank-192 bottleneck sees the second call’s input and residual. It learns to reconstruct the removed block’s output in units of the input RMS. The 23 remaining physical layers supply 24 layer calls for ordinary text and 25 for tools, which also use the existing final-layer tool adapter. Both modes share the same instruction arrays. The fitting targets are native hidden vectors from 512 prose excerpts and 512 distinct tool conversations, with 24 sampled positions per document. Another 64 documents measure error against skipping the removed transform or repeating its predecessor without repair.
+
+The public comparison uses 20 fresh human word problems, 20 fresh human BoolQ questions, all 22 retention calls from the public numerical suite and the 30 live file, database and package requests of the field benchmark. We preserve each initial prompt ID, repeat the same shuffled 92-request stream on untouched ordinary Base and include the initial load, subsequent switches, actual tool observations and terminal outcomes. Any lost previously correct public action within these subsets closes deployment. A matched one-application attribution study and independent long-context qualification require a passing direct result first.
+
 == Lossless distribution of the complete assistant
 The qualified bundle contains separate language and tool backbones. We compared ordinary level-six DEFLATE of its complete file inventory with a reversible representation that uses the original Base tensors and the sibling's actual scale and bias to predict quantized weight bytes. The archive stores the residual bytes; the decoder reconstructs the exact original tensor headers and payloads. The encoding is applied before DEFLATE and leaves the installed model precision intact.
 
@@ -292,5 +298,7 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 [36] Dao (2024). FlashAttention-2, faster attention with better parallelism and work partitioning. #link("https://arxiv.org/abs/2307.08691")[ICLR].
 
 [37] Li et al. (2023). API-Bank, a comprehensive benchmark for tool-augmented LLMs. #link("https://aclanthology.org/2023.emnlp-main.187/")[EMNLP].
+
+[38] Bae et al. (2025). Relaxed recursive transformers, effective parameter sharing with layer-wise LoRA. #link("https://proceedings.iclr.cc/paper_files/paper/2025/hash/54d6a55225cebbdc16fbb0e45c5bdf2b-Abstract-Conference.html")[ICLR].
 
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

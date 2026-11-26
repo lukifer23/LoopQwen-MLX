@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("folded-system-"):
+        from loopqwen.research.folded_system import verify as verify_folded
+
+        verify_folded(root, decision)
     if study.startswith("draft-program-"):
         from loopqwen.research.draft_program import verify as verify_drafts
 
