@@ -53,6 +53,8 @@ def summarize(records, spec):
         passed = passed and successes >= minimum
     if spec.get("retention_floors"):
         items = read(spec["material"])
+        if isinstance(items, dict):
+            items = items["rows"]
         for panel, criteria in spec["retention_floors"].items():
             paired = [
                 (r, i)
@@ -108,6 +110,34 @@ def summarize(records, spec):
 
 def workload(spec, *, replay=False):
     material = read(spec["material"])
+    if spec.get("workload") == "mixed_tool_retention":
+        from loopqwen.evaluation import executable_tools as external
+
+        items = [
+            dict(
+                r,
+                user_request=r["question"][0][0]["content"] + external.INSTRUCTION
+                if r["provider"] == "bfcl_exec"
+                else r["question"],
+            )
+            for r in material["rows"]
+        ]
+
+        def catalog(row):
+            return (
+                external.tools_for(row)
+                if row["provider"] == "bfcl_exec"
+                else tools_for(row)
+            )
+
+        def judge(row, trajectory):
+            return (
+                external.score(row, trajectory)
+                if row["provider"] == "bfcl_exec"
+                else score(row, trajectory)
+            )
+
+        return items, catalog, judge
     if spec.get("workload") == "arithmetic_programs":
         from loopqwen.evaluation import program_questions as arithmetic
 

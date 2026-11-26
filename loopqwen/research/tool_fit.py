@@ -120,16 +120,19 @@ def fit(model, tok, spec, out, budget):
         h = mx.stack(
             [mx.pad(x, ((0, width - x.shape[0]), (0, 0))) for x, _, _ in batch]
         )
-        rr, ss, labels, answers = [], [], [], []
+        rr, ss, labels = [], [], []
         for i, (_, offset, ids) in enumerate(batch):
             rr.extend([i] * len(ids))
             ss.extend(range(offset, offset + len(ids)))
             labels.extend(ids)
-            if pair_count:
-                answers.append(len(labels) - 2)
         targets_seen += len(labels)
         loss, grads = vg(
-            model, h, mx.array(rr), mx.array(ss), mx.array(labels), mx.array(answers)
+            model,
+            h,
+            mx.array(rr),
+            mx.array(ss),
+            mx.array(labels),
+            paired.targets(batch) if pair_count else mx.array([]),
         )
         optimizer.update(model, grads)
         mx.eval(model.trainable_parameters(), optimizer.state, loss)

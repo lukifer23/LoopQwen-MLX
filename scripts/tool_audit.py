@@ -17,7 +17,7 @@ from scripts.tool_study import summarize, workload
 def verify(root, decision, read, sha, require):
     spec = read(root / "registration.json")
     items, catalog_for, judge = workload(spec, replay=True)
-    external = spec.get("workload") in (
+    noncatalog = spec.get("workload") in (
         "bfcl_exec",
         "table_questions",
         "package_dependencies",
@@ -34,6 +34,7 @@ def verify(root, decision, read, sha, require):
             [r["id"] for r in rows] == [w["id"] for w in items], "Tool item identity"
         )
         for row, w in zip(rows, items, strict=True):
+            external = noncatalog or w.get("provider") == "bfcl_exec"
             traj = row["trajectory"]
             cap = w.get("generation_cap", spec["max_tokens"])
             tools = catalog_for(w)

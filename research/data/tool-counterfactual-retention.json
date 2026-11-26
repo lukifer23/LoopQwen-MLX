@@ -1,0 +1,5460 @@
+{
+  "rows": [
+    {
+      "id": "boundary-4-chain",
+      "kind": "chain",
+      "domain": "printing",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "assigned_press",
+        "press_speed"
+      ],
+      "names": [
+        "Cedar",
+        "Kestrel",
+        "Cobalt"
+      ],
+      "places": [
+        "Valley",
+        "South",
+        "Harbor"
+      ],
+      "numbers": [
+        27,
+        30,
+        43
+      ],
+      "question": "I have order Cedar. Find its assigned press, then tell me that site's speed. Just the number.",
+      "expected": [
+        {
+          "name": "assigned_press",
+          "arguments": {
+            "identifier": "Cedar"
+          }
+        },
+        {
+          "name": "press_speed",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "27",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-0-compare",
+      "kind": "compare",
+      "domain": "observatory",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "station_elevation",
+        "instrument_station"
+      ],
+      "names": [
+        "Pearl",
+        "Juniper",
+        "Cobalt"
+      ],
+      "places": [
+        "Harbor",
+        "East",
+        "Lake"
+      ],
+      "numbers": [
+        33,
+        73,
+        53
+      ],
+      "question": "Compare Harbor with East using the recorded elevation. Name the station with the higher value.",
+      "expected": [
+        {
+          "name": "station_elevation",
+          "arguments": {
+            "location": "Harbor"
+          }
+        },
+        {
+          "name": "station_elevation",
+          "arguments": {
+            "location": "East"
+          }
+        }
+      ],
+      "gold": "East",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-3-clarify",
+      "kind": "clarify",
+      "domain": "market",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "district_population",
+        "locate_stall"
+      ],
+      "names": [
+        "Quartz",
+        "Cedar",
+        "Cobalt"
+      ],
+      "places": [
+        "Ridge",
+        "Lake",
+        "Grove"
+      ],
+      "numbers": [
+        34,
+        79,
+        92
+      ],
+      "question": "Tell me my district's population. I haven't specified which district yet.",
+      "expected": [],
+      "gold": "Which district?",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-3-compare",
+      "kind": "compare",
+      "domain": "printing",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "assigned_press",
+        "press_speed"
+      ],
+      "names": [
+        "Quartz",
+        "Cedar",
+        "Hazel"
+      ],
+      "places": [
+        "Harbor",
+        "North",
+        "Central"
+      ],
+      "numbers": [
+        26,
+        93,
+        19
+      ],
+      "question": "Compare Harbor with North using the recorded speed. Name the press with the higher value.",
+      "expected": [
+        {
+          "name": "press_speed",
+          "arguments": {
+            "location": "Harbor"
+          }
+        },
+        {
+          "name": "press_speed",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "North",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-0-lookup",
+      "kind": "lookup",
+      "domain": "festival",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stage_assignment",
+        "stage_capacity"
+      ],
+      "names": [
+        "Willow",
+        "Hazel",
+        "Cobalt"
+      ],
+      "places": [
+        "Ridge",
+        "Hill",
+        "West"
+      ],
+      "numbers": [
+        57,
+        25,
+        42
+      ],
+      "question": "For the stage called Ridge, look up its capacity. Return the number only.",
+      "expected": [
+        {
+          "name": "stage_capacity",
+          "arguments": {
+            "location": "Ridge"
+          }
+        }
+      ],
+      "gold": "57",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-0-clarify",
+      "kind": "clarify",
+      "domain": "festival",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stage_capacity",
+        "stage_assignment"
+      ],
+      "names": [
+        "Cobalt",
+        "Hazel",
+        "Kestrel"
+      ],
+      "places": [
+        "Ridge",
+        "West",
+        "South"
+      ],
+      "numbers": [
+        79,
+        61,
+        86
+      ],
+      "question": "Tell me my stage's capacity. I haven't specified which stage yet.",
+      "expected": [],
+      "gold": "Which stage?",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-1-compare",
+      "kind": "compare",
+      "domain": "market",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "locate_stall",
+        "district_population"
+      ],
+      "names": [
+        "Juniper",
+        "Willow",
+        "Maple"
+      ],
+      "places": [
+        "Coast",
+        "Harbor",
+        "North"
+      ],
+      "numbers": [
+        83,
+        96,
+        71
+      ],
+      "question": "Compare Coast with Harbor using the recorded population. Name the district with the higher value.",
+      "expected": [
+        {
+          "name": "district_population",
+          "arguments": {
+            "location": "Coast"
+          }
+        },
+        {
+          "name": "district_population",
+          "arguments": {
+            "location": "Harbor"
+          }
+        }
+      ],
+      "gold": "Harbor",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-1-direct",
+      "kind": "direct",
+      "domain": "festival",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stage_capacity",
+        "stage_assignment"
+      ],
+      "names": [
+        "Cedar",
+        "Pearl",
+        "Juniper"
+      ],
+      "places": [
+        "Harbor",
+        "West",
+        "Grove"
+      ],
+      "numbers": [
+        48,
+        39,
+        40
+      ],
+      "question": "Use these figures: Harbor has 48, West has 39. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "Harbor",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-0-direct",
+      "kind": "direct",
+      "domain": "market",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "locate_stall",
+        "district_population"
+      ],
+      "names": [
+        "Cobalt",
+        "Juniper",
+        "Flint"
+      ],
+      "places": [
+        "Lake",
+        "Coast",
+        "Ridge"
+      ],
+      "numbers": [
+        59,
+        73,
+        88
+      ],
+      "question": "Use these figures: Lake has 59, Coast has 73. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "Coast",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-5-chain",
+      "kind": "chain",
+      "domain": "observatory",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "station_elevation",
+        "instrument_station"
+      ],
+      "names": [
+        "Pearl",
+        "Willow",
+        "Juniper"
+      ],
+      "places": [
+        "North",
+        "Lake",
+        "Grove"
+      ],
+      "numbers": [
+        79,
+        67,
+        16
+      ],
+      "question": "I have instrument Pearl. Find its assigned station, then tell me that site's elevation. Just the number.",
+      "expected": [
+        {
+          "name": "instrument_station",
+          "arguments": {
+            "identifier": "Pearl"
+          }
+        },
+        {
+          "name": "station_elevation",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "79",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-1-chain",
+      "kind": "chain",
+      "domain": "observatory",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "instrument_station",
+        "station_elevation"
+      ],
+      "names": [
+        "Cobalt",
+        "Maple",
+        "Flint"
+      ],
+      "places": [
+        "Coast",
+        "Valley",
+        "Lake"
+      ],
+      "numbers": [
+        30,
+        11,
+        94
+      ],
+      "question": "I have instrument Cobalt. Find its assigned station, then tell me that site's elevation. Just the number.",
+      "expected": [
+        {
+          "name": "instrument_station",
+          "arguments": {
+            "identifier": "Cobalt"
+          }
+        },
+        {
+          "name": "station_elevation",
+          "arguments": {
+            "location": "Coast"
+          }
+        }
+      ],
+      "gold": "30",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-2-chain",
+      "kind": "chain",
+      "domain": "market",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "district_population",
+        "locate_stall"
+      ],
+      "names": [
+        "Juniper",
+        "Hazel",
+        "Amber"
+      ],
+      "places": [
+        "Grove",
+        "East",
+        "North"
+      ],
+      "numbers": [
+        47,
+        83,
+        92
+      ],
+      "question": "I have stall Juniper. Find its assigned district, then tell me that site's population. Just the number.",
+      "expected": [
+        {
+          "name": "locate_stall",
+          "arguments": {
+            "identifier": "Juniper"
+          }
+        },
+        {
+          "name": "district_population",
+          "arguments": {
+            "location": "Grove"
+          }
+        }
+      ],
+      "gold": "47",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-4-clarify",
+      "kind": "clarify",
+      "domain": "festival",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stage_capacity",
+        "stage_assignment"
+      ],
+      "names": [
+        "Flint",
+        "Kestrel",
+        "Quartz"
+      ],
+      "places": [
+        "Valley",
+        "Hill",
+        "Lake"
+      ],
+      "numbers": [
+        46,
+        65,
+        96
+      ],
+      "question": "Tell me my stage's capacity. I haven't specified which stage yet.",
+      "expected": [],
+      "gold": "Which stage?",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-4-direct",
+      "kind": "direct",
+      "domain": "market",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "locate_stall",
+        "district_population"
+      ],
+      "names": [
+        "Amber",
+        "Pearl",
+        "Juniper"
+      ],
+      "places": [
+        "Lake",
+        "Ridge",
+        "North"
+      ],
+      "numbers": [
+        15,
+        84,
+        49
+      ],
+      "question": "Use these figures: Lake has 15, Ridge has 84. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "Ridge",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-5-direct",
+      "kind": "direct",
+      "domain": "festival",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stage_assignment",
+        "stage_capacity"
+      ],
+      "names": [
+        "Kestrel",
+        "Hazel",
+        "Cedar"
+      ],
+      "places": [
+        "Coast",
+        "South",
+        "Ridge"
+      ],
+      "numbers": [
+        88,
+        43,
+        61
+      ],
+      "question": "Use these figures: Coast has 88, South has 43. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "Coast",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-0-chain",
+      "kind": "chain",
+      "domain": "printing",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "assigned_press",
+        "press_speed"
+      ],
+      "names": [
+        "Juniper",
+        "Flint",
+        "Quartz"
+      ],
+      "places": [
+        "Harbor",
+        "Hill",
+        "Lake"
+      ],
+      "numbers": [
+        55,
+        19,
+        51
+      ],
+      "question": "I have order Juniper. Find its assigned press, then tell me that site's speed. Just the number.",
+      "expected": [
+        {
+          "name": "assigned_press",
+          "arguments": {
+            "identifier": "Juniper"
+          }
+        },
+        {
+          "name": "press_speed",
+          "arguments": {
+            "location": "Harbor"
+          }
+        }
+      ],
+      "gold": "55",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-2-direct",
+      "kind": "direct",
+      "domain": "printing",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "assigned_press",
+        "press_speed"
+      ],
+      "names": [
+        "Hazel",
+        "Cobalt",
+        "Kestrel"
+      ],
+      "places": [
+        "Harbor",
+        "East",
+        "Valley"
+      ],
+      "numbers": [
+        45,
+        46,
+        21
+      ],
+      "question": "Use these figures: Harbor has 45, East has 46. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "East",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-4-lookup",
+      "kind": "lookup",
+      "domain": "festival",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stage_assignment",
+        "stage_capacity"
+      ],
+      "names": [
+        "Amber",
+        "Kestrel",
+        "Pearl"
+      ],
+      "places": [
+        "Central",
+        "East",
+        "Hill"
+      ],
+      "numbers": [
+        77,
+        28,
+        53
+      ],
+      "question": "For the stage called Central, look up its capacity. Return the number only.",
+      "expected": [
+        {
+          "name": "stage_capacity",
+          "arguments": {
+            "location": "Central"
+          }
+        }
+      ],
+      "gold": "77",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-2-lookup",
+      "kind": "lookup",
+      "domain": "observatory",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "instrument_station",
+        "station_elevation"
+      ],
+      "names": [
+        "Cedar",
+        "Hazel",
+        "Kestrel"
+      ],
+      "places": [
+        "Harbor",
+        "North",
+        "South"
+      ],
+      "numbers": [
+        72,
+        82,
+        89
+      ],
+      "question": "For the station called Harbor, look up its elevation. Return the number only.",
+      "expected": [
+        {
+          "name": "station_elevation",
+          "arguments": {
+            "location": "Harbor"
+          }
+        }
+      ],
+      "gold": "72",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-3-lookup",
+      "kind": "lookup",
+      "domain": "market",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "locate_stall",
+        "district_population"
+      ],
+      "names": [
+        "Cedar",
+        "Flint",
+        "Quartz"
+      ],
+      "places": [
+        "Lake",
+        "South",
+        "East"
+      ],
+      "numbers": [
+        18,
+        31,
+        96
+      ],
+      "question": "For the district called Lake, look up its population. Return the number only.",
+      "expected": [
+        {
+          "name": "district_population",
+          "arguments": {
+            "location": "Lake"
+          }
+        }
+      ],
+      "gold": "18",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-4-compare",
+      "kind": "compare",
+      "domain": "observatory",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "instrument_station",
+        "station_elevation"
+      ],
+      "names": [
+        "Quartz",
+        "Juniper",
+        "Rowan"
+      ],
+      "places": [
+        "Central",
+        "Lake",
+        "Hill"
+      ],
+      "numbers": [
+        78,
+        16,
+        52
+      ],
+      "question": "Compare Central with Lake using the recorded elevation. Name the station with the higher value.",
+      "expected": [
+        {
+          "name": "station_elevation",
+          "arguments": {
+            "location": "Central"
+          }
+        },
+        {
+          "name": "station_elevation",
+          "arguments": {
+            "location": "Lake"
+          }
+        }
+      ],
+      "gold": "Central",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-3-chain",
+      "kind": "chain",
+      "domain": "festival",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stage_assignment",
+        "stage_capacity"
+      ],
+      "names": [
+        "Willow",
+        "Kestrel",
+        "Maple"
+      ],
+      "places": [
+        "North",
+        "Lake",
+        "West"
+      ],
+      "numbers": [
+        79,
+        25,
+        29
+      ],
+      "question": "I have act Willow. Find its assigned stage, then tell me that site's capacity. Just the number.",
+      "expected": [
+        {
+          "name": "stage_assignment",
+          "arguments": {
+            "identifier": "Willow"
+          }
+        },
+        {
+          "name": "stage_capacity",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "79",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-1-clarify",
+      "kind": "clarify",
+      "domain": "printing",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "assigned_press",
+        "press_speed"
+      ],
+      "names": [
+        "Flint",
+        "Willow",
+        "Cedar"
+      ],
+      "places": [
+        "Hill",
+        "Central",
+        "North"
+      ],
+      "numbers": [
+        22,
+        60,
+        52
+      ],
+      "question": "Tell me my press's speed. I haven't specified which press yet.",
+      "expected": [],
+      "gold": "Which press?",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-5-clarify",
+      "kind": "clarify",
+      "domain": "printing",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "press_speed",
+        "assigned_press"
+      ],
+      "names": [
+        "Rowan",
+        "Kestrel",
+        "Maple"
+      ],
+      "places": [
+        "Valley",
+        "West",
+        "Grove"
+      ],
+      "numbers": [
+        27,
+        63,
+        86
+      ],
+      "question": "Tell me my press's speed. I haven't specified which press yet.",
+      "expected": [],
+      "gold": "Which press?",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-2-clarify",
+      "kind": "clarify",
+      "domain": "observatory",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "instrument_station",
+        "station_elevation"
+      ],
+      "names": [
+        "Juniper",
+        "Willow",
+        "Flint"
+      ],
+      "places": [
+        "Valley",
+        "Ridge",
+        "Lake"
+      ],
+      "numbers": [
+        68,
+        74,
+        85
+      ],
+      "question": "Tell me my station's elevation. I haven't specified which station yet.",
+      "expected": [],
+      "gold": "Which station?",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-5-compare",
+      "kind": "compare",
+      "domain": "market",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "district_population",
+        "locate_stall"
+      ],
+      "names": [
+        "Cobalt",
+        "Flint",
+        "Juniper"
+      ],
+      "places": [
+        "Hill",
+        "East",
+        "Grove"
+      ],
+      "numbers": [
+        45,
+        88,
+        15
+      ],
+      "question": "Compare Hill with East using the recorded population. Name the district with the higher value.",
+      "expected": [
+        {
+          "name": "district_population",
+          "arguments": {
+            "location": "Hill"
+          }
+        },
+        {
+          "name": "district_population",
+          "arguments": {
+            "location": "East"
+          }
+        }
+      ],
+      "gold": "East",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-5-lookup",
+      "kind": "lookup",
+      "domain": "printing",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "assigned_press",
+        "press_speed"
+      ],
+      "names": [
+        "Amber",
+        "Rowan",
+        "Pearl"
+      ],
+      "places": [
+        "Valley",
+        "Hill",
+        "Harbor"
+      ],
+      "numbers": [
+        29,
+        26,
+        94
+      ],
+      "question": "For the press called Valley, look up its speed. Return the number only.",
+      "expected": [
+        {
+          "name": "press_speed",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "29",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-3-direct",
+      "kind": "direct",
+      "domain": "observatory",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "station_elevation",
+        "instrument_station"
+      ],
+      "names": [
+        "Amber",
+        "Hazel",
+        "Willow"
+      ],
+      "places": [
+        "South",
+        "Central",
+        "West"
+      ],
+      "numbers": [
+        51,
+        87,
+        32
+      ],
+      "question": "Use these figures: South has 51, Central has 87. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "Central",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-2-compare",
+      "kind": "compare",
+      "domain": "festival",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stage_capacity",
+        "stage_assignment"
+      ],
+      "names": [
+        "Maple",
+        "Willow",
+        "Rowan"
+      ],
+      "places": [
+        "Valley",
+        "East",
+        "Central"
+      ],
+      "numbers": [
+        50,
+        74,
+        51
+      ],
+      "question": "Compare Valley with East using the recorded capacity. Name the stage with the higher value.",
+      "expected": [
+        {
+          "name": "stage_capacity",
+          "arguments": {
+            "location": "Valley"
+          }
+        },
+        {
+          "name": "stage_capacity",
+          "arguments": {
+            "location": "East"
+          }
+        }
+      ],
+      "gold": "East",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "boundary-1-lookup",
+      "kind": "lookup",
+      "domain": "printing",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "press_speed",
+        "assigned_press"
+      ],
+      "names": [
+        "Pearl",
+        "Willow",
+        "Flint"
+      ],
+      "places": [
+        "Hill",
+        "Central",
+        "Valley"
+      ],
+      "numbers": [
+        90,
+        70,
+        15
+      ],
+      "question": "For the press called Hill, look up its speed. Return the number only.",
+      "expected": [
+        {
+          "name": "press_speed",
+          "arguments": {
+            "location": "Hill"
+          }
+        }
+      ],
+      "gold": "90",
+      "panel": "catalog",
+      "generation_cap": 128,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-0-clarify",
+      "kind": "clarify",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "platform_length",
+        "service_platform"
+      ],
+      "names": [
+        "Kestrel",
+        "Cedar",
+        "Pearl"
+      ],
+      "places": [
+        "Harbor",
+        "Hill",
+        "Central"
+      ],
+      "numbers": [
+        43,
+        75,
+        20
+      ],
+      "question": "Please look up the length of a platform for me. I can provide its name if you need it.",
+      "expected": [],
+      "gold": "Which platform?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-8-clarify",
+      "kind": "clarify",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "service_platform",
+        "platform_length"
+      ],
+      "names": [
+        "Hazel",
+        "Pearl",
+        "Willow"
+      ],
+      "places": [
+        "Lake",
+        "Central",
+        "Coast"
+      ],
+      "numbers": [
+        75,
+        73,
+        40
+      ],
+      "question": "Tell me my platform's length. I haven't specified which platform yet.",
+      "expected": [],
+      "gold": "Which platform?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-0-compare",
+      "kind": "compare",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "dock_clearance",
+        "shipment_dock"
+      ],
+      "names": [
+        "Kestrel",
+        "Pearl",
+        "Cobalt"
+      ],
+      "places": [
+        "North",
+        "Hill",
+        "Harbor"
+      ],
+      "numbers": [
+        69,
+        42,
+        90
+      ],
+      "question": "Between the docks North and Hill, which one comes first if you rank by descending clearance? Only give its name.",
+      "expected": [
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "North"
+          }
+        },
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "Hill"
+          }
+        }
+      ],
+      "gold": "North",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-9-direct",
+      "kind": "direct",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "service_platform",
+        "platform_length"
+      ],
+      "names": [
+        "Flint",
+        "Kestrel",
+        "Pearl"
+      ],
+      "places": [
+        "East",
+        "North",
+        "Ridge"
+      ],
+      "numbers": [
+        67,
+        51,
+        72
+      ],
+      "question": "Use these figures: East has 67, North has 51. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "East",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-5-lookup",
+      "kind": "lookup",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "home_arena",
+        "arena_capacity"
+      ],
+      "names": [
+        "Maple",
+        "Juniper",
+        "Hazel"
+      ],
+      "places": [
+        "Coast",
+        "Central",
+        "South"
+      ],
+      "numbers": [
+        37,
+        71,
+        52
+      ],
+      "question": "I\u2019m checking the arena register. How much capacity is listed for Coast? Give the number.",
+      "expected": [
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "Coast"
+          }
+        }
+      ],
+      "gold": "37",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-3-chain",
+      "kind": "chain",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "platform_length",
+        "service_platform"
+      ],
+      "names": [
+        "Kestrel",
+        "Flint",
+        "Quartz"
+      ],
+      "places": [
+        "North",
+        "Grove",
+        "West"
+      ],
+      "numbers": [
+        94,
+        91,
+        62
+      ],
+      "question": "I have service Kestrel. Find its assigned platform, then tell me that site's length. Just the number.",
+      "expected": [
+        {
+          "name": "service_platform",
+          "arguments": {
+            "identifier": "Kestrel"
+          }
+        },
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "94",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-2-lookup",
+      "kind": "lookup",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "dock_clearance",
+        "shipment_dock"
+      ],
+      "names": [
+        "Juniper",
+        "Cedar",
+        "Rowan"
+      ],
+      "places": [
+        "Ridge",
+        "East",
+        "Lake"
+      ],
+      "numbers": [
+        69,
+        46,
+        81
+      ],
+      "question": "I\u2019m checking the dock register. How much clearance is listed for Ridge? Give the number.",
+      "expected": [
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "Ridge"
+          }
+        }
+      ],
+      "gold": "69",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-9-compare",
+      "kind": "compare",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "collection_vault",
+        "vault_volume"
+      ],
+      "names": [
+        "Pearl",
+        "Hazel",
+        "Rowan"
+      ],
+      "places": [
+        "East",
+        "Hill",
+        "Coast"
+      ],
+      "numbers": [
+        50,
+        49,
+        97
+      ],
+      "question": "Compare East with Hill using the recorded volume. Name the vault with the higher value.",
+      "expected": [
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "East"
+          }
+        },
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Hill"
+          }
+        }
+      ],
+      "gold": "East",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-4-lookup",
+      "kind": "lookup",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "service_platform",
+        "platform_length"
+      ],
+      "names": [
+        "Flint",
+        "Willow",
+        "Pearl"
+      ],
+      "places": [
+        "Harbor",
+        "East",
+        "West"
+      ],
+      "numbers": [
+        13,
+        47,
+        65
+      ],
+      "question": "I\u2019m checking the platform register. How much length is listed for Harbor? Give the number.",
+      "expected": [
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "Harbor"
+          }
+        }
+      ],
+      "gold": "13",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-8-chain",
+      "kind": "chain",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "arena_capacity",
+        "home_arena"
+      ],
+      "names": [
+        "Amber",
+        "Cobalt",
+        "Cedar"
+      ],
+      "places": [
+        "Coast",
+        "West",
+        "North"
+      ],
+      "numbers": [
+        23,
+        11,
+        49
+      ],
+      "question": "I have team Amber. Find its assigned arena, then tell me that site's capacity. Just the number.",
+      "expected": [
+        {
+          "name": "home_arena",
+          "arguments": {
+            "identifier": "Amber"
+          }
+        },
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "Coast"
+          }
+        }
+      ],
+      "gold": "23",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-2-clarify",
+      "kind": "clarify",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "shipment_dock",
+        "dock_clearance"
+      ],
+      "names": [
+        "Hazel",
+        "Amber",
+        "Cedar"
+      ],
+      "places": [
+        "South",
+        "Central",
+        "Lake"
+      ],
+      "numbers": [
+        50,
+        30,
+        33
+      ],
+      "question": "Please look up the clearance of a dock for me. I can provide its name if you need it.",
+      "expected": [],
+      "gold": "Which dock?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-0-lookup",
+      "kind": "lookup",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "platform_length",
+        "service_platform"
+      ],
+      "names": [
+        "Rowan",
+        "Kestrel",
+        "Quartz"
+      ],
+      "places": [
+        "North",
+        "Grove",
+        "East"
+      ],
+      "numbers": [
+        55,
+        62,
+        40
+      ],
+      "question": "For the platform called North, look up its length. Return the number only.",
+      "expected": [
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "55",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-2-compare",
+      "kind": "compare",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "service_platform",
+        "platform_length"
+      ],
+      "names": [
+        "Cobalt",
+        "Quartz",
+        "Willow"
+      ],
+      "places": [
+        "Hill",
+        "Harbor",
+        "Coast"
+      ],
+      "numbers": [
+        68,
+        91,
+        63
+      ],
+      "question": "Between the platforms Hill and Harbor, which one comes first if you rank by descending length? Only give its name.",
+      "expected": [
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "Hill"
+          }
+        },
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "Harbor"
+          }
+        }
+      ],
+      "gold": "Harbor",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-4-chain",
+      "kind": "chain",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "arena_capacity",
+        "home_arena"
+      ],
+      "names": [
+        "Cedar",
+        "Kestrel",
+        "Amber"
+      ],
+      "places": [
+        "Ridge",
+        "North",
+        "Coast"
+      ],
+      "numbers": [
+        36,
+        57,
+        60
+      ],
+      "question": "I have team Cedar. Find its assigned arena, then tell me that site's capacity. Just the number.",
+      "expected": [
+        {
+          "name": "home_arena",
+          "arguments": {
+            "identifier": "Cedar"
+          }
+        },
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "Ridge"
+          }
+        }
+      ],
+      "gold": "36",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-4-compare",
+      "kind": "compare",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "shipment_dock",
+        "dock_clearance"
+      ],
+      "names": [
+        "Maple",
+        "Quartz",
+        "Cedar"
+      ],
+      "places": [
+        "Ridge",
+        "South",
+        "Valley"
+      ],
+      "numbers": [
+        70,
+        32,
+        89
+      ],
+      "question": "Between the docks Ridge and South, which one comes first if you rank by descending clearance? Only give its name.",
+      "expected": [
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "Ridge"
+          }
+        },
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "South"
+          }
+        }
+      ],
+      "gold": "Ridge",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-7-compare",
+      "kind": "compare",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "arena_capacity",
+        "home_arena"
+      ],
+      "names": [
+        "Pearl",
+        "Cobalt",
+        "Maple"
+      ],
+      "places": [
+        "South",
+        "Valley",
+        "Hill"
+      ],
+      "numbers": [
+        70,
+        92,
+        52
+      ],
+      "question": "Compare South with Valley using the recorded capacity. Name the arena with the higher value.",
+      "expected": [
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "South"
+          }
+        },
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "Valley",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-7-clarify",
+      "kind": "clarify",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "collection_vault",
+        "vault_volume"
+      ],
+      "names": [
+        "Juniper",
+        "Quartz",
+        "Amber"
+      ],
+      "places": [
+        "Grove",
+        "Harbor",
+        "Lake"
+      ],
+      "numbers": [
+        54,
+        42,
+        31
+      ],
+      "question": "Please look up the volume of a vault for me. I can provide its name if you need it.",
+      "expected": [],
+      "gold": "Which vault?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-2-direct",
+      "kind": "direct",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "home_arena",
+        "arena_capacity"
+      ],
+      "names": [
+        "Cobalt",
+        "Hazel",
+        "Rowan"
+      ],
+      "places": [
+        "Ridge",
+        "Lake",
+        "North"
+      ],
+      "numbers": [
+        89,
+        83,
+        16
+      ],
+      "question": "Use these figures: Ridge has 89, Lake has 83. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "Ridge",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-8-lookup",
+      "kind": "lookup",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "platform_length",
+        "service_platform"
+      ],
+      "names": [
+        "Quartz",
+        "Flint",
+        "Cobalt"
+      ],
+      "places": [
+        "West",
+        "Grove",
+        "East"
+      ],
+      "numbers": [
+        12,
+        46,
+        91
+      ],
+      "question": "I\u2019m checking the platform register. How much length is listed for West? Give the number.",
+      "expected": [
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "West"
+          }
+        }
+      ],
+      "gold": "12",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-6-compare",
+      "kind": "compare",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "platform_length",
+        "service_platform"
+      ],
+      "names": [
+        "Rowan",
+        "Hazel",
+        "Juniper"
+      ],
+      "places": [
+        "Central",
+        "Coast",
+        "East"
+      ],
+      "numbers": [
+        45,
+        84,
+        75
+      ],
+      "question": "Compare Central with Coast using the recorded length. Name the platform with the higher value.",
+      "expected": [
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "Central"
+          }
+        },
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "Coast"
+          }
+        }
+      ],
+      "gold": "Coast",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-8-direct",
+      "kind": "direct",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "vault_volume",
+        "collection_vault"
+      ],
+      "names": [
+        "Kestrel",
+        "Hazel",
+        "Willow"
+      ],
+      "places": [
+        "North",
+        "Hill",
+        "East"
+      ],
+      "numbers": [
+        46,
+        51,
+        65
+      ],
+      "question": "Today's scoreboard shows North: 46; Hill: 51. Output the leader\u2019s name.",
+      "expected": [],
+      "gold": "Hill",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-0-direct",
+      "kind": "direct",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "vault_volume",
+        "collection_vault"
+      ],
+      "names": [
+        "Hazel",
+        "Cedar",
+        "Pearl"
+      ],
+      "places": [
+        "North",
+        "South",
+        "Hill"
+      ],
+      "numbers": [
+        69,
+        51,
+        71
+      ],
+      "question": "Use these figures: North has 69, South has 51. Give only the name with the higher figure.",
+      "expected": [],
+      "gold": "North",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-4-direct",
+      "kind": "direct",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "vault_volume",
+        "collection_vault"
+      ],
+      "names": [
+        "Cedar",
+        "Flint",
+        "Willow"
+      ],
+      "places": [
+        "East",
+        "Ridge",
+        "Lake"
+      ],
+      "numbers": [
+        60,
+        95,
+        88
+      ],
+      "question": "Today's scoreboard shows East: 60; Ridge: 95. Output the leader\u2019s name.",
+      "expected": [],
+      "gold": "Ridge",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-9-chain",
+      "kind": "chain",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "shipment_dock",
+        "dock_clearance"
+      ],
+      "names": [
+        "Kestrel",
+        "Juniper",
+        "Maple"
+      ],
+      "places": [
+        "Valley",
+        "West",
+        "South"
+      ],
+      "numbers": [
+        76,
+        35,
+        65
+      ],
+      "question": "I have shipment Kestrel. Find its assigned dock, then tell me that site's clearance. Just the number.",
+      "expected": [
+        {
+          "name": "shipment_dock",
+          "arguments": {
+            "identifier": "Kestrel"
+          }
+        },
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "76",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-6-lookup",
+      "kind": "lookup",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "shipment_dock",
+        "dock_clearance"
+      ],
+      "names": [
+        "Kestrel",
+        "Amber",
+        "Juniper"
+      ],
+      "places": [
+        "North",
+        "Harbor",
+        "East"
+      ],
+      "numbers": [
+        18,
+        19,
+        38
+      ],
+      "question": "I\u2019m checking the dock register. How much clearance is listed for North? Give the number.",
+      "expected": [
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "18",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-1-chain",
+      "kind": "chain",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "shipment_dock",
+        "dock_clearance"
+      ],
+      "names": [
+        "Maple",
+        "Quartz",
+        "Rowan"
+      ],
+      "places": [
+        "Coast",
+        "Grove",
+        "Central"
+      ],
+      "numbers": [
+        51,
+        70,
+        43
+      ],
+      "question": "I have shipment Maple. Find its assigned dock, then tell me that site's clearance. Just the number.",
+      "expected": [
+        {
+          "name": "shipment_dock",
+          "arguments": {
+            "identifier": "Maple"
+          }
+        },
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "Coast"
+          }
+        }
+      ],
+      "gold": "51",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-6-direct",
+      "kind": "direct",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "home_arena",
+        "arena_capacity"
+      ],
+      "names": [
+        "Flint",
+        "Cobalt",
+        "Quartz"
+      ],
+      "places": [
+        "Coast",
+        "Hill",
+        "West"
+      ],
+      "numbers": [
+        67,
+        81,
+        61
+      ],
+      "question": "Today's scoreboard shows Coast: 67; Hill: 81. Output the leader\u2019s name.",
+      "expected": [],
+      "gold": "Hill",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-6-chain",
+      "kind": "chain",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "collection_vault",
+        "vault_volume"
+      ],
+      "names": [
+        "Flint",
+        "Cedar",
+        "Willow"
+      ],
+      "places": [
+        "Grove",
+        "East",
+        "North"
+      ],
+      "numbers": [
+        51,
+        20,
+        40
+      ],
+      "question": "I have collection Flint. Find its assigned vault, then tell me that site's volume. Just the number.",
+      "expected": [
+        {
+          "name": "collection_vault",
+          "arguments": {
+            "identifier": "Flint"
+          }
+        },
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Grove"
+          }
+        }
+      ],
+      "gold": "51",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-7-chain",
+      "kind": "chain",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "service_platform",
+        "platform_length"
+      ],
+      "names": [
+        "Kestrel",
+        "Flint",
+        "Willow"
+      ],
+      "places": [
+        "Lake",
+        "Central",
+        "Grove"
+      ],
+      "numbers": [
+        96,
+        35,
+        81
+      ],
+      "question": "The identifier of my service is Kestrel. I need a single number: the length of the platform linked to it.",
+      "expected": [
+        {
+          "name": "service_platform",
+          "arguments": {
+            "identifier": "Kestrel"
+          }
+        },
+        {
+          "name": "platform_length",
+          "arguments": {
+            "location": "Lake"
+          }
+        }
+      ],
+      "gold": "96",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-4-clarify",
+      "kind": "clarify",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "service_platform",
+        "platform_length"
+      ],
+      "names": [
+        "Flint",
+        "Amber",
+        "Juniper"
+      ],
+      "places": [
+        "Lake",
+        "Harbor",
+        "East"
+      ],
+      "numbers": [
+        55,
+        63,
+        66
+      ],
+      "question": "Tell me my platform's length. I haven't specified which platform yet.",
+      "expected": [],
+      "gold": "Which platform?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-5-clarify",
+      "kind": "clarify",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "arena_capacity",
+        "home_arena"
+      ],
+      "names": [
+        "Juniper",
+        "Rowan",
+        "Maple"
+      ],
+      "places": [
+        "Grove",
+        "Central",
+        "Lake"
+      ],
+      "numbers": [
+        40,
+        29,
+        72
+      ],
+      "question": "Please look up the capacity of a arena for me. I can provide its name if you need it.",
+      "expected": [],
+      "gold": "Which arena?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-9-lookup",
+      "kind": "lookup",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "home_arena",
+        "arena_capacity"
+      ],
+      "names": [
+        "Amber",
+        "Willow",
+        "Flint"
+      ],
+      "places": [
+        "Ridge",
+        "Central",
+        "Valley"
+      ],
+      "numbers": [
+        67,
+        44,
+        32
+      ],
+      "question": "For the arena called Ridge, look up its capacity. Return the number only.",
+      "expected": [
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "Ridge"
+          }
+        }
+      ],
+      "gold": "67",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-5-direct",
+      "kind": "direct",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "platform_length",
+        "service_platform"
+      ],
+      "names": [
+        "Pearl",
+        "Amber",
+        "Hazel"
+      ],
+      "places": [
+        "Valley",
+        "Grove",
+        "Ridge"
+      ],
+      "numbers": [
+        62,
+        49,
+        97
+      ],
+      "question": "Today's scoreboard shows Valley: 62; Grove: 49. Output the leader\u2019s name.",
+      "expected": [],
+      "gold": "Valley",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-1-lookup",
+      "kind": "lookup",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "home_arena",
+        "arena_capacity"
+      ],
+      "names": [
+        "Pearl",
+        "Maple",
+        "Juniper"
+      ],
+      "places": [
+        "Ridge",
+        "Valley",
+        "Lake"
+      ],
+      "numbers": [
+        49,
+        11,
+        61
+      ],
+      "question": "For the arena called Ridge, look up its capacity. Return the number only.",
+      "expected": [
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "Ridge"
+          }
+        }
+      ],
+      "gold": "49",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-3-direct",
+      "kind": "direct",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "shipment_dock",
+        "dock_clearance"
+      ],
+      "names": [
+        "Kestrel",
+        "Cobalt",
+        "Hazel"
+      ],
+      "places": [
+        "Grove",
+        "Coast",
+        "South"
+      ],
+      "numbers": [
+        79,
+        71,
+        76
+      ],
+      "question": "Today's scoreboard shows Grove: 79; Coast: 71. Output the leader\u2019s name.",
+      "expected": [],
+      "gold": "Grove",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-6-clarify",
+      "kind": "clarify",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "dock_clearance",
+        "shipment_dock"
+      ],
+      "names": [
+        "Cedar",
+        "Maple",
+        "Willow"
+      ],
+      "places": [
+        "East",
+        "West",
+        "Grove"
+      ],
+      "numbers": [
+        46,
+        35,
+        84
+      ],
+      "question": "Tell me my dock's clearance. I haven't specified which dock yet.",
+      "expected": [],
+      "gold": "Which dock?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-7-direct",
+      "kind": "direct",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "shipment_dock",
+        "dock_clearance"
+      ],
+      "names": [
+        "Amber",
+        "Quartz",
+        "Rowan"
+      ],
+      "places": [
+        "East",
+        "Coast",
+        "Lake"
+      ],
+      "numbers": [
+        66,
+        34,
+        14
+      ],
+      "question": "Today's scoreboard shows East: 66; Coast: 34. Output the leader\u2019s name.",
+      "expected": [],
+      "gold": "East",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-3-clarify",
+      "kind": "clarify",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "collection_vault",
+        "vault_volume"
+      ],
+      "names": [
+        "Hazel",
+        "Maple",
+        "Quartz"
+      ],
+      "places": [
+        "Valley",
+        "Lake",
+        "North"
+      ],
+      "numbers": [
+        68,
+        77,
+        12
+      ],
+      "question": "Tell me my vault's volume. I haven't specified which vault yet.",
+      "expected": [],
+      "gold": "Which vault?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-3-compare",
+      "kind": "compare",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "arena_capacity",
+        "home_arena"
+      ],
+      "names": [
+        "Maple",
+        "Hazel",
+        "Cedar"
+      ],
+      "places": [
+        "West",
+        "Central",
+        "Hill"
+      ],
+      "numbers": [
+        40,
+        67,
+        78
+      ],
+      "question": "Between the arenas West and Central, which one comes first if you rank by descending capacity? Only give its name.",
+      "expected": [
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "West"
+          }
+        },
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "Central"
+          }
+        }
+      ],
+      "gold": "Central",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-2-chain",
+      "kind": "chain",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "collection_vault",
+        "vault_volume"
+      ],
+      "names": [
+        "Quartz",
+        "Cobalt",
+        "Hazel"
+      ],
+      "places": [
+        "Valley",
+        "Harbor",
+        "Central"
+      ],
+      "numbers": [
+        96,
+        23,
+        25
+      ],
+      "question": "I have collection Quartz. Find its assigned vault, then tell me that site's volume. Just the number.",
+      "expected": [
+        {
+          "name": "collection_vault",
+          "arguments": {
+            "identifier": "Quartz"
+          }
+        },
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "96",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-1-compare",
+      "kind": "compare",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "collection_vault",
+        "vault_volume"
+      ],
+      "names": [
+        "Cedar",
+        "Flint",
+        "Juniper"
+      ],
+      "places": [
+        "Central",
+        "Hill",
+        "Ridge"
+      ],
+      "numbers": [
+        41,
+        93,
+        89
+      ],
+      "question": "Between the vaults Central and Hill, which one comes first if you rank by descending volume? Only give its name.",
+      "expected": [
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Central"
+          }
+        },
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Hill"
+          }
+        }
+      ],
+      "gold": "Hill",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-3-lookup",
+      "kind": "lookup",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "collection_vault",
+        "vault_volume"
+      ],
+      "names": [
+        "Flint",
+        "Pearl",
+        "Quartz"
+      ],
+      "places": [
+        "Lake",
+        "Coast",
+        "West"
+      ],
+      "numbers": [
+        92,
+        70,
+        96
+      ],
+      "question": "For the vault called Lake, look up its volume. Return the number only.",
+      "expected": [
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Lake"
+          }
+        }
+      ],
+      "gold": "92",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-9-clarify",
+      "kind": "clarify",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "home_arena",
+        "arena_capacity"
+      ],
+      "names": [
+        "Cobalt",
+        "Amber",
+        "Flint"
+      ],
+      "places": [
+        "Hill",
+        "Lake",
+        "Ridge"
+      ],
+      "numbers": [
+        63,
+        77,
+        75
+      ],
+      "question": "Please look up the capacity of a arena for me. I can provide its name if you need it.",
+      "expected": [],
+      "gold": "Which arena?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-5-chain",
+      "kind": "chain",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "shipment_dock",
+        "dock_clearance"
+      ],
+      "names": [
+        "Quartz",
+        "Pearl",
+        "Flint"
+      ],
+      "places": [
+        "North",
+        "Coast",
+        "East"
+      ],
+      "numbers": [
+        74,
+        48,
+        18
+      ],
+      "question": "I have shipment Quartz. Find its assigned dock, then tell me that site's clearance. Just the number.",
+      "expected": [
+        {
+          "name": "shipment_dock",
+          "arguments": {
+            "identifier": "Quartz"
+          }
+        },
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "74",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-0-chain",
+      "kind": "chain",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "arena_capacity",
+        "home_arena"
+      ],
+      "names": [
+        "Kestrel",
+        "Rowan",
+        "Amber"
+      ],
+      "places": [
+        "Valley",
+        "Hill",
+        "Lake"
+      ],
+      "numbers": [
+        48,
+        15,
+        41
+      ],
+      "question": "The identifier of my team is Kestrel. I need a single number: the capacity of the arena linked to it.",
+      "expected": [
+        {
+          "name": "home_arena",
+          "arguments": {
+            "identifier": "Kestrel"
+          }
+        },
+        {
+          "name": "arena_capacity",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "48",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-1-clarify",
+      "kind": "clarify",
+      "domain": "tournament",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "home_arena",
+        "arena_capacity"
+      ],
+      "names": [
+        "Cedar",
+        "Amber",
+        "Flint"
+      ],
+      "places": [
+        "South",
+        "Central",
+        "North"
+      ],
+      "numbers": [
+        32,
+        66,
+        78
+      ],
+      "question": "Tell me my arena's capacity. I haven't specified which arena yet.",
+      "expected": [],
+      "gold": "Which arena?",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-5-compare",
+      "kind": "compare",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "vault_volume",
+        "collection_vault"
+      ],
+      "names": [
+        "Rowan",
+        "Maple",
+        "Flint"
+      ],
+      "places": [
+        "Valley",
+        "Coast",
+        "East"
+      ],
+      "numbers": [
+        79,
+        31,
+        54
+      ],
+      "question": "Between the vaults Valley and Coast, which one comes first if you rank by descending volume? Only give its name.",
+      "expected": [
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Valley"
+          }
+        },
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Coast"
+          }
+        }
+      ],
+      "gold": "Valley",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-7-lookup",
+      "kind": "lookup",
+      "domain": "archive",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "collection_vault",
+        "vault_volume"
+      ],
+      "names": [
+        "Willow",
+        "Cedar",
+        "Quartz"
+      ],
+      "places": [
+        "Valley",
+        "Ridge",
+        "Grove"
+      ],
+      "numbers": [
+        25,
+        87,
+        80
+      ],
+      "question": "For the vault called Valley, look up its volume. Return the number only.",
+      "expected": [
+        {
+          "name": "vault_volume",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "25",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-1-direct",
+      "kind": "direct",
+      "domain": "railway",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "platform_length",
+        "service_platform"
+      ],
+      "names": [
+        "Maple",
+        "Willow",
+        "Quartz"
+      ],
+      "places": [
+        "Coast",
+        "North",
+        "Ridge"
+      ],
+      "numbers": [
+        56,
+        75,
+        64
+      ],
+      "question": "Today's scoreboard shows Coast: 56; North: 75. Output the leader\u2019s name.",
+      "expected": [],
+      "gold": "North",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "grounded-8-compare",
+      "kind": "compare",
+      "domain": "warehouse",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "dock_clearance",
+        "shipment_dock"
+      ],
+      "names": [
+        "Hazel",
+        "Cobalt",
+        "Juniper"
+      ],
+      "places": [
+        "Ridge",
+        "East",
+        "Valley"
+      ],
+      "numbers": [
+        29,
+        49,
+        17
+      ],
+      "question": "Compare Ridge with East using the recorded clearance. Name the dock with the higher value.",
+      "expected": [
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "Ridge"
+          }
+        },
+        {
+          "name": "dock_clearance",
+          "arguments": {
+            "location": "East"
+          }
+        }
+      ],
+      "gold": "East",
+      "panel": "grounded",
+      "generation_cap": 160,
+      "provider": "world"
+    },
+    {
+      "id": "retention-fresh-1-chain",
+      "kind": "chain",
+      "domain": "grocery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stock_aisle",
+        "aisle_length"
+      ],
+      "names": [
+        "Pearl",
+        "Juniper",
+        "Flint"
+      ],
+      "places": [
+        "Lake",
+        "Harbor",
+        "South"
+      ],
+      "numbers": [
+        92,
+        34,
+        73
+      ],
+      "question": "Which length corresponds to product Pearl? First find its aisle. Reply with the number.",
+      "expected": [
+        {
+          "name": "stock_aisle",
+          "arguments": {
+            "identifier": "Pearl"
+          }
+        },
+        {
+          "name": "aisle_length",
+          "arguments": {
+            "location": "Lake"
+          }
+        }
+      ],
+      "gold": "92",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-0-clarify",
+      "kind": "clarify",
+      "domain": "aviary",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "ring_enclosure",
+        "enclosure_height"
+      ],
+      "names": [
+        "Juniper",
+        "Hazel",
+        "Willow"
+      ],
+      "places": [
+        "North",
+        "Ridge",
+        "South"
+      ],
+      "numbers": [
+        60,
+        14,
+        12
+      ],
+      "question": "I need the height of a certain enclosure, but I have not identified which. Ask me for what you need.",
+      "expected": [],
+      "gold": "Which enclosure?",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-1-lookup",
+      "kind": "lookup",
+      "domain": "textile",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "sample_loom",
+        "loom_width"
+      ],
+      "names": [
+        "Pearl",
+        "Amber",
+        "Kestrel"
+      ],
+      "places": [
+        "Grove",
+        "Ridge",
+        "Lake"
+      ],
+      "numbers": [
+        55,
+        27,
+        28
+      ],
+      "question": "Please read the width recorded against loom Grove. Return just that figure.",
+      "expected": [
+        {
+          "name": "loom_width",
+          "arguments": {
+            "location": "Grove"
+          }
+        }
+      ],
+      "gold": "55",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-0-chain",
+      "kind": "chain",
+      "domain": "textile",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "sample_loom",
+        "loom_width"
+      ],
+      "names": [
+        "Hazel",
+        "Rowan",
+        "Amber"
+      ],
+      "places": [
+        "Coast",
+        "Grove",
+        "Central"
+      ],
+      "numbers": [
+        73,
+        13,
+        51
+      ],
+      "question": "Which width corresponds to sample Hazel? First find its loom. Reply with the number.",
+      "expected": [
+        {
+          "name": "sample_loom",
+          "arguments": {
+            "identifier": "Hazel"
+          }
+        },
+        {
+          "name": "loom_width",
+          "arguments": {
+            "location": "Coast"
+          }
+        }
+      ],
+      "gold": "73",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-5-clarify",
+      "kind": "clarify",
+      "domain": "textile",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "sample_loom",
+        "loom_width"
+      ],
+      "names": [
+        "Maple",
+        "Hazel",
+        "Cobalt"
+      ],
+      "places": [
+        "Grove",
+        "Coast",
+        "Lake"
+      ],
+      "numbers": [
+        95,
+        29,
+        28
+      ],
+      "question": "I need the width of a certain loom, but I have not identified which. Ask me for what you need.",
+      "expected": [],
+      "gold": "Which loom?",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-4-direct",
+      "kind": "direct",
+      "domain": "gallery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "wall_area",
+        "display_wall"
+      ],
+      "names": [
+        "Flint",
+        "Quartz",
+        "Juniper"
+      ],
+      "places": [
+        "Grove",
+        "South",
+        "Central"
+      ],
+      "numbers": [
+        18,
+        81,
+        17
+      ],
+      "question": "My notes give Grove a score of 18 and South a score of 81. Who is ahead? Name only.",
+      "expected": [],
+      "gold": "South",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-2-clarify",
+      "kind": "clarify",
+      "domain": "grocery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "aisle_length",
+        "stock_aisle"
+      ],
+      "names": [
+        "Kestrel",
+        "Willow",
+        "Cedar"
+      ],
+      "places": [
+        "Ridge",
+        "Coast",
+        "Hill"
+      ],
+      "numbers": [
+        44,
+        80,
+        22
+      ],
+      "question": "I need the length of a certain aisle, but I have not identified which. Ask me for what you need.",
+      "expected": [],
+      "gold": "Which aisle?",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-4-compare",
+      "kind": "compare",
+      "domain": "grocery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "aisle_length",
+        "stock_aisle"
+      ],
+      "names": [
+        "Willow",
+        "Pearl",
+        "Rowan"
+      ],
+      "places": [
+        "Central",
+        "South",
+        "Harbor"
+      ],
+      "numbers": [
+        83,
+        31,
+        95
+      ],
+      "question": "Find out whether aisle Central or South has greater length. Reply with the winning name.",
+      "expected": [
+        {
+          "name": "aisle_length",
+          "arguments": {
+            "location": "Central"
+          }
+        },
+        {
+          "name": "aisle_length",
+          "arguments": {
+            "location": "South"
+          }
+        }
+      ],
+      "gold": "Central",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-1-clarify",
+      "kind": "clarify",
+      "domain": "textile",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "sample_loom",
+        "loom_width"
+      ],
+      "names": [
+        "Cedar",
+        "Hazel",
+        "Maple"
+      ],
+      "places": [
+        "Ridge",
+        "Central",
+        "North"
+      ],
+      "numbers": [
+        75,
+        84,
+        59
+      ],
+      "question": "I need the width of a certain loom, but I have not identified which. Ask me for what you need.",
+      "expected": [],
+      "gold": "Which loom?",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-3-lookup",
+      "kind": "lookup",
+      "domain": "gallery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "display_wall",
+        "wall_area"
+      ],
+      "names": [
+        "Willow",
+        "Cedar",
+        "Quartz"
+      ],
+      "places": [
+        "Valley",
+        "East",
+        "Harbor"
+      ],
+      "numbers": [
+        19,
+        43,
+        28
+      ],
+      "question": "Please read the area recorded against wall Valley. Return just that figure.",
+      "expected": [
+        {
+          "name": "wall_area",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "19",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-4-clarify",
+      "kind": "clarify",
+      "domain": "aviary",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "ring_enclosure",
+        "enclosure_height"
+      ],
+      "names": [
+        "Kestrel",
+        "Rowan",
+        "Juniper"
+      ],
+      "places": [
+        "Central",
+        "Ridge",
+        "North"
+      ],
+      "numbers": [
+        60,
+        72,
+        84
+      ],
+      "question": "I need the height of a certain enclosure, but I have not identified which. Ask me for what you need.",
+      "expected": [],
+      "gold": "Which enclosure?",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-0-compare",
+      "kind": "compare",
+      "domain": "grocery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "aisle_length",
+        "stock_aisle"
+      ],
+      "names": [
+        "Maple",
+        "Cedar",
+        "Pearl"
+      ],
+      "places": [
+        "South",
+        "West",
+        "Hill"
+      ],
+      "numbers": [
+        27,
+        15,
+        55
+      ],
+      "question": "Find out whether aisle South or West has greater length. Reply with the winning name.",
+      "expected": [
+        {
+          "name": "aisle_length",
+          "arguments": {
+            "location": "South"
+          }
+        },
+        {
+          "name": "aisle_length",
+          "arguments": {
+            "location": "West"
+          }
+        }
+      ],
+      "gold": "South",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-0-direct",
+      "kind": "direct",
+      "domain": "gallery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "display_wall",
+        "wall_area"
+      ],
+      "names": [
+        "Flint",
+        "Cobalt",
+        "Cedar"
+      ],
+      "places": [
+        "Valley",
+        "Harbor",
+        "South"
+      ],
+      "numbers": [
+        89,
+        46,
+        34
+      ],
+      "question": "My notes give Valley a score of 89 and Harbor a score of 46. Who is ahead? Name only.",
+      "expected": [],
+      "gold": "Valley",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-5-compare",
+      "kind": "compare",
+      "domain": "gallery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "display_wall",
+        "wall_area"
+      ],
+      "names": [
+        "Cedar",
+        "Juniper",
+        "Pearl"
+      ],
+      "places": [
+        "Central",
+        "North",
+        "Valley"
+      ],
+      "numbers": [
+        97,
+        58,
+        94
+      ],
+      "question": "Find out whether wall Central or North has greater area. Reply with the winning name.",
+      "expected": [
+        {
+          "name": "wall_area",
+          "arguments": {
+            "location": "Central"
+          }
+        },
+        {
+          "name": "wall_area",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "Central",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-1-compare",
+      "kind": "compare",
+      "domain": "gallery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "display_wall",
+        "wall_area"
+      ],
+      "names": [
+        "Cedar",
+        "Juniper",
+        "Cobalt"
+      ],
+      "places": [
+        "North",
+        "Coast",
+        "Ridge"
+      ],
+      "numbers": [
+        16,
+        98,
+        64
+      ],
+      "question": "Find out whether wall North or Coast has greater area. Reply with the winning name.",
+      "expected": [
+        {
+          "name": "wall_area",
+          "arguments": {
+            "location": "North"
+          }
+        },
+        {
+          "name": "wall_area",
+          "arguments": {
+            "location": "Coast"
+          }
+        }
+      ],
+      "gold": "Coast",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-2-lookup",
+      "kind": "lookup",
+      "domain": "grocery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stock_aisle",
+        "aisle_length"
+      ],
+      "names": [
+        "Cobalt",
+        "Cedar",
+        "Rowan"
+      ],
+      "places": [
+        "North",
+        "South",
+        "Valley"
+      ],
+      "numbers": [
+        63,
+        15,
+        82
+      ],
+      "question": "Please read the length recorded against aisle North. Return just that figure.",
+      "expected": [
+        {
+          "name": "aisle_length",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "63",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-1-direct",
+      "kind": "direct",
+      "domain": "aviary",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "enclosure_height",
+        "ring_enclosure"
+      ],
+      "names": [
+        "Kestrel",
+        "Cedar",
+        "Amber"
+      ],
+      "places": [
+        "East",
+        "South",
+        "Coast"
+      ],
+      "numbers": [
+        28,
+        57,
+        93
+      ],
+      "question": "My notes give East a score of 28 and South a score of 57. Who is ahead? Name only.",
+      "expected": [],
+      "gold": "South",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-2-compare",
+      "kind": "compare",
+      "domain": "aviary",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "enclosure_height",
+        "ring_enclosure"
+      ],
+      "names": [
+        "Hazel",
+        "Maple",
+        "Amber"
+      ],
+      "places": [
+        "Ridge",
+        "Central",
+        "Hill"
+      ],
+      "numbers": [
+        27,
+        65,
+        76
+      ],
+      "question": "Find out whether enclosure Ridge or Central has greater height. Reply with the winning name.",
+      "expected": [
+        {
+          "name": "enclosure_height",
+          "arguments": {
+            "location": "Ridge"
+          }
+        },
+        {
+          "name": "enclosure_height",
+          "arguments": {
+            "location": "Central"
+          }
+        }
+      ],
+      "gold": "Central",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-2-direct",
+      "kind": "direct",
+      "domain": "textile",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "loom_width",
+        "sample_loom"
+      ],
+      "names": [
+        "Cedar",
+        "Amber",
+        "Quartz"
+      ],
+      "places": [
+        "Central",
+        "Grove",
+        "Coast"
+      ],
+      "numbers": [
+        83,
+        74,
+        38
+      ],
+      "question": "My notes give Central a score of 83 and Grove a score of 74. Who is ahead? Name only.",
+      "expected": [],
+      "gold": "Central",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-3-compare",
+      "kind": "compare",
+      "domain": "textile",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "loom_width",
+        "sample_loom"
+      ],
+      "names": [
+        "Kestrel",
+        "Cobalt",
+        "Rowan"
+      ],
+      "places": [
+        "Valley",
+        "Grove",
+        "North"
+      ],
+      "numbers": [
+        21,
+        29,
+        42
+      ],
+      "question": "Find out whether loom Valley or Grove has greater width. Reply with the winning name.",
+      "expected": [
+        {
+          "name": "loom_width",
+          "arguments": {
+            "location": "Valley"
+          }
+        },
+        {
+          "name": "loom_width",
+          "arguments": {
+            "location": "Grove"
+          }
+        }
+      ],
+      "gold": "Grove",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-4-lookup",
+      "kind": "lookup",
+      "domain": "aviary",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "ring_enclosure",
+        "enclosure_height"
+      ],
+      "names": [
+        "Willow",
+        "Hazel",
+        "Quartz"
+      ],
+      "places": [
+        "Valley",
+        "Ridge",
+        "Coast"
+      ],
+      "numbers": [
+        55,
+        71,
+        63
+      ],
+      "question": "Please read the height recorded against enclosure Valley. Return just that figure.",
+      "expected": [
+        {
+          "name": "enclosure_height",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "55",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-3-direct",
+      "kind": "direct",
+      "domain": "grocery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "stock_aisle",
+        "aisle_length"
+      ],
+      "names": [
+        "Cedar",
+        "Pearl",
+        "Rowan"
+      ],
+      "places": [
+        "Ridge",
+        "Hill",
+        "South"
+      ],
+      "numbers": [
+        55,
+        69,
+        50
+      ],
+      "question": "My notes give Ridge a score of 55 and Hill a score of 69. Who is ahead? Name only.",
+      "expected": [],
+      "gold": "Hill",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-4-chain",
+      "kind": "chain",
+      "domain": "textile",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "loom_width",
+        "sample_loom"
+      ],
+      "names": [
+        "Flint",
+        "Maple",
+        "Rowan"
+      ],
+      "places": [
+        "Ridge",
+        "South",
+        "East"
+      ],
+      "numbers": [
+        92,
+        84,
+        98
+      ],
+      "question": "Which width corresponds to sample Flint? First find its loom. Reply with the number.",
+      "expected": [
+        {
+          "name": "sample_loom",
+          "arguments": {
+            "identifier": "Flint"
+          }
+        },
+        {
+          "name": "loom_width",
+          "arguments": {
+            "location": "Ridge"
+          }
+        }
+      ],
+      "gold": "92",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-0-lookup",
+      "kind": "lookup",
+      "domain": "aviary",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "enclosure_height",
+        "ring_enclosure"
+      ],
+      "names": [
+        "Flint",
+        "Cedar",
+        "Willow"
+      ],
+      "places": [
+        "North",
+        "Grove",
+        "Harbor"
+      ],
+      "numbers": [
+        26,
+        69,
+        85
+      ],
+      "question": "Please read the height recorded against enclosure North. Return just that figure.",
+      "expected": [
+        {
+          "name": "enclosure_height",
+          "arguments": {
+            "location": "North"
+          }
+        }
+      ],
+      "gold": "26",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-3-clarify",
+      "kind": "clarify",
+      "domain": "gallery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "wall_area",
+        "display_wall"
+      ],
+      "names": [
+        "Cedar",
+        "Flint",
+        "Hazel"
+      ],
+      "places": [
+        "Valley",
+        "Harbor",
+        "North"
+      ],
+      "numbers": [
+        96,
+        27,
+        43
+      ],
+      "question": "I need the area of a certain wall, but I have not identified which. Ask me for what you need.",
+      "expected": [],
+      "gold": "Which wall?",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-5-lookup",
+      "kind": "lookup",
+      "domain": "textile",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "sample_loom",
+        "loom_width"
+      ],
+      "names": [
+        "Quartz",
+        "Cobalt",
+        "Rowan"
+      ],
+      "places": [
+        "Valley",
+        "Grove",
+        "South"
+      ],
+      "numbers": [
+        88,
+        75,
+        29
+      ],
+      "question": "Please read the width recorded against loom Valley. Return just that figure.",
+      "expected": [
+        {
+          "name": "loom_width",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "88",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-5-chain",
+      "kind": "chain",
+      "domain": "grocery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "aisle_length",
+        "stock_aisle"
+      ],
+      "names": [
+        "Juniper",
+        "Amber",
+        "Hazel"
+      ],
+      "places": [
+        "Valley",
+        "Central",
+        "Ridge"
+      ],
+      "numbers": [
+        52,
+        13,
+        18
+      ],
+      "question": "Which length corresponds to product Juniper? First find its aisle. Reply with the number.",
+      "expected": [
+        {
+          "name": "stock_aisle",
+          "arguments": {
+            "identifier": "Juniper"
+          }
+        },
+        {
+          "name": "aisle_length",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "52",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-2-chain",
+      "kind": "chain",
+      "domain": "gallery",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "display_wall",
+        "wall_area"
+      ],
+      "names": [
+        "Juniper",
+        "Flint",
+        "Cedar"
+      ],
+      "places": [
+        "Lake",
+        "South",
+        "North"
+      ],
+      "numbers": [
+        74,
+        40,
+        96
+      ],
+      "question": "Which area corresponds to piece Juniper? First find its wall. Reply with the number.",
+      "expected": [
+        {
+          "name": "display_wall",
+          "arguments": {
+            "identifier": "Juniper"
+          }
+        },
+        {
+          "name": "wall_area",
+          "arguments": {
+            "location": "Lake"
+          }
+        }
+      ],
+      "gold": "74",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-5-direct",
+      "kind": "direct",
+      "domain": "aviary",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "ring_enclosure",
+        "enclosure_height"
+      ],
+      "names": [
+        "Hazel",
+        "Willow",
+        "Amber"
+      ],
+      "places": [
+        "Coast",
+        "Harbor",
+        "Grove"
+      ],
+      "numbers": [
+        68,
+        80,
+        91
+      ],
+      "question": "My notes give Coast a score of 68 and Harbor a score of 80. Who is ahead? Name only.",
+      "expected": [],
+      "gold": "Harbor",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "retention-fresh-3-chain",
+      "kind": "chain",
+      "domain": "aviary",
+      "args": [
+        "identifier",
+        "location"
+      ],
+      "tools": [
+        "ring_enclosure",
+        "enclosure_height"
+      ],
+      "names": [
+        "Willow",
+        "Juniper",
+        "Rowan"
+      ],
+      "places": [
+        "Valley",
+        "East",
+        "Coast"
+      ],
+      "numbers": [
+        48,
+        86,
+        13
+      ],
+      "question": "Which height corresponds to ring Willow? First find its enclosure. Reply with the number.",
+      "expected": [
+        {
+          "name": "ring_enclosure",
+          "arguments": {
+            "identifier": "Willow"
+          }
+        },
+        {
+          "name": "enclosure_height",
+          "arguments": {
+            "location": "Valley"
+          }
+        }
+      ],
+      "gold": "48",
+      "provider": "world",
+      "panel": "fresh",
+      "generation_cap": 160
+    },
+    {
+      "id": "exec_simple_0",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've been playing a game where rolling a six is somehow more likely than usual, and the chance of it happening on a single roll is 60%. I'm curious, if I roll the die 20 times, what are the odds that I'll get exactly five sixes?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calc_binomial_probability",
+          "description": "Calculates the probability of getting k successes in n trials.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of trials."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of successes."
+              },
+              "p": {
+                "type": "float",
+                "description": "The probability of success."
+              }
+            },
+            "required": [
+              "n",
+              "k",
+              "p"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calc_binomial_probability(n=20, k=5, p=0.6)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_1",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During last night's basketball game, one of the star players was on fire, attempting a whopping 30 free throws. It's generally known that the average success rate for free throws hovers around 50%. I'm curious, with that success probability, what are the chances that the player made exactly 15 out of those 30 attempts?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calc_binomial_probability",
+          "description": "Calculates the probability of getting k successes in n trials.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of trials."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of successes."
+              },
+              "p": {
+                "type": "float",
+                "description": "The probability of success."
+              }
+            },
+            "required": [
+              "n",
+              "k",
+              "p"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calc_binomial_probability(n=30, k=15, p=0.5)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_2",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm currently tweaking a machine learning model and I need to understand the similarity between two objects in my dataset. Their characteristics are expressed in the feature vectors [0.5, 0.7, 0.2, 0.9, 0.1] for the first object and [0.4, 0.6, 0.3, 0.8, 0.2] for the second one. Could you calculate the cosine similarity between these two feature vectors to help me determine how similar these objects are?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_cosine_similarity",
+          "description": "Calculates the cosine similarity of two vectors.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "vectorA": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The first vector."
+              },
+              "vectorB": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The second vector."
+              }
+            },
+            "required": [
+              "vectorA",
+              "vectorB"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_cosine_similarity(vectorA=[0.5, 0.7, 0.2, 0.9, 0.1], vectorB=[0.4, 0.6, 0.3, 0.8, 0.2])"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_3",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a project that involves comparing the attributes of different entities to determine how similar they are. I have two entities represented by numerical arrays, and I need to use cosine similarity as a measure of similarity between them. The attributes for the first entity are [0.3, 0.8, 0.1, 0.6, 0.2], and for the second entity, they are [0.5, 0.7, 0.4, 0.9, 0.3]. Could you calculate the cosine similarity for these two vectors for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_cosine_similarity",
+          "description": "Calculates the cosine similarity of two vectors.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "vectorA": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The first vector."
+              },
+              "vectorB": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The second vector."
+              }
+            },
+            "required": [
+              "vectorA",
+              "vectorB"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_cosine_similarity(vectorA=[0.3, 0.8, 0.1, 0.6, 0.2], vectorB=[0.5, 0.7, 0.4, 0.9, 0.3])"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_4",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a physics experiment and need to calculate the density of an object I have. It weighs 50 kilograms and takes up a space of 10 cubic meters. Could you help me figure out its density?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_density",
+          "description": "Calculates the density of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "mass": {
+                "type": "float",
+                "description": "The mass of the object, in kilograms."
+              },
+              "volume": {
+                "type": "float",
+                "description": "The volume of the object, in cubic meters."
+              }
+            },
+            "required": [
+              "mass",
+              "volume"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_density(mass=50.0, volume=10.0)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_5",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got this strange object we've come across in our scientific research. It's pretty hefty, weighing in at 120 kilograms, and it takes up about 30 cubic meters of space. Can you help me calculate its density?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_density",
+          "description": "Calculates the density of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "mass": {
+                "type": "float",
+                "description": "The mass of the object, in kilograms."
+              },
+              "volume": {
+                "type": "float",
+                "description": "The volume of the object, in cubic meters."
+              }
+            },
+            "required": [
+              "mass",
+              "volume"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_density(mass=120.0, volume=30.0)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_6",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During our advanced physics experiment, we've been tracking this unique object which initially was moving at 15 m/s. It's been accelerating at a rate of 9.8 m/s\u00b2, and this has been going on for exactly 10 seconds. I need to calculate the total displacement of the object over this period. Can you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_displacement",
+          "description": "Calculates the displacement of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_displacement(initial_velocity=15.0, acceleration=9.8, time=10)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_7",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During the high-speed chase, when the driver accelerated the vehicle, it was initially moving at 25 meters per second. With the sudden push on the gas pedal, the car accelerated at 15 meters per second squared, and this went on for 8 seconds. I need to calculate the displacement of the vehicle over that time. Can you provide me with that information?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_displacement",
+          "description": "Calculates the displacement of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_displacement(initial_velocity=25.0, acceleration=15.0, time=8)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_8",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During our physics lab session, we're experimenting with electric fields and their effects on charged particles. We've placed a particle that carries a charge of 5 coulombs within a field where there's a voltage of 10 volts. I need to calculate the electrostatic potential energy for this scenario. Could you work that out for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_electrostatic_potential_energy",
+          "description": "Calculates the electrostatic potential energy.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "charge": {
+                "type": "float",
+                "description": "The charge of the object, in coulombs."
+              },
+              "voltage": {
+                "type": "float",
+                "description": "The voltage of the object, in volts."
+              }
+            },
+            "required": [
+              "charge",
+              "voltage"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_electrostatic_potential_energy(charge=5.0, voltage=10.0)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_9",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a physics simulation and I have a micro-particle here charged at 7.8 coulombs. It's placed in an electromagnetic field with a voltage of 15.2 volts. Can you calculate the electrostatic potential energy for this particle in the given field?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_electrostatic_potential_energy",
+          "description": "Calculates the electrostatic potential energy.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "charge": {
+                "type": "float",
+                "description": "The charge of the object, in coulombs."
+              },
+              "voltage": {
+                "type": "float",
+                "description": "The voltage of the object, in volts."
+              }
+            },
+            "required": [
+              "charge",
+              "voltage"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_electrostatic_potential_energy(charge=7.8, voltage=15.2)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_10",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During a training exercise, we're analyzing a simulation of a high-speed chase where a vehicle starts from a standstill and then accelerates constantly. We've clocked the acceleration at 9.8 meters per second squared and the time span for this acceleration is 12 seconds. I need to calculate the final velocity of the vehicle at the end of this time frame. Can you give me that figure?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_final_velocity",
+          "description": "Calculates the final velocity of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_final_velocity(initial_velocity=0, acceleration=9.8, time=12)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_11",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got a physics experiment where I'm dropping a ball from a certain height, and I know that the initial velocity is zero because I'm letting it fall freely. Gravity is doing all the work here at 9.8 m/s\u00b2. After 7 seconds, I want to calculate what the final velocity will be. Can we get that sorted out?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_final_velocity",
+          "description": "Calculates the final velocity of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_final_velocity(initial_velocity=0, acceleration=9.8, time=7)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_12",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've put $5000 into a fixed deposit offering a 5% annual interest rate, and I'm planning to let it grow for 10 years. Could you calculate the future value of this investment for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_future_value",
+          "description": "Calculates the future value of an investment.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "present_value": {
+                "type": "float",
+                "description": "The present value of the investment, in dollars."
+              },
+              "interest_rate": {
+                "type": "float",
+                "description": "The interest rate of the investment, ranging from 0 to 1."
+              },
+              "periods": {
+                "type": "integer",
+                "description": "The number of periods, in years."
+              }
+            },
+            "required": [
+              "present_value",
+              "interest_rate",
+              "periods"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_future_value(present_value=5000, interest_rate=0.05, periods=10)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_13",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got $8000 that I'm planning to drop into a savings account with a sweet annual interest rate of 4%. I'm not touching it for 15 years. I'm curious about the future value of this investment after that time. Can you crunch the numbers for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_future_value",
+          "description": "Calculates the future value of an investment.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "present_value": {
+                "type": "float",
+                "description": "The present value of the investment, in dollars."
+              },
+              "interest_rate": {
+                "type": "float",
+                "description": "The interest rate of the investment, ranging from 0 to 1."
+              },
+              "periods": {
+                "type": "integer",
+                "description": "The number of periods, in years."
+              }
+            },
+            "required": [
+              "present_value",
+              "interest_rate",
+              "periods"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_future_value(present_value=8000, interest_rate=0.04, periods=15)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_14",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "As part of my data analysis project, I've been tasked with examining the temperature trends over the past month. I've collected a set of daily temperature readings that I need to interpret. The dataset includes temperatures ranging from 22 to 80 degrees Celsius, incrementing by 2 each day. To gain a better understanding of the overall climate patterns, could you calculate the average temperature for this period using these values?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_mean",
+          "description": "Calculates the mean of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_mean(numbers=[22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80])"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_15",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a report about a basketball player's average performance throughout the season. The data I have includes the points they scored in each game: 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160. To complete my analysis, I need to calculate the mean score per game. Can you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_mean",
+          "description": "Calculates the mean of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_mean(numbers=[15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160])"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_16",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm developing a new encryption algorithm and I'm currently focused on the permutations aspect. I need to know how many unique arrangements are possible if I take 5 characters from the standard English alphabet, which has 26 letters. This calculation is crucial for understanding the complexity of the encryption. Can you run the permutations calculation with these values?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_permutations",
+          "description": "Calculates the number of permutations of k elements from a set of n elements.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of elements in the set."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of elements to choose."
+              }
+            },
+            "required": [
+              "n",
+              "k"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_permutations(n=26, k=5)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_17",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "In my current research on plant genetics, I'm exploring the genetic diversity within a specific species. It's fascinating work, and I've managed to isolate 30 unique genes. The next step in my study involves figuring out the possible combinations if I were to select 7 of these genes at a time for a more detailed analysis. Could you calculate the number of different permutations for 7 genes out of the total 30?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_permutations",
+          "description": "Calculates the number of permutations of k elements from a set of n elements.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of elements in the set."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of elements to choose."
+              }
+            },
+            "required": [
+              "n",
+              "k"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_permutations(n=30, k=7)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_18",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "To better understand the volatility and risk associated with this particular stock, I need to calculate the standard deviation of its daily closing prices over the past 10 trading days. Here are the figures I've gathered: 1000, 2000, 3000, 4000, 5000, 7000, 9000, 15000, 20000, and 30000. Can you provide me with the standard deviation for these closing prices?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_standard_deviation",
+          "description": "Calculates the standard deviation of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_standard_deviation(numbers=[1000,2000,3000,4000,5000,7000,9000,15000,20000,30000])"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_19",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've been tracking the scoring performance of a certain basketball player across the last 12 games to get insights into his consistency. The points he scored in each game are as follows: 30, 20, 25, 12, 59, 23, 64, 21, 67, 12, 23, and 43. I need to calculate the standard deviation of this scoring to better understand the variability and predictability of his performance. Could you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_standard_deviation",
+          "description": "Calculates the standard deviation of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_standard_deviation(numbers=[30,20,25,12,59,23,64,21,67,12,23,43])"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_20",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm currently working on an architectural project where we're designing a new triangular-shaped park. We've finally settled on the dimensions, and we're planning for the base to be 500 meters long with a height of 300 meters. Could you calculate the area of this park for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_triangle_area",
+          "description": "Calculates the area of a triangle given its base and height.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "base": {
+                "type": "integer",
+                "description": "The base of the triangle, in meters."
+              },
+              "height": {
+                "type": "integer",
+                "description": "The height of the triangle, in meters."
+              }
+            },
+            "required": [
+              "base",
+              "height"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_triangle_area(base=500, height=300)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    },
+    {
+      "id": "exec_simple_21",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on the design for a triangular dam, and I've settled on the dimensions. The base is going to be 700 meters, and the height will be at 450 meters. I need to calculate the total area that the face of this dam will cover. Can you help me figure out what that area would be with these measurements?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_triangle_area",
+          "description": "Calculates the area of a triangle given its base and height.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "base": {
+                "type": "integer",
+                "description": "The base of the triangle, in meters."
+              },
+              "height": {
+                "type": "integer",
+                "description": "The height of the triangle, in meters."
+              }
+            },
+            "required": [
+              "base",
+              "height"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_triangle_area(base=700, height=450)"
+      ],
+      "provider": "bfcl_exec",
+      "panel": "public",
+      "generation_cap": 384
+    }
+  ]
+}

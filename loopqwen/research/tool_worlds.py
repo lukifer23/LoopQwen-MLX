@@ -8,6 +8,10 @@ from ..tool_session import Tool, compact
 
 # Each tuple specifies a domain, source entities, linked entities and a measurable quantity.
 DOMAINS = {
+    "aviary": ("ring", "enclosure", "height", "ring_enclosure", "enclosure_height"),
+    "textile": ("sample", "loom", "width", "sample_loom", "loom_width"),
+    "grocery": ("product", "aisle", "length", "stock_aisle", "aisle_length"),
+    "gallery": ("piece", "wall", "area", "display_wall", "wall_area"),
     "depot": ("parcel", "hub", "capacity", "manifest_hub", "hub_capacity"),
     "museum": ("painting", "room", "area", "locate_art", "room_area"),
     "campus": ("course", "hall", "seats", "course_building", "hall_seats"),
