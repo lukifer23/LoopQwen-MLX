@@ -1,0 +1,135 @@
+{
+  "passed": false,
+  "groups": {
+    "all": {
+      "candidate": {
+        "n": 40,
+        "correct": 6,
+        "grounded": 6,
+        "evidence": 22,
+        "called": 40,
+        "completed": 38,
+        "f1": 0.21863636363636366,
+        "seconds": 43.61974858189933,
+        "first": 8.86055570706958,
+        "peak": 1189769258
+      },
+      "control": {
+        "n": 40,
+        "correct": 0,
+        "grounded": 0,
+        "evidence": 0,
+        "called": 0,
+        "completed": 24,
+        "f1": 0.04847005772005772,
+        "seconds": 155.87128295598086,
+        "first": 8.204987583914772,
+        "peak": 1785273314
+      },
+      "gains": 6,
+      "losses": 0,
+      "p": 0.03125
+    },
+    "Qasper": {
+      "candidate": {
+        "n": 16,
+        "correct": 1,
+        "grounded": 1,
+        "evidence": 5,
+        "called": 16,
+        "completed": 15,
+        "f1": 0.125,
+        "seconds": 18.8515110409935,
+        "first": 4.136048790067434,
+        "peak": 1177976874
+      },
+      "control": {
+        "n": 16,
+        "correct": 0,
+        "grounded": 0,
+        "evidence": 0,
+        "called": 0,
+        "completed": 11,
+        "f1": 0.03145292207792208,
+        "seconds": 61.6946593739558,
+        "first": 3.835211086028721,
+        "peak": 1783899106
+      },
+      "gains": 1,
+      "losses": 0,
+      "p": 1.0
+    },
+    "SQuAD": {
+      "candidate": {
+        "n": 16,
+        "correct": 1,
+        "grounded": 1,
+        "evidence": 11,
+        "called": 16,
+        "completed": 15,
+        "f1": 0.1715909090909091,
+        "seconds": 17.408224208978936,
+        "first": 3.1631564600393176,
+        "peak": 1189769258
+      },
+      "control": {
+        "n": 16,
+        "correct": 0,
+        "grounded": 0,
+        "evidence": 0,
+        "called": 0,
+        "completed": 13,
+        "f1": 0.08972222222222222,
+        "seconds": 48.6371410410502,
+        "first": 2.946620873932261,
+        "peak": 1783833570
+      },
+      "gains": 1,
+      "losses": 0,
+      "p": 1.0
+    },
+    "Project guides": {
+      "candidate": {
+        "n": 8,
+        "correct": 4,
+        "grounded": 4,
+        "evidence": 6,
+        "called": 8,
+        "completed": 8,
+        "f1": 0.5,
+        "seconds": 7.360013331926893,
+        "first": 1.5613504569628276,
+        "peak": 1177960490
+      },
+      "control": {
+        "n": 8,
+        "correct": 0,
+        "grounded": 0,
+        "evidence": 0,
+        "called": 0,
+        "completed": 0,
+        "f1": 0.0,
+        "seconds": 45.53948254097486,
+        "first": 1.4231556239537895,
+        "peak": 1785273314
+      },
+      "gains": 4,
+      "losses": 0,
+      "p": 0.125
+    }
+  },
+  "index_seconds": {
+    "candidate": 0.23815545800607651,
+    "control": 0.22079962503630668
+  },
+  "first_pass_evidence": {
+    "positive": [
+      33,
+      50
+    ],
+    "negative": [
+      86,
+      94
+    ]
+  }
+}
