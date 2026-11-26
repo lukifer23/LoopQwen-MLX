@@ -55,7 +55,7 @@ def material(s):
     return docs, arithmetic, manifest
 
 
-def measure(m, t, row, cap, budget, *, offload_dir=None):
+def measure(m, t, row, cap, budget, *, offload_dir=None, reserve_full_kv=False):
     ids = row["prompt_ids"]
     end = core.atom(t, "<|im_end|>")
     text = t.decode(ids)
@@ -69,6 +69,7 @@ def measure(m, t, row, cap, budget, *, offload_dir=None):
         progress=lambda _: budget.check(),
         stop_ids=[end],
         offload_dir=offload_dir,
+        reserve_full_kv=reserve_full_kv,
     )
     del v["prompt"]
     stops = set(t.eos_token_ids) | {end}

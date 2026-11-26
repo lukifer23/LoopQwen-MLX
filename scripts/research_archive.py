@@ -79,6 +79,10 @@ def verify(root):
         from scripts.tool_release import verify as verify_tool_release
 
         verify_tool_release(root, decision)
+    if study.startswith("register-allocation-"):
+        from loopqwen.research.register_allocation import verify as verify_allocation
+
+        verify_allocation(root, decision)
     if study.startswith("register-rebalanced-"):
         from loopqwen.research.balanced_register import verify as verify_register
 

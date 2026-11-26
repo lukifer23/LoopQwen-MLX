@@ -16,6 +16,7 @@ def generate(
     offload_dir=None,
     prefill_block=128,
     tool_prefix=None,
+    reserve_full_kv=False,
 ):
     if type(prefill_block) is not int or prefill_block < 1:
         raise ValueError("Prefill block must be a positive integer")
@@ -30,6 +31,8 @@ def generate(
         raise ValueError(
             "Supply a nonempty prompt within the context window and 1..4096 output tokens."
         )
+    if reserve_full_kv and (offload_dir is not None or tool_prefix is not None):
+        raise ValueError("Full-history reservation requires a fresh resident cache")
     if tool_prefix is not None and (
         offload_dir is not None
         or any(
@@ -48,6 +51,8 @@ def generate(
         routed_at = perf_counter()
         model, route = policy.choose(model, ids, max_tokens)
     if getattr(model, "deliberation_policy", None):
+        if reserve_full_kv:
+            raise ValueError("Deliberation uses separately scheduled caches")
         from ..deliberation import greedy
 
         val = greedy(
@@ -91,6 +96,10 @@ def generate(
         cache = None
         if directory is None:
             cache = model.make_cache()
+            if reserve_full_kv:
+                from ..reserved_cache import reserve
+
+                reserve(cache, len(ids) + max_tokens - 1)
         else:
             from ..offloaded_prefill import OffloadedPrefill
 
@@ -165,6 +174,14 @@ def generate(
     }
     if tool_prefix is not None:
         result["reused_prompt_tokens"] = tool_prefix.reused
+    if reserve_full_kv:
+        from ..reserved_cache import ReservedKVCache
+
+        result["reserved_sites"] = [
+            dict(layer=i, turn=p, capacity=slot.keys.shape[2], offset=slot.offset)
+            for (i, p), slot in cache.slots.items()
+            if isinstance(slot, ReservedKVCache)
+        ]
     if route is not None:
         result["context_route"] = route
     if section is not None:

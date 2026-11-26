@@ -28,6 +28,7 @@ def main(verify):
                         "tool-",
                         "contrast-boolq-",
                         "register-rebalanced-",
+                        "register-allocation-",
                         "native-language-release-02",
                     )
                 )
