@@ -268,6 +268,13 @@ The release selected its ordinary-depth route on both books. On the original, bo
 
 The independent test uses 128 passages from 24 sources, comprising four novels, four memoirs, eight Git manuals and eight encyclopedia articles. The enrollment excludes shared 24-token windows with the fit and earlier raw test suites. Both passage and original source are units of analysis for the paired sign test. Two historical suites add 172 passages. Each of six free eight-token generations runs incrementally and from its complete prefixes, with both native final-layer caches inspected. This comparison measures causal text prediction.
 
+
+The pooled comparison favored the two-pass decoder by 73 correct next tokens on 36,991 predictions. It used 21.20 versus 24.27 s and 1.18 versus 1.84 GiB peak allocation. On fresh text alone it made 5,494 versus 5,526 correct decisions over 14,351 positions. Its mean negative log-likelihood increased from 3.27265 to 3.29071. Only 31/128 passages and 2/24 distinct works favored the model on loss. The two-sided sign probabilities were $4.16 times 10^(-9)$ and $3.59 times 10^(-5)$ respectively, in favor of Base. Each of the four new domains lost top-one accuracy. WikiText and the earlier retention panel accounted for the pooled improvement, with 72 and 33 additional correct predictions respectively.
+
+#figure(image("future-token-sources.svg",width:93%),caption:[Each point is one of the 24 fresh works. Negative likelihood changes and positive changes in correct predictions favor the recurrent decoder. Source-level results use all enrolled positions.])
+
+Cached and fresh computation produced the same eight freely generated tokens on each of six independent prefixes with seven full attention histories. A separate installed CLI test generated a 48-token continuation about a library custodian. It repeatedly transferred a box between people. The archived output gives an example of the model’s free prose. The fresh-source result closed promotion.
+
 = Relationship to prior work
 API-Bank [37] used manually annotated conversations and executable APIs to study calling, retrieval and planning. Our package and file evaluations resolve properties from a live local installation, and our arithmetic evaluations also score a correct final answer when the model avoids a call. The distinction changes which model wins on the human mathematics subset.
 

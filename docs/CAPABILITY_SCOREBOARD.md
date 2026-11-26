@@ -32,6 +32,8 @@ The state-supervised two-pass model solved 32/54 requests versus 0/54 for Base i
 
 The tool fit retained all 17 prior public successes and reached 19/22. The reading fit used less peak memory and completed every question in 17.73 s versus 145.60 s. The raw fit improved all three suites in aggregate, with 17 of 18 additional fresh correct tokens coming from one Python reference. The three protocols retain their original domain gates. [Tool trajectories](../research/results/tool-dialogue-intent-pairs-01) · [Human reading](../paper/passage-scores.csv) · [Raw text](../paper/selective-domains.csv)
 
+On 24 additional works the two-horizon model improved loss on only 2/24, and made 32 fewer correct predictions on 14,351 fresh positions. Gains of 72 on WikiText and 33 on earlier retained text gave a pooled gain of 73. Base remains the general-language reference. [All 24 fresh works](../paper/future-token-sources.csv) · [Native model and decision](../research/results/future-token-prose-01) · [Free continuation from the installed CLI](measurements/future-token-installed-cli.json)
+
 ## Executable tools and human reading
 
 | Frozen comparison | Recurrent | Comparator | Actual seconds (recurrent / comparator) |
