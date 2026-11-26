@@ -1,0 +1,130 @@
+{
+  "registration": "be4595e5b53825fccbac2d35b533a1be973eb34e8bf7182fb1e7a5c5df4812d8",
+  "data": "1a8aa7810aa18ada4ac3bccdf43688cd846d4e9294376e26f397354be6daf043",
+  "passed": false,
+  "dense_weights": "77f71a6078dfaa00de6da3591d689250ceb5488271f32ce398f4d329097d5fd4",
+  "documents": "0774d19127c243919905dc43d835d21a6970e4d0d6c1939258bd295a23cce553",
+  "targets": 1196,
+  "updates": 64,
+  "status": "completed",
+  "scores": {
+    "all": {
+      "wins": 0,
+      "losses": 0,
+      "n": 80,
+      "p": 1.0,
+      "dense": {
+        "correct": 52,
+        "valid": 69,
+        "tokens": 35859,
+        "seconds": 524.687159832014
+      },
+      "recurrent": {
+        "correct": 52,
+        "valid": 69,
+        "tokens": 35908,
+        "seconds": 528.1360531258397
+      }
+    },
+    "gsm8k_reserved": {
+      "wins": 0,
+      "losses": 0,
+      "n": 40,
+      "p": 1.0,
+      "dense": {
+        "correct": 26,
+        "valid": 36,
+        "tokens": 20553,
+        "seconds": 301.40974749907036
+      },
+      "recurrent": {
+        "correct": 26,
+        "valid": 36,
+        "tokens": 20594,
+        "seconds": 304.11113324886537
+      }
+    },
+    "svamp": {
+      "wins": 0,
+      "losses": 0,
+      "n": 40,
+      "p": 1.0,
+      "dense": {
+        "correct": 26,
+        "valid": 33,
+        "tokens": 15306,
+        "seconds": 223.27741233294364
+      },
+      "recurrent": {
+        "correct": 26,
+        "valid": 33,
+        "tokens": 15314,
+        "seconds": 224.0249198769743
+      }
+    }
+  },
+  "retention": {
+    "recurrent": {
+      "nll": 2.995381732028789,
+      "by_domain": {
+        "code_description": {
+          "loss": 4499.419004499912,
+          "tokens": 1733,
+          "nll": 2.596317948355402
+        },
+        "general_prose": {
+          "loss": 7213.788513541222,
+          "tokens": 1911,
+          "nll": 3.7748762498907493
+        },
+        "reference": {
+          "loss": 4177.458254337311,
+          "tokens": 1680,
+          "nll": 2.4865822942483993
+        },
+        "scientific_exposition": {
+          "loss": 7140.90129545331,
+          "tokens": 2291,
+          "nll": 3.116936401332741
+        },
+        "technical_explanation": {
+          "loss": 4909.353728532791,
+          "tokens": 1713,
+          "nll": 2.8659391293244547
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    },
+    "dense": {
+      "nll": 2.996551095033592,
+      "by_domain": {
+        "code_description": {
+          "loss": 4497.139591872692,
+          "tokens": 1733,
+          "nll": 2.5950026496668737
+        },
+        "general_prose": {
+          "loss": 7214.748521924019,
+          "tokens": 1911,
+          "nll": 3.7753786090654207
+        },
+        "reference": {
+          "loss": 4182.016684055328,
+          "tokens": 1680,
+          "nll": 2.489295645271029
+        },
+        "scientific_exposition": {
+          "loss": 7156.554933309555,
+          "tokens": 2291,
+          "nll": 3.1237690673546727
+        },
+        "technical_explanation": {
+          "loss": 4901.3688833117485,
+          "tokens": 1713,
+          "nll": 2.8612778069537352
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  }
+}

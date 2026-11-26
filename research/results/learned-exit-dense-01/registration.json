@@ -1,0 +1,32 @@
+{
+  "id": "learned-exit-dense-01",
+  "question": "Does the extra shared-block pass itself improve the replicated full-budget word-problem result over an equally trained ordinary-depth finisher?",
+  "prerequisite": "Original arithmetic qualification and independent replication must both pass strict and blind content criteria.",
+  "expert": {
+    "model": "research/results/learned-exit-01/model",
+    "weights": "d671b7332e80fb47660ad7701ab4c53bf523aa75e2591fb134d1470da55bca0d",
+    "qualification": {
+      "directory": "research/results/learned-exit-01",
+      "inventory": "17d48884d6daf299402c0a2b4a2ced06f1fdb2453337fb14a0200c8035e79913",
+      "audit": "docs/measurements/answer-audits/learned-exit-01.json",
+      "audit_sha256": "9a01ff6892ce1e8bc5f0df73976c4db782da56a4d6517108256aebea8ce72abf"
+    },
+    "confirmation": {
+      "directory": "research/results/learned-exit-confirm-01",
+      "inventory": "4910c90e7be7828121b017f83e2b917eadb51906e2662ea2b2780f756f2e6fd0",
+      "audit": "docs/measurements/answer-audits/learned-exit-confirm-01.json",
+      "audit_sha256": "9974b37c9243ea1a81232f97ced5b6a0319ac74b7e3842e440370eef1da0e53e"
+    }
+  },
+  "initial_dense": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "net_floor": 2,
+  "max_time_ratio": 1.15,
+  "protocol": "Use the original two sealed panels, 80 items in frozen order. Compare the unchanged K2 finisher against a newly trained K1 finisher descended from the matched dense arithmetic parent. Same 64 original Base drafts, long extensions, 128 ordered training documents, 64 updates, 1196 supervised tokens, regularized vocabulary-readout objective, switch at 704 and 1024-token common maximum. Run every request again at both depths and check all K2 tokens against archive. Include full replay in elapsed time. No study item or model output from any evaluation enters optimization.",
+  "decision": "A positive attribution on this cohort requires at least two net K2 correct, neither source worse, elapsed K2 time <=1.15 times the K1 time, and K2 V3 NLL <=K1+.03. Report p, all pairs, costs and both NLLs. A failed comparison closes a causal depth claim for this model. Stop at timeout, MLX peak ceiling or memory pressure.",
+  "limits": {
+    "wall_seconds": 1720,
+    "peak_gib": 6.7,
+    "available_gib": 1.5
+  }
+}

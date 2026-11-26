@@ -1,0 +1,39 @@
+{
+  "start": 1795650045.199389,
+  "end": 1795653713.8453581,
+  "jobs": [
+    {
+      "job": "conditional-depth-01",
+      "seconds": 627.5883429050446,
+      "peak_bytes": 3511582994,
+      "start": 1795650049.509865
+    },
+    {
+      "job": "entailment-triplets-confirm-01",
+      "seconds": 623.723925113678,
+      "peak_bytes": 1993914446,
+      "start": 1795650683.198085
+    },
+    {
+      "job": "conditional-depth-128k",
+      "seconds": 1140.686476945877,
+      "peak_bytes": 2760458278,
+      "start": 1795651311.269418
+    },
+    {
+      "job": "learned-exit-dense-01",
+      "seconds": 1176.8120322227478,
+      "peak_bytes": 5314511338,
+      "start": 1795652533.7641568
+    }
+  ],
+  "total_native_seconds": 3568.8107771873474,
+  "wall_seconds": 3668.6459691524506,
+  "limits": {
+    "wall_seconds": 7200,
+    "native_seconds": 4500,
+    "iterations": 8,
+    "reassess_consecutive_failures": 3
+  },
+  "reason": "Completed and archived the registered studies in the current research window. The next independent deployment comparison and full-history validation require a fresh bounded window."
+}
