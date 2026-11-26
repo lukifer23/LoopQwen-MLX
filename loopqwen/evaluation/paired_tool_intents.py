@@ -1,9 +1,10 @@
 """Score changes of requested property on actual calendar, time-zone, Unicode and package data."""
 
 import re
+import sysconfig
 import unicodedata
 from datetime import date, datetime
-from importlib.metadata import distribution, distributions
+from importlib.metadata import PackageNotFoundError, distributions
 from zoneinfo import ZoneInfo
 
 from ..tool_session import Tool
@@ -47,18 +48,31 @@ ARGUMENTS = {
 }
 
 
+def site_packages():
+    return list(dict.fromkeys(sysconfig.get_path(k) for k in ("purelib", "platlib")))
+
+
+def installed_distribution(name):
+    # An adjacent source checkout may contain an egg-info directory. Only the
+    # environment's installed files belong to this provider.
+    package = next(distributions(name=name, path=site_packages()), None)
+    if package is None:
+        raise PackageNotFoundError(name)
+    return package
+
+
 def installed_inventory():
     from packaging.utils import canonicalize_name
 
     names = {
         canonicalize_name(d.metadata["Name"])
-        for d in distributions()
+        for d in distributions(path=site_packages())
         if d.metadata.get("Name")
     }
     # Resolve duplicates exactly as inference resolves a request in this interpreter.
     result = {}
     for name in sorted(names):
-        package = distribution(name)
+        package = installed_distribution(name)
         result[name] = [package.version, len(package.files or ())]
     return result
 
@@ -82,7 +96,7 @@ def read_value(family, index, kwargs):
             else unicodedata.category(character)
         )
     if family == "distribution":
-        package = distribution(kwargs["distribution"])
+        package = installed_distribution(kwargs["distribution"])
         return package.version if index == 0 else len(package.files or ())
     raise ValueError("Unknown resource family")
 
@@ -122,7 +136,6 @@ def tools_for(row, replay):
         def lookup(**kwargs):
             if replay and family == "distribution":
                 # Preserve the full enrolled environment, including a model's wrong lookup.
-                from importlib.metadata import PackageNotFoundError
 
                 from packaging.utils import canonicalize_name
 
