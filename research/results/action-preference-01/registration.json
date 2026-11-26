@@ -1,0 +1,35 @@
+{
+  "id": "action-preference-01",
+  "question": "Can externally supervised action preferences teach a shared-depth model to request a missing value and then ground the answer in a real CSV file, while preserving its qualified public numerical calls?",
+  "initial": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "rank": 32,
+  "passes": 2,
+  "training": "research/data/action-preference-training.json",
+  "material": "research/data/action-preference-panel.json",
+  "fit_seed": 373921,
+  "batch": 2,
+  "updates": 720,
+  "beta": 0.08,
+  "chosen_weight": 0.18,
+  "replay_weight": 0.4,
+  "lr": 4.5e-05,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "protocol": "Independent behavioral question licensed by the qualified typed tool model. Continue only its 802816 shared final-layer parameters from the qualified K2 reference. Use external NVIDIA When2Call chosen/rejected full responses, 384 distinct bounded read-oriented questions with unrelated schemas. Another 48 unique questions from the same source remain reserved to measure the change in the within-pair likelihood margin. Preferences are synthetic and may share tool schemas across the two source splits. Each of 720 native AdamW updates draws two chosen/rejected pairs and one original typed-training response from 192 distinct replay rows. Loss is reference-relative summed sequence DPO with beta .08, plus .18 mean chosen token loss and .4 replay token loss. No file requests or evaluation trajectories enter fitting. Score freely emitted text with real read-only callbacks on 16 paired author-written requests over four immutable CSV files (two project reports and two original Palmer Penguins tables). One request names all required inputs, the other omits the file, row or column; the following user turn supplies the missing value regardless of model behavior. An anchor requires both sessions to produce the exact scalar returned by the single correct callback, plus an explicit first-turn clarification requesting the right missing input with zero premature actions. Numerical equality or normalized exact text accepted. Also report looser reference-content credit and every actual answer. Twenty-two unchanged historical BFCL numerical requests test retention. Same shuffled initial IDs, actual own histories, unrestricted greedy, thinking enabled, up to 384 tokens per assistant generation and at most three model calls per user turn. Both arms timed warm, loading and training excluded. Fixed direct control is untouched pinned ordinary BF16 Qwen Base.",
+  "gate": "Require at least eight of 16 complete anchor pairs and six net over Base, pairwise two-sided exact p<=.05, at least four session successes in each file source, at least ten correctly targeted clarifications out of 16 and no more than two premature calls. Retain every historical typed public success, no loss versus Base on correct final-content totals in complete, missing or public families. Require strictly lower total wall time and peak bytes and better chosen-minus-rejected sequence log-probability margins on at least 32/48 held-out preference questions versus the frozen initial reference. File names, observation content, all IDs and actual public function evaluations are replayed. A miss closes deployment and follow-up for this fit. Passing licenses a fresh external document panel against the qualified tool parent before deployment and an equally fitted ordinary-depth control before attributing a gain to recurrence.",
+  "limits": {
+    "wall_seconds": 1500,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
