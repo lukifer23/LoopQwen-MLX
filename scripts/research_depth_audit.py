@@ -176,6 +176,7 @@ def verify(root, decision, read, sha, require, number):
         )
     if "pairs" in reg:
         counts = {}
+        paired_results = {}
         for arm in arms:
             pairs = {}
             for r, item in zip(outputs[arm], data, strict=True):
@@ -199,12 +200,30 @@ def verify(root, decision, read, sha, require, number):
                     == [y["prompt_ids"][i] for i in reversed(positions)],
                     "Not a controlled token permutation",
                 )
-            counts[arm] = sum(
-                all(v[0]["correct"] for v in pair) for pair in pairs.values()
-            )
+            paired_results[arm] = {
+                key: all(r["correct"] for r, _ in pair) for key, pair in pairs.items()
+            }
+            counts[arm] = sum(paired_results[arm].values())
         x, y = counts.values()
         require(decision["both_correct"] == counts, "Wrong paired reassignments")
         passed &= x >= reg["pair_floor"] and x - y >= reg["pair_net"]
+        if reg.get("class_swap"):
+            from loopqwen.research.induction_counterfactual import bindings
+
+            for row in data:
+                _, examples = bindings(row["facts"], row["question"])
+                require(
+                    len(examples) == 1 and examples[0][2] == row["answer"],
+                    "Ambiguous class intervention",
+                )
+            left, right = paired_results.values()
+            wins = sum(value and not right[k] for k, value in left.items())
+            losses = sum(value and not left[k] for k, value in right.items())
+            require(
+                decision["pair_p"] == exact_mcnemar(wins, losses),
+                "Incorrect independent pair significance",
+            )
+            passed &= decision["pair_p"] < 0.05
     require(passed == decision["passed"], "Incorrect promotion decision")
 
 

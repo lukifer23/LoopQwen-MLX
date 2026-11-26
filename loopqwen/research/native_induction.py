@@ -127,7 +127,11 @@ def run(name, freeze):
         task = induction_data
     panel = Path(s.get("material", PANEL))
     if freeze:
-        data = task.material(s)
+        if s.get("class_swap"):
+            from .induction_counterfactual import material
+        else:
+            material = task.material
+        data = material(s)
         if panel.exists() and read(panel) != data:
             raise ValueError("Induction material changed")
         if not panel.exists():
@@ -242,6 +246,25 @@ def run(name, freeze):
             and a["probe"] >= c["probe"] + s["probe_floor"]
             and a["seconds"] <= s["time_ratio"] * c["seconds"],
         )
+        if s.get("class_swap"):
+            paired = {}
+            for arm, samples in records.items():
+                pairs = {}
+                for row, sample in zip(rows, samples, strict=True):
+                    pairs.setdefault(row["pair"], []).append(sample["correct"])
+                if len(pairs) != s["pairs"] or any(len(v) != 2 for v in pairs.values()):
+                    raise ValueError("Incomplete class intervention pair")
+                paired[arm] = [all(v) for v in pairs.values()]
+            first, second = paired.values()
+            wins = sum(x and not y for x, y in zip(first, second, strict=True))
+            losses = sum(y and not x for x, y in zip(first, second, strict=True))
+            result["both_correct"] = {k: sum(v) for k, v in paired.items()}
+            result["pair_p"] = exact_mcnemar(wins, losses)
+            result["passed"] &= (
+                sum(first) >= s["pair_floor"]
+                and wins - losses >= s["pair_net"]
+                and result["pair_p"] < 0.05
+            )
     except (MemoryError, TimeoutError, InterruptedError) as e:
         result.update(status="interrupted", reason=str(e))
     finally:
