@@ -172,6 +172,60 @@ def index():
                 )
 
 
+def training_lineage():
+    columns = [
+        "study",
+        "training_parent",
+        "base_revision",
+        "shared_layer_start",
+        "shared_passes",
+        "rank",
+        "prefix_bits",
+        "trainable_parameters",
+        "training_turns",
+        "updates",
+        "response_targets",
+        "prepare_seconds",
+        "optimizer_seconds",
+        "training_sha256",
+        "adapter_sha256",
+    ]
+    with (PAPER / "model-lineage.csv").open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(columns)
+        for root in sorted(RESULTS.iterdir()):
+            fit_path = root / "fit.json"
+            if not fit_path.exists():
+                continue
+            fit = read(fit_path)
+            if "turns" not in fit or "weights" not in fit:
+                continue
+            result(root.name)
+            spec = read(root / "registration.json")
+            donor = spec.get("donor", {})
+            writer.writerow(
+                [
+                    root.name,
+                    spec.get(
+                        "initial_adapter", donor.get("repo", "Qwen/Qwen3.5-0.8B-Base")
+                    ),
+                    donor.get("revision", "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"),
+                    spec.get("start_layer", 23),
+                    fit["passes"],
+                    spec["rank"],
+                    spec.get("prefix_bits", "BF16"),
+                    fit["trainable"],
+                    fit["turns"],
+                    fit["updates"],
+                    fit["targets"],
+                    fit["prepare_seconds"],
+                    fit["optimizer_seconds"],
+                    fit["training"],
+                    fit["weights"],
+                ]
+            )
+
+
 def benchmark_table():
     import sys
 
@@ -254,6 +308,7 @@ def main():
         }
     )
     benchmark_table()
+    training_lineage()
     historical()
     tools_figure()
     trajectory_details()
