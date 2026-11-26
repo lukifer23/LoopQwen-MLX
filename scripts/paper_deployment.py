@@ -112,3 +112,54 @@ def make(paper, results, result, finish):
         loc="lower left", bbox_to_anchor=(-0.3, 1.16), frameon=False, ncol=2, fontsize=8
     )
     finish(fig, "mixed-deployment")
+
+
+def transport(paper, results, result, finish):
+    name = "transport-lossless-01"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    d = result(name)
+    sizes = read(root / "sizes.json")
+    if sum(sizes.values()) != d["raw_bytes"] or read(root / "original.json") != read(
+        root / "restored.json"
+    ):
+        raise ValueError("Transport figure cannot verify the installed payload")
+    stats = (
+        ("Base text weights", d["raw_base_weight_bytes"]),
+        ("Installed assistant", d["raw_bytes"]),
+        ("Ordinary ZIP", d["ordinary_zip_bytes"]),
+        ("Paired encoding", d["bytes"]),
+    )
+    times = (
+        ("Ordinary ZIP pack", d["ordinary_zip_seconds"]),
+        ("Paired pack", d["pack_seconds"]),
+        ("Paired restore", d["restore_seconds"]),
+    )
+    with (paper / "transport.csv").open("w") as f:
+        w = csv.writer(f)
+        w.writerow(["measure", "unit", "value"])
+        w.writerows((label, "bytes", value) for label, value in stats)
+        w.writerows((label, "seconds", value) for label, value in times)
+    fig, axes = plt.subplots(1, 2, figsize=(7.3, 2.2))
+    for ax, cells, unit, scale in zip(
+        axes, (stats, times), ("GiB", "Seconds"), (2**30, 1), strict=True
+    ):
+        for i, (label, value) in enumerate(cells):
+            v = value / scale
+            ax.barh(
+                i, v, color="#11675d" if "aired" in label else "#8a9b98", height=0.53
+            )
+            ax.text(
+                v,
+                i,
+                f"  {v:.2f}" if unit == "GiB" else f"  {v:.1f}",
+                va="center",
+                fontsize=8,
+            )
+        ax.set_yticks(range(len(cells)), [label for label, _ in cells], fontsize=8)
+        ax.invert_yaxis()
+        ax.set_xlim(0, max(v for _, v in cells) / scale * 1.27)
+        ax.set_xlabel(unit)
+        ax.spines[["right", "top"]].set_visible(False)
+    finish(fig, "transport")
