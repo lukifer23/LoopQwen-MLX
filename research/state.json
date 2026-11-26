@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "tool-dialogue-diagnostic-01",
+  "active": "tool-dialogue-grounded-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -433,7 +433,7 @@
       "decision": "research/results/native-kinship-matched-01/decision.json"
     }
   ],
-  "status": "Qualified the shipping native recurrent model and finished its training, public CLI, same-weights, retention and 128K comparisons.",
+  "status": "Running held-out tool reasoning, typed public-function execution and human-edited BoolQ comparisons. See the preregistered stop rules for each.",
   "next_action": null,
   "hypothesis": null,
   "known_limits": [
