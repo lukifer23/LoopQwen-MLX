@@ -124,9 +124,16 @@ def index():
             ]
         )
         sessions = registry.get("session_results", {})
+        rules = {
+            name: read(ROOT / "research/experiments" / (name + ".json"))
+            for name in registry["experiments"]
+        }
+        replaced = {
+            v["supersedes"]: name for name, v in rules.items() if "supersedes" in v
+        }
         for name, entry in sorted(registry["experiments"].items()):
             path = Path("research/experiments") / (name + ".json")
-            reg = read(ROOT / path)
+            reg = rules[name]
             rule = reg.get("gate", reg.get("decision", "See registration"))
             if not isinstance(rule, str):
                 rule = json.dumps(rule, sort_keys=True)
@@ -141,7 +148,11 @@ def index():
                     reg.get("question", ""),
                     rule,
                     reg.get("limits", {}).get("wall_seconds", ""),
-                    "archived" if archived else "no published measurements",
+                    "archived"
+                    if archived
+                    else "superseded by " + replaced[name]
+                    if name in replaced
+                    else "no published measurements",
                 ]
             )
     with (PAPER / "study-index.csv").open("w") as f:
@@ -244,7 +255,9 @@ def training_lineage():
                     fit.get("trainable", fit.get("parameters")),
                     turns,
                     fit["updates"],
-                    targets if root.name not in ("selective-raw-01", "folded-system-01") else "",
+                    targets
+                    if root.name not in ("selective-raw-01", "folded-system-01")
+                    else "",
                     fit["prepare_seconds"],
                     fit["optimizer_seconds"],
                     fit["training"],
