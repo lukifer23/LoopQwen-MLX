@@ -81,7 +81,15 @@ def features(model, tok, rows, budget):
 
 def fit(model, tok, spec, out, budget):
     start = perf_counter()
-    bank = features(model, tok, read(spec["training"]), budget)
+    training = read(spec["training"])
+    bank = features(model, tok, training, budget)
+    pair_count = spec.get("pairs_per_batch", 0)
+    if pair_count:
+        from .reading_pairs import MatchedExamples
+
+        paired = MatchedExamples(
+            training["examples"], bank, tok, pair_count, spec["batch"]
+        )
     prepared = perf_counter() - start
     if model.span.length > 1:
         from ..kernels.gdn_backend import select
@@ -92,12 +100,14 @@ def fit(model, tok, spec, out, budget):
     rng = random.Random(spec["fit_seed"])
     optimizer = optim.AdamW(learning_rate=spec["lr"], weight_decay=0.01)
 
-    def loss_fn(net, h, rr, ss, targets):
+    def loss_fn(net, h, rr, ss, targets, answer_locations):
         h = net._execute(h, net.sites[net.span.start :])
         final = net.text.model.norm(h[rr, ss])
-        return nn.losses.cross_entropy(
-            net.project(final).astype(mx.float32), targets
-        ).mean()
+        logits = net.project(final).astype(mx.float32)
+        loss = nn.losses.cross_entropy(logits, targets).mean()
+        if pair_count:
+            loss = loss + spec["ranking_weight"] * paired.loss(logits, answer_locations)
+        return loss
 
     vg = nn.value_and_grad(model, loss_fn)
     logs = []
@@ -105,18 +115,22 @@ def fit(model, tok, spec, out, budget):
     targets_seen = 0
     for step in range(spec["updates"]):
         budget.check()
-        batch = rng.sample(bank, spec["batch"])
+        batch = paired.sample(rng) if pair_count else rng.sample(bank, spec["batch"])
         width = max(h.shape[0] for h, _, _ in batch)
         h = mx.stack(
             [mx.pad(x, ((0, width - x.shape[0]), (0, 0))) for x, _, _ in batch]
         )
-        rr, ss, labels = [], [], []
+        rr, ss, labels, answers = [], [], [], []
         for i, (_, offset, ids) in enumerate(batch):
             rr.extend([i] * len(ids))
             ss.extend(range(offset, offset + len(ids)))
             labels.extend(ids)
+            if pair_count:
+                answers.append(len(labels) - 2)
         targets_seen += len(labels)
-        loss, grads = vg(model, h, mx.array(rr), mx.array(ss), mx.array(labels))
+        loss, grads = vg(
+            model, h, mx.array(rr), mx.array(ss), mx.array(labels), mx.array(answers)
+        )
         optimizer.update(model, grads)
         mx.eval(model.trainable_parameters(), optimizer.state, loss)
         if step % 50 == 0 or step + 1 == spec["updates"]:
@@ -150,7 +164,13 @@ def restore(source, passes=None):
     if digest(weights) != meta["weights"]:
         raise ValueError("Tool adapter identity changed")
     model, tok = build(spec, meta["passes"] if passes is None else passes)
-    model.load_weights(str(weights), strict=False)
+    tensors = mx.load(str(weights))
+    expected = dict(tree_flatten(model.trainable_parameters()))
+    if tensors.keys() != expected.keys() or any(
+        t.shape != expected[k].shape for k, t in tensors.items()
+    ):
+        raise ValueError("Tool adapter tensor set mismatch")
+    model.load_weights(list(tensors.items()), strict=False)
     model.eval()
     return model, tok
 

@@ -1,0 +1,35 @@
+{
+  "id": "contrast-boolq-transfer-01",
+  "question": "Does training on matched opposing human hypotheses transfer to the remaining independent human-edited BoolQ questions when the recurrent layer starts from the quantized instruction sibling?",
+  "candidate": "train_loop",
+  "control": "base",
+  "training": "research/data/contrast-boolq-transfer-training.json",
+  "material": "research/data/contrast-boolq-transfer-panel.json",
+  "fit_seed": 713592,
+  "start_layer": 23,
+  "rank": 32,
+  "lr": 8e-05,
+  "updates": 1000,
+  "batch": 8,
+  "max_tokens": 384,
+  "pair_floor": 5,
+  "probe_floor": 3,
+  "time_ratio": 1.0,
+  "gate": "At least five net wholly correct human-edited passage pairs, paired exact two-sided p<=.05, at least three additional correct shared-prefix decisions, and no more total generation time than untouched Base. No retuning on this or earlier contrast panel. A win licenses equal-training single-pass and an independent ordinary BoolQ validation comparison. Failure closes this checkpoint.",
+  "protocol": "Repeat native last attention layer twice with 0.35 gated residual and rank-32 LoRA. Mix four BoolQ training passages and two same-premise e-SNLI entailed/contradicted pairs per minibatch. Fit the entire response with free-vocabulary cross entropy and add .35 times softplus(1 - (affirmative log-odds for supported claim minus contradicted claim)). Both scores use an identical closed-thinking answer prefix with no gold explanation. 2048 independent BoolQ training passages and 512 human-labeled SNLI training pairs. Freeze the 32 eligible Gardner passages outside the first human study. Both arms see complete passages, thinking prompt, same greedy policy, new item order, 384-token cap and scorer. This jointly tests a new initialization, training corpus and loss. The Base-initialized failed single-question fit is closed.",
+  "limits": {
+    "wall_seconds": 1500,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  },
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "pairs_per_batch": 2,
+  "ranking_weight": 0.35
+}
