@@ -323,7 +323,10 @@ def main():
     plot_field(PAPER, RESULTS, result, finish)
     from paper_joint_tools import make as plot_joint_tools
 
+    from paper_joint_tools import matched_effects
+
     plot_joint_tools(PAPER, RESULTS, result, finish)
+    matched_effects(PAPER, RESULTS, result, finish)
     from paper_compute import make as compute_cost
 
     compute_cost(ROOT, PAPER)

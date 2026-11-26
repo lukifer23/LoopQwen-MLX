@@ -80,3 +80,5 @@ The operand, schema and mixed field comparisons use the standard entry points be
 | `-m loopqwen.research.mixed_field` | One product against ordinary Base on 50 interleaved field requests with cold startup and mode switching |
 
 The native compute ledger records charged attempts for each supported closed session. A charge includes the time spent on model work, preparation and scoring under the native worker lease. It is a wall-time resource measure. [Machine time and original ledger hashes](native-compute.csv)
+
+The matched-tool figure reports paired accuracy differences for the two-pass candidate against untouched Base and the equally trained one-pass checkpoint. Each bootstrap sample keeps all questions from a sampled world or public function together and preserves each panel's size. [Plot](matched-tool-effects.svg) · [Points and 95% descriptive intervals](matched-tool-effects.csv)
