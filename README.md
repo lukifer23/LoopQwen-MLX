@@ -8,6 +8,8 @@ The full-book test covered 162,714 tokens of Frank Norris’s *McTeague*. The re
 
 On a separate cold-start stream of 50 field requests, one qualified installation completed **21/50 correctly versus 12/50 for Base** in **83.97 versus 234.20 seconds**. It gained seven net file answers and three SQLite answers, tied on reading and lost one arithmetic answer. Aggregate first-token time more than doubled and peak allocation increased by 5.4 MB. [Five-family comparison with full transcripts](research/results/release-mixed-field-01) · [Per-family scores and timing](paper/mixed-deployment.csv)
 
+A separately trained assistant sharing one instruction backbone across reasoning and tools scored **67/120 versus 50/120** for untouched Base, in **90.44 versus 472.52 s**. On 48 fresh human questions it scored **29 versus 38**. It lost eight previously successful requests and had longer total time to first token. Release 04 remains the qualified offline bundle. [Full mixed result](research/results/shared-session-01) · [Family breakdown](paper/shared-session.svg)
+
 ## Research report and executable tools
 
 The [technical paper](paper/loopqwen.pdf) covers matched depth controls, ordinary reasoning, correct tool execution, time, memory and full-history inference on the same 18 GiB M3 Pro. The [evidence index](paper/study-index.csv) links each claim to its preregistration and native output archive. [Figure sources and reproduction](paper/README.md)
