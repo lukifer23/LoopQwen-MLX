@@ -189,3 +189,22 @@ python3 scripts/research_archive.py attention-memory-128k
 
 
 The standalone merged reader was verified in a fresh process. Its 2,054-token example produced all 29 original output IDs, and its merged short-probe relative logit RMS was 0.01651. The merged decoder and reader contain 752,425,954 unique parameters, including the decoder's learned recurrence scalar and the 32,929 passage parameters. [Deployment and independent validation record](../research/sessions/2026-11-25-followup/closure.json)
+
+## Learned exit and natural inference
+
+The learned exit reuses the ordinary Qwen text weights for 704 generated tokens. An open thought then replays its entire history at K2. The trained linear readout adds one scalar to the existing thinking-close token's logit. Greedy decoding still considers every vocabulary token. The standalone schema-5 export stores the dense array set once, the unmerged LoRA tensors and the learned readout. Export verification uses a fresh process. A separately recorded request crosses the depth boundary and reproduces all 731 original output tokens. [Export verification](measurements/learned-exit-export.json)
+
+The entailment model trains on human-written e-SNLI and MultiNLI triplets. Each optimizer update contains two premises, three distinct relations per premise and one language anchor. The independent comparison uses another wording and excludes every primary training and evaluation premise. The strict scorer reads the visible answer in each completed first turn. A blinded second pass credits unambiguous free-text judgments, and the paired permutation test swaps the models' predictions for all three claims together. These commands regenerate the pooled counts from the archived answers and frozen review labels.
+
+```sh
+.venv/bin/python -m scripts.research_answer_audit learned-exit-01 \
+  --annotations docs/measurements/answer-audits/learned-exit-01.json \
+  --replication learned-exit-confirm-01 \
+  --replication-annotations docs/measurements/answer-audits/learned-exit-confirm-01.json
+.venv/bin/python -m scripts.research_relation_audit entailment-triplets-01 \
+  --annotations docs/measurements/answer-audits/entailment-triplets-01.json \
+  --replication entailment-triplets-confirm-01 \
+  --replication-annotations docs/measurements/answer-audits/entailment-triplets-confirm-01.json
+```
+
+The shared-weight conditional checkpoint learns its input selector on 384 separate requests. The normal `generate` command runs the selector before decoding, and includes its work in the reported latency. It accepts the existing `--thinking`, `--max-tokens`, `--prompt-file` and `--offload-dir` options. The schema-4 standalone export includes the selector, deployed adapter banks and full-history attention reader. [First integrated 56-request comparison](../research/results/conditional-depth-01)
