@@ -1,0 +1,49 @@
+{
+  "id": "native-induction-instructed-base-01",
+  "question": "Does the frozen native loop still outperform untouched Base when both models are explicitly given the induction rule and every question has a single supporting classmate?",
+  "requires": "native-induction-anchored-longbase-01",
+  "prerequisite_sha256": "d5ffc1d8197f0b8215676fe3473e674d2360908ae9d0dc61c6f97510bf172bfb",
+  "material": "research/data/native-induction-instructed-base-01.json",
+  "seed": 208422,
+  "sizes": {
+    "primary": 32
+  },
+  "fit_seed": 5101,
+  "rank": 64,
+  "lr": 0.00045,
+  "batch": 32,
+  "updates": 3000,
+  "auxiliary": 1.2,
+  "panel": "primary",
+  "arms": {
+    "recurrent": {
+      "depth": 3,
+      "reader": "research/results/native-induction-anchored-01",
+      "weights": "67264d560c70d48a5e7fe49679fc7ecd0b6872c997495fe8ecd416c6a1caa759"
+    },
+    "base": {
+      "depth": 0
+    }
+  },
+  "generation_cap": 768,
+  "net_floor": 5,
+  "probe_floor": 2,
+  "time_ratio": 1.5,
+  "protocol": "Select 32 fresh official bAbI16 stories by registered hash order, excluding all earlier training, benchmark and intervention stories. Require a unique supporting classmate with the gold color. Give both models the identical explicit system instruction, all nine permuted facts, the user question and the same 768-token thinking allowance. Fit nothing. Use the exact same answer scorer, shared-prefix four-color probe, and end-to-end native timing. Reuse the recurrent weights from the original primary.",
+  "gate": "At least five net completed correct answers, exact paired p<.05, at least two net correct common-prefix judgments and <=1.5x Base end-to-end seconds. Stop on budget or memory warning. A failed result closes the explicit-rule claim.",
+  "limits": {
+    "wall_seconds": 800,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "exclude": [
+    "research/data/native-induction-01.json",
+    "research/data/native-induction-anchored-01.json",
+    "research/data/native-induction-class-swap-01.json"
+  ],
+  "architecture": "anchored_native",
+  "decay_start": 1800,
+  "isolated_answer_weight": 1.0,
+  "unambiguous": true,
+  "instruction": "For this task, infer an individual's color from the stated color of another individual of the same animal kind. Apply that rule to the facts in the user's message."
+}
