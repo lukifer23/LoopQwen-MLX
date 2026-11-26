@@ -23,11 +23,13 @@
     "combined_deduction_and_128k": "research/results/evidence-language-release-01/model",
     "native_three_fact_induction": "research/results/native-induction-anchored-01",
     "combined_native_induction_deduction_and_128k": "research/results/native-language-release-02/model",
-    "offline_tool_and_language": "research/results/tool-language-release-01",
+    "offline_tool_and_language": "research/results/packed-release-retention-01",
     "public_numeric_tool_execution_vs_base": "research/results/tool-dialogue-typed-01",
-    "joint_tool_panels_vs_base": "research/results/tool-dialogue-counterfactual-01"
+    "joint_tool_panels_vs_base": "research/results/tool-dialogue-counterfactual-01",
+    "packed_register_through_131080": "research/results/register-packed-direct-full-01",
+    "experimental_raw_three_suite_gain": "research/results/selective-raw-01"
   },
-  "frontier": "The new recurrent tool model completed 112/132 tasks versus 15/132 for untouched Base in 69.55/323.35 s, gaining 21 and losing five previously correct tasks against the earlier typed weights on their 102 common episodes. The matched K1 scored 108/132 in 60.21 s against 112 in 69.33 s for K2 (8 gains, 4 losses, p=0.388). K2 missed its time gate. The new adapter also lost four of 72 structural calls against the prior checkpoint, closing the single-adapter replacement. The qualified offline release retains 200 exact short outputs, NLL 2.982658, and two correct full-history 131083-token register answers. Its typed tool weights passed a 22-item prefix crossover with all 88 trajectories identical and 7.61% less total session time. Native K3 induction remains 124/128 versus 58/128 matched K1. Neither human contrastive reading nor the first calculator fit improved final answer accuracy over Base. The completed 131,073-token key swap scored 2/2 versus 0/2 in 176.55 versus 391.72 seconds with a 14.38% peak-memory regression. On 36 human WikiSQL questions the separately fitted language decoder improved grounded executions from zero to eight, with zero of six sums. The learned semantic parser and the packed full-history storage pilot have independent registrations.",
+  "frontier": "Packed release 03 reproduced its field parent on all 512 evaluated book continuation targets, 12 short requests and two live tool calls. Against untouched Base, the qualified 131,080-token physical register system changed both answers correctly (2/2 vs 0/2), in 171.88 vs 391.67 s at 2.80 vs 3.78 GiB; after-first-token decode was slower. Ordinary-depth fallback tied Base on the two 162K natural-book requests, both wrong. The field parent was 21/50 vs 12/50 on a single cold request stream, 83.97 vs 234.20 s, with higher first-token latency and peak, an arithmetic decline and a reading tie. The experimental learned two-pass raw decoder gained 70 next-token decisions and reduced NLL, time and peak on each of three suites. It missed domain-level retention and the registered fresh loss gain. Against equal training, native K3 induction was 124/128 vs 58/128 K1. The joint tool fit scored 112/132 vs 15/132 untouched Base but lost four historical structural calls; its matched K1 scored 108/132. Neither the linked Hotpot reader nor schema-guided generation passed its primary gate.",
   "next": null,
   "completed": [
     {
