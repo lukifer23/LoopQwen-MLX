@@ -1,0 +1,18 @@
+{
+  "id": "cache-language-01",
+  "question": "Can a genuinely repeated native attention layer supply a causal neural-cache distribution that improves held-out raw language prediction and efficiency over untouched Base?",
+  "material": "research/data/cache-language-test.json",
+  "training": "research/data/cache-language-train.json",
+  "retention_sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+  "updates": 220,
+  "seed": 71325,
+  "prefix_length": 97,
+  "nll_margin": 0.015,
+  "protocol": "Pinned ordinary Qwen Base reference. Candidate quantizes eligible Base weights outside final layer 23 to 8-bit groups of 64, then executes that native layer twice at stabilized alpha .35. First-pass native probabilities remain a distribution over the entire vocabulary. Dot products of normalized second-pass decoder representations key a 256-entry causal memory of previously observed tokens. Learn only log-temperature, interpolation intercept and similarity slope using next-token likelihood on 96 WikiText-2 train articles (256 targets each). Compare against 40 distinct WikiText-2 test articles (10240 targets) plus the original 120 disjoint prose, scientific and documentation passages (9328 targets). Each row starts with empty memory. For every prediction at index t only earlier states j<t can vote for tokens j+1. Identical IDs, no answer format or lookahead, full-vocabulary top-1, per-token NLL, measured time including both native passes and vocabulary projection, warm MLX peak. Greedily generate on the first six true prefixes without seeing future tokens in a separate incremental path and require parity with scored top-1.",
+  "gate": "At least .015 nats/token lower aggregate NLL on each corpus, no more than .02 worse on any original retention domain, no lower top-1 counts on either corpus and strictly positive pooled top-1 gain. More WikiText articles improved with exact two-sided article sign p<=.05. Require no greater warmed pooled time or peak memory, and six correct prefix-parity checks. Failure closes default raw-language promotion for this configuration. Passing licenses an equal-calibration native one-pass cache comparison and independent unseen document replication before deployment.",
+  "limits": {
+    "wall_seconds": 410,
+    "peak_gib": 6.4,
+    "available_gib": 1.4
+  }
+}
