@@ -25,7 +25,7 @@ from ..model_loader import local_snapshot
 from ..tool_session import prompt
 from .core import Budget
 from .registered import registered
-from .tool_fit import build, fit
+from .tool_fit import build, fit, restore
 
 
 def train_reader(model, tok, spec, rows, depth, budget, out):
@@ -83,6 +83,32 @@ def train_reader(model, tok, spec, rows, depth, budget, out):
             "seconds": perf_counter() - start,
         },
     )
+    reader.eval()
+    return reader
+
+
+def reader_from_checkpoint(model, folder, spec):
+    meta = read(folder / "reader.json")
+    path = folder / "reader.safetensors"
+    if (
+        meta["weights"] != digest(path)
+        or meta["source"] != digest(Path(spec["training"]))
+        or meta["updates"] != spec["reader_updates"]
+        or meta["depth"] != 2
+    ):
+        raise ValueError("Different document reader checkpoint")
+    reader = DocumentReader(model, spec["reader_rank"])
+    arrays = mx.load(str(path))
+    expected = dict(
+        tree_flatten(reader.trainable_parameters()),
+        center=reader.center,
+        scale=reader.scale,
+    )
+    if arrays.keys() != expected.keys() or any(
+        x.shape != expected[k].shape for k, x in arrays.items()
+    ):
+        raise ValueError("Document reader parameter mismatch")
+    reader.load_weights(list(arrays.items()), strict=False)
     reader.eval()
     return reader
 
@@ -194,12 +220,35 @@ def run(name):
     try:
         for side in ("candidate", "control"):
             if side == "candidate":
-                model, tok = build(spec, 1)
-                fit(model, tok, spec, out, budget)
+                local_reg = out / "registration.json"
+                if local_reg.exists() and read(local_reg) != spec:
+                    raise ValueError("Different local document reading registration")
+                save(local_reg, spec)
+                if (out / "fit.json").exists():
+                    meta = read(out / "fit.json")
+                    if (
+                        meta["passes"] != 1
+                        or meta["updates"] != spec["updates"]
+                        or meta["training"] != digest(Path(spec["training"]))
+                    ):
+                        raise ValueError("Different answer adapter fit")
+                    model, tok = restore(out)
+                else:
+                    model, tok = build(spec, 1)
+                    fit(model, tok, spec, out, budget)
                 model.eval()
-                reader = train_reader(
-                    model, tok, spec, read(spec["training"])["examples"], 2, budget, out
-                )
+                if (out / "reader.json").exists():
+                    reader = reader_from_checkpoint(model, out, spec)
+                else:
+                    reader = train_reader(
+                        model,
+                        tok,
+                        spec,
+                        read(spec["training"])["examples"],
+                        2,
+                        budget,
+                        out,
+                    )
             else:
                 model, tok, _ = base()
             mx.clear_cache()
