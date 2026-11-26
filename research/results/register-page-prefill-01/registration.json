@@ -1,0 +1,22 @@
+{
+  "id": "register-page-prefill-01",
+  "question": "Can causal, query-selected pages speed the interior of long prompts while keeping all native key/value rows and exactly replaying register answers?",
+  "material": "research/data/register-rebalanced-01.json",
+  "seeds": [
+    145783,
+    145883
+  ],
+  "requires": "research/results/native-language-release-02",
+  "prerequisite_sha256": "9a30f346fcc192b6294367574cdb270bdfabe99553a7556861717d7108fc16c8",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "max_tokens": 96,
+  "protocol": "Engineering crossover on the original trained recurrent decoder. Stock uses dense attention throughout. Candidate stores every original-position K/V row at all eight native attention sites. On interior 128-token blocks beyond 4096 past tokens, the first already-available query scores mean keys from completed pages, sharing selected pages across heads. Attend the initial page, 16 dynamically selected distant pages, 15 most recent pages and the entire current causal block. Preserve dense attention for at least the final 512 input tokens and all output tokens, including the original learned evidence bias. Alternate cold model arms over the same four registered 16K/32K documents, actual timings and MLX peak. Save all input hashes, IDs, selected evidence, per-site physical offsets, dense/sparse query counts and number of attended query-key pairs. No evaluation answer, future query, manual content selection or context eviction determines attended pages. Sparse computation changes intermediate hidden states.",
+  "gate": "Both arms must return all four correct answers. Require identical output IDs, input hashes, learned evidence regions, full physical history at all eight sites, correct causal pair accounting, actually reduced attention at every site, at least 10% lower aggregate TTFT and no higher total seconds or peak bytes. A miss closes this design. A pass licenses a new 131K crossover against untouched Base and independent whole-prose retention before promotion.",
+  "limits": {
+    "wall_seconds": 420,
+    "peak_gib": 6.5,
+    "available_gib": 1.4
+  },
+  "ratio": 0.9,
+  "attention_policy": "pages"
+}
