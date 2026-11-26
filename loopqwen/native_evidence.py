@@ -161,3 +161,39 @@ class AnchoredNativeEvidence(NativeEvidence):
             labels = mx.broadcast_to(support[:, i : i + 1], z.shape[:-1])
             loss.append(nn.losses.cross_entropy(z, labels, reduction="mean"))
         return sum(loss) / 3
+
+
+def load_native_reader(model, folder, expected):
+    from . import REVISION
+    from .io import digest, read
+
+    spec = read(folder / "reader.json")
+    path = folder / "reader.safetensors"
+    if (
+        digest(path) != spec["weights"]
+        or spec["weights"] != expected
+        or spec["base"] != REVISION
+    ):
+        raise ValueError("Wrong native reader lineage")
+    cls = (
+        AnchoredNativeEvidence
+        if spec.get("architecture") == "anchored_native"
+        else NativeEvidence
+    )
+    net = cls(model, spec["rank"], spec["vocab"])
+    weights = mx.load(str(path))
+    if set(weights) != set(dict(tree_flatten(net.trainable_parameters()))) | {
+        "center",
+        "scale",
+    }:
+        raise ValueError("Incomplete learned native tensors")
+    net.load_weights(list(weights.items()), strict=False)
+    return net
+
+
+def native_view(model, t, net, facts, question, depth):
+    from .evidence_loop import EvidenceView
+
+    features, _ = prefix_regions(model, t, [*facts, question], 1)
+    states, inputs = net.states(features[None, :-1], features[None, -1], depth)
+    return EvidenceView(model, net, net.readout(states[-1])), inputs

@@ -14,9 +14,15 @@ from .. import REVISION
 from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed
 from ..evaluation.statistics import exact_mcnemar
-from ..evidence_loop import EvidenceView, passage
+from ..evidence_loop import passage
 from ..io import digest, read, save
-from ..native_evidence import AnchoredNativeEvidence, NativeEvidence, prefix_regions
+from ..native_evidence import (
+    AnchoredNativeEvidence,
+    NativeEvidence,
+    load_native_reader,
+    native_view,
+    prefix_regions,
+)
 from . import core, deduction, induction_data
 
 PANEL = Path("research/data/native-induction-01.json")
@@ -114,31 +120,6 @@ def fit(model, t, rows, depth, s, b, out):
     return net
 
 
-def restore(model, folder, expected):
-    spec = read(folder / "reader.json")
-    path = folder / "reader.safetensors"
-    if (
-        digest(path) != spec["weights"]
-        or spec["weights"] != expected
-        or spec["base"] != REVISION
-    ):
-        raise ValueError("Wrong native reader lineage")
-    cls = (
-        AnchoredNativeEvidence
-        if spec.get("architecture") == "anchored_native"
-        else NativeEvidence
-    )
-    net = cls(model, spec["rank"], spec["vocab"])
-    weights = mx.load(str(path))
-    if set(weights) != set(dict(tree_flatten(net.trainable_parameters()))) | {
-        "center",
-        "scale",
-    }:
-        raise ValueError("Incomplete learned native tensors")
-    net.load_weights(list(weights.items()), strict=False)
-    return net
-
-
 def run(name, freeze):
     reg = Path("research/experiments") / (name + ".json")
     s = read(reg)
@@ -182,7 +163,7 @@ def run(name, freeze):
             if c.get("fit"):
                 net = fit(model, t, data["train"], depth, s, b, out)
             elif depth:
-                net = restore(model, Path(c["reader"]), c["weights"])
+                net = load_native_reader(model, Path(c["reader"]), c["weights"])
             samples = []
             for r in rows:
                 b.check()
@@ -192,9 +173,7 @@ def run(name, freeze):
                     parts = passage(t, r["prompt_ids"])
                     if parts != (r["facts"], r["question"]):
                         raise ValueError("Different story tokens")
-                    f, _ = prefix_regions(model, t, [*parts[0], parts[1]], 1)
-                    q, stage_inputs = net.states(f[None, :-1], f[None, -1], depth)
-                    view = EvidenceView(model, net, net.readout(q[-1]))
+                    view, stage_inputs = native_view(model, t, net, *parts, depth)
                 v = core.generate(
                     view,
                     t,
