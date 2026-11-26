@@ -6,6 +6,7 @@ from time import perf_counter
 import mlx.core as mx
 from mlx import nn
 from mlx.utils import tree_flatten
+from mlx_lm.tuner.lora import LoRALinear
 
 from .looped_model import LoopedModel
 
@@ -61,16 +62,29 @@ def build_view(model):
         object.__setattr__(view, key, getattr(model, key, False))
     object.__setattr__(view, "projection_calls", 0)
     paths = []
+    adapted_paths = []
     for i, (a, b) in enumerate(zip(text.layers, model.text.layers, strict=True)):
         for name in ("gate_proj", "up_proj", "down_proj"):
             compact = getattr(a.mlp, name)
+            source = getattr(b.mlp, name)
+            path = f"layers.{i}.mlp.{name}"
+            if isinstance(source, LoRALinear):
+                if not (
+                    isinstance(compact, LoRALinear)
+                    and compact.lora_a is source.lora_a
+                    and compact.lora_b is source.lora_b
+                    and compact.scale == source.scale
+                ):
+                    raise ValueError("The original low-rank update must be shared")
+                compact, source = compact.linear, source.linear
+                adapted_paths.append(path)
             if not isinstance(compact, nn.QuantizedLinear) or not isinstance(
-                getattr(b.mlp, name), nn.Linear
+                source, nn.Linear
             ):
                 raise TypeError(
                     "Only the new register view may convert the original feed-forward weights"
                 )
-            paths.append(f"layers.{i}.mlp.{name}")
+            paths.append(path)
     converted = {
         id(a): a.nbytes
         for _, a in tree_flatten(view.parameters())
@@ -80,6 +94,7 @@ def build_view(model):
         "bits": bits,
         "group_size": 64,
         "projections": paths,
+        "shared_adapter_projections": adapted_paths,
         "shared_input_embedding": text.model.embed_tokens.weight
         is model.text.model.embed_tokens.weight,
         "new_resident_tensor_bytes": sum(converted.values()),

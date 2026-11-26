@@ -159,6 +159,12 @@ def outcome(spec, rows, items):
             }
             actual = all(
                 set(q["projections"]) == expected
+                and set(q["shared_adapter_projections"])
+                == {
+                    f"layers.{i}.mlp.{p}"
+                    for i in range(10, 16)
+                    for p in ("gate_proj", "up_proj", "down_proj")
+                }
                 and q["shared_input_embedding"]
                 and q["actual_projections"] == len(r["token_ids"])
                 and q["bits"] == 8

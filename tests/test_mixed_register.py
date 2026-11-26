@@ -5,6 +5,7 @@ from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
 from loopqwen.looped_model import LoopedModel
 from loopqwen.mixed_register import build_view
 from loopqwen.recurrence import Span
+from loopqwen.training.adapters import attach
 from loopqwen.worker import acquire
 
 
@@ -27,6 +28,7 @@ def test_mixed_register_shares_inputs_and_preserves_original_feedforward_arrays(
         tie_word_embeddings=True,
     )
     model = LoopedModel(TextModel(cfg), Span(start=2, length=2, passes=2))
+    attach(model, rank=8, alpha=16)
     model.set_dtype(mx.bfloat16)
     model.eval()
     x = mx.array([[1, 5, 10, 4]])
@@ -34,6 +36,12 @@ def test_mixed_register_shares_inputs_and_preserves_original_feedforward_arrays(
     mx.eval(before)
     view, receipt = build_view(model)
     assert receipt["shared_input_embedding"] and len(receipt["projections"]) == 12
+    assert len(receipt["shared_adapter_projections"]) == 6
+    assert isinstance(view.text.layers[2].mlp.up_proj.linear, nn.QuantizedLinear)
+    assert (
+        view.text.layers[2].mlp.up_proj.lora_a
+        is model.text.layers[2].mlp.up_proj.lora_a
+    )
     assert isinstance(view.text.layers[0].mlp.up_proj, nn.QuantizedLinear)
     assert view.text.layers[0].mlp.up_proj is not model.text.layers[0].mlp.up_proj
     result = view.project(view.hidden(x))
