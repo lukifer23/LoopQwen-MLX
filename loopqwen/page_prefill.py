@@ -1,6 +1,7 @@
 """Causal page selection for interior prefill on the pinned Qwen attention layout."""
 
 import mlx.core as mx
+from mlx_lm.models.base import quantized_scaled_dot_product_attention
 from mlx_lm.models.cache import KVCache, QuantizedKVCache
 from mlx_lm.models.qwen3_next import Qwen3NextAttention
 
@@ -119,6 +120,78 @@ class PackedPageCache(PagePolicy, QuantizedKVCache):
         )
 
 
+class DirectPackedPageCache(PackedPageCache):
+    """Reserve packed storage once and read long dense tails without restoring full KV."""
+
+    tile_queries = 8
+
+    def __init__(self, prompt_length, capacity):
+        super().__init__(prompt_length)
+        if capacity < prompt_length:
+            raise ValueError("Packed cache capacity must cover the prompt")
+        self.capacity = capacity
+        self.direct_queries = self.direct_tiles = self.max_tile_queries = 0
+
+    def update_and_fetch(self, keys, values):
+        if self.offset + keys.shape[2] > self.capacity:
+            raise ValueError("Packed cache request exceeds its reserved capacity")
+        if self.keys is None:
+
+            def reserve(array):
+                b, h, _, width = array.shape
+                shape = (b, h, self.capacity)
+                return (
+                    mx.zeros((*shape, width // 4), mx.uint32),
+                    mx.zeros((*shape, width // self.group_size), array.dtype),
+                    mx.zeros((*shape, width // self.group_size), array.dtype),
+                )
+
+            self.keys, self.values = reserve(keys), reserve(values)
+        return super().update_and_fetch(keys, values)
+
+    def dense_attention(self, q, k, v, scale, mask):
+        length = q.shape[2]
+        previous = self.offset - length
+        chunks = []
+        for lo in range(0, length, self.tile_queries):
+            hi = min(length, lo + self.tile_queries)
+            tile_mask = mask
+            if isinstance(mask, str):
+                if mask != "causal":
+                    raise ValueError("Unsupported attention mask")
+                tile_mask = (
+                    mx.arange(previous + lo, previous + hi)[:, None]
+                    >= mx.arange(self.offset)[None, :]
+                )
+            elif mask is not None and mask.shape[-2] != 1:
+                tile_mask = mask[..., lo:hi, :]
+            value = quantized_scaled_dot_product_attention(
+                q[:, :, lo:hi],
+                k,
+                v,
+                scale,
+                tile_mask,
+                group_size=self.group_size,
+                bits=self.bits,
+            )
+            # Keep the live score workspace bounded even under lazy evaluation.
+            mx.eval(value)
+            chunks.append(value)
+            self.direct_tiles += 1
+            self.max_tile_queries = max(self.max_tile_queries, hi - lo)
+        self.direct_queries += length
+        return chunks[0] if len(chunks) == 1 else mx.concatenate(chunks, axis=2)
+
+    def report(self):
+        return dict(
+            super().report(),
+            capacity=self.keys[0].shape[2],
+            direct_queries=self.direct_queries,
+            direct_tiles=self.direct_tiles,
+            max_tile_queries=self.max_tile_queries,
+        )
+
+
 class PageAttention(Qwen3NextAttention):
     def __call__(self, x, mask=None, cache=None):
         packed = isinstance(cache, PackedPageCache)
@@ -142,20 +215,27 @@ class PageAttention(Qwen3NextAttention):
         )
         q, k = self.rope(q, offset=cache.offset), self.rope(k, offset=cache.offset)
         k, v = cache.update_and_fetch(k, v)
-        if packed:
-            k, v = cache.restore((k, v), q if sparse else None)
+        if (
+            isinstance(cache, DirectPackedPageCache)
+            and not sparse
+            and cache.offset > 4096
+        ):
+            h = cache.dense_attention(q, k, v, self.scale, mask)
         else:
-            k, v = cache.select(q, k, v)
-        # MLX aligns the causal mask with the trailing query rows. The entire
-        # current chunk follows the selected past, in original position order.
-        h = mx.fast.scaled_dot_product_attention(
-            q, k, v, scale=self.scale, mask="causal" if sparse else mask
-        )
+            if packed:
+                k, v = cache.restore((k, v), q if sparse else None)
+            else:
+                k, v = cache.select(q, k, v)
+            # MLX aligns the causal mask with the trailing query rows. The entire
+            # current chunk follows the selected past, in original position order.
+            h = mx.fast.scaled_dot_product_attention(
+                q, k, v, scale=self.scale, mask="causal" if sparse else mask
+            )
         h = h.transpose(0, 2, 1, 3).reshape(b, n, -1)
         return self.o_proj(h * mx.sigmoid(gate.reshape(b, n, -1)))
 
 
-def attach(model, length, *, packed=False):
+def attach(model, length, *, packed=False, direct_capacity=None):
     """Apply to one research model instance. The reader's final masks stay dense."""
     original = model.make_cache
     slots = {}
@@ -170,8 +250,11 @@ def attach(model, length, *, packed=False):
         cache = original(*args, **kwargs)
         for site, slot in cache.slots.items():
             if type(slot) is KVCache:
-                cache_type = PackedPageCache if packed else PageCache
-                slots[site] = cache.slots[site] = cache_type(length)
+                if direct_capacity is not None:
+                    slot = DirectPackedPageCache(length, direct_capacity)
+                else:
+                    slot = PackedPageCache(length) if packed else PageCache(length)
+                slots[site] = cache.slots[site] = slot
         return cache
 
     object.__setattr__(model, "make_cache", make_cache)

@@ -20,11 +20,18 @@ from .ledger_curriculum import measure
 from .registered import registered
 
 
-def packed_evidence(s, consumed):
+def packed_evidence(s, consumed, *, capacity=None):
     # Pinned Qwen3.5-0.8B has two KV heads, each with 256 channels.
     # Two arrays (key and value), one byte per channel and two BF16 affine
     # parameters per 64-channel group. These are live tensor sizes.
     code_bytes = consumed * 2 * 2 * 256
+    if capacity is not None and not (
+        s["capacity"] == capacity
+        and 512 <= s["direct_queries"] <= s["dense_queries"]
+        and 1 <= s["max_tile_queries"] <= 8
+        and s["direct_tiles"] * 8 >= s["direct_queries"]
+    ):
+        return False
     return (
         s["bits"] == 8
         and s["group_size"] == 64
@@ -33,7 +40,7 @@ def packed_evidence(s, consumed):
     )
 
 
-def direct_outcome(rows, items, costs, policy):
+def direct_outcome(rows, items, costs, policy, cap):
     evidence = True
     ordinary = {(i, 0) for i in (3, 7, 11, 15, 19, 23)}
     recurrent = ordinary | {(11, 1), (15, 1)}
@@ -68,7 +75,16 @@ def direct_outcome(rows, items, costs, policy):
                         and s["offset"] == s["retained"] == consumed
                         and s["possible"] == consumed * (consumed + 1) // 2
                         and 0 < s["attended"] < s["possible"]
-                        and (policy != "packed_pages" or packed_evidence(s, consumed))
+                        and (
+                            policy == "pages"
+                            or packed_evidence(
+                                s,
+                                consumed,
+                                capacity=n + cap - 1
+                                if policy == "direct_pages"
+                                else None,
+                            )
+                        )
                         for s in selected
                     )
                 )
@@ -101,7 +117,7 @@ def outcome(spec, rows, items):
     policy = spec.get("attention_policy", "reserved")
     control = spec.get("control", "stock")
     if control == "base":
-        return direct_outcome(rows, items, costs, policy)
+        return direct_outcome(rows, items, costs, policy, spec["max_tokens"])
     c, b = costs[policy], costs[control]
     exact = True
     for a, o, w in zip(rows[policy], rows[control], items, strict=True):
@@ -124,9 +140,17 @@ def outcome(spec, rows, items):
             (23, 0),
         }
         consumed = len(w["prompt_ids"]) + len(a["token_ids"]) - 1
-        if policy in ("pages", "packed_pages"):
-            if policy == "packed_pages":
-                exact &= all(packed_evidence(s, consumed) for s in a["page_sites"])
+        if policy in ("pages", "packed_pages", "direct_pages"):
+            if policy in ("packed_pages", "direct_pages"):
+                capacity = (
+                    len(w["prompt_ids"]) + spec["max_tokens"] - 1
+                    if policy == "direct_pages"
+                    else None
+                )
+                exact &= all(
+                    packed_evidence(s, consumed, capacity=capacity)
+                    for s in a["page_sites"]
+                )
                 exact &= all(
                     s["sparse_blocks"] > 0 and s["retained"] == consumed
                     for s in o["page_sites"]
@@ -241,11 +265,16 @@ def run(name):
                     model, tok, _ = base()
                 else:
                     model, tok, _ = load_trained(spec["checkpoint"])
-                if side in ("pages", "packed_pages"):
+                if side in ("pages", "packed_pages", "direct_pages"):
                     from ..page_prefill import attach
 
                     slots = attach(
-                        model, len(item["prompt_ids"]), packed=side == "packed_pages"
+                        model,
+                        len(item["prompt_ids"]),
+                        packed=side == "packed_pages",
+                        direct_capacity=len(item["prompt_ids"]) + spec["max_tokens"] - 1
+                        if side == "direct_pages"
+                        else None,
                     )
                 mx.reset_peak_memory()
                 record = measure(
@@ -255,9 +284,10 @@ def run(name):
                     spec["max_tokens"],
                     budget,
                     reserve_full_kv=side == "reserved",
-                    record_kv_history=policy in ("pages", "packed_pages"),
+                    record_kv_history=policy
+                    in ("pages", "packed_pages", "direct_pages"),
                 )
-                if side in ("pages", "packed_pages"):
+                if side in ("pages", "packed_pages", "direct_pages"):
                     record["page_sites"] = [
                         dict(layer=i, turn=p, **slot.report())
                         for (i, p), slot in slots.items()

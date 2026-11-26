@@ -46,3 +46,30 @@ def test_packed_pages_restore_selected_rows_and_all_affine_factors():
     assert report["retained"] == report["offset"] == 12
     assert report["code_bytes"] == 2 * 12 * 64
     assert report["affine_bytes"] == 2 * 12 * 4
+
+
+def test_direct_packed_query_tiles_match_full_mask_and_preserve_reserved_history():
+    from mlx_lm.models.base import quantized_scaled_dot_product_attention
+    from loopqwen.page_prefill import DirectPackedPageCache
+
+    mx.random.seed(73111)
+    cache = DirectPackedPageCache(27, 60)
+    k, v = (mx.random.normal((1, 1, 27, 64)).astype(mx.bfloat16) for _ in range(2))
+    bundles = cache.update_and_fetch(k, v)
+    q = mx.random.normal((1, 2, 11, 64)).astype(mx.bfloat16)
+    positions = mx.arange(16, 27)[:, None] >= mx.arange(27)[None, :]
+    biased = mx.where(positions, 1.75 * (mx.arange(27) == 3), -float("inf")).astype(
+        q.dtype
+    )[None, None]
+    for mask in ("causal", biased):
+        dense = quantized_scaled_dot_product_attention(
+            mx.array(q), *bundles, 0.125, mask
+        )
+        tiled = cache.dense_attention(mx.array(q), *bundles, 0.125, mask)
+        assert mx.allclose(
+            dense.astype(mx.float32), tiled.astype(mx.float32), atol=0.02, rtol=0.02
+        ).item()
+    report = cache.report()
+    assert report["capacity"] == 60 and report["retained"] == 27
+    assert report["direct_queries"] == 22 and report["direct_tiles"] == 4
+    assert report["max_tile_queries"] == 8

@@ -1,0 +1,22 @@
+{
+  "id": "register-packed-direct-pilot-01",
+  "question": "Can direct quantized native matrix products for long dense attention tails and a fixed-size packed cache turn the measured storage reduction into at least 5% less peak MLX allocation?",
+  "requires": "research/results/register-page-prefill-01",
+  "prerequisite_sha256": "d9e84b385ff722397fea401cc02627dac16ec420d938422d5d821d37a881112f",
+  "motivation_archive": "41de3642304508b64340633177abb5813ecbb64e932480230976a0da8ce78b3f",
+  "material": "research/data/register-rebalanced-01.json",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "attention_policy": "direct_pages",
+  "control": "pages",
+  "max_tokens": 96,
+  "ratio": 1.15,
+  "elapsed_ratio": 1.15,
+  "peak_ratio": 0.95,
+  "protocol": "The first affine-storage pilot exactly replayed all four outputs but reduced peak allocation only 1.28%. Its dense suffix and output queries restored full BF16 K and V on each call. New kernel reserves exact packed capacity once per cache site. Above 4096 stored positions, dense queries multiply directly against actual packed keys and values using native quantized matrix multiplication, precise softmax and at most eight query rows per evaluated tile. Preserve the actual reader additive bias and the original absolute causal positions in every tile. Sparse interior pages are gathered and restored as before. Fixed original BF16 causal page implementation is the direct control. Both decode freely with the same weights, IDs, thinking and output allowance in AB/BA order. Require per-site capacity, actual packed/affine bytes, query and tile counts. Four reused documents are engineering parity items.",
+  "gate": "Both arms correct on all four. Match all output IDs, located evidence spans and physical cache lengths. Verify the new native dense path serves >=512 queries at each site in tiles of at most eight with all eight packed buffers covering the full enrolled capacity. Require >=5% less peak MLX memory and no more than 15% overhead in either summed TTFT or total seconds relative to BF16 page attention. A miss closes this direct kernel. Only a pass licenses a new 131K comparison with untouched Base and natural prose retention before routing.",
+  "limits": {
+    "wall_seconds": 460,
+    "peak_gib": 6.6,
+    "available_gib": 1.4
+  }
+}
