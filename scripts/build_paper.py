@@ -34,6 +34,7 @@ def main(verify):
                         "passage-copy-",
                         "packed-decode-kernel-",
                         "session-tokenizer-",
+                        "meaning-alignment-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",
