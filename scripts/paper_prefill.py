@@ -454,6 +454,7 @@ def direct_fused(
         return
     rates = result(study)["throughput"]
     sums = read(root / "checksums.json")
+    mixed = read(root / "registration.json").get("mixed_register", False)
     with (paper / (prefix + "-requests.csv")).open("w") as stream:
         w = csv.writer(stream)
         w.writerow(
@@ -476,11 +477,23 @@ def direct_fused(
                 "min_history_tokens",
                 "fused_calls",
             ]
+            + (
+                [
+                    "conversion_s",
+                    "conversion_peak_bytes",
+                    "new_tensor_bytes",
+                    "converted_feedforward_maps",
+                    "actual_output_projections",
+                ]
+                if mixed
+                else []
+            )
         )
         for side in ("direct_pages", "base"):
             path = root / (side + ".json.gz")
             assert digest(path) == sums[path.name]
             for j, r in enumerate(unpack(path), 1):
+                precision = r.get("weight_precision", {})
                 w.writerow(
                     [
                         side,
@@ -501,6 +514,17 @@ def direct_fused(
                         min(h["retained"] for h in r["kv_history"]),
                         sum(h.get("fused_queries", 0) for h in r.get("page_sites", [])),
                     ]
+                    + (
+                        [
+                            precision.get("setup_s"),
+                            precision.get("setup_peak"),
+                            precision.get("new_resident_tensor_bytes"),
+                            len(precision["projections"]) if precision else None,
+                            precision.get("actual_projections"),
+                        ]
+                        if mixed
+                        else []
+                    )
                 )
     fig, axes = plt.subplots(1, 3, figsize=(7.1, 2.0))
     for ax, key, label in zip(

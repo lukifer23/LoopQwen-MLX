@@ -2,8 +2,8 @@
 
 import argparse
 import csv
-import io
 import gc
+import io
 import re
 from contextlib import contextmanager
 from decimal import Decimal, InvalidOperation

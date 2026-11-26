@@ -1,5 +1,7 @@
 # Capability scoreboard
 
+On a fresh **131,086-token** register and its key swap, the looped model answered **2/2 versus 0/2** for untouched Base. Eight-bit feed-forward and output weights raised its post-first generation rate to **29.27 versus 27.42 tokens/s**. Including both weight conversions, the two requests finished in **167.39 versus 390.86 s** at **3.32 versus 3.78 GiB** peak MLX allocation. Both individual inputs favored the recurrent system on prompt and output rate. The comparison covers one document with two placements of the same queried name. [Sealed predictions and timings](../research/results/register-mixed-weight-full-01) · [Per-request conversion and physical history](../paper/mixed-weight-requests.csv)
+
 ## Single resident instruction backbone
 
 The folded model and untouched Base each supplied 39 correct final answers across 92 requests. Requiring the actual requested tool action gave 33 versus 30 successes (21 gains, 18 losses, paired exact p = 0.749). On the 40 fresh human questions there were zero gains and 18 losses. The folded model lost seven previously successful numerical or database actions. Wall time was 177.99 versus 364.74 seconds, summed first-token time was 7.73 versus 7.30 seconds and peak MLX allocation was 1.06 versus 1.66 GiB. Its 799,740,004 shared-and-tool parameter bytes and improved hidden reconstruction did not satisfy the user-level gate. [Measured decision](../research/results/folded-system-01) · [All requests](../paper/folded-requests.csv)

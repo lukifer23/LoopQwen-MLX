@@ -224,7 +224,7 @@ def write(paper, results, result):
                     n,
                     a[key],
                     b[key],
-                    f"{a['seconds']:.2f}",
+                    f"{a['seconds'] + d.get('setup_seconds', 0):.2f}",
                     f"{b['seconds']:.2f}",
                     f"{a[peak] / 2**30:.2f}",
                     f"{b[peak] / 2**30:.2f}",

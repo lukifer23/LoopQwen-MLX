@@ -4,6 +4,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 
 - [Read the paper](loopqwen.pdf)
 - [Four process-isolated 50-request streams and tokenizer counts](tokenizer-streams.csv)
+- [131K mixed-weight requests, prefill and decode rates, setup costs and physical histories](mixed-weight-requests.csv)
 - [Every full 131K request in counterbalanced execution order](full-decoder.csv)
 - [Manuscript source](loopqwen.typ)
 - [Both tool families and final-answer accuracy across 78 requests](intent-scores.csv)
