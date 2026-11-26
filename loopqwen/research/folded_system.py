@@ -90,6 +90,12 @@ def native_checks(actor, w):
             tree_flatten(a.parameters()), tree_flatten(b.parameters()), strict=True
         )
     )
+    arrays = [
+        {id(v): v.nbytes for _, v in tree_flatten(model.parameters())}
+        for model in (plain, tools)
+    ]
+    combined = sum((arrays[0] | arrays[1]).values())
+    shared = sum(arrays[0][k] for k in arrays[0].keys() & arrays[1].keys())
     vals = {}
     ids = w["initial_ids"][-24:]
     for name, m in (("plain", plain), ("tool", tools)):
@@ -100,6 +106,9 @@ def native_checks(actor, w):
         split = m.project(m.hidden(mx.array([[ids[-1]]]), cache))
         vals[name] = {
             "unique_layers": len(m.text.layers),
+            "model_parameter_bytes": sum(arrays[int(name == "tool")].values()),
+            "combined_parameter_bytes": combined,
+            "shared_parameter_bytes": shared,
             "calls": len(m.sites),
             "states": len(cache.slots),
             "first": int(full.argmax().item()),
@@ -263,6 +272,15 @@ def verify(root, d):
             and v["unique_layers"] == 23
             and v["states"] == v["calls"] == (24 if mode == "plain" else 25)
         )
+    a, b = parity["plain"], parity["tool"]
+    assert a["combined_parameter_bytes"] == b["combined_parameter_bytes"]
+    assert a["shared_parameter_bytes"] == b["shared_parameter_bytes"] > 0
+    assert (
+        a["model_parameter_bytes"]
+        + b["model_parameter_bytes"]
+        - a["shared_parameter_bytes"]
+        == a["combined_parameter_bytes"]
+    )
     assert d == outcome(data, panel, hidden, parity, old_scores(spec), spec)
 
 
@@ -279,6 +297,10 @@ def run(name):
     )
     assert digest(Path(spec["checkpoint"]) / "tool-export-files.json") == digest(
         release / "export-files.json"
+    )
+    assert all(
+        digest(Path(spec["checkpoint"]) / name) == value
+        for name, value in read(release / "export-files.json").items()
     )
     assert digest(Path(spec["field_data"])) == read(spec["material"])["field_sha256"]
     field = read(spec["field_data"])

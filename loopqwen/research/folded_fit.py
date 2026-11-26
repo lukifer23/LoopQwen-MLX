@@ -105,6 +105,10 @@ def fit(assistant, repair, removed, spec, out, budget):
             "weights": digest(path),
             "updates": spec["updates"],
             "parameters": sum(a.size for a in weights.values()),
+            "repair_tensor_bytes": sum(a.nbytes for a in weights.values()),
+            "removed_tensor_bytes": sum(
+                a.nbytes for _, a in tree_flatten(removed.parameters())
+            ),
             "train_documents": len(training),
             "validation_documents": len(validation),
             "observed_training_positions": train[0].shape[0],
