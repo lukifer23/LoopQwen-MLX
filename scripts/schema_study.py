@@ -1,9 +1,12 @@
 """Counterbalance schema-guided and ordinary generation on the same recurrent weights."""
 
 import argparse
+import sys
 from pathlib import Path
 
 import mlx.core as mx
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from loopqwen.evaluation.mechanism import packed
 from loopqwen.io import digest, read, save

@@ -1,12 +1,15 @@
 """Execute a frozen two-model tool comparison under a native research lease."""
 
 import argparse
+import sys
 import gc
 import gzip
 import json
 from pathlib import Path
 
 import mlx.core as mx
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from loopqwen.deployment import load_trained
 from loopqwen.evaluation.language7 import base
