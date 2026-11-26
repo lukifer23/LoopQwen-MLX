@@ -30,11 +30,11 @@ An equally trained one-pass tool model solved 108/132 against 112/132 for two pa
 
 ## Run the offline assistant
 
-The combined Apple Silicon export is `exports/tool-language-01` (2.2 GiB on this machine). It passed a separate offline qualification run. On a mode switch the runtime loads the selected backbone. Its text path reproduced all 200 short language outputs, retained NLL 2.982658 on 9,328 tokens and answered both 131,083-token register queries correctly in 525.82 seconds combined. Its tools path reproduced all 22 public execution sessions and answered four of five live package requests. [Qualification, per-file hashes and exact output streams](research/results/tool-language-release-01) · [Rebuild the export](docs/TRAINING.md#reproducing-executable-tool-training-and-evaluation)
+The qualified offline assistant is `exports/tool-language-field-02`. Its self-contained CLI supports Python packages, JSON catalogs, a calculator and SQLite databases. It reproduced all 22 public tool sessions and all 200 shorter language generations. It answered four of five live package queries and both physical 131,083-token register lookups. The lookups took 526.79 seconds combined. Raw-text loss matched the prior release in all five domains, with pooled NLL 2.982658 on 9,328 targets. On four additional CLI requests the installed and isolated runtimes agreed on every token, call and observation. Two satisfied the strict one-call criterion. [Qualification, per-file hashes and exact output streams](research/results/tool-language-release-02) · [Rebuild the export](docs/TRAINING.md#reproducing-executable-tool-training-and-evaluation)
 
 ```sh
-.venv/bin/python examples/local_packages.py exports/tool-language-01 "What version of the Python distribution mlx is installed in this environment? Use the available tool."
-.venv/bin/python -m loopqwen tools --checkpoint exports/tool-language-01 --packages --prompt "What version of numpy is installed?" --max-tokens 256
+.venv/bin/python examples/local_packages.py exports/tool-language-field-02 "What version of the Python distribution mlx is installed in this environment? Use the available tool."
+.venv/bin/python -m loopqwen tools --checkpoint exports/tool-language-field-02 --packages --prompt "What version of numpy is installed?" --max-tokens 256
 ```
 
 Add one or more `--follow-up "…"` arguments to keep a conversation open across successive requests. The command reports each reply and the live callbacks it used. Python callers can hold `chat = assistant.conversation(tools)` and call `chat.respond(text)` when the next user message arrives.
@@ -43,7 +43,7 @@ The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database
 
 ### Restore the offline assistant
 
-The qualified two-backbone assistant has a 1,544,018,439-byte lossless archive, 22.68% smaller than ordinary ZIP of the same files. Verified restoration took 7.85 seconds and reproduced the original package-version call in an isolated interpreter. From the repository root, use an unused destination directory. [Archive receipt and SHA-256](research/results/transport-lossless-01)
+The earlier qualified `tool-language-01` assistant has a 1,544,018,439-byte lossless archive, 22.68% smaller than ordinary ZIP of the same files. Verified restoration took 7.85 seconds and reproduced the original package-version call in an isolated interpreter. From the repository root, use an unused destination directory. [Archive receipt and SHA-256](research/results/transport-lossless-01)
 
 ```sh
 .venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-01.lqzip exports/restored-tool-language-01
