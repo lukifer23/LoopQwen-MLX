@@ -363,7 +363,10 @@ def main():
     )
     from paper_systems import write as system_comparisons
 
+    from paper_service_latency import make as plot_service_latency
+
     system_comparisons(PAPER, RESULTS, result)
+    plot_service_latency(PAPER, RESULTS, result, finish)
     benchmark_table()
     training_lineage()
     from paper_architecture import make as draw_paths
