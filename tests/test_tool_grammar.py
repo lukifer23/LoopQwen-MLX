@@ -43,6 +43,7 @@ def test_caller_schema_only_constrains_json_after_thinking():
         'Maybe {"name":"other"}</think>\n\n{"name":"lookup","arguments":{"levels":[0,-3]}}'
     )
     replay("</think>\n\nThe result is café {three}.")
+    replay("</think>\n\n`lookup` returns a list.")
     for invalid in (
         '{"name":"other","arguments":{"levels":[]}}',
         '{"name":"lookup","arguments":{"levels":["three"]}}',

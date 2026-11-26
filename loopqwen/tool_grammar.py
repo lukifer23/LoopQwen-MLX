@@ -33,10 +33,10 @@ class ToolGrammar:
             for t in tools
         ]
         # An unrestricted text response remains available. Only an opening brace
-        # commits to the JSON action branch. A Markdown fence is invalid in the protocol.
+        # commits to the JSON action branch; ordinary prose keeps its existing decoder.
         grammar = r"""start: WS? (action WS? | TEXT)?
 WS: /[ \t\r\n]+/
-TEXT: /[^\s{`\x00](?s:.)*/
+TEXT: /[^\s{\x00](?s:.)*/
 action: %json """ + json.dumps({"anyOf": calls})
         self.matcher = LLMatcher(cache[key], grammar_from("lark", grammar), log_level=0)
         if self.matcher.is_error():
@@ -68,7 +68,10 @@ action: %json """ + json.dumps({"anyOf": calls})
             if logits is None:
                 raise ValueError("Recorded token violates the tool schema")
             mask = np.frombuffer(self.matcher.compute_logit_bias(), dtype=np.uint8)
-            allowed = mx.array(mask[: logits.size]) != 0
+            mask = mask[: logits.size]
+            if mask.size != logits.size or not mask.any():
+                raise ValueError("The tool schema has no admissible next token")
+            allowed = mx.array(mask) != 0
             token = mx.argmax(mx.where(allowed, logits, -mx.inf)).item()
             self.replaced += 1
         if token in self.stop_ids and self.matcher.is_accepting():
