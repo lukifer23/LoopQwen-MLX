@@ -6,14 +6,14 @@ import time
 from pathlib import Path
 
 import mlx.core as mx
-from mlx import nn
 import mlx.optimizers as optim
+from mlx import nn
 
 from .. import REVISION
-from ..evidence_loop import EvidenceView, pooled_states, unit
 from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed
 from ..evaluation.statistics import exact_mcnemar
+from ..evidence_loop import EvidenceView, pooled_states, unit
 from ..io import digest, read, save
 from . import core, science_data
 

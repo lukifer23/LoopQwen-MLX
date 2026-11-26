@@ -6,8 +6,8 @@ import shutil
 from pathlib import Path
 
 import mlx.core as mx
-from mlx import nn
 import mlx.optimizers as optim
+from mlx import nn
 
 from ..context_policy import features
 from ..data import retention3

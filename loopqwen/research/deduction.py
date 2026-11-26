@@ -6,10 +6,13 @@ import time
 from pathlib import Path
 
 import mlx.core as mx
-from mlx import nn
 import mlx.optimizers as optim
+from mlx import nn
 
 from .. import REVISION
+from ..evaluation.language7 import base
+from ..evaluation.mechanism import packed, unpack
+from ..evaluation.statistics import exact_mcnemar
 from ..evidence_loop import (
     EvidenceLoop,
     PooledEvidence,
@@ -19,9 +22,6 @@ from ..evidence_loop import (
     prepare,
     sentence_states,
 )
-from ..evaluation.language7 import base
-from ..evaluation.mechanism import packed, unpack
-from ..evaluation.statistics import exact_mcnemar
 from ..io import digest, read, save
 from . import core, deduction_data
 

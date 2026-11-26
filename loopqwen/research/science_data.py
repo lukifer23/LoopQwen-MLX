@@ -125,7 +125,7 @@ def material(s):
 
 def answer(text, options):
     matches = re.findall(r"(?<!\w)([A-H])(?!\w)", text.strip())
-    last = re.search(r"(?:answer(?: is)?|choice|option)\s*[:( ]+([A-H])\b", text, re.I)
+    last = re.search(r"(?:answer(?: is)?|choice|option)\s*[:( ]+([A-H])\b", text, re.IGNORECASE)
     if last:
         return last.group(1).upper()
     if len(set(matches)) == 1:

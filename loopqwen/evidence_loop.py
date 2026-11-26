@@ -154,7 +154,7 @@ def passage(t, ids):
         return None
     # Only the user message preceding the currently open assistant turn qualifies.
     text = t.decode(ids)
-    prefix, sep, tail = text.rpartition("<|im_start|>user\n")
+    _prefix, sep, tail = text.rpartition("<|im_start|>user\n")
     if not sep:
         return None
     body, end, assistant = tail.partition("<|im_end|>")
@@ -168,7 +168,7 @@ def passage(t, ids):
 
 def load_evidence(model, folder):
     from . import REVISION
-    from .io import read, digest
+    from .io import digest, read
 
     spec = read(folder / "reader.json")
     if spec["base_revision"] != REVISION or spec["weights"] != digest(
