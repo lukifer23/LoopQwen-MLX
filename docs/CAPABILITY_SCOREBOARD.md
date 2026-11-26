@@ -9,10 +9,13 @@ Each prompt contains nine shuffled animal-class and color statements and asks fo
 | Primary, three passes vs untouched Base at 192 tokens | 62 vs 0 of 64 | 62 vs 29 | 16.10 vs 181.00 |
 | Primary, three passes vs matched one pass | 62 vs 33 of 64 | 62 vs 37 | 15.88 vs 16.04 |
 | Disjoint confirmation, same trained three-pass and one-pass weights | 62 vs 25 of 64 | 62 vs 26 | 16.07 vs 16.04 |
+| Confirmation, independently reinitialized and trained three-pass vs one-pass readers | 53 vs 25 of 64 | 53 vs 23 | 16.03 vs 16.07 |
 | Confirmation, three-pass checkpoint run at three passes vs one | 62 vs 19 of 64 | 62 vs 23 | 15.89 vs 39.71 |
 | Confirmation, three passes vs untouched Base at 768 tokens | 62 vs 2 of 64 | 62 vs 28 | 16.02 vs 654.19 |
 
 Across 128 held-out stories, both trained models completed all responses in 13 tokens each. Three passes gained 67 answers and lost one relative to one pass. The two-sided exact paired tests gave p = 2.98 × 10⁻⁸ and p = 1.46 × 10⁻¹¹ on the respective panels. Elapsed time includes sentence encoding, native layer applications, full-prompt prefill and greedy generation. This control matches examples, supervision, parameters and optimizer updates. Three applications use more training computation per update. [Untouched Base comparison](../research/results/native-induction-anchored-01) · [Matched control](../research/results/native-induction-anchored-matched-01) · [Disjoint confirmation](../research/results/native-induction-anchored-replication-01)
+
+With a new seed for both parameter initialization and minibatch sampling, the trained three-pass model gained 31 answers and lost three on the same confirmation panel relative to the reinitialized one-pass control. Its 53/64 was lower than the first seed's 62/64. Both seeds exceeded the registered eight-answer margin over their matched control. [Independent training-seed comparison](../research/results/native-induction-anchored-seed2-01)
 
 At 768 generated tokens per question, Base finished 14 turns and the trained model finished all 64. Nine completed Base answers named the animal category and five gave a color. Two of the five colors matched the source. Fifty Base answers exhausted the allowance. The task assumes an individual's color can be inferred from a classmate, even though the original questions omit an explicit statement of that convention. [Longer-budget paired responses](../research/results/native-induction-anchored-longbase-01)
 
