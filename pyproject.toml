@@ -3,13 +3,26 @@ name = "loopqwen"
 version = "0.1.0"
 description = "Shared-depth experiments with the Qwen3.5 text decoder on Metal"
 requires-python = ">=3.12,<3.13"
-dependencies = ["mlx==0.32.4", "mlx-lm==0.32.2", "huggingface-hub", "safetensors", "numpy", "pyyaml", "psutil"]
+dependencies = [
+    "mlx==0.32.4",
+    "mlx-lm==0.32.2",
+    "huggingface-hub",
+    "safetensors",
+    "numpy",
+    "pyyaml",
+    "psutil",
+    "jsonschema>=4.23,<5",
+]
 [project.scripts]
 loopqwen = "loopqwen.cli:main"
 [dependency-groups]
 dev = ["pytest", "ruff"]
 figures = [
     "matplotlib>=3.9,<4",
+]
+paper = [
+    "pypdf>=6,<8",
+    "typst==0.15.2",
 ]
 [build-system]
 requires = ["setuptools>=70"]

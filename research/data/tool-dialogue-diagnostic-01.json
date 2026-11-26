@@ -1,0 +1,190 @@
+[
+  {
+    "id": "diagnostic-0-direct",
+    "kind": "direct",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Flint",
+      "Kestrel",
+      "Maple"
+    ],
+    "places": [
+      "Valley",
+      "Harbor",
+      "Central"
+    ],
+    "numbers": [
+      94,
+      81,
+      49
+    ],
+    "question": "Use these figures: Valley has 94, Harbor has 81. Give only the name with the higher figure.",
+    "expected": [],
+    "gold": "Valley"
+  },
+  {
+    "id": "diagnostic-0-compare",
+    "kind": "compare",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Maple",
+      "Pearl",
+      "Cedar"
+    ],
+    "places": [
+      "North",
+      "Hill",
+      "Valley"
+    ],
+    "numbers": [
+      47,
+      77,
+      15
+    ],
+    "question": "Compare North with Hill using the recorded capacity. Name the hub with the higher value.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "North"
+        }
+      },
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "Hill"
+        }
+      }
+    ],
+    "gold": "Hill"
+  },
+  {
+    "id": "diagnostic-0-clarify",
+    "kind": "clarify",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "hub_capacity",
+      "manifest_hub"
+    ],
+    "names": [
+      "Rowan",
+      "Willow",
+      "Kestrel"
+    ],
+    "places": [
+      "Lake",
+      "Harbor",
+      "South"
+    ],
+    "numbers": [
+      13,
+      55,
+      61
+    ],
+    "question": "Tell me my hub's capacity. I haven't specified which hub yet.",
+    "expected": [],
+    "gold": "Which hub?"
+  },
+  {
+    "id": "diagnostic-0-lookup",
+    "kind": "lookup",
+    "domain": "depot",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "manifest_hub",
+      "hub_capacity"
+    ],
+    "names": [
+      "Quartz",
+      "Pearl",
+      "Willow"
+    ],
+    "places": [
+      "Grove",
+      "Harbor",
+      "Coast"
+    ],
+    "numbers": [
+      71,
+      11,
+      17
+    ],
+    "question": "For the hub called Grove, look up its capacity. Return the number only.",
+    "expected": [
+      {
+        "name": "hub_capacity",
+        "arguments": {
+          "location": "Grove"
+        }
+      }
+    ],
+    "gold": "71"
+  },
+  {
+    "id": "diagnostic-0-chain",
+    "kind": "chain",
+    "domain": "museum",
+    "args": [
+      "identifier",
+      "location"
+    ],
+    "tools": [
+      "locate_art",
+      "room_area"
+    ],
+    "names": [
+      "Rowan",
+      "Hazel",
+      "Flint"
+    ],
+    "places": [
+      "Grove",
+      "Coast",
+      "East"
+    ],
+    "numbers": [
+      96,
+      58,
+      29
+    ],
+    "question": "I have painting Rowan. Find its assigned room, then tell me that site's area. Just the number.",
+    "expected": [
+      {
+        "name": "locate_art",
+        "arguments": {
+          "identifier": "Rowan"
+        }
+      },
+      {
+        "name": "room_area",
+        "arguments": {
+          "location": "Grove"
+        }
+      }
+    ],
+    "gold": "96"
+  }
+]

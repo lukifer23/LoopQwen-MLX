@@ -1,0 +1,18 @@
+{
+  "id": "tool-dialogue-diagnostic-01",
+  "question": "Can the shipped general release complete a live schema-bound tool interaction better than untouched Base?",
+  "candidate": "release02",
+  "control": "base",
+  "material": "research/data/tool-dialogue-diagnostic-01.json",
+  "max_tokens": 128,
+  "max_turns": 4,
+  "net_floor": 2,
+  "p_max": 1,
+  "time_ratio": 1.0,
+  "gate": "Increase end-to-end successes by at least two out of five and finish within Base elapsed seconds. Failed diagnostic closes expansion of this unmodified checkpoint for tools. Independently test supervised tool-mode learning.",
+  "limits": {
+    "wall_seconds": 270,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  }
+}
