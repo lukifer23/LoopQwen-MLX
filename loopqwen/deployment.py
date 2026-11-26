@@ -39,5 +39,5 @@ def load_trained(root):
     if (generation / "context-policy.json").is_file():
         from .context_policy import attach as attach_context
 
-        attach_context(model, generation)
+        attach_context(model, generation, tokenizer)
     return model, tokenizer, state

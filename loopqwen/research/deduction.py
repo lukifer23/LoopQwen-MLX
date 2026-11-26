@@ -6,13 +6,14 @@ import time
 from pathlib import Path
 
 import mlx.core as mx
-import mlx.nn as nn
+from mlx import nn
 import mlx.optimizers as optim
 
 from .. import REVISION
 from ..evidence_loop import (
     EvidenceLoop,
     PooledEvidence,
+    load_evidence,
     passage,
     pooled_states,
     prepare,
@@ -141,31 +142,18 @@ def fit(model, t, rows, depth, s, b, out):
         if step % 100 == 0 or step + 1 == s["updates"]:
             steps.append([step + 1, val.item()])
     net.save_weights(str(out / "reader.safetensors"))
-    spec = dict(
-        base_revision=REVISION,
-        architecture=s.get("architecture", "terminal"),
-        depth=depth,
-        rank=s["rank"],
-        vocab=vocab,
-        weights=digest(out / "reader.safetensors"),
-        updates=s["updates"],
-        loss=steps,
-        optimization_seconds=time.perf_counter() - training_time,
-    )
+    spec = {
+        "base_revision": REVISION,
+        "architecture": s.get("architecture", "terminal"),
+        "depth": depth,
+        "rank": s["rank"],
+        "vocab": vocab,
+        "weights": digest(out / "reader.safetensors"),
+        "updates": s["updates"],
+        "loss": steps,
+        "optimization_seconds": time.perf_counter() - training_time,
+    }
     save(out / "reader.json", spec)
-    return net
-
-
-def restore(model, path):
-    spec = read(path / "reader.json")
-    if spec["base_revision"] != REVISION or spec["weights"] != digest(
-        path / "reader.safetensors"
-    ):
-        raise ValueError("Evidence reader lineage changed")
-    net = (PooledEvidence if spec.get("architecture") == "pooled" else EvidenceLoop)(
-        model.args.hidden_size, spec["vocab"], spec["rank"]
-    )
-    net.load_weights(str(path / "reader.safetensors"))
     return net
 
 
@@ -206,20 +194,20 @@ def evaluate(model, t, net, rows, depth, s, b, path):
                 end_to_end=elapsed,
             )
         )
-        packed(path, dict(records=records))
+        packed(path, {"records": records})
     return records
 
 
 def summary(rows, records):
-    return dict(
-        correct=sum(r["correct"] for r in records),
-        complete=sum(r["complete"] for r in records),
-        probe=sum(
+    return {
+        "correct": sum(r["correct"] for r in records),
+        "complete": sum(r["complete"] for r in records),
+        "probe": sum(
             r["probe"] == x["answer"] for x, r in zip(rows, records, strict=True)
         ),
-        seconds=sum(r["end_to_end"] for r in records),
-        tokens=sum(len(r["token_ids"]) for r in records),
-    )
+        "seconds": sum(r["end_to_end"] for r in records),
+        "tokens": sum(len(r["token_ids"]) for r in records),
+    }
 
 
 def run(name, freeze=False):
@@ -237,11 +225,11 @@ def run(name, freeze=False):
     b = core.Budget(name, s["limits"])
     out = core.OUT / name
     out.mkdir(exist_ok=False, parents=True)
-    res = dict(
-        registration=digest(REG / (name + ".json")),
-        data=digest(Path(s.get("material", PANEL))),
-        passed=False,
-    )
+    res = {
+        "registration": digest(REG / (name + ".json")),
+        "data": digest(Path(s.get("material", PANEL))),
+        "passed": False,
+    }
     try:
         model, t, _ = base()
         rows = data[s["panel"]]
@@ -255,7 +243,7 @@ def run(name, freeze=False):
                 folder = Path(spec["reader"])
                 if digest(folder / "reader.safetensors") != s["reader_weights"][arm]:
                     raise ValueError("Changed preregistered reader")
-                net = restore(model, folder)
+                net = load_evidence(model, folder)
             records = evaluate(
                 model, t, net, rows, depth, s, b, out / (arm + ".json.gz")
             )

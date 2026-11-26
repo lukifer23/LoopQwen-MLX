@@ -48,14 +48,14 @@ def stories(split):
         question, answer, refs = text.split("\t")
         facts = list(numbered.values())
         key = fingerprint(sorted(facts))
-        item = dict(
-            id=fingerprint([facts, question]),
-            story=key,
-            facts=facts,
-            question=question,
-            answer=answer,
-            supports=[list(numbered).index(int(i)) for i in refs.split()],
-        )
+        item = {
+            "id": fingerprint([facts, question]),
+            "story": key,
+            "facts": facts,
+            "question": question,
+            "answer": answer,
+            "supports": [list(numbered).index(int(i)) for i in refs.split()],
+        }
         groups.setdefault(key, {})[item["id"]] = item
     return groups
 

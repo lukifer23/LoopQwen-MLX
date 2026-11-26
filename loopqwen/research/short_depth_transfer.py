@@ -28,7 +28,7 @@ def run():
     rows = read(panel)
     out = core.OUT / NAME
     out.mkdir(exist_ok=False, parents=True)
-    result = dict(registration=digest(reg), data=digest(panel), passed=False)
+    result = {"registration": digest(reg), "data": digest(panel), "passed": False}
     records = {"dense": [], "recurrent": []}
     reference = unpack(
         Path("research/results/rationale-transfer-01/candidate.json.gz")
@@ -51,7 +51,9 @@ def run():
                     ):
                         raise ValueError("Recurrent replay changed")
                     records[arm].append(dict(**r, seconds_at_256=r["seconds"]))
-                packed(out / (arm + ".json.gz"), dict(weights=w, records=records[arm]))
+                packed(
+                    out / (arm + ".json.gz"), {"weights": w, "records": records[arm]}
+                )
                 partial.unlink()
                 del m, t
                 gc.collect()

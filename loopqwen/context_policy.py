@@ -51,7 +51,7 @@ class ContextPolicy:
         return self.ordinary, "ordinary"
 
 
-def attach(model, folder):
+def attach(model, folder, tokenizer=None):
     from .deliberation import ordinary_view
 
     folder = Path(folder)
@@ -59,10 +59,10 @@ def attach(model, folder):
     for k, h in spec["files"].items():
         if digest(folder / k) != h:
             raise ValueError("Context policy checkpoint differs")
-    if spec.get("schema") == 2:
+    if spec.get("schema") in (2, 3):
         from .conditional import load
 
-        load(model, folder, spec)
+        load(model, folder, spec, tokenizer)
         return
     original = ordinary_view(model)
     shared = {id(v): v for _, v in tree_flatten(model.parameters())}

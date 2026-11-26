@@ -36,6 +36,11 @@ class ConditionalDepth:
     def choose(self, model, ids, cap):
         if not assistant_thinking(ids):
             return self.ordinary, "ordinary"
+        reader = getattr(self, "evidence", None)
+        if reader is not None:
+            view = reader.choose(self.ordinary, ids)
+            if view is not None:
+                return view, "deduction"
         evidence = features(model.text.model.embed_tokens, ids)
         distribution = mx.softmax(self.classifier(evidence)).tolist()
         index = max(range(len(distribution)), key=distribution.__getitem__)
@@ -53,7 +58,7 @@ class ConditionalDepth:
         return self.ordinary, "ordinary"
 
 
-def load(model, folder, spec):
+def load(model, folder, spec, tokenizer=None):
     labels = spec["labels"]
     if (
         labels != ["ordinary", "arithmetic", "register", "entailment"]
@@ -74,6 +79,16 @@ def load(model, folder, spec):
             expected_files.update(
                 {"arithmetic/deliberation.json", "arithmetic/exit-readout.safetensors"}
             )
+    if spec.get("schema") == 3:
+        expected_files.update(
+            "evidence/" + v
+            for v in (
+                "reader.json",
+                "reader.safetensors",
+                "scope.json",
+                "scope.safetensors",
+            )
+        )
     if set(spec["files"]) != expected_files:
         raise ValueError("Incomplete conditional checkpoint inventory")
     shared = {id(v): v for _, v in tree_flatten(model.parameters())}
@@ -106,3 +121,12 @@ def load(model, folder, spec):
         "context_policy",
         ConditionalDepth(ordinary, experts, classifier, labels, spec["confidence"]),
     )
+
+    if spec.get("schema") == 3:
+        from .evidence_loop import EvidencePolicy
+
+        if tokenizer is None:
+            raise ValueError("Evidence routing requires the checkpoint tokenizer")
+        model.context_policy.evidence = EvidencePolicy(
+            ordinary, tokenizer, folder / "evidence"
+        )

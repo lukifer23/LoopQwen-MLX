@@ -29,6 +29,8 @@ def load_export(directory):
         raise ValueError("Unsupported looped export schema")
     base = TextModel(TextModelArgs.from_dict(cfg["text_config"]))
     model = LoopedModel(base, Span(**cfg["span"]))
+    eos = cfg["text_config"]["eos_token_id"]
+    tokenizer = load_tokenizer(directory, eos_token_ids=[eos])
     if cfg.get("export_schema") in (4, 5):
         import hashlib
 
@@ -57,7 +59,7 @@ def load_export(directory):
         model.alpha_override = cfg["alpha_override"]
         if cfg["export_schema"] == 4:
             load_reader(model, directory)
-            attach_context(model, directory)
+            attach_context(model, directory, tokenizer)
         else:
             from .deliberation import attach as attach_deliberation
 
@@ -105,8 +107,7 @@ def load_export(directory):
         ):
             raise ValueError("Exported attention reader metadata differs")
         load_reader(model, directory)
-    eos = cfg["text_config"]["eos_token_id"]
-    return model, load_tokenizer(directory, eos_token_ids=[eos])
+    return model, tokenizer
 
 
 def verify(directory):
@@ -144,6 +145,13 @@ def verify(directory):
             raise ValueError(
                 "Exported ordinary-depth logits differ from the pinned control"
             )
+    if "evidence_probe" in audit:
+        from .evaluation.generation_eval import generate
+
+        probe = audit["evidence_probe"]
+        val = generate(model, tokenizer, probe["prompt"], 32, stop_ids=(248046,))
+        if val["context_route"] != "deduction" or val["token_ids"] != probe["tokens"]:
+            raise ValueError("Exported evidence-loop generation differs")
     if "reader_probe" in audit:
         from .evaluation.generation_eval import generate
 

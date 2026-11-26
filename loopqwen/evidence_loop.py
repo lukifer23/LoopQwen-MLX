@@ -1,7 +1,7 @@
 """A tied evidence read over sentence states from the pretrained Qwen span."""
 
 import mlx.core as mx
-import mlx.nn as nn
+from mlx import nn
 
 
 def unit(x):
@@ -61,6 +61,9 @@ class EvidenceView:
     def __init__(self, model, net, memory):
         self.model, self.net, self.memory = model, net, memory
         self.args = model.args
+
+    def __getattr__(self, name):
+        return getattr(self.model, name)
 
     def eval(self):
         self.model.eval()
@@ -161,3 +164,49 @@ def passage(t, ids):
     if len(lines) < 3 or not lines[-1].endswith("?"):
         return None
     return lines[:-1], lines[-1]
+
+
+def load_evidence(model, folder):
+    from . import REVISION
+    from .io import read, digest
+
+    spec = read(folder / "reader.json")
+    if spec["base_revision"] != REVISION or spec["weights"] != digest(
+        folder / "reader.safetensors"
+    ):
+        raise ValueError("Evidence reader lineage changed")
+    cls = {"pooled": PooledEvidence, "terminal": EvidenceLoop}[
+        spec.get("architecture", "terminal")
+    ]
+    net = cls(model.args.hidden_size, spec["vocab"], spec["rank"])
+    net.load_weights(str(folder / "reader.safetensors"), strict=True)
+    net.eval()
+    return net
+
+
+class EvidencePolicy:
+    def __init__(self, model, t, folder):
+        from .io import read
+
+        self.reader = load_evidence(model, folder)
+        self.gate = nn.Linear(2 * model.args.hidden_size, 2)
+        self.gate.load_weights(str(folder / "scope.safetensors"), strict=True)
+        self.gate.eval()
+        self.tokenizer = t
+        spec = read(folder / "scope.json")
+        if spec["depth"] != 2 or not 0.5 < spec["confidence"] < 1:
+            raise ValueError("Unsupported passage reader scope")
+        self.confidence = spec["confidence"]
+
+    def choose(self, model, ids):
+        from .context_policy import features
+
+        if len(ids) > 1024:
+            return None
+        section = passage(self.tokenizer, ids)
+        if section is None or len(section[0]) > 64:
+            return None
+        z = self.gate(features(model.text.model.embed_tokens, ids))
+        if mx.softmax(z)[1].item() < self.confidence:
+            return None
+        return prepare(model, self.tokenizer, self.reader, *section, 2)[0]

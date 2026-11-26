@@ -134,15 +134,15 @@ def verify(root, decision, read, sha, require, number):
     else:
         for arm in arms:
             rows = outputs[arm]
-            expected = dict(
-                correct=scores[arm],
-                complete=sum(r["complete"] for r in rows),
-                probe=sum(
+            expected = {
+                "correct": scores[arm],
+                "complete": sum(r["complete"] for r in rows),
+                "probe": sum(
                     r["probe"] == x["answer"] for r, x in zip(rows, data, strict=True)
                 ),
-                seconds=sum(r["end_to_end"] for r in rows),
-                tokens=sum(len(r["token_ids"]) for r in rows),
-            )
+                "seconds": sum(r["end_to_end"] for r in rows),
+                "tokens": sum(len(r["token_ids"]) for r in rows),
+            }
             require(decision["scores"][arm] == expected, "Invalid deduction summary")
         u, v = decision["scores"][a], decision["scores"][b]
         require(
