@@ -79,6 +79,10 @@ def verify(root):
         from loopqwen.research.narrative_book import verify as verify_narrative
 
         verify_narrative(root, decision)
+    if study.startswith("table-parser-"):
+        from loopqwen.research.table_parser_study import verify as verify_table_parser
+
+        verify_table_parser(root, decision)
     if study.startswith("operand-planner-"):
         from loopqwen.research.operand_study import verify as verify_operands
 

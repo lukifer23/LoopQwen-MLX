@@ -82,31 +82,35 @@ def reference(index, n):
     return "n" + str(index) if index < n else "r" + str(index - n)
 
 
+def adapted_attention_layer(model):
+    """A native layer with the frozen donor arrays and four trainable rank-eight adapters."""
+    original = model.text.layers[LAYER]
+    layer = deepcopy(
+        original, {id(v): v for _, v in tree_flatten(original.parameters())}
+    )
+    layer.freeze()
+    for k in ("q_proj", "k_proj", "v_proj", "o_proj"):
+        setattr(
+            layer.self_attn,
+            k,
+            LoRALinear.from_base(getattr(layer.self_attn, k), r=8, scale=2, dropout=0),
+        )
+    adapted = {k for k, v in tree_flatten(layer.trainable_parameters())}
+    expected = {
+        f"self_attn.{name}.lora_{part}"
+        for name in ("q_proj", "k_proj", "v_proj", "o_proj")
+        for part in ("a", "b")
+    }
+    if adapted != expected:
+        raise ValueError("Unexpected trainable native projections")
+    return layer
+
+
 class OperandPlanner(nn.Module):
     def __init__(self, model, rank, depth):
         super().__init__()
         w = model.args.hidden_size
-        original = model.text.layers[LAYER]
-        self.layer = deepcopy(
-            original, {id(v): v for _, v in tree_flatten(original.parameters())}
-        )
-        self.layer.freeze()
-        for k in ("q_proj", "k_proj", "v_proj", "o_proj"):
-            setattr(
-                self.layer.self_attn,
-                k,
-                LoRALinear.from_base(
-                    getattr(self.layer.self_attn, k), r=8, scale=2, dropout=0
-                ),
-            )
-        adapted = {k for k, v in tree_flatten(self.layer.trainable_parameters())}
-        expected = {
-            f"self_attn.{name}.lora_{part}"
-            for name in ("q_proj", "k_proj", "v_proj", "o_proj")
-            for part in ("a", "b")
-        }
-        if adapted != expected:
-            raise ValueError("Unexpected trainable native projections")
+        self.layer = adapted_attention_layer(model)
         self.depth = depth
         self.rank = rank
         self.compress = nn.Linear(2 * w, rank)

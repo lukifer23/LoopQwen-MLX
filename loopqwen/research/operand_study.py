@@ -18,7 +18,8 @@ from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed, unpack
 from ..io import digest, read, save
 from ..operand_planner import OperandPlanner, encode_document, padded, rollout, slot
-from ..tool_session import compact, initial_messages, prompt
+from ..structured_call import decoder
+from ..tool_session import initial_messages, prompt
 from ..tool_session import run as session
 from .core import Budget
 from .registered import registered
@@ -139,28 +140,13 @@ def fit(spec, planner, model, tok, rows, out, budget):
 
 
 def action_decoder(planner, question, record):
-    def decode(model, tok, text, max_tokens, **kw):
-        mx.synchronize()
-        at = perf_counter()
+    def action(model, tok, text):
         h, values = encode_document(model, tok, text, question)
         steps, actions = rollout(planner, h, values)
-        msg = compact(dict(name="calculate", arguments=dict(steps=steps)))
-        ids = tok.encode("</think>\n\n" + msg, add_special_tokens=False) + [
-            tok.convert_tokens_to_ids("<|im_end|>")
-        ]
         record.update(values=values, actions=actions, steps=steps)
-        mx.synchronize()
-        total = perf_counter() - at
-        if kw.get("progress"):
-            kw["progress"](len(tok.encode(text, add_special_tokens=False)))
-        return dict(
-            token_ids=ids[:max_tokens],
-            elapsed_s=total,
-            ttft_s=total,
-            peak_bytes=mx.get_peak_memory(),
-        )
+        return {"name": "calculate", "arguments": {"steps": steps}}
 
-    return decode
+    return decoder(action)
 
 
 def run(name):

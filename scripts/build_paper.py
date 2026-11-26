@@ -32,6 +32,7 @@ def main(verify):
                         "tool-",
                         "schema-calls-",
                         "operand-planner-",
+                        "table-parser-",
                         "release-mixed-field-",
                         "conversation-followup-",
                         "contrast-boolq-",

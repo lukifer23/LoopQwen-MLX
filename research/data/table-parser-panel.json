@@ -1,0 +1,8017 @@
+{
+  "source": "cffb423077756d04c1bac5bcd45167c86903fbcb",
+  "rows": [
+    {
+      "id": "wikisql-test-3731",
+      "table_id": "1-272865-20",
+      "question": "What is the total number of years active listings where Asian Cup played as a captain is Japan 1992?",
+      "columns": [
+        "#",
+        "Matches As Captain",
+        "Player",
+        "Asian Cup Played As A Captain",
+        "Years Active",
+        "Caps(Goals)"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          "4 (0)",
+          "hassan habibi",
+          "iran 1968",
+          "1958\u20131970",
+          "31 (0)"
+        ],
+        [
+          2.0,
+          "4 (0)",
+          "mostafa arab",
+          "thailand 1972",
+          "1959\u20131972",
+          "48 (2)"
+        ],
+        [
+          3.0,
+          "3 (0)",
+          "parviz ghelichkhani",
+          "iran 1976",
+          "1964\u20131977",
+          "64 (12)"
+        ],
+        [
+          4.0,
+          "5 (0)",
+          "nasser hejazi",
+          "kuwait 1980",
+          "1968\u20131980",
+          "62 (0)"
+        ],
+        [
+          5.0,
+          "6 (0)",
+          "mohammad panjali",
+          "singapore 1984",
+          "1978\u20131991",
+          "45 (0)"
+        ],
+        [
+          6.0,
+          "6 (0)",
+          "sirous ghayeghran",
+          "qatar 1988",
+          "1986\u20131992",
+          "40 (6)"
+        ],
+        [
+          7.0,
+          "3 (0)",
+          "sirous ghayeghran",
+          "japan 1992",
+          "1986\u20131992",
+          "40 (6)"
+        ],
+        [
+          8.0,
+          "1 (0)",
+          "mojtaba moharrami",
+          "uae 1996",
+          "1988\u20131996",
+          "37 (5)"
+        ],
+        [
+          9.0,
+          "4 (2)",
+          "hamid reza estili",
+          "lebanon 2000",
+          "1990\u20132000",
+          "82 (12)"
+        ],
+        [
+          10.0,
+          "6 (3)",
+          "ali daei",
+          "china 2004",
+          "1993\u20132006",
+          "149 (109)"
+        ],
+        [
+          11.0,
+          "4 (0)",
+          "mehdi mahdavikia",
+          "asian cup 2007",
+          "1996\u20132009",
+          "111 (13)"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            3,
+            0,
+            "Japan 1992"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-12285",
+      "table_id": "2-18233834-8",
+      "question": "What is the average pick in 1983?",
+      "columns": [
+        "Pick",
+        "Player",
+        "Team",
+        "Position",
+        "Year"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          13.0,
+          "rick leach",
+          "detroit tigers",
+          "of",
+          1979.0
+        ],
+        [
+          16.0,
+          "steve howe",
+          "los angeles dodgers",
+          "lhp",
+          1979.0
+        ],
+        [
+          25.0,
+          "steve perry",
+          "los angeles dodgers",
+          "rhp",
+          1979.0
+        ],
+        [
+          14.0,
+          "rich stoll",
+          "montreal expos",
+          "rhp",
+          1983.0
+        ],
+        [
+          4.0,
+          "barry larkin",
+          "cincinnati reds",
+          "ss",
+          1985.0
+        ],
+        [
+          8.0,
+          "jim abbott",
+          "california angels",
+          "lhp",
+          1988.0
+        ],
+        [
+          28.0,
+          "david parrish",
+          "new york yankees",
+          "c",
+          2000.0
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            4,
+            0,
+            1983
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-783",
+      "table_id": "1-1342393-17",
+      "question": " how many\u00a0incumbent\u00a0with\u00a0first elected\u00a0being 1924",
+      "columns": [
+        "District",
+        "Incumbent",
+        "Party",
+        "First elected",
+        "Result",
+        "Candidates"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "louisiana 1",
+          "james o'connor",
+          "democratic",
+          1918.0,
+          "re-elected",
+          "james o'connor (d) unopposed"
+        ],
+        [
+          "louisiana 2",
+          "james zacharie spearing",
+          "democratic",
+          1924.0,
+          "re-elected",
+          "james zacharie spearing (d) unopposed"
+        ],
+        [
+          "louisiana 3",
+          "whitmell p. martin",
+          "democratic",
+          1914.0,
+          "re-elected",
+          "whitmell p. martin (d) unopposed"
+        ],
+        [
+          "louisiana 4",
+          "john n. sandlin",
+          "democratic",
+          1920.0,
+          "re-elected",
+          "john n. sandlin (d) unopposed"
+        ],
+        [
+          "louisiana 5",
+          "riley joseph wilson",
+          "democratic",
+          1914.0,
+          "re-elected",
+          "riley joseph wilson (d) unopposed"
+        ],
+        [
+          "louisiana 6",
+          "george k. favrot",
+          "democratic",
+          1920.0,
+          "lost renomination democratic hold",
+          "bolivar e. kemp (d) unopposed"
+        ],
+        [
+          "louisiana 7",
+          "ladislas lazaro",
+          "democratic",
+          1912.0,
+          "re-elected",
+          "ladislas lazaro (d) unopposed"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            3,
+            0,
+            1924
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-3665",
+      "table_id": "1-26804862-1",
+      "question": "When 3.89 is the production code how many season numbers are there?",
+      "columns": [
+        "Series #",
+        "Season #",
+        "Title",
+        "Directed by",
+        "Written by",
+        "Original air date",
+        "Production code"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          45.0,
+          1.0,
+          "\"it takes two, baby\"",
+          "burt brinckerhoff",
+          "brenda hampton",
+          "september21,1998",
+          "2.92"
+        ],
+        [
+          46.0,
+          2.0,
+          "\"drunk like me\"",
+          "joel j. feigenbaum",
+          "carol evan mckeand & nigel mckeand",
+          "september28,1998",
+          "2.58"
+        ],
+        [
+          47.0,
+          3.0,
+          "\"cutters\"",
+          "anson williams",
+          "sue tenney",
+          "october5,1998",
+          "2.83"
+        ],
+        [
+          48.0,
+          4.0,
+          "\"the legacy\"",
+          "tony mordente",
+          "catherine lepard",
+          "october12,1998",
+          "2.43"
+        ],
+        [
+          49.0,
+          5.0,
+          "\"... and a nice chianti\"",
+          "harvey s. laidman",
+          "greg plageman",
+          "october19,1998",
+          "2.45"
+        ],
+        [
+          50.0,
+          6.0,
+          "\"and the home of the brave\"",
+          "harry harris",
+          "brenda hampton",
+          "november2,1998",
+          "2.19"
+        ],
+        [
+          51.0,
+          7.0,
+          "\"johnny get your gun\"",
+          "kevin inch",
+          "brenda hampton",
+          "november9,1998",
+          "3.78"
+        ],
+        [
+          52.0,
+          8.0,
+          "\"no sex, some drugs and a little rock 'n roll\"",
+          "david j. plenn",
+          "sue tenney",
+          "november16,1998",
+          "2.24"
+        ],
+        [
+          53.0,
+          9.0,
+          "\"let's talk about sex\"",
+          "tony mordente",
+          "brenda hampton",
+          "november18,1998",
+          "1.06"
+        ],
+        [
+          54.0,
+          10.0,
+          "\"here comes santa claus\"",
+          "joel j. feigenbaum",
+          "chris olsen & jeff olsen",
+          "december14,1998",
+          "1.58"
+        ],
+        [
+          55.0,
+          11.0,
+          "\"nobody knows...\"",
+          "harry harris",
+          "brenda hampton & catherine lepard",
+          "january11,1999",
+          "2.07"
+        ],
+        [
+          56.0,
+          12.0,
+          "\"all that jazz\"",
+          "harvey laidman",
+          "sue tenney",
+          "january18,1999",
+          "2.59"
+        ],
+        [
+          57.0,
+          13.0,
+          "\"the tribes that bind\"",
+          "bradley gross",
+          "catherine lepard",
+          "january25,1999",
+          "3.54"
+        ],
+        [
+          58.0,
+          14.0,
+          "\"in praise of women\"",
+          "burt brinckerhoff",
+          "brenda hampton & catherine lepard",
+          "february8,1999",
+          "3.89"
+        ],
+        [
+          59.0,
+          15.0,
+          "\"it happened one night\"",
+          "tony mordente",
+          "brenda hampton & greg plageman",
+          "february15,1999",
+          "4.50"
+        ],
+        [
+          60.0,
+          16.0,
+          "\"paranoia\"",
+          "stephen collins",
+          "ron darian",
+          "february22,1999",
+          "4.68"
+        ],
+        [
+          61.0,
+          17.0,
+          "\"sometimes that's just the way it is\"",
+          "kevin inch",
+          "linda ptolemy",
+          "march1,1999",
+          "3.95"
+        ],
+        [
+          62.0,
+          18.0,
+          "\"we the people\"",
+          "harry harris",
+          "catherine lepard",
+          "march15,1999",
+          "3.68"
+        ],
+        [
+          63.0,
+          19.0,
+          "\"the voice\"",
+          "david j. plenn",
+          "ron darian",
+          "may3,1999",
+          "2.54"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            6,
+            0,
+            "3.89"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-283",
+      "table_id": "1-1166259-1",
+      "question": "How many points are there when the lost is 26?",
+      "columns": [
+        "Season",
+        "Games",
+        "Won",
+        "Lost",
+        "Tied",
+        "Points",
+        "Goals for",
+        "Goals against",
+        "Standing"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "1969\u201370",
+          72.0,
+          43.0,
+          15.0,
+          14.0,
+          100.0,
+          327.0,
+          195.0,
+          "1st, east"
+        ],
+        [
+          "1970\u201371",
+          72.0,
+          27.0,
+          31.0,
+          14.0,
+          68.0,
+          215.0,
+          239.0,
+          "2nd, east"
+        ],
+        [
+          "1971\u201372",
+          76.0,
+          41.0,
+          21.0,
+          14.0,
+          96.0,
+          274.0,
+          202.0,
+          "2nd, east"
+        ],
+        [
+          "1972\u201373",
+          76.0,
+          43.0,
+          18.0,
+          15.0,
+          101.0,
+          316.0,
+          191.0,
+          "1st, east"
+        ],
+        [
+          "1973\u201374",
+          76.0,
+          37.0,
+          27.0,
+          12.0,
+          86.0,
+          263.0,
+          223.0,
+          "3rd, north"
+        ],
+        [
+          "1974\u201375",
+          75.0,
+          40.0,
+          26.0,
+          9.0,
+          89.0,
+          270.0,
+          227.0,
+          "3rd, north"
+        ],
+        [
+          "1975\u201376",
+          76.0,
+          48.0,
+          20.0,
+          8.0,
+          104.0,
+          326.0,
+          209.0,
+          "1st, north"
+        ],
+        [
+          "1976\u201377",
+          80.0,
+          52.0,
+          22.0,
+          6.0,
+          110.0,
+          308.0,
+          225.0,
+          "1st, ahl"
+        ],
+        [
+          "1977\u201378",
+          81.0,
+          37.0,
+          28.0,
+          16.0,
+          90.0,
+          304.0,
+          250.0,
+          "2nd, north"
+        ],
+        [
+          "1978\u201379",
+          80.0,
+          39.0,
+          37.0,
+          4.0,
+          82.0,
+          313.0,
+          302.0,
+          "3rd, north"
+        ],
+        [
+          "1979\u201380",
+          79.0,
+          43.0,
+          29.0,
+          7.0,
+          93.0,
+          331.0,
+          271.0,
+          "2nd, north"
+        ],
+        [
+          "1980\u201381",
+          80.0,
+          38.0,
+          37.0,
+          5.0,
+          81.0,
+          335.0,
+          298.0,
+          "3rd, north"
+        ],
+        [
+          "1981\u201382",
+          80.0,
+          35.0,
+          35.0,
+          10.0,
+          80.0,
+          330.0,
+          313.0,
+          "3rd, north"
+        ],
+        [
+          "1982\u201383",
+          80.0,
+          41.0,
+          34.0,
+          5.0,
+          87.0,
+          378.0,
+          333.0,
+          "2nd, north"
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            3,
+            0,
+            26
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-12826",
+      "table_id": "2-17817954-1",
+      "question": "When Ilie N\u0103stase beat runner-up Peter Fleming what year was it?",
+      "columns": [
+        "Location",
+        "Year",
+        "Champion",
+        "Runner-up",
+        "Score"
+      ],
+      "types": [
+        "text",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "honolulu",
+          1976.0,
+          "ilie n\u0103stase",
+          "arthur ashe",
+          "6\u20133, 1\u20136, 6\u20137, 6\u20133, 6\u20131"
+        ],
+        [
+          "las vegas",
+          1977.0,
+          "ilie nastase",
+          "jimmy connors",
+          "3\u20136, 7\u20136, 6\u20134, 7\u20135"
+        ],
+        [
+          "montego bay",
+          1978.0,
+          "ilie n\u0103stase",
+          "peter fleming",
+          "2\u20136, 5\u20136, 6\u20132, 6\u20134, 6\u20134"
+        ],
+        [
+          "montreal",
+          1979.0,
+          "bj\u00f6rn borg",
+          "jimmy connors",
+          "6\u20134, 6\u20132, 2\u20136, 6\u20134"
+        ],
+        [
+          "montreal",
+          1980.0,
+          "john mcenroe",
+          "vijay amritraj",
+          "6\u20131, 6\u20132, 6\u20131"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            2,
+            0,
+            "ilie n\u0103stase"
+          ],
+          [
+            3,
+            0,
+            "peter fleming"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-2391",
+      "table_id": "1-20942925-1",
+      "question": "How many titles for the production code of NABF07?",
+      "columns": [
+        "\u2116",
+        "#",
+        "Title",
+        "Directed by",
+        "Written by",
+        "Original air date",
+        "Production code",
+        "U.S. viewers (millions)"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          465.0,
+          1.0,
+          "\" elementary school musical \"",
+          "mark kirkland",
+          "tim long",
+          "september26,2010",
+          "mabf21",
+          "7.75"
+        ],
+        [
+          466.0,
+          2.0,
+          "\" loan-a lisa \"",
+          "matthew faughnan",
+          "valentina l. garza",
+          "october3,2010",
+          "mabf17",
+          "8.59"
+        ],
+        [
+          467.0,
+          3.0,
+          "\" moneybart \"",
+          "nancy kruse",
+          "tim long",
+          "october10,2010",
+          "mabf18",
+          "6.72"
+        ],
+        [
+          469.0,
+          5.0,
+          "\" lisa simpson, this isn't your life \"",
+          "matthew nastuk",
+          "joel h. cohen",
+          "november14,2010",
+          "mabf20",
+          "8.97"
+        ],
+        [
+          470.0,
+          6.0,
+          "\" the fool monty \"",
+          "steven dean moore",
+          "michael price",
+          "november21,2010",
+          "nabf01",
+          "6.58"
+        ],
+        [
+          471.0,
+          7.0,
+          "\" how munched is that birdie in the window? \"",
+          "michael polcino",
+          "kevin curran",
+          "november28,2010",
+          "nabf02",
+          "9.38"
+        ],
+        [
+          472.0,
+          8.0,
+          "\" the fight before christmas \"",
+          "bob anderson & matthew schofield",
+          "deb lacusta & dan castellaneta",
+          "december5,2010",
+          "mabf22",
+          "9.54"
+        ],
+        [
+          473.0,
+          9.0,
+          "\" donnie fatso \"",
+          "ralph sosa",
+          "chris cluess",
+          "december12,2010",
+          "mabf19",
+          "7.18"
+        ],
+        [
+          474.0,
+          10.0,
+          "\" moms i'd like to forget \"",
+          "chris clements",
+          "brian kelley",
+          "january9,2011",
+          "nabf03",
+          "12.6"
+        ],
+        [
+          475.0,
+          11.0,
+          "\" flaming moe \"",
+          "chuck sheetz",
+          "matt selman",
+          "january16,2011",
+          "nabf04",
+          "6.47"
+        ],
+        [
+          476.0,
+          12.0,
+          "\" homer the father \"",
+          "mark kirkland",
+          "joel h. cohen",
+          "january23,2011",
+          "nabf05",
+          "6.50"
+        ],
+        [
+          477.0,
+          13.0,
+          "\" the blue and the gray \"",
+          "bob anderson",
+          "rob lazebnik",
+          "february13,2011",
+          "nabf06",
+          "5.61"
+        ],
+        [
+          478.0,
+          14.0,
+          "\" angry dad: the movie \"",
+          "matthew nastuk",
+          "john frink",
+          "february20,2011",
+          "nabf07",
+          "6.35"
+        ],
+        [
+          479.0,
+          15.0,
+          "\" the scorpion's tale \"",
+          "matthew schofield",
+          "billy kimball & ian maxtone-graham",
+          "march6,2011",
+          "nabf08",
+          "6.20"
+        ],
+        [
+          480.0,
+          16.0,
+          "\" a midsummer's nice dream \"",
+          "steven dean moore",
+          "deb lacusta & dan castellaneta",
+          "march13,2011",
+          "nabf09",
+          "5.44"
+        ],
+        [
+          481.0,
+          17.0,
+          "\" love is a many strangled thing \"",
+          "michael polcino",
+          "bill odenkirk",
+          "march27,2011",
+          "nabf10",
+          "6.14"
+        ],
+        [
+          482.0,
+          18.0,
+          "\" the great simpsina \"",
+          "chris clements",
+          "matt warburton",
+          "april10,2011",
+          "nabf11",
+          "4.99"
+        ],
+        [
+          483.0,
+          19.0,
+          "\" the real housewives of fat tony \"",
+          "lance kramer",
+          "dick blasucci",
+          "may1,2011",
+          "nabf12",
+          "6.10"
+        ],
+        [
+          484.0,
+          20.0,
+          "\" homer scissorhands \"",
+          "mark kirkland",
+          "peter gaffney & steve viksten",
+          "may8,2011",
+          "nabf13",
+          "5.48"
+        ],
+        [
+          485.0,
+          21.0,
+          "\" 500 keys \"",
+          "bob anderson",
+          "john frink",
+          "may15,2011",
+          "nabf14",
+          "6.00"
+        ]
+      ],
+      "sql": {
+        "sel": 2,
+        "conds": [
+          [
+            6,
+            0,
+            "NABF07"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-11287",
+      "table_id": "2-10848585-9",
+      "question": "What was the margin of the score 52-12?",
+      "columns": [
+        "Margin",
+        "Opponent",
+        "Score",
+        "Venue",
+        "Date"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          52.0,
+          "south sydney rabbitohs",
+          "60-8",
+          "dairy farmers stadium",
+          "rd 24 - 23 august 2003"
+        ],
+        [
+          46.0,
+          "st. george illawarra dragons",
+          "50-4",
+          "dairy farmers stadium",
+          "rd 13 - 29 april 2000"
+        ],
+        [
+          42.0,
+          "cronulla sharks",
+          "56-14",
+          "dairy farmers stadium",
+          "rd 13 - 4 june 2005"
+        ],
+        [
+          40.0,
+          "northern eagles",
+          "50-10",
+          "dairy farmers stadium",
+          "rd 23 - 25 march 2000"
+        ],
+        [
+          40.0,
+          "new zealand warriors",
+          "52-12",
+          "dairy farmers stadium",
+          "rd 8 - 11 august 2012"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "52-12"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-15752",
+      "table_id": "2-1228404-1",
+      "question": "What is the average Year when there was a cosworth straight-4 engine, and the Entrant was ron harris / team lotus?",
+      "columns": [
+        "Year",
+        "Entrant",
+        "Chassis",
+        "Engine",
+        "Points"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1963.0,
+          "ecurie maarsbergen",
+          "porsche 718",
+          "porsche flat-4",
+          3.0
+        ],
+        [
+          1964.0,
+          "team lotus",
+          "lotus 25",
+          "climax v8",
+          0.0
+        ],
+        [
+          1965.0,
+          "team lotus",
+          "lotus 25",
+          "climax v8",
+          0.0
+        ],
+        [
+          1966.0,
+          "ron harris / team lotus",
+          "lotus 44 f2",
+          "cosworth straight-4",
+          0.0
+        ],
+        [
+          1967.0,
+          "gerhard mitter",
+          "brabham bt23 f2",
+          "cosworth straight-4",
+          0.0
+        ],
+        [
+          1969.0,
+          "bmw",
+          "bmw 269 f2",
+          "bmw straight-4",
+          0.0
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            3,
+            0,
+            "cosworth straight-4"
+          ],
+          [
+            1,
+            0,
+            "ron harris / team lotus"
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-4210",
+      "table_id": "1-29487895-2",
+      "question": "How many sources are there for south africa?",
+      "columns": [
+        "Country / region",
+        "Channel",
+        "Series premiere",
+        "Title in country",
+        "Source(s)",
+        "Airing?"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "australia new zealand",
+          "disney channel (australia)",
+          "march 5, 2013",
+          "tron: uprising",
+          "australian disney xd tv listing",
+          "airing"
+        ],
+        [
+          "belgium",
+          "disney xd belgium",
+          "october 10, 2012",
+          "tron la r\u00e9volte",
+          "disney xd european tron la r\u00e9volte site",
+          "unknown"
+        ],
+        [
+          "canada",
+          "disney xd canada",
+          "june 23, 2012",
+          "tron: uprising",
+          "canadian disney xd tron uprising site",
+          "airing"
+        ],
+        [
+          "france",
+          "disney xd france",
+          "october 10, 2012",
+          "tron la r\u00e9volte",
+          "european disney xd tron la r\u00e9volte site",
+          "airing"
+        ],
+        [
+          "germany",
+          "disney xd germany",
+          "october 18, 2012",
+          "tron: der aufstand",
+          "fernsehserien.de",
+          "airing"
+        ],
+        [
+          "india",
+          "disney xd (india)",
+          "october 14, 2013",
+          "tron: uprising",
+          "indian disney xd site",
+          "airing"
+        ],
+        [
+          "ireland united kingdom",
+          "disney xd (uk & ireland)",
+          "september 8, 2012",
+          "tron: uprising",
+          "united kingdom disney xd tron uprising site",
+          "airing"
+        ],
+        [
+          "malaysia",
+          "disney xd (malaysia)",
+          "november 13, 2012",
+          "tron: uprising",
+          "\"disney xd di malaysia!(disney xd in malaysia!)\"",
+          "not airing"
+        ],
+        [
+          "mexico",
+          "disney xd latin america",
+          "2013",
+          "tron: la resistencia",
+          "mexican disney xd tron uprising site",
+          "airing"
+        ],
+        [
+          "brazil",
+          "disney xd brazil",
+          "2013",
+          "tron: a resist\u00eancia",
+          "brazilian disney xd site",
+          "not airing"
+        ],
+        [
+          "poland",
+          "disney xd (poland)",
+          "october 20, 2012",
+          "tron: uprising/tron: rebelia",
+          "polish disney xd tron uprising site",
+          "not airing"
+        ],
+        [
+          "south africa",
+          "disney xd south africa",
+          "october 6, 2012",
+          "tron: uprising",
+          "south african disney xd tron uprising site",
+          "not airing"
+        ],
+        [
+          "spain",
+          "disney xd spain",
+          "november 1, 2012",
+          "tron: la resistencia",
+          "spanish disney xd tron uprising site",
+          "airing"
+        ],
+        [
+          "united states",
+          "disney xd",
+          "june 7, 2012",
+          "tron: uprising",
+          "american disney xd tron uprising site",
+          "not airing"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            0,
+            0,
+            "South Africa"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-8556",
+      "table_id": "2-17221632-3",
+      "question": "How many lanes have 2 as the heat, and susanna kallur as the name?",
+      "columns": [
+        "Heat",
+        "Lane",
+        "Name",
+        "Country",
+        "Mark"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          6.0,
+          "lolo jones",
+          "united states",
+          "7.82"
+        ],
+        [
+          1.0,
+          5.0,
+          "josephine onyia",
+          "spain",
+          "8.00"
+        ],
+        [
+          1.0,
+          7.0,
+          "yuliya kondakova",
+          "russia",
+          "8.01"
+        ],
+        [
+          1.0,
+          2.0,
+          "yevgeniya snihur",
+          "ukraine",
+          "8.06 pb"
+        ],
+        [
+          1.0,
+          4.0,
+          "micol cattaneo",
+          "italy",
+          "8.10"
+        ],
+        [
+          1.0,
+          3.0,
+          "nevin yanit",
+          "turkey",
+          "8.19"
+        ],
+        [
+          1.0,
+          8.0,
+          "cindy billaud",
+          "france",
+          "8.19"
+        ],
+        [
+          1.0,
+          1.0,
+          "miriam bobkov\u00e1",
+          "slovakia",
+          "8.24"
+        ],
+        [
+          2.0,
+          5.0,
+          "anay tejeda",
+          "cuba",
+          "7.96"
+        ],
+        [
+          2.0,
+          4.0,
+          "candice davis",
+          "united states",
+          "7.99"
+        ],
+        [
+          2.0,
+          3.0,
+          "lacena golding-clarke",
+          "jamaica",
+          "8.00"
+        ],
+        [
+          2.0,
+          7.0,
+          "aleksandra antonova",
+          "russia",
+          "8.07"
+        ],
+        [
+          2.0,
+          1.0,
+          "sarah claxton",
+          "united kingdom",
+          "8.07 sb"
+        ],
+        [
+          2.0,
+          8.0,
+          "eline berings",
+          "belgium",
+          "8.10"
+        ],
+        [
+          2.0,
+          2.0,
+          "kia davis",
+          "liberia",
+          "8.10"
+        ],
+        [
+          2.0,
+          6.0,
+          "susanna kallur",
+          "sweden",
+          "dns"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            0,
+            0,
+            2
+          ],
+          [
+            2,
+            0,
+            "susanna kallur"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-4176",
+      "table_id": "1-29087004-2",
+      "question": "What number episode in the series had and original United States air date of December 24, 2010?",
+      "columns": [
+        "Series #",
+        "Production Code",
+        "Title",
+        "Directed by",
+        "Written by",
+        "United States Original Airdate",
+        "Canada Original Airdate"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          101.0,
+          "\"the yipper caper\"",
+          "richard weston",
+          "paul germain & joe ansolabehere",
+          "october 10, 2010",
+          "unknown"
+        ],
+        [
+          2.0,
+          102.0,
+          "\"nightmare on pound street\"",
+          "richard weston",
+          "bart jennett & joe ansolabehere",
+          "october 29, 2010",
+          "february 10, 2011"
+        ],
+        [
+          3.0,
+          103.0,
+          "\"rebound\"",
+          "richard weston",
+          "mark drop & bart jennett",
+          "november 5, 2010",
+          "january 27, 2011"
+        ],
+        [
+          4.0,
+          104.0,
+          "\"the general\"",
+          "richard weston",
+          "rachel lipman",
+          "november 19, 2010",
+          "february 17, 2011"
+        ],
+        [
+          5.0,
+          105.0,
+          "\"the prince and the pupper\"",
+          "richard weston",
+          "bart jennett",
+          "december 3, 2010",
+          "february 8, 2011"
+        ],
+        [
+          6.0,
+          106.0,
+          "\"catcalls\"",
+          "richard weston",
+          "eric trueheart",
+          "december 17, 2010",
+          "january 20, 2011"
+        ],
+        [
+          7.0,
+          107.0,
+          "\"king of the heap\"",
+          "richard weston",
+          "rich fogel",
+          "december 24, 2010",
+          "unknown"
+        ],
+        [
+          8.0,
+          108.0,
+          "\"my fair rebound\"",
+          "greg sullivan",
+          "rachel lipman",
+          "august 13, 2011",
+          "unknown"
+        ],
+        [
+          9.0,
+          109.0,
+          "\"quintuplets\"",
+          "jos humphrey",
+          "joe ansolabehere",
+          "august 13, 2011",
+          "february 1, 2011"
+        ],
+        [
+          10.0,
+          110.0,
+          "\"dog on a wire\"",
+          "greg sullivan",
+          "eric trueheart",
+          "august 20, 2011",
+          "february 3, 2011"
+        ],
+        [
+          11.0,
+          111.0,
+          "\"homeward pound\"",
+          "jos humphrey",
+          "billiam coronel",
+          "august 27, 2011",
+          "unknown"
+        ],
+        [
+          12.0,
+          112.0,
+          "\"rebel without a collar\"",
+          "greg sullivan",
+          "rachel lipman",
+          "september 10, 2011",
+          "unknown"
+        ],
+        [
+          13.0,
+          113.0,
+          "\"taboo\"",
+          "jos humphrey",
+          "julie selbo",
+          "october 1, 2011",
+          "unknown"
+        ],
+        [
+          14.0,
+          114.0,
+          "\"toyoshiko! bark friend machine\"",
+          "greg sullivan",
+          "mark drop",
+          "october 8, 2011",
+          "unknown"
+        ],
+        [
+          15.0,
+          115.0,
+          "\"zoltron\"",
+          "jos humphrey",
+          "silvia olivas",
+          "october 15, 2011",
+          "unknown"
+        ],
+        [
+          16.0,
+          116.0,
+          "\"the really weird dog\"",
+          "greg sullivan",
+          "steven tsapelas",
+          "october 22, 2011",
+          "unknown"
+        ],
+        [
+          17.0,
+          117.0,
+          "\"bone voyage\"",
+          "jos humphrey",
+          "tony infante",
+          "november 12, 2011",
+          "unknown"
+        ],
+        [
+          18.0,
+          118.0,
+          "\"snow problem\"",
+          "greg sullivan",
+          "rich fogel",
+          "november 19, 2011",
+          "unknown"
+        ],
+        [
+          19.0,
+          119.0,
+          "\"the k9 kid\"",
+          "jos humphrey",
+          "mike ferris",
+          "november 26, 2011",
+          "unknown"
+        ],
+        [
+          20.0,
+          120.0,
+          "\"the call of the squirreldog\"",
+          "greg sullivan",
+          "nancy steingard",
+          "december 3, 2011",
+          "unknown"
+        ],
+        [
+          21.0,
+          121.0,
+          "\"i never barked for my father\"",
+          "jos humphrey",
+          "joe ansolabehere",
+          "december 10, 2011",
+          "unknown"
+        ],
+        [
+          22.0,
+          122.0,
+          "\"mcleish unleashed\"",
+          "greg sullivan",
+          "eric trueheart",
+          "december 17, 2011",
+          "unknown"
+        ],
+        [
+          23.0,
+          123.0,
+          "\"olaf in love\"",
+          "jos humphrey",
+          "peter hannan",
+          "january 7, 2012",
+          "unknown"
+        ],
+        [
+          24.0,
+          124.0,
+          "\"kennel kittens return\"",
+          "greg sullivan",
+          "tony infante",
+          "january 14, 2012",
+          "unknown"
+        ],
+        [
+          25.0,
+          125.0,
+          "\"mutternal instincts\"",
+          "jos humphrey",
+          "janna king",
+          "january 21, 2012",
+          "unknown"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            5,
+            0,
+            "December 24, 2010"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-1837",
+      "table_id": "1-182298-5",
+      "question": "How many are the total winners from South Korea?",
+      "columns": [
+        "Country",
+        "Mens Open",
+        "Womens Open",
+        "Mens Wheelchair",
+        "Womens Wheelchair",
+        "Total"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "united states",
+          44.0,
+          15.0,
+          12.0,
+          25.0,
+          96.0
+        ],
+        [
+          "kenya",
+          20.0,
+          10.0,
+          0.0,
+          0.0,
+          30.0
+        ],
+        [
+          "canada",
+          16.0,
+          1.0,
+          4.0,
+          0.0,
+          21.0
+        ],
+        [
+          "japan",
+          8.0,
+          0.0,
+          3.0,
+          5.0,
+          16.0
+        ],
+        [
+          "switzerland",
+          0.0,
+          0.0,
+          7.0,
+          2.0,
+          9.0
+        ],
+        [
+          "south africa",
+          0.0,
+          0.0,
+          9.0,
+          0.0,
+          9.0
+        ],
+        [
+          "ethiopia",
+          4.0,
+          4.0,
+          0.0,
+          0.0,
+          8.0
+        ],
+        [
+          "finland",
+          7.0,
+          0.0,
+          0.0,
+          0.0,
+          7.0
+        ],
+        [
+          "germany",
+          1.0,
+          5.0,
+          0.0,
+          0.0,
+          6.0
+        ],
+        [
+          "australia",
+          1.0,
+          0.0,
+          0.0,
+          4.0,
+          5.0
+        ],
+        [
+          "russia",
+          0.0,
+          4.0,
+          0.0,
+          0.0,
+          4.0
+        ],
+        [
+          "france",
+          0.0,
+          0.0,
+          3.0,
+          0.0,
+          3.0
+        ],
+        [
+          "new zealand",
+          1.0,
+          2.0,
+          0.0,
+          0.0,
+          3.0
+        ],
+        [
+          "portugal",
+          0.0,
+          3.0,
+          0.0,
+          0.0,
+          3.0
+        ],
+        [
+          "south korea",
+          3.0,
+          0.0,
+          0.0,
+          0.0,
+          3.0
+        ],
+        [
+          "united kingdom",
+          3.0,
+          0.0,
+          0.0,
+          0.0,
+          3.0
+        ],
+        [
+          "belgium",
+          2.0,
+          0.0,
+          0.0,
+          0.0,
+          2.0
+        ],
+        [
+          "norway",
+          0.0,
+          2.0,
+          0.0,
+          0.0,
+          2.0
+        ],
+        [
+          "colombia",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "denmark",
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "greece",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "guatemala",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "ireland",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "italy",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "poland",
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "sweden",
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            0,
+            0,
+            "South Korea"
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-14428",
+      "table_id": "2-12877449-8",
+      "question": "Which Championship total is over 13?",
+      "columns": [
+        "Name",
+        "Championship",
+        "FA Cup",
+        "League Cup",
+        "Total"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "leroy lita",
+          7.0,
+          4.0,
+          3.0,
+          14.0
+        ],
+        [
+          "kevin doyle",
+          13.0,
+          0.0,
+          0.0,
+          13.0
+        ],
+        [
+          "steve sidwell",
+          4.0,
+          0.0,
+          0.0,
+          4.0
+        ],
+        [
+          "stephen hunt",
+          4.0,
+          0.0,
+          0.0,
+          4.0
+        ],
+        [
+          "seol ki-hyeon",
+          4.0,
+          0.0,
+          0.0,
+          4.0
+        ],
+        [
+          "s own goal",
+          4.0,
+          0.0,
+          0.0,
+          4.0
+        ],
+        [
+          "brynjar gunnarsson",
+          3.0,
+          1.0,
+          0.0,
+          4.0
+        ],
+        [
+          "dave kitson",
+          2.0,
+          2.0,
+          0.0,
+          4.0
+        ],
+        [
+          "shane long",
+          2.0,
+          1.0,
+          1.0,
+          4.0
+        ],
+        [
+          "james harper",
+          3.0,
+          0.0,
+          0.0,
+          3.0
+        ],
+        [
+          "\u00edvar ingimarsson",
+          2.0,
+          0.0,
+          0.0,
+          2.0
+        ],
+        [
+          "ulises de la cruz",
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "john oster",
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "ibrahima sonko",
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "nicky shorey",
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        [
+          "andr\u00e9 bikey",
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          "sam sodje",
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        [
+          "p\u00e9ter m\u00e1t\u00e9",
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          "totals",
+          54.0,
+          9.0,
+          6.0,
+          69.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            1,
+            1,
+            13
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-9355",
+      "table_id": "2-16710956-1",
+      "question": "What round was Joe Sims picked?",
+      "columns": [
+        "Round",
+        "Pick",
+        "Player",
+        "Position",
+        "School"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          3.0,
+          "bruce pickens",
+          "defensive back",
+          "nebraska"
+        ],
+        [
+          1.0,
+          13.0,
+          "mike pritchard",
+          "wide receiver",
+          "colorado"
+        ],
+        [
+          2.0,
+          33.0,
+          "brett favre",
+          "quarterback",
+          "southern mississippi"
+        ],
+        [
+          4.0,
+          87.0,
+          "moe gardner",
+          "defensive tackle",
+          "illinois"
+        ],
+        [
+          5.0,
+          114.0,
+          "james goode",
+          "linebacker",
+          "oklahoma"
+        ],
+        [
+          6.0,
+          145.0,
+          "erric pegram",
+          "running back",
+          "north texas"
+        ],
+        [
+          7.0,
+          172.0,
+          "brian k. mitchell",
+          "defensive back",
+          "byu"
+        ],
+        [
+          7.0,
+          186.0,
+          "mark tucker",
+          "guard",
+          "usc"
+        ],
+        [
+          8.0,
+          199.0,
+          "randy austin",
+          "tight end",
+          "ucla"
+        ],
+        [
+          9.0,
+          226.0,
+          "ernie logan",
+          "nose tackle",
+          "east carolina"
+        ],
+        [
+          10.0,
+          256.0,
+          "walter sutton",
+          "wide receiver",
+          "southwest minnesota"
+        ],
+        [
+          11.0,
+          258.0,
+          "pete lucas",
+          "tackle",
+          "wisconsin\u2013stevens point"
+        ],
+        [
+          11.0,
+          283.0,
+          "joe sims",
+          "tackle",
+          "nebraska"
+        ],
+        [
+          12.0,
+          310.0,
+          "bob christian",
+          "running back",
+          "northwestern"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "joe sims"
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-8996",
+      "table_id": "2-16489766-2",
+      "question": "What is the urban population for the city of Fuzhou?",
+      "columns": [
+        "City",
+        "Chinese",
+        "Pinyin",
+        "Province",
+        "Urban Population (2010)",
+        "Administrative Population (2010)"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "shanghai",
+          "\u4e0a\u6d77",
+          "sh\u00e0ngh\u01cei",
+          "municipality",
+          "22,315,426",
+          "23,019,148"
+        ],
+        [
+          "beijing",
+          "\u5317\u4eac",
+          "b\u011bij\u012bng",
+          "municipality",
+          "18,827,000",
+          "19,612,368"
+        ],
+        [
+          "tianjin",
+          "\u5929\u6d25",
+          "ti\u0101nj\u012bn",
+          "municipality",
+          "11,090,314",
+          "12,937,954"
+        ],
+        [
+          "guangzhou",
+          "\u5e7f\u5dde",
+          "gu\u01cengzh\u014du",
+          "guangdong",
+          "11,070,654",
+          "12,700,800"
+        ],
+        [
+          "shenzhen",
+          "\u6df1\u5733",
+          "sh\u0113nzh\u00e8n",
+          "guangdong",
+          "10,357,938",
+          "10,357,938"
+        ],
+        [
+          "dongguan",
+          "\u4e1c\u839e",
+          "d\u014dnggu\u01cen",
+          "guangdong",
+          "8,220,937",
+          "8,220,937"
+        ],
+        [
+          "chengdu",
+          "\u6210\u90fd",
+          "ch\u00e9ngd\u016b",
+          "sichuan",
+          "7,123,697",
+          "14,047,625"
+        ],
+        [
+          "nanjing",
+          "\u5357\u4eac",
+          "n\u00e1nj\u012bng",
+          "jiangsu",
+          "6,852,984",
+          "8,004,680"
+        ],
+        [
+          "wuhan",
+          "\u6b66\u6c49",
+          "w\u01d4h\u00e0n",
+          "hubei",
+          "6,434,373",
+          "9,785,392"
+        ],
+        [
+          "shenyang",
+          "\u6c88\u9633",
+          "sh\u011bny\u00e1ng",
+          "liaoning",
+          "5,743,718",
+          "8,106,171"
+        ],
+        [
+          "hangzhou",
+          "\u676d\u5dde",
+          "h\u00e1ngzh\u014du",
+          "zhejiang",
+          "5,695,313",
+          "8,700,400"
+        ],
+        [
+          "chongqing",
+          "\u91cd\u5e86",
+          "ch\u00f3ngq\u00ecng",
+          "municipality",
+          "5,402,721",
+          "28,846,170"
+        ],
+        [
+          "suzhou",
+          "\u82cf\u5dde",
+          "s\u016bzh\u014du",
+          "jiangsu",
+          "5,349,000",
+          "10,465,994"
+        ],
+        [
+          "harbin",
+          "\u54c8\u5c14\u6ee8",
+          "h\u0101rb\u012bn",
+          "heilongjiang",
+          "5,282,083",
+          "10,635,971"
+        ],
+        [
+          "jinan",
+          "\u6d4e\u5357",
+          "j\u01d0n\u00e1n",
+          "shangdong",
+          "3,922,180",
+          "6,814,000"
+        ],
+        [
+          "xi'an",
+          "\u897f\u5b89",
+          "x\u012b'\u0101n",
+          "shaanxi",
+          "3,890,098",
+          "8,467,837"
+        ],
+        [
+          "wuxi",
+          "\u65e0\u9521",
+          "w\u00fax\u00ed",
+          "jiangsu",
+          "3,542,319",
+          "6,372,624"
+        ],
+        [
+          "hefei",
+          "\u5408\u80a5",
+          "h\u00e9f\u00e9i",
+          "anhui",
+          "3,352,076",
+          "5,702,466"
+        ],
+        [
+          "changchun",
+          "\u957f\u6625",
+          "ch\u00e1ngch\u016bn",
+          "jilin",
+          "3,341,700",
+          "7,677,089"
+        ],
+        [
+          "changzhou",
+          "\u5e38\u5dde",
+          "ch\u00e1ngzh\u014du",
+          "jiangsu",
+          "3,290,548",
+          "4,591,972"
+        ],
+        [
+          "dalian",
+          "\u5927\u8fde",
+          "d\u00e0li\u00e1n",
+          "liaoning",
+          "3,266,905",
+          "6,690,432"
+        ],
+        [
+          "taiyuan",
+          "\u592a\u539f",
+          "t\u00e0iyu\u00e1n",
+          "shanxi",
+          "3,212,500",
+          "4,201,591"
+        ],
+        [
+          "kunming",
+          "\u6606\u660e",
+          "k\u016bnm\u00edng",
+          "yunnan",
+          "3,184,580",
+          "6,432,212"
+        ],
+        [
+          "zhengzhou",
+          "\u90d1\u5dde",
+          "zh\u00e8ngzh\u014du",
+          "henan",
+          "3,132,000",
+          "8,626,505"
+        ],
+        [
+          "changsha",
+          "\u957f\u6c99",
+          "ch\u00e1ngsh\u0101",
+          "hunan",
+          "3,093,980",
+          "7,044,118"
+        ],
+        [
+          "ningbo",
+          "\u5b81\u6ce2",
+          "n\u00edngb\u014d",
+          "zhejiang",
+          "3,089,180",
+          "7,605,700"
+        ],
+        [
+          "qingdao",
+          "\u9752\u5c9b",
+          "q\u012bngd\u01ceo",
+          "shangdong",
+          "3,063,492",
+          "8,715,100"
+        ],
+        [
+          "zibo",
+          "\u6dc4\u535a",
+          "z\u012bb\u00f3",
+          "shangdong",
+          "3,002,181",
+          "4,530,600"
+        ],
+        [
+          "fuzhou",
+          "\u798f\u5dde",
+          "f\u00fazh\u014du",
+          "fujian",
+          "2,921,763",
+          "7,115,370"
+        ],
+        [
+          "nanning",
+          "\u5357\u5b81",
+          "n\u00e1nn\u00edng",
+          "guangxi",
+          "2,875,220",
+          "6,661,600"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            0,
+            0,
+            "fuzhou"
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-4112",
+      "table_id": "1-28798161-2",
+      "question": "How many 100 for the player with 3 50s?",
+      "columns": [
+        "Player",
+        "County",
+        "Matches",
+        "Innings",
+        "Runs",
+        "Average",
+        "Highest Score",
+        "100s",
+        "50s"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "real",
+        "real",
+        "text",
+        "text",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "barry richards category:articles with hcards",
+          "hampshire",
+          12.0,
+          11.0,
+          592.0,
+          "65.77",
+          "155*",
+          3.0,
+          0.0
+        ],
+        [
+          "clive lloyd category:articles with hcards",
+          "lancashire",
+          14.0,
+          14.0,
+          521.0,
+          "57.88",
+          "134*",
+          1.0,
+          2.0
+        ],
+        [
+          "harry pilling category:articles with hcards",
+          "lancashire",
+          16.0,
+          15.0,
+          625.0,
+          "52.08",
+          "85",
+          0.0,
+          5.0
+        ],
+        [
+          "brian luckhurst category:articles with hcards",
+          "kent",
+          11.0,
+          11.0,
+          520.0,
+          "52.00",
+          "142",
+          1.0,
+          3.0
+        ],
+        [
+          "pasty harris category:articles with hcards",
+          "nottinghamshire",
+          16.0,
+          16.0,
+          596.0,
+          "45.84",
+          "104*",
+          1.0,
+          4.0
+        ],
+        [
+          "bryan davis category:articles with hcards",
+          "glamorgan",
+          13.0,
+          13.0,
+          535.0,
+          "44.58",
+          "74",
+          0.0,
+          6.0
+        ],
+        [
+          "mike denness category:articles with hcards",
+          "kent",
+          16.0,
+          16.0,
+          582.0,
+          "41.57",
+          "94*",
+          0.0,
+          4.0
+        ]
+      ],
+      "sql": {
+        "sel": 7,
+        "conds": [
+          [
+            8,
+            0,
+            3
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-12010",
+      "table_id": "2-11926114-5",
+      "question": "What was the highest average point rating for a modern suspense show with 21 episodes?",
+      "columns": [
+        "Airing date",
+        "English title (Chinese title)",
+        "Number of episodes",
+        "HD format",
+        "Highest average point ratings",
+        "Genre",
+        "Official website"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "text",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "24 dec 2007- 18 jan 2008",
+          "survivor's law ii \u5f8b\u653f\u65b0\u4eba\u738bii",
+          20.0,
+          "no",
+          31.0,
+          "modern drama",
+          "official website"
+        ],
+        [
+          "21 jan- 15 feb",
+          "the gentle crackdown ii \u79c0\u624d\u611b\u4e0a\u5175",
+          20.0,
+          "no",
+          32.0,
+          "costume comedy",
+          "official website"
+        ],
+        [
+          "18 feb- 15 mar",
+          "the seventh day \u6700\u7f8e\u9e97\u7684\u7b2c\u4e03\u5929",
+          20.0,
+          "no",
+          34.0,
+          "modern romance",
+          "official website"
+        ],
+        [
+          "17 mar- 18 apr",
+          "d.i.e. \u53e4\u9748\u7cbe\u63a2",
+          25.0,
+          "no",
+          37.0,
+          "modern action",
+          "official website"
+        ],
+        [
+          "21 apr- 16 may",
+          "catch me now \u539f\u4f86\u611b\u4e0a\u8cca",
+          20.0,
+          "yes",
+          33.0,
+          "modern action",
+          "official website"
+        ],
+        [
+          "19 may- 27 jun",
+          "forensic heroes ii \u6cd5\u8b49\u5148\u92d2ii",
+          30.0,
+          "no",
+          34.0,
+          "modern suspense",
+          "official website"
+        ],
+        [
+          "30 jun- 25 jul",
+          "love exchange \u7591\u60c5\u5225\u6200",
+          20.0,
+          "yes",
+          32.0,
+          "modern thriller",
+          "official website"
+        ],
+        [
+          "28 jul- 21 sep",
+          "moonlight resonance \u6e8f\u5fc3\u98a8\u66b4\u4e4b\u5bb6\u597d\u6708\u5713",
+          40.0,
+          "yes",
+          47.0,
+          "modern drama",
+          "official website"
+        ],
+        [
+          "22 sep- 18 oct",
+          "last one standing \u8207\u6575\u540c\u884c",
+          21.0,
+          "yes",
+          31.0,
+          "modern suspense",
+          "official website"
+        ],
+        [
+          "20 oct 2008- 13 feb 2009",
+          "the gem of life \u73e0\u5149\u5bf6\u6c23",
+          82.0,
+          "yes",
+          32.0,
+          "modern drama",
+          "official website"
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            5,
+            0,
+            "modern suspense"
+          ],
+          [
+            2,
+            0,
+            21
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-1801",
+      "table_id": "1-1802522-3",
+      "question": "How many vacant seats were filled by newcomer Joseph H. Bottum (r)?",
+      "columns": [
+        "State (class)",
+        "Vacator",
+        "Reason for change",
+        "Successor",
+        "Date of successors formal installation"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "new hampshire (2)",
+          "styles bridges (r)",
+          "died november 26, 1961",
+          "maurice j. murphy, jr. (r)",
+          "january 10, 1962"
+        ],
+        [
+          "kansas (2)",
+          "andrew f. schoeppel (r)",
+          "died january 21, 1962",
+          "james b. pearson (r)",
+          "january 31, 1962"
+        ],
+        [
+          "south dakota (3)",
+          "francis h. case (r)",
+          "died june 23, 1962",
+          "joseph h. bottum (r)",
+          "july 9, 1962"
+        ],
+        [
+          "idaho (2)",
+          "henry dworshak (r)",
+          "died july 23, 1962",
+          "leonard b. jordan (r)",
+          "august 6, 1962"
+        ],
+        [
+          "massachusetts (1)",
+          "benjamin a. smith ii (d)",
+          "successor elected november 6, 1962",
+          "ted kennedy (d)",
+          "november 7, 1962"
+        ],
+        [
+          "new mexico (1)",
+          "dennis chavez (d)",
+          "died november 18, 1962",
+          "edwin l. mechem (r)",
+          "november 30, 1962"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            3,
+            0,
+            "Joseph H. Bottum (R)"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-3874",
+      "table_id": "1-27722734-7",
+      "question": "Name the most game for december 1",
+      "columns": [
+        "Game",
+        "Date",
+        "Team",
+        "Score",
+        "High points",
+        "High rebounds",
+        "High assists",
+        "Location Attendance",
+        "Record"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          19.0,
+          "december 1",
+          "@ houston",
+          "l 99\u2013109 (ot)",
+          "kobe bryant (27)",
+          "lamar odom (11)",
+          "steve blake (5)",
+          "toyota center 18,116",
+          "13\u20136"
+        ],
+        [
+          20.0,
+          "december 3",
+          "sacramento",
+          "w 113\u201380 (ot)",
+          "kobe bryant (22)",
+          "lamar odom (7)",
+          "pau gasol (5)",
+          "staples center 18,997",
+          "14\u20136"
+        ],
+        [
+          21.0,
+          "december 7",
+          "washington",
+          "w 115\u2013108 (ot)",
+          "kobe bryant (32)",
+          "pau gasol (14)",
+          "pau gasol (8)",
+          "staples center 18,997",
+          "15\u20136"
+        ],
+        [
+          22.0,
+          "december 8",
+          "@ l.a. clippers",
+          "w 87\u201386 (ot)",
+          "kobe bryant (24)",
+          "pau gasol (10)",
+          "pau gasol (5)",
+          "staples center 19,614",
+          "16\u20136"
+        ],
+        [
+          23.0,
+          "december 10",
+          "@ chicago",
+          "l 84\u201388 (ot)",
+          "kobe bryant (23)",
+          "pau gasol (8)",
+          "kobe bryant (7)",
+          "united center 22,760",
+          "16\u20137"
+        ],
+        [
+          24.0,
+          "december 12",
+          "@ new jersey",
+          "w 99\u201392 (ot)",
+          "kobe bryant (32)",
+          "pau gasol (11)",
+          "kobe bryant (6)",
+          "prudential center 16,561",
+          "17\u20137"
+        ],
+        [
+          25.0,
+          "december 14",
+          "@ washington",
+          "w 103\u201389 (ot)",
+          "kobe bryant (24)",
+          "lamar odom (10)",
+          "pau gasol (7)",
+          "verizon center 16,513",
+          "18\u20137"
+        ],
+        [
+          26.0,
+          "december 15",
+          "@ indiana",
+          "w 109\u201394 (ot)",
+          "kobe bryant (31)",
+          "lamar odom (17)",
+          "kobe bryant (6)",
+          "conseco fieldhouse 18,165",
+          "19\u20137"
+        ],
+        [
+          27.0,
+          "december 17",
+          "@ philadelphia",
+          "w 93\u201381 (ot)",
+          "lamar odom (28)",
+          "pau gasol (13)",
+          "steve blake (5)",
+          "wells fargo center 20,366",
+          "20\u20137"
+        ],
+        [
+          28.0,
+          "december 19",
+          "@ toronto",
+          "w 120\u2013110 (ot)",
+          "kobe bryant (20)",
+          "matt barnes (9)",
+          "kobe bryant , pau gasol (4)",
+          "air canada centre 19,935",
+          "21\u20137"
+        ],
+        [
+          29.0,
+          "december 21",
+          "milwaukee",
+          "l 79\u201398 (ot)",
+          "kobe bryant (21)",
+          "pau gasol (11)",
+          "lamar odom (6)",
+          "staples center 18,997",
+          "21\u20138"
+        ],
+        [
+          30.0,
+          "december 25",
+          "miami",
+          "l 80\u201396 (ot)",
+          "kobe bryant , pau gasol (17)",
+          "lamar odom (9)",
+          "kobe bryant (7)",
+          "staples center 18,997",
+          "21\u20139"
+        ],
+        [
+          31.0,
+          "december 28",
+          "@ san antonio",
+          "l 82\u201397 (ot)",
+          "kobe bryant (21)",
+          "shannon brown (11)",
+          "pau gasol (5)",
+          "at&t center 18,581",
+          "21\u201310"
+        ],
+        [
+          32.0,
+          "december 29",
+          "@ new orleans",
+          "w 103\u201388 (ot)",
+          "lamar odom (24)",
+          "pau gasol (12)",
+          "derek fisher (8)",
+          "new orleans arena 18,018",
+          "22\u201310"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            1,
+            0,
+            "December 1"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-6710",
+      "table_id": "2-15125049-1",
+      "question": "What is the sum of votes for the green party?",
+      "columns": [
+        "Party",
+        "Votes (Gib.)",
+        "Votes (SW Eng)",
+        "% (Gib.)",
+        "% (SW Eng)",
+        "Change (SW Eng)",
+        "Seats"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "conservative",
+          "3,721",
+          "468,742",
+          53.3,
+          30.2,
+          -1.3,
+          3.0
+        ],
+        [
+          "labour",
+          "1,328",
+          "118,716",
+          19.02,
+          7.7,
+          -6.8,
+          0.0
+        ],
+        [
+          "liberal democrat",
+          "1,269",
+          "266,253",
+          18.18,
+          17.2,
+          -1.2,
+          1.0
+        ],
+        [
+          "green",
+          224.0,
+          "144,179",
+          3.21,
+          9.3,
+          2.1,
+          0.0
+        ],
+        [
+          "ukip",
+          100.0,
+          "341,845",
+          1.43,
+          22.1,
+          -0.5,
+          2.0
+        ],
+        [
+          "bnp",
+          94.0,
+          "60,889",
+          1.35,
+          3.9,
+          0.9,
+          0.0
+        ],
+        [
+          "christian",
+          70.0,
+          "21,329",
+          1.0,
+          1.4,
+          1.4,
+          0.0
+        ],
+        [
+          "socialist labour",
+          56.0,
+          "10,033",
+          0.8,
+          0.6,
+          0.6,
+          0.0
+        ],
+        [
+          "english democrats",
+          37.0,
+          "25,313",
+          0.53,
+          1.6,
+          1.6,
+          0.0
+        ],
+        [
+          "pensioners",
+          26.0,
+          "37,785",
+          0.37,
+          2.4,
+          2.4,
+          0.0
+        ],
+        [
+          "independent katie hopkins",
+          15.0,
+          "8,971",
+          0.21,
+          0.6,
+          0.6,
+          0.0
+        ],
+        [
+          "no2eu",
+          12.0,
+          "9,741",
+          0.17,
+          0.6,
+          0.6,
+          0.0
+        ],
+        [
+          "mebyon kernow",
+          8.0,
+          "14,922",
+          0.11,
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          "fair pay fair trade",
+          8.0,
+          "7,151",
+          0.11,
+          0.5,
+          0.5,
+          0.0
+        ],
+        [
+          "jury team",
+          6.0,
+          "5,758",
+          0.09,
+          0.4,
+          0.4,
+          0.0
+        ],
+        [
+          "wai d your decision",
+          4.0,
+          789.0,
+          0.06,
+          0.1,
+          0.1,
+          0.0
+        ],
+        [
+          "libertas",
+          3.0,
+          "7,292",
+          0.04,
+          0.5,
+          0.5,
+          0.0
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            0,
+            0,
+            "green"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-6188",
+      "table_id": "2-14611466-1",
+      "question": "How many 1st prizes have a Date of aug 17?",
+      "columns": [
+        "Date",
+        "Tournament",
+        "Location",
+        "Winner",
+        "Score",
+        "1st prize ( $ )"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          "jan 11",
+          "mercedes championships",
+          "california",
+          "phil mickelson (12)",
+          "271 (\u201317)",
+          "306,000"
+        ],
+        [
+          "jan 18",
+          "bob hope chrysler classic",
+          "california",
+          "fred couples (13)",
+          "332 (\u201328)",
+          "414,000"
+        ],
+        [
+          "jan 25",
+          "phoenix open",
+          "arizona",
+          "jesper parnevik (1)",
+          "269 (\u201315)",
+          "450,000"
+        ],
+        [
+          "feb 8",
+          "buick invitational",
+          "california",
+          "scott simpson (7)",
+          "204 (\u201312)",
+          "378,000"
+        ],
+        [
+          "feb 15",
+          "united airlines hawaiian open",
+          "hawaii",
+          "john huston (4)",
+          "260 (\u201328)",
+          "324,000"
+        ],
+        [
+          "feb 22",
+          "tucson chrysler classic",
+          "arizona",
+          "david duval (4)",
+          "269 (\u201319)",
+          "360,000"
+        ],
+        [
+          "mar 1",
+          "nissan open",
+          "california",
+          "billy mayfair (4)",
+          "272 (\u201312)",
+          "378,000"
+        ],
+        [
+          "mar 8",
+          "doral-ryder open",
+          "florida",
+          "michael bradley (2)",
+          "278 (\u201310)",
+          "360,000"
+        ],
+        [
+          "mar 15",
+          "honda classic",
+          "florida",
+          "mark calcavecchia (10)",
+          "270 (\u201318)",
+          "324,000"
+        ],
+        [
+          "mar 22",
+          "bay hill invitational",
+          "florida",
+          "ernie els (6)",
+          "274 (\u201314)",
+          "360,000"
+        ],
+        [
+          "mar 29",
+          "the players championship",
+          "florida",
+          "justin leonard (4)",
+          "278 (\u201310)",
+          "720,000"
+        ],
+        [
+          "apr 5",
+          "freeport-mcdermott classic",
+          "louisiana",
+          "lee westwood (1)",
+          "273 (\u201315)",
+          "306,000"
+        ],
+        [
+          "apr 12",
+          "masters tournament",
+          "georgia",
+          "mark o'meara (15)",
+          "279 (\u20139)",
+          "576,000"
+        ],
+        [
+          "apr 19",
+          "mci classic",
+          "south carolina",
+          "davis love iii (13)",
+          "266 (\u201318)",
+          "342,000"
+        ],
+        [
+          "apr 26",
+          "greater greensboro chrysler classic",
+          "north carolina",
+          "trevor dodds (1)",
+          "276 (\u201312)",
+          "396,000"
+        ],
+        [
+          "may 3",
+          "shell houston open",
+          "texas",
+          "david duval (5)",
+          "276 (\u201312)",
+          "360,000"
+        ],
+        [
+          "may 10",
+          "bellsouth classic",
+          "georgia",
+          "tiger woods (7)",
+          "271 (\u201317)",
+          "324,000"
+        ],
+        [
+          "may 17",
+          "gte byron nelson golf classic",
+          "texas",
+          "john cook (10)",
+          "265 (\u201315)",
+          "450,000"
+        ],
+        [
+          "may 24",
+          "mastercard colonial",
+          "texas",
+          "tom watson (39)",
+          "265 (\u201315)",
+          "414,000"
+        ],
+        [
+          "may 31",
+          "memorial tournament",
+          "ohio",
+          "fred couples (14)",
+          "271 (\u201317)",
+          "396,000"
+        ],
+        [
+          "jun 7",
+          "kemper open",
+          "maryland",
+          "stuart appleby (2)",
+          "274 (\u201310)",
+          "360,000"
+        ],
+        [
+          "jun 14",
+          "buick classic",
+          "new york",
+          "j. p. hayes (1)",
+          "201 (\u201312)",
+          "324,000"
+        ],
+        [
+          "jun 21",
+          "u.s. open",
+          "california",
+          "lee janzen (8)",
+          "280 (e)",
+          "535,000"
+        ],
+        [
+          "jun 28",
+          "motorola western open",
+          "illinois",
+          "joe durant (1)",
+          "271 (\u201317)",
+          "396,000"
+        ],
+        [
+          "jul 5",
+          "canon greater hartford open",
+          "connecticut",
+          "olin browne (1)",
+          "266 (\u201314)",
+          "360,000"
+        ],
+        [
+          "jul 12",
+          "quad city classic",
+          "illinois",
+          "steve jones (8)",
+          "263 (\u201317)",
+          "279,000"
+        ],
+        [
+          "jul 19",
+          "deposit guaranty golf classic",
+          "mississippi",
+          "fred funk (5)",
+          "270 (\u201318)",
+          "216,000"
+        ],
+        [
+          "jul 19",
+          "british open",
+          "england",
+          "mark o'meara (16)",
+          "280 (e)",
+          "493,500"
+        ],
+        [
+          "jul 26",
+          "cvs charity classic",
+          "massachusetts",
+          "steve pate (6)",
+          "269 (\u201315)",
+          "270,000"
+        ],
+        [
+          "aug 2",
+          "fedex st. jude classic",
+          "tennessee",
+          "nick price (17)",
+          "268 (\u201316)",
+          "324,000"
+        ],
+        [
+          "aug 9",
+          "buick open",
+          "michigan",
+          "billy mayfair (5)",
+          "271 (\u201317)",
+          "324,000"
+        ],
+        [
+          "aug 16",
+          "pga championship",
+          "washington",
+          "vijay singh (6)",
+          "271 (\u20139)",
+          "540,000"
+        ],
+        [
+          "aug 17",
+          "at&t pebble beach national pro-am",
+          "california",
+          "phil mickelson (13)",
+          "202 (\u201314)",
+          "450,000"
+        ],
+        [
+          "aug 23",
+          "sprint international",
+          "colorado",
+          "vijay singh (7)",
+          "47 ( stableford )",
+          "360,000"
+        ],
+        [
+          "aug 30",
+          "greater vancouver open",
+          "canada",
+          "brandel chamblee (1)",
+          "265 (\u201319)",
+          "360,000"
+        ],
+        [
+          "aug 30",
+          "nec world series of golf",
+          "ohio",
+          "david duval (6)",
+          "269 (\u201311)",
+          "405,000"
+        ],
+        [
+          "sep 6",
+          "greater milwaukee open",
+          "wisconsin",
+          "jeff sluman (3)",
+          "265 (\u201319)",
+          "324,000"
+        ],
+        [
+          "sep 13",
+          "bell canadian open",
+          "canada",
+          "billy andrade (3)",
+          "275 (\u201313)",
+          "396,000"
+        ],
+        [
+          "sep 20",
+          "b.c. open",
+          "new york",
+          "chris perry (1)",
+          "273 (\u201315)",
+          "270,000"
+        ],
+        [
+          "sep 27",
+          "westin texas open",
+          "texas",
+          "hal sutton (9)",
+          "270 (\u201318)",
+          "306,000"
+        ],
+        [
+          "oct 4",
+          "buick challenge",
+          "georgia",
+          "steve elkington (9)",
+          "267 (\u201321)",
+          "270,000"
+        ],
+        [
+          "oct 11",
+          "michelob championship at kingsmill",
+          "virginia",
+          "david duval (7)",
+          "268 (\u201316)",
+          "342,000"
+        ],
+        [
+          "oct 18",
+          "las vegas invitational",
+          "nevada",
+          "jim furyk (3)",
+          "335 (\u201325)",
+          "360,000"
+        ],
+        [
+          "oct 23",
+          "national car rental golf classic disney",
+          "florida",
+          "john huston (5)",
+          "272 (\u201316)",
+          "360,000"
+        ],
+        [
+          "nov 1",
+          "the tour championship",
+          "georgia",
+          "hal sutton (10)",
+          "274 (\u20136)",
+          "720,000"
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            0,
+            0,
+            "aug 17"
+          ]
+        ],
+        "agg": 3
+      }
+    },
+    {
+      "id": "wikisql-test-3237",
+      "table_id": "1-2508633-8",
+      "question": "What is the pick number if the player is Gary Kubiak?",
+      "columns": [
+        "Pick #",
+        "NFL Team",
+        "Player",
+        "Position",
+        "College"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          197.0,
+          "denver broncos",
+          "gary kubiak",
+          "quarterback",
+          "texas a&m"
+        ],
+        [
+          198.0,
+          "houston oilers",
+          "robert thompson",
+          "linebacker",
+          "michigan"
+        ],
+        [
+          199.0,
+          "pittsburgh steelers",
+          "henry odom",
+          "running back",
+          "south carolina state"
+        ],
+        [
+          200.0,
+          "los angeles rams",
+          "troy west",
+          "defensive back",
+          "usc"
+        ],
+        [
+          201.0,
+          "philadelphia eagles",
+          "rich kraynak",
+          "linebacker",
+          "pittsburgh"
+        ],
+        [
+          202.0,
+          "san diego chargers",
+          "earnest jackson",
+          "running back",
+          "texas a&m"
+        ],
+        [
+          203.0,
+          "chicago bears",
+          "richard dent",
+          "defensive end",
+          "tennessee state"
+        ],
+        [
+          204.0,
+          "kansas city chiefs",
+          "irv eatman",
+          "tackle",
+          "ucla"
+        ],
+        [
+          205.0,
+          "new york giants",
+          "andy headen",
+          "linebacker",
+          "clemson"
+        ],
+        [
+          206.0,
+          "new orleans saints",
+          "david greenwood",
+          "defensive back",
+          "wisconsin"
+        ],
+        [
+          207.0,
+          "buffalo bills",
+          "james durham",
+          "defensive back",
+          "houston"
+        ],
+        [
+          208.0,
+          "detroit lions",
+          "bill stapleton",
+          "defensive back",
+          "washington"
+        ],
+        [
+          209.0,
+          "cleveland browns",
+          "mike mcclearn",
+          "guard",
+          "temple"
+        ],
+        [
+          210.0,
+          "seattle seahawks",
+          "matt hernandez",
+          "tackle",
+          "purdue"
+        ],
+        [
+          211.0,
+          "st. louis cardinals",
+          "bob harris",
+          "defensive back",
+          "auburn"
+        ],
+        [
+          212.0,
+          "tampa bay buccaneers",
+          "john samuelson",
+          "linebacker",
+          "azusa pacific"
+        ],
+        [
+          213.0,
+          "minnesota vikings",
+          "norris brown",
+          "tight end",
+          "georgia"
+        ],
+        [
+          214.0,
+          "new england patriots",
+          "ronnie lippett",
+          "defensive back",
+          "miami (fl)"
+        ],
+        [
+          215.0,
+          "atlanta falcons",
+          "john rade",
+          "linebacker",
+          "boise state"
+        ],
+        [
+          216.0,
+          "green bay packers",
+          "carlton briscoe",
+          "defensive back",
+          "mcneese state"
+        ],
+        [
+          217.0,
+          "new york jets",
+          "davlin mullen",
+          "defensive back",
+          "western kentucky"
+        ],
+        [
+          218.0,
+          "pittsburgh steelers",
+          "craig dunaway",
+          "tight end",
+          "michigan"
+        ],
+        [
+          219.0,
+          "chicago bears",
+          "mark bortz",
+          "guard",
+          "iowa"
+        ],
+        [
+          220.0,
+          "dallas cowboys",
+          "lawrence ricks",
+          "running back",
+          "michigan"
+        ],
+        [
+          221.0,
+          "cincinnati bengals",
+          "mike martin",
+          "wide receiver",
+          "illinois"
+        ],
+        [
+          222.0,
+          "los angeles raiders",
+          "mike dotterer",
+          "running back",
+          "stanford"
+        ],
+        [
+          223.0,
+          "miami dolphins",
+          "mark clayton",
+          "wide receiver",
+          "louisville"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "Gary Kubiak"
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-3389",
+      "table_id": "1-25696729-8",
+      "question": "What is the highest rebound  Dennis Rodman obtained within the 20 rebounds category given two of the following:points, rebounds, assists, steals, and blocked shots (points) greater equal to 5",
+      "columns": [
+        "Season",
+        "Games started",
+        "20 rebounds",
+        "10 rebounds",
+        "10 offensive rebounds",
+        "Double double",
+        "Rebounding high"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "1986\u201387",
+          1.0,
+          0.0,
+          7.0,
+          0.0,
+          7.0,
+          16.0
+        ],
+        [
+          "1987\u201388",
+          32.0,
+          0.0,
+          33.0,
+          1.0,
+          29.0,
+          19.0
+        ],
+        [
+          "1988\u201389",
+          8.0,
+          2.0,
+          38.0,
+          1.0,
+          20.0,
+          22.0
+        ],
+        [
+          "1989\u201390",
+          43.0,
+          1.0,
+          35.0,
+          2.0,
+          22.0,
+          20.0
+        ],
+        [
+          "1990\u201391",
+          77.0,
+          3.0,
+          65.0,
+          2.0,
+          25.0,
+          24.0
+        ],
+        [
+          "1991\u201392",
+          80.0,
+          39.0,
+          77.0,
+          6.0,
+          42.0,
+          34.0
+        ],
+        [
+          "1992\u201393",
+          55.0,
+          29.0,
+          58.0,
+          7.0,
+          22.0,
+          27.0
+        ],
+        [
+          "1993\u201394",
+          51.0,
+          27.0,
+          74.0,
+          7.0,
+          7.0,
+          32.0
+        ],
+        [
+          "1994\u201395",
+          26.0,
+          20.0,
+          42.0,
+          4.0,
+          15.0,
+          30.0
+        ],
+        [
+          "1995\u201396",
+          57.0,
+          11.0,
+          57.0,
+          3.0,
+          5.0,
+          24.0
+        ],
+        [
+          "1996\u201397",
+          54.0,
+          9.0,
+          54.0,
+          4.0,
+          11.0,
+          26.0
+        ],
+        [
+          "1997\u201398",
+          66.0,
+          16.0,
+          66.0,
+          8.0,
+          5.0,
+          29.0
+        ],
+        [
+          "1998\u201399",
+          11.0,
+          1.0,
+          14.0,
+          0.0,
+          0.0,
+          20.0
+        ],
+        [
+          "1999\u20132000",
+          12.0,
+          1.0,
+          10.0,
+          0.0,
+          0.0,
+          21.0
+        ],
+        [
+          "regular season",
+          573.0,
+          159.0,
+          630.0,
+          45.0,
+          210.0,
+          34.0
+        ],
+        [
+          "playoffs",
+          89.0,
+          8.0,
+          83.0,
+          7.0,
+          28.0,
+          22.0
+        ]
+      ],
+      "sql": {
+        "sel": 2,
+        "conds": [
+          [
+            5,
+            0,
+            5
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-4639",
+      "table_id": "2-10776330-6",
+      "question": "What is the average crowd size when the home side scores 9.8 (62)?",
+      "columns": [
+        "Home team",
+        "Home team score",
+        "Away team",
+        "Away team score",
+        "Venue",
+        "Crowd",
+        "Date"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "fitzroy",
+          "14.13 (97)",
+          "north melbourne",
+          "11.13 (79)",
+          "brunswick street oval",
+          "17,693",
+          "20 may 1961"
+        ],
+        [
+          "essendon",
+          "20.13 (133)",
+          "south melbourne",
+          "6.18 (54)",
+          "windy hill",
+          "32,600",
+          "20 may 1961"
+        ],
+        [
+          "richmond",
+          "9.14 (68)",
+          "geelong",
+          "16.16 (112)",
+          "punt road oval",
+          "24,600",
+          "20 may 1961"
+        ],
+        [
+          "footscray",
+          "9.8 (62)",
+          "melbourne",
+          "13.9 (87)",
+          "western oval",
+          "29,490",
+          "27 may 1961"
+        ],
+        [
+          "carlton",
+          "9.11 (65)",
+          "collingwood",
+          "7.12 (54)",
+          "princes park",
+          "33,161",
+          "27 may 1961"
+        ],
+        [
+          "st kilda",
+          "14.16 (100)",
+          "hawthorn",
+          "12.9 (81)",
+          "junction oval",
+          "32,900",
+          "27 may 1961"
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            1,
+            0,
+            "9.8 (62)"
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-3240",
+      "table_id": "1-25131572-3",
+      "question": "What is the highest season# for the writer Daegan Fryklind?",
+      "columns": [
+        "Series #",
+        "Season #",
+        "Title",
+        "Directed by",
+        "Written by",
+        "Canadian air date",
+        "Fox Int. air date"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          14.0,
+          1.0,
+          "\"lady in the lake\"",
+          "kari skogland",
+          "ben sokolowski",
+          "february8,2011",
+          "march 1, 2011"
+        ],
+        [
+          15.0,
+          2.0,
+          "\"crime seen\"",
+          "charles binam\u00e9",
+          "jason sherman",
+          "february15,2011",
+          "march 8, 2011"
+        ],
+        [
+          16.0,
+          3.0,
+          "\"in his sights\"",
+          "charles binam\u00e9",
+          "wil zmak",
+          "february22,2011",
+          "march 15, 2011"
+        ],
+        [
+          17.0,
+          4.0,
+          "\"the brothers volkov\"",
+          "kari skogland",
+          "jason sherman, jocelyn cornforth",
+          "march8,2011",
+          "march 22, 2011"
+        ],
+        [
+          18.0,
+          5.0,
+          "\"inner circle\"",
+          "kari skogland",
+          "matt maclennan",
+          "march15,2011",
+          "march 29, 2011"
+        ],
+        [
+          19.0,
+          6.0,
+          "\"the magician\"",
+          "clement virgo",
+          "wil zmak",
+          "march22,2011",
+          "april 5, 2011"
+        ],
+        [
+          20.0,
+          7.0,
+          "\"ace in the hole\"",
+          "kari skogland",
+          "cal coons",
+          "april1,2011",
+          "april 12, 2011"
+        ],
+        [
+          21.0,
+          8.0,
+          "\"vanished\"",
+          "clement virgo",
+          "shernold edwards",
+          "april8,2011",
+          "april 19, 2011"
+        ],
+        [
+          22.0,
+          9.0,
+          "\"jericho\"",
+          "farhad mann",
+          "lisa steele",
+          "april15,2011",
+          "april 26, 2011"
+        ],
+        [
+          23.0,
+          10.0,
+          "\"desperate hours\"",
+          "clement virgo",
+          "daegan fryklind",
+          "april22,2011",
+          "may 3, 2011"
+        ],
+        [
+          24.0,
+          11.0,
+          "\"to die for\"",
+          "charles binam\u00e9",
+          "jason sherman",
+          "august17,2011",
+          "may 10, 2011"
+        ],
+        [
+          25.0,
+          12.0,
+          "\"eye of the storm\"",
+          "clement virgo",
+          "peter mitchell",
+          "august24,2011",
+          "may 17, 2011"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            4,
+            0,
+            "Daegan Fryklind"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-11116",
+      "table_id": "2-1123252-2",
+      "question": "What grid has a Time/Retired of +5 laps?",
+      "columns": [
+        "Driver",
+        "Constructor",
+        "Laps",
+        "Time/Retired",
+        "Grid"
+      ],
+      "types": [
+        "text",
+        "text",
+        "real",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          "david coulthard",
+          "williams - renault",
+          71.0,
+          "1:41:52.145",
+          1.0
+        ],
+        [
+          "michael schumacher",
+          "benetton - renault",
+          71.0,
+          "+7.248",
+          3.0
+        ],
+        [
+          "damon hill",
+          "williams - renault",
+          71.0,
+          "+22.121",
+          2.0
+        ],
+        [
+          "gerhard berger",
+          "ferrari",
+          71.0,
+          "+1:24.879",
+          4.0
+        ],
+        [
+          "jean alesi",
+          "ferrari",
+          71.0,
+          "+1:25.429",
+          7.0
+        ],
+        [
+          "heinz-harald frentzen",
+          "sauber - ford",
+          70.0,
+          "+1 lap",
+          5.0
+        ],
+        [
+          "johnny herbert",
+          "benetton - renault",
+          70.0,
+          "+1 lap",
+          6.0
+        ],
+        [
+          "martin brundle",
+          "ligier - mugen-honda",
+          70.0,
+          "+1 lap",
+          9.0
+        ],
+        [
+          "mark blundell",
+          "mclaren - mercedes",
+          70.0,
+          "+1 lap",
+          12.0
+        ],
+        [
+          "eddie irvine",
+          "jordan - peugeot",
+          70.0,
+          "+1 lap",
+          10.0
+        ],
+        [
+          "rubens barrichello",
+          "jordan - peugeot",
+          70.0,
+          "+1 lap",
+          8.0
+        ],
+        [
+          "jean-christophe boullion",
+          "sauber - ford",
+          70.0,
+          "+1 lap",
+          14.0
+        ],
+        [
+          "mika salo",
+          "tyrrell - yamaha",
+          69.0,
+          "+2 laps",
+          15.0
+        ],
+        [
+          "luca badoer",
+          "minardi - ford",
+          68.0,
+          "+3 laps",
+          18.0
+        ],
+        [
+          "taki inoue",
+          "footwork - hart",
+          68.0,
+          "+3 laps",
+          19.0
+        ],
+        [
+          "pedro diniz",
+          "forti - ford",
+          66.0,
+          "+5 laps",
+          22.0
+        ],
+        [
+          "roberto moreno",
+          "forti - ford",
+          64.0,
+          "+7 laps",
+          23.0
+        ],
+        [
+          "andrea montermini",
+          "pacific - ford",
+          53.0,
+          "gearbox",
+          21.0
+        ],
+        [
+          "mika h\u00e4kkinen",
+          "mclaren - mercedes",
+          44.0,
+          "engine",
+          13.0
+        ],
+        [
+          "jean-denis d\u00e9l\u00e9traz",
+          "pacific - ford",
+          14.0,
+          "physical",
+          24.0
+        ],
+        [
+          "olivier panis",
+          "ligier - mugen-honda",
+          10.0,
+          "spun off",
+          11.0
+        ],
+        [
+          "pedro lamy",
+          "minardi - ford",
+          7.0,
+          "gearbox",
+          17.0
+        ],
+        [
+          "ukyo katayama",
+          "tyrrell - yamaha",
+          0.0,
+          "collision",
+          16.0
+        ],
+        [
+          "massimiliano papis",
+          "footwork - hart",
+          0.0,
+          "gearbox",
+          20.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            3,
+            0,
+            "+5 laps"
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-799",
+      "table_id": "1-1346118-4",
+      "question": "When was incumbent John N. Tillman first elected?",
+      "columns": [
+        "District",
+        "Incumbent",
+        "Party",
+        "First elected",
+        "Result",
+        "Candidates"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "arkansas 1",
+          "thaddeus h. caraway",
+          "democratic",
+          1912.0,
+          "re-elected",
+          "thaddeus h. caraway (d) unopposed"
+        ],
+        [
+          "arkansas 2",
+          "william a. oldfield",
+          "democratic",
+          1908.0,
+          "re-elected",
+          "william a. oldfield (d) unopposed"
+        ],
+        [
+          "arkansas 3",
+          "john n. tillman",
+          "democratic",
+          1914.0,
+          "re-elected",
+          "john n. tillman (d) unopposed"
+        ],
+        [
+          "arkansas 4",
+          "otis wingo",
+          "democratic",
+          1912.0,
+          "re-elected",
+          "otis wingo (d) unopposed"
+        ],
+        [
+          "arkansas 5",
+          "henderson m. jacoway",
+          "democratic",
+          1910.0,
+          "re-elected",
+          "henderson m. jacoway (d) unopposed"
+        ],
+        [
+          "arkansas 6",
+          "samuel m. taylor",
+          "democratic",
+          1913.0,
+          "re-elected",
+          "samuel m. taylor (d) unopposed"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            1,
+            0,
+            "John N. Tillman"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-3796",
+      "table_id": "1-275506-1",
+      "question": "What is the lowest stage when the yellow jersey is Ronan Pensec?",
+      "columns": [
+        "Year",
+        "Stage",
+        "Start of stage",
+        "Distance (km)",
+        "Category of climb",
+        "Stage winner",
+        "Nationality",
+        "Yellow jersey",
+        "Bend"
+      ],
+      "types": [
+        "text",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          "2013 \u2020",
+          18.0,
+          "gap",
+          "172.5",
+          "hc",
+          "christophe riblon",
+          "france",
+          "chris froome",
+          15.0
+        ],
+        [
+          "2011",
+          19.0,
+          "modane",
+          "109.5",
+          "hc",
+          "pierre rolland",
+          "france",
+          "andy schleck",
+          16.0
+        ],
+        [
+          "2008",
+          17.0,
+          "embrun",
+          "210.5",
+          "hc",
+          "carlos sastre",
+          "spain",
+          "carlos sastre",
+          17.0
+        ],
+        [
+          "2006",
+          15.0,
+          "gap",
+          "187",
+          "hc",
+          "fr\u00e4nk schleck",
+          "luxembourg",
+          "floyd landis",
+          18.0
+        ],
+        [
+          "2004",
+          16.0,
+          "bourg-d'oisans",
+          "15.5 ( itt )",
+          "hc",
+          "lance armstrong",
+          "united states",
+          "lance armstrong",
+          19.0
+        ],
+        [
+          "2003",
+          8.0,
+          "sallanches",
+          "219",
+          "hc",
+          "iban mayo",
+          "spain",
+          "lance armstrong",
+          20.0
+        ],
+        [
+          "2001",
+          10.0,
+          "aix-les-bains",
+          "209",
+          "hc",
+          "lance armstrong",
+          "united states",
+          "fran\u00e7ois simon",
+          21.0
+        ],
+        [
+          "1999",
+          10.0,
+          "sestri\u00e8res",
+          "220.5",
+          "hc",
+          "giuseppe guerini",
+          "italy",
+          "lance armstrong",
+          1.0
+        ],
+        [
+          "1997",
+          13.0,
+          "saint-\u00e9tienne",
+          "203.5",
+          "hc",
+          "marco pantani",
+          "italy",
+          "jan ullrich",
+          2.0
+        ],
+        [
+          "1995",
+          10.0,
+          "aime \u2013 la plagne",
+          "162.5",
+          "hc",
+          "marco pantani",
+          "italy",
+          "miguel indurain",
+          3.0
+        ],
+        [
+          "1994",
+          16.0,
+          "valr\u00e9as",
+          "224.5",
+          "hc",
+          "roberto conti",
+          "italy",
+          "miguel indurain",
+          4.0
+        ],
+        [
+          "1992",
+          14.0,
+          "sestri\u00e8res",
+          "186.5",
+          "hc",
+          "andrew hampsten",
+          "united states",
+          "miguel indurain",
+          5.0
+        ],
+        [
+          "1991",
+          17.0,
+          "gap",
+          "125",
+          "hc",
+          "gianni bugno",
+          "italy",
+          "miguel indurain",
+          6.0
+        ],
+        [
+          "1990",
+          11.0,
+          "saint-gervais \u2013 mont blanc",
+          "182.5",
+          "hc",
+          "gianni bugno",
+          "italy",
+          "ronan pensec",
+          7.0
+        ],
+        [
+          "1989",
+          17.0,
+          "brian\u00e7on",
+          "165",
+          "hc",
+          "gert-jan theunisse",
+          "netherlands",
+          "laurent fignon",
+          8.0
+        ],
+        [
+          "1988",
+          12.0,
+          "morzine",
+          "227",
+          "hc",
+          "steven rooks",
+          "netherlands",
+          "pedro delgado",
+          9.0
+        ],
+        [
+          "1987",
+          20.0,
+          "villard-de-lans",
+          "201",
+          "hc",
+          "federico echave",
+          "spain",
+          "pedro delgado",
+          10.0
+        ],
+        [
+          "1986",
+          18.0,
+          "brian\u00e7on \u2013 serre chevalier",
+          "182.5",
+          "hc",
+          "bernard hinault",
+          "france",
+          "greg lemond",
+          11.0
+        ],
+        [
+          "1984",
+          17.0,
+          "grenoble",
+          "151",
+          "hc",
+          "luis herrera",
+          "colombia",
+          "laurent fignon",
+          12.0
+        ],
+        [
+          "1983",
+          17.0,
+          "la tour-du-pin",
+          "223",
+          "hc",
+          "peter winnen",
+          "netherlands",
+          "laurent fignon",
+          13.0
+        ],
+        [
+          "1982",
+          16.0,
+          "orci\u00e8res-merlette",
+          "123",
+          "hc",
+          "beat breu",
+          "switzerland",
+          "bernard hinault",
+          14.0
+        ],
+        [
+          "1981",
+          19.0,
+          "morzine",
+          "230.5",
+          "hc",
+          "peter winnen",
+          "netherlands",
+          "bernard hinault",
+          15.0
+        ],
+        [
+          "1979 *",
+          18.0,
+          "alpe d'huez",
+          "118.5",
+          "hc",
+          "joop zoetemelk",
+          "netherlands",
+          "bernard hinault",
+          16.0
+        ],
+        [
+          "1979 *",
+          17.0,
+          "les menuires",
+          "166.5",
+          "hc",
+          "joaquim agostinho",
+          "portugal",
+          "bernard hinault",
+          17.0
+        ],
+        [
+          "1978",
+          16.0,
+          "saint-\u00e9tienne",
+          "240.5",
+          "1",
+          "hennie kuiper",
+          "netherlands",
+          "joop zoetemelk",
+          18.0
+        ],
+        [
+          "1977",
+          17.0,
+          "chamonix",
+          "184.5",
+          "1",
+          "hennie kuiper",
+          "netherlands",
+          "bernard th\u00e9venet",
+          19.0
+        ],
+        [
+          "1976",
+          9.0,
+          "divonne-les-bains",
+          "258",
+          "1",
+          "joop zoetemelk",
+          "netherlands",
+          "lucien van impe",
+          20.0
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            7,
+            0,
+            "Ronan Pensec"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-4748",
+      "table_id": "2-1076869-5",
+      "question": "What is the most current year that had a BB CW of 78?",
+      "columns": [
+        "Year",
+        "BB Hot",
+        "BB CW",
+        "BB AC",
+        "CB CW"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1978.0,
+          "\u2013/109",
+          "6",
+          "\u2013",
+          "7 /"
+        ],
+        [
+          1978.0,
+          "105",
+          "78",
+          "\u2013",
+          "\u2013"
+        ],
+        [
+          1979.0,
+          "\u2013",
+          "10",
+          "\u2013",
+          "11"
+        ],
+        [
+          1979.0,
+          "\u2013",
+          "6",
+          "\u2013",
+          "5"
+        ],
+        [
+          1981.0,
+          "28/",
+          "1 /",
+          "16/",
+          "1 /"
+        ],
+        [
+          1981.0,
+          "\u2013",
+          "8",
+          "\u2013",
+          "4"
+        ],
+        [
+          1981.0,
+          "\u2013",
+          "73/",
+          "\u2013",
+          "\u2013"
+        ],
+        [
+          1982.0,
+          "71/",
+          "31/",
+          "31/",
+          "31/"
+        ],
+        [
+          1983.0,
+          "\u2013",
+          "92",
+          "\u2013",
+          "\u2013"
+        ],
+        [
+          1985.0,
+          "\u2013",
+          "\u2013",
+          "\u2013",
+          "\u2013"
+        ],
+        [
+          1998.0,
+          "\u2013",
+          "55",
+          "\u2013",
+          "\u2013"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "78"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-7218",
+      "table_id": "2-15972933-2",
+      "question": "What's the most recent week for the day of November 5, 1978?",
+      "columns": [
+        "Week",
+        "Date",
+        "Opponent",
+        "Result",
+        "Attendance"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1.0,
+          "september 4, 1978",
+          "baltimore colts",
+          "w 38\u20130",
+          "64,224"
+        ],
+        [
+          2.0,
+          "september 10, 1978",
+          "at new york giants",
+          "w 34\u201324",
+          "73,265"
+        ],
+        [
+          3.0,
+          "september 17, 1978",
+          "at los angeles rams",
+          "l 27\u201314",
+          "65,749"
+        ],
+        [
+          4.0,
+          "september 24, 1978",
+          "st. louis cardinals",
+          "w 21\u201312",
+          "62,760"
+        ],
+        [
+          5.0,
+          "october 2, 1978",
+          "at washington redskins",
+          "l 9\u20135",
+          "55,031"
+        ],
+        [
+          6.0,
+          "october 8, 1978",
+          "new york giants",
+          "w 24\u20133",
+          "63,420"
+        ],
+        [
+          7.0,
+          "october 15, 1978",
+          "at st. louis cardinals",
+          "w 24\u201321",
+          "48,991"
+        ],
+        [
+          8.0,
+          "october 22, 1978",
+          "philadelphia eagles",
+          "w 14\u20137",
+          "60,525"
+        ],
+        [
+          9.0,
+          "october 26, 1978",
+          "minnesota vikings",
+          "l 21\u201310",
+          "61,848"
+        ],
+        [
+          10.0,
+          "november 5, 1978",
+          "at miami dolphins",
+          "l 23\u201316",
+          "69,414"
+        ],
+        [
+          11.0,
+          "november 12, 1978",
+          "at green bay packers",
+          "w 42\u201314",
+          "55,256"
+        ],
+        [
+          12.0,
+          "november 19, 1978",
+          "new orleans saints",
+          "w 27\u20137",
+          "57,920"
+        ],
+        [
+          13.0,
+          "november 23, 1978",
+          "washington redskins",
+          "w 37\u201310",
+          "64,905"
+        ],
+        [
+          14.0,
+          "december 3, 1978",
+          "new england patriots",
+          "w 17\u201310",
+          "63,263"
+        ],
+        [
+          15.0,
+          "december 10, 1978",
+          "at philadelphia eagles",
+          "w 31\u201313",
+          "64,667"
+        ],
+        [
+          16.0,
+          "december 17, 1978",
+          "at new york jets",
+          "w 30\u20137",
+          "52,532"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            1,
+            0,
+            "november 5, 1978"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-12694",
+      "table_id": "2-17766232-7",
+      "question": "What is the earliest year with colin berry as the spokesperson and ray moore as the radio commentator?",
+      "columns": [
+        "Year(s)",
+        "Final television commentator",
+        "Radio commentator",
+        "Spokesperson",
+        "Semi-final television commentator",
+        "Semi-final second television commentator"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1956.0,
+          "wilfrid thomas",
+          "unknown",
+          "uk did not participate",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1957.0,
+          "berkeley smith",
+          "tom sloan",
+          "david jacobs",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1958.0,
+          "peter haigh",
+          "tom sloan",
+          "uk did not participate",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1959.0,
+          "tom sloan",
+          "pete murray",
+          "pete murray",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1960.0,
+          "david jacobs",
+          "pete murray",
+          "nick burrell-davis",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1961.0,
+          "tom sloan",
+          "pete murray",
+          "michael aspel",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1962.0,
+          "david jacobs",
+          "peter haigh",
+          "alex macintosh",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1963.0,
+          "david jacobs",
+          "michael aspel",
+          "nicholas parsons",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1964.0,
+          "david jacobs",
+          "tom sloan",
+          "michael aspel",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1965.0,
+          "david jacobs",
+          "david gell",
+          "michael aspel",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1966.0,
+          "david jacobs",
+          "john dunn",
+          "michael aspel",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1967.0,
+          "rolf harris",
+          "richard baker",
+          "michael aspel",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1968.0,
+          "no commentator",
+          "pete murray",
+          "michael aspel",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1969.0,
+          "michael aspel",
+          "tony brandon",
+          "colin-ward lewis",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1970.0,
+          "david gell",
+          "tony brandon",
+          "colin-ward lewis",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1971.0,
+          "dave lee travis",
+          "terry wogan",
+          "no spokesperson",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1972.0,
+          "tom fleming",
+          "pete murray",
+          "no spokesperson",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1973.0,
+          "terry wogan",
+          "pete murray",
+          "no spokesperson",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1974.0,
+          "david vine",
+          "terry wogan",
+          "colin-ward lewis",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1975.0,
+          "pete murray",
+          "terry wogan",
+          "ray moore",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1976.0,
+          "michael aspel",
+          "terry wogan",
+          "ray moore",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1977.0,
+          "pete murray",
+          "terry wogan",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1978.0,
+          "terry wogan",
+          "ray moore",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1979.0,
+          "john dunn",
+          "terry wogan",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1980.0,
+          "terry wogan",
+          "steve jones",
+          "ray moore",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1981.0,
+          "terry wogan",
+          "ray moore",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1982.0,
+          "terry wogan",
+          "ray moore",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1983.0,
+          "terry wogan",
+          "ray moore",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1984.0,
+          "terry wogan",
+          "ray moore",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1985.0,
+          "terry wogan",
+          "ray moore",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1986.0,
+          "terry wogan",
+          "ray moore",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1987.0,
+          "terry wogan",
+          "ray moore",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1988.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1989.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1990.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1991.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1992.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1993.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1994.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1995.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1996.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1997.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1998.0,
+          "terry wogan",
+          "ken bruce",
+          "ken bruce",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          1999.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          2000.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          2001.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          2002.0,
+          "terry wogan",
+          "ken bruce",
+          "colin berry",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          2003.0,
+          "terry wogan",
+          "ken bruce",
+          "lorraine kelly",
+          "no semi-finals",
+          "no semi-finals"
+        ],
+        [
+          2004.0,
+          "terry wogan",
+          "ken bruce",
+          "lorraine kelly",
+          "paddy o'connell",
+          "no dual commentator"
+        ],
+        [
+          2005.0,
+          "terry wogan",
+          "ken bruce",
+          "cheryl baker",
+          "paddy o'connell",
+          "no dual commentator"
+        ],
+        [
+          2006.0,
+          "terry wogan",
+          "ken bruce",
+          "fearne cotton",
+          "paddy o'connell",
+          "no dual commentator"
+        ],
+        [
+          2007.0,
+          "terry wogan",
+          "ken bruce",
+          "fearne cotton",
+          "paddy o'connell",
+          "sarah cawood"
+        ],
+        [
+          2008.0,
+          "terry wogan",
+          "ken bruce",
+          "carrie grant",
+          "paddy o'connell",
+          "caroline flack"
+        ],
+        [
+          2009.0,
+          "graham norton",
+          "ken bruce",
+          "duncan james",
+          "paddy o'connell",
+          "sarah cawood"
+        ],
+        [
+          2010.0,
+          "graham norton",
+          "ken bruce",
+          "scott mills",
+          "paddy o'connell",
+          "sarah cawood"
+        ],
+        [
+          2011.0,
+          "graham norton",
+          "ken bruce",
+          "alex jones",
+          "scott mills",
+          "sara cox"
+        ],
+        [
+          2012.0,
+          "graham norton",
+          "ken bruce",
+          "scott mills",
+          "scott mills",
+          "sara cox"
+        ],
+        [
+          2013.0,
+          "graham norton",
+          "ken bruce",
+          "scott mills",
+          "scott mills",
+          "ana matronic"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            3,
+            0,
+            "colin berry"
+          ],
+          [
+            2,
+            0,
+            "ray moore"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-4222",
+      "table_id": "1-29565541-2",
+      "question": "When 5 is the l what is the lowest amount of stolen ends?",
+      "columns": [
+        "Skip (Club)",
+        "W",
+        "L",
+        "PF",
+        "PA",
+        "Ends Won",
+        "Ends Lost",
+        "Blank Ends",
+        "Stolen Ends"
+      ],
+      "types": [
+        "text",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "joe scharf (fort william)",
+          9.0,
+          2.0,
+          72.0,
+          50.0,
+          40.0,
+          34.0,
+          24.0,
+          11.0
+        ],
+        [
+          "brad jacobs (soo c.a)",
+          9.0,
+          2.0,
+          71.0,
+          36.0,
+          40.0,
+          29.0,
+          22.0,
+          12.0
+        ],
+        [
+          "mike jakubo (copper cliff)",
+          7.0,
+          4.0,
+          65.0,
+          52.0,
+          42.0,
+          38.0,
+          18.0,
+          12.0
+        ],
+        [
+          "mike assad (fort william)",
+          7.0,
+          4.0,
+          80.0,
+          62.0,
+          52.0,
+          45.0,
+          9.0,
+          15.0
+        ],
+        [
+          "mike pozihun (port arthur)",
+          7.0,
+          4.0,
+          72.0,
+          53.0,
+          49.0,
+          38.0,
+          13.0,
+          14.0
+        ],
+        [
+          "john salo (geraldton)",
+          6.0,
+          5.0,
+          57.0,
+          65.0,
+          45.0,
+          39.0,
+          15.0,
+          16.0
+        ],
+        [
+          "bryan burgess (fort william)",
+          5.0,
+          6.0,
+          68.0,
+          73.0,
+          42.0,
+          46.0,
+          18.0,
+          7.0
+        ],
+        [
+          "jeff currie (port arthur)",
+          5.0,
+          6.0,
+          64.0,
+          68.0,
+          43.0,
+          47.0,
+          15.0,
+          11.0
+        ],
+        [
+          "robbie gordon (sudbury)",
+          4.0,
+          7.0,
+          59.0,
+          65.0,
+          42.0,
+          46.0,
+          16.0,
+          10.0
+        ],
+        [
+          "tim nordin (stratton)",
+          3.0,
+          8.0,
+          41.0,
+          75.0,
+          30.0,
+          52.0,
+          17.0,
+          10.0
+        ],
+        [
+          "david macinnes (englehart)",
+          2.0,
+          9.0,
+          51.0,
+          72.0,
+          35.0,
+          40.0,
+          16.0,
+          8.0
+        ]
+      ],
+      "sql": {
+        "sel": 8,
+        "conds": [
+          [
+            2,
+            0,
+            5
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-2073",
+      "table_id": "1-19534677-1",
+      "question": "Name the # for bill finger edmond hamilton dick sprang , et al.",
+      "columns": [
+        "#",
+        "Volume line",
+        "Volume title",
+        "Creators",
+        "Material collected",
+        "Publication date",
+        "ISBN"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          "superman",
+          "kryptonite nevermore",
+          "dennis o'neil curt swan",
+          "superman #233-238, #240-242",
+          "2009/01/28",
+          "978-1401220853"
+        ],
+        [
+          2.0,
+          "legion of super-heroes",
+          "the life and death of ferro lad",
+          "jim shooter curt swan, et al.",
+          "adventure comics #346-347, #352-353, #357",
+          "2009/02/18",
+          "978-1401221935"
+        ],
+        [
+          3.0,
+          "batman",
+          "the annuals, vol. 1",
+          "bill finger edmond hamilton dick sprang , et al.",
+          "batman annual #1-3",
+          "2009/04/22",
+          "978-1401221928"
+        ],
+        [
+          4.0,
+          "swamp thing",
+          "roots of the swamp thing",
+          "len wein berni wrightson",
+          "house of secrets #92 swamp thing #1-13",
+          "2009/05/27",
+          "978-1401222369"
+        ],
+        [
+          5.0,
+          "the flash",
+          "flash of two worlds",
+          "gardner fox carmine infantino john broome",
+          "the flash #123, #129, #137, #151, #170, #173",
+          "2009/07/29",
+          "978-1401222987"
+        ],
+        [
+          6.0,
+          "justice league of america",
+          "justice league of america by george p\u00e9rez, vol. 1",
+          "gerry conway george p\u00e9rez",
+          "justice league of america #184-186, #192-194",
+          "2009/08/26",
+          "978-1401223212"
+        ],
+        [
+          7.0,
+          "batman",
+          "a death in the family",
+          "jim starlin marv wolfman george p\u00e9rez, et al.",
+          "batman #426-429, #440-442 the new titans #60-61",
+          "2009/09/23",
+          "978-1401225162"
+        ],
+        [
+          8.0,
+          "justice league of america",
+          "justice league of america by george p\u00e9rez, vol. 2",
+          "gerry conway george p\u00e9rez, et al.",
+          "justice league of america #193-197, #200",
+          "2010/04/13",
+          "978-1401224509"
+        ],
+        [
+          9.0,
+          "batman",
+          "the annuals, vol. 2",
+          "bill finger",
+          "batman annual #4-7",
+          "2010/08/10",
+          "978-1401227913"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            3,
+            0,
+            "Bill Finger Edmond Hamilton Dick Sprang , et al."
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-8457",
+      "table_id": "2-1653640-2",
+      "question": "Which Date has a Length of feet 9inches (m), and a Builder of portland terminal company?",
+      "columns": [
+        "Number",
+        "Builder",
+        "Type",
+        "Date",
+        "Length",
+        "Capacity"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "10",
+          "laconia car company",
+          "baggage car",
+          1882.0,
+          "feet (m)",
+          "no seats"
+        ],
+        [
+          "11",
+          "jackson & sharpe",
+          "baggage - rpo",
+          1900.0,
+          "feet 9inches (m)",
+          "6 passengers"
+        ],
+        [
+          "15",
+          "laconia car company",
+          "coach",
+          1882.0,
+          "feet (m)",
+          "28 passengers"
+        ],
+        [
+          "16",
+          "laconia car company",
+          "coach",
+          1882.0,
+          "feet (m)",
+          "28 passengers"
+        ],
+        [
+          "17",
+          "laconia car company",
+          "coach",
+          1904.0,
+          "feet 9inches (m)",
+          "28 passengers"
+        ],
+        [
+          "18",
+          "jackson & sharpe",
+          "coach",
+          1894.0,
+          "feet 9inches (m)",
+          "28 passengers"
+        ],
+        [
+          "25",
+          "portland terminal company",
+          "rpo -smoking car",
+          1913.0,
+          "feet 9inches (m)",
+          "30 passengers"
+        ],
+        [
+          "101",
+          "laconia car company",
+          "caboose",
+          1882.0,
+          "feet (m)",
+          "5 passengers"
+        ],
+        [
+          "2-7",
+          "portland terminal company",
+          "flat cars",
+          1916.0,
+          "feet (m)",
+          "short tons (long tons; t)"
+        ],
+        [
+          "8-10",
+          "portland terminal company",
+          "flat cars",
+          1915.0,
+          "feet (m)",
+          "short tons (long tons; t)"
+        ],
+        [
+          "11-13",
+          "portland terminal company",
+          "flat cars",
+          1913.0,
+          "feet (m)",
+          "15 tons"
+        ],
+        [
+          "14-21",
+          "portland company",
+          "flat cars",
+          1903.0,
+          "feet (m)",
+          "15 tons"
+        ],
+        [
+          "22",
+          "portland company",
+          "flat cars",
+          1899.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "23",
+          "portland company",
+          "flat cars",
+          1899.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "24-27",
+          "portland company",
+          "flat cars",
+          1899.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "28-33",
+          "portland company",
+          "flat cars",
+          1891.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "34",
+          "b&sr",
+          "flat car",
+          1889.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "35-44",
+          "laconia car company",
+          "flat cars",
+          1882.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "45-49",
+          "laconia car company",
+          "box cars",
+          1882.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "50-51",
+          "b&sr",
+          "box cars",
+          1889.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "52-54",
+          "portland company",
+          "box cars",
+          1895.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "55-58",
+          "portland company",
+          "box cars",
+          1898.0,
+          "feet (m)",
+          "10 tons"
+        ],
+        [
+          "59-62",
+          "portland company",
+          "box cars",
+          1900.0,
+          "feet (m)",
+          "15 tons"
+        ],
+        [
+          "63-68",
+          "laconia car company",
+          "box cars",
+          1905.0,
+          "feet (m)",
+          "15 tons"
+        ],
+        [
+          "69-70",
+          "b&sr",
+          "box cars",
+          1906.0,
+          "feet (m)",
+          "15 tons"
+        ],
+        [
+          "71-73",
+          "portland terminal company",
+          "box cars",
+          1913.0,
+          "feet (m)",
+          "15 tons"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            4,
+            0,
+            "feet 9inches (m)"
+          ],
+          [
+            1,
+            0,
+            "portland terminal company"
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-7376",
+      "table_id": "2-16082248-1",
+      "question": "What is the sum of tonnage with a time at 00:10 and less than 42 casualties?",
+      "columns": [
+        "Date",
+        "Time",
+        "Name",
+        "Flag",
+        "Casualties",
+        "Tonnage (GRT)",
+        "Cargo",
+        "Sunk by..."
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "real",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "9 sept 1941",
+          "06:55",
+          "empire springbuck",
+          "united kingdom",
+          42.0,
+          "5,591",
+          "steel and explosives",
+          "u-81"
+        ],
+        [
+          "9 sept 1941",
+          "21:37",
+          "muneric",
+          "united kingdom",
+          63.0,
+          "5,229",
+          "iron ore",
+          "u-432"
+        ],
+        [
+          "9 sept 1941",
+          "23:48",
+          "baron pentland",
+          "united kingdom",
+          2.0,
+          "3,410",
+          "lumber",
+          "u-432"
+        ],
+        [
+          "10 sept 1941",
+          "02:10",
+          "winterswijk",
+          "netherlands",
+          20.0,
+          "3,205",
+          "phosphates",
+          "u-432"
+        ],
+        [
+          "10 sept 1941",
+          "02:10",
+          "stargard",
+          "norway",
+          2.0,
+          "1,113",
+          "lumber",
+          "u-432"
+        ],
+        [
+          "10 sept 1941",
+          "02:45",
+          "sally maersk",
+          "united kingdom",
+          0.0,
+          "3,252",
+          "wheat",
+          "u-81"
+        ],
+        [
+          "10 sept 1941",
+          "05:04",
+          "empire hudson",
+          "united kingdom",
+          4.0,
+          "7,456",
+          "wheat",
+          "u-82"
+        ],
+        [
+          "10 sept 1941",
+          "10:30",
+          "thistleglen",
+          "united kingdom",
+          3.0,
+          "4,748",
+          "steel & pig iron",
+          "u-85"
+        ],
+        [
+          "10 sept 1941",
+          "20:57",
+          "bulysses",
+          "united kingdom",
+          4.0,
+          "7,519",
+          "gas oil",
+          "u-82"
+        ],
+        [
+          "10 sept 1941",
+          "21:00",
+          "gypsum queen",
+          "united kingdom",
+          10.0,
+          "3,915",
+          "sulphur",
+          "u-82"
+        ],
+        [
+          "11 sept 1941",
+          "00:10",
+          "stonepool",
+          "united kingdom",
+          42.0,
+          "4,815",
+          "grain, oats & trucks",
+          "u-207"
+        ],
+        [
+          "11 sept 1941",
+          "00:10",
+          "berury",
+          "united kingdom",
+          1.0,
+          "4,924",
+          "general",
+          "u-207"
+        ],
+        [
+          "11 sept 1941",
+          "02:10",
+          "scania",
+          "sweden",
+          0.0,
+          "1,980",
+          "lumber",
+          "u-82"
+        ],
+        [
+          "11 sept 1941",
+          "02:10",
+          "empire crossbill",
+          "united kingdom",
+          49.0,
+          "5,463",
+          "steel",
+          "u-82"
+        ],
+        [
+          "11 sept 1941",
+          "02:30",
+          "garm",
+          "sweden",
+          6.0,
+          "1,231",
+          "lumber",
+          "u-432"
+        ],
+        [
+          "16 sept 1941",
+          "19:00",
+          "jedmore",
+          "united kingdom",
+          31.0,
+          "4,392",
+          "iron ore",
+          "u-98"
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            1,
+            0,
+            "00:10"
+          ],
+          [
+            4,
+            2,
+            42
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-13777",
+      "table_id": "2-18638934-4",
+      "question": "What is the Year of Rio?",
+      "columns": [
+        "Year",
+        "Title",
+        "Director",
+        "Studio(s)",
+        "Notes"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          2010.0,
+          "green zone",
+          "paul greengrass",
+          "universal pictures",
+          "n/a"
+        ],
+        [
+          2010.0,
+          "how to train your dragon",
+          "chris sanders dean deblois",
+          "paramount pictures dreamworks animation",
+          "n/a"
+        ],
+        [
+          2010.0,
+          "fair game",
+          "doug liman",
+          "summit entertainment",
+          "n/a"
+        ],
+        [
+          2010.0,
+          "knight and day",
+          "james mangold",
+          "20th century fox",
+          "n/a"
+        ],
+        [
+          2011.0,
+          "mars needs moms",
+          "simon wells",
+          "walt disney pictures imagemovers digital",
+          "n/a"
+        ],
+        [
+          2011.0,
+          "rio",
+          "carlos saldanha",
+          "20th century fox blue sky studios",
+          "n/a"
+        ],
+        [
+          2011.0,
+          "kung fu panda 2",
+          "jennifer yuh nelson",
+          "paramount pictures dreamworks animation",
+          "with hans zimmer"
+        ],
+        [
+          2011.0,
+          "happy feet two",
+          "george miller",
+          "warner bros. pictures animal logic",
+          "n/a"
+        ],
+        [
+          2012.0,
+          "dr. seuss' the lorax",
+          "chris renaud",
+          "universal pictures illumination entertainment",
+          "n/a"
+        ],
+        [
+          2012.0,
+          "ice age: continental drift",
+          "steve martino mike thurmeier",
+          "20th century fox blue sky studios",
+          "n/a"
+        ],
+        [
+          2014.0,
+          "rio 2",
+          "carlos saldanha",
+          "20th century fox blue sky studios",
+          "n/a"
+        ],
+        [
+          2014.0,
+          "how to train your dragon 2",
+          "dean deblois",
+          "20th century fox dreamworks animation",
+          "n/a"
+        ],
+        [
+          2016.0,
+          "how to train your dragon 3",
+          "dean deblois",
+          "20th century fox dreamworks animation",
+          "n/a"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            1,
+            0,
+            "rio"
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-4914",
+      "table_id": "2-10766119-10",
+      "question": "What was the attendance of the Hawthorn as the away team?",
+      "columns": [
+        "Home team",
+        "Home team score",
+        "Away team",
+        "Away team score",
+        "Venue",
+        "Crowd",
+        "Date"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "geelong",
+          "11.11 (77)",
+          "north melbourne",
+          "8.4 (52)",
+          "corio oval",
+          "10,000",
+          "23 june 1928"
+        ],
+        [
+          "fitzroy",
+          "8.13 (61)",
+          "st kilda",
+          "12.16 (88)",
+          "brunswick street oval",
+          "18,000",
+          "23 june 1928"
+        ],
+        [
+          "south melbourne",
+          "11.12 (78)",
+          "melbourne",
+          "13.12 (90)",
+          "lake oval",
+          "17,000",
+          "23 june 1928"
+        ],
+        [
+          "richmond",
+          "13.24 (102)",
+          "hawthorn",
+          "11.10 (76)",
+          "punt road oval",
+          "16,000",
+          "23 june 1928"
+        ],
+        [
+          "footscray",
+          "9.10 (64)",
+          "collingwood",
+          "11.12 (78)",
+          "western oval",
+          "30,000",
+          "23 june 1928"
+        ],
+        [
+          "essendon",
+          "9.12 (66)",
+          "carlton",
+          "10.18 (78)",
+          "windy hill",
+          "22,000",
+          "23 june 1928"
+        ]
+      ],
+      "sql": {
+        "sel": 5,
+        "conds": [
+          [
+            2,
+            0,
+            "hawthorn"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-2863",
+      "table_id": "1-23289934-1",
+      "question": "Name the most number in season for production code 3abc12",
+      "columns": [
+        "No. in series",
+        "No. in season",
+        "Title",
+        "Directed by",
+        "Written by",
+        "Original air date",
+        "Production code"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          46.0,
+          1.0,
+          "\"the innocents\"",
+          "thomas j. wright",
+          "michael duggan",
+          "october2,1998",
+          "3abc01"
+        ],
+        [
+          47.0,
+          2.0,
+          "\"exegesis\"",
+          "ralph hemecker",
+          "chip johannessen",
+          "october9,1998",
+          "3abc02"
+        ],
+        [
+          48.0,
+          3.0,
+          "\"teotwawki\"",
+          "thomas j. wright",
+          "chris carter & frank spotnitz",
+          "october16,1998",
+          "3abc03"
+        ],
+        [
+          49.0,
+          4.0,
+          "\"closure\"",
+          "daniel sackheim",
+          "larry andries",
+          "october23,1998",
+          "3abc04"
+        ],
+        [
+          50.0,
+          5.0,
+          "\"...thirteen years later\"",
+          "thomas j. wright",
+          "michael r. perry",
+          "october30,1998",
+          "3abc05"
+        ],
+        [
+          51.0,
+          6.0,
+          "\"skull and bones\"",
+          "paul shapiro",
+          "chip johannessen & ken horton",
+          "november6,1998",
+          "3abc06"
+        ],
+        [
+          52.0,
+          7.0,
+          "\"through a glass darkly\"",
+          "thomas j. wright",
+          "patrick harbinson",
+          "november13,1998",
+          "3abc07"
+        ],
+        [
+          53.0,
+          8.0,
+          "\"human essence\"",
+          "thomas j. wright",
+          "michael duggan",
+          "december11,1998",
+          "3abc09"
+        ],
+        [
+          54.0,
+          9.0,
+          "\"omert\u00e0\"",
+          "paul shapiro",
+          "michael r. perry",
+          "december18,1998",
+          "3abc08"
+        ],
+        [
+          55.0,
+          10.0,
+          "\"borrowed time\"",
+          "dwight little",
+          "chip johannessen",
+          "january15,1999",
+          "3abc10"
+        ],
+        [
+          56.0,
+          11.0,
+          "\"collateral damage\"",
+          "thomas j. wright",
+          "michael r. perry",
+          "january22,1999",
+          "3abc11"
+        ],
+        [
+          57.0,
+          12.0,
+          "\"the sound of snow\"",
+          "paul shapiro",
+          "patrick harbinson",
+          "february5,1999",
+          "3abc12"
+        ],
+        [
+          58.0,
+          13.0,
+          "\"antipas\"",
+          "thomas j. wright",
+          "chris carter & frank spotnitz",
+          "february12,1999",
+          "3abc13"
+        ],
+        [
+          59.0,
+          14.0,
+          "\"matryoshka\"",
+          "arthur forney",
+          "erin maher & kay reindl",
+          "february19,1999",
+          "3abc14"
+        ],
+        [
+          60.0,
+          15.0,
+          "\"forcing the end\"",
+          "thomas j. wright",
+          "marjorie david",
+          "march19,1999",
+          "3abc15"
+        ],
+        [
+          61.0,
+          16.0,
+          "\"saturn dreaming of mercury\"",
+          "paul shapiro",
+          "chip johannessen & jordan hawley",
+          "april9,1999",
+          "3abc16"
+        ],
+        [
+          62.0,
+          17.0,
+          "\"darwin's eye\"",
+          "ken fink",
+          "patrick harbinson",
+          "april16,1999",
+          "3abc18"
+        ],
+        [
+          63.0,
+          18.0,
+          "\"bardo thodol\"",
+          "thomas j. wright",
+          "chip johannessen & virginia stock",
+          "april23,1999",
+          "3abc17"
+        ],
+        [
+          64.0,
+          19.0,
+          "\"seven and one\"",
+          "peter markle",
+          "chris carter & frank spotnitz",
+          "april30,1999",
+          "3abc19"
+        ],
+        [
+          65.0,
+          20.0,
+          "\"nostalgia\"",
+          "thomas j. wright",
+          "michael r. perry",
+          "may7,1999",
+          "3abc20"
+        ],
+        [
+          66.0,
+          21.0,
+          "\"via dolorosa\"",
+          "paul shapiro",
+          "marjorie david & patrick harbinson",
+          "may14,1999",
+          "3abc21"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            6,
+            0,
+            "3ABC12"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-3106",
+      "table_id": "1-24625467-1",
+      "question": "What episode number has 2j5352 as a production code?",
+      "columns": [
+        "No.",
+        "Title",
+        "Directed by",
+        "Written by",
+        "Original air date",
+        "Production code",
+        "U.S. viewers (million)"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          "\"don't be yourself\"",
+          "james burrows",
+          "ricky blitt",
+          "april19,2010",
+          "2j5351",
+          "10.67"
+        ],
+        [
+          2.0,
+          "\"the charade\"",
+          "james burrows",
+          "ricky blitt",
+          "april26,2010",
+          "2j5353",
+          "9.06"
+        ],
+        [
+          3.0,
+          "\"perry and rebecca's high school reunion\"",
+          "james burrows",
+          "ted cohen & andrew reich",
+          "may3,2010",
+          "2j5355",
+          "9.64"
+        ],
+        [
+          4.0,
+          "\"rebecca's one night stand\"",
+          "james burrows",
+          "ted cohen & andrew reich",
+          "may17,2010",
+          "2j5354",
+          "n/a"
+        ],
+        [
+          5.0,
+          "\"perry dates his assistant\"",
+          "james burrows",
+          "ted cohen & andrew reich",
+          "unaired",
+          "2j5352",
+          "n/a"
+        ],
+        [
+          6.0,
+          "\"hey now hey now perry's girlfriend's back\"",
+          "n/a",
+          "n/a",
+          "unaired",
+          "2j5356",
+          "n/a"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            5,
+            0,
+            "2J5352"
+          ]
+        ],
+        "agg": 0
+      }
+    },
+    {
+      "id": "wikisql-test-10022",
+      "table_id": "2-17387421-1",
+      "question": "What is the sum of Round, when College is \"Norfolk State\"?",
+      "columns": [
+        "Round",
+        "Pick",
+        "Player",
+        "Nationality",
+        "College"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          3.0,
+          69.0,
+          "willie glass",
+          "united states",
+          "st. john's"
+        ],
+        [
+          4.0,
+          92.0,
+          "ralph tally",
+          "united states",
+          "norfolk state"
+        ],
+        [
+          6.0,
+          115.0,
+          "kenny travis",
+          "united states",
+          "new mexico state"
+        ],
+        [
+          6.0,
+          138.0,
+          "frank ford",
+          "united states",
+          "auburn university"
+        ],
+        [
+          7.0,
+          161.0,
+          "ron vanderschaaf",
+          "netherlands",
+          "central washington university"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            4,
+            0,
+            "norfolk state"
+          ]
+        ],
+        "agg": 4
+      }
+    },
+    {
+      "id": "wikisql-test-9530",
+      "table_id": "2-163231-4",
+      "question": "What is the average bronze with silvers of 1 and totals over 2?",
+      "columns": [
+        "Rank",
+        "Nation",
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Total"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real",
+        "real"
+      ],
+      "records": [
+        [
+          "1",
+          "soviet union",
+          "7",
+          "5",
+          9.0,
+          21.0
+        ],
+        [
+          "2",
+          "germany",
+          "4",
+          "3",
+          1.0,
+          8.0
+        ],
+        [
+          "3",
+          "united states",
+          "3",
+          "4",
+          3.0,
+          10.0
+        ],
+        [
+          "4",
+          "norway",
+          "3",
+          "3",
+          0.0,
+          6.0
+        ],
+        [
+          "5",
+          "sweden",
+          "3",
+          "2",
+          2.0,
+          7.0
+        ],
+        [
+          "6",
+          "finland",
+          "2",
+          "3",
+          3.0,
+          8.0
+        ],
+        [
+          "7",
+          "canada",
+          "2",
+          "1",
+          1.0,
+          4.0
+        ],
+        [
+          "8",
+          "switzerland",
+          "2",
+          "0",
+          0.0,
+          2.0
+        ],
+        [
+          "9",
+          "austria",
+          "1",
+          "2",
+          3.0,
+          6.0
+        ],
+        [
+          "10",
+          "france",
+          "1",
+          "0",
+          2.0,
+          3.0
+        ],
+        [
+          "11",
+          "netherlands",
+          "0",
+          "1",
+          1.0,
+          2.0
+        ],
+        [
+          "11",
+          "poland",
+          "0",
+          "1",
+          1.0,
+          2.0
+        ],
+        [
+          "13",
+          "czechoslovakia",
+          "0",
+          "1",
+          0.0,
+          1.0
+        ],
+        [
+          "14",
+          "italy",
+          "0",
+          "0",
+          1.0,
+          1.0
+        ],
+        [
+          "total (14 nocs)",
+          "total (14 nocs)",
+          "28\u2021",
+          "26\u2021",
+          27.0,
+          81.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            3,
+            0,
+            "1"
+          ],
+          [
+            5,
+            1,
+            2
+          ]
+        ],
+        "agg": 5
+      }
+    },
+    {
+      "id": "wikisql-test-2629",
+      "table_id": "1-22496344-1",
+      "question": "What is the # when conroe, tx is the hometown?",
+      "columns": [
+        "Name",
+        "#",
+        "Position",
+        "Height",
+        "Weight",
+        "Year",
+        "Home Town",
+        "High School"
+      ],
+      "types": [
+        "text",
+        "real",
+        "text",
+        "text",
+        "real",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          "benny anders",
+          32.0,
+          "guard-forward",
+          "6\u20135",
+          188.0,
+          "freshman",
+          "bernice, la",
+          "bernice"
+        ],
+        [
+          "dan bunce",
+          50.0,
+          "center",
+          "7\u20130",
+          235.0,
+          "sophomore (rs)",
+          "conroe, tx",
+          "conroe"
+        ],
+        [
+          "david bunce",
+          52.0,
+          "center",
+          "6\u201311",
+          225.0,
+          "junior",
+          "conroe, tx",
+          "conroe"
+        ],
+        [
+          "eric davis",
+          12.0,
+          "guard",
+          "6\u20132",
+          180.0,
+          "senior",
+          "chicago, il",
+          "amundsen"
+        ],
+        [
+          "eric dickens",
+          14.0,
+          "guard",
+          "6\u20131",
+          168.0,
+          "freshman",
+          "houston, tx",
+          "madison"
+        ],
+        [
+          "clyde drexler",
+          22.0,
+          "forward",
+          "6\u20136",
+          205.0,
+          "sophomore",
+          "houston, tx",
+          "sterling"
+        ],
+        [
+          "reid gettys",
+          44.0,
+          "guard-forward",
+          "6\u20136",
+          190.0,
+          "freshman",
+          "houston, tx",
+          "memorial"
+        ],
+        [
+          "larry micheaux",
+          40.0,
+          "forward-center",
+          "6\u20139",
+          220.0,
+          "junior",
+          "houston, tx",
+          "worthing"
+        ],
+        [
+          "akeem olajuwon",
+          34.0,
+          "center",
+          "7\u20130",
+          235.0,
+          "freshman",
+          "lagos, nigeria",
+          "muslim teachers college"
+        ],
+        [
+          "gary orsak",
+          35.0,
+          "forward",
+          "6\u20137",
+          200.0,
+          "freshman",
+          "alvin, texas",
+          "alvin"
+        ],
+        [
+          "rodney parker",
+          10.0,
+          "guard",
+          "6\u20130",
+          200.0,
+          "senior",
+          "houston, tx",
+          "davis"
+        ],
+        [
+          "dave rose",
+          24.0,
+          "guard",
+          "6\u20133",
+          185.0,
+          "senior (rs)",
+          "houston, tx",
+          "northbrook / dixie jc"
+        ],
+        [
+          "lynden rose",
+          0.0,
+          "guard",
+          "6\u20133",
+          175.0,
+          "senior",
+          "nassau, bahamas",
+          "jackson"
+        ],
+        [
+          "bryan williams",
+          54.0,
+          "forward",
+          "6\u20137",
+          215.0,
+          "junior",
+          "inglewood, ca",
+          "palisades"
+        ],
+        [
+          "rob williams",
+          20.0,
+          "guard",
+          "6\u20132",
+          175.0,
+          "junior",
+          "houston, tx",
+          "milby"
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            6,
+            0,
+            "Conroe, TX"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-3144",
+      "table_id": "1-24786958-2",
+      "question": "What week had kickoff time at 6:00 p.m.?",
+      "columns": [
+        "Week",
+        "Date",
+        "Kickoff",
+        "Opponent",
+        "Final score",
+        "Team record",
+        "Game site",
+        "Attendance"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          1.0,
+          "saturday, april 21",
+          "7:00 p.m.",
+          "amsterdam admirals",
+          "w 24\u201320",
+          "1\u20130",
+          "rheinstadion",
+          31437.0
+        ],
+        [
+          2.0,
+          "saturday, april 28",
+          "5:00 p.m.",
+          "at barcelona dragons",
+          "l 12\u201324",
+          "1\u20131",
+          "estadi ol\u00edmpic de montju\u00efc",
+          8423.0
+        ],
+        [
+          3.0,
+          "saturday, may 5",
+          "7:00 p.m.",
+          "barcelona dragons",
+          "l 21\u201327",
+          "1\u20132",
+          "rheinstadion",
+          30984.0
+        ],
+        [
+          4.0,
+          "saturday, may 12",
+          "6:00 p.m.",
+          "at berlin thunder",
+          "l 17\u201323",
+          "1\u20133",
+          "jahn-sportpark",
+          9148.0
+        ],
+        [
+          5.0,
+          "sunday, may 20",
+          "4:00 p.m.",
+          "scottish claymores",
+          "w 10\u20133",
+          "2\u20133",
+          "rheinstadion",
+          30211.0
+        ],
+        [
+          6.0,
+          "sunday, may 27",
+          "7:00 p.m.",
+          "at frankfurt galaxy",
+          "w 22\u20135",
+          "3\u20133",
+          "waldstadion",
+          30512.0
+        ],
+        [
+          7.0,
+          "saturday, june 2",
+          "7:00 p.m.",
+          "at amsterdam admirals",
+          "l 14\u201317",
+          "3\u20134",
+          "amsterdam arena",
+          13823.0
+        ],
+        [
+          8.0,
+          "sunday, june 10",
+          "7:00 p.m.",
+          "berlin thunder",
+          "w 16\u201313",
+          "4\u20134",
+          "rheinstadion",
+          30701.0
+        ],
+        [
+          9.0,
+          "saturday, june 16",
+          "7:00 p.m.",
+          "frankfurt galaxy",
+          "w 17\u201313",
+          "5\u20134",
+          "rheinstadion",
+          51719.0
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            2,
+            0,
+            "6:00 p.m."
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-12247",
+      "table_id": "2-18097219-4",
+      "question": "What is the lowest score that has t10 as the place, with Ireland as the country?",
+      "columns": [
+        "Place",
+        "Player",
+        "Country",
+        "Score",
+        "To par"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "real",
+        "text"
+      ],
+      "records": [
+        [
+          "1",
+          "paul broadhurst",
+          "england",
+          65.0,
+          "\u20136"
+        ],
+        [
+          "t2",
+          "mark brooks",
+          "united states",
+          67.0,
+          "\u20134"
+        ],
+        [
+          "t2",
+          "fred couples",
+          "united states",
+          67.0,
+          "\u20134"
+        ],
+        [
+          "t2",
+          "brad faxon",
+          "united states",
+          67.0,
+          "\u20134"
+        ],
+        [
+          "t2",
+          "tom lehman",
+          "united states",
+          67.0,
+          "\u20134"
+        ],
+        [
+          "t2",
+          "mark mccumber",
+          "united states",
+          67.0,
+          "\u20134"
+        ],
+        [
+          "t2",
+          "mark o'meara",
+          "united states",
+          67.0,
+          "\u20134"
+        ],
+        [
+          "t2",
+          "loren roberts",
+          "united states",
+          67.0,
+          "\u20134"
+        ],
+        [
+          "t2",
+          "hidemichi tanaka",
+          "japan",
+          67.0,
+          "\u20134"
+        ],
+        [
+          "t10",
+          "ernie els",
+          "south africa",
+          68.0,
+          "\u20133"
+        ],
+        [
+          "t10",
+          "klas eriksson",
+          "sweden",
+          68.0,
+          "\u20133"
+        ],
+        [
+          "t10",
+          "nick faldo",
+          "england",
+          68.0,
+          "\u20133"
+        ],
+        [
+          "t10",
+          "jim furyk",
+          "united states",
+          68.0,
+          "\u20133"
+        ],
+        [
+          "t10",
+          "p\u00e1draig harrington",
+          "ireland",
+          68.0,
+          "\u20133"
+        ],
+        [
+          "t10",
+          "shigeki maruyama",
+          "japan",
+          68.0,
+          "\u20133"
+        ],
+        [
+          "t10",
+          "carl mason",
+          "england",
+          68.0,
+          "\u20133"
+        ],
+        [
+          "t10",
+          "nick price",
+          "zimbabwe",
+          68.0,
+          "\u20133"
+        ]
+      ],
+      "sql": {
+        "sel": 3,
+        "conds": [
+          [
+            0,
+            0,
+            "t10"
+          ],
+          [
+            2,
+            0,
+            "ireland"
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-4157",
+      "table_id": "1-28967275-3",
+      "question": "When \"the secret of deep stadium\" is the episode title what is the lowest series number?",
+      "columns": [
+        "Episode #",
+        "Series #",
+        "Episode Title",
+        "Original air date",
+        "Production Code"
+      ],
+      "types": [
+        "real",
+        "real",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          53.0,
+          1.0,
+          "\"stars in danger\"",
+          "5july2010",
+          301.0
+        ],
+        [
+          54.0,
+          2.0,
+          "\"the break-up\"",
+          "6july2010",
+          302.0
+        ],
+        [
+          55.0,
+          3.0,
+          "\"welcome to paradisia\"",
+          "7july2010",
+          303.0
+        ],
+        [
+          56.0,
+          4.0,
+          "\"a new strategy\"",
+          "8july2010",
+          304.0
+        ],
+        [
+          57.0,
+          5.0,
+          "\"resonance\"",
+          "4september2010",
+          305.0
+        ],
+        [
+          58.0,
+          6.0,
+          "\"may the show begin!\"",
+          "11september2010",
+          306.0
+        ],
+        [
+          59.0,
+          7.0,
+          "\"fathers and sons\"",
+          "18september2010",
+          307.0
+        ],
+        [
+          60.0,
+          8.0,
+          "\"the other side of paradisia\"",
+          "25september2010",
+          308.0
+        ],
+        [
+          61.0,
+          9.0,
+          "\"the secret of deep stadium\"",
+          "10october2011",
+          309.0
+        ],
+        [
+          62.0,
+          10.0,
+          "\"friends and enemies\"",
+          "11october2011",
+          310.0
+        ],
+        [
+          63.0,
+          11.0,
+          "\"battle for the final\"",
+          "12october2011",
+          311.0
+        ],
+        [
+          64.0,
+          12.0,
+          "\"betrayal on the field\"",
+          "13october2011",
+          312.0
+        ],
+        [
+          65.0,
+          13.0,
+          "\"endgame\"",
+          "14october2011",
+          313.0
+        ],
+        [
+          66.0,
+          14.0,
+          "\"a new start\"",
+          "15october2011",
+          314.0
+        ],
+        [
+          67.0,
+          15.0,
+          "\"crossed fates\"",
+          "16october2011",
+          315.0
+        ],
+        [
+          68.0,
+          16.0,
+          "\"the secrets of the breath\"",
+          "17october2011",
+          316.0
+        ],
+        [
+          69.0,
+          17.0,
+          "\"reconstituted families\"",
+          "18october2011",
+          317.0
+        ],
+        [
+          70.0,
+          18.0,
+          "\"sinedd\u2019s shadow\"",
+          "19october2011",
+          318.0
+        ],
+        [
+          71.0,
+          19.0,
+          "\"the ghost of paradisia\"",
+          "20october2011",
+          319.0
+        ],
+        [
+          72.0,
+          20.0,
+          "\"walk for a pirate\"",
+          "21october2011",
+          320.0
+        ],
+        [
+          73.0,
+          21.0,
+          "\"farewell, paradisia\"",
+          "22october2011",
+          321.0
+        ],
+        [
+          74.0,
+          22.0,
+          "\"all together!\"",
+          "23october2011",
+          322.0
+        ],
+        [
+          75.0,
+          23.0,
+          "\"lost illusions\"",
+          "24october2011",
+          323.0
+        ],
+        [
+          76.0,
+          24.0,
+          "\"the second chance\"",
+          "25october2011",
+          324.0
+        ],
+        [
+          77.0,
+          25.0,
+          "\"on all fronts\"",
+          "26october2011",
+          325.0
+        ]
+      ],
+      "sql": {
+        "sel": 1,
+        "conds": [
+          [
+            2,
+            0,
+            "\"The Secret of Deep Stadium\""
+          ]
+        ],
+        "agg": 2
+      }
+    },
+    {
+      "id": "wikisql-test-9685",
+      "table_id": "2-17279851-2",
+      "question": "What is the latest date that has a serial number of Infec 107CDSX?",
+      "columns": [
+        "Artist",
+        "Title",
+        "Label",
+        "Number",
+        "Date"
+      ],
+      "types": [
+        "text",
+        "text",
+        "text",
+        "text",
+        "real"
+      ],
+      "records": [
+        [
+          "mellow",
+          "shinda shima",
+          "atmospheriques",
+          "atm24016",
+          2001.0
+        ],
+        [
+          "nylon pylon",
+          "sister siam",
+          "booneytunes",
+          "booncd1",
+          2001.0
+        ],
+        [
+          "elbow",
+          "coming second",
+          "v2 records",
+          "vvr5018708",
+          2002.0
+        ],
+        [
+          "my vitriol",
+          "the gentle art of choking",
+          "infectious records",
+          "infec 107cdsx",
+          2002.0
+        ],
+        [
+          "mellow",
+          "take me higher",
+          "rivolizione sessantanove atmospheriques",
+          "b00008lolm",
+          2003.0
+        ],
+        [
+          "new skin",
+          "sweettalk",
+          "cleopatra records",
+          "clp 1630-2",
+          2006.0
+        ]
+      ],
+      "sql": {
+        "sel": 4,
+        "conds": [
+          [
+            3,
+            0,
+            "infec 107cdsx"
+          ]
+        ],
+        "agg": 1
+      }
+    },
+    {
+      "id": "wikisql-test-13720",
+      "table_id": "2-18733279-1",
+      "question": "What week has a Date of October 4, 1992?",
+      "columns": [
+        "Week",
+        "Date",
+        "Opponent",
+        "Result",
+        "Attendance"
+      ],
+      "types": [
+        "real",
+        "text",
+        "text",
+        "text",
+        "text"
+      ],
+      "records": [
+        [
+          1.0,
+          "september 6, 1992",
+          "at chicago bears",
+          "l 27-24",
+          "63,672"
+        ],
+        [
+          2.0,
+          "september 13, 1992",
+          "minnesota vikings",
+          "w 31-17",
+          "57,519"
+        ],
+        [
+          3.0,
+          "september 20, 1992",
+          "at washington redskins",
+          "l 13-10",
+          "55,818"
+        ],
+        [
+          4.0,
+          "september 27, 1992",
+          "tampa bay buccaneers",
+          "l 27-23",
+          "51,374"
+        ],
+        [
+          5.0,
+          "october 4, 1992",
+          "new orleans saints",
+          "l 13-7",
+          "66,971"
+        ],
+        [
+          6.0,
+          "bye",
+          "bye",
+          "bye",
+          "bye"
+        ],
+        [
+          7.0,
+          "october 15, 1992",
+          "at minnesota vikings",
+          "l 31-14",
+          "52,816"
+        ],
+        [
+          8.0,
+          "october 25, 1992",
+          "at tampa bay buccaneers",
+          "w 38-7",
+          "53,995"
+        ],
+        [
+          9.0,
+          "november 1, 1992",
+          "green bay packers",
+          "l 27-13",
+          "60,594"
+        ],
+        [
+          10.0,
+          "november 8, 1992",
+          "dallas cowboys",
+          "l 37-3",
+          "74,816"
+        ],
+        [
+          11.0,
+          "november 15, 1992",
+          "at pittsburgh steelers",
+          "l 17-14",
+          "52,242"
+        ],
+        [
+          12.0,
+          "november 22, 1992",
+          "at cincinnati bengals",
+          "w 19-13",
+          "48,574"
+        ],
+        [
+          13.0,
+          "november 26, 1992",
+          "houston oilers",
+          "l 24-21",
+          "73,711"
+        ],
+        [
+          14.0,
+          "december 6, 1992",
+          "at green bay packers",
+          "l 38-10",
+          "49,469"
+        ],
+        [
+          15.0,
+          "december 13, 1992",
+          "cleveland browns",
+          "w 24-14",
+          "65,970"
+        ],
+        [
+          16.0,
+          "december 20, 1992",
+          "chicago bears",
+          "w 16-3",
+          "72,777"
+        ],
+        [
+          17.0,
+          "december 28, 1992",
+          "at san francisco 49ers",
+          "l 24-6",
+          "55,907"
+        ]
+      ],
+      "sql": {
+        "sel": 0,
+        "conds": [
+          [
+            1,
+            0,
+            "october 4, 1992"
+          ]
+        ],
+        "agg": 4
+      }
+    }
+  ]
+}
