@@ -1,5 +1,11 @@
 # Capability scoreboard
 
+## One deployed assistant
+
+The qualified installation is `exports/tool-language-packed-03`. Its parent reproduced 22 public tool sessions and all 200 shorter language outputs. In the mixed field comparison, candidate/Base correct counts were 8/8 versus 1/8 on files, 3/12 versus 0/12 on SQLite, 0/10 versus 0/10 on strict one-call package versions, 2/10 versus 3/10 on human arithmetic and 8/10 versus 8/10 on ten-document reading. The candidate supplied nine correct version strings. The complete stream took 83.97 versus 234.20 s, with summed first-token times of 20.33 versus 9.15 s and peak allocations of 1,810,571,734 versus 1,805,158,874 bytes. [Single-installation results](../research/results/release-mixed-field-01) · [All five families](../paper/mixed-deployment.csv)
+
+The packed release reproduced 512 next-token decisions and 512 losses after consuming two entire books, all 12 shorter requests and two actual installed-version trajectories. Its two further 24,593-token register generations completed in 32.44 versus 37.52 s for the previous release with 13.74% lower peak. The independent 131,080-token comparison of that register policy against Base scored 2/2 versus 0/2 in 171.88 versus 391.67 s with 25.99% lower peak and slower post-first-token generation. [Offline crossover](../research/results/packed-release-retention-01) · [Physical 131K comparison](../research/results/register-packed-direct-full-01)
+
 ## Executable tools and human reading
 
 | Frozen comparison | Recurrent | Comparator | Actual seconds (recurrent / comparator) |
