@@ -10,6 +10,17 @@ On 22 publisher-authored numerical requests the trained two-pass tool model exec
 
 On original and human-edited BoolQ questions, the first Base-initialized reading adapter finished much sooner and answered both versions correctly on **10/32 passages versus 12/32 for Base**. This candidate missed its accuracy gate. [Reading benchmark and exact paired result](research/results/contrast-boolq-recurrent-01)
 
+## Run the offline assistant
+
+The combined Apple Silicon export is `exports/tool-language-01` (2.2 GiB on this machine). It passed a separate offline qualification run. On a mode switch the runtime loads the selected backbone. Its text path reproduced all 200 short language outputs, retained NLL 2.982658 on 9,328 tokens and answered both 131,083-token register queries correctly in 525.82 seconds combined. Its tools path reproduced all 22 public execution sessions and answered four of five live package requests. [Qualification, per-file hashes and exact output streams](research/results/tool-language-release-01) · [Rebuild the export](docs/TRAINING.md#reproducing-executable-tool-training-and-evaluation)
+
+```sh
+.venv/bin/python examples/local_packages.py exports/tool-language-01 "What version of the Python distribution mlx is installed in this environment? Use the available tool."
+.venv/bin/python -m loopqwen tools --checkpoint exports/tool-language-01 --packages --prompt "What version of numpy is installed?" --max-tokens 256
+```
+
+The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database data.sqlite --table records` for a read-only table, and `--calculator` for exact arithmetic. With `--trace` the response includes every token, submitted argument, callback result and turn time. For custom tools, create a `Tool(name, description, parameters, callback)` and pass it to `Assistant(directory).respond(question, tools)`. The [package example](examples/local_packages.py) uses the Python environment of the running process.
+
 ## Current combined checkpoint
 
 Use [the native recurrent checkpoint](research/results/native-language-release-02/model) on Apple Silicon. On two disjoint three-fact induction panels it answered **124/128** correctly. A one-pass model with the same 552,810 trainable parameters, training stories and update count answered **58/128**. Both produced 13 tokens per answer and took about 32 seconds for all 128 questions. With the three-pass weights held fixed, disabling two applications of Qwen layer 15 dropped confirmation accuracy from **62/64 to 19/64**. Untouched Qwen Base answered **2/64 in 654.19 s** at the same 768-token allowance as the loop, which answered **62/64 in 16.02 s**. A second training seed scored 53/64 versus 25/64. [Matched results and limits](docs/CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Same-weights ablation](research/results/native-induction-anchored-bypass-01) · [Full-budget Base comparison](research/results/native-induction-anchored-longbase-01)

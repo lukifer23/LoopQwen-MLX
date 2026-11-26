@@ -1,5 +1,12 @@
 # Research ledger
 
+## November 26 offline tool and language qualification
+
+One standalone build physically reproduced 22 tool sessions, 64 induction requests, 56 deduction requests and 80 mixed language requests. The isolated offline interpreter reproduced the first live package trace, and the field endpoint scored 4/5. All 120 raw routes and domain NLLs matched the language parent. The two 131,083-token key swaps again returned the correct values after a mode switch, in 525.815 seconds with a 4.33 GiB peak MLX allocation. The older matched Base run took 393.203 seconds and answered neither. [Sealed qualification](../research/results/tool-language-release-01)
+
+The Base-initialized recurrent BoolQ reader completed all 64 natural questions in 8.285 seconds but answered both members correctly on 10/32 human-edited passages, compared with 12/32 for Base in 133.928 seconds. Its closed-prefix readout also lost 41 to 48. That fit closed at its primary gate. [Prompt IDs, probabilities, scores and adapter lineage](../research/results/contrast-boolq-recurrent-01)
+
+
 The persistent program begins at `907b262` after the measured-time static control beat diagnostic curriculum selection and model-generated trace yield was zero. The first trial targets the observed failure to emit intermediate room numbers. [Historical experiments](EXPERIMENT_REGISTRY.md)
 
 **Trace bootstrap.** A response-only weight fork of the verbal parent fixed 64 of 64 unverified paths. The 14-item third-hop regression closed promotion and self-training from this child. Registered a separately initialized suffix-only adapter fork on the same cohort.
