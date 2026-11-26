@@ -76,7 +76,7 @@ def verify(root):
 
         verify_reports(root, decision)
         return
-    if study.startswith("action-preference-"):
+    if study.startswith(("action-preference-", "dialogue-state-fields-")):
         from loopqwen.research.action_preferences import verify as verify_preferences
 
         verify_preferences(root, decision)

@@ -1,0 +1,39 @@
+{
+  "initial": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "rank": 32,
+  "id": "dialogue-state-fields-01",
+  "question": "Does explicit first-pass supervision of required field availability make the repeated decoder ask before executing and finish correctly after clarification on real files and time zones?",
+  "training": "research/data/dialogue-state-training.json",
+  "material": "research/data/dialogue-state-panel.json",
+  "passes": 2,
+  "state_width": 64,
+  "field_weight": 0.55,
+  "fit_seed": 173091,
+  "updates": 1050,
+  "lr": 9.5e-05,
+  "batch": 4,
+  "domains": [
+    "files",
+    "zones"
+  ],
+  "validation_threshold": 32,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "protocol": "Separate training directly from the qualified two-pass instruction-sibling tool model, using no weights from the failed preference fit. Fit the shared native Qwen layer 23 on 384 original clarification responses and 384 observed read-only service calls sampled from different Schema-Guided Dialogue training conversations, plus 320 prior typed-tool responses. Services in the source are simulated and their text has human paraphrases. Keep prior user and system utterances. Each supplied schema describes the active read-only intent and required/optional arguments, and each training state is taken from the source user frame. For one training pass through the final native layer, compare its causal query-end hidden state with the states at each required argument name in the common prompt. Train bilinear 64-channel projections with field-presence binary cross entropy alongside the free-token loss after the actual second native application. All four responses per update contribute to token supervision. The diagnostic head supplies training gradients and is absent from inference; deployment uses ordinary unconstrained greedy K2. Reserve 48 distinct official dev dialogues to score complete required-field state accuracy at 0.5. Earlier preference study saw none of these new file/time-zone requests. Sixteen new controlled anchors (eight over two project CSV files frozen by commit, eight over actual IANA time zones and dates) are each asked in a complete version and with one missing required attribute. File variants omit a document, column or row. Zone variants omit a zone or date; the next actual user message supplies it irrespective of a premature call. Recheck all 22 public numerical retention functions. Both decoders receive identical thinking-enabled starting tokens and the same ordered 54 requests, free 384 tokens per assistant turn up to three calls, no prefix reuse. Measure actual file and zone callbacks, terminal answers, complete physical attention histories, total and first times and peak. Training and model load are excluded for both arms. Do not attribute a gain to depth without a matched one-pass fit.",
+  "gate": "At least eight of sixteen whole anchors correct, six net more than Base with p<=.05 exact paired, ten correctly targeted clarifications and at most two premature actions. At least four grounded sessions in each live domain. Preserve every one of the historical 17 numerical successes. No lower final-answer content in complete, missing or public requests, and no reduction in completed exchanges in either live domain. At least 32 of 48 validation dialogues must recover every original required-field label. Total time and peak strictly lower than Base, summed first-token time no higher. A miss closes this state-supervised fit. Passing licenses equal native K1 training and an independently authored multi-turn suite before changing the default. No hidden reference state can be passed into inference.",
+  "limits": {
+    "wall_seconds": 1530,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}

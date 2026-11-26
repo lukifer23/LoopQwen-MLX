@@ -44,6 +44,16 @@ def documents(material):
         yield csv_tools(paths)
 
 
+def tools_for(w, files):
+    if w["kind"] == "public":
+        return executable_tools.tools_for(w)
+    if w.get("domain") == "zones":
+        from ..resource_tools import tools
+
+        return tools("zone")
+    return files
+
+
 def grade(w, xs):
     if w["kind"] == "public":
         g = executable_tools.score(w, xs[0])
@@ -82,6 +92,8 @@ def grade(w, xs):
         term = {
             "row": r"\b(row|record|entry|index|line)s?\b",
             "column": r"\b(column|field|header|attribute)s?\b",
+            "date": r"\b(date|day|when|month|year)\b",
+            "zone": r"\b(zone|timezone|region|location|city|where)\b",
             "document": r"\b(file|csv|document|spreadsheet|table|dataset)s?\b",
         }[w["missing"]]
         request_cue = (
@@ -110,7 +122,8 @@ def grade(w, xs):
 def outcome(spec, material, data, validation):
     panel = material["rows"]
     groups = {}
-    for k in ("all", "complete", "missing", "public", "ecology", "project"):
+    domains = spec.get("domains", ["ecology", "project"])
+    for k in ("all", "complete", "missing", "public", *domains):
         ix = [
             i for i, w in enumerate(panel) if k in ("all", w["kind"], w.get("domain"))
         ]
@@ -168,16 +181,26 @@ def outcome(spec, material, data, validation):
         for r in data["candidate"]
         if r["id"] in keep and not r["score"]["success"]
     ]
-    improved = sum(
-        (v["fitted"][0] - v["fitted"][1]) > (v["parent"][0] - v["parent"][1])
-        for v in validation
-    )
+    state_fit = "state_width" in spec
+    if state_fit:
+        improved = sum(
+            all(
+                (v["probabilities"][k] >= 0.5) == known
+                for k, known in v["known"].items()
+            )
+            for v in validation
+        )
+    else:
+        improved = sum(
+            (v["fitted"][0] - v["fitted"][1]) > (v["parent"][0] - v["parent"][1])
+            for v in validation
+        )
     a, b = groups["all"]["candidate"], groups["all"]["control"]
     passed = (
         sum(diff) >= 6
         and pair_p <= 0.05
         and sum(pairs["candidate"]) >= 8
-        and all(groups[d]["candidate"]["success"] >= 4 for d in ("ecology", "project"))
+        and all(groups[d]["candidate"]["success"] >= 4 for d in domains)
         and groups["missing"]["candidate"]["asked"] >= 10
         and groups["missing"]["candidate"]["premature"] <= 2
         and not losses
@@ -187,7 +210,18 @@ def outcome(spec, material, data, validation):
         )
         and a["seconds"] < b["seconds"]
         and a["peak"] < b["peak"]
-        and improved >= 32
+        and improved >= spec.get("validation_threshold", 32)
+        and (
+            not state_fit
+            or (
+                a["first"] <= b["first"]
+                and all(
+                    groups[d]["candidate"]["completed"]
+                    >= groups[d]["control"]["completed"]
+                    for d in domains
+                )
+            )
+        )
     )
     return {
         "passed": passed,
@@ -197,7 +231,9 @@ def outcome(spec, material, data, validation):
         "pair_losses": diff.count(-1),
         "pair_p": pair_p,
         "public_losses": losses,
-        "validation_improved": improved,
+        (
+            "validation_all_fields_exact" if state_fit else "validation_improved"
+        ): improved,
     }
 
 
@@ -214,12 +250,26 @@ def verify(root, decision):
         if item["kind"] == "public":
             continue
         args = item["call"]["arguments"]
-        records = sheets[args["document"]]
-        scalar = (
-            len(records)
-            if item["call"]["name"] == "csv_row_count"
-            else records[args["row"] - 1][args["column"]]
-        )
+        if item.get("domain") == "zones":
+            from datetime import datetime
+            from zoneinfo import ZoneInfo
+
+            noon = datetime.fromisoformat(args["date"] + "T12:00:00").replace(
+                tzinfo=ZoneInfo(args["zone"])
+            )
+            offset = (
+                noon.dst()
+                if item["call"]["name"] == "daylight_minutes"
+                else noon.utcoffset()
+            )
+            scalar = int(offset.total_seconds() / 60)
+        else:
+            records = sheets[args["document"]]
+            scalar = (
+                len(records)
+                if item["call"]["name"] == "csv_row_count"
+                else records[args["row"] - 1][args["column"]]
+            )
         assert scalar == item["gold"]
         anchors.setdefault(item["anchor"], []).append(item)
     assert len(anchors) == 16 and all(
@@ -233,29 +283,45 @@ def verify(root, decision):
         "training"
     ] == digest(Path(spec["training"]))
     assert meta["updates"] == spec["updates"] and meta["passes"] == 2
-    prefs = read(spec["training"])["preferences"]
     validation = read(root / "validation.json")
-    reference = read(root / "reference.json")
-    assert reference["parent"] == spec["initial_sha256"] and len(
-        reference["scores"]
-    ) == len(prefs)
-    assert [v["index"] for v in validation] == [
-        i for i, p in enumerate(prefs) if p["split"] == "validation"
-    ]
-    assert all(
-        v["parent"] == reference["scores"][v["index"]]
-        and v["source_line"] == prefs[v["index"]]["source_line"]
-        for v in validation
-    )
+    if "state_width" in spec:
+        from .dialogue_state_fit import fields
+
+        frozen = read(spec["training"])
+        assert meta["head"] == digest(root / "state-head.safetensors")
+        assert meta["trainable"] == 802816 and meta["turns"] == len(frozen["examples"])
+        assert len(validation) == 48 and all(
+            r["id"] == w["id"]
+            and r["known"] == w["known"]
+            and r["known"].keys() == r["probabilities"].keys()
+            and all(0 <= p <= 1 for p in r["probabilities"].values())
+            for r, w in zip(validation, frozen["validation"], strict=True)
+        )
+        tokenizer = load_tokenizer(local_snapshot())
+        for w in frozen["examples"] + frozen["validation"]:
+            pos, labels = fields(tokenizer, w)
+            assert len(pos) == len(labels)
+    else:
+        prefs = read(spec["training"])["preferences"]
+        reference = read(root / "reference.json")
+        assert reference["parent"] == spec["initial_sha256"] and len(
+            reference["scores"]
+        ) == len(prefs)
+        assert [v["index"] for v in validation] == [
+            i for i, p in enumerate(prefs) if p["split"] == "validation"
+        ]
+        assert all(
+            v["parent"] == reference["scores"][v["index"]]
+            and v["source_line"] == prefs[v["index"]]["source_line"]
+            for v in validation
+        )
     tok = load_tokenizer(local_snapshot())
     data = {}
     with documents(material) as files:
         for s in ("candidate", "control"):
             rows = unpack(root / (s + ".json.gz"))
             for w, r in zip(material["rows"], rows, strict=True):
-                tools = (
-                    files if w["kind"] != "public" else executable_tools.tools_for(w)
-                )
+                tools = tools_for(w, files)
                 msgs = initial_messages("", tools)[:1]
                 assert (
                     r["id"] == w["id"]
@@ -264,6 +330,20 @@ def verify(root, decision):
                 for q, tr in zip(w["users"], r["exchanges"], strict=True):
                     msgs.append({"role": "user", "content": q})
                     replay_exchange(tok, tools, msgs, tr, spec)
+                    if "state_width" in spec:
+                        expected = {(i, 0) for i in (3, 7, 11, 15, 19, 23)}
+                        if s == "candidate":
+                            expected.add((23, 1))
+                        for t in tr["turns"]:
+                            assert {
+                                (x["layer"], x["turn"]) for x in t["kv_history"]
+                            } == expected
+                            assert all(
+                                x["retained"]
+                                == x["offset"]
+                                == len(t["prompt_ids"]) + len(t["token_ids"]) - 1
+                                for x in t["kv_history"]
+                            )
                 assert (
                     r["score"] == grade(w, r["exchanges"])
                     and 0 < r["first"] <= r["seconds"]
@@ -302,7 +382,12 @@ def run(name):
                             model, mx.load(str(root / "tool-adapters.safetensors"))
                         )
                     else:
-                        train(model, tok, spec, root, b)
+                        if "state_width" in spec:
+                            from .dialogue_state_fit import train as fit_state
+
+                            fit_state(model, tok, spec, root, b)
+                        else:
+                            train(model, tok, spec, root, b)
                 else:
                     model, tok = base()[:2]
                 model.eval()
@@ -315,11 +400,7 @@ def run(name):
                     mx.synchronize()
                     mx.reset_peak_memory()
                     begin = perf_counter()
-                    tools = (
-                        files
-                        if w["kind"] != "public"
-                        else executable_tools.tools_for(w)
-                    )
+                    tools = tools_for(w, files)
                     history = initial_messages("", tools)[:1]
                     xs = [
                         session(
@@ -331,6 +412,7 @@ def run(name):
                             max_turns=spec["max_turns"],
                             _messages=history,
                             progress=lambda _: b.check(),
+                            record_kv_history="state_width" in spec,
                         )
                         for q in w["users"]
                     ]
