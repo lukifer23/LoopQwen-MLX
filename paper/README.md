@@ -3,6 +3,7 @@
 The manuscript covers the original shared-span experiments, the matched reasoning controls, the standalone 128K language model, and the addition of executable tool sessions. The paper's numerical results come from native Apple Silicon MLX runs.
 
 - [Read the paper](loopqwen.pdf)
+- [Four process-isolated 50-request streams and tokenizer counts](tokenizer-streams.csv)
 - [Every full 131K request in counterbalanced execution order](full-decoder.csv)
 - [Manuscript source](loopqwen.typ)
 - [Both tool families and final-answer accuracy across 78 requests](intent-scores.csv)

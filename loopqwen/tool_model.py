@@ -135,7 +135,7 @@ def bind(language_model, folder, adapter=None):
 
 
 class Assistant:
-    def __init__(self, directory, *, tool_adapter=None, reuse_tokenizer=False):
+    def __init__(self, directory, *, tool_adapter=None, reuse_tokenizer=None):
         self.directory = Path(directory)
         self.tool_adapter = Path(tool_adapter) if tool_adapter is not None else None
         meta = read(self.directory / "tool/tool-model.json")
@@ -150,6 +150,12 @@ class Assistant:
         self.language = None
         self.tokenizer = None
         self._tool_model = None
+        if reuse_tokenizer is None:
+            # The complete packed-03 field crossover qualified this tokenizer only.
+            inventory = self.directory / "tool-export-files.json"
+            reuse_tokenizer = inventory.is_file() and digest(inventory) == (
+                "b92ee035e76e64cb05a43166b2a7a9a0d1eea5b87decca964ee9931adc840176"
+            )
         self._reuse_tokenizer = reuse_tokenizer
         self._cached_tokenizer = None
 

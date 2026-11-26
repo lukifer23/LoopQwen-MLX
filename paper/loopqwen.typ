@@ -129,6 +129,12 @@ A balanced crossover on these exact typed weights ran every numerical request fo
 
 After switching from tool use, 64 induction, 56 deduction and 80 mixed language generations matched the previous qualified export in full. All 120 raw prose requests used the ordinary path and all five domain losses matched, including pooled NLL 2.982658. Both complete 131,083-token requests reproduced the correct answer, exact token stream and located evidence span. The pair took 525.82 seconds at a peak of 4.33 GiB. This end-to-end test ties context capacity, ordinary language retention and executable tools to the same export inventory.
 
+== Reusing the tokenizer across live mode switches
+
+Four fresh processes each served the same 50 requests, with policies in ABBA order. Each process held one active backbone at a time. The reuse policy checks tokenizer-defining files before reusing the BPE object. It rebuilt two tokenizers over its two streams, compared with 32 over the two reload streams. All 200 generated trajectories, actual callbacks and terminal outcomes reproduced the frozen field reference. Across 30 switches per policy, first-token time fell 44.3%, from 29.43 to 16.39 s. Summed first-token time over all requests was 26.39 versus 39.45 s; wall time was 152.03 versus 164.20 s. Peak MLX bytes matched at 1,810,571,734. Whole-process maximum RSS was 1,916,698,624 versus 2,701,754,368 bytes. The two policies ran on the same packed release. The installed runtime enables reuse for the exact qualified inventory. The original self-contained archive remains identifiable by its published hash.
+
+#figure(image("tokenizer-streams.svg",width:94%),caption:[Each point measures one entire 50-request stream in a fresh process. Switch latency includes all work from the incoming request to its first emitted token.])
+
 == Lossless distribution of the complete assistant
 The qualified bundle contains separate language and tool backbones. We compared ordinary level-six DEFLATE of its complete file inventory with a reversible representation that uses the original Base tensors and the sibling's actual scale and bias to predict quantized weight bytes. The archive stores the residual bytes; the decoder reconstructs the exact original tensor headers and payloads. The encoding is applied before DEFLATE and leaves the installed model precision intact.
 
