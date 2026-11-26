@@ -1,0 +1,19 @@
+{
+  "id": "release-mixed-field-01",
+  "question": "Does one qualified, installable recurrent assistant beat untouched Base across a single shuffled stream of real local tools, unseen human reading, database questions and word problems after charging cold loads and mode switching?",
+  "requires": "research/results/tool-language-release-01",
+  "prerequisite_sha256": "d1be2cea938ef4c7486214f903c95a9ebe688917782d89f6ad4c2b32d5d02252",
+  "newer_release": "research/results/tool-language-release-02",
+  "newer_registration": "7952647adc4eac389d81eb956a4e03ef94f950b7ba7efbe32bd2b414f56cb2ea",
+  "material": "research/data/release-mixed-field-01.json",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "net_floor": 6,
+  "protocol": "Freeze all 50 initial prompt ID sequences, item order, questions, callback schemas and local snapshots before running either arm. Test ten new original HotpotQA ten-document questions, ten unseen ASDiv human arithmetic questions with a calculator, twelve new WikiSQL tables (two per operation), ten installed package versions and eight actual repository file byte or line counts. Corpus subsets exclude previously enrolled questions/tables/support titles as appropriate. Use the qualified field release if it passes its full release gate; otherwise use the original qualified bundle. No per-task changes to the tool model, no refit and no new route. Ordinary Base uses the identical chat protocol, tool callbacks, prefix policy, greedy thinking and three turns of up to 384 tokens. Each arm runs the whole common ordered stream after a cold model start. Wall seconds and actual first-token time include loading and all intervening mode switches. Reset MLX peak before each request. Record request-level output IDs, checksums, callbacks, answers, render, route and resource use. Ground package, file and SQL scores in correct actual calls. Score complete arithmetic numbers independent of tool use and HotpotQA answer phrases in completed free answers. Report grounded arithmetic separately. This enrolled mixture is a deployment stress test and has no population weights.",
+  "gate": "At least six net additional correct requests with two-sided exact paired p<=.05, no lower correctness in any of five families, and no higher total wall seconds or maximum MLX allocation. Separately report strict measured field dominance only if each family has higher accuracy, lower total time, lower first-token sum and lower peak. A miss closes a general-purpose superiority claim for this release; retain narrow qualifications. Stop for memory or time. The separate physical full-novel and register qualifications retain their independent outcomes.",
+  "limits": {
+    "wall_seconds": 1190,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
