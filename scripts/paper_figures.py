@@ -445,6 +445,7 @@ def main():
         compact_streams,
         packed_delivery,
         providers,
+        repository_trees,
         tokenizer_streams,
         transport,
     )
@@ -476,6 +477,7 @@ def main():
     tokenizer_streams(PAPER, RESULTS, result, finish)
     tokenizer_streams(PAPER, RESULTS, result, finish, "session-tokenizer-02")
     providers(PAPER, RESULTS, result)
+    repository_trees(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"

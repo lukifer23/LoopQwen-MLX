@@ -12,6 +12,98 @@ from loopqwen.io import digest, read
 from loopqwen.research.mixed_field import outcome
 
 
+def repository_trees(paper, results, result, finish):
+    name = "repository-tree-field-01"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    result(name)
+    checks = read(root / "checksums.json")
+    material = read(read(root / "registration.json")["material"])["panel"]
+    fig, axes = plt.subplots(1, 3, figsize=(7.1, 2.25))
+    with (paper / "repository-tree-requests.csv").open("w") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(
+            [
+                "git_revision",
+                "side",
+                "path",
+                "files",
+                "prompt_tokens",
+                "prompt_sha256",
+                "gold_bytes",
+                "gold_start",
+                "gold_stop",
+                "route",
+                "selected_start",
+                "selected_stop",
+                "visible_answer",
+                "exact",
+                "generated_tokens",
+                "cold_first_s",
+                "cold_total_s",
+                "post_first_tokens_per_s",
+                "peak_mlx_bytes",
+                "physical_cache_offsets",
+            ]
+        )
+        for side, color, marker, shift in (
+            ("candidate", "#11675d", "o", -0.10),
+            ("control", "#9d5932", "s", 0.10),
+        ):
+            path = root / (side + ".json.gz")
+            assert digest(path) == checks[path.name]
+            for i, (w, r) in enumerate(zip(material, unpack(path), strict=True)):
+                assert w["id"] == r["id"] and w["sha256"] == r["input_sha256"]
+                span = r.get("attention_memory") or {}
+                offsets = [c["retained"] for c in r["kv_history"]]
+                writer.writerow(
+                    [
+                        w["id"],
+                        side,
+                        w["path"],
+                        w["files"],
+                        r["prompt_tokens"],
+                        w["sha256"],
+                        w["gold"],
+                        w["gold_start"],
+                        w["gold_stop"],
+                        r.get("context_route", "base"),
+                        span.get("start"),
+                        span.get("stop"),
+                        r["grade"]["visible"],
+                        r["grade"]["exact"],
+                        len(r["token_ids"]),
+                        r["cold_first_seconds"],
+                        r["cold_seconds"],
+                        r["decode_tps"],
+                        r["peak_bytes"],
+                        json.dumps(offsets),
+                    ]
+                )
+                values = [r["cold_seconds"], r["decode_tps"], r["peak_bytes"] / 2**30]
+                for ax, value in zip(axes, values, strict=True):
+                    ax.scatter(
+                        value,
+                        i + shift,
+                        color=color,
+                        marker=marker,
+                        s=34,
+                        label=("Released loop" if side == "candidate" else "Base")
+                        if i == 0
+                        else None,
+                    )
+    for i, (ax, label) in enumerate(
+        zip(axes, ("Cold seconds", "Decode tokens/s", "Peak GiB"), strict=True)
+    ):
+        ax.set(xlabel=label, ylim=(1.45, -0.45))
+        ax.set_yticks([0, 1], [w["id"][:7] for w in material] if i == 0 else ["", ""])
+        ax.set_xlim(left=0)
+        ax.spines[["top", "right"]].set_visible(False)
+    axes[0].legend(loc="lower left", bbox_to_anchor=(0, 1.02), ncol=2, frameon=False)
+    finish(fig, "repository-tree")
+
+
 def make(paper, results, result, finish):
     name = "release-mixed-field-01"
     root = results / name

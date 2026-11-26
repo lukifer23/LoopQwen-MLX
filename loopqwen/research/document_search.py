@@ -114,7 +114,8 @@ def outcome(panel, arms, index, *, validation=None):
             and a["grounded"] >= max(14, b["grounded"] + 8)
             and a["correct"] >= b["correct"] + 6
             and a["evidence"] >= 20
-            and groups["SQuAD"]["candidate"]["grounded"] >= 4
+            and groups["SQuAD"]["candidate"]["grounded"]
+            >= groups["SQuAD"]["control"]["grounded"] + 4
             and min(ok / n for ok, n in validation.values()) >= 0.65
         )
     return result
