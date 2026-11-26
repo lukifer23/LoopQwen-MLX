@@ -1,0 +1,32 @@
+{
+  "id": "report-calculation-01",
+  "question": "Can alternating explicit externally executed arithmetic steps with a genuinely repeated native layer improve final numbers on complete financial report excerpts and transfer to unfamiliar worked tables?",
+  "training": "research/data/report-calculation-training.json",
+  "material": "research/data/report-calculation-panel.json",
+  "initial_adapter": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "rank": 32,
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "start_layer": 23,
+  "prefix_bits": 8,
+  "passes": 2,
+  "fit_seed": 621807,
+  "lr": 9.5e-05,
+  "batch": 4,
+  "updates": 1200,
+  "max_tokens": 384,
+  "max_turns": 5,
+  "protocol": "Independent study of stepwise interaction with heterogeneous source documents starting directly from the qualified instruction-sibling typed model. The model can emit a calculator call between steps, observe the real result, then calculate again or finish. Fit 256 complete FinQA reports (<=800 tokens of user text for fitting), 384 original GSM8K human solutions with 2-4 annotated operations, and 192 unrelated earlier typed replies. For report training, the first thinking target uses up to 48 tokens of one annotated supporting line. For GSM8K, thinking targets use the source wording preceding that calculation. One teacher call per operation and a final human numeric reply. Each callback executes in the standard runtime; downstream operands are the preceding real numeric results, including rational values. No test support indices, programs, publisher answers or solved demonstrations are present in input. Test 24 FinQA development items from 24 completely held-out issuers with independently executable 1-4-step programs agreeing with the published numeric answer and 24 unique free-response numerical TabMWP test tables from an entirely untrained source. Include all supplied report paragraphs and original tabular rows in each request. Preregistered randomized order, identical thinking-enabled IDs and unrestricted greedy 384-token allowance per assistant turn, at most five turns, no prefix reuse on both arms. Report real calls, observations, full retained offsets from every attention site, warm request and first-token time, peak, exact scalar and prose final-number credit. For FinQA require equality when the executed program equals the published number exactly; otherwise allow half of its last printed unit. Both arms receive the percentage-point convention. TabMWP requires numerical equality. An action-grounded answer requires the free final answer and the final real callback to agree with the reference, no callback error and at least one nonidentity arithmetic operation. Also count a subsequent nonidentity operation taking a prior callback value as an operand; equal numbers are evidence of reuse, not causal proof. Benchmark training inputs remain frozen.",
+  "gate": "At least six net additional correct final answers with paired two-sided exact McNemar p<=.05, at least two additional correct final answers on each source, no decrease in strict answers, completion or grounded success within either source. At least 16 grounded answers and ten above Base; at least six correct grounded requests with a separate subsequent action using a previous returned value. Total warm request time, sum of first-token times and peak MLX memory may not exceed Base. Verify native final-layer pass 0 and pass 1 and all KV offsets on every candidate turn, ordinary layer 23 only on Base, using the actual consumed tokens. A miss closes this fit. A pass licenses equally trained one-pass attribution and independent mixed live tool/reading retention before any deployment. This study never uses the arithmetic-draft weights.",
+  "limits": {
+    "wall_seconds": 1880,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
