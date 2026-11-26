@@ -1,0 +1,41 @@
+{
+  "id": "tool-dialogue-program-reasoning-01",
+  "question": "Does learning to plan executable arithmetic from human solutions improve the actual numeric answers on unseen external word problems as well as their grounding in calculator results?",
+  "workload": "arithmetic_programs",
+  "candidate": "train_loop",
+  "control": "base",
+  "training": "research/data/tool-program-reasoning-training.json",
+  "material": "research/data/tool-program-reasoning-01.json",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "fit_seed": 918724,
+  "rank": 32,
+  "batch": 4,
+  "lr": 7.5e-05,
+  "updates": 850,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "stop_at_turn_end": true,
+  "net_floor": 6,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "gate": "Require at least 6 net grounded completed answers and paired exact p<=.05; ALSO at least 5 net correct final numeric answers regardless of calculator use, exact p<=.05, and no loss in either individual source. Actual elapsed time and peak MLX bytes must not exceed Base. Stop on memory pressure or run limit. A pass licenses equal-training one-pass attribution, replication on unused external questions and retention of the prior typed tool capabilities. A miss closes this specific fit for arithmetic promotion.",
+  "protocol": "Continue the qualified shared final layer from its exact weights. Use the verified calculator annotations on 640 GSM8K training questions outside recorded experiments, two turns each, plus 512 previous general-tool rehearsal turns. Send an ordered list of bounded arithmetic expressions with previous results referenced by r1, r2 and so on. Check every training operation and final rational against publisher annotation. Test only on 24 ASDiv and 24 SVAMP official questions in seeded hash order with numerical gold. Exclude prior registered text and historical hash inventories, duplicate text openings across enrolled items and ASDiv openings shared with SVAMP. Both models get identical native thinking prompts and calculator interface, base tokenizer, full vocabulary, three turns of up to 384 tokens. Count complete final numeric answers including prose by the last visible number; separately score evidence that a model-generated arithmetic program returned the same correct value. Record strict canonical numeric answers and environment time. The related ASDiv and SVAMP sources are reported individually.",
+  "limits": {
+    "wall_seconds": 1200,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "initial_adapter": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "answer_floor": 5
+}

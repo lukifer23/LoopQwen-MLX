@@ -70,7 +70,33 @@ def summarize(records, spec):
             passed
             and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
         )
+    details = {}
+    if spec.get("answer_floor") is not None:
+        rows = read(spec["material"])["rows"]
+        changes = [
+            int(a["score"]["correct_answer"]) - int(b["score"]["correct_answer"])
+            for a, b in pairs
+        ]
+        by_source = {
+            s: sum(x for x, r in zip(changes, rows, strict=True) if r["source"] == s)
+            for s in {r["source"] for r in rows}
+        }
+        content_p = exact_mcnemar(changes.count(1), changes.count(-1))
+        details["answer_comparison"] = dict(
+            gains=changes.count(1),
+            losses=changes.count(-1),
+            p_exact=content_p,
+            net_by_source=by_source,
+        )
+        passed = (
+            passed
+            and sum(changes) >= spec["answer_floor"]
+            and content_p <= spec["p_max"]
+            and all(x >= 0 for x in by_source.values())
+            and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
+        )
     return dict(
+        **details,
         passed=passed,
         metrics=metrics,
         gains=gains,
@@ -82,6 +108,10 @@ def summarize(records, spec):
 
 def workload(spec, *, replay=False):
     material = read(spec["material"])
+    if spec.get("workload") == "arithmetic_programs":
+        from loopqwen.evaluation import program_questions as arithmetic
+
+        return material["rows"], arithmetic.tools_for, arithmetic.score
     if spec.get("workload") == "package_dependencies":
         from loopqwen.evaluation import package_questions
 

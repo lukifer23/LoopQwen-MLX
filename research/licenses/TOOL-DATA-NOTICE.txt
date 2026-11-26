@@ -22,3 +22,14 @@ names are restored on the publisher's SQLite values. The table tool and the
 second denotation check on resampled rows were developed for this project.
 https://github.com/salesforce/WikiSQL/tree/cffb423077756d04c1bac5bcd45167c86903fbcb
 See WIKISQL-BSD.txt and the source repository for attribution.
+
+Arithmetic-program training uses GSM8K human solutions (Cobbe et al., MIT)
+from 3101c7d5072418e28b9008a6636bde82a006892c. The data builder verifies their
+calculator annotations and turns them into executable arithmetic expressions.
+The transfer evaluation includes SVAMP (Patel et al.) and ASDiv (Miao, Liang
+and Su, ACL 2020). The ASDiv questions are attributed to Academia Sinica and
+provided under CC BY-NC 4.0; they are used exclusively for evaluation.
+https://github.com/chaochun/nlu-asdiv-dataset/tree/883f90a9a65bf00304ba8f37423910fe743abc47
+https://creativecommons.org/licenses/by-nc/4.0/
+https://github.com/arkilpatel/SVAMP/tree/78e727689e1c1bebfc4be39c446898e8e10b0518
+See GSM1K-LICENSE and SVAMP-LICENSE for earlier project data notices.

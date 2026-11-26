@@ -179,7 +179,25 @@ def fitted(arm, spec, out, budget):
     if arm.startswith("restore:"):
         return restore(arm.split(":", 1)[1])
     passes = {"train_loop": 2, "train_dense": 1}[arm]
-    model, tok = build(spec, passes)
+    if "initial_adapter" in spec:
+        source = Path(spec["initial_adapter"])
+        parent = read(source / "registration.json")
+        if (
+            digest(source / "checksums.json") != spec["initial_sha256"]
+            or read(source / "fit.json")["passes"] != passes
+            or any(
+                parent.get(k) != spec.get(k)
+                for k in ("donor", "prefix_bits", "start_layer", "rank")
+            )
+        ):
+            raise ValueError(
+                "Continued training requires the registered matching recurrent graph"
+            )
+        model, tok = restore(source)
+        mx.random.seed(spec["fit_seed"])
+        model.train()
+    else:
+        model, tok = build(spec, passes)
     fit(model, tok, spec, out, budget)
     gc.collect()
     mx.clear_cache()

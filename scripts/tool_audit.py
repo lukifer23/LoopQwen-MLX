@@ -21,6 +21,7 @@ def verify(root, decision, read, sha, require):
         "bfcl_exec",
         "table_questions",
         "package_dependencies",
+        "arithmetic_programs",
     )
     tokenizer = load_tokenizer(local_snapshot())
     stop_ids = set(tokenizer.eos_token_ids)
