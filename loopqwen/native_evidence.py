@@ -175,19 +175,24 @@ def load_native_reader(model, folder, expected):
         or spec["base"] != REVISION
     ):
         raise ValueError("Wrong native reader lineage")
-    cls = (
-        AnchoredNativeEvidence
-        if spec.get("architecture") == "anchored_native"
-        else NativeEvidence
-    )
-    net = cls(model, spec["rank"], spec["vocab"])
+    architectures = {
+        "native": NativeEvidence,
+        "anchored_native": AnchoredNativeEvidence,
+    }
+    architecture = spec.get("architecture", "native")
+    if architecture not in architectures:
+        raise ValueError("Unsupported native evidence architecture")
+    net = architectures[architecture](model, spec["rank"], spec["vocab"])
     weights = mx.load(str(path))
-    if set(weights) != set(dict(tree_flatten(net.trainable_parameters()))) | {
-        "center",
-        "scale",
-    }:
-        raise ValueError("Incomplete learned native tensors")
+    expected_arrays = dict(
+        tree_flatten(net.trainable_parameters()), center=net.center, scale=net.scale
+    )
+    if weights.keys() != expected_arrays.keys() or any(
+        v.shape != expected_arrays[key].shape for key, v in weights.items()
+    ):
+        raise ValueError("Incomplete or incompatible learned native tensors")
     net.load_weights(list(weights.items()), strict=False)
+    net.eval()
     return net
 
 
