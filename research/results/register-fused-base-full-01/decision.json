@@ -1,0 +1,45 @@
+{
+  "passed": false,
+  "accuracy_and_time": true,
+  "full_history": true,
+  "metrics": {
+    "direct_pages": {
+      "ttft": 167.64423341699876,
+      "seconds": 169.85336041694973,
+      "peak": 3004386324,
+      "correct": 2
+    },
+    "base": {
+      "ttft": 384.1076596659841,
+      "seconds": 390.9387477499549,
+      "peak": 4059680512,
+      "correct": 0
+    }
+  },
+  "items": 2,
+  "throughput": {
+    "direct_pages": {
+      "correct": 2,
+      "queries": 2,
+      "steps": 58,
+      "seconds": 169.85336041694973,
+      "ttft": 167.64423341699876,
+      "decode_seconds": 2.2091269999509677,
+      "decode_tps": 26.254715098447182,
+      "prefill_tps": 1563.8354785987929,
+      "peak": 3004386324
+    },
+    "base": {
+      "correct": 0,
+      "queries": 2,
+      "steps": 190,
+      "seconds": 390.9387477499549,
+      "ttft": 384.1076596659841,
+      "decode_seconds": 6.831088083970826,
+      "decode_tps": 27.814016985937528,
+      "prefill_tps": 682.5378078322585,
+      "peak": 4059680512
+    }
+  },
+  "fused_at_every_site": true
+}
