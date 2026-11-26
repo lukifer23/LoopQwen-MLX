@@ -35,6 +35,8 @@ The combined Apple Silicon export is `exports/tool-language-01` (2.2 GiB on this
 .venv/bin/python -m loopqwen tools --checkpoint exports/tool-language-01 --packages --prompt "What version of numpy is installed?" --max-tokens 256
 ```
 
+Add one or more `--follow-up "…"` arguments to keep a conversation open across successive requests. The command reports each reply and the live callbacks it used. Python callers can hold `chat = assistant.conversation(tools)` and call `chat.respond(text)` when the next user message arrives.
+
 The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database data.sqlite --table records` for a read-only table, and `--calculator` for exact arithmetic. With `--trace` the response includes every token, submitted argument, callback result and turn time. For custom tools, create a `Tool(name, description, parameters, callback)` and pass it to `Assistant(directory).respond(question, tools)`. The [package example](examples/local_packages.py) uses the Python environment of the running process.
 
 ## Current combined checkpoint

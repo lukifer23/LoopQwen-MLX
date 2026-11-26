@@ -36,6 +36,13 @@ def add_arguments(p, checkpoint=None):
         "--table", help="Name of the one database table exposed to the assistant"
     )
     p.add_argument("--prompt", required=True)
+    p.add_argument(
+        "--follow-up",
+        action="append",
+        default=[],
+        metavar="TEXT",
+        help="Send another user message in the same live conversation. Can be repeated.",
+    )
     p.add_argument("--max-tokens", type=int, default=160)
     p.add_argument("--max-turns", type=int, default=4)
     p.add_argument(
@@ -77,22 +84,39 @@ def respond(args, parser):
             supplied.append(database_tool(db, args.table))
         if not supplied:
             parser.error("Select a catalog, calculator, packages or a database table")
-        result = Assistant(args.checkpoint, tool_adapter=args.tool_adapter).respond(
-            args.prompt,
-            supplied,
+        assistant = Assistant(args.checkpoint, tool_adapter=args.tool_adapter)
+        options = dict(
             max_tokens=args.max_tokens,
             max_turns=args.max_turns,
             reuse_prefix=args.reuse_prefix,
         )
-    if not args.trace:
-        result = {k: v for k, v in result.items() if k != "turns"} | {
-            "calls": [
-                t["call"] | {"result": t["observation"]}
-                for t in result["turns"]
-                if "observation" in t
-            ]
-        }
-    return result
+        if args.follow_up:
+            prompts = [args.prompt, *args.follow_up]
+            if any(not text.strip() for text in prompts):
+                parser.error("Every conversation message needs text")
+            chat = assistant.conversation(supplied)
+            return {
+                "exchanges": [
+                    {
+                        "question": text,
+                        **present(chat.respond(text, **options), args.trace),
+                    }
+                    for text in prompts
+                ]
+            }
+        return present(assistant.respond(args.prompt, supplied, **options), args.trace)
+
+
+def present(result, trace):
+    if trace:
+        return result
+    return {k: v for k, v in result.items() if k != "turns"} | {
+        "calls": [
+            t["call"] | {"result": t["observation"]}
+            for t in result["turns"]
+            if "observation" in t
+        ]
+    }
 
 
 if __name__ == "__main__":

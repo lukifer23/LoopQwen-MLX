@@ -79,7 +79,6 @@ The public function test contains the first 24 consecutive questions from BFCL v
 == Training and inference costs
 The final-layer tool adapter occupies 3.06 MiB as FP32 factors over the frozen BF16 decoder. Its two fits had identical input batches and 19,364 scored response tokens. Prefix feature preparation took 25.13 seconds for two passes and 25.11 seconds for one. The optimizer consumed 39.47 and 25.11 seconds respectively. The matched run timed full interactive sessions, including multiple fresh prefills, greedy decoding, argument validation and Python callback execution. These are warm-model measurements. Startup, model download and construction of the combined export are outside the session timer. The shared-backbone tool view requires no second copy of the ordinary weights.
 
-#pagebreak()
 = Grounded reasoning over tool observations
 The second Base-initialized fit repeats layers 20–23 twice. Each active pass includes three gated delta layers and one global attention layer. The repeated suffix has 1,803,776 trainable LoRA parameters. All preceding decoder features are cached during fitting. Written numeric comparisons and short intermediate references supervise the model's generated reasoning before the chat boundary. We also include 89 unrelated read-only demonstrations from the Hermes/Glaive corpus across 31 called function names. The resulting 818 teaching turns receive 760 AdamW updates, minibatches of four, and 64,707 response targets. Native Gated DeltaNet differentiation and activation checkpointing support training on the 18 GiB device. Feature preparation took 54.66 seconds and optimization took 647.85 seconds.
 
@@ -89,7 +88,6 @@ The gate required at least 7/10 chains and 6/10 comparisons. The fit failed both
 
 #figure(image("trajectory-outcomes.svg",width:95%),caption: [Mutually exclusive terminal outcomes. The width is the share of enrolled episodes in that arm. A valid final answer supported by an incorrect or missing call falls in the finished, incorrect category.])
 
-#pagebreak()
 = External execution with typed arguments
 The first catalog adapter learned to ask for a missing entity on a multi-argument request where every quantity was given. We addressed the input distribution and the starting model in a new trial. The typed model starts from Qwen3.5-0.8B at revision `2fc06364715b967f1860aea9cf38778875588b17`, an instruction-tuned sibling of the pinned Base. Frozen embeddings and linear weights outside layer 23 use affine 8-bit quantization in groups of 64. Layer 23 remains BF16 with shared rank-32 adapters and runs twice. Both study arms use the pinned Base tokenizer, identical chat messages, EOS and turn-end IDs, and free greedy decoding.
 
@@ -130,11 +128,9 @@ A balanced crossover on these exact typed weights ran every numerical request fo
 
 After switching from tool use, 64 induction, 56 deduction and 80 mixed language generations matched the previous qualified export in full. All 120 raw prose requests used the ordinary path and all five domain losses matched, including pooled NLL 2.982658. Both complete 131,083-token requests reproduced the correct answer, exact token stream and located evidence span. The pair took 525.82 seconds at a peak of 4.33 GiB. This end-to-end test ties context capacity, ordinary language retention and executable tools to the same export inventory.
 
-#pagebreak()
 = Human-edited reading questions
 #include "reading-results.typ"
 
-#pagebreak()
 = The cost of full-history attention
 The released decoder repeats layers 10–15, including two global attention sites. Two separately registered experiments tested whether changing where it spends that work preserves the ability to use an earlier record. Each paired run includes both an original ledger and a counterfactual with the same numbers at the same token positions but two record names swapped. Timing includes locating the evidence. Each length contributes one pair per study.
 
@@ -147,7 +143,7 @@ Replacing global layer 7 with a second application of gated-delta layer 6 retain
 A third study kept the released eight-global-site graph intact and changed only the allocation of full-history keys and values. All four outputs, selected spans and consumed offsets matched. Reserving the full prompt and decoding allowance used 2.29 GiB at peak versus 2.37 GiB with incremental allocation. Summed first-token time was 74.45 versus 76.12 s, a 2.20% saving. Total time was 77.35 versus 79.01 s. This fell short of the registered 5% threshold, closing the additional physical 128K trial for this allocation policy.
 
 == Causal page selection during prefill
-The retriever keeps every K/V row at all eight global sites. For an interior 128-token query block it uses the first query, which is causally visible throughout that block, to rank mean keys of completed pages. It attends the first page, sixteen selected historical pages, fifteen recent pages and all causally available tokens in the current page. The last 512 input tokens and every output token receive dense full-history attention. Earlier hidden states can differ, so the comparison requires exact output IDs and evidence spans. MInference and FlexPrefill motivate sparse computation during prefill. Their hardware, page-selection policies and measured speedups differ from this native MLX design. [22, 23]
+The retriever keeps every K/V row at all eight global sites. For an interior 128-token query block it uses the first query, which is causally visible throughout that block, to rank mean keys of completed pages. It attends the first page, sixteen selected historical pages, fifteen recent pages and all causally available tokens in the current page. The last 512 input tokens and every output token receive dense full-history attention. Earlier hidden states can differ, so the comparison requires exact output IDs and evidence spans. MInference and FlexPrefill motivate sparse computation during prefill. KIVI studies the separate question of reducing stored KV precision, with different schemes for keys and values [25]. Their hardware, page-selection policies and measured speedups differ from this native MLX design. [22, 23]
 
 #figure(image("page-prefill.svg",width: 95%),caption: [Directly measured time to first token and the proportion of causal query–key pairs attended. Every global site physically retained every consumed position. The two pilot arms use identical recurrent weights.])
 
@@ -227,5 +223,9 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 
 [23] Lai et al. (2025). FlexPrefill, a context-aware sparse attention mechanism for efficient long-sequence inference. #link("https://proceedings.iclr.cc/paper_files/paper/2025/hash/03645743ea35690f30d795d6bac149a5-Abstract-Conference.html")[ICLR].
 [24] Hwang et al. (2019). A comprehensive exploration on WikiSQL with table-aware word contextualization. #link("https://github.com/naver/sqlova")[SQLova paper and implementation].
+
+[25] Liu et al. (2024). KIVI, a tuning-free asymmetric 2-bit quantization for KV cache. #link("https://proceedings.mlr.press/v235/liu24bz.html")[ICML].
+
+[26] Xiong et al. (2021). Answering complex open-domain questions with multi-hop dense retrieval. #link("https://openreview.net/forum?id=EMHoBG0avc1")[ICLR].
 
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

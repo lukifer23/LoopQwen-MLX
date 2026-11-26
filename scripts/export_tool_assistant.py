@@ -182,6 +182,7 @@ def export(
                 "'What version of mlx is installed? Use the tool.' --trace\n```\n\n"
                 "Use `--calculator` for exact arithmetic, `--database FILE --table NAME` for "
                 "an existing SQLite table, or `--catalog FILE` for JSON lookup definitions. "
+                "Repeat --follow-up TEXT to send further messages to the same conversation. "
                 "Python callers can supply their own callbacks to `runtime.tool_model.Assistant.respond`.\n"
             )
         inventory = {

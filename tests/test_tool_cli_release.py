@@ -177,3 +177,59 @@ def test_followup_reuses_real_observations_without_replaying_callbacks():
     assert len(calls) == 1 + sum(
         "observation" in t and t["call"]["name"] == ver.name for t in second["turns"]
     )
+
+
+@pytest.mark.skipif(
+    not (BUNDLE / "tool-export-files.json").is_file(),
+    reason="Requires the physical tool export",
+)
+def test_cli_followup_reuses_real_observation_and_prompt(tmp_path):
+    from loopqwen.tool_session import initial_messages, prompt
+    from mlx_lm.utils import load_tokenizer
+
+    first = "What version of the Python distribution mlx is installed in this environment? Use the available tool."
+    follow = "Repeat the version number from that result."
+    output = subprocess.check_output(
+        [
+            sys.executable,
+            "-m",
+            "loopqwen",
+            "tools",
+            "--checkpoint",
+            str(BUNDLE),
+            "--packages",
+            "--prompt",
+            first,
+            "--follow-up",
+            follow,
+            "--max-tokens",
+            "160",
+            "--trace",
+        ],
+        text=True,
+        **child_lease(),
+    )
+    from loopqwen.tool_session import compact
+    from importlib.metadata import version
+
+    tok = load_tokenizer(BUNDLE)
+    a, b = json.loads(output)["exchanges"]
+    assert a["question"] == first and b["question"] == follow
+    history = initial_messages(first, packages())
+    observed = []
+    for t in a["turns"]:
+        if "observation" in t:
+            history.extend(
+                [
+                    dict(role="assistant", content=t["visible"]),
+                    dict(role="tool", content=compact(t["observation"])),
+                ]
+            )
+            observed.append(t["observation"])
+    assert {"version": version("mlx")} in observed
+    history.extend(
+        [dict(role="assistant", content=a["answer"]), dict(role="user", content=follow)]
+    )
+    assert b["turns"][0]["prompt_ids"] == tok.encode(
+        prompt(tok, history), add_special_tokens=False
+    )
