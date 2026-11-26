@@ -99,6 +99,14 @@ class OperandPlanner(nn.Module):
                     getattr(self.layer.self_attn, k), r=8, scale=2, dropout=0
                 ),
             )
+        adapted = {k for k, v in tree_flatten(self.layer.trainable_parameters())}
+        expected = {
+            f"self_attn.{name}.lora_{part}"
+            for name in ("q_proj", "k_proj", "v_proj", "o_proj")
+            for part in ("a", "b")
+        }
+        if adapted != expected:
+            raise ValueError("Unexpected trainable native projections")
         self.depth = depth
         self.rank = rank
         self.compress = nn.Linear(2 * w, rank)

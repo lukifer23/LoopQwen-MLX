@@ -72,6 +72,7 @@ def fit(spec, planner, model, tok, rows, out, budget):
     vg = nn.value_and_grad(planner, loss)
     opt = optim.AdamW(learning_rate=spec["lr"], weight_decay=0.01)
     log = []
+    shared_gradients = []
     for step in range(spec["updates"]):
         batch = [
             j for source in sources for j in rng.sample(source, spec["batch"] // 2)
@@ -100,6 +101,15 @@ def fit(spec, planner, model, tok, rows, out, budget):
             target,
             stop,
         )
+        if step in (0, spec["updates"] - 1):
+            shared_norm = mx.sqrt(
+                sum(
+                    mx.square(v.astype(mx.float32)).sum()
+                    for k, v in tree_flatten(grad)
+                    if k.startswith("layer.")
+                )
+            )
+            shared_gradients.append([step + 1, shared_norm.item()])
         grad, _ = optim.clip_grad_norm(grad, 1.0)
         opt.update(planner, grad)
         mx.eval(loss_value, planner.trainable_parameters(), opt.state)
@@ -117,6 +127,9 @@ def fit(spec, planner, model, tok, rows, out, budget):
             weights=digest(file),
             trainable=sum(v.size for v in weights.values()),
             updates=spec["updates"],
+            native_layer=15,
+            shared_depth=planner.depth,
+            shared_gradient_norms=shared_gradients,
             prepare_s=encoded,
             optimizer_s=perf_counter() - at - encoded,
             loss=log,

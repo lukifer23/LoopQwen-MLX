@@ -10,7 +10,8 @@ from jsonschema import Draft202012Validator, SchemaError
 
 from loopqwen.io import digest, read, save
 
-if __name__ == "__main__":
+
+def select(seed="external-multi-41192", excluded=(), additional_training=()):
     # The source modules also support invocation through python -m scripts...
     import sys
 
@@ -26,10 +27,17 @@ if __name__ == "__main__":
         [json.loads(line) for line in f.read_text().splitlines()] for f in files
     ]
     labels = {r["id"]: r["ground_truth"] for r in labels}
-    seen = set()
+    seen = set(excluded)
     from loopqwen.tool_session import SYSTEM
-    for r in read("research/data/tool-dialogue-typed-training.json")["examples"]:
-        seen.update(f["name"] for f in json.loads(r["messages"][0]["content"].removeprefix(SYSTEM)))
+
+    for r in [
+        *read("research/data/tool-dialogue-typed-training.json")["examples"],
+        *additional_training,
+    ]:
+        seen.update(
+            f["name"]
+            for f in json.loads(r["messages"][0]["content"].removeprefix(SYSTEM))
+        )
         if r["visible"].startswith('{"name"'):
             seen.add(json.loads(r["visible"])["name"])
     for r in (
@@ -44,9 +52,7 @@ if __name__ == "__main__":
     rows = []
     for r in sorted(
         questions,
-        key=lambda x: hashlib.sha256(
-            ("external-multi-41192" + x["id"]).encode()
-        ).digest(),
+        key=lambda x: hashlib.sha256((seed + x["id"]).encode()).digest(),
     ):
         names = {f["name"] for f in r["function"]}
         gold = labels[r["id"]]
@@ -74,10 +80,39 @@ if __name__ == "__main__":
         if len(rows) == 24:
             break
     assert len(rows) == 24
-    save(
-        "research/data/tool-bfcl-multiple-01.json",
-        dict(
-            repository=REPO, revision=REV, sha256=[digest(f) for f in files], rows=rows
-        ),
+    return dict(
+        repository=REPO, revision=REV, sha256=[digest(f) for f in files], rows=rows
     )
-    print([r["id"] for r in rows])
+
+
+if __name__ == "__main__":
+    import argparse
+    import random
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--counterfactual-retention", action="store_true")
+    if parser.parse_args().counterfactual_retention:
+        old = []
+        for label, file in [
+            ("simple", "tool-bfcl-math-01"),
+            ("multiple", "tool-bfcl-multiple-01"),
+        ]:
+            old.extend(
+                dict(w, panel=label)
+                for w in read("research/data/" + file + ".json")["rows"]
+            )
+        used = {f["name"] for w in old for f in w["function"]}
+        material = select(
+            "retention-multi-b2-175027",
+            used,
+            read("research/data/tool-counterfactual-training.json")["examples"],
+        )
+        rows = old + [dict(w, panel="fresh") for w in material["rows"]]
+        random.Random(32198).shuffle(rows)
+        assert len({w["id"] for w in rows}) == 72
+        material["rows"] = rows
+        save("research/data/tool-counterfactual-bfcl.json", material)
+    else:
+        material = select()
+        save("research/data/tool-bfcl-multiple-01.json", material)
+    print([r["id"] for r in material["rows"]])

@@ -13,7 +13,7 @@ WORDS = dict(
 )
 WORDS.update(dozen=12, half=Fraction(1, 2), quarter=Fraction(1, 4))
 NUMBER = re.compile(
-    r"(?<![\w.])(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:/\d+)?(?!\w)|\b(?:"
+    r"(?<![\w.])(?:(?<!-)[+-])?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?(?:/\d+)?(?!\w)|\b(?:"
     + "|".join(WORDS)
     + r")\b",
     re.I,
@@ -24,7 +24,21 @@ def mentions(text):
     result = []
     for m in NUMBER.finditer(text):
         raw = m.group().casefold()
-        val = Fraction(WORDS[raw]) if raw in WORDS else Fraction(raw.replace(",", ""))
+        if raw in WORDS:
+            val = Fraction(WORDS[raw])
+        else:
+            number, slash, divisor = raw.replace(",", "").partition("/")
+            if slash and not int(divisor):
+                # A score such as 0/0 names two quantities rather than a rational.
+                offset = m.group().index("/")
+                result.extend(
+                    [
+                        (m.start(), m.start() + offset, str(Fraction(number))),
+                        (m.start() + offset + 1, m.end(), "0"),
+                    ]
+                )
+                continue
+            val = Fraction(number) / (int(divisor) if slash else 1)
         result.append((m.start(), m.end(), str(val)))
     return result
 

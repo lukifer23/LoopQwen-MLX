@@ -177,6 +177,18 @@ def verify(root, decision, read, sha, require):
                 "Outcome mismatch",
             )
         arms[side] = rows
+    if spec.get("matched_retention"):
+        a = read(Path(spec["requires"]) / "fit.json")
+        b = read(root / "fit.json")
+        require(
+            a["passes"] == 2
+            and b["passes"] == 1
+            and all(
+                a[k] == b[k]
+                for k in ("training", "trainable", "turns", "updates", "targets")
+            ),
+            "Unequal native depth fits",
+        )
     require(summarize(arms, spec) == decision, "Tool summary mismatch")
     if (root / "fit.json").exists():
         meta = read(root / "fit.json")

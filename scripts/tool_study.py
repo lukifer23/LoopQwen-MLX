@@ -73,6 +73,42 @@ def summarize(records, spec):
             and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
         )
     details = {}
+    if spec.get("matched_retention"):
+        from loopqwen.evaluation.mechanism import unpack
+        from scripts.tool_release import tokens
+
+        material = read(spec["material"])["rows"]
+        groups = {}
+        for panel in {r["panel"] for r in material}:
+            ps = [
+                p for p, r in zip(pairs, material, strict=True) if r["panel"] == panel
+            ]
+            groups[panel] = [
+                sum(int(x[j]["score"]["success"]) for x in ps) for j in (0, 1)
+            ]
+        original = unpack(Path(spec["requires"]) / "candidate.json.gz")
+        exact = all(
+            r["id"] == ref["id"]
+            and tokens(r["trajectory"]) == tokens(ref["trajectory"])
+            for r, ref in zip(records["candidate"], original, strict=True)
+        )
+        passed = (
+            exact
+            and gains >= losses
+            and all(a >= b - 1 for a, b in groups.values())
+            and metrics["candidate"]["seconds"]
+            <= metrics["control"]["seconds"] * spec["time_ratio"]
+            and metrics["candidate"]["peak_bytes"]
+            <= metrics["control"]["peak_bytes"] + spec["extra_bytes"]
+        )
+        details["matched"] = dict(
+            panels=groups,
+            exact=exact,
+            causal_gain=passed
+            and gains - losses >= spec["net_floor"]
+            and p <= spec["p_max"],
+        )
+
     if spec.get("workload") == "sql_transfer_retention":
         groups = read(spec["material"])["rows"]
         metrics_by_group = {}

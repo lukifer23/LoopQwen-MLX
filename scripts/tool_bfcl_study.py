@@ -112,7 +112,41 @@ def summary(rows, spec):
         and scores["candidate"]["seconds"]
         <= scores["control"]["seconds"] * spec["time_ratio"]
     )
+    extra = {}
+    if spec.get("retention"):
+        items = read(spec["material"])["rows"]
+        counts = {}
+        for tag in ("simple", "multiple", "fresh"):
+            counts[tag] = [
+                sum(
+                    x["correct"]
+                    for x, w in zip(arm, items, strict=True)
+                    if w["panel"] == tag
+                )
+                for arm in rows.values()
+            ]
+        evidence = {}
+        for parent in spec["reference_traces"]:
+            for r in unpack(Path(parent) / "candidate.json.gz"):
+                evidence[r["id"]] = r
+        parity = all(
+            r[k] == evidence[r["id"]][k]
+            for r in rows["control"]
+            if r["id"] in evidence
+            for k in ("prompt_ids", "token_ids")
+        )
+        passed = (
+            parity
+            and counts["simple"][0] >= 16
+            and counts["multiple"][0] >= 18
+            and counts["fresh"][0] >= counts["fresh"][1] - 1
+            and wins >= losses
+            and scores["candidate"]["seconds"]
+            <= scores["control"]["seconds"] * spec["time_ratio"]
+        )
+        extra["retention"] = dict(panels=counts, prior_exact=parity)
     return dict(
+        **extra,
         passed=passed,
         metrics=scores,
         gains=wins,
@@ -158,7 +192,15 @@ def main(name):
     rows = {}
     try:
         for side in ("candidate", "control"):
-            model, tok = restore(spec["model"]) if side == "candidate" else base()[:2]
+            if side == "candidate":
+                model, tok = restore(spec["model"])
+            elif spec.get("control_model"):
+                parent = Path(spec["control_model"])
+                if digest(parent / "checksums.json") != spec["control_sha256"]:
+                    raise ValueError("Different structural retention control")
+                model, tok = restore(parent)
+            else:
+                model, tok = base()[:2]
             pars = []
             for w in items:
                 text = render(tok, w)
