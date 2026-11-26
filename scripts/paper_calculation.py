@@ -1,14 +1,82 @@
 """Report numerical answers and real callback evidence on all held-out documents."""
 
+import ast
 import csv
+from collections import Counter
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 from paper_overlap import audit
 
+from loopqwen.calculator_tool import execute
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read
 from loopqwen.tool_session import compact
+
+
+def operation(expression):
+    node = ast.parse(expression.strip(), mode="eval").body
+    if not isinstance(node, ast.BinOp):
+        return "", []
+    operands = [str(execute([ast.unparse(arg)])[0]) for arg in (node.left, node.right)]
+    return type(node.op).__name__, operands
+
+
+def first_steps(paper, panel, root, sums):
+    with (paper / "report-first-calculations.csv").open("w") as stream:
+        out = csv.writer(stream)
+        out.writerow(
+            [
+                "id",
+                "side",
+                "expert_first_step",
+                "first_executed_step",
+                "expert_operator",
+                "executed_operator",
+                "expert_arguments",
+                "executed_arguments",
+                "same_operator",
+                "arguments_in_common",
+                "same_operation_and_ordered_values",
+                "correct_final_answer",
+            ]
+        )
+        for side in ("candidate", "control"):
+            path = root / (side + ".json.gz")
+            assert digest(path) == sums[path.name]
+            for item, row in zip(panel, unpack(path), strict=True):
+                if item["source"] != "FinQA":
+                    continue
+                assert item["id"] == row["id"]
+                expr = next(
+                    (
+                        t["call"]["arguments"]["steps"][0]
+                        for t in row["trajectory"]["turns"]
+                        if "value" in t.get("observation", {})
+                    ),
+                    "",
+                )
+                expert = item["steps"][0]
+                op, args = operation(expert)
+                actual, vals = operation(expr) if expr else ("", [])
+                assert op
+                overlap = sum((Counter(args) & Counter(vals)).values())
+                out.writerow(
+                    [
+                        item["id"],
+                        side,
+                        expert,
+                        expr,
+                        op,
+                        actual,
+                        compact(args),
+                        compact(vals),
+                        op == actual,
+                        overlap,
+                        op == actual and args == vals,
+                        row["score"]["correct"],
+                    ]
+                )
 
 
 def make(paper, results, result, finish):
@@ -64,6 +132,7 @@ def make(paper, results, result, finish):
         return
     d = result(name)
     sums = read(root / "checksums.json")
+    first_steps(paper, panel, root, sums)
     with (paper / "report-calculation-requests.csv").open("w") as stream:
         out = csv.writer(stream)
         out.writerow(
