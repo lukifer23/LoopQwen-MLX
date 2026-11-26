@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-26T20:15:28.309298+00:00",
-  "starting_revision": "6e8b11e",
+  "session_start_utc": "2026-11-26T21:14:29.046694+00:00",
+  "starting_revision": "2072005",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -769,6 +769,42 @@
       "promoted": true,
       "scope": "Can the qualified offline packed-register assistant be distributed as one self-contained archive with every file and its actual tool callback preserved?",
       "decision": "research/results/transport-lossless-02/decision.json"
+    },
+    {
+      "id": "session-tokenizer-01",
+      "promoted": true,
+      "scope": "How much of the qualified assistant\u2019s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
+      "decision": "research/results/session-tokenizer-01/decision.json"
+    },
+    {
+      "id": "meaning-alignment-01",
+      "promoted": false,
+      "scope": "Can a shared two-pass language decoder learn to compare meaning under high word overlap and transfer that reasoning to actual user support questions without support-domain training?",
+      "decision": "research/results/meaning-alignment-01/decision.json"
+    },
+    {
+      "id": "register-fused-base-full-01",
+      "promoted": false,
+      "scope": "Can the trained physical-history 131K register system with singleton fused attention beat untouched ordinary Base on answer accuracy, prefill and emitted-token throughput, first and full request times, and peak bytes on one fresh key-swap pair?",
+      "decision": "research/results/register-fused-base-full-01/decision.json"
+    },
+    {
+      "id": "draft-program-01",
+      "promoted": false,
+      "scope": "Does letting the ordinary decoder deliberate in its own words before the two-pass finisher selects an arithmetic program improve grounded answers on fresh human questions from two sources?",
+      "decision": "research/results/draft-program-01/decision.json"
+    },
+    {
+      "id": "packed-decode-kernel-02",
+      "promoted": false,
+      "scope": "Can factoring affine KV products and sharing each online softmax rescale across eight physical rows cut another 15% of long-history single-query time against the verified fused kernel?",
+      "decision": "research/results/packed-decode-kernel-02/decision.json"
+    },
+    {
+      "id": "folded-system-01",
+      "promoted": false,
+      "scope": "Can one resident recurrent instruction backbone serve practical tools and natural reasoning without loading another model on each switch, while beating pinned ordinary Base on fresh human answers, grounded actions, cost and historical retention?",
+      "decision": "research/results/folded-system-01/decision.json"
     }
   ],
   "status": "Running held-out tool reasoning, typed public-function execution and human-edited BoolQ comparisons. See the preregistered stop rules for each.",
@@ -824,9 +860,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795720004.533142,
+  "closed_session_start": 1795724128.309298,
   "native_window": {
-    "start_utc": "2026-11-26T20:15:28.309298+00:00",
+    "start_utc": "2026-11-26T21:14:29.046694+00:00",
     "status": "open"
   },
   "kinship_transfer": {
