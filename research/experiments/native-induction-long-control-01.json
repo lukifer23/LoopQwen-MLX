@@ -1,0 +1,54 @@
+{
+  "id": "native-induction-long-control-01",
+  "question": "Can a one-pass decoder match three native passes if trained directly on answer quality without support constraints, with five times as many optimizer updates and at least as much actual native optimizer time?",
+  "requires": "native-induction-anchored-replication-01",
+  "prerequisite_sha256": "bd9b11c58c0aeaa1ddcf72befa95114eb1610bf84d5e9a86cc614827e9b7ad7f",
+  "material": "research/data/native-induction-anchored-01.json",
+  "seed": 431908,
+  "sizes": {
+    "train": 1536,
+    "primary": 64,
+    "replication": 64
+  },
+  "fit_seed": 5101,
+  "rank": 64,
+  "lr": 0.00045,
+  "batch": 32,
+  "updates": 3000,
+  "auxiliary": 1.2,
+  "panel": "replication",
+  "arms": {
+    "recurrent": {
+      "depth": 3,
+      "reader": "research/results/native-induction-anchored-01",
+      "weights": "67264d560c70d48a5e7fe49679fc7ecd0b6872c997495fe8ecd416c6a1caa759"
+    },
+    "dense": {
+      "depth": 1,
+      "fit": true,
+      "training": {
+        "updates": 15000,
+        "decay_start": 9000,
+        "auxiliary": 0
+      }
+    }
+  },
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "Keep the reference three-pass weights and the same 64 confirmation questions frozen. Reinitialize one pass from the original seed, use the same 1536 training stories and response loss with isolated color supervision, remove support-location losses entirely to let ordinary attention find its own optimum, and extend optimization to 15000 updates with cosine decay beginning at 9000 and a batch size of 32. Score full free greedy generation, identical common-prefix probes and timing. Record both optimizer durations alongside inference.",
+  "gate": "The long-trained one-pass control must consume at least 114.62748233298771 actual optimizer seconds. Require >=8 net complete correct, exact paired p<.05, >=4 net probes and <=1.50x control end-to-end inference. Otherwise close the stronger control claim. Stop on time limit or memory warning.",
+  "limits": {
+    "wall_seconds": 950,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "exclude": [
+    "research/data/native-induction-01.json"
+  ],
+  "architecture": "anchored_native",
+  "decay_start": 1800,
+  "isolated_answer_weight": 1.0,
+  "minimum_control_optimization_seconds": 114.62748233298771
+}
