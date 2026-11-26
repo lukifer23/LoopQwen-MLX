@@ -12,7 +12,19 @@ RUNTIME = ("page_prefill.py", "evaluation/generation_eval.py", "export_runtime.p
 RUNTIME_REVISION = "0880d1e830e8013aa3a1591eb3967273928796c2"
 
 
-def build(source, parent, destination, full):
+COMPACT_REVISION = "c3f297968941d7a28b9f403a1b97877055637f6a"
+FUSED_REVISION = "6faf8a27e107f1021dcb13c3eacbe48560f0cc4c"
+COMPACT_RUNTIME = (
+    "export_runtime.py",
+    "register_session.py",
+    "mixed_register.py",
+    "page_prefill.py",
+    "evaluation/generation_eval.py",
+    "kernels/packed_decode.py",
+)
+
+
+def build(source, parent, destination, full, *, compact=False):
     original = read(parent / "export-files.json")
     if (
         not read(parent / "decision.json")["passed"]
@@ -35,26 +47,45 @@ def build(source, parent, destination, full):
             shutil.copyfile(source / name, target)
         cfg = read(staging / "config.json")
         cfg["register_prefill"] = "direct-packed-register-v1"
+        if compact:
+            cfg["register_weights"] = "affine8-mlp-output-exact-input-v1"
         save(staging / "config.json", cfg)
         repository = Path(__file__).resolve().parents[1]
-        for name in RUNTIME:
+        for name in COMPACT_RUNTIME if compact else RUNTIME:
+            revision = RUNTIME_REVISION
+            if compact:
+                revision = (
+                    FUSED_REVISION
+                    if name == "kernels/packed_decode.py"
+                    else COMPACT_REVISION
+                )
             payload = subprocess.check_output(
                 [
                     "git",
                     "-C",
                     str(repository),
                     "show",
-                    f"{RUNTIME_REVISION}:loopqwen/{name}",
+                    f"{revision}:loopqwen/{name}",
                 ]
             )
-            (staging / "runtime" / name).write_bytes(payload)
+            target = staging / "runtime" / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(payload)
         with (staging / "README.md").open("a") as f:
-            f.write(
-                "\n## Long register prefill\n\nFor resident register requests of at least 16,384 tokens, "
-                "the learned context selector enables native 8-bit paged prefill. Each of the eight "
-                "recurrent global sites retains the complete input and output history. "
-                "The final 512 input tokens and all output tokens use full-history attention.\n"
-            )
+            if compact:
+                f.write(
+                    "\n## Long register weights\n\nThe trained router selects the recurrent register decoder. "
+                    "At 32,768 input tokens or more this decoder converts the feed-forward and output weights to eight bits, "
+                    "retains exact BF16 input rows and uses fused full-history decoding. Subsequent requests reload the "
+                    "original language weights when needed. Every vocabulary ID remains available during generation.\n"
+                )
+            else:
+                f.write(
+                    "\n## Long register prefill\n\nFor resident register requests of at least 16,384 tokens, "
+                    "the learned context selector enables native 8-bit paged prefill. Each of the eight "
+                    "recurrent global sites retains the complete input and output history. "
+                    "The final 512 input tokens and all output tokens use full-history attention.\n"
+                )
         files = {
             str(p.relative_to(staging)): digest(p)
             for p in sorted(staging.rglob("*"))

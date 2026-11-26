@@ -11,7 +11,7 @@ LoopQwen-MLX · Research report #h(1fr) #counter(page).display()])
 #let repo = "https://github.com/lukifer23/LoopQwen-MLX"
 #let tab(..body) = table(columns: (1.65fr,1.05fr,1.05fr), align: (left,center,center), stroke: none, inset: 5pt, fill: (x,y) => if y == 0 {rgb("#deede9")} else if calc.odd(y) {rgb("#f5f7f6")}, ..body)
 #let note(body) = block(inset: 8pt, fill: rgb("#edf4f1"), width: 100%, body)
-#text(size: 26pt, weight: "bold")[Where shared decoder depth earns its cost]
+#text(size: 23.5pt, weight: "bold")[Where shared decoder depth earns its cost]
 #linebreak()
 #text(size: 14pt)[Reasoning, executable tool use, and full-history inference on an 18 GiB Apple Silicon machine]
 #v(4pt)
@@ -23,9 +23,12 @@ A two-pass tool model initialized from the instruction-tuned sibling executed th
 
 On a 131,080-token document and its key swap, full-history recurrent inference retrieved both changed values against zero for Base in 171.88 versus 391.67 seconds, using 2.80 versus 3.78 GiB. On two versions of a complete 162K-token novel, both missed the human-authored answer. The clearest causal depth gain concerns induction. Practical tool and long-context gains depend on additional choices in supervision, initialization, routing and kernels. The accompanying archives include prompts, emitted tokens, external observations, timing, memory and decisions for each comparison.
 
+#figure(image("recurrent-paths.svg",width:96%),caption:[Two uses of a repeated native decoder layer. In each row, green boxes denote calls to the same physical weights. The tool loop through an external program adds a separate level of iteration.])
+
+#pagebreak()
 = Measured system comparisons
 #table(columns: (1.45fr,0.95fr,0.95fr,1.18fr,0.98fr,0.46fr),align:(left,left,center,center,center,center),inset:3.5pt,stroke:none,fill:(x,y)=>if y==0 {rgb("#deede9")} else if calc.odd(y){rgb("#f5f7f6")},
-[*Candidate*],[*Endpoint*],[*Correct\ of N*],[*Total seconds*],[*Peak GiB*],[*Gate*],
+table.header([*Candidate*],[*Endpoint*],[*Correct\ of N*],[*Total seconds*],[*Peak GiB*],[*Gate*]),
 ..csv("system-comparisons.csv",row-type:dictionary).map(r=>([#r.system],[#r.endpoint],[#r.candidate / #r.base (#r.n)],[#r.seconds_candidate / #r.seconds_base],[#r.peak_candidate / #r.peak_base],[#r.gate])).flatten(),
 )
 Every pair lists the candidate first and untouched Base second. The denominator in parentheses counts requests. Each row uses its named checkpoint or inference policy. The last column applies the complete predetermined decision rule, including per-family floors where specified. Grounded success requires the recorded callback and final answer to agree with the reference. Distinct resource and timing protocols are detailed by study below. The shipped assistant is evaluated separately.
@@ -47,7 +50,7 @@ The strongest induction result uses a different placement of recurrence. Layers 
 
 The two-read deduction component instead learns retrieval steps and runs the pretrained 10–15 span on sentence states. The register component scans overlapping windows of token-embedding features, scores windows against the query, and biases native attention toward the selected passage at generation. Its full-history decoder still consumes every token. The deployed language policy selects a component from the request, including an ordinary Base path. For induction, both a story gate and a 4,098-parameter question-intent classifier must accept the input.
 
-#figure(image("recurrent-paths.svg",width:96%),caption:[Two uses of a repeated native decoder layer. In each row, green boxes denote calls to the same physical weights. The tool loop through an external program adds a separate level of iteration.])
+
 
 == Training and comparison rules
 The induction fit uses 1,536 training stories, 3,000 Adam updates, batches of 32 and 552,810 trainable parameters per arm. The question and nine shuffled facts are identical for paired models. We count completed answers, also score four candidate words at a shared prefix, and measure full inference time. We retain all enrolled ambiguous items. The different training seeds change initialization and minibatch order together. The system and depth comparisons answer different questions and have different controls.

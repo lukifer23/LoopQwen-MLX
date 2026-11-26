@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import resource
 import sys
 from pathlib import Path
 from time import perf_counter
@@ -125,6 +126,10 @@ def main():
         json.dumps(
             {
                 "cold": cold,
+                "stream_seconds": perf_counter() - at,
+                "high_water_rss_bytes": resource.getrusage(
+                    resource.RUSAGE_SELF
+                ).ru_maxrss,
                 "short": first + last,
                 "register": register,
                 "book": prose,

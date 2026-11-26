@@ -16,6 +16,7 @@ from ..identity import fingerprint
 from ..io import digest, read, save
 from ..model_loader import local_snapshot
 from ..worker import child_lease
+from .compact_retention import material as release_material
 from .core import Budget
 from .register_allocation import packed_evidence
 from .registered import registered
@@ -108,7 +109,7 @@ def outcome(data, mat, spec):
             } == REGISTER and all(
                 v["retained"] == v["offset"] == consumed for v in z["kv_history"]
             )
-            if s == "candidate":
+            if s == "candidate" or spec.get("compact"):
                 sites = z.get("page_sites", [])
                 evidence &= (
                     z.get("prefill_policy") == "direct-packed-register-v1"
@@ -156,7 +157,7 @@ def outcome(data, mat, spec):
             and numeric(parsed["visible"]) == expected["gold"]
         )
     a, b = (summary[s] for s in SIDES)
-    return {
+    decision = {
         "passed": bool(
             evidence
             and exact_books == 2
@@ -173,11 +174,16 @@ def outcome(data, mat, spec):
         "register_exact_correct": correct,
         "metrics": summary,
     }
+    if spec.get("compact"):
+        from .compact_retention import qualify
+
+        return qualify(decision, data, mat, spec)
+    return decision
 
 
 def verify(root, decision):
     spec = read(root / "registration.json")
-    mat = read(spec["material"])
+    mat = release_material(spec)
     assert all(fingerprint(w["prompt_ids"]) == w["sha256"] for w in mat["books"])
     data = {s: unpack(root / (s + ".json.gz")) for s in SIDES}
     assert all(len(rs) == 2 for rs in data.values())
@@ -186,7 +192,12 @@ def verify(root, decision):
     changed = {
         k for k in inventory.keys() | parent.keys() if inventory.get(k) != parent.get(k)
     }
-    assert "config.json" in changed and changed <= {
+    additional = set()
+    if spec.get("compact"):
+        from scripts.export_packed_register import COMPACT_RUNTIME
+
+        additional = {"runtime/" + k for k in COMPACT_RUNTIME}
+    assert "config.json" in changed and changed <= additional | {
         "README.md",
         "config.json",
         "runtime/page_prefill.py",
@@ -200,7 +211,7 @@ def run(name):
     from scripts.export_packed_register import build
 
     spec = registered(name)
-    mat = read(spec["material"])
+    mat = release_material(spec)
     out = Path("outputs/research") / name
     out.mkdir(parents=True, exist_ok=True)
     if (out / "decision.json").exists():
@@ -239,7 +250,9 @@ def run(name):
     destination.parent.mkdir(parents=True, exist_ok=True)
     budget = Budget(name, spec["limits"])
     try:
-        inventory = build(baseline, parent, staged, full)
+        inventory = build(
+            baseline, parent, staged, full, compact=spec.get("compact", False)
+        )
         save(out / "export-files.json", inventory)
         runs = {s: [] for s in SIDES}
         for i in range(2):
@@ -251,12 +264,16 @@ def run(name):
                         tmp = Path(tmp)
                         opt = child_lease()
                         opt["env"].update(HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1")
+                        input_file = Path(spec["material"]).resolve()
+                        if spec.get("compact"):
+                            input_file = tmp / "material.json"
+                            save(input_file, mat)
                         cmd = [
                             sys.executable,
                             "-I",
                             str(Path("scripts/packed_release_worker.py").resolve()),
                             str(bundle.resolve()),
-                            str(Path(spec["material"]).resolve()),
+                            str(input_file),
                             str(i),
                             str(tmp / "result.json"),
                             str(spec["limits"]["peak_gib"]),
