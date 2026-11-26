@@ -4,7 +4,6 @@ import csv
 
 import matplotlib.pyplot as plt
 
-
 READING = {
     "contrast-boolq-recurrent-01": "Base-initialized reading fit",
     "contrast-boolq-transfer-01": "Paired inference transfer",

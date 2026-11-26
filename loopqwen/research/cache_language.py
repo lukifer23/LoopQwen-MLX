@@ -78,11 +78,11 @@ def fit(net, spec, budget):
         mx.eval(params, opt.state, cost)
         budget.check()
     net.parameters = params
-    return dict(
-        parameters=params.tolist(),
-        seconds=perf_counter() - start,
-        train_loss=cost.item(),
-    )
+    return {
+        "parameters": params.tolist(),
+        "seconds": perf_counter() - start,
+        "train_loss": cost.item(),
+    }
 
 
 def measure(net, row, candidate, budget):
@@ -110,14 +110,14 @@ def measure(net, row, candidate, budget):
         losses.extend((-mx.log(mx.maximum(gold, 1e-35))).tolist())
     elapsed = perf_counter() - at
     budget.check()
-    return dict(
-        id=row["id"],
-        category=row["category"],
-        ids=predictions,
-        nll=losses,
-        seconds=elapsed,
-        peak=mx.get_peak_memory(),
-    )
+    return {
+        "id": row["id"],
+        "category": row["category"],
+        "ids": predictions,
+        "nll": losses,
+        "seconds": elapsed,
+        "peak": mx.get_peak_memory(),
+    }
 
 
 def decide(data, items, spec, parity):
@@ -133,16 +133,16 @@ def decide(data, items, spec, parity):
                 or (cat == "retention" and r["category"] != "wikitext")
             ]
             n = sum(len(r["nll"]) for r, w in subset)
-            scores[side][cat] = dict(
-                tokens=n,
-                nll=sum(sum(r["nll"]) for r, w in subset) / n,
-                top1=sum(
+            scores[side][cat] = {
+                "tokens": n,
+                "nll": sum(sum(r["nll"]) for r, w in subset) / n,
+                "top1": sum(
                     sum(a == b for a, b in zip(r["ids"], w["ids"][1:], strict=True))
                     for r, w in subset
                 ),
-                seconds=sum(r["seconds"] for r, w in subset),
-                peak=max(r["peak"] for r, w in subset),
-            )
+                "seconds": sum(r["seconds"] for r, w in subset),
+                "peak": max(r["peak"] for r, w in subset),
+            }
     a, b = scores["candidate"], scores["control"]
     wins = losses = 0
     for x, y in zip(*data.values(), strict=True):
@@ -168,14 +168,14 @@ def decide(data, items, spec, parity):
         and a["pooled"]["seconds"] <= b["pooled"]["seconds"]
         and all(parity)
     )
-    return dict(
-        passed=passed,
-        scores=scores,
-        article_wins=wins,
-        article_losses=losses,
-        p_exact=p,
-        live_parity=parity,
-    )
+    return {
+        "passed": passed,
+        "scores": scores,
+        "article_wins": wins,
+        "article_losses": losses,
+        "p_exact": p,
+        "live_parity": parity,
+    }
 
 
 def verify(root, decision):
@@ -230,13 +230,13 @@ def run(name):
             packed(out / (side + ".json.gz"), data[side])
             if candidate:
                 live = [
-                    dict(
-                        id=r["id"],
-                        length=spec["prefix_length"],
-                        prediction=net.generate(r["ids"][: spec["prefix_length"]], 1)[
-                            0
-                        ],
-                    )
+                    {
+                        "id": r["id"],
+                        "length": spec["prefix_length"],
+                        "prediction": net.generate(
+                            r["ids"][: spec["prefix_length"]], 1
+                        )[0],
+                    }
                     for r in items[:6]
                 ]
                 save(out / "live-prefix.json", live)

@@ -45,11 +45,19 @@ def excerpts(split, count, used, tok):
         if len(kept) != 257:
             raise ValueError("Excerpt boundary")
         used.add(key)
-        rows.append(dict(id=title, category="wikitext", offset=offset, ids=kept))
+        rows.append(
+            {"id": title, "category": "wikitext", "offset": offset, "ids": kept}
+        )
         if len(rows) == count:
             break
     assert len(rows) == count, (split, len(pages), len(rows))
-    return dict(repo=REPO, rev=REV, file=filename, source_sha256=digest(p), rows=rows)
+    return {
+        "repo": REPO,
+        "rev": REV,
+        "file": filename,
+        "source_sha256": digest(p),
+        "rows": rows,
+    }
 
 
 if __name__ == "__main__":

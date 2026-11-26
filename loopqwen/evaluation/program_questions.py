@@ -34,10 +34,10 @@ def score(row, trajectory):
             answer = numeric(matches[-1])
     correct = answer is not None and Fraction(answer) == gold
     complete = trajectory["status"] == "answered"
-    return dict(
-        success=grounded and correct and complete,
-        path=grounded,
-        correct_answer=correct,
-        strict_answer=strict is not None and Fraction(strict) == gold,
-        completed=complete,
-    )
+    return {
+        "success": grounded and correct and complete,
+        "path": grounded,
+        "correct_answer": correct,
+        "strict_answer": strict is not None and Fraction(strict) == gold,
+        "completed": complete,
+    }

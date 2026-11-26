@@ -23,15 +23,15 @@ if __name__ == "__main__":
         position = "first" if first else "last"
         question = f"For the installed Python distribution {name}, which version is installed of its alphabetically {position} active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
         rows.append(
-            dict(
-                id="local-deps-" + name,
-                root=name,
-                target=target,
-                dependencies=deps,
-                position=position,
-                version=environment[target]["version"],
-                user_request=question,
-            )
+            {
+                "id": "local-deps-" + name,
+                "root": name,
+                "target": target,
+                "dependencies": deps,
+                "position": position,
+                "version": environment[target]["version"],
+                "user_request": question,
+            }
         )
     if not rows:
         raise ValueError(
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         )
     save(
         "research/data/tool-package-dependencies-01.json",
-        dict(environment=environment, rows=rows),
+        {"environment": environment, "rows": rows},
     )
     print(
         len(rows), "installed roots,", len(target_counts), "distinct dependency targets"

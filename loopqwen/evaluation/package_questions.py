@@ -38,9 +38,9 @@ def score(row, trajectory):
         )
     )
     complete = trajectory["status"] == "answered"
-    return dict(
-        success=path and correct and complete,
-        path=path,
-        correct_answer=correct,
-        completed=complete,
-    )
+    return {
+        "success": path and correct and complete,
+        "path": path,
+        "correct_answer": correct,
+        "completed": complete,
+    }

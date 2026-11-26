@@ -167,13 +167,13 @@ def main():
                 continue
             enrolled.add(opening)
             items.append(
-                dict(
-                    id=sha(q),
-                    question=q,
-                    source=src,
-                    gold=gold,
-                    user_request=q + INSTRUCTION,
-                )
+                {
+                    "id": sha(q),
+                    "question": q,
+                    "source": src,
+                    "gold": gold,
+                    "user_request": q + INSTRUCTION,
+                }
             )
             excluded.add(q)
             count += 1
@@ -190,24 +190,24 @@ def main():
         if not steps:
             continue
         excluded.add(q)
-        call = compact(dict(name="calculate", arguments=dict(steps=steps)))
+        call = compact({"name": "calculate", "arguments": {"steps": steps}})
         obs = compact(calculate(steps))
         msgs = initial_messages(q + INSTRUCTION, [tool()])
         key = sha(q)
         examples.append(
-            dict(id=key + "-call", messages=msgs, visible=call, thinking="")
+            {"id": key + "-call", "messages": msgs, "visible": call, "thinking": ""}
         )
         examples.append(
-            dict(
-                id=key + "-result",
-                messages=msgs
+            {
+                "id": key + "-result",
+                "messages": msgs
                 + [
-                    dict(role="assistant", content=call),
-                    dict(role="tool", content=obs),
+                    {"role": "assistant", "content": call},
+                    {"role": "tool", "content": obs},
                 ],
-                visible=str(execute(steps)[-1]),
-                thinking="",
-            )
+                "visible": str(execute(steps)[-1]),
+                "thinking": "",
+            }
         )
         if len(examples) == 1280:
             break
@@ -217,17 +217,17 @@ def main():
     examples += sorted(previous, key=lambda w: sha("program-rehearsal:" + w["id"]))[
         :512
     ]
-    sources = dict(
-        gsm_train=digest(tr),
-        asdiv=digest(ad),
-        svamp=digest(sw),
-        exclusions_git=PRIOR,
-    )
+    sources = {
+        "gsm_train": digest(tr),
+        "asdiv": digest(ad),
+        "svamp": digest(sw),
+        "exclusions_git": PRIOR,
+    }
     save(
         REG / "tool-program-reasoning-training.json",
-        dict(sources=sources, examples=examples),
+        {"sources": sources, "examples": examples},
     )
-    save(REG / "tool-program-reasoning-01.json", dict(sources=sources, rows=items))
+    save(REG / "tool-program-reasoning-01.json", {"sources": sources, "rows": items})
     print(len(examples), "supervised turns;", len(items), "fresh reasoning questions")
 
 
