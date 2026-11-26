@@ -27,8 +27,11 @@ def encode(model, tok, text, question, columns):
             raise ValueError("Different serialized column order")
         column_spans.append((cursor, cursor + len(literal)))
         cursor += len(literal) + 1
-    offset = text.rindex(question)
-    word_spans = [(a + offset, b + offset) for a, b in words(question)]
+    # The pinned chat template strips leading whitespace from the user turn.
+    # Whitespace carries no word indices, so align the rendered substring.
+    surface = question.strip()
+    offset = text.rindex(surface)
+    word_spans = [(a + offset, b + offset) for a, b in words(surface)]
     if not columns or not word_spans:
         raise ValueError("Need a nonempty question and table schema")
     prefix = model._execute(
