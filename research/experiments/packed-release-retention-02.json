@@ -1,0 +1,30 @@
+{
+  "id": "packed-release-retention-02",
+  "question": "Can the request-scoped mixed-weight decoder improve the existing offline release on 131K registers while preserving exact book probabilities, short generations and executed tools in a cold mixed workload?",
+  "full": "research/results/register-mixed-weight-full-01",
+  "parent": "research/results/packed-release-retention-01",
+  "material": "research/data/packed-release-retention-01.json",
+  "requirements": {
+    "register-mixed-weight-full-01": "128f3a891312ee9cad2e418c5542646b8af3e07ba7da55a48297ee33b7afa51e",
+    "packed-release-retention-01": "75811591815d33b0e0c89ff7c87c4a8ff1beeede5e10cfe695c1c4d734f59df0"
+  },
+  "staging": "outputs/research-artifacts/compact-register-release-candidate",
+  "destination": "exports/tool-language-packed-04",
+  "packages": {
+    "mlx": "0.32.4",
+    "numpy": "2.5.5"
+  },
+  "time_ratio": 1.0,
+  "protocol": "Freeze the original 12 short language prompts, two real installed-package callbacks and two entire books (512 scored targets) of release 03. Reuse the distinct 131084-token documents from the historical fused comparison to measure full token retention. The older 03 packed release and the proposed bundle both generate freely on these original IDs, in two cold AB/BA blocks outside the checkout, with fresh interpreters, offline only. Each stream interleaves language, full register, complete raw book, language and tools. Candidate uses unchanged classifier, original verified fused full-history Metal query, 8-bit groups of 64 on 72 FFN maps and vocabulary output, exact original BF16 input rows with lazy file access for any new ID. Only register requests at least 32768 tokens select this representation. Include time for conversion, release and rehydration in the stream. Record peak process RSS and MLX peaks. Stored original weights and tokenizer are preserved. Source and parent inventories must both pass certification.",
+  "gate": "Require all 512 next-token predictions and individual losses, 12 short free generations and both actual correct package answers to match exactly. Require 2/2 correct completed register answers, token IDs identical to both parent 03 and the archived original fused run, both gold intervals, eight complete global histories, actual direct packed attention on both arms, every fused query and 72 converted maps on the candidate, exact counts for full prompt rows plus any newly consumed output IDs. Each register must achieve at least 12% more post-first tokens/s and lower MLX peak than the same-weight parent. Summed register elapsed time, summed complete cold stream time and worst process RSS must all be no higher. Only this conjunction publishes export 04. Failed prerequisites or a missed endpoint close deployment of this configuration.",
+  "limits": {
+    "wall_seconds": 1320,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "register_material": "research/data/register-fused-base-full-01.json",
+  "register_material_sha256": "13cf6d7ad5d3acb79dcc3043651cabe67e321584d15e2049249a0a45f6aab7f4",
+  "historical_register": "research/results/register-fused-base-full-01",
+  "compact": true,
+  "rate_margin": 0.12
+}

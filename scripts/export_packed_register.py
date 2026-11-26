@@ -12,7 +12,7 @@ RUNTIME = ("page_prefill.py", "evaluation/generation_eval.py", "export_runtime.p
 RUNTIME_REVISION = "0880d1e830e8013aa3a1591eb3967273928796c2"
 
 
-COMPACT_REVISION = "c3f297968941d7a28b9f403a1b97877055637f6a"
+COMPACT_REVISION = "9a39af860322ee28b446315980a5f1b8845a7da4"
 FUSED_REVISION = "6faf8a27e107f1021dcb13c3eacbe48560f0cc4c"
 COMPACT_RUNTIME = (
     "export_runtime.py",
