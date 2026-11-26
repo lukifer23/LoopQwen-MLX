@@ -1,0 +1,22 @@
+{
+  "id": "register-packed-pilot-01",
+  "question": "Can per-token native 8-bit storage at all eight recurrent cache sites lower the physical memory cost of the successful BF16 page reader without changing any qualified short-register output?",
+  "requires": "research/results/register-page-prefill-01",
+  "prerequisite_sha256": "d9e84b385ff722397fea401cc02627dac16ec420d938422d5d821d37a881112f",
+  "motivation_archive": "ed9b576237f13c06e875956e065bb10e9bdd3da98c4e1aea9bd54b91f33b746a",
+  "material": "research/data/register-rebalanced-01.json",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "attention_policy": "packed_pages",
+  "control": "pages",
+  "max_tokens": 96,
+  "ratio": 1.15,
+  "elapsed_ratio": 1.15,
+  "peak_ratio": 0.95,
+  "protocol": "Independent cache-design study responding to the archived BF16 full-length memory loss. Compare the identical recurrent page selector, reader and decoder weights. Control stores original BF16 K/V; candidate encodes every K and V row with native affine 8-bit groups of 64. Keep BF16 page summaries in both; gather selected compressed past rows before native dequantization and fused BF16 attention. The final >=512 input tokens and all generated tokens use every stored position with the original reader mask. Alternate arms over four previously measured 16K/32K original and counterfactual registers; this is an engineering parity test, not independent accuracy evidence. Retain token IDs, actual code and affine tensor byte counts, physical KV offsets and causal attention work. Measure model-resident peak and all selection/conversion/decoding time equally.",
+  "gate": "All four answers correct for both arms, identical input/output IDs and identified evidence window, correct 8-bit code and scale/bias tensor extents and full physical retention at all eight genuine recurrent KV sites. Peak must fall at least 5% on the full panel, with summed TTFT and end-to-end time each no greater than 1.15 times the BF16 page control. Any miss closes this design. A pass licenses an independent equal-width key swap at physical 131K against untouched Base with all resource gates and an independently authored natural-prose retention study before deployment.",
+  "limits": {
+    "wall_seconds": 420,
+    "peak_gib": 6.6,
+    "available_gib": 1.4
+  }
+}
