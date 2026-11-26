@@ -1,0 +1,44 @@
+{
+  "id": "native-kinship-01",
+  "question": "Does the same native-layer training method add correct kinship judgments on human-paraphrased three-edge CLUTRR stories compared with the pinned ordinary Qwen Base?",
+  "requires": "native-induction-anchored-replication-01",
+  "prerequisite_sha256": "bd9b11c58c0aeaa1ddcf72befa95114eb1610bf84d5e9a86cc614827e9b7ad7f",
+  "material": "research/data/native-kinship-01.json",
+  "seed": 918321,
+  "sizes": {
+    "train": 960,
+    "primary": 64,
+    "replication": 40
+  },
+  "fit_seed": 5101,
+  "rank": 64,
+  "lr": 0.00045,
+  "batch": 32,
+  "updates": 3000,
+  "auxiliary": 1.2,
+  "panel": "primary",
+  "arms": {
+    "recurrent": {
+      "depth": 3,
+      "fit": true
+    },
+    "base": {
+      "depth": 0
+    }
+  },
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "Train the same anchored Qwen layer 15, actual attention head-pair support supervision and final native state lexical loss on 960 published CLUTRR training stories with three natural sentences. Reserve 64 validation stories and 40 official-test composition-shift stories, disjoint by ID, entire story and delexicalized whole-story template. Only the original texts, the two named people and their direction are in the prompt, with no graph metadata or candidate answers. Evaluate free thinking generation, 192 tokens, full vocabulary and the same explicit common answer-prefix rank over fourteen single-token kin words. Record the exact training split, order, answers, times and streams. The official-test panel remains sealed pending the primary and matched ordinary-depth pass.",
+  "gate": "At least eight net completed correct answers over Base, exact two-sided paired p<.05, four net common-prefix judgments and <=1.5x actual generation time. Stop the downstream matched/official-test branch on failure, memory warning or budget exhaustion.",
+  "limits": {
+    "wall_seconds": 1450,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "architecture": "anchored_native",
+  "decay_start": 1800,
+  "isolated_answer_weight": 1.0,
+  "task": "kinship"
+}
