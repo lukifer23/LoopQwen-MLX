@@ -347,7 +347,16 @@ def workload(spec, *, replay=False):
     if spec.get("workload") == "arithmetic_programs":
         from loopqwen.evaluation import program_questions as arithmetic
 
-        return material["rows"], arithmetic.tools_for, arithmetic.score
+        items = [
+            dict(r, user_request=r["question"] + arithmetic.INSTRUCTION)
+            for r in material["rows"]
+        ]
+        if any(
+            "user_request" in r and r["user_request"] != i["user_request"]
+            for i, r in zip(items, material["rows"], strict=True)
+        ):
+            raise ValueError("Arithmetic prompt differs from its frozen rendering")
+        return items, arithmetic.tools_for, arithmetic.score
     if spec.get("workload") == "package_dependencies":
         from loopqwen.evaluation import package_questions
 

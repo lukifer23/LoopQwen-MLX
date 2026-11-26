@@ -192,8 +192,13 @@ def verify(root, decision, read, sha, require):
     require(summarize(arms, spec) == decision, "Tool summary mismatch")
     if (root / "fit.json").exists():
         meta = read(root / "fit.json")
+        weights = (
+            "planner.safetensors"
+            if spec["id"].startswith("operand-planner-")
+            else "tool-adapters.safetensors"
+        )
         require(
-            meta["weights"] == sha(root / "tool-adapters.safetensors")
+            meta["weights"] == sha(root / weights)
             and meta["training"] == sha(Path(spec["training"]))
             and meta["updates"] == spec["updates"],
             "Tool fit lineage",
