@@ -13,6 +13,8 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Median and tail tool latency and first-token time](tool-latency.csv)
 - [Trajectory-level costs, calls and failure types](tool-trajectories.csv)
 - [Training-to-evaluation lexical overlap, with and without normalized numbers](training-overlap.csv)
+- [Original reading questions, references and both complete visible answers](passage-answers.csv)
+- [Reading results with paired article-level uncertainty](passage-scores.csv)
 - [BoolQ sensitivity after excluding near-duplicate training paragraphs](reading-overlap-sensitivity.csv)
 - [Full-history answer quality and first-token time per request](register-efficiency.csv)
 - [Measured system comparisons against untouched Base](system-comparisons.csv)
