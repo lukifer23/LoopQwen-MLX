@@ -156,6 +156,7 @@ def export(checkpoint, output, fusion="stock"):
             "looped_model.py",
             "recurrence.py",
             "recurrent_cache.py",
+            "reserved_cache.py",
             "offloaded_prefill.py",
         ):
             shutil.copyfile(Path(__file__).with_name(filename), runtime / filename)

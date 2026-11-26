@@ -99,9 +99,26 @@ def export(language, language_record, trained, qualification, destination):
             "tool_session.py",
             "tool_catalog.py",
             "tool_prefill.py",
+            "reserved_cache.py",
+            "calculator_tool.py",
+            "table_tool.py",
+            "package_tools.py",
+            "tool_cli.py",
             "evaluation/generation_eval.py",
         ):
             shutil.copyfile(worktree / "loopqwen" / file, rt / file)
+        with (bundle / "README.md").open("a") as guide:
+            guide.write(
+                "\n## Use the included tool assistant\n\n"
+                "From this directory on Apple Silicon, run the bundled command with the Python "
+                "environment containing MLX, mlx-lm, jsonschema and packaging. The callback reads "
+                "the installed package metadata on this machine.\n\n"
+                "```sh\npython -m runtime.tool_cli --packages --prompt "
+                "'What version of mlx is installed? Use the tool.' --trace\n```\n\n"
+                "Use `--calculator` for exact arithmetic, `--database FILE --table NAME` for "
+                "an existing SQLite table, or `--catalog FILE` for JSON lookup definitions. "
+                "Python callers can supply their own callbacks to `runtime.tool_model.Assistant.respond`.\n"
+            )
         inventory = {
             str(p.relative_to(bundle)): digest(p)
             for p in sorted(bundle.rglob("*"))
