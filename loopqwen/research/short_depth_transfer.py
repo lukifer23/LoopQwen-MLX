@@ -30,9 +30,9 @@ def run():
     out.mkdir(exist_ok=False, parents=True)
     result = dict(registration=digest(reg), data=digest(panel), passed=False)
     records = {"dense": [], "recurrent": []}
-    reference = unpack("research/results/rationale-transfer-01/candidate.json.gz")[
-        "records"
-    ]
+    reference = unpack(
+        Path("research/results/rationale-transfer-01/candidate.json.gz")
+    )["records"]
     b = core.Budget(NAME, s["limits"])
     try:
         for start, arms in [(0, ("recurrent", "dense")), (24, ("dense", "recurrent"))]:
