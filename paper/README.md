@@ -86,3 +86,5 @@ The matched-tool figure reports paired accuracy differences for the two-pass can
 The timing supplement gives median first-token and complete-session latency, generated tokens and total wall time for every enrolled tool request. It also reports the subset solved by both arms, so readers can inspect speed when both delivered a correct answer. [Paired timing supplement](matched-tool-latency.csv)
 
 Two source supplements track actual follow-up context and actual attention work. [Per-dialogue registered and callback-equivalent outcomes](conversation-replay.csv) · [Full-history causal attention work, offsets and timing](page-prefill.csv)
+
+The recurrent table-parser comparison is run with `python -m loopqwen.research.table_parser_study table-parser-01`. Its material builder re-executes the column- and span-bound plans on the publisher SQLite database before registering them. The primary evaluation also re-executes the inferred plan on a held-out row bootstrap to reduce credit for accidentally matching one result. [Frozen protocol](../research/experiments/table-parser-01.json)
