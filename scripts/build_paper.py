@@ -33,6 +33,7 @@ def main(verify):
                         "schema-calls-",
                         "operand-planner-",
                         "release-mixed-field-",
+                        "conversation-followup-",
                         "contrast-boolq-",
                         "register-rebalanced-",
                         "register-allocation-",

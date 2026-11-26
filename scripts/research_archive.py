@@ -83,6 +83,10 @@ def verify(root):
         from loopqwen.research.operand_study import verify as verify_operands
 
         verify_operands(root, decision)
+    if study.startswith("conversation-followup-"):
+        from loopqwen.research.conversation_study import verify as verify_conversation
+
+        verify_conversation(root, decision)
     if study.startswith("release-mixed-field-"):
         from loopqwen.research.mixed_field import verify as verify_mixed_field
 

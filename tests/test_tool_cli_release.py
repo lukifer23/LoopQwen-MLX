@@ -134,3 +134,46 @@ def test_small_adapter_overlay_reproduces_changed_public_execution():
     )
     assert tokens(result) == tokens(expected["trajectory"])
     assert executable_tools.score(item, result)["success"]
+
+
+@pytest.mark.skipif(
+    not (BUNDLE / "tool-export-files.json").is_file(),
+    reason="Requires the physical two-backbone tool export",
+)
+def test_followup_reuses_real_observations_without_replaying_callbacks():
+    from importlib.metadata import version
+
+    from loopqwen.tool_session import Tool, compact, prompt
+
+    assistant = Assistant(BUNDLE)
+    deps, ver = packages()
+    calls = []
+
+    def counted(distribution):
+        calls.append(distribution)
+        return ver.callback(distribution)
+
+    chat = assistant.conversation(
+        [deps, Tool(ver.name, ver.description, ver.parameters, counted)]
+    )
+    question = "What version of the Python distribution mlx is installed in this environment? Use the available tool."
+    first = chat.respond(question, max_tokens=256)
+    assert first["status"] == "answered" and calls == ["mlx"]
+    assert {
+        "role": "tool",
+        "content": compact({"version": version("mlx")}),
+    } in chat.messages
+    saved = list(chat.messages)
+    chat.messages[-1]["content"] = "changed outside the conversation"
+    assert list(chat.messages) == saved
+    follow = "Repeat the version from that observation."
+    second = chat.respond(follow, max_tokens=96)
+    expected = prompt(
+        assistant.tokenizer, [*saved, {"role": "user", "content": follow}]
+    )
+    assert second["turns"][0]["prompt_ids"] == assistant.tokenizer.encode(
+        expected, add_special_tokens=False
+    )
+    assert len(calls) == 1 + sum(
+        "observation" in t and t["call"]["name"] == ver.name for t in second["turns"]
+    )

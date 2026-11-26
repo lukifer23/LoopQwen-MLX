@@ -266,3 +266,24 @@ The [paper and supplements](../paper/README.md) include the structured outcomes,
 ### Human reasoning and real tool workloads
 
 `scripts/tool_study.py STUDY` fits or restores exactly the weights in the registration. The calculator study is `tool-dialogue-program-reasoning-01`, the unchanged-model SQLite and installed-package studies are `tool-dialogue-table-transfer-01` and `tool-dialogue-package-chain-01`, and the cross-service venue study is `tool-dialogue-venue-state-02`. The venue builder records the whole human conversation up to each enrolled turn, freezes two inventories and checks every training count with both SQLite and a separate row filter. `scripts/contrast_study.py contrast-boolq-transfer-01` runs the human-edited reading comparison. The natural document and raw language studies use `python -m loopqwen.research.bridge_reading bridge-reading-01` and `python -m loopqwen.research.cache_language cache-language-01`. Each command needs the environment and exclusive native lease described above. [Study registrations](../research/experiments) · [Data notices](../research/licenses)
+
+Each recent tool study records its own checkpoint lineage. The jointly trained adapter and its one-pass control use the same 2,527 turns and target positions. Replay the paired decisions with the two commands below. The matched comparison needs the archived candidate and both transcripts. It does not need another optimizer run.
+
+```sh
+.venv/bin/python scripts/research_archive.py tool-dialogue-counterfactual-01 --verify
+.venv/bin/python scripts/research_archive.py tool-dialogue-counterfactual-depth-01 --verify
+```
+
+The learned calculator planner runs with `python -m loopqwen.research.operand_study operand-planner-01`. Its first turn serializes the native layer's chosen operations and actual operand pointers. Subsequent turns use ordinary free generation over the tool response. The semantic endpoints score numerical content and verified tool grounding separately. The causal page-prefill comparison runs with `python -m loopqwen.research.register_allocation register-page-prefill-01` and records attended query–key pairs and physical KV offsets at each site. [Registered workloads and budgets](../research/experiments)
+
+The installed Python API also accepts follow-up user messages in a persistent conversation. The session stores visible assistant messages and actual JSON tool observations. A new request rerenders that history under the same tool definitions. Earlier callbacks execute only when the model makes a new call. Clear the context by constructing a new conversation.
+
+```python
+from loopqwen.package_tools import tools
+from loopqwen.tool_model import Assistant
+
+chat = Assistant("exports/tool-language-01").conversation(tools())
+first = chat.respond("What version of the Python distribution mlx is installed in this environment? Use the available tool.")
+follow = chat.respond("Repeat the version from that observation.")
+print(first["answer"], follow["answer"])
+```

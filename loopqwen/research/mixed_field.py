@@ -204,15 +204,25 @@ def replay(row, record, material, tok, spec):
         if tools
         else [dict(role="user", content=request)]
     )
-    available = {t.name: t for t in tools}
     tr = record["trajectory"]
-    stops = tok.eos_token_ids | {tok.convert_tokens_to_ids("<|im_end|>")}
-    answer = None
-    status = "turn_limit"
     assert (
         tr["turns"][0]["prompt_ids"] == row["initial_ids"]
         and 0 < record["first_token_s"] <= record["wall_s"]
     )
+    replay_exchange(tok, tools, messages, tr, spec)
+    assert (
+        record["score"] == grade(row, tr, tok)
+        and record["wall_s"] >= tr["seconds"]
+        and record["request_peak"] > 0
+    )
+
+
+def replay_exchange(tok, tools, messages, tr, spec):
+    """Independently rebuild tokens, actual tool effects and visible conversation history."""
+    available = {t.name: t for t in tools}
+    stops = tok.eos_token_ids | {tok.convert_tokens_to_ids("<|im_end|>")}
+    answer = None
+    status = "turn_limit"
     assert 1 <= len(tr["turns"]) <= (spec["max_turns"] if tools else 1)
     for index, t in enumerate(tr["turns"]):
         assert t["prompt_ids"] == tok.encode(
@@ -242,12 +252,15 @@ def replay(row, record, material, tok, spec):
                             fn = available[action["name"]]
                             validate(action["arguments"], fn.parameters)
                     except (KeyError, ValueError, ValidationError):
+                        messages.append(dict(role="assistant", content=visible))
                         status = "invalid_call"
                         assert index + 1 == len(tr["turns"])
                         break
                 if action is None:
                     answer = visible
                     status = "answered" if answer else "empty_answer"
+                    if answer:
+                        messages.append(dict(role="assistant", content=answer))
                 else:
                     assert action == t["call"]
                     try:
@@ -264,11 +277,6 @@ def replay(row, record, material, tok, spec):
                     continue
         assert index + 1 == len(tr["turns"])
     assert tr["status"] == status and tr["answer"] == answer
-    assert (
-        record["score"] == grade(row, tr, tok)
-        and record["wall_s"] >= tr["seconds"]
-        and record["request_peak"] > 0
-    )
 
 
 def verify(root, decision):

@@ -151,6 +151,12 @@ class Assistant:
         self.tokenizer = None
         self._tool_model = None
 
+    def conversation(self, tools=()):
+        """Keep user turns, visible answers and real tool observations across requests."""
+        from .tool_session import Conversation
+
+        return Conversation(self, tools)
+
     def _load_language(self):
         if self.language is None:
             from .export_runtime import load_export
@@ -169,6 +175,7 @@ class Assistant:
         max_turns=4,
         progress=None,
         reuse_prefix=None,
+        _messages=None,
     ):
         if tools:
             from .tool_session import run
@@ -197,6 +204,7 @@ class Assistant:
                 max_tokens=max_tokens,
                 max_turns=max_turns,
                 progress=progress,
+                _messages=_messages,
                 reuse_prefix=self.reuse_prefix
                 if reuse_prefix is None
                 else reuse_prefix,
@@ -205,7 +213,9 @@ class Assistant:
         from .tool_session import prompt
 
         self._load_language()
-        text = prompt(self.tokenizer, [dict(role="user", content=question)])
+        messages = [] if _messages is None else _messages
+        messages.append(dict(role="user", content=question))
+        text = prompt(self.tokenizer, messages)
         out = generate(
             self.language,
             self.tokenizer,
@@ -235,6 +245,8 @@ class Assistant:
                 status = "answered" if answer else "empty_answer"
             else:
                 status = "unfinished_thinking"
+        if answer and _messages is not None:
+            messages.append(dict(role="assistant", content=answer))
         return dict(
             answer=answer,
             status=status,

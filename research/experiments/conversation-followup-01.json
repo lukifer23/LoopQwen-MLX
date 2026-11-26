@@ -1,0 +1,17 @@
+{
+  "requires": "research/results/tool-language-release-01",
+  "prerequisite_sha256": "d1be2cea938ef4c7486214f903c95a9ebe688917782d89f6ad4c2b32d5d02252",
+  "checkpoint": "exports/tool-language-01",
+  "id": "conversation-followup-01",
+  "question": "Can the shipping recurrent tool weights complete real two-user-turn clarifications and resolve a reference to an earlier live observation?",
+  "material": "research/data/conversation-followup-01.json",
+  "max_tokens": 256,
+  "max_turns": 3,
+  "protocol": "One direct native comparison using the qualified original export versus untouched Base. Start a fresh public Assistant.conversation with the same persistent package tools per pair. Sixteen distinct final lookup targets excluded from earlier enrolled package names, eight clarification dialogues and eight follow-ups referring to a sorted live list of installed distributions for eight distinct prefixes; every second user message is fixed before either model runs and is sent even if its first answer was wrong. Save and independently reconstruct all visible prior messages, real callback observations, generated and input token IDs. Ignore private reasoning in the next turn. Use identical common initial IDs and identical fixed user replies, identical greedy thinking and 256 tokens per model turn. Count completed correct first route and observed final lookup of the right version, completed correct final content, paired changes, peak MLX and actual whole-exchange time including cold startup. Eight clarification requests share the same underlying intent. This is a bounded capability test, with no population inference across arbitrary conversations.",
+  "gate": "At least six net more fully correct exchanges than ordinary Base, exact two-sided paired p<=.05, at least half in each family, no higher aggregate wall time or peak native bytes. Preserve the original first-turn protocol. A miss closes the claim that this checkpoint reliably handles both forms of contextual follow-up. Keep the conversation interface's trace-preservation tests independent of model accuracy.",
+  "limits": {
+    "wall_seconds": 545,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  }
+}

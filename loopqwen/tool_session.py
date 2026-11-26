@@ -2,6 +2,8 @@
 
 import json
 import re
+from copy import deepcopy
+from threading import Lock
 from dataclasses import dataclass
 from time import perf_counter
 
@@ -35,9 +37,53 @@ class Tool:
         )
 
 
+class Conversation:
+    """Caller-owned conversation with a fixed tool catalog and ordered observations."""
+
+    def __init__(self, assistant, tools):
+        self._assistant = assistant
+        self._tools = tuple(
+            Tool(t.name, t.description, deepcopy(t.parameters), t.callback)
+            for t in tools
+        )
+        self._messages = [system_message(self._tools)] if self._tools else []
+        self._active = Lock()
+
+    @property
+    def messages(self):
+        return tuple(dict(m) for m in self._messages)
+
+    def respond(
+        self, question, *, max_tokens=160, max_turns=4, progress=None, reuse_prefix=None
+    ):
+        if not isinstance(question, str) or not question.strip():
+            raise ValueError("The next user message must contain text")
+        if not self._active.acquire(blocking=False):
+            raise RuntimeError("A response to this conversation is already in progress")
+        try:
+            return self._assistant.respond(
+                question,
+                self._tools,
+                max_tokens=max_tokens,
+                max_turns=max_turns,
+                progress=progress,
+                reuse_prefix=reuse_prefix,
+                _messages=self._messages,
+            )
+        finally:
+            self._active.release()
+
+
+def system_message(tools):
+    return {
+        "role": "system",
+        "content": SYSTEM + compact([t.definition() for t in tools]),
+    }
+
+
 def initial_messages(question, tools):
     return [
-        dict(role="system", content=SYSTEM + compact([t.definition() for t in tools])),
+        system_message(tools),
         dict(role="user", content=question),
     ]
 
@@ -89,6 +135,7 @@ def run(
     schema_guided=False,
     first_turn_decoder=None,
     observation_model=None,
+    _messages=None,
 ):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
     if not 1 <= max_turns <= 64:
@@ -109,7 +156,11 @@ def run(
     stop_ids = set(tokenizer.eos_token_ids)
     if stop_at_turn_end:
         stop_ids.add(tokenizer.convert_tokens_to_ids("<|im_end|>"))
-    messages = initial_messages(question, tools)
+    if _messages is None:
+        messages = initial_messages(question, tools)
+    else:
+        messages = _messages
+        messages.append(dict(role="user", content=question))
     from .tool_prefill import ToolPrefix
 
     tool_prefix = ToolPrefix() if reuse_prefix else None
@@ -172,6 +223,8 @@ def run(
             if action is None:
                 answer = visible
                 status = "answered" if visible else "empty_answer"
+                if answer and _messages is not None:
+                    messages.append(dict(role="assistant", content=answer))
                 break
             row["call"] = action
             name = action["name"]
@@ -180,6 +233,8 @@ def run(
             validators[name].validate(action["arguments"])
         except (ValueError, ValidationError):
             status = "invalid_call"
+            if _messages is not None:
+                messages.append(dict(role="assistant", content=visible))
             break
         try:
             result = catalog[name].callback(**action["arguments"])
