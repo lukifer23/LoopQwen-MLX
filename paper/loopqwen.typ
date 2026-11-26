@@ -108,6 +108,10 @@ The first 22 consecutive BFCL v3 executable-simple questions specify 11 numerica
 The recurrent system gained 17 episodes with zero losses. The exact episode-level paired test gives $p = 0.0000153$; a sign-flip sensitivity test by function gives $p = 0.00391$. It supplied 5 and 4 where the two compound-interest calls required 0.05 and 0.04. The resulting callback outputs were faithfully reported and numerically wrong for the requested question. The two long-list means and one velocity call failed argument parsing or validation. This decomposition distinguishes parameter grounding from fidelity to the observation.
 
 #pagebreak()
+= Transfer and matched controls for the frozen tool model
+#include "transfer-results.typ"
+
+#pagebreak()
 = Offline deployment qualification
 The tool release contains two text backbones, a shared tokenizer and the local runtime in 2.207 GiB of files. The previous language-only directory occupied 1.443 GiB. An explicit tool list selects the recurrent instruction-initialized tool model. For ordinary requests the wrapper releases the tool backbone and loads the qualified language system. The caller supplies each callback. The export contains no training data lookup or network service used for answering these requests.
 

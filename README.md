@@ -8,6 +8,8 @@ The [technical paper](paper/loopqwen.pdf) covers matched depth controls, ordinar
 
 On 22 publisher-authored numerical requests the trained two-pass tool model executed the right function with correct arguments and returned the computed answer on **17/22**. Untouched Qwen Base achieved **0/22** complete executions and gave eight correct numbers without calling the function. The recurrent model took **15.15 s** and peaked at **1.08 GiB** versus **82.82 s** and **1.66 GiB** for Base. The tool model shares the final Qwen layer across two applications. Its 8-bit prefix comes from the official instruction-tuned sibling. Training, initialization and precision all contribute to this system comparison. [Predictions, actual callback results and decision](research/results/tool-dialogue-typed-01)
 
+The same weights chose correct names and arguments on **18/24 versus 8/24** multiple-function requests and **16/24 versus 8/24** single-function requests. On the original 22 executions an equally trained one-pass model scored **18/22** against **17/22** for the recurrent model. Shared depth has a demonstrated causal advantage on the induction task; the tool results establish a trained-system advantage over Base. [Independent multi-schema comparison](research/results/tool-bfcl-multiple-01) · [Matched one-pass tool comparison](research/results/tool-dialogue-typed-depth-01)
+
 On original and human-edited BoolQ questions, the first Base-initialized reading adapter finished much sooner and answered both versions correctly on **10/32 passages versus 12/32 for Base**. This candidate missed its accuracy gate. [Reading benchmark and exact paired result](research/results/contrast-boolq-recurrent-01)
 
 ## Run the offline assistant
