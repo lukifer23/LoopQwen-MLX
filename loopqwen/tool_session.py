@@ -87,6 +87,7 @@ def run(
     stop_at_turn_end=True,
     reuse_prefix=False,
     schema_guided=False,
+    first_turn_decoder=None,
 ):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
     if not 1 <= max_turns <= 64:
@@ -124,7 +125,12 @@ def run(
         if grammar is not None:
             grammar.begin_turn()
         request = prompt(tokenizer, messages)
-        out = generate(
+        decoder = (
+            first_turn_decoder
+            if not turns and first_turn_decoder is not None
+            else generate
+        )
+        out = decoder(
             model,
             tokenizer,
             request,

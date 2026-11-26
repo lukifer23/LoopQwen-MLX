@@ -1,0 +1,29 @@
+{
+  "id": "operand-planner-01",
+  "question": "Can a shared native Qwen layer trained to select arithmetic operands and intermediate values improve the final numbers on unseen human word problems without paying more time or memory than Base?",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "workload": "arithmetic_programs",
+  "training": "research/data/operand-planner-training.json",
+  "material": "research/data/operand-planner-test.json",
+  "depth": 2,
+  "rank": 64,
+  "fit_seed": 929571,
+  "updates": 1500,
+  "batch": 16,
+  "lr": 0.0003,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "stop_at_turn_end": true,
+  "net_floor": 6,
+  "answer_floor": 6,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "protocol": "Freeze 1024 real GSM8K and 850 MAWPS training questions with gold one-to-six binary-operation programs, each independently executed against its human reference. Exclude four-word shingle Jaccard >=.45 after masking numbers against every enrolled external source question, in addition to historical question exclusions. Fit a pointer to numbers explicitly present in the user text, twelve fixed unit constants and up to six earlier computed results. Read the common full prompt through layers 0-14 of the qualified quantized tool backbone. Two repeated applications of native attention layer 15 with shared eight-rank Q/K/V/O adaptations select operator and operand references plus a learned stop on each action. Balance the two training sources. On the first turn serialize the predicted program into the standard calculate call. It consumes the common output allowance. Execute the real rational callback, then let the frozen qualified recurrent decoder generate all remaining turns in the usual full vocabulary. The model receives no gold spans, forced arithmetic result or known program length. Compare to untouched BF16 Base at ordinary depth with identical user text, schemas, prompt IDs, thinking and generation caps. Fresh ASDiv and SVAMP each supply 24 previously unenrolled human questions. Score all completed answers including correct numbers in prose. The restricted first-turn semantic parser is a system-level intervention for arithmetic only.",
+  "gate": "At least six net additional correct visible numbers and six net independently grounded calculator answers, each with an exact two-sided paired test p<=.05; no lower number of correct visible answers in either source. Actual elapsed time and peak MLX bytes at or below ordinary Base. Close the model on a gate miss. A pass requires a separately trained one-native-pass pointer control at each arithmetic decision with identical action horizon, output space and actual tool readout, followed by held-out transfer before deployment.",
+  "limits": {
+    "wall_seconds": 1630,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  }
+}

@@ -31,6 +31,7 @@ def main(verify):
                         "cache-language-",
                         "tool-",
                         "schema-calls-",
+                        "operand-planner-",
                         "release-mixed-field-",
                         "contrast-boolq-",
                         "register-rebalanced-",

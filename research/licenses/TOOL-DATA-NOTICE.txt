@@ -53,3 +53,14 @@ The separate supervised WikiSQL study uses 768 distinct publisher training
 tables and 36 additional official test tables. Each target call is executed
 and checked against the publisher SQL before training. The same WikiSQL
 upstream revision and license above apply to these subsets.
+
+The operand planner also uses MAWPS (Koncel-Kedziorski et al., NAACL 2016).
+The 2016 repository collects human language and arithmetic equations from
+earlier published datasets. This project restores numeric placeholders,
+canonicalizes punctuation and checks the value of the full equation before
+training. The rows come from the authors' SVAMP comparison distribution,
+cv_mawps/fold0/train.csv, at the pinned SVAMP revision above. Only this
+training fold is used. Training questions similar to the external transfer
+sources are removed before sampling.
+https://aclanthology.org/N16-1136/
+https://github.com/arkilpatel/SVAMP/tree/78e727689e1c1bebfc4be39c446898e8e10b0518/data/cv_mawps
