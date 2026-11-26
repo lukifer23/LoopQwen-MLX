@@ -69,7 +69,7 @@ def make(paper, results, result, finish):
                             re.search(
                                 r"possible duplicate|marked as duplicate|exact duplicate",
                                 text,
-                                re.I,
+                                re.IGNORECASE,
                             )
                         ),
                     ]

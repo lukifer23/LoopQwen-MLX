@@ -24,17 +24,17 @@ def performance(rs):
     elapsed = sum(r["elapsed_s"] for r in rs)
     first = sum(r["ttft_s"] for r in rs)
     steps = sum(len(r["token_ids"]) - 1 for r in rs)
-    return dict(
-        correct=sum(r["correct"] for r in rs),
-        queries=len(rs),
-        steps=steps,
-        seconds=elapsed,
-        ttft=first,
-        decode_seconds=elapsed - first,
-        decode_tps=steps / (elapsed - first),
-        prefill_tps=sum(r["prompt_tokens"] for r in rs) / first,
-        peak=max(r["peak_bytes"] for r in rs),
-    )
+    return {
+        "correct": sum(r["correct"] for r in rs),
+        "queries": len(rs),
+        "steps": steps,
+        "seconds": elapsed,
+        "ttft": first,
+        "decode_seconds": elapsed - first,
+        "decode_tps": steps / (elapsed - first),
+        "prefill_tps": sum(r["prompt_tokens"] for r in rs) / first,
+        "peak": max(r["peak_bytes"] for r in rs),
+    }
 
 
 def outcome(spec, records, items, expected):
@@ -104,15 +104,15 @@ def outcome(spec, records, items, expected):
         and all(a[k] <= b[k] * spec["timing_tolerance"] for k in ("ttft", "seconds"))
         and a["peak"] <= b["peak"] * spec["peak_tolerance"]
     )
-    return dict(
-        passed=bool(passed),
-        identical_correct=bool(exact),
-        physical=bool(physical),
-        speedup=ratio,
-        metrics=total,
-        repeats=timing,
-        documents=docs,
-    )
+    return {
+        "passed": bool(passed),
+        "identical_correct": bool(exact),
+        "physical": bool(physical),
+        "speedup": ratio,
+        "metrics": total,
+        "repeats": timing,
+        "documents": docs,
+    }
 
 
 def verify(root, d):
@@ -179,7 +179,9 @@ def run(name):
                 budget,
                 record_kv_history=True,
             )
-            records.append(dict(sequence=i, side=side, item=ix, repeat=rep, result=r))
+            records.append(
+                {"sequence": i, "side": side, "item": ix, "repeat": rep, "result": r}
+            )
             packed(dest, records)
             print(
                 i, side, ix, r["correct"], r["decode_tps"], r["elapsed_s"], flush=True

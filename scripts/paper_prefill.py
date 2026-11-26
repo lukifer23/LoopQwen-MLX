@@ -336,3 +336,93 @@ def resources(paper, results, result, finish):
         frameon=False, ncol=3, loc="lower center", bbox_to_anchor=(0.5, 1), fontsize=8
     )
     finish(fig, "prefill-resource-comparisons")
+
+
+def full_decoder(paper, results, result, finish):
+    name = "packed-decode-full-01"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    d = result(name)
+    f = root / "runs.json.gz"
+    if digest(f) != read(root / "checksums.json")[f.name]:
+        raise ValueError("Full decoder run inventory changed")
+    records = unpack(f)
+    fig, (prefill, decode) = plt.subplots(1, 2, figsize=(7.3, 2.65))
+    with (paper / "full-decoder.csv").open("w") as out:
+        w = csv.writer(out)
+        w.writerow(
+            [
+                "sequence",
+                "implementation",
+                "document",
+                "repeat",
+                "correct",
+                "prompt_tokens",
+                "output_tokens",
+                "decode_steps",
+                "first_token_s",
+                "total_s",
+                "post_first_s",
+                "post_first_tps",
+                "peak_bytes",
+                "fused_site_calls",
+                "attention_sites",
+            ]
+        )
+        seen = set()
+        for rec in records:
+            r = rec["result"]
+            side = rec["side"]
+            item = rec["item"]
+            seq = rec["sequence"]
+            steps = len(r["token_ids"]) - 1
+            after = r["elapsed_s"] - r["ttft_s"]
+            calls = sum(k.get("fused_queries", 0) for k in r["page_sites"])
+            w.writerow(
+                [
+                    seq + 1,
+                    side,
+                    item + 1,
+                    rec["repeat"] + 1,
+                    r["correct"],
+                    r["prompt_tokens"],
+                    steps + 1,
+                    steps,
+                    r["ttft_s"],
+                    r["elapsed_s"],
+                    after,
+                    steps / after,
+                    r["peak_bytes"],
+                    calls,
+                    len(r["kv_history"]),
+                ]
+            )
+            color, marker, label = (
+                ("#11675d", "o", "Fused output")
+                if side == "fused"
+                else ("#9d5932", "s", "Stock output")
+            )
+            for ax, y in [(prefill, r["ttft_s"]), (decode, steps / after)]:
+                ax.scatter(
+                    seq + 1,
+                    y,
+                    color=color,
+                    marker=marker,
+                    s=35,
+                    label=label if side not in seen else None,
+                )
+            seen.add(side)
+    for ax, title in (
+        (prefill, "Seconds to first token"),
+        (decode, "Post-first tokens per second"),
+    ):
+        ax.set_ylabel(title)
+        ax.set_xlabel("Full request in execution order")
+        ax.set_xticks(range(1, len(records) + 1))
+        ax.set_ylim(bottom=0)
+    prefill.legend(
+        frameon=False, loc="lower left", bbox_to_anchor=(-0.1, 1), ncol=2, fontsize=8
+    )
+    assert len(records) == 2 * d["metrics"]["fused"]["queries"]
+    finish(fig, "full-decoder")

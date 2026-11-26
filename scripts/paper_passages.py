@@ -127,9 +127,12 @@ def make(paper, results, result, finish):
                         p,
                     ]
                 )
-                opts = dict(
-                    color=color, marker=marker, s=30, label=label if i == 0 else None
-                )
+                opts = {
+                    "color": color,
+                    "marker": marker,
+                    "s": 30,
+                    "label": label if i == 0 else None,
+                }
                 exact.scatter(100 * m["exact"] / m["n"], i + offset, **opts)
                 f1.scatter(100 * m["f1"], i + offset, **opts)
     exact.set_yticks(

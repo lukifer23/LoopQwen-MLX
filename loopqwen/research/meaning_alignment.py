@@ -115,6 +115,13 @@ def fit(model, tok, spec, out, budget):
     )
     per = spec["batch"] // 2
     assert len(groups) % per == 0
+
+    def side(ix, column):
+        slices = [rows[i]["spans"][column] for i in ix]
+        return stacked(
+            [bank[i][start:stop] for i, (start, stop) in zip(ix, slices, strict=True)]
+        )
+
     history = []
     for step in range(spec["updates"]):
         ix0 = step * per % len(groups)
@@ -123,12 +130,8 @@ def fit(model, tok, spec, out, budget):
         ix = [2 * g + j for g in groups[ix0 : ix0 + per] for j in (0, 1)]
         h, _ = stacked([bank[i] for i in ix])
 
-        def side(j):
-            slices = [rows[i]["spans"][j] for i in ix]
-            return stacked([bank[i][a:b] for i, (a, b) in zip(ix, slices, strict=True)])
-
-        left, lm = side(0)
-        right, rm = side(1)
+        left, lm = side(ix, 0)
+        right, rm = side(ix, 1)
         y = mx.array([replies_by_item[i] for i in ix])
         positions = (
             mx.array([len(ids[i]) - len(replies_by_item[i]) for i in ix])[:, None]
@@ -149,18 +152,18 @@ def fit(model, tok, spec, out, budget):
     mx.save_safetensors(str(dest), weights)
     save(
         out / "fit.json",
-        dict(
-            updates=spec["updates"],
-            examples=len(rows),
-            unique_pairs=len(groups),
-            targets=spec["updates"] * spec["batch"] * len(replies_by_item[0]),
-            parameters=sum(v.size for v in weights.values()),
-            weights=digest(dest),
-            training=digest(Path(spec["training"])),
-            prepare_seconds=prep,
-            optimizer_seconds=perf_counter() - begin - prep,
-            loss=history,
-        ),
+        {
+            "updates": spec["updates"],
+            "examples": len(rows),
+            "unique_pairs": len(groups),
+            "targets": spec["updates"] * spec["batch"] * len(replies_by_item[0]),
+            "parameters": sum(v.size for v in weights.values()),
+            "weights": digest(dest),
+            "training": digest(Path(spec["training"])),
+            "prepare_seconds": prep,
+            "optimizer_seconds": perf_counter() - begin - prep,
+            "loss": history,
+        },
     )
     model.eval()
 
@@ -168,12 +171,12 @@ def fit(model, tok, spec, out, budget):
 def score(tok, ids, label):
     s = grade(tok, ids, ("No", "Yes")[label])
     pred = conclusion(s["visible"])
-    return dict(
-        visible=s["visible"],
-        completed=s["completed"],
-        judgment=pred,
-        correct=pred == ("no", "yes")[label],
-    )
+    return {
+        "visible": s["visible"],
+        "completed": s["completed"],
+        "judgment": pred,
+        "correct": pred == ("no", "yes")[label],
+    }
 
 
 def probe(view, ids, labels, block):
@@ -219,18 +222,18 @@ def measure(net, tok, r, prompts, side, spec, budget, parity):
         if parity and side == "candidate"
         else None
     )
-    return dict(
-        id=r["id"],
-        sha256=fingerprint(ids),
-        ids=output["token_ids"],
-        score=score(tok, output["token_ids"], r["label"]),
-        seconds=seconds,
-        ttft=first,
-        peak=output["peak_bytes"],
-        probe=logits,
-        whole=whole,
-        probe_seconds=probe_s,
-    )
+    return {
+        "id": r["id"],
+        "sha256": fingerprint(ids),
+        "ids": output["token_ids"],
+        "score": score(tok, output["token_ids"], r["label"]),
+        "seconds": seconds,
+        "ttft": first,
+        "peak": output["peak_bytes"],
+        "probe": logits,
+        "whole": whole,
+        "probe_seconds": probe_s,
+    }
 
 
 def outcome(data, rows, spec):
@@ -249,29 +252,27 @@ def outcome(data, rows, spec):
         for side, arm in data.items():
             indices = [i for ix in by.values() for i in ix]
 
-            def hit(i):
-                return arm[i]["score"]["correct"]
-
-            def choice(i):
-                return arm[i]["probe"][2] == rows[i]["label"]
-
-            pairs = [all(hit(i) for i in ix) for ix in by.values()]
+            hits = [r["score"]["correct"] for r in arm]
+            choices = [
+                r["probe"][2] == w["label"] for r, w in zip(arm, rows, strict=True)
+            ]
+            pairs = [all(hits[i] for i in ix) for ix in by.values()]
             pair_order[side] = pairs
-            record[side] = dict(
-                n=len(indices),
-                groups=len(by),
-                pairs=sum(pairs),
-                probe_pairs=sum(all(choice(i) for i in ix) for ix in by.values()),
-                positive=sum(hit(i) for i in indices if rows[i]["label"]),
-                negative=sum(hit(i) for i in indices if not rows[i]["label"]),
-                correct=sum(hit(i) for i in indices),
-                probe=sum(choice(i) for i in indices),
-                completed=sum(arm[i]["score"]["completed"] for i in indices),
-                seconds=sum(arm[i]["seconds"] for i in indices),
-                ttft=sum(arm[i]["ttft"] for i in indices),
-                probe_seconds=sum(arm[i]["probe_seconds"] for i in indices),
-                peak=max(arm[i]["peak"] for i in indices),
-            )
+            record[side] = {
+                "n": len(indices),
+                "groups": len(by),
+                "pairs": sum(pairs),
+                "probe_pairs": sum(all(choices[i] for i in ix) for ix in by.values()),
+                "positive": sum(hits[i] for i in indices if rows[i]["label"]),
+                "negative": sum(hits[i] for i in indices if not rows[i]["label"]),
+                "correct": sum(hits[i] for i in indices),
+                "probe": sum(choices[i] for i in indices),
+                "completed": sum(arm[i]["score"]["completed"] for i in indices),
+                "seconds": sum(arm[i]["seconds"] for i in indices),
+                "ttft": sum(arm[i]["ttft"] for i in indices),
+                "probe_seconds": sum(arm[i]["probe_seconds"] for i in indices),
+                "peak": max(arm[i]["peak"] for i in indices),
+            }
         delta = [
             int(a) - int(b)
             for a, b in zip(pair_order["candidate"], pair_order["control"], strict=True)
@@ -304,7 +305,7 @@ def outcome(data, rows, spec):
         and all(a[k] <= b[k] for k in ("seconds", "ttft", "peak"))
         and parity
     )
-    return dict(passed=bool(passed), incremental=parity, groups=groups)
+    return {"passed": bool(passed), "incremental": parity, "groups": groups}
 
 
 def verify(root, d):

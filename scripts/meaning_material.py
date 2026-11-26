@@ -1,7 +1,6 @@
 """Enroll contrast pairs with one shared text and opposite human judgments."""
 
 import gzip
-import hashlib
 import random
 import re
 from collections import defaultdict
@@ -62,13 +61,13 @@ def pick_wiki(by, n, rng, excluded, split):
                 break
             r = rng.choice(candidates)
             rs.append(
-                dict(
-                    id=f"paws-{split}-{r['id']}",
-                    domain="Wikipedia",
-                    left=left,
-                    right=r["sentence2"],
-                    label=label,
-                )
+                {
+                    "id": f"paws-{split}-{r['id']}",
+                    "domain": "Wikipedia",
+                    "left": left,
+                    "right": r["sentence2"],
+                    "label": label,
+                }
             )
         if len(rs) < 2 or normal(rs[0]["right"]) == normal(rs[1]["right"]):
             continue
@@ -111,13 +110,13 @@ def ubuntu(n, rng, sources):
             continue
         seen.update([anchor, pos, neg])
         rows.extend(
-            dict(
-                id=f"ubuntu-{anchor}-{item}",
-                pair=f"ubuntu-{anchor}",
-                domain="AskUbuntu",
-                posts=[anchor, item],
-                label=label,
-            )
+            {
+                "id": f"ubuntu-{anchor}-{item}",
+                "pair": f"ubuntu-{anchor}",
+                "domain": "AskUbuntu",
+                "posts": [anchor, item],
+                "label": label,
+            }
             for label, item in enumerate([neg, pos])
         )
         if len(rows) == 2 * n:
@@ -158,12 +157,12 @@ def main():
         enrich(rows, tok, file == "panel")
         save(
             DATA / f"meaning-{file}.json",
-            dict(
-                instructions=PROMPTS,
-                sources=sources,
-                rows=rows,
-                attribution="PAWS-Wiki from Google LLC, Zhang, Baldridge and He (2019), with the publisher's permissive dataset notice at https://github.com/google-research-datasets/paws/blob/master/LICENSE. AskUbuntu contributions from the 2014 corpus via Lei et al. (2016), original post and author at https://askubuntu.com/q/POST_ID for each listed ID. Original contributions are subject to their Stack Exchange Creative Commons Attribution-ShareAlike license, https://askubuntu.com/help/licensing. The authors' preprocessing lowercased and tokenized posts and limited bodies to 100 words; this release pairs them under the original relevance judgments.",
-            ),
+            {
+                "instructions": PROMPTS,
+                "sources": sources,
+                "rows": rows,
+                "attribution": "PAWS-Wiki from Google LLC, Zhang, Baldridge and He (2019), with the publisher's permissive dataset notice at https://github.com/google-research-datasets/paws/blob/master/LICENSE. AskUbuntu contributions from the 2014 corpus via Lei et al. (2016), original post and author at https://askubuntu.com/q/POST_ID for each listed ID. Original contributions are subject to their Stack Exchange Creative Commons Attribution-ShareAlike license, https://askubuntu.com/help/licensing. The authors' preprocessing lowercased and tokenized posts and limited bodies to 100 words; this release pairs them under the original relevance judgments.",
+            },
         )
     print(len(training), len(panel), len(heldout))
 
