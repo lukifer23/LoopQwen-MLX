@@ -13,6 +13,31 @@ from loopqwen.research.tool_worlds import score, tools_for
 from loopqwen.tool_session import run
 
 
+def panel(spec):
+    if spec.get("workload") == "bfcl_exec":
+        from loopqwen.evaluation import executable_tools
+
+        rows = [
+            dict(
+                r,
+                user_request=r["question"][0][0]["content"]
+                + executable_tools.INSTRUCTION,
+            )
+            for r in read(spec["material"])["rows"]
+        ]
+        return (
+            {r["id"]: r for r in rows},
+            executable_tools.tools_for,
+            executable_tools.score,
+        )
+    rows = read(spec["material"])
+    return (
+        {r["id"]: dict(r, user_request=r["question"]) for r in rows},
+        tools_for,
+        score,
+    )
+
+
 def signature(traj):
     return (
         traj["answer"],
@@ -49,7 +74,7 @@ def metrics(rows, spec):
         / median(r["trajectory"]["seconds"] for r in reps if r["policy"] == "full")
         for reps in groups.values()
     ]
-    return dict(
+    decision = dict(
         passed=identical
         and reused > 0
         and totals["reuse"] <= spec["ratio"] * totals["full"],
@@ -59,17 +84,28 @@ def metrics(rows, spec):
         reused=reused,
         median_time_ratio=median(ratios),
     )
+    if spec.get("workload") == "bfcl_exec":
+        reference = {
+            r["id"]: r["trajectory"]
+            for r in unpack(Path(spec["qualification"]) / "candidate.json.gz")
+        }
+        decision["qualification_parity"] = all(
+            signature(reps[0]["trajectory"]) == signature(reference[k])
+            for k, reps in groups.items()
+        )
+        decision["passed"] = decision["passed"] and decision["qualification_parity"]
+    return decision
 
 
 def verify(root, decision):
     spec = read(root / "registration.json")
     rows = unpack(root / "trajectories.json.gz")
-    items = {r["id"]: r for r in read(spec["material"])}
+    items, catalog, judge = panel(spec)
     assert len(rows) == 4 * len(spec["items"])
     for i, item in enumerate(spec["items"]):
         reps = rows[i * 4 : i * 4 + 4]
         assert all(
-            r["id"] == item and score(items[item], r["trajectory"]) == r["score"]
+            r["id"] == item and judge(items[item], r["trajectory"]) == r["score"]
             for r in reps
         )
         assert [r["policy"] for r in reps] == (
@@ -97,7 +133,14 @@ def main(name):
         digest(source / "checksums.json") == spec["parent_sha256"]
         and read(source / "decision.json")["passed"]
     )
-    items = {r["id"]: r for r in read(spec["material"])}
+    if "earlier_crossover" in spec:
+        earlier = Path(spec["earlier_crossover"])
+        if (
+            digest(earlier / "checksums.json") != spec["crossover_sha256"]
+            or not read(earlier / "decision.json")["passed"]
+        ):
+            raise ValueError("Prior prefix crossover did not qualify")
+    items, catalog, judge = panel(spec)
     dest = Path("outputs/research") / name
     if (dest / "decision.json").exists():
         raise ValueError("Existing run")
@@ -115,16 +158,16 @@ def main(name):
                 traj = run(
                     model,
                     tok,
-                    item["question"],
-                    tools_for(item),
-                    max_tokens=128,
-                    max_turns=4,
+                    item["user_request"],
+                    catalog(item),
+                    max_tokens=spec.get("max_tokens", 128),
+                    max_turns=spec.get("max_turns", 4),
                     reuse_prefix=mode == "reuse",
                     progress=lambda _: budget.check(),
                 )
                 rows.append(
                     dict(
-                        id=label, policy=mode, trajectory=traj, score=score(item, traj)
+                        id=label, policy=mode, trajectory=traj, score=judge(item, traj)
                     )
                 )
             print(label, flush=True)
