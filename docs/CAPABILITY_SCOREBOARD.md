@@ -14,6 +14,13 @@ Two disjoint publisher test panels used one bAbI English deduction question per 
 The matched models both generated exactly 14 tokens per answer. Across 112 questions the additional pass gained 44 correct answers with zero losses. Its computation includes learned evidence retrieval and a second execution of pretrained layers 10–15 on sentence states. Both reads recovered their annotated facts on 112/112 questions. With both learned reads retained, bypassing only the second Qwen span produced the same 56/56 answers and probes on confirmation. At a 768-token allowance, untouched Base completed 34/56 and answered 32 correctly in 471.48 seconds. The recurrent reader answered all 56 in 15.31 seconds. The dataset uses generated stories with a small vocabulary. [Paired primary](../research/results/deduction-matched-01) · [Disjoint confirmation](../research/results/deduction-replication-01) · [Same-weights intervention](../research/results/deduction-bypass-01) · [Span-only bypass](../research/results/deduction-span-bypass-01) · [Longer Base allowance](../research/results/deduction-long-base-01)
 
 
+An independent initialization of both models gave 56/56 versus 29/56 on the same confirmation stories (15.24 versus 14.73 seconds). On 32 additional stories, exchanging exactly two rule-consequence tokens changed the correct answer while preserving the question and token multiset. The recurrent model answered both versions correctly on 32/32 pairs and the one-read model did so on 2/32. A separately trained model retaining both evidence reads and using one Qwen span execution tied the two-span model at 56/56. [New training seed](../research/results/deduction-second-seed-01) · [Counterfactual pairs](../research/results/deduction-consequence-swap-01) · [Matched two-read control](../research/results/deduction-two-read-control-01)
+
+## Supplied-evidence science questions
+
+On 40 human-authored QASC questions with six supplied statements and eight choices, the trained reader gave 23 correct completed answers in 23.62 seconds. Base gave four in 147.16 seconds at the common 256-token cap. With an identical answer prefix, the reader ranked the correct choice first on 32/40 and Base on 37/40. This missed the preregistered content threshold. [Protocol, outputs and scores](../research/results/science-composition-01)
+
+
 | Capability / cohort | Operating point | Accuracy and cost |
 |---|---|---|
 | Three-hop categorical, 384 unseen maps × eight shuffles | R624, K=3 | 3,067/3,072. Batch-one K=3 median 48.8 ms. Cross-order patches 61–62/64 versus zero unpatched. |
