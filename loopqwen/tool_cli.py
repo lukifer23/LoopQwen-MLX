@@ -50,6 +50,14 @@ def add_arguments(p, checkpoint=None):
         metavar="PATH",
         help="Expose a UTF-8 CSV file for read-only row counts and cell lookups. Can be repeated.",
     )
+    p.add_argument(
+        "--document",
+        type=Path,
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="Allow passage search over this UTF-8 text or Markdown file. Can be repeated.",
+    )
     prompts = p.add_mutually_exclusive_group(required=True)
     prompts.add_argument("--prompt")
     prompts.add_argument(
@@ -96,6 +104,10 @@ def respond(args, parser):
             from .csv_tools import tools as csv_tools
 
             supplied.extend(csv_tools(args.csv))
+        if getattr(args, "document", None):
+            from .document_tools import documents
+
+            supplied.extend(resources.enter_context(documents(args.document)))
         if args.calculator:
             from .calculator_tool import tool
 
@@ -121,7 +133,7 @@ def respond(args, parser):
             supplied.append(database_tool(db, args.table))
         if not supplied and not getattr(args, "allow_plain", False):
             parser.error(
-                "Select a resource, CSV file, catalog, calculator, packages or a database table"
+                "Select a resource, document, CSV file, catalog, calculator, packages or a database table"
             )
         options = {
             "max_tokens": args.max_tokens,

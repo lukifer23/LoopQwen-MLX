@@ -41,6 +41,7 @@ def main(verify):
                         "folded-system-",
                         "action-preference-",
                         "report-calculation-",
+                        "document-search-field-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

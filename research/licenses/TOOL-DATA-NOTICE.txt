@@ -90,3 +90,15 @@ free-response questions, renders the tables as text, and adds the shared
 calculator instruction. The local training set contains no TabMWP examples.
 https://github.com/lupantech/PromptPG/tree/5a1a52214521590b075f545b76a4f5ce666345e3
 https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+The document-search comparison uses human questions and answer locations from
+SQuAD v1.1 (Rajpurkar et al., CC BY-SA 4.0) and Qasper (Dasigi et al.,
+CC BY 4.0). Material builders select questions and render supplied article
+paragraphs into UTF-8 files. Qasper article text comes from the respective
+paper authors. The panel identifies each paper by title and arXiv identifier.
+The outputs include model-generated queries, responses and attributed excerpts.
+https://rajpurkar.github.io/SQuAD-explorer/
+https://aclanthology.org/2021.naacl-main.365/
+https://huggingface.co/datasets/allenai/qasper
+https://creativecommons.org/licenses/by-sa/4.0/
+https://creativecommons.org/licenses/by/4.0/
