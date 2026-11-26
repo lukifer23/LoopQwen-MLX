@@ -1,0 +1,50 @@
+{
+  "id": "deduction-bypass-01",
+  "question": "What happens with the trained weights frozen when the second Qwen evidence pass is disabled?",
+  "seed": 143810,
+  "sizes": {
+    "train": 240,
+    "primary": 56,
+    "replication": 56
+  },
+  "rank": 64,
+  "updates": 1200,
+  "batch": 32,
+  "fit_seed": 418,
+  "lr": 0.001,
+  "support_weight": 0.7,
+  "arms": {
+    "recurrent": {
+      "depth": 2,
+      "reader": "research/results/deduction-regions-01"
+    },
+    "bypass": {
+      "depth": 1,
+      "reader": "research/results/deduction-regions-01"
+    }
+  },
+  "panel": "replication",
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "Use identically ordered tokenized user turns, native unrestricted greedy first-turn decoding, identical generation limits, common-prefix animal probes and end-to-end timings. The two variants use the same pretrained decoder and native layers 10..15 for recurrent evidence. An equal-training fit repeats the original seed, parameters, optimizer, steps, all training targets including both support labels, and all 240 stories. No selection or fitting on test. All fixed-weight arms are bound by digest.",
+  "gate": "At least eight net correct complete answers, exact paired two-sided p<0.05, >=4 net content probes and <=1.5 times control elapsed seconds. A failed prerequisite or comparison closes its downstream jobs. No retries with relaxed thresholds.",
+  "limits": {
+    "wall_seconds": 700,
+    "peak_gib": 5,
+    "available_gib": 1.5
+  },
+  "architecture": "pooled",
+  "material": "research/data/deduction-stories-02.json",
+  "exclude_test": [
+    "research/data/deduction-stories-01.json"
+  ],
+  "lexical_weight": 5,
+  "requires": "deduction-replication-01",
+  "prerequisite_sha256": "8c70b1098ba3c718943ff0f4239f0947dcd9be052b34e0bd79e683b0685be759",
+  "reader_weights": {
+    "recurrent": "9667af183a94eeebc5342ae4591b5e9027cf4c459cf0a3a966e21757959c9844",
+    "bypass": "9667af183a94eeebc5342ae4591b5e9027cf4c459cf0a3a966e21757959c9844"
+  }
+}
