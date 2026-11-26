@@ -4,6 +4,8 @@ A local MLX research implementation of shared recurrent depth in the official Qw
 
 On a fresh **131,080-token** register lookup and its counterfactual, the looped decoder answered **2/2 versus 0/2** for untouched Base. It finished in **171.88 versus 391.67 seconds** and peaked at **2.80 versus 3.78 GiB** on an 18 GiB M3 Pro. Changing which name matched the query changed its answer while every numeric value stayed in place. All eight recurrent global attention sites retained the complete consumed history. [Frozen inputs, generated outputs, and verified measurements](research/results/register-packed-direct-full-01)
 
+The full-book test covered 162,714 tokens of Frank Norris’s *McTeague*. The released router chose ordinary depth and matched Base token for token. Both missed the human-written question on the original book and after the character was renamed. [Whole-book comparison](research/results/narrative-full-book-01)
+
 ## Research report and executable tools
 
 The [technical paper](paper/loopqwen.pdf) covers matched depth controls, ordinary reasoning, correct tool execution, time, memory and full-history inference on the same 18 GiB M3 Pro. The [evidence index](paper/study-index.csv) links each claim to its preregistration and native output archive. [Figure sources and reproduction](paper/README.md)
