@@ -116,7 +116,7 @@ def verify(root):
         from loopqwen.research.packed_release import verify as verify_packed_release
 
         verify_packed_release(root, decision)
-    if study.startswith("selective-raw-"):
+    if study.startswith(("selective-raw-", "future-token-")):
         from loopqwen.research.selective_raw import verify as verify_selective_raw
 
         verify_selective_raw(root, decision)

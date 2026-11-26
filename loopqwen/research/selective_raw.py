@@ -50,6 +50,13 @@ def targets(label, spec, rows, out, budget):
     return values
 
 
+def partial_ce(lp, idx, w):
+    chosen = mx.take_along_axis(lp, idx, -1)
+    tail = mx.maximum(1 - w.sum(-1), 0)
+    other = mx.maximum(1 - mx.exp(chosen).sum(-1), 1e-7)
+    return -(w * chosen).sum(-1) - tail * mx.log(other)
+
+
 def fit(net, rows, balances, spec, teachers, root, budget):
     at = perf_counter()
     bank = []
@@ -66,12 +73,6 @@ def fit(net, rows, balances, spec, teachers, root, budget):
     prep = perf_counter() - at
     opt = optim.AdamW(learning_rate=spec["lr"], weight_decay=0.01)
     rng = random.Random(spec["fit_seed"])
-
-    def partial_ce(lp, idx, w):
-        chosen = mx.take_along_axis(lp, idx, -1)
-        tail = mx.maximum(1 - w.sum(-1), 0)
-        other = mx.maximum(1 - mx.exp(chosen).sum(-1), 1e-7)
-        return -(w * chosen).sum(-1) - tail * mx.log(other)
 
     def loss(m, h, ss, gold, large, original):
         refined, _ = m.refine(h)
@@ -147,7 +148,7 @@ def material(spec):
     ]
 
 
-def outcome(data, items, live):
+def outcome(data, items, live, *, future=False, streams=None):
     metrics = {}
     groups = [
         "pooled",
@@ -199,7 +200,7 @@ def outcome(data, items, live):
             for k in ("fresh", "wiki", "legacy")
         )
     )
-    return {
+    decision = {
         "passed": passed,
         "quality_by_domain": strict,
         "fresh_wins": wins,
@@ -208,6 +209,14 @@ def outcome(data, items, live):
         "live_parity": live,
         "scores": metrics,
     }
+    if future:
+        from .future_token_fit import check_continuations, source_decision
+
+        traces, indices = streams
+        ok = check_continuations(traces, items, indices)
+        decision.update(continuation_parity=ok, passed=bool(decision["passed"] and ok))
+        return source_decision(decision, data, items)
+    return decision
 
 
 def run(name):
@@ -220,7 +229,14 @@ def run(name):
     items = material(spec)
     budget = Budget(name, spec["limits"])
     data = {}
+    streams = None
     try:
+        fitting = fit
+        if spec.get("future_width"):
+            from .future_token_fit import fit as fitting
+            from .future_token_fit import teacher_receipts
+
+            teacher_receipts(spec, root)
         teachers = []
         for label in ("large", "original"):
             teachers.append(targets(label, spec, rows, root, budget))
@@ -239,7 +255,7 @@ def run(name):
             check_weights(net, mx.load(str(weight)))
         else:
             groups = [list(range(1024)), list(range(1024, len(rows)))]
-            fit(net, rows, groups, spec, teachers, root, budget)
+            fitting(net, rows, groups, spec, teachers, root, budget)
         del teachers
         for side in ("candidate", "control"):
             if side == "control":
@@ -270,6 +286,14 @@ def run(name):
                         }
                     )
                 save(root / "live.json", live)
+                if spec.get("future_width"):
+                    from .future_token_fit import free_continuations
+
+                    traces = free_continuations(
+                        net, items, spec["live_indices"], budget
+                    )
+                    streams = (traces, spec["live_indices"])
+                    save(root / "continuations.json", traces)
             del net, tok
             gc.collect()
             mx.clear_cache()
@@ -277,7 +301,16 @@ def run(name):
             r["prediction"] == data["candidate"][r["index"]]["ids"][r["length"] - 1]
             for r in live
         ]
-        save(root / "decision.json", outcome(data, items, parity))
+        save(
+            root / "decision.json",
+            outcome(
+                data,
+                items,
+                parity,
+                future=bool(spec.get("future_width")),
+                streams=streams,
+            ),
+        )
     finally:
         budget.close()
 
@@ -309,6 +342,13 @@ def verify(root, d):
         assert r["source"] == (
             spec["teacher"]["sha256"] if label == "large" else REVISION
         )
+    if spec.get("future_width"):
+        assert (
+            meta["future_targets"] == meta["seen"]
+            and meta["aux_parameters"] == 2 * 1024 * spec["future_width"]
+        )
+        assert meta["future_head"] == digest(root / "future-head.safetensors")
+        assert all(digest(root / k) == v for k, v in spec["teacher_files"].items())
     data = {
         side: unpack(root / (side + ".json.gz")) for side in ("candidate", "control")
     }
@@ -333,7 +373,14 @@ def verify(root, d):
         r["prediction"] == data["candidate"][r["index"]]["ids"][r["length"] - 1]
         for r in live
     ]
-    assert d == outcome(data, items, parity)
+    streams = (
+        (read(root / "continuations.json"), spec["live_indices"])
+        if spec.get("future_width")
+        else None
+    )
+    assert d == outcome(
+        data, items, parity, future=bool(spec.get("future_width")), streams=streams
+    )
 
 
 if __name__ == "__main__":

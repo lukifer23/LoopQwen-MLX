@@ -31,6 +31,7 @@ def main(verify):
                         "transport-lossless-",
                         "raw-distillation-",
                         "selective-raw-",
+                        "future-token-",
                         "packed-release-retention-",
                         "passage-copy-",
                         "packed-decode-kernel-",

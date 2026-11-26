@@ -1,0 +1,50 @@
+{
+  "id": "future-token-prose-01",
+  "question": "Can the first application of a fully shared native layer learn a longer prediction horizon that improves the second application\u2019s unrestricted next-token distribution across independent works and genres?",
+  "training": "research/data/selective-raw-training.json",
+  "material": "research/data/future-token-panel.json",
+  "historical_panel": "research/data/raw-distillation-test.json",
+  "historical_sha256": "e006e8bfe3066a544b99d54553740c37131c7bace1c2ce646b626d43ea48b983",
+  "retention_sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+  "teacher": {
+    "repo": "Qwen/Qwen3.5-2B-Base",
+    "revision": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+    "license": "Apache-2.0"
+  },
+  "rank": 48,
+  "initial_gate": 0.1,
+  "fit_seed": 814725,
+  "updates": 1800,
+  "batch": 8,
+  "per_document": 12,
+  "lr": 7.5e-05,
+  "top": 32,
+  "gold_weight": 0.22,
+  "temperature": 0.7,
+  "live_indices": [
+    0,
+    32,
+    64,
+    96,
+    128,
+    180
+  ],
+  "protocol": "Start at unmodified pinned 0.8B Base. Eight-bit native layers 0\u201322, identical trained rank-48 Q/K/V/O adapters on both applications of native BF16 layer 23 with distinct causal caches, then a learned per-position residual gate on the second output. On the first application fit a width-192 training-only bottleneck and tied full vocabulary to predict the token TWO positions beyond each current input. The second view predicts the immediate next token using gold cross entropy and the two frozen teachers. Both tasks propagate gradients into the very same block; no future token, category or source is presented to inference. Use 2048 existing heterogeneous training passages and the checksum-verified raw 2B and untouched Base teacher distributions at 65536 original positions. These are source labels only. No trained weights from another raw fit. Use 1800 AdamW updates, eight documents, twelve double-horizon positions per document. Unseen primary panel is 128 passages from 24 sources: four Standard Ebooks novels, four memoirs, eight Git manuals and eight original Wikipedia articles. No exact 24-token window shared with fitting, earlier raw panels or another fresh item. Excerpts within a source are dependent; sum loss changes by source and report the exact paired sign test. Recheck every 52 historical WikiText articles and all 120 legacy passages. Score unrestricted full-vocabulary next token losses and greedy top-one at every enrolled position with identical source IDs. Report synchronized forward time/peak in each suite, plus six real eight-token free continuations with full/cached parity and all seven physical attention histories. This independent architecture addresses the previous same-position model\u2019s loss of top-one on two genres. Its earlier failed fit is closed. The distinct pinned teacher records may be reused without re-optimizing a failed model.",
+  "gate": "Require a strictly lower mean NLL and nondecreasing number of exact next-token predictions separately on every fresh and legacy category and the WikiText suite. Fresh pooled NLL gain at least .015 nats/token and strictly more correct predictions; historical WikiText NLL gain at least .04. Require two-sided sign test p<=.05 both over fresh passages and over their 24 original sources in the favorable direction. Fresh/WikiText/legacy total real forward time and peak each no higher than untouched BF16 Base. Require all six incremental decisions and every token of the six independent cached versus full eight-token free generations to agree, with seven complete native histories. One primary pair. On a miss archive and close this configuration. A pass licenses an equal-exposure native one-application model with the same auxiliary target, teacher labels, quantization and adapter size, and a separate human reasoning study before a default change.",
+  "limits": {
+    "wall_seconds": 1100,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "future_weight": 0.12,
+  "future_width": 192,
+  "teacher_records": "research/results/selective-raw-01",
+  "teacher_files": {
+    "original.json": "fd62e2632bf448dbf56a4b0ae97615de31fbaa99c5c210a76eb93212a4450fe0",
+    "large.json": "c1d4a06472a55b6e55afc203df979492f32de56a6bc352a5114f611caf416d59",
+    "large-targets.safetensors": "6b792bc374bb0b4d84023e70467f2e54ee01dbf03f06e3291010cc14b6a45dd9",
+    "original-targets.safetensors": "e3382376b378ce25160acb3e8321c7f084850b9d2ac953e8a1d28a5e4dbba529"
+  }
+}

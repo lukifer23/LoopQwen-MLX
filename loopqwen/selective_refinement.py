@@ -19,7 +19,10 @@ def build(spec):
     text, tok, _ = load_base()
     quantize_prefix(text, len(text.layers) - 1, 8)
     mx.random.seed(spec["fit_seed"])
-    model = SelectiveRefinement(text, spec["rank"], spec["initial_gate"])
+    implementation = (
+        SharedRefinement if spec.get("future_width") else SelectiveRefinement
+    )
+    model = implementation(text, spec["rank"], spec["initial_gate"])
     model.eval()
     return model, tok
 
@@ -98,4 +101,15 @@ class SelectiveRefinement(LoopedModel):
             observer("entry", 1, head)
         return self.refine(
             head, None if cache is None else cache.slots[last, 1], window_size, observer
+        )
+
+
+class SharedRefinement(SelectiveRefinement):
+    """Use the same trained native attention projections on both applications."""
+
+    def ordinary(self, prefix, slot=None, window_size=None):
+        return self.refinement(
+            prefix,
+            mask=create_attention_mask(prefix, slot, window_size=window_size),
+            cache=slot,
         )
