@@ -24,9 +24,10 @@
     "native_three_fact_induction": "research/results/native-induction-anchored-01",
     "combined_native_induction_deduction_and_128k": "research/results/native-language-release-02/model",
     "offline_tool_and_language": "research/results/tool-language-release-01",
-    "public_numeric_tool_execution_vs_base": "research/results/tool-dialogue-typed-01"
+    "public_numeric_tool_execution_vs_base": "research/results/tool-dialogue-typed-01",
+    "joint_tool_panels_vs_base": "research/results/tool-dialogue-counterfactual-01"
   },
-  "frontier": "The deployed conditional language and tool assistant reproduced all 22 public tool transcripts, all 200 established language generations, raw retention NLL 2.982658 and both physical 131083-token context swaps. Native K3 induction remains 124/128 versus 58/128 matched K1. The tool component completed 17/22 executions versus 0/22 Base and 18/22 matched K1. It obtained 18/24 versus 8/24 on unseen multi-function schemas. Neither human contrastive reading fit beat Base. No system-wide depth or all-metrics superiority is established.",
+  "frontier": "The new recurrent tool model completed 112/132 tasks versus 15/132 for untouched Base in 69.55/323.35 s, gaining 21 and losing five previously correct tasks against the earlier typed weights on their 102 common episodes. Its matched K1 and structural transfer studies govern replacement. The qualified offline release retains 200 exact short outputs, NLL 2.982658, and two correct full-history 131083-token register answers. Its typed tool weights passed a 22-item prefix crossover with all 88 trajectories identical and 7.61% less total session time. Native K3 induction remains 124/128 versus 58/128 matched K1. Neither human contrastive reading nor the first calculator fit improved final answer accuracy over Base.",
   "next": null,
   "completed": [
     {

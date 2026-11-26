@@ -80,6 +80,18 @@ def audit(train, held, mask):
 
 def build():
     studies = [
+        (
+            "fresh competing schemas after rehearsal",
+            [TYPED, "tool-counterfactual-training"],
+            "tool-counterfactual-bfcl",
+            "new_schema",
+        ),
+        (
+            "operand planner external questions",
+            ["operand-planner-training"],
+            "operand-planner-test",
+            "question",
+        ),
         ("tool public executions", [TYPED], "tool-exec-bfcl-01", "question"),
         ("tool multiple functions", [TYPED], "tool-bfcl-multiple-01", "question"),
         ("tool single-function recovery", [TYPED], "tool-bfcl-math-01", "question"),
@@ -141,6 +153,7 @@ def build():
                 text(r, field)
                 for r in rows(held)
                 if (field != "dialogue" or "turns" in r)
+                and (field != "new_schema" or r["panel"] == "fresh")
                 and (field != "sqlite_question" or r["provider"] == "wikisql")
                 and (field != "public_retention" or r["provider"] == "bfcl_exec")
             } - {""}

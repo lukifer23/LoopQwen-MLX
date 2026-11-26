@@ -321,6 +321,9 @@ def main():
 
     plot_raw(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
+    from paper_joint_tools import make as plot_joint_tools
+
+    plot_joint_tools(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"
