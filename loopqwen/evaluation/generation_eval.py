@@ -18,6 +18,7 @@ def generate(
     tool_prefix=None,
     reserve_full_kv=False,
     record_kv_history=False,
+    tool_grammar=None,
 ):
     if type(prefill_block) is not int or prefill_block < 1:
         raise ValueError("Prefill block must be a positive integer")
@@ -148,6 +149,8 @@ def generate(
                 # Prefill replaced full KV slots with disk-backed prefixes.
                 attach_bias(disk.cache, section)
             token = mx.argmax(logits[:, -1], -1).item()
+            if tool_grammar is not None:
+                token = tool_grammar.choose(logits[0, -1], token, output)
             if step == 0:
                 first = perf_counter()
             output.append(token)

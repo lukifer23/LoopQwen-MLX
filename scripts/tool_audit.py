@@ -24,6 +24,7 @@ def verify(root, decision, read, sha, require):
         "arithmetic_programs",
         "venue_dialogues",
         "sql_transfer_retention",
+        "schema_actions",
     )
     tokenizer = load_tokenizer(local_snapshot())
     stop_ids = set(tokenizer.eos_token_ids)
@@ -49,6 +50,14 @@ def verify(root, decision, read, sha, require):
                 1 <= len(traj["turns"]) <= w.get("turn_cap", spec["max_turns"]),
                 "Turn allocation",
             )
+            grammar = None
+            if side == "candidate" and spec.get("workload") == "schema_actions":
+                from loopqwen.tool_grammar import ToolGrammar
+
+                vocab = read(local_snapshot() / "config.json")["text_config"][
+                    "vocab_size"
+                ]
+                grammar = ToolGrammar(tokenizer, vocab, tools, stop_ids)
             for i, t in enumerate(traj["turns"]):
                 require(
                     t["prompt_ids"]
@@ -58,6 +67,12 @@ def verify(root, decision, read, sha, require):
                     "Tool transcript mismatch",
                 )
                 ids = t["token_ids"]
+                if grammar is not None:
+                    grammar.begin_turn()
+                    prefix = []
+                    for token in ids:
+                        grammar.choose(None, token, prefix)
+                        prefix.append(token)
                 require(
                     1 <= len(ids) <= cap
                     and 0 < t["ttft_s"] <= t["seconds"] <= traj["seconds"],

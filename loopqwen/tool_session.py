@@ -86,6 +86,7 @@ def run(
     progress=None,
     stop_at_turn_end=True,
     reuse_prefix=False,
+    schema_guided=False,
 ):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
     if not 1 <= max_turns <= 64:
@@ -114,7 +115,14 @@ def run(
     answer = None
     status = "turn_limit"
     start = perf_counter()
+    grammar = None
+    if schema_guided:
+        from .tool_grammar import ToolGrammar
+
+        grammar = ToolGrammar(tokenizer, model.args.vocab_size, tools, stop_ids)
     for _ in range(max_turns):
+        if grammar is not None:
+            grammar.begin_turn()
         request = prompt(tokenizer, messages)
         out = generate(
             model,
@@ -124,6 +132,7 @@ def run(
             progress=progress,
             stop_ids=stop_ids,
             tool_prefix=tool_prefix,
+            **({"tool_grammar": grammar} if grammar is not None else {}),
         )
         ids = out["token_ids"]
         row = dict(
@@ -135,6 +144,8 @@ def run(
         )
         if tool_prefix is not None:
             row["reused_prompt_tokens"] = out["reused_prompt_tokens"]
+        if grammar is not None:
+            row["replaced_by_schema"] = grammar.replaced
         turns.append(row)
         if ids[-1] not in stop_ids:
             status = "token_limit"

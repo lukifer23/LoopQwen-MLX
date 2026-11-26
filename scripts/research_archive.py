@@ -111,7 +111,7 @@ def verify(root):
         from scripts.tool_bfcl_study import verify as verify_external_calls
 
         verify_external_calls(root, decision)
-    if study.startswith("tool-dialogue-"):
+    if study.startswith(("tool-dialogue-", "schema-calls-")):
         from scripts.tool_audit import verify as verify_tool_dialogue
 
         verify_tool_dialogue(root, decision, read, sha, require)

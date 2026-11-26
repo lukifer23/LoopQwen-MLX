@@ -119,6 +119,55 @@ def summarize(records, spec):
             )
             and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
         )
+    if spec.get("workload") == "schema_actions":
+        from loopqwen.evaluation.mechanism import unpack
+        from scripts.tool_release import tokens
+
+        items = read(spec["material"])["rows"]
+        baseline = {
+            r["id"]: r["trajectory"]
+            for r in unpack(Path(spec["requires"]) / "candidate.json.gz")
+        }
+        groups = {}
+        for provider in ("bfcl_exec", "wikisql"):
+            sub = [
+                pair
+                for pair, item in zip(pairs, items, strict=True)
+                if item["provider"] == provider
+            ]
+            groups[provider] = {
+                s: sum(pair[j]["score"]["success"] for pair in sub)
+                for j, s in enumerate(records)
+            }
+        stock_parity = all(
+            tokens(b["trajectory"]) == tokens(baseline[b["id"]])
+            for b in records["control"]
+            if b["id"] in baseline
+        )
+        invalid = {
+            s: sum(r["trajectory"]["status"] == "invalid_call" for r in rs)
+            for s, rs in records.items()
+        }
+        corrections = sum(
+            t["replaced_by_schema"]
+            for r in records["candidate"]
+            for t in r["trajectory"]["turns"]
+        )
+        details["schema"] = dict(
+            by_provider=groups,
+            invalid=invalid,
+            replaced=corrections,
+            stock_parity=stock_parity,
+        )
+        passed = (
+            passed
+            and stock_parity
+            and corrections > 0
+            and invalid["candidate"] < invalid["control"]
+            and all(g["candidate"] > g["control"] for g in groups.values())
+            and metrics["candidate"]["peak_bytes"]
+            <= metrics["control"]["peak_bytes"] + spec["extra_bytes"]
+        )
     if spec.get("workload") == "venue_dialogues":
         from loopqwen.evaluation.venue_dialogues import paired_result
 
@@ -203,7 +252,7 @@ def workload(spec, *, replay=False):
             )
 
         return items, catalog, judge
-    if spec.get("workload") == "sql_transfer_retention":
+    if spec.get("workload") in ("sql_transfer_retention", "schema_actions"):
         from loopqwen.evaluation import executable_tools, table_questions
 
         items = []

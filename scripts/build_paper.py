@@ -30,6 +30,7 @@ def main(verify):
                         "raw-distillation-",
                         "cache-language-",
                         "tool-",
+                        "schema-calls-",
                         "contrast-boolq-",
                         "register-rebalanced-",
                         "register-allocation-",

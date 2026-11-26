@@ -133,6 +133,7 @@ def export(
         for file in (
             "tool_model.py",
             "tool_session.py",
+            "tool_grammar.py",
             "tool_catalog.py",
             "tool_prefill.py",
             "reserved_cache.py",

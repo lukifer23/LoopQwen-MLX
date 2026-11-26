@@ -1,0 +1,22 @@
+{
+  "id": "schema-calls-01",
+  "question": "Does incremental schema guidance on the same shipped recurrent weights improve actual tool results on held-out human table queries and numerical functions?",
+  "workload": "schema_actions",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "material": "research/data/tool-sql-learning-panel.json",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "stop_at_turn_end": true,
+  "net_floor": 6,
+  "p_max": 0.05,
+  "time_ratio": 1.25,
+  "extra_bytes": 67108864,
+  "protocol": "Engineering crossover on the identical frozen typed K2 weights. Re-execute both policies in balanced alternating order on 36 distinct human WikiSQL test tables and the complete 22 published numerical execution requests. Keep all prompt IDs, thinking, output limits, callbacks and scorer identical. After the model ends thinking a native MLX greedy decision must conform to either free prose or a schema-correct JSON action. Only replace a rejected greedy token, using the highest-ranked admissible full-vocabulary logit. The parser fixes property order to caller declaration order. No forced calls, retrieved values, hidden retries, reference programs or answer labels during inference. Include first tokenizer setup, grammar compilation and mask generation in end-to-end elapsed time. Validate every emitted guided token against the declared grammar and require unguided public traces identical to the archived checkpoint.",
+  "gate": "At least six net additional correctly grounded tasks, two-sided exact paired p<=.05, a positive task gain in each source, fewer terminal invalid calls, actual constraint interventions, all 22 unguided public sessions replayed exactly. End-to-end time <=1.25 times ordinary and MLX peak no more than 64 MiB higher. Record accuracy of actual results, incorrect compliant calls and parser cost. Failure closes default enablement. Passing licenses a direct equally guided untouched Base pair on independent field requests before release.",
+  "limits": {
+    "wall_seconds": 600,
+    "peak_gib": 6.8,
+    "available_gib": 1.4
+  }
+}
