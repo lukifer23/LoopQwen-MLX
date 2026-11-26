@@ -432,3 +432,88 @@ def full_decoder(paper, results, result, finish):
     )
     assert len(records) == 2 * d["metrics"]["fused"]["queries"]
     finish(fig, "full-decoder")
+
+
+def direct_fused(paper, results, result, finish):
+    import csv
+    from loopqwen.evaluation.mechanism import unpack
+    from loopqwen.io import read, digest
+
+    study = "register-fused-base-full-01"
+    root = results / study
+    if not (root / "checksums.json").is_file():
+        return
+    rates = result(study)["throughput"]
+    sums = read(root / "checksums.json")
+    with (paper / "fused-base-requests.csv").open("w") as stream:
+        w = csv.writer(stream)
+        w.writerow(
+            [
+                "side",
+                "swap",
+                "input_sha256",
+                "prompt_tokens",
+                "output_tokens",
+                "answer",
+                "expected",
+                "correct",
+                "first_s",
+                "total_s",
+                "post_first_s",
+                "post_first_tps",
+                "prefill_tps",
+                "peak_bytes",
+                "history_sites",
+                "min_history_tokens",
+                "fused_calls",
+            ]
+        )
+        for side in ("direct_pages", "base"):
+            path = root / (side + ".json.gz")
+            assert digest(path) == sums[path.name]
+            for j, r in enumerate(unpack(path), 1):
+                w.writerow(
+                    [
+                        side,
+                        j,
+                        r["input_sha256"],
+                        r["prompt_tokens"],
+                        len(r["token_ids"]),
+                        r["answer"],
+                        r["gold"],
+                        r["correct"],
+                        r["ttft_s"],
+                        r["elapsed_s"],
+                        r["elapsed_s"] - r["ttft_s"],
+                        r["decode_tps"],
+                        r["prefill_tps"],
+                        r["peak_bytes"],
+                        len(r["kv_history"]),
+                        min(h["retained"] for h in r["kv_history"]),
+                        sum(h.get("fused_queries", 0) for h in r.get("page_sites", [])),
+                    ]
+                )
+    fig, axes = plt.subplots(1, 3, figsize=(7.1, 2.0))
+    for ax, key, label in zip(
+        axes,
+        ("prefill_tps", "decode_tps", "peak"),
+        ("Prompt tokens/s", "Post-first tokens/s", "Peak MLX (GiB)"),
+        strict=True,
+    ):
+        for i, (side, c, title) in enumerate(
+            (("direct_pages", "#146558", "Recurrent"), ("base", "#99552d", "Base"))
+        ):
+            y = rates[side][key] / (2**30 if key == "peak" else 1)
+            ax.barh(i, y, color=c, height=0.55)
+            ax.text(
+                y,
+                i,
+                f" {y:,.2f}" if key != "prefill_tps" else f" {y:,.0f}",
+                va="center",
+                fontsize=8,
+            )
+        ax.set_yticks([0, 1], ["Recurrent", "Base"] if ax is axes[0] else ["", ""])
+        ax.invert_yaxis()
+        ax.set_xlim(0, ax.get_xlim()[1] * 1.35)
+        ax.set_xlabel(label)
+    finish(fig, "fused-base-full")

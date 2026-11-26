@@ -200,6 +200,13 @@ At 4,112 tokens the existing operator was faster in both conditions. At 32,784 t
 All eight complete requests reproduced the historical correct tokens and selected source span. The four fused requests retained every key and value and made 960 single-query fused site calls (30 further output tokens across eight sites on four requests). Pooled post-first-token speed was 26.10 versus 17.09 tokens/s, a 52.7% gain. The 120 further tokens took 4.60 versus 7.02 s. Summed first-token time was 336.18 versus 335.50 s, and full requests took 340.78 versus 342.53 s. Maximum MLX allocation differed by only 16,384 bytes (3,004,426,260 versus 3,004,442,644). Thus a substantial change in output rate saved 1.75 seconds over these four long reads. The direct Base comparison uses a fresh 131,084-token counterfactual with every numeric value fixed in place.
 
 
+*Fresh comparison with untouched Base.* A new document moved the relevant name between 10% and 75% of a 131,084-token input. The fused recurrent decoder returned 307958 and 481506 in two 30-token outputs. Base used the full 96-token allowance on both and missed both answers. Each of the eight recurrent and six ordinary attention sites retained the complete consumed history. The candidate performed 464 measured fused attention calls across 58 post-first output steps. Base performed 190 post-first steps. The full comparison orders the two arms AB, then BA.
+
+#figure(image("fused-base-full.svg",width:94%),caption:[Untouched Base and the trained recurrent system on the same two physical 131,084-token requests. Output rates use actual emitted steps and synchronized post-first elapsed time.])
+
+Summed first-token time was 167.64 versus 384.11 s, complete request time 169.85 versus 390.94 s, and peak native allocation 2.80 versus 3.78 GiB. Prompt processing was 1,563.84 versus 682.54 tokens/s. Base retained a 1.56 tokens/s advantage in post-first output rate, 27.81 versus 26.25. This was the single failed promotion condition. The relative time spent on decode depends on the response length. These two interventions are evidence about register lookup on one document.
+
+
 == An entire natural novel
 We tested the offline assistant on Frank Norris's _McTeague_ using a human-written NarrativeQA question about who reports McTeague's missing dental license to City Hall [19]. Both publisher annotators named Marcus. In the second version we changed all 440 occurrences of Marcus, 24 of Mark and 65 of Schouler to Felix, Ned and Radford respectively. We kept the question and every chapter. The two prompts contained 162,714 and 162,711 tokens.
 

@@ -27,9 +27,12 @@
     "public_numeric_tool_execution_vs_base": "research/results/tool-dialogue-typed-01",
     "joint_tool_panels_vs_base": "research/results/tool-dialogue-counterfactual-01",
     "packed_register_through_131080": "research/results/register-packed-direct-full-01",
-    "experimental_raw_three_suite_gain": "research/results/selective-raw-01"
+    "experimental_raw_three_suite_gain": "research/results/selective-raw-01",
+    "full_history_same_weight_fused_decode": "research/results/packed-decode-full-01",
+    "lossless_packed_release_transport": "research/results/transport-lossless-02",
+    "installed_mode_switch_03": "research/results/session-tokenizer-01"
   },
-  "frontier": "Packed release 03 reproduced its field parent on all 512 evaluated book continuation targets, 12 short requests and two live tool calls. Against untouched Base, the qualified 131,080-token physical register system changed both answers correctly (2/2 vs 0/2), in 171.88 vs 391.67 s at 2.80 vs 3.78 GiB; after-first-token decode was slower. Ordinary-depth fallback tied Base on the two 162K natural-book requests, both wrong. The field parent was 21/50 vs 12/50 on a single cold request stream, 83.97 vs 234.20 s, with higher first-token latency and peak, an arithmetic decline and a reading tie. The experimental learned two-pass raw decoder gained 70 next-token decisions and reduced NLL, time and peak on each of three suites. It missed domain-level retention and the registered fresh loss gain. Against equal training, native K3 induction was 124/128 vs 58/128 K1. The joint tool fit scored 112/132 vs 15/132 untouched Base but lost four historical structural calls; its matched K1 scored 108/132. Neither the linked Hotpot reader nor schema-guided generation passed its primary gate.",
+  "frontier": "Packed release 03 retains 512 book targets, 12 short generations and two live tools. Its parent field stream was 21/50 vs 12/50 for untouched Base, 83.97 vs 234.20 s with one fewer arithmetic answer. The verified installed tokenizer switch preserved all 200 cold-stream outputs and reduced cumulative switching wait by 44.3%. On the new physical 131084-token register pair the experimental fused model scored 2/2 vs 0/2 Base in 169.85 vs 390.94 s, 2.80 vs 3.78 GiB, but post-first output ran at 26.25 vs 27.81 tokens/s. On identical weights and 131080-token histories, fused decode was 26.10 vs 17.09 tokens/s. On both 162K natural-book questions shipped ordinary fallback reproduced Base, both wrong. K3 induction beat matched K1 124/128 vs 58/128. The 112/132 vs 15/132 joint tool advantage against Base and 45/78 vs 0/78 intent-adapter grounded advantage do not establish matched depth superiority. For semantic alignment, Wikipedia whole pairs were 20/24 vs 0/24, AskUbuntu 0/16 each. The selective raw decoder gained 70 top-one decisions across three suites while missing domain-level safeguards.",
   "next": null,
   "completed": [
     {

@@ -389,7 +389,7 @@ def main():
         tokenizer_streams,
         transport,
     )
-    from paper_prefill import decode_operator, full_decoder
+    from paper_prefill import decode_operator, full_decoder, direct_fused
     from paper_prefill import make as prefill
     from paper_prefill import resources as prefill_resources
 
@@ -397,6 +397,7 @@ def main():
     prefill_resources(PAPER, RESULTS, result, finish)
     decode_operator(PAPER, RESULTS, result, finish)
     full_decoder(PAPER, RESULTS, result, finish)
+    direct_fused(PAPER, RESULTS, result, finish)
     conversations(PAPER, RESULTS, result)
     deployment(PAPER, RESULTS, result, finish)
     transport(PAPER, RESULTS, result, finish)
