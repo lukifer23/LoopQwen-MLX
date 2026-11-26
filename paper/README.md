@@ -88,3 +88,5 @@ The timing supplement gives median first-token and complete-session latency, gen
 Two source supplements track actual follow-up context and actual attention work. [Per-dialogue registered and callback-equivalent outcomes](conversation-replay.csv) · [Full-history causal attention work, offsets and timing](page-prefill.csv)
 
 The recurrent table-parser comparison is run with `python -m loopqwen.research.table_parser_study table-parser-01`. Its material builder re-executes the column- and span-bound plans on the publisher SQLite database before registering them. The primary evaluation also re-executes the inferred plan on a held-out row bootstrap to reduce credit for accidentally matching one result. [Frozen protocol](../research/experiments/table-parser-01.json)
+
+The SQLite action audit compares the model's first proposed operation, column and complete filter set against the publisher query. Text literals are case-folded and numeric literals on real columns are compared as decimals. Grounding uses independent SQLite execution on both the published rows and the frozen row bootstrap. [Per-item action audit](sql-action-audit.csv) · [Figure](sql-action-audit.svg)

@@ -321,6 +321,9 @@ def main():
 
     plot_raw(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
+    from paper_table import make as table_actions
+
+    table_actions(PAPER, RESULTS, result, finish)
     from paper_joint_tools import make as plot_joint_tools
 
     from paper_joint_tools import matched_effects

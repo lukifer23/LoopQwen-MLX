@@ -15,6 +15,7 @@ def make(paper, results, result, finish):
         ("BFCL numeric", "tool-dialogue-typed-01", None, "success"),
         ("WikiSQL, cold", "tool-dialogue-table-transfer-01", None, "success"),
         ("Package chains", "tool-dialogue-package-chain-01", None, "success"),
+        ("WikiSQL, parser", "table-parser-01", None, "success"),
         ("HotpotQA", "bridge-reading-01", None, "content"),
         (
             "ASDiv",

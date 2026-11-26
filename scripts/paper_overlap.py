@@ -95,6 +95,12 @@ def build():
         ("tool public executions", [TYPED], "tool-exec-bfcl-01", "question"),
         ("tool multiple functions", [TYPED], "tool-bfcl-multiple-01", "question"),
         ("tool single-function recovery", [TYPED], "tool-bfcl-math-01", "question"),
+        (
+            "Structured table parser",
+            ["table-parser-training"],
+            "table-parser-panel",
+            "question",
+        ),
         ("WikiSQL cold transfer", [TYPED], "tool-table-queries-01", "question"),
         (
             "WikiSQL supervised transfer",
