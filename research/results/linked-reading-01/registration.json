@@ -1,0 +1,27 @@
+{
+  "id": "linked-reading-01",
+  "question": "Can explicit learned links between full passages improve real two-hop supporting-document selection and unconstrained short-answer generation relative to untouched Base?",
+  "training": "research/data/linked-reading-train.json",
+  "material": "research/data/linked-reading-validation.json",
+  "answer_checkpoint": "research/results/bridge-reading-01",
+  "answer_archive": "a297377d19747465c5c80acf771e3805629cdefff01d7c46a7371d93de62dba7",
+  "answer_weights": "f273d546588ebe5661b306ad3809c441c7f1d087e738e5bdaccf953fe92cebfc",
+  "rank": 64,
+  "depth": 2,
+  "seed": 301772,
+  "lr": 0.0004,
+  "updates": 1800,
+  "batch": 16,
+  "gain": 4.0,
+  "max_tokens": 384,
+  "net_floor": 6,
+  "f1_floor": 0.05,
+  "retrieval_floor": 24,
+  "protocol": "Response to the independently closed pooled-vector reader, which selected both supports on only 3/40 HotpotQA requests. New shared document-relation network; reuse only the fitted ordinary-depth short-answer adapter, hold it frozen, quantize eligible Base weights outside its BF16 final layer to eight bits. Measure a new native layer-15 LoRA reader on human questions with 10 complete source passages. Pool pretrained title/body/question embeddings, compute TF-independent inverse-document-frequency weighted term and adjacent-word overlap and title containment among visible texts. A shared native block updates the question and passage states; first-hop probabilities weight directed passage-to-passage features for the repeated application. Learn both choices from genuine human supporting facts on 1536 new published training questions. At test select two distinct documents without labels, boost the second document at upper native decoder attention sites and freely generate the response. No answer vocabulary, appended hints, prompt rewriting, gold support at inference, response formatting shortcut or forced termination. The enrolled 48 independent official questions retain all ten original paragraphs and the same full prompt IDs and 384-token thinking-enabled greedy budget as ordinary BF16 Base. Exclude previously enrolled source questions/support titles; include every qualifying question in frozen order even if retrieval fails. Timers include all text processing and both reader applications; report exact match, reference content, F1, support pair accuracy, TTFT, total seconds and peak.",
+  "gate": "At least six net additional completed answers containing the reference, two-sided paired p<=.05, mean token F1 gain >=.05 with no lower exact accuracy; retrieve both human-annotated documents on at least 24/48. No higher total wall seconds, summed TTFT or peak warm MLX allocation than Base. Close the architecture on a miss. A pass licenses the same representation, relation features, answer generator, labels, parameter count and training exposure with one native application before attributing gains to the second pass, then a fresh independently sourced reading panel before routing.",
+  "limits": {
+    "wall_seconds": 1140,
+    "peak_gib": 7.0,
+    "available_gib": 1.4
+  }
+}
