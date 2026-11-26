@@ -41,6 +41,10 @@ class SelectiveRefinement(LoopedModel):
         return self.text.model.norm(hidden), gate[..., 0]
 
     def hidden(self, ids, cache=None, window_size=None, observer=None):
+        return self.hidden_and_gate(ids, cache, window_size, observer)[0]
+
+    def hidden_and_gate(self, ids, cache=None, window_size=None, observer=None):
+        """Return the causal interpolation used in this same decoder call."""
         if cache is not None:
             cache.validate(self, window_size)
         last = self.span.start
@@ -57,4 +61,4 @@ class SelectiveRefinement(LoopedModel):
             observer("entry", 1, head)
         return self.refine(
             head, None if cache is None else cache.slots[last, 1], window_size, observer
-        )[0]
+        )

@@ -266,12 +266,13 @@ def run(name):
                     c = net.make_cache()
                     ids = w["ids"]
                     mx.eval(net.hidden(mx.array([ids[: length - 1]]), c))
-                    h = net.hidden(mx.array([[ids[length - 1]]]), c)
+                    h, gate = net.hidden_and_gate(mx.array([[ids[length - 1]]]), c)
                     live.append(
                         {
                             "id": w["id"],
                             "length": length,
                             "index": i,
+                            "gate": gate.item(),
                             "prediction": mx.argmax(net.project(h[:, -1:]), -1).item(),
                         }
                     )
@@ -334,6 +335,7 @@ def verify(root, d):
     assert [r["index"] for r in live] == spec["live_indices"] and all(
         items[r["index"]]["id"] == r["id"] and r["length"] == 32 for r in live
     )
+    assert all(0 <= r["gate"] <= 1 for r in live)
     parity = [
         r["prediction"] == data["candidate"][r["index"]]["ids"][r["length"] - 1]
         for r in live
