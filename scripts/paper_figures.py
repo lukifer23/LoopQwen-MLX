@@ -318,10 +318,9 @@ def main():
     from paper_panels import generate
 
     generate(PAPER, RESULTS, result, finish)
+    from paper_field import make as plot_field
     from paper_raw import make as plot_raw
     from paper_raw import selective
-
-    from paper_field import make as plot_field
 
     plot_raw(PAPER, RESULTS, result, finish)
     selective(PAPER, RESULTS, result, finish)
@@ -330,7 +329,6 @@ def main():
 
     table_actions(PAPER, RESULTS, result, finish)
     from paper_joint_tools import make as plot_joint_tools
-
     from paper_joint_tools import matched_effects
 
     plot_joint_tools(PAPER, RESULTS, result, finish)
@@ -338,17 +336,16 @@ def main():
     from paper_compute import make as compute_cost
 
     compute_cost(ROOT, PAPER)
+    from paper_conversations import make as conversations
     from paper_deployment import make as deployment
     from paper_deployment import providers, transport
-
-    from paper_conversations import make as conversations
-
+    from paper_prefill import decode_operator
     from paper_prefill import make as prefill
-
     from paper_prefill import resources as prefill_resources
 
     prefill(PAPER, RESULTS, result, finish)
     prefill_resources(PAPER, RESULTS, result, finish)
+    decode_operator(PAPER, RESULTS, result, finish)
     conversations(PAPER, RESULTS, result)
     deployment(PAPER, RESULTS, result, finish)
     transport(PAPER, RESULTS, result, finish)

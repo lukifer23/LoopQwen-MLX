@@ -2,12 +2,84 @@
 
 import csv
 from collections import defaultdict
-from statistics import mean
+from statistics import mean, median
 
 import matplotlib.pyplot as plt
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read
+
+
+def decode_operator(paper, results, result, finish):
+    name = "packed-decode-kernel-01"
+    root = results / name
+    if not (root / "checksums.json").is_file():
+        return
+    decision = result(name)
+    times = root / "events.json"
+    if digest(times) != read(root / "checksums.json")[times.name]:
+        raise ValueError("Changed decoder latency observations")
+    events = read(times)
+    lengths = read(root / "registration.json")["lengths"]
+    fig, axes = plt.subplots(1, 2, figsize=(6.7, 2.5), sharey=True)
+    with (paper / "packed-decode.csv").open("w") as file:
+        w = csv.writer(file)
+        w.writerow(
+            [
+                "physical_length",
+                "mask",
+                "operator",
+                "calls",
+                "median_ms",
+                "max_extra_bytes",
+            ]
+        )
+        for ax, mask in zip(axes, ("plain", "reader"), strict=True):
+            for side, label, color, marker in (
+                ("stock", "MLX-LM", "#536a89", "s"),
+                ("fused", "Fused Metal", "#11675d", "o"),
+            ):
+                medians = []
+                for pos, n in enumerate(lengths):
+                    rows = [
+                        e
+                        for e in events
+                        if (e["length"], e["mask"], e["side"]) == (n, mask, side)
+                    ]
+                    group = decision["groups"][f"{n}-{mask}"]
+                    seconds = median(e["seconds"] for e in rows)
+                    peak = max(e["extra_bytes"] for e in rows)
+                    if (
+                        seconds != group["median_seconds"][side]
+                        or peak != group["extra_peak_bytes"][side]
+                    ):
+                        raise ValueError(
+                            "Kernel timing differs from its archived decision"
+                        )
+                    medians.append(1000 * seconds)
+                    w.writerow([n, mask, side, len(rows), medians[-1], peak])
+                    # Show one median per actual input query, retaining its four timed repeats.
+                    for prefix in sorted({e["prefix"] for e in rows}):
+                        val = median(
+                            e["seconds"] for e in rows if e["prefix"] == prefix
+                        )
+                        ax.scatter(pos, 1000 * val, color=color, alpha=0.35, s=12)
+                ax.plot(
+                    range(len(lengths)),
+                    medians,
+                    color=color,
+                    marker=marker,
+                    label=label,
+                )
+            ax.set_xticks(range(len(lengths)), [f"{n:,}" for n in lengths])
+            ax.set_xlabel("Physical KV positions")
+            ax.set_title(
+                "No bias" if mask == "plain" else "Learned reader bias", fontsize=9
+            )
+            ax.set_yscale("log")
+        axes[0].set_ylabel("Attention call (ms, log scale)")
+        axes[1].legend(frameon=False, fontsize=8)
+    finish(fig, "packed-decode")
 
 
 def make(paper, results, result, finish):
