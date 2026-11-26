@@ -58,8 +58,9 @@ def audit(item, trace):
 
 def make(paper, results, result, finish):
     studies = [
-        ("tool-dialogue-sql-learning-01", "Free decoder"),
-        ("table-parser-01", "Schema parser"),
+        ("tool-dialogue-sql-learning-01", "SQL-trained", ("Recurrent", "Base")),
+        ("table-parser-01", "Learned parser", ("Recurrent", "Base")),
+        ("schema-calls-01", "Typed tool model", ("Guided", "Free")),
     ]
     fields = (
         "operation",
@@ -73,7 +74,7 @@ def make(paper, results, result, finish):
     with (paper / "sql-action-audit.csv").open("w") as file:
         writer = csv.writer(file)
         writer.writerow(["study", "side", "question_id", "operation_family", *fields])
-        for name, title in studies:
+        for name, title, labels in studies:
             root = results / name
             if not (root / "checksums.json").exists():
                 continue
@@ -81,7 +82,7 @@ def make(paper, results, result, finish):
             spec = read(root / "registration.json")
             checks = read(root / "checksums.json")
             items = {w["id"]: w for w in read(spec["material"])["rows"] if "sql" in w}
-            for side in ("candidate", "control"):
+            for side, label in zip(("candidate", "control"), labels, strict=True):
                 f = root / (side + ".json.gz")
                 if digest(f) != checks[f.name]:
                     raise ValueError("Changed SQL trajectories")
@@ -107,18 +108,18 @@ def make(paper, results, result, finish):
                     ids.append(r["id"])
                 if ids != list(items):
                     raise ValueError("Incomplete or reordered table trial")
-                summary.append((title, side, len(ids), counts))
+                summary.append((title, side, label, len(ids), counts))
     if not summary:
         return
     fig, axes = plt.subplots(
-        1, len(summary) // 2, figsize=(6.65, 2.55), sharey=True, squeeze=False
+        1, len(summary) // 2, figsize=(8.2, 2.85), sharey=True, squeeze=False
     )
     for panel, ax in enumerate(axes[0]):
-        for title, side, n, counts in summary[panel * 2 : panel * 2 + 2]:
-            dy, color, marker, label = (
-                (-0.11, "#11675d", "o", "Recurrent")
+        for title, side, label, n, counts in summary[panel * 2 : panel * 2 + 2]:
+            dy, color, marker = (
+                (-0.11, "#11675d", "o")
                 if side == "candidate"
-                else (0.11, "#9d5932", "s", "Base")
+                else (0.11, "#9d5932", "s")
             )
             ax.scatter(
                 [100 * x / n for x in counts],
@@ -130,10 +131,11 @@ def make(paper, results, result, finish):
             )
         ax.set(
             xlim=(-4, 104),
-            xlabel="Correct on all questions (%)",
-            title=f"{title} · {n} tables",
+            xlabel="Correct (%)",
+            title=f"{title}\n{n} tables",
         )
         ax.set_xticks([0, 25, 50, 75, 100])
+        ax.legend(loc="lower right", fontsize=7, frameon=False)
     axes[0, 0].set_yticks(
         range(len(fields)),
         [
@@ -146,5 +148,4 @@ def make(paper, results, result, finish):
         ],
     )
     axes[0, 0].invert_yaxis()
-    axes[0, -1].legend(loc="lower right", fontsize=7, frameon=False)
     finish(fig, "sql-action-audit")
