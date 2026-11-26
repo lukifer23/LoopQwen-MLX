@@ -128,3 +128,5 @@ The semantic alignment supplement records free responses, common-prefix judgment
 The fresh 131K direct comparison reports unaggregated prompt and output rates, decoded values, timing and physical history receipts. [Per-request supplement](fused-base-requests.csv) · [Side-by-side resource measures](fused-base-full.svg)
 
 The file-dialogue audit compares every enrolled request and follow-up to both the external preference-fitting questions and the original tool-training replay. It reports exact and near matches with and without numerical normalization. [Input overlap](action-preference-inputs.csv)
+
+The arithmetic draft supplement includes the model-generated reasoning length, emitted program, callback result, final number and wall time for both arms on every fresh human question. [Requests and executions](draft-program-requests.csv) · [Human final-number and grounding scores](draft-program.svg)
