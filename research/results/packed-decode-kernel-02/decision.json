@@ -1,0 +1,73 @@
+{
+  "passed": false,
+  "max_scaled_abs_error": 0.007575757801532745,
+  "min_cosine": 0.9999927282333374,
+  "groups": {
+    "4112-plain": {
+      "median_seconds": {
+        "fused": 0.0004027494869660586,
+        "factored": 0.00041297898860648274
+      },
+      "extra_peak_bytes": {
+        "fused": 314442,
+        "factored": 314442
+      },
+      "speedup": 0.9752299707185066
+    },
+    "4112-reader": {
+      "median_seconds": {
+        "fused": 0.00040368750342167914,
+        "factored": 0.00039039552211761475
+      },
+      "extra_peak_bytes": {
+        "fused": 314438,
+        "factored": 314438
+      },
+      "speedup": 1.0340474737823964
+    },
+    "32784-plain": {
+      "median_seconds": {
+        "fused": 0.0008883335103746504,
+        "factored": 0.0009978960151784122
+      },
+      "extra_peak_bytes": {
+        "fused": 2183268,
+        "factored": 2183268
+      },
+      "speedup": 0.8902064913204676
+    },
+    "32784-reader": {
+      "median_seconds": {
+        "fused": 0.000896416517207399,
+        "factored": 0.000992874993244186
+      },
+      "extra_peak_bytes": {
+        "fused": 2183264,
+        "factored": 2183264
+      },
+      "speedup": 0.9028493247456941
+    },
+    "131080-plain": {
+      "median_seconds": {
+        "fused": 0.002433916524751112,
+        "factored": 0.002977709023980424
+      },
+      "extra_peak_bytes": {
+        "fused": 8831044,
+        "factored": 8831044
+      },
+      "speedup": 0.8173788993988397
+    },
+    "131080-reader": {
+      "median_seconds": {
+        "fused": 0.002474208507919684,
+        "factored": 0.003016458038473502
+      },
+      "extra_peak_bytes": {
+        "fused": 8831040,
+        "factored": 8831040
+      },
+      "speedup": 0.8202363422140536
+    }
+  }
+}
