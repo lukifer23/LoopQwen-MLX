@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-26T18:07:15.117380+00:00",
-  "starting_revision": "f29b0fc",
+  "session_start_utc": "2026-11-26T19:06:44.533142+00:00",
+  "starting_revision": "befd0e4",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -674,6 +674,48 @@
       "promoted": false,
       "scope": "Can a shared recurrent 0.8B decoder learn raw language probabilities from a larger 2B pretrained teacher and beat untouched Base on independent articles and the original multi-domain retention corpus with less inference time and memory?",
       "decision": "research/results/raw-distillation-01/decision.json"
+    },
+    {
+      "id": "register-packed-direct-pilot-01",
+      "promoted": true,
+      "scope": "Can direct quantized native matrix products for long dense attention tails and a fixed-size packed cache turn the measured storage reduction into at least 5% less peak MLX allocation?",
+      "decision": "research/results/register-packed-direct-pilot-01/decision.json"
+    },
+    {
+      "id": "linked-reading-01",
+      "promoted": false,
+      "scope": "Can explicit learned links between full passages improve real two-hop supporting-document selection and unconstrained short-answer generation relative to untouched Base?",
+      "decision": "research/results/linked-reading-01/decision.json"
+    },
+    {
+      "id": "register-packed-direct-full-01",
+      "promoted": true,
+      "scope": "Can the qualified 8-bit native page decoder beat ordinary Base in accuracy, first-token time, complete request time and peak bytes on a new physical 131K key swap?",
+      "decision": "research/results/register-packed-direct-full-01/decision.json"
+    },
+    {
+      "id": "narrative-full-book-01",
+      "promoted": false,
+      "scope": "Does the shipped offline assistant actually follow a changed character identity in an entire 162K-token public-domain novel on a human-written NarrativeQA question?",
+      "decision": "research/results/narrative-full-book-01/decision.json"
+    },
+    {
+      "id": "transport-lossless-01",
+      "promoted": true,
+      "scope": "Does encoding the sibling on the original Base weight grid significantly reduce the complete qualified download while preserving every installed byte and live tool trajectory?",
+      "decision": "research/results/transport-lossless-01/decision.json"
+    },
+    {
+      "id": "tool-language-release-02",
+      "promoted": true,
+      "scope": "Does the self-contained field CLI reproduce the installed assistant on all four real tool providers while retaining the qualified tool, language and physical 128K behavior?",
+      "decision": "research/results/tool-language-release-02/decision.json"
+    },
+    {
+      "id": "schema-calls-01",
+      "promoted": false,
+      "scope": "Does incremental schema guidance on the same shipped recurrent weights improve actual tool results on held-out human table queries and numerical functions?",
+      "decision": "research/results/schema-calls-01/decision.json"
     }
   ],
   "status": "Running held-out tool reasoning, typed public-function execution and human-edited BoolQ comparisons. See the preregistered stop rules for each.",
@@ -729,9 +771,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795713555.851319,
+  "closed_session_start": 1795716435.1173801,
   "native_window": {
-    "start_utc": "2026-11-26T18:07:15.117380+00:00",
+    "start_utc": "2026-11-26T19:06:44.533142+00:00",
     "status": "open"
   },
   "kinship_transfer": {
