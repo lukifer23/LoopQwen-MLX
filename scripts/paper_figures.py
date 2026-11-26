@@ -110,6 +110,40 @@ def historical():
 
 def index():
     registry = read(ROOT / "research/registry.json")
+    with (PAPER / "registry-index.csv").open("w") as ledger:
+        writer = csv.writer(ledger)
+        writer.writerow(
+            [
+                "study",
+                "registration_path",
+                "registration_sha256",
+                "question",
+                "decision_rule",
+                "max_wall_seconds",
+                "archive_status",
+            ]
+        )
+        sessions = registry.get("session_results", {})
+        for name, entry in sorted(registry["experiments"].items()):
+            path = Path("research/experiments") / (name + ".json")
+            reg = read(ROOT / path)
+            rule = reg.get("gate", reg.get("decision", "See registration"))
+            if not isinstance(rule, str):
+                rule = json.dumps(rule, sort_keys=True)
+            archived = bool(entry["archive"]) or any(
+                key.endswith("/" + name) for key in sessions
+            )
+            writer.writerow(
+                [
+                    name,
+                    str(path),
+                    entry["registration"],
+                    reg.get("question", ""),
+                    rule,
+                    reg.get("limits", {}).get("wall_seconds", ""),
+                    "archived" if archived else "no published measurements",
+                ]
+            )
     with (PAPER / "study-index.csv").open("w") as f:
         w = csv.writer(f)
         w.writerow(
