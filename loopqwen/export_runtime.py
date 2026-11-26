@@ -11,7 +11,7 @@ from .looped_model import LoopedModel
 from .recurrence import Span
 
 
-def load_export(directory):
+def load_export(directory, *, _load_tokenizer=load_tokenizer):
     from .worker import acquire
 
     acquire()
@@ -30,7 +30,7 @@ def load_export(directory):
     base = TextModel(TextModelArgs.from_dict(cfg["text_config"]))
     model = LoopedModel(base, Span(**cfg["span"]))
     eos = cfg["text_config"]["eos_token_id"]
-    tokenizer = load_tokenizer(directory, eos_token_ids=[eos])
+    tokenizer = _load_tokenizer(directory, eos_token_ids=[eos])
     if cfg.get("export_schema") in (4, 5):
         import hashlib
 

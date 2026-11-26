@@ -2,12 +2,14 @@
 
 import os
 import shutil
+import subprocess
 import tempfile
 from pathlib import Path
 
 from loopqwen.io import digest, read, save
 
 RUNTIME = ("page_prefill.py", "evaluation/generation_eval.py", "export_runtime.py")
+RUNTIME_REVISION = "0880d1e830e8013aa3a1591eb3967273928796c2"
 
 
 def build(source, parent, destination, full):
@@ -34,11 +36,18 @@ def build(source, parent, destination, full):
         cfg = read(staging / "config.json")
         cfg["register_prefill"] = "direct-packed-register-v1"
         save(staging / "config.json", cfg)
+        repository = Path(__file__).resolve().parents[1]
         for name in RUNTIME:
-            shutil.copyfile(
-                Path(__file__).resolve().parents[1] / "loopqwen" / name,
-                staging / "runtime" / name,
+            payload = subprocess.check_output(
+                [
+                    "git",
+                    "-C",
+                    str(repository),
+                    "show",
+                    f"{RUNTIME_REVISION}:loopqwen/{name}",
+                ]
             )
+            (staging / "runtime" / name).write_bytes(payload)
         with (staging / "README.md").open("a") as f:
             f.write(
                 "\n## Long register prefill\n\nFor resident register requests of at least 16,384 tokens, "

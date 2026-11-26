@@ -135,7 +135,7 @@ def bind(language_model, folder, adapter=None):
 
 
 class Assistant:
-    def __init__(self, directory, *, tool_adapter=None):
+    def __init__(self, directory, *, tool_adapter=None, reuse_tokenizer=False):
         self.directory = Path(directory)
         self.tool_adapter = Path(tool_adapter) if tool_adapter is not None else None
         meta = read(self.directory / "tool/tool-model.json")
@@ -150,6 +150,37 @@ class Assistant:
         self.language = None
         self.tokenizer = None
         self._tool_model = None
+        self._reuse_tokenizer = reuse_tokenizer
+        self._cached_tokenizer = None
+
+    def _tokenizer(self, directory, *, eos_token_ids):
+        from mlx_lm.tokenizer_utils import load as load_tokenizer
+
+        if self._reuse_tokenizer:
+            # Recheck actual bytes that define the certified Qwen tokenizer. A mode
+            # switch can reuse its BPE trie, while replacement files invalidate it.
+            names = (
+                "config.json",
+                "tokenizer.json",
+                "tokenizer_config.json",
+                "added_tokens.json",
+                "special_tokens_map.json",
+                "chat_template.jinja",
+                "vocab.json",
+                "merges.txt",
+            )
+            files = [directory / n for n in names]
+            files.extend(sorted((directory / "chat_templates").glob("*.jinja")))
+            key = (
+                tuple(eos_token_ids),
+                tuple((p.name, digest(p)) for p in files if p.is_file()),
+            )
+            if self._cached_tokenizer is not None and key == self._cached_tokenizer[0]:
+                return self._cached_tokenizer[1]
+            tokenizer = load_tokenizer(directory, eos_token_ids=eos_token_ids)
+            self._cached_tokenizer = key, tokenizer
+            return tokenizer
+        return load_tokenizer(directory, eos_token_ids=eos_token_ids)
 
     def conversation(self, tools=()):
         """Keep user turns, visible answers and real tool observations across requests."""
@@ -164,7 +195,12 @@ class Assistant:
             if self.dedicated:
                 self._tool_model = None
                 mx.clear_cache()
-            self.language, self.tokenizer = load_export(self.directory)
+            if self._reuse_tokenizer:
+                self.language, self.tokenizer = load_export(
+                    self.directory, _load_tokenizer=self._tokenizer
+                )
+            else:
+                self.language, self.tokenizer = load_export(self.directory)
 
     def respond(
         self,
@@ -182,12 +218,10 @@ class Assistant:
 
             if self._tool_model is None:
                 if self.dedicated:
-                    from mlx_lm.tokenizer_utils import load as load_tokenizer
-
                     self.language = None
                     mx.clear_cache()
                     config = read(self.directory / "config.json")
-                    self.tokenizer = load_tokenizer(
+                    self.tokenizer = self._tokenizer(
                         self.directory,
                         eos_token_ids=[config["text_config"]["eos_token_id"]],
                     )

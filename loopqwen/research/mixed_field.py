@@ -107,6 +107,44 @@ class DenseAssistant(Assistant):
         self.dedicated = False
 
 
+def measure_request(assistant, factory, row, material, spec, check):
+    check()
+    tools = catalog(row, material)
+    mx.synchronize()
+    mx.reset_peak_memory()
+    at = perf_counter()
+    if assistant is None:
+        assistant = factory()
+    first = None
+    prompt_length = len(row["initial_ids"])
+
+    def progress(consumed):
+        nonlocal first
+        if first is None and consumed == prompt_length:
+            first = perf_counter() - at
+        check()
+
+    tr = assistant.respond(
+        row.get("user_request", row["question"]),
+        tools,
+        max_tokens=spec["max_tokens"],
+        max_turns=spec["max_turns"],
+        progress=progress,
+    )
+    mx.synchronize()
+    wall = perf_counter() - at
+    assert first is not None and tr["turns"][0]["prompt_ids"] == row["initial_ids"]
+    return assistant, dict(
+        first_token_s=first,
+        id=row["id"],
+        family=row["family"],
+        trajectory=tr,
+        score=grade(row, tr, assistant.tokenizer),
+        wall_s=wall,
+        request_peak=mx.get_peak_memory(),
+    )
+
+
 def run(name):
     spec = registered(name)
     out = Path("outputs/research") / name
@@ -135,48 +173,16 @@ def run(name):
         for side in ("candidate", "control"):
             rows = []
             assistant = None
+            factory = (
+                (lambda: Assistant(bundle))
+                if side == "candidate"
+                else (lambda: DenseAssistant(default))
+            )
             for i, w in enumerate(material["rows"]):
-                budget.check()
-                tools = catalog(w, material)
-                mx.synchronize()
-                mx.reset_peak_memory()
-                at = perf_counter()
-                if assistant is None:
-                    assistant = (
-                        Assistant(bundle)
-                        if side == "candidate"
-                        else DenseAssistant(default)
-                    )
-                first = []
-
-                def progress(
-                    consumed, first=first, length=len(w["initial_ids"]), started=at
-                ):
-                    if not first and consumed == length:
-                        first.append(perf_counter() - started)
-                    budget.check()
-
-                tr = assistant.respond(
-                    w.get("user_request", w["question"]),
-                    tools,
-                    max_tokens=spec["max_tokens"],
-                    max_turns=spec["max_turns"],
-                    progress=progress,
+                assistant, record = measure_request(
+                    assistant, factory, w, material, spec, budget.check
                 )
-                mx.synchronize()
-                wall = perf_counter() - at
-                assert first and tr["turns"][0]["prompt_ids"] == w["initial_ids"]
-                rows.append(
-                    dict(
-                        first_token_s=first[0],
-                        id=w["id"],
-                        family=w["family"],
-                        trajectory=tr,
-                        score=grade(w, tr, assistant.tokenizer),
-                        wall_s=wall,
-                        request_peak=mx.get_peak_memory(),
-                    )
-                )
+                rows.append(record)
                 if i % 10 == 9:
                     print(
                         side,

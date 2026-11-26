@@ -67,6 +67,11 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("session-tokenizer-"):
+        from loopqwen.research.session_tokenizer import verify as verify_tokenizer
+
+        verify_tokenizer(root, decision)
+        return
     if study.startswith("packed-decode-kernel-"):
         from loopqwen.research.packed_decode import verify as verify_packed_decode
 
