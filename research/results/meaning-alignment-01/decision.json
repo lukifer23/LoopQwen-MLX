@@ -1,0 +1,111 @@
+{
+  "passed": false,
+  "incremental": true,
+  "groups": {
+    "all": {
+      "candidate": {
+        "n": 80,
+        "groups": 40,
+        "pairs": 20,
+        "probe_pairs": 20,
+        "positive": 22,
+        "negative": 38,
+        "correct": 60,
+        "probe": 60,
+        "completed": 80,
+        "seconds": 16.133071250631474,
+        "ttft": 13.573085337819066,
+        "probe_seconds": 13.378683798538987,
+        "peak": 1590327080
+      },
+      "control": {
+        "n": 80,
+        "groups": 40,
+        "pairs": 0,
+        "probe_pairs": 13,
+        "positive": 5,
+        "negative": 2,
+        "correct": 7,
+        "probe": 51,
+        "completed": 61,
+        "seconds": 346.4322121249861,
+        "ttft": 12.426263588073198,
+        "probe_seconds": 12.198982207046356,
+        "peak": 2103661486
+      },
+      "gains": 20,
+      "losses": 0,
+      "p_exact": 1.9073486328125e-06
+    },
+    "Wikipedia": {
+      "candidate": {
+        "n": 48,
+        "groups": 24,
+        "pairs": 20,
+        "probe_pairs": 20,
+        "positive": 22,
+        "negative": 22,
+        "correct": 44,
+        "probe": 44,
+        "completed": 48,
+        "seconds": 3.6536872927099466,
+        "ttft": 2.1144132498884574,
+        "probe_seconds": 2.165079877653625,
+        "peak": 1590327080
+      },
+      "control": {
+        "n": 48,
+        "groups": 24,
+        "pairs": 0,
+        "probe_pairs": 13,
+        "positive": 5,
+        "negative": 0,
+        "correct": 5,
+        "probe": 36,
+        "completed": 43,
+        "seconds": 186.02636716898996,
+        "ttft": 2.1120371309807524,
+        "probe_seconds": 2.0628411670331843,
+        "peak": 2103661486
+      },
+      "gains": 20,
+      "losses": 0,
+      "p_exact": 1.9073486328125e-06
+    },
+    "AskUbuntu": {
+      "candidate": {
+        "n": 32,
+        "groups": 16,
+        "pairs": 0,
+        "probe_pairs": 0,
+        "positive": 0,
+        "negative": 16,
+        "correct": 16,
+        "probe": 16,
+        "completed": 32,
+        "seconds": 12.479383957921527,
+        "ttft": 11.458672087930609,
+        "probe_seconds": 11.213603920885362,
+        "peak": 1590327080
+      },
+      "control": {
+        "n": 32,
+        "groups": 16,
+        "pairs": 0,
+        "probe_pairs": 0,
+        "positive": 0,
+        "negative": 2,
+        "correct": 2,
+        "probe": 15,
+        "completed": 18,
+        "seconds": 160.40584495599614,
+        "ttft": 10.314226457092445,
+        "probe_seconds": 10.136141040013172,
+        "peak": 2103661486
+      },
+      "gains": 0,
+      "losses": 0,
+      "p_exact": 1.0
+    }
+  }
+}
