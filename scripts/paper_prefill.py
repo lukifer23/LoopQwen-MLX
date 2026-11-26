@@ -149,6 +149,50 @@ def resources(paper, results, result, finish):
             "Direct 8-bit pages vs Base · 131K",
         ),
     )
+    with (paper / "long-throughput.csv").open("w") as f:
+        w = csv.writer(f)
+        w.writerow(
+            [
+                "study",
+                "arm",
+                "requests",
+                "input_tokens",
+                "output_tokens",
+                "post_first_tokens",
+                "ttft_seconds",
+                "decode_seconds",
+                "prompt_tokens_per_first_token_second",
+                "post_first_tokens_per_second",
+            ]
+        )
+        for name, first, second, _ in comparisons:
+            root = results / name
+            if not (root / "checksums.json").is_file():
+                continue
+            for arm in (first, second):
+                file = root / (arm + ".json.gz")
+                if digest(file) != read(root / "checksums.json")[file.name]:
+                    raise ValueError("Changed long-context measurements")
+                rows = unpack(file)
+                n = sum(r["prompt_tokens"] for r in rows)
+                outputs = sum(len(r["token_ids"]) for r in rows)
+                prefill = sum(r["ttft_s"] for r in rows)
+                decode = sum(r["elapsed_s"] - r["ttft_s"] for r in rows)
+                steps = outputs - len(rows)
+                w.writerow(
+                    [
+                        name,
+                        arm,
+                        len(rows),
+                        n,
+                        outputs,
+                        steps,
+                        prefill,
+                        decode,
+                        n / prefill,
+                        steps / decode,
+                    ]
+                )
     panels = []
     with (paper / "prefill-resource-comparisons.csv").open("w") as file:
         writer = csv.writer(file)

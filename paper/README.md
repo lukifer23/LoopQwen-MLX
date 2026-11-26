@@ -16,6 +16,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [SQLite plan components, executed denotations and alternate-row tests](sql-action-audit.csv)
 - [Counterfactual conversation scores and paired one-pass replay](conversation-replay.csv)
 - [Direct page-kernel time, peak allocation and correct outputs](prefill-resource-comparisons.csv)
+- [Prompt and post-first-token throughput with actual denominators](long-throughput.csv)
 - [Native time charged across research windows](native-compute.csv)
 - [Study-level evidence index](study-index.csv)
 - [Every registration, threshold, budget and publication status](registry-index.csv)
