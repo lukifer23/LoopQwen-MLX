@@ -306,3 +306,58 @@ def workload_mix(paper, results, result, finish):
     axes[0, 0].set_ylabel("Standardized correct outcomes (%)")
     axes[0, 0].legend(loc="best", frameon=False, fontsize=8)
     finish(fig, "request-mix")
+
+
+def repeated_requests(paper, results, result):
+    """Compare the two service designs only on requests that actually recur."""
+    from scripts.field_cli_replay import identical
+
+    studies = ("shared-session-01", "shared-session-unified-01")
+    if not all((results / n / "checksums.json").exists() for n in studies):
+        return
+    panel, arms = [], []
+    for study in studies:
+        result(study)
+        root = results / study
+        protocol = read(root / "registration.json")
+        panel.append({w["id"]: w for w in read(protocol["material"])["rows"]})
+        inventory = read(root / "checksums.json")
+        pair = {}
+        for side in ("candidate", "control"):
+            trace = root / (side + ".json.gz")
+            assert digest(trace) == inventory[trace.name]
+            pair[side] = {r["id"]: r for r in unpack(trace)}
+            assert pair[side].keys() == panel[-1].keys()
+        arms.append(pair)
+    ids = sorted(panel[0].keys() & panel[1].keys())
+    assert len(ids) == 72
+    with (paper / "repeated-service-requests.csv").open("w") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(
+            [
+                "id",
+                "family",
+                "input_sha256",
+                "earlier_success",
+                "joint_success",
+                "earlier_base_success",
+                "joint_base_success",
+                "candidate_trace_identical",
+                "base_trace_identical",
+            ]
+        )
+        for key in ids:
+            old, new = [p["candidate"][key] for p in arms]
+            old_base, new_base = [p["control"][key] for p in arms]
+            assert panel[0][key]["initial_ids"] == panel[1][key]["initial_ids"]
+            assert len({r["input_sha256"] for r in (old, new, old_base, new_base)}) == 1
+            writer.writerow(
+                [
+                    key,
+                    panel[0][key]["family"],
+                    old["input_sha256"],
+                    *[r["score"]["success"] for r in (old, new, old_base, new_base)],
+                    identical(old["trajectory"], new["trajectory"]),
+                    identical(old_base["trajectory"], new_base["trajectory"]),
+                ]
+            )
