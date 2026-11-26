@@ -110,6 +110,14 @@ def run(name=NAME):
 
             bundle = Path(s["export"])
             export(folder, bundle)
+            save(
+                root / "export-files.json",
+                {
+                    str(file.relative_to(bundle)): digest(file)
+                    for file in sorted(bundle.rglob("*"))
+                    if file.is_file() and "__pycache__" not in file.parts
+                },
+            )
             # Run the full qualification on weights read back from the standalone export.
             gc.collect()
             mx.clear_cache()

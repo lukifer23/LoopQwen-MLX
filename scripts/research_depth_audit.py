@@ -364,6 +364,31 @@ def verify_release(root, decision, read, sha, require):
             == sha(Path(source["reader"]) / "reader.safetensors"),
             "Wrong native recurrent weights",
         )
+        inventory = read(root / "export-files.json")
+        require(
+            {
+                "model.safetensors",
+                "tokenizer.json",
+                "runtime/native_evidence.py",
+                "runtime/export_runtime.py",
+            }
+            <= inventory.keys()
+            and inventory["context-policy.json"] == decision["policy"]
+            and all(inventory[k] == v for k, v in policy["files"].items()),
+            "Incomplete standalone inventory",
+        )
+        bundle = Path(spec["export"])
+        if bundle.is_dir():
+            files = {
+                str(f.relative_to(bundle))
+                for f in bundle.rglob("*")
+                if f.is_file() and "__pycache__" not in f.parts
+            }
+            require(
+                files == inventory.keys()
+                and all(sha(bundle / k) == v for k, v in inventory.items()),
+                "Local standalone export differs from qualification",
+            )
         audit = read(root / "export-verification.json")
         provenance = read(root / "export-provenance.json")
         require(
