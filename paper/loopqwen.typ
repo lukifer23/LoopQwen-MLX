@@ -256,4 +256,10 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 
 [30] Choi et al. (2018). QuAC, question answering in context. #link("https://aclanthology.org/D18-1241/")[EMNLP].
 
+[31] Zhang, Baldridge and He (2019). PAWS, paraphrase adversaries from word scrambling. #link("https://aclanthology.org/N19-1131/")[NAACL].
+
+[32] Lei et al. (2016). Semi-supervised question retrieval with gated convolutions. #link("https://arxiv.org/abs/1512.05726")[Paper] and #link("https://github.com/taolei87/askubuntu")[human relevance judgments].
+
+[33] Chen et al. (2017). Enhanced LSTM for natural language inference. #link("https://aclanthology.org/P17-1152/")[ACL].
+
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

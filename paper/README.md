@@ -7,6 +7,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Machine-readable paired scores and timings for the frozen tool model](typed-transfer.csv)
 - [Selective refinement scores on all 300 passages by source suite and domain](selective-domains.csv)
 - [Fresh source-level loss and accuracy changes](selective-sources.csv)
+- [Semantic-judgment input lengths, original post references and lexical overlap](meaning-input-audit.csv)
 - [Per-domain next-token scores, costs and document-level uncertainty](raw-language.csv)
 - [Training lineage, optimizer exposure and checkpoint hashes](model-lineage.csv)
 - [Median and tail tool latency and first-token time](tool-latency.csv)

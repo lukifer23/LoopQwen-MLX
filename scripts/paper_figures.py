@@ -321,9 +321,13 @@ def main():
     from paper_field import make as plot_field
     from paper_raw import make as plot_raw
     from paper_raw import selective
+    from paper_passages import make as plot_passages
+    from paper_meaning import make as plot_meaning
 
     plot_raw(PAPER, RESULTS, result, finish)
     selective(PAPER, RESULTS, result, finish)
+    plot_passages(PAPER, RESULTS, result, finish)
+    plot_meaning(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
     from paper_table import make as table_actions
 

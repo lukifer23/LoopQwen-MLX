@@ -46,9 +46,14 @@ def conclusion(visible):
 
 def premise_randomization(differences):
     """Two-sided paired swap test, preserving all three judgments of a premise."""
+    groups = [sum(differences[i : i + 3]) for i in range(0, len(differences), 3)]
+    return cluster_randomization(groups)
+
+
+def cluster_randomization(differences):
+    """Exact two-sided paired sign randomization on integer-valued cluster totals."""
     counts = {0: 1}
-    for i in range(0, len(differences), 3):
-        delta = sum(differences[i : i + 3])
+    for delta in differences:
         updated = {}
         for total, n in counts.items():
             for sign in (-1, 1):
