@@ -1,0 +1,18 @@
+{
+  "id": "conditional-depth-128k",
+  "qualification": "research/results/conditional-depth-01",
+  "qualification_sha256": "3bffdc6ef5d45431461415650f2e3c130381ade496728fa49967f668b2970142",
+  "seed": 261125823,
+  "minimum_length": 131072,
+  "generation_cap": 96,
+  "question": "Does the exact shared-weight model that qualified on mixed requests route and solve both sides of a fresh 131072-token counterfactual at the measured latency and memory ceilings?",
+  "protocol": "Select one fresh prose register, same greedy thinking prompt and 96-token output cap for ordinary pinned Base and the qualified K2 reader. The second request swaps two equal-token-length names near 10% and 75%; every numeric value, its position, the query and the complete distractor set stay fixed. No retrieval, truncation, training or answer-dependent routing outside the frozen decoder. Preserve BF16 full history through the common disk-backed generator with 128-token blocks. Before starting, require disk/resident parity for every selected-span field and every emitted token on the first frozen 2K reader qualification example. Candidate goes first on document A, Base first on B. Record both arms even if the first answer is wrong, within the resource limits.",
+  "decision": "Require both complete exact first-turn candidate answers, both true value spans contained in the selected passage, strictly more correct than Base, and total measured candidate generation seconds <=1.75x Base. Two related prompts establish only this key-swap behavior. Stop on parity failure, memory warning, or budget.",
+  "limits": {
+    "wall_seconds": 1610,
+    "peak_gib": 5.2,
+    "available_gib": 1.5
+  },
+  "parity_reference": "research/results/attention-memory-01",
+  "parity_reference_sha256": "febd16621f8818a7a00ddac9589ea4fb2ab7ab3584b833ec3b22b1280f87b878"
+}
