@@ -1,0 +1,33 @@
+{
+  "id": "raw-distillation-01",
+  "question": "Can a shared recurrent 0.8B decoder learn raw language probabilities from a larger 2B pretrained teacher and beat untouched Base on independent articles and the original multi-domain retention corpus with less inference time and memory?",
+  "material": "research/data/raw-distillation-test.json",
+  "training": "research/data/raw-distillation-training.json",
+  "retention_sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+  "updates": 800,
+  "prefix_length": 97,
+  "nll_margin": 0.015,
+  "protocol": "Use the exact matching tokenizer vocabulary from the frozen 2B teacher and 0.8B Base. Collect the top 32 full-vocabulary teacher probabilities at 32 frozen positions in each of 1024 training documents. Also preserve the remaining probability mass as an explicit class. Mix .8 grouped cross entropy with .2 human next-token cross entropy. Training covers WikiText train articles, SQuAD training paragraphs, SciQ training supports, earlier source-identified documentation and literary text. Screen all training rows for exact 24-token overlap with the evaluation passages. Reuse frozen 8-bit ordinary Base prefix through layer 22, repeat BF16 layer 23 twice with fixed .12 residual and rank-48 LoRA. No other teacher or cache at inference, no prompt routing. Fit 800 native AdamW updates with eight documents and 12 positions per document per update. Compare to untouched BF16 ordinary Base. Freeze 20 unused WikiText test articles and 32 validation articles, all outside both previous training and test material, plus 120 unchanged retention rows. Record whole vocabulary top-1 and NLL for every target, include all native projection time, and require incremental prediction parity on six separate prefixes.",
+  "gate": "Both fresh WikiText and the old five-domain suite must improve by >=.015 nats/token, no old domain may regress by >.02, top-1 must be nondecreasing per corpus and strictly better pooled. Require significant article-level WikiText sign test p<=.05, no higher warmed inference seconds or peak bytes, and six incremental parity checks. Stop on memory pressure or run limit. A pass licenses matched one-pass distillation using exactly the same teacher targets and a fresh independent external text panel before shipping. A failure closes this fit for default language deployment.",
+  "limits": {
+    "wall_seconds": 1320,
+    "peak_gib": 8.0,
+    "available_gib": 1.4
+  },
+  "top": 32,
+  "passes": 2,
+  "alpha": 0.12,
+  "rank": 48,
+  "fit_seed": 570318,
+  "lr": 7.5e-05,
+  "batch": 8,
+  "per_document": 12,
+  "gold_weight": 0.2,
+  "teacher": {
+    "repo": "Qwen/Qwen3.5-2B-Base",
+    "revision": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+    "license": "Apache-2.0"
+  }
+}
