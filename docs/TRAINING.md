@@ -234,3 +234,31 @@ To replay the actual second long-context intervention with those weights, genera
 .venv/bin/python scripts/reader_prompt.py --study conditional-language-128k --index 1 > /tmp/loopqwen-131083.txt
 .venv/bin/python -m loopqwen generate --checkpoint exports/native-language-release-02 --thinking --prompt-file /tmp/loopqwen-131083.txt --max-tokens 96
 ```
+
+## Reproducing executable tool training and evaluation
+
+The recurrent execution model has an 8-bit instruction-tuned text prefix and a BF16 native final attention layer. The final layer and its rank-32 adapters execute twice with an independent cache at each site. Both the untouched Base and trained one-pass comparisons use the Base tokenizer, a genuine open thinking turn, greedy full-vocabulary decoding and the same registered generation allowance.
+
+```sh
+.venv/bin/python scripts/research_session.py
+.venv/bin/python scripts/tool_study.py tool-dialogue-typed-01
+.venv/bin/python scripts/research_archive.py tool-dialogue-typed-01 --verify
+.venv/bin/python scripts/tool_study.py tool-dialogue-typed-depth-01
+.venv/bin/python scripts/tool_bfcl_study.py tool-bfcl-multiple-01
+```
+
+Each run writes fresh native outputs to `outputs/research/<study>/`. The archive verifier reconstructs the whole conversation from emitted token IDs, validates each call against the supplied JSON Schema, replays its callback and recomputes the final score. To verify an existing publication use `scripts/research_archive.py STUDY --verify`. To seal measurements for a new study run `scripts/research_archive.py STUDY`, then update the registry. The matched-depth check uses the same 1,074 examples, 600 updates, minibatch order, rank and learning rate. The public execution set and its acceptance criteria are frozen before either fit.
+
+To rebuild the standalone assistant from the verified parent artifacts in a fresh checkout, first recreate the qualified language export. The second command assembles a local directory and writes a SHA-256 inventory of all bundled files. Change destination paths when an existing export is present.
+
+```sh
+.venv/bin/python -m loopqwen export --checkpoint research/results/native-language-release-02/model --output exports/language-parent
+.venv/bin/python scripts/export_tool_assistant.py \
+    --language exports/language-parent \
+    --language-record research/results/native-language-release-02 \
+    --trained research/results/tool-dialogue-typed-01 \
+    --qualification research/results/tool-dialogue-typed-01 \
+    --destination exports/my-tool-assistant
+```
+
+The [paper and supplements](../paper/README.md) include the structured outcomes, compute costs, controls and data attribution. The [local package example](../examples/local_packages.py) shows how a caller passes ordinary Python functions into an interactive tool session.
