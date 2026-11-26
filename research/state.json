@@ -29,7 +29,7 @@
     "packed_register_through_131080": "research/results/register-packed-direct-full-01",
     "experimental_raw_three_suite_gain": "research/results/selective-raw-01",
     "full_history_same_weight_fused_decode": "research/results/packed-decode-full-01",
-    "lossless_packed_release_transport": "research/results/transport-lossless-02",
+    "lossless_packed_release_transport": "research/results/transport-lossless-03",
     "installed_mode_switch_03": "research/results/session-tokenizer-01",
     "measured_register_131086_rates_and_accuracy_vs_base": "research/results/register-mixed-weight-full-01",
     "corrected_packed_offline_assistant": "research/results/packed-release-retention-03"
@@ -848,6 +848,11 @@
       "id": "dialogue-state-fields-01",
       "promoted": false,
       "reason": "32/54 grounded vs 0/54, retained all 17 public successes and added 3. Four of 16 whole live pairs, 5/16 targeted questions with 9 premature calls and slower summed first tokens closed deployment."
+    },
+    {
+      "id": "transport-lossless-03",
+      "promoted": true,
+      "reason": "All 66 files and actual offline package call and tokens identical after lossless transport of release 04, 1544038893 bytes vs 1996857648 ordinary ZIP and 2370319249 raw."
     }
   ],
   "status": "The qualified 131K offline assistant is release 04. Active research compares field clarification, free language modeling, combined reasoning and tool use, trained document search and complete Git-tree retrieval under their registered stop rules.",

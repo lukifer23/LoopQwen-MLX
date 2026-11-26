@@ -105,11 +105,11 @@ The installed runtime caches the tokenizer for the qualified packed-03 export. A
 
 ### Restore the offline assistant
 
-Release 03 is also available locally as `exports/tool-language-packed-03.lqzip`, **1,544,032,264 bytes**. It is 22.68% smaller than ordinary ZIP of the same payload. Verified restoration took 7.07 s. All 63 files and the isolated package-query output matched. The archive SHA-256 is `02ddce5dee22cd193829a430f5d51af5b460a61394f1572bd0d3cb5334ba38ce`. From the repository root, restore into an unused directory. [Release receipt](research/results/transport-lossless-02) · [Earlier assistant transport](research/results/transport-lossless-01)
+Release 04 is available locally as `exports/tool-language-packed-04.lqzip`, **1,544,038,893 bytes**. It is 22.68% smaller than ordinary ZIP of the same payload. Restoration and verification took 7.60 s. All 66 files matched their original SHA-256 and the restored assistant reproduced the live package callback and output tokens outside the checkout. The archive SHA-256 is `6e55c93c4280f63e90f5e5d2379b92e026f13626d6306c7851297ec5cd5c80e3`. From the repository root, restore into an unused directory. [Release 04 receipt](research/results/transport-lossless-03) · [Release 03 receipt](research/results/transport-lossless-02)
 
 ```sh
-.venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-packed-03.lqzip exports/restored-tool-language-packed-03
-.venv/bin/python -m loopqwen tools --checkpoint exports/restored-tool-language-packed-03 --packages --prompt "What version of mlx is installed? Use the tool."
+.venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-packed-04.lqzip exports/restored-tool-language-packed-04
+.venv/bin/python -m loopqwen tools --checkpoint exports/restored-tool-language-packed-04 --packages --prompt "What version of mlx is installed? Use the tool."
 ```
 
 ### Experimental raw-language checkpoint
