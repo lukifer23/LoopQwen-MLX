@@ -364,3 +364,101 @@ def tokenizer_streams(paper, results, result, finish):
         ax.set_ylim(bottom=0)
         ax.set_ylabel(title)
     finish(fig, "tokenizer-streams")
+
+
+def compact_streams(paper, results, result, finish):
+    name = "packed-release-retention-02"
+    root = results / name
+    if not (root / "checksums.json").is_file():
+        return
+    decision = result(name)
+    inventory = read(root / "checksums.json")
+    fig, axes = plt.subplots(1, 3, figsize=(7.2, 2.35))
+    with (paper / "compact-register-streams.csv").open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            [
+                "position",
+                "swap",
+                "arm",
+                "cold_model_s",
+                "whole_stream_s",
+                "max_process_rss_bytes",
+                "register_prompt_tokens",
+                "register_output_tokens",
+                "register_first_s",
+                "register_s",
+                "post_first_tps",
+                "register_peak_bytes",
+                "actual_prompt_embedding_rows",
+                "actual_final_embedding_rows",
+                "history_sites",
+                "min_physical_positions",
+                "book_tokens",
+                "book_tail_targets",
+                "short_generations",
+                "package",
+            ]
+        )
+        for arm, indices, color, label in (
+            ("candidate", (1, 4), "#11675d", "Compact"),
+            ("control", (2, 3), "#536a89", "Release 03"),
+        ):
+            p = root / (arm + ".json.gz")
+            if digest(p) != inventory[p.name]:
+                raise ValueError("Changed cold-stream measurements")
+            for i, (r, pos) in enumerate(zip(unpack(p), indices, strict=True)):
+                z = r["register"]
+                q = z.get("weight_precision", {})
+                rollup = decision["streams"][arm][i]
+                assert (
+                    r["stream_seconds"],
+                    r["high_water_rss_bytes"],
+                    z["decode_tps"],
+                ) == (rollup["seconds"], rollup["rss"], rollup["decode_tps"])
+                writer.writerow(
+                    [
+                        pos,
+                        i + 1,
+                        arm,
+                        r["cold"],
+                        r["stream_seconds"],
+                        r["high_water_rss_bytes"],
+                        z["prompt_tokens"],
+                        len(z["token_ids"]),
+                        z["ttft_s"],
+                        z["elapsed_s"],
+                        z["decode_tps"],
+                        z["peak_bytes"],
+                        q.get("prompt_embedding_rows"),
+                        q.get("final_embedding_rows"),
+                        len(z["kv_history"]),
+                        min(x["retained"] for x in z["kv_history"]),
+                        r["book"]["tokens"],
+                        len(r["book"]["nll"]),
+                        len(r["short"]),
+                        ("mlx", "numpy")[i],
+                    ]
+                )
+                values = (
+                    z["decode_tps"],
+                    r["stream_seconds"],
+                    r["high_water_rss_bytes"] / 2**30,
+                )
+                for ax, value in zip(axes, values, strict=True):
+                    ax.scatter(
+                        pos, value, c=color, s=34, label=label if i == 0 else None
+                    )
+    for ax, ylabel in zip(
+        axes,
+        ("Post-first tokens/s", "Cold workload (s)", "Peak process RSS (GiB)"),
+        strict=True,
+    ):
+        ax.set_xticks([1, 2, 3, 4])
+        ax.set_xlabel("Execution order")
+        ax.set_ylabel(ylabel)
+        ax.set_ylim(bottom=0)
+    axes[0].legend(
+        frameon=False, loc="lower center", bbox_to_anchor=(0.5, 1), ncol=2, fontsize=8
+    )
+    finish(fig, "compact-register-streams")

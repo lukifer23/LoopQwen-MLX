@@ -375,17 +375,18 @@ def main():
     from paper_panels import generate
 
     generate(PAPER, RESULTS, result, finish)
-    from paper_field import make as plot_field
-    from paper_raw import make as plot_raw
-    from paper_raw import selective
-    from paper_passages import make as plot_passages
     from paper_calculation import make as plot_calculation
     from paper_documents import make as plot_documents
-    from paper_folded import make as plot_folded
     from paper_draft_program import make as plot_draft_program
-    from paper_preferences import make as plot_preferences, plot_conversations
-    from paper_meaning import make as plot_meaning
+    from paper_field import make as plot_field
+    from paper_folded import make as plot_folded
     from paper_intents import make as plot_intents
+    from paper_meaning import make as plot_meaning
+    from paper_passages import make as plot_passages
+    from paper_preferences import make as plot_preferences
+    from paper_preferences import plot_conversations
+    from paper_raw import make as plot_raw
+    from paper_raw import selective
 
     plot_raw(PAPER, RESULTS, result, finish)
     selective(PAPER, RESULTS, result, finish)
@@ -419,14 +420,15 @@ def main():
 
     compute_cost(ROOT, PAPER)
     from paper_conversations import make as conversations
-    from paper_deployment import make as deployment
     from paper_deployment import (
+        compact_streams,
         packed_delivery,
         providers,
         tokenizer_streams,
         transport,
     )
-    from paper_prefill import decode_operator, full_decoder, direct_fused
+    from paper_deployment import make as deployment
+    from paper_prefill import decode_operator, direct_fused, full_decoder
     from paper_prefill import make as prefill
     from paper_prefill import resources as prefill_resources
 
@@ -447,6 +449,7 @@ def main():
     conversations(PAPER, RESULTS, result)
     deployment(PAPER, RESULTS, result, finish)
     transport(PAPER, RESULTS, result, finish)
+    compact_streams(PAPER, RESULTS, result, finish)
     packed_delivery(PAPER, RESULTS, result)
     tokenizer_streams(PAPER, RESULTS, result, finish)
     providers(PAPER, RESULTS, result)
