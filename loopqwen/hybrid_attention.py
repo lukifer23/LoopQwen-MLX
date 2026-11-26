@@ -36,7 +36,10 @@ class HybridAttention(LoopedModel):
                         layer=layer,
                         turn=turn,
                         offset=slot.offset,
-                        retained=slot.state[0].shape[-2],
+                        retained=slot.keys_and_values()[0].shape[-2]
+                        if isinstance(slot, KVCache)
+                        else slot.size(),
+                        allocated=slot.keys.shape[-2],
                         global_attention=(layer, turn) in self.global_sites,
                     )
                 )

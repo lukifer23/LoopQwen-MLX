@@ -100,6 +100,11 @@ def outcome(rows, items, spec):
                 and global_sites == {(15, 1), (19, 0), (23, 0)}
                 and all(
                     s["offset"] == consumed
+                    and s["allocated"] >= s["retained"]
+                    and (
+                        s["global_attention"]
+                        or s["allocated"] <= spec["local_window"] + 127
+                    )
                     and (
                         s["retained"] == consumed
                         if s["global_attention"]
