@@ -73,12 +73,19 @@ def make(paper, results, result, finish):
                         len(names & {"csv_cell", "csv_row_count"}),
                     ]
                 )
+    plot_conversations(
+        paper, results, result, finish, name, "action-preference", "Preference-trained"
+    )
+
+
+def plot_conversations(paper, results, result, finish, name, prefix, candidate_label):
+    root = results / name
     if not (root / "checksums.json").is_file():
         return
     d = result(name)
     inventory = read(root / "checksums.json")
     panel = read(read(root / "registration.json")["material"])["rows"]
-    with (paper / "action-preference-conversations.csv").open("w") as f:
+    with (paper / (prefix + "-conversations.csv")).open("w") as f:
         out = csv.writer(f)
         out.writerow(
             [
@@ -141,14 +148,15 @@ def make(paper, results, result, finish):
     for item in panel:
         if item["kind"] != "complete":
             continue
-        name = item["call"]["arguments"]["document"]
+        args = item["call"]["arguments"]
+        name = args.get("document", args.get("zone"))
         j = item["anchor"]
         totals = document_totals.setdefault(name, [0, 0, 0])
         totals[0] += 1
         totals[1] += int(d["pairs"]["candidate"][j])
         totals[2] += int(d["pairs"]["control"][j])
     probability = cluster_randomization([a - b for _, a, b in document_totals.values()])
-    with (paper / "action-preference-documents.csv").open("w") as stream:
+    with (paper / (prefix + "-documents.csv")).open("w") as stream:
         writer = csv.writer(stream)
         writer.writerow(
             [
@@ -163,14 +171,16 @@ def make(paper, results, result, finish):
             writer.writerow([document, *counts, probability])
     fig, ax = plt.subplots(figsize=(6.7, 2.45))
     labels = [
-        "Both file variants",
+        "Both request variants"
+        if prefix != "action-preference"
+        else "Both file variants",
         "Fully specified",
         "Asked for missing input",
         "Completed after follow-up",
         "Public numerical calls",
     ]
     for side, offset, marker, color, label in (
-        ("candidate", -0.10, "o", "#146558", "Preference-trained"),
+        ("candidate", -0.10, "o", "#146558", candidate_label),
         ("control", 0.10, "s", "#99552d", "Base"),
     ):
         g = d["groups"]
@@ -194,4 +204,4 @@ def make(paper, results, result, finish):
     ax.set_xlim(-4, 104)
     ax.set_xlabel("Share of all enrolled requests or pairs (%)")
     ax.legend(loc="lower left", bbox_to_anchor=(0, 1), ncol=2, frameon=False)
-    finish(fig, "action-preference")
+    finish(fig, prefix)

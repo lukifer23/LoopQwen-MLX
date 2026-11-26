@@ -115,6 +115,15 @@ def write(paper, results, result):
             "correct_answer",
         ),
         (
+            "dialogue-state-fields-01",
+            "Field-state supervision",
+            "grounded",
+            54,
+            "candidate",
+            "control",
+            "success",
+        ),
+        (
             "action-preference-01",
             "Preference-trained tools",
             "grounded",

@@ -340,4 +340,6 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 
 [45] Dasigi et al. (2021). A dataset of information-seeking questions and answers anchored in research papers. #link("https://aclanthology.org/2021.naacl-main.365/")[NAACL, Qasper].
 
+[46] Rastogi et al. (2020). Towards scalable multi-domain conversational agents, the Schema-Guided Dialogue dataset. #link("https://arxiv.org/abs/1909.05855")[AAAI].
+
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].

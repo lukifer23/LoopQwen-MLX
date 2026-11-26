@@ -219,7 +219,11 @@ def training_lineage():
                 "draft-program-01",
                 "folded-system-01",
             }
-            if not additional and ("turns" not in fit or "weights" not in fit):
+            if (
+                not additional
+                and "train_pairs" not in fit
+                and ("turns" not in fit or "weights" not in fit)
+            ):
                 continue
             result(root.name)
             spec = read(root / "registration.json")
@@ -238,6 +242,9 @@ def training_lineage():
                     "draft-program-01": "word problem",
                     "folded-system-01": "teacher context",
                 }[root.name]
+            if "train_pairs" in fit:
+                count = fit["train_pairs"] + fit["replay_turns"]
+                unit = "preference pair or replay turn"
             if "train_documents" in fit:
                 count = fit["train_documents"]
             targets = fit.get("targets", fit.get("seen", fit.get("sampled_positions")))
@@ -245,14 +252,18 @@ def training_lineage():
                 [
                     root.name,
                     spec.get(
-                        "initial_adapter", donor.get("repo", "Qwen/Qwen3.5-0.8B-Base")
+                        "initial_adapter",
+                        spec.get(
+                            "initial", donor.get("repo", "Qwen/Qwen3.5-0.8B-Base")
+                        ),
                     ),
                     donor.get("revision", "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"),
                     spec.get("start_layer", spec.get("fold_start", 23)),
                     fit.get("passes", spec.get("passes", 2)),
                     spec["rank"],
                     spec.get("prefix_bits", 8 if additional else "BF16"),
-                    fit.get("trainable", fit.get("parameters")),
+                    fit.get("trainable", fit.get("parameters"))
+                    + fit.get("state_head_parameters", 0),
                     turns,
                     fit["updates"],
                     targets
@@ -372,7 +383,7 @@ def main():
     from paper_documents import make as plot_documents
     from paper_folded import make as plot_folded
     from paper_draft_program import make as plot_draft_program
-    from paper_preferences import make as plot_preferences
+    from paper_preferences import make as plot_preferences, plot_conversations
     from paper_meaning import make as plot_meaning
     from paper_intents import make as plot_intents
 
@@ -382,6 +393,15 @@ def main():
     plot_meaning(PAPER, RESULTS, result, finish)
     plot_draft_program(PAPER, RESULTS, result, finish)
     plot_preferences(PAPER, RESULTS, result, finish)
+    plot_conversations(
+        PAPER,
+        RESULTS,
+        result,
+        finish,
+        "dialogue-state-fields-01",
+        "dialogue-state",
+        "State-supervised",
+    )
     plot_calculation(PAPER, RESULTS, result, finish)
     plot_documents(PAPER, RESULTS, result, finish)
     plot_folded(PAPER, RESULTS, result, finish)
