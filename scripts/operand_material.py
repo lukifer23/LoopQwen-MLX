@@ -3,17 +3,12 @@
 import ast
 import csv
 import json
-import random
 import re
 import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
 from fractions import Fraction
 from pathlib import Path
 
-from loopqwen.arithmetic_actions import CONSTANTS, OPS, as_steps, mentions
-from loopqwen.calculator_tool import execute
-from loopqwen.evaluation.answers import numeric
-from loopqwen.io import digest, read, save
 from program_reasoning_material import (
     ASDIV_SHA,
     ASDIV_URL,
@@ -23,6 +18,11 @@ from program_reasoning_material import (
     sha,
     source,
 )
+
+from loopqwen.arithmetic_actions import CONSTANTS, OPS, as_steps, mentions
+from loopqwen.calculator_tool import execute
+from loopqwen.evaluation.answers import numeric
+from loopqwen.io import digest, read, save
 
 DATA = Path("research/data")
 MAWPS = "https://raw.githubusercontent.com/arkilpatel/SVAMP/78e727689e1c1bebfc4be39c446898e8e10b0518/data/cv_mawps/fold0/train.csv"

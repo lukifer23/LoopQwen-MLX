@@ -18,7 +18,8 @@ from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed, unpack
 from ..io import digest, read, save
 from ..operand_planner import OperandPlanner, encode_document, padded, rollout, slot
-from ..tool_session import compact, initial_messages, prompt, run as session
+from ..tool_session import compact, initial_messages, prompt
+from ..tool_session import run as session
 from .core import Budget
 from .registered import registered
 from .tool_fit import restore
@@ -248,9 +249,11 @@ def run(name):
 
 
 def verify(root, d):
-    from scripts.research_archive import read as archive_read, sha, require
-    from scripts.tool_audit import verify as audit
     from fractions import Fraction
+
+    from scripts.research_archive import read as archive_read
+    from scripts.research_archive import require, sha
+    from scripts.tool_audit import verify as audit
 
     spec = read(root / "registration.json")
     audit(root, d, archive_read, sha, require)

@@ -9,6 +9,7 @@ WORDS = dict(
     zip(
         "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty".split(),
         range(21),
+        strict=True,
     )
 )
 WORDS.update(dozen=12, half=Fraction(1, 2), quarter=Fraction(1, 4))

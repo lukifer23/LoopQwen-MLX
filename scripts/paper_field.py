@@ -43,21 +43,18 @@ def make(paper, results, result, finish):
         result(name)
         spec = read(directory / "registration.json")
         items = read(spec["material"])["rows"]
-        by_id = {w["id"]: w for w in items}
-
-        def selected(record):
-            return (
-                selection is None
-                or str(by_id[record["id"]][selection[0]]).casefold() == selection[1]
-            )
-
+        selected = {
+            w["id"]
+            for w in items
+            if selection is None or str(w[selection[0]]).casefold() == selection[1]
+        }
         arms = []
         for arm in ("candidate", "control"):
             source = directory / (arm + ".json.gz")
             if digest(source) != read(directory / "checksums.json")[source.name]:
                 raise ValueError(f"{name}/{source.name} failed verification")
             with gzip.open(source, "rt") as handle:
-                arms.append([r for r in json.load(handle) if selected(r)])
+                arms.append([r for r in json.load(handle) if r["id"] in selected])
         a, b = arms
         assert a and [r["id"] for r in a] == [r["id"] for r in b]
         delta = [
@@ -98,7 +95,7 @@ def make(paper, results, result, finish):
     fig, (left, right) = plt.subplots(
         1, 2, figsize=(6.7, max(2.15, 0.36 * len(counts) + 0.65)), sharey=True
     )
-    for i, (label, _, _, n, a, b, _, _, sa, sb) in enumerate(counts):
+    for i, (_, _, _, n, a, b, _, _, sa, sb) in enumerate(counts):
         left.plot([100 * b / n, 100 * a / n], [i, i], color="#b0b7b5", linewidth=2)
         left.scatter(100 * b / n, i + 0.05, c="#9D5932", marker="s", s=27, zorder=2)
         left.scatter(100 * a / n, i - 0.05, c="#11675D", s=32, zorder=2)

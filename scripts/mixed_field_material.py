@@ -1,28 +1,30 @@
 """Freeze one mixed ordinary-use stream of unseen questions for a single offline release."""
 
 import hashlib
-import re
-import xml.etree.ElementTree as ET
 import random
+import re
 import subprocess
+import xml.etree.ElementTree as ET
 from importlib.metadata import version
 from pathlib import Path
 
-from mlx_lm.utils import load_tokenizer
-
 from bridge_reading_material import canonical, enroll
+from mlx_lm.utils import load_tokenizer
 from program_reasoning_material import ASDIV_SHA, ASDIV_URL, former, norm, source
 from table_question_panel import select
+
 from loopqwen.bridge_reader import messages
 from loopqwen.evaluation import (
     program_questions as arithmetic,
+)
+from loopqwen.evaluation import (
     table_questions as table,
 )
 from loopqwen.evaluation.answers import numeric
+from loopqwen.evaluation.mixed_field import catalog
 from loopqwen.io import digest, read, save
 from loopqwen.model_loader import local_snapshot
 from loopqwen.package_tools import snapshot
-from loopqwen.evaluation.mixed_field import catalog
 from loopqwen.tool_session import initial_messages, prompt
 
 DATA = Path("research/data")

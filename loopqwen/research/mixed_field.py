@@ -12,6 +12,7 @@ from mlx_lm.utils import load_tokenizer
 from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed, unpack
 from ..evaluation.mixed_field import catalog, grade
+from ..evaluation.statistics import exact_mcnemar
 from ..io import digest, read, save
 from ..model_loader import local_snapshot
 from ..package_tools import snapshot
@@ -19,7 +20,6 @@ from ..tool_model import Assistant
 from ..tool_session import compact, decode_action, initial_messages, prompt
 from .core import Budget
 from .registered import registered
-from ..evaluation.statistics import exact_mcnemar
 
 
 def outcome(data, spec):
@@ -149,9 +149,11 @@ def run(name):
                     )
                 first = []
 
-                def progress(consumed):
-                    if not first and consumed == len(w["initial_ids"]):
-                        first.append(perf_counter() - at)
+                def progress(
+                    consumed, first=first, length=len(w["initial_ids"]), started=at
+                ):
+                    if not first and consumed == length:
+                        first.append(perf_counter() - started)
                     budget.check()
 
                 tr = assistant.respond(

@@ -1,6 +1,7 @@
 """Freeze depth and structural comparisons after the recurrent multi-domain primary passes."""
 
 from pathlib import Path
+
 from loopqwen.io import digest, read, save
 
 
