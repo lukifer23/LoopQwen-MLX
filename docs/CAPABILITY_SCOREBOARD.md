@@ -1,5 +1,19 @@
 # Capability scoreboard
 
+## Learned two-fact deduction
+
+Two disjoint publisher test panels used one bAbI English deduction question per unique story. Each trained arm received the same 240 training stories, supporting-fact labels, answer targets, 1,200 optimization updates and trainable parameterization. Answers were generated through the full Qwen vocabulary. The common-prefix probe scored the four possible nouns with identical input tokens.
+
+| 192-token comparison | Correct answers | Correct probes | End-to-end seconds |
+|---|---:|---:|---:|
+| First panel, learned recurrent vs. untouched Base | 56 vs. 0 of 56 | 56 vs. 4 | 15.15 vs. 157.28 |
+| First panel, learned recurrent vs. matched single read | 56 vs. 39 of 56 | 56 vs. 25 | 15.21 vs. 14.74 |
+| Confirmation, learned recurrent vs. matched single read | 56 vs. 29 of 56 | 56 vs. 23 | 15.00 vs. 14.77 |
+| Confirmation, same trained weights with the second pass enabled vs. disabled | 56 vs. 0 of 56 | 56 vs. 10 | 15.30 vs. 154.93 |
+
+The matched models both generated exactly 14 tokens per answer. Across 112 questions the additional pass gained 44 correct answers with zero losses. Its computation includes learned evidence retrieval and a second execution of pretrained layers 10–15 on sentence states. The dataset uses generated stories with a small vocabulary. [Paired primary](../research/results/deduction-matched-01) · [Disjoint confirmation](../research/results/deduction-replication-01) · [Same-weights intervention](../research/results/deduction-bypass-01)
+
+
 | Capability / cohort | Operating point | Accuracy and cost |
 |---|---|---|
 | Three-hop categorical, 384 unseen maps × eight shuffles | R624, K=3 | 3,067/3,072. Batch-one K=3 median 48.8 ms. Cross-order patches 61–62/64 versus zero unpatched. |

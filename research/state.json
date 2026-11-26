@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "short-depth-transfer-01",
+  "active": "deduction-long-base-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -257,11 +257,47 @@
       "capacity": true,
       "scope": "Verified fixed-position full-history key swap",
       "reason": "Same combined checkpoint as the 80-request pair. 2/2 vs 0/2 at 131083 input tokens, correct values at 13098 and 98294 with every other token fixed. 524.50 vs 393.20 seconds, peak 4.32 GiB. Resident/disk preflight bit-identical output."
+    },
+    {
+      "id": "short-depth-transfer-01",
+      "promoted": false,
+      "scope": "Does the previously positive short arithmetic matched-depth comparison replicate across the two external sources where the 256-token recurrent candidate beat untouched Base?",
+      "decision": "research/results/short-depth-transfer-01/decision.json"
+    },
+    {
+      "id": "deduction-loop-01",
+      "promoted": false,
+      "scope": "Can a tied two-read Qwen evidence loop improve both generated answers and the answer likelihood on unseen English two-fact deduction stories versus untouched Qwen Base?",
+      "decision": "research/results/deduction-loop-01/decision.json"
+    },
+    {
+      "id": "deduction-regions-01",
+      "promoted": true,
+      "scope": "Can position-sensitive Qwen evidence states resolve the predicate of the second supporting fact and improve generated answers over untouched Base?",
+      "decision": "research/results/deduction-regions-01/decision.json"
+    },
+    {
+      "id": "deduction-matched-01",
+      "promoted": true,
+      "scope": "Can an equally trained single-read ordinary-depth model match the recurrent reader on the same held-out stories?",
+      "decision": "research/results/deduction-matched-01/decision.json"
+    },
+    {
+      "id": "deduction-replication-01",
+      "promoted": true,
+      "scope": "Does the matched-depth advantage repeat with unchanged weights on all 56 untouched confirmation stories?",
+      "decision": "research/results/deduction-replication-01/decision.json"
+    },
+    {
+      "id": "deduction-bypass-01",
+      "promoted": true,
+      "scope": "What happens with the trained weights frozen when the second Qwen evidence pass is disabled?",
+      "decision": "research/results/deduction-bypass-01/decision.json"
     }
   ],
-  "status": "Testing causal depth attribution.",
-  "next_action": "Replicate the matched short arithmetic pair, then test an evidence-reading recurrence on a separate task.",
-  "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
+  "status": "Replicated a learned two-read advantage over equal-training and same-weight one-read controls.",
+  "next_action": "Finish the 768-token Base replay, isolate the native span, and run the integrated deployment and public science comparisons.",
+  "hypothesis": "A question-directed second read can follow a subject-to-rule link that an ordinary single read misses.",
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
     "Six-hop unrestricted graph paths 6/192",
