@@ -2,9 +2,11 @@
 
 import csv
 import json
+from fractions import Fraction
 
 import matplotlib.pyplot as plt
 
+from loopqwen.evaluation.answers import numeric
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.evaluation.paired_tool_intents import same_resource
 from loopqwen.io import digest, read
@@ -18,6 +20,63 @@ def make(paper, results, result, finish):
     decision = result(name)
     items = read(read(root / "registration.json")["material"])["rows"]
     checks = read(root / "checksums.json")
+    with (paper / "intent-arithmetic-actions.csv").open("w") as output:
+        writer = csv.writer(output)
+        writer.writerow(
+            [
+                "id",
+                "source",
+                "model",
+                "question",
+                "gold",
+                "programs",
+                "returns",
+                "answer",
+                "last_calculation",
+                "echoed_exactly",
+                "correct_final",
+            ]
+        )
+        for side in ("candidate", "control"):
+            path = root / (side + ".json.gz")
+            assert digest(path) == checks[path.name]
+            for w, r in zip(items, unpack(path), strict=True):
+                if w["provider"] != "arithmetic":
+                    continue
+                tr = r["trajectory"]
+                calls = [t for t in tr["turns"] if "observation" in t]
+                obs = [t["observation"] for t in calls]
+                last = obs[-1] if obs else {}
+                value = Fraction(last["value"]) if "value" in last else None
+                answer = numeric(tr["answer"] or "")
+                state = "no callback"
+                if obs:
+                    state = (
+                        "callback error"
+                        if value is None
+                        else (
+                            "correct value"
+                            if value == Fraction(w["gold"])
+                            else "wrong value"
+                        )
+                    )
+                writer.writerow(
+                    [
+                        r["id"],
+                        w["source"],
+                        side,
+                        w["question"],
+                        w["gold"],
+                        json.dumps([t["call"] for t in calls]),
+                        json.dumps(obs),
+                        tr["answer"],
+                        state,
+                        value is not None
+                        and answer is not None
+                        and Fraction(answer) == value,
+                        r["score"]["correct_answer"],
+                    ]
+                )
     totals = decision["resource_intents"]
     with (paper / "resource-actions.csv").open("w") as out:
         w = csv.writer(out)

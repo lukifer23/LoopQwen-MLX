@@ -5,6 +5,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Read the paper](loopqwen.pdf)
 - [Manuscript source](loopqwen.typ)
 - [Both tool families and final-answer accuracy across 78 requests](intent-scores.csv)
+- [Executed calculator programs, returned values and final answers on the 24 human questions](intent-arithmetic-actions.csv)
 - [The selected action, arguments and actual result for each of 32 live requests](resource-actions.csv)
 - [Machine-readable paired scores and timings for the frozen tool model](typed-transfer.csv)
 - [Selective refinement scores on all 300 passages by source suite and domain](selective-domains.csv)
