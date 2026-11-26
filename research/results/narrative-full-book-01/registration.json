@@ -1,0 +1,30 @@
+{
+  "id": "narrative-full-book-01",
+  "question": "Does the shipped offline assistant actually follow a changed character identity in an entire 162K-token public-domain novel on a human-written NarrativeQA question?",
+  "requires": "research/results/tool-language-release-01",
+  "prerequisite_sha256": "d1be2cea938ef4c7486214f903c95a9ebe688917782d89f6ad4c2b32d5d02252",
+  "checkpoint": "exports/tool-language-01",
+  "material": "research/data/narrative-full-book-01.json",
+  "max_tokens": 384,
+  "accepted_names": [
+    [
+      "Marcus",
+      "Marcus Schouler",
+      "Mark",
+      "Mark Schouler"
+    ],
+    [
+      "Felix",
+      "Felix Radford",
+      "Ned",
+      "Ned Radford"
+    ]
+  ],
+  "protocol": "Use the full Gutenberg text of Frank Norris\u2019s 1899 McTeague, including every chapter. The NarrativeQA official test question about the letter to City Hall has publisher agreement on Marcus. Freeze one natural book, then rename all character references Marcus to Felix, his nickname Mark to Ned, and Schouler to Radford. The question remains identical. Run the shipped language router and unchanged dense Base on exactly the same ordered prompt IDs under greedy thinking, 384 tokens, fresh full-history KV per execution, default 128-token blocks and alternating first model. Record rendered free text, routes, generated IDs, peak bytes, TTFT, total and actual consumed KV length at every global layer. Count a completed visible person name from the frozen aliases. Also report answer-in-prose with competing names excluded. This is a one-book intervention, not statistical evidence over novels.",
+  "gate": "Both completed exact identities, at least one more than Base, every native attention site retains the entire consumed prefix, both inputs exceed 131072 tokens, no more aggregate generation seconds or peak allocation than Base. A tie or failed accuracy closes general narrative-context promotion for the shipping route. This deployment audit is independent of the failed alternative attention schedules. Stop on memory pressure or the registered time cap.",
+  "limits": {
+    "wall_seconds": 1900,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  }
+}
