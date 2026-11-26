@@ -1,6 +1,7 @@
 """Recount a shipped assistant's cold and mixed-mode field workloads."""
 
 import csv
+import json
 
 import matplotlib.pyplot as plt
 
@@ -163,3 +164,51 @@ def transport(paper, results, result, finish):
         ax.set_xlabel(unit)
         ax.spines[["right", "top"]].set_visible(False)
     finish(fig, "transport")
+
+
+def providers(paper, results, result):
+    from scripts.field_cli_replay import correct, identical
+
+    name = "tool-language-release-02"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    result(name)
+    records = unpack(root / "field-cli.json.gz")
+    with (paper / "field-cli.csv").open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            [
+                "provider",
+                "request",
+                "expected",
+                "visible_answer",
+                "calls",
+                "observations",
+                "strict_success",
+                "identical",
+                "installed_seconds",
+                "bundled_seconds",
+            ]
+        )
+        for row in records:
+            a, b = row["installed"], row["bundled"]
+            if row["correct"] != correct(row) or row["identical"] != identical(a, b):
+                raise ValueError(
+                    "Bundled provider replay differs from the recorded trajectories"
+                )
+            calls = [r for r in b["turns"] if "observation" in r]
+            writer.writerow(
+                [
+                    row["kind"],
+                    row["prompt"],
+                    row["expected"],
+                    b["answer"],
+                    json.dumps([r["call"] for r in calls], sort_keys=True),
+                    json.dumps([r["observation"] for r in calls], sort_keys=True),
+                    row["correct"],
+                    row["identical"],
+                    a["seconds"],
+                    b["seconds"],
+                ]
+            )

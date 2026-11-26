@@ -339,7 +339,7 @@ def main():
 
     compute_cost(ROOT, PAPER)
     from paper_deployment import make as deployment
-    from paper_deployment import transport
+    from paper_deployment import providers, transport
 
     from paper_conversations import make as conversations
 
@@ -352,6 +352,7 @@ def main():
     conversations(PAPER, RESULTS, result)
     deployment(PAPER, RESULTS, result, finish)
     transport(PAPER, RESULTS, result, finish)
+    providers(PAPER, RESULTS, result)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"

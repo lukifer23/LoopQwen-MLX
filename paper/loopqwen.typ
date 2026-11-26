@@ -254,4 +254,8 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 
 [30] Choi et al. (2018). QuAC, question answering in context. #link("https://aclanthology.org/D18-1241/")[EMNLP].
 
+[31] Scholak, Schucher and Bahdanau (2021). PICARD, parsing incrementally for constrained auto-regressive decoding from language models. #link("https://aclanthology.org/2021.emnlp-main.779/")[EMNLP].
+
+[32] Guidance contributors. llguidance JSON Schema compiler and token matcher, version 1.9.1 in this study. #link("https://github.com/guidance-ai/llguidance")[Implementation] · #link("https://github.com/guidance-ai/llguidance/blob/main/docs/json_schema.md")[Schema semantics].
+
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].
