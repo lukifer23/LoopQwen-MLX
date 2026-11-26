@@ -90,6 +90,7 @@ The field-performance figure compares complete request time and correctness on t
 | `-m loopqwen.research.raw_distillation` | Native 2B teacher probabilities and recurrent 0.8B student next-token likelihood |
 | `-m loopqwen.research.narrative_book` | Whole-novel question and person-name intervention with physical KV offsets |
 | `-m loopqwen.research.register_allocation` | Reserved and incrementally grown full-history storage on identical weights |
+| `-m loopqwen.research.folded_system` | One physical gated-delta block at two instruction-model depths, hidden reconstruction, 40 new human questions and 52 historical public/field actions |
 | `-m loopqwen.research.draft_program` | Actual generated reasoning prefixes, native recurrent action training, live calculator observations and fresh human arithmetic |
 | `-m loopqwen.research.selective_raw` | Selective larger-teacher supervision, 300 raw passages and incremental cache parity |
 | `-m loopqwen.research.linked_reading` | Directed evidence relations and actual ten-document HotpotQA answers |

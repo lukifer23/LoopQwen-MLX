@@ -206,12 +206,15 @@ def training_lineage():
                 "passage-copy-01",
                 "meaning-alignment-01",
                 "draft-program-01",
+                "folded-system-01",
             }
             if not additional and ("turns" not in fit or "weights" not in fit):
                 continue
             result(root.name)
             spec = read(root / "registration.json")
             donor = spec.get("donor", {})
+            if root.name == "folded-system-01":
+                donor = read(Path(spec["public"]) / "registration.json")["donor"]
             turns = fit.get("turns", "")
             count = turns
             unit = "supervised turn"
@@ -222,8 +225,11 @@ def training_lineage():
                     "passage-copy-01": "answer passage",
                     "meaning-alignment-01": "sentence pair",
                     "draft-program-01": "word problem",
+                    "folded-system-01": "teacher context",
                 }[root.name]
-            targets = fit.get("targets", fit.get("seen"))
+            if "train_documents" in fit:
+                count = fit["train_documents"]
+            targets = fit.get("targets", fit.get("seen", fit.get("sampled_positions")))
             writer.writerow(
                 [
                     root.name,
@@ -231,14 +237,14 @@ def training_lineage():
                         "initial_adapter", donor.get("repo", "Qwen/Qwen3.5-0.8B-Base")
                     ),
                     donor.get("revision", "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"),
-                    spec.get("start_layer", 23),
+                    spec.get("start_layer", spec.get("fold_start", 23)),
                     fit.get("passes", spec.get("passes", 2)),
                     spec["rank"],
                     spec.get("prefix_bits", 8 if additional else "BF16"),
                     fit.get("trainable", fit.get("parameters")),
                     turns,
                     fit["updates"],
-                    targets if root.name != "selective-raw-01" else "",
+                    targets if root.name not in ("selective-raw-01", "folded-system-01") else "",
                     fit["prepare_seconds"],
                     fit["optimizer_seconds"],
                     fit["training"],
@@ -346,6 +352,7 @@ def main():
     from paper_raw import make as plot_raw
     from paper_raw import selective
     from paper_passages import make as plot_passages
+    from paper_folded import make as plot_folded
     from paper_draft_program import make as plot_draft_program
     from paper_meaning import make as plot_meaning
     from paper_intents import make as plot_intents
@@ -355,6 +362,7 @@ def main():
     plot_passages(PAPER, RESULTS, result, finish)
     plot_meaning(PAPER, RESULTS, result, finish)
     plot_draft_program(PAPER, RESULTS, result, finish)
+    plot_folded(PAPER, RESULTS, result, finish)
     plot_intents(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
     from paper_table import make as table_actions
