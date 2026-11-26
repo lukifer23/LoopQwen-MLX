@@ -10,7 +10,13 @@ import mlx.nn as nn
 import mlx.optimizers as optim
 
 from .. import REVISION
-from ..evidence_loop import EvidenceLoop, prepare, sentence_states
+from ..evidence_loop import (
+    EvidenceLoop,
+    PooledEvidence,
+    pooled_states,
+    prepare,
+    sentence_states,
+)
 from ..evaluation.language7 import base
 from ..evaluation.mechanism import packed, unpack
 from ..evaluation.statistics import exact_mcnemar
@@ -23,22 +29,23 @@ WORDS = ("cat", "mouse", "wolf", "sheep")
 
 
 def load_material(s, freeze):
+    panel = Path(s.get("material", PANEL))
     if freeze:
         rows = deduction_data.material(s)
-        if PANEL.exists() and read(PANEL) != rows:
+        if panel.exists() and read(panel) != rows:
             raise ValueError("Frozen stories differ")
-        if not PANEL.exists():
-            save(PANEL, rows)
+        if not panel.exists():
+            save(panel, rows)
         return rows
     idx = read("research/registry.json")
-    if idx["datasets"][str(PANEL)]["sha256"] != digest(PANEL) or idx["experiments"][
+    if idx["datasets"][str(panel)]["sha256"] != digest(panel) or idx["experiments"][
         s["id"]
     ]["registration"] != digest(REG / (s["id"] + ".json")):
         raise ValueError("Unregistered material")
-    return read(PANEL)
+    return read(panel)
 
 
-def training_inputs(model, t, rows, depth, b):
+def training_inputs(model, t, rows, depth, b, encoder):
     responses = [
         t.encode(deduction_data.response(r["answer"]), add_special_tokens=False)
         for r in rows
@@ -50,7 +57,7 @@ def training_inputs(model, t, rows, depth, b):
     features = []
     for i in range(0, len(texts), 16):
         b.check()
-        pair = sentence_states(model, t, texts[i : i + 16], depth)
+        pair = encoder(model, t, texts[i : i + 16], depth)
         mx.eval(*pair)
         features.append(pair)
     first, second = [mx.concatenate(frags) for frags in zip(*features)]
@@ -74,29 +81,45 @@ def training_inputs(model, t, rows, depth, b):
     question = mx.array([lookup[r["question"]] for r in rows])
     targets = mx.array([[vocab.index(tok) for tok in ids] for ids in responses])
     support = mx.array([r["supports"] for r in rows])
-    return vocab, (
-        first[facts],
-        second[facts],
-        first[question],
-        h,
-        z,
-        other,
-        targets,
-        support,
+    return (
+        vocab,
+        (first, second),
+        (
+            first[facts],
+            second[facts],
+            first[question],
+            h,
+            z,
+            other,
+            targets,
+            support,
+        ),
     )
 
 
 def fit(model, t, rows, depth, s, b, out):
-    vocab, arrays = training_inputs(model, t, rows, depth, b)
+    pooled = s.get("architecture") == "pooled"
+    vocab, moments, arrays = training_inputs(
+        model, t, rows, depth, b, pooled_states if pooled else sentence_states
+    )
     mx.random.seed(s["fit_seed"])
-    net = EvidenceLoop(model.args.hidden_size, vocab, s["rank"])
+    net = (PooledEvidence if pooled else EvidenceLoop)(
+        model.args.hidden_size, vocab, s["rank"]
+    )
+    if pooled:
+        net.calibrate(*moments)
+    word_columns = mx.array([vocab.index(core.atom(t, " " + w)) for w in WORDS])
     opt = optim.Adam(s["lr"])
 
     def loss(net, facts, deep, q, h, z, other, y, support):
         mem, p, edges, _ = net.read(facts, deep, q, depth)
         logits = z + net.bias(h, mem)
         logz = mx.logaddexp(mx.logsumexp(logits, axis=-1), other)
-        ce = mx.mean(logz - mx.take_along_axis(logits, y[..., None], axis=-1)[..., 0])
+        per_token = logz - mx.take_along_axis(logits, y[..., None], axis=-1)[..., 0]
+        weights = 1 + s.get("lexical_weight", 0) * mx.any(
+            y[..., None] == word_columns, axis=-1
+        )
+        ce = mx.sum(per_token * weights) / mx.sum(weights)
         ix = mx.arange(len(q))
         aux = -mx.mean(
             mx.log(p[ix, support[:, 0]] + 1e-12)
@@ -119,6 +142,7 @@ def fit(model, t, rows, depth, s, b, out):
     net.save_weights(str(out / "reader.safetensors"))
     spec = dict(
         base_revision=REVISION,
+        architecture=s.get("architecture", "terminal"),
         depth=depth,
         rank=s["rank"],
         vocab=vocab,
@@ -137,7 +161,9 @@ def restore(model, path):
         path / "reader.safetensors"
     ):
         raise ValueError("Evidence reader lineage changed")
-    net = EvidenceLoop(model.args.hidden_size, spec["vocab"], spec["rank"])
+    net = (PooledEvidence if spec.get("architecture") == "pooled" else EvidenceLoop)(
+        model.args.hidden_size, spec["vocab"], spec["rank"]
+    )
     net.load_weights(str(path / "reader.safetensors"))
     return net
 
@@ -204,7 +230,9 @@ def run(name, freeze=False):
     out = core.OUT / name
     out.mkdir(exist_ok=False, parents=True)
     res = dict(
-        registration=digest(REG / (name + ".json")), data=digest(PANEL), passed=False
+        registration=digest(REG / (name + ".json")),
+        data=digest(Path(s.get("material", PANEL))),
+        passed=False,
     )
     try:
         model, t, _ = base()

@@ -1,0 +1,43 @@
+{
+  "id": "deduction-regions-01",
+  "question": "Can position-sensitive Qwen evidence states resolve the predicate of the second supporting fact and improve generated answers over untouched Base?",
+  "seed": 143810,
+  "sizes": {
+    "train": 240,
+    "primary": 56,
+    "replication": 56
+  },
+  "rank": 64,
+  "updates": 1200,
+  "batch": 32,
+  "fit_seed": 418,
+  "lr": 0.001,
+  "support_weight": 0.7,
+  "arms": {
+    "recurrent": {
+      "depth": 2,
+      "fit": true
+    },
+    "base": {
+      "depth": 0
+    }
+  },
+  "panel": "primary",
+  "generation_cap": 192,
+  "net_floor": 8,
+  "probe_floor": 4,
+  "time_ratio": 1.5,
+  "protocol": "One question per deduplicated entire story. Both arms see identical original English statements and question with thinking enabled, unrestricted greedy vocabulary and 192-token first-turn limit. Freeze 56 separate replication stories before fitting. Score complete visible answers, independent four-animal shared-prefix probe, and actual synchronized end-to-end generation seconds including every evidence pass. The adapter is fit on 240 publisher training stories. Both support edges and final full-vocabulary CE are trained. The first native pass encodes every sentence with Qwen layers 0..15; on the second read, re-enter layers 10..15 on those same first-pass states. Marginalize learned latent fact identity. The ordinary full-context Qwen next-token logits always participate. Four equal token regions per sentence retain subject and predicate information. Normalize by training-only feature moments. Add a language-conditioned additive lexical readout and five extra loss units for each supervised animal token. Keep every publisher test story from the previous panels excluded. Do not use test examples to select weights.",
+  "gate": "Require >=8 net paired generated answers and exact two-sided McNemar p<.05, >=4 net common-prefix probes, <=1.5x Base time. Failure closes downstream work on this checkpoint. A pass licenses an equal-training K1 comparison, then same-weights disabling of the second hop, and disjoint replication. Never select a checkpoint using test outputs. Stop on budget or memory warning.",
+  "limits": {
+    "wall_seconds": 700,
+    "peak_gib": 5,
+    "available_gib": 1.5
+  },
+  "architecture": "pooled",
+  "material": "research/data/deduction-stories-02.json",
+  "exclude_test": [
+    "research/data/deduction-stories-01.json"
+  ],
+  "lexical_weight": 5
+}

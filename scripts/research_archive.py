@@ -82,6 +82,12 @@ def verify(root):
                 "Invalid trace certificate",
             )
             require(sum(verified) == scores[arm]["verified"], "Incorrect trace summary")
+    if study == "short-depth-transfer-01" or study.startswith("deduction-"):
+        from scripts import research_depth_audit
+
+        research_depth_audit.verify(
+            root, decision, read, sha, require, first_turn_answer
+        )
     if study == "external-anchor-01":
         cohort = read(Path("research/data/external-anchor.json"))
         gold = {r["id"]: r["gold"] for group in ("gsm", "arc") for r in cohort[group]}

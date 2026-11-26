@@ -7,7 +7,7 @@ from urllib.request import urlopen
 from mlx_lm.utils import load_tokenizer
 
 from ..identity import fingerprint
-from ..io import digest
+from ..io import digest, read
 from ..model_loader import local_snapshot
 
 SOURCE = "https://raw.githubusercontent.com/harvardnlp/MemN2N/f32f9531ba4230a7accc06b467c53d4d7322f62f/babi_data/en/"
@@ -62,7 +62,13 @@ def stories(split):
 
 def material(s):
     t = load_tokenizer(local_snapshot())
-    used = set()
+    used = {
+        r["story"]
+        for prev in s.get("exclude_test", [])
+        for key, rows in read(prev).items()
+        if key != "train"
+        for r in rows
+    }
     splits = {}
     for split, size in s["sizes"].items():
         groups = stories("train" if split == "train" else "test")

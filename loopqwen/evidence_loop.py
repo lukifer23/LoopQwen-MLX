@@ -38,7 +38,9 @@ class EvidenceLoop(nn.Module):
         def retrieve(q):
             queries = unit(self.query(q))
             return mx.softmax(
-                (queries @ keys.swapaxes(-1, -2)) * (4 / keys.shape[-1]), axis=-1
+                (queries @ keys.swapaxes(-1, -2))
+                * (getattr(self, "temperature", 4) / keys.shape[-1]),
+                axis=-1,
             )
 
         first = retrieve(question[:, None, :])
@@ -78,7 +80,66 @@ class EvidenceView:
 
 
 def prepare(model, t, net, facts, question, depth):
-    a, b = sentence_states(model, t, [*facts, question], depth)
+    encoder = pooled_states if isinstance(net, PooledEvidence) else sentence_states
+    a, b = encoder(model, t, [*facts, question], depth)
     memory, first, _, last = net.read(a[None, :-1], b[None, :-1], a[None, -1], depth)
     mx.eval(memory, first, last)
     return EvidenceView(model, net, memory), first[0].tolist(), last[0].tolist()
+
+
+def pooled_states(model, t, texts, depth):
+    """Retain four ordered regions, so a final punctuation state cannot hide an argument."""
+    ids = [t.encode(text, add_special_tokens=False) for text in texts]
+    length = max(map(len, ids))
+    x = mx.array([v + [0] * (length - len(v)) for v in ids])
+    h = model.shared_block(model.prefix_hidden(x))
+    second = model.shared_block(h) if depth == 2 else h
+    # Fractional overlap with equal-width token regions supports any sentence length.
+    lengths = mx.array([len(v) for v in ids])[:, None, None]
+    bounds = lengths * (mx.arange(5) / 4)[None, :, None]
+    pos = mx.arange(length)[None, None, :]
+    weights = mx.maximum(
+        0, mx.minimum(bounds[:, 1:], pos + 1) - mx.maximum(bounds[:, :-1], pos)
+    )
+    weights = weights / (lengths / 4)
+
+    def pool(v):
+        return (weights @ unit(v)).reshape(len(ids), -1)
+
+    return pool(h), pool(second)
+
+
+class PooledEvidence(EvidenceLoop):
+    def __init__(self, width, vocab, rank):
+        super().__init__(width, vocab, rank)
+        self.key = nn.Linear(4 * width, rank)
+        self.query = nn.Linear(4 * width, rank)
+        self.value = nn.Linear(4 * width, rank)
+        self.content = nn.Linear(rank, len(vocab))
+        self.gate = nn.Linear(rank, len(vocab))
+        self.temperature = 10
+        for label in ("first", "deep"):
+            setattr(self, label + "_mean", mx.zeros(4 * width))
+            setattr(self, label + "_scale", mx.ones(4 * width))
+
+    def calibrate(self, first, deeper):
+        # Statistics describe training sentences only, with a variance floor.
+        for label, x in (("first", first), ("deep", deeper)):
+            setattr(self, label + "_mean", mx.mean(x, axis=0))
+            setattr(self, label + "_scale", mx.rsqrt(mx.var(x, axis=0) + 0.0001))
+        self.freeze(keys=["first_mean", "first_scale", "deep_mean", "deep_scale"])
+
+    def read(self, facts, deeper, question, depth):
+        return super().read(
+            (facts - self.first_mean) * self.first_scale,
+            (deeper - self.deep_mean) * self.deep_scale,
+            (question - self.first_mean) * self.first_scale,
+            depth,
+        )
+
+    def bias(self, hidden, memory):
+        language = mx.tanh(self.language(unit(hidden)))
+        return (
+            self.output(language)
+            + mx.sigmoid(self.gate(language)) * self.content(memory)[:, None, :]
+        )
