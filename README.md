@@ -22,6 +22,8 @@ The same weights chose correct names and arguments on **18/24 versus 8/24** mult
 
 On original and human-edited BoolQ questions, the first Base-initialized reading adapter finished much sooner and answered both versions correctly on **10/32 passages versus 12/32 for Base**. This candidate missed its accuracy gate. [Reading benchmark and exact paired result](research/results/contrast-boolq-recurrent-01)
 
+An equally trained one-pass tool model solved 108/132 against 112/132 for two passes. The four-task difference had eight paired gains and four losses ($p=0.388$), and two passes used 15.14% more time. The [matched-depth figure](paper/matched-tool-effects.svg) shows how the result changes with the choice of control.
+
 ## Run the offline assistant
 
 The combined Apple Silicon export is `exports/tool-language-01` (2.2 GiB on this machine). It passed a separate offline qualification run. On a mode switch the runtime loads the selected backbone. Its text path reproduced all 200 short language outputs, retained NLL 2.982658 on 9,328 tokens and answered both 131,083-token register queries correctly in 525.82 seconds combined. Its tools path reproduced all 22 public execution sessions and answered four of five live package requests. [Qualification, per-file hashes and exact output streams](research/results/tool-language-release-01) · [Rebuild the export](docs/TRAINING.md#reproducing-executable-tool-training-and-evaluation)

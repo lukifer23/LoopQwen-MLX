@@ -28,6 +28,8 @@ def make(paper, results, result, finish):
             ("source", "svamp"),
             "correct_answer",
         ),
+        ("ASDiv, planner", "operand-planner-01", ("source", "asdiv"), "correct_answer"),
+        ("SVAMP, planner", "operand-planner-01", ("source", "svamp"), "correct_answer"),
         (
             "WikiSQL, trained",
             "tool-dialogue-sql-learning-01",

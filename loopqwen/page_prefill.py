@@ -67,14 +67,14 @@ class PageCache(KVCache):
         return mx.take(keys, indices, axis=2), mx.take(values, indices, axis=2)
 
     def report(self):
-        return dict(
-            offset=self.offset,
-            retained=self.keys_and_values()[0].shape[2],
-            sparse_blocks=self.sparse_blocks,
-            dense_queries=self.dense_queries,
-            attended=self.attended,
-            possible=self.possible,
-        )
+        return {
+            "offset": self.offset,
+            "retained": self.keys_and_values()[0].shape[2],
+            "sparse_blocks": self.sparse_blocks,
+            "dense_queries": self.dense_queries,
+            "attended": self.attended,
+            "possible": self.possible,
+        }
 
 
 class PageAttention(Qwen3NextAttention):
