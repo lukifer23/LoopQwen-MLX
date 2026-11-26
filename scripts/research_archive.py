@@ -82,6 +82,14 @@ def verify(root):
                 "Invalid trace certificate",
             )
             require(sum(verified) == scores[arm]["verified"], "Incorrect trace summary")
+    if study == "evidence-language-release-01":
+        from scripts.research_depth_audit import verify_release
+
+        verify_release(root, decision, read, sha, require)
+    if study.startswith("science-composition-"):
+        from scripts.research_depth_audit import verify_science
+
+        verify_science(root, decision, read, sha, require)
     if study == "short-depth-transfer-01" or study.startswith("deduction-"):
         from scripts import research_depth_audit
 

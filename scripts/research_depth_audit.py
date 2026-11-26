@@ -162,3 +162,180 @@ def verify(root, decision, read, sha, require, number):
             and u["seconds"] <= reg["time_ratio"] * v["seconds"]
         )
     require(passed == decision["passed"], "Incorrect promotion decision")
+
+
+def verify_release(root, decision, read, sha, require):
+    from loopqwen.identity import fingerprint
+
+    spec = read(root / "registration.json")
+    require(
+        sha(root / "registration.json") == decision["registration"],
+        "Release registration mismatch",
+    )
+    for name, h in spec["prerequisites"].items():
+        source = Path("research/results") / name
+        require(
+            sha(source / "checksums.json") == h
+            and read(source / "decision.json")["passed"],
+            "Invalid release prerequisite",
+        )
+    if decision["status"] != "completed":
+        require(
+            not decision["passed"] and decision["reason"], "Failed release promoted"
+        )
+        return
+    folder = root / "model"
+    policy = read(folder / "context-policy.json")
+    require(
+        sha(folder / "context-policy.json") == decision["policy"]
+        and policy["schema"] == 3,
+        "Wrong shipping policy",
+    )
+    for name, h in policy["files"].items():
+        require(sha(folder / name) == h, "Changed release file: " + name)
+    old = read(Path(spec["combined"]) / "model" / "context-policy.json")
+    require(
+        all(policy["files"].get(k) == v for k, v in old["files"].items()),
+        "Changed qualified component",
+    )
+    require(
+        sha(folder / "evidence/reader.safetensors")
+        == sha(Path(spec["reader"]) / "reader.safetensors"),
+        "Different reasoning reader",
+    )
+    for label, rows, ref in (
+        (
+            "deduction",
+            read(Path(spec["material"]))["replication"],
+            Path(spec["longbase"]) / "recurrent.json.gz",
+        ),
+        (
+            "mixed",
+            read(Path("research/data/conditional-language-02.json")),
+            Path(spec["combined"]) / "candidate.json.gz",
+        ),
+    ):
+        samples = read(root / (label + ".json.gz"))["records"]
+        for r, v, item in zip(samples, read(ref)["records"], rows, strict=True):
+            require(
+                r["input_sha256"] == fingerprint(item["prompt_ids"])
+                and r["id"] == item["id"]
+                and r["token_ids"] == v["token_ids"]
+                and r["route"]
+                == ("deduction" if label == "deduction" else v["context_route"]),
+                "Changed deployed answer",
+            )
+        require(
+            decision[label]
+            == {
+                "identical": len(samples),
+                "seconds": sum(r["elapsed_s"] for r in samples),
+            },
+            "Replay totals",
+        )
+    require(
+        decision["raw_requests"] == 120
+        and decision["retention"]
+        == read(Path(spec["combined"]) / "decision.json")["retention"]["base"],
+        "Raw language retention changed",
+    )
+    rows = read(Path("research/data/conditional-language-128k.json"))["panel"]
+    ref = Path(spec["context"])
+    records = read(root / "context.json.gz")["records"]
+    for r, prior, row in zip(
+        records, read(ref / "candidate.json.gz")["records"], rows, strict=True
+    ):
+        require(
+            r["input_sha256"] == fingerprint(row["prompt_ids"])
+            and r["token_ids"] == prior["token_ids"]
+            and r["correct"]
+            and r["gold"] == row["gold"]
+            and r["context_route"] == prior["context_route"]
+            and r["prompt_tokens"] == len(row["prompt_ids"]) >= 131072,
+            "Invalid long context replay",
+        )
+    seconds = sum(r["elapsed_s"] for r in records)
+    require(
+        decision["context"] == {"correct": 2, "seconds": seconds}
+        and decision["passed"]
+        == (seconds <= 1.75 * read(ref / "decision.json")["scores"]["base"]["seconds"]),
+        "Wrong full-history decision",
+    )
+
+
+def verify_science(root, d, read, sha, require):
+    from loopqwen.research.science_data import LETTERS, answer
+
+    reg = read(root / "registration.json")
+    panel = Path("research/data/science-composition-01.json")
+    require(
+        sha(panel) == d["data"]
+        and sha(root / "registration.json") == d["registration"],
+        "Wrong science cohort",
+    )
+    if d["status"] != "completed":
+        require(not d["passed"] and d["reason"], "Incomplete study promoted")
+        return
+    rows = read(panel)[reg["panel"]]
+    arms = {}
+    for name, conf in reg["arms"].items():
+        records = read(root / (name + ".json.gz"))["records"]
+        if conf.get("fit"):
+            require(
+                sha(root / "reader.safetensors")
+                == read(root / "reader.json")["weights"],
+                "Science reader changed",
+            )
+        for item, r in zip(rows, records, strict=True):
+            tokens = r["token_ids"]
+            complete = (
+                tokens[-1] in (248046, 248044)
+                and tokens.count(248069) == 1
+                and 248068 not in tokens
+            )
+            text = (
+                r["text"]
+                .split("</think>")[-1]
+                .split("<|im_end|>")[0]
+                .split("<|endoftext|>")[0]
+            )
+            pred = answer(text, item["options"]) if complete else None
+            require(
+                item["id"] == r["id"]
+                and item["prompt_ids"] == r["prompt_ids"]
+                and complete == r["complete"]
+                and pred == r["answer"]
+                and (pred == item["answer"]) == r["correct"]
+                and r["probe"]
+                == LETTERS[max(range(8), key=r["probe_logits"].__getitem__)],
+                "Invalid science answer",
+            )
+        stats = {
+            "correct": sum(v["correct"] for v in records),
+            "complete": sum(v["complete"] for v in records),
+            "probe": sum(
+                v["probe"] == r["answer"] for v, r in zip(records, rows, strict=True)
+            ),
+            "seconds": sum(v["end_to_end"] for v in records),
+        }
+        require(d["scores"][name] == stats, "Wrong science totals")
+        arms[name] = records
+    a, b = arms
+    delta = [
+        int(x["correct"]) - int(y["correct"])
+        for x, y in zip(arms[a], arms[b], strict=True)
+    ]
+    wins, losses = delta.count(1), delta.count(-1)
+    p = exact_mcnemar(wins, losses)
+    aa, bb = d["scores"][a], d["scores"][b]
+    require(
+        (d["wins"], d["losses"], d["p"]) == (wins, losses, p)
+        and d["passed"]
+        == (
+            sum(delta) >= reg["net_floor"]
+            and p < 0.05
+            and aa["probe"] >= bb["probe"] + reg["probe_floor"]
+            and aa["seconds"] <= bb["seconds"] * reg["time_ratio"]
+        ),
+        "Invalid science decision",
+    )
