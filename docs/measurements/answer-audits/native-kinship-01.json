@@ -1,0 +1,93 @@
+{
+  "study": "native-kinship-01",
+  "base_records_sha256": "8c8d3a1c5dc177e9012dc7cd4ec028aeb26371681e74d031004b81d5dc13abc9",
+  "method": "Inspect the visible answer of every completed Base turn for the two queried people, with gold labels and automatic grades withheld while extracting the stated relation. Accept a generic sibling response for brother or sister. Unfinished responses earn zero.",
+  "completed": 12,
+  "content_correct": 1,
+  "records": [
+    {
+      "id": "a2bcd0dc-f6cd-4b22-9a1b-5f6643281ae3",
+      "question": "How is [Clarence] related to [Lena]?",
+      "relation_stated_for_queried_people": "sibling",
+      "source_answer": "nephew",
+      "correct": false
+    },
+    {
+      "id": "b9d7c859-eb99-446b-a8f6-dcae47351f6e",
+      "question": "How is [Wayne] related to [Lynn]?",
+      "relation_stated_for_queried_people": "brother",
+      "source_answer": "nephew",
+      "correct": false
+    },
+    {
+      "id": "9ddc10c5-d001-4b85-8e73-2a8039824daf",
+      "question": "How is [Lena] related to [Pamela]?",
+      "relation_stated_for_queried_people": null,
+      "source_answer": "mother",
+      "correct": false
+    },
+    {
+      "id": "cec3b71e-4701-4b3f-81a8-b7465dce4c81",
+      "question": "How is [Lynn] related to [Martha]?",
+      "relation_stated_for_queried_people": "sister",
+      "source_answer": "aunt",
+      "correct": false
+    },
+    {
+      "id": "f98463ed-d035-497d-b54b-874c90bc22ad",
+      "question": "How is [Cindy] related to [Lena]?",
+      "relation_stated_for_queried_people": "daughter",
+      "source_answer": "sister",
+      "correct": false
+    },
+    {
+      "id": "62c013af-e6d4-4d42-9838-c89a95199bd5",
+      "question": "How is [Cindy] related to [Bobby]?",
+      "relation_stated_for_queried_people": "mother",
+      "source_answer": "aunt",
+      "correct": false
+    },
+    {
+      "id": "d46c2d9c-ce5e-45dc-b85f-f56186f74823",
+      "question": "How is [Charles] related to [Frances]?",
+      "relation_stated_for_queried_people": null,
+      "source_answer": "grandson",
+      "correct": false
+    },
+    {
+      "id": "2643f4a2-5ff3-45ca-8e97-44a816f9439f",
+      "question": "How is [Wesley] related to [Joshua]?",
+      "relation_stated_for_queried_people": "uncle",
+      "source_answer": "brother",
+      "correct": false
+    },
+    {
+      "id": "1dc2f0c2-960d-4536-8344-f78c7644fbd0",
+      "question": "How is [Francisco] related to [David]?",
+      "relation_stated_for_queried_people": "uncle",
+      "source_answer": "brother",
+      "correct": false
+    },
+    {
+      "id": "5f9ae1a5-c9c3-4380-a581-30c1403c9038",
+      "question": "How is [Michael] related to [Frances]?",
+      "relation_stated_for_queried_people": "sister",
+      "source_answer": "grandson",
+      "correct": false
+    },
+    {
+      "id": "94efbe46-dcc8-4ce6-8f55-4956749a5bba",
+      "question": "How is [Frances] related to [David]?",
+      "relation_stated_for_queried_people": "mother",
+      "source_answer": "mother",
+      "correct": true
+    },
+    {
+      "id": "0a8a3ce0-dc93-4829-a6e3-355c81a38074",
+      "question": "How is [Cindy] related to [Frances]?",
+      "relation_stated_for_queried_people": null,
+      "source_answer": "daughter",
+      "correct": false
+    }
+  ]
+}
