@@ -10,8 +10,17 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read
 
 
-def decode_operator(paper, results, result, finish):
-    name = "packed-decode-kernel-01"
+def decode_operator(paper, results, result, finish, name="packed-decode-kernel-01"):
+    original = name == "packed-decode-kernel-01"
+    target = "packed-decode" if original else "factored-decode"
+    arms = (
+        (("stock", "MLX-LM", "#536a89", "s"), ("fused", "Fused Metal", "#11675d", "o"))
+        if original
+        else (
+            ("fused", "Prior fused", "#536a89", "s"),
+            ("factored", "Factored affine", "#11675d", "o"),
+        )
+    )
     root = results / name
     if not (root / "checksums.json").is_file():
         return
@@ -22,7 +31,7 @@ def decode_operator(paper, results, result, finish):
     events = read(times)
     lengths = read(root / "registration.json")["lengths"]
     fig, axes = plt.subplots(1, 2, figsize=(6.7, 2.5), sharey=True)
-    with (paper / "packed-decode.csv").open("w") as file:
+    with (paper / (target + ".csv")).open("w") as file:
         w = csv.writer(file)
         w.writerow(
             [
@@ -35,10 +44,7 @@ def decode_operator(paper, results, result, finish):
             ]
         )
         for ax, mask in zip(axes, ("plain", "reader"), strict=True):
-            for side, label, color, marker in (
-                ("stock", "MLX-LM", "#536a89", "s"),
-                ("fused", "Fused Metal", "#11675d", "o"),
-            ):
+            for side, label, color, marker in arms:
                 medians = []
                 for pos, n in enumerate(lengths):
                     rows = [
@@ -79,7 +85,7 @@ def decode_operator(paper, results, result, finish):
             ax.set_yscale("log")
         axes[0].set_ylabel("Attention call (ms, log scale)")
         axes[1].legend(frameon=False, fontsize=8)
-    finish(fig, "packed-decode")
+    finish(fig, target)
 
 
 def make(paper, results, result, finish):

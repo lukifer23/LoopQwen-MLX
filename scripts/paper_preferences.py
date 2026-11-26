@@ -1,6 +1,7 @@
 """Plot both sides of file clarification and export every answer and actual action."""
 
 import csv
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 
@@ -11,7 +12,67 @@ from loopqwen.tool_session import compact
 
 def make(paper, results, result, finish):
     name = "action-preference-01"
+    import json
+
+    from paper_overlap import audit
+
+    from loopqwen.tool_session import SYSTEM
+
     root = results / name
+    spec = read(Path("research/experiments") / (name + ".json"))
+    fit = read(spec["training"])
+    material = read(spec["material"])["rows"]
+    pref = [w for w in fit["preferences"] if w["split"] == "train"]
+    training = [w["messages"][-1]["content"] for w in pref]
+    training += [
+        m["content"]
+        for w in fit["replay"]
+        for m in w["messages"]
+        if m["role"] == "user"
+    ]
+    names = set()
+    for w in [*pref, *fit["replay"]]:
+        for m in w["messages"]:
+            if m["role"] == "system" and m["content"].startswith(SYSTEM):
+                names.update(v["name"] for v in json.loads(m["content"][len(SYSTEM) :]))
+    with (paper / "action-preference-inputs.csv").open("w") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(
+            [
+                "cohort",
+                "numbers_masked",
+                "unique_fit_questions",
+                "unique_enrolled_questions",
+                "exact_matches",
+                "near_matches",
+                "max_fivegram_jaccard",
+                "csv_operation_names_seen_in_fit",
+            ]
+        )
+        for cohort in (
+            "initial file requests",
+            "file follow-ups",
+            "preference validation",
+        ):
+            if cohort == "preference validation":
+                held = [
+                    w["messages"][-1]["content"]
+                    for w in fit["preferences"]
+                    if w["split"] == "validation"
+                ]
+            elif cohort == "file follow-ups":
+                held = [w["users"][1] for w in material if w["kind"] == "missing"]
+            else:
+                held = [w["users"][0] for w in material if w["kind"] != "public"]
+            for mask in (False, True):
+                writer.writerow(
+                    [
+                        cohort,
+                        mask,
+                        *audit(training, held, mask),
+                        len(names & {"csv_cell", "csv_row_count"}),
+                    ]
+                )
     if not (root / "checksums.json").is_file():
         return
     d = result(name)

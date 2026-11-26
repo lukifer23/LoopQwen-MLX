@@ -126,3 +126,5 @@ The SQLite action audit compares the model's first proposed operation, column an
 The semantic alignment supplement records free responses, common-prefix judgments and answer margins on all 80 requests. A separate audit reports the source text lengths and maximum lexical overlap with fitting material. [Outcomes and times by source](meaning-outcomes.csv) · [Both models on every request](meaning-requests.csv) · [Input audit](meaning-input-audit.csv)
 
 The fresh 131K direct comparison reports unaggregated prompt and output rates, decoded values, timing and physical history receipts. [Per-request supplement](fused-base-requests.csv) · [Side-by-side resource measures](fused-base-full.svg)
+
+The file-dialogue audit compares every enrolled request and follow-up to both the external preference-fitting questions and the original tool-training replay. It reports exact and near matches with and without numerical normalization. [Input overlap](action-preference-inputs.csv)

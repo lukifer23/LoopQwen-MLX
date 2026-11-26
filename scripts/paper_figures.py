@@ -396,6 +396,7 @@ def main():
     prefill(PAPER, RESULTS, result, finish)
     prefill_resources(PAPER, RESULTS, result, finish)
     decode_operator(PAPER, RESULTS, result, finish)
+    decode_operator(PAPER, RESULTS, result, finish, "packed-decode-kernel-02")
     full_decoder(PAPER, RESULTS, result, finish)
     direct_fused(PAPER, RESULTS, result, finish)
     conversations(PAPER, RESULTS, result)
