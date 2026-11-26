@@ -75,9 +75,13 @@ def main():
     ):
         p = sub.add_parser(name, help=desc)
         p.add_argument("--experiment", default="pilot")
-    p = sub.add_parser("tools", help="Ask a question against local JSON lookup tables")
+    p = sub.add_parser("tools", help="Ask the recurrent assistant to use local tools")
     p.add_argument("--checkpoint", type=Path, required=True, help="Combined language and tool export")
-    p.add_argument("--catalog", type=Path, required=True)
+    p.add_argument("--catalog", type=Path, help="JSON file with read-only lookup definitions")
+    p.add_argument("--calculator", action="store_true", help="Expose exact arithmetic expressions")
+    p.add_argument("--packages", action="store_true", help="Expose installed versions and dependencies")
+    p.add_argument("--database", type=Path, help="Open an existing SQLite database read-only")
+    p.add_argument("--table", help="Name of the one database table exposed to the assistant")
     p.add_argument("--prompt", required=True)
     p.add_argument("--max-tokens", type=int, default=160)
     p.add_argument("--max-turns", type=int, default=4)
@@ -234,15 +238,39 @@ def main():
         path = report(args.experiment)
         result = path if cmd == "report" else Path(path).read_text()
     elif cmd == "tools":
+        from contextlib import ExitStack, closing
+
         from .io import read
         from .tool_catalog import load_catalog
         from .tool_model import Assistant
 
-        assistant = Assistant(args.checkpoint)
-        result = assistant.respond(args.prompt, load_catalog(read(args.catalog)), max_tokens=args.max_tokens, max_turns=args.max_turns)
+        if bool(args.database) != bool(args.table):
+            parser.error("--database and --table must be supplied together")
+        with ExitStack() as resources:
+            supplied = load_catalog(read(args.catalog)) if args.catalog is not None else []
+            if args.calculator:
+                from .calculator_tool import tool
+
+                supplied.append(tool())
+            if args.packages:
+                from .package_tools import tools as packages
+
+                supplied.extend(packages())
+            if args.database:
+                import sqlite3
+                from .table_tool import database_tool
+
+                uri = args.database.resolve().as_uri() + "?mode=ro"
+                db = resources.enter_context(closing(sqlite3.connect(uri, uri=True)))
+                supplied.append(database_tool(db, args.table))
+            if not supplied:
+                parser.error("Select a catalog, calculator, packages or a database table")
+            result = Assistant(args.checkpoint).respond(
+                args.prompt, supplied, max_tokens=args.max_tokens, max_turns=args.max_turns
+            )
         if not args.trace:
-            result = {k:v for k,v in result.items() if k != "turns"} | {
-                "calls": [t["call"] | {"result":t["observation"]} for t in result["turns"] if "observation" in t]
+            result = {k: v for k, v in result.items() if k != "turns"} | {
+                "calls": [t["call"] | {"result": t["observation"]} for t in result["turns"] if "observation" in t]
             }
     elif cmd == "generate":
         from .worker import acquire
