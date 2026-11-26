@@ -38,6 +38,7 @@ def main(verify):
                         "register-rebalanced-",
                         "register-allocation-",
                         "register-page-prefill-",
+                        "register-page-full-",
                         "native-language-release-02",
                     )
                 )

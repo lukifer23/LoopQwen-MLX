@@ -20,6 +20,59 @@ from .ledger_curriculum import measure
 from .registered import registered
 
 
+def direct_outcome(spec, rows, items, costs):
+    evidence = True
+    ordinary = {(i, 0) for i in (3, 7, 11, 15, 19, 23)}
+    recurrent = ordinary | {(11, 1), (15, 1)}
+    for side, arm in rows.items():
+        for w, r in zip(items, arm, strict=True):
+            n = len(w["prompt_ids"])
+            consumed = n + len(r["token_ids"]) - 1
+            sites = r["kv_history"]
+            evidence &= (
+                r["input_sha256"] == fingerprint(w["prompt_ids"])
+                and n >= 131072
+                and n == r["prompt_tokens"]
+                and {(s["layer"], s["turn"]) for s in sites}
+                == (ordinary if side == "base" else recurrent)
+                and all(s["offset"] == s["retained"] == consumed for s in sites)
+            )
+            if side == "pages":
+                section = r["attention_memory"]
+                selected = r["page_sites"]
+                evidence &= (
+                    r["context_route"] == "register"
+                    and section["start"]
+                    <= w["gold_start"]
+                    <= w["gold_stop"]
+                    <= section["stop"]
+                    and {(s["layer"], s["turn"]) for s in selected} == recurrent
+                    and all(
+                        s["sparse_blocks"] * 128 + s["dense_queries"] == consumed
+                        and s["dense_queries"] >= 512
+                        and s["sparse_blocks"] > 0
+                        and s["offset"] == s["retained"] == consumed
+                        and s["possible"] == consumed * (consumed + 1) // 2
+                        and 0 < s["attended"] < s["possible"]
+                        for s in selected
+                    )
+                )
+    a, b = costs["pages"], costs["base"]
+    useful = bool(
+        evidence
+        and a["correct"] == 2 > b["correct"]
+        and a["ttft"] < b["ttft"]
+        and a["seconds"] < b["seconds"]
+    )
+    return {
+        "passed": useful and a["peak"] <= b["peak"],
+        "accuracy_and_time": useful,
+        "full_history": bool(evidence),
+        "metrics": costs,
+        "items": len(items),
+    }
+
+
 def outcome(spec, rows, items):
     costs = {
         name: dict(
@@ -30,6 +83,8 @@ def outcome(spec, rows, items):
         )
         for name, rs in rows.items()
     }
+    if spec.get("control") == "base":
+        return direct_outcome(spec, rows, items, costs)
     policy = spec.get("attention_policy", "reserved")
     c, b = costs[policy], costs["stock"]
     exact = True
@@ -103,8 +158,17 @@ def verify(root, decision):
     term = {*tok.eos_token_ids, tok.convert_tokens_to_ids("<|im_end|>")}
     rows = {
         k: unpack(root / (k + ".json.gz"))
-        for k in (spec.get("attention_policy", "reserved"), "stock")
+        for k in (
+            spec.get("attention_policy", "reserved"),
+            spec.get("control", "stock"),
+        )
     }
+    if spec.get("control") == "base":
+        from .counterfactual_memory import material
+
+        assert read(spec["material"]) == [
+            material(tok, {"seed": spec["seed"], "minimum_length": 131072})
+        ]
     for rs in rows.values():
         for row, w in zip(rs, items, strict=True):
             ids = row["token_ids"]
@@ -135,12 +199,18 @@ def run(name):
     )
     budget = Budget(name, spec["limits"])
     policy = spec.get("attention_policy", "reserved")
-    rows = {policy: [], "stock": []}
+    control = spec.get("control", "stock")
+    rows = {policy: [], control: []}
     items = flatten(spec)
     try:
         for i, item in enumerate(items):
-            for side in (policy, "stock") if i % 2 == 0 else ("stock", policy):
-                model, tok, _ = load_trained(spec["checkpoint"])
+            for side in (policy, control) if i % 2 == 0 else (control, policy):
+                if side == "base":
+                    from ..evaluation.language7 import base
+
+                    model, tok, _ = base()
+                else:
+                    model, tok, _ = load_trained(spec["checkpoint"])
                 if side == "pages":
                     from ..page_prefill import attach
 
