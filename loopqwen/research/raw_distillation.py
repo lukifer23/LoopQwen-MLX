@@ -9,6 +9,7 @@ from time import perf_counter
 import mlx.core as mx
 import mlx.nn as nn
 import mlx.optimizers as optim
+import numpy as np
 from mlx.utils import tree_flatten
 from huggingface_hub import snapshot_download
 from mlx_lm import load
@@ -51,28 +52,37 @@ def teacher_targets(spec, rows, out, budget):
     net = LoopedModel(outer.language_model, Span(passes=1))
     net.eval()
     del outer
-    indices = []
-    masses = []
+    shape = (len(rows), len(rows[0]["positions"]), spec["top"])
+    indices = np.empty(shape, dtype=np.uint32)
+    masses = np.empty(shape, dtype=np.float32)
     start = perf_counter()
     for i in range(0, len(rows), 4):
         batch = rows[i : i + 4]
         h = net.hidden(pad(batch))
         pos = mx.array([r["positions"] for r in batch])
         states = h[mx.arange(len(batch))[:, None], pos]
-        z = net.project(states).astype(mx.float32)
-        winners = mx.argpartition(-z, spec["top"] - 1, axis=-1)[..., : spec["top"]]
-        mass = mx.exp(
-            mx.take_along_axis(z, winners, axis=-1)
-            - mx.logsumexp(z, axis=-1, keepdims=True)
-        )
-        mx.eval(winners, mass)
-        indices.append(winners)
-        masses.append(mass)
+        mx.eval(states)
+        # The full-vocabulary partition is much larger than its first 32
+        # columns. Store the selected outputs in compact host arrays, so a
+        # strided top-k view cannot keep prior partitions alive through the fit.
+        for j in range(len(batch)):
+            for k in range(0, shape[1], 16):
+                z = net.project(states[j, k : k + 16]).astype(mx.float32)
+                winners = mx.argpartition(-z, spec["top"] - 1, axis=-1)[
+                    ..., : spec["top"]
+                ]
+                mass = mx.exp(
+                    mx.take_along_axis(z, winners, axis=-1)
+                    - mx.logsumexp(z, axis=-1, keepdims=True)
+                )
+                mx.eval(winners, mass)
+                indices[i + j, k : k + 16] = np.asarray(winners)
+                masses[i + j, k : k + 16] = np.asarray(mass)
+                del z, winners, mass
         budget.check()
         if i % 128 == 0:
             print("teacher documents", i, flush=True)
-    idx = mx.concatenate(indices)
-    p = mx.concatenate(masses)
+    idx, p = mx.array(indices), mx.array(masses)
     mx.eval(idx, p)
     f = out / "teacher-targets.safetensors"
     mx.save_safetensors(str(f), {"ids": idx, "mass": p})
