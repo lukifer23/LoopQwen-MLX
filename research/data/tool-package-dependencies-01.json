@@ -1,0 +1,564 @@
+{
+  "environment": {
+    "shellingham": {
+      "version": "1.5.4",
+      "dependencies": []
+    },
+    "markdown-it-py": {
+      "version": "4.3.0",
+      "dependencies": [
+        "mdurl"
+      ]
+    },
+    "mlx": {
+      "version": "0.32.4",
+      "dependencies": [
+        "mlx-metal"
+      ]
+    },
+    "typer": {
+      "version": "0.29.2",
+      "dependencies": [
+        "annotated-doc",
+        "pydantic",
+        "rich",
+        "shellingham"
+      ]
+    },
+    "mlx-lm": {
+      "version": "0.32.2",
+      "dependencies": [
+        "jinja2",
+        "mlx",
+        "numpy",
+        "protobuf",
+        "pyyaml",
+        "sentencepiece",
+        "transformers"
+      ]
+    },
+    "kiwisolver": {
+      "version": "1.5.1",
+      "dependencies": []
+    },
+    "httpcore2": {
+      "version": "2.16.2",
+      "dependencies": [
+        "h11",
+        "truststore"
+      ]
+    },
+    "sentencepiece": {
+      "version": "0.2.3",
+      "dependencies": []
+    },
+    "packaging": {
+      "version": "26.3",
+      "dependencies": []
+    },
+    "protobuf": {
+      "version": "7.36.2",
+      "dependencies": []
+    },
+    "tokenizers": {
+      "version": "0.23.3",
+      "dependencies": [
+        "huggingface-hub"
+      ]
+    },
+    "numpy": {
+      "version": "2.5.5",
+      "dependencies": []
+    },
+    "pygments": {
+      "version": "2.21.0",
+      "dependencies": []
+    },
+    "httpx2": {
+      "version": "2.16.2",
+      "dependencies": [
+        "anyio",
+        "httpcore2",
+        "idna",
+        "truststore",
+        "typing-extensions"
+      ]
+    },
+    "jsonschema-specifications": {
+      "version": "2025.9.1",
+      "dependencies": [
+        "referencing"
+      ]
+    },
+    "pydantic-core": {
+      "version": "2.50.5",
+      "dependencies": [
+        "typing-extensions"
+      ]
+    },
+    "annotated-doc": {
+      "version": "0.0.7",
+      "dependencies": []
+    },
+    "pydantic": {
+      "version": "2.14.4",
+      "dependencies": [
+        "annotated-types",
+        "pydantic-core",
+        "typing-extensions",
+        "typing-inspection"
+      ]
+    },
+    "rich": {
+      "version": "15.0.0",
+      "dependencies": [
+        "markdown-it-py",
+        "pygments"
+      ]
+    },
+    "jsonschema": {
+      "version": "4.26.0",
+      "dependencies": [
+        "attrs",
+        "jsonschema-specifications",
+        "referencing",
+        "rpds-py"
+      ]
+    },
+    "filelock": {
+      "version": "4.3.1",
+      "dependencies": []
+    },
+    "click": {
+      "version": "8.5.1",
+      "dependencies": []
+    },
+    "iniconfig": {
+      "version": "2.3.1",
+      "dependencies": []
+    },
+    "pyarrow": {
+      "version": "26.0.1",
+      "dependencies": []
+    },
+    "pillow": {
+      "version": "13.0.0",
+      "dependencies": []
+    },
+    "contourpy": {
+      "version": "1.4.0",
+      "dependencies": [
+        "numpy"
+      ]
+    },
+    "pluggy": {
+      "version": "1.7.0",
+      "dependencies": []
+    },
+    "safetensors": {
+      "version": "0.8.0",
+      "dependencies": []
+    },
+    "typing-inspection": {
+      "version": "0.4.5",
+      "dependencies": [
+        "typing-extensions"
+      ]
+    },
+    "tqdm": {
+      "version": "4.70.1",
+      "dependencies": []
+    },
+    "h11": {
+      "version": "0.16.0",
+      "dependencies": []
+    },
+    "mdurl": {
+      "version": "0.1.2",
+      "dependencies": []
+    },
+    "mlx-metal": {
+      "version": "0.32.4",
+      "dependencies": []
+    },
+    "typst": {
+      "version": "0.15.2",
+      "dependencies": []
+    },
+    "fsspec": {
+      "version": "2026.9.0",
+      "dependencies": []
+    },
+    "matplotlib": {
+      "version": "3.11.2",
+      "dependencies": [
+        "contourpy",
+        "cycler",
+        "fonttools",
+        "kiwisolver",
+        "numpy",
+        "packaging",
+        "pillow",
+        "pyparsing",
+        "python-dateutil"
+      ]
+    },
+    "truststore": {
+      "version": "0.10.5",
+      "dependencies": []
+    },
+    "ruff": {
+      "version": "0.17.6",
+      "dependencies": []
+    },
+    "pytest": {
+      "version": "9.2.0",
+      "dependencies": [
+        "iniconfig",
+        "packaging",
+        "pluggy",
+        "pygments"
+      ]
+    },
+    "cycler": {
+      "version": "0.12.1",
+      "dependencies": []
+    },
+    "jinja2": {
+      "version": "3.1.6",
+      "dependencies": [
+        "markupsafe"
+      ]
+    },
+    "annotated-types": {
+      "version": "0.8.0",
+      "dependencies": []
+    },
+    "referencing": {
+      "version": "0.37.0",
+      "dependencies": [
+        "attrs",
+        "rpds-py",
+        "typing-extensions"
+      ]
+    },
+    "fonttools": {
+      "version": "4.68.0",
+      "dependencies": []
+    },
+    "tzdata": {
+      "version": "2026.6",
+      "dependencies": []
+    },
+    "regex": {
+      "version": "2026.11.19",
+      "dependencies": []
+    },
+    "loopqwen": {
+      "version": "0.1.0",
+      "dependencies": [
+        "huggingface-hub",
+        "mlx",
+        "mlx-lm",
+        "numpy",
+        "psutil",
+        "pyyaml",
+        "safetensors"
+      ]
+    },
+    "rpds-py": {
+      "version": "2026.9.1",
+      "dependencies": []
+    },
+    "anyio": {
+      "version": "4.16.0",
+      "dependencies": [
+        "idna",
+        "typing-extensions"
+      ]
+    },
+    "attrs": {
+      "version": "26.1.0",
+      "dependencies": []
+    },
+    "transformers": {
+      "version": "5.24.0",
+      "dependencies": [
+        "huggingface-hub",
+        "numpy",
+        "packaging",
+        "pyyaml",
+        "regex",
+        "safetensors",
+        "tokenizers",
+        "tqdm",
+        "typer"
+      ]
+    },
+    "typing-extensions": {
+      "version": "4.16.0",
+      "dependencies": []
+    },
+    "markupsafe": {
+      "version": "3.0.4",
+      "dependencies": []
+    },
+    "hf-xet": {
+      "version": "1.8.0",
+      "dependencies": []
+    },
+    "python-dateutil": {
+      "version": "4.0.0",
+      "dependencies": [
+        "tzdata"
+      ]
+    },
+    "psutil": {
+      "version": "7.2.2",
+      "dependencies": []
+    },
+    "pypdf": {
+      "version": "7.1.1",
+      "dependencies": []
+    },
+    "huggingface-hub": {
+      "version": "2.4.0",
+      "dependencies": [
+        "click",
+        "filelock",
+        "fsspec",
+        "hf-xet",
+        "httpx2",
+        "packaging",
+        "pyyaml",
+        "tqdm",
+        "typing-extensions"
+      ]
+    },
+    "pyparsing": {
+      "version": "3.3.3",
+      "dependencies": []
+    },
+    "pyyaml": {
+      "version": "6.0.4",
+      "dependencies": []
+    },
+    "idna": {
+      "version": "3.20",
+      "dependencies": []
+    }
+  },
+  "rows": [
+    {
+      "id": "local-deps-matplotlib",
+      "root": "matplotlib",
+      "target": "contourpy",
+      "dependencies": [
+        "contourpy",
+        "cycler",
+        "fonttools",
+        "kiwisolver",
+        "numpy",
+        "packaging",
+        "pillow",
+        "pyparsing",
+        "python-dateutil"
+      ],
+      "position": "first",
+      "version": "1.4.0",
+      "user_request": "For the installed Python distribution matplotlib, which version is installed of its alphabetically first active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-pydantic",
+      "root": "pydantic",
+      "target": "typing-inspection",
+      "dependencies": [
+        "annotated-types",
+        "pydantic-core",
+        "typing-extensions",
+        "typing-inspection"
+      ],
+      "position": "last",
+      "version": "0.4.5",
+      "user_request": "For the installed Python distribution pydantic, which version is installed of its alphabetically last active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-mlx-lm",
+      "root": "mlx-lm",
+      "target": "jinja2",
+      "dependencies": [
+        "jinja2",
+        "mlx",
+        "numpy",
+        "protobuf",
+        "pyyaml",
+        "sentencepiece",
+        "transformers"
+      ],
+      "position": "first",
+      "version": "3.1.6",
+      "user_request": "For the installed Python distribution mlx-lm, which version is installed of its alphabetically first active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-httpx2",
+      "root": "httpx2",
+      "target": "typing-extensions",
+      "dependencies": [
+        "anyio",
+        "httpcore2",
+        "idna",
+        "truststore",
+        "typing-extensions"
+      ],
+      "position": "last",
+      "version": "4.16.0",
+      "user_request": "For the installed Python distribution httpx2, which version is installed of its alphabetically last active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-typer",
+      "root": "typer",
+      "target": "annotated-doc",
+      "dependencies": [
+        "annotated-doc",
+        "pydantic",
+        "rich",
+        "shellingham"
+      ],
+      "position": "first",
+      "version": "0.0.7",
+      "user_request": "For the installed Python distribution typer, which version is installed of its alphabetically first active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-transformers",
+      "root": "transformers",
+      "target": "typer",
+      "dependencies": [
+        "huggingface-hub",
+        "numpy",
+        "packaging",
+        "pyyaml",
+        "regex",
+        "safetensors",
+        "tokenizers",
+        "tqdm",
+        "typer"
+      ],
+      "position": "last",
+      "version": "0.29.2",
+      "user_request": "For the installed Python distribution transformers, which version is installed of its alphabetically last active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-anyio",
+      "root": "anyio",
+      "target": "idna",
+      "dependencies": [
+        "idna",
+        "typing-extensions"
+      ],
+      "position": "first",
+      "version": "3.20",
+      "user_request": "For the installed Python distribution anyio, which version is installed of its alphabetically first active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-referencing",
+      "root": "referencing",
+      "target": "typing-extensions",
+      "dependencies": [
+        "attrs",
+        "rpds-py",
+        "typing-extensions"
+      ],
+      "position": "last",
+      "version": "4.16.0",
+      "user_request": "For the installed Python distribution referencing, which version is installed of its alphabetically last active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-loopqwen",
+      "root": "loopqwen",
+      "target": "huggingface-hub",
+      "dependencies": [
+        "huggingface-hub",
+        "mlx",
+        "mlx-lm",
+        "numpy",
+        "psutil",
+        "pyyaml",
+        "safetensors"
+      ],
+      "position": "first",
+      "version": "2.4.0",
+      "user_request": "For the installed Python distribution loopqwen, which version is installed of its alphabetically first active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-pytest",
+      "root": "pytest",
+      "target": "pygments",
+      "dependencies": [
+        "iniconfig",
+        "packaging",
+        "pluggy",
+        "pygments"
+      ],
+      "position": "last",
+      "version": "2.21.0",
+      "user_request": "For the installed Python distribution pytest, which version is installed of its alphabetically last active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-huggingface-hub",
+      "root": "huggingface-hub",
+      "target": "click",
+      "dependencies": [
+        "click",
+        "filelock",
+        "fsspec",
+        "hf-xet",
+        "httpx2",
+        "packaging",
+        "pyyaml",
+        "tqdm",
+        "typing-extensions"
+      ],
+      "position": "first",
+      "version": "8.5.1",
+      "user_request": "For the installed Python distribution huggingface-hub, which version is installed of its alphabetically first active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-httpcore2",
+      "root": "httpcore2",
+      "target": "truststore",
+      "dependencies": [
+        "h11",
+        "truststore"
+      ],
+      "position": "last",
+      "version": "0.10.5",
+      "user_request": "For the installed Python distribution httpcore2, which version is installed of its alphabetically last active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-jsonschema",
+      "root": "jsonschema",
+      "target": "attrs",
+      "dependencies": [
+        "attrs",
+        "jsonschema-specifications",
+        "referencing",
+        "rpds-py"
+      ],
+      "position": "first",
+      "version": "26.1.0",
+      "user_request": "For the installed Python distribution jsonschema, which version is installed of its alphabetically first active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    },
+    {
+      "id": "local-deps-rich",
+      "root": "rich",
+      "target": "pygments",
+      "dependencies": [
+        "markdown-it-py",
+        "pygments"
+      ],
+      "position": "last",
+      "version": "2.21.0",
+      "user_request": "For the installed Python distribution rich, which version is installed of its alphabetically last active direct dependency? Check the dependencies and then the version using the tools. Give the version number."
+    }
+  ]
+}

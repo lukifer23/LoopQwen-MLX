@@ -53,8 +53,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("checkpoint")
     parser.add_argument("question")
+    parser.add_argument(
+        "--dependencies",
+        action="store_true",
+        help="Expose the live dependency graph and version tools",
+    )
     args = parser.parse_args()
-    result = Assistant(args.checkpoint).respond(args.question, tools(), max_tokens=256)
+    from loopqwen.package_tools import tools as dependency_tools
+
+    catalog = dependency_tools() if args.dependencies else tools()
+    result = Assistant(args.checkpoint).respond(args.question, catalog, max_tokens=256)
     for turn in result["turns"]:
         if "observation" in turn:
             print(turn["call"], "=>", turn["observation"])

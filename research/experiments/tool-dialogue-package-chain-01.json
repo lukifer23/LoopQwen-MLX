@@ -1,0 +1,23 @@
+{
+  "id": "tool-dialogue-package-chain-01",
+  "question": "Can the unchanged two-pass tool model use the live package graph to resolve a dependency and then report its installed version?",
+  "workload": "package_dependencies",
+  "candidate": "restore:research/results/tool-dialogue-typed-01",
+  "control": "base",
+  "material": "research/data/tool-package-dependencies-01.json",
+  "max_tokens": 256,
+  "max_turns": 4,
+  "stop_at_turn_end": true,
+  "net_floor": 4,
+  "p_max": 0.05,
+  "time_ratio": 1.0,
+  "gate": "Four or more net additional end-to-end successes, exact two-sided paired p<=.05 and total elapsed time no higher than untouched Base. Stop on environment mismatch, memory pressure or run limit. A failure closes the two-step field-use claim for these weights. No hyperparameter selection using these requests.",
+  "protocol": "Census of 14 installed Python distributions having two through twelve active direct dependencies all installed. Sorted-hash root order with alternating first/last dependency. Twelve distinct targets. Identical questions, descriptions, thinking-enabled greedy generation and up to four 256-token turns. Only model-selected importlib.metadata queries can expose the live dependency list and resulting installed version. One job for each model against the frozen environment. Strict endpoint requires two ordered typed queries with correct root and chosen dependency, actual observed results, and a visible answer containing the correct version. Verified archives replay against the pre-run snapshot of all metadata. The simple five-version field check contained no dependency chaining.",
+  "limits": {
+    "wall_seconds": 380,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4"
+}

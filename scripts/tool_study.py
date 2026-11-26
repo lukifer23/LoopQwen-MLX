@@ -80,8 +80,12 @@ def summarize(records, spec):
     )
 
 
-def workload(spec):
+def workload(spec, *, replay=False):
     material = read(spec["material"])
+    if spec.get("workload") == "package_dependencies":
+        from loopqwen.evaluation import package_questions
+
+        return package_questions.workload(material, replay)
     if spec.get("workload") == "table_questions":
         from loopqwen.evaluation import table_questions
 
