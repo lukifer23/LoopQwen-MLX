@@ -79,6 +79,10 @@ def verify(root):
         from loopqwen.research.narrative_book import verify as verify_narrative
 
         verify_narrative(root, decision)
+    if study.startswith("release-mixed-field-"):
+        from loopqwen.research.mixed_field import verify as verify_mixed_field
+
+        verify_mixed_field(root, decision)
     if study.startswith("bridge-reading-"):
         from loopqwen.research.bridge_reading import verify as verify_bridge_reading
 
