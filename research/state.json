@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "native-kinship-matched-01",
+  "active": null,
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -24,7 +24,7 @@
     "native_three_fact_induction": "research/results/native-induction-anchored-01",
     "combined_native_induction_deduction_and_128k": "research/results/native-language-release-02/model"
   },
-  "frontier": "Three applications of native Qwen layer 15 scored 124/128 versus 58/128 for matched one-pass training, with similar generation time. An independent seed scored 53/64 vs 25/64. The shipping standalone native-language-release-02 preserved all 200 prior token streams, all 192 measured off-task routes, exact raw NLL, and 2/2 full-history register lookups with 131083 input tokens.",
+  "frontier": "Native layer 15 at three passes achieved 124/128 vs 58/128 with matched one-pass training. On confirmation the same weights at one pass scored 19/64 vs 62/64. A one-pass answer-only control with 15,000 updates reached 28/64, an independent seed gave 53/64 vs 25/64, and whole class-swap pairs were 32/32 vs 1/32. At an explicit induction rule, the frozen loop answered 32/32 vs 5/32 for Base. The shipping export preserved all 200 prior token streams, all 192 tested negative-intent routes, exact raw NLL and both full-history key swaps at 131083 input tokens.",
   "next": null,
   "completed": [
     {
@@ -377,15 +377,18 @@
     },
     {
       "id": "native-language-release-01",
-      "promoted": true,
+      "promoted": false,
       "scope": "Does one standalone 128K-capable model execute the qualified native layer loop and reproduce all previous language, deduction and full-history results?",
-      "decision": "research/results/native-language-release-01/decision.json"
+      "decision": "research/results/native-language-release-01/decision.json",
+      "superseded_by": "native-language-release-02",
+      "reason": "Passed its own replay suite. The subsequent same-story different-intent check found a species question was answered as a color. The successor passed that test and full deployment qualification."
     },
     {
       "id": "native-scope-retention-01",
       "promoted": false,
       "scope": "Does adding the native induction reader change the prior deployed routes or answers when the identical story asks for an animal kind, existence or count instead of a color?",
-      "decision": "research/results/native-scope-retention-01/decision.json"
+      "decision": "research/results/native-scope-retention-01/decision.json",
+      "resolved_by": "native-language-release-02"
     },
     {
       "id": "native-induction-anchored-seed2-01",
@@ -404,11 +407,35 @@
       "promoted": true,
       "scope": "Does changing the queried person's class, while holding the question and complete token multiset fixed, change the native loop's conclusion correctly?",
       "decision": "research/results/native-induction-class-swap-01/decision.json"
+    },
+    {
+      "id": "native-induction-long-control-01",
+      "promoted": true,
+      "scope": "Can a one-pass decoder match three native passes if trained directly on answer quality without support constraints, with five times as many optimizer updates and at least as much actual native optimizer time?",
+      "decision": "research/results/native-induction-long-control-01/decision.json"
+    },
+    {
+      "id": "native-induction-instructed-base-01",
+      "promoted": true,
+      "scope": "Does the frozen native loop still outperform untouched Base when both models are explicitly given the induction rule and every question has a single supporting classmate?",
+      "decision": "research/results/native-induction-instructed-base-01/decision.json"
+    },
+    {
+      "id": "native-kinship-01",
+      "promoted": true,
+      "scope": "Does the same native-layer training method add correct kinship judgments on human-paraphrased three-edge CLUTRR stories compared with the pinned ordinary Qwen Base?",
+      "decision": "research/results/native-kinship-01/decision.json"
+    },
+    {
+      "id": "native-kinship-matched-01",
+      "promoted": false,
+      "scope": "Does native three-pass kinship training beat identical single-pass training?",
+      "decision": "research/results/native-kinship-matched-01/decision.json"
     }
   ],
-  "status": "Running preregistered native reasoning and attribution comparisons.",
-  "next_action": "Measure the decoder-layer-only recurrence on three-fact induction; the science reader failed its common-prefix safeguard.",
-  "hypothesis": "A question-directed second read can follow a subject-to-rule link that an ordinary single read misses.",
+  "status": "Qualified the shipping native recurrent model and finished its training, public CLI, same-weights, retention and 128K comparisons.",
+  "next_action": null,
+  "hypothesis": null,
   "known_limits": [
     "Thinking-enabled Base completed 3/8 calibration questions",
     "Six-hop unrestricted graph paths 6/192",
@@ -422,7 +449,9 @@
     "The 512-token recurrent switch won three full-budget arithmetic items and lost one across 48. Its mathematical-content gain was one and GSM8K tied. The natural reader scored 9/24 versus Base 10/24.",
     "The final model matched Base at 2/8 general reading answers. Its long-context retrieval was measured on two related synthetic prompts.",
     "The trained K1 controls tied K2 on arithmetic and natural inference accuracy and ran faster. The final combined inference router used the specialist on 10 of 36 requests.",
-    "QASC provided-evidence science questions: the learned reader generated 23/40 correct vs 4/40 at 256 tokens, but common-prefix probabilities favored Base 37/40 vs 32/40. Human science content improvement was not established."
+    "QASC provided-evidence science questions: the learned reader generated 23/40 correct vs 4/40 at 256 tokens, but common-prefix probabilities favored Base 37/40 vs 32/40. Human science content improvement was not established.",
+    "The shipping 128K result covers a controlled register key swap. The separate three-pass induction gain was measured on short stories.",
+    "Four of the 64 story prompts in each original induction panel contain conflicting classmate colors. All remain in the headline scores."
   ],
   "rejected": [
     "Frozen prefix cache failed gradient parity",
@@ -457,9 +486,52 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795660605.403171,
+  "closed_session_start": 1795663892.156134,
   "native_window": {
     "start_utc": "2026-11-26T03:31:32.156134+00:00",
-    "status": "open"
+    "status": "closed",
+    "end_utc": "2026-11-26T03:53:23.126119+00:00"
+  },
+  "kinship_transfer": {
+    "primary": {
+      "study": "native-kinship-01",
+      "passed": true,
+      "scores": {
+        "recurrent": {
+          "correct": 34,
+          "complete": 64,
+          "probe": 34,
+          "seconds": 16.00101862291922,
+          "tokens": 832
+        },
+        "base": {
+          "correct": 1,
+          "complete": 12,
+          "probe": 6,
+          "seconds": 174.5324887120223,
+          "tokens": 11994
+        }
+      }
+    },
+    "matched": {
+      "study": "native-kinship-matched-01",
+      "passed": false,
+      "scores": {
+        "recurrent": {
+          "correct": 34,
+          "complete": 64,
+          "probe": 34,
+          "seconds": 15.993552291125525,
+          "tokens": 832
+        },
+        "dense": {
+          "correct": 44,
+          "complete": 64,
+          "probe": 37,
+          "seconds": 15.9129041240667,
+          "tokens": 832
+        }
+      }
+    }
   }
 }

@@ -136,3 +136,29 @@ def test_native_support_supervision_matches_the_qwen_attention_operator():
         weights = mx.softmax(net.native_scores(h), axis=-1)
         assert mx.allclose(weights, native[:, :, 0, :n], atol=0.005).item()
     assert not mx.array_equal(states[0], states[-1]).item()
+
+    # Right-padding for the differentiable kernel must leave the real causal
+    # outputs intact and disappear entirely on a four-token inference request.
+    net.gradient_min_length = 10
+    with patch.object(
+        qwen3_next,
+        "scaled_dot_product_attention",
+        wraps=qwen3_next.scaled_dot_product_attention,
+    ) as op:
+        padded, _ = net.states(facts, question, 3)
+        assert op.call_args.args[0].shape[2] == 10
+    assert all(
+        mx.allclose(a, b, rtol=0.025, atol=0.025).item()
+        for a, b in zip(states, padded, strict=True)
+    )
+    net.eval()
+    with patch.object(
+        qwen3_next,
+        "scaled_dot_product_attention",
+        wraps=qwen3_next.scaled_dot_product_attention,
+    ) as op:
+        decoded, _ = net.states(facts, question, 3)
+        assert op.call_args.args[0].shape[2] == 4
+    assert all(
+        mx.array_equal(a, b).item() for a, b in zip(states, decoded, strict=True)
+    )

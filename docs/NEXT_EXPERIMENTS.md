@@ -2,7 +2,7 @@
 
 ## Current deployment
 
-The qualified combined checkpoint is `research/results/native-language-release-02/model`. On controlled three-fact induction, repeating a real Qwen decoder layer improved completed answers over untouched Base, matched one-pass training and the identical weights with two passes bypassed. The common-prefix probes and independent training seed support this attribution. The release also preserved all measured prior workloads and both 131,083-token register answers. General-language evaluation continues to use the pinned Base as the reference. [Native results and scope](CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Release qualification](../research/results/native-language-release-02)
+The qualified combined checkpoint is `research/results/native-language-release-02/model`. On controlled three-fact induction, repeating a real Qwen decoder layer improved completed answers over untouched Base, matched one-pass training and the identical weights with two passes bypassed. The common-prefix probes and independent training seed support this attribution. The release also preserved all measured prior workloads and both 131,083-token register answers. The separate family-relationship study closed when its one-pass control scored 44/64 against 34/64 for three passes. The official-test kinship panel remains unscored. General-language evaluation continues to use the pinned Base as the reference. [Native results and scope](CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Release qualification](../research/results/native-language-release-02)
 
 ## Word problems
 
