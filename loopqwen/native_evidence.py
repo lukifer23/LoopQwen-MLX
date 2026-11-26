@@ -63,11 +63,15 @@ class NativeEvidence(nn.Module):
         self.scale = mx.ones(4 * width)
         self.freeze(keys=["center", "scale"], recurse=False)
         trainable = dict(tree_flatten(self.trainable_parameters()))
-        if any(
-            k.startswith("layer.") and not k.endswith((".lora_a", ".lora_b"))
-            for k in trainable
-        ):
-            raise ValueError("Pinned layer changed trainability")
+        expected = {
+            f"layer.self_attn.{proj}.lora_{part}"
+            for proj in ("q_proj", "k_proj", "v_proj", "o_proj")
+            for part in ("a", "b")
+        }
+        if {name for name in trainable if name.startswith("layer.")} != expected:
+            raise ValueError(
+                "Native Qwen trainability must match the four low-rank projections"
+            )
 
     def states(self, facts, q, depth):
         x = (mx.concatenate([facts, q[:, None]], axis=1) - self.center) * self.scale

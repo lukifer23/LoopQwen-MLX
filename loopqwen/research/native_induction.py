@@ -65,6 +65,13 @@ def fit(model, t, rows, depth, s, b, out):
             print("native induction fit", i + 1, round(val.item(), 4), flush=True)
     path = out / "reader.safetensors"
     weights = dict(tree_flatten(net.trainable_parameters()))
+    deltas = {
+        name: mx.linalg.norm(v.astype(mx.float32)).item()
+        for name, v in weights.items()
+        if name.startswith("layer.") and name.endswith("lora_b")
+    }
+    if len(deltas) != 4 or not all(0 < v < float("inf") for v in deltas.values()):
+        raise ValueError("Missing learned update to the native attention span")
     mx.save_safetensors(str(path), dict(**weights, center=net.center, scale=net.scale))
     save(
         out / "reader.json",
@@ -79,6 +86,7 @@ def fit(model, t, rows, depth, s, b, out):
             "loss": logs,
             "optimization_seconds": time.perf_counter() - start,
             "trainable_parameters": sum(x.size for x in weights.values()),
+            "native_update_norms": deltas,
         },
     )
     return net
