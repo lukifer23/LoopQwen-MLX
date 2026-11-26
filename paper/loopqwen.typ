@@ -172,6 +172,7 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 
 #pagebreak()
 = Sources and artifact guide
+#include "compute-results.typ"
 [1] Qwen Team. Qwen3.5-0.8B-Base. #link("https://huggingface.co/Qwen/Qwen3.5-0.8B-Base/tree/dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68")[Pinned checkpoint and text configuration].
 
 [2] Weston et al. (2015). Towards AI-complete question answering. #link("https://arxiv.org/abs/1502.05698")[Paper]. Study IDs `native-induction-anchored-01`, `native-induction-anchored-replication-01`, `native-induction-class-swap-01` and their registered controls.

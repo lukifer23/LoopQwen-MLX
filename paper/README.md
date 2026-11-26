@@ -78,3 +78,5 @@ The operand, schema and mixed field comparisons use the standard entry points be
 | `-m loopqwen.research.operand_study` | Choose arithmetic operations and their arguments with a shared native layer, run a real calculator, then decode the answer |
 | `scripts/schema_study.py` | Same-checkpoint comparison of ordinary versus schema-guided generation, with exact prompt and callback replay |
 | `-m loopqwen.research.mixed_field` | One product against ordinary Base on 50 interleaved field requests with cold startup and mode switching |
+
+The native compute ledger records charged attempts for each supported closed session. A charge includes the time spent on model work, preparation and scoring under the native worker lease. It is a wall-time resource measure. [Machine time and original ledger hashes](native-compute.csv)

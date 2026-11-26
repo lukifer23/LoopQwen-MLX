@@ -324,6 +324,9 @@ def main():
     from paper_joint_tools import make as plot_joint_tools
 
     plot_joint_tools(PAPER, RESULTS, result, finish)
+    from paper_compute import make as compute_cost
+
+    compute_cost(ROOT, PAPER)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"
