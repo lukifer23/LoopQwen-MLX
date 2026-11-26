@@ -16,6 +16,11 @@ TOOLS = {
     "tool-bfcl-multiple-01": ("Multiple available schemas", "Base", "correct"),
     "tool-bfcl-recovery-01": ("Earlier single-schema panel", "Base", "correct"),
     "tool-dialogue-unified-01": ("Catalog and multi-turn retention", "Base", "success"),
+    "tool-dialogue-package-chain-01": (
+        "Live package dependency chains",
+        "Base",
+        "success",
+    ),
     "tool-dialogue-table-transfer-01": (
         "Queries on human-authored tables",
         "Base",

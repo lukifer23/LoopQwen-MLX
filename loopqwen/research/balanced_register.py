@@ -89,6 +89,7 @@ def flatten(spec):
 
 def verify(root, decision):
     from ..evaluation.answers import numeric
+    from ..evaluation.language7 import interpret
 
     spec = read(root / "registration.json")
     items = flatten(spec)
@@ -100,16 +101,15 @@ def verify(root, decision):
                 "prompt_tokens"
             ] == len(w["prompt_ids"])
             ids = r["token_ids"]
-            raw = tok.decode(ids[:-1])
-            term = ids[-1] in {
-                *tok.eos_token_ids,
-                tok.convert_tokens_to_ids("<|im_end|>"),
-            }
-            ans = (
-                numeric(raw.split("</think>", 1)[-1])
-                if term and "</think>" in raw
-                else None
+            term = {*tok.eos_token_ids, tok.convert_tokens_to_ids("<|im_end|>")}
+            parsed = interpret(
+                ids,
+                tok.convert_tokens_to_ids("<think>"),
+                tok.convert_tokens_to_ids("</think>"),
+                term,
+                tok,
             )
+            ans = numeric(parsed["visible"]) if ids[-1] in term else None
             assert ans == r["answer"] and (ans == w["gold"]) == r["correct"]
     assert outcome(rows, items, spec) == decision
 
