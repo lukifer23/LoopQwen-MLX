@@ -94,6 +94,7 @@ def write(temp, gen, model, t, state):
         "context_policy.py",
         "conditional.py",
         "evidence_loop.py",
+        "native_evidence.py",
         "io.py",
     ):
         shutil.copyfile(Path(__file__).with_name(name), rt / name)
@@ -113,8 +114,17 @@ def write(temp, gen, model, t, state):
         **(policy.views() if policy else {"ordinary": ordinary}),
     }
     extras = [policy.classifier] if policy else []
-    if policy and getattr(policy, "evidence", None) is not None:
-        extras.extend([policy.evidence.reader, policy.evidence.gate])
+    readers = [
+        (name, route)
+        for name, route in (
+            ("evidence", "deduction"),
+            ("induction", "native_induction"),
+        )
+        if getattr(policy, name, None) is not None
+    ]
+    for name, _ in readers:
+        reader = getattr(policy, name)
+        extras.extend([reader.reader, reader.gate])
     for bank in views.values():
         reader = getattr(bank, "attention_reader", None)
         if reader is not None:
@@ -146,14 +156,14 @@ def write(temp, gen, model, t, state):
     else:
         audit["ordinary_logits_sha256"] = logits["ordinary"]
         audit["readout_sha256"] = model.deliberation_policy["readout_sha256"]
-    if policy and getattr(policy, "evidence", None) is not None:
+    for name, route in readers:
         from .evaluation.generation_eval import generate
 
-        prompt = read(original / "evidence/scope.json")["example"]
+        prompt = read(original / name / "scope.json")["example"]
         sample = generate(model, t, prompt, 32, stop_ids=(248046,))
-        if sample["context_route"] != "deduction":
+        if sample["context_route"] != route:
             raise ValueError("Export probe missed the learned evidence route")
-        audit["evidence_probe"] = {"prompt": prompt, "tokens": sample["token_ids"]}
+        audit[name + "_probe"] = {"prompt": prompt, "tokens": sample["token_ids"]}
     save(temp / "verification.json", audit)
     (temp / "README.md").write_text(
         '# Context-conditioned recurrent Qwen\n\nLoad this native MLX bundle with the included runtime. The ordinary and recurrent execution paths share one dense Base checkpoint. The bundled generator applies the trained decoding policy to the actual input.\n\n```python\nfrom runtime import load_export, generate\nmodel, tokenizer = load_export(".")\n```\n'

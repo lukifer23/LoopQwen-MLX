@@ -59,7 +59,7 @@ def attach(model, folder, tokenizer=None):
     for k, h in spec["files"].items():
         if digest(folder / k) != h:
             raise ValueError("Context policy checkpoint differs")
-    if spec.get("schema") in (2, 3):
+    if spec.get("schema") in (2, 3, 4):
         from .conditional import load
 
         load(model, folder, spec, tokenizer)

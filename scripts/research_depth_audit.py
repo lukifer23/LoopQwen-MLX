@@ -60,7 +60,8 @@ def verify(root, decision, read, sha, require, number):
                 gold = item["gold"]
             else:
                 if reg["id"].startswith("native-induction-"):
-                    from loopqwen.research.induction_data import answer, WORDS as words
+                    from loopqwen.research.induction_data import WORDS as words
+                    from loopqwen.research.induction_data import answer
                 else:
                     from loopqwen.research.deduction_data import answer
 
@@ -228,12 +229,14 @@ def verify_release(root, decision, read, sha, require):
     policy = read(folder / "context-policy.json")
     require(
         sha(folder / "context-policy.json") == decision["policy"]
-        and policy["schema"] == 3,
+        and policy["schema"] == (4 if "induction" in spec else 3),
         "Wrong shipping policy",
     )
     for name, h in policy["files"].items():
         require(sha(folder / name) == h, "Changed release file: " + name)
-    old = read(Path(spec["combined"]) / "model" / "context-policy.json")
+    old = read(
+        Path(spec.get("parent", spec["combined"])) / "model" / "context-policy.json"
+    )
     require(
         all(policy["files"].get(k) == v for k, v in old["files"].items()),
         "Changed qualified component",
@@ -243,7 +246,7 @@ def verify_release(root, decision, read, sha, require):
         == sha(Path(spec["reader"]) / "reader.safetensors"),
         "Different reasoning reader",
     )
-    for label, rows, ref in (
+    suites = [
         (
             "deduction",
             read(Path(spec["material"]))["replication"],
@@ -254,15 +257,40 @@ def verify_release(root, decision, read, sha, require):
             read(Path("research/data/conditional-language-02.json")),
             Path(spec["combined"]) / "candidate.json.gz",
         ),
-    ):
+    ]
+    if "induction" in spec:
+        source = spec["induction"]
+        suites.append(
+            (
+                "native_induction",
+                read(Path(source["material"]))["replication"],
+                Path(source["longbase"]) / "recurrent.json.gz",
+            )
+        )
+        require(
+            sha(folder / "induction/reader.safetensors")
+            == sha(Path(source["reader"]) / "reader.safetensors"),
+            "Wrong native recurrent weights",
+        )
+        audit = read(root / "export-verification.json")
+        provenance = read(root / "export-provenance.json")
+        require(
+            audit["fresh_process_verified"]
+            and audit["induction_probe"]["tokens"]
+            and audit["evidence_probe"]["tokens"]
+            and provenance["files"]["context-policy.json"] == decision["policy"]
+            and read(root / "export-config.json")["context_policy_sha256"]
+            == decision["policy"],
+            "Invalid standalone export verification",
+        )
+    for label, rows, ref in suites:
         samples = read(root / (label + ".json.gz"))["records"]
         for r, v, item in zip(samples, read(ref)["records"], rows, strict=True):
             require(
                 r["input_sha256"] == fingerprint(item["prompt_ids"])
                 and r["id"] == item["id"]
                 and r["token_ids"] == v["token_ids"]
-                and r["route"]
-                == ("deduction" if label == "deduction" else v["context_route"]),
+                and r["route"] == (v["context_route"] if label == "mixed" else label),
                 "Changed deployed answer",
             )
         require(
@@ -291,7 +319,11 @@ def verify_release(root, decision, read, sha, require):
             and r["correct"]
             and r["gold"] == row["gold"]
             and r["context_route"] == prior["context_route"]
-            and r["prompt_tokens"] == len(row["prompt_ids"]) >= 131072,
+            and r["prompt_tokens"] == len(row["prompt_ids"]) >= 131072
+            and r["attention_memory"]["start"]
+            <= row["gold_start"]
+            < row["gold_stop"]
+            <= r["attention_memory"]["stop"],
             "Invalid long context replay",
         )
     seconds = sum(r["elapsed_s"] for r in records)

@@ -36,11 +36,16 @@ class ConditionalDepth:
     def choose(self, model, ids, cap):
         if not assistant_thinking(ids):
             return self.ordinary, "ordinary"
-        reader = getattr(self, "evidence", None)
-        if reader is not None:
+        for name, route in (
+            ("induction", "native_induction"),
+            ("evidence", "deduction"),
+        ):
+            reader = getattr(self, name, None)
+            if reader is None:
+                continue
             view = reader.choose(self.ordinary, ids)
             if view is not None:
-                return view, "deduction"
+                return view, route
         evidence = features(model.text.model.embed_tokens, ids)
         distribution = mx.softmax(self.classifier(evidence)).tolist()
         index = max(range(len(distribution)), key=distribution.__getitem__)
@@ -79,9 +84,10 @@ def load(model, folder, spec, tokenizer=None):
             expected_files.update(
                 {"arithmetic/deliberation.json", "arithmetic/exit-readout.safetensors"}
             )
-    if spec.get("schema") == 3:
+    readers = {2: (), 3: ("evidence",), 4: ("evidence", "induction")}[spec["schema"]]
+    for name in readers:
         expected_files.update(
-            "evidence/" + v
+            name + "/" + v
             for v in (
                 "reader.json",
                 "reader.safetensors",
@@ -122,11 +128,15 @@ def load(model, folder, spec, tokenizer=None):
         ConditionalDepth(ordinary, experts, classifier, labels, spec["confidence"]),
     )
 
-    if spec.get("schema") == 3:
+    for name in readers:
         from .evidence_loop import EvidencePolicy
 
         if tokenizer is None:
             raise ValueError("Evidence routing requires the checkpoint tokenizer")
-        model.context_policy.evidence = EvidencePolicy(
-            ordinary, tokenizer, folder / "evidence"
+        setattr(
+            model.context_policy,
+            name,
+            EvidencePolicy(
+                ordinary, tokenizer, folder / name, native=name == "induction"
+            ),
         )

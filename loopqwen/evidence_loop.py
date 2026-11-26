@@ -187,16 +187,27 @@ def load_evidence(model, folder):
 
 
 class EvidencePolicy:
-    def __init__(self, model, t, folder):
+    def __init__(self, model, t, folder, *, native=False):
         from .io import read
 
-        self.reader = load_evidence(model, folder)
+        if native:
+            from .native_evidence import load_native_reader, native_view
+
+            metadata = read(folder / "reader.json")
+            if metadata["architecture"] != "anchored_native" or metadata["depth"] != 3:
+                raise ValueError("Unsupported native layer configuration")
+            self.reader = load_native_reader(model, folder, metadata["weights"])
+            self.prepare = native_view
+        else:
+            self.reader = load_evidence(model, folder)
+            self.prepare = prepare
+        self.depth = 3 if native else 2
         self.gate = nn.Linear(2 * model.args.hidden_size, 2)
         self.gate.load_weights(str(folder / "scope.safetensors"), strict=True)
         self.gate.eval()
         self.tokenizer = t
         spec = read(folder / "scope.json")
-        if spec["depth"] != 2 or not 0.5 < spec["confidence"] < 1:
+        if spec["depth"] != self.depth or not 0.5 < spec["confidence"] < 1:
             raise ValueError("Unsupported passage reader scope")
         self.confidence = spec["confidence"]
 
@@ -211,4 +222,4 @@ class EvidencePolicy:
         z = self.gate(features(model.text.model.embed_tokens, ids))
         if mx.softmax(z)[1].item() < self.confidence:
             return None
-        return prepare(model, self.tokenizer, self.reader, *section, 2)[0]
+        return self.prepare(model, self.tokenizer, self.reader, *section, self.depth)[0]

@@ -145,12 +145,17 @@ def verify(directory):
             raise ValueError(
                 "Exported ordinary-depth logits differ from the pinned control"
             )
-    if "evidence_probe" in audit:
+    for name, route in (
+        ("evidence_probe", "deduction"),
+        ("induction_probe", "native_induction"),
+    ):
+        if name not in audit:
+            continue
         from .evaluation.generation_eval import generate
 
-        probe = audit["evidence_probe"]
+        probe = audit[name]
         val = generate(model, tokenizer, probe["prompt"], 32, stop_ids=(248046,))
-        if val["context_route"] != "deduction" or val["token_ids"] != probe["tokens"]:
+        if val["context_route"] != route or val["token_ids"] != probe["tokens"]:
             raise ValueError("Exported evidence-loop generation differs")
     if "reader_probe" in audit:
         from .evaluation.generation_eval import generate

@@ -3,6 +3,7 @@
 import gc
 import json
 import shutil
+import sys
 from pathlib import Path
 
 import mlx.core as mx
@@ -22,18 +23,22 @@ NAME = "evidence-language-release-01"
 
 
 def package(s, t, model, root, b):
-    parent = Path(s["combined"]) / "model"
+    native = "induction" in s
+    parent = Path(s.get("parent", s["combined"])) / "model"
     folder = root / "model"
     shutil.copytree(parent, folder)
-    extra = folder / "evidence"
+    extra = folder / ("induction" if native else "evidence")
     extra.mkdir()
+    source = s["induction"] if native else s
     for file in ("reader.json", "reader.safetensors"):
-        shutil.copyfile(Path(s["reader"]) / file, extra / file)
-    rows = read(s["material"])["train"]
+        shutil.copyfile(Path(source["reader"]) / file, extra / file)
+    rows = read(source["material"])["train"]
     positives = [r["prompt_ids"] for r in rows]
     negatives = route_training.inputs(
         t, read(Path(s["combined"]) / "registration.json")
     )
+    if native:
+        negatives += [r["prompt_ids"] for r in read(s["material"])["train"]]
     examples = positives + negatives
     x = []
     for ids in examples:
@@ -57,7 +62,7 @@ def package(s, t, model, root, b):
     save(
         extra / "scope.json",
         {
-            "depth": 2,
+            "depth": 3 if native else 2,
             "confidence": 0.99,
             "train_inputs": fingerprint(examples),
             "positive": len(positives),
@@ -66,7 +71,7 @@ def package(s, t, model, root, b):
         },
     )
     meta = read(folder / "context-policy.json")
-    meta["schema"] = 3
+    meta["schema"] = 4 if native else 3
     meta["files"].update(
         {str(f.relative_to(folder)): digest(f) for f in extra.iterdir()}
     )
@@ -74,32 +79,45 @@ def package(s, t, model, root, b):
     return folder
 
 
-def run():
-    reg = Path("research/experiments") / (NAME + ".json")
+def run(name=NAME):
+    reg = Path("research/experiments") / (name + ".json")
     s = read(reg)
     idx = read("research/registry.json")
-    if idx["experiments"][NAME]["registration"] != digest(reg):
+    if idx["experiments"][name]["registration"] != digest(reg):
         raise ValueError("Unregistered release")
-    for name, h in s["prerequisites"].items():
-        arc = Path("research/results") / name
+    for prerequisite, h in s["prerequisites"].items():
+        arc = Path("research/results") / prerequisite
         if (
             digest(arc / "checksums.json") != h
             or not read(arc / "decision.json")["passed"]
         ):
-            raise ValueError("Failed or changed prerequisite: " + name)
-    b = core.Budget(NAME, s["limits"])
-    root = core.OUT / NAME
+            raise ValueError("Failed or changed prerequisite: " + prerequisite)
+    b = core.Budget(name, s["limits"])
+    root = core.OUT / name
     root.mkdir(exist_ok=False, parents=True)
     if (root / "decision.json").exists():
         raise FileExistsError(root)
     res = {"registration": digest(reg), "passed": False}
     try:
-        parent, t, _ = load_trained(Path(s["combined"]) / "model")
+        parent, t, _ = load_trained(Path(s.get("parent", s["combined"])) / "model")
         folder = package(s, t, parent, root, b)
         del parent
         gc.collect()
         mx.clear_cache()
-        model, t, _ = load_trained(folder)
+        if "induction" in s:
+            from ..export import export
+            from ..export_runtime import load_export
+
+            bundle = Path(s["export"])
+            export(folder, bundle)
+            # Run the full qualification on weights read back from the standalone export.
+            gc.collect()
+            mx.clear_cache()
+            model, t = load_export(bundle)
+            for filename in ("config.json", "verification.json", "provenance.json"):
+                shutil.copyfile(bundle / filename, root / ("export-" + filename))
+        else:
+            model, t, _ = load_trained(folder)
         res["policy"] = digest(folder / "context-policy.json")
         suites = [
             (
@@ -113,6 +131,16 @@ def run():
                 Path(s["combined"]) / "candidate.json.gz",
             ),
         ]
+        if "induction" in s:
+            source = s["induction"]
+            suites.insert(
+                0,
+                (
+                    "native_induction",
+                    read(source["material"])["replication"],
+                    Path(source["longbase"]) / "recurrent.json.gz",
+                ),
+            )
         for kind, rows, ref in suites:
             baseline = unpack(ref)["records"]
             path = root / (kind + ".json.gz")
@@ -132,9 +160,7 @@ def run():
                     stop_ids=(248046,),
                     progress=lambda _: b.check(),
                 )
-                route = (
-                    "deduction" if kind == "deduction" else expected["context_route"]
-                )
+                route = expected["context_route"] if kind == "mixed" else kind
                 samples.append(
                     {
                         "id": row["id"],
@@ -210,4 +236,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    run(*sys.argv[1:])
