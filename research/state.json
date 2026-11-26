@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "conditional-depth-128k",
+  "active": "learned-exit-dense-01",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -21,7 +21,7 @@
     "human_entailment_vs_base": "research/results/entailment-triplets-01/model"
   },
   "frontier": "Same learned exit won two independent full-budget pairs: 52/80 versus 46/80 strict, 58/80 versus 52/80 completed content, six paired wins, zero losses, 542.44 versus 592.24 seconds.",
-  "next": "learned-exit-dense-01",
+  "next": "conditional-language-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -219,9 +219,15 @@
       "promoted": true,
       "scope": "Three-way natural inference on two disjoint panels",
       "reason": "50/72 vs 39/72 on blind content, 51/72 vs 24/72 on the common likelihood probe, 8 vs 1 perfect triplets, 24.85 vs 574.91 s. Both sources improved on each panel. Across 120 claims blind 85 vs 66, premise-cluster p=0.00703."
+    },
+    {
+      "id": "conditional-depth-128k",
+      "promoted": false,
+      "capacity": true,
+      "reason": "Both arms processed 131081 input tokens twice. Model returned both correct values, Base neither, in 640.81 vs 493.38 seconds. The unequal three- and four-token key swap invalidated the fixed-position interpretation. Native observations archived separately from the rejected qualification."
     }
   ],
-  "status": "Natural inference gains replicated. First integrated 128K key swap running. Final arithmetic plus entailment deployment panel frozen.",
+  "status": "First integrated full-context capacity measured; its fixed-position intervention was invalid. Token-level preflight repaired for the separate final model.",
   "next_action": "Archive the natural inference primary and run the first integrated deployment comparison with the confirmed arithmetic finisher, short-budget decoder and register reader.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [

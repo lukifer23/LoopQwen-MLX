@@ -33,6 +33,11 @@ def material(t, s):
         late = lines[idx]
         if late.start() <= early.end() or late[1] in item["hard_keys"]:
             continue
+        # Equal document lengths after a swap do not imply equal individual key widths.
+        if len(t.encode(" " + early[1], add_special_tokens=False)) != len(
+            t.encode(" " + late[1], add_special_tokens=False)
+        ):
+            continue
         altered = (
             source[: early.start(1)]
             + late[1]
@@ -74,6 +79,10 @@ def material(t, s):
                 ):
                     raise ValueError("Key token boundary")
                 spans.append([len(before), len(before) + len(key_ids)])
+            (i, j), (k, l) = spans
+            a = item["prompt_ids"]
+            if j - i != l - k or a[:i] + a[k:l] + a[j:k] + a[i:j] + a[l:] != ids:
+                continue
             return {
                 "swapped_keys": [early[1], late[1]],
                 "key_spans": spans,

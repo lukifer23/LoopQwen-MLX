@@ -1920,6 +1920,45 @@ def verify_full_memory(root, decision):
     first, second = data["panel"]
     a, b = first["prompt_ids"], second["prompt_ids"]
     (i, j), (k, l) = data["key_spans"]
+    if decision["status"] == "invalid_intervention":
+        require(
+            not decision["passed"]
+            and decision["reason"]
+            and len(a) == len(b) >= reg["minimum_length"]
+            and 0 < i < j < k < l < len(a)
+            and j - i != l - k
+            and a[:i] + a[k:l] + a[j:k] + a[i:j] + a[l:] == b,
+            "Rejected unequal-width key intervention",
+        )
+        native = read(root / "native-decision.json")
+        require(
+            native["status"] == "completed"
+            and native["registration"] == decision["registration"]
+            and native["qualification"] == decision["qualification"]
+            and native["data"] == decision["data"]
+            and native["scores"] == decision["observed"],
+            "Preserved native observations",
+        )
+        ref = read(Path(reg["parity_reference"]) / "decision.json")
+        for arm in ("candidate", "base"):
+            runs = verify_memory_rows(
+                root / (arm + ".json.gz"),
+                data["panel"],
+                reg["generation_cap"],
+                ref["gain"] if arm == "candidate" else None,
+                allow_unselected=True,
+            )
+            require(
+                len(runs) == 2
+                and all(v["prompt_tokens"] == len(a) for v in runs)
+                and native["scores"][arm]
+                == {
+                    "correct": sum(v["correct"] for v in runs),
+                    "seconds": sum(v["elapsed_s"] for v in runs),
+                },
+                "Actual full-history responses in rejected intervention",
+            )
+        return
     require(
         0 < i < j < k < l < len(a)
         and a[i:j] != a[k:l]
