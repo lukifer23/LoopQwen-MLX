@@ -149,3 +149,5 @@ Preference training is reported on complete requests, missing-argument conversat
 Mixed-service timing includes every enrolled request, including capped generations. The first request includes cold loading. Compare the request-level first-token and total-time distributions with paired counts, medians and nearest-rank upper quantiles. [Timing curves](service-latency.svg) · [Measured quantiles and paired counts](service-latency.csv)
 
 The earlier selective-language manifest used the final Python filename for all manuals in each split. The corrected chart uses exact publisher paragraph matches across all 544 manual excerpts. Run `.venv/bin/python scripts/selective_source_audit.py --verify` to replay the attribution. [Per-excerpt corrections and original file hashes](../research/data/selective-manual-attribution.json) · [Corrected effects by source](selective-sources.csv)
+
+The source-balanced comparison includes 320 fitting works and 24 primary test works. The catalog lists each Python manual or Wikipedia article and each PG-19 publisher title and publication-year field. [Catalog, work hashes and enrolled windows](source-balanced-catalog.csv)

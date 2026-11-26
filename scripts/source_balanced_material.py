@@ -1,11 +1,12 @@
 """Freeze disjoint works for recurrent next-token learning and transfer on real text."""
 
+import csv
 import hashlib
 import json
 import random
 from collections import Counter
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 from urllib.request import urlopen
 from zipfile import ZipFile
 
@@ -74,6 +75,62 @@ def library(split, source_files):
             path.read_text(encoding="utf-8-sig"),
             digest(path),
         )
+
+
+def work_catalog(works):
+    metadata = cached(
+        "pg19-metadata.csv",
+        "https://storage.googleapis.com/deepmind-gutenberg/metadata.csv?generation=1568720035675954",
+    )
+    assert (
+        digest(metadata)
+        == "fbb2fdb48522927b2e16aa52950f2afeb83c6fa8fed45f0c3dd834e9bc9b43b9"
+    )
+    with metadata.open(newline="") as f:
+        books = {
+            number: (title, year, page) for number, title, year, page in csv.reader(f)
+        }
+    with Path("paper/source-balanced-catalog.csv").open("w", newline="") as f:
+        out = csv.writer(f)
+        out.writerow(
+            [
+                "split",
+                "domain",
+                "work",
+                "title",
+                "year_in_publisher_metadata",
+                "source_url",
+                "source_sha256",
+                "windows",
+                "complete_work_tokens",
+            ]
+        )
+        for w in works:
+            name = w["source"]
+            year = ""
+            if name.startswith("PG19/"):
+                title, year, url = books[Path(name).stem]
+            elif name.startswith("CPython/"):
+                title = name.split("/", 1)[1]
+                url = (
+                    "https://github.com/python/cpython/blob/" + PYTHON + "/Doc/" + title
+                )
+            else:
+                title = name.split("/", 1)[1]
+                url = "https://en.wikipedia.org/wiki/" + quote(title)
+            out.writerow(
+                [
+                    w["split"],
+                    w["category"],
+                    name,
+                    title,
+                    year,
+                    url,
+                    w["sha256"],
+                    w["windows"],
+                    w["whole_tokens"],
+                ]
+            )
 
 
 def existing():
@@ -237,6 +294,7 @@ def main():
         DATA / "source-balanced-panel.json",
         {"works": [w for w in works if w["split"] == "test"], "rows": test},
     )
+    work_catalog(works)
     print(len(training), len(test), len(works), flush=True)
 
 
