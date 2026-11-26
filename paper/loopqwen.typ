@@ -183,6 +183,11 @@ The joint fit starts independently from the qualified typed tool weights. Each u
 
 The 4,402 fitting responses include 384 human e-SNLI explanations and 384 human-authored Databricks Dolly instructions spanning classification, extraction, closed questions and summarization [53]. The primary comparison enrolls 144 requests, including 72 new human questions and 72 earlier field and public requests. Among the new requests are 24 additional Dolly questions with original contexts and short publisher-supplied answers. No selected test context appears in the Dolly fitting records. The primary score requires a completed normalized exact answer on these questions. We also record whether the response contains the source answer. All 72 fresh prompts were compared against the training conversations and answers after masking quantities. The largest five-word Jaccard similarity was 0.0359 and the longest shared sequence contained eleven words.
 
+== Sensitivity to the mix of user requests
+The two-view assistant succeeded on 38/72 retention requests against 12/72 for Base, and 29/48 fresh human requests against 38/48. We held the observed request mix within each group fixed and varied only the relative frequency of the two groups. This gives equal expected accuracy at 65.8% fresh questions. Above that fraction the measured rates favor Base. The actual stream contained 40% fresh questions. This calculation describes reweighting these observations. A different population of questions requires a new measurement.
+
+#figure(image("request-mix.svg",width:78%),caption:[Expected fraction of strictly correct outcomes at different proportions of fresh human questions. Dots mark the measured workload. Dotted lines mark equality where it occurs.])
+
 == Lossless distribution of the complete assistant
 The qualified bundle contains separate language and tool backbones. We compared ordinary level-six DEFLATE of its complete file inventory with a reversible representation that uses the original Base tensors and the sibling's actual scale and bias to predict quantized weight bytes. The archive stores the residual bytes; the decoder reconstructs the exact original tensor headers and payloads. The encoding is applied before DEFLATE and leaves the installed model precision intact.
 

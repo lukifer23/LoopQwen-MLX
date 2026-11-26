@@ -394,7 +394,7 @@ def main():
     from paper_draft_program import make as plot_draft_program
     from paper_field import make as plot_field
     from paper_folded import make as plot_folded
-    from paper_folded import shared_objective
+    from paper_folded import shared_objective, workload_mix
     from paper_intents import make as plot_intents
     from paper_meaning import make as plot_meaning
     from paper_passages import make as plot_passages
@@ -425,6 +425,7 @@ def main():
     plot_documents(PAPER, RESULTS, result, finish, "document-evidence-01")
     plot_folded(PAPER, RESULTS, result, finish)
     shared_objective(PAPER, RESULTS, result)
+    workload_mix(PAPER, RESULTS, result, finish)
     plot_folded(PAPER, RESULTS, result, finish, "shared-session-01")
     plot_folded(PAPER, RESULTS, result, finish, "shared-session-unified-01")
     plot_intents(PAPER, RESULTS, result, finish)
