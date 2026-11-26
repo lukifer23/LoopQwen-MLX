@@ -4,6 +4,7 @@ import csv
 import random
 
 import matplotlib.pyplot as plt
+
 from loopqwen.evaluation.mechanism import unpack
 
 
@@ -107,3 +108,78 @@ def make(paper, results, result, finish):
             if j == 0:
                 ax.invert_yaxis()
     finish(fig, "raw-language")
+
+
+def selective(paper, results, result, finish):
+    """Expose source-level changes on the genuinely new passages."""
+    from collections import defaultdict
+
+    from loopqwen.io import read
+
+    name = "selective-raw-01"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    d = result(name)
+    spec = read(root / "registration.json")
+    new = read(spec["material"])["rows"]
+    a, b = (
+        unpack(root / (side + ".json.gz"))[: len(new)]
+        for side in ("candidate", "control")
+    )
+    sources = defaultdict(list)
+    for u, v, w in zip(a, b, new, strict=True):
+        assert u["id"] == v["id"] == w["id"]
+        gold = w["ids"][1:]
+        change = sum(
+            int(x == z) - int(y == z)
+            for x, y, z in zip(u["ids"], v["ids"], gold, strict=True)
+        )
+        sources[w["source"]].append((sum(u["nll"]) - sum(v["nll"]), change, len(gold)))
+    names = {"pg215": "The Call of the Wild", "pg944": "The Voyage of the Beagle"}
+    fig, (left, right) = plt.subplots(1, 2, figsize=(8.2, 3.25), sharey=True)
+    with (paper / "selective-sources.csv").open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            [
+                "source",
+                "passages",
+                "targets",
+                "nll_difference",
+                "net_correct",
+                "net_correct_per_1000",
+            ]
+        )
+        for i, (source, rs) in enumerate(sources.items()):
+            nll, top, total = map(sum, zip(*rs, strict=True))
+            writer.writerow(
+                [source, len(rs), total, nll / total, top, 1000 * top / total]
+            )
+            left.scatter(nll / total, i, color="#11675d")
+            right.scatter(1000 * top / total, i, color="#11675d")
+    for ax in (left, right):
+        ax.axvline(0, color="#777", lw=0.8)
+    left.set_yticks(
+        range(len(sources)), [names.get(s, s.removeprefix("library/")) for s in sources]
+    )
+    left.invert_yaxis()
+    left.set_xlabel("NLL difference (nats/token)")
+    right.set_xlabel("Additional correct per 1,000 tokens")
+    finish(fig, "selective-sources")
+    with (paper / "selective-domains.csv").open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            ["domain", "side", "tokens", "nll", "top1", "seconds", "peak_bytes"]
+        )
+        for side, groups in d["scores"].items():
+            for domain, vals in groups.items():
+                writer.writerow(
+                    [
+                        domain,
+                        side,
+                        *[
+                            vals[k]
+                            for k in ("tokens", "nll", "top1", "seconds", "peak")
+                        ],
+                    ]
+                )

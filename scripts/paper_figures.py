@@ -319,10 +319,12 @@ def main():
 
     generate(PAPER, RESULTS, result, finish)
     from paper_raw import make as plot_raw
+    from paper_raw import selective
 
     from paper_field import make as plot_field
 
     plot_raw(PAPER, RESULTS, result, finish)
+    selective(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
     from paper_table import make as table_actions
 
