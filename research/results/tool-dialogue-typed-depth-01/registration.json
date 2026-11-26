@@ -1,0 +1,38 @@
+{
+  "id": "tool-dialogue-typed-depth-01",
+  "question": "On the same 22 published executions, does a second application improve over a one-pass adapter trained from the same quantized instruction sibling?",
+  "workload": "bfcl_exec",
+  "candidate": "restore:research/results/tool-dialogue-typed-01",
+  "control": "train_dense",
+  "training": "research/data/tool-dialogue-typed-training.json",
+  "material": "research/data/tool-exec-bfcl-01.json",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "fit_seed": 38272,
+  "rank": 32,
+  "batch": 4,
+  "lr": 0.00012,
+  "updates": 600,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "stop_at_turn_end": true,
+  "net_floor": 3,
+  "p_max": 0.05,
+  "time_ratio": 1.25,
+  "gate": "Three net additional end-to-end successes, exact paired p<=.05 and total elapsed seconds <=1.25x the equal-training ordinary-depth sibling. Require exactly matching training data, fit seed, parameter count, batch size, and optimizer steps. Failure closes the causal depth claim for typed execution. Independently test system transfer and release retention, which follow from the Base comparison.",
+  "protocol": "Independent response to zero-valid-call BFCL transfer for catalog-only training. Fixed instruction-tuned Qwen sibling, 8-bit grouped quantization of all eligible embedding and linear weights outside the BF16 shared final layer. 384 unrelated typed training interactions over eight executable utilities, public read-only Glaive/Hermes demonstrations and 128 controlled turns. At test consume questions and schemas only, with identical shared tool instructions. Execute only declared local callbacks. No training examples from BFCL. Score only one correct typed call followed by completed numeric response. Equal policy and archived timing against unmodified BF16 pinned Base.",
+  "limits": {
+    "wall_seconds": 450,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4"
+}
