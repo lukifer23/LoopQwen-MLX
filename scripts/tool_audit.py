@@ -22,6 +22,7 @@ def verify(root, decision, read, sha, require):
         "table_questions",
         "package_dependencies",
         "arithmetic_programs",
+        "venue_dialogues",
     )
     tokenizer = load_tokenizer(local_snapshot())
     stop_ids = set(tokenizer.eos_token_ids)

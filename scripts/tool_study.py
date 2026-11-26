@@ -73,6 +73,24 @@ def summarize(records, spec):
             and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
         )
     details = {}
+    if spec.get("workload") == "venue_dialogues":
+        from loopqwen.evaluation.venue_dialogues import paired_result
+
+        pairs_score = paired_result(read(spec["material"]), records)
+        details["venue_dialogues"] = pairs_score
+        passed = (
+            passed
+            and pairs_score["wins"] - pairs_score["losses"] >= spec["dialogue_floor"]
+            and pairs_score["p"] <= spec["p_max"]
+            and all(
+                value >= spec["service_floors"][service]
+                for service, value in pairs_score["both_by_service"][
+                    "candidate"
+                ].items()
+            )
+            and pairs_score["public_tools"]["candidate"] >= spec["public_floor"]
+            and metrics["candidate"]["peak_bytes"] <= metrics["control"]["peak_bytes"]
+        )
     if spec.get("answer_floor") is not None:
         rows = read(spec["material"])["rows"]
         changes = [
@@ -139,6 +157,10 @@ def workload(spec, *, replay=False):
             )
 
         return items, catalog, judge
+    if spec.get("workload") == "venue_dialogues":
+        from loopqwen.evaluation import venue_dialogues
+
+        return venue_dialogues.workload(material)
     if spec.get("workload") == "arithmetic_programs":
         from loopqwen.evaluation import program_questions as arithmetic
 

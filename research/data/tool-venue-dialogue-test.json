@@ -1,0 +1,6291 @@
+{
+  "source": "fe0c8e65cfcd8462bd33c86e35f21addc84ca82b",
+  "rows": [
+    {
+      "id": "MUL1064.json/2/subset",
+      "dialogue": "MUL1064.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Hello could you give me some information on some entertainment places in the centre of Cambridge to go visit please?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'm sorry, there are no entertainment attractions listed in the centre of Cambridge. Would you like to search for something different?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Are there any colleges?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "college"
+      },
+      "inventory": "subset",
+      "gold": 6
+    },
+    {
+      "id": "PMUL1537.json/2/subset",
+      "dialogue": "PMUL1537.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I would like to book a room in a hotel, please."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Do you prefer a particular area of town or price range?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Yes, I would like a hotel in the north please."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "area": "north",
+        "type": "hotel"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "exec_simple_17",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "In my current research on plant genetics, I'm exploring the genetic diversity within a specific species. It's fascinating work, and I've managed to isolate 30 unique genes. The next step in my study involves figuring out the possible combinations if I were to select 7 of these genes at a time for a more detailed analysis. Could you calculate the number of different permutations for 7 genes out of the total 30?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_permutations",
+          "description": "Calculates the number of permutations of k elements from a set of n elements.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of elements in the set."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of elements to choose."
+              }
+            },
+            "required": [
+              "n",
+              "k"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_permutations(n=30, k=7)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_0",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've been playing a game where rolling a six is somehow more likely than usual, and the chance of it happening on a single roll is 60%. I'm curious, if I roll the die 20 times, what are the odds that I'll get exactly five sixes?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calc_binomial_probability",
+          "description": "Calculates the probability of getting k successes in n trials.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of trials."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of successes."
+              },
+              "p": {
+                "type": "float",
+                "description": "The probability of success."
+              }
+            },
+            "required": [
+              "n",
+              "k",
+              "p"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calc_binomial_probability(n=20, k=5, p=0.6)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "SNG01534.json/6/subset",
+      "dialogue": "SNG01534.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Are there any 1-star hotels with free parking?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'm sorry, I can't find any hotels that meet your criteria. Would you like to search again?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I am looking for a guesthouse with free parking, preferably one star."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Sorry, I'm not finding anything. Want to change to a hotel?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "What about guesthouses?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "No, I'm sorry but as I said, there are no guesthouse listings. What else may I look for for you?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "how about a hotel with 4 stars?"
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "parking": "yes",
+        "stars": "4",
+        "type": "hotel"
+      },
+      "inventory": "subset",
+      "gold": 2
+    },
+    {
+      "id": "exec_simple_14",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "As part of my data analysis project, I've been tasked with examining the temperature trends over the past month. I've collected a set of daily temperature readings that I need to interpret. The dataset includes temperatures ranging from 22 to 80 degrees Celsius, incrementing by 2 each day. To gain a better understanding of the overall climate patterns, could you calculate the average temperature for this period using these values?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_mean",
+          "description": "Calculates the mean of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_mean(numbers=[22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "PMUL4059.json/2/subset",
+      "dialogue": "PMUL4059.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "i am looking for a place to stay. The hotel should include free wifi and should include free parking."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Sure, would you like a guesthouse or hotel?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "A guesthouse, please. Are there any in the cheap price range?"
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "internet": "yes",
+        "parking": "yes",
+        "pricerange": "cheap",
+        "type": "guesthouse"
+      },
+      "inventory": "subset",
+      "gold": 5
+    },
+    {
+      "id": "exec_simple_5",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got this strange object we've come across in our scientific research. It's pretty hefty, weighing in at 120 kilograms, and it takes up about 30 cubic meters of space. Can you help me calculate its density?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_density",
+          "description": "Calculates the density of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "mass": {
+                "type": "float",
+                "description": "The mass of the object, in kilograms."
+              },
+              "volume": {
+                "type": "float",
+                "description": "The volume of the object, in cubic meters."
+              }
+            },
+            "required": [
+              "mass",
+              "volume"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_density(mass=120.0, volume=30.0)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "PMUL2436.json/4/full",
+      "dialogue": "PMUL2436.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Hi, I was going to visit the centre, and wanted to know if there were any professional or semiprofessional teams playing during my visit."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are no sports places in the centre of town."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Okay. Are there any architectural attractions?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Yes, there are 5. I can highly recommend All Saints Church, it's beautiful."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "The sounds great, can I get their address and postal code?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "all saints church",
+        "type": "architecture"
+      },
+      "inventory": "full",
+      "gold": 1
+    },
+    {
+      "id": "exec_simple_4",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a physics experiment and need to calculate the density of an object I have. It weighs 50 kilograms and takes up a space of 10 cubic meters. Could you help me figure out its density?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_density",
+          "description": "Calculates the density of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "mass": {
+                "type": "float",
+                "description": "The mass of the object, in kilograms."
+              },
+              "volume": {
+                "type": "float",
+                "description": "The volume of the object, in cubic meters."
+              }
+            },
+            "required": [
+              "mass",
+              "volume"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_density(mass=50.0, volume=10.0)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "MUL0947.json/2/subset",
+      "dialogue": "MUL0947.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I am looking for a museum to go to in Cambridge."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "You're in luck! Cambridge has a great number of museums. Did you have an area in mind?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Perhaps the center of town. Can you provide me with information regarding the entrance fee and a telephone number too?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "museum"
+      },
+      "inventory": "subset",
+      "gold": 5
+    },
+    {
+      "id": "SNG1076.json/2/full",
+      "dialogue": "SNG1076.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Can you see if there are any entertainment attractions in the centre of town?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Unfortunately there are no entertainment attractions in the centre of town. Is there a different area of town that would work for you?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "What about a museum?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "museum"
+      },
+      "inventory": "full",
+      "gold": 11
+    },
+    {
+      "id": "SNG0482.json/4/full",
+      "dialogue": "SNG0482.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Is there a restaurant that serves italian food in the expensive price bracket?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Yes, there are 5 such places. 4 are in the centre and 1 is in the south. Would you like to book at one?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Absolutely! Thank you!"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Which area of town would you prefer?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "How about the center?"
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "food": "italian",
+        "pricerange": "expensive"
+      },
+      "inventory": "full",
+      "gold": 4
+    },
+    {
+      "id": "exec_simple_2",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm currently tweaking a machine learning model and I need to understand the similarity between two objects in my dataset. Their characteristics are expressed in the feature vectors [0.5, 0.7, 0.2, 0.9, 0.1] for the first object and [0.4, 0.6, 0.3, 0.8, 0.2] for the second one. Could you calculate the cosine similarity between these two feature vectors to help me determine how similar these objects are?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_cosine_similarity",
+          "description": "Calculates the cosine similarity of two vectors.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "vectorA": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The first vector."
+              },
+              "vectorB": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The second vector."
+              }
+            },
+            "required": [
+              "vectorA",
+              "vectorB"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_cosine_similarity(vectorA=[0.5, 0.7, 0.2, 0.9, 0.1], vectorB=[0.4, 0.6, 0.3, 0.8, 0.2])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "MUL2177.json/2/subset",
+      "dialogue": "MUL2177.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I am looking for a place in Cambridge. It doesn't need to include internet and should be a hotel."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I was not able to find a hotel type with no internet, but there are hotels with internet."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Okay, that would be fine, as long as it has free parking."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "parking": "yes",
+        "type": "hotel"
+      },
+      "inventory": "subset",
+      "gold": 4
+    },
+    {
+      "id": "PMUL4246.json/8/subset",
+      "dialogue": "PMUL4246.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "i need a place to go and should be a museum"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Okay! There are several museums in Cambridge. What part of town would you like to visit?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "How about ones in the centre, what's available?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There's 11 different museums in the centre. Would you like a recommendation?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Yes, and if you can tell me it's entrance fee, that'd be great."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "The entrance fee is free. is there anything else"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Could you give me the name of the museum?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "My favorite free museum is the Broughton House Gallery at 98 King Street."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Can I have the info of this place thank you"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "broughton house gallery",
+        "type": "museum"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "MUL2137.json/2/full",
+      "dialogue": "MUL2137.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "We're looking for a place to stay in Cambridge. We're looking for a hotel with free wifi and free parking."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "We have many hotels all over the city. When would you like to book the rooms for and how long is your stay?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I would prefer a hotel in the moderate price range."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "internet": "yes",
+        "parking": "yes",
+        "pricerange": "moderate",
+        "type": "hotel"
+      },
+      "inventory": "full",
+      "gold": 2
+    },
+    {
+      "id": "MUL0947.json/2/full",
+      "dialogue": "MUL0947.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I am looking for a museum to go to in Cambridge."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "You're in luck! Cambridge has a great number of museums. Did you have an area in mind?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Perhaps the center of town. Can you provide me with information regarding the entrance fee and a telephone number too?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "museum"
+      },
+      "inventory": "full",
+      "gold": 11
+    },
+    {
+      "id": "exec_simple_7",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During the high-speed chase, when the driver accelerated the vehicle, it was initially moving at 25 meters per second. With the sudden push on the gas pedal, the car accelerated at 15 meters per second squared, and this went on for 8 seconds. I need to calculate the displacement of the vehicle over that time. Can you provide me with that information?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_displacement",
+          "description": "Calculates the displacement of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_displacement(initial_velocity=25.0, acceleration=15.0, time=8)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "MUL2137.json/2/subset",
+      "dialogue": "MUL2137.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "We're looking for a place to stay in Cambridge. We're looking for a hotel with free wifi and free parking."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "We have many hotels all over the city. When would you like to book the rooms for and how long is your stay?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I would prefer a hotel in the moderate price range."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "internet": "yes",
+        "parking": "yes",
+        "pricerange": "moderate",
+        "type": "hotel"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "SNG0482.json/4/subset",
+      "dialogue": "SNG0482.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Is there a restaurant that serves italian food in the expensive price bracket?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Yes, there are 5 such places. 4 are in the centre and 1 is in the south. Would you like to book at one?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Absolutely! Thank you!"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Which area of town would you prefer?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "How about the center?"
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "food": "italian",
+        "pricerange": "expensive"
+      },
+      "inventory": "subset",
+      "gold": 2
+    },
+    {
+      "id": "exec_simple_13",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got $8000 that I'm planning to drop into a savings account with a sweet annual interest rate of 4%. I'm not touching it for 15 years. I'm curious about the future value of this investment after that time. Can you crunch the numbers for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_future_value",
+          "description": "Calculates the future value of an investment.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "present_value": {
+                "type": "float",
+                "description": "The present value of the investment, in dollars."
+              },
+              "interest_rate": {
+                "type": "float",
+                "description": "The interest rate of the investment, ranging from 0 to 1."
+              },
+              "periods": {
+                "type": "integer",
+                "description": "The number of periods, in years."
+              }
+            },
+            "required": [
+              "present_value",
+              "interest_rate",
+              "periods"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_future_value(present_value=8000, interest_rate=0.04, periods=15)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_21",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on the design for a triangular dam, and I've settled on the dimensions. The base is going to be 700 meters, and the height will be at 450 meters. I need to calculate the total area that the face of this dam will cover. Can you help me figure out what that area would be with these measurements?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_triangle_area",
+          "description": "Calculates the area of a triangle given its base and height.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "base": {
+                "type": "integer",
+                "description": "The base of the triangle, in meters."
+              },
+              "height": {
+                "type": "integer",
+                "description": "The height of the triangle, in meters."
+              }
+            },
+            "required": [
+              "base",
+              "height"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_triangle_area(base=700, height=450)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "PMUL2123.json/2/full",
+      "dialogue": "PMUL2123.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I'm looking for a multiple sports location in the centre of town."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'm sorry, there is not a multiple sports center in the centre of town, but there is one in the east if you are interested in that one."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Actually, I really want something in the centre of town. How about nightclubs? Any good ones in the centre of town?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "nightclub"
+      },
+      "inventory": "full",
+      "gold": 5
+    },
+    {
+      "id": "SNG0571.json/2/full",
+      "dialogue": "SNG0571.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Can you help me find an Afghan restaurant on the west side of town?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are no listings for an Afghan restaurant on the west side. Would you like to try a different area or cuisine?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Try a different cuisine. Just an expensive restaurant."
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "west",
+        "pricerange": "expensive"
+      },
+      "inventory": "full",
+      "gold": 9
+    },
+    {
+      "id": "exec_simple_18",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "To better understand the volatility and risk associated with this particular stock, I need to calculate the standard deviation of its daily closing prices over the past 10 trading days. Here are the figures I've gathered: 1000, 2000, 3000, 4000, 5000, 7000, 9000, 15000, 20000, and 30000. Can you provide me with the standard deviation for these closing prices?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_standard_deviation",
+          "description": "Calculates the standard deviation of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_standard_deviation(numbers=[1000,2000,3000,4000,5000,7000,9000,15000,20000,30000])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "MUL1833.json/2/full",
+      "dialogue": "MUL1833.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I'm so bored! Can you find me something to do in the centre of town?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "If you are into contemporary art, Cambridge Contemporary Art is a great place to relieve boredom. The address is 6 Trinity Street. Best of all, there isn't any entrance fee."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Thank you that sounds great."
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "cambridge contemporary art"
+      },
+      "inventory": "full",
+      "gold": 1
+    },
+    {
+      "id": "PMUL0048.json/2/full",
+      "dialogue": "PMUL0048.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I need a place to eat that serves chinese food."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are 17 Chinese restaurants in town. Are you looking for a particular price range?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "A moderate price range."
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "food": "chinese",
+        "pricerange": "moderate"
+      },
+      "inventory": "full",
+      "gold": 4
+    },
+    {
+      "id": "exec_simple_6",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During our advanced physics experiment, we've been tracking this unique object which initially was moving at 15 m/s. It's been accelerating at a rate of 9.8 m/s\u00b2, and this has been going on for exactly 10 seconds. I need to calculate the total displacement of the object over this period. Can you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_displacement",
+          "description": "Calculates the displacement of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_displacement(initial_velocity=15.0, acceleration=9.8, time=10)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "PMUL3521.json/4/subset",
+      "dialogue": "PMUL3521.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Can you tell me a good museum in town?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Sure, what part of town did you want to visit?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I'd like to visit something in the west part of town."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'd recommend cafe jello gallery. Their phone number is 01223312112. Can I help you with anything else?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Could you provide me with the address and entrance fee?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "west",
+        "name": "cafe jello gallery",
+        "type": "museum"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "exec_simple_3",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a project that involves comparing the attributes of different entities to determine how similar they are. I have two entities represented by numerical arrays, and I need to use cosine similarity as a measure of similarity between them. The attributes for the first entity are [0.3, 0.8, 0.1, 0.6, 0.2], and for the second entity, they are [0.5, 0.7, 0.4, 0.9, 0.3]. Could you calculate the cosine similarity for these two vectors for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_cosine_similarity",
+          "description": "Calculates the cosine similarity of two vectors.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "vectorA": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The first vector."
+              },
+              "vectorB": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The second vector."
+              }
+            },
+            "required": [
+              "vectorA",
+              "vectorB"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_cosine_similarity(vectorA=[0.3, 0.8, 0.1, 0.6, 0.2], vectorB=[0.5, 0.7, 0.4, 0.9, 0.3])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "SNG0455.json/2/subset",
+      "dialogue": "SNG0455.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I am looking at a place to eat that serves venetian food in the centre."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Unfortunately, I don't see any restaurants that serve Venetian in the centre of town. Would you like to try a different area or type of cuisine?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Do you have any Chinese restaurants?"
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "food": "chinese"
+      },
+      "inventory": "subset",
+      "gold": 5
+    },
+    {
+      "id": "SNG0571.json/2/subset",
+      "dialogue": "SNG0571.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Can you help me find an Afghan restaurant on the west side of town?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are no listings for an Afghan restaurant on the west side. Would you like to try a different area or cuisine?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Try a different cuisine. Just an expensive restaurant."
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "west",
+        "pricerange": "expensive"
+      },
+      "inventory": "subset",
+      "gold": 6
+    },
+    {
+      "id": "PMUL4357.json/2/subset",
+      "dialogue": "PMUL4357.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I'm looking for a restaurant in the centre.."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are over 60 restaurants to choose from in the centre. Is there a type of food you are interested in?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I'd like for it to be expensive. Any you choose is fine. I'll need the postcode, also, please."
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "pricerange": "expensive"
+      },
+      "inventory": "subset",
+      "gold": 16
+    },
+    {
+      "id": "PMUL3275.json/2/full",
+      "dialogue": "PMUL3275.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I am coming to visit and will be in the centre area. I would like an attraction to visit."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "sure, how about cambridge contemporary art?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Sounds interesting! What is the address?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "cambridge contemporary art"
+      },
+      "inventory": "full",
+      "gold": 1
+    },
+    {
+      "id": "exec_simple_15",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a report about a basketball player's average performance throughout the season. The data I have includes the points they scored in each game: 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160. To complete my analysis, I need to calculate the mean score per game. Can you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_mean",
+          "description": "Calculates the mean of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_mean(numbers=[15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155, 160])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_9",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm working on a physics simulation and I have a micro-particle here charged at 7.8 coulombs. It's placed in an electromagnetic field with a voltage of 15.2 volts. Can you calculate the electrostatic potential energy for this particle in the given field?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_electrostatic_potential_energy",
+          "description": "Calculates the electrostatic potential energy.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "charge": {
+                "type": "float",
+                "description": "The charge of the object, in coulombs."
+              },
+              "voltage": {
+                "type": "float",
+                "description": "The voltage of the object, in volts."
+              }
+            },
+            "required": [
+              "charge",
+              "voltage"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_electrostatic_potential_energy(charge=7.8, voltage=15.2)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "SNG1004.json/2/full",
+      "dialogue": "SNG1004.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Are there any 4-star hotels which are moderately priced?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "We have 11 guest houses which are moderately priced, but no hotels."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "A guesthouse is fine. I'm looking for a place in the north with free parking."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "area": "north",
+        "parking": "yes",
+        "pricerange": "moderate",
+        "stars": "4"
+      },
+      "inventory": "full",
+      "gold": 6
+    },
+    {
+      "id": "PMUL1537.json/2/full",
+      "dialogue": "PMUL1537.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I would like to book a room in a hotel, please."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Do you prefer a particular area of town or price range?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Yes, I would like a hotel in the north please."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "area": "north",
+        "type": "hotel"
+      },
+      "inventory": "full",
+      "gold": 2
+    },
+    {
+      "id": "exec_simple_10",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During a training exercise, we're analyzing a simulation of a high-speed chase where a vehicle starts from a standstill and then accelerates constantly. We've clocked the acceleration at 9.8 meters per second squared and the time span for this acceleration is 12 seconds. I need to calculate the final velocity of the vehicle at the end of this time frame. Can you give me that figure?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_final_velocity",
+          "description": "Calculates the final velocity of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_final_velocity(initial_velocity=0, acceleration=9.8, time=12)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "PMUL4078.json/2/subset",
+      "dialogue": "PMUL4078.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "please find me a place to go in the centre and it should be a collage"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "How about trinity college? 1 pound entrance fee."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Sounds good. That's all I need today, thanks!"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "trinity college",
+        "type": "college"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "MUL0814.json/4/full",
+      "dialogue": "MUL0814.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Can you help me find a place to eat? I am looking for a place that serves cheap corsica food."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'm sorry, we have no cheap corsica eateries. Care to try anything else?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Tell me some restaurant types in the town centre?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There's Chinese, Indian, Italian, Mediterranean, and Spanish, there's a few others if none of those sound appealing."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Could you please find me an italian restaurant in the centre?"
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "food": "italian",
+        "pricerange": "cheap"
+      },
+      "inventory": "full",
+      "gold": 3
+    },
+    {
+      "id": "PMUL4059.json/2/full",
+      "dialogue": "PMUL4059.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "i am looking for a place to stay. The hotel should include free wifi and should include free parking."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Sure, would you like a guesthouse or hotel?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "A guesthouse, please. Are there any in the cheap price range?"
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "internet": "yes",
+        "parking": "yes",
+        "pricerange": "cheap",
+        "type": "guesthouse"
+      },
+      "inventory": "full",
+      "gold": 9
+    },
+    {
+      "id": "PMUL3275.json/2/subset",
+      "dialogue": "PMUL3275.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I am coming to visit and will be in the centre area. I would like an attraction to visit."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "sure, how about cambridge contemporary art?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Sounds interesting! What is the address?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "cambridge contemporary art"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "PMUL3521.json/4/full",
+      "dialogue": "PMUL3521.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Can you tell me a good museum in town?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Sure, what part of town did you want to visit?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I'd like to visit something in the west part of town."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'd recommend cafe jello gallery. Their phone number is 01223312112. Can I help you with anything else?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Could you provide me with the address and entrance fee?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "west",
+        "name": "cafe jello gallery",
+        "type": "museum"
+      },
+      "inventory": "full",
+      "gold": 1
+    },
+    {
+      "id": "MUL0814.json/4/subset",
+      "dialogue": "MUL0814.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Can you help me find a place to eat? I am looking for a place that serves cheap corsica food."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'm sorry, we have no cheap corsica eateries. Care to try anything else?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Tell me some restaurant types in the town centre?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There's Chinese, Indian, Italian, Mediterranean, and Spanish, there's a few others if none of those sound appealing."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Could you please find me an italian restaurant in the centre?"
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "food": "italian",
+        "pricerange": "cheap"
+      },
+      "inventory": "subset",
+      "gold": 2
+    },
+    {
+      "id": "PMUL2848.json/6/full",
+      "dialogue": "PMUL2848.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I need a hotel for tonight please."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I can help you with that. Do you have a particular price point you are looking for?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "It doesn't matter but I do need free parking."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I have several hotels matching your request available. What part of town would you prefer?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I have no preference on the part of town, but I do need free wifi as well."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "ok, that narrows it down to 8 options for you. any other preferences?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I would like it to be a guesthouse."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "internet": "yes",
+        "parking": "yes",
+        "type": "guesthouse"
+      },
+      "inventory": "full",
+      "gold": 21
+    },
+    {
+      "id": "MUL1059.json/2/full",
+      "dialogue": "MUL1059.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I'm excited to be traveling to cambridge and would like to find some places to go in the centre of town."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Luckily, there are 44 places to go in the town centre. Do you have a certain type of place you would like to go?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Yes, I would like a theatre in the centre."
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "theatre"
+      },
+      "inventory": "full",
+      "gold": 4
+    },
+    {
+      "id": "PMUL3897.json/4/full",
+      "dialogue": "PMUL3897.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "i'm looking for things to do in the west."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are many options available in the west, what types of attractions interest you?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "A museum perhaps?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'd recommend the cafe jello gallery. Their phone number is 01223312112. Can I help you with anything else?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Sounds quite interesting. Can I get their address please?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "west",
+        "name": "cafe jello gallery",
+        "type": "museum"
+      },
+      "inventory": "full",
+      "gold": 1
+    },
+    {
+      "id": "PMUL4078.json/2/full",
+      "dialogue": "PMUL4078.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "please find me a place to go in the centre and it should be a collage"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "How about trinity college? 1 pound entrance fee."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Sounds good. That's all I need today, thanks!"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "trinity college",
+        "type": "college"
+      },
+      "inventory": "full",
+      "gold": 1
+    },
+    {
+      "id": "MUL1064.json/2/full",
+      "dialogue": "MUL1064.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Hello could you give me some information on some entertainment places in the centre of Cambridge to go visit please?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'm sorry, there are no entertainment attractions listed in the centre of Cambridge. Would you like to search for something different?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Are there any colleges?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "college"
+      },
+      "inventory": "full",
+      "gold": 13
+    },
+    {
+      "id": "SNG0866.json/2/subset",
+      "dialogue": "SNG0866.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Good Evening, I am looking for a place to stay that includes free parking"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Okay, I have 29 options for you. Is there an area of town that you'd prefer to stay in?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I'm not sure. I would prefer something moderately priced."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "parking": "yes",
+        "pricerange": "moderate"
+      },
+      "inventory": "subset",
+      "gold": 9
+    },
+    {
+      "id": "PMUL2436.json/4/subset",
+      "dialogue": "PMUL2436.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Hi, I was going to visit the centre, and wanted to know if there were any professional or semiprofessional teams playing during my visit."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are no sports places in the centre of town."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Okay. Are there any architectural attractions?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Yes, there are 5. I can highly recommend All Saints Church, it's beautiful."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "The sounds great, can I get their address and postal code?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "all saints church",
+        "type": "architecture"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "PMUL4800.json/2/full",
+      "dialogue": "PMUL4800.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Hello, I am looking for a restaurant in the east that serves Indian food."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are 4 results. Is a moderate or expensive price range better?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "How about the moderate price range."
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "east",
+        "food": "indian",
+        "pricerange": "moderate"
+      },
+      "inventory": "full",
+      "gold": 2
+    },
+    {
+      "id": "PMUL4800.json/2/subset",
+      "dialogue": "PMUL4800.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Hello, I am looking for a restaurant in the east that serves Indian food."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are 4 results. Is a moderate or expensive price range better?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "How about the moderate price range."
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "east",
+        "food": "indian",
+        "pricerange": "moderate"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "exec_simple_8",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During our physics lab session, we're experimenting with electric fields and their effects on charged particles. We've placed a particle that carries a charge of 5 coulombs within a field where there's a voltage of 10 volts. I need to calculate the electrostatic potential energy for this scenario. Could you work that out for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_electrostatic_potential_energy",
+          "description": "Calculates the electrostatic potential energy.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "charge": {
+                "type": "float",
+                "description": "The charge of the object, in coulombs."
+              },
+              "voltage": {
+                "type": "float",
+                "description": "The voltage of the object, in volts."
+              }
+            },
+            "required": [
+              "charge",
+              "voltage"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_electrostatic_potential_energy(charge=5.0, voltage=10.0)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "MUL1833.json/2/subset",
+      "dialogue": "MUL1833.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I'm so bored! Can you find me something to do in the centre of town?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "If you are into contemporary art, Cambridge Contemporary Art is a great place to relieve boredom. The address is 6 Trinity Street. Best of all, there isn't any entrance fee."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Thank you that sounds great."
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "cambridge contemporary art"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "exec_simple_19",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've been tracking the scoring performance of a certain basketball player across the last 12 games to get insights into his consistency. The points he scored in each game are as follows: 30, 20, 25, 12, 59, 23, 64, 21, 67, 12, 23, and 43. I need to calculate the standard deviation of this scoring to better understand the variability and predictability of his performance. Could you help me with that?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_standard_deviation",
+          "description": "Calculates the standard deviation of a list of numbers.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "numbers": {
+                "type": "array",
+                "items": {
+                  "type": "float"
+                },
+                "description": "The list of numbers."
+              }
+            },
+            "required": [
+              "numbers"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_standard_deviation(numbers=[30,20,25,12,59,23,64,21,67,12,23,43])"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "SNG01534.json/6/full",
+      "dialogue": "SNG01534.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Are there any 1-star hotels with free parking?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'm sorry, I can't find any hotels that meet your criteria. Would you like to search again?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I am looking for a guesthouse with free parking, preferably one star."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Sorry, I'm not finding anything. Want to change to a hotel?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "What about guesthouses?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "No, I'm sorry but as I said, there are no guesthouse listings. What else may I look for for you?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "how about a hotel with 4 stars?"
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "parking": "yes",
+        "stars": "4",
+        "type": "hotel"
+      },
+      "inventory": "full",
+      "gold": 3
+    },
+    {
+      "id": "exec_simple_12",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've put $5000 into a fixed deposit offering a 5% annual interest rate, and I'm planning to let it grow for 10 years. Could you calculate the future value of this investment for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_future_value",
+          "description": "Calculates the future value of an investment.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "present_value": {
+                "type": "float",
+                "description": "The present value of the investment, in dollars."
+              },
+              "interest_rate": {
+                "type": "float",
+                "description": "The interest rate of the investment, ranging from 0 to 1."
+              },
+              "periods": {
+                "type": "integer",
+                "description": "The number of periods, in years."
+              }
+            },
+            "required": [
+              "present_value",
+              "interest_rate",
+              "periods"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_future_value(present_value=5000, interest_rate=0.05, periods=10)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "PMUL2848.json/6/subset",
+      "dialogue": "PMUL2848.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I need a hotel for tonight please."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I can help you with that. Do you have a particular price point you are looking for?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "It doesn't matter but I do need free parking."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I have several hotels matching your request available. What part of town would you prefer?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I have no preference on the part of town, but I do need free wifi as well."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "ok, that narrows it down to 8 options for you. any other preferences?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I would like it to be a guesthouse."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "internet": "yes",
+        "parking": "yes",
+        "type": "guesthouse"
+      },
+      "inventory": "subset",
+      "gold": 14
+    },
+    {
+      "id": "exec_simple_1",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "During last night's basketball game, one of the star players was on fire, attempting a whopping 30 free throws. It's generally known that the average success rate for free throws hovers around 50%. I'm curious, with that success probability, what are the chances that the player made exactly 15 out of those 30 attempts?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calc_binomial_probability",
+          "description": "Calculates the probability of getting k successes in n trials.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of trials."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of successes."
+              },
+              "p": {
+                "type": "float",
+                "description": "The probability of success."
+              }
+            },
+            "required": [
+              "n",
+              "k",
+              "p"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calc_binomial_probability(n=30, k=15, p=0.5)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "PMUL3897.json/4/subset",
+      "dialogue": "PMUL3897.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "i'm looking for things to do in the west."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are many options available in the west, what types of attractions interest you?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "A museum perhaps?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'd recommend the cafe jello gallery. Their phone number is 01223312112. Can I help you with anything else?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Sounds quite interesting. Can I get their address please?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "west",
+        "name": "cafe jello gallery",
+        "type": "museum"
+      },
+      "inventory": "subset",
+      "gold": 0
+    },
+    {
+      "id": "PMUL4054.json/2/full",
+      "dialogue": "PMUL4054.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "i am looking for a expensive place to eat in the centre"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are many to chose from do you have a type of food you prefer?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Are there any chinese restaurants?"
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "food": "chinese",
+        "pricerange": "expensive"
+      },
+      "inventory": "full",
+      "gold": 4
+    },
+    {
+      "id": "PMUL2123.json/2/subset",
+      "dialogue": "PMUL2123.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I'm looking for a multiple sports location in the centre of town."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I'm sorry, there is not a multiple sports center in the centre of town, but there is one in the east if you are interested in that one."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Actually, I really want something in the centre of town. How about nightclubs? Any good ones in the centre of town?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "nightclub"
+      },
+      "inventory": "subset",
+      "gold": 3
+    },
+    {
+      "id": "exec_simple_16",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm developing a new encryption algorithm and I'm currently focused on the permutations aspect. I need to know how many unique arrangements are possible if I take 5 characters from the standard English alphabet, which has 26 letters. This calculation is crucial for understanding the complexity of the encryption. Can you run the permutations calculation with these values?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_permutations",
+          "description": "Calculates the number of permutations of k elements from a set of n elements.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "n": {
+                "type": "integer",
+                "description": "The number of elements in the set."
+              },
+              "k": {
+                "type": "integer",
+                "description": "The number of elements to choose."
+              }
+            },
+            "required": [
+              "n",
+              "k"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_permutations(n=26, k=5)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "exec_simple_20",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I'm currently working on an architectural project where we're designing a new triangular-shaped park. We've finally settled on the dimensions, and we're planning for the base to be 500 meters long with a height of 300 meters. Could you calculate the area of this park for me?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_triangle_area",
+          "description": "Calculates the area of a triangle given its base and height.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "base": {
+                "type": "integer",
+                "description": "The base of the triangle, in meters."
+              },
+              "height": {
+                "type": "integer",
+                "description": "The height of the triangle, in meters."
+              }
+            },
+            "required": [
+              "base",
+              "height"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_triangle_area(base=500, height=300)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "SNG1076.json/2/subset",
+      "dialogue": "SNG1076.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Can you see if there are any entertainment attractions in the centre of town?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Unfortunately there are no entertainment attractions in the centre of town. Is there a different area of town that would work for you?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "What about a museum?"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "museum"
+      },
+      "inventory": "subset",
+      "gold": 5
+    },
+    {
+      "id": "MUL1059.json/2/subset",
+      "dialogue": "MUL1059.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I'm excited to be traveling to cambridge and would like to find some places to go in the centre of town."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Luckily, there are 44 places to go in the town centre. Do you have a certain type of place you would like to go?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Yes, I would like a theatre in the centre."
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "type": "theatre"
+      },
+      "inventory": "subset",
+      "gold": 2
+    },
+    {
+      "id": "SNG0866.json/2/full",
+      "dialogue": "SNG0866.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Good Evening, I am looking for a place to stay that includes free parking"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Okay, I have 29 options for you. Is there an area of town that you'd prefer to stay in?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I'm not sure. I would prefer something moderately priced."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "parking": "yes",
+        "pricerange": "moderate"
+      },
+      "inventory": "full",
+      "gold": 14
+    },
+    {
+      "id": "SNG0455.json/2/full",
+      "dialogue": "SNG0455.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I am looking at a place to eat that serves venetian food in the centre."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Unfortunately, I don't see any restaurants that serve Venetian in the centre of town. Would you like to try a different area or type of cuisine?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Do you have any Chinese restaurants?"
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "food": "chinese"
+      },
+      "inventory": "full",
+      "gold": 10
+    },
+    {
+      "id": "PMUL4357.json/2/full",
+      "dialogue": "PMUL4357.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I'm looking for a restaurant in the centre.."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are over 60 restaurants to choose from in the centre. Is there a type of food you are interested in?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "I'd like for it to be expensive. Any you choose is fine. I'll need the postcode, also, please."
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "pricerange": "expensive"
+      },
+      "inventory": "full",
+      "gold": 33
+    },
+    {
+      "id": "PMUL4246.json/8/full",
+      "dialogue": "PMUL4246.json",
+      "service": "attraction",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "i need a place to go and should be a museum"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "Okay! There are several museums in Cambridge. What part of town would you like to visit?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "How about ones in the centre, what's available?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There's 11 different museums in the centre. Would you like a recommendation?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Yes, and if you can tell me it's entrance fee, that'd be great."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "The entrance fee is free. is there anything else"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Could you give me the name of the museum?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "My favorite free museum is the Broughton House Gallery at 98 King Street."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Can I have the info of this place thank you"
+        }
+      ],
+      "state": {
+        "service": "attraction",
+        "area": "centre",
+        "name": "broughton house gallery",
+        "type": "museum"
+      },
+      "inventory": "full",
+      "gold": 1
+    },
+    {
+      "id": "SNG1004.json/2/subset",
+      "dialogue": "SNG1004.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "Are there any 4-star hotels which are moderately priced?"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "We have 11 guest houses which are moderately priced, but no hotels."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "A guesthouse is fine. I'm looking for a place in the north with free parking."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "area": "north",
+        "parking": "yes",
+        "pricerange": "moderate",
+        "stars": "4"
+      },
+      "inventory": "subset",
+      "gold": 4
+    },
+    {
+      "id": "exec_simple_11",
+      "question": [
+        [
+          {
+            "role": "user",
+            "content": "I've got a physics experiment where I'm dropping a ball from a certain height, and I know that the initial velocity is zero because I'm letting it fall freely. Gravity is doing all the work here at 9.8 m/s\u00b2. After 7 seconds, I want to calculate what the final velocity will be. Can we get that sorted out?"
+          }
+        ]
+      ],
+      "function": [
+        {
+          "name": "calculate_final_velocity",
+          "description": "Calculates the final velocity of an object.",
+          "parameters": {
+            "type": "dict",
+            "properties": {
+              "initial_velocity": {
+                "type": "float",
+                "description": "The initial velocity of the object, in meters per second."
+              },
+              "acceleration": {
+                "type": "float",
+                "description": "The acceleration of the object, in meters per second squared."
+              },
+              "time": {
+                "type": "float",
+                "description": "The time the object has been moving, in seconds."
+              }
+            },
+            "required": [
+              "initial_velocity",
+              "acceleration",
+              "time"
+            ]
+          }
+        }
+      ],
+      "execution_result_type": [
+        "exact_match"
+      ],
+      "ground_truth": [
+        "calculate_final_velocity(initial_velocity=0, acceleration=9.8, time=7)"
+      ],
+      "provider": "bfcl_exec"
+    },
+    {
+      "id": "PMUL4054.json/2/subset",
+      "dialogue": "PMUL4054.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "i am looking for a expensive place to eat in the centre"
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are many to chose from do you have a type of food you prefer?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Are there any chinese restaurants?"
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "area": "centre",
+        "food": "chinese",
+        "pricerange": "expensive"
+      },
+      "inventory": "subset",
+      "gold": 2
+    },
+    {
+      "id": "PMUL0048.json/2/subset",
+      "dialogue": "PMUL0048.json",
+      "service": "restaurant",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I need a place to eat that serves chinese food."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "There are 17 Chinese restaurants in town. Are you looking for a particular price range?"
+        },
+        {
+          "speaker": "USER",
+          "utterance": "A moderate price range."
+        }
+      ],
+      "state": {
+        "service": "restaurant",
+        "food": "chinese",
+        "pricerange": "moderate"
+      },
+      "inventory": "subset",
+      "gold": 2
+    },
+    {
+      "id": "MUL2177.json/2/full",
+      "dialogue": "MUL2177.json",
+      "service": "hotel",
+      "turns": [
+        {
+          "speaker": "USER",
+          "utterance": "I am looking for a place in Cambridge. It doesn't need to include internet and should be a hotel."
+        },
+        {
+          "speaker": "SYSTEM",
+          "utterance": "I was not able to find a hotel type with no internet, but there are hotels with internet."
+        },
+        {
+          "speaker": "USER",
+          "utterance": "Okay, that would be fine, as long as it has free parking."
+        }
+      ],
+      "state": {
+        "service": "hotel",
+        "parking": "yes",
+        "type": "hotel"
+      },
+      "inventory": "full",
+      "gold": 8
+    }
+  ],
+  "inventories": {
+    "full": [
+      [
+        "pizza hut city centre",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the missing sock",
+        "restaurant",
+        "east",
+        "restaurant",
+        "cheap",
+        "international",
+        "",
+        "",
+        ""
+      ],
+      [
+        "curry garden",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the good luck chinese food takeaway",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "pizza hut cherry hinton",
+        "restaurant",
+        "south",
+        "restaurant",
+        "moderate",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "taj tandoori",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "restaurant alimentum",
+        "restaurant",
+        "south",
+        "restaurant",
+        "moderate",
+        "modern european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "yu garden",
+        "restaurant",
+        "east",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "stazione restaurant and coffee bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "curry prince",
+        "restaurant",
+        "east",
+        "restaurant",
+        "moderate",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "charlie chan",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "eraina",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "pizza express",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "restaurant one seven",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ask restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "jinling noodle bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "de luca cucina and bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "modern european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "backstreet bistro",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "gastropub",
+        "",
+        "",
+        ""
+      ],
+      [
+        "tandoori palace",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "riverside brasserie",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "modern european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kohinoor",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "chiquito restaurant bar",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "mexican",
+        "",
+        "",
+        ""
+      ],
+      [
+        "prezzo",
+        "restaurant",
+        "west",
+        "restaurant",
+        "moderate",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "rice house",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ali baba",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "lebanese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the varsity restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "international",
+        "",
+        "",
+        ""
+      ],
+      [
+        "darrys cookhouse and wine shop",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "modern european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the golden curry",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cocum",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "michaelhouse cafe",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "rice boat",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "hotel du vin and bistro",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "maharajah tandoori restaurant",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "bloomsbury restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "international",
+        "",
+        "",
+        ""
+      ],
+      [
+        "thanh binh",
+        "restaurant",
+        "west",
+        "restaurant",
+        "cheap",
+        "vietnamese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "la tasca",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "spanish",
+        "",
+        "",
+        ""
+      ],
+      [
+        "da vinci pizzeria",
+        "restaurant",
+        "north",
+        "restaurant",
+        "cheap",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "restaurant two two",
+        "restaurant",
+        "north",
+        "restaurant",
+        "expensive",
+        "french",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ugly duckling",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "wagamama",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "japanese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "lan hong house",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "nandos",
+        "restaurant",
+        "south",
+        "restaurant",
+        "cheap",
+        "portuguese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the oak bistro",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the copper kettle",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the lucky star",
+        "restaurant",
+        "south",
+        "restaurant",
+        "cheap",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "fitzbillies restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "little seoul",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "korean",
+        "",
+        "",
+        ""
+      ],
+      [
+        "meze bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "turkish",
+        "",
+        "",
+        ""
+      ],
+      [
+        "dojo noodle bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "la margherita",
+        "restaurant",
+        "west",
+        "restaurant",
+        "cheap",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "yippee noodle bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the nirala",
+        "restaurant",
+        "north",
+        "restaurant",
+        "moderate",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cotto",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saint johns chop house",
+        "restaurant",
+        "west",
+        "restaurant",
+        "moderate",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "pizza hut fen ditton",
+        "restaurant",
+        "east",
+        "restaurant",
+        "moderate",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "golden house",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "j restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "galleria",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the cow pizza kitchen and bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "gastropub",
+        "",
+        "",
+        ""
+      ],
+      [
+        "bedouin",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "african",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the gardenia",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "mediterranean",
+        "",
+        "",
+        ""
+      ],
+      [
+        "zizzi cambridge",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "pipasha restaurant",
+        "restaurant",
+        "east",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "nandos city centre",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "portuguese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "royal spice",
+        "restaurant",
+        "north",
+        "restaurant",
+        "cheap",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "hakka",
+        "restaurant",
+        "north",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "la raza",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "spanish",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the gandhi",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "golden wok",
+        "restaurant",
+        "north",
+        "restaurant",
+        "moderate",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "meghna",
+        "restaurant",
+        "west",
+        "restaurant",
+        "moderate",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saffron brasserie",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "la mimosa",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "mediterranean",
+        "",
+        "",
+        ""
+      ],
+      [
+        "shanghai family restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "loch fyne",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "seafood",
+        "",
+        "",
+        ""
+      ],
+      [
+        "mahal of cambridge",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "pizza express fen ditton",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "sala thong",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "thai",
+        "",
+        "",
+        ""
+      ],
+      [
+        "city stop restaurant",
+        "restaurant",
+        "north",
+        "restaurant",
+        "expensive",
+        "european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saigon city",
+        "restaurant",
+        "north",
+        "restaurant",
+        "expensive",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "peking restaurant",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "frankie and bennys",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "graffiti",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "india house",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge lodge restaurant",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "grafton hotel restaurant",
+        "restaurant",
+        "east",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the hotpot",
+        "restaurant",
+        "north",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the river bar steakhouse and grill",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "modern european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "clowns cafe",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "anatolia",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "turkish",
+        "",
+        "",
+        ""
+      ],
+      [
+        "panahar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "tang chinese",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the slug and lettuce",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "gastropub",
+        "",
+        "",
+        ""
+      ],
+      [
+        "curry king",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "travellers rest",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "curry queen",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "royal standard",
+        "restaurant",
+        "east",
+        "restaurant",
+        "expensive",
+        "gastropub",
+        "",
+        "",
+        ""
+      ],
+      [
+        "rajmahal",
+        "restaurant",
+        "east",
+        "restaurant",
+        "moderate",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "hk fusion",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "efes restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "turkish",
+        "",
+        "",
+        ""
+      ],
+      [
+        "gourmet burger kitchen",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "north american",
+        "",
+        "",
+        ""
+      ],
+      [
+        "don pasquale pizzeria",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the cambridge chop house",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kymmoy",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "sitar tandoori",
+        "restaurant",
+        "east",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "shiraz restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "mediterranean",
+        "",
+        "",
+        ""
+      ],
+      [
+        "midsummer house restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cote",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "french",
+        "",
+        "",
+        ""
+      ],
+      [
+        "caffe uno",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "sesame restaurant and bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "bangkok city",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "thai",
+        "",
+        "",
+        ""
+      ],
+      [
+        "a and b guest house",
+        "hotel",
+        "east",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "no",
+        "yes"
+      ],
+      [
+        "acorn guest house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "alexander bed and breakfast",
+        "hotel",
+        "centre",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "allenbell",
+        "hotel",
+        "east",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "alpha-milton guest house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "3",
+        "no",
+        "no"
+      ],
+      [
+        "arbury lodge guesthouse",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "archway house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "ashley hotel",
+        "hotel",
+        "north",
+        "hotel",
+        "moderate",
+        "",
+        "2",
+        "yes",
+        "yes"
+      ],
+      [
+        "autumn house",
+        "hotel",
+        "east",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "avalon",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "no",
+        "yes"
+      ],
+      [
+        "aylesbray lodge guest house",
+        "hotel",
+        "south",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "bridge guest house",
+        "hotel",
+        "south",
+        "guesthouse",
+        "moderate",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "carolina bed and breakfast",
+        "hotel",
+        "east",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "city centre north b and b",
+        "hotel",
+        "north",
+        "guesthouse",
+        "cheap",
+        "",
+        "0",
+        "yes",
+        "yes"
+      ],
+      [
+        "cityroomz",
+        "hotel",
+        "centre",
+        "hotel",
+        "moderate",
+        "",
+        "0",
+        "no",
+        "yes"
+      ],
+      [
+        "el shaddai",
+        "hotel",
+        "centre",
+        "guesthouse",
+        "cheap",
+        "",
+        "0",
+        "yes",
+        "yes"
+      ],
+      [
+        "express by holiday inn cambridge",
+        "hotel",
+        "east",
+        "hotel",
+        "expensive",
+        "",
+        "2",
+        "yes",
+        "yes"
+      ],
+      [
+        "finches bed and breakfast",
+        "hotel",
+        "west",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "gonville hotel",
+        "hotel",
+        "centre",
+        "hotel",
+        "expensive",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "hamilton lodge",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "hobsons house",
+        "hotel",
+        "west",
+        "guesthouse",
+        "moderate",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "home from home",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "huntingdon marriott hotel",
+        "hotel",
+        "west",
+        "hotel",
+        "expensive",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "kirkwood house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "leverton house",
+        "hotel",
+        "east",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "limehouse",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "lovell lodge",
+        "hotel",
+        "north",
+        "hotel",
+        "moderate",
+        "",
+        "2",
+        "yes",
+        "yes"
+      ],
+      [
+        "rosa's bed and breakfast",
+        "hotel",
+        "south",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "the cambridge belfry",
+        "hotel",
+        "west",
+        "hotel",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "the lensfield hotel",
+        "hotel",
+        "south",
+        "hotel",
+        "expensive",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "university arms hotel",
+        "hotel",
+        "centre",
+        "hotel",
+        "expensive",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "warkworth house",
+        "hotel",
+        "east",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "worth house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "abbey pool and astroturf pitch",
+        "attraction",
+        "east",
+        "swimmingpool",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "adc theatre",
+        "attraction",
+        "centre",
+        "theatre",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "all saints church",
+        "attraction",
+        "centre",
+        "architecture",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ballare",
+        "attraction",
+        "centre",
+        "nightclub",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "broughton house gallery",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "byard art",
+        "attraction",
+        "south",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cafe jello gallery",
+        "attraction",
+        "west",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "camboats",
+        "attraction",
+        "east",
+        "boat",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge and county folk museum",
+        "attraction",
+        "west",
+        "museum",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge arts theatre",
+        "attraction",
+        "centre",
+        "theatre",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge artworks",
+        "attraction",
+        "east",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge book and print gallery",
+        "attraction",
+        "west",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge contemporary art",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge museum of technology",
+        "attraction",
+        "east",
+        "museum",
+        "expensive",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge university botanic gardens",
+        "attraction",
+        "centre",
+        "park",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "castle galleries",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cherry hinton hall and grounds",
+        "attraction",
+        "east",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cherry hinton water play",
+        "attraction",
+        "east",
+        "park",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "christ's college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "churchill college",
+        "attraction",
+        "west",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cineworld cinema",
+        "attraction",
+        "south",
+        "cinema",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "clare college",
+        "attraction",
+        "west",
+        "college",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "clare hall",
+        "attraction",
+        "west",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "club salsa",
+        "attraction",
+        "centre",
+        "nightclub",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "corpus christi",
+        "attraction",
+        "centre",
+        "college",
+        "cheap",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "downing college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "emmanuel college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "funky fun house",
+        "attraction",
+        "east",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "gallery at twelve a high street",
+        "attraction",
+        "east",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "gonville and caius college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "great saint mary's church",
+        "attraction",
+        "centre",
+        "architecture",
+        "cheap",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "holy trinity church",
+        "attraction",
+        "centre",
+        "architecture",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "hughes hall",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "jesus college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "jesus green outdoor pool",
+        "attraction",
+        "north",
+        "swimmingpool",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kambar",
+        "attraction",
+        "centre",
+        "nightclub",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kettle's yard",
+        "attraction",
+        "west",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "king's college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kings hedges learner pool",
+        "attraction",
+        "north",
+        "swimmingpool",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "little saint mary's church",
+        "attraction",
+        "centre",
+        "architecture",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "lynne strover gallery",
+        "attraction",
+        "west",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "magdalene college",
+        "attraction",
+        "west",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "milton country park",
+        "attraction",
+        "north",
+        "park",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "mumford theatre",
+        "attraction",
+        "centre",
+        "theatre",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "museum of archaelogy and anthropology",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "museum of classical archaeology",
+        "attraction",
+        "west",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "nusha",
+        "attraction",
+        "south",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "old schools",
+        "attraction",
+        "centre",
+        "architecture",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "parkside pools",
+        "attraction",
+        "centre",
+        "swimmingpool",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "pembroke college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "people's portraits exhibition at girton college",
+        "attraction",
+        "west",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "primavera",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "queens' college",
+        "attraction",
+        "west",
+        "college",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "regency gallery",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "riverboat georgina",
+        "attraction",
+        "north",
+        "boat",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ruskin gallery",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saint barnabas press gallery",
+        "attraction",
+        "east",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saint catharine's college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saint john's college",
+        "attraction",
+        "centre",
+        "college",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "scott polar museum",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "scudamores punting co",
+        "attraction",
+        "centre",
+        "boat",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "sheep's green and lammas land park fen causeway",
+        "attraction",
+        "south",
+        "park",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "sidney sussex college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "soul tree nightclub",
+        "attraction",
+        "centre",
+        "nightclub",
+        "cheap",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "tenpin",
+        "attraction",
+        "south",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the cambridge corn exchange",
+        "attraction",
+        "centre",
+        "theatre",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the cambridge punter",
+        "attraction",
+        "centre",
+        "boat",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the cherry hinton village centre",
+        "attraction",
+        "east",
+        "mutliple sports",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the fez club",
+        "attraction",
+        "centre",
+        "nightclub",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the fitzwilliam museum",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the junction",
+        "attraction",
+        "south",
+        "theatre",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the man on the moon",
+        "attraction",
+        "centre",
+        "concerthall",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the place",
+        "attraction",
+        "south",
+        "nightclub",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "trinity college",
+        "attraction",
+        "centre",
+        "college",
+        "cheap",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "vue cinema",
+        "attraction",
+        "centre",
+        "cinema",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "wandlebury country park",
+        "attraction",
+        "south",
+        "park",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "whale of a time",
+        "attraction",
+        "west",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "whipple museum of the history of science",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "williams art and antiques",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "subset": [
+      [
+        "pizza hut city centre",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "curry garden",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the good luck chinese food takeaway",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "pizza hut cherry hinton",
+        "restaurant",
+        "south",
+        "restaurant",
+        "moderate",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "taj tandoori",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "yu garden",
+        "restaurant",
+        "east",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "eraina",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ask restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "tandoori palace",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "riverside brasserie",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "modern european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kohinoor",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "chiquito restaurant bar",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "mexican",
+        "",
+        "",
+        ""
+      ],
+      [
+        "rice house",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ali baba",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "lebanese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the golden curry",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "maharajah tandoori restaurant",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "thanh binh",
+        "restaurant",
+        "west",
+        "restaurant",
+        "cheap",
+        "vietnamese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "ugly duckling",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "wagamama",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "japanese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "lan hong house",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "nandos",
+        "restaurant",
+        "south",
+        "restaurant",
+        "cheap",
+        "portuguese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the oak bistro",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "little seoul",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "korean",
+        "",
+        "",
+        ""
+      ],
+      [
+        "meze bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "turkish",
+        "",
+        "",
+        ""
+      ],
+      [
+        "dojo noodle bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "la margherita",
+        "restaurant",
+        "west",
+        "restaurant",
+        "cheap",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "yippee noodle bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "golden house",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "j restaurant",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the cow pizza kitchen and bar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "moderate",
+        "gastropub",
+        "",
+        "",
+        ""
+      ],
+      [
+        "golden wok",
+        "restaurant",
+        "north",
+        "restaurant",
+        "moderate",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saffron brasserie",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "mahal of cambridge",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "sala thong",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "thai",
+        "",
+        "",
+        ""
+      ],
+      [
+        "peking restaurant",
+        "restaurant",
+        "south",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "graffiti",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge lodge restaurant",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "grafton hotel restaurant",
+        "restaurant",
+        "east",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the hotpot",
+        "restaurant",
+        "north",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the river bar steakhouse and grill",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "cheap",
+        "modern european",
+        "",
+        "",
+        ""
+      ],
+      [
+        "panahar",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "tang chinese",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "chinese",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the slug and lettuce",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "gastropub",
+        "",
+        "",
+        ""
+      ],
+      [
+        "travellers rest",
+        "restaurant",
+        "west",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "don pasquale pizzeria",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the cambridge chop house",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "british",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kymmoy",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "asian oriental",
+        "",
+        "",
+        ""
+      ],
+      [
+        "sitar tandoori",
+        "restaurant",
+        "east",
+        "restaurant",
+        "expensive",
+        "indian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cote",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "french",
+        "",
+        "",
+        ""
+      ],
+      [
+        "caffe uno",
+        "restaurant",
+        "centre",
+        "restaurant",
+        "expensive",
+        "italian",
+        "",
+        "",
+        ""
+      ],
+      [
+        "a and b guest house",
+        "hotel",
+        "east",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "no",
+        "yes"
+      ],
+      [
+        "acorn guest house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "allenbell",
+        "hotel",
+        "east",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "alpha-milton guest house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "3",
+        "no",
+        "no"
+      ],
+      [
+        "archway house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "aylesbray lodge guest house",
+        "hotel",
+        "south",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "bridge guest house",
+        "hotel",
+        "south",
+        "guesthouse",
+        "moderate",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "carolina bed and breakfast",
+        "hotel",
+        "east",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "city centre north b and b",
+        "hotel",
+        "north",
+        "guesthouse",
+        "cheap",
+        "",
+        "0",
+        "yes",
+        "yes"
+      ],
+      [
+        "cityroomz",
+        "hotel",
+        "centre",
+        "hotel",
+        "moderate",
+        "",
+        "0",
+        "no",
+        "yes"
+      ],
+      [
+        "el shaddai",
+        "hotel",
+        "centre",
+        "guesthouse",
+        "cheap",
+        "",
+        "0",
+        "yes",
+        "yes"
+      ],
+      [
+        "express by holiday inn cambridge",
+        "hotel",
+        "east",
+        "hotel",
+        "expensive",
+        "",
+        "2",
+        "yes",
+        "yes"
+      ],
+      [
+        "gonville hotel",
+        "hotel",
+        "centre",
+        "hotel",
+        "expensive",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "hamilton lodge",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "hobsons house",
+        "hotel",
+        "west",
+        "guesthouse",
+        "moderate",
+        "",
+        "3",
+        "yes",
+        "yes"
+      ],
+      [
+        "home from home",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "kirkwood house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "moderate",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "rosa's bed and breakfast",
+        "hotel",
+        "south",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "the cambridge belfry",
+        "hotel",
+        "west",
+        "hotel",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "university arms hotel",
+        "hotel",
+        "centre",
+        "hotel",
+        "expensive",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "worth house",
+        "hotel",
+        "north",
+        "guesthouse",
+        "cheap",
+        "",
+        "4",
+        "yes",
+        "yes"
+      ],
+      [
+        "ballare",
+        "attraction",
+        "centre",
+        "nightclub",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "byard art",
+        "attraction",
+        "south",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge arts theatre",
+        "attraction",
+        "centre",
+        "theatre",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge artworks",
+        "attraction",
+        "east",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cambridge museum of technology",
+        "attraction",
+        "east",
+        "museum",
+        "expensive",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "cherry hinton hall and grounds",
+        "attraction",
+        "east",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "christ's college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "churchill college",
+        "attraction",
+        "west",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "clare college",
+        "attraction",
+        "west",
+        "college",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "corpus christi",
+        "attraction",
+        "centre",
+        "college",
+        "cheap",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "funky fun house",
+        "attraction",
+        "east",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "gonville and caius college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "holy trinity church",
+        "attraction",
+        "centre",
+        "architecture",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "jesus college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "jesus green outdoor pool",
+        "attraction",
+        "north",
+        "swimmingpool",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kambar",
+        "attraction",
+        "centre",
+        "nightclub",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kettle's yard",
+        "attraction",
+        "west",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "kings hedges learner pool",
+        "attraction",
+        "north",
+        "swimmingpool",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "little saint mary's church",
+        "attraction",
+        "centre",
+        "architecture",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "magdalene college",
+        "attraction",
+        "west",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "milton country park",
+        "attraction",
+        "north",
+        "park",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "mumford theatre",
+        "attraction",
+        "centre",
+        "theatre",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "nusha",
+        "attraction",
+        "south",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "old schools",
+        "attraction",
+        "centre",
+        "architecture",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "parkside pools",
+        "attraction",
+        "centre",
+        "swimmingpool",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "people's portraits exhibition at girton college",
+        "attraction",
+        "west",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "primavera",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "riverboat georgina",
+        "attraction",
+        "north",
+        "boat",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saint catharine's college",
+        "attraction",
+        "centre",
+        "college",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "saint john's college",
+        "attraction",
+        "centre",
+        "college",
+        "moderate",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "scott polar museum",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "soul tree nightclub",
+        "attraction",
+        "centre",
+        "nightclub",
+        "cheap",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "tenpin",
+        "attraction",
+        "south",
+        "entertainment",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the cherry hinton village centre",
+        "attraction",
+        "east",
+        "mutliple sports",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "the fitzwilliam museum",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "vue cinema",
+        "attraction",
+        "centre",
+        "cinema",
+        "?",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "wandlebury country park",
+        "attraction",
+        "south",
+        "park",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "whipple museum of the history of science",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "williams art and antiques",
+        "attraction",
+        "centre",
+        "museum",
+        "free",
+        "",
+        "",
+        "",
+        ""
+      ]
+    ]
+  }
+}

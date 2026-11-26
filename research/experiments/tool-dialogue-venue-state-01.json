@@ -1,0 +1,70 @@
+{
+  "id": "tool-dialogue-venue-state-01",
+  "question": "Can the recurrent tool system recover changed preferences across real human conversations, issue an exact SQLite query and report different correct counts when the inventory changes, including an entirely held-out dialogue service?",
+  "workload": "venue_dialogues",
+  "candidate": "train_loop",
+  "control": "base",
+  "training": "research/data/tool-venue-dialogue-training.json",
+  "material": "research/data/tool-venue-dialogue-test.json",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "fit_seed": 256418,
+  "rank": 32,
+  "batch": 4,
+  "lr": 7.5e-05,
+  "updates": 750,
+  "max_tokens": 256,
+  "max_turns": 3,
+  "stop_at_turn_end": true,
+  "net_floor": 8,
+  "p_max": 0.05,
+  "time_ratio": 1,
+  "gate": "At least five net more whole dialogues correct on both inventories with exact two-sided dialogue-level p<=.05, >=3/8 hotel, >=3/8 restaurant and >=4/12 held-out attraction dialogues. Retain >=17/22 public executions. Aggregate net gain >=8 sessions, paired session p<=.05 and no greater combined seconds or peak than untouched Base. Stop at the resource budget. A successful primary licenses a matched one-pass control and prospectively disjoint venue-dialogue replication before promotion. A miss closes this state-tracking fit for release.",
+  "protocol": "MultiWOZ 2.2 official train and test partitions at fe0c8e65cfcd8462bd33c86e35f21addc84ca82b. Entire unaltered dialogue prefixes through the last human turn, up to 11 turns. At least one earlier constraint survives and a new condition is introduced or changed. One prefix per conversation. Translate human state annotations to actual generic SQLite count queries. Fit on 192 hotel and 192 restaurant training conversations, each with one query and two distinct callback-grounded numeric responses, plus 512 general tool rehearsal turns. No training conversation includes the attraction service. Start from the qualified 8-bit instruction-sibling K2 tool weights. For each test dialogue run both original Cambridge venue rows and an independent fixed half-sample selected by hashed venue identity. Both inventories return distinct counts. Freeze 8 hotel, 8 restaurant and 12 attraction dialogues, plus 22 public BFCL execution retention questions. Identical initial IDs across inventories and both models; only their own actions reveal the result. Success requires all current filters and no extras, actual SQLite result and fully correct final count. Report both-inventory successes per service, matched pairs, raw numeric answers, latency and peak. The fixed count request appended to the human dialogue is authored for this study.",
+  "limits": {
+    "wall_seconds": 1400,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "initial_adapter": "research/results/tool-dialogue-typed-01",
+  "initial_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "requires": "research/results/tool-dialogue-typed-01",
+  "prerequisite_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "pairs_per_batch": 1,
+  "ranking_weight": 0.35,
+  "retention_floors": {
+    "catalog": {
+      "all": 20,
+      "lookup": 5,
+      "chain": 4,
+      "compare": 1,
+      "direct": 4,
+      "clarify": 6
+    },
+    "grounded": {
+      "all": 38
+    },
+    "public": {
+      "all": 17
+    },
+    "fresh": {
+      "all": 20,
+      "chain": 3,
+      "compare": 3
+    }
+  },
+  "dialogue_floor": 5,
+  "service_floors": {
+    "hotel": 3,
+    "restaurant": 3,
+    "attraction": 4
+  },
+  "public_floor": 17
+}
