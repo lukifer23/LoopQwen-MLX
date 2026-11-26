@@ -63,9 +63,9 @@ def fit(model, t, rows, depth, s, b, out, task):
             - mx.take_along_axis(logits, y[..., None], axis=-1)[..., 0]
         )
         weight = 1 + 5 * mx.any(y[..., None] == columns, axis=-1)
-        total = mx.sum(weight * nll) / mx.sum(weight) + s["auxiliary"] * net.auxiliary(
-            queries, facts, support
-        )
+        total = mx.sum(weight * nll) / mx.sum(weight)
+        if s["auxiliary"]:
+            total = total + s["auxiliary"] * net.auxiliary(queries, facts, support)
         if s.get("isolated_answer_weight"):
             labels = mx.any(y[..., None] == columns, axis=1).argmax(axis=-1)
             total = total + s["isolated_answer_weight"] * nn.losses.cross_entropy(
@@ -171,7 +171,16 @@ def run(name, freeze):
                 if sum(bool(entry.get("fit")) for entry in s["arms"].values()) > 1:
                     folder = out / arm
                     folder.mkdir()
-                net = fit(model, t, data["train"], depth, s, b, folder, task)
+                net = fit(
+                    model,
+                    t,
+                    data["train"],
+                    depth,
+                    {**s, **c.get("training", {})},
+                    b,
+                    folder,
+                    task,
+                )
             elif depth:
                 net = load_native_reader(model, Path(c["reader"]), c["weights"])
             samples = []
@@ -246,6 +255,10 @@ def run(name, freeze):
             and a["probe"] >= c["probe"] + s["probe_floor"]
             and a["seconds"] <= s["time_ratio"] * c["seconds"],
         )
+        if "minimum_control_optimization_seconds" in s:
+            actual = read(out / "reader.json")["optimization_seconds"]
+            result["control_optimization_seconds"] = actual
+            result["passed"] &= actual >= s["minimum_control_optimization_seconds"]
         if s.get("class_swap"):
             paired = {}
             for arm, samples in records.items():

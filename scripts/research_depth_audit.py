@@ -127,7 +127,8 @@ def verify(root, decision, read, sha, require, number):
             model = read(folder / "reader.json")
             require(
                 model["weights"] == sha(folder / "reader.safetensors")
-                and model["updates"] == reg["updates"],
+                and model["updates"]
+                == reg["arms"][arm].get("training", {}).get("updates", reg["updates"]),
                 "Wrong trained reader",
             )
 
@@ -151,7 +152,8 @@ def verify(root, decision, read, sha, require, number):
             meta = read(path / "reader.json")
             require(
                 meta["fit_seed"] == reg["fit_seed"]
-                and meta["updates"] == reg["updates"]
+                and meta["updates"]
+                == desc.get("training", {}).get("updates", reg["updates"])
                 and meta["rank"] == reg["rank"],
                 "Unmatched native training configuration",
             )
@@ -235,6 +237,13 @@ def verify(root, decision, read, sha, require, number):
             and u["probe"] >= v["probe"] + reg["probe_floor"]
             and u["seconds"] <= reg["time_ratio"] * v["seconds"]
         )
+    if "minimum_control_optimization_seconds" in reg:
+        elapsed = read(root / "reader.json")["optimization_seconds"]
+        require(
+            elapsed == decision["control_optimization_seconds"],
+            "Different optimization time",
+        )
+        passed &= elapsed >= reg["minimum_control_optimization_seconds"]
     if "pairs" in reg:
         counts = {}
         paired_results = {}
