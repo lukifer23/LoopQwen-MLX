@@ -73,7 +73,9 @@ def add_arguments(p, checkpoint=None):
         help="Override the checkpoint’s qualified multi-turn prefix policy",
     )
     p.add_argument(
-        "--trace", action="store_true", help="Include exact prompt and output tokens"
+        "--trace",
+        action="store_true",
+        help="Include exact prompt and output tokens and resident attention-site histories",
     )
 
 
@@ -126,6 +128,8 @@ def respond(args, parser):
             "max_turns": args.max_turns,
             "reuse_prefix": args.reuse_prefix,
         }
+        if args.trace:
+            options["record_kv_history"] = True
         prompts = [args.prompt, *args.follow_up]
         if any(not text.strip() for text in prompts):
             parser.error("Every conversation message needs text")

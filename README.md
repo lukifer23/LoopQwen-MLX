@@ -74,6 +74,8 @@ Add one or more `--follow-up "…"` arguments to keep a conversation open across
 
 The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database data.sqlite --table records` for a read-only table, and `--calculator` for exact arithmetic. With `--trace` the response includes every token, submitted argument, callback result and turn time. For custom tools, create a `Tool(name, description, parameters, callback)` and pass it to `Assistant(directory).respond(question, tools)`. The [package example](examples/local_packages.py) uses the Python environment of the running process.
 
+With `--trace`, resident attention runs report each native layer, pass number, consumed offset and retained history. The tool model exposes separate entries for the two applications of layer 23, so a caller can inspect the actual states behind a generated answer.
+
 The installed assistant can inspect the CSV files you supply. It reads quoted UTF-8 records, counts data rows and looks up a named column at a one-based data row. Multiple files can be exposed in one conversation. To compare both models on a project measurement, run:
 
 ```sh

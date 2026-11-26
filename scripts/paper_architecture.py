@@ -1,8 +1,9 @@
 """Draw the two qualified recurrence placements and the external observation path."""
 
+import itertools
+
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
-import itertools
 
 
 def make(finish):

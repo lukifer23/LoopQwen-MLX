@@ -217,6 +217,7 @@ class Assistant:
         max_turns=4,
         progress=None,
         reuse_prefix=None,
+        record_kv_history=False,
         _messages=None,
     ):
         if tools:
@@ -245,6 +246,7 @@ class Assistant:
                 max_turns=max_turns,
                 progress=progress,
                 _messages=_messages,
+                record_kv_history=record_kv_history,
                 reuse_prefix=self.reuse_prefix
                 if reuse_prefix is None
                 else reuse_prefix,
@@ -263,6 +265,7 @@ class Assistant:
             max_tokens,
             stop_ids=[self.tokenizer.convert_tokens_to_ids("<|im_end|>")],
             progress=progress,
+            record_kv_history=record_kv_history,
         )
         ids = out["token_ids"]
         turn = dict(
@@ -272,6 +275,19 @@ class Assistant:
             ttft_s=out["ttft_s"],
             peak_bytes=out["peak_bytes"],
         )
+        if record_kv_history:
+            turn.update(
+                {
+                    k: out[k]
+                    for k in (
+                        "kv_history",
+                        "recurrent_from",
+                        "page_sites",
+                        "attention_memory",
+                    )
+                    if k in out
+                }
+            )
         answer = None
         status = "token_limit"
         if ids[-1] in {

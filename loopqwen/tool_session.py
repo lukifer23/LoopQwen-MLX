@@ -54,7 +54,14 @@ class Conversation:
         return tuple(dict(m) for m in self._messages)
 
     def respond(
-        self, question, *, max_tokens=160, max_turns=4, progress=None, reuse_prefix=None
+        self,
+        question,
+        *,
+        max_tokens=160,
+        max_turns=4,
+        progress=None,
+        reuse_prefix=None,
+        record_kv_history=False,
     ):
         if not isinstance(question, str) or not question.strip():
             raise ValueError("The next user message must contain text")
@@ -69,6 +76,7 @@ class Conversation:
                 progress=progress,
                 reuse_prefix=reuse_prefix,
                 _messages=self._messages,
+                **({"record_kv_history": True} if record_kv_history else {}),
             )
         finally:
             self._active.release()
@@ -135,6 +143,7 @@ def run(
     schema_guided=False,
     first_turn_decoder=None,
     observation_model=None,
+    record_kv_history=False,
     _messages=None,
 ):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
@@ -194,6 +203,7 @@ def run(
             progress=progress,
             stop_ids=stop_ids,
             tool_prefix=prefix,
+            **({"record_kv_history": True} if record_kv_history else {}),
             **({"tool_grammar": grammar} if grammar is not None else {}),
         )
         ids = out["token_ids"]
@@ -204,6 +214,14 @@ def run(
             ttft_s=out["ttft_s"],
             peak_bytes=out["peak_bytes"],
         )
+        if record_kv_history:
+            row.update(
+                {
+                    k: out[k]
+                    for k in ("kv_history", "recurrent_from", "context_route")
+                    if k in out
+                }
+            )
         if tool_prefix is not None:
             row["reused_prompt_tokens"] = out.get("reused_prompt_tokens", 0)
         if grammar is not None:

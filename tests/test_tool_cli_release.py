@@ -217,6 +217,14 @@ def test_cli_followup_reuses_real_observation_and_prompt(tmp_path):
     tok = load_tokenizer(BUNDLE)
     a, b = json.loads(output)["exchanges"]
     assert a["question"] == first and b["question"] == follow
+    for exchange in (a, b):
+        for turn in exchange["turns"]:
+            history = {(v["layer"], v["turn"]): v for v in turn["kv_history"]}
+            assert (23, 0) in history and (23, 1) in history
+            consumed = len(turn["prompt_ids"]) + len(turn["token_ids"]) - 1
+            assert all(
+                v["retained"] == v["offset"] == consumed for v in history.values()
+            )
     history = initial_messages(first, packages())
     observed = []
     for t in a["turns"]:
