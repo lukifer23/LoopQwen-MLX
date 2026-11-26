@@ -1,5 +1,9 @@
 # Research decisions
 
+## Current deployment
+
+The qualified combined checkpoint is `research/results/native-language-release-02/model`. On controlled three-fact induction, repeating a real Qwen decoder layer improved completed answers over untouched Base, matched one-pass training and the identical weights with two passes bypassed. The common-prefix probes and independent training seed support this attribution. The release also preserved all measured prior workloads and both 131,083-token register answers. General-language evaluation continues to use the pinned Base as the reference. [Native results and scope](CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Release qualification](../research/results/native-language-release-02)
+
 ## Word problems
 
 Use the 32-update K2 adapter when correct answers on grade-school word problems are needed within 256 generated tokens. It improved over untouched Base on three measured groups and used less generation time. With 1,024 tokens, Base solved eight more of the 48 fresh questions. The longer-budget gate failed on both sources. Base remains the general-language reference and the higher-accuracy choice on this longer-budget cohort. [Per-source counts and costs](CAPABILITY_SCOREBOARD.md#fresh-word-problems-at-two-output-budgets)

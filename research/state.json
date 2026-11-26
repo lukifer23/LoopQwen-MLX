@@ -21,9 +21,10 @@
     "human_entailment_vs_base": "research/results/entailment-triplets-01/model",
     "mixed_language_and_register_through_131083": "research/results/conditional-language-02/model",
     "combined_deduction_and_128k": "research/results/evidence-language-release-01/model",
-    "native_three_fact_induction": "research/results/native-induction-anchored-01"
+    "native_three_fact_induction": "research/results/native-induction-anchored-01",
+    "combined_native_induction_deduction_and_128k": "research/results/native-language-release-02/model"
   },
-  "frontier": "Three executions of native Qwen layer 15 on compressed question and premise states achieved 124/128 vs 58/128 at matched trained one pass. On confirmation K3 was 62/64 vs 19/64 with the same weights at one pass, and 62/64 vs 2/64 for untouched Base at 768 tokens. The evidence-language release preserves the previous benchmark suite and 128K retrieval.",
+  "frontier": "Three applications of native Qwen layer 15 scored 124/128 versus 58/128 for matched one-pass training, with similar generation time. An independent seed scored 53/64 vs 25/64. The shipping standalone native-language-release-02 preserved all 200 prior token streams, all 192 measured off-task routes, exact raw NLL, and 2/2 full-history register lookups with 131083 input tokens.",
   "next": null,
   "completed": [
     {

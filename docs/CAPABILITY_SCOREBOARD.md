@@ -21,6 +21,21 @@ At 768 generated tokens per question, Base finished 14 turns and the trained mod
 
 In a post-hoc inspection, four stories in each panel had classmates of the queried individual with conflicting stated colors. All eight remain in the registered scores. Across the 120 stories with a unique implied color, the three-pass model answered 120 correctly and the one-pass model answered 55. On confirmation, the first, second and third supervised attention-head pairs gave the highest weight to the annotated supporting sentence on 64, 60 and 60 of 64 questions. At one pass those counts were 64, 14 and 14. Each probability vector is saved with the corresponding response. [Per-story scores, attention distributions and input IDs](../research/results/native-induction-anchored-replication-01)
 
+## Standalone routing and 128K qualification
+
+The first native-layer export routed a species question to the color reader. The successor adds a 4,098-parameter linear classifier trained on the submitted question alone. The existing story-level gate also has to accept the input. The intent fit uses five distinct training color questions and 66 alternative training questions. All previously trained reader and decoder tensors keep their original identities. On 32 stories with six alternative questions each, all 192 off-task requests selected their prior route. The nine prespecified paired generations reproduced the complete previous output. [Observed routing regression](../research/results/native-scope-retention-01) · [Scope training and decision](../research/experiments/native-language-release-02.json)
+
+| Replayed capability in the standalone export | Observed result |
+|---|---|
+| Three-pass induction, 64 confirmation prompts | 64 identical routes and token streams in 16.05 s |
+| Two-read deduction, 56 confirmation prompts | 56 identical routes and token streams in 14.86 s |
+| Previous mixed benchmark, 80 requests | 80 identical routes and token streams in 418.17 s |
+| Raw prose, 120 requests | Ordinary route throughout, identical NLL 2.982658115 over 9,328 scored tokens |
+| Resident full-history lookup, two 131,083-token prompts | 2/2 correct, 30 emitted tokens each, 262.80 and 263.04 s, 4.33 GiB peak |
+| Untouched Base, identical long inputs and allowances | 0/2 correct in 393.20 s |
+
+The two key values swap their positions near tokens 13,098 and 98,294. The reader selected a span covering the referenced entry and produced the new answer on both requests. The native induction and register experiments measure different tasks in the same deployed model. [Full release replay](../research/results/native-language-release-02) · [Original Base and register pair](../research/results/conditional-language-128k)
+
 ## Learned two-fact deduction
 
 Two disjoint publisher test panels used one bAbI English deduction question per unique story. Each trained arm received the same 240 training stories, supporting-fact labels, answer targets, 1,200 optimization updates and trainable parameterization. Answers were generated through the full Qwen vocabulary. The common-prefix probe scored the four possible nouns with identical input tokens.

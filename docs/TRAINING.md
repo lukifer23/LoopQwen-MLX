@@ -224,3 +224,13 @@ To verify the saved comparisons, run these commands in the pinned project enviro
 ```
 
 In a fresh checkout with the native MLX environment, the corresponding training and scoring entry point is `.venv/bin/python -m loopqwen.research.native_induction STUDY`. Replace `STUDY` with a registered study ID from the commands above. Open a local bounded execution window with `.venv/bin/python scripts/research_session.py` before the first measurement. The primary study fits the three-pass reader from pinned Base. The matched study fits the one-pass reader. Replication and bypass load their registered archived weights. Fresh local measurements go under `outputs/research/STUDY`. Running the same command with `--freeze` regenerates and verifies the input material without model inference.
+
+
+The combined release stores the native layer's LoRA tensors, learned projections, prompt scope and question-intent scope alongside the prior adapter banks. The dense pretrained arrays are shared. The standalone export contains 757,888,967 distinct scalar parameters and normalization buffers. An independent process reads the bundled runtime, compares vocabulary logits across the ordinary and recurrent banks, and reproduces both short reader probes. The registered release then reloads the standalone weights for all generation and retention measurements. [Full native release record](../research/results/native-language-release-02)
+
+To replay the actual second long-context intervention with those weights, generate its frozen user message and submit it through the same public CLI. The prompt helper checks that applying the thinking template reproduces every original input ID.
+
+```sh
+.venv/bin/python scripts/reader_prompt.py --study conditional-language-128k --index 1 > /tmp/loopqwen-131083.txt
+.venv/bin/python -m loopqwen generate --checkpoint exports/native-language-release-02 --thinking --prompt-file /tmp/loopqwen-131083.txt --max-tokens 96
+```
