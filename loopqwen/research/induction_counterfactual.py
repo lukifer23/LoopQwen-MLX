@@ -9,22 +9,7 @@ from ..io import read
 from ..model_loader import local_snapshot
 from . import induction_data
 from .deduction_data import prompt
-
-
-def bindings(facts, question):
-    subject = re.fullmatch(r"What colou?r is (\w+)\?", question)[1]
-    classes = {}
-    colors = {}
-    for i, fact in enumerate(facts):
-        person, article, value = re.fullmatch(r"(\w+) is (an? )?(\w+)\.", fact).groups()
-        (classes if article else colors)[person] = (i, value)
-    index, category = classes[subject]
-    examples = [
-        (peer_index, colors[peer][0], colors[peer][1])
-        for peer, (peer_index, kind) in classes.items()
-        if kind == category and peer != subject and peer in colors
-    ]
-    return index, examples
+from .induction_data import bindings
 
 
 def material(spec):

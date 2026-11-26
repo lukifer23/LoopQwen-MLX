@@ -278,7 +278,7 @@ def verify(root, decision, read, sha, require, number):
         require(decision["both_correct"] == counts, "Wrong paired reassignments")
         passed &= x >= reg["pair_floor"] and x - y >= reg["pair_net"]
         if reg.get("class_swap"):
-            from loopqwen.research.induction_counterfactual import bindings
+            from loopqwen.research.induction_data import bindings
 
             for row in data:
                 _, examples = bindings(row["facts"], row["question"])

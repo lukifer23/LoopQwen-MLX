@@ -17,6 +17,22 @@ PROBE = "After considering the evidence.\n</think>\n\nThe answer is"
 WORDS = ("gray", "green", "white", "yellow")
 
 
+def bindings(facts, question):
+    subject = re.fullmatch(r"What colou?r is (\w+)\?", question)[1]
+    classes = {}
+    colors = {}
+    for i, fact in enumerate(facts):
+        person, article, value = re.fullmatch(r"(\w+) is (an? )?(\w+)\.", fact).groups()
+        (classes if article else colors)[person] = (i, value)
+    index, category = classes[subject]
+    examples = [
+        (peer_index, colors[peer][0], colors[peer][1])
+        for peer, (peer_index, kind) in classes.items()
+        if kind == category and peer != subject and peer in colors
+    ]
+    return index, examples
+
+
 def material(s):
     archive = Path("data/research_external/babi/tasks-v1.2.tar.gz")
     if not archive.exists():
@@ -55,6 +71,10 @@ def material(s):
                     continue
                 order = sorted(facts, key=lambda i: fingerprint([s["seed"], key, i]))
                 arranged = [facts[i] for i in order]
+                if s.get("unambiguous"):
+                    _, examples = bindings(arranged, question)
+                    if len(examples) != 1 or examples[0][2] != word:
+                        continue
                 rows.setdefault(
                     key,
                     {
@@ -75,9 +95,21 @@ def material(s):
             for k in selected:
                 row = rows[k]
                 used.add(k)
-                ids = tok.encode(
-                    prompt(tok, row["facts"], row["question"]), add_special_tokens=False
-                )
+                text = prompt(tok, row["facts"], row["question"])
+                if s.get("instruction"):
+                    text = tok.apply_chat_template(
+                        [
+                            {"role": "system", "content": s["instruction"]},
+                            {
+                                "role": "user",
+                                "content": "\n".join([*row["facts"], row["question"]]),
+                            },
+                        ],
+                        tokenize=False,
+                        add_generation_prompt=True,
+                        enable_thinking=True,
+                    )
+                ids = tok.encode(text, add_special_tokens=False)
                 data[name].append(dict(**row, prompt_ids=ids))
     return data
 
