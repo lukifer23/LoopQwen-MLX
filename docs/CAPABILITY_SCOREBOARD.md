@@ -9,6 +9,7 @@ Each prompt contains nine shuffled animal-class and color statements and asks fo
 | Primary, three passes vs untouched Base at 192 tokens | 62 vs 0 of 64 | 62 vs 29 | 16.10 vs 181.00 |
 | Primary, three passes vs matched one pass | 62 vs 33 of 64 | 62 vs 37 | 15.88 vs 16.04 |
 | Disjoint confirmation, same trained three-pass and one-pass weights | 62 vs 25 of 64 | 62 vs 26 | 16.07 vs 16.04 |
+| Confirmation, three-pass checkpoint run at three passes vs one | 62 vs 19 of 64 | 62 vs 23 | 15.89 vs 39.71 |
 
 Across 128 held-out stories, both trained models completed all responses in 13 tokens each. Three passes gained 67 answers and lost one relative to one pass. The two-sided exact paired tests gave p = 2.98 × 10⁻⁸ and p = 1.46 × 10⁻¹¹ on the respective panels. Elapsed time includes sentence encoding, native layer applications, full-prompt prefill and greedy generation. This control matches examples, supervision, parameters and optimizer updates. Three applications use more training computation per update. [Untouched Base comparison](../research/results/native-induction-anchored-01) · [Matched control](../research/results/native-induction-anchored-matched-01) · [Disjoint confirmation](../research/results/native-induction-anchored-replication-01)
 
