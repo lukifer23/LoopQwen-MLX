@@ -189,6 +189,9 @@ def training_lineage():
         "optimizer_seconds",
         "training_sha256",
         "adapter_sha256",
+        "training_examples",
+        "example_unit",
+        "sampled_or_supervised_positions",
     ]
     with (PAPER / "model-lineage.csv").open("w") as f:
         writer = csv.writer(f)
@@ -198,11 +201,27 @@ def training_lineage():
             if not fit_path.exists():
                 continue
             fit = read(fit_path)
-            if "turns" not in fit or "weights" not in fit:
+            additional = root.name in {
+                "selective-raw-01",
+                "passage-copy-01",
+                "meaning-alignment-01",
+            }
+            if not additional and ("turns" not in fit or "weights" not in fit):
                 continue
             result(root.name)
             spec = read(root / "registration.json")
             donor = spec.get("donor", {})
+            turns = fit.get("turns", "")
+            count = turns
+            unit = "supervised turn"
+            if additional:
+                count = len(read(spec["training"])["rows"])
+                unit = {
+                    "selective-raw-01": "raw excerpt",
+                    "passage-copy-01": "answer passage",
+                    "meaning-alignment-01": "sentence pair",
+                }[root.name]
+            targets = fit.get("targets", fit.get("seen"))
             writer.writerow(
                 [
                     root.name,
@@ -211,17 +230,20 @@ def training_lineage():
                     ),
                     donor.get("revision", "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68"),
                     spec.get("start_layer", 23),
-                    fit["passes"],
+                    fit.get("passes", spec.get("passes", 2)),
                     spec["rank"],
-                    spec.get("prefix_bits", "BF16"),
-                    fit["trainable"],
-                    fit["turns"],
+                    spec.get("prefix_bits", 8 if additional else "BF16"),
+                    fit.get("trainable", fit.get("parameters")),
+                    turns,
                     fit["updates"],
-                    fit["targets"],
+                    targets if root.name != "selective-raw-01" else "",
                     fit["prepare_seconds"],
                     fit["optimizer_seconds"],
                     fit["training"],
-                    fit["weights"],
+                    fit.get("weights", fit.get("weight_sha256")),
+                    count,
+                    unit,
+                    targets,
                 ]
             )
 
@@ -344,7 +366,12 @@ def main():
     compute_cost(ROOT, PAPER)
     from paper_conversations import make as conversations
     from paper_deployment import make as deployment
-    from paper_deployment import packed_delivery, providers, tokenizer_streams, transport
+    from paper_deployment import (
+        packed_delivery,
+        providers,
+        tokenizer_streams,
+        transport,
+    )
     from paper_prefill import decode_operator
     from paper_prefill import make as prefill
     from paper_prefill import resources as prefill_resources
