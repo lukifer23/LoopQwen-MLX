@@ -8,6 +8,7 @@ from document_search_material import open_panel
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read
+from loopqwen.research.bridge_reading import units
 from loopqwen.tool_session import compact
 
 
@@ -84,6 +85,7 @@ def make(paper, results, result, finish, name="document-search-field-01"):
                 "exact",
                 "f1",
                 "grounded",
+                "reference_phrase_in_completed_answer",
                 "status",
                 "calls",
                 "seconds",
@@ -98,6 +100,11 @@ def make(paper, results, result, finish, name="document-search-field-01"):
                 assert w["id"] == r["id"]
                 tr = r["trajectory"]
                 sc = r["score"]
+                words = " " + " ".join(units(tr["answer"] or "")) + " "
+                references = [units(ref) for ref in w["refs"]]
+                phrase = sc["completed"] and any(
+                    ref and " " + " ".join(ref) + " " in words for ref in references
+                )
                 calls = [
                     {
                         "call": t["call"],
@@ -123,6 +130,7 @@ def make(paper, results, result, finish, name="document-search-field-01"):
                         sc["correct"],
                         sc["f1"],
                         sc["grounded"],
+                        phrase,
                         tr["status"],
                         compact(calls),
                         r["seconds"],

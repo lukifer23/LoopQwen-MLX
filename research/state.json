@@ -869,6 +869,11 @@
       "id": "shared-session-01",
       "promoted": false,
       "reason": "67/120 vs 50/120 on the mixed stream (paired p=.0300), including 10/10 vs 3/10 field calculator requests. On 48 fresh human questions lost 29/48 vs 38/48, with eight previously successful tasks lost and higher summed first-token time."
+    },
+    {
+      "id": "document-evidence-01",
+      "promoted": false,
+      "reason": "Six grounded exact answers versus zero on 40 real files, with 22 annotated spans retrieved, four successful project-guide lookups and slower first tokens. Missed the 14-answer floor."
     }
   ],
   "status": "The qualified 131K offline assistant is release 04. Active research compares field clarification, free language modeling, combined reasoning and tool use, trained document search and complete Git-tree retrieval under their registered stop rules.",
