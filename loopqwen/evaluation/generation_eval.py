@@ -5,6 +5,20 @@ from time import perf_counter
 import mlx.core as mx
 
 
+def resident_cache(model, route, length, max_tokens, block, *, reserve_full_kv=False):
+    cache = model.make_cache()
+    page_slots = {}
+    if reserve_full_kv:
+        from ..reserved_cache import reserve
+
+        reserve(cache, length + max_tokens - 1)
+    elif getattr(model, "packed_register_prefill", False):
+        from ..page_prefill import register_cache
+
+        page_slots = register_cache(model, route, length, max_tokens, block, cache)
+    return cache, page_slots
+
+
 def generate(
     model,
     tokenizer,
@@ -96,12 +110,16 @@ def generate(
     with workspace as directory:
         disk = None
         cache = None
+        page_slots = {}
         if directory is None:
-            cache = model.make_cache()
-            if reserve_full_kv:
-                from ..reserved_cache import reserve
-
-                reserve(cache, len(ids) + max_tokens - 1)
+            cache, page_slots = resident_cache(
+                model,
+                route,
+                len(ids),
+                max_tokens,
+                prefill_block,
+                reserve_full_kv=reserve_full_kv,
+            )
         else:
             from ..offloaded_prefill import OffloadedPrefill
 
@@ -186,6 +204,13 @@ def generate(
             for (i, p), slot in cache.slots.items()
             if isinstance(slot, ReservedKVCache)
         ]
+    if page_slots:
+        result["prefill_policy"] = "direct-packed-register-v1"
+        if record_kv_history:
+            result["page_sites"] = [
+                dict(layer=i, turn=p, **slot.report())
+                for (i, p), slot in page_slots.items()
+            ]
     if route is not None:
         result["context_route"] = route
     if section is not None:

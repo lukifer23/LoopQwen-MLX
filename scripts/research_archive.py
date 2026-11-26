@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("packed-release-retention-"):
+        from loopqwen.research.packed_release import verify as verify_packed_release
+
+        verify_packed_release(root, decision)
     if study.startswith("selective-raw-"):
         from loopqwen.research.selective_raw import verify as verify_selective_raw
 

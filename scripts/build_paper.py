@@ -30,6 +30,7 @@ def main(verify):
                         "transport-lossless-",
                         "raw-distillation-",
                         "selective-raw-",
+                        "packed-release-retention-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

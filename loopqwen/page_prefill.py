@@ -235,26 +235,56 @@ class PageAttention(Qwen3NextAttention):
         return self.o_proj(h * mx.sigmoid(gate.reshape(b, n, -1)))
 
 
-def attach(model, length, *, packed=False, direct_capacity=None):
-    """Apply to one research model instance. The reader's final masks stay dense."""
-    original = model.make_cache
-    slots = {}
+def enable_page_attention(model):
+    """Allow the native attention sites to consume a request's page cache."""
     for layer in model.text.layers:
         if not layer.is_linear:
             attn = layer.self_attn
+            if type(attn) is PageAttention:
+                continue
             if type(attn) is not Qwen3NextAttention:
                 raise TypeError("Unrecognized Qwen attention layout")
             object.__setattr__(attn, "__class__", PageAttention)
 
+
+def install(cache, length, *, packed=False, direct_capacity=None):
+    slots = {}
+    for site, slot in cache.slots.items():
+        if type(slot) is KVCache:
+            if slot.offset:
+                raise ValueError("Page prefill requires a fresh cache")
+            if direct_capacity is not None:
+                slot = DirectPackedPageCache(length, direct_capacity)
+            else:
+                slot = PackedPageCache(length) if packed else PageCache(length)
+            slots[site] = cache.slots[site] = slot
+    return slots
+
+
+def register_cache(model, route, length, max_tokens, block, cache):
+    """Use packed pages only on the long register path of an opted-in export."""
+    if (
+        route == "register"
+        and length >= 16384
+        and block == 128
+        and getattr(model, "packed_register_prefill", False)
+    ):
+        enable_page_attention(model)
+        return install(cache, length, direct_capacity=length + max_tokens - 1)
+    return {}
+
+
+def attach(model, length, *, packed=False, direct_capacity=None):
+    """Instrument a single comparison arm using the original study interface."""
+    original = model.make_cache
+    enable_page_attention(model)
+    slots = {}
+
     def make_cache(*args, **kwargs):
         cache = original(*args, **kwargs)
-        for site, slot in cache.slots.items():
-            if type(slot) is KVCache:
-                if direct_capacity is not None:
-                    slot = DirectPackedPageCache(length, direct_capacity)
-                else:
-                    slot = PackedPageCache(length) if packed else PageCache(length)
-                slots[site] = cache.slots[site] = slot
+        slots.update(
+            install(cache, length, packed=packed, direct_capacity=direct_capacity)
+        )
         return cache
 
     object.__setattr__(model, "make_cache", make_cache)

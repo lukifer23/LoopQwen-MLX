@@ -107,6 +107,13 @@ def load_export(directory):
         ):
             raise ValueError("Exported attention reader metadata differs")
         load_reader(model, directory)
+    if "register_prefill" in cfg:
+        if (
+            cfg.get("export_schema") != 4
+            or cfg["register_prefill"] != "direct-packed-register-v1"
+        ):
+            raise ValueError("Unsupported register prefill policy")
+        object.__setattr__(model, "packed_register_prefill", True)
     return model, tokenizer
 
 
