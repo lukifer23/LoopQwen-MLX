@@ -23,14 +23,8 @@ def grams(ws):
     return {tuple(ws[i : i + 5]) for i in range(len(ws) - 4)}
 
 
-def main():
-    spec = registered("folded-system-01")
-    train = [r for r in read(spec["training"])["rows"] if r["split"] == "train"]
-    panel = [
-        r for r in read(spec["material"])["rows"] if r["family"] in ("judgment", "math")
-    ]
-    tok = load_tokenizer(local_snapshot())
-    strings = [words(tok.decode(r["ids"], skip_special_tokens=True)) for r in train]
+def audit(train, panel, path):
+    strings = [words(text) for _, text in train]
     bank = [grams(tokens) for tokens in strings]
     owners = defaultdict(list)
     for j, features in enumerate(bank):
@@ -78,10 +72,10 @@ def main():
                 len(overlap),
                 jaccard,
                 longest if longest >= 5 else "",
-                train[nearest]["id"] if nearest is not None else "",
+                train[nearest][0] if nearest is not None else "",
             ]
         )
-    with Path("paper/folded-training-overlap.csv").open("w") as output:
+    with path.open("w") as output:
         writer = csv.writer(output)
         writer.writerow(
             [
@@ -96,7 +90,7 @@ def main():
         )
         writer.writerows(rows)
     print(
-        "Fresh human inputs",
+        path.name,
         len(rows),
         "sharing 5-gram",
         sum(r[3] > 0 for r in rows),
@@ -105,6 +99,43 @@ def main():
         "longest",
         max(r[5] or 0 for r in rows),
     )
+
+
+def fresh(spec):
+    return [
+        r for r in read(spec["material"])["rows"] if r["family"] in ("judgment", "math")
+    ]
+
+
+def main():
+    folded = registered("folded-system-01")
+    tok = load_tokenizer(local_snapshot())
+    fitted = [
+        (r["id"], tok.decode(r["ids"], skip_special_tokens=True))
+        for r in read(folded["training"])["rows"]
+        if r["split"] == "train"
+    ]
+    audit(fitted, fresh(folded), Path("paper/folded-training-overlap.csv"))
+
+    shared = registered("shared-session-01")
+    training = read(shared["training"])
+    typed_spec = read(Path(shared["public"]) / "registration.json")
+    typed = read(typed_spec["training"])["examples"]
+
+    # Include answer supervision and earlier assistant/tool turns. Shared system
+    # prompt scaffolding can dilute Jaccard, so we omit only the system role.
+    def context(r):
+        parts = [m["content"] for m in r["messages"] if m["role"] != "system"]
+        return "\n".join([*parts, r["thinking"], r["visible"]])
+
+    corpora = [(r["source"] + ":" + r["id"], context(r)) for r in training["examples"]]
+    corpora.extend(
+        ("routing:" + r["id"], r["question"])
+        for r in training["router"]
+        if r["split"] == "train"
+    )
+    corpora.extend(("typed:" + str(i), context(r)) for i, r in enumerate(typed))
+    audit(corpora, fresh(shared), Path("paper/shared-training-overlap.csv"))
 
 
 if __name__ == "__main__":
