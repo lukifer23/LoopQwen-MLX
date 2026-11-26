@@ -7,7 +7,7 @@
     "iterations": 8,
     "reassess_consecutive_failures": 3
   },
-  "active": "learned-exit-dense-01",
+  "active": "conditional-language-02",
   "champions": {
     "six_hop_development": "docs/measurements/rsi_time1/model",
     "three_hop_categorical": "docs/measurements/phase7/model",
@@ -21,7 +21,7 @@
     "human_entailment_vs_base": "research/results/entailment-triplets-01/model"
   },
   "frontier": "Same learned exit won two independent full-budget pairs: 52/80 versus 46/80 strict, 58/80 versus 52/80 completed content, six paired wins, zero losses, 542.44 versus 592.24 seconds.",
-  "next": "conditional-language-02",
+  "next": "entailment-dense-01",
   "completed": [
     {
       "id": "trace-bootstrap-01",
@@ -231,9 +231,15 @@
       "promoted": false,
       "scope": "Preregistered material check before inference",
       "reason": "Only four of eight new SQuAD titles available, 76/80 frozen requests; no native measurements. The repaired registration retains all 76 and adds four unused first-turn QuAC validation titles."
+    },
+    {
+      "id": "learned-exit-dense-01",
+      "promoted": false,
+      "scope": "Matched-depth attribution",
+      "reason": "Both trained finishers scored 52/80 strict with identical item correctness, 528.14 seconds at K2 versus 524.69 at K1. Raw NLL 2.99538 versus 2.99655. No arithmetic accuracy gain attributable to the extra pass on these panels."
     }
   ],
-  "status": "First integrated full-context capacity measured; its fixed-position intervention was invalid. Token-level preflight repaired for the separate final model.",
+  "status": "Combined arithmetic and entailment model is under independent mixed evaluation. Matched arithmetic depth comparison complete.",
   "next_action": "Finish matched arithmetic attribution, then run the repaired 80-item combined model study, matched natural-inference attribution and qualifying full-history checks.",
   "hypothesis": "A recurrent finisher can preserve the early Base trajectory and recover some unfinished answers within the same token budget.",
   "known_limits": [
