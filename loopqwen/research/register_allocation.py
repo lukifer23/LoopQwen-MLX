@@ -20,7 +20,20 @@ from .ledger_curriculum import measure
 from .registered import registered
 
 
-def direct_outcome(rows, items, costs):
+def packed_evidence(s, consumed):
+    # Pinned Qwen3.5-0.8B has two KV heads, each with 256 channels.
+    # Two arrays (key and value), one byte per channel and two BF16 affine
+    # parameters per 64-channel group. These are live tensor sizes.
+    code_bytes = consumed * 2 * 2 * 256
+    return (
+        s["bits"] == 8
+        and s["group_size"] == 64
+        and s["code_bytes"] == code_bytes
+        and s["affine_bytes"] == code_bytes // 16
+    )
+
+
+def direct_outcome(rows, items, costs, policy):
     evidence = True
     ordinary = {(i, 0) for i in (3, 7, 11, 15, 19, 23)}
     recurrent = ordinary | {(11, 1), (15, 1)}
@@ -37,7 +50,7 @@ def direct_outcome(rows, items, costs):
                 == (ordinary if side == "base" else recurrent)
                 and all(s["offset"] == s["retained"] == consumed for s in sites)
             )
-            if side == "pages":
+            if side == policy:
                 section = r.get("attention_memory")
                 selected = r["page_sites"]
                 evidence &= (
@@ -55,10 +68,11 @@ def direct_outcome(rows, items, costs):
                         and s["offset"] == s["retained"] == consumed
                         and s["possible"] == consumed * (consumed + 1) // 2
                         and 0 < s["attended"] < s["possible"]
+                        and (policy != "packed_pages" or packed_evidence(s, consumed))
                         for s in selected
                     )
                 )
-    a, b = costs["pages"], costs["base"]
+    a, b = costs[policy], costs["base"]
     useful = bool(
         evidence
         and a["correct"] == 2 > b["correct"]
@@ -84,12 +98,13 @@ def outcome(spec, rows, items):
         )
         for name, rs in rows.items()
     }
-    if spec.get("control") == "base":
-        return direct_outcome(rows, items, costs)
     policy = spec.get("attention_policy", "reserved")
-    c, b = costs[policy], costs["stock"]
+    control = spec.get("control", "stock")
+    if control == "base":
+        return direct_outcome(rows, items, costs, policy)
+    c, b = costs[policy], costs[control]
     exact = True
-    for a, o, w in zip(rows[policy], rows["stock"], items, strict=True):
+    for a, o, w in zip(rows[policy], rows[control], items, strict=True):
         sec = a["attention_memory"]
         exact &= (
             a["input_sha256"] == o["input_sha256"] == fingerprint(w["prompt_ids"])
@@ -109,7 +124,13 @@ def outcome(spec, rows, items):
             (23, 0),
         }
         consumed = len(w["prompt_ids"]) + len(a["token_ids"]) - 1
-        if policy == "pages":
+        if policy in ("pages", "packed_pages"):
+            if policy == "packed_pages":
+                exact &= all(packed_evidence(s, consumed) for s in a["page_sites"])
+                exact &= all(
+                    s["sparse_blocks"] > 0 and s["retained"] == consumed
+                    for s in o["page_sites"]
+                )
             sites = a["page_sites"]
             exact &= (
                 {(s["layer"], s["turn"]) for s in sites} == expected
@@ -143,8 +164,8 @@ def outcome(spec, rows, items):
             exact
             and c["correct"] == len(items)
             and c["ttft"] <= spec["ratio"] * b["ttft"]
-            and c["seconds"] <= b["seconds"]
-            and c["peak"] <= b["peak"]
+            and c["seconds"] <= spec.get("elapsed_ratio", 1) * b["seconds"]
+            and c["peak"] <= spec.get("peak_ratio", 1) * b["peak"]
         ),
         exact=exact,
         metrics=costs,
@@ -207,7 +228,7 @@ def run(name):
 
         rows = (
             resume(root, spec, items, (policy, control))
-            if control == "base"
+            if control in ("base", "pages")
             else {policy: [], control: []}
         )
         for i, item in enumerate(items):
@@ -220,10 +241,12 @@ def run(name):
                     model, tok, _ = base()
                 else:
                     model, tok, _ = load_trained(spec["checkpoint"])
-                if side == "pages":
+                if side in ("pages", "packed_pages"):
                     from ..page_prefill import attach
 
-                    slots = attach(model, len(item["prompt_ids"]))
+                    slots = attach(
+                        model, len(item["prompt_ids"]), packed=side == "packed_pages"
+                    )
                 mx.reset_peak_memory()
                 record = measure(
                     model,
@@ -232,16 +255,16 @@ def run(name):
                     spec["max_tokens"],
                     budget,
                     reserve_full_kv=side == "reserved",
-                    record_kv_history=policy == "pages",
+                    record_kv_history=policy in ("pages", "packed_pages"),
                 )
-                if side == "pages":
+                if side in ("pages", "packed_pages"):
                     record["page_sites"] = [
                         dict(layer=i, turn=p, **slot.report())
                         for (i, p), slot in slots.items()
                     ]
                     del slots
                 rows[side].append(record)
-                if control == "base":
+                if control in ("base", "pages"):
                     packed(root / (side + ".json.gz"), rows[side])
                 print(
                     i,

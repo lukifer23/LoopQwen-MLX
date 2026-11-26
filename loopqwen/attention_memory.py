@@ -8,7 +8,7 @@ from pathlib import Path
 
 import mlx.core as mx
 from mlx import nn
-from mlx_lm.models.cache import KVCache
+from mlx_lm.models.cache import KVCache, QuantizedKVCache
 
 
 def normalized(x):
@@ -106,7 +106,7 @@ def attach_bias(cache, section):
     for (layer, _), slot in cache.slots.items():
         if (
             layer < 8
-            or not isinstance(slot, KVCache)
+            or not isinstance(slot, (KVCache, QuantizedKVCache))
             or getattr(slot, "reader_bias", False)
         ):
             continue

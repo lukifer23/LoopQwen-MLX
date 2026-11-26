@@ -108,7 +108,12 @@ def verify(root):
 
         verify_tool_release(root, decision)
     if study.startswith(
-        ("register-allocation-", "register-page-prefill-", "register-page-full-")
+        (
+            "register-allocation-",
+            "register-page-prefill-",
+            "register-page-full-",
+            "register-packed-",
+        )
     ):
         from loopqwen.research.register_allocation import verify as verify_allocation
 

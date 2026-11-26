@@ -1,11 +1,11 @@
 """Causal page selection for interior prefill on the pinned Qwen attention layout."""
 
 import mlx.core as mx
-from mlx_lm.models.cache import KVCache
+from mlx_lm.models.cache import KVCache, QuantizedKVCache
 from mlx_lm.models.qwen3_next import Qwen3NextAttention
 
 
-class PageCache(KVCache):
+class PagePolicy:
     """Store every KV row. Keep a mean key per completed prefill page."""
 
     def __init__(self, prompt_length, block=128, retrieved=16, recent=15, suffix=512):
@@ -41,14 +41,14 @@ class PageCache(KVCache):
             )
         return super().update_and_fetch(keys, values)
 
-    def select(self, queries, keys, values):
+    def page_indices(self, queries):
         length = queries.shape[2]
         prev = self.offset - length
         pages = prev // self.block
         # Only the first query of the chunk can influence page choice. It is
         # visible to every subsequent query and has no access to later inputs.
         b, heads, _, dim = queries.shape
-        kv_heads = keys.shape[1]
+        kv_heads = self.summaries.shape[1]
         first = queries[:, :, 0].reshape(b, kv_heads, heads // kv_heads, dim)
         candidates = self.summaries[:, :, 1 : pages - self.recent]
         relevance = (first @ candidates.swapaxes(-1, -2)).max(axis=(1, 2))[0]
@@ -64,12 +64,12 @@ class PageCache(KVCache):
         self.sparse_blocks += 1
         self.dense_queries -= length
         self.attended -= length * (self.offset - indices.size)
-        return mx.take(keys, indices, axis=2), mx.take(values, indices, axis=2)
+        return indices
 
     def report(self):
         return {
             "offset": self.offset,
-            "retained": self.keys_and_values()[0].shape[2],
+            "retained": self.physical_length(),
             "sparse_blocks": self.sparse_blocks,
             "dense_queries": self.dense_queries,
             "attended": self.attended,
@@ -77,9 +77,53 @@ class PageCache(KVCache):
         }
 
 
+class PageCache(PagePolicy, KVCache):
+    def physical_length(self):
+        return self.keys_and_values()[0].shape[2]
+
+    def select(self, queries, keys, values):
+        indices = self.page_indices(queries)
+        return mx.take(keys, indices, axis=2), mx.take(values, indices, axis=2)
+
+
+class PackedPageCache(PagePolicy, QuantizedKVCache):
+    """Affine 8-bit key/value groups. Gather pages before restoring BF16."""
+
+    def physical_length(self):
+        arrays = [a for bundle in self.keys_and_values() for a in bundle]
+        lengths = {a.shape[2] for a in arrays}
+        if len(lengths) != 1:
+            raise ValueError(
+                "Packed KV data and affine factors cover different positions"
+            )
+        return lengths.pop()
+
+    def restore(self, bundles, queries=None):
+        indices = self.page_indices(queries) if queries is not None else None
+
+        def dequant(bundle):
+            if indices is not None:
+                bundle = [mx.take(a, indices, axis=2) for a in bundle]
+            return mx.dequantize(*bundle, group_size=self.group_size, bits=self.bits)
+
+        return tuple(dequant(bundle) for bundle in bundles)
+
+    def report(self):
+        bundles = self.keys_and_values()
+        return dict(
+            super().report(),
+            bits=self.bits,
+            group_size=self.group_size,
+            code_bytes=sum(b[0].nbytes for b in bundles),
+            affine_bytes=sum(a.nbytes for b in bundles for a in b[1:]),
+        )
+
+
 class PageAttention(Qwen3NextAttention):
     def __call__(self, x, mask=None, cache=None):
-        if not isinstance(cache, PageCache) or not cache.sparse(x.shape[1]):
+        packed = isinstance(cache, PackedPageCache)
+        sparse = isinstance(cache, PagePolicy) and cache.sparse(x.shape[1])
+        if not (packed or sparse):
             return super().__call__(x, mask=mask, cache=cache)
         b, n, _ = x.shape
         if b != 1:
@@ -98,17 +142,20 @@ class PageAttention(Qwen3NextAttention):
         )
         q, k = self.rope(q, offset=cache.offset), self.rope(k, offset=cache.offset)
         k, v = cache.update_and_fetch(k, v)
-        k, v = cache.select(q, k, v)
+        if packed:
+            k, v = cache.restore((k, v), q if sparse else None)
+        else:
+            k, v = cache.select(q, k, v)
         # MLX aligns the causal mask with the trailing query rows. The entire
         # current chunk follows the selected past, in original position order.
         h = mx.fast.scaled_dot_product_attention(
-            q, k, v, scale=self.scale, mask="causal"
+            q, k, v, scale=self.scale, mask="causal" if sparse else mask
         )
         h = h.transpose(0, 2, 1, 3).reshape(b, n, -1)
         return self.o_proj(h * mx.sigmoid(gate.reshape(b, n, -1)))
 
 
-def attach(model, length):
+def attach(model, length, *, packed=False):
     """Apply to one research model instance. The reader's final masks stay dense."""
     original = model.make_cache
     slots = {}
@@ -123,7 +170,8 @@ def attach(model, length):
         cache = original(*args, **kwargs)
         for site, slot in cache.slots.items():
             if type(slot) is KVCache:
-                slots[site] = cache.slots[site] = PageCache(length)
+                cache_type = PackedPageCache if packed else PageCache
+                slots[site] = cache.slots[site] = cache_type(length)
         return cache
 
     object.__setattr__(model, "make_cache", make_cache)

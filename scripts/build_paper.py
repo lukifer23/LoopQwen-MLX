@@ -40,6 +40,7 @@ def main(verify):
                         "register-allocation-",
                         "register-page-prefill-",
                         "register-page-full-",
+                        "register-packed-",
                         "native-language-release-02",
                     )
                 )
