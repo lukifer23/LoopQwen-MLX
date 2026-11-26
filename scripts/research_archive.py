@@ -150,6 +150,8 @@ def verify(root):
         verify_prefill(root, decision)
     if study == "ledger-curriculum-01":
         verify_ledger_curriculum(root, decision)
+    if study == "entailment-dense-01":
+        verify_inference_attribution(root, decision)
     if study == "learned-exit-dense-01":
         verify_exit_attribution(root, decision)
     if study == "rationale-dense-01":
@@ -944,6 +946,128 @@ def verify_exit_attribution(root, decision):
     require(
         scores == decision["scores"] and passed == decision["passed"],
         "Dense attribution recount",
+    )
+
+
+def verify_inference_attribution(root, decision):
+    from loopqwen.evaluation.relations import conclusion, summarize
+
+    s = read(root / "registration.json")
+    expert = s["expert"]
+    manifest = Path("research/data/entailment-triplets-training.json")
+    require(
+        sha(root / "registration.json") == decision["registration"]
+        and sha(manifest) == decision["training"]
+        and sha(Path(s["dense_control"]) / "adapters.safetensors") == s["dense_sha256"],
+        "NLI attribution identity",
+    )
+    items, ref, hashes = [], [], []
+    for name in ("qualification", "confirmation"):
+        info = expert[name]
+        arc = Path(info["directory"])
+        require(
+            sha(arc / "checksums.json") == info["inventory"]
+            and sha(Path(info["audit"])) == info["audit_sha256"]
+            and read(arc / "decision.json")["passed"],
+            "NLI attribution prerequisites",
+        )
+        path = Path("research/data") / (arc.name + ".json")
+        items += read(path)
+        hashes.append(sha(path))
+        ref += read(arc / "candidate.json.gz")["records"]
+    require(
+        hashes == decision["panels"]
+        and len({v["id"] for v in items}) == len(items) == 120,
+        "NLI attribution cohort",
+    )
+    if "weights" in decision:
+        ds = read(root / "model/state.json")
+        baseline = read(Path(expert["qualification"]["directory"]) / "decision.json")
+        require(
+            sha(root / "model/adapters.safetensors") == decision["weights"]
+            and ds["parent"] == s["dense_sha256"]
+            and ds["spec"]["deployment"]["config"]["passes"] == 1
+            and ds["step"] == decision["updates"] == baseline["updates"]
+            and sum(h["targets"] for h in ds["history"])
+            == decision["targets"]
+            == read(manifest)["response_tokens"]
+            == baseline["targets"],
+            "Matched dense training",
+        )
+    data = {}
+    for a in ("dense", "recurrent"):
+        p = root / (a + ".json.gz")
+        if not p.exists():
+            require(
+                decision["status"] == "interrupted",
+                "Missing NLI attribution generations",
+            )
+            continue
+        pkg = read(p)
+        require(
+            pkg["weights"]
+            == (decision["weights"] if a == "dense" else expert["weights"]),
+            "NLI attribution weights",
+        )
+        rows = pkg["records"]
+        data[a] = rows
+        require(len(rows) <= len(items), "Extra paired generations")
+        for r, item, prior in zip(rows, items, ref):
+            ids = r["token_ids"]
+            complete = (
+                ids[-1] in (248044, 248046)
+                and ids.count(248069) == 1
+                and 248068 not in ids
+            )
+            logits = r["probe_logits"]
+            require(
+                r["id"] == item["id"]
+                and r["prompt_ids"] == item["prompt_ids"]
+                and 0 < len(ids) <= 1024
+                and not set(ids[:-1]).intersection((248044, 248046))
+                and r["seconds"] >= r["ttft"] > 0
+                and r["complete"] == complete
+                and r["answer"] == (conclusion(r["visible"]) if complete else None)
+                and r["correct"] == (r["answer"] == item["label"])
+                and len(logits) == 3
+                and all(map(math.isfinite, logits))
+                and r["probe"]
+                == ("yes", "no", "maybe")[max(range(3), key=logits.__getitem__)],
+                "NLI attribution first turn and probe",
+            )
+            if a == "recurrent":
+                require(
+                    all(
+                        r[k] == prior[k]
+                        for k in ("id", "prompt_ids", "token_ids", "probe_logits")
+                    ),
+                    "Frozen recurrent stream and logits",
+                )
+    if decision["status"] == "interrupted":
+        require(
+            not decision["passed"] and decision["reason"], "Attribution resource stop"
+        )
+        return
+    require(all(len(v) == len(items) for v in data.values()), "Full NLI attribution")
+    scores = summarize(items, {"base": data["dense"], "candidate": data["recurrent"]})
+    for summary in scores.values():
+        summary["dense"] = summary.pop("base")
+        summary["recurrent"] = summary.pop("candidate")
+    a = scores["all"]
+    d, c = a["dense"], a["recurrent"]
+    ret = decision["retention"]
+    verify_retention_pair(ret["dense"], ret["recurrent"])
+    gate = (
+        a["wins"] - a["losses"] >= s["net_floor"]
+        and all(scores[k]["wins"] >= scores[k]["losses"] for k in ("esnli", "multinli"))
+        and c["probe"] > d["probe"]
+        and c["triplets"] > d["triplets"]
+        and c["seconds"] <= s["max_time_ratio"] * d["seconds"]
+        and ret["recurrent"]["nll"] <= ret["dense"]["nll"] + 0.03
+    )
+    require(
+        scores == decision["scores"] and gate == decision["passed"],
+        "Verified NLI attribution",
     )
 
 

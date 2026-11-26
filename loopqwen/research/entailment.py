@@ -38,13 +38,20 @@ def probe(m, t, ids):
     return words[max(range(3), key=logits.__getitem__)], logits, perf_counter() - start
 
 
-def evaluate(s, rows, model, weight, b, root):
-    records = {"base": [], "candidate": []}
+def evaluate(s, rows, model, weight, b, root, *, dense_control=None):
+    control = "base" if dense_control is None else "dense"
+    candidate = "candidate" if dense_control is None else "recurrent"
+    banks = {
+        control: (None, REVISION, 1) if dense_control is None else (*dense_control, 1),
+        candidate: (model, weight, 2),
+    }
+    records = {name: [] for name in banks}
     retention = {}
     half = len(rows) // 2
-    for offset, order in ((0, ("candidate", "base")), (half, ("base", "candidate"))):
+    for offset, order in ((0, (candidate, control)), (half, (control, candidate))):
         for arm in order:
-            m, t, _ = base() if arm == "base" else load_trained(model)
+            folder, identity, depth = banks[arm]
+            m, t, _ = base() if folder is None else load_trained(folder)
             for row in rows[offset : offset + half]:
                 ids = row["prompt_ids"]
                 v = core.generate(
@@ -67,16 +74,23 @@ def evaluate(s, rows, model, weight, b, root):
                 packed(
                     root / (arm + ".json.gz"),
                     {
-                        "weights": REVISION if arm == "base" else weight,
+                        "weights": identity,
                         "records": records[arm],
                     },
                 )
             if offset and s.get("measure_retention", True):
-                retention[arm] = bootstrap.retention(m, 1 if arm == "base" else 2, b)
+                retention[arm] = bootstrap.retention(m, depth, b)
             del m, t
             gc.collect()
             mx.clear_cache()
-    return summarize(rows, records), retention
+    scores = summarize(
+        rows, {"base": records[control], "candidate": records[candidate]}
+    )
+    if dense_control is not None:
+        for result in scores.values():
+            result["dense"] = result.pop("base")
+            result["recurrent"] = result.pop("candidate")
+    return scores, retention
 
 
 def passed(s, score, ret):
