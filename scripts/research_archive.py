@@ -1831,6 +1831,23 @@ def verify_full_memory(root, decision):
         and probe["input_sha256"] == ref["input_sha256"]
         and probe["scratch_bytes"] > 0
     )
+    mode = reg.get("cache_mode", "disk")
+    require(mode in ("resident", "disk"), "Known full-history cache mode")
+    if mode == "resident":
+        resident = read(root / "resident-parity.json.gz")["records"][0]
+        parity = (
+            parity
+            and "scratch_bytes" not in resident
+            and all(
+                resident.get(k) == probe.get(k)
+                for k in (
+                    "input_sha256",
+                    "token_ids",
+                    "attention_memory",
+                    "context_route",
+                )
+            )
+        )
     if decision["status"] == "disk_parity_failed":
         require(
             not parity
@@ -1859,7 +1876,12 @@ def verify_full_memory(root, decision):
     }
     require(
         all(
-            r["scratch_bytes"] > 0 and r["peak_bytes"] > 0
+            (
+                r.get("scratch_bytes", 0) > 0
+                if mode == "disk"
+                else "scratch_bytes" not in r
+            )
+            and r["peak_bytes"] > 0
             for rs in rows.values()
             for r in rs
         )

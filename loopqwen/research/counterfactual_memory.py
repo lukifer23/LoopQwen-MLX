@@ -84,6 +84,9 @@ def material(t, s):
 
 def run(freeze, registration=REG, dataset=DATA):
     s = read(registration)
+    mode = s.get("cache_mode", "disk")
+    if mode not in ("disk", "resident"):
+        raise ValueError("Unknown full-history cache mode")
     parent = Path(s["qualification"])
     if (
         not read(parent / "decision.json")["passed"]
@@ -133,11 +136,25 @@ def run(freeze, registration=REG, dataset=DATA):
             m, t, existing, s["generation_cap"], b, offload_dir=scratch
         )
         packed(root / "disk-parity.json.gz", {"records": [probe]})
+        parity = True
+        if mode == "resident":
+            resident = ledger_curriculum.measure(m, t, existing, s["generation_cap"], b)
+            packed(root / "resident-parity.json.gz", {"records": [resident]})
+            parity = all(
+                resident.get(k) == probe.get(k)
+                for k in (
+                    "input_sha256",
+                    "token_ids",
+                    "attention_memory",
+                    "context_route",
+                )
+            )
         del m, t
         gc.collect()
         mx.clear_cache()
         if (
-            probe["token_ids"] != expected["token_ids"]
+            not parity
+            or probe["token_ids"] != expected["token_ids"]
             or probe.get("attention_memory") != expected["attention_memory"]
         ):
             result.update(status="disk_parity_failed")
@@ -147,7 +164,12 @@ def run(freeze, registration=REG, dataset=DATA):
                     m, t, _ = base() if arm == "base" else load_trained(model)
                     row = data["panel"][i]
                     v = ledger_curriculum.measure(
-                        m, t, row, s["generation_cap"], b, offload_dir=scratch
+                        m,
+                        t,
+                        row,
+                        s["generation_cap"],
+                        b,
+                        offload_dir=scratch if mode == "disk" else None,
                     )
                     if arm == "candidate":
                         sec = v.get("attention_memory")
