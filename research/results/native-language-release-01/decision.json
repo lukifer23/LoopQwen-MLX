@@ -1,0 +1,54 @@
+{
+  "registration": "759f49106f9452b8b4cbe548f57d65adadafcc82ce4d0bf985e8a3dbff6dc20a",
+  "passed": true,
+  "policy": "250b5fbba6cb7e6941ce2e6c836a1145aec18d435a5de065d161f011bc752608",
+  "native_induction": {
+    "identical": 64,
+    "seconds": 16.106222705944674
+  },
+  "deduction": {
+    "identical": 56,
+    "seconds": 15.291041541087907
+  },
+  "mixed": {
+    "identical": 80,
+    "seconds": 420.69875158095965
+  },
+  "retention": {
+    "nll": 2.9826581153386043,
+    "by_domain": {
+      "code_description": {
+        "loss": 4470.292913913727,
+        "tokens": 1733,
+        "nll": 2.5795112024891673
+      },
+      "general_prose": {
+        "loss": 7185.204305648804,
+        "tokens": 1911,
+        "nll": 3.759918527288751
+      },
+      "reference": {
+        "loss": 4169.751423716545,
+        "tokens": 1680,
+        "nll": 2.481994895069372
+      },
+      "scientific_exposition": {
+        "loss": 7110.921858847141,
+        "tokens": 2291,
+        "nll": 3.1038506585976173
+      },
+      "technical_explanation": {
+        "loss": 4886.064397752285,
+        "tokens": 1713,
+        "nll": 2.852343489639396
+      }
+    },
+    "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+  },
+  "raw_requests": 120,
+  "context": {
+    "correct": 2,
+    "seconds": 526.1822526239848
+  },
+  "status": "completed"
+}

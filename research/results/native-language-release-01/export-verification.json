@@ -1,0 +1,66 @@
+{
+  "prompt": "The report lists eight samples. How many samples are there?",
+  "input_ids": [
+    [
+      760,
+      1830,
+      11140,
+      7810,
+      10156,
+      13,
+      2500,
+      1599,
+      10156,
+      513,
+      1017,
+      30
+    ]
+  ],
+  "logits_sha256": "71e0d18202a0e6959effbecc33836bbd4e5e3d39b05de75dbee4255fcf60d966",
+  "unique_parameters": 757884869,
+  "adapter_banks": 3,
+  "bank_logits": {
+    "register": "71e0d18202a0e6959effbecc33836bbd4e5e3d39b05de75dbee4255fcf60d966",
+    "ordinary": "6061baa565754b64008ce0aa8ad4e975f15b00d21689947ee38b7c018aa992f0",
+    "arithmetic": "e41211280bd0a8e9468713d1ee4a2213bc06a28927799fd1d4d3fd28feadaf26",
+    "entailment": "1b6a83ba73bd5cd7df34975da88c8bc7ec5a7a241182147febf3ad9ceda7f9fe"
+  },
+  "evidence_probe": {
+    "prompt": "<|im_start|>user\nCats are afraid of mice.\nSheep are afraid of wolves.\nWolves are afraid of mice.\nWinona is a sheep.\nGertrude is a cat.\nEmily is a sheep.\nJessica is a sheep.\nMice are afraid of wolves.\nWhat is emily afraid of?<|im_end|>\n<|im_start|>assistant\n<think>\n",
+    "tokens": [
+      40,
+      22846,
+      35336,
+      13,
+      198,
+      248069,
+      271,
+      760,
+      9572,
+      369,
+      264,
+      35336,
+      13,
+      248046
+    ]
+  },
+  "induction_probe": {
+    "prompt": "<|im_start|>user\nGreg is green.\nLily is a swan.\nLily is yellow.\nJulius is green.\nJulius is a lion.\nGreg is a swan.\nBernhard is yellow.\nBernhard is a frog.\nBrian is a frog.\nWhat color is Brian?<|im_end|>\n<|im_start|>assistant\n<think>\n",
+    "tokens": [
+      40,
+      22846,
+      13358,
+      13,
+      198,
+      248069,
+      271,
+      760,
+      4087,
+      369,
+      13358,
+      13,
+      248046
+    ]
+  },
+  "fresh_process_verified": true
+}
