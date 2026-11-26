@@ -1,5 +1,19 @@
 # Capability scoreboard
 
+## Three-fact induction with a repeated native Qwen layer
+
+Each prompt contains nine shuffled animal-class and color statements and asks for one individual's color. A learned projection compresses the outputs of Qwen layers 0–14 for each sentence and for the question. The same pretrained layer 15, with shared Q/K/V/O adapters, updates the question representation three times against the fixed premise tokens. Its final state supplies a learned adjustment to the full-prompt Base decoder's vocabulary logits. Training uses the publisher's three supporting-fact indices and answer strings. Generation receives only the prompt. Both trained arms have 552,810 trainable parameters and received the same 1,536 training stories, seed, 3,000 Adam updates and minibatches of 32. [Implementation](../loopqwen/native_evidence.py) · [Frozen registration and material](../research/experiments/native-induction-anchored-01.json)
+
+| Two-model comparison | Completed correct answers | Correct common-prefix probes | End-to-end seconds |
+|---|---:|---:|---:|
+| Primary, three passes vs untouched Base at 192 tokens | 62 vs 0 of 64 | 62 vs 29 | 16.10 vs 181.00 |
+| Primary, three passes vs matched one pass | 62 vs 33 of 64 | 62 vs 37 | 15.88 vs 16.04 |
+| Disjoint confirmation, same trained three-pass and one-pass weights | 62 vs 25 of 64 | 62 vs 26 | 16.07 vs 16.04 |
+
+Across 128 held-out stories, both trained models completed all responses in 13 tokens each. Three passes gained 67 answers and lost one relative to one pass. The two-sided exact paired tests gave p = 2.98 × 10⁻⁸ and p = 1.46 × 10⁻¹¹ on the respective panels. Elapsed time includes sentence encoding, native layer applications, full-prompt prefill and greedy generation. This control matches examples, supervision, parameters and optimizer updates. Three applications use more training computation per update. [Untouched Base comparison](../research/results/native-induction-anchored-01) · [Matched control](../research/results/native-induction-anchored-matched-01) · [Disjoint confirmation](../research/results/native-induction-anchored-replication-01)
+
+In a post-hoc inspection, four stories in each panel had classmates of the queried individual with conflicting stated colors. All eight remain in the registered scores. Across the 120 stories with a unique implied color, the three-pass model answered 120 correctly and the one-pass model answered 55. On confirmation, the first, second and third supervised attention-head pairs gave the highest weight to the annotated supporting sentence on 64, 60 and 60 of 64 questions. At one pass those counts were 64, 14 and 14. Each probability vector is saved with the corresponding response. [Per-story scores, attention distributions and input IDs](../research/results/native-induction-anchored-replication-01)
+
 ## Learned two-fact deduction
 
 Two disjoint publisher test panels used one bAbI English deduction question per unique story. Each trained arm received the same 240 training stories, supporting-fact labels, answer targets, 1,200 optimization updates and trainable parameterization. Answers were generated through the full Qwen vocabulary. The common-prefix probe scored the four possible nouns with identical input tokens.
