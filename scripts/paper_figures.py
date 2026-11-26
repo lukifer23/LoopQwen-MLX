@@ -317,7 +317,10 @@ def main():
     generate(PAPER, RESULTS, result, finish)
     from paper_raw import make as plot_raw
 
+    from paper_field import make as plot_field
+
     plot_raw(PAPER, RESULTS, result, finish)
+    plot_field(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"

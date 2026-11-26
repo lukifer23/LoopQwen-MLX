@@ -58,3 +58,14 @@ The list below gives the normal native entry point for each family. Pass the des
 Use `scripts/research_archive.py STUDY` to seal a completed local run in a new checkout. To verify existing committed evidence use `--verify`. After all measured jobs in a window are archived, run `scripts/research_registry.py --update` and `scripts/research_session.py --close`. All script paths in this table are arguments to the repository's Python interpreter.
 
 Underlying human questions and verified partitions are in `research/data/`. The reproducible material builders pin publisher revisions and SHA-256 hashes. Rebuilding the BoolQ subsets needs PyArrow; numerical inference and stored-result verification do not depend on PyArrow. [BoolQ attribution](../research/licenses/BOOLQ-NOTICE.txt) · [Tool data attribution](../research/licenses/TOOL-DATA-NOTICE.txt)
+
+The field-performance figure compares complete request time and correctness on the same requests. The accompanying CSV reports the number of paired wins and losses and the raw elapsed seconds for both arms. Public function and database tasks require successful execution. HotpotQA uses the reference phrase in a completed answer. The lexical audit covers the original database transfer set, training on separate WikiSQL tables, and public-function retention. [Field performance data](field-performance.csv) · [Training overlap](training-overlap.csv)
+
+| Additional runner | Evidence |
+| --- | --- |
+| `-m loopqwen.research.bridge_reading` | Multi-hop generation from ten original HotpotQA documents with human-labeled support retrieval |
+| `-m loopqwen.research.cache_language` | Causal full-vocabulary predictions from a learned hidden-state cache |
+| `-m loopqwen.research.raw_distillation` | Native 2B teacher probabilities and recurrent 0.8B student next-token likelihood |
+| `-m loopqwen.research.narrative_book` | Whole-novel question and person-name intervention with physical KV offsets |
+| `-m loopqwen.research.register_allocation` | Reserved and incrementally grown full-history storage on identical weights |
+| `-m loopqwen.research.transport` | Transport size, restored file inventories and isolated native generation |
