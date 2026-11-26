@@ -1,0 +1,141 @@
+{
+  "resource_intents": {
+    "paired_correct": {
+      "candidate": 6,
+      "control": 0
+    },
+    "gains": 6,
+    "losses": 0,
+    "paired_p": 0.03125,
+    "groups": {
+      "candidate": {
+        "unicode": {
+          "n": 8,
+          "strict": 4,
+          "answer": 4,
+          "seconds": 4.128304915037006
+        },
+        "ASDiv": {
+          "n": 12,
+          "strict": 5,
+          "answer": 5,
+          "seconds": 9.975510416028555
+        },
+        "bfcl_exec": {
+          "n": 22,
+          "strict": 19,
+          "answer": 19,
+          "seconds": 15.443163502932293
+        },
+        "distribution": {
+          "n": 8,
+          "strict": 6,
+          "answer": 7,
+          "seconds": 4.059072417003335
+        },
+        "calendar": {
+          "n": 8,
+          "strict": 6,
+          "answer": 6,
+          "seconds": 8.020226124004694
+        },
+        "zone": {
+          "n": 8,
+          "strict": 4,
+          "answer": 5,
+          "seconds": 5.409003082982963
+        },
+        "SVAMP": {
+          "n": 12,
+          "strict": 1,
+          "answer": 1,
+          "seconds": 7.521909082919592
+        }
+      },
+      "control": {
+        "unicode": {
+          "n": 8,
+          "strict": 0,
+          "answer": 0,
+          "seconds": 32.54609658400295
+        },
+        "ASDiv": {
+          "n": 12,
+          "strict": 0,
+          "answer": 8,
+          "seconds": 42.00210875199991
+        },
+        "bfcl_exec": {
+          "n": 22,
+          "strict": 0,
+          "answer": 8,
+          "seconds": 83.13724012294551
+        },
+        "distribution": {
+          "n": 8,
+          "strict": 0,
+          "answer": 0,
+          "seconds": 38.83962675000657
+        },
+        "calendar": {
+          "n": 8,
+          "strict": 0,
+          "answer": 0,
+          "seconds": 43.93813508300809
+        },
+        "zone": {
+          "n": 8,
+          "strict": 0,
+          "answer": 0,
+          "seconds": 41.21967608403065
+        },
+        "SVAMP": {
+          "n": 12,
+          "strict": 0,
+          "answer": 6,
+          "seconds": 51.465701581939356
+        }
+      }
+    },
+    "public_regressions": [],
+    "resource_multiple_calls": {
+      "candidate": 5,
+      "control": 4
+    },
+    "correct_pairs_by_name": {
+      "candidate": {
+        "descriptive": 1,
+        "opaque": 5
+      },
+      "control": {
+        "descriptive": 0,
+        "opaque": 0
+      }
+    }
+  },
+  "passed": false,
+  "metrics": {
+    "candidate": {
+      "success": 45,
+      "path": 47,
+      "correct_answer": 47,
+      "completed": 68,
+      "seconds": 54.55718954090844,
+      "tokens": 3865,
+      "peak_bytes": 1162950690
+    },
+    "control": {
+      "success": 0,
+      "path": 0,
+      "correct_answer": 22,
+      "completed": 32,
+      "seconds": 333.14858495793305,
+      "tokens": 22640,
+      "peak_bytes": 1784072602
+    }
+  },
+  "gains": 45,
+  "losses": 0,
+  "p_exact": 5.684341886080802e-14,
+  "items": 78
+}
