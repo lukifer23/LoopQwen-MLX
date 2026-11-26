@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("tool-dialogue-"):
+        from scripts.tool_audit import verify as verify_tool_dialogue
+
+        verify_tool_dialogue(root, decision, read, sha, require)
     if (root / "parent.json.gz").exists() or study == "trace-depth-01":
         scores = decision.get("scores", decision)
         arms = scores.keys() if "scores" in decision else ("parent", "child")
