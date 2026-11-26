@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "accuracy_and_time": true,
+  "full_history": true,
+  "metrics": {
+    "direct_pages": {
+      "ttft": 165.27824975096155,
+      "seconds": 167.26006008399418,
+      "peak": 3561069076,
+      "correct": 2
+    },
+    "base": {
+      "ttft": 383.92886799998814,
+      "seconds": 390.8587252080324,
+      "peak": 4059680512,
+      "correct": 0
+    }
+  },
+  "items": 2,
+  "throughput": {
+    "direct_pages": {
+      "correct": 2,
+      "queries": 2,
+      "steps": 58,
+      "seconds": 167.26006008399418,
+      "ttft": 165.27824975096155,
+      "decode_seconds": 1.9818103330326267,
+      "decode_tps": 29.266170951509082,
+      "prefill_tps": 1586.2462265605807,
+      "peak": 3561069076
+    },
+    "base": {
+      "correct": 0,
+      "queries": 2,
+      "steps": 190,
+      "seconds": 390.8587252080324,
+      "ttft": 383.92886799998814,
+      "decode_seconds": 6.929857208044268,
+      "decode_tps": 27.41759235377109,
+      "prefill_tps": 682.8660771609602,
+      "peak": 4059680512
+    }
+  },
+  "fused_at_every_site": true,
+  "actual_weight_precision": true,
+  "setup_seconds": 0.12963737500831485,
+  "setup_peak": 2061069014,
+  "both_rate_pairs": true,
+  "including_conversion": true
+}
