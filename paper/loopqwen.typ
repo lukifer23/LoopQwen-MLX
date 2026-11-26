@@ -167,6 +167,13 @@ On two fresh 24,593-token documents both packages returned both correct answers 
 
 #figure(image("prefill-resource-comparisons.svg", width: 95%),caption: [Measured resource differences within each registered comparison. Values below zero favor the candidate. Each 131K total includes both placements of the queried record. The scale reports relative change from the control named on each row.])
 
+*Single-token attention on physical retained rows.* At 131,080 tokens, the direct packed model's original output rate was 16.99 tokens/s against 27.09 for ordinary Base. A two-stage Metal operator computes per-partition maxima, normalizers and weighted values directly from the packed affine bytes, and merges the partitions with one shared softmax normalization. The comparison captures actual queries, keys and values after the first three Gated DeltaNet layers and the projections of Qwen's first full-attention layer. For each length and mask we timed four counterbalanced repeats of eight distinct queries, with exact-shape compilation outside each timer.
+
+#figure(image("packed-decode.svg",width:94%),caption:[Single-query attention latency on physical Qwen cache rows. Small points show the four-repeat median of each actual query. The two panels compare the ordinary causal history and an additive learned register bias on the same tensors.])
+
+At 4,112 tokens the existing operator was faster in both conditions. At 32,784 tokens the fused operator was 1.22× and 1.24× as fast for the plain and reader masks. At 131,080 tokens it took 2.42 and 2.48 ms against 4.67 and 4.69 ms, respectively. Maximum scaled absolute difference was 0.00758 and minimum cosine similarity was 0.999993. Peak additional workspace increased from 2.25 MB to 8.83 MB in the longest reader condition. The registered operator threshold passed. The full-model crossover measures both complete counterfactual requests twice per policy, including every prefill block and generated token. The single-query integration begins at 32,768 retained positions and preserves the existing multi-query prefill path.
+
+
 == An entire natural novel
 We tested the offline assistant on Frank Norris's _McTeague_ using a human-written NarrativeQA question about who reports McTeague's missing dental license to City Hall [19]. Both publisher annotators named Marcus. In the second version we changed all 440 occurrences of Marcus, 24 of Mark and 65 of Schouler to Felix, Ned and Radford respectively. We kept the question and every chapter. The two prompts contained 162,714 and 162,711 tokens.
 

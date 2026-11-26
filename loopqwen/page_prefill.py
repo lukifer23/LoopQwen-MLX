@@ -156,8 +156,9 @@ class DirectPackedPageCache(PackedPageCache):
         if self.fused_decode and length == 1 and self.offset >= 32768:
             from .kernels.packed_decode import attention
 
+            # Single-query partitions feed the next native layer directly. The
+            # per-tile barrier below bounds the multiple resident prefill tiles.
             value = attention(q, k, v, scale, mask)
-            mx.eval(value)
             self.fused_queries += 1
             self.direct_tiles += 1
             self.direct_queries += 1

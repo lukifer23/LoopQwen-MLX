@@ -21,6 +21,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [SQLite plan components, executed denotations and alternate-row tests](sql-action-audit.csv)
 - [Counterfactual conversation scores and paired one-pass replay](conversation-replay.csv)
 - [Direct page-kernel time, peak allocation and correct outputs](prefill-resource-comparisons.csv)
+- [Actual native single-query operator latency and working memory](packed-decode.csv)
 - [Prompt and post-first-token throughput with actual denominators](long-throughput.csv)
 - [Per-family mixed deployment accuracy, latency, tokens and peak memory](mixed-deployment.csv)
 - [Paired sensitivity to leaving out one entire field family](mixed-family-sensitivity.csv)
