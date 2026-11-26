@@ -312,6 +312,11 @@ def verify_release(root, decision, read, sha, require):
             and read(source / "decision.json")["passed"],
             "Invalid release prerequisite",
         )
+    for name, expected in spec.get("observations", {}).items():
+        require(
+            sha(Path("research/results") / name / "checksums.json") == expected,
+            "Different motivating observation",
+        )
     if decision["status"] != "completed":
         require(
             not decision["passed"] and decision["reason"], "Failed release promoted"
@@ -321,7 +326,8 @@ def verify_release(root, decision, read, sha, require):
     policy = read(folder / "context-policy.json")
     require(
         sha(folder / "context-policy.json") == decision["policy"]
-        and policy["schema"] == (4 if "induction" in spec else 3),
+        and policy["schema"]
+        == (5 if "intent_scope" in spec else 4 if "induction" in spec else 3),
         "Wrong shipping policy",
     )
     for name, h in policy["files"].items():
@@ -399,6 +405,10 @@ def verify_release(root, decision, read, sha, require):
             and read(root / "export-config.json")["context_policy_sha256"]
             == decision["policy"],
             "Invalid standalone export verification",
+        )
+    if "intent_scope" in spec:
+        verify_scope(
+            root, decision["intent_scope"], read, sha, require, spec["intent_scope"]
         )
     for label, rows, ref in suites:
         samples = read(root / (label + ".json.gz"))["records"]
@@ -530,7 +540,7 @@ def verify_science(root, d, read, sha, require):
     )
 
 
-def verify_scope(root, decision, read, sha, require):
+def verify_scope(root, decision, read, sha, require, spec=None):
     from mlx_lm.utils import load_tokenizer
 
     from loopqwen.identity import fingerprint
@@ -538,18 +548,19 @@ def verify_scope(root, decision, read, sha, require):
     from loopqwen.research.deduction_data import prompt
     from loopqwen.research.induction_scope import questions
 
-    s = read(root / "registration.json")
-    require(
-        sha(root / "registration.json") == decision["registration"],
-        "Scope registration changed",
-    )
+    s = spec or read(root / "registration.json")
+    if spec is None:
+        require(
+            sha(root / "registration.json") == decision["registration"],
+            "Scope registration changed",
+        )
     t = load_tokenizer(local_snapshot())
     data = read(Path(s["material"]))
     expected = [
         (r, q)
         for stage in ("primary", "replication")
         for r in data[stage][: s["stories_per_panel"]]
-        for q in questions(r)
+        for q in questions(r, s.get("extended", False))
     ]
     records = (
         read(root / "scope.json.gz")["records"]

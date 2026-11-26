@@ -84,7 +84,12 @@ def load(model, folder, spec, tokenizer=None):
             expected_files.update(
                 {"arithmetic/deliberation.json", "arithmetic/exit-readout.safetensors"}
             )
-    readers = {2: (), 3: ("evidence",), 4: ("evidence", "induction")}[spec["schema"]]
+    readers = {
+        2: (),
+        3: ("evidence",),
+        4: ("evidence", "induction"),
+        5: ("evidence", "induction"),
+    }[spec["schema"]]
     for name in readers:
         expected_files.update(
             name + "/" + v
@@ -95,6 +100,8 @@ def load(model, folder, spec, tokenizer=None):
                 "scope.safetensors",
             )
         )
+    if spec["schema"] == 5:
+        expected_files.update(("induction/intent.json", "induction/intent.safetensors"))
     if set(spec["files"]) != expected_files:
         raise ValueError("Incomplete conditional checkpoint inventory")
     shared = {id(v): v for _, v in tree_flatten(model.parameters())}
@@ -137,6 +144,10 @@ def load(model, folder, spec, tokenizer=None):
             model.context_policy,
             name,
             EvidencePolicy(
-                ordinary, tokenizer, folder / name, native=name == "induction"
+                ordinary,
+                tokenizer,
+                folder / name,
+                native=name == "induction",
+                check_intent=name == "induction" and spec["schema"] == 5,
             ),
         )

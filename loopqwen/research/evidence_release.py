@@ -27,6 +27,18 @@ def package(s, t, model, root, b):
     parent = Path(s.get("parent", s["combined"])) / "model"
     folder = root / "model"
     shutil.copytree(parent, folder)
+    if s.get("intent_scope"):
+        from .question_intent import train
+
+        extra = folder / "induction"
+        train(s, t, model, read(s["induction"]["material"])["train"], extra, b)
+        meta = read(folder / "context-policy.json")
+        meta["schema"] = 5
+        meta["files"].update(
+            {str(f.relative_to(folder)): digest(f) for f in extra.glob("intent.*")}
+        )
+        save(folder / "context-policy.json", meta)
+        return folder
     extra = folder / ("induction" if native else "evidence")
     extra.mkdir()
     source = s["induction"] if native else s
@@ -92,6 +104,12 @@ def run(name=NAME):
             or not read(arc / "decision.json")["passed"]
         ):
             raise ValueError("Failed or changed prerequisite: " + prerequisite)
+    for observation, expected in s.get("observations", {}).items():
+        if (
+            digest(Path("research/results") / observation / "checksums.json")
+            != expected
+        ):
+            raise ValueError("Scope observation changed")
     b = core.Budget(name, s["limits"])
     root = core.OUT / name
     root.mkdir(exist_ok=False, parents=True)
@@ -127,6 +145,15 @@ def run(name=NAME):
         else:
             model, t, _ = load_trained(folder)
         res["policy"] = digest(folder / "context-policy.json")
+        if s.get("intent_scope"):
+            from .induction_scope import measure
+
+            qualification = s["intent_scope"]
+            prior, _, _ = load_trained(Path(qualification["prior"]) / "model")
+            res["intent_scope"] = measure(qualification, root, b, model, prior, t)
+            del prior
+            gc.collect()
+            mx.clear_cache()
         suites = [
             (
                 "deduction",

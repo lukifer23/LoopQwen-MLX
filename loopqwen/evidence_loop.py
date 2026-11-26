@@ -187,7 +187,7 @@ def load_evidence(model, folder):
 
 
 class EvidencePolicy:
-    def __init__(self, model, t, folder, *, native=False):
+    def __init__(self, model, t, folder, *, native=False, check_intent=False):
         from .io import read
 
         if native:
@@ -210,6 +210,15 @@ class EvidencePolicy:
         if spec["depth"] != self.depth or not 0.5 < spec["confidence"] < 1:
             raise ValueError("Unsupported passage reader scope")
         self.confidence = spec["confidence"]
+        self.intent = None
+        if check_intent:
+            intent_spec = read(folder / "intent.json")
+            self.intent_confidence = intent_spec["confidence"]
+            if not 0.5 < self.intent_confidence < 1:
+                raise ValueError("Unsupported question scope threshold")
+            self.intent = nn.Linear(2 * model.args.hidden_size, 2)
+            self.intent.load_weights(str(folder / "intent.safetensors"), strict=True)
+            self.intent.eval()
 
     def choose(self, model, ids):
         from .context_policy import features
@@ -222,4 +231,9 @@ class EvidencePolicy:
         z = self.gate(features(model.text.model.embed_tokens, ids))
         if mx.softmax(z)[1].item() < self.confidence:
             return None
+        if self.intent is not None:
+            question = self.tokenizer.encode(section[1], add_special_tokens=False)
+            score = self.intent(features(model.text.model.embed_tokens, question))
+            if mx.softmax(score)[1].item() < self.intent_confidence:
+                return None
         return self.prepare(model, self.tokenizer, self.reader, *section, self.depth)[0]

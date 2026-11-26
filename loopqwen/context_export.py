@@ -125,6 +125,8 @@ def write(temp, gen, model, t, state):
     for name, _ in readers:
         reader = getattr(policy, name)
         extras.extend([reader.reader, reader.gate])
+        if getattr(reader, "intent", None) is not None:
+            extras.append(reader.intent)
     for bank in views.values():
         reader = getattr(bank, "attention_reader", None)
         if reader is not None:
