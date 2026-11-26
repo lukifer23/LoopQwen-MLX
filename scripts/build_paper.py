@@ -27,6 +27,7 @@ def main(verify):
                         "bridge-reading-",
                         "narrative-full-book-",
                         "transport-lossless-",
+                        "raw-distillation-",
                         "cache-language-",
                         "tool-",
                         "contrast-boolq-",

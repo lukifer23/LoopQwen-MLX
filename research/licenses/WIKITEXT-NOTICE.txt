@@ -5,3 +5,13 @@ Source revision b08601e04326c79dfdd32d625aee71d232d685c3.
 The publisher lists CC BY-SA 3.0 and the GNU Free Documentation License.
 https://huggingface.co/datasets/Salesforce/wikitext
 https://creativecommons.org/licenses/by-sa/3.0/
+
+The raw distillation corpus also uses training-set text from SQuAD 1.1
+(Rajpurkar et al., CC BY-SA 4.0), SciQ (Welbl, Liu and Gardner, CC BY-NC 3.0)
+and the project's attributed CPython and public-domain literary anchors.
+The 2B teacher and 0.8B student are official Apache-2.0 Qwen checkpoints.
+The SciQ source passages and the derived training set retain the source's
+noncommercial terms. No teacher checkpoint or new trained model is pushed.
+https://rajpurkar.github.io/SQuAD-explorer/
+https://huggingface.co/datasets/allenai/sciq
+https://huggingface.co/Qwen/Qwen3.5-2B-Base/tree/b1485b2fa6dfa1287294f269f5fb618e03d52d7c
