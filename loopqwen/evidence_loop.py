@@ -82,9 +82,11 @@ class EvidenceView:
         return z[:, 0] if h.ndim == 2 else z
 
 
-def prepare(model, t, net, facts, question, depth):
+def prepare(model, t, net, facts, question, depth, *, span_passes=None):
     encoder = pooled_states if isinstance(net, PooledEvidence) else sentence_states
-    a, b = encoder(model, t, [*facts, question], depth)
+    a, b = encoder(
+        model, t, [*facts, question], depth if span_passes is None else span_passes
+    )
     memory, first, _, last = net.read(a[None, :-1], b[None, :-1], a[None, -1], depth)
     mx.eval(memory, first, last)
     return EvidenceView(model, net, memory), first[0].tolist(), last[0].tolist()

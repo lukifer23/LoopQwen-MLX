@@ -99,10 +99,10 @@ def training_inputs(model, t, rows, depth, b, encoder):
     )
 
 
-def fit(model, t, rows, depth, s, b, out):
+def fit(model, t, rows, depth, s, b, out, span_passes):
     pooled = s.get("architecture") == "pooled"
     vocab, moments, arrays = training_inputs(
-        model, t, rows, depth, b, pooled_states if pooled else sentence_states
+        model, t, rows, span_passes, b, pooled_states if pooled else sentence_states
     )
     mx.random.seed(s["fit_seed"])
     net = (PooledEvidence if pooled else EvidenceLoop)(
@@ -145,6 +145,7 @@ def fit(model, t, rows, depth, s, b, out):
     spec = {
         "base_revision": REVISION,
         "architecture": s.get("architecture", "terminal"),
+        "span_passes": span_passes,
         "depth": depth,
         "rank": s["rank"],
         "vocab": vocab,
@@ -157,7 +158,7 @@ def fit(model, t, rows, depth, s, b, out):
     return net
 
 
-def evaluate(model, t, net, rows, depth, s, b, path):
+def evaluate(model, t, net, rows, depth, s, b, path, span_passes):
     ids = [core.atom(t, " " + w) for w in WORDS]
     probe_suffix = t.encode(
         "After considering the evidence, I conclude.\n</think>\n\nThe animal is a",
@@ -173,7 +174,9 @@ def evaluate(model, t, net, rows, depth, s, b, path):
             parts = passage(t, r["prompt_ids"])
             if parts != (r["facts"], r["question"]):
                 raise ValueError("Passage differs from the user tokens")
-            view, first, last = prepare(model, t, net, *parts, depth)
+            view, first, last = prepare(
+                model, t, net, *parts, depth, span_passes=span_passes
+            )
             attn = [first, last]
         v = core.generate(
             view, t, r["prompt_ids"], s["generation_cap"], b.check, thinking=True
@@ -236,16 +239,23 @@ def run(name, freeze=False):
         results = {}
         for arm, spec in s["arms"].items():
             depth = spec["depth"]
+            span_passes = spec.get("span_passes", depth)
             net = None
             if spec.get("fit"):
-                net = fit(model, t, data["train"], depth, s, b, out)
+                folder = (
+                    out / arm
+                    if sum(bool(v.get("fit")) for v in s["arms"].values()) > 1
+                    else out
+                )
+                folder.mkdir(exist_ok=True)
+                net = fit(model, t, data["train"], depth, s, b, folder, span_passes)
             elif depth:
                 folder = Path(spec["reader"])
                 if digest(folder / "reader.safetensors") != s["reader_weights"][arm]:
                     raise ValueError("Changed preregistered reader")
                 net = load_evidence(model, folder)
             records = evaluate(
-                model, t, net, rows, depth, s, b, out / (arm + ".json.gz")
+                model, t, net, rows, depth, s, b, out / (arm + ".json.gz"), span_passes
             )
             results[arm] = summary(rows, records)
         paths = [unpack(out / (k + ".json.gz"))["records"] for k in s["arms"]]

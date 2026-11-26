@@ -85,9 +85,14 @@ def verify(root, decision, read, sha, require, number):
                 "Changed trained lineage",
             )
         elif reg["arms"][arm].get("fit"):
-            model = read(root / "reader.json")
+            folder = (
+                root / arm
+                if sum(bool(x.get("fit")) for x in reg["arms"].values()) > 1
+                else root
+            )
+            model = read(folder / "reader.json")
             require(
-                model["weights"] == sha(root / "reader.safetensors")
+                model["weights"] == sha(folder / "reader.safetensors")
                 and model["updates"] == reg["updates"],
                 "Wrong trained reader",
             )
