@@ -96,7 +96,11 @@ def test_real_tool_cli_matches_public_api(tmp_path):
                     assert a.get(key) == b.get(key)
                 if "observation" in a:
                     fn = next(t for t in tools if t.name == a["call"]["name"])
-                    assert a["observation"] == fn.callback(**a["call"]["arguments"])
+                    try:
+                        expected = fn.callback(**a["call"]["arguments"])
+                    except Exception as error:
+                        expected = {"error": type(error).__name__}
+                    assert a["observation"] == expected
             del assistant
             gc.collect()
             mx.clear_cache()
