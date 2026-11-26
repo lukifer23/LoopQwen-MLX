@@ -1,0 +1,21 @@
+{
+  "id": "register-fused-base-full-01",
+  "question": "Can the trained physical-history 131K register system with singleton fused attention beat untouched ordinary Base on answer accuracy, prefill and emitted-token throughput, first and full request times, and peak bytes on one fresh key-swap pair?",
+  "requires": "research/results/packed-decode-full-01",
+  "prerequisite_sha256": "42526fe949f35ef7002f2f870088139264948063f9953f9772f45b3deaa922fd",
+  "material": "research/data/register-fused-base-full-01.json",
+  "seed": 34579031,
+  "attention_policy": "direct_pages",
+  "control": "base",
+  "max_tokens": 96,
+  "protocol": "Enroll the first eligible equal-token-width key swap at seed 34579031, preserving both target numbers and all other token positions. Use untouched pinned BF16 ordinary Base and the qualified packed-03 archive loaded through its normal request route with the newly qualified fused singleton attention enabled. AB then BA. Independent fresh requests, identical thinking-enabled IDs and greedy 96-token caps. Archive all emitted IDs, request time, TTFT, physical retained KV at every site and actual fused calls. Pool post-first output steps divided by measured post-first seconds, allowing both arms their natural output length. Changed accuracy and length may affect this rate. This is a two-document paired counterfactual, not broad long-context reasoning or a repeated latency benchmark.",
+  "gate": "Require two correct completed distinct responses beating Base, the target interval selected for each swap, actual full histories and consumed offsets through >=131072 tokens at all eight versus six physical attention sites, one fused use per subsequent output token at every recurrent site, strictly lower peak MLX bytes, total first-token time and request time, and strictly higher pooled prompt TPS and post-first-token output TPS than Base. A miss closes this configuration for promotion against Base. A pass only licenses an export plus blinded short/natural-prose retention and outside-checkout replay before release.",
+  "limits": {
+    "wall_seconds": 1320,
+    "peak_gib": 7.0,
+    "available_gib": 1.4
+  },
+  "release": "research/results/packed-release-retention-01",
+  "release_sha256": "680ee713d2c0949d1bb3c44c8ceeaf26d7f5ecea447ab23891d782bb16ead641",
+  "fused_export": "exports/tool-language-packed-03"
+}

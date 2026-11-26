@@ -117,7 +117,39 @@ def outcome(spec, rows, items):
     policy = spec.get("attention_policy", "reserved")
     control = spec.get("control", "stock")
     if control == "base":
-        return direct_outcome(rows, items, costs, policy, spec["max_tokens"])
+        decision = direct_outcome(rows, items, costs, policy, spec["max_tokens"])
+        if "fused_export" in spec:
+            from .full_decode import performance
+
+            for arm in rows.values():
+                for r in arm:
+                    duration = r["elapsed_s"] - r["ttft_s"]
+                    further = len(r["token_ids"]) - 1
+                    if not (
+                        duration > 0
+                        and further > 0
+                        and r["decode_tps"] == further / duration
+                        and r["prefill_tps"] == r["prompt_tokens"] / r["ttft_s"]
+                    ):
+                        raise ValueError(
+                            "Per-request throughput differs from its timed token count"
+                        )
+            measured = {side: performance(arm) for side, arm in rows.items()}
+            fused, base = measured[policy], measured[control]
+            sites = all(
+                s.get("fused_queries") == len(r["token_ids"]) - 1
+                for r in rows[policy]
+                for s in r["page_sites"]
+            )
+            decision.update(
+                throughput=measured,
+                fused_at_every_site=sites,
+                passed=decision["passed"]
+                and sites
+                and fused["peak"] < base["peak"]
+                and all(fused[k] > base[k] for k in ("prefill_tps", "decode_tps")),
+            )
+        return decision
     c, b = costs[policy], costs[control]
     exact = True
     for a, o, w in zip(rows[policy], rows[control], items, strict=True):
@@ -243,6 +275,13 @@ def run(name):
         digest(parent / "checksums.json") == spec["prerequisite_sha256"]
         and read(parent / "decision.json")["passed"]
     )
+    if "fused_export" in spec:
+        release = Path(spec["release"])
+        assert digest(release / "checksums.json") == spec["release_sha256"]
+        files = read(release / "export-files.json")
+        assert all(
+            digest(Path(spec["fused_export"]) / k) == v for k, v in files.items()
+        )
     budget = Budget(name, spec["limits"])
     policy = spec.get("attention_policy", "reserved")
     control = spec.get("control", "stock")
@@ -263,9 +302,17 @@ def run(name):
                     from ..evaluation.language7 import base
 
                     model, tok, _ = base()
+                elif "fused_export" in spec:
+                    from ..export_runtime import load_export
+
+                    model, tok = load_export(Path(spec["fused_export"]))
+                    object.__setattr__(model, "fused_packed_decode", True)
                 else:
                     model, tok, _ = load_trained(spec["checkpoint"])
-                if side in ("pages", "packed_pages", "direct_pages"):
+                if (
+                    side in ("pages", "packed_pages", "direct_pages")
+                    and "fused_export" not in spec
+                ):
                     from ..page_prefill import attach
 
                     slots = attach(
@@ -287,7 +334,10 @@ def run(name):
                     record_kv_history=policy
                     in ("pages", "packed_pages", "direct_pages"),
                 )
-                if side in ("pages", "packed_pages", "direct_pages"):
+                if (
+                    side in ("pages", "packed_pages", "direct_pages")
+                    and "fused_export" not in spec
+                ):
                     record["page_sites"] = [
                         dict(layer=i, turn=p, **slot.report())
                         for (i, p), slot in slots.items()

@@ -50,6 +50,7 @@ def main(verify):
                         "register-page-prefill-",
                         "register-page-full-",
                         "register-packed-",
+                        "register-fused-base-",
                         "native-language-release-02",
                     )
                 )
