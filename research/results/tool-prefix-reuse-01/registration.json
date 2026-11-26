@@ -1,0 +1,30 @@
+{
+  "id": "tool-prefix-reuse-01",
+  "question": "Does exact full-block reuse of a shared tool-session prefix preserve every generated token and reduce real multi-turn elapsed time?",
+  "model": "research/results/tool-dialogue-loop-01",
+  "qualification": "research/results/tool-dialogue-boundary-01",
+  "parent_sha256": "72f1c62583c618508eddf30144e4d3894275948537b946acd23b6c3a57fc014d",
+  "material": "research/data/tool-dialogue-boundary-01.json",
+  "items": [
+    "boundary-4-chain",
+    "boundary-0-compare",
+    "boundary-0-lookup",
+    "boundary-1-compare",
+    "boundary-5-chain",
+    "boundary-1-chain",
+    "boundary-2-chain",
+    "boundary-0-chain",
+    "boundary-4-lookup",
+    "boundary-2-lookup",
+    "boundary-3-lookup",
+    "boundary-3-chain"
+  ],
+  "ratio": 0.95,
+  "protocol": "First twelve corrected-primary trajectories containing more than one model turn, including incorrect sessions. Run every live interaction four times through identical callbacks with alternating ABBA/BAAB policy. Cache only aligned 128-token prefill blocks, each site retains separate KV or delta state. First turn timing includes snapshot creation. Same model, greedy settings, request IDs, and observations. Count total and per-item elapsed ratios, matched streams, number of reused prompt tokens. This is a latency crossover conditional on actual multistep calls.",
+  "gate": "All complete prompt and output token streams, observations, answers, and statuses identical on all four runs per case. At least 5% lower total session seconds and nonzero reused tokens. Otherwise retain full-prefill default.",
+  "limits": {
+    "wall_seconds": 230,
+    "peak_gib": 6.5,
+    "available_gib": 1.4
+  }
+}
