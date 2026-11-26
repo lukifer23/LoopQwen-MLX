@@ -13,10 +13,13 @@ The qualified installation is `exports/tool-language-packed-03`. Its parent repr
 
 The packed release reproduced 512 next-token decisions and 512 losses after consuming two entire books, all 12 shorter requests and two actual installed-version trajectories. Its two further 24,593-token register generations completed in 32.44 versus 37.52 s for the previous release with 13.74% lower peak. The independent 131,080-token comparison of that register policy against Base scored 2/2 versus 0/2 in 171.88 versus 391.67 s with 25.99% lower peak and slower post-first-token generation. [Offline crossover](../research/results/packed-release-retention-01) · [Physical 131K comparison](../research/results/register-packed-direct-full-01)
 
+An outside-checkout replay uncovered a difference between shipped and research inference on the 131,084-token pair. Release 03 and the first compact bundle selected the correct spans but returned 876667 twice. Their bundled evidence mask omitted the packed cache class. Both book streams, 12 short outputs and two live tool calls matched. The compact candidate failed its release gate. [Qualification and transcripts](../research/results/packed-release-retention-02) · [Fixed-mask test](../research/experiments/packed-release-retention-03.json)
+
 ## Learned tool selection and language transfer
 
 | Measured comparison | Recurrent candidate | Untouched Base |
 | --- | ---: | ---: |
+| Grounded answers using full article and paper files, 32 questions | 1 correct, 32 requests with a call | 0 correct, no calls |
 | Grounded execution, 78 public, human math and live resource requests | 45 correct in 54.56 s | 0 correct in 333.15 s |
 | Both requested properties of the same live resource | 6/16 | 0/16 |
 | Final numeric answer on the 24 human word problems | 6/24 | 14/24 |

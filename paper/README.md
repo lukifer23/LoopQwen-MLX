@@ -6,6 +6,8 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Four process-isolated 50-request streams and tokenizer counts](tokenizer-streams.csv)
 - [131K mixed-weight requests, prefill and decode rates, setup costs and physical histories](mixed-weight-requests.csv)
 - [Every full 131K request in counterbalanced execution order](full-decoder.csv)
+- [All four compact offline workload streams, with native and process memory](compact-register-streams.csv)
+- [Every article and paper response with returned character ranges](document-search-responses.csv)
 - [Manuscript source](loopqwen.typ)
 - [Both tool families and final-answer accuracy across 78 requests](intent-scores.csv)
 - [First executed operation and both operand values against the expert on each financial question](report-first-calculations.csv)

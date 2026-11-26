@@ -45,6 +45,8 @@ A two-pass semantic alignment model answered 44/48 Wikipedia paraphrase comparis
 
 The latest qualified offline assistant is **`exports/tool-language-packed-03`**. It enables packed prefill on register requests of at least 16,384 tokens. In an isolated comparison against its parent it answered both 24,593-token swaps identically in 32.44 versus 37.52 s, with peak allocation of 1.94 versus 2.25 GiB. It also reproduced all 512 per-token losses and predictions after reading two whole books, 12 short generations and two actual package calls. [Deployment qualification](research/results/packed-release-retention-01)
 
+On a separate 131,084-token replay, the isolated packed-03 bundle located the correct passages but produced the wrong code on both requests. Its bundled evidence-mask code skipped packed caches. The direct 131K research result uses a runtime that applies the mask. [Isolated outputs](research/results/packed-release-retention-02)
+
 The parent release `exports/tool-language-field-02` established the field CLI and exact language replay. Its self-contained CLI supports Python packages, JSON catalogs, a calculator and SQLite databases. It reproduced all 22 public tool sessions and all 200 shorter language generations. It answered four of five live package queries and both physical 131,083-token register lookups. The lookups took 526.79 seconds combined. Raw-text loss matched the prior release in all five domains, with pooled NLL 2.982658 on 9,328 targets. On four additional CLI requests the installed and isolated runtimes agreed on every token, call and observation. Two satisfied the strict one-call criterion. [Qualification, per-file hashes and exact output streams](research/results/tool-language-release-02) · [Rebuild the export](docs/TRAINING.md#reproducing-executable-tool-training-and-evaluation)
 
 ```sh
@@ -94,6 +96,8 @@ For read-only search over your own text or Markdown files, supply each file usin
   --max-tokens 384 --trace
 ```
 
+
+On the repository’s own training guide, the recurrent assistant retrieved the exact Phase 6 shell command and repeated the search twice before reaching the turn limit. Base reached the token limit without a call. On 32 independent article and paper questions the release returned one grounded exact answer versus zero. [Installed document comparison](docs/measurements/local-document-comparison.json) · [All document outcomes](research/results/document-search-field-01)
 
 The installed runtime caches the tokenizer for the qualified packed-03 export. Across four fresh 50-request streams with 200 identical outputs, callbacks and outcomes, the change reduced combined wait on 30 tool/language switches from 29.43 to 16.39 s. Peak native allocation stayed at 1,810,571,734 bytes. Maximum process RSS fell from 2.70 to 1.92 GB. Both policies keep one active backbone. Python callers can reproduce the original behavior with `Assistant(directory, reuse_tokenizer=False)`. The self-contained archive retains the runtime identified by its file hashes. [Verified four-stream crossover](research/results/session-tokenizer-01)
 
