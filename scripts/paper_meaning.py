@@ -7,7 +7,8 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-from loopqwen.io import read
+from loopqwen.evaluation.mechanism import unpack
+from loopqwen.io import digest, read
 
 
 def words(text):
@@ -76,6 +77,58 @@ def make(paper, results, result, finish):
                 )
     if not (results / name / "checksums.json").is_file():
         return
+    root = results / name
+    inventory = read(root / "checksums.json")
+    with (paper / "meaning-requests.csv").open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            [
+                "id",
+                "shared_anchor",
+                "domain",
+                "expected_yes",
+                "side",
+                "input_tokens",
+                "output_tokens",
+                "completed",
+                "free_judgment",
+                "correct",
+                "reply",
+                "probe_yes",
+                "probe_yes_minus_no_logit",
+                "generation_s",
+                "first_token_s",
+                "peak_bytes",
+                "probe_s",
+            ]
+        )
+        for side in ("candidate", "control"):
+            path = root / (side + ".json.gz")
+            assert digest(path) == inventory[path.name]
+            for item, row in zip(panel, unpack(path), strict=True):
+                assert item["id"] == row["id"]
+                score = row["score"]
+                writer.writerow(
+                    [
+                        row["id"],
+                        item["pair"],
+                        item["domain"],
+                        bool(item["label"]),
+                        side,
+                        len(item["prompt_ids"]),
+                        len(row["ids"]),
+                        score["completed"],
+                        score["judgment"],
+                        score["correct"],
+                        score["visible"],
+                        row["probe"][2],
+                        row["probe"][1] - row["probe"][0],
+                        row["seconds"],
+                        row["ttft"],
+                        row["peak"],
+                        row["probe_seconds"],
+                    ]
+                )
     groups = result(name)["groups"]
     fig, axes = plt.subplots(1, 2, figsize=(7.2, 2.35), sharey=True)
     with (paper / "meaning-outcomes.csv").open("w") as f:
