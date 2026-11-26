@@ -44,3 +44,12 @@ def test_science_supports_and_distractors_do_not_cross_splits():
         assert current.isdisjoint(seen)
         assert all(len(set(r["supports"])) == 2 and len(r["facts"]) == 6 for r in rows)
         seen.update(current)
+
+
+def test_science_scorer_accepts_answer_text_without_grading_an_article_as_a_letter():
+    from loopqwen.research.science_data import answer
+
+    options = ["beads", "clouds", "liquid", "rocks", "rain", "crystals", "dust", "mist"]
+    assert answer("The answer is a liquid.", options) == "C"
+    assert answer("**Answer: B.**", options) == "B"
+    assert answer("B or C", options) is None

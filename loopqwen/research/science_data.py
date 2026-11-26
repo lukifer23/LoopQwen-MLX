@@ -124,12 +124,28 @@ def material(s):
 
 
 def answer(text, options):
-    matches = re.findall(r"(?<!\w)([A-H])(?!\w)", text.strip())
-    last = re.search(r"(?:answer(?: is)?|choice|option)\s*[:( ]+([A-H])\b", text, re.IGNORECASE)
-    if last:
-        return last.group(1).upper()
+    text = text.replace("*", "").strip()
+    explicit = re.findall(
+        r"(?i:\b(?:answer(?: is)?|choice|option))\s*[:( ]+([A-H])\b", text
+    )
+    if explicit:
+        return explicit[-1]
+    matches = re.findall(r"(?<!\w)([A-H])(?!\w)", text)
     if len(set(matches)) == 1:
         return matches[0]
-    value = normalize(text)
-    identical = [i for i, v in enumerate(options) if normalize(v) == value]
+    final = re.split(
+        r"\b(?:final answer(?: is)?|answer is)\s*:?\s*", text, flags=re.IGNORECASE
+    )[-1]
+    value = normalize(final)
+    identical = [
+        i
+        for i, v in enumerate(options)
+        if value
+        in {
+            normalize(v),
+            "a " + normalize(v),
+            "an " + normalize(v),
+            "the " + normalize(v),
+        }
+    ]
     return LETTERS[identical[0]] if len(identical) == 1 else None
