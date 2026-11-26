@@ -342,6 +342,9 @@ def main():
     system_comparisons(PAPER, RESULTS, result)
     benchmark_table()
     training_lineage()
+    from paper_architecture import make as draw_paths
+
+    draw_paths(finish)
     historical()
     tools_figure()
     trajectory_details()

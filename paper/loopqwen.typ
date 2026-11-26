@@ -47,6 +47,8 @@ The strongest induction result uses a different placement of recurrence. Layers 
 
 The two-read deduction component instead learns retrieval steps and runs the pretrained 10–15 span on sentence states. The register component scans overlapping windows of token-embedding features, scores windows against the query, and biases native attention toward the selected passage at generation. Its full-history decoder still consumes every token. The deployed language policy selects a component from the request, including an ordinary Base path. For induction, both a story gate and a 4,098-parameter question-intent classifier must accept the input.
 
+#figure(image("recurrent-paths.svg",width:96%),caption:[Two uses of a repeated native decoder layer. In each row, green boxes denote calls to the same physical weights. The tool loop through an external program adds a separate level of iteration.])
+
 == Training and comparison rules
 The induction fit uses 1,536 training stories, 3,000 Adam updates, batches of 32 and 552,810 trainable parameters per arm. The question and nine shuffled facts are identical for paired models. We count completed answers, also score four candidate words at a shared prefix, and measure full inference time. We retain all enrolled ambiguous items. The different training seeds change initialization and minibatch order together. The system and depth comparisons answer different questions and have different controls.
 
