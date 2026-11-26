@@ -129,6 +129,7 @@ class DirectPackedPageCache(PackedPageCache):
         super().__init__(prompt_length)
         self.fused_decode = fused_decode
         self.fused_queries = 0
+        self.reader_biased_queries = 0
         if capacity < prompt_length:
             raise ValueError("Packed cache capacity must cover the prompt")
         self.capacity = capacity
@@ -153,6 +154,16 @@ class DirectPackedPageCache(PackedPageCache):
 
     def dense_attention(self, q, k, v, scale, mask):
         length = q.shape[2]
+        if getattr(self, "reader_bias", False) and self.offset >= self.prompt_length:
+            if not isinstance(mask, mx.array) or not mx.issubdtype(
+                mask.dtype, mx.floating
+            ):
+                raise ValueError(
+                    "The packed reader requires its additive evidence mask"
+                )
+            self.reader_biased_queries += min(
+                length, self.offset - self.prompt_length + 1
+            )
         if (
             self.fused_decode
             and length == 1
@@ -204,6 +215,7 @@ class DirectPackedPageCache(PackedPageCache):
         return dict(
             super().report(),
             capacity=self.keys[0].shape[2],
+            reader_biased_queries=self.reader_biased_queries,
             **({"fused_queries": self.fused_queries} if self.fused_decode else {}),
             direct_queries=self.direct_queries,
             direct_tiles=self.direct_tiles,

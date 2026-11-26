@@ -116,3 +116,29 @@ def test_full_context_intervention_changes_only_the_two_key_names():
         (x, y),
         (y, x),
     ]
+
+
+def test_reader_bias_reaches_quantized_attention_and_changes_the_output():
+    from types import SimpleNamespace
+
+    from loopqwen.page_prefill import DirectPackedPageCache
+
+    acquire()
+    cache = DirectPackedPageCache(24, 25)
+    earlier = DirectPackedPageCache(24, 25)
+    attach_bias(
+        SimpleNamespace(slots={(3, 0): earlier, (11, 1): cache}),
+        {"start": 5, "stop": 8, "length": 24, "gain": 7.0},
+    )
+    k = mx.zeros((1, 1, 24, 64), mx.bfloat16)
+    v = mx.zeros_like(k)
+    v[:, :, 5:8, :] = 1
+    mask = cache.make_mask(24)
+    bundles = cache.update_and_fetch(k, v)
+    q = mx.zeros((1, 1, 24, 64), mx.bfloat16)
+    answer = cache.dense_attention(q, *bundles, 0.125, mask)
+    plain = earlier.dense_attention(q, *earlier.update_and_fetch(k, v), 0.125, "causal")
+    assert answer[0, 0, -1].mean().item() > 0.95
+    assert plain[0, 0, -1].mean().item() < 0.15
+    assert cache.report()["reader_biased_queries"] == 1
+    assert earlier.report()["reader_biased_queries"] == 0
