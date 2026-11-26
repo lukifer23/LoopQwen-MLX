@@ -114,7 +114,8 @@ def verify(root, decision):
             )
             if spec.get("git_listing"):
                 assert (
-                    0 < r["load_seconds"] < r["cold_seconds"]
+                    0 < r["load_seconds"] < r["cold_first_seconds"] <= r["cold_seconds"]
+                    and r["cold_first_seconds"] >= r["load_seconds"] + r["ttft_s"]
                     and r["cold_seconds"] >= r["load_seconds"] + r["elapsed_s"]
                 )
             assert (
