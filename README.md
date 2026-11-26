@@ -17,7 +17,7 @@ Run the first held-out confirmation question through the normal CLI. It asks for
 .venv/bin/python -m loopqwen generate --checkpoint research/results/native-language-release-02/model --thinking --prompt-file /tmp/loopqwen-induction.txt --max-tokens 768
 ```
 
-The locally built standalone directory is `exports/native-language-release-02`. To recreate it in a new directory from the pinned Base snapshot, run `.venv/bin/python -m loopqwen export --checkpoint research/results/native-language-release-02/model --output exports/my-native-loop`. Its isolated-process check covers both reasoning readers and all decoder banks. [Training and reproduction](docs/TRAINING.md#reproducing-the-three-pass-native-layer-comparison) · [Complete export file hashes](research/results/native-language-release-02/export-files.json)
+The locally built standalone directory is `exports/native-language-release-02`. To recreate it in a new directory from the pinned Base snapshot, run `.venv/bin/python -m loopqwen export --checkpoint research/results/native-language-release-02/model --output exports/my-native-loop`. Its isolated-process check covers both reasoning readers and all decoder banks. [Training and reproduction](docs/TRAINING.md#reproducing-the-three-pass-native-layer-comparison) · [Complete export file hashes](research/results/native-language-release-02/export-files.json) · [Verified public CLI requests](docs/measurements/native-language-release-cli.json)
 
 ## Previous two-fact checkpoint
 
