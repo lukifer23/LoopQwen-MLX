@@ -9,7 +9,11 @@ from loopqwen.io import digest, read
 
 def make(paper, results, result):
     rows = []
-    for study in ("conversation-followup-01", "conversation-followup-modules-01"):
+    for study in (
+        "conversation-followup-01",
+        "conversation-followup-modules-01",
+        "conversation-followup-depth-01",
+    ):
         path = results / study
         if not (path / "checksums.json").exists():
             continue
