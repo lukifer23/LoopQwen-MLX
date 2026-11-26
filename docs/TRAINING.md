@@ -262,3 +262,7 @@ To rebuild the standalone assistant from the verified parent artifacts in a fres
 ```
 
 The [paper and supplements](../paper/README.md) include the structured outcomes, compute costs, controls and data attribution. The [local package example](../examples/local_packages.py) shows how a caller passes ordinary Python functions into an interactive tool session.
+
+### Human reasoning and real tool workloads
+
+`scripts/tool_study.py STUDY` fits or restores exactly the weights in the registration. The calculator study is `tool-dialogue-program-reasoning-01`, the unchanged-model SQLite and installed-package studies are `tool-dialogue-table-transfer-01` and `tool-dialogue-package-chain-01`, and the cross-service venue study is `tool-dialogue-venue-state-02`. The venue builder records the whole human conversation up to each enrolled turn, freezes two inventories and checks every training count with both SQLite and a separate row filter. `scripts/contrast_study.py contrast-boolq-transfer-01` runs the human-edited reading comparison. The natural document and raw language studies use `python -m loopqwen.research.bridge_reading bridge-reading-01` and `python -m loopqwen.research.cache_language cache-language-01`. Each command needs the environment and exclusive native lease described above. [Study registrations](../research/experiments) · [Data notices](../research/licenses)

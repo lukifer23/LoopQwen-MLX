@@ -22,9 +22,11 @@
     "mixed_language_and_register_through_131083": "research/results/conditional-language-02/model",
     "combined_deduction_and_128k": "research/results/evidence-language-release-01/model",
     "native_three_fact_induction": "research/results/native-induction-anchored-01",
-    "combined_native_induction_deduction_and_128k": "research/results/native-language-release-02/model"
+    "combined_native_induction_deduction_and_128k": "research/results/native-language-release-02/model",
+    "offline_tool_and_language": "research/results/tool-language-release-01",
+    "public_numeric_tool_execution_vs_base": "research/results/tool-dialogue-typed-01"
   },
-  "frontier": "Native layer 15 at three passes achieved 124/128 vs 58/128 with matched one-pass training. On confirmation the same weights at one pass scored 19/64 vs 62/64. A one-pass answer-only control with 15,000 updates reached 28/64, an independent seed gave 53/64 vs 25/64, and whole class-swap pairs were 32/32 vs 1/32. At an explicit induction rule, the frozen loop answered 32/32 vs 5/32 for Base. The shipping export preserved all 200 prior token streams, all 192 tested negative-intent routes, exact raw NLL and both full-history key swaps at 131083 input tokens.",
+  "frontier": "The deployed conditional language and tool assistant reproduced all 22 public tool transcripts, all 200 established language generations, raw retention NLL 2.982658 and both physical 131083-token context swaps. Native K3 induction remains 124/128 versus 58/128 matched K1. The tool component completed 17/22 executions versus 0/22 Base and 18/22 matched K1. It obtained 18/24 versus 8/24 on unseen multi-function schemas. Neither human contrastive reading fit beat Base. No system-wide depth or all-metrics superiority is established.",
   "next": null,
   "completed": [
     {

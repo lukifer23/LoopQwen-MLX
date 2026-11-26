@@ -417,3 +417,18 @@ Both arithmetic finishers agreed on every item's correctness. The two inference 
 ### Final resident full-history deployment
 
 The combined checkpoint from the 80-request comparison processed two 131,083-token documents and retrieved both counterfactual values. Base retrieved neither. Candidate generation took 262.37 and 262.13 seconds; Base took 196.78 and 196.42 seconds. The first token arrived at about 261 seconds for the candidate. MLX peak allocation was 4.32 GiB for the run. Both three-token keys and the complete token permutation were verified before inference. On the 2,054-token preflight the resident and disk-backed candidates selected the same passage and emitted the same 29 tokens. The 128K evidence covers two versions of one synthetic lookup document. [Exact outputs, TTFT and archive verification](../research/results/conditional-language-128k)
+
+## Frozen public tool model and independent reading tests
+
+| Workload | Recurrent result | Comparator | Measured seconds, recurrent / comparator |
+| --- | ---: | ---: | ---: |
+| Human numerical requests with executed calls, 22 | 17 | 0 untouched Base | 15.15 / 82.82 |
+| Same numerical requests, unchanged instruction-tuned sibling | 17 | 0 sibling | 15.18 / 123.78 |
+| Same numerical requests, trained one-pass sibling | 17 | 18 matched K1 | 14.98 / 14.37 |
+| Multiple competing function schemas, 24 | 18 | 8 untouched Base | 10.23 / 82.29 |
+| Historical single-function transfer panel, 24 | 16 | 8 untouched Base | 7.18 / 95.46 |
+| Two controlled catalogs, 80 | 53 | 12 untouched Base | 40.77 / 170.62 |
+| Both original and edited BoolQ questions correct, first 32 passages | 10 | 12 untouched Base | 8.29 / 133.93 |
+| Both original and edited BoolQ questions correct, other 32 passages | 15 | 19 untouched Base | 6.84 / 142.84 |
+
+The 22 numerical executions measured 17 correct final quantities against eight for Base even when scoring answers independently of tool use. Median initial first-token latency was 92.81 ms against 91.46 ms. The same packaged tool model reproduced all 22 public transcripts and four of five live installed-version queries. The ordinary branch reproduced all 200 earlier language generations, raw NLL 2.982658 on 9,328 tokens and both full-history 131,083-token swaps. Two packaged backbones occupy 2.207 GiB. Public schema selection and live numerical execution measure different behaviors. [Paired transfer data](../paper/typed-transfer.csv) · [Latency profiles](../paper/tool-latency.csv) · [Offline export archive](../research/results/tool-language-release-01)
