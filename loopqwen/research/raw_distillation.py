@@ -35,7 +35,12 @@ def pad(rows):
 def teacher_targets(spec, rows, out, budget):
     t = spec["teacher"]
     d = Path(
-        snapshot_download(t["repo"], revision=t["revision"], local_files_only=True)
+        snapshot_download(
+            t["repo"],
+            revision=t["revision"],
+            local_files_only=True,
+            allow_patterns=["*.json", "*.safetensors", "merges.txt", "*.jinja"],
+        )
     )
     path = d / t["shard"]
     if digest(path) != t["sha256"] or digest(d / "tokenizer.json") != digest(
