@@ -73,7 +73,11 @@ def respond(args, parser):
         if not supplied:
             parser.error("Select a catalog, calculator, packages or a database table")
         result = Assistant(args.checkpoint).respond(
-            args.prompt, supplied, max_tokens=args.max_tokens, max_turns=args.max_turns
+            args.prompt,
+            supplied,
+            max_tokens=args.max_tokens,
+            max_turns=args.max_turns,
+            reuse_prefix=args.reuse_prefix,
         )
     if not args.trace:
         result = {k: v for k, v in result.items() if k != "turns"} | {
