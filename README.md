@@ -2,7 +2,7 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. The original six-layer architecture runs layers 10–15 twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Each recurrent adapter adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
-On a fresh **131,073-token** register key swap, causal page prefill answered **2/2 versus 0/2** for ordinary Base in **176.55 versus 391.72 seconds**. Peak MLX memory was **4.32 versus 3.78 GiB**. Each recurrent attention site retained every consumed position. [Full comparison and recorded outputs](research/results/register-page-full-01)
+On a fresh **131,080-token** register lookup and its counterfactual, the looped decoder answered **2/2 versus 0/2** for untouched Base. It finished in **171.88 versus 391.67 seconds** and peaked at **2.80 versus 3.78 GiB** on an 18 GiB M3 Pro. Changing which name matched the query changed its answer while every numeric value stayed in place. All eight recurrent global attention sites retained the complete consumed history. [Frozen inputs, generated outputs, and verified measurements](research/results/register-packed-direct-full-01)
 
 ## Research report and executable tools
 
