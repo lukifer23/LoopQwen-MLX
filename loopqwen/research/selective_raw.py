@@ -343,6 +343,9 @@ def verify(root, d):
             spec["teacher"]["sha256"] if label == "large" else REVISION
         )
     if spec.get("future_width"):
+        from .future_token_fit import verify_material
+
+        verify_material(spec, items, rows)
         assert (
             meta["future_targets"] == meta["seen"]
             and meta["aux_parameters"] == 2 * 1024 * spec["future_width"]

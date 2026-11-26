@@ -241,3 +241,34 @@ def check_continuations(records, items, indices):
             and r["cached"] == r["full"]
         )
     return consistent
+
+
+def verify_material(spec, items, training):
+    from collections import Counter
+
+    def grams(ids):
+        return {tuple(ids[i : i + 24]) for i in range(len(ids) - 23)}
+
+    fresh = [w for w in items if w["suite"] == "fresh"]
+    assert len({w["id"] for w in items}) == len(items)
+    assert Counter(w["category"] for w in fresh) == {
+        "fiction": 32,
+        "memoir": 32,
+        "manual": 32,
+        "encyclopedia": 32,
+    }
+    assert sorted(Counter(w["source"] for w in fresh).values()) == [4] * 16 + [8] * 8
+    occupied = set()
+    prior = [*training, *[w for w in items if w["suite"] != "fresh"]]
+    for name in ("selective-raw-panel", "cache-language-train", "cache-language-test"):
+        prior.extend(read(Path("research/data") / (name + ".json"))["rows"])
+    for w in prior:
+        occupied.update(grams(w["ids"]))
+    for w in fresh:
+        spans = grams(w["ids"])
+        assert 64 <= len(w["ids"]) <= 129 and not spans.intersection(occupied)
+        occupied.update(spans)
+    assert all(
+        sum(p + 2 < len(w["ids"]) for p in w["positions"]) >= spec["per_document"]
+        for w in training
+    )
