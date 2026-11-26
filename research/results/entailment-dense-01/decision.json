@@ -1,0 +1,148 @@
+{
+  "passed": false,
+  "registration": "6372366d10899969e24412e007f818f7fd698dc03b222d0c844d06af46f02958",
+  "training": "a784e0c81e5fe458e6fdf273bb99f116584c5f7c3c4d851edc17482f938a426d",
+  "panels": [
+    "ed13ddd358b640ad079f9796aa035fe2d7649447a338c122ce34f7c029823bbe",
+    "fa01991e4428d318a3e3cb50420e3cc1a146e5cda12844e92ae37afdf6a2a714"
+  ],
+  "weights": "034a192df98205aa90741d4a7e067b56e3264d942bd53f8138e9c9ad691282a3",
+  "targets": 53681,
+  "updates": 240,
+  "status": "completed",
+  "scores": {
+    "all": {
+      "n": 120,
+      "wins": 3,
+      "losses": 3,
+      "p": 1.0,
+      "premise_p": 1.0,
+      "dense": {
+        "correct": 85,
+        "complete": 120,
+        "probe": 91,
+        "seconds": 31.91871671314584,
+        "tokens": 1732,
+        "triplets": 15
+      },
+      "recurrent": {
+        "correct": 85,
+        "complete": 120,
+        "probe": 88,
+        "seconds": 39.12900863410323,
+        "tokens": 1675,
+        "triplets": 15
+      }
+    },
+    "esnli": {
+      "n": 60,
+      "wins": 1,
+      "losses": 2,
+      "p": 1.0,
+      "premise_p": 1.0,
+      "dense": {
+        "correct": 44,
+        "complete": 60,
+        "probe": 48,
+        "seconds": 19.166107000113698,
+        "tokens": 1072,
+        "triplets": 8
+      },
+      "recurrent": {
+        "correct": 43,
+        "complete": 60,
+        "probe": 47,
+        "seconds": 23.07101979505387,
+        "tokens": 1015,
+        "triplets": 7
+      }
+    },
+    "multinli": {
+      "n": 60,
+      "wins": 2,
+      "losses": 1,
+      "p": 1.0,
+      "premise_p": 1.0,
+      "dense": {
+        "correct": 41,
+        "complete": 60,
+        "probe": 43,
+        "seconds": 12.752609713032143,
+        "tokens": 660,
+        "triplets": 7
+      },
+      "recurrent": {
+        "correct": 42,
+        "complete": 60,
+        "probe": 41,
+        "seconds": 16.057988839049358,
+        "tokens": 660,
+        "triplets": 8
+      }
+    }
+  },
+  "retention": {
+    "dense": {
+      "nll": 2.9308573699989204,
+      "by_domain": {
+        "code_description": {
+          "loss": 4354.769818067551,
+          "tokens": 1733,
+          "nll": 2.5128504432011254
+        },
+        "general_prose": {
+          "loss": 7077.778832435608,
+          "tokens": 1911,
+          "nll": 3.7037042555916315
+        },
+        "reference": {
+          "loss": 3997.9589499235153,
+          "tokens": 1680,
+          "nll": 2.3797374701925684
+        },
+        "scientific_exposition": {
+          "loss": 7186.263425588608,
+          "tokens": 2291,
+          "nll": 3.1367365454337004
+        },
+        "technical_explanation": {
+          "loss": 4722.266521334648,
+          "tokens": 1713,
+          "nll": 2.7567230130383233
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    },
+    "recurrent": {
+      "nll": 2.931961414309963,
+      "by_domain": {
+        "code_description": {
+          "loss": 4362.2130935788155,
+          "tokens": 1733,
+          "nll": 2.5171454665775044
+        },
+        "general_prose": {
+          "loss": 7084.927763462067,
+          "tokens": 1911,
+          "nll": 3.7074451928111287
+        },
+        "reference": {
+          "loss": 3996.8290071487427,
+          "tokens": 1680,
+          "nll": 2.379064885207585
+        },
+        "scientific_exposition": {
+          "loss": 7180.845119893551,
+          "tokens": 2291,
+          "nll": 3.1343715058461594
+        },
+        "technical_explanation": {
+          "loss": 4724.521088600159,
+          "tokens": 1713,
+          "nll": 2.758039164390052
+        }
+      },
+      "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "entailment-dense-01",
+  "question": "What part of the independently replicated improvement in natural inference survives a comparison with an equally trained ordinary-depth model?",
+  "expert": {
+    "model": "research/results/entailment-triplets-01/model",
+    "weights": "1d69dd71119f57503321dd361348acee5bb9989ac92e82a7f9309a06e9bc4c68",
+    "qualification": {
+      "directory": "research/results/entailment-triplets-01",
+      "inventory": "377952bcab32427d8887ff66ad26248dba4d2d7acb1af3942b8513f6759194b5",
+      "audit": "docs/measurements/answer-audits/entailment-triplets-01.json",
+      "audit_sha256": "14ba8d9807367f01736082e4f2be0fef102a95ec4c27c956ec6e830f4a1a69cb"
+    },
+    "confirmation": {
+      "directory": "research/results/entailment-triplets-confirm-01",
+      "inventory": "2ce8a57ec678a3032e09a731dbef2c49561a67f453a5c55ec503350073bcd85a",
+      "audit": "docs/measurements/answer-audits/entailment-triplets-confirm-01.json",
+      "audit_sha256": "db93137d33cf72fea79bfeceea774bacb0ca9e83c51475a8310d94a0b6441559"
+    }
+  },
+  "dense_control": "research/results/rationale-dense-01/model",
+  "dense_sha256": "54c4a33a8b44e72c9a05cb2422ae68e7a3ad510fadd42192bbb62dfe7dda0d1a",
+  "net_floor": 3,
+  "max_time_ratio": 1.5,
+  "protocol": "Train the ordinary-depth twin on exactly the same 240 updates and ordered 1680 documents including human triplets and raw anchors. Greedily replay the entire 120-item original plus confirmation panel at both depths using the two original prompt wordings and matching 1024-token budgets; require the fresh recurrent token streams and probe logits to match both immutable archives. Record actual generation time, three-way probe, complete triplets and V3 raw loss.",
+  "decision": "Attribute a cohort-level advantage to the recurrent training and deployment path only if at least three more completed correct judgments, no source deficit, more correct probability probes and complete triplets, elapsed K2 time at most 1.5 times K1, and K2 NLL within K1+0.03. Report premise-cluster test. Failure closes attribution for this checkpoint. This comparison does not select, train or replace either qualified expert.",
+  "limits": {
+    "wall_seconds": 790,
+    "peak_gib": 6.0,
+    "available_gib": 1.5
+  }
+}
