@@ -6,6 +6,7 @@ import json
 import matplotlib.pyplot as plt
 
 from loopqwen.evaluation.mechanism import unpack
+from loopqwen.evaluation.statistics import exact_mcnemar
 from loopqwen.io import digest, read
 from loopqwen.research.mixed_field import outcome
 
@@ -70,6 +71,50 @@ def make(paper, results, result, finish):
         writer = csv.writer(output)
         writer.writerow(header)
         writer.writerows(rows)
+    with (paper / "mixed-family-sensitivity.csv").open("w") as output:
+        writer = csv.writer(output)
+        writer.writerow(
+            [
+                "omitted_family",
+                "requests",
+                "candidate_correct",
+                "base_correct",
+                "candidate_only",
+                "base_only",
+                "paired_p",
+                "candidate_wall_s",
+                "base_wall_s",
+            ]
+        )
+        for excluded in labels:
+            if excluded == "all":
+                continue
+            pairs = [
+                (a, b)
+                for a, b in zip(data["candidate"], data["control"], strict=True)
+                if a["family"] != excluded
+            ]
+            assert all(
+                a["id"] == b["id"] and a["family"] == b["family"] for a, b in pairs
+            )
+            outcomes = [
+                (a["score"]["success"], b["score"]["success"]) for a, b in pairs
+            ]
+            wins = outcomes.count((True, False))
+            losses = outcomes.count((False, True))
+            writer.writerow(
+                [
+                    excluded,
+                    len(pairs),
+                    sum(a for a, _ in outcomes),
+                    sum(b for _, b in outcomes),
+                    wins,
+                    losses,
+                    exact_mcnemar(wins, losses),
+                    sum(a["wall_s"] for a, _ in pairs),
+                    sum(b["wall_s"] for _, b in pairs),
+                ]
+            )
     fig, axes = plt.subplots(1, 4, figsize=(7.05, 2.65), sharey=True)
     items = list(labels)
     for i, key in enumerate(items):
