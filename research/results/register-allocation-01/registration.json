@@ -1,0 +1,21 @@
+{
+  "id": "register-allocation-01",
+  "question": "Can reserving contiguous full-history MLX key/value storage before the first update improve time to first token without increasing peak memory or changing any answer?",
+  "material": "research/data/register-rebalanced-01.json",
+  "seeds": [
+    145783,
+    145883
+  ],
+  "requires": "research/results/native-language-release-02",
+  "prerequisite_sha256": "9a30f346fcc192b6294367574cdb270bdfabe99553a7556861717d7108fc16c8",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "max_tokens": 96,
+  "protocol": "Run the qualified recurrent language release unchanged under two allocation policies. On each of the same 4 registered 16K/32K requests, alternate the first model, reload weights and reset peak per run. Stock KV grows in 256-token blocks. Reserved KV allocates input length plus the full generation allowance minus one in the original dtype. Both include the same router, 128-token chunks and all eight global attention sites. Record all output token IDs, retrieved spans, number of allocated positions, consumed offsets, actual TTFT, total time and peak. The scored comparison isolates allocation alone.",
+  "gate": "All four answers correct with the same output IDs, evidence spans, router and input IDs as stock. Require native full-history tensors at every global site, at least 5% lower combined TTFT, no increase in combined elapsed time or maximum MLX bytes. A pass permits a separate fresh full-history comparison with Base. A failure closes this optimization for deployment.",
+  "limits": {
+    "wall_seconds": 420,
+    "peak_gib": 6.5,
+    "available_gib": 1.4
+  },
+  "ratio": 0.95
+}
