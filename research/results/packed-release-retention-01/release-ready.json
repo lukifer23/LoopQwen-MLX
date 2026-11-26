@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "evidence": true,
+  "books_exact": 2,
+  "short_exact": 12,
+  "tool_exact": 2,
+  "register_exact_correct": 2,
+  "metrics": {
+    "candidate": {
+      "register_seconds": 32.43609891697997,
+      "register_ttft": 30.824119499971857,
+      "register_peak": 2085227658,
+      "book_seconds": 48.55065562497475,
+      "book_peak": 2530620753,
+      "book_nll": [
+        3.0096035562455654,
+        3.410125896334648
+      ],
+      "book_top1": [
+        102,
+        90
+      ],
+      "cold": 1.3741804159944877
+    },
+    "control": {
+      "register_seconds": 37.523153583024396,
+      "register_ttft": 36.12492979102535,
+      "register_peak": 2417359042,
+      "book_seconds": 48.717030831990996,
+      "book_peak": 2530604333,
+      "book_nll": [
+        3.0096035562455654,
+        3.410125896334648
+      ],
+      "book_top1": [
+        102,
+        90
+      ],
+      "cold": 1.2616438739933074
+    }
+  }
+}
