@@ -90,7 +90,9 @@ def verify(root):
         from scripts.research_depth_audit import verify_science
 
         verify_science(root, decision, read, sha, require)
-    if study == "short-depth-transfer-01" or study.startswith("deduction-"):
+    if study == "short-depth-transfer-01" or study.startswith(
+        ("deduction-", "native-induction-")
+    ):
         from scripts import research_depth_audit
 
         research_depth_audit.verify(

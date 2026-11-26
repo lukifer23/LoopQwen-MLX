@@ -59,12 +59,16 @@ def verify(root, decision, read, sha, require, number):
                 pred = number(tokens, r["text"])
                 gold = item["gold"]
             else:
-                from loopqwen.research.deduction_data import answer
+                if reg["id"].startswith("native-induction-"):
+                    from loopqwen.research.induction_data import answer, WORDS as words
+                else:
+                    from loopqwen.research.deduction_data import answer
+
+                    words = ("cat", "mouse", "wolf", "sheep")
 
                 body = re.split(r"<\|(?:im_end|endoftext)\|>$", r["text"])[0]
                 pred = answer(body.split("</think>")[1]) if complete else None
                 gold = item["answer"]
-                words = ("cat", "mouse", "wolf", "sheep")
                 require(
                     r["probe"]
                     == words[max(range(4), key=r["probe_logits"].__getitem__)],

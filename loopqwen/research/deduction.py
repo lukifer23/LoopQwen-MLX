@@ -52,10 +52,11 @@ def load_material(s, freeze):
     return read(panel)
 
 
-def training_inputs(model, t, rows, depth, b, encoder):
+def training_inputs(
+    model, t, rows, depth, b, encoder, response=deduction_data.response
+):
     responses = [
-        t.encode(deduction_data.response(r["answer"]), add_special_tokens=False)
-        for r in rows
+        t.encode(response(r["answer"]), add_special_tokens=False) for r in rows
     ]
     vocab = sorted(set().union(*map(set, responses)))
     if len({len(r) for r in responses}) != 1:
