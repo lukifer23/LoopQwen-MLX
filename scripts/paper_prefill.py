@@ -137,10 +137,10 @@ def resources(paper, results, result, finish):
             "8-bit vs BF16 pages · 16K/32K",
         ),
         (
-            "register-packed-full-01",
-            "packed_pages",
-            "base",
-            "8-bit pages vs Base · 131K",
+            "register-packed-direct-pilot-01",
+            "direct_pages",
+            "pages",
+            "Direct 8-bit vs BF16 pages · 16K/32K",
         ),
     )
     panels = []
