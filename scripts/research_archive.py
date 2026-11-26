@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("tool-prefix-"):
+        from scripts.tool_prefix_study import verify as verify_tool_prefix
+
+        verify_tool_prefix(root, decision)
     if study.startswith("contrast-boolq-"):
         from scripts.contrast_study import verify as verify_contrast
 

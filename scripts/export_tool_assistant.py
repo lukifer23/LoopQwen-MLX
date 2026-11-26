@@ -19,6 +19,10 @@ def export(language, language_record, trained, qualification, destination):
         if digest(language / name) != expected:
             raise ValueError("Language export differs: " + name)
     spec = read(trained / "registration.json")
+    if "donor" in spec:
+        raise ValueError(
+            "This shared-backbone export requires a Base-initialized tool adapter"
+        )
     fit = read(trained / "fit.json")
     q = read(qualification / "registration.json")
     d = read(qualification / "decision.json")
@@ -71,7 +75,13 @@ def export(language, language_record, trained, qualification, destination):
         )
         # The native inference files are also available to offline consumers of the bundled runtime.
         rt = bundle / "runtime"
-        for file in ("tool_model.py", "tool_session.py", "tool_catalog.py"):
+        for file in (
+            "tool_model.py",
+            "tool_session.py",
+            "tool_catalog.py",
+            "tool_prefill.py",
+            "evaluation/generation_eval.py",
+        ):
             shutil.copyfile(worktree / "loopqwen" / file, rt / file)
         inventory = {
             str(p.relative_to(bundle)): digest(p)

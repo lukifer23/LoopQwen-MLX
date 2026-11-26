@@ -15,6 +15,7 @@ def generate(
     stop_ids=(),
     offload_dir=None,
     prefill_block=128,
+    tool_prefix=None,
 ):
     if type(prefill_block) is not int or prefill_block < 1:
         raise ValueError("Prefill block must be a positive integer")
@@ -28,6 +29,16 @@ def generate(
     ):
         raise ValueError(
             "Supply a nonempty prompt within the context window and 1..4096 output tokens."
+        )
+    if tool_prefix is not None and (
+        offload_dir is not None
+        or any(
+            getattr(model, key, None) is not None
+            for key in ("context_policy", "deliberation_policy", "attention_reader")
+        )
+    ):
+        raise ValueError(
+            "Tool prefix reuse requires a fixed model without prompt-dependent attention"
         )
     route = None
     routed_at = None
@@ -99,6 +110,9 @@ def generate(
         # Bound prefill activation memory. Each chunk advances every site once.
         if progress is not None:
             progress(0)
+        if tool_prefix is not None:
+            offset = tool_prefix.begin(model, ids, prefill_block, cache)
+            inputs = inputs[:, offset:]
         while disk is None and inputs.shape[1] > prefill_block:
             chunk = inputs[:, :prefill_block]
             if hasattr(model, "hidden"):
@@ -106,6 +120,8 @@ def generate(
             else:
                 mx.eval(model(chunk, cache=cache)[:, -1])
             inputs = inputs[:, prefill_block:]
+            if tool_prefix is not None:
+                tool_prefix.capture(model, ids, len(ids) - inputs.shape[1], cache)
             if progress is not None:
                 progress(len(ids) - inputs.shape[1])
         output = []
@@ -147,6 +163,8 @@ def generate(
         "peak_bytes": mx.get_peak_memory(),
         "active_bytes": mx.get_active_memory(),
     }
+    if tool_prefix is not None:
+        result["reused_prompt_tokens"] = tool_prefix.reused
     if route is not None:
         result["context_route"] = route
     if section is not None:

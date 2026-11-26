@@ -85,6 +85,7 @@ def run(
     max_turns=4,
     progress=None,
     stop_at_turn_end=True,
+    reuse_prefix=False,
 ):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
     if not 1 <= max_turns <= 64:
@@ -106,6 +107,9 @@ def run(
     if stop_at_turn_end:
         stop_ids.add(tokenizer.convert_tokens_to_ids("<|im_end|>"))
     messages = initial_messages(question, tools)
+    from .tool_prefill import ToolPrefix
+
+    tool_prefix = ToolPrefix() if reuse_prefix else None
     turns = []
     answer = None
     status = "turn_limit"
@@ -119,6 +123,7 @@ def run(
             max_tokens=max_tokens,
             progress=progress,
             stop_ids=stop_ids,
+            tool_prefix=tool_prefix,
         )
         ids = out["token_ids"]
         row = dict(
@@ -128,6 +133,8 @@ def run(
             ttft_s=out["ttft_s"],
             peak_bytes=out["peak_bytes"],
         )
+        if tool_prefix is not None:
+            row["reused_prompt_tokens"] = out["reused_prompt_tokens"]
         turns.append(row)
         if ids[-1] not in stop_ids:
             status = "token_limit"
