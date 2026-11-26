@@ -208,3 +208,19 @@ The entailment model trains on human-written e-SNLI and MultiNLI triplets. Each 
 ```
 
 The shared-weight conditional checkpoint learns its input selector on 384 separate requests. The normal `generate` command runs the selector before decoding, and includes its work in the reported latency. It accepts the existing `--thinking`, `--max-tokens`, `--prompt-file` and `--offload-dir` options. The schema-4 standalone export includes the selector, deployed adapter banks and full-history attention reader. [First integrated 56-request comparison](../research/results/conditional-depth-01)
+
+## Reproducing the three-pass native layer comparison
+
+The pinned base revision is `dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68`. Each standalone induction reader stores its small set of trainable tensors plus normalization statistics. Loading the reader binds its low-rank tensors to the original Qwen layer 15. The primary and matched archives contain the three-pass and single-pass weights respectively. Their registration files specify the shared training seed, optimizer, batch size, examples and fully rendered test token IDs through the material manifest. [Three-pass weights](../research/results/native-induction-anchored-01) · [Matched one-pass weights](../research/results/native-induction-anchored-matched-01) · [Frozen study material](../research/data/native-induction-anchored-01.json)
+
+To verify the saved comparisons, run these commands in the pinned project environment. They check the immutable file inventory, independent story splits, native parameter counts, frozen weights, emitted token boundaries, answer scores, common-prefix scores, timing and paired decisions.
+
+```sh
+.venv/bin/python scripts/research_registry.py
+.venv/bin/python scripts/research_archive.py --verify native-induction-anchored-01
+.venv/bin/python scripts/research_archive.py --verify native-induction-anchored-matched-01
+.venv/bin/python scripts/research_archive.py --verify native-induction-anchored-replication-01
+.venv/bin/python scripts/research_archive.py --verify native-induction-anchored-bypass-01
+```
+
+In a fresh checkout with the native MLX environment, the corresponding training and scoring entry point is `.venv/bin/python -m loopqwen.research.native_induction STUDY`. Replace `STUDY` with a registered study ID from the commands above. Open a local bounded execution window with `.venv/bin/python scripts/research_session.py` before the first measurement. The primary study fits the three-pass reader from pinned Base. The matched study fits the one-pass reader. Replication and bypass load their registered archived weights. Fresh local measurements go under `outputs/research/STUDY`. Running the same command with `--freeze` regenerates and verifies the input material without model inference.
