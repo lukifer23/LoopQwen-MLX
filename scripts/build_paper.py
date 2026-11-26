@@ -33,6 +33,7 @@ def main(verify):
                         "packed-release-retention-",
                         "passage-copy-",
                         "packed-decode-kernel-",
+                        "packed-decode-full-",
                         "session-tokenizer-",
                         "meaning-alignment-",
                         "cache-language-",

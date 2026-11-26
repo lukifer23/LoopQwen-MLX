@@ -77,6 +77,11 @@ def verify(root):
 
         verify_tokenizer(root, decision)
         return
+    if study.startswith("packed-decode-full-"):
+        from loopqwen.research.full_decode import verify as verify_full_decode
+
+        verify_full_decode(root, decision)
+        return
     if study.startswith("packed-decode-kernel-"):
         from loopqwen.research.packed_decode import verify as verify_packed_decode
 

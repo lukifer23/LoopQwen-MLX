@@ -125,8 +125,10 @@ class DirectPackedPageCache(PackedPageCache):
 
     tile_queries = 8
 
-    def __init__(self, prompt_length, capacity):
+    def __init__(self, prompt_length, capacity, *, fused_decode=False):
         super().__init__(prompt_length)
+        self.fused_decode = fused_decode
+        self.fused_queries = 0
         if capacity < prompt_length:
             raise ValueError("Packed cache capacity must cover the prompt")
         self.capacity = capacity
@@ -151,6 +153,16 @@ class DirectPackedPageCache(PackedPageCache):
 
     def dense_attention(self, q, k, v, scale, mask):
         length = q.shape[2]
+        if self.fused_decode and length == 1 and self.offset >= 32768:
+            from .kernels.packed_decode import attention
+
+            value = attention(q, k, v, scale, mask)
+            mx.eval(value)
+            self.fused_queries += 1
+            self.direct_tiles += 1
+            self.direct_queries += 1
+            self.max_tile_queries = max(self.max_tile_queries, 1)
+            return value
         previous = self.offset - length
         chunks = []
         for lo in range(0, length, self.tile_queries):
@@ -186,6 +198,7 @@ class DirectPackedPageCache(PackedPageCache):
         return dict(
             super().report(),
             capacity=self.keys[0].shape[2],
+            **({"fused_queries": self.fused_queries} if self.fused_decode else {}),
             direct_queries=self.direct_queries,
             direct_tiles=self.direct_tiles,
             max_tile_queries=self.max_tile_queries,
@@ -247,14 +260,16 @@ def enable_page_attention(model):
             object.__setattr__(attn, "__class__", PageAttention)
 
 
-def install(cache, length, *, packed=False, direct_capacity=None):
+def install(cache, length, *, packed=False, direct_capacity=None, fused_decode=False):
     slots = {}
     for site, slot in cache.slots.items():
         if type(slot) is KVCache:
             if slot.offset:
                 raise ValueError("Page prefill requires a fresh cache")
             if direct_capacity is not None:
-                slot = DirectPackedPageCache(length, direct_capacity)
+                slot = DirectPackedPageCache(
+                    length, direct_capacity, fused_decode=fused_decode
+                )
             else:
                 slot = PackedPageCache(length) if packed else PageCache(length)
             slots[site] = cache.slots[site] = slot
@@ -270,7 +285,12 @@ def register_cache(model, route, length, max_tokens, block, cache):
         and getattr(model, "packed_register_prefill", False)
     ):
         enable_page_attention(model)
-        return install(cache, length, direct_capacity=length + max_tokens - 1)
+        return install(
+            cache,
+            length,
+            direct_capacity=length + max_tokens - 1,
+            fused_decode=getattr(model, "fused_packed_decode", False),
+        )
     return {}
 
 
