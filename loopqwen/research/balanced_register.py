@@ -1,0 +1,163 @@
+"""Measure a compute-rebalanced full-history register graph at fixed decoder-site count."""
+
+import argparse
+import gc
+from pathlib import Path
+
+import mlx.core as mx
+from mlx_lm.utils import load_tokenizer
+
+from ..deployment import load_trained
+from ..evaluation.language7 import base
+from ..evaluation.mechanism import packed, unpack
+from ..io import digest, read, save
+from ..looped_model import LoopedModel
+from ..recurrence import Span
+from ..identity import fingerprint
+from ..model_loader import local_snapshot
+from .core import Budget
+from .ledger_curriculum import measure
+from .registered import registered
+
+
+class Rebalanced(LoopedModel):
+    @property
+    def sites(self):
+        # Second application at layer 6 has its own delta state. Replace global site 7.
+        return tuple(site for site in super().sites if site != (7, 0))
+
+
+class RegisterDispatch:
+    def __init__(self, original, alternative):
+        self.original = original
+        self.alternative = alternative
+
+    def choose(self, model, ids, cap):
+        selected, name = self.original.choose(model, ids, cap)
+        if name == "register" and selected is model:
+            return self.alternative, "rebalanced_register"
+        return selected, name
+
+
+def attach(model):
+    view = Rebalanced(
+        model.text, Span(start=6, length=1, passes=2, mode="stabilized"), alpha=0.35
+    )
+    assert (
+        len(view.sites) == 24
+        and sum(not model.text.layers[i].is_linear for i, p in view.sites) == 5
+    )
+    object.__setattr__(view, "attention_reader", model.attention_reader)
+    view.eval()
+    object.__setattr__(
+        model, "context_policy", RegisterDispatch(model.context_policy, view)
+    )
+
+
+def outcome(rows, items, spec):
+    metrics = {}
+    for name, rs in rows.items():
+        metrics[name] = dict(
+            correct=sum(r["correct"] for r in rs),
+            ttft=sum(r["ttft_s"] for r in rs),
+            seconds=sum(r["elapsed_s"] for r in rs),
+            peak=max(r["peak_bytes"] for r in rs),
+        )
+    a, b = metrics["candidate"], metrics["control"]
+    correct_spans = all(
+        r.get("context_route") == "rebalanced_register"
+        and r["attention_memory"]["start"] <= w["gold_start"]
+        and r["attention_memory"]["stop"] >= w["gold_stop"]
+        for r, w in zip(rows["candidate"], items, strict=True)
+    )
+    passed = (
+        correct_spans
+        and a["correct"] == len(items)
+        and a["correct"] > b["correct"]
+        and a["ttft"] <= spec["ttft_ratio"] * b["ttft"]
+        and a["seconds"] <= b["seconds"]
+        and a["peak"] <= b["peak"]
+    )
+    return dict(passed=passed, metrics=metrics, spans=correct_spans, items=len(items))
+
+
+def flatten(spec):
+    material = read(spec["material"])
+    groups = material if isinstance(material, list) else [material]
+    return [item for group in groups for item in group["panel"]]
+
+
+def verify(root, decision):
+    from ..evaluation.answers import numeric
+
+    spec = read(root / "registration.json")
+    items = flatten(spec)
+    tok = load_tokenizer(local_snapshot())
+    rows = {s: unpack(root / (s + ".json.gz")) for s in ("candidate", "control")}
+    for arm in rows.values():
+        for r, w in zip(arm, items, strict=True):
+            assert r["input_sha256"] == fingerprint(w["prompt_ids"]) and r[
+                "prompt_tokens"
+            ] == len(w["prompt_ids"])
+            ids = r["token_ids"]
+            raw = tok.decode(ids[:-1])
+            term = ids[-1] in {
+                *tok.eos_token_ids,
+                tok.convert_tokens_to_ids("<|im_end|>"),
+            }
+            ans = (
+                numeric(raw.split("</think>", 1)[-1])
+                if term and "</think>" in raw
+                else None
+            )
+            assert ans == r["answer"] and (ans == w["gold"]) == r["correct"]
+    assert outcome(rows, items, spec) == decision
+
+
+def run(name):
+    spec = registered(name)
+    items = flatten(spec)
+    dest = Path("outputs/research") / name
+    if (dest / "decision.json").exists():
+        raise ValueError("Existing run")
+    parent = Path(spec["requires"])
+    assert (
+        digest(parent / "checksums.json") == spec["prerequisite_sha256"]
+        and read(parent / "decision.json")["passed"]
+    )
+    budget = Budget(name, spec["limits"])
+    rows = {"candidate": [], "control": []}
+    try:
+        for i, w in enumerate(items):
+            order = ("candidate", "control") if i % 2 == 0 else ("control", "candidate")
+            for side in order:
+                if side == "control":
+                    m, t, _ = base()
+                else:
+                    m, t, _ = load_trained(spec["checkpoint"])
+                    attach(m)
+                mx.reset_peak_memory()
+                record = measure(m, t, w, spec["max_tokens"], budget)
+                rows[side].append(record)
+                print(
+                    i,
+                    side,
+                    record["correct"],
+                    record["ttft_s"],
+                    record["peak_bytes"],
+                    flush=True,
+                )
+                del m, t
+                gc.collect()
+                mx.clear_cache()
+        for side, arm in rows.items():
+            packed(dest / (side + ".json.gz"), arm)
+        save(dest / "decision.json", outcome(rows, items, spec))
+    finally:
+        budget.close()
+
+
+if __name__ == "__main__":
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("name")
+    run(p.parse_args().name)

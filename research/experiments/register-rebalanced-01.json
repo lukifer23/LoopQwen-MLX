@@ -1,0 +1,21 @@
+{
+  "id": "register-rebalanced-01",
+  "question": "Can a fixed 24-site full-history register decoder recover distant values faster and with less peak memory than ordinary Base by replacing global attention layer 7 with a second native GDN layer 6?",
+  "material": "research/data/register-rebalanced-01.json",
+  "seeds": [
+    145783,
+    145883
+  ],
+  "requires": "research/results/native-language-release-02",
+  "prerequisite_sha256": "9a30f346fcc192b6294367574cdb270bdfabe99553a7556861717d7108fc16c8",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "max_tokens": 96,
+  "ttft_ratio": 0.95,
+  "protocol": "Freeze the existing language model, learned register router, attention reader and trained LoRA factors. On register requests only use layers 0 through 23 with site 7 replaced by the second application of layer 6 and residual alpha .35. Native independent full state at every executed site. Five full attention sites preserve keys and values for every input token. Two fixed-position key swaps, 16K and 32K. Use the first legal fixed-width swap per seed series in publisher format. Untouched Base uses six full-attention sites. Alternate first model per request. Record TTFT, actual elapsed seconds, peak allocated MLX bytes, free completions and located spans.",
+  "gate": "Require 4/4 candidate answers and correctly located spans, more correct than Base, aggregate TTFT at most 95% of Base, total seconds and peak bytes no higher than Base. A pass licenses a separate physical 131K comparison. Failure closes long promotion for this graph.",
+  "limits": {
+    "wall_seconds": 420,
+    "peak_gib": 6.5,
+    "available_gib": 1.4
+  }
+}
