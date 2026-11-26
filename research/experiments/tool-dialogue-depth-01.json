@@ -1,0 +1,29 @@
+{
+  "id": "tool-dialogue-depth-01",
+  "question": "With identical training, does executing the shared last layer twice improve live tool outcomes over one pass?",
+  "candidate": "restore:research/results/tool-dialogue-loop-01",
+  "control": "train_dense",
+  "training": "research/data/tool-dialogue-fit-01.json",
+  "material": "research/data/tool-dialogue-boundary-01.json",
+  "max_tokens": 128,
+  "max_turns": 4,
+  "fit_seed": 7237,
+  "rank": 32,
+  "batch": 4,
+  "lr": 0.0003,
+  "updates": 450,
+  "net_floor": 3,
+  "p_max": 0.05,
+  "time_ratio": 1.25,
+  "gate": "On the same 30 worlds, require at least three net successes, paired p <= .05, elapsed time <= 1.25 times the single-pass control. Failure closes causal depth promotion for these weights. It has no bearing on the separately preregistered test of external tool transfer vs untouched Base.",
+  "limits": {
+    "wall_seconds": 390,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  },
+  "stop_at_turn_end": true,
+  "weights": "f09ab788cede0a603311c0fefc3817b643fc19e3efec6a24d9f4ae971ff34a47",
+  "protocol": "Engineering correction independent of the failed legacy executor. Restore exact weights, refit nothing. Stop generation for either arm on EOS or Qwen chat message end. Fresh random worlds and item order. Freeze identical initial IDs and latency/success rule. A positive result licenses an equal-training depth comparison using the corrected executor.",
+  "requires": "research/results/tool-dialogue-boundary-01",
+  "prerequisite_sha256": "72f1c62583c618508eddf30144e4d3894275948537b946acd23b6c3a57fc014d"
+}

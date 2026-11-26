@@ -1,0 +1,125 @@
+"""Evaluate tool selection and typed arguments on unmodified publisher math questions."""
+import argparse
+from copy import deepcopy
+import gc
+import json
+from pathlib import Path
+
+import mlx.core as mx
+from jsonschema import Draft202012Validator
+from mlx_lm.utils import load_tokenizer
+
+from loopqwen.evaluation.generation_eval import generate
+from loopqwen.evaluation.language7 import base
+from loopqwen.evaluation.mechanism import packed,unpack
+from loopqwen.io import read,save,digest
+from loopqwen.model_loader import local_snapshot
+from loopqwen.research.core import Budget
+from loopqwen.research.tool_fit import restore
+from loopqwen.tool_session import compact,decode_action,prompt,SYSTEM
+from scripts.tool_study import paired_p
+
+
+def schema(row):
+    f=deepcopy(row["function"][0])
+    def normalize(node):
+        if "type" in node:
+            node["type"]={"dict":"object","float":"number"}.get(node["type"],node["type"])
+        for v in node.get("properties",{}).values():
+            normalize(v)
+        if "items" in node:
+            normalize(node["items"])
+    normalize(f["parameters"])
+    return f
+
+
+def render(tok,item):
+    return prompt(tok,[dict(role="system",content=SYSTEM+compact([schema(item)])+"\nUse the supplied function for the user's request."),
+                       item["question"][0][0]])
+
+
+def judgment(item,tokens,tok):
+    if tokens[-1] not in {*tok.eos_token_ids,tok.convert_tokens_to_ids("<|im_end|>")}:
+        return dict(complete=False,valid=False,correct=False)
+    text=tok.decode(tokens[:-1])
+    if "</think>" not in text:
+        return dict(complete=False,valid=False,correct=False)
+    try:
+        obj=decode_action(text.split("</think>",1)[1].strip())
+    except ValueError:
+        obj=None
+    valid=False
+    correct=False
+    if obj and obj["name"] == schema(item)["name"]:
+        args=obj["arguments"]
+        valid=Draft202012Validator(schema(item)["parameters"]).is_valid(args)
+        truth=item["ground_truth"][0][obj["name"]]
+        correct=valid and not (args.keys()-truth.keys()) and all(
+            (k in args and args[k] in vals) or (k not in args and "" in vals)
+            for k,vals in truth.items())
+    return dict(complete=True,valid=bool(valid),correct=bool(correct))
+
+
+def summary(rows,spec):
+    scores={a:{k:sum(r[k] for r in items) for k in ("complete","valid","correct","seconds")} for a,items in rows.items()}
+    pairs=list(zip(rows["candidate"],rows["control"],strict=True))
+    wins=sum(a["correct"] and not b["correct"] for a,b in pairs)
+    losses=sum(b["correct"] and not a["correct"] for a,b in pairs)
+    p=paired_p(wins,losses)
+    passed=(wins-losses>=spec["net_floor"] and p<=spec["p_max"] and
+            scores["candidate"]["seconds"]<=scores["control"]["seconds"]*spec["time_ratio"])
+    return dict(passed=passed,metrics=scores,gains=wins,losses=losses,p_exact=p,items=len(pairs))
+
+
+def verify(root,decision):
+    spec=read(root/"registration.json")
+    items=read(spec["material"])["rows"]
+    tok=load_tokenizer(local_snapshot())
+    rows={a:unpack(root/(a+".json.gz")) for a in ("candidate","control")}
+    for arm in rows.values():
+        for r,w in zip(arm,items,strict=True):
+            if (r["id"]!=w["id"] or r["prompt_ids"]!=tok.encode(render(tok,w),add_special_tokens=False)
+                    or r["seconds"]<=0 or not 1<=len(r["token_ids"])<=spec["max_tokens"]
+                    or any(r[k]!=v for k,v in judgment(w,r["token_ids"],tok).items())):
+                raise ValueError("External argument evidence differs")
+    if summary(rows,spec)!=decision:
+        raise ValueError("External summary differs")
+
+
+def main(name):
+    spec=read(f"research/experiments/{name}.json")
+    out=Path("outputs/research")/name
+    src=Path(spec["source"])
+    if digest(src/"checksums.json")!=spec["archive"] or not read(src/"decision.json")["passed"]:
+        raise ValueError("External transfer prerequisite failed")
+    if (out/"decision.json").exists():
+        raise ValueError("Completed run exists")
+    items=read(spec["material"])["rows"]
+    budget=Budget(name,spec["limits"])
+    rows={}
+    try:
+        for side in ("candidate","control"):
+            model,tok=restore(spec["model"]) if side=="candidate" else base()[:2]
+            pars=[]
+            for w in items:
+                text=render(tok,w)
+                result=generate(model,tok,text,spec["max_tokens"],progress=lambda _:budget.check(),
+                                stop_ids=[tok.convert_tokens_to_ids("<|im_end|>")])
+                tokens=result["token_ids"]
+                pars.append(dict(id=w["id"],prompt_ids=tok.encode(text,add_special_tokens=False),token_ids=tokens,
+                                 seconds=result["elapsed_s"],ttft_s=result["ttft_s"],**judgment(w,tokens,tok)))
+                print(side,w["id"],pars[-1]["correct"],flush=True)
+            packed(out/(side+".json.gz"),pars)
+            rows[side]=pars
+            del model,tok
+            gc.collect()
+            mx.clear_cache()
+        save(out/"decision.json",summary(rows,spec))
+    finally:
+        budget.close()
+
+
+if __name__=="__main__":
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("name")
+    main(parser.parse_args().name)

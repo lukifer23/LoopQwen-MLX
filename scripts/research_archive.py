@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("tool-bfcl-"):
+        from scripts.tool_bfcl_study import verify as verify_external_calls
+
+        verify_external_calls(root, decision)
     if study.startswith("tool-dialogue-"):
         from scripts.tool_audit import verify as verify_tool_dialogue
 
