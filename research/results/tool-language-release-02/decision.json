@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "tool_replayed": 22,
+  "field": 4,
+  "portable": true,
+  "cli_correct": 2,
+  "cli_exact": 4,
+  "prefix_default": true,
+  "native_induction": 64,
+  "deduction": 56,
+  "mixed": 80,
+  "retention": {
+    "nll": 2.9826581153386043,
+    "by_domain": {
+      "code_description": {
+        "loss": 4470.292913913727,
+        "tokens": 1733,
+        "nll": 2.5795112024891673
+      },
+      "general_prose": {
+        "loss": 7185.204305648804,
+        "tokens": 1911,
+        "nll": 3.759918527288751
+      },
+      "reference": {
+        "loss": 4169.751423716545,
+        "tokens": 1680,
+        "nll": 2.481994895069372
+      },
+      "scientific_exposition": {
+        "loss": 7110.921858847141,
+        "tokens": 2291,
+        "nll": 3.1038506585976173
+      },
+      "technical_explanation": {
+        "loss": 4886.064397752285,
+        "tokens": 1713,
+        "nll": 2.852343489639396
+      }
+    },
+    "sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d"
+  },
+  "raw_requests": 120,
+  "context": {
+    "correct": 2,
+    "seconds": 526.7903000420192,
+    "peak": 4652293913
+  }
+}
