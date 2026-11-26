@@ -171,7 +171,11 @@ def run(name, freeze):
                 logits = view.project(
                     view.hidden(mx.array([r["prompt_ids"] + common]))[:, -1]
                 )[0, mx.array(words)].tolist()
-                ans = induction_data.answer(v["visible"]) if v["complete"] else None
+                ans = (
+                    induction_data.answer(v["visible"], r["question"])
+                    if v["complete"]
+                    else None
+                )
                 samples.append(
                     dict(
                         **v,

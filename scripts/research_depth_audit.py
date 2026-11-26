@@ -67,7 +67,12 @@ def verify(root, decision, read, sha, require, number):
                     words = ("cat", "mouse", "wolf", "sheep")
 
                 body = re.split(r"<\|(?:im_end|endoftext)\|>$", r["text"])[0]
-                pred = answer(body.split("</think>")[1]) if complete else None
+                args = (
+                    (item["question"],)
+                    if reg["id"].startswith("native-induction-")
+                    else ()
+                )
+                pred = answer(body.split("</think>")[1], *args) if complete else None
                 gold = item["answer"]
                 require(
                     r["probe"]

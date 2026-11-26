@@ -80,9 +80,27 @@ def response(word):
     return f"I infer {word}.\n</think>\n\nThe answer is {word}.<|im_end|>"
 
 
-def answer(text):
-    last = re.split(r"\b(?:answer is|color is|colour is)\b", text.lower())[-1].replace(
-        "grey", "gray"
+def answer(text, question=""):
+    """Accept an explicit color, a conclusion about the queried person, or a bare answer."""
+    text = text.lower().replace("grey", "gray").replace("*", "")
+    color = r"(gray|green|white|yellow)\b"
+    direct = re.findall(
+        r"\b(?:final answer|answer|colou?r)\s*(?:is|:)\s*" + color, text
     )
-    found = set(re.findall(r"\b(?:gray|green|white|yellow)\b", last))
+    if direct:
+        return direct[-1]
+    person = re.fullmatch(r"What colou?r is (\w+)\?", question, re.IGNORECASE)
+    if person:
+        stated = re.findall(
+            r"\b"
+            + re.escape(person[1].lower())
+            + r"(?:'s colou?r)? (?:is|must be|would be|should be) (?:also |probably |likely )?"
+            + color,
+            text,
+        )
+        if len(set(stated)) == 1:
+            return stated[0]
+    if re.search(r"\b(?:not|isn't)\s+" + color, text):
+        return None
+    found = set(re.findall(r"\b" + color, text))
     return next(iter(found)) if len(found) == 1 else None

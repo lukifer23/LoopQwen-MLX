@@ -53,3 +53,11 @@ def test_science_scorer_accepts_answer_text_without_grading_an_article_as_a_lett
     assert answer("The answer is a liquid.", options) == "C"
     assert answer("**Answer: B.**", options) == "B"
     assert answer("B or C", options) is None
+
+
+def test_induction_scorer_reads_a_conclusion_about_the_queried_person():
+    from loopqwen.research.induction_data import answer
+
+    assert answer("Lily is gray. Greg is white.", "What color is Greg?") == "white"
+    assert answer("Greg is not white.", "What color is Greg?") is None
+    assert answer("The final answer: grey.", "What color is Greg?") == "gray"
