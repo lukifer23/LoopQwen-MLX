@@ -1,6 +1,31 @@
-# LoopQwen project review, November 25
+# LoopQwen project review, November 26
 
 The deployment question is whether a person gets more correct, completed answers from the trained decoder than from the pinned Qwen3.5-0.8B-Base, at a measured cost, while retaining ordinary language and useful long context. Establishing that repeating layers deserves credit requires a second comparison with a trained ordinary-depth model. These questions have produced different answers in this repository. [Capability scoreboard](CAPABILITY_SCOREBOARD.md)
+
+## What runs in the released assistant
+
+```mermaid
+flowchart TD
+  request["User request and optional read-only tools"] --> catalog{"Tools supplied?"}
+  catalog -->|Yes| tool["Instruction sibling · frozen 8-bit prefix"]
+  tool --> action["Shared native layer 23, twice · distinct KV states"]
+  action --> response{"Generated a valid call?"}
+  response -->|Yes| execute["Execute supplied callback and append the observation"]
+  execute --> tool
+  response -->|Direct answer| visible["Completed visible answer"]
+  response -->|Invalid or incomplete| status["Return status and the actual trace"]
+  catalog -->|No| route["Language model initialized from pinned Base · learned routing"]
+  route --> ordinary["Ordinary-depth fallback"]
+  route --> language["Arithmetic or entailment decoder"]
+  route --> stories["Two-read deduction or three-pass induction"]
+  route --> register["Register reader · full token history · eight physical attention sites"]
+  ordinary --> visible
+  language --> visible
+  stories --> visible
+  register --> visible
+```
+
+The explicit tool catalog selects the tool backbone. A natural-language request goes through the language policy, which can choose ordinary depth. Consequently a product score can reflect routing, training, quantization or decoding as well as recurrence. For example, the whole novel took the ordinary route, whereas the 131K key-swap used the register reader. All language routes can also stop at the output cap. The public `ask --compare-base` command exposes both systems' answers and actual timings on a caller's own question. [Released model qualification](../research/results/packed-release-retention-01) · [Measured comparisons](../paper/loopqwen.pdf) · [Current research decisions](NEXT_EXPERIMENTS.md)
 
 ## What each phase established
 
