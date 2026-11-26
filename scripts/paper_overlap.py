@@ -40,6 +40,10 @@ def text(row, field):
         value = value.split("\n\nUse the table to count the venues", 1)[0]
     if field == "program":
         value = value.split("\nUse the calculator for the arithmetic", 1)[0]
+    if field in ("sqlite_question", "public_retention"):
+        from loopqwen.evaluation.table_questions import INSTRUCTION
+
+        value = value.removesuffix(INSTRUCTION)
     return value
 
 
@@ -80,6 +84,18 @@ def build():
         ("tool multiple functions", [TYPED], "tool-bfcl-multiple-01", "question"),
         ("tool single-function recovery", [TYPED], "tool-bfcl-math-01", "question"),
         ("WikiSQL cold transfer", [TYPED], "tool-table-queries-01", "question"),
+        (
+            "WikiSQL supervised transfer",
+            [TYPED, "tool-sql-learning-training"],
+            "tool-sql-learning-panel",
+            "sqlite_question",
+        ),
+        (
+            "WikiSQL fit public retention",
+            [TYPED, "tool-sql-learning-training"],
+            "tool-sql-learning-panel",
+            "public_retention",
+        ),
         (
             "calculator word problems",
             [TYPED, "tool-program-reasoning-training"],
@@ -124,7 +140,9 @@ def build():
             queries = {
                 text(r, field)
                 for r in rows(held)
-                if field != "dialogue" or "turns" in r
+                if (field != "dialogue" or "turns" in r)
+                and (field != "sqlite_question" or r["provider"] == "wikisql")
+                and (field != "public_retention" or r["provider"] == "bfcl_exec")
             } - {""}
             for mask in (False, True):
                 w.writerow([study, field, mask, *audit(train, queries, mask)])
