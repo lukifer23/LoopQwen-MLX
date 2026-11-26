@@ -114,7 +114,12 @@ class AnchoredNativeEvidence(NativeEvidence):
         x = (mx.concatenate([facts, q[:, None]], axis=1) - self.center) * self.scale
         h = (0.2 * self.expand(mx.tanh(self.compress(x)))).astype(mx.bfloat16)
         source, query = h[:, :-1], h[:, -1:]
-        mask = create_attention_mask(h)
+        # MLX Metal's short-query vector kernel has no VJP. For training on
+        # short stories pad after the real query, which cannot attend forward.
+        n = h.shape[1]
+        padded = (
+            max(0, getattr(self, "gradient_min_length", 0) - n) if self.training else 0
+        )
         queries = []
         inputs = []
         # Deterministic step codes distinguish the iterations without giving the
@@ -126,7 +131,8 @@ class AnchoredNativeEvidence(NativeEvidence):
             state = (query + 0.04 * mx.sin(i * freq)).astype(query.dtype)
             h = mx.concatenate([source, state], axis=1)
             inputs.append(h)
-            query = self.layer(h, mask=mask)[:, -1:]
+            tokens = mx.pad(h, ((0, 0), (0, padded), (0, 0))) if padded else h
+            query = self.layer(tokens, mask=create_attention_mask(tokens))[:, n - 1 : n]
             queries.append(unit(query[:, 0]))
         return queries, inputs
 

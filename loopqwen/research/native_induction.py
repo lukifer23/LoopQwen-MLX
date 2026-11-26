@@ -39,6 +39,8 @@ def fit(model, t, rows, depth, s, b, out, task):
         else NativeEvidence
     )
     net = cls(model, s["rank"], vocab)
+    if isinstance(net, AnchoredNativeEvidence):
+        net.gradient_min_length = 10
     net.center = features.mean(0)
     net.scale = mx.rsqrt(mx.var(features, axis=0) + 0.0001)
     columns = mx.array([vocab.index(core.atom(t, " " + w)) for w in task.WORDS])
@@ -115,6 +117,7 @@ def fit(model, t, rows, depth, s, b, out, task):
             "native_update_norms": deltas,
         },
     )
+    net.eval()
     return net
 
 

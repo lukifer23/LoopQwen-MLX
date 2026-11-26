@@ -1,0 +1,9 @@
+{
+  "job": "native-kinship-01",
+  "seconds": 60.48395609855652,
+  "peak_bytes": 2513383997,
+  "start": 1795664517.986542,
+  "status": "runtime interruption before first trained checkpoint or evaluation",
+  "reason": "For three sentences and one question the native MLX vector attention kernel did not return the logsumexp required by its VJP.",
+  "recovery": "Right-pad to ten tokens for differentiation only, keep the real query position and causal mask, exclude padding from support supervision. Inference uses precisely the original tokens. Debit the consumed 60.48 seconds from the original 1450-second limit."
+}
