@@ -1,20 +1,20 @@
-study,system,endpoint,n,candidate,base,seconds_candidate,seconds_base,peak_candidate,peak_base,gate
-tool-dialogue-counterfactual-01,Observation-trained tools,grounded,132,112,15,69.55,323.35,1.09,1.66,Pass
-conversation-followup-modules-01,Module follow-ups,grounded,16,12,0,13.97,115.77,1.08,1.66,Pass
-operand-planner-01,Calculator planner,final number,48,20,28,11.00,182.43,1.16,1.66,Miss
-bridge-reading-01,First document reader,answer phrase,40,11,20,41.40,120.08,2.48,1.68,Miss
-linked-reading-01,Linked document reader,answer phrase,48,18,19,26.69,132.05,1.11,1.68,Miss
-table-parser-01,Table parser,grounded,48,14,0,24.55,261.24,1.21,1.66,Miss
-tool-dialogue-intent-pairs-01,Resource and tool adapter,grounded,78,45,0,54.56,333.15,1.08,1.66,Miss
-meaning-alignment-01,Semantic alignment,free judgment,80,60,7,16.13,346.43,1.48,1.96,Miss
-document-search-field-01,User-file passage search,grounded exact,32,1,0,50.93,99.31,1.10,1.66,Miss
-report-calculation-01,Stepwise calculator,final number,48,5,6,97.99,266.23,1.13,1.70,Miss
-register-mixed-weight-full-01,"8-bit feed-forward, 131K",exact,2,2,0,167.39,390.86,3.32,3.78,Pass
-draft-program-01,Draft then program,final number,48,28,29,77.13,166.59,1.08,1.66,Miss
-action-preference-01,Preference-trained tools,grounded,54,29,1,55.64,323.57,1.08,1.66,Miss
-folded-system-01,Single folded backbone,mixed,92,33,30,177.99,364.74,1.06,1.66,Miss
-release-mixed-field-01,Released assistant,mixed,50,21,12,83.97,234.20,1.69,1.68,Miss
-register-page-full-01,"BF16 pages, 131K",exact,2,2,0,176.55,391.72,4.32,3.78,Miss
-register-packed-direct-full-01,"Direct 8-bit pages, 131K",exact,2,2,0,171.88,391.67,2.80,3.78,Pass
-register-fused-base-full-01,"Fused decode, 131K",exact,2,2,0,169.85,390.94,2.80,3.78,Miss
-narrative-full-book-01,"Whole novel, 162K",exact,2,0,0,596.38,596.42,4.34,4.33,Miss
+study,system,endpoint,n,candidate,base,seconds_candidate,seconds_base,peak_candidate,peak_base,gate,first_seconds_candidate,first_seconds_base,tokens_candidate,tokens_base
+tool-dialogue-counterfactual-01,Observation-trained tools,grounded,132,112,15,69.55,323.35,1.09,1.66,Pass,,,4863,21830
+conversation-followup-modules-01,Module follow-ups,grounded,16,12,0,13.97,115.77,1.08,1.66,Pass,14.000,4.000,,
+operand-planner-01,Calculator planner,final number,48,20,28,11.00,182.43,1.16,1.66,Miss,,,1224,12323
+bridge-reading-01,First document reader,answer phrase,40,11,20,41.40,120.08,2.48,1.68,Miss,,,323,7069
+linked-reading-01,Linked document reader,answer phrase,48,18,19,26.69,132.05,1.11,1.68,Miss,23.651,21.892,336,7620
+table-parser-01,Table parser,grounded,48,14,0,24.55,261.24,1.21,1.66,Miss,,,,
+tool-dialogue-intent-pairs-01,Resource and tool adapter,grounded,78,45,0,54.56,333.15,1.08,1.66,Miss,,,3865,22640
+meaning-alignment-01,Semantic alignment,free judgment,80,60,7,16.13,346.43,1.48,1.96,Miss,13.573,12.426,,
+document-search-field-01,User-file passage search,grounded exact,32,1,0,51.07,99.47,1.10,1.66,Miss,6.640,6.096,,
+report-calculation-01,Stepwise calculator,final number,48,5,6,97.99,266.23,1.13,1.70,Miss,14.280,13.044,,
+register-mixed-weight-full-01,"8-bit feed-forward, 131K",exact,2,2,0,167.39,390.86,3.32,3.78,Pass,165.408,383.929,,
+draft-program-01,Draft then program,final number,48,28,29,77.13,166.59,1.08,1.66,Miss,4.177,4.160,6720,11445
+action-preference-01,Preference-trained tools,grounded,54,29,1,55.64,323.57,1.08,1.66,Miss,7.544,6.921,,
+folded-system-01,Single folded backbone,mixed,92,33,30,177.99,364.74,1.06,1.66,Miss,7.734,7.298,17955,25032
+release-mixed-field-01,Released assistant,mixed,50,21,12,83.97,234.20,1.69,1.68,Miss,20.330,9.155,5362,15579
+register-page-full-01,"BF16 pages, 131K",exact,2,2,0,176.55,391.72,4.32,3.78,Miss,173.989,384.785,,
+register-packed-direct-full-01,"Direct 8-bit pages, 131K",exact,2,2,0,171.88,391.67,2.80,3.78,Pass,168.349,384.652,,
+register-fused-base-full-01,"Fused decode, 131K",exact,2,2,0,169.85,390.94,2.80,3.78,Miss,167.644,384.108,,
+narrative-full-book-01,"Whole novel, 162K",exact,2,0,0,596.38,596.42,4.34,4.33,Miss,571.275,571.307,,

@@ -220,6 +220,10 @@ def write(paper, results, result):
                 "peak_candidate",
                 "peak_base",
                 "gate",
+                "first_seconds_candidate",
+                "first_seconds_base",
+                "tokens_candidate",
+                "tokens_base",
             ]
         )
         for study, label, endpoint, n, first, second, key in rows:
@@ -234,6 +238,12 @@ def write(paper, results, result):
                 arms = d["metrics"]
             a, b = (arms[s] for s in (first, second))
             peak = "peak_bytes" if "peak_bytes" in a else "peak"
+            index = d.get("index_seconds", {})
+            ca = d.get("setup_seconds", 0) + index.get(first, 0)
+            cb = index.get(second, 0)
+            first_key = next(
+                (k for k in ("first", "ttft", "first_token_seconds") if k in a), None
+            )
             w.writerow(
                 [
                     study,
@@ -242,10 +252,14 @@ def write(paper, results, result):
                     n,
                     a[key],
                     b[key],
-                    f"{a['seconds'] + d.get('setup_seconds', 0):.2f}",
-                    f"{b['seconds']:.2f}",
+                    f"{a['seconds'] + ca:.2f}",
+                    f"{b['seconds'] + cb:.2f}",
                     f"{a[peak] / 2**30:.2f}",
                     f"{b[peak] / 2**30:.2f}",
                     "Pass" if d["passed"] else "Miss",
+                    f"{a[first_key] + ca:.3f}" if first_key else "",
+                    f"{b[first_key] + cb:.3f}" if first_key else "",
+                    a.get("tokens", ""),
+                    b.get("tokens", ""),
                 ]
             )
