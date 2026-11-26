@@ -65,6 +65,7 @@ def test_induction_scorer_reads_a_conclusion_about_the_queried_person():
 
 def test_science_reader_registers_its_key_projection_as_a_trainable_module():
     from mlx.utils import tree_flatten
+
     from loopqwen.research.science_reader import ScienceReader
     from loopqwen.worker import acquire
 
@@ -72,3 +73,13 @@ def test_science_reader_registers_its_key_projection_as_a_trainable_module():
     model = ScienceReader(8, 4, list(range(10)), list(range(8)))
     weights = dict(tree_flatten(model.trainable_parameters()))
     assert "fact_keys.weight" in weights and callable(model.keys)
+
+
+def test_family_scorer_preserves_relation_direction_and_multiword_qualifiers():
+    from loopqwen.research.kinship_data import answer
+
+    question = "How is [Paul] related to [Mary]?"
+    assert answer("Paul is Mary's father.", question) == "father"
+    assert answer("Mary is Paul's daughter.", question) is None
+    assert answer("Paul is Mary's father-in-law.", question) is None
+    assert answer("The relationship is nephew.", question) == "nephew"

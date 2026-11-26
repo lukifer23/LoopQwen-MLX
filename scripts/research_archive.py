@@ -91,7 +91,7 @@ def verify(root):
 
         verify_science(root, decision, read, sha, require)
     if study == "short-depth-transfer-01" or study.startswith(
-        ("deduction-", "native-induction-")
+        ("deduction-", "native-induction-", "native-kinship-")
     ):
         from scripts import research_depth_audit
 

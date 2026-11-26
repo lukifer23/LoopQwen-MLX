@@ -59,7 +59,10 @@ def verify(root, decision, read, sha, require, number):
                 pred = number(tokens, r["text"])
                 gold = item["gold"]
             else:
-                if reg["id"].startswith("native-induction-"):
+                if reg.get("task") == "kinship":
+                    from loopqwen.research.kinship_data import WORDS as words
+                    from loopqwen.research.kinship_data import answer
+                elif reg["id"].startswith("native-induction-"):
                     from loopqwen.research.induction_data import WORDS as words
                     from loopqwen.research.induction_data import answer
                 else:
@@ -70,14 +73,14 @@ def verify(root, decision, read, sha, require, number):
                 body = re.split(r"<\|(?:im_end|endoftext)\|>$", r["text"])[0]
                 args = (
                     (item["question"],)
-                    if reg["id"].startswith("native-induction-")
+                    if reg["id"].startswith(("native-induction-", "native-kinship-"))
                     else ()
                 )
                 pred = answer(body.split("</think>")[1], *args) if complete else None
                 gold = item["answer"]
                 require(
                     r["probe"]
-                    == words[max(range(4), key=r["probe_logits"].__getitem__)],
+                    == words[max(range(len(words)), key=r["probe_logits"].__getitem__)],
                     "Wrong probe",
                 )
                 require(

@@ -28,9 +28,9 @@ from . import core, deduction, induction_data
 PANEL = Path("research/data/native-induction-01.json")
 
 
-def fit(model, t, rows, depth, s, b, out):
+def fit(model, t, rows, depth, s, b, out, task):
     vocab, (features, _), arrays = deduction.training_inputs(
-        model, t, rows, depth, b, prefix_regions, response=induction_data.response
+        model, t, rows, depth, b, prefix_regions, response=task.response
     )
     mx.random.seed(s["fit_seed"])
     cls = (
@@ -41,9 +41,7 @@ def fit(model, t, rows, depth, s, b, out):
     net = cls(model, s["rank"], vocab)
     net.center = features.mean(0)
     net.scale = mx.rsqrt(mx.var(features, axis=0) + 0.0001)
-    columns = mx.array(
-        [vocab.index(core.atom(t, " " + w)) for w in induction_data.WORDS]
-    )
+    columns = mx.array([vocab.index(core.atom(t, " " + w)) for w in task.WORDS])
     lr = s["lr"]
     if "decay_start" in s:
         lr = optim.join_schedules(
@@ -123,9 +121,13 @@ def fit(model, t, rows, depth, s, b, out):
 def run(name, freeze):
     reg = Path("research/experiments") / (name + ".json")
     s = read(reg)
+    if s.get("task", "induction") == "kinship":
+        from . import kinship_data as task
+    else:
+        task = induction_data
     panel = Path(s.get("material", PANEL))
     if freeze:
-        data = induction_data.material(s)
+        data = task.material(s)
         if panel.exists() and read(panel) != data:
             raise ValueError("Induction material changed")
         if not panel.exists():
@@ -151,9 +153,9 @@ def run(name, freeze):
         data = read(panel)
         rows = data[s["panel"]]
         model, t, _ = base()
-        words = [core.atom(t, " " + w) for w in induction_data.WORDS]
+        words = [core.atom(t, " " + w) for w in task.WORDS]
         common = t.encode(
-            "After considering the evidence.\n</think>\n\nThe answer is",
+            task.PROBE,
             add_special_tokens=False,
         )
         reports = {}
@@ -161,7 +163,11 @@ def run(name, freeze):
         for arm, c in s["arms"].items():
             depth = c["depth"]
             if c.get("fit"):
-                net = fit(model, t, data["train"], depth, s, b, out)
+                folder = out
+                if sum(bool(entry.get("fit")) for entry in s["arms"].values()) > 1:
+                    folder = out / arm
+                    folder.mkdir()
+                net = fit(model, t, data["train"], depth, s, b, folder, task)
             elif depth:
                 net = load_native_reader(model, Path(c["reader"]), c["weights"])
             samples = []
@@ -199,9 +205,7 @@ def run(name, freeze):
                         for i in range(3)
                     ]
                 ans = (
-                    induction_data.answer(v["visible"], r["question"])
-                    if v["complete"]
-                    else None
+                    task.answer(v["visible"], r["question"]) if v["complete"] else None
                 )
                 samples.append(
                     dict(
@@ -209,8 +213,8 @@ def run(name, freeze):
                         id=r["id"],
                         answer=ans,
                         correct=ans == r["answer"],
-                        probe=induction_data.WORDS[
-                            max(range(4), key=logits.__getitem__)
+                        probe=task.WORDS[
+                            max(range(len(words)), key=logits.__getitem__)
                         ],
                         probe_logits=logits,
                         end_to_end=total,

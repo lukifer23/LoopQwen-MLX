@@ -13,6 +13,7 @@ from ..model_loader import local_snapshot
 from .deduction_data import prompt
 
 SHA = "84f5296ab9a1ad0dc9464e08c491d65cd08830fca3acae9ab86f75e0fb81573c"
+PROBE = "After considering the evidence.\n</think>\n\nThe answer is"
 WORDS = ("gray", "green", "white", "yellow")
 
 
