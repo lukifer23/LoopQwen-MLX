@@ -34,6 +34,12 @@ def add_arguments(p, checkpoint=None):
     p.add_argument("--max-tokens", type=int, default=160)
     p.add_argument("--max-turns", type=int, default=4)
     p.add_argument(
+        "--reuse-prefix",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Override the checkpoint’s qualified multi-turn prefix policy",
+    )
+    p.add_argument(
         "--trace", action="store_true", help="Include exact prompt and output tokens"
     )
 

@@ -10,7 +10,14 @@ from loopqwen import REVISION
 from loopqwen.io import digest, read, save
 
 
-def export(language, language_record, trained, qualification, destination):
+def export(
+    language,
+    language_record,
+    trained,
+    qualification,
+    destination,
+    prefix_qualification=None,
+):
     cfg = read(language / "config.json")
     if cfg["base_revision"] != REVISION or cfg["export_schema"] != 4:
         raise ValueError("Expected the pinned conditional language export")
@@ -42,6 +49,33 @@ def export(language, language_record, trained, qualification, destination):
         or fit["weights"] != digest(trained / "tool-adapters.safetensors")
     ):
         raise ValueError("The qualification must cover exactly these recurrent weights")
+    certified_prefix = None
+    if prefix_qualification is not None:
+        registered_prefix = reg[prefix_qualification.name]["archive"]
+        evidence = read(prefix_qualification / "decision.json")
+        rule = read(prefix_qualification / "registration.json")
+        if (
+            not registered_prefix
+            or digest(prefix_qualification / "checksums.json") != registered_prefix
+            or not all(
+                digest(prefix_qualification / k) == v
+                for k, v in read(prefix_qualification / "checksums.json").items()
+            )
+            or Path(rule["model"]).resolve() != trained.resolve()
+            or Path(rule["qualification"]).resolve() != qualification.resolve()
+            or rule.get("workload") != "bfcl_exec"
+            or not evidence["passed"]
+            or not evidence.get("qualification_parity")
+            or not evidence["identical"]
+        ):
+            raise ValueError(
+                "Prefix qualification must reproduce this exact tool checkpoint"
+            )
+        certified_prefix = dict(
+            checkpoint=fit["weights"],
+            study=prefix_qualification.name,
+            archive=registered_prefix,
+        )
     if destination.exists():
         raise FileExistsError(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
@@ -91,6 +125,8 @@ def export(language, language_record, trained, qualification, destination):
                 worktree / "research/licenses/BFCL-Hermes-APACHE-2.0.txt",
                 out / "Apache-2.0.txt",
             )
+        if certified_prefix is not None:
+            meta["prefix_reuse"] = certified_prefix
         save(out / "tool-model.json", meta)
         # The native inference files are also available to offline consumers of the bundled runtime.
         rt = bundle / "runtime"
@@ -139,4 +175,9 @@ if __name__ == "__main__":
         "destination",
     ):
         parser.add_argument("--" + name, type=Path, required=True)
+    parser.add_argument(
+        "--prefix-qualification",
+        type=Path,
+        help="Successful output-identical crossover for these exact tool weights",
+    )
     print(export(**vars(parser.parse_args())))

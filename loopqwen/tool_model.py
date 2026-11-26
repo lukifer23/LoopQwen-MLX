@@ -89,7 +89,12 @@ def bind(language_model, folder):
 class Assistant:
     def __init__(self, directory):
         self.directory = Path(directory)
-        self.dedicated = read(self.directory / "tool/tool-model.json")["schema"] == 2
+        meta = read(self.directory / "tool/tool-model.json")
+        self.dedicated = meta["schema"] == 2
+        policy = meta.get("prefix_reuse")
+        if policy is not None and policy["checkpoint"] != meta["weights"]:
+            raise ValueError("Prefix policy belongs to different tool weights")
+        self.reuse_prefix = policy is not None
         self.language = None
         self.tokenizer = None
         self._tool_model = None
@@ -111,7 +116,7 @@ class Assistant:
         max_tokens=160,
         max_turns=4,
         progress=None,
-        reuse_prefix=False,
+        reuse_prefix=None,
     ):
         if tools:
             from .tool_session import run
@@ -138,7 +143,9 @@ class Assistant:
                 max_tokens=max_tokens,
                 max_turns=max_turns,
                 progress=progress,
-                reuse_prefix=reuse_prefix,
+                reuse_prefix=self.reuse_prefix
+                if reuse_prefix is None
+                else reuse_prefix,
             )
         from .evaluation.generation_eval import generate
         from .tool_session import prompt
