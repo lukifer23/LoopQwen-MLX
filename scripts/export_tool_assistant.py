@@ -37,7 +37,7 @@ def export(language,language_record,trained,qualification,destination):
     destination.parent.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(dir=destination.parent) as temp:
         bundle=Path(temp)/"bundle"
-        shutil.copytree(language,bundle)
+        shutil.copytree(language,bundle,ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
         out=bundle/"tool"
         out.mkdir()
         shutil.copyfile(trained/"tool-adapters.safetensors",out/"tool-adapters.safetensors")
@@ -45,7 +45,7 @@ def export(language,language_record,trained,qualification,destination):
                                        start_layer=spec.get("start_layer",23),weights=fit["weights"],training=trained.name,
                                        qualification=qualification.name,qualification_archive=digest(qualification/"checksums.json")))
         # The native inference files are also available to offline consumers of the bundled runtime.
-        rt=bundle/"runtime/loopqwen"
+        rt=bundle/"runtime"
         for file in ("tool_model.py","tool_session.py","tool_catalog.py"):
             shutil.copyfile(worktree/"loopqwen"/file,rt/file)
         inventory={str(p.relative_to(bundle)):digest(p) for p in sorted(bundle.rglob("*")) if p.is_file()}
