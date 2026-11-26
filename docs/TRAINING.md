@@ -287,3 +287,7 @@ first = chat.respond("What version of the Python distribution mlx is installed i
 follow = chat.respond("Repeat the version from that observation.")
 print(first["answer"], follow["answer"])
 ```
+
+Multi-user-turn callers can use the installed CLI with repeated follow-up arguments, or retain a conversation from the Python assistant. The release workload replays actual package and interpreter callbacks. Its equal-training control restores the one- and two-pass adapters, checks identical supervision and reconstructs every prompt and observation from both users’ messages. [Module evaluation](../research/results/conversation-followup-modules-01) · [Equal-training registration](../research/experiments/conversation-followup-depth-01.json)
+
+The linked document reader runs with `python -m loopqwen.research.linked_reading linked-reading-01`. Its material builder excludes earlier human questions and support titles before enrolling the new fit and evaluation. The reader exposes its two document scores per item. The archive verifier reconstructs the selected indices, the full input IDs and the attention window, then regrades the complete unforced answer. [Training and evaluation registration](../research/experiments/linked-reading-01.json)
