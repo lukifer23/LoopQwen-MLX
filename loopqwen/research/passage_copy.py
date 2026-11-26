@@ -242,23 +242,34 @@ def measure(net, tok, w, side, spec, budget):
     text, ids, span, _, _ = request(tok, w["title"], w["passage"], w["question"])
     assert ids == w["prompt_ids"] and fingerprint(ids) == w["sha256"]
     view = PassageRequest(net, span) if side == "candidate" else net
-    pre = perf_counter() - at
+    first = None
+    prompt_length = len(ids)
+
+    def progress(consumed):
+        nonlocal first
+        if first is None and consumed == prompt_length:
+            first = perf_counter() - at
+        budget.check()
+
     r = generate(
         view,
         tok,
         text,
         spec["cap"],
         stop_ids=[tok.convert_tokens_to_ids("<|im_end|>")],
-        progress=lambda _: budget.check(),
+        progress=progress,
     )
+    if first is None:
+        raise ValueError("Missing first emitted token timestamp")
+    elapsed = perf_counter() - at
     ids = r["token_ids"]
     return {
         "id": w["id"],
         "input_sha256": w["sha256"],
         "ids": ids,
         "score": score(tok, ids, w),
-        "seconds": perf_counter() - at,
-        "ttft": pre + r["ttft_s"],
+        "seconds": elapsed,
+        "ttft": first,
         "peak": r["peak_bytes"],
         "copy_gate": view.gates if side == "candidate" else [],
     }
