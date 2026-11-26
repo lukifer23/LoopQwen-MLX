@@ -4,7 +4,6 @@ import csv
 
 import matplotlib.pyplot as plt
 
-from loopqwen.io import read
 
 READING = {
     "contrast-boolq-recurrent-01": "Base-initialized reading fit",

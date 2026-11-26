@@ -4,12 +4,14 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 
 - [Read the paper](loopqwen.pdf)
 - [Manuscript source](loopqwen.typ)
+- [Machine-readable paired scores and timings for the frozen tool model](typed-transfer.csv)
+- [Trajectory-level costs, calls and failure types](tool-trajectories.csv)
 - [Study-level evidence index](study-index.csv)
 - [SHA-256 inventories behind the figures](figure-sources.json)
 
 ## Rebuild and verify
 
-From the repository root, the following commands rebuild the three vector figures, evidence index and PDF. The verification option checks stored predictions and per-file hashes against the independent archive recounts. Some older verifiers require the pinned tokenizer in the local Hugging Face cache.
+From the repository root, the following commands rebuild the vector figures, evidence index and PDF. The verification option checks stored predictions and per-file hashes against the independent archive recounts. Some older verifiers require the pinned tokenizer in the local Hugging Face cache.
 
 ```sh
 uv sync --group figures --group paper
@@ -32,3 +34,20 @@ Clone the repository on Apple Silicon and run `.venv/bin/python -m loopqwen down
 ```
 
 The archived comparisons use their checked-in parents. For a read-only check, use `.venv/bin/python scripts/research_archive.py STUDY --verify`. Run `.venv/bin/python scripts/research_registry.py` to verify data, registrations and archive inventory identities. The data builders for the public tasks and training traces pin the Hugging Face revisions. [Data attribution and licenses](../research/licenses/TOOL-DATA-NOTICE.txt)
+
+## Additional registered comparisons
+
+The list below gives the normal native entry point for each family. Pass the desired immutable study ID as its argument. Before re-running a relative-path example, change to the repository root.
+
+| Runner | Registered workload |
+| --- | --- |
+| `scripts/contrast_study.py` | Completed free answers, both members of human question edits and an identical-prefix readout |
+| `scripts/tool_prefix_study.py` | Balanced repeated measurements with original or cached prefill |
+| `scripts/tool_bfcl_study.py` | Independent single- and multi-schema publisher questions |
+| `scripts/tool_study.py` | Single-pass tool attribution, instruction-parent control and caller-executed tools |
+| `scripts/tool_release.py` | Combined offline build, field callbacks, exact language streams and physical 131K swaps |
+| `-m loopqwen.research.balanced_register` | Equal-site-count register graph versus full-history Base |
+
+Use `scripts/research_archive.py STUDY` to seal a completed local run in a new checkout. To verify existing committed evidence use `--verify`. After all measured jobs in a window are archived, run `scripts/research_registry.py --update` and `scripts/research_session.py --close`. All script paths in this table are arguments to the repository's Python interpreter.
+
+Underlying human questions and verified partitions are in `research/data/`. The reproducible material builders pin publisher revisions and SHA-256 hashes. Rebuilding the BoolQ subsets needs PyArrow; numerical inference and stored-result verification do not depend on PyArrow. [BoolQ attribution](../research/licenses/BOOLQ-NOTICE.txt) · [Tool data attribution](../research/licenses/TOOL-DATA-NOTICE.txt)

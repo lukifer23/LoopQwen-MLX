@@ -1,5 +1,18 @@
 # Capability scoreboard
 
+## Executable tools and human reading
+
+| Frozen comparison | Recurrent | Comparator | Actual seconds (recurrent / comparator) |
+| --- | ---: | ---: | ---: |
+| Public numerical questions, correct call and grounded answer | 17/22 | 0/22 untouched Base | 15.15 / 82.82 |
+| Catalog requests including chains, comparisons, direct answers and clarifications | 20/30 | 5/30 untouched Base | 13.14 / 51.56 |
+| Same catalog with equal training at ordinary depth | 20/30 | 19/30 trained one-pass | 12.93 / 10.88 |
+| Four-layer grounded model on new catalog requests | 38/50 | 7/50 untouched Base | 35.43 / 119.05 |
+| Human question edits, original and edit both correct | 10/32 | 12/32 untouched Base | 8.29 / 133.93 |
+
+These rows include distinct checkpoints. A two-pass catalog specialist transferred poorly to an independently authored 24-question schema test (0/24 versus 8/24). The four-layer model missed the minimum on both chaining and comparison. The external execution result uses the official instruction-tuned sibling as its starting point and a two-pass final attention layer. The human reading comparison also favored Base on shared-prefix decisions, 48/64 versus 41/64. [Technical report and charts](../paper/loopqwen.pdf) · [Public execution archive](../research/results/tool-dialogue-typed-01) · [Matched catalog control](../research/results/tool-dialogue-depth-01) · [Human contrast archive](../research/results/contrast-boolq-recurrent-01)
+
+
 ## Three-fact induction with a repeated native Qwen layer
 
 Each prompt contains nine shuffled animal-class and color statements and asks for one individual's color. A learned projection compresses the outputs of Qwen layers 0–14 for each sentence and for the question. The same pretrained layer 15, with shared Q/K/V/O adapters, updates the question representation three times against the fixed premise tokens. Its final state supplies a learned adjustment to the full-prompt Base decoder's vocabulary logits. Training uses the publisher's three supporting-fact indices and answer strings. Generation receives only the prompt. Both trained arms have 552,810 trainable parameters and received the same 1,536 training stories, seed, 3,000 Adam updates and minibatches of 32. [Implementation](../loopqwen/native_evidence.py) · [Frozen registration and material](../research/experiments/native-induction-anchored-01.json)

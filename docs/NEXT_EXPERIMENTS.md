@@ -1,5 +1,16 @@
 # Research decisions
 
+## November 26 execution and reading studies
+
+1. Compare the deployed language model and untouched Base on live callback sessions. Train a recurrent tool model, correct chat-turn termination symmetrically on a fresh panel, and measure an equally trained one-pass control. Test independent function schemas. The archives preserve the initial failures, the 20/30 versus 5/30 catalog gain and its weak depth effect.
+2. Train one typed tool model using independently generated utility calls and human tool demonstrations. Its public execution gate passed at 17/22 versus 0/22 for Base. Keep these weights fixed for multi-schema selection, the earlier failed transfer, both controlled panels, the untouched instruction sibling and the equal-training depth comparison.
+3. Exercise a standalone offline export with actual runtime callbacks, then physically replay the full 131,083-token swaps, 200 language generations and raw text retention. Separately measure prefix-state reuse at fixed outputs and a compute-rebalanced long-context decoder with every token retained.
+4. Score human reading on paired natural questions that differ in their correct answer. The first response-only fit lost two whole pairs and seven shared-prefix decisions to Base. The next registered fit learns to separate supported and contradicted claims over the same passage and uses the other 32 independent publisher passages. A failed primary closes its own promotion and attribution work.
+5. Evaluate the frozen tool weights on independent human database requests. Run model-selected lookups and aggregates against real SQLite data. Check the generated query's denotation again on a fixed resampling of each table. Only completed grounded answers count.
+
+Every new comparison has a frozen item order, direct comparator, threshold and resource stop. The [study registry](../research/registry.json) identifies the exact inputs. The [paper](../paper/loopqwen.pdf) and [trajectory supplement](../paper/tool-trajectories.csv) describe the endpoints and observed failure modes.
+
+
 ## Current deployment
 
 The qualified combined checkpoint is `research/results/native-language-release-02/model`. On controlled three-fact induction, repeating a real Qwen decoder layer improved completed answers over untouched Base, matched one-pass training and the identical weights with two passes bypassed. The common-prefix probes and independent training seed support this attribution. The release also preserved all measured prior workloads and both 131,083-token register answers. The separate family-relationship study closed when its one-pass control scored 44/64 against 34/64 for three passes. The official-test kinship panel remains unscored. General-language evaluation continues to use the pinned Base as the reference. [Native results and scope](CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Release qualification](../research/results/native-language-release-02)

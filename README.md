@@ -2,6 +2,14 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. The original six-layer architecture runs layers 10–15 twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Each recurrent adapter adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
+## Research report and executable tools
+
+The [technical paper](paper/loopqwen.pdf) covers matched depth controls, ordinary reasoning, correct tool execution, time, memory and full-history inference on the same 18 GiB M3 Pro. The [evidence index](paper/study-index.csv) links each claim to its preregistration and native output archive. [Figure sources and reproduction](paper/README.md)
+
+On 22 publisher-authored numerical requests the trained two-pass tool model executed the right function with correct arguments and returned the computed answer on **17/22**. Untouched Qwen Base achieved **0/22** complete executions and gave eight correct numbers without calling the function. The recurrent model took **15.15 s** and peaked at **1.08 GiB** versus **82.82 s** and **1.66 GiB** for Base. The tool model shares the final Qwen layer across two applications. Its 8-bit prefix comes from the official instruction-tuned sibling. Training, initialization and precision all contribute to this system comparison. [Predictions, actual callback results and decision](research/results/tool-dialogue-typed-01)
+
+On original and human-edited BoolQ questions, the first Base-initialized reading adapter finished much sooner and answered both versions correctly on **10/32 passages versus 12/32 for Base**. This candidate missed its accuracy gate. [Reading benchmark and exact paired result](research/results/contrast-boolq-recurrent-01)
+
 ## Current combined checkpoint
 
 Use [the native recurrent checkpoint](research/results/native-language-release-02/model) on Apple Silicon. On two disjoint three-fact induction panels it answered **124/128** correctly. A one-pass model with the same 552,810 trainable parameters, training stories and update count answered **58/128**. Both produced 13 tokens per answer and took about 32 seconds for all 128 questions. With the three-pass weights held fixed, disabling two applications of Qwen layer 15 dropped confirmation accuracy from **62/64 to 19/64**. Untouched Qwen Base answered **2/64 in 654.19 s** at the same 768-token allowance as the loop, which answered **62/64 in 16.02 s**. A second training seed scored 53/64 versus 25/64. [Matched results and limits](docs/CAPABILITY_SCOREBOARD.md#three-fact-induction-with-a-repeated-native-qwen-layer) · [Same-weights ablation](research/results/native-induction-anchored-bypass-01) · [Full-budget Base comparison](research/results/native-induction-anchored-longbase-01)
