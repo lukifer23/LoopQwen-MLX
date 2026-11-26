@@ -61,6 +61,51 @@ def write(paper, results, result):
             "success",
         ),
         (
+            "tool-dialogue-intent-pairs-01",
+            "Resource and tool adapter",
+            "grounded",
+            78,
+            "candidate",
+            "control",
+            "success",
+        ),
+        (
+            "meaning-alignment-01",
+            "Semantic alignment",
+            "free judgment",
+            80,
+            "candidate",
+            "control",
+            "correct",
+        ),
+        (
+            "draft-program-01",
+            "Draft then program",
+            "final number",
+            48,
+            "candidate",
+            "control",
+            "correct_answer",
+        ),
+        (
+            "folded-system-01",
+            "Single folded backbone",
+            "mixed",
+            92,
+            "candidate",
+            "control",
+            "success",
+        ),
+        (
+            "release-mixed-field-01",
+            "Released assistant",
+            "mixed",
+            50,
+            "candidate",
+            "control",
+            "correct",
+        ),
+        (
             "register-page-full-01",
             "BF16 pages, 131K",
             "exact",
@@ -72,6 +117,15 @@ def write(paper, results, result):
         (
             "register-packed-direct-full-01",
             "Direct 8-bit pages, 131K",
+            "exact",
+            2,
+            "direct_pages",
+            "base",
+            "correct",
+        ),
+        (
+            "register-fused-base-full-01",
+            "Fused decode, 131K",
             "exact",
             2,
             "direct_pages",
@@ -109,7 +163,13 @@ def write(paper, results, result):
             if not (results / study / "checksums.json").is_file():
                 continue
             d = result(study)
-            a, b = (d["metrics"][s] for s in (first, second))
+            if study == "release-mixed-field-01":
+                arms = d["by_family"]["all"]
+            elif "groups" in d:
+                arms = d["groups"]["all"]
+            else:
+                arms = d["metrics"]
+            a, b = (arms[s] for s in (first, second))
             peak = "peak_bytes" if "peak_bytes" in a else "peak"
             w.writerow(
                 [

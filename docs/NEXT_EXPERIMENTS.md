@@ -117,3 +117,5 @@ Four full requests per policy with the same trained tensors gave 26.10 versus 17
 ### Arithmetic reasoning before a live call
 
 The ordinary-prefix arithmetic trial asks whether a recurrent action decoder can recover the operations in a real word problem after reading the model's own first 96 reasoning tokens. ReAct motivates evaluating a thought, action, observation and final answer together. Here the model must generate the program itself and can revise a wrong draft. The frozen pair uses 48 previously unenrolled ASDiv and SVAMP questions. Both arms have exactly the same schema, IDs and 384 tokens per turn. The primary decision includes final quantities, verified callbacks, per-source retention, time and memory. A positive result opens a matched one-pass finisher comparison. [Registration](../research/experiments/draft-program-01.json) · [ReAct](https://arxiv.org/abs/2210.03629)
+
+The semantic alignment fit met its Wikipedia pair criterion and failed its independent support-domain criterion. The branch closed after its first comparison. [All 40 anchors and both endpoints](../research/results/meaning-alignment-01)

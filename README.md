@@ -39,6 +39,8 @@ On original and human-edited BoolQ questions, the first Base-initialized reading
 
 An equally trained one-pass tool model solved 108/132 against 112/132 for two passes. The four-task difference had eight paired gains and four losses ($p=0.388$), and two passes used 15.14% more time. The [matched-depth figure](paper/matched-tool-effects.svg) shows how the result changes with the choice of control.
 
+A two-pass semantic alignment model answered 44/48 Wikipedia paraphrase comparisons versus 5/48 for Base. With a fixed answer prefix it scored 44 versus 36, completing both judgments for 20 versus 13 anchors. On 32 real AskUbuntu comparisons it answered “no” every time. Neither model distinguished both alternatives for any support question, and the prespecified transfer requirement closed promotion. [Decisions, weights and generated answers](research/results/meaning-alignment-01) · [Paired endpoints](paper/meaning-pairs.svg)
+
 ## Run the offline assistant
 
 The latest qualified offline assistant is **`exports/tool-language-packed-03`**. It enables packed prefill on register requests of at least 16,384 tokens. In an isolated comparison against its parent it answered both 24,593-token swaps identically in 32.44 versus 37.52 s, with peak allocation of 1.94 versus 2.25 GiB. It also reproduced all 512 per-token losses and predictions after reading two whole books, 12 short generations and two actual package calls. [Deployment qualification](research/results/packed-release-retention-01)
