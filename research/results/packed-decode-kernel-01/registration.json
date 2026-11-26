@@ -1,0 +1,25 @@
+{
+  "id": "packed-decode-kernel-01",
+  "question": "Can a fused native Metal single-token kernel accelerate dense output attention over physically retained 8-bit Qwen keys and values without losing numerical fidelity?",
+  "parent": "research/results/register-packed-direct-full-01",
+  "parent_sha256": "8598e67ce40761912127c33f70d897860fb90aecca339a3a40d7d5868f9f01e1",
+  "checkpoint": "research/results/native-language-release-02/model",
+  "material": "research/data/register-packed-direct-full-01.json",
+  "lengths": [
+    4112,
+    32784,
+    131080
+  ],
+  "queries": 8,
+  "repeats": 4,
+  "max_error": 0.03,
+  "min_cosine": 0.999,
+  "min_speedup": 1.15,
+  "protocol": "The prior direct packed decoder won accuracy, first-token time, total time and peak at physical 131K but post-first-token throughput was 16.98 versus 27.09 tokens/s for ordinary Base. This operator-only pair compares the existing mlx-lm quantized products to a new two-stage native Metal online-softmax kernel. Derive actual Q, K and V from pinned Qwen global layer 3 after its three preceding native Gated DeltaNet layers read each exact prompt token in order. Retain BF16 learned affine factors and 8-bit codes with real unused capacity strides. At each of three physical lengths take the last eight distinct queries with their own full causal prefixes and both plain and authentic serialized learned reader bias. Four timed repeats per side per query/mask after exact-shape warmups. Alternate order, synchronize per timed operation, archive full numerical outputs, cache identities, every timing and incremental native peak. No random K/V distributions or generated answers substitute for this operator comparison. The two masks use the same actual layer-3 tensors; the learned register bias is applied as an additional mask condition. This is distinct from the end-to-end language model.",
+  "gate": "Successful native masked/strided numerical test first. Require maximum absolute error divided by max(1,maximum absolute reference) <=.03 at every output, minimum cosine >=.999 and >=15% throughput improvement in median kernel latency in each of four 32K/131K mask conditions. Publish all three lengths including failures. A miss closes this kernel. A pass licenses one paired, output-identical full-model decode-throughput comparison before deployment. No model-level throughput, quality or memory claim derives from this operator trial alone.",
+  "limits": {
+    "wall_seconds": 330,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  }
+}
