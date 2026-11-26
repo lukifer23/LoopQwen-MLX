@@ -110,12 +110,34 @@ def check_release(spec, out, budget, decision):
             digest(p / "checksums.json") == h and read(p / "decision.json")["passed"],
             "Unqualified release parent",
         )
+    prefix = None
+    if spec.get("field_cli"):
+        study = Path(spec["prefix_study"])
+        reg = read("research/registry.json")["experiments"][study.name]
+        require(
+            reg["registration"] == spec["prefix_registration"]
+            and digest(study / "checksums.json") == reg["archive"]
+            and digest(study / "registration.json") == reg["registration"]
+            and all(
+                digest(study / k) == v
+                for k, v in read(study / "checksums.json").items()
+            ),
+            "Unverified prefix crossover",
+        )
+        if read(study / "decision.json")["passed"]:
+            prefix = study
     if not bundle.exists():
-        export(Path(spec["language"]), prior, trained, trained, bundle)
+        export(Path(spec["language"]), prior, trained, trained, bundle, prefix)
     meta = read(bundle / "tool/tool-model.json")
     require(
         meta["qualification_archive"] == spec["tool_sha256"], "Different tool export"
     )
+    if spec.get("field_cli"):
+        require(
+            meta.get("prefix_reuse", {}).get("study")
+            == (prefix.name if prefix else None),
+            "Different prefix policy",
+        )
     inventory = read(bundle / "tool-export-files.json")
     require(
         all(digest(bundle / k) == v for k, v in inventory.items()),
@@ -173,6 +195,15 @@ def check_release(spec, out, budget, decision):
         "Bundled runtime changed tool behavior",
     )
     decision["portable"] = True
+    if spec.get("field_cli"):
+        from scripts.field_cli_replay import measure
+
+        records = measure(bundle, budget)
+        packed(out / "field-cli.json.gz", records)
+        decision["cli_correct"] = sum(r["correct"] for r in records)
+        decision["cli_exact"] = sum(r["identical"] for r in records)
+        decision["prefix_default"] = prefix is not None
+        require(decision["cli_exact"] == 4, "Installed/isolated command disagreement")
     assistant = Assistant(bundle)
     # Trigger the real mode switch in the same instance before checking the language model.
     tr = assistant.respond(
@@ -286,6 +317,30 @@ def verify(root, d):
         return
     tools = Path(spec["tools"])
     prior = Path(spec["language_record"])
+    if spec.get("field_cli"):
+        from scripts.field_cli_replay import correct, identical
+
+        field_records = unpack(root / "field-cli.json.gz")
+        require(
+            [r["kind"] for r in field_records]
+            == ["packages", "catalog", "calculator", "sqlite"]
+            and all(
+                r["identical"]
+                and identical(r["installed"], r["bundled"])
+                and r["correct"] == correct(r)
+                for r in field_records
+            )
+            and d["cli_correct"] == sum(r["correct"] for r in field_records)
+            and d["cli_exact"] == 4,
+            "Field CLI replay",
+        )
+        prefix_passed = read(Path(spec["prefix_study"]) / "decision.json")["passed"]
+        require(
+            d["prefix_default"]
+            == prefix_passed
+            == bool(read(root / "tool-model.json").get("prefix_reuse")),
+            "Recorded prefix policy",
+        )
     fields = unpack(root / "field.json.gz")
     require(
         [r["success"] for r in fields]
