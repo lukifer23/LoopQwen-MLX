@@ -1,6 +1,25 @@
 # LoopQwen-MLX
 
-A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Training adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
+A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. Layers 10–15 run twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Each recurrent adapter adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
+
+## Current combined checkpoint
+
+**Use `research/results/conditional-language-02/model` for the measured combined model.** On 80 fresh requests it answered **55/80 versus 41/80** for untouched Qwen Base after blind answer review, with 14 gains and zero lost correct answers. Generation took **419.12 versus 536.26 seconds** on an 18 GiB M3 Pro. The strict scorer gave 49/80 versus 33/80. All 34 requests handled at ordinary depth reproduced the Base output tokens, and all 120 raw language passages reproduced its NLL exactly. Reading tied at 2/8. The selector used the inference specialist on 10/36 inference questions, with the other 26 handled at ordinary depth. [Deployable checkpoint and paired outputs](research/results/conditional-language-02) · [Workload breakdown and matched dense controls](docs/CAPABILITY_SCOREBOARD.md#combined-arithmetic-inference-and-register-model) · [Blind review](docs/measurements/answer-audits/conditional-language-02.json)
+
+The **same checkpoint** consumed **131,083 input tokens** and decoded 30 tokens on each side of a verified synthetic register key swap. It retrieved **281711** near token 13,098 and **386927** near token 98,294, scoring **2/2 versus 0/2** for Base. Total generation took **524.50 versus 393.20 seconds**, with a measured run peak of **4.32 GiB** in MLX. The two three-token keys exchanged positions. Every other input token stayed fixed. [Frozen prompts and native 128K results](research/results/conditional-language-128k)
+
+Run a measured inference example through the public CLI. Its visible answer is `Yes.`
+
+```sh
+.venv/bin/python -m loopqwen generate \
+  --checkpoint research/results/conditional-language-02/model \
+  --thinking --max-tokens 1024 \
+  --prompt 'Take this information as given: People working together to plant flowers.
+Consider this statement: People are planting flowers.
+Is the statement supported, contradicted, or left undecided by the information? Answer yes, no, or maybe in that order of meanings.'
+```
+
+The self-contained native bundle shares the Base weights among three unmerged adapter banks and contains 756,444,138 unique parameters. To rebuild it from the checkpoint, run `.venv/bin/python -m loopqwen export --checkpoint research/results/conditional-language-02/model --output exports/conditional-language-02` in a checkout with the pinned Base weights. [Training and deployment](docs/TRAINING.md#learned-exit-and-natural-inference)
 
 ## Learned full-history retrieval
 

@@ -331,3 +331,7 @@ The complete model used **419.12 seconds** against **536.26 seconds** for untouc
 | Natural inference generation seconds | 39.13 | 31.92 |
 
 Both arithmetic finishers agreed on every item's correctness. The two inference models differed on six judged items, with three correct only at each depth. Training achieved a reproducible gain over untouched Base. These paired depth controls found equal final-answer accuracy and lower elapsed time for trained K1. [Arithmetic attribution](../research/results/learned-exit-dense-01) · [Natural inference attribution](../research/results/entailment-dense-01)
+
+### Final resident full-history deployment
+
+The combined checkpoint from the 80-request comparison processed two 131,083-token documents and retrieved both counterfactual values. Base retrieved neither. Candidate generation took 262.37 and 262.13 seconds; Base took 196.78 and 196.42 seconds. The first token arrived at about 261 seconds for the candidate. MLX peak allocation was 4.32 GiB for the run. Both three-token keys and the complete token permutation were verified before inference. On the 2,054-token preflight the resident and disk-backed candidates selected the same passage and emitted the same 29 tokens. The 128K evidence covers two versions of one synthetic lookup document. [Exact outputs, TTFT and archive verification](../research/results/conditional-language-128k)
