@@ -148,6 +148,12 @@ def open_assistant(args):
         from .io import read
 
         policy = read(args.session_policy / "registration.json")
+        if policy.get("visit_residual"):
+            from .visit_residual import VisitResidualAssistant
+
+            if getattr(args, "tool_format", "compact") != "qwen":
+                raise ValueError("The second-visit policy uses --tool-format qwen")
+            return VisitResidualAssistant(args.checkpoint, args.session_policy)
         if policy.get("trained_instruction_adapter"):
             from .cross_view import CrossViewAssistant
 
