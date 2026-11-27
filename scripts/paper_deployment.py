@@ -611,3 +611,81 @@ def compact_streams(paper, results, result, finish, name="packed-release-retenti
         frameon=False, loc="lower center", bbox_to_anchor=(0.5, 1), ncol=2, fontsize=8
     )
     finish(fig, prefix)
+
+
+def localized_inputs(paper, results, result, finish):
+    from collections import defaultdict
+
+    name = "packed-release-retention-04"
+    root = results / name
+    if not (root / "checksums.json").exists():
+        return
+    d = result(name)
+    spec = read(root / "registration.json")
+    rows = read(spec["unicode_data"])["rows"]
+    counts = defaultdict(lambda: [0, 0, 0, 0])
+    with (paper / "localized-inputs.csv").open("w") as stream:
+        writer = csv.writer(stream)
+        writer.writerow(
+            [
+                "locale",
+                "territory",
+                "localized_name",
+                "pinned_ids",
+                "release04_ids",
+                "release05_ids",
+            ]
+        )
+        old, new = [
+            unpack(root / (side + ".json.gz"))[0]["unicode"]["label_ids"]
+            for side in ("control", "candidate")
+        ]
+        for r, b, a in zip(rows, old, new, strict=True):
+            writer.writerow(
+                [
+                    r["locale"],
+                    r["territory"],
+                    r["text"],
+                    json.dumps(r["ids"]),
+                    json.dumps(b),
+                    json.dumps(a),
+                ]
+            )
+            c = counts[r["locale"]]
+            c[0] += 1
+            c[1] += b != r["ids"]
+            c[2] += a != r["ids"]
+            c[3] += len(b) - len(a)
+    assert sum(c[1] for c in counts.values()) == d["streams"]["control"]["mismatches"]
+    assert sum(c[2] for c in counts.values()) == d["streams"]["candidate"]["mismatches"]
+    langs = sorted(counts, key=lambda loc: (-counts[loc][1] / counts[loc][0], loc))
+    fig, (left, right) = plt.subplots(1, 2, figsize=(7.0, 4.0), sharey=True)
+    for i, lang in enumerate(langs):
+        n, old_wrong, new_wrong, extra = counts[lang]
+        left.scatter(
+            100 * old_wrong / n,
+            i + 0.10,
+            color="#9d5932",
+            marker="s",
+            s=15,
+            label="Release 04" if i == 0 else None,
+        )
+        left.scatter(
+            100 * new_wrong / n,
+            i - 0.10,
+            color="#11675d",
+            s=15,
+            label="Release 05" if i == 0 else None,
+        )
+        right.barh(i, extra / n, color="#699884", height=0.5)
+    left.set_yticks(range(len(langs)), langs)
+    left.invert_yaxis()
+    left.set_xlabel("Different from Base (%)")
+    right.set_xlabel("Extra tokens per name in release 04")
+    left.legend(
+        loc="lower left", bbox_to_anchor=(0, 1.02), ncol=2, frameon=False, fontsize=8
+    )
+    for ax in (left, right):
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.tick_params(labelsize=8)
+    finish(fig, "localized-inputs")

@@ -447,6 +447,7 @@ def main():
     from paper_conversations import make as conversations
     from paper_deployment import (
         compact_streams,
+        localized_inputs,
         packed_delivery,
         providers,
         repository_trees,
@@ -482,6 +483,7 @@ def main():
     tokenizer_streams(PAPER, RESULTS, result, finish, "session-tokenizer-02")
     providers(PAPER, RESULTS, result)
     repository_trees(PAPER, RESULTS, result, finish)
+    localized_inputs(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"
