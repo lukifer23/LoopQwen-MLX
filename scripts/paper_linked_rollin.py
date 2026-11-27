@@ -221,6 +221,32 @@ def build():
             )
         ]
     )
+    physical = []
+    for arm in ARMS:
+        observations = unpack(ROOT / (arm + ".json.gz"))
+        turns = [
+            t
+            for r in observations
+            for q in r["requests"]
+            for t in q["trajectory"]["turns"]
+        ]
+        logical = sum(len(t["prompt_ids"]) for t in turns)
+        reused = sum(t.get("reused_prompt_tokens", 0) for t in turns)
+        physical.append(
+            (logical, reused, (logical - reused) / sum(t["ttft_s"] for t in turns))
+        )
+    prices.extend(
+        [
+            [label, *[f"{vals[i]:,.{precision}f}" for vals in physical]]
+            for i, (label, precision) in enumerate(
+                (
+                    ("All rendered prompt tokens", 0),
+                    ("Previously cached prompt tokens", 0),
+                    ("Uncached prompt rate (tokens/s)", 2),
+                )
+            )
+        ]
+    )
     scores = []
     for setname, prefix in (
         ("All 24 questions", "all"),

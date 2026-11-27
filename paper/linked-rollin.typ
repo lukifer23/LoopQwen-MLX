@@ -96,7 +96,7 @@ Before observing model outputs we chose one presentation of each original questi
 
 = Timing and memory
 #grid(("Metric for 84 requests","Loop","Base"),m.costs,(2.5fr,1fr,1fr))
-A source-stratified paired bootstrap with 20,000 draws estimates uncertainty within this panel. The 95% percentile intervals for the ratio of summed waits were #m.intervals. Request grouping reflects the repeated presentations, opposing claims and shared source tables. The measurements come from one 18-GiB Apple M3 Pro.
+The registered prompt rate credits each complete rendered prompt, including cache reuse. The uncached rate counts the physical tokens left to process and uses the same observed native opening times. A source-stratified paired bootstrap with 20,000 draws estimates uncertainty within this panel. The 95% percentile intervals for the ratio of summed waits were #m.intervals. Request grouping reflects the repeated presentations, opposing claims and shared source tables. The measurements come from one 18-GiB Apple M3 Pro.
 
 #pagebreak()
 = Time to a usable answer
