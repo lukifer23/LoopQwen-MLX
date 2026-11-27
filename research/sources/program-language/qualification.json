@@ -1,0 +1,77 @@
+{
+  "selection_seed": 271952,
+  "complete_sequence_limit": 1792,
+  "response_limit": 384,
+  "sources": {
+    "data/research_external/dolly/original.jsonl": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec",
+    "data/research_external/gsm-train.jsonl": "17f347dc51477c50d4efb83959dbb7c56297aba886e5544ee2aaed3024813465",
+    "research/sources/changed-tables/originals.json": "eff96bfe351c7ec73fb3692145ae37e3bbf612c920eace39377c76c9f12cb552",
+    "research/sources/aligned-table-programs/preferences.json": "cc7b54b3660900397d186ded38571efa4153a1689fb2bad9030fcc0e27e61aa7",
+    "research/sources/aligned-table-programs/execution.json": "bf22a51776b638a0dbcf364dd8d3d61cd840863cc91906be1ca56fd7b087ed57",
+    "research/sources/grounded-table-sentences/originals.json": "7b4b807dace4b7657e9e0befa32901d6e0fc861e54a34c886964e63650dd48f0",
+    "research/data/table-policy-training.json": "53c73bb338d526ee140d9d3ba4447a6c37a0e65177488884f6adcb52ba8d413f",
+    "research/data/table-policy-panel.json": "f1f598cd430b3720f48bfe40037603bad890f13d9017ebb118d96254f5c1ad8a"
+  },
+  "groups": {
+    "program": {
+      "examples": 149,
+      "input_positions": 93146,
+      "all_response_positions": 11095,
+      "execution_negatives": 176
+    },
+    "discovery": {
+      "examples": 149,
+      "input_positions": 71336,
+      "all_response_positions": 4768,
+      "execution_negatives": 0
+    },
+    "scalar": {
+      "examples": 298,
+      "input_positions": 202109,
+      "all_response_positions": 2068,
+      "execution_negatives": 0
+    },
+    "explanation": {
+      "examples": 761,
+      "input_positions": 539279,
+      "all_response_positions": 29554,
+      "execution_negatives": 0
+    },
+    "instruction": {
+      "examples": 3072,
+      "input_positions": 597720,
+      "all_response_positions": 244727,
+      "execution_negatives": 0
+    },
+    "arithmetic": {
+      "examples": 1024,
+      "input_positions": 163334,
+      "all_response_positions": 93913,
+      "execution_negatives": 0
+    },
+    "legacy": {
+      "examples": 2138,
+      "input_positions": 1249019,
+      "all_response_positions": 119748,
+      "execution_negatives": 0
+    }
+  },
+  "omitted": {
+    "explanation/complete turn exceeds limit": 7,
+    "legacy/complete turn exceeds limit": 18
+  },
+  "training_turns": 7591,
+  "training": "ee61a192f6156b9a58801d30b26292d3c2419554d35571031fb2c9aef5ff32e2",
+  "reserved_instructions": "2570906e881719657eff0b12e921762a5d83884c983d4c31329b40af7ce2cc09",
+  "reserved_by_category": {
+    "brainstorming": 3,
+    "classification": 3,
+    "closed_qa": 3,
+    "creative_writing": 3,
+    "general_qa": 3,
+    "information_extraction": 3,
+    "open_qa": 3,
+    "summarization": 3
+  },
+  "held_normalized_prompt_count": 1628
+}
