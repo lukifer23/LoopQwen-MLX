@@ -1,0 +1,190 @@
+{
+  "original": "282932990bd57515f826b6122ee384d21c2ff8b412b21486ef2c85411863ea4a",
+  "parents": [
+    {
+      "id": "valid-return-01",
+      "archive": "f993f2ca4369856dd1fbb345b8b28f2a1bf4c5ea8a944e94fc117cf870250322"
+    },
+    {
+      "id": "linked-rollin-02",
+      "archive": "acc5f4dcaeb00a095e072c5b9ade6cf4e6b3f273c8957cf1645291b84eb4ce41"
+    },
+    {
+      "id": "followup-protected-01",
+      "archive": "9bb15063fc60d5dcd16ea4b7f7a063af0b87a06970e55c4235e712ddca645e71"
+    }
+  ],
+  "new_expert": "8cbab2b0e58fbbd46bc9173ab2563fd42a2a08df4348140c64a0963840b020b8",
+  "density": 0.2,
+  "projections": {
+    "model.layers.23.self_attn.q_proj.weight": {
+      "cutoffs": [
+        0.001992651727050543,
+        0.002095156814903021,
+        0.0018221867503598332,
+        0.002787911333143711
+      ],
+      "retained_per_source": [
+        838860,
+        838860,
+        838860,
+        838860
+      ],
+      "opposite_signs": 357538,
+      "nonzero": 2350233,
+      "participation": [
+        1844071,
+        1796927,
+        472659,
+        74621,
+        6026
+      ],
+      "elements": 4194304
+    },
+    "model.layers.23.self_attn.k_proj.weight": {
+      "cutoffs": [
+        0.0014421860687434673,
+        0.0018212192226201296,
+        0.0015728208236396313,
+        0.0024071058724075556
+      ],
+      "retained_per_source": [
+        104857,
+        104857,
+        104857,
+        104857
+      ],
+      "opposite_signs": 40748,
+      "nonzero": 299213,
+      "participation": [
+        225075,
+        230246,
+        59660,
+        8720,
+        587
+      ],
+      "elements": 524288
+    },
+    "model.layers.23.self_attn.v_proj.weight": {
+      "cutoffs": [
+        0.0015086433850228786,
+        0.001841460238210857,
+        0.0015903853345662355,
+        0.0025247586891055107
+      ],
+      "retained_per_source": [
+        104857,
+        104857,
+        104857,
+        104857
+      ],
+      "opposite_signs": 46094,
+      "nonzero": 293006,
+      "participation": [
+        231282,
+        224212,
+        58936,
+        9247,
+        611
+      ],
+      "elements": 524288
+    },
+    "model.layers.23.self_attn.o_proj.weight": {
+      "cutoffs": [
+        0.0009331170003861189,
+        0.001231973059475422,
+        0.0010992296738550067,
+        0.0017169637139886618
+      ],
+      "retained_per_source": [
+        419430,
+        419431,
+        419430,
+        419430
+      ],
+      "opposite_signs": 183335,
+      "nonzero": 1181154,
+      "participation": [
+        915998,
+        910784,
+        234614,
+        33430,
+        2326
+      ],
+      "elements": 2097152
+    },
+    "model.layers.23.mlp.gate_proj.weight": {
+      "cutoffs": [
+        0.0021068549249321222,
+        0.002139673102647066,
+        0.001747242407873273,
+        0.0029116631485521793
+      ],
+      "retained_per_source": [
+        734003,
+        734003,
+        734003,
+        734003
+      ],
+      "opposite_signs": 287097,
+      "nonzero": 2077185,
+      "participation": [
+        1592831,
+        1590448,
+        413611,
+        66144,
+        6982
+      ],
+      "elements": 3670016
+    },
+    "model.layers.23.mlp.up_proj.weight": {
+      "cutoffs": [
+        0.0016581298550590873,
+        0.0018161371117457747,
+        0.0015227326657623053,
+        0.0024104744661599398
+      ],
+      "retained_per_source": [
+        734003,
+        734003,
+        734003,
+        734003
+      ],
+      "opposite_signs": 270670,
+      "nonzero": 2081831,
+      "participation": [
+        1588185,
+        1587477,
+        417287,
+        69285,
+        7782
+      ],
+      "elements": 3670016
+    },
+    "model.layers.23.mlp.down_proj.weight": {
+      "cutoffs": [
+        0.0008785845129750669,
+        0.0010262761497870088,
+        0.0007861292106099427,
+        0.0014277960872277617
+      ],
+      "retained_per_source": [
+        734003,
+        734003,
+        734003,
+        734003
+      ],
+      "opposite_signs": 301231,
+      "nonzero": 2079279,
+      "participation": [
+        1590737,
+        1600952,
+        412770,
+        60797,
+        4760
+      ],
+      "elements": 3670016
+    }
+  },
+  "compiled": "0bf6784b476d3347826731c10c53db37287f9fe9f3af3c209ec62e84fdb7839a"
+}

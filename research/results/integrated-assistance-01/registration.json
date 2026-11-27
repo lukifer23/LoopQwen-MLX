@@ -1,0 +1,76 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "instruction_interpolation": {
+    "trained_fraction": 1.0,
+    "second_pass_fraction": 0.35,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "trained_instruction_adapter": true,
+  "id": "integrated-assistance-01",
+  "material": "research/data/integrated-assistance-panel.json",
+  "training": "research/data/integrated-assistance-training.json",
+  "deferred_after": "visit-residual-01",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "updates": 1000,
+  "lr": 7.5e-05,
+  "fit_seed": 39841,
+  "positions_per_view": 48,
+  "merged_task_updates": {
+    "density": 0.2,
+    "parents": [
+      {
+        "id": "valid-return-01",
+        "archive": "f993f2ca4369856dd1fbb345b8b28f2a1bf4c5ea8a944e94fc117cf870250322"
+      },
+      {
+        "id": "linked-rollin-02",
+        "archive": "acc5f4dcaeb00a095e072c5b9ade6cf4e6b3f273c8957cf1645291b84eb4ce41"
+      },
+      {
+        "id": "followup-protected-01",
+        "archive": "9bb15063fc60d5dcd16ea4b7f7a063af0b87a06970e55c4235e712ddca645e71"
+      }
+    ]
+  },
+  "sources": {
+    "research/sources/database-dialogues/originals.json": "ae9bc94dd3600414660b796e5d175dfac2deb5dffdfc32e6573ea8be193b5afe",
+    "research/sources/database-dialogues/distilled.json": "360d50ef00d636bc542dcf2cfb15dd7f90d222e0a7d069d57e3e6d71326046ec",
+    "research/sources/database-dialogues/semantic-verification.json": "42508477d359f7ecae0722917bd794351a60c53421f1b8bd6524f3bc93633919",
+    "research/sources/human-assistance/originals.json": "d78f896fae9e0967523e776e3aa735640264a1eaa6d0fe038fb708e6d0700000",
+    "research/diagnostics/integrated-assistance-reading.json": "4802f74f5b4527277cb63779c4258ad8a36e8fe7d38c1a6e7ca65b65f46b2027",
+    "paper/followup-retention.csv": "bef831c9b4b245f04e9e506457f1c0dc8705f80fda30246bea35f840668262fb",
+    "docs/measurements/database-runtime.json": "210046885731a40c296683465a121df2c645f28fced0c96f6ec3ba4dc8f2383a"
+  },
+  "limits": {
+    "wall_seconds": 4350,
+    "peak_gib": 7.25,
+    "available_gib": 1.5
+  },
+  "question": "Can a single input-independent combination of actual recurrent task updates retain complementary older successes while adding grounded multi-table query execution and generally useful human assistance?",
+  "motivation": "The protected fit lost all eleven learner-history successes on the common 36. Across the three independently trained adapters there are complementary responses; the best current wheel model solved 20/24 genuine requests. Here one additional broadly trained two-visit expert and three consecutive prior experts contribute parameter displacements from their common typed recurrent initialization. No per-input router, special decoding or tools outside the public catalog. Run only after the direct visit-residual comparison closes with scored arms and a failed gate. A pass there takes priority. This study does not advance any failed weight set.",
+  "training_protocol": "Freeze 2156 source-backed training turns with 2152 distinct initial token sequences, disjoint from every held initial sequence. All input tokens traverse the 8-bit prefix and the shared final attention layer twice. Every one of 1000 updates uses the actual inspect, query and reply turns for one original human CoSQL question, one rank-zero OASST1 original human response, one ROPES or QuAC answer, one practical package turn and one historical rehearsal turn. Independent seeded shuffled decks ensure every training turn is used. Sample at most 48 target positions per view; retain first target, first visible content and terminal token. Divide the logical gradient equally among seven views using sequential native backward passes. Minimize second-visit full-vocabulary NLL plus .15 times softplus(.1 - improvement in full-vocabulary gold log probability relative to the stop-gradient first visit). Save actual per-view gains, losses, norm, every position, learned seven rank-32 adapter pairs, and AdamW state. Clip at 1, learning rate .000075, weight decay .01. Preselected four training views in each of seven slots measure the compiled model at the first, first visible, and last response positions in both visits.",
+  "merging": "For each of seven physical last-layer projections recover the true scaled FP32 low-rank product from each of four learned adapters and subtract the true product of the shared typed donor. Rank each source and projection separately by absolute displacement. Retain the largest 20 percent (all cutoff ties), elect the sign of summed retained changes, average agreeing nonzero changes and leave exact sign ties unchanged. Add the consensus to the original effective donor weight and round once to its serving dtype. Compile once; every user and token gets the same recurrent weights. Archive thresholds, conflict counts, number of contributors, each parent hash and final bytes. Inspired by Yadav et al. (NeurIPS 2023); local integration and validation are tested independently.",
+  "decision": "A single static K2 candidate against untouched BF16 Qwen3.5-0.8B-Base at ordinary depth. Both use identical initial token IDs and tools, thinking-enabled unrestricted greedy decoding, common frozen order, up to three 384-token turns and actual time including first model load. 220 requests: 24 authentic consecutive database questions on 12 unseen databases, 12 original held open-ended conversations and all 184 unique requests from the prior two main panels. The SQL answer must visibly give the recorded scalar. The last successful SQL call before answering must return precisely the expected one-cell result after reading a real table, and the same emitted SQL must match the original expert denotation on every published test database for its schema, without oracle substitution. Require eight net extra grounded SQL responses, exact two-sided sign-flip p<=.05 grouped by original database and four whole two-question databases, at least two more than Base. No individual Base success lost among the 208 objectively scored requests. Preserve all earlier successes in the union of the three archived 36-case comparisons and all 20 successes of the protected model on the earlier wheel requests. No lower grounded rate or completion in any objective family or open completion; improve human-first, follow-up and causal mean F1 each by .05. Over all 220 require strictly lower full time, summed first token and max native allocation, strictly higher physical uncached opening and post-first decoding rates. Open answers are never scored by lexical overlap. Seal blinded preferences and supported-answer judgments on every open and SQL response, before inspecting arm totals. Require six open-question preferences and more wins than losses, no lower fully usable or higher unsupported rate; no lower supported SQL answers. Stop on failed automatic or reading gate, nonfinite gradients, resource breach or exhausted time. A pass licenses a new seed, matched equally trained single-visit control and installed changed-source full-context tests at >=131072 tokens on the same weights before general release. No held case is used to choose mixture or train."
+}
