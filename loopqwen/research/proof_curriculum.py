@@ -15,33 +15,13 @@ NAME = "proof-curriculum-01"
 
 
 def turns(spec, root):
-    report = qualification(spec)
-    counts = report["verdicts"]
-    save(root / "source-qualification.json", report)
-    if not (
-        report["distinct_worlds"] == 192
-        and all(counts[k] == 64 for k in LABELS)
-        and report["multihop_known"] >= 24
-        and report["packages"] >= 8
-        and report["human"] == 384
-    ):
-        raise InterruptedError(
-            "Published logic, depth or real distribution source coverage missed its minimum"
-        )
-
-
-def qualification(spec):
     data = read(spec["training"])
     return supervised_turns(
         [(k, w) for k in ("human", "proof", "package") for w in data[k]]
     )
 
 
-def qualify(spec, tok, root, guard):
-    from scripts.proof_curriculum_material import build
-
-    build()
-    guard.check()
+def qualification(spec):
     data = read(spec["training"])
     proof = data["proof"]
     counts = Counter(r["label"] for r in proof)
@@ -57,6 +37,26 @@ def qualify(spec, tok, root, guard):
             r["label"] != "uncertain" and r["depth"] >= 2 for r in proof
         ),
     }
+
+
+def qualify(spec, tok, root, guard):
+    from scripts.proof_curriculum_material import build
+
+    build()
+    guard.check()
+    report = qualification(spec)
+    counts = report["verdicts"]
+    save(root / "source-qualification.json", report)
+    if not (
+        report["distinct_worlds"] == 192
+        and all(counts[k] == 64 for k in LABELS)
+        and report["multihop_known"] >= 24
+        and report["packages"] >= 8
+        and report["human"] == 384
+    ):
+        raise InterruptedError(
+            "Published logic, depth or real distribution source coverage missed its minimum"
+        )
 
 
 def draw(rng, streams, rehearsal):
