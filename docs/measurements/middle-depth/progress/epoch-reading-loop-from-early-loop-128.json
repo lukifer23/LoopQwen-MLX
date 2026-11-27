@@ -1,0 +1,1179 @@
+{
+  "summary": {
+    "chat": {
+      "sources": {
+        "parcel": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "studio": {
+          "current": {
+            "changes_correctly": true,
+            "stays_correct": true
+          },
+          "baseline": {
+            "changes_correctly": true,
+            "stays_correct": false
+          }
+        },
+        "volunteer": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 1,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 4,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 2.8987982060643844
+        },
+        "baseline": {
+          "success": 3,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 5.61134241707623
+        }
+      }
+    },
+    "reasoning": {
+      "sources": {
+        "archive": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "bridge": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": true,
+            "stays_correct": false
+          }
+        },
+        "kiln": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 2,
+      "outcomes": {
+        "current": {
+          "success": 0,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 7.005174584046472
+        },
+        "baseline": {
+          "success": 2,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 12.494732334103901
+        }
+      }
+    },
+    "tools": {
+      "sources": {
+        "ink": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "parcels": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "tiles": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 0,
+          "completed": 5,
+          "requests_with_successful_callbacks": 6,
+          "requests_with_any_callback": 9,
+          "stops": {
+            "turn_limit": 4,
+            "answered": 5
+          },
+          "seconds": 24.52609504200518
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 3,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 6,
+            "answered": 3
+          },
+          "seconds": 16.156862457923125
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "source": "archive",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Authorizes shipping despite Cedar\u2019s preservation hold.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.1799578329664655,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/archive-changed.json.gz",
+        "sha": "138b8a8c38f3ad8b41439f2f5e69acf862bd320ed383ca7497679d89af64ea43"
+      },
+      "baseline": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Treats the dated correction as an unresolved discrepancy.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5432913330150768,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-changed.json.gz",
+        "sha": "5c2f8acd6d798082edb8f061cd2752d39cadb76273d3d9a1baf219e1191afffb"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Offers the superseded unpaid entry as the reason to ship and omits the later payment correction.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.8813005420379341,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/archive-irrelevant.json.gz",
+        "sha": "0da316def5c74e953d1b9a079904688ce5d673ff1fca0bcc09ac7e0d671966ee"
+      },
+      "baseline": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Invents payment for Elm and treats Cedar as unpaid.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9302277500391938,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-irrelevant.json.gz",
+        "sha": "b6d745233b2db7ee8a6cf6246a81725e85f8fca26b60506a0073352197069ec9"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Uses the obsolete unpaid entry and incorrectly waives the payment requirement.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9607431669719517,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/archive-original.json.gz",
+        "sha": "a3a25ef32c99044aeaf708421735078abd7fd138ba9a92a6048059e4cc743553"
+      },
+      "baseline": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Treats the dated correction as an unresolved discrepancy.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5825187920127064,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-original.json.gz",
+        "sha": "56fa3f12c04e5d4921a719982c20f93774e832e7792998049f9d3697beea53cb"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Gives the decision without explaining that coverage of both markers includes blue.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.11983166699064896,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/bridge-changed.json.gz",
+        "sha": "4f142bd0bfd5e1b0f14836bd275baae39e63ac2f8890a218606345f47e2e75db"
+      },
+      "baseline": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7380264580133371,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-changed.json.gz",
+        "sha": "817473b10c858613466587fd811d5a49e275f944156cbc10a72f02cf59c4c9ff"
+      },
+      "delta": -1
+    },
+    {
+      "source": "bridge",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Concludes closure from a red-only observation.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.13492829096503556,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/bridge-irrelevant.json.gz",
+        "sha": "a43ccb0158007a740b1b9934cb7df93f4b70a986b1b204cf0bef9e033b207fa6"
+      },
+      "baseline": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Says the observed marker is unspecified despite the explicit red marker.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6025261670001782,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-irrelevant.json.gz",
+        "sha": "7d2b9e1ea4be2e72afd7dee9c6ab54503a03ea12269f777832295eac3d487d3d"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Concludes closure from a red-only observation.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1463978749816306,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/bridge-original.json.gz",
+        "sha": "f1e0207d9f3cb3475a0aa8f0378d261105b7324a031802511619b09fbcfd7f24"
+      },
+      "baseline": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7022670420119539,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-original.json.gz",
+        "sha": "6cc21c0ed1e8cc7df9b853437b4647a5e17b3b85de204b647554b217b3f204a3"
+      },
+      "delta": -1
+    },
+    {
+      "source": "ink",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.0542580420151353,
+        "callbacks": 3,
+        "successful_callbacks": 3,
+        "evidence": "short/epoch-reading/128/loop/ink-changed.json.gz",
+        "sha": "b4c6c24d9998d641892b75b29ba189b420bf311c2718b3734bf6ecfdd14adf8e"
+      },
+      "baseline": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.560833957977593,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-changed.json.gz",
+        "sha": "6ad977035c428d5f3dbbe707b020374dc92db871db284055727386b36b777dac"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.7263926250161603,
+        "callbacks": 2,
+        "successful_callbacks": 2,
+        "evidence": "short/epoch-reading/128/loop/ink-irrelevant.json.gz",
+        "sha": "591c8dd6c03be26aba86a62bcfe1317781b9972b8a687a667461f34329c7fc81"
+      },
+      "baseline": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3404487500083633,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-irrelevant.json.gz",
+        "sha": "a5d05e4471a72b6f3e96a30979985b2cdacfb1cf0e9967b381c234b9fcc15d9a"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.4051866669906303,
+        "callbacks": 2,
+        "successful_callbacks": 2,
+        "evidence": "short/epoch-reading/128/loop/ink-original.json.gz",
+        "sha": "729066a47932d227d14fe3673c32867ed720c9f14f0c1ff95ead3991b185efb5"
+      },
+      "baseline": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5210445830016397,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-original.json.gz",
+        "sha": "66f3ce6d5a7f7e05fa1165f10844b2d23f0db05d89bd138917214005223b2c1c"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Claims 1 hour 50 minutes equals 150 minutes and gives the wrong margin.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.078910167037975,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/kiln-changed.json.gz",
+        "sha": "dac82841e568205756b3c76804b4b3dd3ff924426d1fff36a84732465c339233"
+      },
+      "baseline": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Denies sufficient cooling and computes eight hours twenty instead of 100 minutes.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.6809482499957085,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-changed.json.gz",
+        "sha": "88b52eeffa72be5438e76f57ecb819087e8b0e2e499a8f476c2e466875c5bc17"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Says the kiln has cooled long enough although 80 minutes is 10 minutes short.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.1468315840465948,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/kiln-irrelevant.json.gz",
+        "sha": "180e00be3b2cd6e4c4ff2318369de929cb12a2bdc94ee599d7fec38e0f8abf1c"
+      },
+      "baseline": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Calculates the 80-minute margin as 20 minutes and omits the decision.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.799434583983384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-irrelevant.json.gz",
+        "sha": "ad98c77515c2d3a895081863f3179b2f22cb6fd3786204c1f0ce697682706a6b"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Says the kiln has cooled long enough although 80 minutes is 10 minutes short.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.3562734580482356,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/kiln-original.json.gz",
+        "sha": "d47a52d2ffc457c06eb2c86c94848af29b8511ef81d556432694771b0cab5d12"
+      },
+      "baseline": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Calculates the 80-minute margin as 20 minutes and omits the required decision.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9154919580323622,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-original.json.gz",
+        "sha": "5f854ee98e63956466550b5e4378474a4c1c7bad5802839cd77c738fc944758a"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.20936854201136157,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/parcel-changed.json.gz",
+        "sha": "260733865e4d15fbc0414e0204b511010d8deb6bd577e4ce53efc9efbbdf4cd4"
+      },
+      "baseline": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.2520893749897368,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-changed.json.gz",
+        "sha": "b447a2bb2dfea1d4eb96d0ebfd7b033b1aa715b051d0dc36ada646b3c383785f"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.2063605830189772,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/parcel-irrelevant.json.gz",
+        "sha": "60318328f787448c1e1305d52cb5756ff58ada71e427f776dc9fe3eb374359b3"
+      },
+      "baseline": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1766133750206791,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-irrelevant.json.gz",
+        "sha": "bf62ef65ffdfb1356b1aed000fdffe422f17d7215e895253e83d1c7917117ad4"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.19581283297156915,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/parcel-original.json.gz",
+        "sha": "12cbc0f314b5a68cd968b2bed28462f57a994edbc359da0d9242f416e731bfa4"
+      },
+      "baseline": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.18083745904732496,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-original.json.gz",
+        "sha": "3aa0e797207acf601f111bffeab66fd0687774127da925e6929e28b96fcbf54c"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.842013749992475,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/parcels-changed.json.gz",
+        "sha": "201fa01f3a8144bd2f891a8a78758e73192b5ecd5c7dab26400419fe13990d56"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.45815849996870384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-changed.json.gz",
+        "sha": "678089e49c48c257cc2b07d0cde05a171713e60c67351eba94ece038a1584ba8"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.8629778749891557,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/parcels-irrelevant.json.gz",
+        "sha": "21574fde2e7b6e7c29876e23bd3353831a370a4d43d2d4f0a9cc41efff18bca6"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.46371325000654906,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-irrelevant.json.gz",
+        "sha": "1f5a5cffc19cd21e2aadd9fb9eb23489dc37db68e83a76ddea153a60ea1f4f8f"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9777205000282265,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/parcels-original.json.gz",
+        "sha": "2aa92586052aade7eef8642909e0becc72f4183ef86b72fe2ad935fa6839d837"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4502495839842595,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-original.json.gz",
+        "sha": "b07f2e5a950f3dd941042061f40edf598681550e9bbcfd016303031556d79304"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "abee11026460c5c5c6b90b04ad349aa3ac6e5a4b8e6574e04bda34001a682340",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Looks for jade in the day column and invents a day after the failed lookup.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.837108250008896,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/parcels-own.json.gz",
+        "sha": "614ed647af5c8e2a4ad69d0aa0c6ef80120fea5c2c0cb6de765c79943f0e5694"
+      },
+      "baseline": {
+        "initial": "c1a2a1510e7a938014e6d2e9ae7fe9296a7ce8ac39d096e1a962b78fbe0a6d34",
+        "family": "tools",
+        "correct": false,
+        "first_error": "invalid_call",
+        "status": "invalid_call",
+        "completed": false,
+        "seconds": 1.1147617080132477,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-own.json.gz",
+        "sha": "fed68e5eb1df0ae8fa72caab92c3828036d334285ea2b044aed73274ad890a72"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Invents a calendar date without the requested lookup.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.565938042011112,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/parcels-shared.json.gz",
+        "sha": "fb6c7160a47082304fe0be284b1fd9c7a7e04ec58e7de58a7cad5752ac6afb66"
+      },
+      "baseline": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Invents Thursday without a lookup.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.3634274580399506,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-shared.json.gz",
+        "sha": "d598a24accf2e0df38e7b4ea5aa56201f19ac3ca493d8bb57f4ddce3305233a6"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.3757800830062479,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/studio-changed.json.gz",
+        "sha": "698e8f211c4054da6841c8de25e86ced3b153c978a82563a465637ede2248cf9"
+      },
+      "baseline": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9445614169817418,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-changed.json.gz",
+        "sha": "9649bc49f6237cfc7894ccceb7c5d73b1e5c77eddfdd0866faa2084d6bf5a6a0"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.41810241603525355,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/studio-irrelevant.json.gz",
+        "sha": "d1fa4182ed6542e305dd875a6134dc11a9b755851ebcab56d060aabdea0592d4"
+      },
+      "baseline": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Assumes the identity of Bea and promises attendance.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9123953750240617,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-irrelevant.json.gz",
+        "sha": "591d00c9601f070bed6958a80dcc25d3e78698750a7ebb6138d15faaab65f894"
+      },
+      "delta": 1
+    },
+    {
+      "source": "studio",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.38193908298853785,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/studio-original.json.gz",
+        "sha": "c5b38c446961b740a54d39b6353c0f7f662e46da83e746332ccdbb6c5aa0775a"
+      },
+      "baseline": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.8133399999933317,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-original.json.gz",
+        "sha": "ab655a7ca11dbcb631726c8ecd0c9fd796e49f33a9502dfdbda32ce6a8ffa21e"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.8010535829816945,
+        "callbacks": 3,
+        "successful_callbacks": 3,
+        "evidence": "short/epoch-reading/128/loop/tiles-changed.json.gz",
+        "sha": "fa7b46c4d797b933131b056e3f4305e28d966278eaf7cd3f00e5a14a461c95f1"
+      },
+      "baseline": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.489710790978279,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-changed.json.gz",
+        "sha": "7a688496b1b2f6eb12f5d9af22b2a25a662c6b492d9c09fad15f29ec58d46632"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.603254250017926,
+        "callbacks": 3,
+        "successful_callbacks": 3,
+        "evidence": "short/epoch-reading/128/loop/tiles-irrelevant.json.gz",
+        "sha": "b965e064e13a4f5cd25413fd6a537e802a24dbb9dad87cdd294f63ea5a83378d"
+      },
+      "baseline": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5269113749964163,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-irrelevant.json.gz",
+        "sha": "827d89e6cc76192ed0cfa75d5bd09c384334c736e2d1c3da1f610f429397cae9"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.2532377499737777,
+        "callbacks": 3,
+        "successful_callbacks": 3,
+        "evidence": "short/epoch-reading/128/loop/tiles-original.json.gz",
+        "sha": "7b826bed1444b1e5fd553d546ab46ff9f525a0dd9307cb3b2aee83dc694813f8"
+      },
+      "baseline": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.345791667001322,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-original.json.gz",
+        "sha": "b6bf4f8e98c15a3b3fd8e553989e86bb32cde765de74b4b65699d701e1986f43"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "e8ed7679d07c2817956dc052f1d94bfdcc3f79bfe6bc77ed7c74e2c726802344",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.736525874992367,
+        "callbacks": 3,
+        "successful_callbacks": 3,
+        "evidence": "short/epoch-reading/128/loop/tiles-own.json.gz",
+        "sha": "7b74dadc4d51d7df8eb7fac236bc1b676f2fc1b7ffdd5c5ef7feaf99b9a47341"
+      },
+      "baseline": {
+        "initial": "79e7772f62d67bb502efe9e95f956eea0bdda4177cdba690d89a00fc7981bc30",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.4957292079925537,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-own.json.gz",
+        "sha": "c1baf2d17164a3e2632c213d3904f5ddf16f3d98520682868c2b9a42c67ac8ec"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 2.966730250045657,
+        "callbacks": 3,
+        "successful_callbacks": 3,
+        "evidence": "short/epoch-reading/128/loop/tiles-shared.json.gz",
+        "sha": "12ca0a4b37fab2fc6791222204925b3eeac182c741169af9b6d2e882e8868e43"
+      },
+      "baseline": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Treats the amount given away as the remainder and omits the calculator.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.33541462500579655,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-shared.json.gz",
+        "sha": "c60e9b3d2b9fe4f1ba4e9b6026d5a621002790538865be656545ad33f701a9dc"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Reverses the arrival constraint by inviting the volunteer before eight.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.3734563330071978,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/volunteer-changed.json.gz",
+        "sha": "4bdbb5c60ee379f40a8b9af87e404c04f1796af10d7be33c72d914ab2d48f32d"
+      },
+      "baseline": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Delivers two sentences instead of one.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6201817080145702,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-changed.json.gz",
+        "sha": "003e3ed1d1a4bb3a106e99c873ea2586a2bc0b551fa1f25252d7f79a8792a924"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Reverses the arrival constraint by inviting the volunteer before eight.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.37016262498218566,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/volunteer-irrelevant.json.gz",
+        "sha": "7b979956070862967244fcb0396895f2882fcc7722d535502bc3a0433c779d17"
+      },
+      "baseline": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Asks the volunteer to bring supplied gloves.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.050586832978297,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-irrelevant.json.gz",
+        "sha": "de4df20841e192415fa5bfa4a11b026dd69c06c13584f7a1e2f7bc4eaf0b639e"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Reverses the arrival constraint by inviting the volunteer before eight.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.36781570804305375,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/loop/volunteer-original.json.gz",
+        "sha": "5fdcef870c72b0e2259ff4187e5166f9ffb2d3663de444d6d5ccdcecbcf5b57e"
+      },
+      "baseline": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Uses two sentences and gives an ambiguous arrival instruction.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6607368750264868,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-original.json.gz",
+        "sha": "9974c6354140d64ca057d91368c182f8563fc5bcce597e74f5e01970c8791310"
+      },
+      "delta": 0
+    }
+  ],
+  "macro_delta": -0.037037037037037035,
+  "definition": "Opening score counts complete supported answers. A changed pair requires success in both source worlds. A stability pair requires success in original and irrelevant worlds. Own/shared are reported separately. A provider result without an error is not proof of relevant operands or successful delivery."
+}

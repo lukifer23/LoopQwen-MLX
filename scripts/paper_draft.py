@@ -164,10 +164,19 @@ def snapshot():
     assert (
         prefix["passed"] and head["passed"] and stopped_book["saved_presentations"] == 1
     )
-    # Fix the accounting boundary to the last book attempt before the matched
-    # replay continued. Later in-flight and completed jobs belong to a later cut.
+    generation = use(ROOT / "review/epoch-reading/summary.json")
+    scored_epoch = use(ROOT / "review/epoch-reading/scored.json")
+    for arm in ("loop", "ordinary"):
+        use(ROOT / "progress" / f"epoch-reading-{arm}-from-early-{arm}-128.json")
+    for r in scored_epoch:
+        assert digest(ROOT / r["file"]) == r["sha"]
+        inputs[str(ROOT / r["file"])] = r["sha"]
+    assert len(scored_epoch) == 124 and len(generation) == 12
+    # The last matched epoch-reading block fixes the cost cut independently
+    # of any subsequent work from the same native worker.
+
     charges = sorted((f, read(f)) for f in (ROOT / "charges").glob("*.json"))
-    cutoff = use(ROOT / "charges/c09ffb015dc742e6b98a100f20f2951b.json")["dispatch"]
+    cutoff = use(ROOT / "charges/9c9d046bd87b48bcbfcf41eea5e8de7f.json")["dispatch"]
     costs = {}
     for f, r in charges:
         if r["status"] == "running" or r["dispatch"] > cutoff:
@@ -192,6 +201,7 @@ def snapshot():
             excerpts=excerpts,
             audit=audit,
             fit_epoch=fit_epoch,
+            first_epoch_generation=generation,
             exit_objectives=exits["source_weighted"],
             recovery={
                 "checks": len(adjoints),

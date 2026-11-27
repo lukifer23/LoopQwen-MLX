@@ -1,0 +1,1814 @@
+{
+  "stage": "epoch-reading",
+  "cap": 128,
+  "candidate": "loop",
+  "control": "ordinary",
+  "trajectories": [
+    {
+      "family": "chat",
+      "source": "parcel",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/parcel-changed.json.gz",
+        "sha": "260733865e4d15fbc0414e0204b511010d8deb6bd577e4ce53efc9efbbdf4cd4",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcel",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "unsupported": false,
+          "first_error": null
+        },
+        "status": "answered",
+        "seconds": 0.20936854201136157,
+        "time_to_correct": 0.20936854201136157,
+        "first_token": 0.0329176249797456,
+        "first_visible": 0.0875114580267109,
+        "token_count": 10,
+        "input_tokens": 54,
+        "decode_tps": 51.444629499569935,
+        "opening_tps": 1640.4585699371237,
+        "peak": 1645898222
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/parcel-changed.json.gz",
+        "sha": "a26fb9ac370f53e30b07b4e028ccf796d96feb27dfe987a32039aefa3b018969",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "parcel",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "unsupported": false,
+          "first_error": null
+        },
+        "status": "answered",
+        "seconds": 0.17146683303872123,
+        "time_to_correct": 0.17146683303872123,
+        "first_token": 0.02848483296111226,
+        "first_visible": 0.07705066603375599,
+        "token_count": 10,
+        "input_tokens": 54,
+        "decode_tps": 63.496561327024075,
+        "opening_tps": 1895.745713998789,
+        "peak": 1641173474
+      }
+    },
+    {
+      "family": "chat",
+      "source": "parcel",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/parcel-irrelevant.json.gz",
+        "sha": "60318328f787448c1e1305d52cb5756ff58ada71e427f776dc9fe3eb374359b3",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcel",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Omits the missing address."
+        },
+        "status": "answered",
+        "seconds": 0.2063605830189772,
+        "time_to_correct": null,
+        "first_token": 0.03330037498380989,
+        "first_visible": 0.09104154200758785,
+        "token_count": 10,
+        "input_tokens": 53,
+        "decode_tps": 52.38461550799014,
+        "opening_tps": 1591.5736692384921,
+        "peak": 1645046238
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/parcel-irrelevant.json.gz",
+        "sha": "d496b6e3a058356265fdaef0775be0d9ea13bd6bb8b08c945d35022c7ad55a84",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "parcel",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Omits the missing address."
+        },
+        "status": "answered",
+        "seconds": 0.1738497079932131,
+        "time_to_correct": null,
+        "first_token": 0.02830829203594476,
+        "first_visible": 0.07796337496256456,
+        "token_count": 10,
+        "input_tokens": 53,
+        "decode_tps": 62.32512522557099,
+        "opening_tps": 1872.2429432585575,
+        "peak": 1640337874
+      }
+    },
+    {
+      "family": "chat",
+      "source": "parcel",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/parcel-original.json.gz",
+        "sha": "12cbc0f314b5a68cd968b2bed28462f57a994edbc359da0d9242f416e731bfa4",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcel",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Omits the missing address."
+        },
+        "status": "answered",
+        "seconds": 0.19581283297156915,
+        "time_to_correct": null,
+        "first_token": 0.03246058302465826,
+        "first_visible": 0.08724433300085366,
+        "token_count": 10,
+        "input_tokens": 49,
+        "decode_tps": 55.56861865711868,
+        "opening_tps": 1509.5231026127221,
+        "peak": 1638279546
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/parcel-original.json.gz",
+        "sha": "7144118e331c04f311b6ea391fe56aedef741cf20d7ee3bacd47c070bbb23444",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "parcel",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Omits the missing address."
+        },
+        "status": "answered",
+        "seconds": 0.17780529096489772,
+        "time_to_correct": null,
+        "first_token": 0.02793083305004984,
+        "first_visible": 0.07780695898691192,
+        "token_count": 10,
+        "input_tokens": 49,
+        "decode_tps": 60.63295754795974,
+        "opening_tps": 1754.3336395372053,
+        "peak": 1633816942
+      }
+    },
+    {
+      "family": "chat",
+      "source": "studio",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/studio-changed.json.gz",
+        "sha": "698e8f211c4054da6841c8de25e86ced3b153c978a82563a465637ede2248cf9",
+        "arm": "loop",
+        "cap": 128,
+        "source": "studio",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "unsupported": false,
+          "first_error": null
+        },
+        "status": "answered",
+        "seconds": 0.3757800830062479,
+        "time_to_correct": 0.3757800830062479,
+        "first_token": 0.03170404100092128,
+        "first_visible": 0.09994866698980331,
+        "token_count": 21,
+        "input_tokens": 50,
+        "decode_tps": 58.35276691363412,
+        "opening_tps": 1577.0860250447904,
+        "peak": 1639082426
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/studio-changed.json.gz",
+        "sha": "c5ab62aa7e0d351d9c99bdf38a90aebdc170fe5ca6882b259bb6c7bfbbef914e",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "studio",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "unsupported": false,
+          "first_error": null
+        },
+        "status": "answered",
+        "seconds": 0.42153716599568725,
+        "time_to_correct": 0.42153716599568725,
+        "first_token": 0.028226291993632913,
+        "first_visible": 0.07872079097433016,
+        "token_count": 22,
+        "input_tokens": 50,
+        "decode_tps": 53.568251373534096,
+        "opening_tps": 1771.3980997319325,
+        "peak": 1634882026
+      }
+    },
+    {
+      "family": "chat",
+      "source": "studio",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/studio-irrelevant.json.gz",
+        "sha": "d1fa4182ed6542e305dd875a6134dc11a9b755851ebcab56d060aabdea0592d4",
+        "arm": "loop",
+        "cap": 128,
+        "source": "studio",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "unsupported": false,
+          "first_error": null
+        },
+        "status": "answered",
+        "seconds": 0.41810241603525355,
+        "time_to_correct": 0.41810241603525355,
+        "first_token": 0.032243542023934424,
+        "first_visible": 0.08553445799043402,
+        "token_count": 22,
+        "input_tokens": 50,
+        "decode_tps": 54.72488579054775,
+        "opening_tps": 1550.6981200416794,
+        "peak": 1638951294
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/studio-irrelevant.json.gz",
+        "sha": "5bf1c08011bd5edf78a82072102c1c752456a3a5178cd8581202023e76d19f3c",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "studio",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "unsupported": false,
+          "first_error": null
+        },
+        "status": "answered",
+        "seconds": 0.35021312499884516,
+        "time_to_correct": 0.35021312499884516,
+        "first_token": 0.027981624996755272,
+        "first_visible": 0.07494112499989569,
+        "token_count": 22,
+        "input_tokens": 50,
+        "decode_tps": 65.42921513719345,
+        "opening_tps": 1786.8869304694763,
+        "peak": 1634423154
+      }
+    },
+    {
+      "family": "chat",
+      "source": "studio",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/studio-original.json.gz",
+        "sha": "c5b38c446961b740a54d39b6353c0f7f662e46da83e746332ccdbb6c5aa0775a",
+        "arm": "loop",
+        "cap": 128,
+        "source": "studio",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "unsupported": false,
+          "first_error": null
+        },
+        "status": "answered",
+        "seconds": 0.38193908298853785,
+        "time_to_correct": 0.38193908298853785,
+        "first_token": 0.03251549997366965,
+        "first_visible": 0.10207312501734123,
+        "token_count": 21,
+        "input_tokens": 50,
+        "decode_tps": 57.46324890741593,
+        "opening_tps": 1537.7281616610207,
+        "peak": 1639475902
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/studio-original.json.gz",
+        "sha": "dd095a33080f5a8dd5d0c999cd98741dbad152a43379350eeacb949ee6f623d9",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "studio",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "unsupported": false,
+          "first_error": null
+        },
+        "status": "answered",
+        "seconds": 0.3705504170502536,
+        "time_to_correct": 0.3705504170502536,
+        "first_token": 0.028774542035534978,
+        "first_visible": 0.07870245800586417,
+        "token_count": 22,
+        "input_tokens": 50,
+        "decode_tps": 61.867082263342446,
+        "opening_tps": 1737.6471166162348,
+        "peak": 1635504734
+      }
+    },
+    {
+      "family": "chat",
+      "source": "volunteer",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/volunteer-changed.json.gz",
+        "sha": "4bdbb5c60ee379f40a8b9af87e404c04f1796af10d7be33c72d914ab2d48f32d",
+        "arm": "loop",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Reverses the arrival constraint by inviting the volunteer before eight."
+        },
+        "status": "answered",
+        "seconds": 0.3734563330071978,
+        "time_to_correct": null,
+        "first_token": 0.03257537499302998,
+        "first_visible": 0.08853970898780972,
+        "token_count": 19,
+        "input_tokens": 51,
+        "decode_tps": 53.014662898336624,
+        "opening_tps": 1565.5997823789369,
+        "peak": 1640917502
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/volunteer-changed.json.gz",
+        "sha": "23bc9769ae0ab1a554af781317c23573adc947e0d68f5c8d2f3f98e9cbe3cdf8",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Reverses the arrival constraint by inviting the volunteer before eight."
+        },
+        "status": "answered",
+        "seconds": 0.31548370799282566,
+        "time_to_correct": null,
+        "first_token": 0.028073000023141503,
+        "first_visible": 0.08198645798256621,
+        "token_count": 19,
+        "input_tokens": 51,
+        "decode_tps": 62.894427769038984,
+        "opening_tps": 1816.6921938502835,
+        "peak": 1636307442
+      }
+    },
+    {
+      "family": "chat",
+      "source": "volunteer",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/volunteer-irrelevant.json.gz",
+        "sha": "7b979956070862967244fcb0396895f2882fcc7722d535502bc3a0433c779d17",
+        "arm": "loop",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Reverses the arrival constraint by inviting the volunteer before eight."
+        },
+        "status": "answered",
+        "seconds": 0.37016262498218566,
+        "time_to_correct": null,
+        "first_token": 0.0334552499698475,
+        "first_visible": 0.08905225002672523,
+        "token_count": 19,
+        "input_tokens": 51,
+        "decode_tps": 53.817545013201915,
+        "opening_tps": 1524.4244190662214,
+        "peak": 1640917502
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/volunteer-irrelevant.json.gz",
+        "sha": "2f73b1bfd06967c6d0fc497e133435c9e509c04fd7af3f9d3ddeba3aa2f022b8",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Preserves the three facts but uses two sentences."
+        },
+        "status": "answered",
+        "seconds": 0.4589597080484964,
+        "time_to_correct": null,
+        "first_token": 0.027942917018663138,
+        "first_visible": 0.08056691696401685,
+        "token_count": 28,
+        "input_tokens": 51,
+        "decode_tps": 62.83396909396953,
+        "opening_tps": 1825.1494633125449,
+        "peak": 1636307342
+      }
+    },
+    {
+      "family": "chat",
+      "source": "volunteer",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/volunteer-original.json.gz",
+        "sha": "5fdcef870c72b0e2259ff4187e5166f9ffb2d3663de444d6d5ccdcecbcf5b57e",
+        "arm": "loop",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Reverses the arrival constraint by inviting the volunteer before eight."
+        },
+        "status": "answered",
+        "seconds": 0.36781570804305375,
+        "time_to_correct": null,
+        "first_token": 0.033631332975346595,
+        "first_visible": 0.09169454203220084,
+        "token_count": 19,
+        "input_tokens": 51,
+        "decode_tps": 54.096264251183435,
+        "opening_tps": 1516.4430157254094,
+        "peak": 1640966854
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/volunteer-original.json.gz",
+        "sha": "3bbb3d6dd2c228daf2b86fe720d954130efa515ba79d738f3a025b35590a16bd",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Reverses the arrival constraint by inviting the volunteer before eight."
+        },
+        "status": "answered",
+        "seconds": 0.322708124993369,
+        "time_to_correct": null,
+        "first_token": 0.028516083024442196,
+        "first_visible": 0.0809334579971619,
+        "token_count": 19,
+        "input_tokens": 51,
+        "decode_tps": 61.46594559553665,
+        "opening_tps": 1788.4644239633474,
+        "peak": 1636356794
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "archive",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/archive-changed.json.gz",
+        "sha": "138b8a8c38f3ad8b41439f2f5e69acf862bd320ed383ca7497679d89af64ea43",
+        "arm": "loop",
+        "cap": 128,
+        "source": "archive",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Authorizes shipping despite Cedar\u2019s preservation hold."
+        },
+        "status": "answered",
+        "seconds": 1.1799578329664655,
+        "time_to_correct": null,
+        "first_token": 0.047131291998084635,
+        "first_visible": 0.11338070896454155,
+        "token_count": 63,
+        "input_tokens": 68,
+        "decode_tps": 54.84380848294465,
+        "opening_tps": 1442.7781865764139,
+        "peak": 1663870838
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/archive-changed.json.gz",
+        "sha": "82fc6f5ffd20f3213a977e823aad0c1398e4172e3b0e68abc65be0f13c7db7ca",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "archive",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Authorizes shipping despite Cedar\u2019s preservation hold."
+        },
+        "status": "answered",
+        "seconds": 0.7841128329746425,
+        "time_to_correct": null,
+        "first_token": 0.04035691701574251,
+        "first_visible": 0.09619200002634898,
+        "token_count": 47,
+        "input_tokens": 68,
+        "decode_tps": 61.97987299180147,
+        "opening_tps": 1684.9651813956557,
+        "peak": 1658176362
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "archive",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/archive-irrelevant.json.gz",
+        "sha": "0da316def5c74e953d1b9a079904688ce5d673ff1fca0bcc09ac7e0d671966ee",
+        "arm": "loop",
+        "cap": 128,
+        "source": "archive",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Offers the superseded unpaid entry as the reason to ship and omits the later payment correction."
+        },
+        "status": "answered",
+        "seconds": 0.8813005420379341,
+        "time_to_correct": null,
+        "first_token": 0.04623974999412894,
+        "first_visible": 0.10249895800370723,
+        "token_count": 48,
+        "input_tokens": 67,
+        "decode_tps": 56.42187476057328,
+        "opening_tps": 1448.9697718631044,
+        "peak": 1663608686
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/archive-irrelevant.json.gz",
+        "sha": "cd1d8542bd45ce83a9b882cbe99acbcad5c7cecf7efbaa5f71c43826ff90b1db",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "archive",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Offers the superseded unpaid entry as the reason to ship and omits the later payment correction."
+        },
+        "status": "answered",
+        "seconds": 0.7196286250255071,
+        "time_to_correct": null,
+        "first_token": 0.04042183404089883,
+        "first_visible": 0.08742020901991054,
+        "token_count": 43,
+        "input_tokens": 67,
+        "decode_tps": 61.989802618206916,
+        "opening_tps": 1657.5200405852286,
+        "peak": 1657979738
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "archive",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/archive-original.json.gz",
+        "sha": "a3a25ef32c99044aeaf708421735078abd7fd138ba9a92a6048059e4cc743553",
+        "arm": "loop",
+        "cap": 128,
+        "source": "archive",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Uses the obsolete unpaid entry and incorrectly waives the payment requirement."
+        },
+        "status": "answered",
+        "seconds": 0.9607431669719517,
+        "time_to_correct": null,
+        "first_token": 0.08180945896310732,
+        "first_visible": 0.13619995798217133,
+        "token_count": 50,
+        "input_tokens": 67,
+        "decode_tps": 55.987378842177144,
+        "opening_tps": 818.9762021310302,
+        "peak": 1663093040
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/archive-original.json.gz",
+        "sha": "1e908fdb442b97a1303ee8e040de937185046849fec76bb4d17dc69373fcad4f",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "archive",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Omits the payment correction and Cedar\u2019s absence from the hold list."
+        },
+        "status": "answered",
+        "seconds": 0.9728374159894884,
+        "time_to_correct": null,
+        "first_token": 0.2368981250328943,
+        "first_visible": 0.2862251250189729,
+        "token_count": 46,
+        "input_tokens": 67,
+        "decode_tps": 61.38123818776325,
+        "opening_tps": 282.82199359195755,
+        "peak": 1665565203
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/bridge-changed.json.gz",
+        "sha": "4f142bd0bfd5e1b0f14836bd275baae39e63ac2f8890a218606345f47e2e75db",
+        "arm": "loop",
+        "cap": 128,
+        "source": "bridge",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Gives the decision without explaining that coverage of both markers includes blue."
+        },
+        "status": "answered",
+        "seconds": 0.11983166699064896,
+        "time_to_correct": null,
+        "first_token": 0.03301258396822959,
+        "first_visible": 0.08497945795534179,
+        "token_count": 6,
+        "input_tokens": 64,
+        "decode_tps": 58.589430162325044,
+        "opening_tps": 1938.6546676137757,
+        "peak": 1664625470
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/bridge-changed.json.gz",
+        "sha": "69ae839d762f2b80dd1589c787c509738a44fa3de0392143840bc5c71e56a166",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "bridge",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": false,
+          "first_error": "Gives the decision without explaining that coverage of both markers includes blue."
+        },
+        "status": "answered",
+        "seconds": 0.10954441694775596,
+        "time_to_correct": null,
+        "first_token": 0.029444583982694894,
+        "first_visible": 0.07741641602478921,
+        "token_count": 6,
+        "input_tokens": 64,
+        "decode_tps": 63.435776807818904,
+        "opening_tps": 2173.5746050144207,
+        "peak": 1659622150
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/bridge-irrelevant.json.gz",
+        "sha": "a43ccb0158007a740b1b9934cb7df93f4b70a986b1b204cf0bef9e033b207fa6",
+        "arm": "loop",
+        "cap": 128,
+        "source": "bridge",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Concludes closure from a red-only observation."
+        },
+        "status": "answered",
+        "seconds": 0.13492829096503556,
+        "time_to_correct": null,
+        "first_token": 0.04665454203495756,
+        "first_visible": 0.09926733298925683,
+        "token_count": 6,
+        "input_tokens": 66,
+        "decode_tps": 57.521513043953846,
+        "opening_tps": 1414.6532603523829,
+        "peak": 1661545542
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/bridge-irrelevant.json.gz",
+        "sha": "bc86ec16e58394d9a0826f1b4dc887a8dd451deb389b96d7705f35852ff94afc",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "bridge",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Concludes closure from a red-only observation."
+        },
+        "status": "answered",
+        "seconds": 0.12237045902293175,
+        "time_to_correct": null,
+        "first_token": 0.040889666008297354,
+        "first_visible": 0.08928279200335965,
+        "token_count": 6,
+        "input_tokens": 66,
+        "decode_tps": 62.560899143800015,
+        "opening_tps": 1614.099757787389,
+        "peak": 1655964466
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/bridge-original.json.gz",
+        "sha": "f1e0207d9f3cb3475a0aa8f0378d261105b7324a031802511619b09fbcfd7f24",
+        "arm": "loop",
+        "cap": 128,
+        "source": "bridge",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Concludes closure from a red-only observation."
+        },
+        "status": "answered",
+        "seconds": 0.1463978749816306,
+        "time_to_correct": null,
+        "first_token": 0.046662333013955504,
+        "first_visible": 0.10981491603888571,
+        "token_count": 6,
+        "input_tokens": 65,
+        "decode_tps": 51.166074861876936,
+        "opening_tps": 1392.9865011370127,
+        "peak": 1660872542
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/bridge-original.json.gz",
+        "sha": "8163033960dc8b3b89b3d588dbc18babd958554a87e38c85e2e304a91485485a",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "bridge",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Concludes closure from a red-only observation."
+        },
+        "status": "answered",
+        "seconds": 0.13534362497739494,
+        "time_to_correct": null,
+        "first_token": 0.042103375017177314,
+        "first_visible": 0.10118825000245124,
+        "token_count": 6,
+        "input_tokens": 65,
+        "decode_tps": 54.39754306958743,
+        "opening_tps": 1543.8192300137775,
+        "peak": 1655538482
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/kiln-changed.json.gz",
+        "sha": "dac82841e568205756b3c76804b4b3dd3ff924426d1fff36a84732465c339233",
+        "arm": "loop",
+        "cap": 128,
+        "source": "kiln",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Claims 1 hour 50 minutes equals 150 minutes and gives the wrong margin."
+        },
+        "status": "answered",
+        "seconds": 1.078910167037975,
+        "time_to_correct": null,
+        "first_token": 0.04811800003517419,
+        "first_visible": 0.10416720801731572,
+        "token_count": 57,
+        "input_tokens": 76,
+        "decode_tps": 54.41649802917858,
+        "opening_tps": 1579.4505163232907,
+        "peak": 1677879382
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/kiln-changed.json.gz",
+        "sha": "70ec4046108bc51105d1db9d4fb9fe4d3a39861cb389958fa7bf29024204b9f2",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "kiln",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Gives incompatible values for elapsed time, 1 hour 50 minutes and 100 minutes."
+        },
+        "status": "answered",
+        "seconds": 0.9309890830190852,
+        "time_to_correct": null,
+        "first_token": 0.041557458986062557,
+        "first_visible": 0.09042579197557643,
+        "token_count": 55,
+        "input_tokens": 76,
+        "decode_tps": 60.82319977276796,
+        "opening_tps": 1828.7932384289593,
+        "peak": 1671791690
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/kiln-irrelevant.json.gz",
+        "sha": "180e00be3b2cd6e4c4ff2318369de929cb12a2bdc94ee599d7fec38e0f8abf1c",
+        "arm": "loop",
+        "cap": 128,
+        "source": "kiln",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Says the kiln has cooled long enough although 80 minutes is 10 minutes short."
+        },
+        "status": "answered",
+        "seconds": 1.1468315840465948,
+        "time_to_correct": null,
+        "first_token": 0.04847037501167506,
+        "first_visible": 0.1151408749865368,
+        "token_count": 57,
+        "input_tokens": 76,
+        "decode_tps": 51.07498403500944,
+        "opening_tps": 1567.96806258862,
+        "peak": 1677879382
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/kiln-irrelevant.json.gz",
+        "sha": "0724ed91c11de1ba07128b47a12ad844ec4fe8f009878bf529f70c43545fa3d7",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "kiln",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Says the kiln has cooled long enough although 80 minutes is 10 minutes short."
+        },
+        "status": "answered",
+        "seconds": 0.6606584999826737,
+        "time_to_correct": null,
+        "first_token": 0.041522332991007715,
+        "first_visible": 0.09164374996908009,
+        "token_count": 40,
+        "input_tokens": 76,
+        "decode_tps": 63.1679112743109,
+        "opening_tps": 1830.340313885035,
+        "peak": 1671791690
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/kiln-original.json.gz",
+        "sha": "d47a52d2ffc457c06eb2c86c94848af29b8511ef81d556432694771b0cab5d12",
+        "arm": "loop",
+        "cap": 128,
+        "source": "kiln",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Says the kiln has cooled long enough although 80 minutes is 10 minutes short."
+        },
+        "status": "answered",
+        "seconds": 1.3562734580482356,
+        "time_to_correct": null,
+        "first_token": 0.20847179100383073,
+        "first_visible": 0.2713679579901509,
+        "token_count": 61,
+        "input_tokens": 76,
+        "decode_tps": 52.416056218363025,
+        "opening_tps": 364.55771610176015,
+        "peak": 1677665846
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/kiln-original.json.gz",
+        "sha": "14c073b4a4db76d55dda618d841cb045687424b6820438c03cccac9219298028",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "kiln",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Says the kiln has cooled long enough although 80 minutes is 10 minutes short."
+        },
+        "status": "answered",
+        "seconds": 1.266938958026003,
+        "time_to_correct": null,
+        "first_token": 0.0905422079958953,
+        "first_visible": 0.1408999579725787,
+        "token_count": 59,
+        "input_tokens": 76,
+        "decode_tps": 49.464556832298975,
+        "opening_tps": 839.3875263506434,
+        "peak": 1680481146
+      }
+    },
+    {
+      "family": "tools",
+      "source": "ink",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/ink-changed.json.gz",
+        "sha": "b4c6c24d9998d641892b75b29ba189b420bf311c2718b3734bf6ecfdd14adf8e",
+        "arm": "loop",
+        "cap": 128,
+        "source": "ink",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.0542580420151353,
+        "time_to_correct": null,
+        "first_token": 0.17370200000004843,
+        "first_visible": null,
+        "token_count": 124,
+        "input_tokens": 403,
+        "decode_tps": 49.56096986269931,
+        "opening_tps": 2320.065399361479,
+        "peak": 1778588078
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/ink-changed.json.gz",
+        "sha": "94b3176019475113811dd16f9fb299043c856cbb4ba1d2146d0156f0369daf03",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "ink",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder."
+        },
+        "status": "answered",
+        "seconds": 1.190799500036519,
+        "time_to_correct": null,
+        "first_token": 0.14533712499542162,
+        "first_visible": 1.0810735420091078,
+        "token_count": 57,
+        "input_tokens": 403,
+        "decode_tps": 63.378749893035135,
+        "opening_tps": 2772.8634374231306,
+        "peak": 1769089442
+      }
+    },
+    {
+      "family": "tools",
+      "source": "ink",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/ink-irrelevant.json.gz",
+        "sha": "591c8dd6c03be26aba86a62bcfe1317781b9972b8a687a667461f34329c7fc81",
+        "arm": "loop",
+        "cap": 128,
+        "source": "ink",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder."
+        },
+        "status": "answered",
+        "seconds": 2.7263926250161603,
+        "time_to_correct": null,
+        "first_token": 0.2019224579562433,
+        "first_visible": 2.59799275000114,
+        "token_count": 96,
+        "input_tokens": 403,
+        "decode_tps": 45.21989629622412,
+        "opening_tps": 1995.815641702075,
+        "peak": 1778581934
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/ink-irrelevant.json.gz",
+        "sha": "9cf68c7f08e3e9c3f5c25d505e292b83a1cd2d921820f21e0d6bdfabf858d249",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "ink",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder."
+        },
+        "status": "answered",
+        "seconds": 2.181061750045046,
+        "time_to_correct": null,
+        "first_token": 0.1452335410285741,
+        "first_visible": 2.0720919580198824,
+        "token_count": 103,
+        "input_tokens": 403,
+        "decode_tps": 59.8065944312331,
+        "opening_tps": 2774.8411086438455,
+        "peak": 1770789794
+      }
+    },
+    {
+      "family": "tools",
+      "source": "ink",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/ink-original.json.gz",
+        "sha": "729066a47932d227d14fe3673c32867ed720c9f14f0c1ff95ead3991b185efb5",
+        "arm": "loop",
+        "cap": 128,
+        "source": "ink",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder."
+        },
+        "status": "answered",
+        "seconds": 2.4051866669906303,
+        "time_to_correct": null,
+        "first_token": 0.17662145796930417,
+        "first_visible": 2.27206758398097,
+        "token_count": 96,
+        "input_tokens": 403,
+        "decode_tps": 51.919657222043895,
+        "opening_tps": 2281.715962677871,
+        "peak": 1778575790
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/ink-original.json.gz",
+        "sha": "f8154807a9a78eee16ad11a8372418dd99e89626d1ca2fdfe601dfb6c1d92fb1",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "ink",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder."
+        },
+        "status": "answered",
+        "seconds": 1.1924201250076294,
+        "time_to_correct": null,
+        "first_token": 0.15489441703539342,
+        "first_visible": 1.0795070000458509,
+        "token_count": 57,
+        "input_tokens": 403,
+        "decode_tps": 63.486368447309665,
+        "opening_tps": 2601.7722763236484,
+        "peak": 1769056674
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/parcels-changed.json.gz",
+        "sha": "201fa01f3a8144bd2f891a8a78758e73192b5ecd5c7dab26400419fe13990d56",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error."
+        },
+        "status": "answered",
+        "seconds": 1.842013749992475,
+        "time_to_correct": null,
+        "first_token": 0.1497004579869099,
+        "first_visible": 1.5485822500195354,
+        "token_count": 85,
+        "input_tokens": 381,
+        "decode_tps": 55.51489635670747,
+        "opening_tps": 2545.0823940252435,
+        "peak": 1773476786
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/parcels-changed.json.gz",
+        "sha": "e5fc6915be12fb6c0ef081eac604383965edde3f59d55407db7990aa04a8b06a",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "parcels",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error."
+        },
+        "status": "answered",
+        "seconds": 1.5601504169753753,
+        "time_to_correct": null,
+        "first_token": 0.12836375000188127,
+        "first_visible": 1.3568345829844475,
+        "token_count": 82,
+        "input_tokens": 381,
+        "decode_tps": 63.65852715236474,
+        "opening_tps": 2968.1276839794423,
+        "peak": 1769017762
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/parcels-irrelevant.json.gz",
+        "sha": "21574fde2e7b6e7c29876e23bd3353831a370a4d43d2d4f0a9cc41efff18bca6",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error."
+        },
+        "status": "answered",
+        "seconds": 1.8629778749891557,
+        "time_to_correct": null,
+        "first_token": 0.14985837502172217,
+        "first_visible": 1.5717223749961704,
+        "token_count": 85,
+        "input_tokens": 381,
+        "decode_tps": 54.77419683765891,
+        "opening_tps": 2542.4004493894554,
+        "peak": 1773476786
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/parcels-irrelevant.json.gz",
+        "sha": "9b50b370d4a7a8a5c4e463252a9221d278f0bf77456bd516c8eada5760617b96",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "parcels",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error."
+        },
+        "status": "answered",
+        "seconds": 1.5192495000083,
+        "time_to_correct": null,
+        "first_token": 0.12656325002899393,
+        "first_visible": 1.3243522080010734,
+        "token_count": 82,
+        "input_tokens": 381,
+        "decode_tps": 65.54166447705578,
+        "opening_tps": 3010.352530554628,
+        "peak": 1769019810
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/parcels-original.json.gz",
+        "sha": "2aa92586052aade7eef8642909e0becc72f4183ef86b72fe2ad935fa6839d837",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error."
+        },
+        "status": "answered",
+        "seconds": 1.9777205000282265,
+        "time_to_correct": null,
+        "first_token": 0.18247841601260006,
+        "first_visible": 1.700045500008855,
+        "token_count": 85,
+        "input_tokens": 381,
+        "decode_tps": 52.226074839988144,
+        "opening_tps": 2087.9181676680714,
+        "peak": 1773570482
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/parcels-original.json.gz",
+        "sha": "d1340875ce8415ce6d7d0770d71803b3e1bfe6733f798412a8d892eb24635715",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "parcels",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error."
+        },
+        "status": "answered",
+        "seconds": 1.6175125409499742,
+        "time_to_correct": null,
+        "first_token": 0.12881250004284084,
+        "first_visible": 1.4116167080355808,
+        "token_count": 82,
+        "input_tokens": 381,
+        "decode_tps": 61.25376309764624,
+        "opening_tps": 2957.7874808212396,
+        "peak": 1769023906
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "own",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/parcels-own.json.gz",
+        "sha": "614ed647af5c8e2a4ad69d0aa0c6ef80120fea5c2c0cb6de765c79943f0e5694",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "own",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Looks for jade in the day column and invents a day after the failed lookup."
+        },
+        "status": "answered",
+        "seconds": 1.837108250008896,
+        "time_to_correct": null,
+        "first_token": 0.20303954102564603,
+        "first_visible": 1.6178035829798318,
+        "token_count": 81,
+        "input_tokens": 505,
+        "decode_tps": 56.84791273846352,
+        "opening_tps": 2487.2002637959727,
+        "peak": 1778555310
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/parcels-own.json.gz",
+        "sha": "0e3114fd857f6dc741e08fdcc8cdbfffdae835a4e7194b3887a1bd8da718091d",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "parcels",
+        "world": "own",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.6960373329930007,
+        "time_to_correct": null,
+        "first_token": 0.1713187500135973,
+        "first_visible": null,
+        "token_count": 195,
+        "input_tokens": 502,
+        "decode_tps": 62.36307917925664,
+        "opening_tps": 2930.210499201967,
+        "peak": 1775423906
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "shared",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/parcels-shared.json.gz",
+        "sha": "fb6c7160a47082304fe0be284b1fd9c7a7e04ec58e7de58a7cad5752ac6afb66",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "shared",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Invents a calendar date without the requested lookup."
+        },
+        "status": "answered",
+        "seconds": 0.565938042011112,
+        "time_to_correct": null,
+        "first_token": 0.1730956249521114,
+        "first_visible": 0.22879999998258427,
+        "token_count": 23,
+        "input_tokens": 416,
+        "decode_tps": 56.28518423552997,
+        "opening_tps": 2403.2958667504768,
+        "peak": 1773566386
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/parcels-shared.json.gz",
+        "sha": "6db7f12a9ebb9bf810a88257e4d8d9484bf7a4f964eeee5f63e103fafdca8e18",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "parcels",
+        "world": "shared",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "unsupported": true,
+          "first_error": "Invents the fifteenth without looking up jade."
+        },
+        "status": "answered",
+        "seconds": 0.38806279096752405,
+        "time_to_correct": null,
+        "first_token": 0.1554225420113653,
+        "first_visible": 0.20395499997539446,
+        "token_count": 16,
+        "input_tokens": 416,
+        "decode_tps": 64.97882944115175,
+        "opening_tps": 2676.574418462284,
+        "peak": 1769126306
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/tiles-changed.json.gz",
+        "sha": "fa7b46c4d797b933131b056e3f4305e28d966278eaf7cd3f00e5a14a461c95f1",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.8010535829816945,
+        "time_to_correct": null,
+        "first_token": 0.17299487499985844,
+        "first_visible": null,
+        "token_count": 171,
+        "input_tokens": 400,
+        "decode_tps": 53.01681451812322,
+        "opening_tps": 2312.207225793986,
+        "peak": 1778588078
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/tiles-changed.json.gz",
+        "sha": "bfe34f02376aab7075d89b7e3a67aa013b1e7c41553997d8b454109cefdbc433",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "tiles",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.3825247079948895,
+        "time_to_correct": null,
+        "first_token": 0.15218745794845745,
+        "first_visible": null,
+        "token_count": 183,
+        "input_tokens": 400,
+        "decode_tps": 62.87725075245368,
+        "opening_tps": 2628.337481893358,
+        "peak": 1770785698
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/tiles-irrelevant.json.gz",
+        "sha": "b965e064e13a4f5cd25413fd6a537e802a24dbb9dad87cdd294f63ea5a83378d",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.603254250017926,
+        "time_to_correct": null,
+        "first_token": 0.17493166599888355,
+        "first_visible": null,
+        "token_count": 153,
+        "input_tokens": 400,
+        "decode_tps": 50.75850264614696,
+        "opening_tps": 2286.6071600927467,
+        "peak": 1778581934
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/tiles-irrelevant.json.gz",
+        "sha": "697fa83d5bdf03768edf1f08a16155f304f81073a0c1bfb968c644c191b131a4",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "tiles",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 4.119901333004236,
+        "time_to_correct": null,
+        "first_token": 0.14730362495174631,
+        "first_visible": null,
+        "token_count": 231,
+        "input_tokens": 400,
+        "decode_tps": 63.72999056439802,
+        "opening_tps": 2715.479677645624,
+        "peak": 1770785698
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/tiles-original.json.gz",
+        "sha": "7b826bed1444b1e5fd553d546ab46ff9f525a0dd9307cb3b2aee83dc694813f8",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.2532377499737777,
+        "time_to_correct": null,
+        "first_token": 0.1720790839754045,
+        "first_visible": null,
+        "token_count": 150,
+        "input_tokens": 400,
+        "decode_tps": 55.47755030221636,
+        "opening_tps": 2324.5126064081824,
+        "peak": 1778588078
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/tiles-original.json.gz",
+        "sha": "f8d5abbf12bb5d6d2beff2c1d38b5be9f10027f186badc433a73765f1b59a733",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "tiles",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.497492082999088,
+        "time_to_correct": null,
+        "first_token": 0.1575109999976121,
+        "first_visible": null,
+        "token_count": 183,
+        "input_tokens": 400,
+        "decode_tps": 60.655992885203574,
+        "opening_tps": 2539.50517745468,
+        "peak": 1770785698
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "own",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/tiles-own.json.gz",
+        "sha": "7b74dadc4d51d7df8eb7fac236bc1b676f2fc1b7ffdd5c5ef7feaf99b9a47341",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "own",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.736525874992367,
+        "time_to_correct": null,
+        "first_token": 0.27005770802497864,
+        "first_visible": null,
+        "token_count": 159,
+        "input_tokens": 663,
+        "decode_tps": 55.489433769842265,
+        "opening_tps": 2455.0308334049723,
+        "peak": 1783850414
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/tiles-own.json.gz",
+        "sha": "6d3f627a5bf648ed4a3543bafd1381251907ead6238654d9cdd3d1169c97b529",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "tiles",
+        "world": "own",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.177593208034523,
+        "time_to_correct": null,
+        "first_token": 0.2377330000163056,
+        "first_visible": null,
+        "token_count": 150,
+        "input_tokens": 660,
+        "decode_tps": 61.32880646773477,
+        "opening_tps": 2776.223746617979,
+        "peak": 1776112546
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "shared",
+      "gain": 0,
+      "left": {
+        "file": "short/epoch-reading/128/loop/tiles-shared.json.gz",
+        "sha": "12ca0a4b37fab2fc6791222204925b3eeac182c741169af9b6d2e882e8868e43",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "shared",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 2.966730250045657,
+        "time_to_correct": null,
+        "first_token": 0.17995962500572205,
+        "first_visible": null,
+        "token_count": 132,
+        "input_tokens": 443,
+        "decode_tps": 55.038316078684765,
+        "opening_tps": 2461.663275781522,
+        "peak": 1778528698
+      },
+      "right": {
+        "file": "short/epoch-reading/128/ordinary/tiles-shared.json.gz",
+        "sha": "23582fd22034b1f455b1329035c563df52e77bea8ada88fcfd1d83d065a8c2b5",
+        "arm": "ordinary",
+        "cap": 128,
+        "source": "tiles",
+        "world": "shared",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.01331933401525,
+        "time_to_correct": null,
+        "first_token": 0.15726095798891038,
+        "first_visible": null,
+        "token_count": 141,
+        "input_tokens": 443,
+        "decode_tps": 56.323618634232865,
+        "opening_tps": 2816.9738100618665,
+        "peak": 1770785698
+      }
+    }
+  ],
+  "curves": [
+    {
+      "seconds": 2,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.4444444444444444
+        },
+        "reasoning": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.0
+    },
+    {
+      "seconds": 4,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.4444444444444444
+        },
+        "reasoning": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.0
+    },
+    {
+      "seconds": 8,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.4444444444444444
+        },
+        "reasoning": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.0
+    },
+    {
+      "seconds": 16,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.4444444444444444
+        },
+        "reasoning": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.0
+    },
+    {
+      "seconds": 32,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.4444444444444444
+        },
+        "reasoning": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.0
+    },
+    {
+      "seconds": 64,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.4444444444444444
+        },
+        "reasoning": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.0
+    },
+    {
+      "seconds": null,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.4444444444444444
+        },
+        "reasoning": {
+          "left": 0.0,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.0
+    }
+  ],
+  "mechanism_by_deadline": 0.0,
+  "gains": 0,
+  "losses": 0,
+  "control_successes": 4
+}
