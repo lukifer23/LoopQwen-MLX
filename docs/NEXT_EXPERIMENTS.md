@@ -1,6 +1,12 @@
 # Research decisions
 
 
+## Reading the same evidence through a file and inline
+
+The previous fit retrieved both changed cells in 12 articles and got zero complete judgments. For the first article, a complete uncached replay gave the same answers as the original run. The new direct experiment starts from the qualified two-pass instruction decoder. A frozen four-billion-parameter model supplies answer-token distributions on SQuAD training passages only. The student learns to predict the same original human answer from both the inline passage and the actual file return. Its loss weights answer tokens separately from tool syntax. During deployment only the student runs.
+
+The independent test uses 20 Quoref articles with two distinct human questions per passage. Each question is asked once inline and once through a real three-row file. Both forms must succeed for both questions to earn a complete article. Eight real WikiSQL requests measure retention. The weights, input IDs, scoring, latency gates and stop rules are pinned before the first native teacher pass. A miss closes further qualification of those weights. [Registration](../research/experiments/cross-view-reading-01.json) · [Original Quoref research](https://aclanthology.org/D19-1606/) · [Reference teacher](https://huggingface.co/Qwen/Qwen3.5-4B)
+
 ## Completed decisions for reasoning and usable functions
 
 | Named question | Decision |

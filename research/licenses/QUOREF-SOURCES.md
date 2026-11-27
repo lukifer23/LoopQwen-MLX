@@ -1,0 +1,7 @@
+# Cross-view reading sources
+
+Pradeep Dasigi, Nelson F. Liu, Ana Marasović, Noah A. Smith and Matt Gardner released Quoref in 2019. The material includes Wikipedia passages, their source URLs, the original questions, annotated spans and character offsets. This project uses the development split. The Allen Institute for AI dataset card identifies the CC BY 4.0 license. [Original paper](https://aclanthology.org/D19-1606/) · [Dataset and license](https://huggingface.co/datasets/allenai/quoref) · [CC BY 4.0 terms](https://creativecommons.org/licenses/by/4.0/)
+
+Pranav Rajpurkar, Jian Zhang, Konstantin Lopyrev and Percy Liang released SQuAD in 2016. The student and its frozen teacher use original English passages, questions and answers from SQuAD v1.1 training. The project wraps the passages in CSV records, adds a file-reading instruction and preserves the human answer span. SQuAD is released under CC BY-SA 4.0. [Original dataset and license](https://rajpurkar.github.io/SQuAD-explorer/) · [CC BY-SA 4.0 terms](https://creativecommons.org/licenses/by-sa/4.0/)
+
+The four-billion-parameter training teacher is the pinned MLX Community quantization of Qwen3.5-4B. Its tensors are separately obtained for fitting. The student carries no teacher tensors or service dependency. [Original Qwen checkpoint](https://huggingface.co/Qwen/Qwen3.5-4B) · [Quantization](https://huggingface.co/mlx-community/Qwen3.5-4B-4bit)
