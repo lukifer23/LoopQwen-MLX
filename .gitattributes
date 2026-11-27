@@ -1,3 +1,6 @@
 *.pdf binary
 *.csv whitespace=trailing-space,space-before-tab,cr-at-eol
 paper/*.svg -whitespace
+
+# Preserve the original dataset attribution notice byte for byte.
+docs/sources/tatqa/README.md -whitespace
