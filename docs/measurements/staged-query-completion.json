@@ -1,0 +1,85 @@
+{
+  "archive": "c6559571bfd7bacfcdc5b4d9dc5dec52fe3a9fb61e4f40e6928a0a71e45a0258",
+  "groups": {
+    "strategy": {
+      "candidate": {
+        "requests": 48,
+        "answered": 15,
+        "at_limit_inside_thought": 26,
+        "at_limit_after_close": 7,
+        "token_limit": 33,
+        "repeated_fourgrams": 7404,
+        "total_fourgrams": 12573
+      },
+      "control": {
+        "requests": 48,
+        "token_limit": 30,
+        "at_limit_inside_thought": 3,
+        "at_limit_after_close": 27,
+        "repeated_fourgrams": 636,
+        "total_fourgrams": 11430,
+        "answered": 18
+      }
+    },
+    "field": {
+      "candidate": {
+        "requests": 96,
+        "answered": 67,
+        "at_limit_inside_thought": 0,
+        "at_limit_after_close": 0,
+        "turn_limit": 27,
+        "invalid_call": 2
+      },
+      "control": {
+        "requests": 96,
+        "answered": 70,
+        "at_limit_inside_thought": 2,
+        "at_limit_after_close": 2,
+        "token_limit": 4,
+        "repeated_fourgrams": 227,
+        "total_fourgrams": 1524,
+        "turn_limit": 21,
+        "invalid_call": 1
+      }
+    },
+    "report": {
+      "candidate": {
+        "requests": 32,
+        "token_limit": 26,
+        "at_limit_inside_thought": 23,
+        "at_limit_after_close": 3,
+        "repeated_fourgrams": 6155,
+        "total_fourgrams": 9906,
+        "answered": 4,
+        "turn_limit": 2
+      },
+      "control": {
+        "requests": 32,
+        "token_limit": 22,
+        "at_limit_inside_thought": 8,
+        "at_limit_after_close": 14,
+        "repeated_fourgrams": 2803,
+        "total_fourgrams": 8382,
+        "turn_limit": 1,
+        "answered": 9
+      }
+    },
+    "locale": {
+      "candidate": {
+        "requests": 4,
+        "answered": 4,
+        "at_limit_inside_thought": 0,
+        "at_limit_after_close": 0
+      },
+      "control": {
+        "requests": 4,
+        "token_limit": 4,
+        "at_limit_inside_thought": 4,
+        "at_limit_after_close": 0,
+        "repeated_fourgrams": 844,
+        "total_fourgrams": 1524
+      }
+    }
+  },
+  "scope": "Post hoc mechanism diagnosis after the blind reading. Count the first actual closing thought token in the last turn of each request and whether the registered 384-token limit was reached before or after it. Overlapping fourgrams beyond their first occurrence quantify local repetition. No partial or hidden text is credited as a delivered answer."
+}
