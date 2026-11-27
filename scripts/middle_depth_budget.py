@@ -111,12 +111,18 @@ def worker(stage, job):
         )
         credit = min(credit, 1200 - prior_book)
     path = ledger / (uuid.uuid4().hex + ".json")
-    mx.set_cache_limit(64 * 2**20)
+    limits = {"cache_bytes": 64 * 2**20}
+    recovery = read(Path("research/diagnostics/middle-depth/allocator-recovery.json"))
+    if stage in recovery["applies_to"]:
+        limits = {k: recovery[k] for k in ("cache_bytes", "memory_guideline_bytes")}
+        mx.set_memory_limit(limits["memory_guideline_bytes"])
+    mx.set_cache_limit(limits["cache_bytes"])
     mx.reset_peak_memory()
     initial = sample()
     start = time.monotonic()
     record = dict(
         job=job,
+        allocator=limits,
         stage=stage,
         dispatch=time.time(),
         pid=os.getpid(),
