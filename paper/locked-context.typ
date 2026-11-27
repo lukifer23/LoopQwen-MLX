@@ -1,7 +1,9 @@
-#set page(paper:"us-letter",margin:(x:.85in,y:.75in),footer:context [#set text(size:8pt,fill:rgb("#516860")) LoopQwen-MLX · Full-context field study #h(1fr) #counter(page).display()])
+#set page(paper:"us-letter",margin:(x:.85in,y:.75in),footer:context [#set text(size:8pt,fill:rgb("#516860"))
+LoopQwen-MLX · Full-context field study #h(1fr) #counter(page).display()])
 #set text(font:"Libertinus Serif",size:11pt)
 #set par(leading:.46em,spacing:.45em)
-#show heading.where(level:1): it=>block(above:8pt,below:3pt)[#set text(size:16pt,fill:rgb("#185c52"))#it]
+#show heading.where(level:1): it=>block(above:8pt,below:3pt)[#set text(size:16pt,fill:rgb("#185c52"))
+#it]
 #let d=json("locked-context-paper.json")
 #let grid(headers,rows,widths)=table(columns:widths,stroke:none,inset:(x:4pt,y:3.3pt),fill:(x,y)=>if y==0 {rgb("#dcece7")} else if calc.odd(y) {rgb("#f2f5f4")},..headers.map(x=>strong(x)),..rows.flatten().map(x=>[#x]))
 #text(size:25pt,weight:"bold")[Read the version that changed]
