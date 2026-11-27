@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/research/file_evidence.py", line 209, in <module>
+    run()
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/research/file_evidence.py", line 172, in run
+    m, t = model_for(s["checkpoint"], s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/file_evidence.py", line 19, in model_for
+    tokenizer = load_export_tokenizer(
+                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/export_runtime.py", line 22, in load_export_tokenizer
+    return load_tokenizer(
+           ^^^^^^^^^^^^^^^
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/.venv/lib/python3.12/site-packages/mlx_lm/tokenizer_utils.py", line 691, in load
+    tokenizer_file = model_path / "tokenizer.json"
+                     ~~~~~~~~~~~^~~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for /: 'str' and 'str'
