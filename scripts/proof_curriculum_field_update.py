@@ -172,7 +172,13 @@ def main(edition=PROOF):
         read(receipt_path)["source_revision"]
         if receipt_path.exists()
         else subprocess.check_output(
-            ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+            (
+                ["git", "log", "-1", "--format=%H", "--", "paper/" + edition.paper]
+                if edition == FIELD
+                else ["git", "rev-parse", "HEAD"]
+            ),
+            cwd=ROOT,
+            text=True,
         ).strip()
     )
     with TemporaryDirectory() as tmp:
