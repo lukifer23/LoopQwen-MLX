@@ -12,11 +12,18 @@ from loopqwen.io import digest, read, save
 from scripts.paper_overlap import normalize, shingle
 
 LABELS = {"E": "true", "C": "false", "N": "uncertain"}
-FOLDER = Path("research/sources/field-selection")
-DEST = Path("docs/measurements/field-selection-provenance.json")
 
 
-def run():
+def study_paths(study):
+    return (
+        Path("research/sources") / study,
+        Path("docs/measurements") / (study + "-provenance.json"),
+        read("research/data/" + study + "-training.json")["tables"],
+        read("research/data/" + study + "-panel.json")["tables"],
+    )
+
+
+def run(study="field-selection"):
     from scripts.field_selection_sources import (
         ANNOTATION,
         ANNOTATION_SHA,
@@ -25,8 +32,8 @@ def run():
         records,
     )
 
-    tr = read("research/data/field-selection-training.json")["tables"]
-    held = read("research/data/field-selection-panel.json")["tables"]
+    folder, dest, tr, held = study_paths(study)
+    split_name = "test_alpha1" if study == "valid-return" else "test_alpha3"
     assert digest(SOURCE) == SHA and digest(ANNOTATION) == ANNOTATION_SHA
     snapshots = []
     with ZipFile(SOURCE) as z, ZipFile(ANNOTATION) as ann:
@@ -37,7 +44,7 @@ def run():
                 "results_train/modified_row_annotated_batches_integrated_batch_annotations.tsv",
             ),
             (
-                "test_alpha3",
+                split_name,
                 held,
                 "results_test/modified_batches_integrated_batch_annotations.tsv",
             ),
@@ -53,7 +60,7 @@ def run():
             validators = (
                 {
                     (r["table_id"], r["hypothesis"]): r
-                    for r in records(z, "/infotabs_valid_test_alpha3.tsv")
+                    for r in records(z, "/infotabs_valid_" + split + ".tsv")
                 }
                 if split != "train"
                 else {}
@@ -108,7 +115,8 @@ def run():
                         "claims": claims,
                     }
                 )
-    path = FOLDER / "human-source-records.jsonl.gz"
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / "human-source-records.jsonl.gz"
     raw = "".join(
         json.dumps(w, ensure_ascii=False, separators=(",", ":")) + "\n"
         for w in snapshots
@@ -164,13 +172,13 @@ def run():
         ),
         "masked_exact_claims": sum(v["masked_exact"] for v in lexical),
         "maximum_masked_shingle_jaccard": max(v["shingle_jaccard"] for v in lexical),
-        "eligibility": "Mask a verbatim occurrence of the full title and normalize numbers, case and punctuation. Compare each original held statement to all 384 original training statements. The paper_overlap.shingle routine uses contiguous five-word shingles and returns an empty set for shorter texts. No evaluation item is removed.",
+        "eligibility": f"Mask a verbatim occurrence of the full title and normalize numbers, case and punctuation. Compare each original held statement to all {len(training)} original training statements. The paper_overlap.shingle routine uses contiguous five-word shingles and returns an empty set for shorter texts. No evaluation item is removed.",
         "nearest_by_claim": lexical,
     }
-    if DEST.exists():
-        assert read(DEST) == r
+    if dest.exists():
+        assert read(dest) == r
     else:
-        save(DEST, r)
+        save(dest, r)
     print(
         len(snapshots),
         "original tables and",
@@ -182,18 +190,16 @@ def run():
     )
 
 
-def compact():
+def compact(study="field-selection"):
+    folder, _, training, held = study_paths(study)
     rows = [
         json.loads(line)
         for line in gzip.decompress(
-            (FOLDER / "human-source-records.jsonl.gz").read_bytes()
+            (folder / "human-source-records.jsonl.gz").read_bytes()
         ).splitlines()
     ]
-    data = (
-        read("research/data/field-selection-training.json")["tables"]
-        + read("research/data/field-selection-panel.json")["tables"]
-    )
-    assert len(rows) == len(data) == 140
+    data = training + held
+    assert len(rows) == len(data) == (76 if study == "valid-return" else 140)
     for w, src in zip(data, rows, strict=True):
         assert w["id"] == src["source_table_id"] and w["fields"] == {
             k: " | ".join(v) for k, v in src["original_table"].items()
@@ -218,7 +224,7 @@ def compact():
                 and ballots.count(mask) == q["field_votes"] >= 3
                 and mask.count("1") == 1
             )
-            if src["split"] == "test_alpha3":
+            if src["split"] != "train":
                 v = orig["validation"]
                 majority = int(v["majoritylabel"])
                 assert (
@@ -231,12 +237,19 @@ def compact():
                     len(ballots) == q["validator_count"]
                     and ballots.count(majority) == q["verdict_votes"] >= 4
                 )
-    print("Replayed the original field and verdict ballots for 420 sampled claims.")
+    print(
+        "Replayed the original field and verdict ballots for",
+        sum(len(w["claims"]) for w in rows),
+        "sampled claims.",
+    )
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--compact", action="store_true")
-    if not parser.parse_args().compact:
-        run()
-    compact()
+    parser.add_argument("--valid-return", action="store_true")
+    args = parser.parse_args()
+    study = "valid-return" if args.valid_return else "field-selection"
+    if not args.compact:
+        run(study)
+    compact(study)
