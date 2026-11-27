@@ -1,0 +1,9 @@
+{
+  "failed_execution_environment": "d90dd34cc02a27fecdd1a3cf6cd2e0f6689f8eebea7beec70f3517f2a98c2375",
+  "fix_revision": "0ec2ac0",
+  "cause": "ArraysCache.state contains a list of recurrent arrays and optional padding metadata. The first audit tried to cast the containing list. The corrected audit indexes the native cache directly at 0 and 1.",
+  "optimizer_updates_before_error": 0,
+  "held_generations_before_error": 0,
+  "original_registration": "690e58fe9e0353df0da65040aeedfb03e036d88e6472a139493065d0f3a3132e",
+  "budget": "Continue charging the existing session and per-study limit."
+}
