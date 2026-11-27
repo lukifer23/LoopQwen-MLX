@@ -67,6 +67,12 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "reasoned-evidence-01":
+        from loopqwen.research.reasoned_evidence import verify as verify_reasoned
+        from scripts.reasoned_evidence_material import build
+
+        build()
+        return verify_reasoned(root, decision)
     if study == "cross-view-reading-01":
         from loopqwen.research.cross_view_study import verify as verify_cross_view
         from scripts.cross_view_material import build
