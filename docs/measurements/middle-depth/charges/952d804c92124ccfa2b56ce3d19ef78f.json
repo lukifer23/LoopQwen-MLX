@@ -1,0 +1,41 @@
+{
+  "job": "saved-prefix-and-sparse-adjoint",
+  "stage": "profile",
+  "dispatch": 1795816306.605737,
+  "pid": 92963,
+  "initial_process_disk_io": {
+    "read": 0,
+    "written": 12288
+  },
+  "initial": {
+    "pressure": 1,
+    "available": 7784841216,
+    "swap": 1745420288,
+    "free": 138876936192,
+    "active": 8,
+    "peak": 0
+  },
+  "status": "stopped",
+  "seconds": 1.9744992079795338,
+  "last": {
+    "pressure": 1,
+    "available": 6363086848,
+    "swap": 1745420288,
+    "free": 138875834368,
+    "active": 1504791364,
+    "peak": 1504791380
+  },
+  "reason": "AssertionError({'full_loss': 3.095810890197754, 'sparse_loss': 3.063199996948242, 'norm': 1.4909169673919678, 'relative': 0.07456398133387192, 'maximum': {'lora_a': 0.0, 'lora_b': 0.005899157375097275}})",
+  "final": {
+    "pressure": 1,
+    "available": 5934710784,
+    "swap": 1745420288,
+    "free": 138876239872,
+    "active": 1669681270,
+    "peak": 1944528550
+  },
+  "final_process_disk_io": {
+    "read": 3411968,
+    "written": 33472512
+  }
+}

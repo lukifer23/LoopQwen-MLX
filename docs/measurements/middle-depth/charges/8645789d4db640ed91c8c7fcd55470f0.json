@@ -1,0 +1,41 @@
+{
+  "job": "saved-prefix-and-sparse-adjoint",
+  "stage": "profile",
+  "dispatch": 1795816280.046624,
+  "pid": 92794,
+  "initial_process_disk_io": {
+    "read": 229376,
+    "written": 12288
+  },
+  "initial": {
+    "pressure": 1,
+    "available": 7850360832,
+    "swap": 1745420288,
+    "free": 138879660032,
+    "active": 8,
+    "peak": 0
+  },
+  "status": "stopped",
+  "seconds": 1.9398962080013007,
+  "last": {
+    "pressure": 1,
+    "available": 6385680384,
+    "swap": 1745420288,
+    "free": 138879139840,
+    "active": 1504791364,
+    "peak": 1504791380
+  },
+  "reason": "RuntimeError('[scaled_dot_product_attention] the vector kernels do not produce a logsumexp; the VJP path requires the full-attention kernel.')",
+  "final": {
+    "pressure": 1,
+    "available": 5892374528,
+    "swap": 1745420288,
+    "free": 138877800448,
+    "active": 1712803350,
+    "peak": 1891966834
+  },
+  "final_process_disk_io": {
+    "read": 4026368,
+    "written": 33468416
+  }
+}
