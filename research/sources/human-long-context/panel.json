@@ -1,0 +1,76 @@
+{
+  "revision": "2b48e494f2c7a2f0af81aae178e05c7e1dde0fe9",
+  "payload": "15d61c22d92c96900b3c4948b6aeea218d3214b676a65df48e7b8555604c7fe2",
+  "bytes": 465490535,
+  "upstream": "https://huggingface.co/datasets/zai-org/LongBench-v2",
+  "domains": {
+    "Long In-context Learning / New language translation": 20,
+    "Single-Document QA / Financial": 22,
+    "Multi-Document QA / Governmental": 23,
+    "Single-Document QA / Event ordering": 20,
+    "Single-Document QA / Academic": 44,
+    "Single-Document QA / Detective": 22,
+    "Long-dialogue History Understanding / Agent history QA": 20,
+    "Code Repository Understanding / Code repo QA": 50,
+    "Multi-Document QA / Academic": 50,
+    "Single-Document QA / Literary": 30,
+    "Long In-context Learning / Many-shot learning": 21,
+    "Long In-context Learning / User guide QA": 40,
+    "Multi-Document QA / Financial": 15,
+    "Long Structured Data Understanding / Table QA": 18,
+    "Single-Document QA / Governmental": 18,
+    "Multi-Document QA / Multi-news": 23,
+    "Long Structured Data Understanding / Knowledge graph reasoning": 15,
+    "Single-Document QA / Legal": 19,
+    "Long-dialogue History Understanding / Dialogue history QA": 19,
+    "Multi-Document QA / Legal": 14
+  },
+  "source_records": 503,
+  "panel": [
+    {
+      "id": "66ec2374821e116aacb1b423",
+      "domain": "Single-Document QA",
+      "subdomain": "Literary",
+      "context": "b1d68170c02df307b8a70b11dc6331388822053cff2adc2cf05241521e742ab3",
+      "question": "367d41da342935ed2eb2113b7ab16dce08efe6efa3a713f0a9bc56a3bcbb6c10",
+      "input_ids": "c4d2a33291288275c771e44ba8a4beb78d9c812d34a47cc0a8a2227502612e15",
+      "tokens": 143734,
+      "documented_difficulty": "hard",
+      "documented_length": "medium"
+    },
+    {
+      "id": "6723a63bbb02136c067d71a1",
+      "domain": "Single-Document QA",
+      "subdomain": "Event ordering",
+      "context": "2c1508694870b9300bcd163d723afdcbbfb7e2849f9641b23ee06df10f9a7c8f",
+      "question": "b7e3e6510ba68f7d5756432608f993b98e1cdb133d24cfef2ca36f9570cf9fa6",
+      "input_ids": "061154476d6875edd0635aa0e28611ceb242bf1a955f6c02a505429332f4b16f",
+      "tokens": 188673,
+      "documented_difficulty": "hard",
+      "documented_length": "medium"
+    },
+    {
+      "id": "670bf6ddbb02136c067d2379",
+      "domain": "Single-Document QA",
+      "subdomain": "Detective",
+      "context": "ca99180d7d2f24829b3c3989992a58ca6b95a742885ae201bc5fa784dbfe61a9",
+      "question": "62ad8f1a1c9e4f567f6c25f6262915deb1fc2940efc7926d33ff284e098b6de4",
+      "input_ids": "39637e93c9605b39129dfed50776b4c6919a2369c2c164c95ab699521f7b7116",
+      "tokens": 185635,
+      "documented_difficulty": "hard",
+      "documented_length": "medium"
+    },
+    {
+      "id": "66f28ede821e116aacb29a27",
+      "domain": "Multi-Document QA",
+      "subdomain": "Academic",
+      "context": "4ba157304646ef0f3bffd07153d5136de9ad872143af525f42021e0884a783ad",
+      "question": "c82009ec8b4d3180efe4fff7ffe04643fa3e7ffcb75f0550aad599b096848244",
+      "input_ids": "3ab1202b3fdad89162272f48a1700a8b1839e877949707d43ae10b8d6f35b37f",
+      "tokens": 148845,
+      "documented_difficulty": "hard",
+      "documented_length": "medium"
+    }
+  ],
+  "protocol": "Reserve expert-authored new sources for a future release confirmation only. Rank by original ID, without reading correctness labels or model outputs. Retain an intact original context, original question and four original options. Use the standard thinking template, no answer-bearing excerpts, no truncation, no model-aware source selection. At most one question per context digest and subdomain, actual input 131072 to 200000 tokens. Record only source/question/input hashes and counts. Do not use this material for model fitting. This is input qualification only; no inference, accuracy or empty-credit release claim."
+}
