@@ -1,0 +1,170 @@
+{
+  "training": {
+    "database_answer": {
+      "source_turns": 220,
+      "with_reasoning_words": 0,
+      "reasoning_words": 0
+    },
+    "database_query": {
+      "source_turns": 220,
+      "with_reasoning_words": 0,
+      "reasoning_words": 0
+    },
+    "database_schema": {
+      "source_turns": 220,
+      "with_reasoning_words": 0,
+      "reasoning_words": 0
+    },
+    "open": {
+      "source_turns": 256,
+      "with_reasoning_words": 0,
+      "reasoning_words": 0
+    },
+    "practice": {
+      "source_turns": 280,
+      "with_reasoning_words": 140,
+      "reasoning_words": 2023
+    },
+    "reasoning": {
+      "source_turns": 640,
+      "with_reasoning_words": 614,
+      "reasoning_words": 11070
+    },
+    "rehearsal": {
+      "source_turns": 320,
+      "with_reasoning_words": 64,
+      "reasoning_words": 854
+    }
+  },
+  "common": [
+    {
+      "study": "valid-return-01",
+      "arm": "candidate",
+      "requests": 36,
+      "budget": 512,
+      "median_words": 0.0,
+      "total_words": 459,
+      "identical_to_first_base": "",
+      "turns": 66,
+      "closed": 65,
+      "closed_empty": 49,
+      "unclosed": 1,
+      "requests_with_words": 17,
+      "solved": 13,
+      "completed": 18
+    },
+    {
+      "study": "valid-return-01",
+      "arm": "control",
+      "requests": 36,
+      "budget": 512,
+      "median_words": 314.5,
+      "total_words": 11701,
+      "identical_to_first_base": 36,
+      "turns": 74,
+      "closed": 68,
+      "closed_empty": 0,
+      "unclosed": 6,
+      "requests_with_words": 36,
+      "solved": 3,
+      "completed": 8
+    },
+    {
+      "study": "linked-rollin-02",
+      "arm": "candidate",
+      "requests": 36,
+      "budget": 512,
+      "median_words": 1.0,
+      "total_words": 336,
+      "identical_to_first_base": "",
+      "turns": 86,
+      "closed": 84,
+      "closed_empty": 66,
+      "unclosed": 2,
+      "requests_with_words": 20,
+      "solved": 11,
+      "completed": 15
+    },
+    {
+      "study": "linked-rollin-02",
+      "arm": "control",
+      "requests": 36,
+      "budget": 512,
+      "median_words": 314.5,
+      "total_words": 11701,
+      "identical_to_first_base": 36,
+      "turns": 74,
+      "closed": 68,
+      "closed_empty": 0,
+      "unclosed": 6,
+      "requests_with_words": 36,
+      "solved": 3,
+      "completed": 8
+    },
+    {
+      "study": "followup-protected-01",
+      "arm": "candidate",
+      "requests": 36,
+      "budget": 384,
+      "median_words": 6.0,
+      "total_words": 171,
+      "identical_to_first_base": "",
+      "turns": 82,
+      "closed": 79,
+      "closed_empty": 59,
+      "unclosed": 3,
+      "requests_with_words": 22,
+      "solved": 3,
+      "completed": 12
+    },
+    {
+      "study": "followup-protected-01",
+      "arm": "control",
+      "requests": 36,
+      "budget": 384,
+      "median_words": 274.5,
+      "total_words": 10694,
+      "identical_to_first_base": 20,
+      "turns": 71,
+      "closed": 61,
+      "closed_empty": 0,
+      "unclosed": 10,
+      "requests_with_words": 36,
+      "solved": 2,
+      "completed": 5
+    },
+    {
+      "study": "visit-residual-01",
+      "arm": "candidate",
+      "requests": 36,
+      "budget": 384,
+      "median_words": 17.0,
+      "total_words": 882,
+      "identical_to_first_base": "",
+      "turns": 87,
+      "closed": 87,
+      "closed_empty": 26,
+      "unclosed": 0,
+      "requests_with_words": 29,
+      "solved": 3,
+      "completed": 15
+    },
+    {
+      "study": "visit-residual-01",
+      "arm": "control",
+      "requests": 36,
+      "budget": 384,
+      "median_words": 274.5,
+      "total_words": 10694,
+      "identical_to_first_base": 20,
+      "turns": 71,
+      "closed": 61,
+      "closed_empty": 0,
+      "unclosed": 10,
+      "requests_with_words": 36,
+      "solved": 2,
+      "completed": 5
+    }
+  ],
+  "interpretation": "Words before the first closing marker are observable reasoning-channel output. Empty text, verbosity and missing closure do not establish the amount or quality of latent reasoning. All opening prompts match across studies. Full Base trajectories are identical within each token-budget pair. The 384- and 512-token comparisons can have different outputs."
+}
