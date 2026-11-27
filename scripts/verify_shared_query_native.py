@@ -1,6 +1,7 @@
 """Independently regenerate final-layer training memory and replay learned conclusions on Metal."""
 
 import argparse
+from collections import Counter
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from time import perf_counter
@@ -92,6 +93,24 @@ def check(name, restore):
             "first_visit": probe(model, idx, folder, evidence, s, first_only=True),
         }
         saved = read(root / "probes.json")
+        history = unpack(root / "training-log.json.gz")
+        expected_ids = Counter(r["id"] for r in idx)
+        assert all(n == 1 for n in expected_ids.values())
+        assert {h["epoch"] for h in history} == set(range(s["epochs"]))
+        exposure = []
+        for epoch in range(s["epochs"]):
+            updates = [h for h in history if h["epoch"] == epoch]
+            observed = Counter(k for h in updates for k in h["rows"])
+            assert observed == expected_ids
+            exposure.append(
+                {
+                    "epoch": epoch + 1,
+                    "unique_turns": len(observed),
+                    "updates": len(updates),
+                    "positions": sum(h["positions"] for h in updates),
+                    "citations": sum(h["citations"] for h in updates),
+                }
+            )
         errors = {}
         for state, records in native.items():
             pairs = list(zip(records, saved[state], strict=True))
@@ -107,7 +126,7 @@ def check(name, restore):
             assert max(errors[state].values()) <= 1e-5
         replay = decision(
             s,
-            unpack(root / "training-log.json.gz"),
+            history,
             native["before"],
             native["after"],
             native["first_visit"],
@@ -124,6 +143,7 @@ def check(name, restore):
             max_errors_by_state=errors,
             reproduced_gates=replay["gates"],
             reproduced_pass=replay["passed"],
+            independently_counted_epochs=exposure,
         )
     report.update(
         native_seconds=perf_counter() - started, peak_bytes=mx.get_peak_memory()
