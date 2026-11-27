@@ -1,0 +1,9 @@
+{
+  "model_study": "file-evidence-accumulated-01",
+  "prompt": "In the attached measurement table, what was the total first-token wait for the loop?",
+  "document": "paper/instruction-interpolation-costs.csv",
+  "document_sha256": "fb43ce6d1e27c2519d6f838ad43167c9ad4e70e3270bab4f89c792412a2682ef",
+  "question": "Does the trained shared second pass change next-token logits when reading a real file-tool prompt outside its training and evaluation?",
+  "protocol": "At fixed fitted weights and identical renderings of the real project CSV, use fresh native state at the default residual, zero residual and restored default. Verify every trained linear map is shared on both visits, the two full-attention caches independently retain the entire prefix, and each physical Gated DeltaNet visit maintains its own convolution and recurrent state. Compute the change in the entire next-token logit vector and require bitwise restoration. This measures physical activity only. There is no answer scoring, optimization, or release decision from this probe.",
+  "max_native_seconds": 60
+}
