@@ -1,6 +1,6 @@
 # LoopQwen-MLX
 
-[Current goal and resume handoff](RESEARCH_GOAL.md) · [Evidence overview](paper/evidence-overview.pdf) · [Every registration and archive](paper/research-scope.csv) · [Release target and verification plan](docs/RELEASE_EVIDENCE.md) · [Complete research paper](paper/loopqwen-repair-query-study.pdf)
+[Research paper draft (PDF)](paper/paper-draft.pdf) · [Current goal and resume handoff](RESEARCH_GOAL.md) · [Evidence overview](paper/evidence-overview.pdf) · [Every registration and archive](paper/research-scope.csv) · [Release target and verification plan](docs/RELEASE_EVIDENCE.md) · [Complete research paper](paper/loopqwen-repair-query-study.pdf)
 
 **November 27, 2026 research status.** Across reading and finance, the latest loop delivered fully correct, supported answers on 24.3% of presentations versus 45.8% for Base. On two Deno releases above 131,072 tokens, a separate fit improved source-location loss by 4.78 nats and tied its parent on held token decisions (18/24). The resumed financial fit stopped under OS memory pressure before its first optimizer update. A matched middle-span loop and ordinary-depth sibling each answered 5/27 short development requests correctly after 32 updates at 128 generated tokens, including 0/9 tools. Full-document development uses up to 167,017 actual input tokens. [Middle-depth measurements](paper/middle-depth.pdf). [Resume instructions](RESEARCH_GOAL.md#resume-here) · [Quality analysis](docs/measurements/source-copy-supported-delivery.json) · [Long-context figure](paper/long-copy-held.svg)
 

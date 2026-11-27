@@ -1,0 +1,485 @@
+{
+  "title": "When Does Shared Depth Earn Its Cost?",
+  "authors": [
+    "lukifer23",
+    "GPT 6.2 Astra"
+  ],
+  "historical": [
+    {
+      "label": "Rule induction",
+      "loop": 62,
+      "ordinary": 33,
+      "n": 64,
+      "loop_s": 15.876719754858641,
+      "ordinary_s": 16.040394039009698,
+      "study": "native-induction-anchored-matched-01"
+    },
+    {
+      "label": "Fresh stories",
+      "loop": 62,
+      "ordinary": 25,
+      "n": 64,
+      "loop_s": 16.07130837405566,
+      "ordinary_s": 16.03578258390189,
+      "study": "native-induction-anchored-replication-01"
+    },
+    {
+      "label": "Second fit seed",
+      "loop": 53,
+      "ordinary": 25,
+      "n": 64,
+      "loop_s": 16.031440538034076,
+      "ordinary_s": 16.068716913927346,
+      "study": "native-induction-anchored-seed2-01"
+    },
+    {
+      "label": "Changed class",
+      "loop": 64,
+      "ordinary": 23,
+      "n": 64,
+      "loop_s": 15.855830837070243,
+      "ordinary_s": 15.676481417991454,
+      "study": "native-induction-class-swap-01"
+    },
+    {
+      "label": "Public tools",
+      "loop": 17,
+      "ordinary": 18,
+      "n": 22,
+      "loop_s": 14.983277543011354,
+      "ordinary_s": 14.373873335047392,
+      "study": "tool-dialogue-typed-depth-01"
+    }
+  ],
+  "source_copy": {
+    "candidate": 0.24305555555555555,
+    "control": 0.4583333333333333
+  },
+  "early": [
+    {
+      "arm": "loop",
+      "cap": 128,
+      "family": "reasoning",
+      "episodes": 9,
+      "success": 2,
+      "by_eight_seconds": 2,
+      "seconds": 12.494732334103901
+    },
+    {
+      "arm": "loop",
+      "cap": 128,
+      "family": "tools",
+      "episodes": 9,
+      "success": 0,
+      "by_eight_seconds": 0,
+      "seconds": 16.156862457923125
+    },
+    {
+      "arm": "loop",
+      "cap": 128,
+      "family": "chat",
+      "episodes": 9,
+      "success": 3,
+      "by_eight_seconds": 3,
+      "seconds": 5.61134241707623
+    },
+    {
+      "arm": "ordinary",
+      "cap": 128,
+      "family": "reasoning",
+      "episodes": 9,
+      "success": 2,
+      "by_eight_seconds": 2,
+      "seconds": 8.738399999972899
+    },
+    {
+      "arm": "ordinary",
+      "cap": 128,
+      "family": "tools",
+      "episodes": 9,
+      "success": 0,
+      "by_eight_seconds": 0,
+      "seconds": 8.527195042173844
+    },
+    {
+      "arm": "ordinary",
+      "cap": 128,
+      "family": "chat",
+      "episodes": 9,
+      "success": 3,
+      "by_eight_seconds": 3,
+      "seconds": 4.177217458025552
+    }
+  ],
+  "costs": {
+    "short": {
+      "seconds": 212.4,
+      "stopped": 0
+    },
+    "fit": {
+      "seconds": 329.5,
+      "stopped": 8
+    },
+    "long": {
+      "seconds": 888.2,
+      "stopped": 1
+    },
+    "profile": {
+      "seconds": 206.0,
+      "stopped": 6
+    }
+  },
+  "books": [
+    {
+      "name": "Initial two-pass",
+      "length": 167014,
+      "output": 128,
+      "status": "token_limit",
+      "first": 381.6,
+      "total": 421.3,
+      "sites": 7,
+      "peak": 2.83
+    },
+    {
+      "name": "Untouched Base",
+      "length": 167014,
+      "output": 128,
+      "status": "token_limit",
+      "first": 347.8,
+      "total": 381.2,
+      "sites": 6,
+      "peak": 2.54
+    }
+  ],
+  "resident": [
+    {
+      "mode": "staged",
+      "actual_prefix": 162688,
+      "continuation": 128,
+      "tokens": [
+        1123,
+        36,
+        1825,
+        2158,
+        16654,
+        271,
+        11862,
+        20357,
+        2913,
+        38569,
+        469,
+        1333,
+        923,
+        9269,
+        38,
+        31984
+      ],
+      "maximum_logit_errors": [],
+      "branch_seconds": 0.0020975410006940365,
+      "opening_seconds": 0.7718438750016503,
+      "decode_seconds": 3.6432630000053905,
+      "peak": 2643398398
+    },
+    {
+      "mode": "resident",
+      "actual_prefix": 162688,
+      "continuation": 128,
+      "tokens": [
+        1123,
+        36,
+        1825,
+        2158,
+        16654,
+        271,
+        11862,
+        20357,
+        2913,
+        38569,
+        469,
+        1333,
+        923,
+        9269,
+        38,
+        31984
+      ],
+      "maximum_logit_errors": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "branch_seconds": 0.3187494589947164,
+      "opening_seconds": 0.46800654096296057,
+      "decode_seconds": 0.6759367920458317,
+      "peak": 4046212858
+    }
+  ],
+  "profile": [
+    {
+      "depth": 1,
+      "slots": 24,
+      "attention_offsets": [
+        121,
+        121,
+        121,
+        121,
+        121,
+        121
+      ],
+      "states": [
+        {
+          "entry": 0.072865329682827,
+          "exit": 0.13540689647197723,
+          "change": 0.10161811113357544
+        }
+      ],
+      "first_state_fraction": null,
+      "chunk_rms": 0.01570991653472212,
+      "nll": 0.8172119855880737,
+      "gradient": 2.264946222305298,
+      "seconds": 0.15369166701566428,
+      "peak": 2398636534
+    },
+    {
+      "depth": 2,
+      "slots": 28,
+      "attention_offsets": [
+        121,
+        121,
+        121,
+        121,
+        121,
+        121,
+        121
+      ],
+      "states": [
+        {
+          "entry": 0.072865329682827,
+          "exit": 0.13540689647197723,
+          "change": 0.10161811113357544
+        },
+        {
+          "entry": 0.07913366705179214,
+          "exit": 0.14638473093509674,
+          "change": 0.09255693852901459
+        }
+      ],
+      "first_state_fraction": 0.20000948386650236,
+      "chunk_rms": 0.015567154294645807,
+      "nll": 0.7925038933753967,
+      "gradient": 2.3509182929992676,
+      "seconds": 0.2044264170108363,
+      "peak": 2405622081
+    },
+    {
+      "depth": 3,
+      "slots": 32,
+      "attention_offsets": [
+        121,
+        121,
+        121,
+        121,
+        121,
+        121,
+        121,
+        121
+      ],
+      "states": [
+        {
+          "entry": 0.072865329682827,
+          "exit": 0.13540689647197723,
+          "change": 0.10161811113357544
+        },
+        {
+          "entry": 0.07913366705179214,
+          "exit": 0.14638473093509674,
+          "change": 0.09255693852901459
+        },
+        {
+          "entry": 0.08068627119064331,
+          "exit": 0.14870737493038177,
+          "change": 0.0924636721611023
+        }
+      ],
+      "first_state_fraction": 0.20000948386650236,
+      "chunk_rms": 0.016356104219189083,
+      "nll": 0.7614732980728149,
+      "gradient": 2.4098241329193115,
+      "seconds": 0.23140216601314023,
+      "peak": 2412728767
+    }
+  ],
+  "params": 442369,
+  "train": {
+    "reasoning": {
+      "polarity": 48,
+      "comparison": 24
+    },
+    "chat": {
+      "conversation": 32,
+      "rewrite": 32,
+      "edited_reply": 8
+    },
+    "tools": {
+      "open": 12,
+      "deliver": 12,
+      "repair": 12,
+      "recovered": 12,
+      "reuse": 12,
+      "redirect": 12
+    },
+    "documents": {
+      "complete_table": 40,
+      "agenda": 32
+    }
+  },
+  "restart_max": 3.547919914126396e-05,
+  "repair": {
+    "handoff": "6cb3230a877c40a6f1088ebf942d1859fb6181ab",
+    "remote_main_at_start": "6cb3230a877c40a6f1088ebf942d1859fb6181ab",
+    "resume_check": "Verified source, parent and donor. 2694 native seconds remain.",
+    "receipts": {
+      "docs/measurements/receipt-repair-fit/receipt.json": "94a2e627bcf1382e11805012bf9c9c4c20a15af69609974f99c14b551995c601",
+      "docs/measurements/receipt-repair-streamed-pause.json": "f2ba34be4713d57dc16086c23b53b9a111e2392ad1298392380b54dbf20e9f23",
+      "docs/measurements/receipt-repair-fit-streamed/receipt.json": "f484e3e7d6bca2b3e1ebec74e153c8afd70e2f7e3220ef956e7943555b780182"
+    },
+    "charged_seconds": 134.8256447087042,
+    "updates": 0,
+    "terminal_passed": false,
+    "cold_verifier": "Invoked after committing the fit receipt. It found no completed weights and returned without an evaluation.",
+    "free_generation": "Closed by the fit prerequisite. No 16-report pilot started.",
+    "diagnosis": "Crossed histories contain executable but question-inappropriate operands and results. Previously the conversational model delivered 0/24 correct shared-history financial follow-ups. This fit stopped during causal feature extraction, so it supplies no measurement of an optimizer effect on receipt use or recovery."
+  },
+  "first_cap": 128,
+  "changes": [
+    {
+      "source": "bridge",
+      "world": "changed",
+      "delta": 1,
+      "loop": {
+        "correct": true,
+        "unsupported": false,
+        "first_error": null
+      },
+      "ordinary": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "Misses the explicit observation of both markers."
+      }
+    },
+    {
+      "source": "bridge",
+      "world": "irrelevant",
+      "delta": -1,
+      "loop": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "Says the observed marker is unspecified despite the explicit red marker."
+      },
+      "ordinary": {
+        "correct": true,
+        "unsupported": false,
+        "first_error": null
+      }
+    }
+  ],
+  "early_times": {
+    "ordinary": 21.44,
+    "loop": 34.26
+  },
+  "curves": {
+    "ordinary": [
+      3,
+      5,
+      5,
+      5,
+      5
+    ],
+    "loop": [
+      1,
+      5,
+      5,
+      5,
+      5
+    ]
+  },
+  "input_files": {
+    "paper/overview-comparisons.csv": "5c56b54dc0b46c663d911cadcef9222380e13fc7fd55250015bcbca18e0fbbd3",
+    "docs/measurements/source-copy-supported-delivery.json": "451d262eeab0d1ef3e90afc691b23bafbc9c4f264448fe961455314d4eea0bc6",
+    "docs/measurements/middle-depth/review/early/summary.json": "92dec260da65440c1c6224aded7386e56feb3a0dc06fc514053b1350484b26ca",
+    "docs/measurements/middle-depth/review/early/scored.json": "af254797dce21e842a4f6903a0ef80a8bdebf95522069149e00fa43f0dba0817",
+    "docs/measurements/middle-depth/pairs/early-loop-ordinary-128.json": "2e7afbfa08b413e38c214ef86d7130b01662b474956c52a3b89cc288a3338324",
+    "docs/measurements/middle-depth/book/initial-loop-original-128.json.gz": "165a999509fc00ed2b48a82c111db82f32ea116be12c5c52aa9c222cd01c6914",
+    "docs/measurements/middle-depth/documents/initial/book/base/128/original-first.json.gz": "78ae78861f18dbe96d2686c95ff448aa1340325dbabd82d2cd28f12af6938f0f",
+    "docs/measurements/middle-depth/profile-base.json": "bfa75f555bf1597d8cfcfd92602eede7fe29ccc75a8e7b63b5ecac365b6f0867",
+    "research/sources/middle-depth/inventory.json": "c29564af32757cd1e0cf4d170f654481f0e6cbdfedf147842627640807e7e6da",
+    "docs/measurements/middle-depth/resident-qualification.json": "5ba92f4663b32edc8ad9dea469df17d5c2e0d405a97c60fde5dcee40083ad352",
+    "docs/measurements/middle-depth/restart-loop.json": "10d26490120faaaea4c278fdf24c453c12c76488904a41fc99a92b2f420ce5d7",
+    "docs/measurements/receipt-repair-fit-streamed/closure.json": "563fcb1e5c00430b1f1e81e4655ec0441b68c47248e0bbd5f4e75685350b3c71",
+    "docs/measurements/middle-depth/prepared-restart-loop.json": "2bf6eb68c3cd01638eab8f8901670daffa29404f4062426e2c29caad3c42e0af",
+    "docs/measurements/middle-depth/prepared-restart-ordinary.json": "750b699753e3ed9a14543f65249afcf4421a95cb207a482ee42b868b777db121",
+    "docs/measurements/middle-depth/history-material.json": "820d9ebff3ce1de9cce1e0315661b2a2e113587ced6fa2d5b4d1f5e49c222ce6",
+    "docs/measurements/middle-depth/release-regression.json": "65a485bc0540f697179e76d19038ab406b0cfa5da72b8d8944ec55978b4a1cea",
+    "docs/measurements/middle-depth/donor-decision.json": "d584898f5e8c0865e769b68d23617d379301d16fb29bab3b8a1a7fca65e6c6dd",
+    "docs/measurements/middle-depth/sparse-parity.json": "9133db3be28b2d6052d9a4c746c8bbc4f2dbcacaf150ba8539a5af778a522269",
+    "docs/measurements/middle-depth/charges/1f5a458aaade4efba5104dff72b9ae3d.json": "29a7d983a59ff7104b470f9f32b10368865008c17ea63ddebbd8226233e78d5b",
+    "docs/measurements/middle-depth/charges/643480313eef44edbed68f1ee35cc589.json": "e4fc5f96a592e70fc657d5d58f072f2f9a39e25efa3d31fd321780da2f43c085",
+    "docs/measurements/middle-depth/charges/8f77dd5044b24dd7ab987e418af9ce58.json": "c802febf3b602e8dcc51d565dd4caca0ff1cbb9e197ff9c10cd14caa72874977",
+    "docs/measurements/middle-depth/charges/93172cd4844e45efa4ea904fb74224e3.json": "f3884fc61b8b89863169e8ec97c928610d29c3a00846f3a1f2f5546b5c836d80",
+    "docs/measurements/middle-depth/charges/8319045671bb4485a6f65ade859bf44b.json": "868f75c15daf2b34eac8ab4b77d5dd9d6a4bbd8ec74e2f0bc5522183f82acc84",
+    "docs/measurements/middle-depth/charges/c33c5fa5953a40a683c2e445ef2a0978.json": "62bbf8aef21b7750e9793f3aa2da77b668235b290c17a2f04b6de0e5fd9bbde4",
+    "docs/measurements/middle-depth/charges/317558b3abd542d6b5633f62dbde5d9f.json": "3782859fba03313031a39eb905805dd2fd48cdfec8636b1f6b730a74851f7341",
+    "docs/measurements/middle-depth/charges/ae3b66cb686049baa35c75e778f51d80.json": "ff118283ba655ca820dbfa967a362da10089e98c8c91817a37264a4260bfd9c9",
+    "docs/measurements/middle-depth/charges/bb37337e83a745be8a932e396dfd81af.json": "0170154b67f6d5926f96359cbf6517f0d80a6f2cdf085a25d6964dea3e0755f5",
+    "docs/measurements/middle-depth/charges/a7ad57369d17407887a57a562c0033a3.json": "c07bedf1a444a06ac88ed910f47e37a68e16fe42a475c281eb9c7f836de8e364",
+    "docs/measurements/middle-depth/charges/c187434ffda447218986a1a040ce3712.json": "7d8363fdbb71e5afbc4b40d48c02e39039404f9efed5d28d6f650e776327f545",
+    "docs/measurements/middle-depth/charges/64648cfa187446f58c4a9c3d7ef3994e.json": "e8929ceaf6363aeb70120172d432716fe4f88917c8f7f7bf8196038110c0bd03",
+    "docs/measurements/middle-depth/charges/a8ddf3b19b884c8daf5d9555176de709.json": "576f6fc835f80ef8b4b4e65141dcf0fbc660e2a208dfa7643922c7f2577b74e6",
+    "docs/measurements/middle-depth/charges/220e5186cac0454eb9af1247a1189ae2.json": "915b46c14676fe7b9aa2122b9ba53750030c275415c98fc68bb3d435e37084a8",
+    "docs/measurements/middle-depth/charges/95a446bb88134d078525115e989c258c.json": "2b157d9e2cb266851eba2d1c0a2a2c055ad30bb1055284e93eb9af4c5bfa7be4",
+    "docs/measurements/middle-depth/charges/7397dce959d14b82892f083594b71a3f.json": "11806ede8e1cabbf627ac9b0f1540b9ab7d1d7ff529b93fd0eb99a30c93d9010",
+    "docs/measurements/middle-depth/charges/9e4a5a4985344ec8b9c9cd4833cc3101.json": "a935e5728771872939574eee69a60e53ec84bd53ef098674d028d8c8814b5ff8",
+    "docs/measurements/middle-depth/charges/0f5ec836a6cf4819a666aa06733e104a.json": "00d15b485cfbbceb1972c8c514d8abcb23b4a7bf193cf06938960a859c0972c4",
+    "docs/measurements/middle-depth/charges/4d65d69eadfd4cac9619fd0f54998839.json": "73878db0f9a6706edba93eb42b596216401d7d155f6fdf50402e407185fb3d14",
+    "docs/measurements/middle-depth/charges/602b49d9b74d48939edb9e9ed8a92244.json": "2a9db29af4bab76dfe2b680beac627dcbc196225c71b6e567f57f19deba1bff4",
+    "docs/measurements/middle-depth/charges/3b5b5fa9e52a402092c806aeb6197fe1.json": "68729a1a0ec2ce85343045e138ffe660baab4f00e938bd02e5430247ce4ef9a3",
+    "docs/measurements/middle-depth/charges/94794ff80e2b456abebf102a21ed1680.json": "855ef50186b74a65191c9dc939a2537ae8024c51c5eee6a86e0e7edccfb2faf4",
+    "docs/measurements/middle-depth/charges/751f1893ec2b4ef192fe4fa98250d63d.json": "476905bf43bb974cb6f20ef14c4f88e1c83ad77a93a7ffe5144e9d0308c25587",
+    "docs/measurements/middle-depth/charges/a1c91d626d994a78b6b409187d693baf.json": "ca7299ed07dc0478a31fb855b1390042dcfdf7b500d031882ef929703867e26e",
+    "docs/measurements/middle-depth/charges/2a7a66826b044babb34bc5d501245914.json": "ce289a7b209ee2fb272c2345443a07442c12f87cc016a7ad684f0ccf35051021",
+    "docs/measurements/middle-depth/charges/4141119c007e424584e412258656999b.json": "26855a5f5a54e41f79e5c92c2b1276e181cf05432e6ce1668670461b107e4876",
+    "docs/measurements/middle-depth/charges/468b42f73322492fb4110ceff209ce68.json": "fc68730f3bd369b1bd36f7dbc40460142db32201b55f3590f1fc8f3cd91c3887",
+    "docs/measurements/middle-depth/charges/0762e7c7381b4042b81ac4738f3bb872.json": "e94903418acdda46c19cd338982e2dd0e9c2f0adf390a04c31d68f071679687d",
+    "docs/measurements/middle-depth/charges/b7b75afd04ca4b6194733d75eafed5dd.json": "2464eff1a430031251022d91403e5b2ce57c9b5cbba87ca0b8dec366f4be8e8d",
+    "docs/measurements/middle-depth/charges/d0e43e7c485743f6a73d4ba13938a37b.json": "9cecb7c89af78c6f95af015d69ca43b82084cc76f148199ec46971e7feef2e80",
+    "docs/measurements/middle-depth/charges/609b6294d71e43dca303f24c9df90dd5.json": "77f6cd050c85cbd320a8c55f1db37b78fcc35d022903107f324089831cd6bf0a",
+    "docs/measurements/middle-depth/charges/8645789d4db640ed91c8c7fcd55470f0.json": "283f020ac674b4b352e26c781596aa138353781f93bd0112892e36496046a7fd",
+    "docs/measurements/middle-depth/charges/de70ec0bdd484f49b5270d98b811212b.json": "50e6799ebded92baee22b31f6b0953c8cb18603e2ff163bb28b75d7d25d22635",
+    "docs/measurements/middle-depth/charges/e5875d871a0942a89a6797df7ce865f9.json": "abe76fc3e71f0e0811c6c5aad47d14568b906d3e98c2f6f0f0d05cd2afb51d1b",
+    "docs/measurements/middle-depth/charges/1952c316df5941388dcd3c6fb3a7153d.json": "226e644b89d5aa9ee7d9f1fbf4eb14ce1a587a59e720dca73e42a22c20582627",
+    "docs/measurements/middle-depth/charges/25aec9dacdb4410fbf09b655d24737cf.json": "896409c26644cf122af3025b10102931f30ffae608df37eaf8dd1ddbc5c3bdc6",
+    "docs/measurements/middle-depth/charges/34712d6f50314c92b181558750736e31.json": "b4b01c8e6244c181cb00b356b528fb8fc5f244a6f90a20ff128234cdc3535260",
+    "docs/measurements/middle-depth/charges/adb2fb21dd924323b49c2de1373fb52f.json": "12f5d43152f60566956a3cd5a86848f871600125631d82cdb3ac78320ea26f0b",
+    "docs/measurements/middle-depth/charges/f5fad8e319d7402e8ced8e9e828351d7.json": "98755dd7e0020e730f6287eb1b1030dd72445dbbf72262bcb399e4fce00a83ba",
+    "docs/measurements/middle-depth/charges/ccffa4f92146443f9b828163177cac07.json": "cf2920ab99cb16ef431262bcaf9a8fedc6fc155059238a0d4000ecf61c0c3892",
+    "docs/measurements/middle-depth/charges/54f1a063d8794f72a525dffe0e1be0d5.json": "0f7162ceff9fc5a5478700fc07d9043bbbe0e6a520e2192352569275668e234e",
+    "docs/measurements/middle-depth/charges/257fd5c0c5604099bc478487f50da1bf.json": "f6c8451a20698dccd8b37b5152877fd7f3e407789f20d975b699e1b0c7496b1a",
+    "docs/measurements/middle-depth/charges/5cb37e5a0ced42cc84101118299dc7e8.json": "72170db189e4c605f46b44a8f100a360d1b4e4c4ea5d3cf01edab2ed5cedc24c",
+    "docs/measurements/middle-depth/charges/952d804c92124ccfa2b56ce3d19ef78f.json": "3d8902b6a58d61170c6307daecb4cb7c8357a07127190228f0cbf940a4eec8d8",
+    "docs/measurements/middle-depth/charges/04d35c71ac074c69a123bc8e11c25d83.json": "1799549d3a813d439d8b876b40020bbedf7921a714d2fbeb06beb2301b024b50",
+    "docs/measurements/middle-depth/charges/6e5f5a699dba4b7384e1fe25a6198916.json": "1aa103f611bbc164a94cd3f3c3da4db1d4db4f42fd235a4f18a61de07e62ded6",
+    "docs/measurements/middle-depth/charges/5b2b89221dfe4ac7bd1237dfca2103c4.json": "ef12e070bb432d21612f3631339dcb91c2b7210741b696186f3a147b0bb66011"
+  }
+}

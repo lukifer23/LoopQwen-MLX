@@ -20,4 +20,4 @@ The 128-token output condition yielded 5/27 supported short answers for each tra
 
 On the native checkout, `.venv/bin/python -m scripts.middle_depth_wave fit` restores each arm's checksummed AdamW checkpoint and alternates epochs through update 576. `.venv/bin/python -m scripts.middle_depth_wave short-terminal` reuses finished trajectories. The exclusive worker ledger records every stopped attempt. Both update-32 policy adapters and their installed wheel are stored together in `exports/middle-depth`. Verify the relocated directory with `.venv/bin/python -m scripts.middle_depth_archive verify --directory exports/middle-depth --stage early`.
 
-[Evidence overview](paper/evidence-overview.pdf) · [Current paper](paper/middle-depth.pdf) · [Comprehensive draft](paper/loopqwen-repair-query-study.pdf) · [Research model and offline replay](docs/SOURCE_COPY_MODEL.md)
+[Six-page research paper draft](paper/paper-draft.pdf) · [Evidence overview](paper/evidence-overview.pdf) · [Current paper](paper/middle-depth.pdf) · [Comprehensive draft](paper/loopqwen-repair-query-study.pdf) · [Research model and offline replay](docs/SOURCE_COPY_MODEL.md)
