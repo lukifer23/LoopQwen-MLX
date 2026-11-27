@@ -261,6 +261,53 @@ def main():
             digest(path) == portable["sha256"]
             and path.stat().st_size == portable["bytes"]
         )
+    current = read(docs / "portable-base-wheel-02.json")
+    assert current["sessions"] == portable["sessions"]
+    expected_loader = read(docs / "phase6/randomized/state.json")["provenance"]["base"][
+        "sources"
+    ]["model_loader.py"]
+    assert current["historical_training_loader_sha256"] == expected_loader
+    assert digest(Path("loopqwen/model_loader.py")) == expected_loader
+    for old, file in (
+        (document, "document-reader-installed-02.json"),
+        (contrast, "contrast-reader-installed-02.json"),
+    ):
+        fresh = read(docs / file)
+        assert (
+            fresh["wheel_sha256"] == current["sha256"]
+            and fresh["policy"] == old["policy"]
+        )
+        assert (
+            fresh["empty_model_cache"]
+            and fresh["network_connections_blocked"]
+            and fresh["outside_checkout"]
+        )
+        if old is document:
+            assert all(
+                fresh[k] == old[k]
+                for k in (
+                    "rendered_prompt_sha256",
+                    "token_ids",
+                    "kv_history",
+                    "grade",
+                    "base_grade",
+                )
+            )
+            assert all(
+                fresh["base"][k] == old["base"][k]
+                for k in ("token_ids", "text", "kv_history")
+            )
+        else:
+            for side in ("recurrent", "base"):
+                assert [trace(r) for r in fresh["result"]["runs"][side]] == [
+                    trace(r) for r in old["result"]["runs"][side]
+                ]
+    current_wheel = Path("exports/portable-base-runtime-02") / current["wheel"]
+    if current_wheel.exists():
+        assert (
+            digest(current_wheel) == current["sha256"]
+            and current_wheel.stat().st_size == current["bytes"]
+        )
     print(
         "Verified installed field examples, free generations and the portable Base control."
     )

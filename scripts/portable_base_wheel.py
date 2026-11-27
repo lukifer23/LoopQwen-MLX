@@ -1,18 +1,20 @@
 """Replay the official dense control from one release, with an empty model cache and no network."""
 
+import hashlib
 import json
 import os
 import subprocess
 import sys
 import tempfile
 from pathlib import Path
+from zipfile import ZipFile
 
 from verify_runtime_wheel import CODE, ROOT, build, trace
 
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 
-REVISION = "20516864ad2a7f8a199f55306b6560746c7bb68e"
+REVISION = "e58ea8cf01209b5dc26220f96cc10f153d93bba4"
 NETWORK_GUARD = """import sys
 def isolated(event,args):
     if event in ('socket.connect','socket.getaddrinfo'):
@@ -23,7 +25,7 @@ sys.addaudithook(isolated)
 
 def main():
     docs = ROOT / "docs/measurements"
-    directory = ROOT / "exports/portable-base-runtime"
+    directory = ROOT / "exports/portable-base-runtime-02"
     directory.mkdir(parents=True, exist_ok=True)
     wheel = build(directory, REVISION)
     bundle = ROOT / "exports/tool-language-packed-05"
@@ -113,7 +115,16 @@ def main():
             and (p.suffix in {".safetensors", ".bin"} or "snapshots" in p.parts)
             for p in cache.rglob("*")
         )
+    original_loader = read(docs / "phase6/randomized/state.json")["provenance"]["base"][
+        "sources"
+    ]["model_loader.py"]
+    with ZipFile(wheel) as archive:
+        assert (
+            hashlib.sha256(archive.read("loopqwen/model_loader.py")).hexdigest()
+            == original_loader
+        )
     evidence = {
+        "historical_training_loader_sha256": original_loader,
         "revision": REVISION,
         "wheel": wheel.name,
         "sha256": digest(wheel),
@@ -124,7 +135,7 @@ def main():
         "network_connections_blocked": True,
         "sessions": sessions,
     }
-    path = docs / "portable-base-wheel.json"
+    path = docs / "portable-base-wheel-02.json"
     if path.exists():
         assert read(path) == evidence
     else:

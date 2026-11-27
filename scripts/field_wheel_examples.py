@@ -18,8 +18,8 @@ from loopqwen.io import digest, read, save
 
 
 def main(case):
-    receipt = read(ROOT / "docs/measurements/portable-base-wheel.json")
-    wheel = ROOT / "exports/portable-base-runtime" / receipt["wheel"]
+    receipt = read(ROOT / "docs/measurements/portable-base-wheel-02.json")
+    wheel = ROOT / "exports/portable-base-runtime-02" / receipt["wheel"]
     assert digest(wheel) == receipt["sha256"]
     bundle = ROOT / "exports/tool-language-packed-05"
     with tempfile.TemporaryDirectory() as work:
@@ -182,6 +182,21 @@ def main(case):
             ],
         )
     target = ROOT / f"docs/measurements/{case}-reader-installed.json"
+    prior = read(target)
+    if case == "document":
+        assert prior["token_ids"] == record["token_ids"]
+        assert prior["kv_history"] == record["kv_history"]
+        assert all(
+            prior["base"][k] == record["base"][k] for k in ("token_ids", "kv_history")
+        )
+    else:
+        from verify_runtime_wheel import trace
+
+        for side in ("recurrent", "base"):
+            assert [trace(r) for r in raw["runs"][side]] == [
+                trace(r) for r in prior["result"]["runs"][side]
+            ]
+    target = target.with_name(target.stem + "-02.json")
     if target.exists():
         old = read(target)
         for k in ("case", "wheel_sha256", "policy", "question"):
