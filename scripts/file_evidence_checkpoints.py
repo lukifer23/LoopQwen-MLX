@@ -1,7 +1,9 @@
 """Verify the recovered native training state and publish its final AdamW moments."""
 
 import argparse
+import hashlib
 import shutil
+import subprocess
 from pathlib import Path
 
 import numpy as np
@@ -19,6 +21,13 @@ def shape_signature(path):
 def verify(root):
     s = read(root / "registration.json")
     fit = read(root / "fit.json")
+    environment = read(root / "environment.json")
+    assert environment["registration_sha256"] == digest(root / "registration.json")
+    for path, expected in environment["execution_sources"].items():
+        source = subprocess.check_output(
+            ["git", "show", environment["execution_revision"] + ":" + path]
+        )
+        assert hashlib.sha256(source).hexdigest() == expected
     history = read(root / "optimizer-steps.json")
     steps = list(
         range(s["checkpoint_interval"], s["updates"], s["checkpoint_interval"])
