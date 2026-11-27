@@ -1,0 +1,19 @@
+# Reasoning with complete source passages and executable calculations
+
+This collection supplies 3,136 training turns for a separate experiment with a repeated attention query. It was prepared after the 340-request conditional comparison. It contributes no evidence to that comparison or to the running increment-based fit.
+
+| Training material | Sources | Supervised turns | Measured supervision |
+| --- | ---: | ---: | --- |
+| Implicit multi-step questions | 768 questions, balanced by answer | 768 | Complete Wikipedia evidence from one annotator, the authors’ ordered decomposition, and a visible answer with the authors’ supporting facts |
+| Financial report analysis | 512 expert questions | 1,024 | Actual calculator arguments using prior-result references where the expert program depends on them, the returned intermediate results and the original human final answer |
+| Earlier assistance | 14 source groups | 1,344 | Up to 96 intact examples per group of ordinary instruction, arithmetic, tool actions, evidence changes and source-grounded answers |
+
+The frozen tokenizer measures 2,117,954 prompt tokens and 196,718 assistant target tokens. Of the 3,136 unique turns, 1,416 include reasoning-channel words. All turns retain the original source text selected for that task. Length filtering rejects the entire example when its prompt plus answer exceeds 1,536 tokens or its target exceeds 384. These supervised lengths do not establish the model's context capacity.
+
+The reserved set consists of 48 questions across 48 additional StrategyQA topics and 32 official FinQA test questions from 32 further issuers. StrategyQA topics, cited paragraph IDs, and FinQA issuers are disjoint across this study's partitions. The 24 issuers used in an earlier project comparison were also excluded. A separate verifier reconstructed every selected StrategyQA input from the authors' Wikipedia paragraphs and replayed all 512 training and 32 reserved expert calculator trajectories. It found zero held complete prompts in training and zero duplicate question wordings across the new rationale and finance partitions. Original public pretraining exposure is unknown. Both the independent audit and the corpus materialization use the original records and stable hashes.
+
+Rebuild with `.venv/bin/python -m scripts.shared_query_material` and replay with `.venv/bin/python -m scripts.verify_shared_query_material`. [Source inventory](source-inventory.json) · [Independent replay](independent-replay.json)
+
+StrategyQA is by Geva and colleagues. Questions, annotations and evidence came from the authors’ original training-split archive. The held questions are a local topic split. The paragraph table preserves the titles and article/paragraph identifiers of the contributing Wikipedia material. [Paper](https://doi.org/10.1162/tacl_a_00370) · [Publisher code and citation](https://github.com/eladsegal/strategyqa) · [Source archive](https://storage.googleapis.com/ai2i/strategyqa/data/strategyqa_dataset.zip) · [Project license](LICENSE-StrategyQA)
+
+FinQA is by Chen and colleagues. It pairs financial reports with questions and reasoning programs written by financial professionals. Some released programs disagree with the human answer. Enrollment requires successful exact-arithmetic execution, agreement with the released program execution, and agreement with the human answer at its displayed precision, including explicit percentage conversion. The inventory retains the release revision and both file hashes. [Paper](https://aclanthology.org/2021.emnlp-main.300/) · [Original data](https://github.com/czyssrs/FinQA/tree/0f16e2867befa6840783e58be38c9efb9229d742/dataset) · [Project license](LICENSE-FinQA)
