@@ -1,0 +1,156 @@
+[
+  {
+    "id": "archive",
+    "family": "reasoning",
+    "context": "The archive ships paid requests unless a preservation hold applies. An old register marks batch Cedar unpaid. A signed correction dated a day later marks it paid. The hold list covers batch Ash only.",
+    "question": "Should the archive ship Cedar now? Give the decision and the two reasons that control it.",
+    "reference": "Ship. The later correction supersedes unpaid and Cedar is outside the hold.",
+    "change": [
+      "covers batch Ash only",
+      "covers batches Ash and Cedar"
+    ],
+    "changed_reference": "Do not ship. The later correction establishes payment, but Cedar is subject to a hold.",
+    "irrelevant": [
+      "Ash",
+      "Elm"
+    ]
+  },
+  {
+    "id": "kiln",
+    "family": "reasoning",
+    "context": "The kiln instructions allow another firing after 90 minutes of cooling. The firing log records shutdown at 10:40. An unrelated drying rack was emptied at 11:10.",
+    "question": "At noon, has the kiln cooled long enough? State the elapsed time and the margin relative to the rule.",
+    "reference": "No. 80 minutes elapsed; 10 minutes short of 90.",
+    "change": [
+      "10:40",
+      "10:20"
+    ],
+    "changed_reference": "Yes. 100 minutes elapsed; 10 minutes beyond 90.",
+    "irrelevant": [
+      "11:10",
+      "11:15"
+    ]
+  },
+  {
+    "id": "bridge",
+    "family": "reasoning",
+    "context": "A field guide says that the north bridge closes whenever water covers the blue marker. Today's observation says water covers the red marker. The guide gives no relative heights for these markers.",
+    "question": "Can I conclude from these notes that the north bridge has closed? Explain in one sentence.",
+    "reference": "No. The red observation does not establish whether the blue marker is covered.",
+    "change": [
+      "water covers the red marker",
+      "water covers both markers"
+    ],
+    "changed_reference": "Yes. Both includes the blue marker, which triggers closure.",
+    "irrelevant": [
+      "field guide",
+      "printed field guide"
+    ]
+  },
+  {
+    "id": "volunteer",
+    "family": "chat",
+    "context": "An organizer wrote: 'Don't come before 8. Bring a mug. We will provide the gloves.'",
+    "question": "Rewrite this as one welcoming sentence to a new volunteer, keeping all three practical details.",
+    "reference": "One welcoming sentence, arrival at or after 8, bring a mug, gloves supplied.",
+    "change": [
+      "Bring a mug",
+      "Bring a notebook"
+    ],
+    "changed_reference": "One welcoming sentence, arrival at or after 8, bring a notebook, gloves supplied.",
+    "irrelevant": [
+      "An organizer",
+      "A coordinator"
+    ]
+  },
+  {
+    "id": "studio",
+    "family": "chat",
+    "context": "My note to Bea reads: 'The Tuesday rehearsal moved to Studio C. Thursday's rehearsal is still in Studio A.'",
+    "question": "Write Bea a short, friendly text that gives the location for both days.",
+    "reference": "A friendly short message to Bea giving Tuesday C and Thursday A.",
+    "change": [
+      "Studio C",
+      "Studio B"
+    ],
+    "changed_reference": "A friendly short message giving Tuesday B and Thursday A.",
+    "irrelevant": [
+      "My note",
+      "The note"
+    ]
+  },
+  {
+    "id": "parcel",
+    "family": "chat",
+    "context": "I'm arranging a pickup. Both the address and the pickup day are still undecided. I don't need you to place an order.",
+    "question": "Ask me for the missing details in a single question.",
+    "reference": "One question asks for address and pickup day, without inventing or placing an order.",
+    "change": [
+      "Both the address and the pickup day are still undecided",
+      "The address is 28 Elm Road; only the pickup day is undecided"
+    ],
+    "changed_reference": "One question asks for the day, with no request to supply the already-known address.",
+    "irrelevant": [
+      "pickup.",
+      "pickup for a small parcel."
+    ]
+  },
+  {
+    "id": "tiles",
+    "family": "tools",
+    "provider": "calculator",
+    "context": "The invoice lists 11 cartons, 18 tiles per carton. Of the tiles delivered, 14 were chipped. A packing board weighs 2 kilograms.",
+    "question": "Use the calculator and tell me how many intact tiles were delivered.",
+    "reference": "184 intact tiles. A successful call must compute 11 times 18 minus 14, or an equivalent calculation using the source quantities.",
+    "change": [
+      "14 were chipped",
+      "24 were chipped"
+    ],
+    "changed_reference": "174 intact tiles with a successful supported calculation.",
+    "irrelevant": [
+      "2 kilograms",
+      "3 kilograms"
+    ],
+    "followup": "I give 9 intact tiles to a neighbor. Use the calculator again. How many intact tiles do I now have?",
+    "followup_reference": "175 intact tiles from 184 minus 9 with successful calculator use.",
+    "shared": "There were 184 intact tiles."
+  },
+  {
+    "id": "ink",
+    "family": "tools",
+    "provider": "calculator",
+    "context": "I have 750 mL of ink and fill sample bottles with 35 mL each. A carton holds 12 bottles.",
+    "question": "Use the calculator to work out how much ink will remain after filling 16 bottles. Answer in milliliters.",
+    "reference": "190 mL, successful execution using 750 minus 16 times 35.",
+    "change": [
+      "35 mL",
+      "30 mL"
+    ],
+    "changed_reference": "270 mL, successful execution using 750 minus 16 times 30.",
+    "irrelevant": [
+      "12 bottles",
+      "10 bottles"
+    ]
+  },
+  {
+    "id": "parcels",
+    "family": "tools",
+    "provider": "csv",
+    "document": "rooms.csv",
+    "csv": "label,room,day\nopal,Gallery,Monday\njade,Loft,Friday\n",
+    "question": "Please look up the room for the parcel marked jade in rooms.csv and tell me where to take it.",
+    "reference": "Loft; successful matching lookup in the actual CSV.",
+    "data_change": [
+      "jade,Loft",
+      "jade,Annex"
+    ],
+    "changed_reference": "Annex; successful matching lookup.",
+    "data_irrelevant": [
+      "Monday",
+      "Tuesday"
+    ],
+    "followup": "Now look up the day for that same parcel and tell me when it is due.",
+    "followup_reference": "Friday from a successful lookup of the day for jade.",
+    "shared": "Take the jade parcel to the Loft."
+  }
+]
