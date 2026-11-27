@@ -78,6 +78,7 @@ class RegisterSession:
         self._resident = original
         self._reload = reload_model
         self.source = source
+        self.document_reader = None
         self.args = original.args
 
     def resident(self):
@@ -104,11 +105,21 @@ class RegisterSession:
 
     def choose(self, model, ids, cap):
         original = self.resident()
-        selected, route = original.context_policy.choose(original, ids, cap)
+        section = None
+        if self.document_reader is not None and len(ids) >= 32768:
+            section = self.document_reader.select(ids)
+        if section is None:
+            selected, route = original.context_policy.choose(original, ids, cap)
+        else:
+            selected, route = original, "register"
         if selected is not original or route != "register" or len(ids) < 32768:
             return selected, route
         view, receipt = build_view(original, reset_peak=False)
         object.__setattr__(view, "fused_packed_decode", True)
+        if section is not None:
+            from .document_reader import SelectedSpan
+
+            object.__setattr__(view, "attention_reader", SelectedSpan(section))
         view.text.model.embed_tokens = InputRows(
             original.text.model.embed_tokens, self.source, ids
         )

@@ -31,6 +31,14 @@ def candidate(args, parser):
         from .deployment import load_trained
 
         model, tok, _ = load_trained(root)
+    if getattr(args, "document_reader", None):
+        from .document_reader import install
+
+        if args.passes or args.offload_dir is not None:
+            parser.error(
+                "Document reading uses the released recurrent graph and resident full-history cache"
+            )
+        install(model, tok, args.document_reader, root)
     if args.passes:
         model.span = replace(model.span, passes=args.passes)
     return model, tok

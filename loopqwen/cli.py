@@ -96,6 +96,11 @@ def main():
         "--checkpoint", required=True, help="Adapter checkpoint or merged export"
     )
     p.add_argument(
+        "--document-reader",
+        type=Path,
+        help="Apply a trained span ranker to long document questions",
+    )
+    p.add_argument(
         "--compare-base",
         action="store_true",
         help="Generate from the same input IDs on the candidate and pinned ordinary Base, including cold timing",
