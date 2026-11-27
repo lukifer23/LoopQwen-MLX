@@ -1,0 +1,43 @@
+{
+  "passed": false,
+  "gates": {
+    "complete": true,
+    "gradients": true,
+    "collapse": true,
+    "balanced_likelihood": true,
+    "broad_likelihood": true,
+    "unassisted_sql": true,
+    "paired_qualitative": false,
+    "paired_service_reply": true
+  },
+  "supervised_positions": 1953806,
+  "preferences": 28322,
+  "updates": 3392,
+  "mean_nll_gain": {
+    "arithmetic": 0.5128877870738506,
+    "discovery": 0.9435208563227206,
+    "explanation": 0.9095774218440056,
+    "full_rows": 2.1488570645451546,
+    "inspect": 0.9768567183054984,
+    "instruction": 1.2999266125261784,
+    "legacy": 1.0035387973766774,
+    "operator": 1.0342707163654268,
+    "program": 1.0054024886339903,
+    "qualitative": 5.231002416461706,
+    "resolved": 2.396048305905424,
+    "scalar": 3.009880959521979,
+    "service_action": 0.47963456623256207,
+    "service_reply": 1.5912271365523338
+  },
+  "free_whole": {
+    "operator": 14,
+    "qualitative": 0,
+    "service_reply": 9
+  },
+  "free_correct": {
+    "operator": 14,
+    "qualitative": 5,
+    "service_reply": 21
+  },
+  "free_distinct_sql": 14
+}
