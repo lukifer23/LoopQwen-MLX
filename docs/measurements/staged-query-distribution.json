@@ -1,0 +1,261 @@
+{
+  "plan": "b60d7f86454501432bffe476dea77cadb15a1e8f0e72d718d202037321bc1c6a",
+  "archive": "c6559571bfd7bacfcdc5b4d9dc5dec52fe3a9fb61e4f40e6928a0a71e45a0258",
+  "families": {
+    "strategy": {
+      "n": 48,
+      "latency": {
+        "loop": {
+          "wall_s": {
+            "p50": 2.582997854013229,
+            "p95": 2.706157413055189
+          },
+          "first_s": {
+            "p50": 0.09905331250047311,
+            "p95": 0.1553708461637143
+          }
+        },
+        "base": {
+          "wall_s": {
+            "p50": 5.868827041500481,
+            "p95": 6.301486187495175
+          },
+          "first_s": {
+            "p50": 0.10871093749301508,
+            "p95": 0.18136129766062364
+          }
+        }
+      },
+      "loop_gained_and_faster": 7,
+      "loop_lost_and_slower": 0,
+      "both_correct": 2,
+      "faster_on_both_correct": 2
+    },
+    "field": {
+      "n": 96,
+      "latency": {
+        "loop": {
+          "wall_s": {
+            "p50": 0.5692044789902866,
+            "p95": 2.0562905102269724
+          },
+          "first_s": {
+            "p50": 0.2523957710072864,
+            "p95": 0.48094660400238354
+          }
+        },
+        "base": {
+          "wall_s": {
+            "p50": 4.4663602499931585,
+            "p95": 10.085157406749204
+          },
+          "first_s": {
+            "p50": 0.2662559789896477,
+            "p95": 0.5024066460173344
+          }
+        }
+      },
+      "loop_gained_and_faster": 10,
+      "loop_lost_and_slower": 0,
+      "both_correct": 0,
+      "faster_on_both_correct": 0
+    },
+    "report": {
+      "n": 32,
+      "latency": {
+        "loop": {
+          "wall_s": {
+            "p50": 2.9516647705167998,
+            "p95": 3.2941885271400677
+          },
+          "first_s": {
+            "p50": 0.39563031247234903,
+            "p95": 0.48287812935304825
+          }
+        },
+        "base": {
+          "wall_s": {
+            "p50": 6.172214125515893,
+            "p95": 6.683325337493443
+          },
+          "first_s": {
+            "p50": 0.41846302096382715,
+            "p95": 0.48878351249732077
+          }
+        }
+      },
+      "loop_gained_and_faster": 0,
+      "loop_lost_and_slower": 0,
+      "both_correct": 0,
+      "faster_on_both_correct": 0
+    },
+    "locale": {
+      "n": 4,
+      "latency": {
+        "loop": {
+          "wall_s": {
+            "p50": 280.2708761250251,
+            "p95": 446.54147714124406
+          },
+          "first_s": {
+            "p50": 267.69620127099915,
+            "p95": 443.56194681627085
+          }
+        },
+        "base": {
+          "wall_s": {
+            "p50": 377.14637347951066,
+            "p95": 638.1665637205936
+          },
+          "first_s": {
+            "p50": 293.7557752710127,
+            "p95": 554.5087047187989
+          }
+        }
+      },
+      "loop_gained_and_faster": 0,
+      "loop_lost_and_slower": 0,
+      "both_correct": 0,
+      "faster_on_both_correct": 0
+    },
+    "all": {
+      "n": 180,
+      "latency": {
+        "loop": {
+          "wall_s": {
+            "p50": 1.5722843125113286,
+            "p95": 3.1395630857528882
+          },
+          "first_s": {
+            "p50": 0.25142285399488173,
+            "p95": 0.48956407498044424
+          }
+        },
+        "base": {
+          "wall_s": {
+            "p50": 5.659379541990347,
+            "p95": 10.179965425020779
+          },
+          "first_s": {
+            "p50": 0.2617646874859929,
+            "p95": 0.5067213860485934
+          }
+        }
+      },
+      "loop_gained_and_faster": 17,
+      "loop_lost_and_slower": 0,
+      "both_correct": 2,
+      "faster_on_both_correct": 2
+    }
+  },
+  "intervals": [
+    {
+      "family": "strategy",
+      "metric": "correct",
+      "source_clusters": 48,
+      "n": 48,
+      "loop_minus_base": 0.020833333333333332,
+      "lower": -0.125,
+      "upper": 0.16666666666666666
+    },
+    {
+      "family": "strategy",
+      "metric": "completed",
+      "source_clusters": 48,
+      "n": 48,
+      "loop_minus_base": -0.0625,
+      "lower": -0.25,
+      "upper": 0.10416666666666667
+    },
+    {
+      "family": "strategy",
+      "metric": "wall_s",
+      "source_clusters": 48,
+      "n": 48,
+      "loop_minus_base": -3.449233314136412,
+      "lower": -3.7400457386494965,
+      "upper": -3.14915892103157
+    },
+    {
+      "family": "strategy",
+      "metric": "first_s",
+      "source_clusters": 48,
+      "n": 48,
+      "loop_minus_base": -0.018896946242117945,
+      "lower": -0.041553660013172095,
+      "upper": -0.005945108342045084
+    },
+    {
+      "family": "field",
+      "metric": "correct",
+      "source_clusters": 12,
+      "n": 96,
+      "loop_minus_base": 0.10416666666666667,
+      "lower": 0.03125,
+      "upper": 0.1875
+    },
+    {
+      "family": "field",
+      "metric": "completed",
+      "source_clusters": 12,
+      "n": 96,
+      "loop_minus_base": -0.03125,
+      "lower": -0.13541666666666666,
+      "upper": 0.08333333333333333
+    },
+    {
+      "family": "field",
+      "metric": "wall_s",
+      "source_clusters": 12,
+      "n": 96,
+      "loop_minus_base": -3.936693460056631,
+      "lower": -4.359362114056027,
+      "upper": -3.558297344144967
+    },
+    {
+      "family": "field",
+      "metric": "first_s",
+      "source_clusters": 12,
+      "n": 96,
+      "loop_minus_base": -0.012794450506892948,
+      "lower": -0.015287618764023136,
+      "upper": -0.010337619153657822
+    },
+    {
+      "family": "report",
+      "metric": "correct",
+      "source_clusters": 32,
+      "n": 32,
+      "loop_minus_base": 0.0,
+      "lower": 0.0,
+      "upper": 0.0
+    },
+    {
+      "family": "report",
+      "metric": "completed",
+      "source_clusters": 32,
+      "n": 32,
+      "loop_minus_base": -0.15625,
+      "lower": -0.34375,
+      "upper": 0.03125
+    },
+    {
+      "family": "report",
+      "metric": "wall_s",
+      "source_clusters": 32,
+      "n": 32,
+      "loop_minus_base": -3.4317045729949314,
+      "lower": -3.895150172513877,
+      "upper": -3.0933822437972593
+    },
+    {
+      "family": "report",
+      "metric": "first_s",
+      "source_clusters": 32,
+      "n": 32,
+      "loop_minus_base": -0.015341670767156756,
+      "lower": -0.02353554939327296,
+      "upper": -0.008015312573843403
+    }
+  ]
+}
