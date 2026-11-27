@@ -1,0 +1,50 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "instruction_interpolation": {
+    "trained_fraction": 1.0,
+    "second_pass_fraction": 0.35,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "trained_instruction_adapter": true,
+  "id": "followup-protected-01",
+  "question": "Can one two-visit network learn to answer the current human question or current wheel query while preserving older reasoning and tools under native protected parameter updates?",
+  "training": "research/data/followup-protected-training.json",
+  "material": "research/data/followup-protected-panel.json",
+  "fit_seed": 740041,
+  "updates": 800,
+  "lr": 7e-05,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "reference_tolerance": 5e-05,
+  "min_applied_per_100": 50,
+  "limits": {
+    "wall_seconds": 4050,
+    "peak_gib": 7.25,
+    "available_gib": 1.5
+  },
+  "deferred_after": "linked-rollin-02",
+  "source_oracle_sha256": "66f28f1a89552d1c969127e0a9407ad3045767c3473312a2340ba882321de095",
+  "protocol": "Independent intervention motivated by exact stale answers on the qualified release and paired regressions of a prior preference fit. Start from the qualified release 05 weights. Run only after the previous direct pair has finished and missed its joint gate. Freeze 128 distinct original QuAC training sections, both first questions and their actual immediate follow-ups, 48 unrelated training-project wheels directly pinned by an application, plus 320 real earlier training responses. For both human turns give the full article section and background, and for the second give the original prior human exchange. For each interpreter boundary use two actual wheels, a truthful prior requirement from the other package and a current package with a different requirement. Execute metadata queries against original ZIPs. Targets for human questions are original spans or Cannot answer. The training competitor is the neighboring human answer, the prior wheel or its valid constraint and interpretation. At the first different visible token use the same two-visit margin and stop-gradient single-visit reference defined in the linked study. Never change held inputs or supply a reference observation during generated tool use. Each of 800 native steps draws one human target (65% follow-up), one wheel choice and one interpretation, weights .40/.27/.33. Draw two randomly different protected training responses. Blend the new gradient at .85 and protected CE gradient at .15. Take the full proposed AdamW displacement including moments and decay. If its dot product with the protected gradient is positive, remove that component. Check the actual protected batch loss at full step, then at half, quarter, eighth and sixteenth as needed. Accept the first with increase at most .00005, else restore the original parameter values. Adam moments advance once per attempted step. Retain every proposal, directional product, factor, before/after protected loss, draw and checkpoint; stop if fewer than 50 of any block of 100 are accepted, or on resource/nonfinite failure.",
+  "decision": "Single recurrent candidate against the untouched pinned ordinary BF16 Qwen Base. Identical prompts including each prior human exchange, resource schemas, request order, greedy thinking and cap of three 384-token turns. Twenty-four disjoint QuAC validation titles with their first two questions (48 requests). Use the unfiltered official leave-one-annotator-out F1 algorithm with majority abstention, checked against the publisher script. A completed score >=.50 counts toward paired source significance. Require at least eight additional successes at two-sided exact whole-title sign-flip p<=.05, mean second-question F1 at least .10 above Base, higher first-question F1, at least four whole dialogues and more than Base. Twelve fresh disjoint real project wheels and 24 opposing interpreter requests. Require at least four complete pairs and more than Base, with a preceding real read from the correct current archive, one unambiguous exact PEP 440 constraint and the correct yes/no decision. All 36 earlier real questions must retain every Base success. At least two whole earlier pairs and more than Base in both software and schedule. No lower completion by family, lower summed first wait, total wall and peak, higher measured uncached opening and decode rates. Stop after any missed joint gate and report all costs and missteps. If the entire pair passes, fit an ordinary-depth equal-exposure control then independently qualify these weights in the installed assistant on two full inputs beyond 131072 tokens and free second conversations with each model\u2019s own history. Teacher histories in the matched primary do not measure free conversation continuation. No cross-checkpoint quality pooling."
+}

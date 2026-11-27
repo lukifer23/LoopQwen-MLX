@@ -78,20 +78,20 @@ def material(acquire=False):
         at = chat.index(source) + location.end()
         assert len(ids) >= 131072
         rows.append(
-            dict(
-                revision=ref,
-                git_blob=expected,
-                file_sha256=hashlib.sha256(raw).hexdigest(),
-                url=f"{ORIGIN}/{ref}/uv.lock",
-                bytes=len(raw),
-                packages=len(packages),
-                version=version,
-                version_token_offset=len(
+            {
+                "revision": ref,
+                "git_blob": expected,
+                "file_sha256": hashlib.sha256(raw).hexdigest(),
+                "url": f"{ORIGIN}/{ref}/uv.lock",
+                "bytes": len(raw),
+                "packages": len(packages),
+                "version": version,
+                "version_token_offset": len(
                     tok.encode(chat[:at], add_special_tokens=False)
                 ),
-                prompt_tokens=len(ids),
-                prompt_sha256=fingerprint(ids),
-            )
+                "prompt_tokens": len(ids),
+                "prompt_sha256": fingerprint(ids),
+            }
         )
     assert {n for n in pins[0].keys() & pins[1].keys() if pins[0][n] != pins[1][n]} == {
         "virtue"

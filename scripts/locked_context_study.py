@@ -57,15 +57,15 @@ def score(row, result):
         for e in executions({"turns": result["turns"][:-1]})
     )
     complete = result["status"] == "answered"
-    return dict(
-        version=version in normalized,
-        size=size in normalized,
-        measured=measured,
-        complete=complete,
-        grounded=complete
+    return {
+        "version": version in normalized,
+        "size": size in normalized,
+        "measured": measured,
+        "complete": complete,
+        "grounded": complete
         and measured
         and sorted(normalized) == sorted([version, size]),
-    )
+    }
 
 
 def decide(spec, data, runs):
@@ -166,7 +166,12 @@ def decide(spec, data, runs):
     gates = {"accuracy": a["grounded"] == 2 and b["grounded"] < 2}
     gates.update({k: a[k] < b[k] for k in ("wall_s", "first_s", "peak")})
     gates.update({k: a[k] > b[k] for k in ("prefill_tps", "decode_tps")})
-    return dict(passed=all(gates.values()), gates=gates, totals=totals, rows=rows)
+    return {
+        "passed": all(gates.values()),
+        "gates": gates,
+        "totals": totals,
+        "rows": rows,
+    }
 
 
 def verify(root, decision):
@@ -293,7 +298,7 @@ def run():
                 packed(root / "requests.json.gz", runs)
             decision = decide(s, data, runs)
     except (TimeoutError, MemoryError, InterruptedError) as e:
-        decision = dict(passed=False, status="interrupted", reason=str(e))
+        decision = {"passed": False, "status": "interrupted", "reason": str(e)}
     finally:
         budget.close()
     save(root / "decision.json", decision)

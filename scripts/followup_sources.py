@@ -61,20 +61,23 @@ def item(article, paragraph):
             if paragraph["context"][pos : pos + len(text)] != text:
                 return None
         turns.append(
-            dict(
-                id=q["id"], question=q["question"], teacher=teacher, annotations=labels
-            )
+            {
+                "id": q["id"],
+                "question": q["question"],
+                "teacher": teacher,
+                "annotations": labels,
+            }
         )
     if len(turns) != 2:
         return None
-    return dict(
-        id=paragraph["id"],
-        title=article["title"],
-        section=article["section_title"],
-        background=article["background"],
-        passage=source,
-        turns=turns,
-    )
+    return {
+        "id": paragraph["id"],
+        "title": article["title"],
+        "section": article["section_title"],
+        "background": article["background"],
+        "passage": source,
+        "turns": turns,
+    }
 
 
 def enroll():
@@ -120,7 +123,7 @@ def enroll():
             if len(selected) == size:
                 break
         assert len(selected) == size
-        cohort[split] = dict(source=url, sha256=sha, rows=selected)
+        cohort[split] = {"source": url, "sha256": sha, "rows": selected}
     counts = {}
     for split, catalog in cohort.items():
         rows = catalog["rows"]
@@ -130,34 +133,34 @@ def enroll():
             assert [q["id"] for q in r["turns"]] == [
                 r["id"] + f"_q#{i}" for i in range(2)
             ]
-        counts[split] = dict(
-            dialogues=len(rows),
-            human_questions=len(allq),
-            span_annotations=sum(len(q["annotations"]) for q in allq),
-            null_majorities=sum(
+        counts[split] = {
+            "dialogues": len(rows),
+            "human_questions": len(allq),
+            "span_annotations": sum(len(q["annotations"]) for q in allq),
+            "null_majorities": sum(
                 sum(a["text"] == "CANNOTANSWER" for a in q["annotations"]) * 2
                 >= len(q["annotations"])
                 for q in allq
             ),
-            distinct_reference_counts=dict(
+            "distinct_reference_counts": dict(
                 sorted(
                     Counter(
                         str(len({a["text"] for a in q["annotations"]})) for q in allq
                     ).items()
                 )
             ),
-        )
+        }
     for file, data in (
         ("originals", cohort),
         (
             "audit",
-            dict(
-                seed=740033,
-                counts=counts,
-                historical_excluded_titles=len(past_titles),
-                historical_excluded_passages=len(past_passages),
-                maximum_within_or_across_new_cohorts_shorter_passage_5gram_coverage=worst,
-            ),
+            {
+                "seed": 740033,
+                "counts": counts,
+                "historical_excluded_titles": len(past_titles),
+                "historical_excluded_passages": len(past_passages),
+                "maximum_within_or_across_new_cohorts_shorter_passage_5gram_coverage": worst,
+            },
         ),
     ):
         path = DEST / (file + ".json")

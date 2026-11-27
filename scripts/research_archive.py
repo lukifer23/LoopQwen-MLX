@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "followup-protected-01":
+        from loopqwen.research.followup_study import verify as verify_followup
+
+        return verify_followup(root, decision)
     if study == "locked-context-01":
         from scripts.locked_context_study import verify as verify_locked_context
 
