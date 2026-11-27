@@ -45,6 +45,23 @@
 
 #if d.stages_done < 3 [*Observed scope.* The archive covers #d.stages_done of three registered phases. The current paper contains no completed held product comparison for the two-read weights.]
 
+#pagebreak()
+#text(size:19pt,weight:"bold")[Mechanism, optimization and relationship to prior work]
+
+*One write and two further reads.* Let $h_0$ be the ordinary final-block output. At visit $j$, the normalized state $h_j$ supplies a learned query correction. The frozen Qwen attention, gate, output projection and feed-forward layer use that query to produce a proposal $p_j$ against the original causal keys and values. Let $d_j = p_j - h_j$, and let $s_j$ be the root mean square of $h_j$ with a numerical stabilizer. With learned gate $G$, content projection $C$ and bias $b$, the next state is
+
+$ h_(j+1) = h_j + tanh(b + G(h_j / s_j)) ⊙ d_j + s_j C(d_j / s_j). $
+
+The two visits share all parameters. Query and content corrections have rank 160, the gate correction has rank 32 and the Qwen hidden width is 1,024. Together the three projections and the bias contain 721,920 trainable FP32 scalars. Opening tokens that only populate future attention memory skip the final output projection, neural feed-forward step and recurrent reads. Each emitted position incurs both reads. Longer prompts therefore increase the evidence each generated token can attend to while preserving a single causal memory at the final attention layer.
+
+*Optimization.* For each supervised position the loss includes target-token negative log likelihood and 0.24 times the full-vocabulary KL divergence from the frozen ordinary instruction donor to the candidate. At annotated positions the objective adds eight times the negative log of the probability mass assigned to the union of human-cited source spans, averaged across query heads before taking the log. The sum uses the number of supervised target positions as its denominator. Native MLX differentiates through causal attention in segments of at most 32 target positions. Complete examples accumulate until at least 512 target positions, with the final partial update retained in each epoch. AdamW uses a learning rate of 0.00022, weight decay of 0.01 and gradient-norm clipping at 1. The deterministic shuffle seed is 864371. Source spans are aligned to the original tokens before optimization.
+
+*Recurrent computation.* Universal Transformers repeatedly apply a shared transformation across depth. Geiping and colleagues trained a language model with a recurrent core and measured the effects of changing latent depth on reasoning. Here a small controller revisits the last attention memory of an existing checkpoint at fixed depth. The strongest local attribution is a comparison with an equally trained one-visit model. #link("https://arxiv.org/abs/1807.03819")[Dehghani et al., Universal Transformers] · #link("https://arxiv.org/abs/2502.05171")[Geiping et al., Scaling up Test-Time Compute with Latent Reasoning].
+
+*Evidence and executable tools.* StrategyQA provides reasoning decompositions and evidence. FinQA includes questions and financial calculations supplied by experts. CoSQL connects human requests to executable SQL across database domains. Zhong and colleagues evaluated program meaning by executing queries on multiple database instances. We use these resources to test whether a model can select a conclusion, compute a number from the correct operands and recognize when a successful query answered a different question. #link("https://doi.org/10.1162/tacl_a_00370")[Geva et al., StrategyQA] · #link("https://aclanthology.org/2021.emnlp-main.300/")[Chen et al., FinQA] · #link("https://aclanthology.org/D19-1204/")[Yu et al., CoSQL] · #link("https://aclanthology.org/2020.emnlp-main.29/")[Zhong et al., Semantic Evaluation for Text-to-SQL].
+
+*Reproduction.* The feature archive records the pinned source revisions, input hashes, native library versions, numerical parity cases, all feature digests, timing and memory. The public script #raw("scripts.verify_shared_query_native") compares newly generated native tensors to these digests. The fit and primary registrations specify the frozen stage order and advancement criteria. #raw("python -m scripts.paper_repair_query") rebuilds the figures, tables and this document from archived records.
+
 #if d.stages_done >= 2 [
  #pagebreak()
  #text(size:19pt,weight:"bold")[Native learning and physical depth intervention]
