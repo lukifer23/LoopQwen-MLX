@@ -1,0 +1,136 @@
+{
+  "all": {
+    "stories": 12,
+    "claims": 72,
+    "net": 20,
+    "paired_p": 0.00244140625,
+    "difference_95_interval": [
+      0.16666666666666666,
+      0.375
+    ],
+    "decisive": 48,
+    "candidate": {
+      "grounded": 22,
+      "fully_correct": 0,
+      "decisive_grounded": 6,
+      "numbered_citations": 10,
+      "sufficient_numbered_support": 2,
+      "grounded_with_support": 2,
+      "jointly_completed": 21,
+      "grounded_when_both_complete": 9,
+      "confusion": {
+        "true": {
+          "uncertain": 15,
+          "no verdict": 5,
+          "false": 2,
+          "true": 2
+        },
+        "false": {
+          "uncertain": 14,
+          "false": 4,
+          "no verdict": 4,
+          "true": 2
+        },
+        "uncertain": {
+          "uncertain": 17,
+          "no verdict": 5,
+          "true": 2
+        }
+      },
+      "capped": 14,
+      "three_different_verdicts": 2
+    },
+    "control": {
+      "grounded": 2,
+      "fully_correct": 0,
+      "decisive_grounded": 2,
+      "numbered_citations": 13,
+      "sufficient_numbered_support": 6,
+      "grounded_with_support": 0,
+      "jointly_completed": 21,
+      "grounded_when_both_complete": 1,
+      "confusion": {
+        "true": {
+          "no verdict": 23,
+          "true": 1
+        },
+        "false": {
+          "no verdict": 23,
+          "false": 1
+        },
+        "uncertain": {
+          "no verdict": 23,
+          "true": 1
+        }
+      },
+      "capped": 37,
+      "three_different_verdicts": 0
+    }
+  },
+  "unflagged": {
+    "stories": 7,
+    "claims": 42,
+    "net": 11,
+    "paired_p": 0.0625,
+    "difference_95_interval": [
+      0.09523809523809523,
+      0.4285714285714286
+    ],
+    "decisive": 28,
+    "candidate": {
+      "grounded": 13,
+      "fully_correct": 0,
+      "decisive_grounded": 5,
+      "numbered_citations": 5,
+      "sufficient_numbered_support": 1,
+      "grounded_with_support": 1,
+      "jointly_completed": 15,
+      "grounded_when_both_complete": 6,
+      "confusion": {
+        "true": {
+          "uncertain": 10,
+          "true": 2,
+          "no verdict": 2
+        },
+        "false": {
+          "uncertain": 10,
+          "false": 3,
+          "no verdict": 1
+        },
+        "uncertain": {
+          "uncertain": 8,
+          "no verdict": 4,
+          "true": 2
+        }
+      },
+      "capped": 7,
+      "three_different_verdicts": 1
+    },
+    "control": {
+      "grounded": 2,
+      "fully_correct": 0,
+      "decisive_grounded": 2,
+      "numbered_citations": 8,
+      "sufficient_numbered_support": 5,
+      "grounded_with_support": 0,
+      "jointly_completed": 15,
+      "grounded_when_both_complete": 1,
+      "confusion": {
+        "true": {
+          "no verdict": 13,
+          "true": 1
+        },
+        "false": {
+          "no verdict": 13,
+          "false": 1
+        },
+        "uncertain": {
+          "no verdict": 13,
+          "true": 1
+        }
+      },
+      "capped": 20,
+      "three_different_verdicts": 0
+    }
+  }
+}

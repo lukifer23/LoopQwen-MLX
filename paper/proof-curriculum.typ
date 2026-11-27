@@ -56,8 +56,13 @@ Each of 12 held FOLIO stories contains three human conclusions with different ve
 
 The three conclusions for a single story share the same premises. A model can recognize a topic and repeatedly return a plausible label. The 24 story/view groups expose that shortcut. Emitting all three different labels is necessary to answer the triplet correctly. The order of those labels still has to match the actual three conclusions. The raw CSV preserves the question, source record and model text for each cell.
 
+#m.opportunities
+
+= What changed on the repeated visit?
+#m.visit
+
 = Practical behavior
-#m.evidence #m.example
+#m.evidence #m.swaps #m.example
 
 #pagebreak()
 = Practical performance

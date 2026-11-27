@@ -1,0 +1,86 @@
+{
+  "abstract": "On 72 held human judgments the loop grounded 22 versus 2 for ordinary Base. The paired difference was +20 judgments across 12 stories (two-sided exact p = 0.002441). It solved every judgment on 0 versus 0 whole stories and both practical checks on 0 versus 0 package pairs. All 96 requests took 159.45 versus 702.59 seconds.",
+  "decision": "The direct comparison missed the registered promotion threshold. The gates that missed were complete six-judgment stories, complete practical package pairs, summed first-token latency, opening throughput. This closes replication, matched-depth training and 128K qualification for these weights.",
+  "cost": [
+    [
+      "End-to-end seconds",
+      "159.45",
+      "702.59"
+    ],
+    [
+      "Sum of first-token waits (s)",
+      "12.735",
+      "12.650"
+    ],
+    [
+      "MLX peak (GiB)",
+      "1.132",
+      "1.720"
+    ],
+    [
+      "Pooled opening tokens/s",
+      "2,456.1",
+      "2,472.6"
+    ],
+    [
+      "Subsequent generated tokens/s",
+      "106.40",
+      "70.31"
+    ],
+    [
+      "Generated tokens",
+      "15,186",
+      "48,006"
+    ],
+    [
+      "Completed requests (of 96)",
+      "76",
+      "29"
+    ],
+    [
+      "Grounded correct (of 96)",
+      "27",
+      "2"
+    ]
+  ],
+  "exposure": "Native AdamW updated 802,816 parameters over 800 steps. The independently reconstructed draws comprise 4,800 example-turn exposures, 190,009 response tokens and 77,452 nonblank explanation-token exposures. The source preparation stage took 268.05 s and optimization 372.18 s at 2.00 GiB peak. All 8 optimizer snapshots were verified.",
+  "uncertainty": "The difference in mean accuracy across whole stories was +27.8 percentage points. The descriptive 95% paired story-bootstrap interval was [+16.7, +37.5] points. On the seven stories without previously flagged annotation issues, the loop grounded 13/42 and Base 2/42 (paired p = 0.0625).",
+  "evidence": "The loop retrieved the correct record on 33/36 logical file requests versus 1/36 for Base. It retrieved the declared constraint on 0/16 practical tasks versus 0/16. Each of the eight paired practical cases fixes the interpreter version and changes the distribution so the answer reverses.",
+  "reasoning": "Of completed logical judgments, 58/58 loop replies and 24/24 Base replies contained at least four reasoning words. Across the 48 decisive true/false requests, the loop explicitly numbered premises on 10 and Base on 13. The entire cited set contained a formally sufficient support and the grounded answer was correct on 2 versus 0.",
+  "blind": "The blind sample covered 20 preselected items on both models and 40 distinct prompt/evidence/reply combinations. The reader marked 1 loop explanations and 0 Base explanations fully supported. A reader could sometimes infer model identity from writing style.",
+  "ratings": [
+    [
+      "Supported",
+      "1",
+      "0"
+    ],
+    [
+      "Partial",
+      "1",
+      "0"
+    ],
+    [
+      "Incorrect",
+      "11",
+      "2"
+    ],
+    [
+      "Absent",
+      "7",
+      "18"
+    ],
+    [
+      "Ambiguous",
+      "0",
+      "0"
+    ]
+  ],
+  "example": "The first enrolled practical request asked whether Python 3.8.20 satisfies the declared version constraint for mlx-lm 0.32.2. The published field was >=3.11. The reference verdict was false. The loop\u2019s completed verdict was uncertain and Base\u2019s was unavailable.",
+  "training": "3066941eb8a70ca32b7b3d682320114b4af1fe2485747e2bca948d1135af3ab5",
+  "completion_analysis": "Both arms completed 21/72 logical judgments. On that selected subset the loop grounded 9 and Base 1. At least one turn reached the allowance on 14 loop requests and 37 Base requests. Among 24 story/view groups, the loop emitted all three distinct verdicts in 2 groups and Base in 0.",
+  "opportunities": "The loop completed 57 logical requests with any required source successfully observed, versus 3 for Base. Even scoring every such Base reply as correct could give Base at most 3/72 under the registered grounded endpoint. Conversely, always answering uncertain on the loop\u2019s own completed and observed requests would yield 18/72, compared with its actual 22/72. With perfect coverage, a fixed verdict would reach 24/72 on this exactly balanced panel.",
+  "swaps": "On 16/16 practical requests the loop used the requested output field as the lookup column and the distribution as the return column in its first call. The actual provider could not find the named packages in that column. This is a reproducible argument-role error.",
+  "visit": "A native observer read both exits of exactly the same unmodified two-pass forward at 68 completed answer boundaries among 88 enrolled logical and practical requests. Gold verdict odds rose in 26/68 cases, with 25 reaching the trained 0.25-nat margin. The median change was -1.63 nats. By actual label, medians were -2.86 for true, -1.87 for false and +3.05 for uncertain. Single-block replay reproduced the actual next-token argmax on 67/68. The comparison projects intermediate states along a single K2 trajectory and cannot establish what a separately trained K1 model would generate.",
+  "context": "Release 05 separately retrieved both changed keys with 131,084 actual prompt tokens. The physical long-context result belongs to that qualified release. The present proof-supervised checkpoint has its own acceptance and verification record.",
+  "systems": 35
+}

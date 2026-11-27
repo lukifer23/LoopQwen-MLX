@@ -1,0 +1,17 @@
+Verified author rationales, independently replayed logic worlds, actual distribution checks: 384 192 70
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/research/proof_curriculum.py", line 119, in <module>
+    comparison.run(
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/research/reasoned_evidence.py", line 273, in run
+    fit_messages(net, tok, s, root, guard, trainer=trainer)
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/research/native_function_study.py", line 48, in fit_messages
+    trainer(model, tok, spec, root, budget, prepare=prepare)
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/research/reasoned_evidence_fit.py", line 266, in fit
+    examples = make_views(s, root)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/research/proof_curriculum.py", line 19, in turns
+    counts = report["verdicts"]
+             ~~~~~~^^^^^^^^^^^^
+TypeError: list indices must be integers or slices, not str

@@ -1,0 +1,2104 @@
+{
+  "protocol": "073ec6b7caea297f7fd567fb7abc25c27537f838a5dc223480ea1ff8691195cb",
+  "compiled": "fcb8e9219a3a1e07dc201b2f65fc67f4926a0cab5baa77d168703c9788129e7f",
+  "source": "1ebc54b7ca2c9452d13bde6d89e0702007a18075f13a789655b6f120407e5603",
+  "classes": {
+    "true": 1802,
+    "false": 3721,
+    "uncertain": 1299
+  },
+  "seconds": 11.751116583007388,
+  "peak": 1905052434,
+  "groups": {
+    "all": {
+      "enrolled": 88,
+      "eligible": 68,
+      "excluded": {
+        "incomplete": 20
+      },
+      "active_matches_emitted": 67,
+      "median_nats": -1.6258370599190108,
+      "mean_nats": -0.7795091530948614,
+      "gold_odds_improved": 26,
+      "margin_met": 25,
+      "gold_highest_among_three": [
+        24,
+        23
+      ]
+    },
+    "inline": {
+      "enrolled": 36,
+      "eligible": 26,
+      "excluded": {
+        "incomplete": 10
+      },
+      "active_matches_emitted": 25,
+      "median_nats": -2.575417064979689,
+      "mean_nats": -0.9726698956165909,
+      "gold_odds_improved": 10,
+      "margin_met": 10,
+      "gold_highest_among_three": [
+        10,
+        9
+      ]
+    },
+    "file": {
+      "enrolled": 36,
+      "eligible": 32,
+      "excluded": {
+        "incomplete": 4
+      },
+      "active_matches_emitted": 32,
+      "median_nats": -0.46881322057186914,
+      "mean_nats": -0.4336954363845682,
+      "gold_odds_improved": 15,
+      "margin_met": 14,
+      "gold_highest_among_three": [
+        13,
+        13
+      ]
+    },
+    "wheel": {
+      "enrolled": 16,
+      "eligible": 10,
+      "excluded": {
+        "incomplete": 6
+      },
+      "active_matches_emitted": 10,
+      "median_nats": -1.4999981757480931,
+      "mean_nats": -1.3838951160113044,
+      "gold_odds_improved": 1,
+      "margin_met": 1,
+      "gold_highest_among_three": [
+        1,
+        1
+      ]
+    }
+  },
+  "rows": [
+    {
+      "id": "wheel-mlx-lm",
+      "family": "wheel",
+      "gold": "false",
+      "prefix_sha256": "255464b2f53f8bb0eeaa61af14201eff232cf4f5eeb0a8ab41fead091957edad",
+      "positions": 640,
+      "answer_at": 6,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            10.8125,
+            17.125,
+            29.125
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            10.25,
+            17.875,
+            30.125
+          ]
+        }
+      ],
+      "delta_nats": -0.24999999119310345
+    },
+    {
+      "id": "wheel-truststore",
+      "family": "wheel",
+      "gold": "true",
+      "prefix_sha256": "d455d810faf8efe916d3b1051da22531aaa9d9b6a17667700464f855fbcf15c1",
+      "positions": 560,
+      "answer_at": 25,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            9.9375,
+            20.875,
+            23.875
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.75,
+            20.75,
+            24.625
+          ]
+        }
+      ],
+      "delta_nats": -1.9094545493273536
+    },
+    {
+      "id": "76b807de6db85a64-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "8a74203d02dba6528c9d4a20f9f8a08bdcf6527a7414603d78b967835c3f55ad",
+      "positions": 675,
+      "answer_at": 35,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.5625,
+            16.375,
+            28.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.6875,
+            15.375,
+            29.625
+          ]
+        }
+      ],
+      "delta_nats": 2.2547123391071455
+    },
+    {
+      "id": "45942f17a95cf88d-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "1f0acf142048f881c5ccd1da2afd913929f8c014cc0d4f270dea1441f05c7833",
+      "positions": 568,
+      "answer_at": 19,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            15.25,
+            17.5,
+            26.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            13.0,
+            15.5625,
+            29.125
+          ]
+        }
+      ],
+      "delta_nats": -4.999861456044378
+    },
+    {
+      "id": "953f62edd5914136-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "wheel-mdurl",
+      "family": "wheel",
+      "gold": "true",
+      "prefix_sha256": "3fea0678a78d9033f0f7dc519f08b663d90a83df76f7206eb2a2678da36f4ff7",
+      "positions": 559,
+      "answer_at": 26,
+      "actual": 1802,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            22.875,
+            20.375,
+            14.375
+          ]
+        },
+        {
+          "argmax": 1802,
+          "logits": [
+            23.625,
+            20.75,
+            15.9375
+          ]
+        }
+      ],
+      "delta_nats": 0.3693810200278449
+    },
+    {
+      "id": "a410146eed10a781-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "8eef782e608301e8fde2e903bba7a6dc770858ba32adc55d0f4af081ad555370",
+      "positions": 339,
+      "answer_at": 83,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            12.0,
+            14.125,
+            22.125
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            10.375,
+            13.3125,
+            25.375
+          ]
+        }
+      ],
+      "delta_nats": -4.0624602414074715
+    },
+    {
+      "id": "94b9ac0affa6fc8a-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "f2b46970b39ce6882deb64c0f729e26d97e7332f6ca3a3ddcd3b8b80c77fd302",
+      "positions": 113,
+      "answer_at": 11,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            15.0,
+            18.75,
+            23.5
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            13.9375,
+            18.5,
+            26.125
+          ]
+        }
+      ],
+      "delta_nats": -2.8748016460458494
+    },
+    {
+      "id": "wheel-tokenizers",
+      "family": "wheel",
+      "gold": "true",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "95010485d8f41396-inline",
+      "family": "inline",
+      "gold": "true",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "wheel-httpx2",
+      "family": "wheel",
+      "gold": "false",
+      "prefix_sha256": "3c7c85663e18c46c3a167ac9f7fdfce5968c2ceebd0c75bf7724913a6d923a3c",
+      "positions": 553,
+      "answer_at": 16,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            8.25,
+            19.5,
+            22.875
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            7.25,
+            19.625,
+            24.125
+          ]
+        }
+      ],
+      "delta_nats": -1.124999601826488
+    },
+    {
+      "id": "58154bedb6fc314c-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "5b24f8e23aa2c946ea51f373391c7757ffea1ba9347cc3d7bc64ad974ccc64cb",
+      "positions": 596,
+      "answer_at": 33,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            12.375,
+            16.625,
+            26.25
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            10.6875,
+            15.5625,
+            28.25
+          ]
+        }
+      ],
+      "delta_nats": 3.0690573625271718
+    },
+    {
+      "id": "wheel-regex",
+      "family": "wheel",
+      "gold": "false",
+      "prefix_sha256": "a88a8df5aa1ffcbcd235cee828119bd84d30cd01007f7d6fb9e9fb0be98e52a9",
+      "positions": 545,
+      "answer_at": 9,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 248058,
+          "logits": [
+            3.84375,
+            12.25,
+            16.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            4.03125,
+            13.5,
+            19.25
+          ]
+        }
+      ],
+      "delta_nats": -1.624996633809804
+    },
+    {
+      "id": "72023a165107f624-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "fdb72eb73c3f33f85233709a7d6854e8b8570516065f3fd08970648aeed518bd",
+      "positions": 683,
+      "answer_at": 47,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            10.6875,
+            16.5,
+            27.625
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.8125,
+            15.6875,
+            29.0
+          ]
+        }
+      ],
+      "delta_nats": -3.2499869146003597
+    },
+    {
+      "id": "f86f95c5fdc2aa2d-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "prefix_sha256": "5ad5c140a0c29cfdd6a704e23d9f5024241f3083c41a308f6e04eaebdc2fac11",
+      "positions": 205,
+      "answer_at": 36,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            10.3125,
+            14.3125,
+            23.5
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.3125,
+            13.125,
+            25.5
+          ]
+        }
+      ],
+      "delta_nats": 3.1975552628079207
+    },
+    {
+      "id": "wheel-filelock",
+      "family": "wheel",
+      "gold": "false",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "eec2ed88b2799c0d-inline",
+      "family": "inline",
+      "gold": "true",
+      "prefix_sha256": "ffbdb080f6cdceb3faee1209746b046b132a21c323c93dcff1ff25aaf7ebf854",
+      "positions": 136,
+      "answer_at": 14,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 3721,
+          "logits": [
+            15.75,
+            17.875,
+            17.125
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            14.5,
+            17.125,
+            19.375
+          ]
+        }
+      ],
+      "delta_nats": -2.463335552801844
+    },
+    {
+      "id": "bb0fc7e0ef64fbc7-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "3ab379159eb50a145fea3478c0e3e91baec5b4f9ede05219a6f4869991709065",
+      "positions": 620,
+      "answer_at": 37,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.625,
+            17.625,
+            27.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.9375,
+            16.875,
+            28.75
+          ]
+        }
+      ],
+      "delta_nats": -2.4999997965148992
+    },
+    {
+      "id": "00acaa5ab6643104-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "fb30eba9ccc1071d8136a229a2900e7e35c854f78b3e0399c08f7dd941bfffd8",
+      "positions": 596,
+      "answer_at": 24,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            19.25,
+            18.125,
+            18.75
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            19.125,
+            17.75,
+            20.875
+          ]
+        }
+      ],
+      "delta_nats": -1.6861471662579781
+    },
+    {
+      "id": "wheel-httpcore2",
+      "family": "wheel",
+      "gold": "false",
+      "prefix_sha256": "826c303de1e3b84c34b83c2e576cd6ed057d4cdac069c9ec5b09d545ac67336e",
+      "positions": 553,
+      "answer_at": 16,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            6.59375,
+            17.75,
+            21.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            5.75,
+            18.0,
+            22.625
+          ]
+        }
+      ],
+      "delta_nats": -1.3749994929942524
+    },
+    {
+      "id": "94b9ac0affa6fc8a-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "17d712596b9b4b8310cf21844b8988824a0b5c7b21ff3f649021ef185d1d9130",
+      "positions": 576,
+      "answer_at": 20,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            13.0625,
+            16.125,
+            25.75
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            10.875,
+            14.375,
+            28.625
+          ]
+        }
+      ],
+      "delta_nats": -4.6249969300564615
+    },
+    {
+      "id": "c89b0148b0a4dd46-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "f21c717b1c0908f16fb4bf3d74d022ca6a49a33c510926acdf6935fc494cc469",
+      "positions": 614,
+      "answer_at": 36,
+      "actual": 3721,
+      "exits": [
+        {
+          "argmax": 3721,
+          "logits": [
+            19.75,
+            23.625,
+            19.625
+          ]
+        },
+        {
+          "argmax": 3721,
+          "logits": [
+            19.625,
+            25.375,
+            21.0
+          ]
+        }
+      ],
+      "delta_nats": 0.9071863837155227
+    },
+    {
+      "id": "579e61822cc237d7-file",
+      "family": "file",
+      "gold": "false",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "52080d33297a017a-inline",
+      "family": "inline",
+      "gold": "true",
+      "prefix_sha256": "567eaa6fbf2b21315ee397952c4a0a7a8abd8db4bfe00ad2c79549a01955731b",
+      "positions": 287,
+      "answer_at": 51,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            9.625,
+            15.6875,
+            25.125
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            7.28125,
+            14.25,
+            26.875
+          ]
+        }
+      ],
+      "delta_nats": -4.0936736125705515
+    },
+    {
+      "id": "23f2d0bc03aa8486-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "c9cd35c97bfc63aab4eeb972ef0bbfe613978dad1c3886fc6f7d67cdfe90afad",
+      "positions": 788,
+      "answer_at": 86,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.625,
+            20.0,
+            27.875
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            10.0,
+            19.5,
+            29.25
+          ]
+        }
+      ],
+      "delta_nats": 1.8751556842641222
+    },
+    {
+      "id": "wheel-numpy",
+      "family": "wheel",
+      "gold": "false",
+      "prefix_sha256": "d8e7065e096ad59d0bd6b98f5fcd96b5b9c60911c4039a18b4eed9ac55efd65b",
+      "positions": 543,
+      "answer_at": 12,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            9.75,
+            20.125,
+            24.75
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.1875,
+            19.75,
+            25.75
+          ]
+        }
+      ],
+      "delta_nats": -1.3749997176863822
+    },
+    {
+      "id": "953f62edd5914136-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "ca5e1b4f697130fbe67817789bcb5f4107ee22a7abc3a6aeed0417b33aa558e8",
+      "positions": 543,
+      "answer_at": 37,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            8.5625,
+            14.9375,
+            27.875
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            6.21875,
+            13.375,
+            29.375
+          ]
+        }
+      ],
+      "delta_nats": 3.063422500324979
+    },
+    {
+      "id": "229d581139c9a2d5-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "e9d99739d3521bd9488fea00a6fc8cde846bec384fe5ee3ac97a650cf00cf785",
+      "positions": 593,
+      "answer_at": 29,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            13.3125,
+            16.25,
+            25.625
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            11.8125,
+            15.3125,
+            27.625
+          ]
+        }
+      ],
+      "delta_nats": -3.4999196805532975
+    },
+    {
+      "id": "4c01190bd0360a8f-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "8c3984be528416ae7b9a1edce67b7e8a8b9fcad48a1544c4c16bdec4c07f0a39",
+      "positions": 679,
+      "answer_at": 34,
+      "actual": 3721,
+      "exits": [
+        {
+          "argmax": 3721,
+          "logits": [
+            17.125,
+            21.75,
+            16.625
+          ]
+        },
+        {
+          "argmax": 3721,
+          "logits": [
+            17.625,
+            23.875,
+            19.0
+          ]
+        }
+      ],
+      "delta_nats": -1.6266774860282176
+    },
+    {
+      "id": "dfe924ada7e8104e-inline",
+      "family": "inline",
+      "gold": "true",
+      "prefix_sha256": "38f83ab14bab5a21a538780892d680e8f471239a88841de7944744d24eea8e82",
+      "positions": 254,
+      "answer_at": 79,
+      "actual": 3721,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            21.25,
+            21.0,
+            14.875
+          ]
+        },
+        {
+          "argmax": 3721,
+          "logits": [
+            21.875,
+            23.0,
+            17.625
+          ]
+        }
+      ],
+      "delta_nats": -1.3774351269759002
+    },
+    {
+      "id": "e86be6b8be991a06-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "2bbffd5f5893c7f875342372a6de4560497a569e3969f70bfb9bf869a7266437",
+      "positions": 252,
+      "answer_at": 73,
+      "actual": 3721,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            21.75,
+            20.625,
+            14.0
+          ]
+        },
+        {
+          "argmax": 1802,
+          "logits": [
+            22.375,
+            22.25,
+            16.625
+          ]
+        }
+      ],
+      "delta_nats": 0.9972529233262293
+    },
+    {
+      "id": "03aa7257b29c156c-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "87871bcf6a7bc16b6262b3bf13e948c3d9af1fedde6320bcd459afc176406e4b",
+      "positions": 214,
+      "answer_at": 40,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.0625,
+            15.5625,
+            23.75
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.9375,
+            14.375,
+            25.875
+          ]
+        }
+      ],
+      "delta_nats": -3.312496954570186
+    },
+    {
+      "id": "7b975b9c6967c598-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "06a69565fd6c5523ae02fec504059270f3691835a013cf28cd534ddf620dc055",
+      "positions": 619,
+      "answer_at": 37,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.3125,
+            17.75,
+            27.25
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.75,
+            17.0,
+            29.0
+          ]
+        }
+      ],
+      "delta_nats": 2.5008892010762445
+    },
+    {
+      "id": "9f0a7ec13c8b0522-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "prefix_sha256": "fa572d9896b4a7f8be745007e5fa7e314890753a3b28156ff033299139cdba24",
+      "positions": 160,
+      "answer_at": 33,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.4375,
+            13.3125,
+            18.875
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.5625,
+            12.3125,
+            21.875
+          ]
+        }
+      ],
+      "delta_nats": 4.080707468602402
+    },
+    {
+      "id": "03aa7257b29c156c-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "d6b330c410334905206f54782f0158f285c694f3037dd8c0ab5f25320f069037",
+      "positions": 665,
+      "answer_at": 35,
+      "actual": 3721,
+      "exits": [
+        {
+          "argmax": 3721,
+          "logits": [
+            20.125,
+            22.875,
+            17.5
+          ]
+        },
+        {
+          "argmax": 3721,
+          "logits": [
+            20.25,
+            24.75,
+            19.625
+          ]
+        }
+      ],
+      "delta_nats": 1.3912355213684542
+    },
+    {
+      "id": "wheel-shellingham",
+      "family": "wheel",
+      "gold": "true",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "571026705c53b6bd-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "prefix_sha256": "707aa87c6ecdfe7953c157a54056eafa9ffd5979d9a617a368607a3eb8fc233a",
+      "positions": 109,
+      "answer_at": 12,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            15.625,
+            17.875,
+            22.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            14.5625,
+            17.625,
+            25.125
+          ]
+        }
+      ],
+      "delta_nats": 3.0544967318476672
+    },
+    {
+      "id": "eec2ed88b2799c0d-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "c54cfdf45c0fd5802bb6cc18bfb1aa0d5c7d3753d6e2d7119d3ed5ce17f128c6",
+      "positions": 636,
+      "answer_at": 58,
+      "actual": 1802,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            21.875,
+            21.125,
+            15.875
+          ]
+        },
+        {
+          "argmax": 1802,
+          "logits": [
+            22.375,
+            22.25,
+            17.625
+          ]
+        }
+      ],
+      "delta_nats": -0.6295221128484805
+    },
+    {
+      "id": "wheel-tqdm",
+      "family": "wheel",
+      "gold": "true",
+      "prefix_sha256": "0daa0e06a7a165c2b5421436b44224de58842a4a9fda0b1029ed094984069fd3",
+      "positions": 543,
+      "answer_at": 8,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            5.1875,
+            15.875,
+            20.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            4.46875,
+            16.375,
+            21.5
+          ]
+        }
+      ],
+      "delta_nats": -2.2086443522957993
+    },
+    {
+      "id": "2bc782587afa20ba-inline",
+      "family": "inline",
+      "gold": "true",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "571026705c53b6bd-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "22501920da0edec337a2ba9e47b70a1f391c9538b97bfdb472c0b831eadfb5c9",
+      "positions": 573,
+      "answer_at": 22,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            12.3125,
+            16.125,
+            25.5
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            10.5,
+            14.75,
+            29.0
+          ]
+        }
+      ],
+      "delta_nats": 4.882688909062372
+    },
+    {
+      "id": "4f408382fbd2da92-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "b95689011611da737e6a38d7a599dec4a29ed3a5a0c7c8e49a5754cc532db8bb",
+      "positions": 223,
+      "answer_at": 36,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            12.3125,
+            15.6875,
+            23.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            10.375,
+            14.8125,
+            25.375
+          ]
+        }
+      ],
+      "delta_nats": -3.249977477644517
+    },
+    {
+      "id": "9a1daf1fdb889ab6-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "prefix_sha256": "44db0c0c7a11505fe6ce09e06f4d1da4188e749bde0da7811c27ad8610a958dc",
+      "positions": 174,
+      "answer_at": 45,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            8.8125,
+            15.5,
+            26.125
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            6.71875,
+            14.5,
+            27.5
+          ]
+        }
+      ],
+      "delta_nats": 2.375828215901997
+    },
+    {
+      "id": "4aad032c57d2a980-file",
+      "family": "file",
+      "gold": "uncertain",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "d3f532c27036be45-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "d8a96e6c60b78b56d126a8bc1e98a98078c368188e5866e76d2f813aeb200f6c",
+      "positions": 600,
+      "answer_at": 23,
+      "actual": 1802,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            22.375,
+            19.125,
+            13.0
+          ]
+        },
+        {
+          "argmax": 1802,
+          "logits": [
+            24.0,
+            20.625,
+            14.3125
+          ]
+        }
+      ],
+      "delta_nats": -0.3081043282952578
+    },
+    {
+      "id": "4f408382fbd2da92-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "e8b2e906443fc9b6370d68d7a8c8eb045410ea408af9093e794ba1134300678b",
+      "positions": 674,
+      "answer_at": 31,
+      "actual": 1802,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            23.0,
+            19.75,
+            15.25
+          ]
+        },
+        {
+          "argmax": 1802,
+          "logits": [
+            23.875,
+            20.75,
+            17.5
+          ]
+        }
+      ],
+      "delta_nats": 0.12372847951599297
+    },
+    {
+      "id": "c89b0148b0a4dd46-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "73b4ff64d7019c3c2919336f4b2aacd0ec5e7744d3e6e3d5918941f408385c6e",
+      "positions": 149,
+      "answer_at": 27,
+      "actual": 3721,
+      "exits": [
+        {
+          "argmax": 3721,
+          "logits": [
+            19.0,
+            20.0,
+            15.125
+          ]
+        },
+        {
+          "argmax": 3721,
+          "logits": [
+            18.875,
+            20.75,
+            17.0
+          ]
+        }
+      ],
+      "delta_nats": 0.7528668432954966
+    },
+    {
+      "id": "bb0fc7e0ef64fbc7-inline",
+      "family": "inline",
+      "gold": "false",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "d3f532c27036be45-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "prefix_sha256": "c43688ec6b3b258a8521688066ec883ff4d88b2b2c9400836b8405796edba433",
+      "positions": 134,
+      "answer_at": 13,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            16.25,
+            17.875,
+            18.875
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            14.5,
+            17.0,
+            21.375
+          ]
+        }
+      ],
+      "delta_nats": 3.4758549010931112
+    },
+    {
+      "id": "95010485d8f41396-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "e59ea4d0cd386fe80f34c3625f0d1b5b3dd317ed2cd85bc03706e65023e8ea2f",
+      "positions": 621,
+      "answer_at": 37,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            9.0625,
+            17.25,
+            22.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            6.8125,
+            16.0,
+            24.125
+          ]
+        }
+      ],
+      "delta_nats": -4.3666815171552855
+    },
+    {
+      "id": "95764f32be5e3917-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "21292c2453edd7266e9ca83f66863e41ee2017fc0aad9007566b32b6f2806ce5",
+      "positions": 623,
+      "answer_at": 39,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            12.8125,
+            18.125,
+            27.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            11.1875,
+            17.375,
+            28.75
+          ]
+        }
+      ],
+      "delta_nats": -3.374871646982342
+    },
+    {
+      "id": "e86be6b8be991a06-file",
+      "family": "file",
+      "gold": "false",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "dfe924ada7e8104e-file",
+      "family": "file",
+      "gold": "true",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "4c01190bd0360a8f-inline",
+      "family": "inline",
+      "gold": "true",
+      "prefix_sha256": "1c6bdc851be85c5e229e4fa8a82ef8fd02264a2b1c9bbe41535d47a46fe7f325",
+      "positions": 224,
+      "answer_at": 35,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.0,
+            15.1875,
+            23.625
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.8125,
+            14.0,
+            26.0
+          ]
+        }
+      ],
+      "delta_nats": -4.5622895766945355
+    },
+    {
+      "id": "ff02d9c49f10a99b-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "b6941969647781552f7d9a2103ecb2ef170ca0b3d4eb98fd1b50ea958a6cd44c",
+      "positions": 819,
+      "answer_at": 76,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            10.875,
+            18.125,
+            29.25
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.0,
+            17.125,
+            30.125
+          ]
+        }
+      ],
+      "delta_nats": -2.749987521236257
+    },
+    {
+      "id": "58154bedb6fc314c-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "prefix_sha256": "5063d30ed5b5d8e392fd0e5db6fea9c646ea3bc9b3b0118989a4915207e58fd5",
+      "positions": 136,
+      "answer_at": 27,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            12.375,
+            15.6875,
+            22.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            10.9375,
+            15.4375,
+            25.25
+          ]
+        }
+      ],
+      "delta_nats": 3.1497295439578696
+    },
+    {
+      "id": "a410146eed10a781-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "8e0d535c9814d3de15c72b11d9c94dd8b4d3ecb11b8523e718f20f8caff0d202",
+      "positions": 821,
+      "answer_at": 109,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            10.375,
+            17.75,
+            28.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.3125,
+            16.5,
+            29.5
+          ]
+        }
+      ],
+      "delta_nats": -2.374999985398638
+    },
+    {
+      "id": "wheel-MarkupSafe",
+      "family": "wheel",
+      "gold": "false",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "229d581139c9a2d5-inline",
+      "family": "inline",
+      "gold": "true",
+      "prefix_sha256": "45a791cc6ad2dd722e080240713e5730f9b7b97a06b779ee41e888ac5374b839",
+      "positions": 137,
+      "answer_at": 27,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            12.375,
+            14.5625,
+            21.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            11.0,
+            14.25,
+            24.25
+          ]
+        }
+      ],
+      "delta_nats": -4.24894606377881
+    },
+    {
+      "id": "7b975b9c6967c598-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "45942f17a95cf88d-inline",
+      "family": "inline",
+      "gold": "true",
+      "prefix_sha256": "f476a086af8d305bdfde7cf2aeeb0e7ba718f475e2b9174b981fcaab08e17913",
+      "positions": 107,
+      "answer_at": 12,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            17.625,
+            16.125,
+            19.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            17.25,
+            15.4375,
+            22.0
+          ]
+        }
+      ],
+      "delta_nats": -2.9633699823004918
+    },
+    {
+      "id": "00acaa5ab6643104-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "1025412ec8ebe25908e5a53285199214c4c5ea0bda841343ae6d0d612592b597",
+      "positions": 141,
+      "answer_at": 27,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.125,
+            16.25,
+            26.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.875,
+            16.25,
+            28.25
+          ]
+        }
+      ],
+      "delta_nats": -1.8749997722304634
+    },
+    {
+      "id": "c98d3c40637a571f-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "prefix_sha256": "75798aa3900b2211c05a085dfde61ffb1ee244ba262bf7c62056f6f4aab2da03",
+      "positions": 275,
+      "answer_at": 52,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            10.875,
+            16.25,
+            25.75
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.5625,
+            14.9375,
+            27.25
+          ]
+        }
+      ],
+      "delta_nats": 2.8154180587371602
+    },
+    {
+      "id": "7b60a5895b8224ef-inline",
+      "family": "inline",
+      "gold": "false",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "72023a165107f624-inline",
+      "family": "inline",
+      "gold": "true",
+      "prefix_sha256": "7ef5c5a69c25a11b3b53ea18fe4a439245acd859c615f713359dfade01cc7098",
+      "positions": 235,
+      "answer_at": 55,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            9.25,
+            15.0625,
+            26.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            7.0,
+            13.5625,
+            27.375
+          ]
+        }
+      ],
+      "delta_nats": -3.624983224304689
+    },
+    {
+      "id": "52080d33297a017a-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "db35c2e55b75b52208801e1740220251bd30f8ed800235e6820493832af032a1",
+      "positions": 712,
+      "answer_at": 20,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.0625,
+            18.25,
+            26.125
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.4375,
+            17.625,
+            27.25
+          ]
+        }
+      ],
+      "delta_nats": -2.749685997599233
+    },
+    {
+      "id": "ac390df6d79378ac-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "20e4f4b1339820397ad899115fe84720ee578bdbfe519d4a51b3fc8d6397c88a",
+      "positions": 139,
+      "answer_at": 27,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.0,
+            16.0,
+            23.75
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.4375,
+            15.5625,
+            26.25
+          ]
+        }
+      ],
+      "delta_nats": -2.9374971476209844
+    },
+    {
+      "id": "2bc782587afa20ba-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "8ae53343cdb6feb25a03d723c4894f69918a86110bacda9cb7a96a9b464756ce",
+      "positions": 597,
+      "answer_at": 32,
+      "actual": 1802,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            25.625,
+            15.75,
+            10.0
+          ]
+        },
+        {
+          "argmax": 1802,
+          "logits": [
+            27.875,
+            15.1875,
+            10.875
+          ]
+        }
+      ],
+      "delta_nats": 2.8023667048479517
+    },
+    {
+      "id": "ac390df6d79378ac-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "827a653e9f862def39f27efd2a31e9b07f972c6325f9704053c05a64a25c1b88",
+      "positions": 601,
+      "answer_at": 35,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.375,
+            18.0,
+            28.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.75,
+            17.0,
+            29.875
+          ]
+        }
+      ],
+      "delta_nats": -2.4999999604195864
+    },
+    {
+      "id": "579e61822cc237d7-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "366bc7e1d7063a6eb47046c9d7d408c1a37e2fccf3174d9f3ea0feb8caf6c5e7",
+      "positions": 158,
+      "answer_at": 31,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            10.6875,
+            15.3125,
+            24.125
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.75,
+            14.375,
+            25.875
+          ]
+        }
+      ],
+      "delta_nats": -2.687498577157534
+    },
+    {
+      "id": "b40de23caadf1134-inline",
+      "family": "inline",
+      "gold": "false",
+      "prefix_sha256": "41ca1433585d09ba5e8526353332df5a7335a0823102e23b4f6d99982bf1dceb",
+      "positions": 301,
+      "answer_at": 57,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            9.9375,
+            16.125,
+            25.25
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            7.53125,
+            14.625,
+            26.875
+          ]
+        }
+      ],
+      "delta_nats": -3.1249997801700857
+    },
+    {
+      "id": "76b807de6db85a64-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "prefix_sha256": "ad8ae27659c331007ec92a5cea1445dcfbc03a740823e6d8ebca450e9e63238d",
+      "positions": 214,
+      "answer_at": 30,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.0625,
+            14.5,
+            24.25
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.0,
+            13.375,
+            26.375
+          ]
+        }
+      ],
+      "delta_nats": 3.269129539756742
+    },
+    {
+      "id": "9a1daf1fdb889ab6-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "10e24bd5f40a1e73a9b5b523fec2c58f4c67532aebaa43719c47e7c0cb99700b",
+      "positions": 630,
+      "answer_at": 45,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            7.65625,
+            16.625,
+            24.25
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            5.1875,
+            15.3125,
+            26.25
+          ]
+        }
+      ],
+      "delta_nats": 3.312587254651561
+    },
+    {
+      "id": "wheel-PyYAML",
+      "family": "wheel",
+      "gold": "false",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "wheel-jsonschema-specifications",
+      "family": "wheel",
+      "gold": "true",
+      "prefix_sha256": "8acb6e49dbd6e4b170d12bf77933a76dd116973b5c4fff489a898d9e13fc8fe5",
+      "positions": 552,
+      "answer_at": 9,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            7.09375,
+            17.0,
+            21.25
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            6.3125,
+            17.375,
+            23.0
+          ]
+        }
+      ],
+      "delta_nats": -2.5206866181507195
+    },
+    {
+      "id": "wheel-psutil",
+      "family": "wheel",
+      "gold": "true",
+      "prefix_sha256": "e2e8cfed245910fc1af1fc857173996cedf0e9a273542afe5192fe4912574219",
+      "positions": 654,
+      "answer_at": 26,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 248058,
+          "logits": [
+            14.6875,
+            15.5,
+            17.375
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            14.75,
+            15.6875,
+            19.375
+          ]
+        }
+      ],
+      "delta_nats": -1.8195512228569868
+    },
+    {
+      "id": "4aad032c57d2a980-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "7b60a5895b8224ef-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "29fa9d0754909d78ed877645f3f699c66db2b93d53238f0e98b7e3e230304f86",
+      "positions": 620,
+      "answer_at": 34,
+      "actual": 1802,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            23.375,
+            22.125,
+            15.125
+          ]
+        },
+        {
+          "argmax": 1802,
+          "logits": [
+            24.375,
+            23.875,
+            17.25
+          ]
+        }
+      ],
+      "delta_nats": 0.7494568150491041
+    },
+    {
+      "id": "95764f32be5e3917-inline",
+      "family": "inline",
+      "gold": "true",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "c98d3c40637a571f-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "1d3ea7ca9f769f438aa6171810476384cf5cabaed198780f6d227c2888c172e4",
+      "positions": 692,
+      "answer_at": 13,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.4375,
+            18.375,
+            26.25
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.5,
+            17.5,
+            27.875
+          ]
+        }
+      ],
+      "delta_nats": 2.5006348161085405
+    },
+    {
+      "id": "8951fd12e189b905-file",
+      "family": "file",
+      "gold": "true",
+      "prefix_sha256": "79a6f57d8a4c78750a12ccf20c8a04fad60d3378ef57269870c23fdd48d2e76e",
+      "positions": 613,
+      "answer_at": 29,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.3125,
+            17.125,
+            27.125
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.3125,
+            16.125,
+            28.25
+          ]
+        }
+      ],
+      "delta_nats": -3.1249600233344523
+    },
+    {
+      "id": "wheel-Pygments",
+      "family": "wheel",
+      "gold": "true",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "9f0a7ec13c8b0522-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "ac215f3f3fb74a5d4c183baed40699e3f9c1bbc52e3d2a5b0f6eb615cd788990",
+      "positions": 616,
+      "answer_at": 31,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.6875,
+            16.625,
+            27.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.6875,
+            15.625,
+            28.25
+          ]
+        }
+      ],
+      "delta_nats": 2.2545117642370016
+    },
+    {
+      "id": "ff02d9c49f10a99b-inline",
+      "family": "inline",
+      "gold": "true",
+      "prefix_sha256": "8e79f9cb6b9fe172cf61fce911287c22a622c6dd8443ed1dd90541b38cb841ca",
+      "positions": 332,
+      "answer_at": 45,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            11.1875,
+            14.4375,
+            22.0
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            9.1875,
+            13.625,
+            25.0
+          ]
+        }
+      ],
+      "delta_nats": -4.999492039084043
+    },
+    {
+      "id": "8951fd12e189b905-inline",
+      "family": "inline",
+      "gold": "true",
+      "excluded": "incomplete"
+    },
+    {
+      "id": "b40de23caadf1134-file",
+      "family": "file",
+      "gold": "false",
+      "prefix_sha256": "713324c87835c46620dfcb938ca1d8eb3b0ebc2af2c0d1b379fa9cabaf7abf3e",
+      "positions": 762,
+      "answer_at": 62,
+      "actual": 1299,
+      "exits": [
+        {
+          "argmax": 1299,
+          "logits": [
+            10.5625,
+            17.375,
+            26.75
+          ]
+        },
+        {
+          "argmax": 1299,
+          "logits": [
+            8.4375,
+            16.375,
+            28.0
+          ]
+        }
+      ],
+      "delta_nats": -2.2499999098974435
+    },
+    {
+      "id": "f86f95c5fdc2aa2d-file",
+      "family": "file",
+      "gold": "uncertain",
+      "prefix_sha256": "fa3309b527cb1a685bedf01b234e24d243289df354552f73756f06bb03a6a307",
+      "positions": 680,
+      "answer_at": 55,
+      "actual": 1802,
+      "exits": [
+        {
+          "argmax": 1802,
+          "logits": [
+            22.875,
+            20.875,
+            18.0
+          ]
+        },
+        {
+          "argmax": 1802,
+          "logits": [
+            23.5,
+            22.0,
+            19.75
+          ]
+        }
+      ],
+      "delta_nats": 1.050514733060222
+    },
+    {
+      "id": "23f2d0bc03aa8486-inline",
+      "family": "inline",
+      "gold": "uncertain",
+      "excluded": "incomplete"
+    }
+  ]
+}

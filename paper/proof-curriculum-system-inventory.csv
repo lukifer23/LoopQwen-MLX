@@ -1,0 +1,36 @@
+study,system,endpoint,n,candidate,base,seconds_candidate,seconds_base,first_seconds_candidate,first_seconds_base,registered_decision,accuracy_delta_pp,wall_speedup
+report-action-field-01,Actions by question,strict dialogues,98,35,42,92.09,488.92,28.97,27.271,Miss,-7.142857142857143,5.30915408839179
+book-conversation-field-01,Books and live files,operational,6,2,3,353.2,319.32,323.305,281.834,Miss,-16.666666666666668,0.9040770101925255
+question-contrast-01,Question contrasts,strict dialogues,106,44,44,73.17,513.29,24.176,22.392,Miss,0.0,7.015033483668169
+observation-review-01,Post-call review,strict dialogues,82,29,30,242.35,408.5,15.586,15.188,Miss,-1.2195121951219512,1.6855787084794718
+document-frequency-reader-01,Whole project files,exact,3,2,0,295.22,810.54,291.444,793.245,Miss,66.66666666666667,2.7455456947361285
+tool-dialogue-counterfactual-01,Observation-trained tools,grounded,132,112,15,69.55,323.35,,,Pass,73.48484848484848,4.649173256649893
+conversation-followup-modules-01,Module follow-ups,grounded,16,12,0,13.97,115.77,2.768,2.528,Pass,75.0,8.28704366499642
+operand-planner-01,Calculator planner,final number,48,20,28,11.0,182.43,,,Miss,-16.666666666666668,16.584545454545456
+bridge-reading-01,First document reader,answer phrase,40,11,20,41.4,120.08,,,Miss,-22.5,2.90048309178744
+linked-reading-01,Linked document reader,answer phrase,48,18,19,26.69,132.05,23.651,21.892,Miss,-2.0833333333333335,4.947545897339828
+table-parser-01,Table parser,grounded,48,14,0,24.55,261.24,,,Miss,29.166666666666668,10.641140529531569
+tool-dialogue-intent-pairs-01,Resource and tool adapter,grounded,78,45,0,54.56,333.15,,,Miss,57.69230769230769,6.106121700879765
+meaning-alignment-01,Semantic alignment,free judgment,80,60,7,16.13,346.43,13.573,12.426,Miss,66.25,21.47737135771854
+document-evidence-01,Document evidence reader,grounded exact,40,6,0,43.86,156.09,9.099,8.426,Miss,15.0,3.558823529411765
+document-search-field-01,User-file passage search,grounded exact,32,1,0,51.07,99.47,6.64,6.096,Miss,3.125,1.947718817309575
+report-calculation-01,Stepwise calculator,final number,48,5,6,97.99,266.23,14.28,13.044,Miss,-2.0833333333333335,2.71690988876416
+register-mixed-weight-full-01,"8-bit feed-forward, 131K",exact,2,2,0,167.39,390.86,165.408,383.929,Pass,100.0,2.3350259872154853
+draft-program-01,Draft then program,final number,48,28,29,77.13,166.59,4.177,4.16,Miss,-2.0833333333333335,2.1598599766627773
+dialogue-state-fields-01,Field-state supervision,grounded,54,32,0,54.86,348.35,7.252,6.482,Miss,59.25925925925926,6.349799489609917
+action-preference-01,Preference-trained tools,grounded,54,29,1,55.64,323.57,7.544,6.921,Miss,51.851851851851855,5.815420560747663
+shared-session-tokenizer-replay-01,Unified recurrent assistant,mixed,144,74,62,107.6,525.22,17.247,15.593,Miss,8.333333333333334,4.881226765799257
+shared-session-01,Shared reasoning and tools,mixed,120,67,50,90.44,472.52,15.871,13.639,Miss,14.166666666666666,5.22467934542238
+folded-system-01,Single folded backbone,mixed,92,33,30,177.99,364.74,7.734,7.298,Miss,3.260869565217391,2.049216248103826
+release-mixed-field-01,Released assistant,mixed,50,21,12,83.97,234.2,20.33,9.155,Miss,18.0,2.7890913421460044
+register-page-full-01,"BF16 pages, 131K",exact,2,2,0,176.55,391.72,173.989,384.785,Miss,100.0,2.2187482299631833
+register-packed-direct-full-01,"Direct 8-bit pages, 131K",exact,2,2,0,171.88,391.67,168.349,384.652,Pass,100.0,2.2787409820805213
+register-fused-base-full-01,"Fused decode, 131K",exact,2,2,0,169.85,390.94,167.644,384.108,Miss,100.0,2.301677951133353
+repository-tree-field-01,"Two Git trees, 169K+",exact,2,0,0,233.62,644.01,220.897,629.609,Miss,0.0,2.7566561082099135
+narrative-full-book-01,"Whole novel, 162K",exact,2,0,0,596.38,596.42,571.275,571.307,Miss,0.0,1.0000670713303599
+instruction-interpolation-01,Interpolated instruction,grounded requests,56,18,19,114.62643571314402,370.32102870795643,6.926651959132869,6.6235575001337565,Miss,-1.7857142857142858,3.2306773424822834
+role-binding-01,Role binding,grounded requests,96,32,14,134.93331387196667,824.894320414809,11.951258578919806,11.691376292088535,Miss,18.75,6.113348118000877
+revision-evidence-01,Revised textual evidence,correct judgments,48,33,40,9.031741163227707,228.95356341917068,3.9734623302938417,4.2747493331553414,Miss,-14.583333333333334,25.349880967730112
+file-evidence-accumulated-01,Changed file contents,grounded requests,56,31,24,40.53645145939663,374.40152450220194,7.263432502397336,6.92867865995504,Miss,12.5,9.23616920137229
+cross-view-reading-01,Cross-view reading,grounded requests,88,24,22,81.3696562917321,477.58046720316634,14.843746209749952,14.612146126979496,Miss,2.272727272727273,5.869269810983494
+proof-curriculum-01,Proof curriculum,grounded requests,96,27,2,159.4492441730108,702.5869441179675,12.735136216972023,12.65039645897923,Miss,26.041666666666668,4.4063359958961215

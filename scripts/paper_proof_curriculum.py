@@ -1,5 +1,6 @@
 """Produce paper tables, figures and synthesis exclusively from sealed MLX trajectories."""
 
+import json
 from collections import defaultdict
 from pathlib import Path
 
@@ -212,7 +213,46 @@ def build():
     example = next(r for r in rows if r["id"] == chosen["id"])
     previous = read("docs/measurements/file-evidence-long-replay.json")["requests"]
     assert all(r["actual_initial_tokens"] == 131084 for r in previous)
-    decisions = {k: v for k, v in d["gates"].items() if not v}
+    logical = [w for w in rows if w["family"] in ("inline", "file")]
+    eligible = {
+        k: [
+            r
+            for r in logical
+            if r[k + "_completed"] and (r["family"] == "inline" or r[k + "_observed"])
+        ]
+        for k in ARMS
+    }
+    wheels = [r for r in rows if r["family"] == "wheel"]
+    swapped = 0
+    for r in wheels:
+        calls = json.loads(r["candidate_calls"])
+        if calls:
+            args = calls[0]["call"]["arguments"]
+            swapped += (
+                args.get("key_column") == "Requires-Python"
+                and args.get("value_column") == "distribution"
+            )
+    lens = read("docs/measurements/proof-curriculum-visit-readout.json")
+    visits = lens["groups"]["all"]
+    medians = {
+        label: np.median(
+            [
+                r["delta_nats"]
+                for r in lens["rows"]
+                if "delta_nats" in r and r["gold"] == label
+            ]
+        )
+        for label in ("true", "false", "uncertain")
+    }
+    names = {
+        "whole_stories": "complete six-judgment stories",
+        "user_wheels": "complete practical package pairs",
+        "first_s": "summed first-token latency",
+        "opening_tps": "opening throughput",
+    }
+    decisions = [
+        names.get(k, k.replace("_", " ")) for k, v in d["gates"].items() if not v
+    ]
     data = {
         "abstract": f"On 72 held human judgments the loop grounded {get('candidate', 'grounded')} versus {get('control', 'grounded')} for ordinary Base. The paired difference was {d['net']:+d} judgments across 12 stories (two-sided exact p = {d['exact_story_p']:.4g}). It solved every judgment on {a['whole_stories']} versus {b['whole_stories']} whole stories and both practical checks on {a['wheel_pairs']} versus {b['wheel_pairs']} package pairs. All 96 requests took {a['groups']['all']['wall_s']:.2f} versus {b['groups']['all']['wall_s']:.2f} seconds.",
         "decision": (
@@ -235,6 +275,9 @@ def build():
         "example": f"The first enrolled practical request asked whether {chosen['questions'][0].split('Claim: ')[1].split(chr(10))[0]} The published field was {chosen['observation']['value']}. The reference verdict was {chosen['gold']}. The loop’s completed verdict was {example['candidate_verdict'] or 'unavailable'} and Base’s was {example['control_verdict'] or 'unavailable'}.",
         "training": fit["weights"],
         "completion_analysis": f"Both arms completed {get('candidate', 'jointly_completed')}/72 logical judgments. On that selected subset the loop grounded {get('candidate', 'grounded_when_both_complete')} and Base {get('control', 'grounded_when_both_complete')}. At least one turn reached the allowance on {get('candidate', 'capped')} loop requests and {get('control', 'capped')} Base requests. Among 24 story/view groups, the loop emitted all three distinct verdicts in {get('candidate', 'three_different_verdicts')} groups and Base in {get('control', 'three_different_verdicts')}.",
+        "opportunities": f"The loop completed {len(eligible['candidate'])} logical requests with any required source successfully observed, versus {len(eligible['control'])} for Base. Even scoring every such Base reply as correct could give Base at most {len(eligible['control'])}/72 under the registered grounded endpoint. Conversely, always answering uncertain on the loop’s own completed and observed requests would yield {sum(r['gold'] == 'uncertain' for r in eligible['candidate'])}/72, compared with its actual {get('candidate', 'grounded')}/72. With perfect coverage, a fixed verdict would reach 24/72 on this exactly balanced panel.",
+        "swaps": f"On {swapped}/{len(wheels)} practical requests the loop used the requested output field as the lookup column and the distribution as the return column in its first call. The actual provider could not find the named packages in that column. This is a reproducible argument-role error.",
+        "visit": f"A native observer read both exits of exactly the same unmodified two-pass forward at {visits['eligible']} completed answer boundaries among {visits['enrolled']} enrolled logical and practical requests. Gold verdict odds rose in {visits['gold_odds_improved']}/{visits['eligible']} cases, with {visits['margin_met']} reaching the trained 0.25-nat margin. The median change was {visits['median_nats']:+.2f} nats. By actual label, medians were {medians['true']:+.2f} for true, {medians['false']:+.2f} for false and {medians['uncertain']:+.2f} for uncertain. Single-block replay reproduced the actual next-token argmax on {visits['active_matches_emitted']}/{visits['eligible']}. The comparison projects intermediate states along a single K2 trajectory and cannot establish what a separately trained K1 model would generate.",
         "context": "Release 05 separately retrieved both changed keys with 131,084 actual prompt tokens. The physical long-context result belongs to that qualified release. The present proof-supervised checkpoint has its own acceptance and verification record.",
     }
     data["systems"] = generate_inventory(P)
