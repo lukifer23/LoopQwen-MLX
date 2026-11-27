@@ -1,0 +1,102 @@
+{
+  "registration": "b105a0a8d8c56fd962f15cff077ccfd636fab522905e40234ee529c946f22650",
+  "training": "ee61a192f6156b9a58801d30b26292d3c2419554d35571031fb2c9aef5ff32e2",
+  "source_turns": 7591,
+  "unique_full_token_sequences": 7587,
+  "unique_assistant_token_sequences": 6543,
+  "native_updates_planned": 1851,
+  "source_presentations": 18460,
+  "supervised_target_positions": 1175348,
+  "supervision_by_channel": {
+    "whitespace": 123050,
+    "closing_or_stop": 36920,
+    "nonwhite_tool_action": 218712,
+    "nonwhite_visible_prose": 606970,
+    "nonwhite_deliberation": 189696
+  },
+  "by_group": {
+    "program": {
+      "source_turns": 149,
+      "presentations": 2384,
+      "distinct_position_instances": 11095,
+      "whitespace": 27760,
+      "closing_or_stop": 4768,
+      "nonwhite_tool_action": 144992
+    },
+    "discovery": {
+      "source_turns": 149,
+      "presentations": 298,
+      "distinct_position_instances": 4768,
+      "whitespace": 2384,
+      "closing_or_stop": 596,
+      "nonwhite_tool_action": 6556
+    },
+    "scalar": {
+      "source_turns": 298,
+      "presentations": 1788,
+      "distinct_position_instances": 2068,
+      "whitespace": 3678,
+      "closing_or_stop": 3576,
+      "nonwhite_visible_prose": 5154
+    },
+    "explanation": {
+      "source_turns": 761,
+      "presentations": 1522,
+      "distinct_position_instances": 29554,
+      "whitespace": 5824,
+      "closing_or_stop": 3044,
+      "nonwhite_visible_prose": 50240
+    },
+    "instruction": {
+      "source_turns": 3072,
+      "presentations": 6144,
+      "distinct_position_instances": 244727,
+      "whitespace": 27954,
+      "closing_or_stop": 12288,
+      "nonwhite_visible_prose": 449212
+    },
+    "arithmetic": {
+      "source_turns": 1024,
+      "presentations": 2048,
+      "distinct_position_instances": 93913,
+      "nonwhite_deliberation": 152892,
+      "whitespace": 26110,
+      "closing_or_stop": 4096,
+      "nonwhite_visible_prose": 4728
+    },
+    "legacy": {
+      "source_turns": 2138,
+      "presentations": 4276,
+      "distinct_position_instances": 119748,
+      "whitespace": 29340,
+      "closing_or_stop": 8552,
+      "nonwhite_visible_prose": 97636,
+      "nonwhite_tool_action": 67164,
+      "nonwhite_deliberation": 36804
+    }
+  },
+  "complete_verified_preferences": 176,
+  "preference_presentations": 2064,
+  "distinct_program_edit_spans": {
+    "predicate": {
+      "pairs": 49,
+      "chosen_positions": 49,
+      "rejected_positions": 49
+    },
+    "column": {
+      "pairs": 95,
+      "chosen_positions": 163,
+      "rejected_positions": 163
+    },
+    "direction": {
+      "pairs": 32,
+      "chosen_positions": 32,
+      "rejected_positions": 38
+    }
+  },
+  "preference_presentations_per_edit_range": [
+    5,
+    16
+  ],
+  "scope": "Planned exposure before optimization. Tool-action count includes syntax and arguments. Deliberation includes copied source words in older reading teachers. Whitespace decoded in isolation and closing/stop are counted separately."
+}

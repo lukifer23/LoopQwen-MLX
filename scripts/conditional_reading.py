@@ -10,6 +10,7 @@ from loopqwen.io import digest, read, save
 from loopqwen.research.linked_rollin import exact_sign_flip
 from loopqwen.research.table_worlds import SOURCE
 from scripts.conditional_panel import FETA, NAME, NEW, PLAN
+from scripts.program_language_material import DEST
 from scripts.table_policy_reading import committed
 
 ROOT = Path("research/results") / NAME
@@ -28,6 +29,8 @@ def source_rows():
     changed = {w["id"]: w for w in read(SOURCE)["cohorts"]["dev"]}
     natural = {w["id"]: w for w in read(FETA / "originals.json")["test"]}
     criteria = {w["id"]: w for w in read(FETA / "source-review.json")["items"]}
+    human_review = read(DEST / "source-review.json")
+    assert human_review["source"] == digest(DEST / "fresh-requests.json")
     records = {}
     for key in plan["ordered_requests"]:
         w = by[key]
@@ -47,7 +50,11 @@ def source_rows():
         elif f == "database":
             r.update(reference=w["human_answer"], expected_value=w["expected_value"])
         elif f == "instruction":
-            r.update(reference=w["reference"], category=w["category"])
+            r.update(
+                reference=w["reference"],
+                category=w["category"],
+                source_guidance=human_review["items"][key],
+            )
         else:
             assert f == "open"
             r.update(reference=w["human_reply"])
