@@ -1,0 +1,170 @@
+{
+  "stages": [
+    {
+      "id": "contrastive-table-features-01",
+      "name": "Table extraction",
+      "passed": true,
+      "elapsed": 2291.2383511066437,
+      "peak_gib": 1.589827885851264,
+      "max_seconds": 4380,
+      "archive": "f0188420b701f15689266112f228b0e8fc3a2bef9c4cb682e98225a31660bc81",
+      "window": "0cc07f253cf24e3b740f51d9d2d56f1fbabe49b3dbf5555ec23bebfb24f3f7de",
+      "decision": {
+        "examples": 5640,
+        "positions": 123445,
+        "alternatives": 3756,
+        "negative_positions": 8865,
+        "same_causal_prefix_reuses": 1853,
+        "feature_bytes": 1356874504,
+        "parity_passed": true,
+        "passed": true
+      },
+      "cold": "65a63e6fbe34732faf1a410606ab18174822863ac19c1e915800a5be3d920ad5",
+      "checked_files": 5640,
+      "checked_bytes": 1356874504,
+      "rebuilt": 3,
+      "native_cases": 8
+    }
+  ],
+  "exposures": [
+    {
+      "group": "full_rows",
+      "turns": 1872,
+      "target_positions": 12431,
+      "opening_tokens": 1957224,
+      "negative_positions": 4417,
+      "feature_bytes": 173178042
+    },
+    {
+      "group": "inspect",
+      "turns": 942,
+      "target_positions": 30144,
+      "opening_tokens": 421893,
+      "negative_positions": 0,
+      "feature_bytes": 308951508
+    },
+    {
+      "group": "operator",
+      "turns": 942,
+      "target_positions": 68358,
+      "opening_tokens": 521049,
+      "negative_positions": 0,
+      "feature_bytes": 700415820
+    },
+    {
+      "group": "resolved",
+      "turns": 1884,
+      "target_positions": 12512,
+      "opening_tokens": 1266658,
+      "negative_positions": 4448,
+      "feature_bytes": 174329134
+    }
+  ],
+  "stage_count": 1,
+  "limits": {
+    "wall_seconds": 4380,
+    "available_gib": 1.5,
+    "peak_gib": 8.25
+  },
+  "fit_target": 1953806,
+  "preference_target": 28322,
+  "latest": {
+    "id": "contrastive-table-features-01",
+    "name": "Table extraction",
+    "passed": true,
+    "elapsed": 2291.2383511066437,
+    "peak_gib": 1.589827885851264,
+    "max_seconds": 4380,
+    "archive": "f0188420b701f15689266112f228b0e8fc3a2bef9c4cb682e98225a31660bc81",
+    "window": "0cc07f253cf24e3b740f51d9d2d56f1fbabe49b3dbf5555ec23bebfb24f3f7de",
+    "decision": {
+      "examples": 5640,
+      "positions": 123445,
+      "alternatives": 3756,
+      "negative_positions": 8865,
+      "same_causal_prefix_reuses": 1853,
+      "feature_bytes": 1356874504,
+      "parity_passed": true,
+      "passed": true
+    },
+    "cold": "65a63e6fbe34732faf1a410606ab18174822863ac19c1e915800a5be3d920ad5",
+    "checked_files": 5640,
+    "checked_bytes": 1356874504,
+    "rebuilt": 3,
+    "native_cases": 8
+  },
+  "enrollment": {
+    "training": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
+    "withheld": "27b8310ea812ecdf1a11c892b45c8cb42e51f339dc970cfd79bb11b2a2cb77da",
+    "verified_positive_turns": 11642,
+    "complete_incompatible_pairs": 3979,
+    "positive_target_positions": 318778,
+    "by_group": {
+      "resolved": 942,
+      "full_rows": 936,
+      "qualitative": 1201,
+      "service_reply": 900
+    },
+    "excluded_held_groups": {
+      "table_files": 24,
+      "qualitative_backgrounds": 24,
+      "source_service_dialogues": 48
+    },
+    "held_complete_phrases_tested": 117,
+    "held_phrases_in_any_old_or_new_training_field": {}
+  },
+  "held_environment": {
+    "material": "a6afd37431b009f43a8bb13c3177c235fe47bda07d0b9f25494d2df1856fb4a7",
+    "cases": {
+      "service": 48,
+      "qualitative": 48,
+      "tables": 48,
+      "locale": 4
+    },
+    "different_answers_per_source": 2,
+    "paired_non_service_sources": 50,
+    "complete_original_service_rows": 254,
+    "minimum_service_options": 1,
+    "maximum_service_options": 10,
+    "raw_locale_inputs": [
+      {
+        "id": "it-48.2",
+        "tokens": 152185,
+        "sha256": "f35f916fdfe2553a71ea2fb615e2e88480e08f9990f638ef5f7309568fabd27f"
+      },
+      {
+        "id": "it-49",
+        "tokens": 156874,
+        "sha256": "f67293fd183b1e57817dd88b73d5faf7f2efc006502552c8aea5627d044ad677"
+      },
+      {
+        "id": "en-48.2",
+        "tokens": 161874,
+        "sha256": "c69714743228149760494b11100cbabfe9424d3d086f05bb438809da512572cf"
+      },
+      {
+        "id": "en-49",
+        "tokens": 164271,
+        "sha256": "8a2162a18d0c4842486648bfe1214b782c426a2a429b4142931c016e3f02c78e"
+      }
+    ]
+  },
+  "corpus": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
+  "total_native_s": 2291.2383511066437,
+  "source_words": {
+    "locale": {
+      "unassessed": 4
+    },
+    "qualitative": {
+      "below wording threshold": 42,
+      "source contains repeated wording": 6
+    },
+    "service": {
+      "below wording threshold": 38,
+      "source contains repeated wording": 10
+    },
+    "tables": {
+      "below wording threshold": 48
+    }
+  }
+}
