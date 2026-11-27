@@ -22,7 +22,7 @@ from .registered import registered
 
 def check_tokens(item, ids):
     path = "research/data/conversation-document-prefill-tokens.json"
-    assert digest(path) == read("research/registry.json")["datasets"][path]["sha256"]
+    assert digest(Path(path)) == read("research/registry.json")["datasets"][path]["sha256"]
     expected = read(path)[item["source"]]
     assert (
         len(ids) == expected["prompt_tokens"]
