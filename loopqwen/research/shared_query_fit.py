@@ -2,6 +2,7 @@
 
 import math
 import random
+import shutil
 from collections import defaultdict
 from pathlib import Path
 from statistics import mean
@@ -11,16 +12,19 @@ from mlx import nn
 from mlx import optimizers as optim
 from mlx.utils import tree_flatten
 
+from .. import checkpoint
 from ..evaluation.mechanism import packed, unpack
 from ..identity import fingerprint
 from ..io import digest, read, save
 from ..shared_query_assistant import from_backbone
-from .conditional_features import feature_root
+from .conditional_features import CACHE, feature_root
 from .core import Budget
 from .file_evidence_environment import capture
 from .registered import registered
 from .shared_query_features import FEATURES, FIT, OLD, RESULTS, SOURCES
 from .table_reentry_fit import accumulate, apply, root_for
+
+CHECKPOINT_INTERVAL = 50
 
 
 def schedule(idx, s):
@@ -173,8 +177,24 @@ def probe(net, idx, folder, evidence, s, guard=None, first_only=False):
 def optimize(net, s, idx, folder, evidence, root, guard):
     fn = nn.value_and_grad(net.step, loss_fn(net, s, differentiate=True))
     opt = optim.AdamW(learning_rate=s["lr"], weight_decay=0.01)
-    history = []
-    for j, (epoch, ids) in enumerate(schedule(idx, s), 1):
+    identity = {
+        "registration": digest(root / "registration.json"),
+        "features": digest(RESULTS / FEATURES / "checksums.json"),
+        "evidence": digest(Path(s["evidence"])),
+        "implementation": digest(root / "environment.json"),
+    }
+    store = CACHE / s["id"] / fingerprint(identity)
+    store.mkdir(parents=True, exist_ok=True)
+    state = {"identity": identity, "step": 0, "history": []}
+    if (store / "latest.json").exists():
+        state = checkpoint.restore(store, net.step, opt)
+        if state["identity"] != identity or len(state["history"]) != state["step"]:
+            raise ValueError("Shared-query optimizer and exposure journal disagree")
+    history = state["history"]
+    steps = schedule(idx, s)
+    for j, (epoch, ids) in enumerate(steps, 1):
+        if j <= state["step"]:
+            continue
         total = sum(idx[i]["positions"] for i in ids)
         grad = None
         cost = [mx.array(0.0) for _ in range(4)]
@@ -192,7 +212,11 @@ def optimize(net, s, idx, folder, evidence, root, guard):
                 citations += len(args[-1])
         assert total == observed
         norm = apply(net.step, opt, grad)
-        if norm <= 0 or not all(math.isfinite(a.item()) for a in cost):
+        if (
+            not math.isfinite(norm)
+            or norm <= 0
+            or not all(math.isfinite(a.item()) for a in cost)
+        ):
             raise InterruptedError("Nonfinite loss or zero gradient")
         history.append(
             {
@@ -208,15 +232,17 @@ def optimize(net, s, idx, folder, evidence, root, guard):
                 "gradient": norm,
             }
         )
-        if j % 50 == 0:
-            packed(root / "partial-log.json.gz", history)
-            print("Native tied-query update", j, "epoch", epoch + 1, flush=True)
-    mx.save_safetensors(
-        str(root / "step.safetensors"), dict(tree_flatten(net.step.parameters()))
-    )
-    mx.save_safetensors(
-        str(root / "optimizer.safetensors"), dict(tree_flatten(opt.state))
-    )
+        state["step"] = j
+        if j % CHECKPOINT_INTERVAL == 0 or j == len(steps):
+            checkpoint.write(store, net.step, opt, state)
+            # Only a fully published checkpoint can be exposed as durable.
+            save(
+                root / "checkpoint.json", {"directory": str(checkpoint.location(store))}
+            )
+            print("Native tied-query update", j, "of", len(steps), flush=True)
+    path = checkpoint.location(store)
+    shutil.copyfile(path / "adapters.safetensors", root / "step.safetensors")
+    shutil.copyfile(path / "optimizer.safetensors", root / "optimizer.safetensors")
     return history
 
 
@@ -266,6 +292,22 @@ def verify(root, d):
     assert s == read(root / "registration.json")
     if d.get("status") == "interrupted":
         assert not d["passed"] and d["reason"]
+        if "durable_updates" in d:
+            state = read(root / "partial-state.json")
+            assert state["step"] == len(state["history"]) == d["durable_updates"]
+            assert state["identity"]["registration"] == digest(
+                root / "registration.json"
+            )
+            assert state["identity"]["features"] == digest(
+                RESULTS / FEATURES / "checksums.json"
+            )
+            assert state["identity"]["evidence"] == digest(Path(s["evidence"]))
+            assert state["identity"]["implementation"] == digest(
+                root / "environment.json"
+            )
+            assert d["durable_labels"] == sum(r["positions"] for r in state["history"])
+            for name, expected in d["partial_hashes"].items():
+                assert digest(root / name) == expected
         return
     archive = RESULTS / FEATURES
     idx = unpack(archive / "feature-index.json.gz")
@@ -299,6 +341,7 @@ def run():
             *SOURCES,
             "loopqwen/research/shared_query_fit.py",
             "scripts/shared_query_evidence.py",
+            "loopqwen/checkpoint.py",
         ),
     )
     guard = Budget(FIT, s["limits"])
@@ -315,7 +358,6 @@ def run():
         before = probe(net, idx, folder, evidence, s, guard)
         history = optimize(net, s, idx, folder, evidence, root, guard)
         packed(root / "training-log.json.gz", history)
-        (root / "partial-log.json.gz").unlink(missing_ok=True)
         after = probe(net, idx, folder, evidence, s, guard)
         one = probe(net, idx, folder, evidence, s, guard, True)
         save(
@@ -337,8 +379,22 @@ def run():
         d = decision(s, history, before, after, one)
     except (InterruptedError, TimeoutError, MemoryError) as e:
         d = {"passed": False, "status": "interrupted", "reason": str(e)}
+        if (root / "checkpoint.json").is_file():
+            path = Path(read(root / "checkpoint.json")["directory"])
+            state = read(path / "state.json")
+            partial = {}
+            for name in ("state.json", "adapters.safetensors", "optimizer.safetensors"):
+                dest = root / ("partial-" + name)
+                shutil.copyfile(path / name, dest)
+                partial[dest.name] = digest(dest)
+            d.update(
+                durable_updates=state["step"],
+                partial_hashes=partial,
+                durable_labels=sum(r["positions"] for r in state["history"]),
+            )
     finally:
         guard.close()
+        (root / "checkpoint.json").unlink(missing_ok=True)
     save(root / "decision.json", d)
 
 

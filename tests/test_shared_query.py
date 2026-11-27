@@ -165,3 +165,66 @@ def test_intermediate_prefill_writes_identical_states_without_building_output_qu
                 assert mx.array_equal(a, b).item()
             else:
                 assert a == b
+
+
+def test_shared_query_resume_restores_exact_exposure_and_optimizer(
+    tmp_path, monkeypatch
+):
+    import pytest
+
+    from loopqwen.io import read, save
+    from loopqwen.research import shared_query_fit as fit
+    from loopqwen.research.shared_query_features import arrays
+
+    monkeypatch.setattr(fit, "CACHE", tmp_path / "cache")
+    monkeypatch.setattr(fit, "RESULTS", tmp_path / "results")
+    monkeypatch.setattr(fit, "CHECKPOINT_INTERVAL", 1)
+    save(fit.RESULTS / fit.FEATURES / "checksums.json", {"input": "test fixture"})
+    root = tmp_path / "uninterrupted"
+    stop = tmp_path / "interrupted"
+    evidence = tmp_path / "evidence.json"
+    save(evidence, {})
+    spec = {
+        "id": "tiny-query",
+        "lr": 2e-4,
+        "fit_seed": 11,
+        "epochs": 3,
+        "micro_positions": 8,
+        "update_positions": 8,
+        "teacher_kl": 0.24,
+        "evidence_weight": 8.0,
+        "evidence": str(evidence),
+    }
+    for folder in (root, stop):
+        save(folder / "registration.json", spec)
+        save(folder / "environment.json", {"execution": 1})
+    net = model()
+    row = {"id": "one", "file": "one.safetensors", "positions": 3, "opening": 4}
+    mx.save_safetensors(
+        str(tmp_path / row["file"]), arrays(net, [3, 8, 13, 2], [34, 9, 17])
+    )
+
+    class Guard:
+        def __init__(self, permit=None):
+            self.permit = permit
+
+        def check(self):
+            if self.permit == 0:
+                raise InterruptedError("Test interruption")
+            if self.permit is not None:
+                self.permit -= 1
+
+    reference = fit.optimize(net, spec, [row], tmp_path, {}, root, Guard())
+    monkeypatch.setattr(fit, "CACHE", tmp_path / "interrupted-cache")
+    with pytest.raises(InterruptedError, match="Test interruption"):
+        fit.optimize(model(), spec, [row], tmp_path, {}, stop, Guard(1))
+    assert (
+        read(read(stop / "checkpoint.json")["directory"] + "/state.json")["step"] == 1
+    )
+    actual = fit.optimize(model(), spec, [row], tmp_path, {}, stop, Guard())
+    assert actual == reference
+    for name in ("step.safetensors", "optimizer.safetensors"):
+        a, b = (mx.load(str(path / name)) for path in (root, stop))
+        assert a.keys() == b.keys() and all(
+            mx.array_equal(a[k], b[k]).item() for k in a
+        )
