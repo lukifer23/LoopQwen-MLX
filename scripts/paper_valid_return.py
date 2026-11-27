@@ -306,6 +306,21 @@ def build():
             "gold": row["gold"],
         }
 
+    def preferred_at_start(kind, source):
+        selected = [
+            odds[w["pair"]]
+            for w in views
+            if w["kind"] == kind
+            and w["source"] == source
+            and w["choice"] == "preferred"
+        ]
+        return f"{sum(v > 0 for v in selected)}/{len(selected)}"
+
+    initial_choices = (
+        f"With both full responses provided, the starting model preferred the correct calendar operation on {preferred_at_start('operation', 'agenda')} pairs. "
+        f"When the source-specific rationale was supplied, its package and schedule verdict margins favored the target on {preferred_at_start('verdict', 'package')} and {preferred_at_start('verdict', 'agenda')} pairs. "
+        f"The corresponding human-table verdict count was {preferred_at_start('verdict', 'human')}. These are conditional training measurements. The direct evaluation requires the model to generate its own reasoning and select every action."
+    )
     depth = historical_evidence(decision)
     ballots = read("docs/measurements/valid-return-ballot-sensitivity.json")
     bt = [ballots[arm]["totals"] for arm in ARMS]
@@ -320,6 +335,7 @@ def build():
         P / "valid-return-paper.json",
         {
             "historical_depth": depth,
+            "initial_choices": initial_choices,
             "deadlines": [
                 [
                     f"{seconds:g} s",

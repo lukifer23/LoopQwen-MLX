@@ -54,6 +54,7 @@ Each of 800 AdamW updates draws field selection or calendar operation (44% objec
 #cap[Figure 2. Cumulative distributions of the reference model’s full-response preference margins and the mixed objective on the actual sampled updates. The nine training points use different batches; they do not estimate held accuracy.]
 
 #grid(("Reference preference","Distinct pairs","Median nats","Positive margin"),m.references,(1fr,1fr,1fr,1fr))
+#m.initial_choices
 
 #pagebreak()
 = Source population and independent oracles
