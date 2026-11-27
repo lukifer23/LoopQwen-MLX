@@ -2,6 +2,8 @@
 
 A local MLX research implementation of shared recurrent depth in the official Qwen3.5-0.8B-Base text decoder. The original six-layer architecture runs layers 10–15 twice at K=2. The 30 execution sites reuse 752,393,024 pretrained text parameters. Each recurrent adapter adds 1,336,320 shared LoRA parameters to the six-layer span. Each execution site owns its own attention or Gated DeltaNet state.
 
+**Tool calling depends on the interface.** With Qwen's published function template, the trained loop completed **21/22** public numerical requests and untouched Base completed **20/22**. On the earlier compact JSON interface, Base scored **0/22** on the same functions. On new two-request conversations using actual files and Python distributions, the loop completed **8/12 versus 2/12**. Across the complete 58-dialogue comparison it scored **35 versus 30** in **55.44 versus 286.35 seconds** (paired p=.359), with lower peak memory and longer summed first-token latency. Fresh human arithmetic favored Base, 15 correct final numbers versus 7. [Complete comparison and trained adapter](research/results/native-function-dialogue-01) · [Per-family results](paper/native-function-dialogues.svg) · [Every request and executed call](paper/native-function-requests.csv)
+
 On a fresh **131,086-token** register and its key swap, the looped model answered **2/2 versus 0/2** for untouched Base. Eight-bit feed-forward and output weights raised its post-first generation rate to **29.27 versus 27.42 tokens/s**. Including both weight conversions, the two requests finished in **167.39 versus 390.86 s** at **3.32 versus 3.78 GiB** peak MLX allocation. Both individual inputs favored the recurrent system on prompt and output rate. The comparison covers one document with two placements of the same queried name. [Sealed predictions and timings](research/results/register-mixed-weight-full-01) · [Per-request conversion and physical history](paper/mixed-weight-requests.csv)
 
 In two complete project listings of **169,890 and 173,151 input tokens**, both models missed the requested byte count. The loop selected the opening of each listing, over 66,000 tokens from the evidence. It used 2.71 versus 4.51 GiB and finished in 233.62 versus 644.01 seconds across the pair. [Actual Git objects, outputs and cache histories](research/results/repository-tree-field-01)
@@ -67,6 +69,16 @@ The parent release `exports/tool-language-field-02` established the field CLI an
 ```
 
 For text inference, `generate --checkpoint exports/tool-language-packed-05 --prompt-file document-and-question.txt --thinking --max-tokens 96` reads the entire UTF-8 input through the same installed `python -m loopqwen` entry point. The returned `context_route` identifies the selected decoder. Add `--compare-base` to run the entire input through both the checkpoint and untouched Base. The JSON includes both completions, a verified prompt-token hash, cold first-token and total seconds, output rates and peak MLX bytes. Omit `--thinking` for raw text continuations.
+
+To use the opt-in native function adapter with the installed runtime and qualified release 05 weights, run the actual package query below. The adapter shares the final layer twice. The `--trace` output includes the exact prompts, generated tokens, executed calls and observations for both users' turns.
+
+```sh
+.venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-05 \
+  --tool-adapter research/results/native-function-dialogue-01 --tool-format qwen --packages \
+  --prompt "Can you look up the installed version of numpy?" \
+  --follow-up "And what version of mlx do I have here?" \
+  --max-tokens 384 --max-turns 3 --trace
+```
 
 Use `ask --compare-base` to try your own questions on the installed assistant and untouched ordinary Base. It runs them sequentially with the same opening prompt IDs and thinking budget. You get both replies, executed calls and observations, output counts, measured first-token and full-request time, and peak MLX bytes. The first request includes model loading. Follow-ups preserve each model’s own conversation and report whether the resulting prompt IDs still match. A single run uses recurrent-first order and the OS file cache can persist.
 
