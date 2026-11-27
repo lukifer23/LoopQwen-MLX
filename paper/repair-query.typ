@@ -64,7 +64,7 @@ The two visits share all parameters. Query and content corrections have rank 160
 
 #if d.stages_done >= 2 [
  #pagebreak()
- #text(size:19pt,weight:"bold")[Native learning and physical depth intervention]
+ #block(text(size:19pt,weight:"bold")[Native learning and physical depth intervention])
  #let r=d.stages.at(1).decision
  #if "groups" in r [
    The optimizer completed #r.updates updates over #r.positions supervised positions and #r.citations cited source queries. Mean citation NLL changed by #fmt(r.mean_citation_nll_gain,n:5) nats in the favorable direction. The mean group-balanced reduction in response NLL from the second learned read was #fmt(r.mean_second_visit_gain,n:5) nats.
@@ -93,7 +93,7 @@ The two visits share all parameters. Query and content corrections have rank 160
 
  #if "cold" in d.stages.at(1) [
   #let c=d.stages.at(1).cold
-  An independent process rebuilt the input features, loaded the archived weights and repeated the one-read and two-read paths, along with the original initialization. It reproduced all eight training decisions.
+  An independent process rebuilt the input features, loaded the archived weights and repeated the one-read and two-read paths, along with the original initialization. It reproduced all eight training decisions. The largest absolute difference across the restored response losses, teacher KL and citation losses was #fmt(calc.max(..c.max_errors_by_state.values().map(x=>calc.max(..x.values()))),n:8). It also independently counted all 6,394 distinct complete examples in each epoch.
  ]
 ]
 #if "reading" in d [
