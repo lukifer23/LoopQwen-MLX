@@ -96,6 +96,11 @@ def main():
         "--checkpoint", required=True, help="Adapter checkpoint or merged export"
     )
     p.add_argument(
+        "--trace",
+        action="store_true",
+        help="Include available resident attention-site offsets and retained KV lengths",
+    )
+    p.add_argument(
         "--document-reader",
         type=Path,
         help="Apply a trained span ranker to long document questions",

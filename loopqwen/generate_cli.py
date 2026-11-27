@@ -60,6 +60,10 @@ def render(tok, source, thinking):
 
 
 def run(args, parser):
+    trace = getattr(args, "trace", False)
+    if trace and args.offload_dir is not None:
+        parser.error("--trace measures native resident attention histories")
+    history = {"record_kv_history": True} if trace else {}
     acquire()
     source = (
         args.prompt_file.read_bytes().decode("utf-8")
@@ -76,6 +80,7 @@ def run(args, parser):
             args.max_tokens,
             offload_dir=args.offload_dir,
             stop_ids=stops,
+            **history,
         )
 
     from .model_loader import ordinary as base
@@ -120,6 +125,7 @@ def run(args, parser):
             offload_dir=args.offload_dir,
             stop_ids=stops,
             progress=observe,
+            **history,
         )
         mx.synchronize()
         wall = perf_counter() - start
