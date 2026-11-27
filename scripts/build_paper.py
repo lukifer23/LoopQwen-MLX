@@ -239,6 +239,16 @@ def main(verify):
                 check=True,
             )
 
+    linked = ROOT / "research/results/linked-rollin-02/decision.json"
+    if linked.is_file() and "arms" in read(linked):
+        for args in (
+            ["scripts.file_evidence_checkpoints", "--linked-rollin-text"],
+            ["scripts.linked_rollin_exposure"],
+            ["scripts.linked_rollin_analysis", "report"],
+            ["scripts.paper_linked_rollin"],
+        ):
+            subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

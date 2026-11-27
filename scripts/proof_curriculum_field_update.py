@@ -31,6 +31,11 @@ class Edition:
     verification: str
     bundle: str
     modules: tuple
+    cohort: str = "01"
+
+    @property
+    def study_id(self):
+        return self.study + "-" + self.cohort
 
 
 PROOF = Edition(
@@ -89,6 +94,24 @@ VALID = Edition(
 )
 
 
+LINKED = Edition(
+    "linked-rollin",
+    "loopqwen-linked-rollin-08.zip",
+    "LINKED_ROLLIN.md",
+    "loopqwen-grounding-study.pdf",
+    "linked-rollin-update-08.json",
+    "linked-rollin.bundle",
+    (
+        ("verify_linked_sources", ()),
+        ("linked_rollin_exposure", ()),
+        ("linked_rollin_analysis", ("report",)),
+        ("paper_cache_state", ()),
+        ("paper_linked_rollin", ()),
+    ),
+    cohort="02",
+)
+
+
 def tracked(revision, path):
     names = subprocess.check_output(
         ["git", "ls-tree", "-r", "--name-only", "-z", revision, "--", path],
@@ -98,7 +121,7 @@ def tracked(revision, path):
 
 
 def make(tmp, revision, update, edition):
-    policy = ROOT / "research/results" / (edition.study + "-01")
+    policy = ROOT / "research/results" / edition.study_id
     spec = read(policy / "registration.json")
     panel = read(ROOT / spec["material"])
     docs = ROOT / "paper"
@@ -143,6 +166,12 @@ def make(tmp, revision, update, edition):
                 files[f"schedule-sources/{year}.{fmt}"] = source(
                     year, fmt, False
                 ).read_bytes()
+    if edition == LINKED:
+        files["paper/cache-state-conversations.svg"] = (
+            docs / "cache-state-conversations.svg"
+        )
+        for source in tracked(revision, "research/sources/linked-tables"):
+            files["linked-sources/" + source.name] = source
     rows = panel["rows"]
     # Select by enrollment order alone: the first story through both channels, a whole
     # practical contrast, and first retained table. No success or latency is consulted.
@@ -158,7 +187,12 @@ def make(tmp, revision, update, edition):
     if edition == VALID:
         event = next(w["cluster"] for w in rows if w["family"] == "agenda")
         selected.extend(w for w in rows if w["cluster"] == event)
-    assert len(selected) == (7 if edition == VALID else 5)
+    if edition == LINKED:
+        first = next(w["cluster"] for w in rows if w["family"] == "linked_inline")
+        event = next(w["cluster"] for w in rows if w["family"] == "agenda")
+        selected = [w for w in rows if w["cluster"] in (first, event, pair)]
+        selected.append(next(w for w in rows if w["family"] == "retention"))
+    assert len(selected) == (7 if edition in (VALID, LINKED) else 5)
     cases = []
     for j, w in enumerate(selected):
         key = f"{j + 1}-{w['family']}"
@@ -179,9 +213,12 @@ def make(tmp, revision, update, edition):
             "--prompt",
             w["questions"][0],
         ]
-        if w["document"]:
-            name = "examples/" + w["document"]
-            files[name] = panel["documents"][w["document"]].encode()
+        paths = (
+            w["files"] if "files" in w else ([w["document"]] if w["document"] else [])
+        )
+        for path in paths:
+            name = "examples/" + path
+            files[name] = panel["documents"][path].encode()
             args.extend(["--keyed-csv", name])
         if w["family"] == "agenda":
             args.extend(["--resource", "calendar"])
@@ -211,7 +248,7 @@ def main(edition=PROOF):
         else subprocess.check_output(
             (
                 ["git", "log", "-1", "--format=%H", "--", "paper/" + edition.paper]
-                if edition in (FIELD, VALID)
+                if edition in (FIELD, VALID, LINKED)
                 else ["git", "rev-parse", "HEAD"]
             ),
             cwd=ROOT,
@@ -327,7 +364,7 @@ def main(edition=PROOF):
             assert (
                 p.read_bytes()
                 == (
-                    checkout / "research/results" / (edition.study + "-01") / p.name
+                    checkout / "research/results" / edition.study_id / p.name
                 ).read_bytes()
             )
         generated = [
@@ -348,7 +385,8 @@ def main(edition=PROOF):
         for module, args in edition.modules:
             research_path = (
                 "sys.path.insert(0,str(Path.cwd()));"
-                if edition == VALID or module == "verify_field_selection_frozen"
+                if edition in (VALID, LINKED)
+                or module == "verify_field_selection_frozen"
                 else "sys.path.append(str(Path.cwd()));"
             )
             code = (
@@ -431,5 +469,14 @@ if __name__ == "__main__":
     editions = parser.add_mutually_exclusive_group()
     editions.add_argument("--field-selection", action="store_true")
     editions.add_argument("--valid-return", action="store_true")
+    editions.add_argument("--linked-rollin", action="store_true")
     options = parser.parse_args()
-    main(VALID if options.valid_return else FIELD if options.field_selection else PROOF)
+    main(
+        LINKED
+        if options.linked_rollin
+        else VALID
+        if options.valid_return
+        else FIELD
+        if options.field_selection
+        else PROOF
+    )

@@ -65,6 +65,14 @@ EDITIONS = {
         "Current study · Choosing between two real observations",
         "Field selection, reasoning, long context and historical technical report",
     ),
+    "linked-rollin": (
+        "loopqwen-preference-study.pdf",
+        "8ebd15d3a95cb1c86710236c1450021a08261921d218820a691ae5c474464bc4",
+        "loopqwen-grounding-study.pdf",
+        "LoopQwen-MLX: learning from observed tool histories and reading complete evidence",
+        "Current study · Learning on the learner’s own tool histories",
+        "Preference learning, matched depth, context and technical history",
+    ),
 }
 
 
@@ -113,6 +121,7 @@ if __name__ == "__main__":
                 "proof-curriculum",
                 "field-selection",
                 "valid-return",
+                "linked-rollin",
             }
             and not (args.folder / (name + "-paper.json")).is_file()
         ):
