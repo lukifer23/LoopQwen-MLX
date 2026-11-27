@@ -32,20 +32,23 @@ def run(full=False):
             def pytest_runtest_logreport(self, report):
                 if report.when == "call" or report.failed or report.skipped:
                     rows.append(
-                        dict(
-                            test=report.nodeid,
-                            status=report.outcome,
-                            seconds=report.duration,
-                        )
+                        {
+                            "test": report.nodeid,
+                            "status": report.outcome,
+                            "seconds": report.duration,
+                        }
                     )
 
         start = monotonic()
         code = pytest.main(["-q", "--disable-warnings", *files], plugins=[Observe()])
         save(
             ROOT / (receipt + ".json"),
-            dict(
-                passed=code == 0, tests=rows, seconds=monotonic() - start, files=files
-            ),
+            {
+                "passed": code == 0,
+                "tests": rows,
+                "seconds": monotonic() - start,
+                "files": files,
+            },
         )
         if code:
             raise RuntimeError(f"Native release regression exit {code}")

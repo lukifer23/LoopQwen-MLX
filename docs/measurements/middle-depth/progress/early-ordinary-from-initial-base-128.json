@@ -1,0 +1,1178 @@
+{
+  "summary": {
+    "chat": {
+      "sources": {
+        "parcel": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "studio": {
+          "current": {
+            "changes_correctly": true,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "volunteer": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 3,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 3,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 4.177217458025552
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 0,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 9
+          },
+          "seconds": 18.552951959951315
+        }
+      }
+    },
+    "reasoning": {
+      "sources": {
+        "archive": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "bridge": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": true
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "kiln": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 2,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 2,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 8.738399999972899
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 0,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 9
+          },
+          "seconds": 18.01976525003556
+        }
+      }
+    },
+    "tools": {
+      "sources": {
+        "ink": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "parcels": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "tiles": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 0,
+          "completed": 6,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 6,
+            "token_limit": 3
+          },
+          "seconds": 8.527195042173844
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 0,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 9
+          },
+          "seconds": 19.516359960020054
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "source": "archive",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Uses the superseded register as the present payment decision.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.188049582997337,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/archive-changed.json.gz",
+        "sha": "39582f8c966b81f1dad64e64556a13044653d64c258c056290cb2400d5eaa817"
+      },
+      "baseline": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 1.9600151660270058,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/archive-changed.json.gz",
+        "sha": "51fc85f89dda591bd9472cc8e2f4eb8d52a980eedcb036f69f2be29af6f2fee1"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Applies an Elm-only hold to Cedar.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7775247499812394,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/archive-irrelevant.json.gz",
+        "sha": "5d96da0e18e1b3275a93fba9d2cc135b83ffc28bb4eca44fffbda2a61be2a7b4"
+      },
+      "baseline": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.110610749979969,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/archive-irrelevant.json.gz",
+        "sha": "70c455122b2406e5f515dce758239498060a43f355ae8bdae4666d159dd63d23"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Falsely applies the Ash-only hold to Cedar.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.8678344589425251,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/archive-original.json.gz",
+        "sha": "3dbb85e97a73e8192ca8c98d86c3fb99109639025344f56029f6dc22553efe5b"
+      },
+      "baseline": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 1.9066622499958612,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/archive-original.json.gz",
+        "sha": "800650cd579192ff307333c471c3b1a49f8b42fd60d77335248a241975237da5"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Misses the explicit observation of both markers.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.5040722080157138,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/bridge-changed.json.gz",
+        "sha": "2688b2f12287a24330b2f013bf804a990ec39eef5da705be6fb059deafea5df9"
+      },
+      "baseline": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.083532709046267,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/bridge-changed.json.gz",
+        "sha": "447b339dda7e7a3426c750ec50835486f699b918af6a5e30897d8bed144cd65b"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.48169808299280703,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/bridge-irrelevant.json.gz",
+        "sha": "5fa74a77e9147eff19921bf928bb22027aa20b158cd3c898b14b998851bae9d4"
+      },
+      "baseline": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 1.9673997919890098,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/bridge-irrelevant.json.gz",
+        "sha": "ab7fae4cd81c00912dd25bd942af9e11e65010a3a284b26b3b5f13152f3913df"
+      },
+      "delta": 1
+    },
+    {
+      "source": "bridge",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4531008339836262,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/bridge-original.json.gz",
+        "sha": "b407d7f94a9f727f3d03fa67d0841527f9fca728b2ab8e4e55881dffa7b89139"
+      },
+      "baseline": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.088962708017789,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/bridge-original.json.gz",
+        "sha": "8ea6897e02ef7353ab896e08e555afb3b5c927f1de019de8f135b6dfd7973dfa"
+      },
+      "delta": 1
+    },
+    {
+      "source": "ink",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Emits closing tags without an answer or a calculator call.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.2511769999982789,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/ink-changed.json.gz",
+        "sha": "aa6c707427a0f703b6738280c5ee68468ced3f0e5e00f5c8f6ab98706d01436b"
+      },
+      "baseline": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.206848750007339,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/ink-changed.json.gz",
+        "sha": "cfe0ebf8a4fceedf37d4120b371eb53b30c9d34d34a1c6dc4c6b518fa9a26a2e"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Emits closing tags without an answer or a calculator call.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.24465350003447384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/ink-irrelevant.json.gz",
+        "sha": "d5994c9e8be0bd7b4facef6086097e60e1d678bf7b79225a4fad1520b24f3a5c"
+      },
+      "baseline": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.138969208986964,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/ink-irrelevant.json.gz",
+        "sha": "1eb9b58080a8a1ad2e05e6f35fa6ff3014fd6631998434904ba9f280f9e93525"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Emits closing tags without an answer or a calculator call.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.24246941704768687,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/ink-original.json.gz",
+        "sha": "fb8878c8c123466317cde147f0042d820931ee5fb0d63f5edae9a5b69cfd615f"
+      },
+      "baseline": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.178545375005342,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/ink-original.json.gz",
+        "sha": "696c648fe2f6a90a8392c38dbf32d9a448620fe4699a7e94ac6dfde265e77328"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscomputes elapsed time as ten hours twenty.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.4592377090011723,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/kiln-changed.json.gz",
+        "sha": "80269b056abded61228c34683efb10ef8691b7b40b3a6e78a1e46acaf347c4f3"
+      },
+      "baseline": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 1.9508362079504877,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/kiln-changed.json.gz",
+        "sha": "73bd16e96150a80d30012a4756f187b264493e1dda7ec4dfd7005a40221251b4"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscomputes elapsed time as ten hours twenty.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.4758783330325969,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/kiln-irrelevant.json.gz",
+        "sha": "2cc6bce5550fcee6d6f6180223bed80fc6c02a2415957fc391e57a7a32397a6a"
+      },
+      "baseline": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 1.9637929580057971,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/kiln-irrelevant.json.gz",
+        "sha": "025ed1d5b6ac89503f0528b2344706b37d49115baa8a8d80590e5e94ee02f3b1"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscomputes elapsed time as ten hours twenty.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5310040410258807,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/kiln-original.json.gz",
+        "sha": "76dfc1acbdf3a056177812e6bbd8d6929ae54666cd3568f3c9c1d44e80a584ac"
+      },
+      "baseline": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 1.987952709023375,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/kiln-original.json.gz",
+        "sha": "91fbc31ee5948623cc9a47647eb9cff03eb6e90b94d61addbf6eb54c32e9e008"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1991832079947926,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcel-changed.json.gz",
+        "sha": "cdb6941b08b09de81ab766dd7666d0dce4f5a48babb9f5c60d64970477629c88"
+      },
+      "baseline": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.082902791968081,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/parcel-changed.json.gz",
+        "sha": "90b6067e5975da3d82d22d0626b98f92efbc32b24068295edf7c4fd1af946131"
+      },
+      "delta": 1
+    },
+    {
+      "source": "parcel",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.16383608302567154,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcel-irrelevant.json.gz",
+        "sha": "220d08f50e3756ee9d6154e9b51069a1a5581520da4abf226b3a2f90ecd3c1aa"
+      },
+      "baseline": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.093330917006824,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/parcel-irrelevant.json.gz",
+        "sha": "825152afbc3b082030864919ab73610dbe4f17354f101a5cf87196ded7fc01d5"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.15925374999642372,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcel-original.json.gz",
+        "sha": "d58c0e31d4046626853b6894fb466558f6aca68107fe8e88398bcc194babc1a3"
+      },
+      "baseline": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.0372937499778345,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/parcel-original.json.gz",
+        "sha": "ef338be4f513e7b7c15ac14b42b486086e8021764a856b28b15aea9be14bcc73"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.40299666702048853,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-changed.json.gz",
+        "sha": "8e179b5a9934a9481548baf6586ab7f4dcf3c0aee7428b0ea1f1463beb68d56f"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.173263875010889,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/parcels-changed.json.gz",
+        "sha": "b5e3ccb2b7442aca28454fdabe2149f9e7e7e8fe281863d39451d06dfeb0f80a"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4156770000117831,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-irrelevant.json.gz",
+        "sha": "775446b3815388c882eb3d5c61c2c6e85efdcc74a5dcddfbf3547b3a62e9173e"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.17611866700463,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/parcels-irrelevant.json.gz",
+        "sha": "50074a92ee25b0ea96bf8cdfdd8ec2d03358ee646a7bf895d638015b9d64465b"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4171582910348661,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-original.json.gz",
+        "sha": "b1ad4207e75d04f7ef6ae4d4d064afcfa48b03216fd6519fe919e0364099fef3"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.173737167031504,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/parcels-original.json.gz",
+        "sha": "b1719b7db503b90fdb950e536e2c94ff13d674c110d680b47935cf06e89696a0"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "c1a2a1510e7a938014e6d2e9ae7fe9296a7ce8ac39d096e1a962b78fbe0a6d34",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4313058750121854,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-own.json.gz",
+        "sha": "9800f6ad6dc538fbdce84d4d8bec74f4915534206e025fce57d6d36902f60ebd"
+      },
+      "baseline": {
+        "initial": "65138ae00762dd58f40e79ab928e85ec0e2ab966d13ddb3a74f029554b77d57f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.1596179170301184,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/parcels-own.json.gz",
+        "sha": "cb8aeaab94a939ff37b58f50361617c78b9be431f39592fcab09a9ca34d5f163"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Invents the fifteenth without looking up jade.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.39735970803303644,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-shared.json.gz",
+        "sha": "5efbd158deafcc4e8b706ddedcbbb6504d6bf3aa38697359f204ad55b6ae3c46"
+      },
+      "baseline": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.2006486660102382,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/parcels-shared.json.gz",
+        "sha": "5a7dcdd38f5b39bf53fd011cc00b43a848dc28f0b4c1fa1f487cf50c9a4a96bf"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.60622133302968,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/studio-changed.json.gz",
+        "sha": "426264e959fe6a9bd0364fed4e06b72f74d327a453409e64a05d9283c8e97fe9"
+      },
+      "baseline": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.0828933750162832,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/studio-changed.json.gz",
+        "sha": "e25857e2b6ba341973d2a9cb4b0dde041f8ed51f92b801e1813d008362bd6b1f"
+      },
+      "delta": 1
+    },
+    {
+      "source": "studio",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Promises personal attendance on both days without support from the note.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7545153339742683,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/studio-irrelevant.json.gz",
+        "sha": "20ee2088a61b36b7a2b3fc0e7d3dd311c95831827be107fbf3ae5cea151dfe1f"
+      },
+      "baseline": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.0141028750222176,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/studio-irrelevant.json.gz",
+        "sha": "103691a382280efae426d4ffb3d6684ff865672f1af0771737adc91fe9dd74e8"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6002192919841036,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/studio-original.json.gz",
+        "sha": "82ba2df28656968a10448c14f24746af01d526a9d04a6da3ea3d8b18c3801e04"
+      },
+      "baseline": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.07799833297031,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/studio-original.json.gz",
+        "sha": "3084d1975cf1018ad8d5f32a9d3da4dee75e4925fc52cd8f8c01eea9ae21b889"
+      },
+      "delta": 1
+    },
+    {
+      "source": "tiles",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.0937029999913648,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-changed.json.gz",
+        "sha": "fa84a1f168f0857485e652d54d78c3674e489aad6b8ac79c9622b0dd94af0309"
+      },
+      "baseline": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.1884283749968745,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/tiles-changed.json.gz",
+        "sha": "df402b7fad6f07c498800f3da7943fe5e2d637499044e3d614a4dd0b8138f544"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.2320465419907123,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-irrelevant.json.gz",
+        "sha": "c158dbd8b602fa255073585a69b672f01375a721e88b47b56bdb13f04a4657af"
+      },
+      "baseline": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.1081336669740267,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/tiles-irrelevant.json.gz",
+        "sha": "4edaf5ec09b706f183a59d78ddfee4b5e0db881308a4d5753914d99e846ebe8e"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.2273136250441894,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-original.json.gz",
+        "sha": "9d3d81fc9f892b19fb41f43e59c38a56470ab0e7ec5924c045d77d14820e7509"
+      },
+      "baseline": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.1723148750024848,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/tiles-original.json.gz",
+        "sha": "f98f103b0c046c4a7393da323e283892f1364972d3b9453e4d1130542bdd54f7"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "79e7772f62d67bb502efe9e95f956eea0bdda4177cdba690d89a00fc7981bc30",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.1802313750376925,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-own.json.gz",
+        "sha": "bf98d97215816b82606a2ab132db8578313276e2d1189b087a006e0cceefce18"
+      },
+      "baseline": {
+        "initial": "79e7772f62d67bb502efe9e95f956eea0bdda4177cdba690d89a00fc7981bc30",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.178485709009692,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/tiles-own.json.gz",
+        "sha": "7ba46dcf32409874861190cd50ccc2687b436b775ddba8c580f6161f0c651435"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Reports the number given away as the remainder without execution.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.25052179099293426,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-shared.json.gz",
+        "sha": "47e82785d58058a5dcc37434e4a31ab479164bed9d0fda8c0379b27d2e6c2491"
+      },
+      "baseline": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.1772127079893835,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/tiles-shared.json.gz",
+        "sha": "37cae1c8610c8ed8415ab9b3bb62e996781fe617147f4df55a260935d3836a5f"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Asks the volunteer to bring the supplied gloves.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6334950409946032,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/volunteer-changed.json.gz",
+        "sha": "be4ee6c6514c052947480cbad0f3dff563ebcb7b995f76653919b2473bcaa1dd"
+      },
+      "baseline": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.065858667017892,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/volunteer-changed.json.gz",
+        "sha": "10ca131d3ca341cb9602d3e5be966dacee36bb734dd9db483d4b86a9e56ad1a6"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Gives two sentences instead of the requested single sentence.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.5647411670070142,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/volunteer-irrelevant.json.gz",
+        "sha": "5eb5352e641d84ed4195f8d53f42e715da647d5d69c55499347910e4c7bb9282"
+      },
+      "baseline": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.0717333339853212,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/volunteer-irrelevant.json.gz",
+        "sha": "8ee2c3c92aaa5fdaff6b159b6c49c048c65d1ad2259e659de905512e640bdb47"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Gives two sentences instead of the requested single sentence.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.49575225001899526,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/volunteer-original.json.gz",
+        "sha": "d3b5995d64a9192e353bb674c693026f43d2eb1c9828eecf9fff057fa20a362d"
+      },
+      "baseline": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.026837916986551,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/base/volunteer-original.json.gz",
+        "sha": "58c1468555cdb1936d30ded5dcf22f900e428f970bf7f2373c03132b8614ba18"
+      },
+      "delta": 0
+    }
+  ],
+  "macro_delta": 0.1851851851851852,
+  "definition": "Opening score counts complete supported answers. A changed pair requires success in both source worlds. A stability pair requires success in original and irrelevant worlds. Own/shared are reported separately. A provider result without an error is not proof of relevant operands or successful delivery."
+}

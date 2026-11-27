@@ -45,19 +45,50 @@ def review(stage):
             for t in tr["turns"]
             if "call" in t or "calls" in t
         ]
-        item = dict(
-            source=source,
-            world=world,
-            reference=reference,
-            answer=tr["answer"],
-            calls=calls,
-        )
+        item = {
+            "source": source,
+            "world": world,
+            "reference": reference,
+            "answer": tr["answer"],
+            "calls": calls,
+        }
         prompts[fingerprint(item)] = item
     save(out / "blinded.json", {k: prompts[k] for k in sorted(prompts)})
     return prompts
 
 
+def first_visible(turns, timestamps, tok):
+    """Time of the first visible prose token in the actual public conversation."""
+    closing = tok.convert_tokens_to_ids("</think>")
+    visible = None
+    timing = iter(timestamps)
+    for turn in turns:
+        generated = turn["token_ids"]
+        start = len(turn["prompt_ids"])
+        stamps = [
+            next(t for pos, t in timing if pos == start + i)
+            for i in range(len(generated))
+        ]
+        if visible is not None or closing not in generated:
+            continue
+        after = generated.index(closing) + 1
+        # Only natural-language text visible before an action can count.
+        # Token-limit traces may still contain the beginning of a reply.
+        for i in range(after, len(generated)):
+            piece = tok.decode([generated[i]]).strip()
+            if piece in ("<tool_call>", "<|im_end|>", "<think>"):
+                break
+            if piece and piece != "</think>":
+                visible = stamps[i]
+                break
+    return visible
+
+
 def aggregate(stage):
+    from loopqwen.research.cross_view_study import tokenizer
+    from scripts.middle_depth_budget import BASE
+
+    tok = tokenizer({"checkpoint": str(BASE)})
     prompts = review(stage)
     rates = read(ROOT / "review" / stage / "grades.json")
     if set(prompts) != set(rates):
@@ -75,71 +106,43 @@ def aggregate(stage):
             if "call" in t or "calls" in t
         ]
         if tr["status"] != "answered":
-            grade = dict(correct=False, first_error=tr["status"], unsupported=None)
+            grade = {"correct": False, "first_error": tr["status"], "unsupported": None}
         else:
             k = fingerprint(
-                dict(
-                    source=source,
-                    world=world,
-                    reference=reference,
-                    answer=tr["answer"],
-                    calls=calls,
-                )
+                {
+                    "source": source,
+                    "world": world,
+                    "reference": reference,
+                    "answer": tr["answer"],
+                    "calls": calls,
+                }
             )
             grade = rates[k]
         tps = sum(len(t["token_ids"]) - 1 for t in tr["turns"])
         decode = sum(t["seconds"] - t["ttft_s"] for t in tr["turns"])
-        # Trace progress reports the consumed physical position after every
-        # greedy token. Locate the first actual visible non-whitespace token.
-        visible = None
-        from loopqwen.research.cross_view_study import tokenizer
-        from scripts.middle_depth_budget import BASE
-
-        if not hasattr(aggregate, "tokenizer"):
-            aggregate.tokenizer = tokenizer({"checkpoint": str(BASE)})
-        tok = aggregate.tokenizer
-        timing = iter(row["timing"])
-        for turn in tr["turns"]:
-            generated = turn["token_ids"]
-            start = len(turn["prompt_ids"])
-            stamps = [
-                next(t for pos, t in timing if pos == start + i)
-                for i in range(len(generated))
-            ]
-            if visible is not None or 248069 not in generated:
-                continue
-            after = generated.index(248069) + 1
-            # Only natural-language text visible before an action can count.
-            # Token-limit traces may still contain the beginning of a reply.
-            for i in range(after, len(generated)):
-                piece = tok.decode([generated[i]]).strip()
-                if piece in ("<tool_call>", "<|im_end|>", "<think>"):
-                    break
-                if piece and piece != "</think>":
-                    visible = stamps[i]
-                    break
+        visible = first_visible(tr["turns"], row["timing"], tok)
         results.append(
-            dict(
-                file=str(f.relative_to(ROOT)),
-                sha=digest(f),
-                arm=f.parent.name,
-                cap=int(f.parent.parent.name),
-                source=source,
-                world=world,
-                family=row["family"],
-                grade=grade,
-                status=tr["status"],
-                seconds=tr["seconds"],
-                time_to_correct=tr["seconds"] if grade["correct"] else None,
-                first_token=tr["turns"][0]["ttft_s"],
-                first_visible=visible,
-                token_count=sum(len(t["token_ids"]) for t in tr["turns"]),
-                input_tokens=len(tr["turns"][0]["prompt_ids"]),
-                decode_tps=tps / decode if decode else None,
-                opening_tps=len(tr["turns"][0]["prompt_ids"])
+            {
+                "file": str(f.relative_to(ROOT)),
+                "sha": digest(f),
+                "arm": f.parent.name,
+                "cap": int(f.parent.parent.name),
+                "source": source,
+                "world": world,
+                "family": row["family"],
+                "grade": grade,
+                "status": tr["status"],
+                "seconds": tr["seconds"],
+                "time_to_correct": tr["seconds"] if grade["correct"] else None,
+                "first_token": tr["turns"][0]["ttft_s"],
+                "first_visible": visible,
+                "token_count": sum(len(t["token_ids"]) for t in tr["turns"]),
+                "input_tokens": len(tr["turns"][0]["prompt_ids"]),
+                "decode_tps": tps / decode if decode else None,
+                "opening_tps": len(tr["turns"][0]["prompt_ids"])
                 / tr["turns"][0]["ttft_s"],
-                peak=max(t["peak_bytes"] for t in tr["turns"]),
-            )
+                "peak": max(t["peak_bytes"] for t in tr["turns"]),
+            }
         )
     save(ROOT / "review" / stage / "scored.json", results)
     groups = defaultdict(list)
@@ -147,17 +150,17 @@ def aggregate(stage):
         if r["world"] not in ("own", "shared"):
             groups[r["arm"], r["cap"], r["family"]].append(r)
     summary = [
-        dict(
-            arm=a,
-            cap=c,
-            family=f,
-            episodes=len(z),
-            success=sum(r["grade"]["correct"] for r in z),
-            by_eight_seconds=sum(
+        {
+            "arm": a,
+            "cap": c,
+            "family": f,
+            "episodes": len(z),
+            "success": sum(r["grade"]["correct"] for r in z),
+            "by_eight_seconds": sum(
                 r["grade"]["correct"] and r["seconds"] <= 8 for r in z
             ),
-            seconds=sum(r["seconds"] for r in z),
-        )
+            "seconds": sum(r["seconds"] for r in z),
+        }
         for (a, c, f), z in groups.items()
     ]
     save(ROOT / "review" / stage / "summary.json", summary)

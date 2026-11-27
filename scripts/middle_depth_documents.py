@@ -11,14 +11,14 @@ from loopqwen.evaluation.mechanism import packed, unpack
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.looped_model import LoopedModel
-from loopqwen.middle_depth import MiddleAssistant, architecture, donor, INSTRUCTION_REV
+from loopqwen.middle_depth import INSTRUCTION_REV, MiddleAssistant, architecture, donor
 from loopqwen.qwen_tools import declarations, render
 from loopqwen.recurrence import Span
 from loopqwen.research.cross_view_study import tokenizer
-from scripts.middle_depth_retention import saved
 from loopqwen.research.resident_document import ResidentDocument
 from loopqwen.tool_session import run
 from scripts.middle_depth_budget import BASE, ROOT, worker
+from scripts.middle_depth_retention import saved
 
 SPECS = Path("research/diagnostics/middle-depth")
 FROZEN = SPECS / "document-openings.json"
@@ -39,7 +39,7 @@ def worlds(name, tok):
         )
         question = body + "\n\n" + spec["question"]
         p = tok.encode(
-            render(tok, [dict(role="user", content=question)], declarations(tools)),
+            render(tok, [{"role": "user", "content": question}], declarations(tools)),
             add_special_tokens=False,
         )
         w[world] = (question, p)
@@ -58,16 +58,17 @@ def freeze():
     tok = tokenizer({"checkpoint": str(BASE)})
     results = {}
     for name in ("book", "anne"):
-        spec, t, w, ids = worlds(name, tok)
-        results[name] = dict(
-            spec=digest(SPECS / f"{name}-dev.json"),
-            source=digest(Path(spec["source"])),
-            common=len(ids),
-            common_sha=fingerprint(ids),
-            worlds={
-                k: dict(input=fingerprint(p), length=len(p)) for k, (q, p) in w.items()
+        spec, _t, w, ids = worlds(name, tok)
+        results[name] = {
+            "spec": digest(SPECS / f"{name}-dev.json"),
+            "source": digest(Path(spec["source"])),
+            "common": len(ids),
+            "common_sha": fingerprint(ids),
+            "worlds": {
+                k: {"input": fingerprint(p), "length": len(p)}
+                for k, (q, p) in w.items()
             },
-        )
+        }
     save(FROZEN, results)
 
 
@@ -83,7 +84,7 @@ def irrelevant_opening(book, tok, original, tools, common):
     assert original.count(before) == 1
     q = original.replace(before, after)
     p = tok.encode(
-        render(tok, [dict(role="user", content=q)], declarations(tools)),
+        render(tok, [{"role": "user", "content": q}], declarations(tools)),
         add_special_tokens=False,
     )
     assert p[: len(common)] == common
@@ -95,11 +96,15 @@ def freeze_irrelevant():
     rows = {}
     for name in ("book", "anne"):
         spec, tools, w, common = worlds(name, tok)
-        q, p = irrelevant_opening(name, tok, w["original"][0], tools, common)
-        rows[name] = dict(
-            input=fingerprint(p), length=len(p), reference=spec["rubric_original"]
-        )
-    save(STABLE, dict(edits=digest(IRRELEVANT), original=digest(FROZEN), rows=rows))
+        _q, p = irrelevant_opening(name, tok, w["original"][0], tools, common)
+        rows[name] = {
+            "input": fingerprint(p),
+            "length": len(p),
+            "reference": spec["rubric_original"],
+        }
+    save(
+        STABLE, {"edits": digest(IRRELEVANT), "original": digest(FROZEN), "rows": rows}
+    )
 
 
 def extra_openings():
@@ -111,18 +116,19 @@ def extra_openings():
             (
                 "shared",
                 [
-                    dict(role="user", content=q),
-                    dict(role="assistant", content=spec["rubric_" + world]),
-                    dict(role="user", content=spec["followup"]),
+                    {"role": "user", "content": q},
+                    {"role": "assistant", "content": spec["rubric_" + world]},
+                    {"role": "user", "content": spec["followup"]},
                 ],
             ),
             (
                 "unanswerable",
                 [
-                    dict(
-                        role="user",
-                        content=q.removesuffix(spec["question"]) + spec["unanswerable"],
-                    )
+                    {
+                        "role": "user",
+                        "content": q.removesuffix(spec["question"])
+                        + spec["unanswerable"],
+                    }
                 ],
             ),
         ):
@@ -130,16 +136,17 @@ def extra_openings():
                 render(tok, msgs, declarations(tools)), add_special_tokens=False
             )
             assert tokens[: len(ids)] == ids
-            rows[world + "/" + kind] = dict(
-                input=fingerprint(tokens), length=len(tokens)
-            )
+            rows[world + "/" + kind] = {
+                "input": fingerprint(tokens),
+                "length": len(tokens),
+            }
     save(
         EXTRA,
-        dict(
-            first=digest(FROZEN),
-            rows=rows,
-            protocol="Primary book inputs contain the complete published or edited document. The unanswerable asks for an undocumented clock minute without a supplied first answer. On separate follow-ups, own history retains actual model exchanges and shared history fixes a common supported first response.",
-        ),
+        {
+            "first": digest(FROZEN),
+            "rows": rows,
+            "protocol": "Primary book inputs contain the complete published or edited document. The unanswerable asks for an undocumented clock minute without a supplied first answer. On separate follow-ups, own history retains actual model exchanges and shared history fixes a common supported first response.",
+        },
     )
 
 
@@ -167,14 +174,14 @@ def qualified_resident(model, prefix, full, ident, output_tokens, guard):
         errors = [mx.max(mx.abs(a - b)).item() for a, b in zip(*probes, strict=True)]
         save(
             audit,
-            dict(
-                passed=max(errors) == 0,
-                identity=ident,
-                sites=model.sites,
-                input=fingerprint(opening),
-                positions=len(opening),
-                maximum_logit_error=errors,
-            ),
+            {
+                "passed": max(errors) == 0,
+                "identity": ident,
+                "sites": model.sites,
+                "input": fingerprint(opening),
+                "positions": len(opening),
+                "maximum_logit_error": errors,
+            },
         )
     if not read(audit)["passed"]:
         raise ValueError("This exact deployed prefix failed resident logit parity")
@@ -275,9 +282,10 @@ def measure(args):
                 extra = read(EXTRA)
                 assert extra["first"] == digest(FROZEN)
                 ids_used = trace["turns"][0]["prompt_ids"]
-                assert extra["rows"][args.world + "/" + kind] == dict(
-                    input=fingerprint(ids_used), length=len(ids_used)
-                )
+                assert extra["rows"][args.world + "/" + kind] == {
+                    "input": fingerprint(ids_used),
+                    "length": len(ids_used),
+                }
             for turn in trace["turns"]:
                 length = len(turn["prompt_ids"]) + len(turn["token_ids"]) - 1
                 assert len(turn["kv_history"]) == sum(
@@ -288,21 +296,21 @@ def measure(args):
                 )
             packed(
                 path,
-                dict(
-                    cache_mode=args.cache_mode,
-                    identity=ident,
-                    weights=weights,
-                    frozen=digest(FROZEN),
-                    timing=times,
-                    trace=trace,
-                    source=cfg["source"],
-                    history=history,
-                    sites=model.sites,
-                    prefix_seconds=prefill_seconds,
-                    cold_build_seconds=prefix.cold_seconds,
-                    cold_time_basis=prefix.cold_time_basis,
-                    scratch_bytes=prefix.disk.scratch_bytes,
-                ),
+                {
+                    "cache_mode": args.cache_mode,
+                    "identity": ident,
+                    "weights": weights,
+                    "frozen": digest(FROZEN),
+                    "timing": times,
+                    "trace": trace,
+                    "source": cfg["source"],
+                    "history": history,
+                    "sites": model.sites,
+                    "prefix_seconds": prefill_seconds,
+                    "cold_build_seconds": prefix.cold_seconds,
+                    "cold_time_basis": prefix.cold_time_basis,
+                    "scratch_bytes": prefix.disk.scratch_bytes,
+                },
             )
             return history
 
@@ -313,8 +321,8 @@ def measure(args):
                 (
                     "shared",
                     [
-                        dict(role="user", content=q),
-                        dict(role="assistant", content=spec["rubric_" + args.world]),
+                        {"role": "user", "content": q},
+                        {"role": "assistant", "content": spec["rubric_" + args.world]},
                     ],
                 ),
             ):

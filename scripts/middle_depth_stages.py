@@ -5,7 +5,7 @@ from pathlib import Path
 from statistics import fmean
 
 from loopqwen.evaluation.mechanism import unpack
-from loopqwen.io import read, save, digest
+from loopqwen.io import digest, read, save
 from scripts.middle_depth_budget import ROOT
 from scripts.middle_depth_wave import dispatch, fit, generate
 
@@ -14,7 +14,8 @@ RUN = Path("checkpoints/middle-depth")
 
 
 def forks():
-    paths = {arm: fit(arm, 576) for arm in ARMS}
+    for arm in ARMS:
+        fit(arm, 576)
     for condition, stage in (("simple", "simple"), ("actual", "corrected")):
         children = {}
         for arm in ARMS if condition == "simple" else reversed(ARMS):
@@ -49,15 +50,15 @@ def select_history():
     }
     save(
         ROOT / "history-decision.json",
-        dict(
-            scores=scores,
-            passed=chosen,
-            stage="corrected" if chosen else "terminal",
-            models={
-                k: dict(path=str(p), weights=digest(p / "adapters.safetensors"))
+        {
+            "scores": scores,
+            "passed": chosen,
+            "stage": "corrected" if chosen else "terminal",
+            "models": {
+                k: {"path": str(p), "weights": digest(p / "adapters.safetensors")}
                 for k, p in models.items()
             },
-        ),
+        },
     )
     if chosen:
         generate("corrected", list(ARMS), [512], models)
@@ -145,14 +146,14 @@ def final_books():
                         stops.append([arm, kind])
             if world == "original" or stops:
                 reasons[key] = stops
-    enrollment = dict(
-        sources=previous,
-        reasons=reasons,
-        models=decision["models"],
-        registration=digest(
+    enrollment = {
+        "sources": previous,
+        "reasons": reasons,
+        "models": decision["models"],
+        "registration": digest(
             Path("research/diagnostics/middle-depth/output-headroom.md")
         ),
-    )
+    }
     log = ROOT / "headroom" / "complete-books.json"
     if log.exists() and read(log) != enrollment:
         raise ValueError("Full-document headroom enrollment changed")
@@ -223,12 +224,12 @@ def select_long():
 
     evidence = {}
     for arm in ARMS:
-        evidence[arm] = dict(
-            parent=books("parent", arm),
-            child=books("child", arm),
-            parent_short=short(policy["stage"], arm),
-            child_short=short("deployed", arm),
-        )
+        evidence[arm] = {
+            "parent": books("parent", arm),
+            "child": books("child", arm),
+            "parent_short": short(policy["stage"], arm),
+            "child_short": short("deployed", arm),
+        }
     x = evidence["loop"]
     keep = (
         sum(x["child"].values()) > sum(x["parent"].values())
@@ -238,16 +239,16 @@ def select_long():
     paths = {a: RUN / "long" / a for a in ARMS} if keep else selected()
     save(
         ROOT / "long-decision.json",
-        dict(
-            evidence=evidence,
-            passed=keep,
-            short_stage="deployed" if keep else policy["stage"],
-            document_stage="child" if keep else "parent",
-            models={
-                k: dict(path=str(p), weights=digest(p / "adapters.safetensors"))
+        {
+            "evidence": evidence,
+            "passed": keep,
+            "short_stage": "deployed" if keep else policy["stage"],
+            "document_stage": "child" if keep else "parent",
+            "models": {
+                k: {"path": str(p), "weights": digest(p / "adapters.safetensors")}
                 for k, p in paths.items()
             },
-        ),
+        },
     )
 
 

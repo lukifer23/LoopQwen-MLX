@@ -1,0 +1,1179 @@
+{
+  "summary": {
+    "chat": {
+      "sources": {
+        "parcel": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "studio": {
+          "current": {
+            "changes_correctly": true,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "volunteer": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 3,
+      "losses": 1,
+      "outcomes": {
+        "current": {
+          "success": 3,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 5.61134241707623
+        },
+        "baseline": {
+          "success": 1,
+          "completed": 1,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 8,
+            "answered": 1
+          },
+          "seconds": 20.796475042006932
+        }
+      }
+    },
+    "reasoning": {
+      "sources": {
+        "archive": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "bridge": {
+          "current": {
+            "changes_correctly": true,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "kiln": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 2,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 2,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 12.494732334103901
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 0,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 9
+          },
+          "seconds": 21.205300791945774
+        }
+      }
+    },
+    "tools": {
+      "sources": {
+        "ink": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "parcels": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "tiles": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 0,
+          "completed": 3,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 6,
+            "answered": 3
+          },
+          "seconds": 16.156862457923125
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 0,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 9
+          },
+          "seconds": 22.536078208009712
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "source": "archive",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Treats the dated correction as an unresolved discrepancy.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5432913330150768,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-changed.json.gz",
+        "sha": "5c2f8acd6d798082edb8f061cd2752d39cadb76273d3d9a1baf219e1191afffb"
+      },
+      "baseline": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.185297833988443,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/archive-changed.json.gz",
+        "sha": "5dc889a6c18c721d2e7df49665c254e2afc38b66ab78ed9cf77ffb8ef4957b15"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Invents payment for Elm and treats Cedar as unpaid.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9302277500391938,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-irrelevant.json.gz",
+        "sha": "b6d745233b2db7ee8a6cf6246a81725e85f8fca26b60506a0073352197069ec9"
+      },
+      "baseline": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3991590419900604,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/archive-irrelevant.json.gz",
+        "sha": "896a66b2c6b184e7c15fc8fc1e4db2acb3811c0ddae70cbbf97af9f52d64b044"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Treats the dated correction as an unresolved discrepancy.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5825187920127064,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-original.json.gz",
+        "sha": "56fa3f12c04e5d4921a719982c20f93774e832e7792998049f9d3697beea53cb"
+      },
+      "baseline": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.215806332998909,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/archive-original.json.gz",
+        "sha": "9824c5365b7e459c01f0b4b355850f01a84bc2a6855e01ebfb82eee6729b377a"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7380264580133371,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-changed.json.gz",
+        "sha": "817473b10c858613466587fd811d5a49e275f944156cbc10a72f02cf59c4c9ff"
+      },
+      "baseline": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.367559499980416,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/bridge-changed.json.gz",
+        "sha": "ca05a3a9efece1c36e312569146540c8d97f7f74889b59831a5842309c9f4df1"
+      },
+      "delta": 1
+    },
+    {
+      "source": "bridge",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Says the observed marker is unspecified despite the explicit red marker.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6025261670001782,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-irrelevant.json.gz",
+        "sha": "7d2b9e1ea4be2e72afd7dee9c6ab54503a03ea12269f777832295eac3d487d3d"
+      },
+      "baseline": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.367454541963525,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/bridge-irrelevant.json.gz",
+        "sha": "79517c19a553c1e6a40f0525319d0aa06d55f1c7682bf7cc6411d7c48fadf911"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7022670420119539,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-original.json.gz",
+        "sha": "6cc21c0ed1e8cc7df9b853437b4647a5e17b3b85de204b647554b217b3f204a3"
+      },
+      "baseline": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3849922079825774,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/bridge-original.json.gz",
+        "sha": "e347d068a1521685afafa65378b8798e14e3705e94b18224186b7db6a6833596"
+      },
+      "delta": 1
+    },
+    {
+      "source": "ink",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.560833957977593,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-changed.json.gz",
+        "sha": "6ad977035c428d5f3dbbe707b020374dc92db871db284055727386b36b777dac"
+      },
+      "baseline": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.549479125009384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/ink-changed.json.gz",
+        "sha": "18e4231d235c02f9893f3747d837d360738a9875a5846816f8b4c94baa6b7df3"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3404487500083633,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-irrelevant.json.gz",
+        "sha": "a5d05e4471a72b6f3e96a30979985b2cdacfb1cf0e9967b381c234b9fcc15d9a"
+      },
+      "baseline": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.449718167015817,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/ink-irrelevant.json.gz",
+        "sha": "6c1808f3a54dcf562454384b916a911379fe22fe2ae4c009db5548fbf6a43f00"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5210445830016397,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-original.json.gz",
+        "sha": "66f3ce6d5a7f7e05fa1165f10844b2d23f0db05d89bd138917214005223b2c1c"
+      },
+      "baseline": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.447551208024379,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/ink-original.json.gz",
+        "sha": "c6b7c39418d773661ce7cac54253dbead843ca32943b519dfd51f89da7e94297"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Denies sufficient cooling and computes eight hours twenty instead of 100 minutes.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.6809482499957085,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-changed.json.gz",
+        "sha": "88b52eeffa72be5438e76f57ecb819087e8b0e2e499a8f476c2e466875c5bc17"
+      },
+      "baseline": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.449146708007902,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/kiln-changed.json.gz",
+        "sha": "b352bc94b82e58fe6c2f170364bfc7b24b245cc22ab4bb4ad2ba72d747220f6f"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Calculates the 80-minute margin as 20 minutes and omits the decision.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.799434583983384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-irrelevant.json.gz",
+        "sha": "ad98c77515c2d3a895081863f3179b2f22cb6fd3786204c1f0ce697682706a6b"
+      },
+      "baseline": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.431375875021331,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/kiln-irrelevant.json.gz",
+        "sha": "bdb8800643a43cdf64d6043ec0d7932c16bc40678a67721ff9b719ecd807387c"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Calculates the 80-minute margin as 20 minutes and omits the required decision.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9154919580323622,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-original.json.gz",
+        "sha": "5f854ee98e63956466550b5e4378474a4c1c7bad5802839cd77c738fc944758a"
+      },
+      "baseline": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.40450875001261,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/kiln-original.json.gz",
+        "sha": "03a4f38b9f15f076e9bef158b71b20ecc321473eea5229bb0398f2b46fbd9e61"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.2520893749897368,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-changed.json.gz",
+        "sha": "b447a2bb2dfea1d4eb96d0ebfd7b033b1aa715b051d0dc36ada646b3c383785f"
+      },
+      "baseline": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.375225625000894,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/parcel-changed.json.gz",
+        "sha": "a8a8a655919640ebb97a5ef4e071ddb06639b713cf5756ae7c0d573d9cf050ac"
+      },
+      "delta": 1
+    },
+    {
+      "source": "parcel",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1766133750206791,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-irrelevant.json.gz",
+        "sha": "bf62ef65ffdfb1356b1aed000fdffe422f17d7215e895253e83d1c7917117ad4"
+      },
+      "baseline": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3503515000338666,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/parcel-irrelevant.json.gz",
+        "sha": "dea475ac326ad10f449e147bea072998ceb896cd9e33e3ff1538de808ebac29e"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.18083745904732496,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-original.json.gz",
+        "sha": "3aa0e797207acf601f111bffeab66fd0687774127da925e6929e28b96fcbf54c"
+      },
+      "baseline": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.1375810830504633,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/parcel-original.json.gz",
+        "sha": "b430f2762b626895775e7f658a764759352b51ccd493319af359ff2b5e07302c"
+      },
+      "delta": -1
+    },
+    {
+      "source": "parcels",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.45815849996870384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-changed.json.gz",
+        "sha": "678089e49c48c257cc2b07d0cde05a171713e60c67351eba94ece038a1584ba8"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5006442919839174,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/parcels-changed.json.gz",
+        "sha": "be968f7d606d09899b4e3cfd0eedd5d02ec73edbd8c72548eb463820a01b5c76"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.46371325000654906,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-irrelevant.json.gz",
+        "sha": "1f5a5cffc19cd21e2aadd9fb9eb23489dc37db68e83a76ddea153a60ea1f4f8f"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5122782919788733,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/parcels-irrelevant.json.gz",
+        "sha": "fcc7ca22d2ad033e56213bb2ba24c37fcff8474d116986c7640059b321180f75"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4502495839842595,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-original.json.gz",
+        "sha": "b07f2e5a950f3dd941042061f40edf598681550e9bbcfd016303031556d79304"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.4359384999843314,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/parcels-original.json.gz",
+        "sha": "3ecef2835db68e0687e1c2531878533eb22fa709e2ac5abe44e65ed75ec987b9"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "c1a2a1510e7a938014e6d2e9ae7fe9296a7ce8ac39d096e1a962b78fbe0a6d34",
+        "family": "tools",
+        "correct": false,
+        "first_error": "invalid_call",
+        "status": "invalid_call",
+        "completed": false,
+        "seconds": 1.1147617080132477,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-own.json.gz",
+        "sha": "fed68e5eb1df0ae8fa72caab92c3828036d334285ea2b044aed73274ad890a72"
+      },
+      "baseline": {
+        "initial": "65138ae00762dd58f40e79ab928e85ec0e2ab966d13ddb3a74f029554b77d57f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.566498500003945,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/parcels-own.json.gz",
+        "sha": "eb0c0f6cafb77fb44d5c32e769d8eebcb576caa13d1247a381d06b3408780472"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Invents Thursday without a lookup.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.3634274580399506,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-shared.json.gz",
+        "sha": "d598a24accf2e0df38e7b4ea5aa56201f19ac3ca493d8bb57f4ddce3305233a6"
+      },
+      "baseline": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5206160829984583,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/parcels-shared.json.gz",
+        "sha": "4502ffe77109ab541798b08e70fd61c0d95ce3996bc3069dafd7ec7eb56afdd7"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9445614169817418,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-changed.json.gz",
+        "sha": "9649bc49f6237cfc7894ccceb7c5d73b1e5c77eddfdd0866faa2084d6bf5a6a0"
+      },
+      "baseline": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3221817089943215,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/studio-changed.json.gz",
+        "sha": "70c498e1ef6a428d29215c4f66baaf1dc6002aa2b6263d59e6230ab2f164c1a0"
+      },
+      "delta": 1
+    },
+    {
+      "source": "studio",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Assumes the identity of Bea and promises attendance.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9123953750240617,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-irrelevant.json.gz",
+        "sha": "591d00c9601f070bed6958a80dcc25d3e78698750a7ebb6138d15faaab65f894"
+      },
+      "baseline": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.326387999986764,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/studio-irrelevant.json.gz",
+        "sha": "7551539be19af6c8e2ac87484fd5c924f1d52c7c36420a6f3353233b24b6e3ba"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.8133399999933317,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-original.json.gz",
+        "sha": "ab655a7ca11dbcb631726c8ecd0c9fd796e49f33a9502dfdbda32ce6a8ffa21e"
+      },
+      "baseline": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3135895829764195,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/studio-original.json.gz",
+        "sha": "d95011b4c88fe18f9f5d720546e8633909989ce39e0fa5a9140fe579d94a7fd2"
+      },
+      "delta": 1
+    },
+    {
+      "source": "tiles",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.489710790978279,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-changed.json.gz",
+        "sha": "7a688496b1b2f6eb12f5d9af22b2a25a662c6b492d9c09fad15f29ec58d46632"
+      },
+      "baseline": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5761232909862883,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/tiles-changed.json.gz",
+        "sha": "10aaa9360d5518ed30890b9f7d774dcd7f195ea33600b04dbf6ea25cb5c0c6dd"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5269113749964163,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-irrelevant.json.gz",
+        "sha": "827d89e6cc76192ed0cfa75d5bd09c384334c736e2d1c3da1f610f429397cae9"
+      },
+      "baseline": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5546322080190293,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/tiles-irrelevant.json.gz",
+        "sha": "2ab56160b9882ed0297624371d66e15ab8dad5037531fe85c808a6d68be60f13"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.345791667001322,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-original.json.gz",
+        "sha": "b6bf4f8e98c15a3b3fd8e553989e86bb32cde765de74b4b65699d701e1986f43"
+      },
+      "baseline": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5097131250076927,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/tiles-original.json.gz",
+        "sha": "b934e90a70fc8681053dfa4e50486d00ea5ecaf8ffee10a0ff7f2175082031be"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "79e7772f62d67bb502efe9e95f956eea0bdda4177cdba690d89a00fc7981bc30",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.4957292079925537,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-own.json.gz",
+        "sha": "c1baf2d17164a3e2632c213d3904f5ddf16f3d98520682868c2b9a42c67ac8ec"
+      },
+      "baseline": {
+        "initial": "79e7772f62d67bb502efe9e95f956eea0bdda4177cdba690d89a00fc7981bc30",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.4880510419607162,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/tiles-own.json.gz",
+        "sha": "3db829d47345ffeb14c2380ac9eba5b25d7af4c18820c6b4c2afd1fd87b7052b"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Treats the amount given away as the remainder and omits the calculator.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.33541462500579655,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-shared.json.gz",
+        "sha": "c60e9b3d2b9fe4f1ba4e9b6026d5a621002790538865be656545ad33f701a9dc"
+      },
+      "baseline": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.389243291981984,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/tiles-shared.json.gz",
+        "sha": "d5e16ae4c5c2812e797f64e7c16300428a0cd19b23e79e8e6947edcdfc5a01b7"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Delivers two sentences instead of one.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6201817080145702,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-changed.json.gz",
+        "sha": "003e3ed1d1a4bb3a106e99c873ea2586a2bc0b551fa1f25252d7f79a8792a924"
+      },
+      "baseline": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.2962081249570474,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/volunteer-changed.json.gz",
+        "sha": "1fd9aaa6e7c1905d9895f45faf5cf7d28faf4254d0baaa436543a56352544e77"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Asks the volunteer to bring supplied gloves.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.050586832978297,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-irrelevant.json.gz",
+        "sha": "de4df20841e192415fa5bfa4a11b026dd69c06c13584f7a1e2f7bc4eaf0b639e"
+      },
+      "baseline": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3858599169761874,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/volunteer-irrelevant.json.gz",
+        "sha": "769c33635d35f0a73e18bc17abdfcf608ee2e1255f4b7bed31bee02b5f1254d7"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Uses two sentences and gives an ambiguous arrival instruction.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6607368750264868,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-original.json.gz",
+        "sha": "9974c6354140d64ca057d91368c182f8563fc5bcce597e74f5e01970c8791310"
+      },
+      "baseline": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.2890895000309683,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/initial/128/loop/volunteer-original.json.gz",
+        "sha": "0b74429dedd91bbefd61665baebcf126878e10b2db9f951e19b9f1879586b6dc"
+      },
+      "delta": 0
+    }
+  ],
+  "macro_delta": 0.14814814814814814,
+  "definition": "Opening score counts complete supported answers. A changed pair requires success in both source worlds. A stability pair requires success in original and irrelevant worlds. Own/shared are reported separately. A provider result without an error is not proof of relevant operands or successful delivery."
+}

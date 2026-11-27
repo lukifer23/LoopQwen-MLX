@@ -1,0 +1,1179 @@
+{
+  "summary": {
+    "chat": {
+      "sources": {
+        "parcel": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "studio": {
+          "current": {
+            "changes_correctly": true,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": true,
+            "stays_correct": false
+          }
+        },
+        "volunteer": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 3,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 5.61134241707623
+        },
+        "baseline": {
+          "success": 3,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 4.177217458025552
+        }
+      }
+    },
+    "reasoning": {
+      "sources": {
+        "archive": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "bridge": {
+          "current": {
+            "changes_correctly": true,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": true
+          }
+        },
+        "kiln": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 1,
+      "losses": 1,
+      "outcomes": {
+        "current": {
+          "success": 2,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 12.494732334103901
+        },
+        "baseline": {
+          "success": 2,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 8.738399999972899
+        }
+      }
+    },
+    "tools": {
+      "sources": {
+        "ink": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "parcels": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "tiles": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 0,
+          "completed": 3,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "token_limit": 6,
+            "answered": 3
+          },
+          "seconds": 16.156862457923125
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 6,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 6,
+            "token_limit": 3
+          },
+          "seconds": 8.527195042173844
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "source": "archive",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Treats the dated correction as an unresolved discrepancy.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5432913330150768,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-changed.json.gz",
+        "sha": "5c2f8acd6d798082edb8f061cd2752d39cadb76273d3d9a1baf219e1191afffb"
+      },
+      "baseline": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Uses the superseded register as the present payment decision.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.188049582997337,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/archive-changed.json.gz",
+        "sha": "39582f8c966b81f1dad64e64556a13044653d64c258c056290cb2400d5eaa817"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Invents payment for Elm and treats Cedar as unpaid.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9302277500391938,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-irrelevant.json.gz",
+        "sha": "b6d745233b2db7ee8a6cf6246a81725e85f8fca26b60506a0073352197069ec9"
+      },
+      "baseline": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Applies an Elm-only hold to Cedar.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7775247499812394,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/archive-irrelevant.json.gz",
+        "sha": "5d96da0e18e1b3275a93fba9d2cc135b83ffc28bb4eca44fffbda2a61be2a7b4"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Treats the dated correction as an unresolved discrepancy.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5825187920127064,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/archive-original.json.gz",
+        "sha": "56fa3f12c04e5d4921a719982c20f93774e832e7792998049f9d3697beea53cb"
+      },
+      "baseline": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Falsely applies the Ash-only hold to Cedar.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.8678344589425251,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/archive-original.json.gz",
+        "sha": "3dbb85e97a73e8192ca8c98d86c3fb99109639025344f56029f6dc22553efe5b"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7380264580133371,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-changed.json.gz",
+        "sha": "817473b10c858613466587fd811d5a49e275f944156cbc10a72f02cf59c4c9ff"
+      },
+      "baseline": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Misses the explicit observation of both markers.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.5040722080157138,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/bridge-changed.json.gz",
+        "sha": "2688b2f12287a24330b2f013bf804a990ec39eef5da705be6fb059deafea5df9"
+      },
+      "delta": 1
+    },
+    {
+      "source": "bridge",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Says the observed marker is unspecified despite the explicit red marker.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6025261670001782,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-irrelevant.json.gz",
+        "sha": "7d2b9e1ea4be2e72afd7dee9c6ab54503a03ea12269f777832295eac3d487d3d"
+      },
+      "baseline": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.48169808299280703,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/bridge-irrelevant.json.gz",
+        "sha": "5fa74a77e9147eff19921bf928bb22027aa20b158cd3c898b14b998851bae9d4"
+      },
+      "delta": -1
+    },
+    {
+      "source": "bridge",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7022670420119539,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/bridge-original.json.gz",
+        "sha": "6cc21c0ed1e8cc7df9b853437b4647a5e17b3b85de204b647554b217b3f204a3"
+      },
+      "baseline": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4531008339836262,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/bridge-original.json.gz",
+        "sha": "b407d7f94a9f727f3d03fa67d0841527f9fca728b2ab8e4e55881dffa7b89139"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.560833957977593,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-changed.json.gz",
+        "sha": "6ad977035c428d5f3dbbe707b020374dc92db871db284055727386b36b777dac"
+      },
+      "baseline": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Emits closing tags without an answer or a calculator call.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.2511769999982789,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/ink-changed.json.gz",
+        "sha": "aa6c707427a0f703b6738280c5ee68468ced3f0e5e00f5c8f6ab98706d01436b"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.3404487500083633,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-irrelevant.json.gz",
+        "sha": "a5d05e4471a72b6f3e96a30979985b2cdacfb1cf0e9967b381c234b9fcc15d9a"
+      },
+      "baseline": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Emits closing tags without an answer or a calculator call.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.24465350003447384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/ink-irrelevant.json.gz",
+        "sha": "d5994c9e8be0bd7b4facef6086097e60e1d678bf7b79225a4fad1520b24f3a5c"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5210445830016397,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/ink-original.json.gz",
+        "sha": "66f3ce6d5a7f7e05fa1165f10844b2d23f0db05d89bd138917214005223b2c1c"
+      },
+      "baseline": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Emits closing tags without an answer or a calculator call.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.24246941704768687,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/ink-original.json.gz",
+        "sha": "fb8878c8c123466317cde147f0042d820931ee5fb0d63f5edae9a5b69cfd615f"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Denies sufficient cooling and computes eight hours twenty instead of 100 minutes.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.6809482499957085,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-changed.json.gz",
+        "sha": "88b52eeffa72be5438e76f57ecb819087e8b0e2e499a8f476c2e466875c5bc17"
+      },
+      "baseline": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscomputes elapsed time as ten hours twenty.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.4592377090011723,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/kiln-changed.json.gz",
+        "sha": "80269b056abded61228c34683efb10ef8691b7b40b3a6e78a1e46acaf347c4f3"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Calculates the 80-minute margin as 20 minutes and omits the decision.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.799434583983384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-irrelevant.json.gz",
+        "sha": "ad98c77515c2d3a895081863f3179b2f22cb6fd3786204c1f0ce697682706a6b"
+      },
+      "baseline": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscomputes elapsed time as ten hours twenty.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.4758783330325969,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/kiln-irrelevant.json.gz",
+        "sha": "2cc6bce5550fcee6d6f6180223bed80fc6c02a2415957fc391e57a7a32397a6a"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Calculates the 80-minute margin as 20 minutes and omits the required decision.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9154919580323622,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/kiln-original.json.gz",
+        "sha": "5f854ee98e63956466550b5e4378474a4c1c7bad5802839cd77c738fc944758a"
+      },
+      "baseline": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscomputes elapsed time as ten hours twenty.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5310040410258807,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/kiln-original.json.gz",
+        "sha": "76dfc1acbdf3a056177812e6bbd8d6929ae54666cd3568f3c9c1d44e80a584ac"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.2520893749897368,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-changed.json.gz",
+        "sha": "b447a2bb2dfea1d4eb96d0ebfd7b033b1aa715b051d0dc36ada646b3c383785f"
+      },
+      "baseline": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1991832079947926,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcel-changed.json.gz",
+        "sha": "cdb6941b08b09de81ab766dd7666d0dce4f5a48babb9f5c60d64970477629c88"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1766133750206791,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-irrelevant.json.gz",
+        "sha": "bf62ef65ffdfb1356b1aed000fdffe422f17d7215e895253e83d1c7917117ad4"
+      },
+      "baseline": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.16383608302567154,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcel-irrelevant.json.gz",
+        "sha": "220d08f50e3756ee9d6154e9b51069a1a5581520da4abf226b3a2f90ecd3c1aa"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.18083745904732496,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcel-original.json.gz",
+        "sha": "3aa0e797207acf601f111bffeab66fd0687774127da925e6929e28b96fcbf54c"
+      },
+      "baseline": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.15925374999642372,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcel-original.json.gz",
+        "sha": "d58c0e31d4046626853b6894fb466558f6aca68107fe8e88398bcc194babc1a3"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.45815849996870384,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-changed.json.gz",
+        "sha": "678089e49c48c257cc2b07d0cde05a171713e60c67351eba94ece038a1584ba8"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.40299666702048853,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-changed.json.gz",
+        "sha": "8e179b5a9934a9481548baf6586ab7f4dcf3c0aee7428b0ea1f1463beb68d56f"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.46371325000654906,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-irrelevant.json.gz",
+        "sha": "1f5a5cffc19cd21e2aadd9fb9eb23489dc37db68e83a76ddea153a60ea1f4f8f"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4156770000117831,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-irrelevant.json.gz",
+        "sha": "775446b3815388c882eb3d5c61c2c6e85efdcc74a5dcddfbf3547b3a62e9173e"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4502495839842595,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-original.json.gz",
+        "sha": "b07f2e5a950f3dd941042061f40edf598681550e9bbcfd016303031556d79304"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4171582910348661,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-original.json.gz",
+        "sha": "b1ad4207e75d04f7ef6ae4d4d064afcfa48b03216fd6519fe919e0364099fef3"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "c1a2a1510e7a938014e6d2e9ae7fe9296a7ce8ac39d096e1a962b78fbe0a6d34",
+        "family": "tools",
+        "correct": false,
+        "first_error": "invalid_call",
+        "status": "invalid_call",
+        "completed": false,
+        "seconds": 1.1147617080132477,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-own.json.gz",
+        "sha": "fed68e5eb1df0ae8fa72caab92c3828036d334285ea2b044aed73274ad890a72"
+      },
+      "baseline": {
+        "initial": "c1a2a1510e7a938014e6d2e9ae7fe9296a7ce8ac39d096e1a962b78fbe0a6d34",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Offers a lookup and never executes it.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4313058750121854,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-own.json.gz",
+        "sha": "9800f6ad6dc538fbdce84d4d8bec74f4915534206e025fce57d6d36902f60ebd"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Invents Thursday without a lookup.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.3634274580399506,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/parcels-shared.json.gz",
+        "sha": "d598a24accf2e0df38e7b4ea5aa56201f19ac3ca493d8bb57f4ddce3305233a6"
+      },
+      "baseline": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Invents the fifteenth without looking up jade.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.39735970803303644,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/parcels-shared.json.gz",
+        "sha": "5efbd158deafcc4e8b706ddedcbbb6504d6bf3aa38697359f204ad55b6ae3c46"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9445614169817418,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-changed.json.gz",
+        "sha": "9649bc49f6237cfc7894ccceb7c5d73b1e5c77eddfdd0866faa2084d6bf5a6a0"
+      },
+      "baseline": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.60622133302968,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/studio-changed.json.gz",
+        "sha": "426264e959fe6a9bd0364fed4e06b72f74d327a453409e64a05d9283c8e97fe9"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Assumes the identity of Bea and promises attendance.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9123953750240617,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-irrelevant.json.gz",
+        "sha": "591d00c9601f070bed6958a80dcc25d3e78698750a7ebb6138d15faaab65f894"
+      },
+      "baseline": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Promises personal attendance on both days without support from the note.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7545153339742683,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/studio-irrelevant.json.gz",
+        "sha": "20ee2088a61b36b7a2b3fc0e7d3dd311c95831827be107fbf3ae5cea151dfe1f"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.8133399999933317,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/studio-original.json.gz",
+        "sha": "ab655a7ca11dbcb631726c8ecd0c9fd796e49f33a9502dfdbda32ce6a8ffa21e"
+      },
+      "baseline": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6002192919841036,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/studio-original.json.gz",
+        "sha": "82ba2df28656968a10448c14f24746af01d526a9d04a6da3ea3d8b18c3801e04"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.489710790978279,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-changed.json.gz",
+        "sha": "7a688496b1b2f6eb12f5d9af22b2a25a662c6b492d9c09fad15f29ec58d46632"
+      },
+      "baseline": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.0937029999913648,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-changed.json.gz",
+        "sha": "fa84a1f168f0857485e652d54d78c3674e489aad6b8ac79c9622b0dd94af0309"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.5269113749964163,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-irrelevant.json.gz",
+        "sha": "827d89e6cc76192ed0cfa75d5bd09c384334c736e2d1c3da1f610f429397cae9"
+      },
+      "baseline": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.2320465419907123,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-irrelevant.json.gz",
+        "sha": "c158dbd8b602fa255073585a69b672f01375a721e88b47b56bdb13f04a4657af"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.345791667001322,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-original.json.gz",
+        "sha": "b6bf4f8e98c15a3b3fd8e553989e86bb32cde765de74b4b65699d701e1986f43"
+      },
+      "baseline": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.2273136250441894,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-original.json.gz",
+        "sha": "9d3d81fc9f892b19fb41f43e59c38a56470ab0e7ec5924c045d77d14820e7509"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "79e7772f62d67bb502efe9e95f956eea0bdda4177cdba690d89a00fc7981bc30",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.4957292079925537,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-own.json.gz",
+        "sha": "c1baf2d17164a3e2632c213d3904f5ddf16f3d98520682868c2b9a42c67ac8ec"
+      },
+      "baseline": {
+        "initial": "79e7772f62d67bb502efe9e95f956eea0bdda4177cdba690d89a00fc7981bc30",
+        "family": "tools",
+        "correct": false,
+        "first_error": "token_limit",
+        "status": "token_limit",
+        "completed": false,
+        "seconds": 2.1802313750376925,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-own.json.gz",
+        "sha": "bf98d97215816b82606a2ab132db8578313276e2d1189b087a006e0cceefce18"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Treats the amount given away as the remainder and omits the calculator.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.33541462500579655,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/tiles-shared.json.gz",
+        "sha": "c60e9b3d2b9fe4f1ba4e9b6026d5a621002790538865be656545ad33f701a9dc"
+      },
+      "baseline": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Reports the number given away as the remainder without execution.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.25052179099293426,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/tiles-shared.json.gz",
+        "sha": "47e82785d58058a5dcc37434e4a31ab479164bed9d0fda8c0379b27d2e6c2491"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Delivers two sentences instead of one.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6201817080145702,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-changed.json.gz",
+        "sha": "003e3ed1d1a4bb3a106e99c873ea2586a2bc0b551fa1f25252d7f79a8792a924"
+      },
+      "baseline": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Asks the volunteer to bring the supplied gloves.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6334950409946032,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/volunteer-changed.json.gz",
+        "sha": "be4ee6c6514c052947480cbad0f3dff563ebcb7b995f76653919b2473bcaa1dd"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Asks the volunteer to bring supplied gloves.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.050586832978297,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-irrelevant.json.gz",
+        "sha": "de4df20841e192415fa5bfa4a11b026dd69c06c13584f7a1e2f7bc4eaf0b639e"
+      },
+      "baseline": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Gives two sentences instead of the requested single sentence.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.5647411670070142,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/volunteer-irrelevant.json.gz",
+        "sha": "5eb5352e641d84ed4195f8d53f42e715da647d5d69c55499347910e4c7bb9282"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Uses two sentences and gives an ambiguous arrival instruction.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6607368750264868,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/loop/volunteer-original.json.gz",
+        "sha": "9974c6354140d64ca057d91368c182f8563fc5bcce597e74f5e01970c8791310"
+      },
+      "baseline": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Gives two sentences instead of the requested single sentence.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.49575225001899526,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/early/128/ordinary/volunteer-original.json.gz",
+        "sha": "d3b5995d64a9192e353bb674c693026f43d2eb1c9828eecf9fff057fa20a362d"
+      },
+      "delta": 0
+    }
+  ],
+  "macro_delta": 0.0,
+  "definition": "Opening score counts complete supported answers. A changed pair requires success in both source worlds. A stability pair requires success in original and irrelevant worlds. Own/shared are reported separately. A provider result without an error is not proof of relevant operands or successful delivery."
+}
