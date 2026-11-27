@@ -1,5 +1,6 @@
 """Enroll fresh arithmetic and resource conversations and adapt publisher data to official Qwen messages."""
 
+import subprocess
 from collections import Counter
 from pathlib import Path
 from mlx_lm.utils import load_tokenizer
@@ -75,7 +76,13 @@ def main():
     packages = package_tools.snapshot()
     paths = sorted(
         str(p)
-        for p in Path("research/experiments").glob("*.json")
+        for p in map(
+            Path,
+            subprocess.check_output(
+                ["git", "ls-tree", "-r", "--name-only", PRIOR, "research/experiments"],
+                text=True,
+            ).splitlines(),
+        )
         if p.stem.startswith(
             ("attention-", "register-", "induction-", "loop-", "cache-")
         )
@@ -105,26 +112,21 @@ def main():
         cases.extend(
             service(family, a, b, *forms[i % 4]) for i, (a, b) in enumerate(resources)
         )
-    for family, resources, forms in [
-        (
-            "packages",
-            sorted(set(packages) - set(held_pkgs)),
-            ("Check the version of {} that is installed.", "Please look up {} too."),
-        ),
-        (
-            "files",
-            paths[12:],
-            ("Read the byte size of {}.", "How many lines are there in {}?"),
-        ),
-    ]:
-        for i, a in enumerate(resources[:64]):
-            b = resources[(i + 7) % len(resources)]
-            if a == b or (
-                family == "packages"
-                and packages[a]["version"] == packages[b]["version"]
-            ):
-                continue
-            train.extend(service_targets(service(family, a, b, *forms)))
+    resources = sorted(set(packages) - set(held_pkgs))
+    for i, a in enumerate(resources[:64]):
+        b = resources[(i + 7) % len(resources)]
+        if a != b and packages[a]["version"] != packages[b]["version"]:
+            train.extend(
+                service_targets(
+                    service(
+                        "packages",
+                        a,
+                        b,
+                        "Check the version of {} that is installed.",
+                        "Please look up {} too.",
+                    )
+                )
+            )
     rows = external()
     excluded = former({q for _, q, _ in rows}, PRIOR)
     used = {tuple(norm(q)[:8]) for q in excluded}
@@ -193,14 +195,23 @@ def main():
         for pair in eval_files
         for p in pair
     }
-    save(DATA / "native-function-training.json", dict(sources=sources, examples=train))
-    save(
-        DATA / "native-function-panel.json",
-        dict(excluded_through=PRIOR, rows=cases, files=fi, environment=packages),
-    )
-    print(len(train), len(cases), Counter(r["family"] for r in cases), flush=True)
     for row in train:
         token_pair(tok, row)
+    artifacts = {
+        DATA / "native-function-training.json": dict(sources=sources, examples=train),
+        DATA / "native-function-panel.json": dict(
+            excluded_through=PRIOR, rows=cases, files=fi, environment=packages
+        ),
+    }
+    for path, material in artifacts.items():
+        if path.exists() and read(path) != material:
+            raise ValueError(
+                f"Current environment differs from registered material at {path}"
+            )
+    for path, material in artifacts.items():
+        if not path.exists():
+            save(path, material)
+    print(len(train), len(cases), Counter(r["family"] for r in cases), flush=True)
 
 
 if __name__ == "__main__":
