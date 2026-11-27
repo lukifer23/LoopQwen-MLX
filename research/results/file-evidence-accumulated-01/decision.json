@@ -1,0 +1,128 @@
+{
+  "passed": false,
+  "gates": {
+    "file_pairs": false,
+    "inline_pairs": false,
+    "polarities": false,
+    "completion": true,
+    "wall_s": true,
+    "first_s": false,
+    "peak": true,
+    "opening_tps": false,
+    "decode_tps": true
+  },
+  "pairs": {
+    "file": {
+      "candidate": 0,
+      "base": 1,
+      "wins": 0,
+      "losses": 1,
+      "p": 1.0
+    },
+    "inline": {
+      "candidate": 7,
+      "base": 8,
+      "wins": 1,
+      "losses": 2,
+      "p": 1.0
+    }
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 56,
+        "strict": 31,
+        "requests": 56,
+        "answers": 32,
+        "grounded": 31,
+        "completed": 50,
+        "wall_s": 40.53645145939663,
+        "first_s": 7.263432502397336,
+        "peak": 1694421714,
+        "output_tokens": 3180
+      },
+      "inline": {
+        "dialogues": 24,
+        "strict": 19,
+        "requests": 24,
+        "answers": 19,
+        "grounded": 19,
+        "completed": 24,
+        "wall_s": 1.8946348751778714,
+        "first_s": 0.9114983312902041,
+        "peak": 1099678198,
+        "output_tokens": 120,
+        "polarity_correct": {
+          "yes": 9,
+          "no": 10
+        }
+      },
+      "file": {
+        "dialogues": 32,
+        "strict": 12,
+        "requests": 32,
+        "answers": 13,
+        "grounded": 12,
+        "completed": 26,
+        "wall_s": 38.64181658421876,
+        "first_s": 6.351934171107132,
+        "peak": 1694421714,
+        "output_tokens": 3060,
+        "polarity_correct": {
+          "yes": 1,
+          "no": 12
+        }
+      },
+      "opening_tps": 2065.8276916660984,
+      "decode_tps": 100.30426385363812
+    },
+    "control": {
+      "all": {
+        "dialogues": 56,
+        "strict": 24,
+        "requests": 56,
+        "answers": 26,
+        "grounded": 24,
+        "completed": 34,
+        "wall_s": 374.40152450220194,
+        "first_s": 6.92867865995504,
+        "peak": 1834177738,
+        "output_tokens": 25458
+      },
+      "inline": {
+        "dialogues": 24,
+        "strict": 20,
+        "requests": 24,
+        "answers": 20,
+        "grounded": 20,
+        "completed": 20,
+        "wall_s": 105.2729907471221,
+        "first_s": 0.9692047040443867,
+        "peak": 1719068926,
+        "output_tokens": 7394,
+        "polarity_correct": {
+          "yes": 8,
+          "no": 12
+        }
+      },
+      "file": {
+        "dialogues": 32,
+        "strict": 4,
+        "requests": 32,
+        "answers": 6,
+        "grounded": 4,
+        "completed": 14,
+        "wall_s": 269.12853375507984,
+        "first_s": 5.959473955910653,
+        "peak": 1834177738,
+        "output_tokens": 18064,
+        "polarity_correct": {
+          "yes": 4,
+          "no": 2
+        }
+      },
+      "opening_tps": 2165.63658619685,
+      "decode_tps": 70.34183330382429
+    }
+  }
+}

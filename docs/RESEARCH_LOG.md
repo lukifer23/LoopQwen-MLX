@@ -1,5 +1,10 @@
 # Research ledger
 
+## Changed files and streamed native optimization
+
+The original six-example fit exceeded its 6.50 GiB limit before evaluation. A separately frozen gradient accumulation fit preserved logical sample order and completed 720 updates on 109,336 target tokens. It consumed 1,202.82 native seconds including the direct pair. The 56 requests favored the loop in total useful answers, completion, elapsed time, peak allocation and decoding rate. It lost one whole pair in each modality, had slower summed first waits and missed the registered qualification. Recounting all 29 noncanonical responses without arm or publisher labels gives 0 versus 2 whole file pairs. Independent physical checks confirmed the two final layers reused 15 trained projections and that restoring the second residual reproduced all logits exactly. [Model and primary traces](../research/results/file-evidence-accumulated-01) · [First native run](../research/results/file-evidence-01) · [Gradient exposure](measurements/file-evidence-exposure.json) · [Physical activation](measurements/file-evidence-activation.json)
+
+
 ## November 26 changed-evidence transfer
 
 The compact reader fused 46 trained maps from the confirmed Base-derived entailment model and kept all six repeated layers active. The frozen source study checked 24 real Wikipedia edit IDs with their actual parents. The primary closed for missed accuracy and prefill targets. All 48 candidate and 44 Base answers completed. The blinded reading credited 10 versus 15 complete article pairs. A separate production installation reproduced full token and KV streams on both variants of the first registered article on both arms. The research worker consumed 240.50 native seconds. [Paired results and costs](../research/results/revision-evidence-01) · [Publisher-label sensitivity](measurements/revision-answer-reading.json) · [Physical Wikipedia evidence](measurements/revision-wikipedia-sources.json)

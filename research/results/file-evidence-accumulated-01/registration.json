@@ -1,0 +1,50 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "prefix_bits": 8,
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "id": "file-evidence-accumulated-01",
+  "question": "Can a single trained Base-derived recurrent decoder look up caller-supplied text and reverse its answer when the actual document changes, while also reading independent inline excerpts?",
+  "start_layer": 22,
+  "rank": 24,
+  "fit_seed": 1205440,
+  "updates": 720,
+  "batch": 6,
+  "pairs_per_batch": 2,
+  "individual_margins": true,
+  "ranking_weight": 0.8,
+  "lr": 0.00015,
+  "train_pairs": 384,
+  "rehearsal": 128,
+  "file_pairs": 16,
+  "inline_pairs": 12,
+  "max_tokens": 640,
+  "max_turns": 3,
+  "source_base": "https://huggingface.co/datasets/tals/vitaminc/resolve/be6febb761b0b2807687e61e0b5282e459df2fa0/",
+  "sources": {
+    "train": "7461c6fd1a13459590317c5ccdc8651dd2daf7c1ad8ae4b10ccd88d164fccd5a",
+    "test": "7ad1808dbc30c62e0a1427a53022d0dfaff668a1fde3c4b612a2d266edd753ad"
+  },
+  "material": "research/data/file-evidence-panel.json",
+  "training": "research/data/file-evidence-training.json",
+  "file_evidence": true,
+  "limits": {
+    "wall_seconds": 3950,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "method": "Untouched original Base backbone with eight-bit frozen prefix and two shared native layers 22 (gated delta) and 23 (full attention) each executed twice on all tokens. Fit new rank-24 adapters on all projections in those two layers. Each update samples two matched opposite-label pairs, plus two ordinary lookup or rehearsal turns. Cross entropy and per-context margins. Fitting labels come from original VitaminC train claims and paired Wikipedia passages. Also replay 128 genuine WikiSQL training messages. Every trained file answer sees the original text returned by an actual caller-supplied three-row CSV. Exclude all evaluation and earlier VitaminC article titles and exact sources. The same initial file prompt, filename, headers, table key and candidates apply to both test versions. Only one cell changes. Release 05 certifies untouched Base, and no failed checkpoint or instruction donor is used. Fused serving model in memory, without a grammar, fixed answer list, classifier, routing or access to the gold. Charge cold construction of both actors. The original fit ended under its memory guard without evaluating either model. This independent physical implementation retains the exact original sample order, target-token weighting, paired margin and one AdamW update per logical six examples. Stream gradients in float32, grouping the two pairs separately and processing each single alone. Before the first update compare first full logical loss and gradients with streamed values on the exact first sampled batch. Require finite values, absolute loss difference <=0.06 and gradient relative L2 <=0.08, or close evaluation. Save both optimizer and weights every 50 logical steps. No evaluation from the interrupted trial was used.",
+  "gate": "Require at least five net more completely grounded changed-file article pairs than ordinary untouched Base and two-sided exact p<=.05. Both file halves must contain the actual correct lookup and a completed correct judgment. Require strictly more whole correct independent inline pairs, higher positive and negative individual accuracies in both modalities, at least as many completed requests, lower total actual wall time, summed first-token time and peak native allocation, and higher opening and decoding throughput. Report every loss and the matched-depth limitation. Both models use the same reasoning-enabled prompt IDs, native Qwen tools, unrestricted greedy decoding, 640 tokens per turn and at most three turns per item. Freeze 16 changed file pairs and 12 different inline article pairs before training. No test tuning. A miss closes replication, matched K1 and 128K deployment for this fit. Ship no change to the qualified default.",
+  "physical_gradient_groups": [
+    2,
+    2,
+    1,
+    1
+  ],
+  "gradient_relative_l2_max": 0.08,
+  "loss_absolute_error_max": 0.06,
+  "reference_batch": 1,
+  "checkpoint_interval": 50
+}
