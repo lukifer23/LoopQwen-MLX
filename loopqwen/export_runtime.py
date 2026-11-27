@@ -12,7 +12,8 @@ from .recurrence import Span
 
 
 def load_export_tokenizer(directory, *, eos_token_ids):
-    config = Path(directory) / "config.json"
+    directory = Path(directory)
+    config = directory / "config.json"
     looped = (
         config.is_file()
         and json.loads(config.read_bytes()).get("model_type") == "qwen3_5_looped"
