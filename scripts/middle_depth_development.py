@@ -200,6 +200,7 @@ if __name__ == "__main__":
             "corrected",
             "deployed",
             "headroom-early",
+            "epoch-reading",
             "depth",
         ),
         default="initial",

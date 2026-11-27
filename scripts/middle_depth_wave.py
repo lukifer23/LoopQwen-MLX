@@ -148,6 +148,11 @@ def paired_fit():
             fit(arm, step)
 
 
+def epoch_reading():
+    policies = {arm: fit(arm, 144) for arm in ("loop", "ordinary")}
+    generate("epoch-reading", ["ordinary", "loop"], [128, 512], policies)
+
+
 def short_terminal():
     policies = {arm: fit(arm, 576) for arm in ("loop", "ordinary")}
     generate(
@@ -315,6 +320,7 @@ if __name__ == "__main__":
         "first": first,
         "early-headroom": early_headroom,
         "early-excerpts": early_excerpts,
+        "epoch-reading": epoch_reading,
         "fit": paired_fit,
         "resume-trained": resume_training_wave,
         "short-terminal": short_terminal,
