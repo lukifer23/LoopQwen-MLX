@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-27T17:53:56.847747+00:00",
-  "starting_revision": "ca005ea",
+  "session_start_utc": "2026-11-27T18:04:22.295516+00:00",
+  "starting_revision": "497f9c5",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -1194,6 +1194,12 @@
       "promoted": true,
       "scope": "Does correcting the learner's own unfinished deliberations improve source answers and calculator actions while preserving ordinary language and the learned second read?",
       "decision": "research/results/learner-prefix-fit-01/decision.json"
+    },
+    {
+      "id": "learner-prefix-transfer-01",
+      "promoted": false,
+      "scope": "Can corrective training from actual learner prefixes improve source-grounded reasoning and executable calculations on previously unused topics, passages and financial tables?",
+      "decision": "research/results/learner-prefix-transfer-01/decision.json"
     }
   ],
   "status": "Release 05 remains qualified for offline 131K use. The field reader followed the changed file size beyond 173K. The new question-contrast fit lost on fresh passage and arithmetic questions; the operational service recount gives 11/12 versus 9/12 with one correct call. Conversation-private KV reuse passed its same-weight crossover. Neither decoder answered the two new human book questions. The released tool model grounded 2/4 live file follow-ups against 3/4. The report-action fit grounded 4/24 human calculations against 3/24 and lost overall report answers 6/48 to 18/48. Its replacement gate closed.",
@@ -1249,11 +1255,11 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795802036.847747,
+  "closed_session_start": 1795802662.295516,
   "native_window": {
-    "start_utc": "2026-11-27T17:53:56.847747+00:00",
+    "start_utc": "2026-11-27T18:04:22.295516+00:00",
     "status": "closed",
-    "end_utc": "2026-11-27T18:04:14.941831+00:00"
+    "end_utc": "2026-11-27T18:09:54.140861+00:00"
   },
   "kinship_transfer": {
     "primary": {

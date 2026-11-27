@@ -1,0 +1,62 @@
+{
+  "passed": false,
+  "gates": {
+    "report": false,
+    "report_completion": true,
+    "strategy": false,
+    "strategy_completion": true,
+    "peak": true,
+    "wall_s": true,
+    "first_s": true,
+    "opening_tps": false,
+    "decode_tps": true
+  },
+  "counts": {
+    "report": {
+      "total": [
+        1,
+        1
+      ],
+      "completed": [
+        20,
+        11
+      ],
+      "gains": 1,
+      "losses": 1,
+      "p": 1.0,
+      "n": 24
+    },
+    "strategy": {
+      "total": [
+        9,
+        6
+      ],
+      "completed": [
+        17,
+        9
+      ],
+      "gains": 6,
+      "losses": 3,
+      "p": 0.5078125,
+      "n": 24
+    }
+  },
+  "costs": {
+    "candidate": {
+      "first_s": 10.405055581999477,
+      "wall_s": 57.92569700203603,
+      "peak": 794202146,
+      "output": 6977,
+      "opening_tps": 2872.357603695837,
+      "decode_tps": 150.61858125799685
+    },
+    "control": {
+      "first_s": 11.027764753205702,
+      "wall_s": 271.0041016252362,
+      "peak": 1811927324,
+      "output": 17860,
+      "opening_tps": 2874.400985123642,
+      "decode_tps": 68.67063508680053
+    }
+  }
+}
