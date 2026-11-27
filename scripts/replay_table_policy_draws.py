@@ -5,6 +5,7 @@ import shutil
 from pathlib import Path
 
 import mlx.core as mx
+from mlx import nn
 from mlx.utils import tree_flatten
 
 from loopqwen.evaluation.mechanism import unpack
@@ -67,7 +68,7 @@ def regenerate(net, prefix, draws, seed, temperature):
                 for r, live in zip(draws, active, strict=True)
             ]
         )
-        logp = mx.take_along_axis(mx.log_softmax(scores), recorded[:, None], axis=-1)[
+        logp = mx.take_along_axis(nn.log_softmax(scores), recorded[:, None], axis=-1)[
             :, 0
         ]
         mx.eval(logp, choice)
