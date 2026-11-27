@@ -1,0 +1,124 @@
+{
+  "passed": false,
+  "gates": {
+    "meanings": false,
+    "tools": false,
+    "individual": false,
+    "pooled": false,
+    "first": false,
+    "wall": true,
+    "peak": true,
+    "rates": true
+  },
+  "pairs": {
+    "all": {
+      "loop": 0,
+      "base": 1,
+      "wins": 0,
+      "losses": 1,
+      "p": 1.0
+    },
+    "reference": {
+      "loop": 0,
+      "base": 1,
+      "wins": 0,
+      "losses": 1,
+      "p": 1.0
+    },
+    "inventory": {
+      "loop": 0,
+      "base": 0,
+      "wins": 0,
+      "losses": 0,
+      "p": 1.0
+    }
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 48,
+        "strict": 17,
+        "requests": 56,
+        "answers": 18,
+        "grounded": 18,
+        "completed": 42,
+        "wall_s": 114.62643571314402,
+        "first_s": 6.926651959132869,
+        "peak": 1230127060,
+        "output_tokens": 10800
+      },
+      "reference": {
+        "dialogues": 40,
+        "strict": 17,
+        "requests": 40,
+        "answers": 17,
+        "grounded": 17,
+        "completed": 40,
+        "wall_s": 8.610050255199894,
+        "first_s": 1.228907254175283,
+        "peak": 1091089144,
+        "output_tokens": 834
+      },
+      "inventory": {
+        "dialogues": 8,
+        "strict": 0,
+        "requests": 16,
+        "answers": 1,
+        "grounded": 1,
+        "completed": 2,
+        "wall_s": 106.01638545794412,
+        "first_s": 5.697744704957586,
+        "peak": 1230127060,
+        "output_tokens": 9966
+      },
+      "rates": {
+        "opening": 2221.2751688372887,
+        "decode": 106.27321220437113
+      },
+      "bound_differences": 0
+    },
+    "control": {
+      "all": {
+        "dialogues": 48,
+        "strict": 18,
+        "requests": 56,
+        "answers": 20,
+        "grounded": 19,
+        "completed": 39,
+        "wall_s": 370.32102870795643,
+        "first_s": 6.6235575001337565,
+        "peak": 1847157674,
+        "output_tokens": 25252
+      },
+      "reference": {
+        "dialogues": 40,
+        "strict": 18,
+        "requests": 40,
+        "answers": 18,
+        "grounded": 18,
+        "completed": 36,
+        "wall_s": 207.1675646249205,
+        "first_s": 1.3290903339511715,
+        "peak": 1696667694,
+        "output_tokens": 14582
+      },
+      "inventory": {
+        "dialogues": 8,
+        "strict": 0,
+        "requests": 16,
+        "answers": 2,
+        "grounded": 1,
+        "completed": 3,
+        "wall_s": 163.15346408303594,
+        "first_s": 5.294467166182585,
+        "peak": 1847157674,
+        "output_tokens": 10670
+      },
+      "rates": {
+        "opening": 2188.250045343051,
+        "decode": 70.43495292257762
+      },
+      "bound_differences": 0
+    }
+  }
+}
