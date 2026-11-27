@@ -4,6 +4,8 @@ A local MLX research implementation of shared recurrent depth in the official Qw
 
 On a fresh **131,086-token** register and its key swap, the looped model answered **2/2 versus 0/2** for untouched Base. Eight-bit feed-forward and output weights raised its post-first generation rate to **29.27 versus 27.42 tokens/s**. Including both weight conversions, the two requests finished in **167.39 versus 390.86 s** at **3.32 versus 3.78 GiB** peak MLX allocation. Both individual inputs favored the recurrent system on prompt and output rate. The comparison covers one document with two placements of the same queried name. [Sealed predictions and timings](research/results/register-mixed-weight-full-01) · [Per-request conversion and physical history](paper/mixed-weight-requests.csv)
 
+In two complete project listings of **169,890 and 173,151 input tokens**, both models missed the requested byte count. The loop selected the opening of each listing, over 66,000 tokens from the evidence. It used 2.71 versus 4.51 GiB and finished in 233.62 versus 644.01 seconds across the pair. [Actual Git objects, outputs and cache histories](research/results/repository-tree-field-01)
+
 The full-book test covered 162,714 tokens of Frank Norris’s *McTeague*. The released router chose ordinary depth and matched Base token for token. Both missed the human-written question on the original book and after the character was renamed. [Whole-book comparison](research/results/narrative-full-book-01)
 
 On a separate cold-start stream of 50 field requests, one qualified installation completed **21/50 correctly versus 12/50 for Base** in **83.97 versus 234.20 seconds**. It gained seven net file answers and three SQLite answers, tied on reading and lost one arithmetic answer. Aggregate first-token time more than doubled and peak allocation increased by 5.4 MB. [Five-family comparison with full transcripts](research/results/release-mixed-field-01) · [Per-family scores and timing](paper/mixed-deployment.csv)
@@ -102,6 +104,8 @@ The installed `ask` command can inspect the byte size or line count of files you
   --follow-up "How many lines are in research/experiments/callback-recovery-01.json? Use the file tool." \
   --compare-base --trace --max-tokens 384 --max-turns 3
 ```
+
+Both arms executed the correct calls on the example above and returned **1,544,038,893 bytes** and **46 lines**. The two recurrent requests took 1.38 and 0.45 s, compared with 2.93 and 1.78 s for Base. A new standalone export also read the actual 4,006-byte registration outside the checkout. [Installed two-turn comparison](docs/measurements/file-metadata-installed-cli.json) · [Isolated runtime call](docs/measurements/rebuilt-file-runtime.json)
 
 For read-only search over your own text or Markdown files, supply each file using `--document`. The tool returns the original passage, filename and character offsets. For example:
 

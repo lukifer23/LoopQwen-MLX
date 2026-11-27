@@ -170,7 +170,7 @@ def respond(args, parser):
             supplied.append(database_tool(db, args.table))
         if not supplied and not getattr(args, "allow_plain", False):
             parser.error(
-                "Select a resource, document, CSV file, catalog, calculator, packages or a database table"
+                "Select a file, document, CSV, resource, catalog, calculator, packages or a database table"
             )
         options = {
             "max_tokens": args.max_tokens,

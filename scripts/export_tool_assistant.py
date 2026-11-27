@@ -161,6 +161,11 @@ def export(
         for file in (
             "tool_model.py",
             "tool_session.py",
+            "export_runtime.py",
+            "register_session.py",
+            "mixed_register.py",
+            "page_prefill.py",
+            "kernels/packed_decode.py",
             "tool_grammar.py",
             "tool_catalog.py",
             "tool_prefill.py",
@@ -169,10 +174,16 @@ def export(
             "table_tool.py",
             "package_tools.py",
             "resource_tools.py",
+            "csv_tools.py",
+            "document_tools.py",
+            "file_tools.py",
+            "shared_session.py",
+            "unified_session.py",
+            "callback_recovery.py",
             "tool_cli.py",
-            "reserved_cache.py",
             "evaluation/generation_eval.py",
         ):
+            (rt / file).parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(worktree / "loopqwen" / file, rt / file)
         with (bundle / "README.md").open("a") as guide:
             guide.write(
