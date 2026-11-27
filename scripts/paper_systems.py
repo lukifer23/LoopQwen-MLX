@@ -7,6 +7,33 @@ def write(paper, results, result):
     # Each row names exactly one candidate, denominator and semantic endpoint.
     rows = [
         (
+            "question-contrast-01",
+            "Question contrasts",
+            "strict dialogues",
+            106,
+            "candidate",
+            "control",
+            "strict",
+        ),
+        (
+            "observation-review-01",
+            "Post-call review",
+            "strict dialogues",
+            82,
+            "candidate",
+            "control",
+            "strict",
+        ),
+        (
+            "document-frequency-reader-01",
+            "Whole project files",
+            "exact",
+            3,
+            "candidate",
+            "control",
+            "exact",
+        ),
+        (
             "tool-dialogue-counterfactual-01",
             "Observation-trained tools",
             "grounded",
@@ -248,7 +275,22 @@ def write(paper, results, result):
             if not (results / study / "checksums.json").is_file():
                 continue
             d = result(study)
-            if study == "release-mixed-field-01":
+            if study in (
+                "observation-review-01",
+                "document-frequency-reader-01",
+                "question-contrast-01",
+            ):
+                arms = {}
+                for side in (first, second):
+                    group = d["groups"][side]
+                    row = group.get("all", group)
+                    arms[side] = {
+                        **row,
+                        "seconds": row["wall_s"],
+                        "first": row["first_s"],
+                        "tokens": row.get("output_tokens", ""),
+                    }
+            elif study == "release-mixed-field-01":
                 arms = d["by_family"]["all"]
             elif "groups" in d:
                 arms = d["groups"]["all"]

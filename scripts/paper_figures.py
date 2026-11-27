@@ -379,6 +379,9 @@ def main():
     from paper_service_latency import correct_by_deadline
     from paper_service_latency import make as plot_service_latency
 
+    from paper_paired_cost import write as paired_costs
+
+    paired_costs(PAPER, RESULTS)
     system_comparisons(PAPER, RESULTS, result)
     plot_service_latency(PAPER, RESULTS, result, finish)
     correct_by_deadline(PAPER, RESULTS, result, finish)
@@ -491,6 +494,15 @@ def main():
     from paper_native_functions import make as native_functions
 
     native_functions(PAPER, RESULTS, result, finish)
+    from paper_observation_review import make as observation_review
+
+    observation_review(PAPER, RESULTS, result, finish)
+    from paper_document_frequency import make as document_frequency
+
+    document_frequency(PAPER, RESULTS, result, finish)
+    from paper_question_contrast import make as question_contrast
+
+    question_contrast(PAPER, RESULTS, result, finish)
     from paper_checked_equations import make as checked_equations
 
     checked_equations(PAPER, RESULTS, result)

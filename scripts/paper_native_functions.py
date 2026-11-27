@@ -17,50 +17,7 @@ def make(paper, results, result, finish):
         return
     decision = result(name)
     panel = read(read(root / "registration.json")["material"])["rows"]
-    with (paper / "native-function-requests.csv").open("w") as f:
-        writer = csv.writer(f)
-        writer.writerow(
-            [
-                "id",
-                "family",
-                "arm",
-                "exchange",
-                "question",
-                "status",
-                "answer",
-                "correct_answer",
-                "strict_success",
-                "call_and_observation",
-                "first_seconds",
-                "wall_seconds",
-                "peak_mlx_bytes",
-                "output_tokens",
-            ]
-        )
-        for side in ("candidate", "control"):
-            for w, r in zip(panel, unpack(root / (side + ".json.gz")), strict=True):
-                for i, (question, q) in enumerate(
-                    zip(w["questions"], r["requests"], strict=True), 1
-                ):
-                    tr = q["trajectory"]
-                    writer.writerow(
-                        [
-                            r["id"],
-                            r["family"],
-                            side,
-                            i,
-                            question,
-                            tr["status"],
-                            tr["answer"],
-                            q["score"]["correct_answer"],
-                            q["score"]["success"],
-                            json.dumps(executions(tr), ensure_ascii=False),
-                            q["first_s"],
-                            q["wall_s"],
-                            q["peak"],
-                            sum(len(t["token_ids"]) for t in tr["turns"]),
-                        ]
-                    )
+    write_requests(paper / "native-function-requests.csv", root, panel)
     groups = ["ASDiv", "SVAMP", "public", "packages", "files"]
     fig, axes = plt.subplots(1, 2, figsize=(7.05, 2.95), sharey=True)
     for ax, key, denom, title in zip(
@@ -107,3 +64,50 @@ def make(paper, results, result, finish):
         fontsize=8,
     )
     finish(fig, "native-function-dialogues")
+
+
+def write_requests(path, root, panel):
+    with path.open("w") as f:
+        writer = csv.writer(f)
+        writer.writerow(
+            [
+                "id",
+                "family",
+                "arm",
+                "exchange",
+                "question",
+                "status",
+                "answer",
+                "correct_answer",
+                "strict_success",
+                "call_and_observation",
+                "first_seconds",
+                "wall_seconds",
+                "peak_mlx_bytes",
+                "output_tokens",
+            ]
+        )
+        for side in ("candidate", "control"):
+            for w, r in zip(panel, unpack(root / (side + ".json.gz")), strict=True):
+                for i, (question, q) in enumerate(
+                    zip(w["questions"], r["requests"], strict=True), 1
+                ):
+                    tr = q["trajectory"]
+                    writer.writerow(
+                        [
+                            r["id"],
+                            r["family"],
+                            side,
+                            i,
+                            question,
+                            tr["status"],
+                            tr["answer"],
+                            q["score"]["correct_answer"],
+                            q["score"]["success"],
+                            json.dumps(executions(tr), ensure_ascii=False),
+                            q["first_s"],
+                            q["wall_s"],
+                            q["peak"],
+                            sum(len(t["token_ids"]) for t in tr["turns"]),
+                        ]
+                    )

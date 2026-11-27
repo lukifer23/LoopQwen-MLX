@@ -138,6 +138,38 @@ def main():
             digest(dist) == review["wheel_sha256"]
             and dist.stat().st_size == review["wheel_bytes"]
         )
+    from document_frequency_material import documents
+    from loopqwen.generate_cli import render
+    from loopqwen.evaluation.mechanism import unpack
+
+    document = read(docs / "document-reader-installed.json")
+    root = results / "document-frequency-reader-01"
+    assert document["policy"] == digest(root / "checksums.json")
+    document_row = unpack(root / "candidate.json.gz")[0]
+    _, _, original, question, expected, _ = next(documents())
+    rendered, _ = render(tok, original + "\n\n" + question, True)
+    assert document["rendered_prompt_sha256"] == fingerprint(rendered)
+    assert (
+        document["reference"] == expected and document["grade"] == document_row["grade"]
+    )
+    assert all(
+        document[k] == document_row[k]
+        for k in ("token_ids", "context_route", "attention_memory", "prompt_tokens")
+    )
+    contrast = read(docs / "contrast-reader-installed.json")
+    assert contrast["policy"] == digest(results / "question-contrast-01/checksums.json")
+    assert contrast["references"] == [
+        identity["shared_quantized_and_unquantized_tensors"]
+        - identity["exact_text_tensors"],
+        identity["exact_text_tensors"],
+    ]
+    check(contrast["result"], tok, [tool()])
+    assert all(
+        obs["offline"]
+        and obs["outside_checkout"]
+        and obs["wheel_sha256"] == review["wheel_sha256"]
+        for obs in (document, contrast)
+    )
     checked = read(docs / "checked-calculator-installed-cli.json")
     assert checked["registration"] == digest(
         results / "checked-equations-field-01/registration.json"
@@ -173,7 +205,46 @@ def main():
                 v["text"] == tok.decode(v["token_ids"])
                 and 0 < v["cold_first_seconds"] <= v["request_seconds"]
             )
-    print("Reconstructed all release 05 field examples and both raw-text comparisons.")
+    portable = read(docs / "portable-base-wheel.json")
+    assert (
+        portable["empty_model_cache"]
+        and portable["network_connections_blocked"]
+        and portable["outside_checkout"]
+    )
+    assert portable["source_inventory"] == digest(
+        results / "packed-release-retention-04/export-files.json"
+    )
+    for session in portable["sessions"]:
+        source = read(docs / session["source"])
+        index = session["index"]
+        if session["kind"] == "functions":
+            rows = source["observations"][index]["result"]["runs"]
+            assert session["identical_trajectories"] == {
+                k: len(v) for k, v in rows.items()
+            }
+            assert session["base_trace_sha256"] == fingerprint(
+                [trace(r) for r in rows["base"]]
+            )
+        else:
+            row = source["requests"][index]["result"]["runs"]["base"]
+            assert (
+                session["initial_sha256"],
+                session["output_sha256"],
+                session["tokens"],
+            ) == (
+                row["initial_sha256"],
+                fingerprint(row["token_ids"]),
+                len(row["token_ids"]),
+            )
+    path = Path("exports/portable-base-runtime") / portable["wheel"]
+    if path.is_file():
+        assert (
+            digest(path) == portable["sha256"]
+            and path.stat().st_size == portable["bytes"]
+        )
+    print(
+        "Verified installed field examples, free generations and the portable Base control."
+    )
 
 
 if __name__ == "__main__":
