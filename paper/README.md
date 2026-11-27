@@ -193,3 +193,5 @@ The [installed 173,129-token replay](../docs/measurements/document-reader-instal
 The complete-book follow-up figure and CSV identify cold opening time, reported answers, real calls and retained histories for each book on each arm. [Per-request data](book-conversation-requests.csv) · [Figure](book-conversation.svg)
 
 The field kit includes every tracked study and historical revision in a standalone Git bundle. The six latest field studies are also directly accessible beside the installed model for replay. [Field kit instructions](../docs/FIELD_KIT.md)
+
+The report-action study publishes the publisher expressions, executed calculator programs, changed-operand checks and an independently registered scale-sensitive recount alongside each final answer. [Preregistered scale interpretation](../research/registry/report-units-audit-01.json) · [Report and distribution protocol](../research/experiments/report-action-field-01.json)

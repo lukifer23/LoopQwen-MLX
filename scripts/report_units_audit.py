@@ -13,9 +13,9 @@ SCALE = {
     "percent": Fraction(1, 100),
 }
 PRINTED = re.compile(rf"(?<![\w.])({NUMBER})(?:\s*/\s*({NUMBER}))?")
-NAMED = re.compile(r"\s*(thousand|million|billion|percent)\b|\s*(%)", re.I)
+NAMED = re.compile(r"\s*(thousand|million|billion|percent)\b|\s*(%)", re.IGNORECASE)
 BASE_UNIT = re.compile(
-    r"\s*(?:US\s+)?(?:dollars?|shares?|euros?|pounds?|GBP|USD|EUR)\b", re.I
+    r"\s*(?:US\s+)?(?:dollars?|shares?|euros?|pounds?|GBP|USD|EUR)\b", re.IGNORECASE
 )
 
 
