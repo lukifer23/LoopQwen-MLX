@@ -62,7 +62,6 @@ def generate(stage, arms, budgets, policies):
     for tokens in budgets:
         for block in (0, 1):
             for arm in arms if block == 0 else reversed(arms):
-                label = ROOT / "short" / stage / str(tokens) / arm
                 # collect handles row-level restarts and validates existing identities.
                 args = [
                     "collect",
@@ -96,8 +95,29 @@ def first():
     )
 
 
+def paired_fit():
+    # Keep a common usable endpoint after each epoch, even on a resource stop.
+    for epoch, step in enumerate((144, 288, 432, 576)):
+        arms = ("ordinary", "loop") if epoch % 2 == 0 else ("loop", "ordinary")
+        for arm in arms:
+            fit(arm, step)
+
+
+def short_terminal():
+    policies = {arm: fit(arm, 576) for arm in ("loop", "ordinary")}
+    generate("terminal", ["loop", "ordinary", "base", "instruction"], [128, 512], policies)
+
+
+def depths():
+    policy = fit("loop", 576)
+    for block in (0, 1):
+        for depth in ((1, 2, 3) if block == 0 else (3, 2, 1)):
+            dispatch("development", "collect", "--stage", "depth", "--arm", "loop",
+                     "--depth", depth, "--policy", policy, "--tokens", 512, "--block", block)
+
+
 if __name__ == "__main__":
+    actions = {"first": first, "fit": paired_fit, "short-terminal": short_terminal, "depth": depths}
     p = argparse.ArgumentParser()
-    p.add_argument("stage", choices=("first",))
-    p.parse_args()
-    first()
+    p.add_argument("stage", choices=actions)
+    actions[p.parse_args().stage]()
