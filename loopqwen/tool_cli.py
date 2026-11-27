@@ -97,7 +97,12 @@ def open_assistant(args):
     if getattr(args, "session_policy", None) is not None:
         from .io import read
 
-        if read(args.session_policy / "registration.json").get("unified"):
+        policy = read(args.session_policy / "registration.json")
+        if policy.get("callback_recovery"):
+            from .callback_recovery import RecoveryAssistant
+
+            return RecoveryAssistant(args.checkpoint, args.session_policy)
+        if policy.get("unified"):
             from .unified_session import UnifiedAssistant
 
             return UnifiedAssistant(args.checkpoint, args.session_policy)

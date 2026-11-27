@@ -248,6 +248,7 @@ class Assistant:
                 progress=progress,
                 _messages=_messages,
                 record_kv_history=record_kv_history,
+                recover_callback=getattr(self, "_recover_callback", None),
                 reuse_prefix=self.reuse_prefix
                 if reuse_prefix is None
                 else reuse_prefix,

@@ -391,6 +391,7 @@ def main():
     from paper_panels import generate
 
     generate(PAPER, RESULTS, result, finish)
+    from paper_callback_recovery import make as plot_callback_recovery
     from paper_calculation import make as plot_calculation
     from paper_documents import make as plot_documents
     from paper_draft_program import make as plot_draft_program
@@ -423,6 +424,7 @@ def main():
         "State-supervised",
     )
     plot_calculation(PAPER, RESULTS, result, finish)
+    plot_callback_recovery(PAPER, RESULTS, result, finish)
     plot_documents(PAPER, RESULTS, result, finish)
     plot_documents(PAPER, RESULTS, result, finish, "document-evidence-01")
     plot_folded(PAPER, RESULTS, result, finish)

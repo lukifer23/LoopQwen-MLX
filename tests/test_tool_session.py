@@ -75,3 +75,76 @@ def test_external_callbacks_compute_from_arguments():
     assert similarity([1, 0], [0, 1]) == 0
     with pytest.raises(ValueError):
         similarity([1, 0], [1, 0, 2])
+
+
+def test_recovery_follows_a_real_callback_exception_and_discards_prior_cache(
+    monkeypatch,
+):
+    from loopqwen import tool_session as api
+    from loopqwen.calculator_tool import tool
+
+    class Tokenizer:
+        eos_token_ids = {0}
+
+        def apply_chat_template(self, messages, **_):
+            return json.dumps(messages)
+
+        def encode(self, request, **_):
+            return list(request.encode())
+
+        def decode(self, ids):
+            return bytes(ids).decode()
+
+        def convert_tokens_to_ids(self, _):
+            return 0
+
+    invalid = api.compact({"name": "calculate", "arguments": {"steps": ["7+4=11"]}})
+    valid = api.compact({"name": "calculate", "arguments": {"steps": ["7+4"]}})
+    opening, repair = object(), object()
+    tok = Tokenizer()
+    for replies, expected in [
+        ([invalid, valid, "11"], [opening, repair, repair]),
+        ([valid, "11"], [opening, opening]),
+    ]:
+        models, caches, callbacks = [], [], []
+
+        def decode(model, _tok, _request, *, tool_prefix, **_):
+            text = "</think>\n\n" + replies[len(models)]
+            models.append(model)
+            caches.append(tool_prefix)
+            return {
+                "token_ids": [*text.encode(), 0],
+                "elapsed_s": 0.2,
+                "ttft_s": 0.1,
+                "peak_bytes": 1,
+            }
+
+        def recover(model, failing_tool):
+            callbacks.append((model, failing_tool.name))
+            return repair
+
+        monkeypatch.setattr(api, "generate", decode)
+        result = api.run(
+            opening,
+            tok,
+            "What is seven plus four?",
+            [tool()],
+            max_turns=3,
+            recover_callback=recover,
+            reuse_prefix=True,
+        )
+        assert result["answer"] == "11" and models == expected
+        if len(replies) == 3:
+            assert (
+                callbacks == [(opening, "calculate")]
+                and caches[0] is not caches[1]
+                and caches[1] is caches[2]
+            )
+            assert [t["recovery_active"] for t in result["turns"]] == [
+                False,
+                True,
+                True,
+            ]
+            assert result["turns"][0]["observation"] == {"error": "ValueError"}
+        else:
+            assert not callbacks and caches[0] is caches[1]

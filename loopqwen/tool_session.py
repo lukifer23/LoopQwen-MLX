@@ -143,6 +143,7 @@ def run(
     schema_guided=False,
     first_turn_decoder=None,
     observation_model=None,
+    recover_callback=None,
     record_kv_history=False,
     _messages=None,
 ):
@@ -182,7 +183,8 @@ def run(
         from .tool_grammar import ToolGrammar
 
         grammar = ToolGrammar(tokenizer, model.args.vocab_size, tools, stop_ids)
-    for _ in range(max_turns):
+    recovery_model = None
+    for turn_number in range(max_turns):
         if grammar is not None:
             grammar.begin_turn()
         request = prompt(tokenizer, messages)
@@ -194,6 +196,8 @@ def run(
         active_model = (
             observation_model if turns and observation_model is not None else model
         )
+        if recovery_model is not None:
+            active_model = recovery_model
         prefix = tool_prefix if turns or observation_model is None else None
         out = decoder(
             active_model,
@@ -214,6 +218,8 @@ def run(
             ttft_s=out["ttft_s"],
             peak_bytes=out["peak_bytes"],
         )
+        if recover_callback is not None:
+            row["recovery_active"] = recovery_model is not None
         if record_kv_history:
             row.update(
                 {
@@ -260,6 +266,15 @@ def run(
         except Exception as exc:
             # Callback failures are returned to the model as observations.
             payload = compact({"error": type(exc).__name__})
+            if (
+                recover_callback is not None
+                and recovery_model is None
+                and turn_number + 1 < max_turns
+            ):
+                recovery_model = recover_callback(model, catalog[name])
+                if recovery_model is not None and tool_prefix is not None:
+                    # Keys and values produced with the opening adapter cannot serve its successor.
+                    tool_prefix = ToolPrefix()
         row["observation"] = json.loads(payload)
         messages.extend(
             (

@@ -72,6 +72,8 @@ Clone the repository on Apple Silicon and run `.venv/bin/python -m loopqwen down
 
 The archived comparisons use their checked-in parents. For a read-only check, use `.venv/bin/python scripts/research_archive.py STUDY --verify`. Run `.venv/bin/python scripts/research_registry.py` to verify data, registrations and archive inventory identities. The data builders for the public tasks and training traces pin the Hugging Face revisions. [Data attribution and licenses](../research/licenses/TOOL-DATA-NOTICE.txt)
 
+The calculator recovery study collects real opening failures with the qualified typed adapter before fitting a separate two-pass response to the actual observation. Reproduce its training and both scored arms using `.venv/bin/python -m loopqwen.research.callback_recovery callback-recovery-01`. The frozen training targets and held-out human requests can be rebuilt with `scripts/callback_recovery_material.py`.
+
 ## Additional registered comparisons
 
 The list below gives the normal native entry point for each family. Pass the desired immutable study ID as its argument. Before re-running a relative-path example, change to the repository root.

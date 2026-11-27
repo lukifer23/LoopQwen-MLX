@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("callback-recovery-"):
+        from loopqwen.research.callback_recovery import verify as verify_callback_recovery
+
+        return verify_callback_recovery(root, decision)
     if study.startswith("shared-session-"):
         from loopqwen.research.shared_session_study import verify as verify_shared_session
 

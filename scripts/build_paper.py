@@ -52,6 +52,7 @@ def main(verify):
                         "report-calculation-",
                         "document-search-field-",
                         "document-evidence-",
+                        "callback-recovery-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",
