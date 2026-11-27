@@ -1,0 +1,85 @@
+{
+  "name": "loopqwen-valid-return-07.zip",
+  "bytes": 181618419,
+  "sha256": "0206e028f69d6570415a249b3c6191c70c7651e11ebfc6646bb27b4e91daf174",
+  "payloads": 61,
+  "requires": {
+    "loopqwen-field-kit-01.zip": "ba5a1326e0205f2a5727a6f8229290a81e2b03f04cceab44ceb32e6700418e5c",
+    "loopqwen-field-update-04.zip": "ccca015162718891c7a7d58edfb4249c7dd65cf0689ee27c8d748c5071997d69"
+  },
+  "source_revision": "2fef23c9096c51cf1fa5739939a789822f081713",
+  "history_restored": true,
+  "network_blocked": true,
+  "empty_model_cache": true,
+  "isolated_installed_cli": true,
+  "policy_weights": "ebdd938ccf6d3d4b0332253a0950987409d76060c4a2693d1b99552da93c1cce",
+  "actual_comparisons": [
+    {
+      "example": "1-inline",
+      "id": "2c79e617eaf82d09-inline",
+      "traces": {
+        "recurrent": "3b61aa4bb28f9d943cdaec917e783db4221699bc46c588d2404d517937c58096",
+        "base": "da1c0c4a4c1d3a99ee6197b78ac0f35799143bd7874804e0019c5445f111e6e7"
+      }
+    },
+    {
+      "example": "2-wheel",
+      "id": "tomlkit-3.7.17",
+      "traces": {
+        "recurrent": "10dd1cd83aca4a543ce8bb8d36b3ee38614a82e24f868c87354e44321501a196",
+        "base": "11249fa743da3ce0bf7a7662b6711348224b4a398fd501e51234a60335ba5259"
+      }
+    },
+    {
+      "example": "3-wheel",
+      "id": "tomlkit-3.8.20",
+      "traces": {
+        "recurrent": "aa6a4e5be09c02dc80f3b6d81b51f57d728108481d44f1536334578703ed01c1",
+        "base": "8325acffbd86ee71156bdffb45d1cd4a50cc4cca211eb4e9ac76b34e072f491a"
+      }
+    },
+    {
+      "example": "4-file",
+      "id": "2c79e617eaf82d09-file",
+      "traces": {
+        "recurrent": "e00ea79a7775a36d937982079d95a3910d2778687126aebfbd5f6d8ca1e2ce06",
+        "base": "61a2efd46601e6a341f157df8c639f095b91bc6e7f9a5799020931fa9fc7bf5f"
+      }
+    },
+    {
+      "example": "5-retention",
+      "id": "wiki-test-815",
+      "traces": {
+        "recurrent": "196c2fb50cad833b884c1f9b130fa2425cf7790ca70a2f3d3bb40919f3c8ea73",
+        "base": "0f2a0b6261a73ca47f9a47f06fcd43b3c0641936205426ffb1524c6c015f6a89"
+      }
+    },
+    {
+      "example": "6-agenda",
+      "id": "2025-4836-weekday",
+      "traces": {
+        "recurrent": "92170544514658180cbd27f6565152ababb252dec977eeb6d4623dcd4166c21f",
+        "base": "da93b5c35575a6d05547db2dc0687b1608a7f43617edd97d8df742c9df17d0f6"
+      }
+    },
+    {
+      "example": "7-agenda",
+      "id": "2025-4836-room",
+      "traces": {
+        "recurrent": "047672a0685482f432f5c06f985880a44b36fcc6bd36470a526cb34b34f2a32e",
+        "base": "1f69b5f35d8160f9f429fb0631b0218eaee32e2fe2f236e2b73b3fb4be3ac930"
+      }
+    }
+  ],
+  "regenerated": {
+    "paper/loopqwen-preference-study.pdf": "8ebd15d3a95cb1c86710236c1450021a08261921d218820a691ae5c474464bc4",
+    "paper/valid-return-cost.svg": "0a564d3a1265f908a32185d99aa9834a190e3d5d2a6842499b81eb8bf6b3df93",
+    "paper/valid-return-learning.svg": "edf2f2d53eb7c3c5388f4746ea08a8bd518c86a1e4dddccb15525cd6cb0f074d",
+    "paper/valid-return-milestones.svg": "9642c3100b04b7b69f6a07e9828b43d4c5ad7518f2723f80932b9b228190342a",
+    "paper/valid-return-outcomes.svg": "d87e1f59211039d756d37073649ab4cb51b903b2253f065ac9ce72407b8a14b3",
+    "paper/valid-return-paper.json": "a4ca3896d7a52c10836b97301056cf65dd00047c2190a6366ce9aec601ca989a",
+    "paper/valid-return-requests.csv": "c668bfdeccbfcc885352fc1a8dd5be97ca030d34497bd2584bc9b391f5f25db6",
+    "paper/valid-return-trajectory.svg": "85e509ea4228cc9f0a64111cfe02f6ecaae9c87c0f638857db599184ad8bbc1e",
+    "paper/valid-return.pdf": "bc10dea955c1ab83eeeca397b60f6047ab999eff1676f4a1ec026852fe1addd6"
+  }
+}

@@ -17,7 +17,7 @@
 | Human logical-story judgments | 22/72 | 2/72 | Proof curriculum, K=2 |
 | Physical 131,084-token requests | 2/2 | 0/2 | Installed release 05 |
 
-The two reasoning gains came from separately trained policies. The field-selection policy missed its registered quality threshold. Its two-visit architecture has no same-policy 128K qualification. [Direct field comparison](../research/results/field-selection-01) · [Proof comparison](../research/results/proof-curriculum-01) · [Installed long-context traces](measurements/file-evidence-long-replay.json)
+The three reasoning panels used separately trained policies. The field-selection policy missed its registered quality threshold. Its two-visit architecture has no same-policy 128K qualification. [Direct field comparison](../research/results/field-selection-01) · [Proof comparison](../research/results/proof-curriculum-01) · [Installed long-context traces](measurements/file-evidence-long-replay.json)
 
 | Cross-view reading on one resident checkpoint | Trained loop | Untouched Base |
 | --- | ---: | ---: |
