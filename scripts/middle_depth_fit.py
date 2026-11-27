@@ -60,7 +60,7 @@ def feature(model, row, identity):
         temp.unlink()
     else:
         temp.replace(path)
-    save(ref, dict(sha256=sha, bytes=path.stat().st_size(), positions=len(ids)))
+    save(ref, dict(sha256=sha, bytes=path.stat().st_size, positions=len(ids)))
     return state, True
 
 
