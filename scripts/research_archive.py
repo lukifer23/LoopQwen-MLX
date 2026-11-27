@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "locked-context-01":
+        from scripts.locked_context_study import verify as verify_locked_context
+
+        return verify_locked_context(root, decision)
     if study == "cache-state-conversations-01":
         from scripts.cache_state_conversations import verify as verify_conversations
 

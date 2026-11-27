@@ -1,0 +1,18 @@
+{
+  "id": "locked-context-01",
+  "requires": "research/results/cache-state-conversations-01",
+  "prerequisite_sha256": "7e3124d47e81e8d31b8327966cd79fded2e3430b18e6dd49f0dda27bb6d5883e",
+  "checkpoint": "exports/tool-language-packed-05",
+  "wheel": "exports/cache-state-runtime-01/loopqwen-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "3da3398488689ba9af63031c086811291435cf403e9ed76b30b54e5be0c5dca1",
+  "material": "research/data/locked-context.json",
+  "max_tokens": 256,
+  "max_turns": 3,
+  "limits": {
+    "wall_seconds": 2350,
+    "peak_gib": 7.5,
+    "available_gib": 1.5
+  },
+  "question": "Can the qualified cache-state release read a version that changed between two complete real lockfiles beyond token 131072, call the public file tool, and combine both facts in its final answer?",
+  "protocol": "One direct pair per complete adjacent Git revision. Fix the released K2 tool weights, the ordinary untouched BF16 Base, the same Qwen thinking template, identical input IDs, state-evaluated 128-token blocks, conversation-local full-prefix snapshot, greedy unrestricted tokens and tools. An isolated installed CLI runs recurrent then Base on each file. Preserve all prompt IDs, generated IDs, tool returns, statuses, per-turn timings, cache reuse and resident physical offsets. Both file byte lengths and virtue versions change. Require a real preceding file_bytes call returning the actual byte count and a completed visible answer containing exactly the two expected numeric values, in either order, allowing comma-grouping. Also report each constituent separately. Require two grounded successes and more than Base, strictly shorter pooled request time and first-token latency, smaller worst-case MLX allocation, higher initial prompt and decode throughput. Archive a missed gate with no downstream run. Two revisions of one project are a controlled change, not a population-level accuracy estimate. This is a test of the pre-existing qualified release and installed runtime. It supplies no long-context evidence for any separately fitted research adapter."
+}
