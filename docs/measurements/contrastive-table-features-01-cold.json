@@ -1,0 +1,140 @@
+{
+  "archive": "f0188420b701f15689266112f228b0e8fc3a2bef9c4cb682e98225a31660bc81",
+  "backbone": "85d3eb409cec6f6a49abdc921570c09cad2f57480fe3bb111dfcfe763c440f84",
+  "physical_steps": 28,
+  "full_inventory": {
+    "feature_index": "4d7c57cae5d923ea8fb9b6c1b2d773c684f2b0e1b84bd7734f7e36f56a57ce57",
+    "checked_files": 5640,
+    "checked_bytes": 1356874504,
+    "regenerated_full_files": [
+      "operator/nt-10009",
+      "inspect/nt-10009",
+      "resolved/nt-10009/0"
+    ]
+  },
+  "positive_positions": 24,
+  "cases": [
+    {
+      "id": "operator/nt-5574",
+      "group": "operator",
+      "positive_positions": [
+        0,
+        37,
+        73
+      ],
+      "matched_channels": 5,
+      "negative_checks": []
+    },
+    {
+      "id": "operator/nt-5611",
+      "group": "operator",
+      "positive_positions": [
+        0,
+        32,
+        64
+      ],
+      "matched_channels": 5,
+      "negative_checks": []
+    },
+    {
+      "id": "inspect/nt-11731",
+      "group": "inspect",
+      "positive_positions": [
+        0,
+        16,
+        31
+      ],
+      "matched_channels": 5,
+      "negative_checks": []
+    },
+    {
+      "id": "inspect/nt-6519",
+      "group": "inspect",
+      "positive_positions": [
+        0,
+        16,
+        31
+      ],
+      "matched_channels": 5,
+      "negative_checks": []
+    },
+    {
+      "id": "resolved/nt-4106/1",
+      "group": "resolved",
+      "positive_positions": [
+        0,
+        3,
+        5
+      ],
+      "matched_channels": 5,
+      "negative_checks": [
+        {
+          "reused_same_prefix": true,
+          "positions": [
+            4
+          ],
+          "full_alternate_rms_difference": 0.0
+        }
+      ]
+    },
+    {
+      "id": "resolved/nt-14015/0",
+      "group": "resolved",
+      "positive_positions": [
+        0,
+        3,
+        5
+      ],
+      "matched_channels": 5,
+      "negative_checks": [
+        {
+          "reused_same_prefix": false,
+          "positions": [
+            3,
+            4
+          ],
+          "full_alternate_rms_difference": 0.0
+        }
+      ]
+    },
+    {
+      "id": "full_rows/nt-9216/1",
+      "group": "full_rows",
+      "positive_positions": [
+        0,
+        2,
+        4
+      ],
+      "matched_channels": 5,
+      "negative_checks": [
+        {
+          "reused_same_prefix": true,
+          "positions": [
+            3
+          ],
+          "full_alternate_rms_difference": 0.0
+        }
+      ]
+    },
+    {
+      "id": "full_rows/nt-6038/1",
+      "group": "full_rows",
+      "positive_positions": [
+        0,
+        2,
+        4
+      ],
+      "matched_channels": 5,
+      "negative_checks": [
+        {
+          "reused_same_prefix": false,
+          "positions": [
+            3,
+            4
+          ],
+          "full_alternate_rms_difference": 0.0
+        }
+      ]
+    }
+  ]
+}
