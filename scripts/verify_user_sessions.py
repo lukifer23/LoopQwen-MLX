@@ -13,7 +13,7 @@ from loopqwen.research.mixed_field import replay_exchange
 from loopqwen.tool_session import system_message
 
 
-def check(result, tok, tools):
+def check(result, tok, tools, *, after_callback=False):
     assert result["base_revision"] == REVISION and result["initial_prompt_identical"]
     sides = result["runs"]
     a, b = sides["recurrent"], sides["base"]
@@ -48,6 +48,7 @@ def check(result, tok, tools):
                     q,
                     spec,
                     "candidate" if side == "recurrent" else "control",
+                    after_callback=after_callback,
                 )
             else:
                 replay_exchange(tok, tools, history, r, spec)
@@ -103,6 +104,40 @@ def main():
     )
     for r in recovery["requests"]:
         check(r["result"], tok, [tool()])
+    from verify_runtime_wheel import trace
+
+    review = read(docs / "observation-review-installed-cli.json")
+    assert review["policy"] == digest(results / "observation-review-01/checksums.json")
+    identity = read(docs / "observation-review-base-identity.json")
+    protocol = read(results / "observation-review-01/registration.json")
+    assert identity["export_sha256"] == protocol["base_text_sha256"]
+    assert identity["revision"] == REVISION and identity[
+        "review_adapter_sha256"
+    ] == digest(results / "observation-review-01/tool-adapters.safetensors")
+    assert identity["review_sites"] == identity["opening_sites"] + [[23, 1]]
+    assert (
+        identity["exact_text_tensors"] > 0
+        and identity["shared_quantized_and_unquantized_tensors"]
+        >= identity["exact_text_tensors"]
+    )
+    assert all(
+        rows[0]["question"] == review["question"]
+        for rows in review["result"]["runs"].values()
+    )
+    assert (
+        review["outside_checkout"] and review["offline"] and review["reference"] == 704
+    )
+    assert (
+        trace(review["result"]["runs"]["recurrent"][0])
+        == review["independent_candidate_trace"]
+    )
+    check(review["result"], tok, [tool()], after_callback=True)
+    dist = Path("exports/observation-review-runtime") / review["wheel"]
+    if dist.is_file():
+        assert (
+            digest(dist) == review["wheel_sha256"]
+            and dist.stat().st_size == review["wheel_bytes"]
+        )
     checked = read(docs / "checked-calculator-installed-cli.json")
     assert checked["registration"] == digest(
         results / "checked-equations-field-01/registration.json"

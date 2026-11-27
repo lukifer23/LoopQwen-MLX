@@ -1,0 +1,205 @@
+{
+  "passed": false,
+  "gates": {
+    "fresh": false,
+    "each_source": false,
+    "repairs": false,
+    "retention": false,
+    "strict": false,
+    "mechanism": true,
+    "wall_s": true,
+    "first_s": false,
+    "peak": true
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 82,
+        "strict": 29,
+        "requests": 94,
+        "answers": 45,
+        "grounded": 38,
+        "completed": 67,
+        "wall_s": 242.34753595490474,
+        "first_s": 15.585943912912626,
+        "peak": 1669978834,
+        "output_tokens": 22777
+      },
+      "ASDiv": {
+        "dialogues": 24,
+        "strict": 3,
+        "requests": 24,
+        "answers": 4,
+        "grounded": 3,
+        "completed": 13,
+        "wall_s": 73.01545391703257,
+        "first_s": 4.729477165848948,
+        "peak": 1669978834,
+        "output_tokens": 6858
+      },
+      "SVAMP": {
+        "dialogues": 24,
+        "strict": 3,
+        "requests": 24,
+        "answers": 7,
+        "grounded": 3,
+        "completed": 10,
+        "wall_s": 79.01155049802037,
+        "first_s": 3.5564298760145903,
+        "peak": 1168843298,
+        "output_tokens": 7996
+      },
+      "public": {
+        "dialogues": 22,
+        "strict": 21,
+        "requests": 22,
+        "answers": 21,
+        "grounded": 21,
+        "completed": 21,
+        "wall_s": 55.05845958396094,
+        "first_s": 3.3309031650424004,
+        "peak": 1172141098,
+        "output_tokens": 5095
+      },
+      "packages": {
+        "dialogues": 6,
+        "strict": 0,
+        "requests": 12,
+        "answers": 6,
+        "grounded": 4,
+        "completed": 11,
+        "wall_s": 15.470129166031256,
+        "first_s": 1.8510885000578128,
+        "peak": 1172753394,
+        "output_tokens": 1210
+      },
+      "files": {
+        "dialogues": 6,
+        "strict": 2,
+        "requests": 12,
+        "answers": 7,
+        "grounded": 7,
+        "completed": 12,
+        "wall_s": 19.791942789859604,
+        "first_s": 2.1180452059488744,
+        "peak": 1166615066,
+        "output_tokens": 1618
+      }
+    },
+    "control": {
+      "all": {
+        "dialogues": 82,
+        "strict": 30,
+        "requests": 94,
+        "answers": 48,
+        "grounded": 36,
+        "completed": 69,
+        "wall_s": 408.5001383772469,
+        "first_s": 15.188075994199608,
+        "peak": 1816102178,
+        "output_tokens": 26821
+      },
+      "ASDiv": {
+        "dialogues": 24,
+        "strict": 3,
+        "requests": 24,
+        "answers": 9,
+        "grounded": 3,
+        "completed": 12,
+        "wall_s": 123.77088812517468,
+        "first_s": 4.3532331240712665,
+        "peak": 1815299714,
+        "output_tokens": 8177
+      },
+      "SVAMP": {
+        "dialogues": 24,
+        "strict": 5,
+        "requests": 24,
+        "answers": 10,
+        "grounded": 5,
+        "completed": 12,
+        "wall_s": 119.29325996013358,
+        "first_s": 3.5639707480440848,
+        "peak": 1808282642,
+        "output_tokens": 7963
+      },
+      "public": {
+        "dialogues": 22,
+        "strict": 20,
+        "requests": 22,
+        "answers": 20,
+        "grounded": 20,
+        "completed": 21,
+        "wall_s": 98.00094724906376,
+        "first_s": 3.3387104549910873,
+        "peak": 1816102178,
+        "output_tokens": 6395
+      },
+      "packages": {
+        "dialogues": 6,
+        "strict": 2,
+        "requests": 12,
+        "answers": 8,
+        "grounded": 7,
+        "completed": 12,
+        "wall_s": 32.35177554190159,
+        "first_s": 1.837266706977971,
+        "peak": 1807987634,
+        "output_tokens": 2034
+      },
+      "files": {
+        "dialogues": 6,
+        "strict": 0,
+        "requests": 12,
+        "answers": 1,
+        "grounded": 1,
+        "completed": 12,
+        "wall_s": 35.08326750097331,
+        "first_s": 2.094894960115198,
+        "peak": 1808577458,
+        "output_tokens": 2252
+      }
+    }
+  },
+  "strict": {
+    "wins": 6,
+    "losses": 7,
+    "p": 1.0
+  },
+  "human": {
+    "wins": 3,
+    "losses": 11,
+    "p": 0.057373046875
+  },
+  "receipts": {
+    "paired": {
+      "wins": 14,
+      "losses": 0,
+      "p": 0.0001220703125
+    },
+    "candidate": {
+      "pairs": 16,
+      "right": 16,
+      "wrong": 24
+    },
+    "control": {
+      "pairs": 2,
+      "right": 8,
+      "wrong": 17
+    }
+  },
+  "free_receipts": {
+    "candidate": {
+      "initial_wrong": 5,
+      "repaired": 0,
+      "initial_right": 9,
+      "kept": 6
+    },
+    "control": {
+      "initial_wrong": 6,
+      "repaired": 0,
+      "initial_right": 9,
+      "kept": 8
+    }
+  }
+}
