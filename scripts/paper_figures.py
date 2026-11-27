@@ -491,6 +491,9 @@ def main():
     from paper_native_functions import make as native_functions
 
     native_functions(PAPER, RESULTS, result, finish)
+    from paper_checked_equations import make as checked_equations
+
+    checked_equations(PAPER, RESULTS, result)
     from paper_request_tradeoffs import make as request_tradeoffs
 
     request_tradeoffs(PAPER, RESULTS, result, finish)

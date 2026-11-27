@@ -401,3 +401,6 @@ The original unified comparison stopped on unequal token IDs in a passage contai
 
 
 For the official Qwen tool interface, rebuild the 1,244 message targets and the enrolled 58 conversations with `.venv/bin/python scripts/native_function_material.py`. The builder checks existing registered data and requires the recorded distributions for the live version targets. From an open native research window, run `.venv/bin/python -m loopqwen.research.native_function_study native-function-dialogue-01`. Recount the archive with `.venv/bin/python scripts/research_archive.py native-function-dialogue-01 --verify`. The verifier reconstructs subsequent native prompts from the recorded model tokens and independently re-executes actions against the frozen environment.
+
+
+The checked-equality field study uses the original shipped tool weights and the same `--checked-calculator` for both systems. Rebuild the untouched 24-item panel with `.venv/bin/python scripts/checked_equations_material.py` and run the bounded study with `.venv/bin/python -m loopqwen.research.checked_equations checked-equations-field-01`. [Registered paired decision](../research/experiments/checked-equations-field-01.json)
