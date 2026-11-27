@@ -14,6 +14,10 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.assistance_deliberation import write_csv
+from scripts.assistance_reasoning_exposure import (
+    DEST as THINKING_RECEIPT,
+    observed as reasoning_exposure,
+)
 from scripts.assistance_uncertainty import cost_profile, joint, open_p, paired_sources
 from scripts.integrated_assistance_reading import RATINGS, ROOT
 from scripts.integrated_assistance_reading import run as reading
@@ -368,6 +372,8 @@ def build():
     assert RATINGS.is_file()
     reading("report")
     exposure(ROOT)
+    thinking = reasoning_exposure(ROOT)
+    assert thinking == read(THINKING_RECEIPT)
     plt.rcParams.update(
         {
             "svg.hashsalt": "integrated-assistance-01",
@@ -378,7 +384,13 @@ def build():
     )
     save(
         P / "integrated-assistance-paper.json",
-        {**train(), **evaluation(), "archive": digest(ROOT / "checksums.json")},
+        {
+            **train(),
+            **evaluation(),
+            "reasoning_targets": thinking["totals"]["thinking_text"],
+            "reasoning_draws": thinking["totals"]["draws_with_thinking_target"],
+            "archive": digest(ROOT / "checksums.json"),
+        },
     )
     edition(P, "integrated-assistance")
     edition(P, "integrated-assistance", verify=True)
