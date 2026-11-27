@@ -1,5 +1,14 @@
 # Research decisions
 
+
+## Current decisions for reasoning and usable functions
+
+| Named question | Frozen comparison and decision |
+|---|---|
+| Does a learned second pass improve ordinary prose across authors? | Compare the two-pass source-balanced return against untouched Base across 396 passages. Check per-source losses, top-one decisions, generation and runtime. The registered gate controls any matched-depth successor. [Registration](../research/experiments/selective-raw-return-01.json) |
+| Can the tool model recover from a real execution error? | Collect 256 free openings. At least 64 actual calculator exceptions are required before fitting or evaluating. Freeze the opening model and measure both fresh human final numbers and post-error completions, with field and public retention. [Registration](../research/experiments/callback-recovery-01.json) |
+| Will the loop sustain tool use on Qwen's public message format? | Fit the native function interface, then run 58 complete dialogues through the shipped loader and untouched Base. Compare fresh human arithmetic, real follow-ups, preserved public calls, first-token time, end-to-end time and peak allocation. A pass licenses independent confirmation and matched K1. A miss closes those jobs. [Registration](../research/experiments/native-function-dialogue-01.json) |
+
 ## Deployment objective and decision sequence
 
 The objective is one offline assistant that improves useful answers over the pinned Qwen3.5-0.8B-Base, preserves its existing capabilities, and can retrieve changed evidence from at least 131,072 actual input tokens. An architectural claim also requires a matched one-pass model. We measure user-visible accuracy, action grounding, latency to the first token, whole-request time and peak allocation together. Aggregate wins alone cannot qualify a family with a regression.

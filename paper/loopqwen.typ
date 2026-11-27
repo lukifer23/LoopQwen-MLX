@@ -473,3 +473,5 @@ The supplement indexes registered studies and their archive SHA-256 inventories,
 [56] Qiao et al. (2024). Making language models better tool learners with execution feedback. #link("https://aclanthology.org/2024.naacl-long.195/")[NAACL].
 
 *Earlier stages.* The pilot and Phases 2–4 studied procedural questions, residual gates and training seeds. Phases 5–7 studied state supervision and interventions. Randomized training achieved 3,067/3,072 correct third-hop decisions over shuffled presentations of 384 permutation maps. Sixth-hop complete paths fell from 190/192 on permutations to 6/192 on arbitrary maps. Adaptive replay won at equal updates and lost at matched time. The phase reports under `docs/` contain the configs, negative runs and measurements. The study-index CSV covers the subsequent registered research program. #link(repo)[Project and phase reports].
+
+[57] Qwen Team. Qwen3.5-0.8B. Publisher chat template for tools and multi-turn messages. #link("https://huggingface.co/Qwen/Qwen3.5-0.8B/blob/2fc06364715b967f1860aea9cf38778875588b17/chat_template.jinja")[Pinned template].

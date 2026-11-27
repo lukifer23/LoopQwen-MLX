@@ -488,6 +488,9 @@ def main():
     providers(PAPER, RESULTS, result)
     repository_trees(PAPER, RESULTS, result, finish)
     localized_inputs(PAPER, RESULTS, result, finish)
+    from paper_native_functions import make as native_functions
+
+    native_functions(PAPER, RESULTS, result, finish)
     index()
     (PAPER / "figure-sources.json").write_text(
         json.dumps(used, indent=2, sort_keys=True) + "\n"
