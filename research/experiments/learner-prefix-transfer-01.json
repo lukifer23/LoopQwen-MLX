@@ -1,0 +1,39 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "passes": 2,
+  "revisits": 2,
+  "id": "learner-prefix-transfer-01",
+  "fit_stage": "learner-prefix-fit-01",
+  "material": "research/sources/learner-prefix/fresh-panel.json.gz",
+  "sources": {
+    "research/results/repair-query-fit-01/checksums.json": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+    "research/sources/repair-query/verified-training.json.gz": "427775bf9e4124f8c71a4a7ebcb25e07f814a387035fd98c6276e9d33cd98f39",
+    "research/sources/learner-prefix/native-prefixes.json.gz": "63edc9283a1f3b63471587898502a8c0acd25f6c49b846f18e6d3534dd4bf1ac",
+    "research/sources/learner-prefix/qualification.json": "27447c103a0fa1fa829a022555fd9e8ee9ae60c9493b5d87e22be14efeaa1e61",
+    "research/sources/learner-prefix/supervised-tokens.json.gz": "b526e2cf904dc83ae2e96cd5f715f88cf073131696b6f076649b7807ed3fbaf9",
+    "research/diagnostics/learner-prefix-material.json": "777f0a1f6253254edd588f3f1b9cb979d43d4c2d80327a2e2b6a6b5fcb9d6bf6",
+    "research/sources/learner-prefix/fresh-panel.json.gz": "085b4bc4e7dfb3123eb68417f7ee557dcfe1aff499eeaf4b7f829b690c135f39",
+    "research/diagnostics/learner-prefix-direct.json": "a8ac41bda811c9799a1eee9b15767a59e9b247e1eee85f4592aea3f7381c1dee",
+    "research/experiments/learner-prefix-fit-01.json": "0ae22ad5f323ebe4d2aa93ebb3e370566e3b35a1a3a5f255b354e5da84d10044"
+  },
+  "limits": {
+    "wall_seconds": 2400,
+    "peak_gib": 3,
+    "available_gib": 1.5
+  },
+  "seconds_per_arm": 1200,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "context_turns": 1,
+  "question": "Can corrective training from actual learner prefixes improve source-grounded reasoning and executable calculations on previously unused topics, passages and financial tables?",
+  "protocol": "One direct pair on 24 new human topics and 24 previously unused TAT-QA financial-report contexts. Both get identical original opening IDs, official thinking mode, greedy decoding, 384 tokens per turn, up to three turns and identical calculator callbacks. Report strict correctness, every gain and loss, actual wall time, first-output wait, peak MLX memory and both token rates. Blindly judge every source response before opening per-arm outcomes. The candidate is the prespecified two-read fit. Control is untouched certified BF16 Qwen Base at ordinary depth. No recovery suffix, forced token, answer verifier or deadline heuristic is available to either at inference. Within each family require at least six additional correct and fully-usable source answers on their respective endpoints, zero lost successes, no additional unsupported claims and two-sided exact paired p<=0.05. The financial endpoint requires an executed substantive calculation and a correct delivered quantity. Require superior aggregate elapsed, first-token wait, opening throughput, decode throughput and peak, and no fewer completed answers within either family. All 48 pairs are retained. No later confirmation or release from a failed comparison. At a pass, test external tool error and misleading histories, broad retained tasks, full-length edited sources, matched trained depth and an independent seed."
+}
