@@ -1,0 +1,79 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "instruction_interpolation": {
+    "trained_fraction": 1.0,
+    "second_pass_fraction": 0.35,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "id": "cross-view-reading-01",
+  "question": "Can one shared recurrent assistant give the same correct open-ended answer to a real question when it sees the original passage inline and when it must obtain the passage through a file, on a new source of human coreference questions?",
+  "trained_instruction_adapter": true,
+  "material": "research/data/cross-view-panel.json",
+  "training": "research/data/cross-view-training.json",
+  "teacher": {
+    "repo": "mlx-community/Qwen3.5-4B-4bit",
+    "revision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+    "directory": "data/research_external/cross-view-teacher",
+    "weights_sha256": "5fb9acd0246866381cf8c5c354c6db1019f6498eec4ccb4f5edcc71ffeacb2db",
+    "source": "https://huggingface.co/Qwen/Qwen3.5-4B",
+    "files": {
+      "config.json": "f3efc81b2ea8d96a45301037d3ccccbcccdef44a961845c87f286aaddbc6eaaa",
+      "tokenizer.json": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+      "tokenizer_config.json": "e98f1901ac6f0adff67b1d540bfa0c36ac1a0cf59eb72ed78146ef89aafa1182",
+      "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "model.safetensors.index.json": "52e534c41f7b97708329c85f762e5882bf48bd5955a422c6ae74eba321e6048a"
+    }
+  },
+  "source_hashes": {
+    "quoref": "aacde0863c04ba6e9ab46995ea844a5b0c6cea58a77ab6fd86a128e33a3ad8fb",
+    "squad": "3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955"
+  },
+  "sources": [
+    "https://aclanthology.org/D19-1606/",
+    "https://quoref-dataset.s3-us-west-2.amazonaws.com/train_and_dev/quoref-train-dev-v0.1.zip",
+    "https://rajpurkar.github.io/SQuAD-explorer/dataset/train-v1.1.json",
+    "https://aclanthology.org/2023.findings-acl.507/"
+  ],
+  "sample_seed": 542233,
+  "fit_seed": 542234,
+  "train_articles": 192,
+  "test_articles": 20,
+  "retain_tables": 8,
+  "rehearsal": 128,
+  "updates": 640,
+  "lr": 0.00011,
+  "batch": 6,
+  "top_k": 32,
+  "temperature": 2.0,
+  "min_teacher_coverage": 0.65,
+  "max_tokens": 640,
+  "max_turns": 3,
+  "limits": {
+    "wall_seconds": 3950,
+    "peak_gib": 7.25,
+    "available_gib": 1.5
+  },
+  "protocol": "Independent training from qualified release 05 instruction sibling and its qualified K2 action adapter, with its actual last layer shared twice on all input and output tokens. No weights from failed file, meaning or interpolation trials. Select two human questions with different single-span answers per SQuAD train article and teach both inline and authentic post-callback views. Use a separate frozen native four-billion-parameter teacher only on teacher-forced SQuAD training passages and their actual reference answers. Require identical token vocabularies and at least 65% of first answer tokens in teacher top 32 before student work. Retain 32 teacher probabilities and residual mass at all answer positions at temperature two. Equal weight to the two source views. On each update use both human questions on one article, each in both formats (four examples), an opening action from it and one actual WikiSQL rehearsal (six total). Optimize 0.60 times the mean of the four answer losses, 0.30 opening response CE and 0.10 rehearsal CE. Each answer loss is answer-token CE plus 0.2 full-response CE plus 0.45 temperature-squared teacher cross entropy on the grouped 33 outcomes. One native AdamW step at each logical batch. Fused resident model, unrestricted native function and plain dialogue. No teacher or document selection heuristic at inference. Source claims rest on the two complete individual models, not on depth alone. Compile the seven fitted projections once into a sealed BF16 layer and share those exact tensors on both visits. The installed runtime loads the frozen eight-bit instruction backbone and this compiled layer directly. Record compilation separately and count both cold actor constructions in the direct pair.",
+  "decision": "20 entirely separate Quoref publisher development articles, one passage and two distinct human questions per article, asked in both forms. Use only single-span annotated answers, nonoverlapping normalized reference strings. No Quoref training examples. Hash order per original title, passage and question. Bound passage length to 40-500 words in evaluation, 40-300 in SQuAD. Disjoint titles, normalized contexts and questions. Actual CSVs have a target and two real distractor rows in two layouts. Eight previously evaluated real WikiSQL tables provide retention. Compare only with untouched BF16 Base, identical reasoning-enabled IDs and greedy 640 tokens and three turns. Primary unit is article: all four finished judgments must contain the correct bounded reference, omit the other question's different reference, and both file answers must use and return the right real cell. Require net >=5 articles and exact two-sided p<=.05. Require higher file and inline individual grounded-content totals, exact-answer counts and mean reference-token F1 in both modalities, no loss in grounded retention and completed requests, shorter whole-stream and first-token sums, lower peak and higher opening and decode throughput. Publish all exact outputs, exposure, both-view and both-question outcomes. No claim about causal depth or 128K for this student without independently qualified K1, transfer and >=131072 testing. Miss closes those downstream jobs."
+}

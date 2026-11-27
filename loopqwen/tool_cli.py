@@ -130,6 +130,14 @@ def open_assistant(args):
         from .io import read
 
         policy = read(args.session_policy / "registration.json")
+        if policy.get("trained_instruction_adapter"):
+            from .cross_view import CrossViewAssistant
+
+            if getattr(args, "tool_format", "compact") != "qwen":
+                raise ValueError(
+                    "The cross-view reader uses the native Qwen tool format"
+                )
+            return CrossViewAssistant(args.checkpoint, args.session_policy)
         if policy.get("file_evidence"):
             from .file_evidence import FileEvidenceAssistant
 
