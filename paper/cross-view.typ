@@ -45,6 +45,8 @@ Each case earns content credit if the completed visible answer contains its huma
 
 The whole-stream timings include model construction on the first request, generation, real callbacks and final answers. The reported first-token sum includes user-visible setup. Opening throughput uses the two arms’ identical opening-token total divided by that sum, so the two measures carry the same directional information. Decode throughput pools tokens after the first output over their actual decode seconds. Each arm ran once in a fixed order on the same 18 GiB Apple M3 Pro. Timing variability across hosts and repeated runs is outside this comparison.
 
+#figure(image("cross-view-service.svg",width:100%),caption:[Left, grounded or correct answers delivered over one cold stream in frozen request order. Right, elapsed time for all 88 individual requests, including failures. Both systems received the same generation cap.])
+
 #pagebreak()
 = Where both modalities succeeded
 #figure(image("cross-view-articles.svg",width:100%),caption:[Each row is a distinct Quoref article. The four columns for each model show its two inline and two file answers. A complete article has four correct outcomes with both file reads grounded.])

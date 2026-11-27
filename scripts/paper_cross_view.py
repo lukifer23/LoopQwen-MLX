@@ -2,6 +2,7 @@
 
 import csv
 import json
+from itertools import accumulate
 from pathlib import Path
 
 import matplotlib
@@ -145,6 +146,43 @@ def build():
     ax.spines[["top", "right", "left"]].set_visible(False)
     ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.01), ncol=4, frameon=False)
     fig.savefig(P / "cross-view-channels.svg", metadata={"Date": None})
+    plt.close(fig)
+    fig, (elapsed, wait) = plt.subplots(
+        1,
+        2,
+        figsize=(7.45, 2.65),
+        layout="constrained",
+        gridspec_kw={"width_ratios": [1.5, 1]},
+    )
+    for arm, name, color in (
+        ("candidate", "Trained loop", "#17645b"),
+        ("control", "Untouched Base", "#af643b"),
+    ):
+        wall = [r[arm + "_wall_s"] for r in records]
+        success = [int(r[arm + "_success"]) for r in records]
+        times = [0, *accumulate(wall)]
+        useful = [0, *accumulate(success)]
+        assert useful[-1] == groups[arm]["all"]["grounded"]
+        elapsed.step(times, useful, where="post", color=color, label=name)
+        elapsed.scatter(times[-1], useful[-1], s=14, color=color)
+        wait.step(sorted(wall), range(1, len(wall) + 1), where="post", color=color)
+    elapsed.set(
+        xlabel="Elapsed stream time (seconds)",
+        ylabel="Useful answers delivered",
+        xlim=(0, None),
+        ylim=(0, None),
+    )
+    wait.set(
+        xlabel="Request latency (seconds)",
+        ylabel="Requests at or below latency",
+        xscale="log",
+        ylim=(0, len(records) + 2),
+    )
+    for ax in (elapsed, wait):
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.grid(axis="y", alpha=0.18)
+    elapsed.legend(loc="lower right", frameon=False, fontsize=8)
+    fig.savefig(P / "cross-view-service.svg", metadata={"Date": None})
     plt.close(fig)
     fig, ax = plt.subplots(figsize=(7.45, 4.50), layout="constrained")
     style = {

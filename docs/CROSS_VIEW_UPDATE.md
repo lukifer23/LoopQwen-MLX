@@ -52,3 +52,18 @@ cp "$update/policy/teacher.json.gz" "$update/policy/teacher-summary.json" "outpu
 ```
 
 To independently repeat teacher inference, start with a fresh output directory, run `"$py" -m scripts.cross_view_sources` with network access once, then execute the study offline. That command fetches the pinned 3.03 GB four-billion-parameter checkpoint. Only SQuAD training answers enter the teacher. The student and the installed Base comparison work without the teacher checkpoint.
+
+## Rebuild the figures and paper from the original answers
+
+The restored source contains the frozen predictions, human reference spans, blind review labels and the earlier 83-page report. With the two source archives and release 05 in the locations above, install the update’s plotting wheels and the original kit’s typesetting wheels. The paper build reads both model traces, recalculates the article-level intervals and writes the tables, SVG figures, request-level CSV, separate manuscript and consolidated PDF under `paper/`.
+
+```sh
+uv --no-cache pip install --offline --no-index --python "$py" \
+  --find-links "$kit/dependencies" "$update"/figure-tools/*.whl "$kit"/paper-tools/*.whl
+"$py" -m scripts.cross_view_material
+"$py" -m scripts.cross_view_source_check
+"$py" -m scripts.cross_view_exposure
+"$py" -m scripts.cross_view_reading
+"$py" -m scripts.paper_cross_view
+shasum -a 256 paper/loopqwen-study.pdf
+```
