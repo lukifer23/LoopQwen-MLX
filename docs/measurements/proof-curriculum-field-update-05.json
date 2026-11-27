@@ -1,0 +1,70 @@
+{
+  "name": "loopqwen-proof-update-05.zip",
+  "bytes": 79882341,
+  "sha256": "c7f21c54b0a9bab5b2ade463765663a9e1922e6af61f7b1516278033352a9656",
+  "payloads": 46,
+  "requires": {
+    "loopqwen-field-kit-01.zip": "ba5a1326e0205f2a5727a6f8229290a81e2b03f04cceab44ceb32e6700418e5c",
+    "loopqwen-field-update-04.zip": "ccca015162718891c7a7d58edfb4249c7dd65cf0689ee27c8d748c5071997d69"
+  },
+  "source_revision": "f0087d5bc4277998cc6b04a0671ef225466e153b",
+  "history_restored": true,
+  "network_blocked": true,
+  "empty_model_cache": true,
+  "isolated_installed_cli": true,
+  "policy_weights": "fcb8e9219a3a1e07dc201b2f65fc67f4926a0cab5baa77d168703c9788129e7f",
+  "actual_comparisons": [
+    {
+      "example": "1-wheel",
+      "id": "wheel-mlx-lm",
+      "traces": {
+        "recurrent": "6503800031f600adc18b50ad132197f07e38186060258d7aa0b57d3c29dec65d",
+        "base": "7368016fa72cb0d18c76d6db200c5ee7ca83244dc2ca32123e75056ecc6888b9"
+      }
+    },
+    {
+      "example": "2-inline",
+      "id": "953f62edd5914136-inline",
+      "traces": {
+        "recurrent": "4b690b9a7be465b68ea9e26c119c21fd5eff7676e20b625024811ce67bb8db0b",
+        "base": "5fbf0706af28d506594e35f0cf8bc43c687c1dfa0b85474ed8b8209052438899"
+      }
+    },
+    {
+      "example": "3-file",
+      "id": "953f62edd5914136-file",
+      "traces": {
+        "recurrent": "45a3761eca8cf2e8aff1bdc1886c3f5d1d8b58b506ffdb174fe677eeda23b65e",
+        "base": "7296df27702537ef123a7189e22100b94e5f91df06ffb5f15ce2f5ed1235e507"
+      }
+    },
+    {
+      "example": "4-wheel",
+      "id": "wheel-tqdm",
+      "traces": {
+        "recurrent": "7a331a08a86106113c5798d5ca6fa597963ef8fbf9c3dbfe5c6d826284743571",
+        "base": "06d19ca48078361a1dc637e281e45d4b90821f3dd70eaab47578e68ce30b15da"
+      }
+    },
+    {
+      "example": "5-retention",
+      "id": "wiki-test-815",
+      "traces": {
+        "recurrent": "94d83ae325aa64c9949c580da70cbdd689cca2e048a2c02a513832cae7cb37f2",
+        "base": "0f2a0b6261a73ca47f9a47f06fcd43b3c0641936205426ffb1524c6c015f6a89"
+      }
+    }
+  ],
+  "regenerated": {
+    "paper/loopqwen-proof-study.pdf": "ccb0bb7a5fbcb9e1677722380a0a4a6e035768ff873cccf496573b1d9cce01f3",
+    "paper/proof-curriculum-accuracy.svg": "b32ab522239ef5434accbbebbf28be78c0e83ac84f43f7f8e9d2e6ef4ca45665",
+    "paper/proof-curriculum-confusion.svg": "b40b27a2cecbdb50a2c9d2e306dcfd7ea9c02be21a829bb69a0caf2b9aa26868",
+    "paper/proof-curriculum-costs.svg": "f118c2c813f0f9d5c5f167f485f6fdbe5cd3a0b62d20f2ee32ffb934ecd917dc",
+    "paper/proof-curriculum-paper.json": "b5769b00f1d85530fea91a8418e79f9e7c37125e55d3bb60d1afb10a08a88b42",
+    "paper/proof-curriculum-requests.csv": "1cbe781eb4c1de8a8c24c0e882674ae49f246babb1ea567c005ad205aff7c07d",
+    "paper/proof-curriculum-stories.svg": "ae9ea7b464c6134c76d3804c58e5920a74e71284805ce1ff3af75e733b238348",
+    "paper/proof-curriculum-system-inventory.csv": "e73bb72f1535de80ae4c88fd79411a46dd802e81fc243f5ea4945eb46ab9bb12",
+    "paper/proof-curriculum-system-inventory.svg": "9fd498e57051716ac28b992d992a91b48c55371f603df8ebfad7d844279e797e",
+    "paper/proof-curriculum.pdf": "69d823114cfa5171e756ab4fa1baadfb9da2fa3a4bad043da06ff16560329ee6"
+  }
+}
