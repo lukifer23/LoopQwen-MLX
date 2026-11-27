@@ -99,10 +99,14 @@ Before observing model outputs we chose one presentation of each original questi
 A source-stratified paired bootstrap with 20,000 draws estimates uncertainty within this panel. The 95% percentile intervals for the ratio of summed waits were #m.intervals. Request grouping reflects the repeated presentations, opposing claims and shared source tables. The measurements come from one 18-GiB Apple M3 Pro.
 
 #pagebreak()
-= What changed in the installed runtime
+= Time to a usable answer
+Across the entire 84-request workload, including time spent on failures, the loop and Base delivered #m.delivery grounded answers per minute, respectively. #m.common The following fixed deadlines count only requests with a fully correct grounded answer. Each request starts its own clock. No time from a failed request is credited as a successful completion.
+#grid(("Wait budget","Loop, solved / 84","Base, solved / 84"),m.deadlines,(1.15fr,1.2fr,1.2fr))
 #image("linked-rollin-cost.svg",width:100%)
 #cap[Figure 4. Empirical distributions across 84 matched requests. First and full response time include the cost of the text the model actually generated. Throughput and peak memory use the original native trace.]
 
+#pagebreak()
+= What changed in the installed runtime
 An independent same-weight crossover on the qualified release 05 changed how intermediate prefill blocks are materialized. Evaluating only the physical cache state advances every recurrent site and preserves its history. A separate numerical probe compared every first-token logit and each retained convolution, delta and full-attention state. Sixty-four fixed-prompt runs preserved generated tokens and histories. In a second test, 32 separate installed commands exercised four real two-message conversations in counterbalanced blocks. Both settings generated 5,824 tokens and reused 28,672 prompt tokens. All tool responses and histories matched. #m.runtime
 
 #image("cache-state-conversations.svg",width:87%)

@@ -167,6 +167,40 @@ def build():
         ax.set(xscale="log", xlabel=label, ylabel="Fraction of requests")
     axes[1].legend(frameon=False, fontsize=8)
     figout(fig, "cost")
+    deadlines = [0.5, 1, 2, 5, 10, 30]
+    deadline_table = []
+    for limit in deadlines:
+        deadline_table.append(
+            [
+                f"{limit:g} s",
+                *[
+                    str(
+                        sum(
+                            row[a + "_success"] == "True"
+                            and float(row[a + "_wall_s"]) <= limit
+                            for row in cases
+                        )
+                    )
+                    for a in ARMS
+                ],
+            ]
+        )
+    common = [row for row in cases if all(row[a + "_success"] == "True" for a in ARMS)]
+    delivery = []
+    for a, side in zip(ARMS, results, strict=True):
+        delivery.append(f"{60 * side['all']['grounded'] / side['all']['wall_s']:.2f}")
+    common_text = (
+        (
+            f"On the {len(common)} requests both models solved, summed wait was "
+            + " versus ".join(
+                f"{sum(float(row[a + '_wall_s']) for row in common):.2f} s"
+                for a in ARMS
+            )
+            + "."
+        )
+        if common
+        else "The two models had no solved requests in common."
+    )
     prices = [
         [lab, *[f"{z['all'][k] / scale:,.{prec}f}" for z in results]]
         for lab, k, scale, prec in (
@@ -307,6 +341,9 @@ def build():
     save(
         P / "linked-rollin-paper.json",
         dict(
+            deadlines=deadline_table,
+            delivery=" and ".join(delivery),
+            common=common_text,
             history=history,
             systems=systems,
             abstract=f"The trained loop gave {current['candidate']} grounded exact answers on 48 open requests. Base gave {current['control']}. The net change was {current['net']:+d} requests (whole-source paired p = {current['paired_p']:.4g}). "
