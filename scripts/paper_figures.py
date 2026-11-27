@@ -404,7 +404,10 @@ def main():
 
     from paper_paired_cost import write as paired_costs
 
+    from paper_service_meaning import write as service_meaning
+
     paired_costs(PAPER, RESULTS)
+    service_meaning(PAPER, RESULTS)
     system_comparisons(PAPER, RESULTS, result)
     plot_service_latency(PAPER, RESULTS, result, finish)
     correct_by_deadline(PAPER, RESULTS, result, finish)
