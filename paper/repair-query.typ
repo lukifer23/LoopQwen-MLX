@@ -97,6 +97,15 @@ The two visits share all parameters. Query and content corrections have rank 160
   #let c=d.stages.at(1).cold
   An independent process rebuilt the input features, loaded the archived weights and repeated the one-read and two-read paths, along with the original initialization. It reproduced all eight training decisions. The largest absolute difference across the restored response losses, teacher KL and citation losses was #fmt(calc.max(..c.max_errors_by_state.values().map(x=>calc.max(..x.values()))),n:8). It also independently counted all 6,394 distinct complete examples in each epoch.
  ]
+ #if "content_depth" in d [
+  #let c=d.content_depth
+  *Which tokens changed?* We independently recomputed both reads at all #c.positions labeled positions, retaining the full vocabulary and the actual greedy choice. Original response offsets identify reasoning text, visible answers and the values supplied to tools.
+  #tbl((1.4fr,.7fr,.8fr,.8fr,1fr),("Token class","Positions","1 read top-1","2 reads top-1","Mean NLL gain"), c.groups.pairs().sorted(key:p=>p.at(0)).map(p=>{
+    let v=p.at(1)
+    (p.at(0),str(v.n),str(v.one_correct),str(v.two_correct),fmt(v.mean_nll_gain,n:4))
+  }))
+  Top-1 counts compare the model’s most likely next token to the original target. Each prediction conditions on the preceding reference tokens. The largest discrepancy from the archived complete-response mean loss was #fmt(c.max_mean_error,n:7) nats.
+ ]
 ]
 #if d.stages_done >= 3 and d.stages.at(2).decision.at("status", default: "") == "interrupted" [
  #pagebreak()

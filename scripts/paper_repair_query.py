@@ -244,6 +244,10 @@ def collect():
     if amendment.is_file():
         committed(amendment)
         out["trace_correction"] = read(amendment)["charged_failure"]["wall_s"]
+    token_probe = DOC / "query-content-depth.json"
+    if token_probe.is_file():
+        committed(token_probe)
+        out["content_depth"] = read(token_probe)
     primary = RESULT / (STAGED if len(stages) == 4 else PRIMARY)
     if len(stages) >= 3 and (primary / "control.json.gz").exists():
         panel = unpack(PANEL)["rows"]
