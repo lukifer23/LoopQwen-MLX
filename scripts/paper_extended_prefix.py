@@ -16,6 +16,7 @@ PAPER = Path("paper")
 
 
 def build():
+    plt.rcParams["svg.hashsalt"] = "extended-tool-prefix-01"
     rounds = unpack(ROOT / "rounds.json.gz")
     decision = read(ROOT / "decision.json")
     records = []

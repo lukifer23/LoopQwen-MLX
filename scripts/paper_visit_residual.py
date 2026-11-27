@@ -42,6 +42,7 @@ def csv_file(stem, rows):
 def build():
     reading("report")
     prefix()
+    plt.rcParams["svg.hashsalt"] = "visit-residual-01"
     d = read(ROOT / "decision.json")
     fit = read(ROOT / "fit.json")
     a, b = [d["arms"][k] for k in ARMS]
