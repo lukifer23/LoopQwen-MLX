@@ -27,6 +27,7 @@ from scripts.assistance_uncertainty import (
 )
 from scripts.conditional_reading import MASK, RATINGS, ROOT, SCORES
 from scripts.conditional_reading import run as read_primary
+from scripts.conditional_tool_transfer import build as tool_transfer
 from scripts.paper_integrated_assistance import COLORS, LABELS
 from scripts.table_policy_reading import committed
 from scripts.table_reasoning_reading import run as read_reasoning
@@ -272,6 +273,7 @@ def build():
     csv("source-intervals", intervals)
     csv("cost-distribution", cost_profile(rows))
     csv("completion", completion)
+    diagnostics = tool_transfer()
     render_charts(intervals, qs, rows)
     unrolled = {}
     for group, gates in (
@@ -302,6 +304,7 @@ def build():
     assert not any(rec["whole_field"] for rec in overlap["fields"])
     summary = {
         "environment": read(ROOT / "environment.json"),
+        "tool_diagnostics": diagnostics,
         "decode_savings": {
             "length": length_s,
             "rate": rate_s,
