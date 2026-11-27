@@ -117,7 +117,11 @@ def fit(model, tok, spec, out, budget, *, prepare=features):
         logits = net.project(final).astype(mx.float32)
         loss = nn.losses.cross_entropy(logits, targets).mean()
         if pair_count:
-            loss = loss + spec["ranking_weight"] * paired.loss(logits, answer_locations)
+            loss = loss + spec["ranking_weight"] * paired.loss(
+                logits,
+                answer_locations,
+                individual=spec.get("individual_margins", False),
+            )
         return loss
 
     vg = nn.value_and_grad(model, loss_fn)

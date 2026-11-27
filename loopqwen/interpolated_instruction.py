@@ -30,7 +30,7 @@ class InterpolatedAssistant(Assistant):
             raise ValueError(
                 "Both trained and recurrent contributions must be positive"
             )
-        model = bind(None, folder)
+        model = bind(None, folder, policy if spec.get("role_binding") else None)
         layer = model.text.layers[model.span.start]
         if model.span.passes != 2 or model.span.length != 1:
             raise ValueError("Expected one native instruction layer applied twice")

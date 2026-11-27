@@ -57,8 +57,13 @@ class MatchedExamples:
             start += len(a) + len(b)
         return mx.array(positions)
 
-    def loss(self, logits, targets):
+    def loss(self, logits, targets, *, individual=False):
         a, b, x, y = (targets[:, i] for i in range(4))
         positive = logits[a, x] - logits[a, y]
         negative = logits[b, x] - logits[b, y]
+        if individual:
+            # Both contexts must favor their own target over the other member's.
+            return (
+                mx.logaddexp(0, 1 - positive) + mx.logaddexp(0, 1 + negative)
+            ).mean() / 2
         return mx.logaddexp(0, 1 - (positive - negative)).mean()
