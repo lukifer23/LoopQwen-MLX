@@ -11,7 +11,8 @@ from loopqwen.worker import acquire
 
 
 @pytest.mark.parametrize("mode", ["direct", "stabilized", "input_anchor"])
-def test_disk_prefill_preserves_full_logits_across_three_passes(tmp_path, mode):
+@pytest.mark.parametrize("group_attention", [False, True])
+def test_disk_prefill_preserves_full_logits_across_three_passes(tmp_path, mode, group_attention):
     acquire()
     mx.random.seed(1701)
     config = TextModelArgs(
@@ -39,7 +40,7 @@ def test_disk_prefill_preserves_full_logits_across_three_passes(tmp_path, mode):
         h = m.hidden(mx.array([ids[first : first + 128]]), cache)
         mx.eval(h)
     reference = m.project(h[:, -1:])
-    disk = OffloadedPrefill(m, tmp_path)
+    disk = OffloadedPrefill(m, tmp_path, group_attention=group_attention)
     actual = disk.prefill(ids)
     assert len(list(tmp_path.glob("*.safetensors"))) == 4
     for _ in range(3):
