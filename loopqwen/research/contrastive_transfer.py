@@ -17,8 +17,9 @@ from ..io import digest, read, save
 from ..qwen_tools import declarations
 from ..relational_tools import tools
 from ..tool_compare import DenseAssistant
+from .conditional_features import CACHE
 from .conditional_primary import ARMS, costs
-from .contrastive_features import CACHE, FIT, SOURCES
+from .contrastive_features import FIT, SOURCES
 from .contrastive_grading import attested, selected_choice
 from .core import Budget
 from .cross_view_study import tokenizer
