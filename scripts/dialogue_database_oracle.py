@@ -6,14 +6,13 @@ from zipfile import ZipFile
 
 from loopqwen.io import digest, read, save
 from loopqwen.relational_tools import tools
-from scripts.dialogue_database_sources import CACHE, DEST, SHA
 
 
-def audit():
-    assert digest(CACHE) == SHA
-    cohort = read(DEST / "originals.json")
+def replay(source, archive):
+    cohort = read(source)
+    assert digest(archive) == cohort["archive_sha256"]
     all_rows = []
-    with ZipFile(CACHE) as z, TemporaryDirectory() as tmp:
+    with ZipFile(archive) as z, TemporaryDirectory() as tmp:
         work = Path(tmp)
         for split, dbs in cohort["cohorts"].items():
             for db in dbs:
@@ -48,13 +47,19 @@ def audit():
                     }
                 )
                 path.unlink()
-    result = {
-        "source": digest(DEST / "originals.json"),
+    return {
+        "source": digest(source),
         "databases": len(all_rows),
         "queries": sum(r["queries"] for r in all_rows),
         "referencing_multiple_tables": sum(r["multitable"] for r in all_rows),
         "per_database": all_rows,
     }
+
+
+def audit():
+    from scripts.dialogue_database_sources import CACHE, DEST
+
+    result = replay(DEST / "originals.json", CACHE)
     dest = Path("docs/measurements/database-dialogue-tools.json")
     if dest.exists():
         assert read(dest) == result
