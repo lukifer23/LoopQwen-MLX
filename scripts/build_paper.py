@@ -58,6 +58,7 @@ def main(verify):
                         "document-search-field-",
                         "document-evidence-",
                         "callback-recovery-",
+                        "native-function-dialogue-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

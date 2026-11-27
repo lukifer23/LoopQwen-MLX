@@ -1,0 +1,35 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "rank": 32,
+  "start_layer": 23,
+  "public": "research/results/tool-dialogue-typed-01",
+  "public_sha256": "a19ab726581a9beeaf3a29b4e6b041ba41dea67fb1388ecc6bd257ecd7dfddc4",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "id": "native-function-dialogue-01",
+  "question": "Can a shared final layer trained on published Qwen function messages solve real two-request services and human arithmetic against untouched Base when both receive the official tool interface?",
+  "release": "research/results/packed-release-retention-04",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "training": "research/data/native-function-training.json",
+  "material": "research/data/native-function-panel.json",
+  "fit_seed": 910331,
+  "updates": 900,
+  "batch": 6,
+  "lr": 8e-05,
+  "limits": {
+    "wall_seconds": 1800,
+    "peak_gib": 7.0,
+    "available_gib": 1.4
+  },
+  "protocol": "Initialize the 8-bit prefix from the official instruction donor. Train rank-32 residual adapters at two physical applications of shared layer 23 on 1,244 response-only official Qwen turns. Freeze exact publisher messages, real observation targets and ordered test material. Use a disk-backed native prefix bank and 900 AdamW updates of six sampled turns. Both systems get the same official tokenizer and function schemas, full greedy thinking, up to 384 tokens and at most three model turns per request. Run candidate then untouched BF16 ordinary Base on 58 dialogues: 22 repeated public executable BFCL questions, twelve previously unenrolled ASDiv and twelve SVAMP, six actual two-request package dialogues and six actual two-request file dialogues. Each of the twelve authored dialogues changes both requested resource and correct answer. Use disjoint training resources, four evaluation languages and real processes. The first of 70 requests includes cold loading in each arm. Follow-ups use each decoder\u2019s own history. The paired unit is a whole dialogue. Per-source human final numbers are reported apart from grounded arithmetic. Strict service success requires exactly the correct call, observation and a single correct reported quantity in both requests. End-to-end advantage over the pretrained control includes training, precision and initialization. No depth-specific claim from this pair.",
+  "gate": "Require at least eight net strict dialogue wins vs Base with two-sided exact paired p<=.05, six successful complete service pairs, no decline in either service family, every one of 17 previous correct public call IDs retained, and final answers at least Base on ASDiv and SVAMP separately. Require lower or equal total wall time, summed first-token time and peak native bytes. Stop at registered memory or 1800-second cap. A miss closes default promotion and dependent jobs. A pass licenses an independent confirmation followed by equal-trained K1."
+}

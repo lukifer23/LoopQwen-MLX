@@ -67,12 +67,22 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("native-function-dialogue-"):
+        from loopqwen.research.native_function_study import (
+            verify as verify_native_functions,
+        )
+
+        return verify_native_functions(root, decision)
     if study.startswith("callback-recovery-"):
-        from loopqwen.research.callback_recovery import verify as verify_callback_recovery
+        from loopqwen.research.callback_recovery import (
+            verify as verify_callback_recovery,
+        )
 
         return verify_callback_recovery(root, decision)
     if study.startswith("shared-session-"):
-        from loopqwen.research.shared_session_study import verify as verify_shared_session
+        from loopqwen.research.shared_session_study import (
+            verify as verify_shared_session,
+        )
 
         return verify_shared_session(root, decision)
     if study.startswith(("document-search-field-", "document-evidence-")):

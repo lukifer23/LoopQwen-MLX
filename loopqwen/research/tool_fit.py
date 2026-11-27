@@ -127,6 +127,11 @@ def fit(model, tok, spec, out, budget, *, prepare=features):
     for step in range(spec["updates"]):
         budget.check()
         batch = paired.sample(rng) if pair_count else rng.sample(bank, spec["batch"])
+        if isinstance(batch[0][0], Path):
+            batch = [
+                (mx.load(str(path))["hidden"], offset, ids)
+                for path, offset, ids in batch
+            ]
         width = max(h.shape[0] for h, _, _ in batch)
         h = mx.stack(
             [mx.pad(x, ((0, width - x.shape[0]), (0, 0))) for x, _, _ in batch]
