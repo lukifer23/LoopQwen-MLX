@@ -33,6 +33,7 @@ from .native_function_study import evaluate, executions, replay, summarize
 from .native_function_data import token_pair
 from .registered import registered
 from .visit_residual_fit import annotations, fit, stream
+from .visit_residual_probe import cohort
 
 NAME = "visit-residual-01"
 NEW = ("effects", "dependency", "same_version")
@@ -221,6 +222,21 @@ def verify(root, d):
         )
         assert math.isfinite(record["gradient_norm"]) and record["gradient_norm"] >= 0
     parity = read(root / "native-parity.json")
+    probes = unpack(root / "training-interchange.json.gz")
+    expected_probes = [
+        (source, views[i]["id"], views[ix[1 - j]]["id"], i)
+        for source, ix in cohort(views)
+        for j, i in enumerate(ix)
+    ]
+    for row, (source, key, peer, i) in zip(probes, expected_probes, strict=True):
+        assert (row["source"], row["id"], row["paired_id"]) == (source, key, peer)
+        j, foil = features[i]["contrast"]
+        assert (row["position"], row["foil"]) == (j, foil)
+        assert row["target"] == token_pair(tok, views[i])[1][j]
+        for mode in ("donor", "learned", "paired_change"):
+            z = row[mode]
+            assert math.isfinite(z["margin"]) and 0 <= z["nll"] < math.inf
+            assert 0 <= z["top_token"] < parity["vocabulary"]
     assert (
         parity["all_logits_exact"]
         and parity["vocabulary"] == 248320
@@ -305,6 +321,8 @@ def run():
             "loopqwen/visit_residual.py",
             "loopqwen/research/visit_residual_fit.py",
             "loopqwen/research/visit_residual_study.py",
+            "loopqwen/research/visit_residual_probe.py",
+            "research/diagnostics/visit-residual-interchange.json",
             "scripts/visit_residual_material.py",
             "scripts/visit_residual_oracle.py",
             "loopqwen/research/native_function_study.py",

@@ -19,6 +19,7 @@ from ..io import digest, read, save
 from ..looped_model import LoopedModel
 from ..model_loader import count
 from .native_function_data import token_pair
+from .visit_residual_probe import read as interchange
 
 
 def annotations(tok, view, y):
@@ -256,6 +257,8 @@ def fit(net, tok, s, root, guard):
         probe = mx.load(str(bank[0][0]))["first"]
         assert mx.array_equal(net.refinement(probe, probe), probe).item()
         assert mx.any(net.refinement.output.weight != 0).item()
+        guard.check()
+        packed(root / "training-interchange.json.gz", interchange(net, bank, examples))
     mx.save_safetensors(str(weights), dict(tree_flatten(net.refinement.parameters())))
     packed(root / "updates.json.gz", state["rows"])
     save(

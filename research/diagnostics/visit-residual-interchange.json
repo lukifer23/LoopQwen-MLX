@@ -1,0 +1,6 @@
+{
+  "study": "visit-residual-01",
+  "population": "Original ROPES training views only, before held generation. Order 192 backgrounds by SHA256 of the compact JSON [351907,source], take the first 48, use both actual questions on each background.",
+  "intervention": "At each real first differing visible answer token under its demonstrated response prefix, keep the actual first state x, actual damped second state y, output scale and context branch fixed. Substitute only the normalized second-minus-first change from the other genuine question on that same background. Also project the unchanged two-visit donor state, use the correct change and verify a zero supplied change recovers the donor state exactly.",
+  "endpoints": "Retain the native full-vocabulary top-1 token, negative log likelihood and target-minus-foil margin under each condition. Report mean differences and fraction of backgrounds with a positive mean paired margin. The probe is descriptive training evidence. It cannot independently demonstrate an improvement in held free generation or authorize promotion."
+}

@@ -28,9 +28,15 @@ class VisitResidual(nn.Module):
         self.output.weight = mx.zeros_like(self.output.weight)
 
     def __call__(self, first, second):
+        return self.apply_change(
+            first, second, second.astype(mx.float32) - first.astype(mx.float32)
+        )
+
+    def apply_change(self, first, second, change):
+        """Keep both decoder states fixed while independently supplying the measured change."""
         before = first.astype(mx.float32)
         after = second.astype(mx.float32)
-        direction = self.change(unit(after - before))
+        direction = self.change(unit(change))
         condition = nn.silu(self.context(unit(before)))
         scale = mx.sqrt(mx.mean(mx.square(after), axis=-1, keepdims=True) + 1e-8)
         return (after + scale * self.output(direction * condition)).astype(second.dtype)
