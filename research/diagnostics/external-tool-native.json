@@ -1,0 +1,10 @@
+{
+  "fit": "ea3fbaf13d440ac21ad6cf58ed6edeb04c43fa6138eb7afa1f6631ac5cbd9b4d",
+  "training_source": "eff96bfe351c7ec73fb3692145ae37e3bbf612c920eace39377c76c9f12cb552",
+  "ordered": [
+    "nt-13221",
+    "nt-3450",
+    "nt-8448"
+  ],
+  "protocol": "Use up to three already enrolled training questions to obtain one uninterrupted actual callback and a following native turn from the archived conditional Qwen. Disable prefix reuse in both paths and use the same full official prompts, greedy 128-token budget and model. Resume the frozen external history without an extra user turn. Require byte-identical opening IDs, emitted IDs, resulting callback arguments and returns; require the input to remain unchanged. Each attempt is recorded. Stop at first available follow-up, 120 seconds, 2 GiB native peak, or a system warning. This engineering measurement has no held task scores."
+}
