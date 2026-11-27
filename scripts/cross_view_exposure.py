@@ -61,7 +61,7 @@ def audit(root, destination):
         "teacher_sha256": ts["targets_sha256"],
         "teacher_training_questions": len(teacher),
         "teacher_training_answer_positions": seen_positions,
-        "first_answers_top_k": dict(first),
+        "first_answers_top_k": {str(k): value for k, value in first.items()},
     }
     if (root / "fit.json").is_file():
         fit = read(root / "fit.json")
