@@ -188,20 +188,22 @@ def make(tmp, revision, update, edition):
         for source in tracked(revision, "research/sources/linked-tables"):
             files["linked-sources/" + source.name] = source
     if edition == FOLLOWUP:
-        from scripts.followup_oracle import SHA, UPSTREAM
-        from scripts.wheel_archive_sources import CACHE
-
         runtime = read(ROOT / "docs/measurements/followup-runtime.json")
         installed_wheel = ROOT / runtime["archive"]
-        assert digest(installed_wheel) == runtime["sha256"] and digest(UPSTREAM) == SHA
+        scorer = ROOT / "data/research_external/quac-scorer.py"
+        receipt = read(ROOT / "docs/measurements/followup-sources.json")
+        assert digest(installed_wheel) == runtime["sha256"]
+        assert digest(scorer) == receipt["official_scorer_sha256"]
         files["updated-runtime/" + installed_wheel.name] = installed_wheel.read_bytes()
-        files["source-scorer/" + UPSTREAM.name] = UPSTREAM.read_bytes()
+        files["source-scorer/" + scorer.name] = scorer.read_bytes()
         cohorts = read(ROOT / "research/sources/wheel-archives/enrollment.json")[
             "cohorts"
         ]
         for cohort in cohorts.values():
             for item in cohort:
-                archive = CACHE / "wheels" / item["file"]
+                archive = (
+                    ROOT / "data/research_external/wheel-archives/wheels" / item["file"]
+                )
                 assert digest(archive) == item["sha256"]
                 files["source-wheels/" + archive.name] = archive.read_bytes()
     rows = panel["rows"]
@@ -290,7 +292,19 @@ def main(edition=PROOF):
         if receipt_path.exists()
         else subprocess.check_output(
             (
-                ["git", "log", "-1", "--format=%H", "--", "paper/" + edition.paper]
+                [
+                    "git",
+                    "log",
+                    "-1",
+                    "--format=%H",
+                    "--",
+                    "paper/" + edition.paper,
+                    *(
+                        ["scripts/proof_curriculum_field_update.py"]
+                        if edition == FOLLOWUP
+                        else []
+                    ),
+                ]
                 if edition in (FIELD, VALID, LINKED, FOLLOWUP)
                 else ["git", "rev-parse", "HEAD"]
             ),
