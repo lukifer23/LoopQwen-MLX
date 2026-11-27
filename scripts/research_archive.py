@@ -71,6 +71,9 @@ def verify(root):
         from loopqwen.research.followup_study import verify as verify_followup
 
         return verify_followup(root, decision)
+    if study == "extended-tool-prefix-01":
+        from scripts.extended_tool_prefix import verify as verify_extended_prefix
+        return verify_extended_prefix(root, decision)
     if study == "locked-context-01":
         from scripts.locked_context_study import verify as verify_locked_context
 
