@@ -40,10 +40,15 @@ def exposure(root):
     rng = random.Random(s["fit_seed"])
     draws = Counter()
     tokens = Counter()
-    for _ in range(s["updates"]):
+    checkpoints = {r["step"]: r["targets"] for r in read(root / "optimizer-steps.json")}
+    used = 0
+    for step in range(1, s["updates"] + 1):
         for ident, _, target in sampler.sample(rng):
             draws[ident] += 1
             tokens[groups[ident]] += len(target)
+            used += len(target)
+        if step in checkpoints:
+            assert checkpoints[step] == used
     assert sum(draws.values()) == s["updates"] * s["batch"]
     fit = read(root / "fit.json")
     assert (

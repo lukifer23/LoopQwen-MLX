@@ -134,6 +134,7 @@ def main(verify):
         for args in (
             ["scripts.revision_source_check", "--file-evidence"],
             ["scripts.file_evidence_audit", "--sources"],
+            ["scripts.file_evidence_checkpoints"],
             ["scripts.file_evidence_exposure"],
             ["scripts.file_evidence_overlap"],
             ["scripts.file_evidence_audit"],
