@@ -157,3 +157,7 @@ The intact shared-backbone study exposes its full 120 paired trajectories, physi
 The trained document-search comparison retains the actual question, answer, call, source ranges, exactness, token F1 and measured cold costs on all 40 external files. The descriptive phrase column checks whether a completed reply contains the normalized source answer. [All 80 responses](document-evidence-responses.csv) · [Original query retrieval](document-evidence-retrieval.csv) · [Results by source](document-evidence.svg)
 
 The workload-mix supplement reweights the observed fresh and retention groups of each shared-backbone comparison. The rates within each group stay fixed. [Counts and break-even fraction](request-mix.csv) · [Accuracy across request mixes](request-mix.svg)
+
+The complete joint-decoder replay used the corrected Qwen3.5 tokenizer and the original trained weights. [Every request and external execution](unified-session-requests.csv) · [Per-family outcomes and costs](unified-session.csv) · [Same 72 requests across both designs](repeated-service-requests.csv) · [Original mismatched Unicode input](../research/results/shared-session-unified-01/tokenizer-parity.json)
+
+The same joint policy was also asked about a broken-jar calculation, the installed NumPy version and the byte count in the real release report. [Complete installed CLI comparisons](../docs/measurements/unified-session-installed-cli.json)
