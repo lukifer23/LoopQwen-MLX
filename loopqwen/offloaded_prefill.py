@@ -86,15 +86,21 @@ class OffloadedPrefill:
                 ContentRead,
                 BoundedContentRead,
                 SourceCopyRead,
-            ) or any(p for _, p in model.sites):
+            ) or (any(p for _, p in model.sites) and type(model) is not LoopedModel):
                 raise ValueError(
                     "Grouped staging requires an ordinary or shared-query decoder with one temporal state per layer"
                 )
-            self.groups = []
-            for site in model.sites:
-                if not self.groups or not model.text.layers[site[0]].is_linear:
-                    self.groups.append([])
-                self.groups[-1].append(site)
+            # A recurrence group is indivisible: input anchors and residuals
+            # live across its physical calls for the current causal chunk.
+            groups = []
+            for unit in self.groups:
+                if len(unit) > 1:
+                    groups.append(list(unit))
+                elif not groups or not model.text.layers[unit[0][0]].is_linear:
+                    groups.append(list(unit))
+                else:
+                    groups[-1].extend(unit)
+            self.groups = groups
 
     def prefill(self, ids, progress=None):
         return project_output(

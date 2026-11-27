@@ -1,0 +1,10 @@
+{
+  "source": "data/research_external/narrativeqa/pg165.txt",
+  "title": "McTeague by Frank Norris, Project Gutenberg 165",
+  "question": "Compare the bird's situation in the opening Sunday scene and the last scene. At the end could it leave under its own power while its owner could not walk away freely? Give a yes or no answer, then support it with one detail about the bird from each scene and one about the owner's predicament.",
+  "original": "half-dead canary chittering\nfeebly in its little gilt prison.",
+  "replacement": "canary flying out of its broken cage\nand away over the desert, free of its gilt prison.",
+  "rubric_original": "No. The canary sings in its gilt cage in the opening office scene and is half-dead and still caged at the end. McTeague is handcuffed to the dead Marcus.",
+  "rubric_edited": "Yes. The opening canary sings from a gilt cage in the office. The ending bird flies out of the broken cage while McTeague is handcuffed to the dead Marcus.",
+  "order": "First-wave initial pair uses the complete original, trained pair covers both worlds. Exact input opening, unrestricted greedy, 128 tokens and subsequently 512 at terminal, 600 s primary deadline. Any missing support, wrong yes/no, material unsupported claim or unfinished generation fails."
+}
