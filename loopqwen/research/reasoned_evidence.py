@@ -165,7 +165,7 @@ def outcome(panel, arms):
     }
 
 
-def verify(root, d, *, name=NAME, make_views=turns):
+def verify(root, d, *, name=NAME, make_views=turns, decision_rule=outcome):
     s = registered(name)
     assert read(root / "registration.json") == s
     if (root / "teacher-fit.json").exists():
@@ -224,10 +224,12 @@ def verify(root, d, *, name=NAME, make_views=turns):
                 assert q["trajectory"]["turns"][0]["prompt_ids"] == w[
                     "initial_ids"
                 ] and q["score"] == score(tok, w, 0, q["trajectory"])
-    assert outcome(p, arms) == d
+    assert decision_rule(p, arms) == d
 
 
-def run(*, name=NAME, qualify=teach, trainer=fit, extra_sources=()):
+def run(
+    *, name=NAME, qualify=teach, trainer=fit, extra_sources=(), decision_rule=outcome
+):
     s = registered(name)
     root = Path("outputs/research") / name
     root.mkdir(exist_ok=True, parents=True)
@@ -311,7 +313,7 @@ def run(*, name=NAME, qualify=teach, trainer=fit, extra_sources=()):
                     )
                     packed(path, records)
                 arms[side] = unpack(path)
-        d = outcome(p, arms)
+        d = decision_rule(p, arms)
     except (MemoryError, TimeoutError, InterruptedError) as exc:
         d = {"passed": False, "status": "interrupted", "reason": str(exc)}
     finally:

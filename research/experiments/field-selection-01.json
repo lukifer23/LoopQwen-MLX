@@ -1,0 +1,63 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "instruction_interpolation": {
+    "trained_fraction": 1.0,
+    "second_pass_fraction": 0.35,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "trained_instruction_adapter": true,
+  "material": "research/data/field-selection-panel.json",
+  "batch": 6,
+  "max_tokens": 512,
+  "max_turns": 3,
+  "id": "field-selection-01",
+  "question": "Can a shared second physical layer visit trained on same-table verdict contrasts, real opposite-direction lookups and actual error repair transfer across domains to human-marked evidence, practical package decisions and resource efficiency?",
+  "training": "research/data/field-selection-training.json",
+  "fit_seed": 618922,
+  "updates": 800,
+  "lr": 9e-05,
+  "limits": {
+    "wall_seconds": 4100,
+    "peak_gib": 7.25,
+    "available_gib": 1.5
+  },
+  "protocol": "Independent release 05 initialization. Every generated token takes two real visits to layer 23 with separate histories. Every update samples one human train table with its three distinct claims in true/false/uncertain order, a random inline or real-return view. At the first verdict token compute an unrestricted-vocabulary loss and a 3-by-3 row and column contrast on three distinct leading label tokens. Triplet components: 25% CE on nonblank reasoning tokens, 25% CE on first verdict tokens, 20% CE on all response tokens, 30% symmetric discrimination. Triplet weight 60%. Sample one equally likely human opening, WikiSQL forward/reverse opening or actual swapped-role callback repair for 20%. Sample one real package opening or answer equally for 12% and one previous table rehearsal for 8%. 800 native AdamW steps, shared rank32 on seven projections, 4100 native seconds, 7.25 GiB peak. Training source requires 128 distinct table triplets, 96 unique bidirectional tables, and held evidence with >=3 exact field-mask votes and >=4 independent human verdict votes. Full-vocabulary reasoning enabled in both arms, no restricted decoding, demonstrations or lookup repair in inference.",
+  "decision": "One frozen pair versus certified untouched ordinary-depth Qwen3.5-0.8B-Base. Primary 12 disjoint published cross-domain alpha3 tables, each with one true, one false and one uncertain original human claim in two modes. File success requires an executed call for the human-selected field and the exact returned value plus a correct final answer. Every inline judgment receives the entire original infobox. Additional paired use cases check two real Python patch versions on opposite sides of each of eight new published distributions' minimum and eight old table retentions. Same serialized opening prompt IDs, greedy open generation, 3 turns and 512 tokens per turn. Require at least 30/72 grounding, at least 12 net over Base and two-sided exact table sign-flip p<=.05. At least two whole six-judgment tables and strictly more than Base. Both input modes improve and no verdict category drops. >=4 whole distribution pairs and more than Base. Preserve every correct Base retention, completion in every family and nonblank >=4-word reasoning in at least half of completed table judgments. Strictly improve total wall, first-token sum, peak, opening and subsequent decoding rate. Failed input prerequisite stops fit and evaluation. Any missed primary gate closes K1, replication and 128K for these weights. Only overall success licenses matched K1 then independent broad and 128K qualification. Publish all outputs, including failures.",
+  "panel_history": "Fresh alpha3 and package primaries chosen before either arm receives them. Prior proof study informed the hypotheses about uncertainty and argument reversal. Eight explicitly identified old retention requests are reused.",
+  "sources": {
+    "infotabs": {
+      "url": "https://codeload.github.com/infotabs/infotabs/zip/34e7dc0900a0d861ad62be3d7371d8eb0aace4fe",
+      "sha256": "86c62510db0a8200967205313fdf8b3183a8d7c7ea73e8ef4185207606f04cb3"
+    },
+    "evidence": {
+      "url": "https://zenodo.org/api/records/6578593/files/annotation.zip/content",
+      "sha256": "8df9ce4852ebf143172411005890732b2a9138cdb691559f927fa866d352e476"
+    },
+    "wikisql": {
+      "repo": "https://github.com/salesforce/WikiSQL",
+      "sha256": "755c728ab188e364575705c8641f3fafd86fb089cb8b08e8c03f01832aae0881"
+    },
+    "inventory": "dbbdf1a41b0831b5959becb98dc4e0daf2a0b07ec6216056c6c5ae67d148b494"
+  }
+}
