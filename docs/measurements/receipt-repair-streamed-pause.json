@@ -1,0 +1,11 @@
+{
+  "status": "paused by owner",
+  "plan": "f2aae2edbe8fb744826a8c3eeb83f61fb8a18eb77fc1ad337789c6bdc19d09a5",
+  "started_utc": "2026-11-27T19:42:14.003520+00:00",
+  "stopped_utc": "2026-11-27T19:42:50.259052+00:00",
+  "elapsed_seconds": 36.25553512573242,
+  "log": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/scripts/receipt_repair_fit.py\", line 366, in <module>\n    measure()\n  File \"/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/scripts/receipt_repair_fit.py\", line 190, in measure\n    z = streamed_arrays(net, r)\n        ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/scripts/receipt_repair_fit.py\", line 65, in streamed_arrays\n    advance_cache(net, mx.array([p[i : min(i + block, len(p) - 1)]]), cache)\n  File \"/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/evaluation/generation_eval.py\", line 29, in advance_cache\n    mx.eval([slot.state for slot in cache.slots.values()])\nKeyboardInterrupt\n",
+  "stage": "feature extraction",
+  "terminal_optimizer_checkpoint": false,
+  "decision": null
+}
