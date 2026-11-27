@@ -1,6 +1,6 @@
 #set document(title:"Can a recurrent language model change its answer when the evidence changes?",author:"LoopQwen-MLX")
 #set page(paper:"us-letter",margin:(x:.72in,y:.65in),numbering:"1")
-#set text(font:"Libertinus Serif",size:10.7pt)
+#set text(font:"Libertinus Serif",size:10.4pt)
 #set par(leading:.43em,spacing:.55em)
 #let d=json("contrastive-world.json")
 #let tbl(cols,head,rows)=table(columns:cols,inset:4pt,stroke:.45pt+rgb("#b8c5c6"),..head.map(x=>[*#x*]),..rows.flatten())

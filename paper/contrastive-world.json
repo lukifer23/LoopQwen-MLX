@@ -24,6 +24,31 @@
       "checked_bytes": 1356874504,
       "rebuilt": 3,
       "native_cases": 8
+    },
+    {
+      "id": "contrastive-language-features-01",
+      "name": "Reasoning and service extraction",
+      "passed": true,
+      "elapsed": 1874.003399848938,
+      "peak_gib": 1.5219561289995909,
+      "max_seconds": 4380,
+      "archive": "a9dd6d4051d039d06c41c12f400aea9b0c5074c502a8f63c16a9738c78f5fbb7",
+      "window": "fd8dc25353cf699264e2f4ab5c13a465186cde7d75b0c384fb8e95900ad33770",
+      "decision": {
+        "examples": 6002,
+        "positions": 195333,
+        "alternatives": 4202,
+        "negative_positions": 51323,
+        "same_causal_prefix_reuses": 1415,
+        "feature_bytes": 2528378567,
+        "parity_passed": true,
+        "passed": true
+      },
+      "cold": "b7f97694b4f505303e944799306a2d478583c1107617416edac2ac789af3d214",
+      "checked_files": 6002,
+      "checked_bytes": 2528378567,
+      "rebuilt": 3,
+      "native_cases": 7
     }
   ],
   "exposures": [
@@ -58,9 +83,33 @@
       "opening_tokens": 1266658,
       "negative_positions": 4448,
       "feature_bytes": 174329134
+    },
+    {
+      "group": "qualitative",
+      "turns": 2402,
+      "target_positions": 14369,
+      "opening_tokens": 142662,
+      "negative_positions": 3665,
+      "feature_bytes": 185492364
+    },
+    {
+      "group": "service_action",
+      "turns": 1800,
+      "target_positions": 123870,
+      "opening_tokens": 903466,
+      "negative_positions": 0,
+      "feature_bytes": 1269223735
+    },
+    {
+      "group": "service_reply",
+      "turns": 1800,
+      "target_positions": 57094,
+      "opening_tokens": 1714343,
+      "negative_positions": 47658,
+      "feature_bytes": 1073662468
     }
   ],
-  "stage_count": 1,
+  "stage_count": 2,
   "limits": {
     "wall_seconds": 4380,
     "available_gib": 1.5,
@@ -69,29 +118,29 @@
   "fit_target": 1953806,
   "preference_target": 28322,
   "latest": {
-    "id": "contrastive-table-features-01",
-    "name": "Table extraction",
+    "id": "contrastive-language-features-01",
+    "name": "Reasoning and service extraction",
     "passed": true,
-    "elapsed": 2291.2383511066437,
-    "peak_gib": 1.589827885851264,
+    "elapsed": 1874.003399848938,
+    "peak_gib": 1.5219561289995909,
     "max_seconds": 4380,
-    "archive": "f0188420b701f15689266112f228b0e8fc3a2bef9c4cb682e98225a31660bc81",
-    "window": "0cc07f253cf24e3b740f51d9d2d56f1fbabe49b3dbf5555ec23bebfb24f3f7de",
+    "archive": "a9dd6d4051d039d06c41c12f400aea9b0c5074c502a8f63c16a9738c78f5fbb7",
+    "window": "fd8dc25353cf699264e2f4ab5c13a465186cde7d75b0c384fb8e95900ad33770",
     "decision": {
-      "examples": 5640,
-      "positions": 123445,
-      "alternatives": 3756,
-      "negative_positions": 8865,
-      "same_causal_prefix_reuses": 1853,
-      "feature_bytes": 1356874504,
+      "examples": 6002,
+      "positions": 195333,
+      "alternatives": 4202,
+      "negative_positions": 51323,
+      "same_causal_prefix_reuses": 1415,
+      "feature_bytes": 2528378567,
       "parity_passed": true,
       "passed": true
     },
-    "cold": "65a63e6fbe34732faf1a410606ab18174822863ac19c1e915800a5be3d920ad5",
-    "checked_files": 5640,
-    "checked_bytes": 1356874504,
+    "cold": "b7f97694b4f505303e944799306a2d478583c1107617416edac2ac789af3d214",
+    "checked_files": 6002,
+    "checked_bytes": 2528378567,
     "rebuilt": 3,
-    "native_cases": 8
+    "native_cases": 7
   },
   "enrollment": {
     "training": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
@@ -150,7 +199,7 @@
     ]
   },
   "corpus": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
-  "total_native_s": 2291.2383511066437,
+  "total_native_s": 4165.241750955582,
   "source_words": {
     "locale": {
       "unassessed": 4

@@ -901,6 +901,674 @@
         }
       ]
     },
+    "tool_recovery": {
+      "candidate": {
+        "all": {
+          "requests": 178,
+          "with_calls": 168,
+          "with_returns": 159,
+          "calls": 328,
+          "provider_errors": 49,
+          "requests_with_error": 20,
+          "turns_first_error": {
+            "2": 11,
+            "1": 9
+          },
+          "status": {
+            "token_limit": 9,
+            "turn_limit": 44,
+            "answered": 115,
+            "invalid_call": 10
+          },
+          "could_generate_after_error": 20,
+          "generated_after_error": 20,
+          "called_again": 20,
+          "same_failed_arguments_again": 17,
+          "changed_arguments_same_method": 4,
+          "successful_later_callback": 0,
+          "successful_changed_arguments_same_method": 0,
+          "grounded_after_error": 0
+        },
+        "same_request_both_had_another_turn": {
+          "requests": 8,
+          "with_calls": 8,
+          "with_returns": 4,
+          "calls": 24,
+          "provider_errors": 20,
+          "requests_with_error": 8,
+          "turns_first_error": {
+            "2": 4,
+            "1": 4
+          },
+          "status": {
+            "turn_limit": 8
+          },
+          "could_generate_after_error": 8,
+          "generated_after_error": 8,
+          "called_again": 8,
+          "same_failed_arguments_again": 8,
+          "changed_arguments_same_method": 0,
+          "successful_later_callback": 0,
+          "successful_changed_arguments_same_method": 0,
+          "grounded_after_error": 0
+        },
+        "by_family": {
+          "agenda": {
+            "requests": 8,
+            "with_calls": 8,
+            "with_returns": 7,
+            "calls": 19,
+            "provider_errors": 3,
+            "requests_with_error": 1,
+            "turns_first_error": {
+              "1": 1
+            },
+            "status": {
+              "answered": 5,
+              "turn_limit": 3
+            },
+            "could_generate_after_error": 1,
+            "generated_after_error": 1,
+            "called_again": 1,
+            "same_failed_arguments_again": 1,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "archive": {
+            "requests": 24,
+            "with_calls": 18,
+            "with_returns": 18,
+            "calls": 18,
+            "provider_errors": 0,
+            "requests_with_error": 0,
+            "turns_first_error": {},
+            "status": {
+              "answered": 18,
+              "invalid_call": 6
+            },
+            "could_generate_after_error": 0,
+            "generated_after_error": 0,
+            "called_again": 0,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "changed_table": {
+            "requests": 48,
+            "with_calls": 48,
+            "with_returns": 48,
+            "calls": 106,
+            "provider_errors": 4,
+            "requests_with_error": 2,
+            "turns_first_error": {
+              "2": 2
+            },
+            "status": {
+              "turn_limit": 12,
+              "answered": 34,
+              "token_limit": 2
+            },
+            "could_generate_after_error": 2,
+            "generated_after_error": 2,
+            "called_again": 2,
+            "same_failed_arguments_again": 2,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "database": {
+            "requests": 24,
+            "with_calls": 24,
+            "with_returns": 24,
+            "calls": 59,
+            "provider_errors": 18,
+            "requests_with_error": 9,
+            "turns_first_error": {
+              "2": 9
+            },
+            "status": {
+              "turn_limit": 11,
+              "answered": 13
+            },
+            "could_generate_after_error": 9,
+            "generated_after_error": 9,
+            "called_again": 9,
+            "same_failed_arguments_again": 8,
+            "changed_arguments_same_method": 1,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "dependency": {
+            "requests": 20,
+            "with_calls": 20,
+            "with_returns": 20,
+            "calls": 20,
+            "provider_errors": 0,
+            "requests_with_error": 0,
+            "turns_first_error": {},
+            "status": {
+              "token_limit": 3,
+              "answered": 17
+            },
+            "could_generate_after_error": 0,
+            "generated_after_error": 0,
+            "called_again": 0,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "file": {
+            "requests": 6,
+            "with_calls": 6,
+            "with_returns": 3,
+            "calls": 16,
+            "provider_errors": 9,
+            "requests_with_error": 3,
+            "turns_first_error": {
+              "1": 3
+            },
+            "status": {
+              "turn_limit": 5,
+              "answered": 1
+            },
+            "could_generate_after_error": 3,
+            "generated_after_error": 3,
+            "called_again": 3,
+            "same_failed_arguments_again": 1,
+            "changed_arguments_same_method": 2,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "natural_mounted": {
+            "requests": 24,
+            "with_calls": 24,
+            "with_returns": 24,
+            "calls": 54,
+            "provider_errors": 0,
+            "requests_with_error": 0,
+            "turns_first_error": {},
+            "status": {
+              "turn_limit": 6,
+              "answered": 18
+            },
+            "could_generate_after_error": 0,
+            "generated_after_error": 0,
+            "called_again": 0,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "retention": {
+            "requests": 8,
+            "with_calls": 8,
+            "with_returns": 3,
+            "calls": 18,
+            "provider_errors": 15,
+            "requests_with_error": 5,
+            "turns_first_error": {
+              "1": 5
+            },
+            "status": {
+              "turn_limit": 5,
+              "answered": 3
+            },
+            "could_generate_after_error": 5,
+            "generated_after_error": 5,
+            "called_again": 5,
+            "same_failed_arguments_again": 5,
+            "changed_arguments_same_method": 1,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "same_version": {
+            "requests": 8,
+            "with_calls": 8,
+            "with_returns": 8,
+            "calls": 8,
+            "provider_errors": 0,
+            "requests_with_error": 0,
+            "turns_first_error": {},
+            "status": {
+              "token_limit": 4,
+              "answered": 4
+            },
+            "could_generate_after_error": 0,
+            "generated_after_error": 0,
+            "called_again": 0,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "wheel": {
+            "requests": 8,
+            "with_calls": 4,
+            "with_returns": 4,
+            "calls": 10,
+            "provider_errors": 0,
+            "requests_with_error": 0,
+            "turns_first_error": {},
+            "status": {
+              "answered": 2,
+              "turn_limit": 2,
+              "invalid_call": 4
+            },
+            "could_generate_after_error": 0,
+            "generated_after_error": 0,
+            "called_again": 0,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          }
+        },
+        "by_tool": {
+          "csv_lookup": {
+            "returned": 31,
+            "error": 27
+          },
+          "database_query": {
+            "returned": 101,
+            "error": 22
+          },
+          "database_schema": {
+            "returned": 96
+          },
+          "day_of_year": {
+            "returned": 1
+          },
+          "weekday_number": {
+            "returned": 4
+          },
+          "wheel_metadata": {
+            "returned": 46
+          }
+        }
+      },
+      "control": {
+        "all": {
+          "requests": 178,
+          "with_calls": 95,
+          "with_returns": 81,
+          "calls": 185,
+          "provider_errors": 78,
+          "requests_with_error": 42,
+          "turns_first_error": {
+            "2": 14,
+            "1": 27,
+            "3": 1
+          },
+          "status": {
+            "answered": 91,
+            "token_limit": 27,
+            "turn_limit": 39,
+            "invalid_call": 21
+          },
+          "could_generate_after_error": 41,
+          "generated_after_error": 41,
+          "called_again": 38,
+          "same_failed_arguments_again": 18,
+          "changed_arguments_same_method": 16,
+          "successful_later_callback": 19,
+          "successful_changed_arguments_same_method": 6,
+          "grounded_after_error": 0
+        },
+        "same_request_both_had_another_turn": {
+          "requests": 8,
+          "with_calls": 8,
+          "with_returns": 5,
+          "calls": 22,
+          "provider_errors": 16,
+          "requests_with_error": 8,
+          "turns_first_error": {
+            "2": 1,
+            "1": 7
+          },
+          "status": {
+            "turn_limit": 7,
+            "answered": 1
+          },
+          "could_generate_after_error": 8,
+          "generated_after_error": 8,
+          "called_again": 7,
+          "same_failed_arguments_again": 4,
+          "changed_arguments_same_method": 3,
+          "successful_later_callback": 5,
+          "successful_changed_arguments_same_method": 1,
+          "grounded_after_error": 0
+        },
+        "by_family": {
+          "agenda": {
+            "requests": 8,
+            "with_calls": 3,
+            "with_returns": 3,
+            "calls": 8,
+            "provider_errors": 5,
+            "requests_with_error": 3,
+            "turns_first_error": {
+              "1": 3
+            },
+            "status": {
+              "turn_limit": 2,
+              "answered": 2,
+              "token_limit": 4
+            },
+            "could_generate_after_error": 3,
+            "generated_after_error": 3,
+            "called_again": 3,
+            "same_failed_arguments_again": 1,
+            "changed_arguments_same_method": 1,
+            "successful_later_callback": 3,
+            "successful_changed_arguments_same_method": 1,
+            "grounded_after_error": 0
+          },
+          "archive": {
+            "requests": 24,
+            "with_calls": 16,
+            "with_returns": 16,
+            "calls": 16,
+            "provider_errors": 0,
+            "requests_with_error": 0,
+            "turns_first_error": {},
+            "status": {
+              "invalid_call": 9,
+              "answered": 15
+            },
+            "could_generate_after_error": 0,
+            "generated_after_error": 0,
+            "called_again": 0,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "changed_table": {
+            "requests": 48,
+            "with_calls": 6,
+            "with_returns": 6,
+            "calls": 16,
+            "provider_errors": 6,
+            "requests_with_error": 4,
+            "turns_first_error": {
+              "2": 4
+            },
+            "status": {
+              "answered": 40,
+              "turn_limit": 4,
+              "token_limit": 4
+            },
+            "could_generate_after_error": 4,
+            "generated_after_error": 4,
+            "called_again": 4,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 2,
+            "successful_later_callback": 2,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "database": {
+            "requests": 24,
+            "with_calls": 15,
+            "with_returns": 15,
+            "calls": 38,
+            "provider_errors": 11,
+            "requests_with_error": 7,
+            "turns_first_error": {
+              "2": 3,
+              "1": 3,
+              "3": 1
+            },
+            "status": {
+              "token_limit": 4,
+              "answered": 10,
+              "turn_limit": 10
+            },
+            "could_generate_after_error": 6,
+            "generated_after_error": 6,
+            "called_again": 6,
+            "same_failed_arguments_again": 2,
+            "changed_arguments_same_method": 3,
+            "successful_later_callback": 5,
+            "successful_changed_arguments_same_method": 1,
+            "grounded_after_error": 0
+          },
+          "dependency": {
+            "requests": 20,
+            "with_calls": 17,
+            "with_returns": 17,
+            "calls": 17,
+            "provider_errors": 0,
+            "requests_with_error": 0,
+            "turns_first_error": {},
+            "status": {
+              "invalid_call": 3,
+              "answered": 17
+            },
+            "could_generate_after_error": 0,
+            "generated_after_error": 0,
+            "called_again": 0,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "file": {
+            "requests": 6,
+            "with_calls": 3,
+            "with_returns": 2,
+            "calls": 8,
+            "provider_errors": 6,
+            "requests_with_error": 3,
+            "turns_first_error": {
+              "1": 3
+            },
+            "status": {
+              "token_limit": 3,
+              "invalid_call": 1,
+              "turn_limit": 2
+            },
+            "could_generate_after_error": 3,
+            "generated_after_error": 3,
+            "called_again": 3,
+            "same_failed_arguments_again": 2,
+            "changed_arguments_same_method": 2,
+            "successful_later_callback": 2,
+            "successful_changed_arguments_same_method": 2,
+            "grounded_after_error": 0
+          },
+          "natural_mounted": {
+            "requests": 24,
+            "with_calls": 16,
+            "with_returns": 16,
+            "calls": 45,
+            "provider_errors": 21,
+            "requests_with_error": 12,
+            "turns_first_error": {
+              "2": 7,
+              "1": 5
+            },
+            "status": {
+              "turn_limit": 14,
+              "invalid_call": 2,
+              "token_limit": 7,
+              "answered": 1
+            },
+            "could_generate_after_error": 12,
+            "generated_after_error": 12,
+            "called_again": 12,
+            "same_failed_arguments_again": 7,
+            "changed_arguments_same_method": 4,
+            "successful_later_callback": 7,
+            "successful_changed_arguments_same_method": 2,
+            "grounded_after_error": 0
+          },
+          "retention": {
+            "requests": 8,
+            "with_calls": 5,
+            "with_returns": 0,
+            "calls": 13,
+            "provider_errors": 13,
+            "requests_with_error": 5,
+            "turns_first_error": {
+              "1": 5
+            },
+            "status": {
+              "turn_limit": 4,
+              "token_limit": 3,
+              "answered": 1
+            },
+            "could_generate_after_error": 5,
+            "generated_after_error": 5,
+            "called_again": 4,
+            "same_failed_arguments_again": 2,
+            "changed_arguments_same_method": 2,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "same_version": {
+            "requests": 8,
+            "with_calls": 6,
+            "with_returns": 6,
+            "calls": 8,
+            "provider_errors": 0,
+            "requests_with_error": 0,
+            "turns_first_error": {},
+            "status": {
+              "answered": 5,
+              "invalid_call": 2,
+              "turn_limit": 1
+            },
+            "could_generate_after_error": 0,
+            "generated_after_error": 0,
+            "called_again": 0,
+            "same_failed_arguments_again": 0,
+            "changed_arguments_same_method": 0,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          },
+          "wheel": {
+            "requests": 8,
+            "with_calls": 8,
+            "with_returns": 0,
+            "calls": 16,
+            "provider_errors": 16,
+            "requests_with_error": 8,
+            "turns_first_error": {
+              "1": 8
+            },
+            "status": {
+              "token_limit": 2,
+              "invalid_call": 4,
+              "turn_limit": 2
+            },
+            "could_generate_after_error": 8,
+            "generated_after_error": 8,
+            "called_again": 6,
+            "same_failed_arguments_again": 4,
+            "changed_arguments_same_method": 2,
+            "successful_later_callback": 0,
+            "successful_changed_arguments_same_method": 0,
+            "grounded_after_error": 0
+          }
+        },
+        "by_tool": {
+          "csv_lookup": {
+            "error": 39,
+            "returned": 3
+          },
+          "database_query": {
+            "returned": 22,
+            "error": 38
+          },
+          "database_schema": {
+            "returned": 39
+          },
+          "day_of_year": {
+            "error": 1
+          },
+          "weekday_number": {
+            "returned": 2
+          },
+          "wheel_metadata": {
+            "returned": 41
+          }
+        }
+      }
+    },
+    "provider_errors": {
+      "candidate": {
+        "provider_diagnostics": {
+          "database_query / misuse of aggregate": 2,
+          "database_query / no such column": 12,
+          "csv_lookup / No CSV record matches the key": 27,
+          "database_query / wrong number of arguments to function REPLACE()": 4,
+          "database_query / no such table": 4
+        },
+        "different_csv_fields": {
+          "key_column": 21,
+          "value_column": 16,
+          "key_changed_only_in_case": 0,
+          "calls": 27,
+          "key": 18
+        },
+        "joint_csv_fields": {
+          "key_column + value_column": 3,
+          "key + key_column": 5,
+          "key + key_column + value_column": 7,
+          "key_column": 6,
+          "key + value_column": 6
+        }
+      },
+      "control": {
+        "provider_diagnostics": {
+          "database_query / no such column": 8,
+          "database_query / near \"\u2014\"": 1,
+          "csv_lookup / No CSV record matches the key": 39,
+          "database_query / no such table": 12,
+          "day_of_year / Invalid isoformat string": 1,
+          "database_query / near \"(\"": 2,
+          "database_query / near \"table\"": 1,
+          "database_query / near \"set\"": 4,
+          "database_query / near \"2008\"": 2,
+          "database_query / near \"1977\"": 2,
+          "database_query / near \"and\"": 2,
+          "database_query / near \"Filmography\"": 2,
+          "database_query / near \",\"": 2
+        },
+        "different_csv_fields": {
+          "key": 30,
+          "key_column": 37,
+          "value_column": 14,
+          "key_changed_only_in_case": 0,
+          "calls": 39
+        },
+        "joint_csv_fields": {
+          "key + key_column + value_column": 8,
+          "key_column + value_column": 4,
+          "key + key_column": 20,
+          "key_column": 5,
+          "key + value_column": 2
+        }
+      }
+    },
     "decode_savings": {
       "length": 821.0874068595142,
       "rate": 565.488193348269,
@@ -1315,29 +1983,29 @@
     "source_sha256": "5befb8d8da533815e45659669df3ee77a867b5bebf24972243f6fdab15ba445c"
   },
   "scope": {
-    "registry": "56bd22ae561621f196a7949226af2897f01d9057d8c7eb12cca590ee47abbfc0",
+    "registry": "532ed31685b865fe5230967004d411a917b54ee85e2c89fdd9a0de05cfaa3897",
     "registrations": 196,
     "recovered": 4,
     "closed_worker_windows": {
-      "windows": 50,
-      "jobs": 169,
-      "study_names": 154,
-      "worker_hours": 24.881,
-      "index": "255d2c8ef205cb0f9f6109c89a109412bd3612166284d886434c7d7d3d3fd4f4"
+      "windows": 51,
+      "jobs": 170,
+      "study_names": 155,
+      "worker_hours": 25.401,
+      "index": "644e58ff2ff4a30fa9b2706a86ad9bf5c1f8824385657e6e5ff6835b6cfc12db"
     },
     "totals": {
-      "payloads": 1357,
-      "bytes": 1146156493,
+      "payloads": 1363,
+      "bytes": 1147066387,
       "primary/missed": 118,
-      "primary/passed": 64,
+      "primary/passed": 65,
       "primary/archived without boolean gate": 7,
-      "primary/registered, no archive": 6,
+      "primary/registered, no archive": 5,
       "primary/superseded": 1,
       "recovered execution/archived without boolean gate": 2,
       "recovered execution/passed": 1,
       "recovered execution/missed": 1
     },
-    "index": "d805f251469cb297f6df3f4d638362c734685dfd6ee5eab38fe0b6659efa75d6"
+    "index": "298cd1e0fa8bc72e14eacb013f7ea03302617694bf3d97376b02271fb7e63ccd"
   },
   "four_layer": {
     "totals": [

@@ -177,7 +177,7 @@ def held(out):
 def plot(rows):
     plt.rcParams.update({"svg.hashsalt": "contrastive-exposures", "font.size": 9})
     fig, (a, b) = plt.subplots(
-        1, 2, figsize=(9, 3.4), layout="constrained", sharey=True
+        1, 2, figsize=(9, 2.7), layout="constrained", sharey=True
     )
     labels = [r["group"].replace("_", " ") for r in rows]
     a.barh(labels, [r["target_positions"] / 1000 for r in rows], color="#306f77")
