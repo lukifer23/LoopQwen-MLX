@@ -414,3 +414,18 @@ For the question-contrast fit, run `.venv/bin/python scripts/question_contrast_m
 The independent conversation-prefill crossover uses the released two-pass tool assistant to read the entire original project review and plotting source, then check size and line count through actual file callbacks. The opt-in private snapshot belongs to one caller's conversation. On each decode the runtime compares the token prefix and graph identity, restores the longest matching aligned state, and retains separate histories for both visits to the shared final layer. The preregistration requires exact output streams on all six user messages as well as grounded answers and measured time and memory. [Crossover registration](../research/experiments/conversation-document-prefill-01.json)
 
 The crossover passed all seven registered gates, including six exact complete trajectories, with a 4.6% increase in peak MLX allocation. The licensed direct field comparison uses the same retained state for both decoders, Qwen's native template and complete public-domain text files, including original notices. Its opening prompts are 158,693 and 16,212 tokens. The first question about each work and both independent reference answers come from NarrativeQA. Each subsequent file operation is checked against the exact original bytes. [Frozen protocol](../research/experiments/book-conversation-field-01.json) · [Publisher dataset](https://github.com/google-deepmind/narrativeqa)
+
+## Read a quantity or compute it from the same report
+
+The report-action experiment initializes two shared applications of Qwen layer 23 from the pinned instruction sibling. Native MLX trains the same rank-32 attention adapters at both applications. The frozen ordinary BF16 Qwen Base receives identical opening IDs and the same actual calculator. The first pair includes human questions about 24 original reports, eight held-out package inventories and the original public and live-service retention requests. [Registered data, thresholds and resource ceiling](../research/experiments/report-action-field-01.json)
+
+From a research checkout with release 05 and the pinned original model snapshots present, these commands reproduce the source selection and run the bounded pair. The published archives can also be verified independently of a new fit.
+
+```sh
+.venv/bin/python scripts/report_action_material.py
+.venv/bin/python scripts/report_distribution_bytes.py --fetch
+.venv/bin/python scripts/research_session.py
+.venv/bin/python -m loopqwen.research.report_actions report-action-field-01
+```
+
+The first command verifies the publisher's original reports against pinned SHA-256 hashes and compares the regenerated examples with the frozen research data. The second reads the original wheel bytes and their embedded package metadata. The training output under `outputs/research/report-action-field-01` includes weights, counts, optimizer and preparation time, token-level trajectories, callback observations and the gate decision. To verify the published records, run `.venv/bin/python scripts/research_archive.py report-action-field-01 --verify`. The offline inference kit includes both sets of weights and runs the installed model on its bundled questions. [Offline kit instructions](FIELD_KIT.md)
