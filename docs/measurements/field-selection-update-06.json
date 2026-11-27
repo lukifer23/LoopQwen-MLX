@@ -1,0 +1,68 @@
+{
+  "name": "loopqwen-field-selection-06.zip",
+  "bytes": 128841688,
+  "sha256": "60c45312b3cc27b54c303fa8d849188b8690c2bc646254056dd821a7bb4a5ae0",
+  "payloads": 49,
+  "requires": {
+    "loopqwen-field-kit-01.zip": "ba5a1326e0205f2a5727a6f8229290a81e2b03f04cceab44ceb32e6700418e5c",
+    "loopqwen-field-update-04.zip": "ccca015162718891c7a7d58edfb4249c7dd65cf0689ee27c8d748c5071997d69"
+  },
+  "source_revision": "243abc1c19f3b0100752c2b305cd429011c4b212",
+  "history_restored": true,
+  "network_blocked": true,
+  "empty_model_cache": true,
+  "isolated_installed_cli": true,
+  "policy_weights": "616b1f425246f17572f85ec031d95722ec501cd88829cb52e4114de917a55e97",
+  "actual_comparisons": [
+    {
+      "example": "1-inline",
+      "id": "ec876bdbf8594aad-inline",
+      "traces": {
+        "recurrent": "49526b14909914922fe599e1d42330ce95d87da0e40cdfe7e372ece5b98aa2e1",
+        "base": "0ee06152fabea5c8b973ab2a86ef44d9debec4d020da6ae5c58452ceb5f9deab"
+      }
+    },
+    {
+      "example": "2-wheel",
+      "id": "nltk-3.8.20",
+      "traces": {
+        "recurrent": "c5e43b95502907c6493058365b2b56dd9c042719039772e8324f8d1ec574570f",
+        "base": "a30dbd611638f24cb6fb09edbbc009d8514e538530ead4947af8033c930948a9"
+      }
+    },
+    {
+      "example": "3-wheel",
+      "id": "nltk-3.7.17",
+      "traces": {
+        "recurrent": "50309215eb3d63dbc5e9a24f13ce147c854c6eeea049c5208908e8b96a7752c3",
+        "base": "43fc33caaf2fcd9e7495c3829262ef086c004c793d8debbd8595f6347df1b828"
+      }
+    },
+    {
+      "example": "4-file",
+      "id": "ec876bdbf8594aad-file",
+      "traces": {
+        "recurrent": "696c6ed47ff2e3aee8ab2f4c72a4653bb689a4c62d0cea2050295978c846962c",
+        "base": "6603ef29c59ca29ee0793e73d3bafc0d6ceb9da56bc4d94fb99dff92a3dc329c"
+      }
+    },
+    {
+      "example": "5-retention",
+      "id": "wiki-test-3024",
+      "traces": {
+        "recurrent": "d8afb71ac429c04cb3d408ab5676798cb343150c3e9b8619ab0e5ff48882bf66",
+        "base": "7986a3b87e09400ad4831198f0608ffc5b5fc641fa163536992d339e86461a69"
+      }
+    }
+  ],
+  "regenerated": {
+    "paper/field-selection-accuracy.svg": "32ac2ef5d41363ffce43e7e06f6ff3b9bbdf767e9d832139f58d39e191c7c130",
+    "paper/field-selection-arguments.svg": "d9b8de3657b299637d7682269af37452fdf46808048fe87c193b80092ea5a47b",
+    "paper/field-selection-confusion.svg": "2dedf1091675951865e3ff8a49f39aa4062e4c2daa0335ecb613628cb632689d",
+    "paper/field-selection-paper.json": "b409f8cbbf8c4f63513c98e8db10e6d7741db1cf4dc6bee3162ad392ac2586d9",
+    "paper/field-selection-requests.csv": "78d15bf25be8a242b5e72260def7f6fb62937a2321e556c88cb9fdd56099a8bd",
+    "paper/field-selection-timing.svg": "3caf96e51e7bd521d8c3fdef65bd307b9996e81df9928bbc9affd2cc60276e33",
+    "paper/field-selection.pdf": "2709c658686264c4c0b2c60b6aa08e0220a5e067c18c212cb44a06c8b0fce5ec",
+    "paper/loopqwen-field-study.pdf": "ee144b3d94b72141ee493b5b07d92b00f6376c9b1354156200f7ab15fa4ed37a"
+  }
+}

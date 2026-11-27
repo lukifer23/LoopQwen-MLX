@@ -1,5 +1,18 @@
 # Capability scoreboard
 
+| Measured capability | Trained loop | Untouched Base | Weights |
+| --- | ---: | ---: | --- |
+| Human cross-domain table judgments | 25/72 | 4/72 | Field selection, K=2 |
+| Complete six-judgment tables | 0/12 | 0/12 | Field selection, K=2 |
+| Grounded Python compatibility | 0/16 | 0/16 | Field selection, K=2 |
+| Total time, same 96 requests | 99.21 s | 736.82 s | Field selection, K=2 |
+| Summed first-token wait | 14.17 s | 14.09 s | Field selection, K=2 |
+| Run peak MLX allocation | 1.109 GiB | 1.715 GiB | Field selection, K=2 |
+| Human logical-story judgments | 22/72 | 2/72 | Proof curriculum, K=2 |
+| Physical 131,084-token requests | 2/2 | 0/2 | Installed release 05 |
+
+The two reasoning gains came from separately trained policies. The field-selection policy missed its registered quality threshold. Its two-visit architecture has no same-policy 128K qualification. [Direct field comparison](../research/results/field-selection-01) · [Proof comparison](../research/results/proof-curriculum-01) · [Installed long-context traces](measurements/file-evidence-long-replay.json)
+
 | Cross-view reading on one resident checkpoint | Trained loop | Untouched Base |
 | --- | ---: | ---: |
 | Both questions in both formats, complete articles | 0/20 | 0/20 |

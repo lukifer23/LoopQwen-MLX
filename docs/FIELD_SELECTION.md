@@ -64,6 +64,7 @@ The original first-token timing includes model startup on the first request. Run
 .venv/bin/python -m scripts.field_selection_exposure
 .venv/bin/python -m scripts.field_selection_analysis blind
 .venv/bin/python -m scripts.field_selection_analysis report
+.venv/bin/python -m scripts.field_selection_scoring_audit
 .venv/bin/python -m scripts.paper_field_selection
 ```
 
