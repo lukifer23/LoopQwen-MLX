@@ -1,0 +1,17 @@
+{
+  "study": "linked-rollin-01",
+  "decision": {
+    "passed": false,
+    "status": "interrupted",
+    "reason": "Stop requested"
+  },
+  "closed_before_held_evaluation": true,
+  "optimizer_checkpoints": 0,
+  "archived_training_rollouts": 64,
+  "rollout_observations_mentioning_alias": [],
+  "source_audit": "c266c5c0eb66f7515c147b4f35495488f74e0d405ee5535f53ee87166fcefb32",
+  "held_target": "/wiki/Milwaukee",
+  "training_distractor": "/wiki/Milwaukee,_Wisconsin",
+  "training_question_to_replace": "22efc6ad38d17483",
+  "reason": "Distinct page identifiers point to the same normalized complete article. The source prerequisite required 24 new articles. The operator interrupted the native run as soon as the text check found the overlap. No native held pair was run. Preserve the same 24 evaluation questions and replace entire overlapping training sources before restarting from release 05."
+}
