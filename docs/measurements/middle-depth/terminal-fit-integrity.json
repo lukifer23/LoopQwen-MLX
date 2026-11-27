@@ -1,0 +1,51 @@
+{
+  "matched_identity": {
+    "spec": "8b93b3c8a9dfacf0738819d64c960d94d4b545d75e2ecdbca730727cd114ddf4",
+    "seed": 4619,
+    "donor": "base",
+    "order": "95fac676895743bdf521f86a8cc0f69c91bba0426843291240151b03cc29026f",
+    "base_text": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+    "data": "1dc6bfa524162758dea23e3000a3041c388f6cf678f7c2109f7bcb03b2435349",
+    "feature_id": "b5af6e0b7e34224f000c7fab8006fc56725ac93813d7236d31180b3f0fba5d7a",
+    "trainer": "ee8529582981bd519f784795bfacfb5b993bb349347fb39c7ce91d2765853566",
+    "architecture": "c9486701416f6a7a3ccb53a7a3f5df66adad03a7789bfa0c1300449db24729d8"
+  },
+  "models": {
+    "loop": {
+      "state": "61827eebdd9d2dc45954c9106267002bd432594a04045b8ba131df8fe12b3d23",
+      "weights": "e8678f0d74d1eb6779dfea16d6f5677fe12021ad4fa4771317813a336b2a264a",
+      "optimizer": "8b2a289e8c3188bf4f4c38bcd2f168888212b4aecefcd3aad8299d197c27cfb6",
+      "policy": "checkpoints/middle-depth/matched-4619/loop/step-0576",
+      "steps": 576,
+      "ordered_exposures": 1152,
+      "supervised_exposures_by_depth": {
+        "1": 1152,
+        "2": 1152,
+        "3": 1088
+      },
+      "preclip_gradient_range": [
+        0.3516315221786499,
+        508.8811950683594
+      ],
+      "updates_above_clip": 565,
+      "last_mixing_coefficient": 0.8101872205734253
+    },
+    "ordinary": {
+      "state": "e19a8a99889bff1cc1f043ae46ae6cdf08d0c4de74c914819e380ec82505d115",
+      "weights": "ee655377d7068bb2e5479eed2bfad63e73431de86cfc8ddea5f58ff46e0332c1",
+      "optimizer": "d2f4ed274fe38bfe5b736f0f8fcf81b13ab43b9fccb573261fe7044c9be5941d",
+      "policy": "checkpoints/middle-depth/4619/ordinary/step-0576",
+      "steps": 576,
+      "ordered_exposures": 1152,
+      "supervised_exposures_by_depth": {
+        "1": 1152
+      },
+      "preclip_gradient_range": [
+        0.16385169327259064,
+        146.7643585205078
+      ],
+      "updates_above_clip": 557,
+      "last_mixing_coefficient": 0.800000011920929
+    }
+  }
+}

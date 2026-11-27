@@ -206,15 +206,89 @@ def exits(step):
     )
 
 
+def verify_fit():
+    """Bind the complete matched optimizer histories to the enrolled four epochs."""
+    from collections import Counter
+    from math import isfinite
+    from scripts.middle_depth_fit import SPEC
+    from scripts.middle_depth_recover import fit_directory
+
+    cfg = read(SPEC)
+    expected = [r["id"] for r in unpack(ROWS)] * cfg["epochs"]
+    common = None
+    report = {}
+    for arm, depth in (("loop", 3), ("ordinary", 1)):
+        root = fit_directory(arm)
+        path = root / f"step-{cfg['steps']:04d}"
+        state = read(path / "state.json")
+        reg = read(path / "registration.json")
+        identity = dict(state["identity"])
+        if identity.pop("depth") != depth or common is not None and common != identity:
+            raise ValueError(
+                "Incompatible trained control and recurrent fit identities"
+            )
+        common = identity
+        if (
+            identity["spec"] != digest(SPEC)
+            or identity["data"] != digest(ROWS)
+            or state["step"] != cfg["steps"]
+            or state["next_rng_seed"] != cfg["seed"] + state["step"]
+            or reg["identity"] != state["identity"]
+            or reg["trained_depth"] != depth
+            or reg["weights"] != state["hashes"]["adapters.safetensors"]
+        ):
+            raise ValueError("Invalid terminal policy or training specification")
+        for name, sha in state["hashes"].items():
+            if digest(path / name) != sha:
+                raise ValueError("Invalid saved optimizer generation")
+        log = state["log"]
+        assert [u["step"] for u in log] == list(range(1, state["step"] + 1))
+        assert [k for u in log for k in u["ids"]] == expected
+        counts = Counter()
+        qualification = digest(ROOT / "adjoint-recovery.json")
+        for u in log:
+            k = min(2, depth) if u["step"] <= cfg["two_exit_warmup"] else depth
+            assert (
+                len(u["ids"]) == cfg["batch"]
+                and len(u["exit_loss"]) == cfg["batch"] * k
+            )
+            assert all(
+                isfinite(v) for v in (u["gradient"], u["alpha"], *u["exit_loss"])
+            )
+            if u["step"] > len(expected) // (cfg["batch"] * cfg["epochs"]):
+                assert u["adjoint_qualification"] == qualification
+            for exit_depth in range(1, k + 1):
+                counts[exit_depth] += len(u["ids"])
+        norms = [u["gradient"] for u in log]
+        report[arm] = {
+            "state": digest(path / "state.json"),
+            "weights": reg["weights"],
+            "optimizer": state["hashes"]["optimizer.safetensors"],
+            "policy": str(path),
+            "steps": len(log),
+            "ordered_exposures": len(expected),
+            "supervised_exposures_by_depth": dict(counts),
+            "preclip_gradient_range": [min(norms), max(norms)],
+            "updates_above_clip": sum(v > 1 for v in norms),
+            "last_mixing_coefficient": log[-1]["alpha"],
+        }
+    save(
+        ROOT / "terminal-fit-integrity.json",
+        {"matched_identity": common, "models": report},
+    )
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("action", choices=("profile", "work", "exits"))
+    p.add_argument("action", choices=("profile", "work", "exits", "verify-fit"))
     p.add_argument("--arm", choices=("ordinary", "loop"))
     p.add_argument("--policy", type=Path)
     p.add_argument("--stage", default="terminal")
     p.add_argument("--step", type=int, default=144)
     a = p.parse_args()
-    if a.action == "work":
+    if a.action == "verify-fit":
+        verify_fit()
+    elif a.action == "work":
         work(a.step)
     elif a.action == "exits":
         exits(a.step)
