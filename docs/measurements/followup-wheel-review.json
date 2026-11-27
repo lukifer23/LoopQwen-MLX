@@ -1,0 +1,17 @@
+{
+  "method": "Retrospective unblinded review after the 108-request primary. Require an actual read of the current archive before the final answer, the correct current Requires-Python constraint, and the correct compatibility decision. Accept unambiguous comparison with a previous archive and Markdown emphasis. Inspect all completed and grounded original answers. Retain every original registered score.",
+  "reviewed_exceptions": {
+    "pygithub-2.10.0-py3-none-any.whl@3.10.13": {
+      "control": false,
+      "reason": "Base read the right archive and states >=3.10 but explicitly and incorrectly rejects 3.10.13."
+    },
+    "websockets-15.0.1-py3-none-any.whl@3.8.18": {
+      "control": true,
+      "reason": "Base correctly rejects 3.8.18 under the current >=3.9. It explicitly attributes a second constraint to the previous mkdocstrings release."
+    },
+    "sqlmodel-0.0.47-py3-none-any.whl@3.10.13": {
+      "control": true,
+      "reason": "Base correctly states >=3.10, says yes and explains why 3.10.13 is allowed. The frozen clause scanner includes adjacent Markdown emphasis in its matched substring."
+    }
+  }
+}

@@ -1,5 +1,7 @@
 # Where shared decoder depth earns its cost
 
+The [127-page paper](loopqwen-followup-study.pdf) opens with a [five-page study](followup.pdf) of human follow-up questions and actual Python metadata, including a semantic check on the software scorer.
+
 The [four-page overview](evidence-overview.pdf) gives matched-depth reasoning, public tool use, whole-request time and the two full-context outcomes. The [archive index](research-scope.csv) includes every registration and recovered execution. The [122-page lockfile edition](loopqwen-lockfile-study.pdf) includes the complete technical history through the real package-lock study.
 
 The [field-selection edition](loopqwen-field-study.pdf) adds the cross-domain human evidence study, real Python package checks and request-level cost and accuracy. Rebuild its [six-page report](field-selection.pdf) with `python -m scripts.paper_field_selection` after reproducing the [analysis](../docs/FIELD_SELECTION.md).

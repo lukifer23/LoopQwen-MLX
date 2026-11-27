@@ -1,0 +1,25 @@
+id,package,candidate_registered,control_registered,candidate_reviewed,control_reviewed,review_reason
+python_multipart-0.0.32-py3-none-any.whl@3.10.13,python-multipart,True,True,True,True,
+mkdocs_autorefs-1.4.3-py3-none-any.whl@3.9.18,mkdocs-autorefs,True,False,True,False,
+python_multipart-0.0.32-py3-none-any.whl@3.9.18,python-multipart,True,True,True,True,
+sniffio-1.3.1-py3-none-any.whl@3.6.15,sniffio,True,True,True,True,
+pydantic_extra_types-2.11.0-py3-none-any.whl@3.9.18,pydantic-extra-types,False,False,False,False,
+pygithub-2.10.0-py3-none-any.whl@3.9.18,pygithub,True,True,True,True,
+sqlmodel-0.0.47-py3-none-any.whl@3.9.18,sqlmodel,True,True,True,True,
+graphql_core-3.3.1-py3-none-any.whl@3.9.18,graphql-core,False,False,False,False,
+sniffio-1.3.1-py3-none-any.whl@3.7.17,sniffio,True,True,True,True,
+mkdocstrings-1.0.4-py3-none-any.whl@3.9.18,mkdocstrings,True,False,True,False,
+email_validator-2.3.0-py3-none-any.whl@3.8.18,email-validator,True,False,True,False,
+pygithub-2.10.0-py3-none-any.whl@3.10.13,pygithub,True,False,True,False,Base read the right archive and states >=3.10 but explicitly and incorrectly rejects 3.10.13.
+websockets-15.0.1-py3-none-any.whl@3.8.18,websockets,True,False,True,True,Base correctly rejects 3.8.18 under the current >=3.9. It explicitly attributes a second constraint to the previous mkdocstrings release.
+email_validator-2.3.0-py3-none-any.whl@3.7.17,email-validator,True,False,True,False,
+pydantic_extra_types-2.11.0-py3-none-any.whl@3.8.18,pydantic-extra-types,False,False,False,False,
+opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl@3.10.13,opentelemetry-exporter-otlp-proto-http,True,False,True,False,
+websockets-15.0.1-py3-none-any.whl@3.9.18,websockets,True,True,True,True,
+graphql_core-3.3.1-py3-none-any.whl@3.10.13,graphql-core,False,False,False,False,
+opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl@3.9.18,opentelemetry-exporter-otlp-proto-http,True,False,True,False,
+mkdocstrings-1.0.4-py3-none-any.whl@3.10.13,mkdocstrings,True,False,True,False,
+sqlmodel-0.0.47-py3-none-any.whl@3.10.13,sqlmodel,True,False,True,True,"Base correctly states >=3.10, says yes and explains why 3.10.13 is allowed. The frozen clause scanner includes adjacent Markdown emphasis in its matched substring."
+httpcore-1.0.9-py3-none-any.whl@3.7.17,httpcore,True,True,True,True,
+httpcore-1.0.9-py3-none-any.whl@3.8.18,httpcore,True,True,True,True,
+mkdocs_autorefs-1.4.3-py3-none-any.whl@3.8.18,mkdocs-autorefs,True,False,True,False,

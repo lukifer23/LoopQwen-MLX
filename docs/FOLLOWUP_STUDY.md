@@ -2,6 +2,8 @@
 
 The same two-visit decoder must answer two questions about a passage, distinguish a new package from an earlier one, and preserve previously measured reading and tool skills. Both arms use the same thinking-enabled Qwen prompts, greedy decoding and three turns of up to 384 tokens. The comparison uses 108 requests on one Apple Silicon machine. The registration fixes the decision before generation. [Registered comparison](../research/experiments/followup-protected-01.json)
 
+The registered software scorer found 10 complete projects for the loop and three for Base. Reviewing ambiguous formatting and clearly attributed comparisons raises Base to five. Human follow-up F1 was 0.164 versus 0.265. Among 36 repeated user requests the new fit gained three and lost all eleven solved by its immediate predecessor. No matched-depth or long-context claim follows for this checkpoint. [Results and original rules](../paper/followup.pdf) · [Per-project sensitivity analysis](../paper/followup-wheel-sensitivity.csv)
+
 ## Training and source checks
 
 The human material preserves the first two questions asked in real QuAC conversations. The continuation includes the first human answer. The software material comes from unmodified wheels pinned in separate application lockfiles. Each model can ask the public wheel tool to read a specific metadata field. The tool opens a distribution as an archive and reads its METADATA member. The two verdicts for each held project use different released Python versions. A grounded success requires the correct observation before the final answer. [Human source selection](../research/sources/followup-reading/README.md) · [Package enrollment](../research/sources/wheel-archives/README.md)

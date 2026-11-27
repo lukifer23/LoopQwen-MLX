@@ -16,6 +16,7 @@ from scripts.assemble_evidence_paper import edition
 from scripts.followup_learning import build as learning
 from scripts.followup_reading import ARMS, DOC, ROOT, run
 from scripts.followup_retention import FAMILIES, NAMES, build as retention
+from scripts.followup_wheel_sensitivity import build as wheel_sensitivity
 
 P = Path("paper")
 
@@ -28,6 +29,7 @@ def build():
     logs = read(DOC / "followup-learning.json")
     reviews = read(DOC / "followup-reading.json")
     retained, records = retention()
+    software = wheel_sensitivity()
     arms = [d["arms"][a] for a in ARMS]
     with (P / "followup-requests.csv").open(newline="") as file:
         cases = list(csv.DictReader(file))
@@ -190,6 +192,7 @@ def build():
             )
             or "none",
             "sha": fit["weights"],
+            "wheel_review": software,
             "retention": [
                 [
                     k,

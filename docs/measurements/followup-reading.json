@@ -1,0 +1,115 @@
+{
+  "candidate": {
+    "masked_review": {
+      "wrong": 15,
+      "unsupported_claim": 0,
+      "partial": 2,
+      "justified abstention": 3,
+      "supported": 2,
+      "absent": 2
+    },
+    "observations": {
+      "human_first": {
+        "success": 5,
+        "previous_repeated": 0,
+        "human_equivalent": 3,
+        "human_agreement": 18.271214511997997,
+        "f1": 6.113334828663895,
+        "requests": 24
+      },
+      "human_followup": {
+        "success": 3,
+        "previous_repeated": 4,
+        "human_equivalent": 3,
+        "human_agreement": 18.73567773991996,
+        "f1": 3.944088319088319,
+        "requests": 24
+      },
+      "archive": {
+        "success": 20,
+        "current_read": 20,
+        "previous_read": 0,
+        "measured": 20,
+        "used_older_constraint": 0,
+        "constraint": 20,
+        "verdict": 20,
+        "requests": 24
+      }
+    }
+  },
+  "control": {
+    "masked_review": {
+      "partial": 7,
+      "unsupported_claim": 5,
+      "supported": 11,
+      "wrong": 3,
+      "justified abstention": 2,
+      "absent": 1
+    },
+    "observations": {
+      "human_first": {
+        "success": 5,
+        "previous_repeated": 0,
+        "human_equivalent": 2,
+        "human_agreement": 18.271214511997997,
+        "f1": 6.641795872644285,
+        "requests": 24
+      },
+      "human_followup": {
+        "success": 5,
+        "previous_repeated": 4,
+        "human_equivalent": 3,
+        "human_agreement": 18.73567773991996,
+        "f1": 6.3480485935632185,
+        "requests": 24
+      },
+      "archive": {
+        "success": 9,
+        "current_read": 12,
+        "previous_read": 4,
+        "measured": 12,
+        "used_older_constraint": 4,
+        "constraint": 10,
+        "verdict": 12,
+        "requests": 24
+      }
+    }
+  },
+  "transitions": {
+    "agenda": {
+      "neither": 8
+    },
+    "archive": {
+      "both": 9,
+      "gained": 11,
+      "neither": 4
+    },
+    "file": {
+      "neither": 6
+    },
+    "human_first": {
+      "neither": 16,
+      "lost": 3,
+      "both": 2,
+      "gained": 3
+    },
+    "human_followup": {
+      "neither": 17,
+      "both": 1,
+      "lost": 4,
+      "gained": 2
+    },
+    "inline": {
+      "neither": 3,
+      "lost": 2,
+      "gained": 1
+    },
+    "retention": {
+      "gained": 2,
+      "neither": 6
+    },
+    "wheel": {
+      "neither": 8
+    }
+  }
+}
