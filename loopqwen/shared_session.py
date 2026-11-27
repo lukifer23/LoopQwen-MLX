@@ -110,7 +110,11 @@ class SharedAssistant(Assistant):
             "record_kv_history": record_kv_history,
             "reuse_prefix": reuse_prefix,
             "_messages": _messages,
-            "_conversation_prefix": _conversation_prefix,
+            **(
+                {"_conversation_prefix": _conversation_prefix}
+                if _conversation_prefix is not None
+                else {}
+            ),
         }
         if not tools:
             msgs = list(_messages or ()) + [{"role": "user", "content": question}]

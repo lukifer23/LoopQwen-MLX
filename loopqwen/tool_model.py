@@ -258,7 +258,11 @@ class Assistant:
                 max_turns=max_turns,
                 progress=progress,
                 _messages=_messages,
-                _conversation_prefix=_conversation_prefix,
+                **(
+                    {"_conversation_prefix": _conversation_prefix}
+                    if _conversation_prefix is not None
+                    else {}
+                ),
                 record_kv_history=record_kv_history,
                 recover_callback=getattr(self, "_recover_callback", None),
                 tool_format=getattr(self, "tool_format", "compact"),

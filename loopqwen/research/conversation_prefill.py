@@ -175,6 +175,7 @@ def verify(root, d):
     from .mixed_field import replay_exchange
 
     spec = read(root / "registration.json")
+    assert spec == registered(spec["id"])
     assert d == outcome(root, spec)
     tok = load_tokenizer(local_snapshot())
     for i, item in enumerate(spec["documents"]):
