@@ -140,4 +140,48 @@ def collect():
         if (R / stage / "checksums.json").is_file():
             record(R / stage / "checksums.json")
             out[key] = read(R / stage / "decision.json")
+    assessed = D / "source-copy-reading/report.json"
+    delivery = D / "source-copy-delivery.json"
+    if assessed.is_file() and delivery.is_file():
+        import csv
+
+        reading = record(assessed)
+        out["reading"] = reading
+        out["delivery"] = record(delivery)
+        with (P / "source-copy-requests.csv").open() as f:
+            samples = list(csv.DictReader(f))
+        labels = ("first", "live", "matched")
+        fig, axes = plt.subplots(2, 2, figsize=(8.4, 5.5), layout="constrained")
+        for col, family in enumerate(("reading", "report")):
+            ax, wall = axes[0, col], axes[1, col]
+            for j, (arm, color, title) in enumerate(
+                (("candidate", "#34737c", "Loop"), ("control", "#b46b44", "Base"))
+            ):
+                counts = []
+                times = []
+                for stage in labels:
+                    cases = [
+                        r
+                        for r in samples
+                        if r["family"] == family and r["presentation"] == stage
+                    ]
+                    counts.append(reading["positions"][f"{family}/{stage}/{arm}"]["correct"])
+                    times.append(sum(float(r[arm + "_wall_s"]) for r in cases))
+                positions = [k + (j - 0.5) * 0.37 for k in range(3)]
+                ax.bar(positions, counts, width=0.36, color=color, label=title)
+                wall.bar(positions, times, width=0.36, color=color)
+            ax.set_title(
+                "Reading conversations"
+                if family == "reading"
+                else "Financial conversations"
+            )
+            ax.set_ylim(0, 24)
+            ax.set_ylabel("Correct delivered conclusions / 24")
+            wall.set_ylabel("Total wall time (s)")
+            for panel in (ax, wall):
+                panel.set_xticks(range(3), ["First", "Own history", "Fixed history"])
+                panel.spines[["top", "right"]].set_visible(False)
+        axes[0, 0].legend(frameon=False)
+        fig.savefig(P / "source-copy-conversation-results.svg", metadata={"Date": None})
+        plt.close(fig)
     return out

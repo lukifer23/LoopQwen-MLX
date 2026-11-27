@@ -9,6 +9,25 @@
 #v(.35em)
 *Source-grounded reasoning and tool use in Qwen3.5-0.8B on Apple Silicon* LoopQwen-MLX research study · November 2026
 
+#if "bounded_primary" in d.at("content_read", default: (:)) [
+ #let a=d.content_read.bounded_primary
+ #parbreak()
+ *Abstract.* We tested whether two learned reads of the last attention layer allow a small language model to answer source-dependent questions and use tools more effectively than ordinary Qwen3.5-0.8B-Base. Both products receive identical initial prompt tokens, reasoning enabled, unrestricted greedy decoding and real calculator or database responses. We measure delivered answers, physical recurrent visits, elapsed wall time and native Apple Silicon memory. The recurrent product uses a quantized instruction-initialized backbone. The product comparison includes both this donor difference and the learned recurrence.
+ #parbreak()
+ In a 48-request held comparison on HotpotQA and TAT-QA, the bounded reader completed 38 requests against 28 for Base, in #fmt(a.costs.candidate.wall_s) versus #fmt(a.costs.control.wall_s) seconds. It made valid calculator calls on 23 of 24 reports versus one for Base. The loop returned the right final quantity twice and delivered it correctly once. It answered 13 versus 15 of the 24 reasoning choices correctly. Seven explanations per system were fully supported. A separate 180-request comparison obtained ten versus zero strictly grounded database answers but zero full-document answers for either model. A successful tool call, a lower loss during training and a faster response measured different properties in these studies.
+ #parbreak()
+ #if "source_copy" in d and "fit" in d.source_copy [A later gated source-copy model trained on 900 complete turns, including original human conversations. It passed all ten training checks and retained the two physical reads. #if "pair" in d.source_copy and "counts" in d.source_copy.pair [
+     #let cp=d.source_copy.pair
+     Its 48-source conversational test required a correct first answer, correct follow-up after the model’s own first reply, and correct follow-up after a shared first answer. All-three reading successes were #cp.counts.reading.all.total.map(str).join(" / ") and financial successes #cp.counts.report.all.total.map(str).join(" / ") (loop / Base). The 144 requests per arm took #fmt(cp.costs.candidate.wall_s) and #fmt(cp.costs.control.wall_s) seconds.
+   ] ]
+ #parbreak()
+ On two separate 160K–170K-token source releases, training raised correct paired token preferences from one to three out of four held field names. Removing the trained second read returned the score to one. Average evidence-location loss nevertheless worsened. The 128K result uses supplied answer prefixes and one locale. Each result is reported under its own model identity. General superiority would require one policy to improve the reasoning and tool endpoints, retain earlier task successes, and deliver answers on independently authored long documents.
+ #parbreak()
+ *Study materials.* Each chapter gives the training or deployment measurement and its decision rule. The archive includes frozen input hashes, both complete token trajectories for the direct comparisons, real callback payloads, one source-masked project review, and per-request costs. The local study is followed by the preceding model and systems studies in the comprehensive PDF.
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Source-repair design and first direct comparison])
+]
+
 #if "reading" in d [
  #let r=d.stages.last().decision
  #let pair(k)=r.counts.at(k).total.map(str).join(" / ")
@@ -421,5 +440,25 @@ The two visits share all parameters. Query and content corrections have rank 160
  #parbreak()
  *Results.* The initial model favored both correct alternatives on #a.dual.initial of four held fields. With trained weights one visit succeeded on #a.dual.one and two visits on #a.dual.two. The two-read model favored both versions of the full weekday date patterns ending in yMMMMEd and yMMMEd, reversing two decisions missed by initialization. The era date format was already correct under both releases. For the Acre time zone, the two trained predictions still missed the old capitalized form. The two-read held source loss worsened by #fmt(-a.held.address_gain,n:3) nats on average. On the older era format its value rose from 10.39 to 31.27 nats. All eight trained two-visit answer losses were below their initial values, and the second visit reduced held answer loss by #fmt(a.held.second_gain,n:3) nats/token on average.
  #parbreak()
- *Interpretation.* This is evidence that the trained loop can change its next-token preference across real 160K–170K sources. The four field names are drawn from one locale and several share date-pattern structure. The experiment supplied the correct prefix up to the first difference. A delivered answer in free generation, a direct result against untouched Base and generalization to unrelated documents were outside this result. The preregistered evidence-location criterion failed.
+ *Interpretation.* This is evidence that the trained loop can change its next-token preference across real 160K–170K sources. The four field names are drawn from one locale and several share date-pattern structure. The experiment supplied the correct prefix up to the first difference. A delivered answer in free generation, a direct result against untouched Base and generalization to unrelated documents were outside this result. The preregistered evidence-location criterion failed. A training-only follow-up masked the exact value in both reads or an equal-length nearby span. The correct-span mask reduced the preference margin more on eight of 12 presentations, averaging 0.163 logits. The preregistered rule required nine of 12 and a mean above 0.1.
+]
+
+
+#if "source_copy" in d and "reading" in d.source_copy [
+ #let a=d.source_copy
+ #let run=a.pair
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Does the conversational gain survive a model’s own history?])
+ Both systems answered 48 original first questions, followed by 48 requests containing their own prior conversation and 48 matched requests with the same first answer supplied. The figure counts correct delivered conclusions in the source-masked review and total wall time. The table compares strict automatic success with fully usable answers.
+ #align(center,image("source-copy-conversation-results.svg",width:82%))
+ #tbl((1.2fr,1fr,1fr,1fr,1fr),("Family","All three strict (loop / Base)","Gained / lost","Exact paired p","All three usable (loop / Base)"),run.counts.pairs().map(x=>{
+   let k=x.at(0); let r=x.at(1).all;let g=a.reading.families.at(k);(k,r.total.map(str).join(" / "),str(r.gains)+" / "+str(r.losses),fmt(r.p,n:4),str(g.usable.candidate)+" / "+str(g.usable.control))}))
+ #tbl((1.5fr,1fr,1fr),("All 144 user requests per system","Loop","Untouched Base"),("wall_s","first_s","peak","opening_tps","decode_tps","output").map(k=>{
+  let label=(wall_s:"Total wall seconds",first_s:"Summed first-output seconds",peak:"Peak MLX GiB",opening_tps:"Opening tokens/s",decode_tps:"Post-first tokens/s",output:"Total emitted tokens"); let n=if k=="peak"{1073741824}else{1};(label.at(k),fmt(run.costs.candidate.at(k)/n),fmt(run.costs.control.at(k)/n))
+ }))
+ *Decision.* The loop won all five costs on #a.delivery.all_costs of #a.delivery.requests paired presentations. It won all five and strictly answered the question on #a.delivery.both_faster_and_correct. #if a.reading.joint [The joint automatic and masked release gate passed.] else [The preregistered joint deployment and masked source-quality requirement failed. These weights do not establish a general release improvement.]
+ #parbreak()
+ The loop reported 39 percent growth for Entergy Texas after its own calculator returned 390/4033, about 9.67 percent. It also recovered from an invalid cross-call reference on an acquisition report and correctly delivered 18,658 thousand. The same follow-up with the published first answer supplied yielded 14,567 thousand, omitting customer-related assets. Masked review credited correct financial conclusions on 3 of 72 loop presentations and 28 of 72 Base presentations. The loop emitted 8,063 tokens against 40,688 for Base. Both length and decode rate affect total time.
+ #parbreak()
+ The source-copy-requests.csv file includes every timing and terminal status. The conversation file retains joint outcomes by source and history. The interval file resamples whole passages and issuers, keeping models and presentations paired. The direct comparison retains full prompt IDs even when the previous answer differs.
 ]

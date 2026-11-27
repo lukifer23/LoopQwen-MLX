@@ -3467,6 +3467,463 @@
         "one": 1,
         "two": 3
       }
+    },
+    "fit": {
+      "passed": true,
+      "gates": {
+        "updates": true,
+        "exposure": true,
+        "finite": true,
+        "total": true,
+        "reading": true,
+        "action": true,
+        "quantity": true,
+        "protected": true,
+        "copy": true,
+        "second_read": true
+      },
+      "gains": {
+        "retention": 0.025464071646301163,
+        "teacher_action": 0.8958323301936849,
+        "calculate": 0.06588737834372474,
+        "reuse": 0.16734545945068086,
+        "redirect": 0.011093925493647632,
+        "teacher_delivery": 0.29821902956679747,
+        "quantity": 0.44231073087825007,
+        "reasoning": 0.07325872930294712,
+        "conversation_read": 0.8858679247548401
+      },
+      "copy_gain": 0.301655225495654,
+      "second_gain": 0.02196588731815353,
+      "updates": 540,
+      "positions": 105498
+    },
+    "pair": {
+      "passed": false,
+      "gates": {
+        "wall_s": true,
+        "first_s": true,
+        "peak": true,
+        "opening_tps": false,
+        "decode_tps": true,
+        "reading": false,
+        "reading_completion": true,
+        "report": false,
+        "report_completion": true
+      },
+      "counts": {
+        "reading": {
+          "first": {
+            "n": 24,
+            "total": [
+              2,
+              0
+            ],
+            "completed": [
+              24,
+              18
+            ],
+            "gains": 2,
+            "losses": 0,
+            "p": 0.5
+          },
+          "live": {
+            "n": 24,
+            "total": [
+              1,
+              0
+            ],
+            "completed": [
+              24,
+              22
+            ],
+            "gains": 1,
+            "losses": 0,
+            "p": 1.0
+          },
+          "matched": {
+            "n": 24,
+            "total": [
+              2,
+              0
+            ],
+            "completed": [
+              23,
+              23
+            ],
+            "gains": 2,
+            "losses": 0,
+            "p": 0.5
+          },
+          "all": {
+            "n": 24,
+            "total": [
+              0,
+              0
+            ],
+            "completed": [
+              23,
+              15
+            ],
+            "gains": 0,
+            "losses": 0,
+            "p": 1.0
+          }
+        },
+        "report": {
+          "first": {
+            "n": 24,
+            "total": [
+              2,
+              0
+            ],
+            "completed": [
+              22,
+              11
+            ],
+            "gains": 2,
+            "losses": 0,
+            "p": 0.5
+          },
+          "live": {
+            "n": 24,
+            "total": [
+              1,
+              0
+            ],
+            "completed": [
+              16,
+              12
+            ],
+            "gains": 1,
+            "losses": 0,
+            "p": 1.0
+          },
+          "matched": {
+            "n": 24,
+            "total": [
+              0,
+              0
+            ],
+            "completed": [
+              21,
+              19
+            ],
+            "gains": 0,
+            "losses": 0,
+            "p": 1.0
+          },
+          "all": {
+            "n": 24,
+            "total": [
+              0,
+              0
+            ],
+            "completed": [
+              14,
+              7
+            ],
+            "gains": 0,
+            "losses": 0,
+            "p": 1.0
+          }
+        }
+      },
+      "costs": {
+        "candidate": {
+          "first_s": 48.6554907473037,
+          "wall_s": 109.95845036878018,
+          "peak": 833547010,
+          "output": 8063,
+          "opening_tps": 2889.207576649507,
+          "decode_tps": 138.38897292719454
+        },
+        "control": {
+          "first_s": 49.45983033900848,
+          "wall_s": 660.9947437089286,
+          "peak": 1876671402,
+          "output": 40688,
+          "opening_tps": 2905.50437172972,
+          "decode_tps": 66.35409823871642
+        }
+      }
+    },
+    "reading": {
+      "plan": "c590a38e4d7b662f031c257bffed11710fe898a3e7c8a1ad7d3d44b182282dd9",
+      "mask": "d00483750ad5cc28c18da270183f7d4c101b98eb4a49bf9c2a2c0acbca06aa1d",
+      "grades": "223ab4f64a1e490fa1850e4f655665a0c2a0b8a987bc8bf981149ca76b11ed0d",
+      "families": {
+        "reading": {
+          "n": 24,
+          "usable": {
+            "candidate": 3,
+            "control": 4
+          },
+          "gains": 2,
+          "losses": 3,
+          "p": 1.0
+        },
+        "report": {
+          "n": 24,
+          "usable": {
+            "candidate": 0,
+            "control": 0
+          },
+          "gains": 0,
+          "losses": 0,
+          "p": 1.0
+        }
+      },
+      "positions": {
+        "reading/first/control": {
+          "correct": 14,
+          "supported": 14,
+          "unsupported": 4,
+          "usable": 14
+        },
+        "reading/live/control": {
+          "correct": 19,
+          "supported": 14,
+          "unsupported": 8,
+          "usable": 14
+        },
+        "reading/matched/control": {
+          "correct": 17,
+          "supported": 12,
+          "unsupported": 11,
+          "usable": 12
+        },
+        "reading/first/candidate": {
+          "correct": 14,
+          "supported": 13,
+          "unsupported": 11,
+          "usable": 12
+        },
+        "reading/live/candidate": {
+          "correct": 13,
+          "supported": 12,
+          "unsupported": 12,
+          "usable": 12
+        },
+        "reading/matched/candidate": {
+          "correct": 8,
+          "supported": 7,
+          "unsupported": 16,
+          "usable": 7
+        },
+        "report/first/candidate": {
+          "correct": 2,
+          "supported": 2,
+          "unsupported": 19,
+          "usable": 2
+        },
+        "report/live/candidate": {
+          "correct": 1,
+          "supported": 1,
+          "unsupported": 15,
+          "usable": 1
+        },
+        "report/matched/candidate": {
+          "correct": 0,
+          "supported": 0,
+          "unsupported": 20,
+          "usable": 0
+        },
+        "report/first/control": {
+          "correct": 10,
+          "supported": 8,
+          "unsupported": 3,
+          "usable": 0
+        },
+        "report/live/control": {
+          "correct": 8,
+          "supported": 8,
+          "unsupported": 4,
+          "usable": 0
+        },
+        "report/matched/control": {
+          "correct": 10,
+          "supported": 10,
+          "unsupported": 9,
+          "usable": 0
+        }
+      },
+      "gates": {
+        "reading": false,
+        "report": false
+      },
+      "passed": false,
+      "joint": false
+    },
+    "delivery": {
+      "plan": "8545ecd95997049c2a85ed67982cc3a26dc258e3ae8cbd0108b37687b8a7ed93",
+      "archive": "f661135b9b94a14a6765a6c5e90e68e7ef8580c741ba60283da61737b26758d3",
+      "requests": 144,
+      "source_clusters": 48,
+      "both_faster_and_correct": 3,
+      "all_costs": 63,
+      "differences": [
+        {
+          "family": "reading",
+          "metric": "live_pair",
+          "n": 24,
+          "difference": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "family": "reading",
+          "metric": "live_completed",
+          "n": 24,
+          "difference": 0.3333333333333333,
+          "lower": 0.16666666666666666,
+          "upper": 0.5416666666666666
+        },
+        {
+          "family": "reading",
+          "metric": "matched_correct",
+          "n": 24,
+          "difference": 0.08333333333333333,
+          "lower": 0.0,
+          "upper": 0.20833333333333334
+        },
+        {
+          "family": "reading",
+          "metric": "all_three",
+          "n": 24,
+          "difference": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "family": "reading",
+          "metric": "wall",
+          "n": 24,
+          "difference": -9.892697991517101,
+          "lower": -10.558983307044825,
+          "upper": -9.185907060252672
+        },
+        {
+          "family": "report",
+          "metric": "live_pair",
+          "n": 24,
+          "difference": 0.041666666666666664,
+          "lower": 0.0,
+          "upper": 0.125
+        },
+        {
+          "family": "report",
+          "metric": "live_completed",
+          "n": 24,
+          "difference": 0.3333333333333333,
+          "lower": 0.041666666666666664,
+          "upper": 0.625
+        },
+        {
+          "family": "report",
+          "metric": "matched_correct",
+          "n": 24,
+          "difference": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "family": "report",
+          "metric": "all_three",
+          "n": 24,
+          "difference": 0.0,
+          "lower": 0.0,
+          "upper": 0.0
+        },
+        {
+          "family": "report",
+          "metric": "wall",
+          "n": 24,
+          "difference": -13.067147564322417,
+          "lower": -14.209124690647695,
+          "upper": -11.864870790940405
+        }
+      ],
+      "conditional": [
+        {
+          "family": "reading",
+          "arm": "candidate",
+          "first_correct": false,
+          "live_correct": false,
+          "matched_correct": false,
+          "sources": 20
+        },
+        {
+          "family": "reading",
+          "arm": "candidate",
+          "first_correct": false,
+          "live_correct": false,
+          "matched_correct": true,
+          "sources": 1
+        },
+        {
+          "family": "reading",
+          "arm": "candidate",
+          "first_correct": false,
+          "live_correct": true,
+          "matched_correct": true,
+          "sources": 1
+        },
+        {
+          "family": "reading",
+          "arm": "candidate",
+          "first_correct": true,
+          "live_correct": false,
+          "matched_correct": false,
+          "sources": 2
+        },
+        {
+          "family": "reading",
+          "arm": "control",
+          "first_correct": false,
+          "live_correct": false,
+          "matched_correct": false,
+          "sources": 24
+        },
+        {
+          "family": "report",
+          "arm": "candidate",
+          "first_correct": false,
+          "live_correct": false,
+          "matched_correct": false,
+          "sources": 22
+        },
+        {
+          "family": "report",
+          "arm": "candidate",
+          "first_correct": true,
+          "live_correct": false,
+          "matched_correct": false,
+          "sources": 1
+        },
+        {
+          "family": "report",
+          "arm": "candidate",
+          "first_correct": true,
+          "live_correct": true,
+          "matched_correct": false,
+          "sources": 1
+        },
+        {
+          "family": "report",
+          "arm": "control",
+          "first_correct": false,
+          "live_correct": false,
+          "matched_correct": false,
+          "sources": 24
+        }
+      ],
+      "files": {
+        "requests": "3dfebb550cfba2341e40f31a60f4a91b7bac6c3103cd0e9d8d1f7f2b3bebd2d6",
+        "conversations": "e3a6e975676f58a55eff46e1f205a2ca852a5ca500596cfb73cacbbfa1df22dc",
+        "intervals": "1725b7e2933c1e680ea465187683bf05f45ac88221a7b6453829ad224376d801",
+        "history-transitions": "e72a9a2fd867d29de2984e5f0fa70a8e9b2145b7bc5746cf3b65583e535393a6"
+      }
     }
   }
 }
