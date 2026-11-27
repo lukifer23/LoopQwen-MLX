@@ -9,6 +9,7 @@ import tempfile
 from pathlib import Path
 
 from document_frequency_material import documents
+from portable_base_wheel import NETWORK_GUARD
 from verify_runtime_wheel import CODE, ROOT
 
 from loopqwen.evaluation.mechanism import unpack
@@ -17,9 +18,9 @@ from loopqwen.io import digest, read, save
 
 
 def main(case):
-    receipt = read(ROOT / "docs/measurements/observation-review-installed-cli.json")
-    wheel = ROOT / "exports/observation-review-runtime" / receipt["wheel"]
-    assert digest(wheel) == receipt["wheel_sha256"]
+    receipt = read(ROOT / "docs/measurements/portable-base-wheel.json")
+    wheel = ROOT / "exports/portable-base-runtime" / receipt["wheel"]
+    assert digest(wheel) == receipt["sha256"]
     bundle = ROOT / "exports/tool-language-packed-05"
     with tempfile.TemporaryDirectory() as work:
         work = Path(work)
@@ -37,7 +38,9 @@ def main(case):
             ],
             check=True,
         )
-        cmd = [sys.executable, "-I", "-c", CODE, str(site)]
+        cache = work / "empty-model-cache"
+        cache.mkdir()
+        cmd = [sys.executable, "-I", "-c", NETWORK_GUARD + CODE, str(site)]
         if case == "document":
             root = ROOT / "research/results/document-frequency-reader-01"
             _, _, source, question, expected, _ = next(documents())
@@ -91,14 +94,31 @@ def main(case):
             subprocess.check_output(
                 [*cmd, *args],
                 cwd=work,
-                env=dict(os.environ, HF_HUB_OFFLINE="1", TRANSFORMERS_OFFLINE="1"),
+                env=dict(
+                    os.environ,
+                    HF_HUB_OFFLINE="1",
+                    TRANSFORMERS_OFFLINE="1",
+                    HF_HOME=str(cache),
+                    HF_HUB_CACHE=str(cache / "hub"),
+                    HUGGINGFACE_HUB_CACHE=str(cache / "hub"),
+                    TRANSFORMERS_CACHE=str(cache / "hub"),
+                ),
             )
         )
+        assert not any(
+            p.is_file()
+            and (p.suffix in {".bin", ".safetensors"} or "snapshots" in p.parts)
+            for p in cache.rglob("*")
+        )
+        if case == "contrast":
+            assert raw["base_source"] == "certified_release_text"
     record = {
         "case": case,
-        "wheel_sha256": receipt["wheel_sha256"],
+        "wheel_sha256": receipt["sha256"],
         "policy": digest(root / "checksums.json"),
         "offline": True,
+        "network_connections_blocked": True,
+        "empty_model_cache": True,
         "outside_checkout": True,
         "question": question,
     }

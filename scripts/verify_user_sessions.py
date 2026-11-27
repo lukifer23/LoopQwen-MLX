@@ -142,6 +142,7 @@ def main():
     from loopqwen.generate_cli import render
     from loopqwen.evaluation.mechanism import unpack
 
+    portable = read(docs / "portable-base-wheel.json")
     document = read(docs / "document-reader-installed.json")
     root = results / "document-frequency-reader-01"
     assert document["policy"] == digest(root / "checksums.json")
@@ -163,11 +164,14 @@ def main():
         - identity["exact_text_tensors"],
         identity["exact_text_tensors"],
     ]
+    assert contrast["result"]["base_source"] == "certified_release_text"
     check(contrast["result"], tok, [tool()])
     assert all(
         obs["offline"]
         and obs["outside_checkout"]
-        and obs["wheel_sha256"] == review["wheel_sha256"]
+        and obs["network_connections_blocked"]
+        and obs["empty_model_cache"]
+        and obs["wheel_sha256"] == portable["sha256"]
         for obs in (document, contrast)
     )
     checked = read(docs / "checked-calculator-installed-cli.json")
@@ -205,7 +209,6 @@ def main():
                 v["text"] == tok.decode(v["token_ids"])
                 and 0 < v["cold_first_seconds"] <= v["request_seconds"]
             )
-    portable = read(docs / "portable-base-wheel.json")
     assert (
         portable["empty_model_cache"]
         and portable["network_connections_blocked"]
