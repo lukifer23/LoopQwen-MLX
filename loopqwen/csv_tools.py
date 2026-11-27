@@ -12,7 +12,7 @@ def identity(stat):
     return stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns
 
 
-def tools(paths):
+def tools(paths, *, keyed=False):
     documents = {}
     for path in map(Path, paths):
         if path.name in documents:
@@ -66,6 +66,46 @@ def tools(paths):
             "required": list(properties),
             "additionalProperties": False,
         }
+
+    if keyed:
+        headers = set()
+        for document in documents:
+            with open_rows(document) as (header, _):
+                headers.update(header)
+        column = {"type": "string", "enum": sorted(headers)}
+
+        def lookup(document, key_column, key, value_column):
+            with open_rows(document) as (header, records):
+                if header.count(key_column) != 1 or header.count(value_column) != 1:
+                    raise ValueError("Choose unambiguous columns from the document")
+                search, target = header.index(key_column), header.index(value_column)
+                value = None
+                for record in records:
+                    if len(record) != len(header):
+                        raise ValueError("Row and header have different widths")
+                    if record[search] == key:
+                        if value is not None:
+                            raise ValueError("Multiple CSV records match the key")
+                        value = record[target]
+                if value is None:
+                    raise ValueError("No CSV record matches the key")
+                return {"value": value}
+
+        return [
+            Tool(
+                "csv_lookup",
+                "Read a field from the one CSV row whose key column equals the supplied text. Key comparison is exact.",
+                schema(
+                    {
+                        "document": name,
+                        "key_column": column,
+                        "key": {"type": "string"},
+                        "value_column": column,
+                    }
+                ),
+                lookup,
+            )
+        ]
 
     return [
         Tool(

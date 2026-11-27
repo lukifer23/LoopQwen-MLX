@@ -61,6 +61,14 @@ def add_arguments(p, checkpoint=None):
         help="Expose both read-only properties of a local resource. Can be repeated.",
     )
     p.add_argument(
+        "--keyed-csv",
+        type=Path,
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="Look up a CSV field by the exact text in a named key column.",
+    )
+    p.add_argument(
         "--csv",
         type=Path,
         action="append",
@@ -122,6 +130,12 @@ def open_assistant(args):
         from .io import read
 
         policy = read(args.session_policy / "registration.json")
+        if policy.get("instruction_interpolation"):
+            from .interpolated_instruction import InterpolatedAssistant
+
+            if getattr(args, "tool_format", "compact") != "qwen":
+                raise ValueError("Interpolated instruction requires --tool-format qwen")
+            return InterpolatedAssistant(args.checkpoint, args.session_policy)
         if policy.get("observation_review"):
             from .observation_review import ObservationAssistant
 
@@ -168,6 +182,10 @@ def respond(args, parser):
             from .csv_tools import tools as csv_tools
 
             supplied.extend(csv_tools(args.csv))
+        if getattr(args, "keyed_csv", None):
+            from .csv_tools import tools as csv_tools
+
+            supplied.extend(csv_tools(args.keyed_csv, keyed=True))
         if getattr(args, "file", None):
             from .file_tools import tools as file_tools
 

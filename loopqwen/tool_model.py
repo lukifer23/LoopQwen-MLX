@@ -232,7 +232,7 @@ class Assistant:
         _messages=None,
         _conversation_prefix=None,
     ):
-        if tools:
+        if tools or getattr(self, "native_plain", False):
             from .tool_session import run
 
             if self._tool_model is None:

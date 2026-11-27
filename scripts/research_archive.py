@@ -67,6 +67,12 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("instruction-interpolation-"):
+        from interpolation_material import material
+        from loopqwen.research.instruction_interpolation import verify as verify_interpolation
+
+        material()
+        return verify_interpolation(root, decision)
     if study.startswith("report-action-field-"):
         from report_action_material import material
         from loopqwen.research.report_actions import verify as verify_report

@@ -1,0 +1,31 @@
+{
+  "id": "instruction-interpolation-01",
+  "question": "Can a single continuously recurrent instruction decoder recover question-sensitive meaning while retaining accurate real tool calls by mixing half the prequalified trained update with the original instruction sibling?",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "material": "research/data/instruction-interpolation-panel.json",
+  "instruction_interpolation": {
+    "trained_fraction": 0.5,
+    "second_pass_fraction": 0.175,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "max_tokens": 640,
+  "max_turns": 4,
+  "limits": {
+    "wall_seconds": 1500,
+    "peak_gib": 7,
+    "available_gib": 1.4
+  },
+  "protocol": "Start from independently qualified release 05 and its trained two-pass final instruction layer. Materialize half of each of the seven learned rank-32 task updates into the frozen instruction-sibling projections in FP32 with one BF16 rounding. Apply this shared updated native Qwen layer twice, with independent physical KV sites, on every input and output token including plain answers. Set the repeated residual strength to half its original 0.35. The recipe is fixed in advance, with no sweep, callbacks injected into inference, task selector, answer overrides or training on the new source. Compare only to certified untouched ordinary BF16 Base contained in the same release, both cold, using identical native Qwen thinking messages, greedy 640 tokens per turn, four turns, ordered opening IDs and within-request prefix policy. Original NYU Winograd XML: hash-order 20 disjoint adjacent opposite-label pairs with identical choices/source/pronoun and >=.8 sentence similarity. Keep original phrases, interleave the requests, randomize option order per pair independently of ground truth. Public pretraining exposure is possible. Eight previously unenrolled package distributions: materialize each complete authentic wheel inventory from the pinned uv.lock as an on-disk CSV. Both models must obtain actual byte counts through the same keyed read-only tool and return the verified difference via the same calculator. Follow-ups inherit each model's real preceding answer/calls. Both messages must succeed for each inventory. Report field content, observed lookup, arithmetic, and perturbational operand consistency separately. Count whole semantic pairs, not independent half-sentences. No new causal depth attribution follows from this pair.",
+  "gate": "Require >=3 net additional whole reasoning pairs with exact two-sided paired p<=.05, more complete file pairs with no loss in grounded operand-sensitive differences, at least as many correct finals and completions for each family, positive pooled clustered wins with p<=.05, lower whole stream wall time, summed time to first token and peak allocation, higher pooled opening and post-first-token throughput. Stop after this pair, on resource guard or budget. Failure closes this model's dependent depth, replication and long-context release comparisons. A pass licenses fresh independent replication and matched training-depth verification, with actual 128K retention still required for deployment."
+}

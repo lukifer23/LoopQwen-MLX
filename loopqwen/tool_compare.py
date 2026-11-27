@@ -30,6 +30,7 @@ def compare(args, tools, options):
     outputs = {}
     reuse = options["reuse_prefix"]
     base_source = None
+    native_plain = False
     for side in ("recurrent", "base"):
         assistant = chat = None
         rows = []
@@ -42,12 +43,14 @@ def compare(args, tools, options):
             if assistant is None:
                 if side == "recurrent":
                     assistant = open_assistant(args)
+                    native_plain = getattr(assistant, "native_plain", False)
                     if reuse is None:
                         reuse = assistant.reuse_prefix
                 else:
                     assistant = DenseAssistant(
                         reuse, getattr(args, "tool_format", "compact"), args.checkpoint
                     )
+                    assistant.native_plain = native_plain
                     base_source = assistant.language.base_source
                 chat = (
                     assistant.conversation(tools, retain_prefix=True)
