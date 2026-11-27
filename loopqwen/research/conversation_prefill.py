@@ -20,6 +20,16 @@ from .native_function_study import executions
 from .registered import registered
 
 
+def check_tokens(item, ids):
+    path = "research/data/conversation-document-prefill-tokens.json"
+    assert digest(path) == read("research/registry.json")["datasets"][path]["sha256"]
+    expected = read(path)[item["source"]]
+    assert (
+        len(ids) == expected["prompt_tokens"]
+        and fingerprint(ids) == expected["initial_sha256"]
+    )
+
+
 def material(spec, item):
     data = subprocess.check_output(
         ["git", "show", spec["revision"] + ":" + item["source"]]
@@ -87,10 +97,7 @@ def timed(spec, item, side, budget):
         mx.synchronize()
         if i == 0:
             initial = tr["turns"][0]["prompt_ids"]
-            assert (
-                len(initial) == item["prompt_tokens"]
-                and fingerprint(initial) == item["initial_sha256"]
-            )
+            check_tokens(item, initial)
         rows.append(
             dict(
                 trajectory=tr,
@@ -171,10 +178,7 @@ def verify(root, d):
         for side in ("retain", "stock"):
             rows = unpack(root / f"{i}-{side}.json.gz")
             initial = rows[0]["trajectory"]["turns"][0]["prompt_ids"]
-            assert (
-                len(initial) == item["prompt_tokens"]
-                and fingerprint(initial) == item["initial_sha256"]
-            )
+            check_tokens(item, initial)
             history = [system_message(available)]
             for question, row in zip(questions, rows, strict=True):
                 history.append({"role": "user", "content": question})
