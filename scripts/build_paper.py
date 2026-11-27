@@ -19,6 +19,11 @@ def main(verify):
     subprocess.run([sys.executable, "scripts/folded_overlap.py"], cwd=ROOT, check=True)
     if verify:
         subprocess.run(
+            [sys.executable, "scripts/research_registry.py", "--verify-files"],
+            cwd=ROOT,
+            check=True,
+        )
+        subprocess.run(
             [sys.executable, "scripts/selective_source_audit.py", "--verify"],
             cwd=ROOT,
             check=True,

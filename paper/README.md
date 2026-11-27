@@ -49,7 +49,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 
 ## Rebuild and verify
 
-From the repository root, the following commands rebuild the vector figures, evidence index and PDF. The verification option checks stored predictions and per-file hashes against the independent archive recounts. Some older verifiers require the pinned tokenizer in the local Hugging Face cache.
+From the repository root, the following commands rebuild the vector figures, evidence index and PDF. The verification option first hashes every payload in every published archive, including recovered sessions, and verifies every registered dataset identity. It then independently reconstructs the predictions, executed callbacks and scores used by the manuscript. To run just the complete inventory check, use `.venv/bin/python scripts/research_registry.py --verify-files`. Some older verifiers require the pinned tokenizer in the local Hugging Face cache.
 
 ```sh
 uv sync --locked --group data --group figures --group paper --extra guided

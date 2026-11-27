@@ -67,9 +67,45 @@ def inventory():
     return dict(datasets=datasets, experiments=reports, session_results=sessions)
 
 
+def verify_files(index):
+    """Check each stored payload against its independently registered inventory."""
+    roots = [
+        (Path("research/results") / name, record["archive"])
+        for name, record in index["experiments"].items()
+        if record["archive"]
+    ]
+    roots.extend(
+        (Path("research/sessions") / name, record["archive"])
+        for name, record in index["session_results"].items()
+    )
+    files = 0
+    for folder, expected in roots:
+        manifest = folder / "checksums.json"
+        if digest(manifest) != expected:
+            raise ValueError(f"Different archive inventory: {folder}")
+        registered = json.loads(manifest.read_bytes())
+        actual = {
+            str(file.relative_to(folder))
+            for file in folder.rglob("*")
+            if file.is_file() and file != manifest
+        }
+        if actual != registered.keys():
+            raise ValueError(f"Archive file list differs: {folder}")
+        for name, checksum in registered.items():
+            if digest(folder / name) != checksum:
+                raise ValueError(f"Archive payload differs: {folder / name}")
+        files += len(registered)
+    return len(roots), files
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--update", action="store_true")
+    parser.add_argument(
+        "--verify-files",
+        action="store_true",
+        help="Hash every archived payload, including publications in recovered sessions",
+    )
     args = parser.parse_args()
     path = Path("research/registry.json")
     obj = inventory()
@@ -80,9 +116,13 @@ if __name__ == "__main__":
                 for field, value in values.items():
                     if value is not None and obj[kind][key][field] != value:
                         raise ValueError(f"Existing identity changed: {key}")
-        path.write_text(json.dumps(obj, indent=2) + "\n")
     elif obj != old:
         raise ValueError("Registry mismatch")
+    if args.verify_files:
+        archives, files = verify_files(obj)
+        print(archives, "complete archive inventories,", files, "payloads checked")
+    if args.update:
+        path.write_text(json.dumps(obj, indent=2) + "\n")
     print(
         len(obj["experiments"]),
         "registrations,",
