@@ -171,7 +171,10 @@ def run(
     validators = {}
     for tool in tools:
         if not callable(tool.callback) or not re.fullmatch(
-            r"[A-Za-z_][A-Za-z0-9_.]{0,127}", tool.name
+            r"[A-Za-z_][A-Za-z0-9_.-]{0,127}"
+            if native
+            else r"[A-Za-z_][A-Za-z0-9_.]{0,127}",
+            tool.name,
         ):
             raise ValueError("Invalid tool")
         Draft202012Validator.check_schema(tool.parameters)

@@ -107,3 +107,14 @@ def test_invalid_second_qwen_call_executes_neither(monkeypatch, malformed):
 def test_nested_nonfinite_numeric_data():
     with pytest.raises(ValueError):
         qwen_tools.typed("[1e9999]", {"type": "array"})
+
+
+def test_literal_string_selected_by_reference_enum_or_typed_union():
+    root = {"type": "object", "$defs": {"version": {"type": "string"}}}
+    assert qwen_tools.typed("2", {"$ref": "#/$defs/version"}, root) == "2"
+    assert qwen_tools.typed("false", {"enum": ["false", "unknown"]}) == "false"
+    assert (
+        qwen_tools.typed("1", {"type": ["integer", "string"], "enum": ["1", 2]}) == "1"
+    )
+    assert qwen_tools.typed("2", {"type": ["integer", "string"], "enum": ["1", 2]}) == 2
+    assert qwen_tools.typed("42", True) == 42

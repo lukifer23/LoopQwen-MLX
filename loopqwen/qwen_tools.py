@@ -3,6 +3,9 @@
 import json
 import re
 
+from jsonschema import Draft202012Validator
+from referencing import Registry
+
 from .tool_session import compact, object_pairs, reject_constant
 
 # Argument names can contain spaces, punctuation or Unicode. The publisher's tag
@@ -25,8 +28,8 @@ def render(tokenizer, messages, definitions):
     )
 
 
-def typed(raw, schema):
-    kind = schema.get("type", ())
+def typed(raw, schema, root=None):
+    kind = schema.get("type", ()) if isinstance(schema, dict) else ()
     kinds = {kind} if isinstance(kind, str) else set(kind)
     if kinds == {"string"}:
         return raw
@@ -39,6 +42,14 @@ def typed(raw, schema):
             return raw
         raise ValueError("Invalid typed function argument") from None
     compact(value)  # Reject numerical overflow even inside arrays and objects.
+    if schema and (not kinds or "string" in kinds) and not isinstance(value, str):
+        # Constraints such as enum, const and local $ref may describe strings
+        # whose literal spelling is also a JSON number, boolean or null.
+        validator = Draft202012Validator(
+            root if root is not None else schema, registry=Registry()
+        ).evolve(schema=schema)
+        if not validator.is_valid(value) and validator.is_valid(raw):
+            return raw
     return value
 
 
@@ -71,7 +82,7 @@ def parse(visible, available):
             props = schema.get("properties", {})
             extra = schema.get("additionalProperties", {})
             shape = props.get(match[1], extra if isinstance(extra, dict) else {})
-            args[match[1]] = typed(match[2], shape)
+            args[match[1]] = typed(match[2], shape, schema)
             raw = raw[match.end() :].lstrip()
         if not raw.startswith("</function>"):
             raise ValueError("Unclosed function")
