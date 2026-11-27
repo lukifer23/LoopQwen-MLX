@@ -97,7 +97,7 @@ def joint(rows):
         r for r in numeric if r["candidate_grounded"] and not r["control_grounded"]
     ]
     return {
-        "net_new_cases": len(qualified),
+        "individual_gains": len(qualified),
         "additional_correct_and_all_three_costs_lower": sum(
             all(
                 r["candidate_" + m] < r["control_" + m]
