@@ -1,0 +1,19 @@
+{
+  "id": "revision-evidence-01",
+  "question": "Does a compact version of the independently qualified six-layer recurrent entailment reader follow real Wikipedia revisions while improving serving cost against the original Base?",
+  "model": "research/results/entailment-triplets-01/model",
+  "qualification": "research/results/entailment-triplets-confirm-01",
+  "qualification_sha256": "2ce8a57ec678a3032e09a731dbef2c49561a67f453a5c55ec503350073bcd85a",
+  "release": "exports/tool-language-packed-05",
+  "export": "exports/compact-revision-reader-01",
+  "source": "https://huggingface.co/datasets/tals/vitaminc/resolve/be6febb761b0b2807687e61e0b5282e459df2fa0/test.jsonl",
+  "source_sha256": "7ad1808dbc30c62e0a1427a53022d0dfaff668a1fde3c4b612a2d266edd753ad",
+  "credit": "Original claims, annotations and Wikipedia text distributed by Tal Schuster, Adam Fisch and Regina Barzilay (VitaminC, NAACL 2021), CC BY-SA 3.0. Selected excerpts retain publisher text. Our question wraps the supplied passages. https://aclanthology.org/2021.naacl-main.52/",
+  "selection": "24 distinct articles in deterministic seeded SHA-256 order, one real revision contrast per article. Require exactly two examples of the same claim and revision, opposite gold labels, different evidence, and clean Unicode in both passages and the claim. Shuffle both members across the request stream by a separate hash. Each request receives only one version. No training, tuning or selection on test outputs.",
+  "seed": 202611267,
+  "pairs": 24,
+  "generation_cap": 768,
+  "conversion": "From the original trained, confirmed six-layer stabilized K2 adapter on certified Base, fuse every LoRA update with stock MLX-LM and use MLX affine eight-bit groups of 64 for every linear and embedding map. Retain the learned gate and separate caches. Freeze comparison if independent prose final-logit relative RMS >=0.06. Report separate conversion time, peak and bytes. No activation routing.",
+  "decision": "Against pinned untouched BF16 Base at ordinary depth. Identical fresh-cache native thinking prompts and greedy stopping at the first chat end or EOS. Four half-stream loads, candidate/base then base/candidate. Credit a complete pair only if both separately generated, terminated visible judgments agree with opposite publisher labels. Require at least 5 net more complete pairs and exact two-sided paired p<=0.05, higher correct count on BOTH labels, at least the Base completion count, lower actual cold stream wall, pooled first-token time and peak MLX allocation, higher pooled prefill and decode speeds. Charge loading to stream and cold first token, report preparation separately. Report paired losses and source-year risk. Any failed prerequisite closes depth attribution, field promotion and 128K extension for this policy. No resampling or retries after seeing scores.",
+  "limits": {"wall_seconds": 1200, "peak_gib": 5.9, "available_gib": 1.5}
+}

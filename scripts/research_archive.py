@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "revision-evidence-01":
+        from loopqwen.research.revision_evidence import verify as verify_revision
+
+        return verify_revision(root, decision)
     if study.startswith("role-binding-"):
         from binding_material import material
         from loopqwen.research.role_binding import verify as verify_binding

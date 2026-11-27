@@ -15,7 +15,11 @@ from .worker import acquire
 
 def candidate(args, parser):
     root = Path(args.checkpoint)
-    if (root / "refinement.safetensors").is_file():
+    if (root / "compact-entailment.json").is_file():
+        from .compact_entailment import load
+
+        model, tok = load(root)
+    elif (root / "refinement.safetensors").is_file():
         from .selective_refinement import load_checkpoint
 
         if args.passes not in (None, 2) or args.offload_dir is not None:
