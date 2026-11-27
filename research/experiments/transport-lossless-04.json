@@ -1,0 +1,18 @@
+{
+  "id": "transport-lossless-04",
+  "question": "Can the Unicode-corrected 131K release be delivered as a smaller lossless portable file that restores each original byte and reproduces the measured package callback in isolation?",
+  "checkpoint": "exports/tool-language-packed-05",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "destination": "exports/tool-language-packed-05.lqzip",
+  "raw_ratio": 0.82,
+  "deflate_ratio": 0.88,
+  "protocol": "Compare ordinary per-file DEFLATE level 6 with a reversible paired-weight encoding of exactly the same checked export file set. Byte-shuffle BF16; predict packed sibling bytes from unmodified Base values and the actual sibling group scale and bias, store modulo-256 residuals, and store other exact differences where shapes agree. Apply DEFLATE level 6 to both. Decode into a new standalone directory, compare every SHA256 with the original and run the same isolated MLX real installed-package query as the release archive. Measure raw and transported file bytes, pack and verified restore seconds. Record the dense Base weight bytes as a separate reference. Transport and installed weights are distinct resources. Use the qualified packed-release candidate's first independently archived live mlx trajectory as the reference. This replication covers the corrected tokenizer declaration, complete release 05 inventory, compact 131K reader and the original version-query generation. Use the identical trained weight bytes.",
+  "gate": "Require all restored file hashes and native field tokens/callbacks identical, at least 18% fewer bytes than the raw combined directory and 12% fewer bytes than ordinary DEFLATE of the same files. No inference speed, installed size or universal model-quality promotion follows from a transport pass. Stop on resource limits.",
+  "limits": {
+    "wall_seconds": 480,
+    "peak_gib": 7.5,
+    "available_gib": 1.4
+  },
+  "source_trace": "packed_release"
+}
