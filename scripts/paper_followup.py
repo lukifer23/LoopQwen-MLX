@@ -12,6 +12,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from loopqwen.io import read, save
+from scripts.assemble_evidence_paper import edition
 from scripts.followup_learning import build as learning
 from scripts.followup_reading import ARMS, DOC, ROOT, run
 
@@ -193,6 +194,8 @@ def build():
     (P / "followup.pdf").write_bytes(raw)
     pages = PdfReader(P / "followup.pdf").pages
     assert len(pages) == 4 and all(len(page.extract_text()) > 400 for page in pages)
+    edition(P, "followup")
+    edition(P, "followup", verify=True)
     print("Published", len(cases), "paired requests and", len(pages), "pages")
 
 

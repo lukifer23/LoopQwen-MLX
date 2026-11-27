@@ -81,6 +81,14 @@ EDITIONS = {
         "Two complete upstream revisions beyond 131,072 tokens",
         "Grounded generation, training controls and full research history",
     ),
+    "followup": (
+        "loopqwen-lockfile-study.pdf",
+        "a9bd1bccf7fff2230027e1a56b9e17a28e435d4b97952538c3ae82b1babba180",
+        "loopqwen-followup-study.pdf",
+        "LoopQwen-MLX: conversation reasoning, executable tools and full-context validation",
+        "Human follow-up reasoning and fresh software requirements",
+        "Full-context measurements, depth controls and technical history",
+    ),
 }
 
 
@@ -131,6 +139,7 @@ if __name__ == "__main__":
                 "valid-return",
                 "linked-rollin",
                 "locked-context",
+                "followup",
             }
             and not (args.folder / (name + "-paper.json")).is_file()
         ):

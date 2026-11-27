@@ -111,6 +111,20 @@ LINKED = Edition(
     cohort="02",
 )
 
+FOLLOWUP = Edition(
+    "followup-protected",
+    "loopqwen-followup-09.zip",
+    "FOLLOWUP_STUDY.md",
+    "loopqwen-followup-study.pdf",
+    "followup-update-09.json",
+    "followup.bundle",
+    (
+        ("followup_oracle", ()),
+        ("research_archive", ("followup-protected-01", "--verify")),
+        ("paper_followup", ()),
+    ),
+)
+
 
 def tracked(revision, path):
     names = subprocess.check_output(
@@ -125,6 +139,7 @@ def make(tmp, revision, update, edition):
     spec = read(policy / "registration.json")
     panel = read(ROOT / spec["material"])
     docs = ROOT / "paper"
+    prefix = "followup" if edition == FOLLOWUP else edition.study
     files = {
         "README.md": ROOT / "docs" / edition.manual,
         "sources/" + edition.bundle: history_update(
@@ -141,12 +156,12 @@ def make(tmp, revision, update, edition):
         {
             "paper/" + p.name: p
             for p in tracked(revision, "paper")
-            if p.name.startswith(edition.study)
+            if p.name.startswith(prefix + "-") or p.name.startswith(prefix + ".")
         }
     )
     files["paper/" + edition.paper] = docs / edition.paper
     for p in tracked(revision, "docs/measurements"):
-        if p.name.startswith(edition.study + "-") and p.name != edition.verification:
+        if p.name.startswith(prefix + "-") and p.name != edition.verification:
             files["verification/" + p.name] = p
     files["sources/REASONED-EVIDENCE-SOURCES.md"] = (
         ROOT / "research/licenses/REASONED-EVIDENCE-SOURCES.md"
@@ -172,6 +187,23 @@ def make(tmp, revision, update, edition):
         )
         for source in tracked(revision, "research/sources/linked-tables"):
             files["linked-sources/" + source.name] = source
+    if edition == FOLLOWUP:
+        from scripts.followup_oracle import SHA, UPSTREAM
+        from scripts.wheel_archive_sources import CACHE
+
+        runtime = read(ROOT / "docs/measurements/followup-runtime.json")
+        installed_wheel = ROOT / runtime["archive"]
+        assert digest(installed_wheel) == runtime["sha256"] and digest(UPSTREAM) == SHA
+        files["updated-runtime/" + installed_wheel.name] = installed_wheel.read_bytes()
+        files["source-scorer/" + UPSTREAM.name] = UPSTREAM.read_bytes()
+        cohorts = read(ROOT / "research/sources/wheel-archives/enrollment.json")[
+            "cohorts"
+        ]
+        for cohort in cohorts.values():
+            for item in cohort:
+                archive = CACHE / "wheels" / item["file"]
+                assert digest(archive) == item["sha256"]
+                files["source-wheels/" + archive.name] = archive.read_bytes()
     rows = panel["rows"]
     # Select by enrollment order alone: the first story through both channels, a whole
     # practical contrast, and first retained table. No success or latency is consulted.
@@ -192,7 +224,14 @@ def make(tmp, revision, update, edition):
         event = next(w["cluster"] for w in rows if w["family"] == "agenda")
         selected = [w for w in rows if w["cluster"] in (first, event, pair)]
         selected.append(next(w for w in rows if w["family"] == "retention"))
-    assert len(selected) == (7 if edition in (VALID, LINKED) else 5)
+    if edition == FOLLOWUP:
+        clusters = {
+            next(w["cluster"] for w in rows if w["family"] == family)
+            for family in ("human_first", "archive", "agenda")
+        }
+        selected = [w for w in rows if w["cluster"] in clusters]
+        selected.append(next(w for w in rows if w["family"] == "retention"))
+    assert len(selected) == (7 if edition in (VALID, LINKED, FOLLOWUP) else 5)
     cases = []
     for j, w in enumerate(selected):
         key = f"{j + 1}-{w['family']}"
@@ -214,7 +253,9 @@ def make(tmp, revision, update, edition):
             w["questions"][0],
         ]
         paths = (
-            w["files"] if "files" in w else ([w["document"]] if w["document"] else [])
+            w["files"]
+            if "files" in w
+            else ([w["document"]] if w.get("document") else [])
         )
         for path in paths:
             name = "examples/" + path
@@ -222,6 +263,8 @@ def make(tmp, revision, update, edition):
             args.extend(["--keyed-csv", name])
         if w["family"] == "agenda":
             args.extend(["--resource", "calendar"])
+        for wheel in w.get("wheels", ()):
+            args.extend(["--wheel", "source-wheels/" + wheel])
         files["examples/" + key + ".json"] = (
             json.dumps(args, ensure_ascii=False, indent=2) + "\n"
         ).encode()
@@ -248,7 +291,7 @@ def main(edition=PROOF):
         else subprocess.check_output(
             (
                 ["git", "log", "-1", "--format=%H", "--", "paper/" + edition.paper]
-                if edition in (FIELD, VALID, LINKED)
+                if edition in (FIELD, VALID, LINKED, FOLLOWUP)
                 else ["git", "rev-parse", "HEAD"]
             ),
             cwd=ROOT,
@@ -329,7 +372,11 @@ def main(edition=PROOF):
             python,
             "--find-links",
             work / "dependencies",
-            *sorted((work / "runtime").glob("*.whl")),
+            *sorted(
+                (work / ("updated-runtime" if edition == FOLLOWUP else "runtime")).glob(
+                    "*.whl"
+                )
+            ),
             *sorted((work / "paper-tools").glob("*.whl")),
             *sorted((work / "figure-tools").glob("*.whl")),
         )
@@ -382,10 +429,18 @@ def main(edition=PROOF):
             (checkout / "data/research_external/fosdem").symlink_to(
                 work / "schedule-sources"
             )
+        if edition == FOLLOWUP:
+            external = checkout / "data/research_external"
+            cache_path = external / "wheel-archives"
+            cache_path.mkdir(parents=True, exist_ok=True)
+            (cache_path / "wheels").symlink_to(work / "source-wheels")
+            (external / "quac-scorer.py").symlink_to(
+                work / "source-scorer/quac-scorer.py"
+            )
         for module, args in edition.modules:
             research_path = (
                 "sys.path.insert(0,str(Path.cwd()));"
-                if edition in (VALID, LINKED)
+                if edition in (VALID, LINKED, FOLLOWUP)
                 or module == "verify_field_selection_frozen"
                 else "sys.path.append(str(Path.cwd()));"
             )
@@ -470,9 +525,12 @@ if __name__ == "__main__":
     editions.add_argument("--field-selection", action="store_true")
     editions.add_argument("--valid-return", action="store_true")
     editions.add_argument("--linked-rollin", action="store_true")
+    editions.add_argument("--followup", action="store_true")
     options = parser.parse_args()
     main(
-        LINKED
+        FOLLOWUP
+        if options.followup
+        else LINKED
         if options.linked_rollin
         else VALID
         if options.valid_return
