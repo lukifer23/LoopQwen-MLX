@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study.startswith("question-contrast-"):
+        from loopqwen.research.question_contrast import verify as verify_contrast
+
+        return verify_contrast(root, decision)
     if study.startswith("document-frequency-reader-"):
         from loopqwen.research.document_frequency_study import verify as verify_document
 

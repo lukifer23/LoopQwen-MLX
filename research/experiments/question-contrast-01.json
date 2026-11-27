@@ -1,0 +1,35 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "rank": 32,
+  "start_layer": 23,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "id": "question-contrast-01",
+  "question": "Can a repeated native layer learn which quantity a changed human question requests, and transfer the distinction to unseen DROP passages, fresh word problems and real callable services?",
+  "release": "research/results/packed-release-retention-04",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "training": "research/data/question-contrast-training.json",
+  "material": "research/data/question-contrast-panel.json",
+  "fit_seed": 905117,
+  "updates": 960,
+  "batch": 8,
+  "lr": 7e-05,
+  "limits": {
+    "wall_seconds": 1950,
+    "peak_gib": 7.4,
+    "available_gib": 1.4
+  },
+  "protocol": "Independent two-pass Qwen layer 23 at every token, shared rank-32 adapters from scratch on the pinned instruction sibling with the verified 8-bit prefix. No earlier experimental adapter initializes this fit. Train on 256 different SQuAD training paragraphs with two original human questions and distinct number labels per paragraph. For 44 separate SVAMP story templates align the original question pair onto the same named quantities, re-execute both publisher equations, and require different valid answers. Each of those two goals receives its own opening call, acceptance after a correct return, revision after the other question\u2019s return, and final response after revision. Add 640 independently enrolled native-format action/answer rehearsal turns. 1504 targets altogether. Sample two pairs and four singles per update. Optimize shared response CE plus .5 times softplus(1 - difference of cross-context target-token margins) at the first truly divergent token; 960 AdamW updates. No DROP training text. Reserve 24 entire DROP development passages with two independent, numerically different questions whose first label agrees with every independent validation response. Freeze 24 other ASDiv questions, 22 earlier public executable BFCL tasks and twelve two-user-request real package/file retention dialogues. Candidate then ordinary pinned BF16 Base, same official native function prompt IDs, identical callbacks, thinking, greedy policy, 384 tokens and three turns. Each DROP question begins a fresh conversation to isolate question meaning. A completed free response with the correct final numeric value earns DROP success whether or not a calculator was necessary. For ASDiv strict success additionally requires the correct executed arithmetic. Score whole DROP passages as one cluster to avoid treating two questions as independent. All real service follow-ups use the actual history. Record first, total and peak including cold loading. 106 dialogues, 118 user requests and 82 independent outcome clusters (24 DROP,24 ASDiv,22 public,12 services).",
+  "gate": "Require four net additional complete DROP question pairs over Base and exact paired two-sided p<=.05; more final quantities correct on fresh ASDiv and no decline on grounded ASDiv. Each of public numerical calls, complete two-question file pairs and package pairs must reach Base. Across all 82 clusters require positive net strict wins at paired p<=.05. First-token sum, end-to-end sum and native peak each at most Base. Report normalized strict numeric answers, final quantities in prose and executed evidence separately. A missed gate closes promotion and dependent matched attribution/replication. Only a pass licenses an equally trained K1 comparator and independent replication. Stop on the completed pair or resource budget.",
+  "pairs_per_batch": 2,
+  "ranking_weight": 0.5
+}

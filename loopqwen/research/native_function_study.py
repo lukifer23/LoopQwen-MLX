@@ -86,7 +86,7 @@ def grade(row, i, tr):
     )
 
 
-def evaluate(spec, panel, side, budget, factory, tool_catalog):
+def evaluate(spec, panel, side, budget, factory, tool_catalog, *, scorer=grade):
     actor = None
     rows = []
     for w in panel["rows"]:
@@ -123,7 +123,7 @@ def evaluate(spec, panel, side, budget, factory, tool_catalog):
                     wall_s=perf_counter() - start,
                     first_s=stamps[len(tr["turns"][0]["prompt_ids"])],
                     peak=mx.get_peak_memory(),
-                    score=grade(w, i, tr),
+                    score=scorer(w, i, tr),
                 )
             )
         assert requests[0]["trajectory"]["turns"][0]["prompt_ids"] == w["initial_ids"]
