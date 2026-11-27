@@ -1,0 +1,676 @@
+{
+  "seed": 8249067,
+  "projects": {
+    "foundry-rs/foundry": {
+      "available_changed_relations": 337,
+      "documents": [
+        {
+          "url": "https://raw.githubusercontent.com/foundry-rs/foundry/fa9f934bdac4bcf57e694e852a61997dda90668a/Cargo.lock",
+          "sha256": "cbcded237f0a4c8d303ced74a2b63dfd36783548cd0cb68d1bdfe07976ab0224",
+          "file": "foundry-v1.4.3.lock",
+          "common_tokens": 131245,
+          "common_ids": "cc2cf17ba68eb1a7b772edc852b8855c64fdd1119627cc5d1070c86ed27fa842",
+          "cases": [
+            {
+              "owners": [
+                "solar-interface",
+                "watchexec-signals"
+              ],
+              "dependency": "thiserror",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do solar-interface and watchexec-signals resolve thiserror to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "1.0.69",
+                "2.0.16"
+              ],
+              "equal": false,
+              "evidence": [
+                {
+                  "owner": "solar-interface",
+                  "bytes": [
+                    210742,
+                    210748
+                  ],
+                  "tokens": [
+                    102725,
+                    102731
+                  ]
+                },
+                {
+                  "owner": "watchexec-signals",
+                  "bytes": [
+                    249795,
+                    249801
+                  ],
+                  "tokens": [
+                    122135,
+                    122141
+                  ]
+                }
+              ],
+              "opening": 131300,
+              "input_sha256": "25b935faa2e74d1c5713352199f401ce9301a8d346fdec09db1126d6c2296698"
+            },
+            {
+              "owners": [
+                "quinn-udp",
+                "terminal_size"
+              ],
+              "dependency": "windows-sys",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do quinn-udp and terminal_size resolve windows-sys to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.60.2",
+                "0.60.2"
+              ],
+              "equal": true,
+              "evidence": [
+                {
+                  "owner": "quinn-udp",
+                  "bytes": [
+                    175546,
+                    175552
+                  ],
+                  "tokens": [
+                    85286,
+                    85292
+                  ]
+                },
+                {
+                  "owner": "terminal_size",
+                  "bytes": [
+                    221861,
+                    221867
+                  ],
+                  "tokens": [
+                    108279,
+                    108285
+                  ]
+                }
+              ],
+              "opening": 131301,
+              "input_sha256": "24a05ef12eb1fff7f0f6c5112c90b5af92b2e431c52dc573af4baed55d2e01bd"
+            },
+            {
+              "owners": [
+                "boa_engine",
+                "foundry-solang-parser"
+              ],
+              "dependency": "itertools",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do boa_engine and foundry-solang-parser resolve itertools to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.13.0",
+                "0.14.0"
+              ],
+              "equal": false,
+              "evidence": [
+                {
+                  "owner": "boa_engine",
+                  "bytes": [
+                    50529,
+                    50535
+                  ],
+                  "tokens": [
+                    24243,
+                    24249
+                  ]
+                },
+                {
+                  "owner": "foundry-solang-parser",
+                  "bytes": [
+                    106512,
+                    106518
+                  ],
+                  "tokens": [
+                    50968,
+                    50974
+                  ]
+                }
+              ],
+              "opening": 131300,
+              "input_sha256": "7d14406510d500cf6e48c4f519d6262ed5cfc81547db137de5652c97699e52ed"
+            },
+            {
+              "owners": [
+                "ark-poly",
+                "boa_interner"
+              ],
+              "dependency": "hashbrown",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do ark-poly and boa_interner resolve hashbrown to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.15.5",
+                "0.15.5"
+              ],
+              "equal": true,
+              "evidence": [
+                {
+                  "owner": "ark-poly",
+                  "bytes": [
+                    30077,
+                    30083
+                  ],
+                  "tokens": [
+                    14397,
+                    14403
+                  ]
+                },
+                {
+                  "owner": "boa_interner",
+                  "bytes": [
+                    51349,
+                    51355
+                  ],
+                  "tokens": [
+                    24630,
+                    24636
+                  ]
+                }
+              ],
+              "opening": 131300,
+              "input_sha256": "4842f5f0b051d7aea04543c6b2ecf0c3765f9577f43096db7eb9d1af713e9c99"
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/foundry-rs/foundry/b0a9dd9ceda36f63e2326ce530c10e6916f4b8a2/Cargo.lock",
+          "sha256": "3a29cfd00839c8c316ce79a0b6b7ae33d0a8a471e1a1e8289a61dc58eedcbe11",
+          "file": "foundry-v1.5.1.lock",
+          "common_tokens": 137313,
+          "common_ids": "6fd5d6487a9d1ded00a671ee55f5bdbba5a74804265c6df4b65c6a8a55fcd96b",
+          "cases": [
+            {
+              "owners": [
+                "solar-interface",
+                "watchexec-signals"
+              ],
+              "dependency": "thiserror",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do solar-interface and watchexec-signals resolve thiserror to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "2.0.17",
+                "2.0.17"
+              ],
+              "equal": true,
+              "evidence": [
+                {
+                  "owner": "solar-interface",
+                  "bytes": [
+                    219102,
+                    219108
+                  ],
+                  "tokens": [
+                    106780,
+                    106786
+                  ]
+                },
+                {
+                  "owner": "watchexec-signals",
+                  "bytes": [
+                    259026,
+                    259032
+                  ],
+                  "tokens": [
+                    126649,
+                    126655
+                  ]
+                }
+              ],
+              "opening": 137368,
+              "input_sha256": "4422a0481d64b42035f72aeeb07b1b8b34d848b17b57257e0f56e21da3b85b6b"
+            },
+            {
+              "owners": [
+                "quinn-udp",
+                "terminal_size"
+              ],
+              "dependency": "windows-sys",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do quinn-udp and terminal_size resolve windows-sys to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.59.0",
+                "0.60.2"
+              ],
+              "equal": false,
+              "evidence": [
+                {
+                  "owner": "quinn-udp",
+                  "bytes": [
+                    183722,
+                    183728
+                  ],
+                  "tokens": [
+                    89162,
+                    89168
+                  ]
+                },
+                {
+                  "owner": "terminal_size",
+                  "bytes": [
+                    230326,
+                    230332
+                  ],
+                  "tokens": [
+                    112385,
+                    112391
+                  ]
+                }
+              ],
+              "opening": 137369,
+              "input_sha256": "9976f08ad856cb8597fc789b2c8f511cc2c3336df17d9f3568b3787a7bc14f05"
+            },
+            {
+              "owners": [
+                "boa_engine",
+                "foundry-solang-parser"
+              ],
+              "dependency": "itertools",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do boa_engine and foundry-solang-parser resolve itertools to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.14.0",
+                "0.14.0"
+              ],
+              "equal": true,
+              "evidence": [
+                {
+                  "owner": "boa_engine",
+                  "bytes": [
+                    51357,
+                    51363
+                  ],
+                  "tokens": [
+                    24650,
+                    24656
+                  ]
+                },
+                {
+                  "owner": "foundry-solang-parser",
+                  "bytes": [
+                    111000,
+                    111006
+                  ],
+                  "tokens": [
+                    53167,
+                    53173
+                  ]
+                }
+              ],
+              "opening": 137368,
+              "input_sha256": "111a701855771b2902e3e311de3a9109223082b67a6938387c48e19562279037"
+            },
+            {
+              "owners": [
+                "ark-poly",
+                "boa_interner"
+              ],
+              "dependency": "hashbrown",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do ark-poly and boa_interner resolve hashbrown to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.15.5",
+                "0.16.0"
+              ],
+              "equal": false,
+              "evidence": [
+                {
+                  "owner": "ark-poly",
+                  "bytes": [
+                    30836,
+                    30842
+                  ],
+                  "tokens": [
+                    14747,
+                    14753
+                  ]
+                },
+                {
+                  "owner": "boa_interner",
+                  "bytes": [
+                    52171,
+                    52177
+                  ],
+                  "tokens": [
+                    25028,
+                    25034
+                  ]
+                }
+              ],
+              "opening": 137368,
+              "input_sha256": "5e4c317a7f4b0a98206d08b04315b4f1e424a286c34610500d8092ee0f26699c"
+            }
+          ]
+        }
+      ]
+    },
+    "anza-xyz/agave": {
+      "available_changed_relations": 126,
+      "documents": [
+        {
+          "url": "https://raw.githubusercontent.com/anza-xyz/agave/a2e21dda295b18dd09ac06542834c5e9b1b2dc84/Cargo.lock",
+          "sha256": "d9755fef2673aa458665930be26cdd8796acd7419039ebf999e4570de0444f8d",
+          "file": "agave-v2.3.0.lock",
+          "common_tokens": 149305,
+          "common_ids": "317f03853093038e74ccbf1300e672f0265ffcef0822876c412a41d86e768b14",
+          "cases": [
+            {
+              "owners": [
+                "soketto",
+                "solana-keypair"
+              ],
+              "dependency": "rand",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do soketto and solana-keypair resolve rand to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.8.5",
+                "0.7.3"
+              ],
+              "equal": false,
+              "evidence": [
+                {
+                  "owner": "soketto",
+                  "bytes": [
+                    157297,
+                    157302
+                  ],
+                  "tokens": [
+                    78040,
+                    78045
+                  ]
+                },
+                {
+                  "owner": "solana-keypair",
+                  "bytes": [
+                    200064,
+                    200069
+                  ],
+                  "tokens": [
+                    95106,
+                    95111
+                  ]
+                }
+              ],
+              "opening": 149359,
+              "input_sha256": "901237b6b200541b47fa9814de70562e6d07c32a7c2251004b3b14e488b82193"
+            },
+            {
+              "owners": [
+                "crypto-common",
+                "rand_xorshift"
+              ],
+              "dependency": "rand_core",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do crypto-common and rand_xorshift resolve rand_core to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.6.4",
+                "0.6.4"
+              ],
+              "equal": true,
+              "evidence": [
+                {
+                  "owner": "crypto-common",
+                  "bytes": [
+                    48021,
+                    48026
+                  ],
+                  "tokens": [
+                    23113,
+                    23118
+                  ]
+                },
+                {
+                  "owner": "rand_xorshift",
+                  "bytes": [
+                    133344,
+                    133349
+                  ],
+                  "tokens": [
+                    66057,
+                    66062
+                  ]
+                }
+              ],
+              "opening": 149359,
+              "input_sha256": "560ab36330730449c2bfa95623d8737be38aeb0e0efc1f6151e9242b1a407770"
+            },
+            {
+              "owners": [
+                "ring",
+                "tokio"
+              ],
+              "dependency": "windows-sys",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do ring and tokio resolve windows-sys to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.52.0",
+                "0.52.0"
+              ],
+              "equal": true,
+              "evidence": [
+                {
+                  "owner": "ring",
+                  "bytes": [
+                    138885,
+                    138891
+                  ],
+                  "tokens": [
+                    68799,
+                    68805
+                  ]
+                },
+                {
+                  "owner": "tokio",
+                  "bytes": [
+                    286879,
+                    286885
+                  ],
+                  "tokens": [
+                    131381,
+                    131387
+                  ]
+                }
+              ],
+              "opening": 149358,
+              "input_sha256": "4285ba0c3a6c487cd4c1cd5e697254807f25164fb0484f485cf5f314add3f2c8"
+            },
+            {
+              "owners": [
+                "fastbloom",
+                "proptest"
+              ],
+              "dependency": "rand",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do fastbloom and proptest resolve rand to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.9.0",
+                "0.8.5"
+              ],
+              "equal": false,
+              "evidence": [
+                {
+                  "owner": "fastbloom",
+                  "bytes": [
+                    62277,
+                    62282
+                  ],
+                  "tokens": [
+                    30341,
+                    30346
+                  ]
+                },
+                {
+                  "owner": "proptest",
+                  "bytes": [
+                    125334,
+                    125339
+                  ],
+                  "tokens": [
+                    62036,
+                    62041
+                  ]
+                }
+              ],
+              "opening": 149358,
+              "input_sha256": "ba6bc18d0693382079e4b584d04590a978535bd5bb63262e6c73626d641db560"
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/anza-xyz/agave/b6c96e84b10396b92912d4574dae7d03f606da26/Cargo.lock",
+          "sha256": "e3ce81d65b07dd11ca4e2e5f44227096ee435fbbdb31b735a378ce4de89cde9e",
+          "file": "agave-v3.0.0.lock",
+          "common_tokens": 151442,
+          "common_ids": "8b9856fbdc49bf121a6ce98158ce506936a78d89e73c768b68503c71b0aa5a7b",
+          "cases": [
+            {
+              "owners": [
+                "soketto",
+                "solana-keypair"
+              ],
+              "dependency": "rand",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do soketto and solana-keypair resolve rand to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.8.5",
+                "0.8.5"
+              ],
+              "equal": true,
+              "evidence": [
+                {
+                  "owner": "soketto",
+                  "bytes": [
+                    164154,
+                    164159
+                  ],
+                  "tokens": [
+                    81337,
+                    81342
+                  ]
+                },
+                {
+                  "owner": "solana-keypair",
+                  "bytes": [
+                    207485,
+                    207490
+                  ],
+                  "tokens": [
+                    98621,
+                    98626
+                  ]
+                }
+              ],
+              "opening": 151496,
+              "input_sha256": "9d4be49b023e8a5f2e0791c4e8c31ea75c26129200792d7c310241a0d103ca02"
+            },
+            {
+              "owners": [
+                "crypto-common",
+                "rand_xorshift"
+              ],
+              "dependency": "rand_core",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do crypto-common and rand_xorshift resolve rand_core to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.6.4",
+                "0.9.3"
+              ],
+              "equal": false,
+              "evidence": [
+                {
+                  "owner": "crypto-common",
+                  "bytes": [
+                    49738,
+                    49743
+                  ],
+                  "tokens": [
+                    23752,
+                    23757
+                  ]
+                },
+                {
+                  "owner": "rand_xorshift",
+                  "bytes": [
+                    139236,
+                    139241
+                  ],
+                  "tokens": [
+                    68845,
+                    68850
+                  ]
+                }
+              ],
+              "opening": 151496,
+              "input_sha256": "7c5f45a8ec86df59d36045b4837f8a32e6cfdfc8c3d1db6f62f3677dca9b2e7a"
+            },
+            {
+              "owners": [
+                "ring",
+                "tokio"
+              ],
+              "dependency": "windows-sys",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do ring and tokio resolve windows-sys to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.52.0",
+                "0.59.0"
+              ],
+              "equal": false,
+              "evidence": [
+                {
+                  "owner": "ring",
+                  "bytes": [
+                    144981,
+                    144987
+                  ],
+                  "tokens": [
+                    71699,
+                    71705
+                  ]
+                },
+                {
+                  "owner": "tokio",
+                  "bytes": [
+                    287523,
+                    287529
+                  ],
+                  "tokens": [
+                    132177,
+                    132183
+                  ]
+                }
+              ],
+              "opening": 151495,
+              "input_sha256": "255bf9c51966bedb7ecb6f06b7a4f8a6e82f078f1ac063863ae51098faa50151"
+            },
+            {
+              "owners": [
+                "fastbloom",
+                "proptest"
+              ],
+              "dependency": "rand",
+              "question": "We need to check whether this build contains a dependency version mismatch. Do fastbloom and proptest resolve rand to the same version? Give the two exact versions in that order and explain the comparison.",
+              "versions": [
+                "0.9.0",
+                "0.9.0"
+              ],
+              "equal": true,
+              "evidence": [
+                {
+                  "owner": "fastbloom",
+                  "bytes": [
+                    65936,
+                    65941
+                  ],
+                  "tokens": [
+                    31997,
+                    32002
+                  ]
+                },
+                {
+                  "owner": "proptest",
+                  "bytes": [
+                    131212,
+                    131217
+                  ],
+                  "tokens": [
+                    64809,
+                    64814
+                  ]
+                }
+              ],
+              "opening": 151495,
+              "input_sha256": "75dd0154e6a5e2593ea34588554634f521b27f058f650d7e292ebd04f1162c49"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "method": "Choose only uniquely named consumers with one explicit, uniquely resolvable edge to the multiply versioned dependency in both real releases. Require a changed equality answer, choose distinct consumers and balance the direction. Exclude enrolled Deno training identifiers. The model has no access to the parser or these records. No model outputs enter selection."
+}
