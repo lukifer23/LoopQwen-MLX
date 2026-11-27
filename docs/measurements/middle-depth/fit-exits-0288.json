@@ -1,0 +1,3837 @@
+{
+  "steps": 288,
+  "epoch": 2,
+  "states": {
+    "loop": "98fc71e6b87ecd5f715438256591bbcfefdcecb2e0e9b5fa919bbb149111a05e",
+    "ordinary": "65b691cd384cf34388ceaff0a06ceba6c4a37b3c4061c0699488f88f3f19952a"
+  },
+  "source_weighted": {
+    "chat": {
+      "loop2_minus_loop1": {
+        "sources": 68,
+        "rows": 72,
+        "mean_source_delta": 0.008977056316593113,
+        "sources_with_lower_objective": 36
+      },
+      "loop3_minus_loop2": {
+        "sources": 68,
+        "rows": 72,
+        "mean_source_delta": 0.0063560145961887695,
+        "sources_with_lower_objective": 22
+      },
+      "loop2_minus_trained_ordinary": {
+        "sources": 68,
+        "rows": 72,
+        "mean_source_delta": -0.00023898082401822596,
+        "sources_with_lower_objective": 38
+      }
+    },
+    "documents": {
+      "loop2_minus_loop1": {
+        "sources": 56,
+        "rows": 72,
+        "mean_source_delta": -0.013627337824021066,
+        "sources_with_lower_objective": 33
+      },
+      "loop3_minus_loop2": {
+        "sources": 56,
+        "rows": 72,
+        "mean_source_delta": 0.00858877572630133,
+        "sources_with_lower_objective": 21
+      },
+      "loop2_minus_trained_ordinary": {
+        "sources": 56,
+        "rows": 72,
+        "mean_source_delta": -0.020202613036547388,
+        "sources_with_lower_objective": 26
+      }
+    },
+    "reasoning": {
+      "loop2_minus_loop1": {
+        "sources": 48,
+        "rows": 72,
+        "mean_source_delta": -0.01567258071251369,
+        "sources_with_lower_objective": 29
+      },
+      "loop3_minus_loop2": {
+        "sources": 48,
+        "rows": 72,
+        "mean_source_delta": 0.01676618885054874,
+        "sources_with_lower_objective": 21
+      },
+      "loop2_minus_trained_ordinary": {
+        "sources": 48,
+        "rows": 72,
+        "mean_source_delta": -0.003070055589584323,
+        "sources_with_lower_objective": 22
+      }
+    },
+    "tools": {
+      "loop2_minus_loop1": {
+        "sources": 67,
+        "rows": 72,
+        "mean_source_delta": 0.06896071441805185,
+        "sources_with_lower_objective": 36
+      },
+      "loop3_minus_loop2": {
+        "sources": 67,
+        "rows": 72,
+        "mean_source_delta": 0.03309426729136439,
+        "sources_with_lower_objective": 34
+      },
+      "loop2_minus_trained_ordinary": {
+        "sources": 67,
+        "rows": 72,
+        "mean_source_delta": 0.025886648070456375,
+        "sources_with_lower_objective": 34
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "dolly/640bb106769f3b9c824eae7b273677cf2c784b4f7febe36da64d8b667431fb0f",
+      "source": "640bb106769f3b9c824eae7b273677cf2c784b4f7febe36da64d8b667431fb0f",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 145,
+      "loop": [
+        0.06262276321649551,
+        0.052609462291002274,
+        0.048589203506708145
+      ],
+      "ordinary": 0.06980259716510773
+    },
+    {
+      "id": "2023-14385/2023-14664/revision",
+      "source": "2023-14385/2023-14664",
+      "family": "documents",
+      "group": "agenda",
+      "update": 145,
+      "loop": [
+        3.1402177810668945,
+        3.545454502105713,
+        3.5470032691955566
+      ],
+      "ordinary": 3.1789638996124268
+    },
+    {
+      "id": "hotpotqa/5ae11e6155429901ffe4ada4/answer",
+      "source": "hotpotqa/5ae11e6155429901ffe4ada4/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 146,
+      "loop": [
+        0.5658659934997559,
+        0.5698349475860596,
+        0.587232768535614
+      ],
+      "ordinary": 0.5492561459541321
+    },
+    {
+      "id": "tatqa/3ba77e51-c495-4ab8-b916-3bfd7bb19ceb/reply/deliver",
+      "source": "1768c6cd-24e0-4fdf-9cd4-a1df15e4020d",
+      "family": "tools",
+      "group": "deliver",
+      "update": 146,
+      "loop": [
+        2.478693962097168,
+        2.277458667755127,
+        2.29313325881958
+      ],
+      "ordinary": 2.4035730361938477
+    },
+    {
+      "id": "dolly/a3b6deebe09a83df7bbdb02d50584d25b6859598ebb038ae07f832d6e6c91553",
+      "source": "a3b6deebe09a83df7bbdb02d50584d25b6859598ebb038ae07f832d6e6c91553",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 147,
+      "loop": [
+        0.8883715271949768,
+        0.8741840124130249,
+        0.8712501525878906
+      ],
+      "ordinary": 0.8886470198631287
+    },
+    {
+      "id": "table/12935",
+      "source": "totto_source/train_json/example-5234.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 147,
+      "loop": [
+        0.6821005940437317,
+        0.6744067668914795,
+        0.6792054176330566
+      ],
+      "ordinary": 0.6891922354698181
+    },
+    {
+      "id": "hotpotqa/5abe49405542991f6610611d/answer",
+      "source": "hotpotqa/5abe49405542991f6610611d/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 148,
+      "loop": [
+        0.32842057943344116,
+        0.32927894592285156,
+        0.3326288163661957
+      ],
+      "ordinary": 0.32938021421432495
+    },
+    {
+      "id": "tatqa/b29fe296-6ee7-4bbf-9345-1357ada085d6/reply/deliver",
+      "source": "a374154a-9aea-46d8-82d3-570e17ca63e3",
+      "family": "tools",
+      "group": "deliver",
+      "update": 148,
+      "loop": [
+        1.9615085124969482,
+        1.551184892654419,
+        1.5655517578125
+      ],
+      "ordinary": 1.5619664192199707
+    },
+    {
+      "id": "dolly/9b01ee5351faf010c50eb16743268bb6c754801544ba38a52b250c2696a7419d",
+      "source": "9b01ee5351faf010c50eb16743268bb6c754801544ba38a52b250c2696a7419d",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 149,
+      "loop": [
+        0.7327672243118286,
+        0.7151837944984436,
+        0.7124377489089966
+      ],
+      "ordinary": 0.7278391122817993
+    },
+    {
+      "id": "table/17518",
+      "source": "totto_source/train_json/example-9817.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 149,
+      "loop": [
+        0.14446499943733215,
+        0.1422463357448578,
+        0.1454683095216751
+      ],
+      "ordinary": 0.14931076765060425
+    },
+    {
+      "id": "hotpotqa/5ab3b16d554299753aec59a3/answer",
+      "source": "hotpotqa/5ab3b16d554299753aec59a3/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 150,
+      "loop": [
+        0.5841806530952454,
+        0.5929607152938843,
+        0.5839818716049194
+      ],
+      "ordinary": 0.5725886225700378
+    },
+    {
+      "id": "tatqa/25857431-8ff8-496c-ac3c-aa0780708d99/reply/deliver",
+      "source": "4cf22377-f69a-4f18-947d-26e11030913c",
+      "family": "tools",
+      "group": "deliver",
+      "update": 150,
+      "loop": [
+        1.4237500429153442,
+        1.2469863891601562,
+        1.189589262008667
+      ],
+      "ordinary": 0.8607587814331055
+    },
+    {
+      "id": "dolly/f8493f0739fa4770d7d662df26a60e785d0c269b76e77e57aad3812f815e0458",
+      "source": "f8493f0739fa4770d7d662df26a60e785d0c269b76e77e57aad3812f815e0458",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 151,
+      "loop": [
+        0.0932573676109314,
+        0.088919997215271,
+        0.09089648723602295
+      ],
+      "ordinary": 0.09002476930618286
+    },
+    {
+      "id": "2023-14105/2023-14088/published",
+      "source": "2023-14105/2023-14088",
+      "family": "documents",
+      "group": "agenda",
+      "update": 151,
+      "loop": [
+        0.46702343225479126,
+        0.5118709802627563,
+        0.5432061553001404
+      ],
+      "ordinary": 0.4580003023147583
+    },
+    {
+      "id": "hotpotqa/5abd554b55429933744ab777/answer",
+      "source": "hotpotqa/5abd554b55429933744ab777/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 152,
+      "loop": [
+        0.21611614525318146,
+        0.21067261695861816,
+        0.21345549821853638
+      ],
+      "ordinary": 0.210834801197052
+    },
+    {
+      "id": "tatqa/158ecf4b-d9b0-448e-946a-c7b09d5a3b98/reply/open",
+      "source": "8f49def6-7c9b-4919-be12-b3a461fe3f71",
+      "family": "tools",
+      "group": "open",
+      "update": 152,
+      "loop": [
+        0.41467490792274475,
+        0.38167133927345276,
+        0.4242607355117798
+      ],
+      "ordinary": 0.5479682683944702
+    },
+    {
+      "id": "dolly/b682dcd6da409a197c9a1d83e9317fdb7d4de7ffce4502f05a188ee42204a685",
+      "source": "b682dcd6da409a197c9a1d83e9317fdb7d4de7ffce4502f05a188ee42204a685",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 153,
+      "loop": [
+        2.618051052093506,
+        2.628974199295044,
+        2.6262311935424805
+      ],
+      "ordinary": 2.589022397994995
+    },
+    {
+      "id": "table/12150",
+      "source": "totto_source/train_json/example-4449.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 153,
+      "loop": [
+        0.15129454433918,
+        0.1836201250553131,
+        0.2129543423652649
+      ],
+      "ordinary": 0.15422268211841583
+    },
+    {
+      "id": "hotpotqa/5adf76b85542992d7e9f9385/answer",
+      "source": "hotpotqa/5adf76b85542992d7e9f9385/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 154,
+      "loop": [
+        0.5357443690299988,
+        0.5459651350975037,
+        0.5493550300598145
+      ],
+      "ordinary": 0.5245669484138489
+    },
+    {
+      "id": "tatqa/8e14050a-c4f5-40c0-8d57-d613830b1698/reply/recovered",
+      "source": "c66e5d6e-947b-4bc4-bfe2-d6015fc23bb7",
+      "family": "tools",
+      "group": "recovered",
+      "update": 154,
+      "loop": [
+        1.5499988794326782,
+        1.3110814094543457,
+        1.3088645935058594
+      ],
+      "ordinary": 1.333594799041748
+    },
+    {
+      "id": "oasst/17108619-b167-4cba-90f2-dfe913c3154c",
+      "source": "669b5318-afe5-4499-9c06-8ee672e4d603",
+      "family": "chat",
+      "group": "conversation",
+      "update": 155,
+      "loop": [
+        0.728583574295044,
+        0.7492943406105042,
+        0.7630924582481384
+      ],
+      "ordinary": 0.7288657426834106
+    },
+    {
+      "id": "table/7899",
+      "source": "totto_source/train_json/example-198.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 155,
+      "loop": [
+        1.1192646026611328,
+        1.193745493888855,
+        1.233263373374939
+      ],
+      "ordinary": 1.1722322702407837
+    },
+    {
+      "id": "QRQA-10186-4",
+      "source": "QRSent-10186",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 156,
+      "loop": [
+        0.166160449385643,
+        0.17677080631256104,
+        0.18347743153572083
+      ],
+      "ordinary": 0.12963347136974335
+    },
+    {
+      "id": "tatqa/2b691cd3-12af-4441-9d21-fa23e2cb7e55/reply/deliver",
+      "source": "b313dadb-5fa7-482e-bc6e-fce0f7ee2412",
+      "family": "tools",
+      "group": "deliver",
+      "update": 156,
+      "loop": [
+        1.7407500743865967,
+        1.6879398822784424,
+        1.6908351182937622
+      ],
+      "ordinary": 1.6363608837127686
+    },
+    {
+      "id": "oasst/54063d7f-e50a-4291-90e7-375ddca667ea",
+      "source": "e8916250-4493-4d84-9dcf-3a319f14da94",
+      "family": "chat",
+      "group": "conversation",
+      "update": 157,
+      "loop": [
+        1.1366782188415527,
+        1.1302651166915894,
+        1.1306318044662476
+      ],
+      "ordinary": 1.1359201669692993
+    },
+    {
+      "id": "table/12302",
+      "source": "totto_source/train_json/example-4601.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 157,
+      "loop": [
+        1.3169623613357544,
+        1.2906330823898315,
+        1.2853516340255737
+      ],
+      "ordinary": 1.287639856338501
+    },
+    {
+      "id": "QRQA-10349-3",
+      "source": "QRSent-10349",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 158,
+      "loop": [
+        0.07116925716400146,
+        0.06912694126367569,
+        0.08425276726484299
+      ],
+      "ordinary": 0.07147473096847534
+    },
+    {
+      "id": "tatqa/6b4729b4-3b9d-454e-afec-5f57fa7bf95b/reply/recovered",
+      "source": "c16a5597-7aea-40fc-af22-2a5d57d856b0",
+      "family": "tools",
+      "group": "recovered",
+      "update": 158,
+      "loop": [
+        1.6682610511779785,
+        1.6478582620620728,
+        1.6776463985443115
+      ],
+      "ordinary": 1.6078728437423706
+    },
+    {
+      "id": "oasst/b6ae1a4c-e49a-479f-8c5e-642f230e7a49",
+      "source": "2e61cbf4-2d7d-4d13-a7ff-5e3877661e0b",
+      "family": "chat",
+      "group": "conversation",
+      "update": 159,
+      "loop": [
+        1.370745062828064,
+        1.3791520595550537,
+        1.3856755495071411
+      ],
+      "ordinary": 1.3753688335418701
+    },
+    {
+      "id": "table/397",
+      "source": "totto_source/dev_json/example-396.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 159,
+      "loop": [
+        0.6519874930381775,
+        0.6558495759963989,
+        0.6673780679702759
+      ],
+      "ordinary": 0.6481853127479553
+    },
+    {
+      "id": "hotpotqa/5ac0f3ec5542996f0d89cc40/answer",
+      "source": "hotpotqa/5ac0f3ec5542996f0d89cc40/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 160,
+      "loop": [
+        0.44400838017463684,
+        0.44605332612991333,
+        0.4445001184940338
+      ],
+      "ordinary": 0.4212189018726349
+    },
+    {
+      "id": "tatqa/0da57c95-2709-4b67-a1be-db6f325fb4e5/reply/open",
+      "source": "ad6fe95b-026d-439e-8c7c-a55a6e3bb392",
+      "family": "tools",
+      "group": "open",
+      "update": 160,
+      "loop": [
+        1.6808695793151855,
+        1.7538444995880127,
+        1.8477728366851807
+      ],
+      "ordinary": 1.873866081237793
+    },
+    {
+      "id": "dolly/ebf15f6a14cd986c96d46376df83583c056f4cfb22339917d14904e693701d8a",
+      "source": "ebf15f6a14cd986c96d46376df83583c056f4cfb22339917d14904e693701d8a",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 161,
+      "loop": [
+        1.4172143936157227,
+        1.395019292831421,
+        1.3989180326461792
+      ],
+      "ordinary": 1.4113197326660156
+    },
+    {
+      "id": "table/10092",
+      "source": "totto_source/train_json/example-2391.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 161,
+      "loop": [
+        0.891750693321228,
+        0.84676194190979,
+        0.8433977365493774
+      ],
+      "ordinary": 0.8534150123596191
+    },
+    {
+      "id": "hotpotqa/5abab90a55429901930fa8a8/answer",
+      "source": "hotpotqa/5abab90a55429901930fa8a8/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 162,
+      "loop": [
+        0.5802667737007141,
+        0.5244094133377075,
+        0.5115111470222473
+      ],
+      "ordinary": 0.5797634720802307
+    },
+    {
+      "id": "tatqa/7104cb54-95a0-4e0c-97bc-9959d2ae7699/reply/repair",
+      "source": "0333ac87-e444-45f2-b491-d7348d1f75c6",
+      "family": "tools",
+      "group": "repair",
+      "update": 162,
+      "loop": [
+        3.0793957710266113,
+        3.333582878112793,
+        3.2775864601135254
+      ],
+      "ordinary": 3.4891510009765625
+    },
+    {
+      "id": "dolly/e03cfb74123becf73641a220d4393f79040955a77d2d21a73db46e9ce582faf7",
+      "source": "e03cfb74123becf73641a220d4393f79040955a77d2d21a73db46e9ce582faf7",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 163,
+      "loop": [
+        1.502234697341919,
+        1.5199956893920898,
+        1.5288515090942383
+      ],
+      "ordinary": 1.5253082513809204
+    },
+    {
+      "id": "table/13034",
+      "source": "totto_source/train_json/example-5333.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 163,
+      "loop": [
+        0.7004513740539551,
+        0.6788692474365234,
+        0.6773878931999207
+      ],
+      "ordinary": 0.7565131187438965
+    },
+    {
+      "id": "hotpotqa/5a838b0c5542992ef85e22ec/answer",
+      "source": "hotpotqa/5a838b0c5542992ef85e22ec/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 164,
+      "loop": [
+        0.5232552289962769,
+        0.5239059925079346,
+        0.5160821080207825
+      ],
+      "ordinary": 0.5028966665267944
+    },
+    {
+      "id": "tatqa/d27b69a5-b2e5-45e8-bf6e-46c37c41e448/reply/open",
+      "source": "f07a1c9f-0082-4b61-bb2e-4d061d9b8036",
+      "family": "tools",
+      "group": "open",
+      "update": 164,
+      "loop": [
+        1.728024959564209,
+        1.9023241996765137,
+        1.8487980365753174
+      ],
+      "ordinary": 2.6651625633239746
+    },
+    {
+      "id": "oasst/f43db2d1-f022-4a5c-ba5c-96ab73b83915",
+      "source": "a08cfe35-3f56-41f5-8f8f-8c06487b0867",
+      "family": "chat",
+      "group": "conversation",
+      "update": 165,
+      "loop": [
+        2.4737212657928467,
+        2.505917549133301,
+        2.5260508060455322
+      ],
+      "ordinary": 2.464367389678955
+    },
+    {
+      "id": "table/13733",
+      "source": "totto_source/train_json/example-6032.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 165,
+      "loop": [
+        0.6917742490768433,
+        0.7228440046310425,
+        0.7238291501998901
+      ],
+      "ordinary": 0.6896745562553406
+    },
+    {
+      "id": "hotpotqa/5adf38f95542992d7e9f92dc/answer",
+      "source": "hotpotqa/5adf38f95542992d7e9f92dc/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 166,
+      "loop": [
+        0.31979215145111084,
+        0.3129827082157135,
+        0.3191349506378174
+      ],
+      "ordinary": 0.3085796535015106
+    },
+    {
+      "id": "tatqa/d3417a2d-ce85-4ef8-95d3-45b562f4ede7/reply/recovered",
+      "source": "ae9effab-a89c-435a-bcf3-a504d9fef286",
+      "family": "tools",
+      "group": "recovered",
+      "update": 166,
+      "loop": [
+        0.20326615869998932,
+        0.2187865525484085,
+        0.2184070646762848
+      ],
+      "ordinary": 0.30046185851097107
+    },
+    {
+      "id": "oasst/0c952b4b-0b26-4230-a2a0-963cb098f9a5",
+      "source": "3a566f27-e385-4a77-87ff-8e286f0ad860",
+      "family": "chat",
+      "group": "conversation",
+      "update": 167,
+      "loop": [
+        1.1926393508911133,
+        1.1865161657333374,
+        1.1894817352294922
+      ],
+      "ordinary": 1.193189263343811
+    },
+    {
+      "id": "table/13540",
+      "source": "totto_source/train_json/example-5839.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 167,
+      "loop": [
+        0.6042591333389282,
+        0.5998387932777405,
+        0.5990316867828369
+      ],
+      "ordinary": 0.6061130166053772
+    },
+    {
+      "id": "hotpotqa/5a84ba3c5542991dd0999db9/answer",
+      "source": "hotpotqa/5a84ba3c5542991dd0999db9/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 168,
+      "loop": [
+        0.24448134005069733,
+        0.235015869140625,
+        0.23594141006469727
+      ],
+      "ordinary": 0.22716037929058075
+    },
+    {
+      "id": "tatqa/ff1633bf-03b3-4b23-a747-da16b198aa1f/reply/deliver",
+      "source": "8fe3ee6d-61da-4231-ab99-39f000863e3b",
+      "family": "tools",
+      "group": "deliver",
+      "update": 168,
+      "loop": [
+        2.0663552284240723,
+        2.994266986846924,
+        3.8355815410614014
+      ],
+      "ordinary": 1.1723891496658325
+    },
+    {
+      "id": "dolly/a4ac0be8f5bfe6951497b1b940266bd491488a0ee668f618513241d7844f95f5",
+      "source": "a4ac0be8f5bfe6951497b1b940266bd491488a0ee668f618513241d7844f95f5",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 169,
+      "loop": [
+        1.8158777952194214,
+        1.8095505237579346,
+        1.8078330755233765
+      ],
+      "ordinary": 1.8224962949752808
+    },
+    {
+      "id": "table/8348",
+      "source": "totto_source/train_json/example-647.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 169,
+      "loop": [
+        0.28836819529533386,
+        0.37941646575927734,
+        0.3985385000705719
+      ],
+      "ordinary": 0.33691269159317017
+    },
+    {
+      "id": "hotpotqa/5abbe484554299660624173a/answer",
+      "source": "hotpotqa/5abbe484554299660624173a/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 170,
+      "loop": [
+        0.19717876613140106,
+        0.20426993072032928,
+        0.20719538629055023
+      ],
+      "ordinary": 0.19745191931724548
+    },
+    {
+      "id": "tatqa/b2e1f480-9832-4503-bd56-e786f820e306/reply/open",
+      "source": "1ec06dfa-bc1e-4af2-8054-f63fa0262012",
+      "family": "tools",
+      "group": "open",
+      "update": 170,
+      "loop": [
+        0.22407841682434082,
+        0.26396846771240234,
+        0.26700061559677124
+      ],
+      "ordinary": 0.24783727526664734
+    },
+    {
+      "id": "oasst/117585d7-9150-462a-a809-1ff9c0ff3510",
+      "source": "d3863e36-f9f0-4e64-977e-f2287decbfaf",
+      "family": "chat",
+      "group": "conversation",
+      "update": 171,
+      "loop": [
+        1.2532011270523071,
+        1.2594225406646729,
+        1.2596853971481323
+      ],
+      "ordinary": 1.2509511709213257
+    },
+    {
+      "id": "2023-13963/2023-15030/published",
+      "source": "2023-13963/2023-15030",
+      "family": "documents",
+      "group": "agenda",
+      "update": 171,
+      "loop": [
+        0.46446293592453003,
+        0.5177672505378723,
+        0.5718748569488525
+      ],
+      "ordinary": 0.61320960521698
+    },
+    {
+      "id": "hotpotqa/5adfec4d55429942ec259b8c/answer",
+      "source": "hotpotqa/5adfec4d55429942ec259b8c/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 172,
+      "loop": [
+        0.30780351161956787,
+        0.34215986728668213,
+        0.35806453227996826
+      ],
+      "ordinary": 0.2948324382305145
+    },
+    {
+      "id": "tatqa/8968467b-de59-4fc8-87a7-e0d98f679a47/reply/deliver",
+      "source": "ce09caff-769d-498f-9e5d-09dc1e741d70",
+      "family": "tools",
+      "group": "deliver",
+      "update": 172,
+      "loop": [
+        1.1961472034454346,
+        1.3499677181243896,
+        1.3867777585983276
+      ],
+      "ordinary": 1.6167428493499756
+    },
+    {
+      "id": "dolly/3c3d925b6150d2c9e2ef521cad7c5f190d92bd61ac133589315be7a0c2e8b951",
+      "source": "3c3d925b6150d2c9e2ef521cad7c5f190d92bd61ac133589315be7a0c2e8b951",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 173,
+      "loop": [
+        0.39289888739585876,
+        0.4118805527687073,
+        0.4247366189956665
+      ],
+      "ordinary": 0.38964927196502686
+    },
+    {
+      "id": "2023-14278/2023-14628/published",
+      "source": "2023-14278/2023-14628",
+      "family": "documents",
+      "group": "agenda",
+      "update": 173,
+      "loop": [
+        0.39568182826042175,
+        0.4092875123023987,
+        0.4043557643890381
+      ],
+      "ordinary": 0.36479106545448303
+    },
+    {
+      "id": "QRQA-10349-3-flip",
+      "source": "QRSent-10349",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 174,
+      "loop": [
+        5.9770917892456055,
+        6.802470684051514,
+        6.92249870300293
+      ],
+      "ordinary": 6.040937423706055
+    },
+    {
+      "id": "tatqa/94bc4d77-55a8-4cb0-a095-f9d799b3c37b/reply/open",
+      "source": "31ca108c-7db6-4d94-81e4-d55a2a361064",
+      "family": "tools",
+      "group": "open",
+      "update": 174,
+      "loop": [
+        0.5683797597885132,
+        0.4557063579559326,
+        0.47541332244873047
+      ],
+      "ordinary": 0.40504464507102966
+    },
+    {
+      "id": "dolly/97d1ba958d81b11454bb2b30e3fbfb2d4c0586ac0298997025b88c2e6e176ec3",
+      "source": "97d1ba958d81b11454bb2b30e3fbfb2d4c0586ac0298997025b88c2e6e176ec3",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 175,
+      "loop": [
+        0.3057097792625427,
+        0.29543712735176086,
+        0.29457923769950867
+      ],
+      "ordinary": 0.3086753487586975
+    },
+    {
+      "id": "table/19073",
+      "source": "totto_source/train_json/example-11372.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 175,
+      "loop": [
+        0.189151331782341,
+        0.19961440563201904,
+        0.22357217967510223
+      ],
+      "ordinary": 0.1684759557247162
+    },
+    {
+      "id": "hotpotqa/5a846624554299123d8c2235/answer",
+      "source": "hotpotqa/5a846624554299123d8c2235/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 176,
+      "loop": [
+        0.28745561838150024,
+        0.26970550417900085,
+        0.26453477144241333
+      ],
+      "ordinary": 0.2859744429588318
+    },
+    {
+      "id": "tatqa/ee3856c8-56f7-424f-9fbf-4b7f2fe9731f/reply/open",
+      "source": "09ea040c-e548-48f9-ba67-bae8cafa8e83",
+      "family": "tools",
+      "group": "open",
+      "update": 176,
+      "loop": [
+        0.4336487650871277,
+        0.39411789178848267,
+        0.401856392621994
+      ],
+      "ordinary": 0.2354629933834076
+    },
+    {
+      "id": "oasst/4d3b5f80-6ec2-499f-a90b-b5d410d2930c",
+      "source": "3c286fd0-b9c1-4d5f-9593-67b1220aaadb",
+      "family": "chat",
+      "group": "conversation",
+      "update": 177,
+      "loop": [
+        1.1928640604019165,
+        1.1716811656951904,
+        1.1714738607406616
+      ],
+      "ordinary": 1.1837422847747803
+    },
+    {
+      "id": "table/8402",
+      "source": "totto_source/train_json/example-701.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 177,
+      "loop": [
+        0.6791216135025024,
+        0.6626033186912537,
+        0.6636999249458313
+      ],
+      "ordinary": 0.6637853980064392
+    },
+    {
+      "id": "QRQA-10171-1",
+      "source": "QRSent-10171",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 178,
+      "loop": [
+        0.9586870670318604,
+        1.104310154914856,
+        1.2533109188079834
+      ],
+      "ordinary": 1.4800546169281006
+    },
+    {
+      "id": "tatqa/83609f56-d841-443b-834f-a0b553583187/reply/open",
+      "source": "7005a9d6-50d9-43b0-9137-d5c1e25eef5d",
+      "family": "tools",
+      "group": "open",
+      "update": 178,
+      "loop": [
+        0.17796072363853455,
+        0.15799292922019958,
+        0.16490617394447327
+      ],
+      "ordinary": 0.13893431425094604
+    },
+    {
+      "id": "oasst/16400e64-287d-48eb-a81f-1c67bfc436ba",
+      "source": "dfc611e1-66f9-498b-8062-e8634c48b1fa",
+      "family": "chat",
+      "group": "conversation",
+      "update": 179,
+      "loop": [
+        0.47967150807380676,
+        0.4813011586666107,
+        0.4860832095146179
+      ],
+      "ordinary": 0.48170483112335205
+    },
+    {
+      "id": "table/13467",
+      "source": "totto_source/train_json/example-5766.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 179,
+      "loop": [
+        0.6808449625968933,
+        0.676255464553833,
+        0.6752926707267761
+      ],
+      "ordinary": 0.6727926135063171
+    },
+    {
+      "id": "hotpotqa/5a890a9155429946c8d6e8f8/answer",
+      "source": "hotpotqa/5a890a9155429946c8d6e8f8/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 180,
+      "loop": [
+        0.24394313991069794,
+        0.24508821964263916,
+        0.25812864303588867
+      ],
+      "ordinary": 0.22558201849460602
+    },
+    {
+      "id": "tatqa/3d61ce04-aca3-4c03-adcf-03a207c2afb6/reply/repair",
+      "source": "4afe9359-f420-45d3-9615-b4ae42aef069",
+      "family": "tools",
+      "group": "repair",
+      "update": 180,
+      "loop": [
+        1.6040151119232178,
+        1.6969455480575562,
+        1.612703800201416
+      ],
+      "ordinary": 0.9856630563735962
+    },
+    {
+      "id": "oasst/cae3a478-462b-4ebc-97d0-52eb0436a589",
+      "source": "82e1acc4-cb74-46cc-b7d9-c0f2205552d6",
+      "family": "chat",
+      "group": "conversation",
+      "update": 181,
+      "loop": [
+        1.3495426177978516,
+        1.3574742078781128,
+        1.358748435974121
+      ],
+      "ordinary": 1.3428676128387451
+    },
+    {
+      "id": "table/10692",
+      "source": "totto_source/train_json/example-2991.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 181,
+      "loop": [
+        1.0571167469024658,
+        1.0876691341400146,
+        1.0812846422195435
+      ],
+      "ordinary": 1.0639872550964355
+    },
+    {
+      "id": "QRQA-10086-1",
+      "source": "QRSent-10086",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 182,
+      "loop": [
+        0.047732993960380554,
+        0.0340396985411644,
+        0.02855425886809826
+      ],
+      "ordinary": 0.04263361543416977
+    },
+    {
+      "id": "tatqa/4c317c9d-56a0-49ba-aa02-36167af0e3a2/reply/repair",
+      "source": "32042523-919e-4f7c-a584-8a89b4fc2f8d",
+      "family": "tools",
+      "group": "repair",
+      "update": 182,
+      "loop": [
+        1.7232929468154907,
+        0.8063174486160278,
+        0.6511753797531128
+      ],
+      "ordinary": 2.234349012374878
+    },
+    {
+      "id": "oasst/ed09cbc8-32b1-45a5-bc60-795f756b293d",
+      "source": "00f295b5-c2da-4bcc-ac2f-6aecb90c616a",
+      "family": "chat",
+      "group": "conversation",
+      "update": 183,
+      "loop": [
+        2.2458033561706543,
+        2.2768123149871826,
+        2.292217969894409
+      ],
+      "ordinary": 2.2388038635253906
+    },
+    {
+      "id": "2023-14304/2023-14490/revision",
+      "source": "2023-14304/2023-14490",
+      "family": "documents",
+      "group": "agenda",
+      "update": 183,
+      "loop": [
+        1.1045336723327637,
+        1.0149965286254883,
+        1.0998823642730713
+      ],
+      "ordinary": 1.0125569105148315
+    },
+    {
+      "id": "QRQA-10274-1-flip",
+      "source": "QRSent-10274",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 184,
+      "loop": [
+        2.3827054500579834,
+        2.361359119415283,
+        2.6172382831573486
+      ],
+      "ordinary": 1.0333038568496704
+    },
+    {
+      "id": "tatqa/604fc751-5861-4cd4-864f-bea629bf6535/reply/repair",
+      "source": "6b6bd6bb-7296-4c05-a358-a3f8de8342ec",
+      "family": "tools",
+      "group": "repair",
+      "update": 184,
+      "loop": [
+        1.2001396417617798,
+        1.2290502786636353,
+        1.2152856588363647
+      ],
+      "ordinary": 1.9925963878631592
+    },
+    {
+      "id": "oasst/b9168c38-ffee-422c-8cb3-5f1e4d46158d",
+      "source": "79445c5c-9e4c-456b-903f-57405701cf60",
+      "family": "chat",
+      "group": "conversation",
+      "update": 185,
+      "loop": [
+        2.8993515968322754,
+        2.877650022506714,
+        2.8706977367401123
+      ],
+      "ordinary": 2.9156107902526855
+    },
+    {
+      "id": "table/17481",
+      "source": "totto_source/train_json/example-9780.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 185,
+      "loop": [
+        0.5230525135993958,
+        0.5562326312065125,
+        0.5846933126449585
+      ],
+      "ordinary": 0.5161534547805786
+    },
+    {
+      "id": "QRQA-10040-3-flip",
+      "source": "QRSent-10040",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 186,
+      "loop": [
+        2.467221260070801,
+        2.0881893634796143,
+        2.085108995437622
+      ],
+      "ordinary": 2.235995054244995
+    },
+    {
+      "id": "tatqa/d468c666-38e5-428f-95c5-ee570535fdf4/reply/recovered",
+      "source": "e6efd29d-533a-4f75-843f-1a39267caeb1",
+      "family": "tools",
+      "group": "recovered",
+      "update": 186,
+      "loop": [
+        1.6836698055267334,
+        2.7491614818573,
+        3.367492437362671
+      ],
+      "ordinary": 2.0010039806365967
+    },
+    {
+      "id": "oasst/0c681be5-a6c1-46d5-b71d-45fbb59aaf1c",
+      "source": "0eaac9cb-8e01-4b3f-8366-49da4190a6ad",
+      "family": "chat",
+      "group": "conversation",
+      "update": 187,
+      "loop": [
+        1.70072603225708,
+        1.6782180070877075,
+        1.6717802286148071
+      ],
+      "ordinary": 1.7006293535232544
+    },
+    {
+      "id": "2023-14921/2023-14919/revision",
+      "source": "2023-14921/2023-14919",
+      "family": "documents",
+      "group": "agenda",
+      "update": 187,
+      "loop": [
+        0.45457932353019714,
+        0.7037196159362793,
+        0.6775709390640259
+      ],
+      "ordinary": 1.6860727071762085
+    },
+    {
+      "id": "QRQA-10138-1",
+      "source": "QRSent-10138",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 188,
+      "loop": [
+        0.02561907283961773,
+        0.02611081302165985,
+        0.03298120200634003
+      ],
+      "ordinary": 0.019393445923924446
+    },
+    {
+      "id": "tatqa/3028d506-1188-4d47-86cf-283894aeeafb/reply/repair",
+      "source": "f5366211-1d53-4492-a8b8-23e2d6228153",
+      "family": "tools",
+      "group": "repair",
+      "update": 188,
+      "loop": [
+        0.4174884557723999,
+        0.3845597207546234,
+        0.392569363117218
+      ],
+      "ordinary": 0.3860778510570526
+    },
+    {
+      "id": "dolly/d7c4c4f328198d96ff43fa1cdf2e894dd6cf43b0930b95bd40336df81f593899",
+      "source": "d7c4c4f328198d96ff43fa1cdf2e894dd6cf43b0930b95bd40336df81f593899",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 189,
+      "loop": [
+        1.4927597045898438,
+        1.482757568359375,
+        1.4749618768692017
+      ],
+      "ordinary": 1.4832655191421509
+    },
+    {
+      "id": "table/240",
+      "source": "totto_source/dev_json/example-239.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 189,
+      "loop": [
+        0.8028180003166199,
+        0.7596625089645386,
+        0.747251570224762
+      ],
+      "ordinary": 0.769476056098938
+    },
+    {
+      "id": "QRQA-10284-1-flip",
+      "source": "QRSent-10284",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 190,
+      "loop": [
+        0.7986434102058411,
+        1.09462308883667,
+        1.0455265045166016
+      ],
+      "ordinary": 2.5992138385772705
+    },
+    {
+      "id": "tatqa/eb0aa7ea-b2cc-42ce-9876-27fe66ad8cea/reply/recovered",
+      "source": "ab938d5a-cfe5-46b0-bc90-e4f0db462a9f",
+      "family": "tools",
+      "group": "recovered",
+      "update": 190,
+      "loop": [
+        2.8368053436279297,
+        3.5071005821228027,
+        3.939229965209961
+      ],
+      "ordinary": 4.115942001342773
+    },
+    {
+      "id": "oasst/eb13a990-1a21-4505-8f3e-65fa01e1e8bc",
+      "source": "7b39b78c-535f-4673-9b3d-dc5eba385cbb",
+      "family": "chat",
+      "group": "conversation",
+      "update": 191,
+      "loop": [
+        0.8884884119033813,
+        0.8816301226615906,
+        0.8835038542747498
+      ],
+      "ordinary": 0.8858982920646667
+    },
+    {
+      "id": "table/12800",
+      "source": "totto_source/train_json/example-5099.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 191,
+      "loop": [
+        0.41747650504112244,
+        0.43334057927131653,
+        0.44967785477638245
+      ],
+      "ordinary": 0.4312068223953247
+    },
+    {
+      "id": "QRQA-10186-4-flip",
+      "source": "QRSent-10186",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 192,
+      "loop": [
+        0.9536768198013306,
+        0.6243441104888916,
+        0.7733792066574097
+      ],
+      "ordinary": 1.4212292432785034
+    },
+    {
+      "id": "tatqa/376c787f-b495-4479-b4d2-112e84a47a59/reply/deliver",
+      "source": "c13323c3-200f-4a86-8370-8877c47314d7",
+      "family": "tools",
+      "group": "deliver",
+      "update": 192,
+      "loop": [
+        3.047776699066162,
+        3.1914420127868652,
+        3.2957353591918945
+      ],
+      "ordinary": 1.7522237300872803
+    },
+    {
+      "id": "authored/5",
+      "source": "authored/transfer",
+      "family": "chat",
+      "group": "edited_reply",
+      "update": 193,
+      "loop": [
+        2.1930787563323975,
+        3.031005382537842,
+        3.223956346511841
+      ],
+      "ordinary": 2.175485610961914
+    },
+    {
+      "id": "2023-13773/2023-14187/published",
+      "source": "2023-13773/2023-14187",
+      "family": "documents",
+      "group": "agenda",
+      "update": 193,
+      "loop": [
+        2.082103729248047,
+        2.0014402866363525,
+        2.2181971073150635
+      ],
+      "ordinary": 1.7540066242218018
+    },
+    {
+      "id": "QRQA-10171-1-flip",
+      "source": "QRSent-10171",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 194,
+      "loop": [
+        1.1076197624206543,
+        1.3957059383392334,
+        1.5988638401031494
+      ],
+      "ordinary": 0.1596139520406723
+    },
+    {
+      "id": "tatqa/33cdd75e-c10c-4bec-8117-744b7b10bd45/reply/deliver",
+      "source": "fcfae9ea-7b8b-4ba3-be7f-a447ab0129c3",
+      "family": "tools",
+      "group": "deliver",
+      "update": 194,
+      "loop": [
+        5.279635906219482,
+        6.353405475616455,
+        6.5740790367126465
+      ],
+      "ordinary": 4.970553874969482
+    },
+    {
+      "id": "oasst/6003ea85-ecc7-4f6f-9644-e83d80e87ebc",
+      "source": "e5d9f218-c64e-4210-b64f-eb02a0213a8c",
+      "family": "chat",
+      "group": "conversation",
+      "update": 195,
+      "loop": [
+        1.3733371496200562,
+        1.3861998319625854,
+        1.3875747919082642
+      ],
+      "ordinary": 1.365790843963623
+    },
+    {
+      "id": "2023-14144/2023-14904/revision",
+      "source": "2023-14144/2023-14904",
+      "family": "documents",
+      "group": "agenda",
+      "update": 195,
+      "loop": [
+        0.2561706304550171,
+        0.2780839204788208,
+        0.2939029932022095
+      ],
+      "ordinary": 0.36050814390182495
+    },
+    {
+      "id": "QRQA-10166-3",
+      "source": "QRSent-10166",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 196,
+      "loop": [
+        0.2587866485118866,
+        0.26657986640930176,
+        0.25441479682922363
+      ],
+      "ordinary": 0.2960783839225769
+    },
+    {
+      "id": "tatqa/af03f83b-9c29-41af-9acb-975982aadef9/reply/deliver",
+      "source": "cf8269cb-4483-42f3-bb1f-1896c9e15ef4",
+      "family": "tools",
+      "group": "deliver",
+      "update": 196,
+      "loop": [
+        0.4363331198692322,
+        0.6041682362556458,
+        0.7799360752105713
+      ],
+      "ordinary": 0.8984821438789368
+    },
+    {
+      "id": "authored/3",
+      "source": "authored/handover",
+      "family": "chat",
+      "group": "edited_reply",
+      "update": 197,
+      "loop": [
+        1.0686593055725098,
+        0.9775600433349609,
+        0.9637849926948547
+      ],
+      "ordinary": 1.0776731967926025
+    },
+    {
+      "id": "2023-13865/2023-14744/published",
+      "source": "2023-13865/2023-14744",
+      "family": "documents",
+      "group": "agenda",
+      "update": 197,
+      "loop": [
+        0.22704800963401794,
+        0.21929655969142914,
+        0.22510799765586853
+      ],
+      "ordinary": 0.2664319574832916
+    },
+    {
+      "id": "hotpotqa/5abd8f8c5542996e802b47d2/answer",
+      "source": "hotpotqa/5abd8f8c5542996e802b47d2/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 198,
+      "loop": [
+        0.27394795417785645,
+        0.2790365517139435,
+        0.2879214584827423
+      ],
+      "ordinary": 0.3021068871021271
+    },
+    {
+      "id": "tatqa/76deeac3-33f1-4520-b74e-d51e0578d735/reply/deliver",
+      "source": "ad6fe95b-026d-439e-8c7c-a55a6e3bb392",
+      "family": "tools",
+      "group": "deliver",
+      "update": 198,
+      "loop": [
+        0.19186949729919434,
+        0.17906755208969116,
+        0.193513423204422
+      ],
+      "ordinary": 0.18824943900108337
+    },
+    {
+      "id": "authored/1",
+      "source": "authored/return-window",
+      "family": "chat",
+      "group": "edited_reply",
+      "update": 199,
+      "loop": [
+        3.2559499740600586,
+        3.9290554523468018,
+        4.078801155090332
+      ],
+      "ordinary": 4.348651885986328
+    },
+    {
+      "id": "2023-14105/2023-14088/revision",
+      "source": "2023-14105/2023-14088",
+      "family": "documents",
+      "group": "agenda",
+      "update": 199,
+      "loop": [
+        3.7503302097320557,
+        3.6048777103424072,
+        3.479367733001709
+      ],
+      "ordinary": 3.6208364963531494
+    },
+    {
+      "id": "QRQA-10312-2-flip",
+      "source": "QRSent-10312",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 200,
+      "loop": [
+        0.5328769087791443,
+        0.35080569982528687,
+        0.35025566816329956
+      ],
+      "ordinary": 0.119136281311512
+    },
+    {
+      "id": "tatqa/0df8f7b2-8c8b-49a2-bfd8-9cf9cfa29f24/reply/repair",
+      "source": "03dfeac1-a50c-4ddb-bbdc-7107c309bc0c",
+      "family": "tools",
+      "group": "repair",
+      "update": 200,
+      "loop": [
+        1.6028038263320923,
+        1.999833106994629,
+        1.9765815734863281
+      ],
+      "ordinary": 0.987627387046814
+    },
+    {
+      "id": "dolly/b69c3476685a881a3e995cf58d39b3c5d3a7bb98accf4d39687929ea68b445d8",
+      "source": "b69c3476685a881a3e995cf58d39b3c5d3a7bb98accf4d39687929ea68b445d8",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 201,
+      "loop": [
+        0.33219826221466064,
+        0.35408371686935425,
+        0.3586282730102539
+      ],
+      "ordinary": 0.32255247235298157
+    },
+    {
+      "id": "2023-14304/2023-14490/published",
+      "source": "2023-14304/2023-14490",
+      "family": "documents",
+      "group": "agenda",
+      "update": 201,
+      "loop": [
+        5.435460090637207,
+        5.488109111785889,
+        5.463567733764648
+      ],
+      "ordinary": 5.738752365112305
+    },
+    {
+      "id": "QRQA-10194-2",
+      "source": "QRSent-10194",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 202,
+      "loop": [
+        0.24437081813812256,
+        0.14517080783843994,
+        0.14435997605323792
+      ],
+      "ordinary": 0.28323036432266235
+    },
+    {
+      "id": "tatqa/49e8bc8f-4766-4858-a6b2-9726d18cde70/reply/recovered",
+      "source": "652bac46-9392-4266-b4c6-3e13b9453b52",
+      "family": "tools",
+      "group": "recovered",
+      "update": 202,
+      "loop": [
+        0.9283770322799683,
+        0.741217851638794,
+        0.7749236226081848
+      ],
+      "ordinary": 1.6244289875030518
+    },
+    {
+      "id": "dolly/bf80e63c17a6b6a943af789ebb04885dc0f2a7c710a64330da4a4c267d2161f6",
+      "source": "bf80e63c17a6b6a943af789ebb04885dc0f2a7c710a64330da4a4c267d2161f6",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 203,
+      "loop": [
+        0.5091627240180969,
+        0.4531025290489197,
+        0.4375153183937073
+      ],
+      "ordinary": 0.482864111661911
+    },
+    {
+      "id": "2023-14154/2023-14102/published",
+      "source": "2023-14154/2023-14102",
+      "family": "documents",
+      "group": "agenda",
+      "update": 203,
+      "loop": [
+        0.21478693187236786,
+        0.20721247792243958,
+        0.20664653182029724
+      ],
+      "ordinary": 0.22041544318199158
+    },
+    {
+      "id": "QRQA-10017-1",
+      "source": "QRSent-10017",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 204,
+      "loop": [
+        1.8295862674713135,
+        1.603369951248169,
+        1.5965538024902344
+      ],
+      "ordinary": 1.2755359411239624
+    },
+    {
+      "id": "tatqa/5964b119-824e-4277-8f83-ef83a15dead0/reply/repair",
+      "source": "6ac88a2b-8bf4-4f1e-b5ac-94c398025cc6",
+      "family": "tools",
+      "group": "repair",
+      "update": 204,
+      "loop": [
+        0.9409382343292236,
+        1.3779854774475098,
+        1.5051655769348145
+      ],
+      "ordinary": 1.2439203262329102
+    },
+    {
+      "id": "oasst/1d57ad3f-1008-4545-af55-28edfef77ddb",
+      "source": "9229decc-823e-4c39-91eb-478be09279b3",
+      "family": "chat",
+      "group": "conversation",
+      "update": 205,
+      "loop": [
+        1.415687084197998,
+        1.4257419109344482,
+        1.428762674331665
+      ],
+      "ordinary": 1.3943684101104736
+    },
+    {
+      "id": "table/11603",
+      "source": "totto_source/train_json/example-3902.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 205,
+      "loop": [
+        0.08576487749814987,
+        0.10936213284730911,
+        0.11879976838827133
+      ],
+      "ordinary": 0.12545982003211975
+    },
+    {
+      "id": "QRQA-10138-1-flip",
+      "source": "QRSent-10138",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 206,
+      "loop": [
+        2.9418134689331055,
+        2.452545642852783,
+        2.5520005226135254
+      ],
+      "ordinary": 5.1773505210876465
+    },
+    {
+      "id": "tatqa/30e4ab46-275a-4282-a9b0-2abff9fc806e/reply/recovered",
+      "source": "f5ebd580-178e-40e9-bb18-cc288e931654",
+      "family": "tools",
+      "group": "recovered",
+      "update": 206,
+      "loop": [
+        1.1920620203018188,
+        1.1053407192230225,
+        1.074913501739502
+      ],
+      "ordinary": 0.9439986348152161
+    },
+    {
+      "id": "dolly/503f7f0bc0c71ccbf86e2fe4285137864ba4641f8992693ea37129af4151e25a",
+      "source": "503f7f0bc0c71ccbf86e2fe4285137864ba4641f8992693ea37129af4151e25a",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 207,
+      "loop": [
+        0.4387343227863312,
+        0.4374951422214508,
+        0.44135037064552307
+      ],
+      "ordinary": 0.43919146060943604
+    },
+    {
+      "id": "table/15327",
+      "source": "totto_source/train_json/example-7626.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 207,
+      "loop": [
+        0.8731276988983154,
+        0.8131670951843262,
+        0.818085253238678
+      ],
+      "ordinary": 0.9155544638633728
+    },
+    {
+      "id": "hotpotqa/5abbbac05542996606241728/answer",
+      "source": "hotpotqa/5abbbac05542996606241728/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 208,
+      "loop": [
+        0.2414454221725464,
+        0.23769058287143707,
+        0.23836234211921692
+      ],
+      "ordinary": 0.2407355010509491
+    },
+    {
+      "id": "tatqa/063e77b5-3206-4269-88b4-2ea433fe2a61/reply/recovered",
+      "source": "f539aaba-6b35-4843-a68e-67b2afaba9ad",
+      "family": "tools",
+      "group": "recovered",
+      "update": 208,
+      "loop": [
+        0.5492111444473267,
+        0.4861162304878235,
+        0.4590565264225006
+      ],
+      "ordinary": 0.39091944694519043
+    },
+    {
+      "id": "authored/0",
+      "source": "authored/return-window",
+      "family": "chat",
+      "group": "edited_reply",
+      "update": 209,
+      "loop": [
+        2.390289306640625,
+        2.578207015991211,
+        2.678283929824829
+      ],
+      "ordinary": 2.6746461391448975
+    },
+    {
+      "id": "2023-13865/2023-14744/revision",
+      "source": "2023-13865/2023-14744",
+      "family": "documents",
+      "group": "agenda",
+      "update": 209,
+      "loop": [
+        2.536923408508301,
+        2.0273754596710205,
+        1.9142135381698608
+      ],
+      "ordinary": 7.096663951873779
+    },
+    {
+      "id": "QRQA-10343-2-flip",
+      "source": "QRSent-10343",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 210,
+      "loop": [
+        1.196018099784851,
+        1.4812264442443848,
+        1.6619386672973633
+      ],
+      "ordinary": 0.7026145458221436
+    },
+    {
+      "id": "tatqa/e07f8967-1b86-4433-ba9c-47b09e89e6b8/reply/repair",
+      "source": "2d13b7a3-848c-4d57-ba40-a55e6bb60864",
+      "family": "tools",
+      "group": "repair",
+      "update": 210,
+      "loop": [
+        1.4560234546661377,
+        1.249389886856079,
+        1.2824313640594482
+      ],
+      "ordinary": 1.274671196937561
+    },
+    {
+      "id": "authored/6",
+      "source": "authored/booking",
+      "family": "chat",
+      "group": "edited_reply",
+      "update": 211,
+      "loop": [
+        5.188274383544922,
+        4.766820907592773,
+        4.693384170532227
+      ],
+      "ordinary": 4.987780570983887
+    },
+    {
+      "id": "2023-14278/2023-14628/revision",
+      "source": "2023-14278/2023-14628",
+      "family": "documents",
+      "group": "agenda",
+      "update": 211,
+      "loop": [
+        3.8889474868774414,
+        2.938056707382202,
+        2.906313419342041
+      ],
+      "ordinary": 5.354153156280518
+    },
+    {
+      "id": "QRQA-10192-4",
+      "source": "QRSent-10192",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 212,
+      "loop": [
+        0.9933161735534668,
+        0.9661183953285217,
+        1.174163579940796
+      ],
+      "ordinary": 0.2632637619972229
+    },
+    {
+      "id": "tatqa/d8b972a6-1306-452a-b3d5-b173eae63e8b/reply/recovered",
+      "source": "32cfcadb-add0-4cc1-9956-41ac073477c4",
+      "family": "tools",
+      "group": "recovered",
+      "update": 212,
+      "loop": [
+        2.9504480361938477,
+        3.481273889541626,
+        3.344726324081421
+      ],
+      "ordinary": 3.8736438751220703
+    },
+    {
+      "id": "dolly/66ecd6c87c5b7dee3f696479f333ec774c7b6d1e0470ddd4bd855c1158fdcf18",
+      "source": "66ecd6c87c5b7dee3f696479f333ec774c7b6d1e0470ddd4bd855c1158fdcf18",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 213,
+      "loop": [
+        2.5411434173583984,
+        2.569753885269165,
+        2.577683925628662
+      ],
+      "ordinary": 2.5449652671813965
+    },
+    {
+      "id": "2023-14956/2023-13998/revision",
+      "source": "2023-14956/2023-13998",
+      "family": "documents",
+      "group": "agenda",
+      "update": 213,
+      "loop": [
+        0.765961229801178,
+        0.7186622619628906,
+        0.628657341003418
+      ],
+      "ordinary": 0.4608358144760132
+    },
+    {
+      "id": "QRQA-10329-2",
+      "source": "QRSent-10329",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 214,
+      "loop": [
+        1.1232839822769165,
+        0.9143338799476624,
+        0.9830044507980347
+      ],
+      "ordinary": 0.17140232026576996
+    },
+    {
+      "id": "tatqa/9bdcebed-34bb-4910-9f60-b48b7342f709/reply/open",
+      "source": "32042523-919e-4f7c-a584-8a89b4fc2f8d",
+      "family": "tools",
+      "group": "open",
+      "update": 214,
+      "loop": [
+        0.6980007290840149,
+        0.5882288217544556,
+        0.5675496459007263
+      ],
+      "ordinary": 0.5121384263038635
+    },
+    {
+      "id": "dolly/5c3dc118126dd319b038abd8c1853ced0c132341b69a3885e920adb2989b27b1",
+      "source": "5c3dc118126dd319b038abd8c1853ced0c132341b69a3885e920adb2989b27b1",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 215,
+      "loop": [
+        1.6049939393997192,
+        1.6395589113235474,
+        1.6634474992752075
+      ],
+      "ordinary": 1.6471667289733887
+    },
+    {
+      "id": "2023-14306/2023-14418/published",
+      "source": "2023-14306/2023-14418",
+      "family": "documents",
+      "group": "agenda",
+      "update": 215,
+      "loop": [
+        0.4237147569656372,
+        0.5053809285163879,
+        0.5112950801849365
+      ],
+      "ordinary": 0.2604799270629883
+    },
+    {
+      "id": "QRQA-10055-4-flip",
+      "source": "QRSent-10055",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 216,
+      "loop": [
+        1.8861390352249146,
+        2.2448976039886475,
+        2.5258781909942627
+      ],
+      "ordinary": 1.367429494857788
+    },
+    {
+      "id": "tatqa/bd4d283a-0a65-450d-ae42-251f7403be03/reply/deliver",
+      "source": "26d614bb-9729-4dd3-a0c6-98990e82426c",
+      "family": "tools",
+      "group": "deliver",
+      "update": 216,
+      "loop": [
+        0.09834335744380951,
+        0.06300032138824463,
+        0.06185134872794151
+      ],
+      "ordinary": 0.09803779423236847
+    },
+    {
+      "id": "dolly/f1aa9c74900249c521420909759aacb46f0da72d77b541aa467e38a291837cf7",
+      "source": "f1aa9c74900249c521420909759aacb46f0da72d77b541aa467e38a291837cf7",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 217,
+      "loop": [
+        1.2920724153518677,
+        1.2705681324005127,
+        1.2603373527526855
+      ],
+      "ordinary": 1.3094327449798584
+    },
+    {
+      "id": "2023-13963/2023-15030/revision",
+      "source": "2023-13963/2023-15030",
+      "family": "documents",
+      "group": "agenda",
+      "update": 217,
+      "loop": [
+        2.0381054878234863,
+        2.029494524002075,
+        2.0053486824035645
+      ],
+      "ordinary": 4.803323745727539
+    },
+    {
+      "id": "hotpotqa/5ae0a854554299603e418432/answer",
+      "source": "hotpotqa/5ae0a854554299603e418432/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 218,
+      "loop": [
+        0.3330671787261963,
+        0.3230040669441223,
+        0.33101686835289
+      ],
+      "ordinary": 0.33574458956718445
+    },
+    {
+      "id": "tatqa/98f01691-b8ad-4e1c-b9dd-09e57fae2743/reply/recovered",
+      "source": "a15a6cfb-af26-4575-bab0-649b0c50dec9",
+      "family": "tools",
+      "group": "recovered",
+      "update": 218,
+      "loop": [
+        1.1262385845184326,
+        1.0690644979476929,
+        1.0462340116500854
+      ],
+      "ordinary": 1.1988959312438965
+    },
+    {
+      "id": "dolly/d3e823f5160c108430ef383638b65ca90dfe0f726a06a652dbd4addee12829ce",
+      "source": "d3e823f5160c108430ef383638b65ca90dfe0f726a06a652dbd4addee12829ce",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 219,
+      "loop": [
+        0.07852698862552643,
+        0.07557141780853271,
+        0.07613762468099594
+      ],
+      "ordinary": 0.07686233520507812
+    },
+    {
+      "id": "table/12453",
+      "source": "totto_source/train_json/example-4752.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 219,
+      "loop": [
+        0.6073976159095764,
+        0.6291836500167847,
+        0.6358387470245361
+      ],
+      "ordinary": 0.627815842628479
+    },
+    {
+      "id": "QRQA-10248-3",
+      "source": "QRSent-10248",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 220,
+      "loop": [
+        0.06700876355171204,
+        0.058731015771627426,
+        0.06441183388233185
+      ],
+      "ordinary": 0.07742161303758621
+    },
+    {
+      "id": "tatqa/748488cd-51f7-4bee-8179-de134c33cb75/reply/repair",
+      "source": "5b33f561-898b-421b-b884-c1c14ac77796",
+      "family": "tools",
+      "group": "repair",
+      "update": 220,
+      "loop": [
+        0.8121050596237183,
+        1.2047760486602783,
+        1.3959119319915771
+      ],
+      "ordinary": 1.2419843673706055
+    },
+    {
+      "id": "oasst/0f873c97-22f6-4b37-b503-0054a8389a0f",
+      "source": "901b6eed-b73e-4795-94e5-a21075e5dceb",
+      "family": "chat",
+      "group": "conversation",
+      "update": 221,
+      "loop": [
+        1.1423801183700562,
+        1.1643015146255493,
+        1.1701792478561401
+      ],
+      "ordinary": 1.1590015888214111
+    },
+    {
+      "id": "table/18605",
+      "source": "totto_source/train_json/example-10904.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 221,
+      "loop": [
+        0.35793203115463257,
+        0.34753724932670593,
+        0.3552234470844269
+      ],
+      "ordinary": 0.36194905638694763
+    },
+    {
+      "id": "hotpotqa/5ab47f6c5542991751b4d796/answer",
+      "source": "hotpotqa/5ab47f6c5542991751b4d796/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 222,
+      "loop": [
+        0.23776084184646606,
+        0.20851251482963562,
+        0.20785273611545563
+      ],
+      "ordinary": 0.20352216064929962
+    },
+    {
+      "id": "tatqa/2189131d-ea05-40c5-9034-68d130f2c97f/reply/open",
+      "source": "368b0237-f191-435d-9e94-7e7081282bd2",
+      "family": "tools",
+      "group": "open",
+      "update": 222,
+      "loop": [
+        3.9320626258850098,
+        5.411749839782715,
+        5.177516460418701
+      ],
+      "ordinary": 5.310020923614502
+    },
+    {
+      "id": "oasst/e17187ad-6001-4449-bf6d-21eb53e9cf18",
+      "source": "b4c26227-c795-4491-92e5-01ee0de8f6a4",
+      "family": "chat",
+      "group": "conversation",
+      "update": 223,
+      "loop": [
+        2.615135431289673,
+        2.6189510822296143,
+        2.628730058670044
+      ],
+      "ordinary": 2.6081290245056152
+    },
+    {
+      "id": "2023-14385/2023-14664/published",
+      "source": "2023-14385/2023-14664",
+      "family": "documents",
+      "group": "agenda",
+      "update": 223,
+      "loop": [
+        1.1909152269363403,
+        1.0592312812805176,
+        1.2147407531738281
+      ],
+      "ordinary": 0.5985924601554871
+    },
+    {
+      "id": "QRQA-10157-3-flip",
+      "source": "QRSent-10157",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 224,
+      "loop": [
+        3.155366897583008,
+        2.6132736206054688,
+        2.700784921646118
+      ],
+      "ordinary": 2.529787540435791
+    },
+    {
+      "id": "tatqa/ee3856c8-56f7-424f-9fbf-4b7f2fe9731f/reply/deliver",
+      "source": "09ea040c-e548-48f9-ba67-bae8cafa8e83",
+      "family": "tools",
+      "group": "deliver",
+      "update": 224,
+      "loop": [
+        0.3486156165599823,
+        0.3122292757034302,
+        0.2494080811738968
+      ],
+      "ordinary": 0.21373112499713898
+    },
+    {
+      "id": "dolly/05e0af33d3ce1fcf6ee105d71644a81b8eb7a8ec2ffebef4ea19705cfe362015",
+      "source": "05e0af33d3ce1fcf6ee105d71644a81b8eb7a8ec2ffebef4ea19705cfe362015",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 225,
+      "loop": [
+        1.1502591371536255,
+        1.1526633501052856,
+        1.145611047744751
+      ],
+      "ordinary": 1.087823748588562
+    },
+    {
+      "id": "2023-13985/2023-15092/revision",
+      "source": "2023-13985/2023-15092",
+      "family": "documents",
+      "group": "agenda",
+      "update": 225,
+      "loop": [
+        1.6101614236831665,
+        1.4506661891937256,
+        1.4482829570770264
+      ],
+      "ordinary": 1.8287752866744995
+    },
+    {
+      "id": "QRQA-10062-5",
+      "source": "QRSent-10062",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 226,
+      "loop": [
+        0.01959204114973545,
+        0.02283998392522335,
+        0.025836508721113205
+      ],
+      "ordinary": 0.02058887481689453
+    },
+    {
+      "id": "tatqa/19415774-abb0-4f64-80e2-45263a78df5b/reply/repair",
+      "source": "8b92d135-b82c-4ce8-889b-202fcd423d8f",
+      "family": "tools",
+      "group": "repair",
+      "update": 226,
+      "loop": [
+        1.9749350547790527,
+        2.196084976196289,
+        2.267120838165283
+      ],
+      "ordinary": 2.2073493003845215
+    },
+    {
+      "id": "dolly/9842a15efea4f457e3b9870a6a5a8d3cab5e1e65cc4cd0a71b528a60c721a887",
+      "source": "9842a15efea4f457e3b9870a6a5a8d3cab5e1e65cc4cd0a71b528a60c721a887",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 227,
+      "loop": [
+        1.7118057012557983,
+        1.7502084970474243,
+        1.763718605041504
+      ],
+      "ordinary": 1.6684269905090332
+    },
+    {
+      "id": "table/21663",
+      "source": "totto_source/train_json/example-13962.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 227,
+      "loop": [
+        0.521100640296936,
+        0.5106698870658875,
+        0.5039834976196289
+      ],
+      "ordinary": 0.4941543936729431
+    },
+    {
+      "id": "QRQA-10136-1",
+      "source": "QRSent-10136",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 228,
+      "loop": [
+        0.010080509819090366,
+        0.006225842051208019,
+        0.0062533277086913586
+      ],
+      "ordinary": 0.018007885664701462
+    },
+    {
+      "id": "cosql/K969kvriaajGACdfr/reuse",
+      "source": "cosql/K969kvriaajGACdfr/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 228,
+      "loop": [
+        0.6612697243690491,
+        0.6635274887084961,
+        0.6568334698677063
+      ],
+      "ordinary": 0.7033368945121765
+    },
+    {
+      "id": "oasst/bc92d75f-e017-403e-8375-815828487d4e",
+      "source": "ddcbd424-94de-4d57-86ae-9fefc855cfe4",
+      "family": "chat",
+      "group": "conversation",
+      "update": 229,
+      "loop": [
+        3.244737148284912,
+        3.241462469100952,
+        3.2435901165008545
+      ],
+      "ordinary": 3.2517762184143066
+    },
+    {
+      "id": "table/14395",
+      "source": "totto_source/train_json/example-6694.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 229,
+      "loop": [
+        0.3487960398197174,
+        0.3439858555793762,
+        0.3418446481227875
+      ],
+      "ordinary": 0.3622443675994873
+    },
+    {
+      "id": "QRQA-10032-3-flip",
+      "source": "QRSent-10032",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 230,
+      "loop": [
+        0.9362049102783203,
+        0.8808531165122986,
+        0.9220519661903381
+      ],
+      "ordinary": 0.8666911125183105
+    },
+    {
+      "id": "tatqa/3a59ee37-921a-45eb-889b-279a791702b5/reply/recovered",
+      "source": "f090cb6d-8714-43f3-a70a-f73c8088d06a",
+      "family": "tools",
+      "group": "recovered",
+      "update": 230,
+      "loop": [
+        1.7399742603302002,
+        1.3995693922042847,
+        1.3772822618484497
+      ],
+      "ordinary": 1.2411930561065674
+    },
+    {
+      "id": "dolly/a9e7e671eee7615d54ddcc5c76b74d97311a26c6e4cecbe26070f2d9677dbe97",
+      "source": "a9e7e671eee7615d54ddcc5c76b74d97311a26c6e4cecbe26070f2d9677dbe97",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 231,
+      "loop": [
+        1.882184624671936,
+        1.8682761192321777,
+        1.8742824792861938
+      ],
+      "ordinary": 1.880981206893921
+    },
+    {
+      "id": "table/1195",
+      "source": "totto_source/dev_json/example-1194.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 231,
+      "loop": [
+        0.803639829158783,
+        0.7193450927734375,
+        0.7313973903656006
+      ],
+      "ordinary": 0.7567175030708313
+    },
+    {
+      "id": "QRQA-10003-2",
+      "source": "QRSent-10003",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 232,
+      "loop": [
+        0.8776857852935791,
+        0.5356177687644958,
+        0.5242964625358582
+      ],
+      "ordinary": 0.9068769216537476
+    },
+    {
+      "id": "tatqa/a606a416-c5c8-4b16-bf1b-0fb06636d050/reply/open",
+      "source": "19097d5e-d03a-4c8d-aa10-21cda17523a7",
+      "family": "tools",
+      "group": "open",
+      "update": 232,
+      "loop": [
+        0.5698705911636353,
+        0.5637181997299194,
+        0.6111706495285034
+      ],
+      "ordinary": 0.5883682370185852
+    },
+    {
+      "id": "oasst/32f65b82-5a7e-4ae3-95cf-65f93a55aae9",
+      "source": "e8092db0-0cb8-455e-91cc-4d83d081b266",
+      "family": "chat",
+      "group": "conversation",
+      "update": 233,
+      "loop": [
+        1.0468575954437256,
+        1.0826455354690552,
+        1.1063096523284912
+      ],
+      "ordinary": 1.0630122423171997
+    },
+    {
+      "id": "table/9591",
+      "source": "totto_source/train_json/example-1890.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 233,
+      "loop": [
+        0.6443884372711182,
+        0.5867261290550232,
+        0.5878627300262451
+      ],
+      "ordinary": 0.5351359248161316
+    },
+    {
+      "id": "hotpotqa/5a8c2d3f554299240d9c20b9/answer",
+      "source": "hotpotqa/5a8c2d3f554299240d9c20b9/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 234,
+      "loop": [
+        0.18298999965190887,
+        0.17532038688659668,
+        0.1732315719127655
+      ],
+      "ordinary": 0.20151115953922272
+    },
+    {
+      "id": "tatqa/6f2a9b75-8907-4c4a-87c8-c2be01797dd5/reply/open",
+      "source": "f07a1c9f-0082-4b61-bb2e-4d061d9b8036",
+      "family": "tools",
+      "group": "open",
+      "update": 234,
+      "loop": [
+        0.08356188237667084,
+        0.11190813034772873,
+        0.11622484028339386
+      ],
+      "ordinary": 0.08181744068861008
+    },
+    {
+      "id": "oasst/ab62bffa-646c-4119-9323-dc04734b02e4",
+      "source": "4379358a-ebdf-4045-a809-bd82e04f8f87",
+      "family": "chat",
+      "group": "conversation",
+      "update": 235,
+      "loop": [
+        2.004258394241333,
+        2.0109777450561523,
+        2.003011465072632
+      ],
+      "ordinary": 1.9925743341445923
+    },
+    {
+      "id": "table/1345",
+      "source": "totto_source/dev_json/example-1344.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 235,
+      "loop": [
+        0.9619063138961792,
+        0.9063223600387573,
+        0.908523440361023
+      ],
+      "ordinary": 0.9354531168937683
+    },
+    {
+      "id": "hotpotqa/5ab6a06c554299110f219a40/answer",
+      "source": "hotpotqa/5ab6a06c554299110f219a40/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 236,
+      "loop": [
+        0.2670758068561554,
+        0.2720019817352295,
+        0.2851325273513794
+      ],
+      "ordinary": 0.26788148283958435
+    },
+    {
+      "id": "tatqa/2593e227-a34d-4426-8510-77a9051af505/reply/recovered",
+      "source": "0e82d528-9f85-4b32-804b-1e4694fd0ebb",
+      "family": "tools",
+      "group": "recovered",
+      "update": 236,
+      "loop": [
+        2.267181634902954,
+        1.8399944305419922,
+        1.758538007736206
+      ],
+      "ordinary": 2.8553805351257324
+    },
+    {
+      "id": "oasst/276ff694-d268-410b-9c69-2516ae8fdf31",
+      "source": "db9380a0-c1e2-4edf-9151-bc975a5bc691",
+      "family": "chat",
+      "group": "conversation",
+      "update": 237,
+      "loop": [
+        1.8660130500793457,
+        1.8588601350784302,
+        1.8645533323287964
+      ],
+      "ordinary": 1.873421311378479
+    },
+    {
+      "id": "2023-14306/2023-14418/revision",
+      "source": "2023-14306/2023-14418",
+      "family": "documents",
+      "group": "agenda",
+      "update": 237,
+      "loop": [
+        3.438722848892212,
+        3.162363052368164,
+        3.062321186065674
+      ],
+      "ordinary": 2.609037399291992
+    },
+    {
+      "id": "QRQA-10270-2",
+      "source": "QRSent-10270",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 238,
+      "loop": [
+        0.0261225663125515,
+        0.02006707526743412,
+        0.024195479229092598
+      ],
+      "ordinary": 0.02206152305006981
+    },
+    {
+      "id": "tatqa/8c873bd0-0621-4600-9795-47de28e971b7/reply/open",
+      "source": "b1164469-b658-4743-910a-9508c3b21b85",
+      "family": "tools",
+      "group": "open",
+      "update": 238,
+      "loop": [
+        0.12892596423625946,
+        0.1520669311285019,
+        0.16394057869911194
+      ],
+      "ordinary": 0.16724078357219696
+    },
+    {
+      "id": "authored/7",
+      "source": "authored/booking",
+      "family": "chat",
+      "group": "edited_reply",
+      "update": 239,
+      "loop": [
+        1.0208210945129395,
+        1.0704717636108398,
+        1.077655553817749
+      ],
+      "ordinary": 1.0688120126724243
+    },
+    {
+      "id": "table/7709",
+      "source": "totto_source/train_json/example-8.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 239,
+      "loop": [
+        0.9998770356178284,
+        1.0376924276351929,
+        1.064047932624817
+      ],
+      "ordinary": 1.0005812644958496
+    },
+    {
+      "id": "hotpotqa/5ab63b0e5542995eadeeff85/answer",
+      "source": "hotpotqa/5ab63b0e5542995eadeeff85/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 240,
+      "loop": [
+        0.1531907320022583,
+        0.13442304730415344,
+        0.1338820904493332
+      ],
+      "ordinary": 0.1469060629606247
+    },
+    {
+      "id": "tatqa/f95eb564-bcc7-4c6f-831c-cea6f931a94f/reply/repair",
+      "source": "4afe9359-f420-45d3-9615-b4ae42aef069",
+      "family": "tools",
+      "group": "repair",
+      "update": 240,
+      "loop": [
+        0.0727507695555687,
+        0.09308245778083801,
+        0.10855063050985336
+      ],
+      "ordinary": 0.07846055179834366
+    },
+    {
+      "id": "dolly/b54bb0694314403ccaf29547e49c9856ebc4f00d57fe62aed16ad9f24d7f6f2a",
+      "source": "b54bb0694314403ccaf29547e49c9856ebc4f00d57fe62aed16ad9f24d7f6f2a",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 241,
+      "loop": [
+        1.9386259317398071,
+        1.9094401597976685,
+        1.9094456434249878
+      ],
+      "ordinary": 1.9426816701889038
+    },
+    {
+      "id": "table/9974",
+      "source": "totto_source/train_json/example-2273.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 241,
+      "loop": [
+        0.17066091299057007,
+        0.180291086435318,
+        0.18136924505233765
+      ],
+      "ordinary": 0.19211377203464508
+    },
+    {
+      "id": "hotpotqa/5ab5aa105542992aa134a37a/answer",
+      "source": "hotpotqa/5ab5aa105542992aa134a37a/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 242,
+      "loop": [
+        0.10588467121124268,
+        0.0931873470544815,
+        0.08666805922985077
+      ],
+      "ordinary": 0.09991785138845444
+    },
+    {
+      "id": "tatqa/11b72e71-6b83-41bf-a465-0a73313ce56b/reply/repair",
+      "source": "162e3672-337d-4f6d-b177-e37b137f7115",
+      "family": "tools",
+      "group": "repair",
+      "update": 242,
+      "loop": [
+        0.635113000869751,
+        0.6830209493637085,
+        0.7020974159240723
+      ],
+      "ordinary": 0.6308736801147461
+    },
+    {
+      "id": "dolly/4c1aaa9ff1eff0e1d5a8a46e3241f571721645f0700d232c9d96b47b619585af",
+      "source": "4c1aaa9ff1eff0e1d5a8a46e3241f571721645f0700d232c9d96b47b619585af",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 243,
+      "loop": [
+        1.2920585870742798,
+        1.2724043130874634,
+        1.2662556171417236
+      ],
+      "ordinary": 1.2722722291946411
+    },
+    {
+      "id": "table/17169",
+      "source": "totto_source/train_json/example-9468.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 243,
+      "loop": [
+        1.2403242588043213,
+        1.2021353244781494,
+        1.2046409845352173
+      ],
+      "ordinary": 1.2758678197860718
+    },
+    {
+      "id": "QRQA-10136-1-flip",
+      "source": "QRSent-10136",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 244,
+      "loop": [
+        0.10774187743663788,
+        0.0982297956943512,
+        0.09331926703453064
+      ],
+      "ordinary": 0.10179644078016281
+    },
+    {
+      "id": "cosql/gvEvk9HarAimy78Ji/reuse",
+      "source": "cosql/gvEvk9HarAimy78Ji/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 244,
+      "loop": [
+        0.23362600803375244,
+        0.18792757391929626,
+        0.17892494797706604
+      ],
+      "ordinary": 0.23198045790195465
+    },
+    {
+      "id": "dolly/74fcdd9038675b21af0a9688c3ce252b29613e871473db8cf2f4f57a961e94bc",
+      "source": "74fcdd9038675b21af0a9688c3ce252b29613e871473db8cf2f4f57a961e94bc",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 245,
+      "loop": [
+        1.2084438800811768,
+        1.1788631677627563,
+        1.1826860904693604
+      ],
+      "ordinary": 1.207772970199585
+    },
+    {
+      "id": "2023-13985/2023-15092/published",
+      "source": "2023-13985/2023-15092",
+      "family": "documents",
+      "group": "agenda",
+      "update": 245,
+      "loop": [
+        6.095521926879883,
+        5.808221817016602,
+        5.7788286209106445
+      ],
+      "ordinary": 4.830892086029053
+    },
+    {
+      "id": "QRQA-10100-1-flip",
+      "source": "QRSent-10100",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 246,
+      "loop": [
+        0.2698797285556793,
+        0.24992482364177704,
+        0.2576681971549988
+      ],
+      "ordinary": 0.3140034079551697
+    },
+    {
+      "id": "cosql/3JkLqzpnoY5psLkF3/redirect",
+      "source": "cosql/3JkLqzpnoY5psLkF3/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 246,
+      "loop": [
+        0.34667688608169556,
+        0.344596266746521,
+        0.34184038639068604
+      ],
+      "ordinary": 0.36845508217811584
+    },
+    {
+      "id": "oasst/2d13d851-2b6e-4dff-a0ee-6a8d05378b61",
+      "source": "ba50052e-9b58-44be-be25-7da535dd8f41",
+      "family": "chat",
+      "group": "conversation",
+      "update": 247,
+      "loop": [
+        1.6025384664535522,
+        1.6054103374481201,
+        1.608651876449585
+      ],
+      "ordinary": 1.5927971601486206
+    },
+    {
+      "id": "2023-14107/2023-14186/published",
+      "source": "2023-14107/2023-14186",
+      "family": "documents",
+      "group": "agenda",
+      "update": 247,
+      "loop": [
+        0.34850940108299255,
+        0.3065798878669739,
+        0.3184484839439392
+      ],
+      "ordinary": 0.3321065306663513
+    },
+    {
+      "id": "QRQA-10157-3",
+      "source": "QRSent-10157",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 248,
+      "loop": [
+        3.01627254486084,
+        3.3043551445007324,
+        3.1128733158111572
+      ],
+      "ordinary": 2.916036605834961
+    },
+    {
+      "id": "cosql/buwsaERymuvmXDh2g/reuse",
+      "source": "cosql/buwsaERymuvmXDh2g/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 248,
+      "loop": [
+        0.5798168182373047,
+        0.5554234385490417,
+        0.5391495823860168
+      ],
+      "ordinary": 0.5442036390304565
+    },
+    {
+      "id": "authored/4",
+      "source": "authored/transfer",
+      "family": "chat",
+      "group": "edited_reply",
+      "update": 249,
+      "loop": [
+        1.8806053400039673,
+        2.046825885772705,
+        2.080038547515869
+      ],
+      "ordinary": 2.2159929275512695
+    },
+    {
+      "id": "2023-13773/2023-14187/revision",
+      "source": "2023-13773/2023-14187",
+      "family": "documents",
+      "group": "agenda",
+      "update": 249,
+      "loop": [
+        0.8743395805358887,
+        0.7662859559059143,
+        0.7438127398490906
+      ],
+      "ordinary": 0.6102380156517029
+    },
+    {
+      "id": "QRQA-10248-3-flip",
+      "source": "QRSent-10248",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 250,
+      "loop": [
+        1.5506912469863892,
+        1.7082535028457642,
+        1.7925872802734375
+      ],
+      "ordinary": 0.6741608381271362
+    },
+    {
+      "id": "cosql/q96Qv6RLWxzWZY7nJ/redirect",
+      "source": "cosql/q96Qv6RLWxzWZY7nJ/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 250,
+      "loop": [
+        0.3365928530693054,
+        0.32824602723121643,
+        0.3320077955722809
+      ],
+      "ordinary": 0.30541175603866577
+    },
+    {
+      "id": "dolly/35b2b61e90fa66b8b17e2083ea003080a95aa446fbc77e97c9ac77812939ed38",
+      "source": "35b2b61e90fa66b8b17e2083ea003080a95aa446fbc77e97c9ac77812939ed38",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 251,
+      "loop": [
+        0.042538806796073914,
+        0.037265222519636154,
+        0.0390942208468914
+      ],
+      "ordinary": 0.04313625022768974
+    },
+    {
+      "id": "2023-14066/2023-15060/published",
+      "source": "2023-14066/2023-15060",
+      "family": "documents",
+      "group": "agenda",
+      "update": 251,
+      "loop": [
+        0.4417792558670044,
+        0.29659250378608704,
+        0.27812689542770386
+      ],
+      "ordinary": 0.2718955874443054
+    },
+    {
+      "id": "QRQA-10086-1-flip",
+      "source": "QRSent-10086",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 252,
+      "loop": [
+        0.018870186060667038,
+        0.01069478876888752,
+        0.009025542996823788
+      ],
+      "ordinary": 0.01575826108455658
+    },
+    {
+      "id": "cosql/JMtKxgJZNxoYHoet2/reuse",
+      "source": "cosql/JMtKxgJZNxoYHoet2/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 252,
+      "loop": [
+        1.136250376701355,
+        0.9749119281768799,
+        0.9448167085647583
+      ],
+      "ordinary": 1.258660078048706
+    },
+    {
+      "id": "dolly/deaf6ece59437c2e8d6a282d450ad0886b3776001a1bf15eb5845b24dd489984",
+      "source": "deaf6ece59437c2e8d6a282d450ad0886b3776001a1bf15eb5845b24dd489984",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 253,
+      "loop": [
+        2.3337302207946777,
+        2.3530161380767822,
+        2.3618953227996826
+      ],
+      "ordinary": 2.343334913253784
+    },
+    {
+      "id": "2023-14956/2023-13998/published",
+      "source": "2023-14956/2023-13998",
+      "family": "documents",
+      "group": "agenda",
+      "update": 253,
+      "loop": [
+        4.655340671539307,
+        5.485074043273926,
+        5.86161470413208
+      ],
+      "ordinary": 2.427555561065674
+    },
+    {
+      "id": "QRQA-10166-3-flip",
+      "source": "QRSent-10166",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 254,
+      "loop": [
+        0.3085854947566986,
+        0.4768890142440796,
+        0.7381815314292908
+      ],
+      "ordinary": 0.34901535511016846
+    },
+    {
+      "id": "cosql/sKJToFPEqHmybZMHz/reuse",
+      "source": "cosql/sKJToFPEqHmybZMHz/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 254,
+      "loop": [
+        0.7134707570075989,
+        0.6309385895729065,
+        0.6129025816917419
+      ],
+      "ordinary": 0.654438853263855
+    },
+    {
+      "id": "dolly/55ecbd1bdb3a9c67e250f2aaa4eaca4aa846a2d0c073655bb1c3900d057ac052",
+      "source": "55ecbd1bdb3a9c67e250f2aaa4eaca4aa846a2d0c073655bb1c3900d057ac052",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 255,
+      "loop": [
+        0.6812192797660828,
+        0.6361021995544434,
+        0.6496199369430542
+      ],
+      "ordinary": 0.7397653460502625
+    },
+    {
+      "id": "table/1601",
+      "source": "totto_source/dev_json/example-1600.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 255,
+      "loop": [
+        0.31194108724594116,
+        0.3253261148929596,
+        0.3304732143878937
+      ],
+      "ordinary": 0.29263657331466675
+    },
+    {
+      "id": "QRQA-10194-2-flip",
+      "source": "QRSent-10194",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 256,
+      "loop": [
+        2.3400261402130127,
+        1.9857447147369385,
+        2.0520870685577393
+      ],
+      "ordinary": 1.9922187328338623
+    },
+    {
+      "id": "cosql/DP7HsbzuRoEipkYxK/reuse",
+      "source": "cosql/DP7HsbzuRoEipkYxK/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 256,
+      "loop": [
+        0.2988148033618927,
+        0.26676398515701294,
+        0.2798047661781311
+      ],
+      "ordinary": 0.2433805763721466
+    },
+    {
+      "id": "oasst/cfa3f97f-d1eb-4f8c-86d8-c91b8addef01",
+      "source": "3cc28882-0d71-4eb0-b95f-28e45d8faa12",
+      "family": "chat",
+      "group": "conversation",
+      "update": 257,
+      "loop": [
+        1.303218960762024,
+        1.279977798461914,
+        1.2779492139816284
+      ],
+      "ordinary": 1.3088836669921875
+    },
+    {
+      "id": "table/2577",
+      "source": "totto_source/dev_json/example-2576.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 257,
+      "loop": [
+        0.6697443127632141,
+        0.6708742380142212,
+        0.6850475072860718
+      ],
+      "ordinary": 0.7150757312774658
+    },
+    {
+      "id": "QRQA-10003-2-flip",
+      "source": "QRSent-10003",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 258,
+      "loop": [
+        0.24998757243156433,
+        1.2362011671066284,
+        1.0276833772659302
+      ],
+      "ordinary": 0.3095601201057434
+    },
+    {
+      "id": "cosql/akqWZxGRHihMWFCQT/reuse",
+      "source": "cosql/akqWZxGRHihMWFCQT/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 258,
+      "loop": [
+        0.7243159413337708,
+        0.6883776783943176,
+        0.6857174634933472
+      ],
+      "ordinary": 0.7035571932792664
+    },
+    {
+      "id": "authored/2",
+      "source": "authored/handover",
+      "family": "chat",
+      "group": "edited_reply",
+      "update": 259,
+      "loop": [
+        0.7101888060569763,
+        0.6398526430130005,
+        0.6367008686065674
+      ],
+      "ordinary": 0.7215863466262817
+    },
+    {
+      "id": "table/17565",
+      "source": "totto_source/train_json/example-9864.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 259,
+      "loop": [
+        1.1259077787399292,
+        1.0764915943145752,
+        1.07414972782135
+      ],
+      "ordinary": 1.1292541027069092
+    },
+    {
+      "id": "QRQA-10017-1-flip",
+      "source": "QRSent-10017",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 260,
+      "loop": [
+        0.8173967599868774,
+        0.6435449123382568,
+        0.6251153349876404
+      ],
+      "ordinary": 0.6103910207748413
+    },
+    {
+      "id": "cosql/zwghjqqyPLgG5pnbj/reuse",
+      "source": "cosql/zwghjqqyPLgG5pnbj/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 260,
+      "loop": [
+        0.6986069083213806,
+        0.7148887515068054,
+        0.7243692278862
+      ],
+      "ordinary": 0.6900622844696045
+    },
+    {
+      "id": "dolly/4405f224f19d3e19a8212aa05164e60baa3b171876d6a2095b2d569d8a74b12b",
+      "source": "4405f224f19d3e19a8212aa05164e60baa3b171876d6a2095b2d569d8a74b12b",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 261,
+      "loop": [
+        0.20787489414215088,
+        0.19663941860198975,
+        0.18858769536018372
+      ],
+      "ordinary": 0.20870903134346008
+    },
+    {
+      "id": "table/11444",
+      "source": "totto_source/train_json/example-3743.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 261,
+      "loop": [
+        0.9892101883888245,
+        0.9688841104507446,
+        0.9573724269866943
+      ],
+      "ordinary": 0.9837029576301575
+    },
+    {
+      "id": "QRQA-10040-3",
+      "source": "QRSent-10040",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 262,
+      "loop": [
+        0.4384409189224243,
+        0.3170577883720398,
+        0.2581392526626587
+      ],
+      "ordinary": 2.7727200984954834
+    },
+    {
+      "id": "cosql/E4H92hoSzydtNY6c3/redirect",
+      "source": "cosql/E4H92hoSzydtNY6c3/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 262,
+      "loop": [
+        0.26565444469451904,
+        0.2654682397842407,
+        0.2659900188446045
+      ],
+      "ordinary": 0.2217310667037964
+    },
+    {
+      "id": "oasst/e9deebd2-d31d-4bfa-addc-e198814ca90f",
+      "source": "82b77e61-b80b-4082-8063-3b9a5abcf23a",
+      "family": "chat",
+      "group": "conversation",
+      "update": 263,
+      "loop": [
+        1.4228408336639404,
+        1.4428632259368896,
+        1.4611870050430298
+      ],
+      "ordinary": 1.4253201484680176
+    },
+    {
+      "id": "2023-14154/2023-14102/revision",
+      "source": "2023-14154/2023-14102",
+      "family": "documents",
+      "group": "agenda",
+      "update": 263,
+      "loop": [
+        3.843630790710449,
+        3.607961893081665,
+        3.6504666805267334
+      ],
+      "ordinary": 2.38826847076416
+    },
+    {
+      "id": "QRQA-10274-1",
+      "source": "QRSent-10274",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 264,
+      "loop": [
+        1.0420207977294922,
+        0.26920750737190247,
+        0.10063957422971725
+      ],
+      "ordinary": 1.0976186990737915
+    },
+    {
+      "id": "cosql/WKH8dNxhEk3JvKcyn/redirect",
+      "source": "cosql/WKH8dNxhEk3JvKcyn/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 264,
+      "loop": [
+        0.21245962381362915,
+        0.22469496726989746,
+        0.2230679988861084
+      ],
+      "ordinary": 0.21603450179100037
+    },
+    {
+      "id": "oasst/30789063-e5a2-4358-b07a-a017270ac1ae",
+      "source": "fa868b5e-c4b3-485d-b70c-b56a585c75a5",
+      "family": "chat",
+      "group": "conversation",
+      "update": 265,
+      "loop": [
+        1.2291163206100464,
+        1.2444500923156738,
+        1.2401212453842163
+      ],
+      "ordinary": 1.1973844766616821
+    },
+    {
+      "id": "2023-14066/2023-15060/revision",
+      "source": "2023-14066/2023-15060",
+      "family": "documents",
+      "group": "agenda",
+      "update": 265,
+      "loop": [
+        4.677258014678955,
+        4.478089809417725,
+        4.567958354949951
+      ],
+      "ordinary": 5.305535793304443
+    },
+    {
+      "id": "QRQA-10284-1",
+      "source": "QRSent-10284",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 266,
+      "loop": [
+        0.05498456954956055,
+        0.043688684701919556,
+        0.04562564566731453
+      ],
+      "ordinary": 0.09912464767694473
+    },
+    {
+      "id": "cosql/n5yn6G296TNA4QJhW/redirect",
+      "source": "cosql/n5yn6G296TNA4QJhW/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 266,
+      "loop": [
+        0.25825798511505127,
+        0.2778360843658447,
+        0.2793029844760895
+      ],
+      "ordinary": 0.25551241636276245
+    },
+    {
+      "id": "oasst/5d7da95c-50d3-405a-bcd1-76b15fde50ca",
+      "source": "d20e08a4-d740-4063-8448-81dc39aac378",
+      "family": "chat",
+      "group": "conversation",
+      "update": 267,
+      "loop": [
+        0.5964120626449585,
+        0.5992555022239685,
+        0.6094813942909241
+      ],
+      "ordinary": 0.6025065183639526
+    },
+    {
+      "id": "2023-14921/2023-14919/published",
+      "source": "2023-14921/2023-14919",
+      "family": "documents",
+      "group": "agenda",
+      "update": 267,
+      "loop": [
+        0.24302218854427338,
+        0.24831603467464447,
+        0.24567827582359314
+      ],
+      "ordinary": 0.20417703688144684
+    },
+    {
+      "id": "hotpotqa/5ac088095542992a796ded37/answer",
+      "source": "hotpotqa/5ac088095542992a796ded37/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 268,
+      "loop": [
+        0.5585808157920837,
+        0.5310571789741516,
+        0.5232857465744019
+      ],
+      "ordinary": 0.6184514164924622
+    },
+    {
+      "id": "cosql/2txe4pe5aJjCzj6o3/reuse",
+      "source": "cosql/2txe4pe5aJjCzj6o3/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 268,
+      "loop": [
+        0.13156478106975555,
+        0.1386984884738922,
+        0.1503755897283554
+      ],
+      "ordinary": 0.1260630190372467
+    },
+    {
+      "id": "oasst/277b6f05-d5c4-45bb-8d3f-4edf3ae2e0cc",
+      "source": "9ad65d96-ee83-47ac-b7d4-10fbceba3eff",
+      "family": "chat",
+      "group": "conversation",
+      "update": 269,
+      "loop": [
+        1.08037269115448,
+        1.098041296005249,
+        1.1139495372772217
+      ],
+      "ordinary": 1.0506376028060913
+    },
+    {
+      "id": "2023-14441/2023-14303/published",
+      "source": "2023-14441/2023-14303",
+      "family": "documents",
+      "group": "agenda",
+      "update": 269,
+      "loop": [
+        0.19297069311141968,
+        0.1935732364654541,
+        0.21784132719039917
+      ],
+      "ordinary": 0.1373426616191864
+    },
+    {
+      "id": "QRQA-10343-2",
+      "source": "QRSent-10343",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 270,
+      "loop": [
+        0.20473618805408478,
+        0.2088790237903595,
+        0.2359144240617752
+      ],
+      "ordinary": 0.26892492175102234
+    },
+    {
+      "id": "cosql/kkGsTvRpjCTrJ5pc2/redirect",
+      "source": "cosql/kkGsTvRpjCTrJ5pc2/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 270,
+      "loop": [
+        0.924712598323822,
+        0.9356557130813599,
+        0.9388647079467773
+      ],
+      "ordinary": 0.9326256513595581
+    },
+    {
+      "id": "oasst/19cb94ab-d6ab-4dbd-b408-70ffbd9b595c",
+      "source": "7cce4047-8f87-42c4-9d75-a590c02be5b1",
+      "family": "chat",
+      "group": "conversation",
+      "update": 271,
+      "loop": [
+        1.3944507837295532,
+        1.3748958110809326,
+        1.3667703866958618
+      ],
+      "ordinary": 1.4101485013961792
+    },
+    {
+      "id": "table/18086",
+      "source": "totto_source/train_json/example-10385.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 271,
+      "loop": [
+        0.3009752035140991,
+        0.30894210934638977,
+        0.3140181601047516
+      ],
+      "ordinary": 0.30124184489250183
+    },
+    {
+      "id": "QRQA-10192-4-flip",
+      "source": "QRSent-10192",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 272,
+      "loop": [
+        0.027644390240311623,
+        0.028990626335144043,
+        0.035363852977752686
+      ],
+      "ordinary": 0.022848904132843018
+    },
+    {
+      "id": "cosql/9DyFGDZkjgzwAz6er/redirect",
+      "source": "cosql/9DyFGDZkjgzwAz6er/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 272,
+      "loop": [
+        0.4779506325721741,
+        0.4836301803588867,
+        0.4794982671737671
+      ],
+      "ordinary": 0.4769783914089203
+    },
+    {
+      "id": "dolly/654d0ef2133faa70080e0afa7527d8346ea7c02112cd107fffc9acf2cb7106a3",
+      "source": "654d0ef2133faa70080e0afa7527d8346ea7c02112cd107fffc9acf2cb7106a3",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 273,
+      "loop": [
+        1.437976360321045,
+        1.412388563156128,
+        1.4098018407821655
+      ],
+      "ordinary": 1.4455910921096802
+    },
+    {
+      "id": "2023-14144/2023-14904/published",
+      "source": "2023-14144/2023-14904",
+      "family": "documents",
+      "group": "agenda",
+      "update": 273,
+      "loop": [
+        0.3394915461540222,
+        0.27619415521621704,
+        0.2578778862953186
+      ],
+      "ordinary": 0.2798200845718384
+    },
+    {
+      "id": "QRQA-10055-4",
+      "source": "QRSent-10055",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 274,
+      "loop": [
+        2.2795820236206055,
+        1.6300959587097168,
+        1.2017871141433716
+      ],
+      "ordinary": 1.5353765487670898
+    },
+    {
+      "id": "cosql/wswXBKxXp9rL6XNWC/redirect",
+      "source": "cosql/wswXBKxXp9rL6XNWC/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 274,
+      "loop": [
+        0.34914958477020264,
+        0.35498687624931335,
+        0.35278648138046265
+      ],
+      "ordinary": 0.35679420828819275
+    },
+    {
+      "id": "dolly/1e411788fd2ec38c0e8f0c18092d4fc7af7b8d0fe938dbda024c67ad5b76ab1a",
+      "source": "1e411788fd2ec38c0e8f0c18092d4fc7af7b8d0fe938dbda024c67ad5b76ab1a",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 275,
+      "loop": [
+        1.5468350648880005,
+        1.529533863067627,
+        1.5338504314422607
+      ],
+      "ordinary": 1.5291727781295776
+    },
+    {
+      "id": "table/12165",
+      "source": "totto_source/train_json/example-4464.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 275,
+      "loop": [
+        0.622249186038971,
+        0.6719838380813599,
+        0.710146963596344
+      ],
+      "ordinary": 0.5989952683448792
+    },
+    {
+      "id": "QRQA-10100-1",
+      "source": "QRSent-10100",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 276,
+      "loop": [
+        0.3342827558517456,
+        0.30099427700042725,
+        0.33220916986465454
+      ],
+      "ordinary": 0.3975468873977661
+    },
+    {
+      "id": "cosql/RiWertK5TkuJy5ZhG/reuse",
+      "source": "cosql/RiWertK5TkuJy5ZhG/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 276,
+      "loop": [
+        0.05498221889138222,
+        0.06712052971124649,
+        0.09146010130643845
+      ],
+      "ordinary": 0.05042244866490364
+    },
+    {
+      "id": "dolly/c3d6dc83fa703574b68b0bafa1a587bd594de4793a1869e0a44c2039f2487684",
+      "source": "c3d6dc83fa703574b68b0bafa1a587bd594de4793a1869e0a44c2039f2487684",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 277,
+      "loop": [
+        2.6123557090759277,
+        2.6120588779449463,
+        2.622479200363159
+      ],
+      "ordinary": 2.59456729888916
+    },
+    {
+      "id": "table/1301",
+      "source": "totto_source/dev_json/example-1300.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 277,
+      "loop": [
+        0.589866578578949,
+        0.5585157871246338,
+        0.5490553379058838
+      ],
+      "ordinary": 0.5398403406143188
+    },
+    {
+      "id": "QRQA-10270-2-flip",
+      "source": "QRSent-10270",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 278,
+      "loop": [
+        0.014463246800005436,
+        0.015635069459676743,
+        0.025173867121338844
+      ],
+      "ordinary": 0.07638202607631683
+    },
+    {
+      "id": "cosql/Nzkj5pq6cFvuwGwd8/reuse",
+      "source": "cosql/Nzkj5pq6cFvuwGwd8/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 278,
+      "loop": [
+        0.23614084720611572,
+        0.21479661762714386,
+        0.20596778392791748
+      ],
+      "ordinary": 0.22387193143367767
+    },
+    {
+      "id": "oasst/3e42bc49-ce79-41cb-a224-97f687d76429",
+      "source": "82ebe996-e383-441b-a4ec-53a7baef67e7",
+      "family": "chat",
+      "group": "conversation",
+      "update": 279,
+      "loop": [
+        1.6398202180862427,
+        1.611185073852539,
+        1.6179002523422241
+      ],
+      "ordinary": 1.6245489120483398
+    },
+    {
+      "id": "2023-14107/2023-14186/revision",
+      "source": "2023-14107/2023-14186",
+      "family": "documents",
+      "group": "agenda",
+      "update": 279,
+      "loop": [
+        3.01391339302063,
+        3.3147051334381104,
+        3.2838809490203857
+      ],
+      "ordinary": 2.3214783668518066
+    },
+    {
+      "id": "QRQA-10032-3",
+      "source": "QRSent-10032",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 280,
+      "loop": [
+        0.14155313372612,
+        0.20750907063484192,
+        0.5191857814788818
+      ],
+      "ordinary": 0.37547045946121216
+    },
+    {
+      "id": "cosql/n5yn6G296TNA4QJhW/reuse",
+      "source": "cosql/n5yn6G296TNA4QJhW/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "update": 280,
+      "loop": [
+        0.4014992415904999,
+        0.3804592490196228,
+        0.36593204736709595
+      ],
+      "ordinary": 0.4124404191970825
+    },
+    {
+      "id": "dolly/f34a46544a4282e33fb8a6ed651ca285994c357c1ce5b360a51d5943e6deb494",
+      "source": "f34a46544a4282e33fb8a6ed651ca285994c357c1ce5b360a51d5943e6deb494",
+      "family": "chat",
+      "group": "rewrite",
+      "update": 281,
+      "loop": [
+        1.9109090566635132,
+        1.8946483135223389,
+        1.8951826095581055
+      ],
+      "ordinary": 1.8999196290969849
+    },
+    {
+      "id": "table/10769",
+      "source": "totto_source/train_json/example-3068.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 281,
+      "loop": [
+        0.7299144864082336,
+        0.7019132375717163,
+        0.6902631521224976
+      ],
+      "ordinary": 0.6995819211006165
+    },
+    {
+      "id": "hotpotqa/5ab6fdd3554299710c8d1fcf/answer",
+      "source": "hotpotqa/5ab6fdd3554299710c8d1fcf/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "update": 282,
+      "loop": [
+        0.23416419327259064,
+        0.2184712439775467,
+        0.2169405072927475
+      ],
+      "ordinary": 0.20920655131340027
+    },
+    {
+      "id": "cosql/WwjM5nPMoNkdGA8Ye/redirect",
+      "source": "cosql/WwjM5nPMoNkdGA8Ye/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 282,
+      "loop": [
+        0.35697972774505615,
+        0.3565835654735565,
+        0.35432448983192444
+      ],
+      "ordinary": 0.33233609795570374
+    },
+    {
+      "id": "oasst/244c2c1b-71a6-4806-9f23-f8c2fbfe4490",
+      "source": "664a0e60-1465-44ca-8461-0dd5eb646d2c",
+      "family": "chat",
+      "group": "conversation",
+      "update": 283,
+      "loop": [
+        1.9470088481903076,
+        1.9507746696472168,
+        1.9586622714996338
+      ],
+      "ordinary": 1.9507349729537964
+    },
+    {
+      "id": "table/15966",
+      "source": "totto_source/train_json/example-8265.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 283,
+      "loop": [
+        0.48570501804351807,
+        0.47526562213897705,
+        0.49032074213027954
+      ],
+      "ordinary": 0.5081735253334045
+    },
+    {
+      "id": "QRQA-10062-5-flip",
+      "source": "QRSent-10062",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 284,
+      "loop": [
+        0.024038316681981087,
+        0.008041555061936378,
+        0.004947138484567404
+      ],
+      "ordinary": 0.01872197911143303
+    },
+    {
+      "id": "cosql/W4Qm2nPtMofFQ9zJn/redirect",
+      "source": "cosql/W4Qm2nPtMofFQ9zJn/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 284,
+      "loop": [
+        0.28677257895469666,
+        0.2804339528083801,
+        0.2788679003715515
+      ],
+      "ordinary": 0.25749847292900085
+    },
+    {
+      "id": "oasst/14a18226-061a-43d8-9176-af4e447a2b78",
+      "source": "d74daea2-f58c-497d-9c50-2f0af100d552",
+      "family": "chat",
+      "group": "conversation",
+      "update": 285,
+      "loop": [
+        1.5536309480667114,
+        1.5696650743484497,
+        1.580718994140625
+      ],
+      "ordinary": 1.5638196468353271
+    },
+    {
+      "id": "2023-14441/2023-14303/revision",
+      "source": "2023-14441/2023-14303",
+      "family": "documents",
+      "group": "agenda",
+      "update": 285,
+      "loop": [
+        4.875579357147217,
+        5.1095991134643555,
+        5.107871055603027
+      ],
+      "ordinary": 2.9946208000183105
+    },
+    {
+      "id": "QRQA-10312-2",
+      "source": "QRSent-10312",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 286,
+      "loop": [
+        0.006329118739813566,
+        0.004386587534099817,
+        0.004749900661408901
+      ],
+      "ordinary": 0.006494109984487295
+    },
+    {
+      "id": "cosql/SifkbTqMbADvZrBcJ/redirect",
+      "source": "cosql/SifkbTqMbADvZrBcJ/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 286,
+      "loop": [
+        0.3545844554901123,
+        0.33484330773353577,
+        0.33143678307533264
+      ],
+      "ordinary": 0.3675791621208191
+    },
+    {
+      "id": "oasst/bb6b9142-1384-4df8-b39f-f10956ec3786",
+      "source": "4db441e3-d720-4664-8766-0538cbdd367a",
+      "family": "chat",
+      "group": "conversation",
+      "update": 287,
+      "loop": [
+        1.4645538330078125,
+        1.4951263666152954,
+        1.5159573554992676
+      ],
+      "ordinary": 1.449094533920288
+    },
+    {
+      "id": "table/18373",
+      "source": "totto_source/train_json/example-10672.json",
+      "family": "documents",
+      "group": "complete_table",
+      "update": 287,
+      "loop": [
+        0.3454737961292267,
+        0.32814091444015503,
+        0.3287336230278015
+      ],
+      "ordinary": 0.3139744699001312
+    },
+    {
+      "id": "QRQA-10329-2-flip",
+      "source": "QRSent-10329",
+      "family": "reasoning",
+      "group": "polarity",
+      "update": 288,
+      "loop": [
+        0.013744380325078964,
+        0.006476750131696463,
+        0.014127691276371479
+      ],
+      "ordinary": 0.04197874665260315
+    },
+    {
+      "id": "cosql/J89F2SyEYPzWt6a7c/redirect",
+      "source": "cosql/J89F2SyEYPzWt6a7c/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "update": 288,
+      "loop": [
+        0.30715999007225037,
+        0.29830044507980347,
+        0.2946394681930542
+      ],
+      "ordinary": 0.2893652021884918
+    }
+  ],
+  "scope": "Observed training-turn objectives before each optimizer update in the named epoch. Values include the registered foil penalty where present. Warmup has two loop exits. Only public free generation earns answer credit."
+}
