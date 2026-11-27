@@ -4,13 +4,14 @@ import csv
 import json
 
 import matplotlib.pyplot as plt
-from paper_overlap import audit
+from paper_overlap import audit, normalize
 from report_action_material import INSTRUCTION, source
 from report_units_audit import visible_scale
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read
 from loopqwen.research.native_function_study import executions
+from loopqwen.research.observation_review_study import paired
 
 
 def overlap(paper, training, panel):
@@ -56,6 +57,60 @@ def overlap(paper, training, panel):
                     )
 
 
+def disjoint_report_pairs(paper, training, panel, folder):
+    known = {
+        normalize(m["content"].removesuffix(INSTRUCTION).rsplit("\n\n", 1)[-1], True)
+        for r in training["examples"]
+        for m in r["messages"]
+        if m["role"] == "user"
+    }
+    excluded = {
+        w["cluster"]
+        for w in panel["rows"]
+        if w["family"] == "report"
+        and normalize(
+            w["questions"][0].removesuffix(INSTRUCTION).rsplit("\n\n", 1)[1], True
+        )
+        in known
+    }
+    good = {}
+    for side in ("candidate", "control"):
+        clusters = {}
+        arm = unpack(folder / (side + ".json.gz"))
+        for w, r in zip(panel["rows"], arm, strict=True):
+            if w["family"] == "report" and w["cluster"] not in excluded:
+                clusters.setdefault(w["cluster"], []).append(
+                    r["requests"][0]["score"]["success"]
+                )
+        assert all(len(x) == 2 for x in clusters.values())
+        good[side] = {k for k, v in clusters.items() if all(v)}
+    p = paired(good["candidate"], good["control"])
+    with (paper / "report-action-disjoint.csv").open("w", newline="") as stream:
+        out = csv.writer(stream)
+        out.writerow(
+            [
+                "excluded_whole_reports",
+                "retained_whole_reports",
+                "loop_pairs",
+                "base_pairs",
+                "loop_gains",
+                "loop_losses",
+                "paired_p",
+            ]
+        )
+        out.writerow(
+            [
+                " ".join(sorted(excluded)),
+                len(clusters),
+                len(good["candidate"]),
+                len(good["control"]),
+                p["wins"],
+                p["losses"],
+                p["p"],
+            ]
+        )
+
+
 def make(paper, results, result, finish):
     name = "report-action-field-01"
     folder = results / name
@@ -64,7 +119,9 @@ def make(paper, results, result, finish):
     decision = result(name)
     spec = read(folder / "registration.json")
     panel = read(spec["material"])
-    overlap(paper, read(spec["training"]), panel)
+    training = read(spec["training"])
+    overlap(paper, training, panel)
+    disjoint_report_pairs(paper, training, panel, folder)
     with (paper / "report-action-requests.csv").open("w", newline="") as stream:
         out = csv.writer(stream)
         out.writerow(
