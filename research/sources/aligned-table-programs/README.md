@@ -13,3 +13,5 @@ From the project root, run the following command to rebuild the exact source joi
 ```sh
 .venv/bin/python -m scripts.squall_table_programs
 ```
+
+A second read-only execution pass generated competing programs by changing one source predicate, ordering direction, aggregate extremum or referenced column. Of 1,407 tested alternatives, 323 executed on both sources and returned distinct nonempty scalars of the right numeric or text type that were wrong in each respective world. For 129 distinct questions we retained one hash-selected wrong program per represented edit class, yielding 176 preference pairs. Re-executing each candidate limits shortcuts from query validity, answer type or an unchanging output. These measurements concern the constructed supervision. [Retained actual SQL and values](preferences.json) · [Counts and procedure](preference-qualification.json) · [Execution script](../../../scripts/squall_program_preferences.py)

@@ -1,0 +1,60 @@
+{
+  "paper": "https://aclanthology.org/2022.tacl-1.3/",
+  "source": "https://github.com/Yale-LILY/FeTaQA",
+  "revision": "bbc441be807212d736c8c35a18146b530dde11d0",
+  "files": {
+    "train": "792d51fb53f813f31543b7a07cb29da7c28420a8ad4fdce9e156c2d7126bc661",
+    "test": "3d4b9b1fd91bd5aef656b7bb8aa2a27ddb3a87c0c05afcc13018ae375ee0a6e4"
+  },
+  "license": "CC BY-SA 4.0",
+  "sample_seed": 463029,
+  "source_populations": {
+    "train": {
+      "published": 7326,
+      "structurally_eligible": 3400,
+      "after_prior_table_exclusion": 3394
+    },
+    "test": {
+      "published": 2003,
+      "structurally_eligible": 1241,
+      "after_prior_table_exclusion": 1240
+    }
+  },
+  "cohorts": {
+    "test": {
+      "questions": 24,
+      "distinct_pages": 24,
+      "complete_table_rows": 276,
+      "attested_values": 91,
+      "value_count_distribution": {
+        "2": 5,
+        "3": 7,
+        "4": 7,
+        "5": 2,
+        "6": 2,
+        "10": 1
+      }
+    },
+    "train": {
+      "questions": 384,
+      "distinct_pages": 384,
+      "complete_table_rows": 4959,
+      "attested_values": 1206,
+      "value_count_distribution": {
+        "2": 176,
+        "3": 97,
+        "4": 58,
+        "5": 25,
+        "6": 15,
+        "7": 3,
+        "8": 2,
+        "9": 4,
+        "10": 1,
+        "11": 3
+      }
+    }
+  },
+  "selected": "7b4b807dace4b7657e9e0befa32901d6e0fc861e54a34c886964e63650dd48f0",
+  "prior_changed_table_source": "eff96bfe351c7ec73fb3692145ae37e3bbf612c920eace39377c76c9f12cb552",
+  "scope": "The selected questions have at least two different annotated cell values occurring as full token sequences in the human reference and absent from the question. Exact occurrence is a support diagnostic; a correct free-form explanation can paraphrase values, and unsupported extra claims can make an answer incorrect. All original questions, rows, responses and support coordinates are preserved."
+}

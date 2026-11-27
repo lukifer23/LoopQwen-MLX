@@ -1,0 +1,2829 @@
+[
+  {
+    "id": "nt-13666",
+    "question": "how many athletes were from a country other than cyprus?",
+    "original": "SELECT COUNT ( (\"Name\" COLLATE NOCASE) ) FROM records WHERE (\"Nationality\" COLLATE NOCASE) != 'cyprus'",
+    "answers": [
+      "13",
+      "12"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Name\" COLLATE NOCASE) ) FROM records WHERE (\"Nationality\" COLLATE NOCASE) = 'cyprus'",
+        "results": [
+          1,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10035",
+    "question": "how many times did they face the bournmouth?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Opponents\" COLLATE NOCASE) = 'bournemouth'",
+    "answers": [
+      "2",
+      "4"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Opponents\" COLLATE NOCASE) != 'bournemouth'",
+        "results": [
+          7,
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11728",
+    "question": "how many countries scored no gold medals at this event?",
+    "original": "SELECT COUNT ( (\"Nation\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Gold\" AS NUMERIC) = 0",
+    "answers": [
+      "4",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Nation\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Gold\" AS NUMERIC) != 0",
+        "results": [
+          7,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4533",
+    "question": "how many total fights took place in mexico city, mexico?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'mexico city, mexico'",
+    "answers": [
+      "9",
+      "11"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Location\" COLLATE NOCASE) != 'mexico city, mexico'",
+        "results": [
+          3,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-9301",
+    "question": "how many players are below tiger woods",
+    "original": "SELECT COUNT ( (\"Player\" COLLATE NOCASE) ) FROM records WHERE rowid > ( SELECT rowid FROM records WHERE (\"Player\" COLLATE NOCASE) = 'tiger woods' )",
+    "answers": [
+      "9",
+      "0"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Player\" COLLATE NOCASE) ) FROM records WHERE rowid < ( SELECT rowid FROM records WHERE (\"Player\" COLLATE NOCASE) = 'tiger woods' )",
+        "results": [
+          0,
+          9
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-3450",
+    "question": "what was galina chistyakova's last competition?",
+    "original": "SELECT (\"Competition\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "European Indoor Championships",
+      "European Championships"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Glasgow, Scotland",
+          "Budapest, Hungary"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10572",
+    "question": "how many points did portugal score in the 1994 europeans men's handball championship preliminary round?",
+    "original": "SELECT CAST(\"Pts.\" AS NUMERIC) FROM records WHERE (\"Team\" COLLATE NOCASE) = 'portugal'",
+    "answers": [
+      "0",
+      "10"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT CAST(\"GF\" AS NUMERIC) FROM records WHERE (\"Team\" COLLATE NOCASE) = 'portugal'",
+        "results": [
+          96,
+          114
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11884",
+    "question": "who has the most albums released under bad boy?",
+    "original": "SELECT (\"Act\" COLLATE NOCASE) FROM records ORDER BY CAST(NULLIF(TRIM(\"# Albums released under Bad Boy\"), '\u2013') AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Diddy",
+      "Machine Gun Kelly"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Act\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Year signed\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "French Montana",
+          "Cassie"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Act\" COLLATE NOCASE) FROM records ORDER BY CAST(NULLIF(TRIM(\"# Albums released under Bad Boy\"), '\u2013') AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Harve Pierre",
+          "The Notorious B.I.G"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6758",
+    "question": "which is the only country that has won 6 gold medals?",
+    "original": "SELECT (\"Nation\" COLLATE NOCASE) FROM records WHERE CAST(\"Gold\" AS NUMERIC) = 6",
+    "answers": [
+      "Belgium",
+      "Georgia"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Nation\" COLLATE NOCASE) FROM records WHERE CAST(\"Bronze\" AS NUMERIC) = 6",
+        "results": [
+          "France",
+          "Portugal"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-12470",
+    "question": "top gold medal earner?",
+    "original": "SELECT (\"Nation\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Gold\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Japan",
+      "Singapore"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Nation\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Rank\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Nepal",
+          "Iraq"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Nation\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Gold\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Singapore",
+          "Japan"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13019",
+    "question": "which team had the fewest lost games?",
+    "original": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Lost\" AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "Paulistano",
+      "Santos"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Against\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Corinthians",
+          "AA S\u00e3o Bento"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Lost\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Mackenzie",
+          "Corinthians"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7155",
+    "question": "in which ceremony did the film win the most awards?",
+    "original": "SELECT (\"Ceremony\" COLLATE NOCASE) FROM records WHERE (\"Outcome\" COLLATE NOCASE) = 'won' GROUP BY (\"Ceremony\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+    "answers": [
+      "Mirchi Music Awards",
+      "2011 Vijay Music Awards"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Name\" COLLATE NOCASE) FROM records WHERE (\"Outcome\" COLLATE NOCASE) = 'won' GROUP BY (\"Ceremony\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+        "results": [
+          "Ramji & Guru for Idhu Varai",
+          "Sampath Raj"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Ceremony\" COLLATE NOCASE) FROM records WHERE (\"Outcome\" COLLATE NOCASE) != 'won' GROUP BY (\"Ceremony\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+        "results": [
+          "2011 Vijay Music Awards",
+          "Mirchi Music Awards"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-9076",
+    "question": "which school has placed fourth the most times?",
+    "original": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Fourth place\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Michigan Tech",
+      "North Dakota"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Third place\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Michigan State",
+          "Cornell"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Fourth place\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Toronto",
+          "Lake Superior State"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13773",
+    "question": "how many total times in new jersey represented in this chart?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"State\" COLLATE NOCASE) = 'new jersey'",
+    "answers": [
+      "8",
+      "6"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"State\" COLLATE NOCASE) != 'new jersey'",
+        "results": [
+          2,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-3870",
+    "question": "the total number of developmental cycles in beta",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Development cycle\" COLLATE NOCASE) = 'beta'",
+    "answers": [
+      "8",
+      "5"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Development cycle\" COLLATE NOCASE) != 'beta'",
+        "results": [
+          6,
+          9
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4765",
+    "question": "how many gold medals has kenya won?",
+    "original": "SELECT (\"Gold\" COLLATE NOCASE) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'kenya'",
+    "answers": [
+      "5",
+      "6"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Bronze\" COLLATE NOCASE) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'kenya'",
+        "results": [
+          "8",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13466",
+    "question": "who finished with the least time?",
+    "original": "SELECT (\"Driver\" COLLATE NOCASE) FROM records ORDER BY (\"Time\" COLLATE NOCASE) ASC LIMIT 1",
+    "answers": [
+      "Raffaele Pinto",
+      "Bob Neyret"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Driver\" COLLATE NOCASE) FROM records ORDER BY (\"Points\" COLLATE NOCASE) ASC LIMIT 1",
+        "results": [
+          "Alcide Paganelli",
+          "Chris Sclater"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Driver\" COLLATE NOCASE) FROM records ORDER BY (\"Time\" COLLATE NOCASE) DESC LIMIT 1",
+        "results": [
+          "Ant\u00f3nio Borges",
+          "Chris Sclater"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8688",
+    "question": "how long did the at&t strike of 2012 last?",
+    "original": "SELECT (\"Duration of Strike\" COLLATE NOCASE) FROM records WHERE (\"Company\" COLLATE NOCASE) = 'at&t' AND CAST(\"Year\" AS NUMERIC) = 2012",
+    "answers": [
+      "2 Days",
+      "3 weeks"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Notes\" COLLATE NOCASE) FROM records WHERE (\"Company\" COLLATE NOCASE) = 'at&t' AND CAST(\"Year\" AS NUMERIC) = 2012",
+        "results": [
+          "AT&T West; California, Nevada, and AT&T East; Connecticut - Unfair labor practice strike during contract negotiations.",
+          "COLA clause suspended in contract - former Bell System contracts vary substantially from the AT&T contract."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-9755",
+    "question": "which province in the dominican republic has the smallest area (in square kilometers)?",
+    "original": "SELECT (\"Province\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Area (km\u00b2)\", ',', '') AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "Distrito Nacional",
+      "San Jos\u00e9 de Ocoa"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Capital\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Area (km\u00b2)\", ',', '') AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Santo Domingo",
+          "Saman\u00e1"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Province\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Area (km\u00b2)\", ',', '') AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Total",
+          "El Seibo"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4268",
+    "question": "which year had a better regular season finish, 2006 or 2012?",
+    "original": "SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE CAST(\"Year\" AS NUMERIC) IN ( 2006 , 2012 ) ORDER BY (\"Regular Season\" COLLATE NOCASE) LIMIT 1",
+    "answers": [
+      "2006",
+      "2012"
+    ],
+    "rejected": [
+      {
+        "edit": "direction",
+        "sql": "SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE CAST(\"Year\" AS NUMERIC) IN ( 2006 , 2012 ) ORDER BY (\"Regular Season\" COLLATE NOCASE) DESC LIMIT 1",
+        "results": [
+          2012,
+          2006
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8868",
+    "question": "what was the number of times usl a-league did not qualify for the playoffs?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"League\" COLLATE NOCASE) = 'usl a-league' AND (\"Playoffs\" COLLATE NOCASE) = 'did not qualify'",
+    "answers": [
+      "1",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"League\" COLLATE NOCASE) = 'usl a-league' AND (\"Open Cup\" COLLATE NOCASE) = 'did not qualify'",
+        "results": [
+          3,
+          2
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"League\" COLLATE NOCASE) = 'usl a-league' AND (\"Playoffs\" COLLATE NOCASE) != 'did not qualify'",
+        "results": [
+          3,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-509",
+    "question": "what car made the least amount of points?",
+    "original": "SELECT (\"Car\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Points\" AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "Ford Focus RS WRC 07",
+      "Suzuki SX4 WRC"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Driver\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Points\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Federico Villagra",
+          "Mikko Hirvonen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11",
+    "question": "what was the first venue for the asian games?",
+    "original": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'asian games' ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "Bangkok, Thailand",
+      "Atlanta, United States"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Notes\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'asian games' ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "6.07 m",
+          "6.40 m"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'asian games' ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Busan, South Korea",
+          "Seville, Spain"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) != 'asian games' ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Atlanta, United States",
+          "Paris, France"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13638",
+    "question": "how long did it take michael schumacher to finish the race?",
+    "original": "SELECT (\"Time/Retired\" COLLATE NOCASE) FROM records WHERE (\"Driver\" COLLATE NOCASE) = 'michael schumacher'",
+    "answers": [
+      "1:34:45.026",
+      "+1 Lap"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Constructor\" COLLATE NOCASE) FROM records WHERE (\"Driver\" COLLATE NOCASE) = 'michael schumacher'",
+        "results": [
+          "Ferrari",
+          "Minardi-Ford"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6658",
+    "question": "what was the next film this director made after parva?",
+    "original": "SELECT (\"Film Title\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Film Title\" COLLATE NOCASE) = 'parva' ) ORDER BY CAST(\"Year\" AS NUMERIC) LIMIT 1",
+    "answers": [
+      "Marma",
+      "Beladingala Baale"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Cast\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Film Title\" COLLATE NOCASE) = 'parva' ) ORDER BY CAST(\"Year\" AS NUMERIC) LIMIT 1",
+        "results": [
+          "Prema",
+          "Sudeep, Sudha Rani"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Film Title\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Film Title\" COLLATE NOCASE) = 'parva' ) ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Tanana Tandanana",
+          "Marma"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Film Title\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Film Title\" COLLATE NOCASE) != 'parva' ) ORDER BY CAST(\"Year\" AS NUMERIC) LIMIT 1",
+        "results": [
+          "Utkarsha",
+          "Sarigama"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13221",
+    "question": "who was the opening act at the viper room?",
+    "original": "SELECT (\"Opening act\" COLLATE NOCASE) FROM records WHERE (\"Venue\" COLLATE NOCASE) = 'viper room'",
+    "answers": [
+      "The Darling Buds",
+      "Doughboys"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Location\" COLLATE NOCASE) FROM records WHERE (\"Venue\" COLLATE NOCASE) = 'viper room'",
+        "results": [
+          "Los Angeles, California",
+          "Vancouver, British Columbia, Canada"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-1201",
+    "question": "what are the number of times astm d 638 is listed as the test method?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Test method\" COLLATE NOCASE) = 'astm d 638'",
+    "answers": [
+      "3",
+      "1"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Test method\" COLLATE NOCASE) != 'astm d 638'",
+        "results": [
+          7,
+          9
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-12564",
+    "question": "how many times did they not qualify for both playoffs and open cup?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Playoffs\" COLLATE NOCASE) = 'did not qualify' AND (\"Open Cup\" COLLATE NOCASE) = 'did not qualify'",
+    "answers": [
+      "6",
+      "4"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Playoffs\" COLLATE NOCASE) = 'did not qualify' AND (\"Open Cup\" COLLATE NOCASE) != 'did not qualify'",
+        "results": [
+          4,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8620",
+    "question": "the last player picked came from what school?",
+    "original": "SELECT (\"School/Club Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Pick\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Regina",
+      "St. Francis Xavier"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Player\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Pick\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "John Kanaroski",
+          "Steve Myddelton"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"School/Club Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Pick\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Central Michigan",
+          "Saskatchewan"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7544",
+    "question": "what home team is above clydebank?",
+    "original": "SELECT (\"Home Team\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Home Team\" COLLATE NOCASE) = 'clydebank' ) - 1",
+    "answers": [
+      "Ayr United",
+      "Motherwell"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Date\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Home Team\" COLLATE NOCASE) = 'clydebank' ) - 1",
+        "results": [
+          "11-10-1978",
+          "10-10-1978"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-12182",
+    "question": "which locality has the least amount of area according to this chart?",
+    "original": "SELECT (\"Name\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Area (km\u00b2)\", ',', '') AS NUMERIC) LIMIT 1",
+    "answers": [
+      "Cristian",
+      "Ghimbav"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Name\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Population (2007 estimation)\", ',', '') AS NUMERIC) LIMIT 1",
+        "results": [
+          "S\u00e2npetru",
+          "H\u0103rman"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Name\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Area (km\u00b2)\", ',', '') AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Total",
+          "S\u0103cele"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7079",
+    "question": "who scored first rank in the first heat?",
+    "original": "SELECT (\"Name\" COLLATE NOCASE) FROM records WHERE CAST(NULLIF(TRIM(\"Rank\"), '') AS NUMERIC) = 1 AND CAST(\"Heat\" AS NUMERIC) = 1",
+    "answers": [
+      "Lacena Golding-Clarke",
+      "Rachel King"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Nationality\" COLLATE NOCASE) FROM records WHERE CAST(NULLIF(TRIM(\"Rank\"), '') AS NUMERIC) = 1 AND CAST(\"Heat\" AS NUMERIC) = 1",
+        "results": [
+          "Jamaica",
+          "Nigeria"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-720",
+    "question": "what is he number of events held in philadelphia?",
+    "original": "SELECT COUNT ( (\"Competition\" COLLATE NOCASE) ) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'philadelphia'",
+    "answers": [
+      "5",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Competition\" COLLATE NOCASE) ) FROM records WHERE (\"Location\" COLLATE NOCASE) != 'philadelphia'",
+        "results": [
+          7,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10805",
+    "question": "what number of silver medals was won by the nation with the most gold medals?",
+    "original": "SELECT CAST(\"Silver\" AS NUMERIC) FROM records ORDER BY CAST(\"Gold\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "27",
+      "31"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT CAST(\"Bronze\" AS NUMERIC) FROM records ORDER BY CAST(\"Gold\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          22,
+          16
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT CAST(\"Silver\" AS NUMERIC) FROM records ORDER BY CAST(\"Gold\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          3,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7842",
+    "question": "how many cars are based on the plymouth and blackburn tramcars?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Notes\" COLLATE NOCASE) = 'based on design elements from plymouth and blackburn tramcars'",
+    "answers": [
+      "3",
+      "6"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Notes\" COLLATE NOCASE) != 'based on design elements from plymouth and blackburn tramcars'",
+        "results": [
+          10,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-2902",
+    "question": "which species has the most years since divergence from human?",
+    "original": "SELECT (\"Species\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Years Since Divergence from Human (mya)\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Albugo laibachii",
+      "Saccharomyces cerevisiae"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Common Name\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Years Since Divergence from Human (mya)\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "White rust",
+          "Shrew"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Species\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Years Since Divergence from Human (mya)\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Pan troglodytes",
+          "Danio rerio"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-1070",
+    "question": "what is the location after tainan?",
+    "original": "SELECT (\"Location\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'tainan' ) ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "Shenzhen",
+      "Legnica"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Ref\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'tainan' ) ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "[233]",
+          "[230]"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Location\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'tainan' ) ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Legnica",
+          "Vaulx-en-Velin"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Location\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Location\" COLLATE NOCASE) != 'tainan' ) ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Taoyuan",
+          "Shenzhen"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10299",
+    "question": "who is the first opponent listed on this chart?",
+    "original": "SELECT (\"Opponent\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+    "answers": [
+      "Russia",
+      "Guatemala"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Score\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+        "results": [
+          "1 \u2013 0",
+          "3 \u2013 0"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-5928",
+    "question": "which nation received the least number of gold medals?",
+    "original": "SELECT (\"Nation\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Gold\" AS NUMERIC) LIMIT 1",
+    "answers": [
+      "Colombia",
+      "Venezuela"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Nation\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Silver\" AS NUMERIC) LIMIT 1",
+        "results": [
+          "El Salvador",
+          "Ecuador"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Nation\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Gold\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Total",
+          "Chile"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7535",
+    "question": "which rider is on top in points",
+    "original": "SELECT (\"Rider\" COLLATE NOCASE) FROM records ORDER BY CAST(NULLIF(TRIM(\"Points\"), '') AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Manuel Poggiali",
+      "Jorge Lorenzo"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Manufacturer\" COLLATE NOCASE) FROM records ORDER BY CAST(NULLIF(TRIM(\"Points\"), '') AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Gilera",
+          "Honda"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Rider\" COLLATE NOCASE) FROM records ORDER BY CAST(NULLIF(TRIM(\"Points\"), '') AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Jakub Smr\u017e",
+          "Chaz Davies"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13646",
+    "question": "what is the number of players from australia in the open?",
+    "original": "SELECT COUNT ( (\"Player\" COLLATE NOCASE) ) FROM records WHERE (\"Country\" COLLATE NOCASE) = 'australia'",
+    "answers": [
+      "1",
+      "2"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Player\" COLLATE NOCASE) ) FROM records WHERE (\"Country\" COLLATE NOCASE) != 'australia'",
+        "results": [
+          9,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4625",
+    "question": "what is the definition of the last channel?",
+    "original": "SELECT (\"Definition\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",
+    "answers": [
+      "SD",
+      "HD"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Channel\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",
+        "results": [
+          "Eleven",
+          "GO"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Definition\" COLLATE NOCASE) FROM records ORDER BY rowid ASC LIMIT 1",
+        "results": [
+          "HD",
+          "SD"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6468",
+    "question": "how many locations are above sedona?",
+    "original": "SELECT COUNT ( (\"Location\" COLLATE NOCASE) ) FROM records WHERE rowid < ( SELECT rowid FROM records WHERE (\"Location\" COLLATE NOCASE) = 'sedona, usa $25,000' )",
+    "answers": [
+      "3",
+      "7"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Location\" COLLATE NOCASE) ) FROM records WHERE rowid > ( SELECT rowid FROM records WHERE (\"Location\" COLLATE NOCASE) = 'sedona, usa $25,000' )",
+        "results": [
+          4,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-3290",
+    "question": "how many goalies did the islanders draft?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Position\" COLLATE NOCASE) = 'goalie'",
+    "answers": [
+      "2",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Position\" COLLATE NOCASE) != 'goalie'",
+        "results": [
+          10,
+          9
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10009",
+    "question": "how many more silver medals did the united states win compared to russia?",
+    "original": "SELECT ( SELECT CAST(\"Silver\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'united states' ) - ( SELECT CAST(\"Silver\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'russia' )",
+    "answers": [
+      "8",
+      "12"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT ( SELECT CAST(\"Gold\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'united states' ) - ( SELECT CAST(\"Silver\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'russia' )",
+        "results": [
+          7,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-5112",
+    "question": "who had the most free throws?",
+    "original": "SELECT (\"Player\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Free Throws\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Ralf Woods",
+      "George Halas"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Player\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Field Goals\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Clyde Alwood",
+          "Ernest McKay"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Player\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Free Throws\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Clyde Alwood",
+          "Ernest McKay"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-2336",
+    "question": "how many sliver medal does bermuda has",
+    "original": "SELECT CAST(\"Silver\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'bermuda'",
+    "answers": [
+      "4",
+      "0"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT CAST(\"Bronze\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'bermuda'",
+        "results": [
+          2,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-2783",
+    "question": "which player was picked in the last round?",
+    "original": "SELECT (\"Player\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Round\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Jim McCabe",
+      "Tom Anderson"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"College/Junior/Club Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Round\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Welland Sabres (SOJHL)",
+          "University of Denver Pioneers (WCHA)"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Player\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Round\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Rick Hampton",
+          "Tom Sundberg"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-3895",
+    "question": "andrew carter was picked after who?",
+    "original": "SELECT (\"Player\" COLLATE NOCASE) FROM records WHERE CAST(\"Pick #\" AS NUMERIC) = ( SELECT CAST(\"Pick #\" AS NUMERIC) FROM records WHERE (\"Player\" COLLATE NOCASE) = 'andrew carter' ) - 1",
+    "answers": [
+      "Peter Moore",
+      "Steven Maheu"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Position\" COLLATE NOCASE) FROM records WHERE CAST(\"Pick #\" AS NUMERIC) = ( SELECT CAST(\"Pick #\" AS NUMERIC) FROM records WHERE (\"Player\" COLLATE NOCASE) = 'andrew carter' ) - 1",
+        "results": [
+          "DL",
+          "OT"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-2063",
+    "question": "date on which the fewest attendees were at a dolphins game (home or away)",
+    "original": "SELECT (\"Date\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Attendance\", ',', '') AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "January 2, 1983",
+      "September 12, 1982"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Result\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Attendance\", ',', '') AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "W 34\u20137",
+          "W 24\u201320"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Date\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Attendance\", ',', '') AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "December 27, 1982",
+          "December 18, 1982"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4216",
+    "question": "which nationality has the least players?",
+    "original": "SELECT (\"Nationality\" COLLATE NOCASE) FROM records GROUP BY (\"Nationality\" COLLATE NOCASE) ORDER BY COUNT ( (\"Player\" COLLATE NOCASE) ) LIMIT 1",
+    "answers": [
+      "Russia",
+      "Czech Republic"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"College/Junior/Club Team (League)\" COLLATE NOCASE) FROM records GROUP BY (\"Nationality\" COLLATE NOCASE) ORDER BY COUNT ( (\"Player\" COLLATE NOCASE) ) LIMIT 1",
+        "results": [
+          "Cherepovets (Russia)",
+          "HC Vsetin (Czech.)"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Nationality\" COLLATE NOCASE) FROM records GROUP BY (\"Nationality\" COLLATE NOCASE) ORDER BY COUNT ( (\"Player\" COLLATE NOCASE) ) DESC LIMIT 1",
+        "results": [
+          "Canada",
+          "Sweden"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11121",
+    "question": "how many times was the surface clay?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Surface\" COLLATE NOCASE) = 'clay'",
+    "answers": [
+      "5",
+      "4"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Surface\" COLLATE NOCASE) != 'clay'",
+        "results": [
+          2,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4978",
+    "question": "how many reviews were in print?",
+    "original": "SELECT COUNT ( (\"Review\" COLLATE NOCASE) ) FROM records WHERE (\"Review\" COLLATE NOCASE) = 'print'",
+    "answers": [
+      "4",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Review\" COLLATE NOCASE) ) FROM records WHERE (\"Review\" COLLATE NOCASE) != 'print'",
+        "results": [
+          5,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-3604",
+    "question": "what was the first gain on may 30th, 1963?",
+    "original": "SELECT (\"Gain\" COLLATE NOCASE) FROM records WHERE (\"Date\" COLLATE NOCASE) = '30 may 1963'",
+    "answers": [
+      "Fine Gael",
+      "Fianna F\u00e1il"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Note\" COLLATE NOCASE) FROM records WHERE (\"Date\" COLLATE NOCASE) = '30 may 1963'",
+        "results": [
+          "Paddy Belton (FG) holds the seat vacated by the death of his brother Jack Belton (FG)",
+          "Sheila Galvin (FF) wins the seat vacated by the death of her husband John Galvin (FF)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6938",
+    "question": "how many teams had more pyramids than the atlas perp squad?",
+    "original": "SELECT COUNT ( (\"Team\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Pyramids\" AS NUMERIC) > ( SELECT CAST(\"Pyramids\" AS NUMERIC) FROM records WHERE (\"Team\" COLLATE NOCASE) = 'altas perp squad' )",
+    "answers": [
+      "2",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Team\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Pyramids\" AS NUMERIC) < ( SELECT CAST(\"Pyramids\" AS NUMERIC) FROM records WHERE (\"Team\" COLLATE NOCASE) = 'altas perp squad' )",
+        "results": [
+          5,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-9562",
+    "question": "what home team is above gloucester city?",
+    "original": "SELECT (\"Home Team\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Home Team\" COLLATE NOCASE) = 'gloucester city' ) - 1",
+    "answers": [
+      "Farnborough Town",
+      "Havant & Waterlooville"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Away Team\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Home Team\" COLLATE NOCASE) = 'gloucester city' ) - 1",
+        "results": [
+          "Halifax Town",
+          "Hayes"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-12536",
+    "question": "where was the location of the last venue held?",
+    "original": "SELECT (\"Venue\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Guadalajara, Mexico",
+      "Nassau, Bahamas"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Competition\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Pan American Games",
+          "World Championships"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Nassau, Bahamas",
+          "Guadalajara, Mexico"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-41",
+    "question": "in what year did miss pokhara last win the miss nepal award?",
+    "original": "SELECT (\"Year\" COLLATE NOCASE) FROM records WHERE (\"Placement in Miss Nepal\" COLLATE NOCASE) = 'winner' ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "1997",
+      "1996"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Year\" COLLATE NOCASE) FROM records WHERE (\"Placement in Miss Pokhara\" COLLATE NOCASE) = 'winner' ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "2014",
+          "2004"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Year\" COLLATE NOCASE) FROM records WHERE (\"Placement in Miss Nepal\" COLLATE NOCASE) != 'winner' ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "2014",
+          "2004"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7332",
+    "question": "who was miss uk 2005 and miss universe 2005 2nd runner up?",
+    "original": "SELECT (\"Miss Northern Ireland\" COLLATE NOCASE) FROM records WHERE (\"Notes\" COLLATE NOCASE) = 'later miss united kingdom 2005 and miss universe united kingdom 2005 2nd runner-up'",
+    "answers": [
+      "Lucy Evangelista",
+      "Angela McCarthy"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Placement at Miss World\" COLLATE NOCASE) FROM records WHERE (\"Notes\" COLLATE NOCASE) = 'later miss united kingdom 2005 and miss universe united kingdom 2005 2nd runner-up'",
+        "results": [
+          "Top 15",
+          "Non-Finalist"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-2022",
+    "question": "how long did it take martinez to run the 20 km at the central american games in 1994?",
+    "original": "SELECT (\"Notes\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'central american games' AND CAST(\"Year\" AS NUMERIC) = 1994",
+    "answers": [
+      "1:27:45",
+      "1:27:30.42"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'central american games' AND CAST(\"Year\" AS NUMERIC) = 1994",
+        "results": [
+          "San Salvador, El Salvador",
+          "San Juan, Puerto Rico"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13310",
+    "question": "how many pole positions were won by robert huff?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Pole Position\" COLLATE NOCASE) = 'robert huff'",
+    "answers": [
+      "4",
+      "5"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Winning driver\" COLLATE NOCASE) = 'robert huff'",
+        "results": [
+          8,
+          10
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Pole Position\" COLLATE NOCASE) != 'robert huff'",
+        "results": [
+          20,
+          19
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7438",
+    "question": "how many were carpet courts?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Surface\" COLLATE NOCASE) = 'carpet'",
+    "answers": [
+      "13",
+      "14"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Surface\" COLLATE NOCASE) != 'carpet'",
+        "results": [
+          22,
+          21
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8977",
+    "question": "how many international tournament games has florent played to date?",
+    "original": "SELECT SUM ( CAST(\"Games played\" AS NUMERIC) ) FROM records",
+    "answers": [
+      "69",
+      "73"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT SUM ( CAST(\"Points per game\" AS NUMERIC) ) FROM records",
+        "results": [
+          53.0,
+          51.5
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8604",
+    "question": "what is weldell r. beitzel's party?",
+    "original": "SELECT (\"Party\" COLLATE NOCASE) FROM records WHERE (\"Delegate\" COLLATE NOCASE) = 'wendell r. beitzel'",
+    "answers": [
+      "Republican",
+      "Democratic"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Counties Represented\" COLLATE NOCASE) FROM records WHERE (\"Delegate\" COLLATE NOCASE) = 'wendell r. beitzel'",
+        "results": [
+          "Allegany, Garrett",
+          "Carroll"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4275",
+    "question": "how many representatives are republican?",
+    "original": "SELECT COUNT ( (\"Representative\" COLLATE NOCASE) ) FROM records WHERE (\"Party\" COLLATE NOCASE) = 'republican'",
+    "answers": [
+      "26",
+      "21"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Representative\" COLLATE NOCASE) ) FROM records WHERE (\"Party\" COLLATE NOCASE) != 'republican'",
+        "results": [
+          4,
+          9
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8568",
+    "question": "where was the only 5km event held?",
+    "original": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE (\"Event\" COLLATE NOCASE) = '5 km'",
+    "answers": [
+      "Bridgetown, Barbados",
+      "Osaka, Japan"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Position\" COLLATE NOCASE) FROM records WHERE (\"Event\" COLLATE NOCASE) = '5 km'",
+        "results": [
+          "1st",
+          "15th"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-3407",
+    "question": "what position did this racer finish at his only world race walking cup competition?",
+    "original": "SELECT (\"Position\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'world race walking cup'",
+    "answers": [
+      "12th",
+      "2nd"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'world race walking cup'",
+        "results": [
+          "San Jose, United States",
+          "Bangkok, Thailand"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13061",
+    "question": "in which year did she have the least amount of awards or nominations?",
+    "original": "SELECT (\"Year\" COLLATE NOCASE) FROM records GROUP BY (\"Year\" COLLATE NOCASE) ORDER BY COUNT ( * ) ASC LIMIT 1",
+    "answers": [
+      "2006",
+      "2005"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Year\" COLLATE NOCASE) FROM records GROUP BY (\"Award Ceremony\" COLLATE NOCASE) ORDER BY COUNT ( * ) ASC LIMIT 1",
+        "results": [
+          "2011",
+          "2009"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10987",
+    "question": "what is the only location with an output of 1?",
+    "original": "SELECT (\"Location\" COLLATE NOCASE) FROM records WHERE CAST(\"Output (MW AC)\" AS NUMERIC) = 1",
+    "answers": [
+      "Brentwood LIRR Parking Lot",
+      "Cohalan Court Complex"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Town\" COLLATE NOCASE) FROM records WHERE CAST(\"Output (MW AC)\" AS NUMERIC) = 1",
+        "results": [
+          "Brentwood",
+          "Central Islip"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8524",
+    "question": "how many countries earned no gold medals?",
+    "original": "SELECT COUNT ( (\"Nation\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Gold\" AS NUMERIC) = 0",
+    "answers": [
+      "14",
+      "11"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT COUNT ( (\"Nation\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Silver\" AS NUMERIC) = 0",
+        "results": [
+          9,
+          10
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Nation\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Gold\" AS NUMERIC) != 0",
+        "results": [
+          18,
+          21
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10147",
+    "question": "what was the most marathons that pavel loskutov ran in any year?",
+    "original": "SELECT COUNT ( * ) FROM records GROUP BY (\"Year\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+    "answers": [
+      "3",
+      "5"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT COUNT ( * ) FROM records GROUP BY (\"Competition\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+        "results": [
+          4,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-3512",
+    "question": "what is the number of drivers who didn't finish the race due to engine trouble?",
+    "original": "SELECT COUNT ( (\"Driver\" COLLATE NOCASE) ) FROM records WHERE (\"Time/Retired\" COLLATE NOCASE) = 'engine'",
+    "answers": [
+      "6",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Driver\" COLLATE NOCASE) ) FROM records WHERE (\"Time/Retired\" COLLATE NOCASE) != 'engine'",
+        "results": [
+          15,
+          18
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11554",
+    "question": "what film did the actor star in after \"street angel\"?",
+    "original": "SELECT (\"English Title\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"English Title\" COLLATE NOCASE) = 'street angel' ) + 1",
+    "answers": [
+      "Crossroads",
+      "Nie Er"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Director\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"English Title\" COLLATE NOCASE) = 'street angel' ) + 1",
+        "results": [
+          "Shen Xiling",
+          "Yuan Muzhi"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"English Title\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"English Title\" COLLATE NOCASE) != 'street angel' ) + 1",
+        "results": [
+          "Street Angel",
+          "The Married Couple"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-1309",
+    "question": "how many chevrolets finished in the top ten?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Make\" COLLATE NOCASE) = 'chevrolet'",
+    "answers": [
+      "4",
+      "6"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Make\" COLLATE NOCASE) != 'chevrolet'",
+        "results": [
+          6,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-9286",
+    "question": "what is the total number of airports in townsville?",
+    "original": "SELECT COUNT ( (\"Airport name\" COLLATE NOCASE) ) FROM records WHERE (\"Community\" COLLATE NOCASE) = 'townsville'",
+    "answers": [
+      "3",
+      "8"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Airport name\" COLLATE NOCASE) ) FROM records WHERE (\"Community\" COLLATE NOCASE) != 'townsville'",
+        "results": [
+          5,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-759",
+    "question": "what was the name of the competition listed before the boston marathon in 1984?",
+    "original": "SELECT (\"Competition\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'boston marathon' ) - 1",
+    "answers": [
+      "Grandma's Marathon",
+      "Hokkaido Marathon"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'boston marathon' ) - 1",
+        "results": [
+          "Duluth, United States",
+          "Atlanta, United States"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6791",
+    "question": "who was the only player from australia?",
+    "original": "SELECT (\"Player\" COLLATE NOCASE) FROM records WHERE (\"Country\" COLLATE NOCASE) = 'australia'",
+    "answers": [
+      "Greg Norman",
+      "Isao Aoki"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Score\" COLLATE NOCASE) FROM records WHERE (\"Country\" COLLATE NOCASE) = 'australia'",
+        "results": [
+          "73-67-68-71=279",
+          "70-66-66-71=273"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-5903",
+    "question": "how many medals overall did puerto rico win?",
+    "original": "SELECT CAST(\"Total\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'puerto rico'",
+    "answers": [
+      "1",
+      "9"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT CAST(\"Silver\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'puerto rico'",
+        "results": [
+          0,
+          1
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-12203",
+    "question": "what is the first engine listed on this chart?",
+    "original": "SELECT (\"Engine\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+    "answers": [
+      "Talbot 23CV 4.5 L6",
+      "Alta 1.5 L4s"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Driver\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+        "results": [
+          "Johnny Claes",
+          "Harry Schell"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-1200",
+    "question": "what is the difference in wins between sevilla fc and cd toledo?",
+    "original": "SELECT ABS ( ( SELECT CAST(\"Wins\" AS NUMERIC) FROM records WHERE (\"Club\" COLLATE NOCASE) = 'sevilla fc' ) - ( SELECT CAST(\"Wins\" AS NUMERIC) FROM records WHERE (\"Club\" COLLATE NOCASE) = 'cd toledo' ) )",
+    "answers": [
+      "2",
+      "1"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT ABS ( ( SELECT CAST(\"Wins\" AS NUMERIC) FROM records WHERE (\"Club\" COLLATE NOCASE) = 'sevilla fc' ) - ( SELECT CAST(\"Played\" AS NUMERIC) FROM records WHERE (\"Club\" COLLATE NOCASE) = 'cd toledo' ) )",
+        "results": [
+          22,
+          30
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT ABS ( ( SELECT CAST(\"Wins\" AS NUMERIC) FROM records WHERE (\"Club\" COLLATE NOCASE) != 'sevilla fc' ) - ( SELECT CAST(\"Wins\" AS NUMERIC) FROM records WHERE (\"Club\" COLLATE NOCASE) = 'cd toledo' ) )",
+        "results": [
+          4,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10575",
+    "question": "what show was he in before running man",
+    "original": "SELECT (\"Title\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Title\" COLLATE NOCASE) = 'running man' ) - 1",
+    "answers": [
+      "Music Bank",
+      "Pretty Boys: A Wrong Situation"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Network\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Title\" COLLATE NOCASE) = 'running man' ) - 1",
+        "results": [
+          "KBS2",
+          "jTBC"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-3041",
+    "question": "how many silver medals were earned by egypt?",
+    "original": "SELECT (\"Silver\" COLLATE NOCASE) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'egypt'",
+    "answers": [
+      "3",
+      "0"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Total\" COLLATE NOCASE) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'egypt'",
+        "results": [
+          "9",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-14066",
+    "question": "dwight scheyer was the player drafter previous to who?",
+    "original": "SELECT (\"Player\" COLLATE NOCASE) FROM records WHERE CAST(\"Pick #\" AS NUMERIC) = ( SELECT CAST(\"Pick #\" AS NUMERIC) FROM records WHERE (\"Player\" COLLATE NOCASE) = 'dwight scheyer' ) + 1",
+    "answers": [
+      "Matt Patanelli",
+      "Ray Johnson"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"NFL Team\" COLLATE NOCASE) FROM records WHERE CAST(\"Pick #\" AS NUMERIC) = ( SELECT CAST(\"Pick #\" AS NUMERIC) FROM records WHERE (\"Player\" COLLATE NOCASE) = 'dwight scheyer' ) + 1",
+        "results": [
+          "Pittsburgh Pirates",
+          "Brooklyn Dodgers"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Player\" COLLATE NOCASE) FROM records WHERE CAST(\"Pick #\" AS NUMERIC) = ( SELECT CAST(\"Pick #\" AS NUMERIC) FROM records WHERE (\"Player\" COLLATE NOCASE) != 'dwight scheyer' ) + 1",
+        "results": [
+          "Ed Nowogrowski",
+          "Gordon Dahlgren"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-9438",
+    "question": "which competition did this runner participate in after the xiamen international marathon?",
+    "original": "SELECT (\"Competition\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'xiamen international marathon' ) + 1",
+    "answers": [
+      "World Championships",
+      "Beijing Marathon"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'xiamen international marathon' ) + 1",
+        "results": [
+          "Osaka, Japan",
+          "Beijing, PR China"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4100",
+    "question": "which is the only one with 2 new council",
+    "original": "SELECT (\"Party\" COLLATE NOCASE) FROM records WHERE CAST(\"New council\" AS NUMERIC) = 2",
+    "answers": [
+      "Socialist Alternative",
+      "Labour"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Party\" COLLATE NOCASE) FROM records WHERE CAST(\"Previous council\" AS NUMERIC) = 2",
+        "results": [
+          "Liberal Democrats",
+          "Respect"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6619",
+    "question": "who has won more medals? shaun white or kelly clark?",
+    "original": "SELECT (\"Athlete\" COLLATE NOCASE) FROM records WHERE (\"Athlete\" COLLATE NOCASE) IN ( 'shaun white' , 'kelly clark' ) ORDER BY CAST(\"Total\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Kelly Clark",
+      "Shaun White"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Olympics\" COLLATE NOCASE) FROM records WHERE (\"Athlete\" COLLATE NOCASE) IN ( 'shaun white' , 'kelly clark' ) ORDER BY CAST(\"Total\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "2002\u20132014",
+          "2006\u20132014"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Athlete\" COLLATE NOCASE) FROM records WHERE (\"Athlete\" COLLATE NOCASE) IN ( 'shaun white' , 'kelly clark' ) ORDER BY CAST(\"Total\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Shaun White",
+          "Kelly Clark"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10818",
+    "question": "who was the next winner after the 2005 year?",
+    "original": "SELECT (\"Winner\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > 2005 ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "Azovmash",
+      "Kyiv"
+    ],
+    "rejected": [
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Winner\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) > 2005 ORDER BY CAST(\"Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Budivelnyk",
+          "MBC Odesa"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Winner\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) < 2005 ORDER BY CAST(\"Year\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Budivelnyk",
+          "Azovmash"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10914",
+    "question": "how many times is usa listed as the country?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Country\" COLLATE NOCASE) = 'usa'",
+    "answers": [
+      "11",
+      "13"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Country\" COLLATE NOCASE) != 'usa'",
+        "results": [
+          9,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-750",
+    "question": "how long was the big ride?",
+    "original": "SELECT (\"TPB page number\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) = 'the big ride'",
+    "answers": [
+      "276",
+      "192"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"#\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) = 'the big ride'",
+        "results": [
+          "9",
+          "6"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6770",
+    "question": "which party has had the most group leaders?",
+    "original": "SELECT (\"Party\" COLLATE NOCASE) FROM records GROUP BY (\"Party\" COLLATE NOCASE) ORDER BY COUNT ( (\"Leader\" COLLATE NOCASE) ) DESC LIMIT 1",
+    "answers": [
+      "Labour",
+      "Conservative"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Party\" COLLATE NOCASE) FROM records GROUP BY (\"From\" COLLATE NOCASE) ORDER BY COUNT ( (\"Leader\" COLLATE NOCASE) ) DESC LIMIT 1",
+        "results": [
+          "Scottish National Party",
+          "Labour"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7318",
+    "question": "was big bang 2 recorded in japanese or korean?",
+    "original": "SELECT (\"Language\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) = 'big bang 2'",
+    "answers": [
+      "Japanese",
+      "Korean"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Format\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) = 'big bang 2'",
+        "results": [
+          "Studio Album, Digital Download",
+          "Mini Album, Digital Download"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10580",
+    "question": "of the locomotives at the museum, what is the name of the first one produced?",
+    "original": "SELECT (\"Name\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Date\" AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "George Henry",
+      "Jubilee 1897"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Notes\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Date\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "ex-Penrhyn Quarry locomotive. Donated to the Museum in 1964",
+          "Undergoing restoration, not on display, purchased 1998"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8448",
+    "question": "what is the name of the last race?",
+    "original": "SELECT (\"Race Name\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",
+    "answers": [
+      "Dome 2 Dome Cycling Spectacular",
+      "Boucle du Coton"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Date\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",
+        "results": [
+          "16 September",
+          "30 August\u20138 September"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Race Name\" COLLATE NOCASE) FROM records ORDER BY rowid ASC LIMIT 1",
+        "results": [
+          "La Tropicale Amissa Bongo",
+          "Tour of Libya"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13287",
+    "question": "what note is before \"former md 453\"?",
+    "original": "SELECT (\"Notes\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Notes\" COLLATE NOCASE) = 'former md 453' ) - 1",
+    "answers": [
+      "US 40 Scenic is county-maintained but signed",
+      "Unsigned MD 894; old alignment of US 522"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Destinations\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Notes\" COLLATE NOCASE) = 'former md 453' ) - 1",
+        "results": [
+          "US 40 Scenic west (National Pike)",
+          "Limestone Road north"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10935",
+    "question": "which team finished last in the 1998 marlboro grand prix of miami?",
+    "original": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Pos\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Tasman Motorsports Group",
+      "Patrick Racing"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Grid\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Hogan Racing",
+          "Team Rahal"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Pos\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Newman-Haas Racing",
+          "Project Indy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10676",
+    "question": "where did he win his last championship?",
+    "original": "SELECT (\"Championship\" COLLATE NOCASE) FROM records WHERE (\"Outcome\" COLLATE NOCASE) = 'winner' ORDER BY rowid DESC LIMIT 1",
+    "answers": [
+      "Bordeaux, France",
+      "Murcia, Spain"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"No.\" COLLATE NOCASE) FROM records WHERE (\"Outcome\" COLLATE NOCASE) = 'winner' ORDER BY rowid DESC LIMIT 1",
+        "results": [
+          "16.",
+          "9."
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Championship\" COLLATE NOCASE) FROM records WHERE (\"Outcome\" COLLATE NOCASE) != 'winner' ORDER BY rowid DESC LIMIT 1",
+        "results": [
+          "Rome, Italy",
+          "Hamburg, Germany"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13658",
+    "question": "how many teams have the same amount of runners-up as maccabi tel aviv?",
+    "original": "SELECT COUNT ( (\"Team\" COLLATE NOCASE) ) FROM records WHERE (\"Team\" COLLATE NOCASE) != 'maccabi tel aviv' AND CAST(\"Runners-up\" AS NUMERIC) = ( SELECT CAST(\"Runners-up\" AS NUMERIC) FROM records WHERE (\"Team\" COLLATE NOCASE) = 'maccabi tel aviv' )",
+    "answers": [
+      "4",
+      "0"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT COUNT ( (\"Team\" COLLATE NOCASE) ) FROM records WHERE (\"Titles\" COLLATE NOCASE) != 'maccabi tel aviv' AND CAST(\"Runners-up\" AS NUMERIC) = ( SELECT CAST(\"Runners-up\" AS NUMERIC) FROM records WHERE (\"Team\" COLLATE NOCASE) = 'maccabi tel aviv' )",
+        "results": [
+          5,
+          1
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Team\" COLLATE NOCASE) ) FROM records WHERE (\"Team\" COLLATE NOCASE) != 'maccabi tel aviv' AND CAST(\"Runners-up\" AS NUMERIC) != ( SELECT CAST(\"Runners-up\" AS NUMERIC) FROM records WHERE (\"Team\" COLLATE NOCASE) = 'maccabi tel aviv' )",
+        "results": [
+          2,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-296",
+    "question": "what tournament is at the top?",
+    "original": "SELECT (\"Tournament\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+    "answers": [
+      "World Championships",
+      "Hypo-Meeting"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Rank\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+        "results": [
+          "12th",
+          "DNF"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-12369",
+    "question": "which name had a higher number? smith or johnson?",
+    "original": "SELECT (\"Name\" COLLATE NOCASE) FROM records WHERE (\"Name\" COLLATE NOCASE) IN ( 'smith' , 'johnson' ) ORDER BY CAST(REPLACE(\"Number\", ',', '') AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Smith",
+      "Johnson"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Country of Origin\" COLLATE NOCASE) FROM records WHERE (\"Name\" COLLATE NOCASE) IN ( 'smith' , 'johnson' ) ORDER BY CAST(REPLACE(\"Number\", ',', '') AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "England, Scotland",
+          "England, Ireland, Scotland"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Name\" COLLATE NOCASE) FROM records WHERE (\"Name\" COLLATE NOCASE) IN ( 'smith' , 'johnson' ) ORDER BY CAST(REPLACE(\"Number\", ',', '') AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Johnson",
+          "Smith"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-9216",
+    "question": "how many times total was the team promoted?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Notes\" COLLATE NOCASE) = 'promoted'",
+    "answers": [
+      "2",
+      "1"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Notes\" COLLATE NOCASE) != 'promoted'",
+        "results": [
+          10,
+          11
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11887",
+    "question": "distance in first competition",
+    "original": "SELECT (\"Notes\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+    "answers": [
+      "72.81 m",
+      "80.06 m"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Competition\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+        "results": [
+          "European U23 Championships",
+          "Olympic Games"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-1819",
+    "question": "was it azeta racing or target racing that won the misano world circuit?",
+    "original": "SELECT (\"Winning team\" COLLATE NOCASE) FROM records WHERE (\"Circuit\" COLLATE NOCASE) = 'misano world circuit'",
+    "answers": [
+      "Target Racing",
+      "Azeta Racing"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Pole Position\" COLLATE NOCASE) FROM records WHERE (\"Circuit\" COLLATE NOCASE) = 'misano world circuit'",
+        "results": [
+          "Milo\u0161 Pavlovi\u0107",
+          "Philip Cloostermans"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8720",
+    "question": "what was the world rank of paris?",
+    "original": "SELECT (\"World rank\" COLLATE NOCASE) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'paris'",
+    "answers": [
+      "4th",
+      "1st"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Date\" COLLATE NOCASE) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'paris'",
+        "results": [
+          "25 August",
+          "16 September"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13676",
+    "question": "who was sunk the most?",
+    "original": "SELECT (\"Nationality\" COLLATE NOCASE) FROM records WHERE (\"Fate\" COLLATE NOCASE) = 'sunk' GROUP BY (\"Nationality\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+    "answers": [
+      "United Kingdom",
+      "Norway"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Ship\" COLLATE NOCASE) FROM records WHERE (\"Fate\" COLLATE NOCASE) = 'sunk' GROUP BY (\"Nationality\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+        "results": [
+          "SS Aguila",
+          "SS Warszawa"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Nationality\" COLLATE NOCASE) FROM records WHERE (\"Fate\" COLLATE NOCASE) = 'sunk' GROUP BY (\"Nationality\" COLLATE NOCASE) ORDER BY COUNT ( * ) ASC LIMIT 1",
+        "results": [
+          "Norway",
+          "Royal Australian Navy"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7592",
+    "question": "how many matches were played at ballymore, brisbane?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Venue\" COLLATE NOCASE) = 'ballymore, brisbane'",
+    "answers": [
+      "1",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Venue\" COLLATE NOCASE) != 'ballymore, brisbane'",
+        "results": [
+          28,
+          26
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-1886",
+    "question": "which player was not a free agent?",
+    "original": "SELECT (\"Name\" COLLATE NOCASE) FROM records WHERE (\"Team\" COLLATE NOCASE) != 'free agent'",
+    "answers": [
+      "Dikembe Mutombo",
+      "Sam Cassell"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Position\" COLLATE NOCASE) FROM records WHERE (\"Team\" COLLATE NOCASE) != 'free agent'",
+        "results": [
+          "C",
+          "G"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11713",
+    "question": "how many defensive backs are there?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Position\" COLLATE NOCASE) = 'defensive back'",
+    "answers": [
+      "5",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Position\" COLLATE NOCASE) != 'defensive back'",
+        "results": [
+          22,
+          24
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-5744",
+    "question": "who is the only player to be listed twice as an opponent in the finals?",
+    "original": "SELECT (\"Opponent in the final\" COLLATE NOCASE) FROM records GROUP BY (\"Opponent in the final\" COLLATE NOCASE) HAVING COUNT ( * ) = 2",
+    "answers": [
+      "Andr\u00e9s G\u00f3mez",
+      "Broderick Dyke"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Date\" COLLATE NOCASE) FROM records GROUP BY (\"Opponent in the final\" COLLATE NOCASE) HAVING COUNT ( * ) = 2",
+        "results": [
+          "21 September 1981",
+          "20 July 1981"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-12504",
+    "question": "the date september 10th is next to which venue?",
+    "original": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE (\"Date\" COLLATE NOCASE) = '10 september 2013'",
+    "answers": [
+      "Columbus Crew Stadium, Columbus, United States",
+      "Estadio Cuscatl\u00e1n, San Salvador, El Salvador"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Result\" COLLATE NOCASE) FROM records WHERE (\"Date\" COLLATE NOCASE) = '10 september 2013'",
+        "results": [
+          "2\u20130",
+          "3\u20131"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13458",
+    "question": "how many makes origin from canada",
+    "original": "SELECT COUNT ( (\"Make\" COLLATE NOCASE) ) FROM records WHERE (\"Origin\" COLLATE NOCASE) = 'canada'",
+    "answers": [
+      "6",
+      "4"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Make\" COLLATE NOCASE) ) FROM records WHERE (\"Origin\" COLLATE NOCASE) != 'canada'",
+        "results": [
+          8,
+          10
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7656",
+    "question": "who came in first place during the 2007 worlds qualification tournament?",
+    "original": "SELECT (\"Nation\" COLLATE NOCASE) FROM records WHERE CAST(NULLIF(TRIM(\"Place in QT\"), '') AS NUMERIC) = 1 AND (\"Qualification Tournament\" COLLATE NOCASE) = '2007 worlds'",
+    "answers": [
+      "Brazil",
+      "Poland"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Sailor\" COLLATE NOCASE) FROM records WHERE CAST(NULLIF(TRIM(\"Place in QT\"), '') AS NUMERIC) = 1 AND (\"Qualification Tournament\" COLLATE NOCASE) = '2007 worlds'",
+        "results": [
+          "Robert Scheidt, Bruno Prada",
+          "Xavier Rohart, Pascal Rambeau"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-5600",
+    "question": "which other album has the same length as topeng?",
+    "original": "SELECT (\"Title\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) != 'topeng' AND (\"Length\" COLLATE NOCASE) = ( SELECT (\"Length\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) = 'topeng' )",
+    "answers": [
+      "Membebaniku",
+      "Sally Sendiri"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Length\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) != 'topeng' AND (\"Length\" COLLATE NOCASE) = ( SELECT (\"Length\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) = 'topeng' )",
+        "results": [
+          "4:25",
+          "3:39"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7688",
+    "question": "what is the total number of tournaments in the year 2006?",
+    "original": "SELECT COUNT ( (\"Tournament\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Year\" AS NUMERIC) = 2006",
+    "answers": [
+      "4",
+      "8"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Tournament\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Year\" AS NUMERIC) != 2006",
+        "results": [
+          8,
+          4
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7654",
+    "question": "what is the last manufacturer listed?",
+    "original": "SELECT (\"Manufacturer\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",
+    "answers": [
+      "Aprilia",
+      "Yamaha"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Rider\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",
+        "results": [
+          "Ralf Waldmann",
+          "Jeremy McWilliams"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Manufacturer\" COLLATE NOCASE) FROM records ORDER BY rowid ASC LIMIT 1",
+        "results": [
+          "Honda",
+          "TSR-Honda"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-1351",
+    "question": "how many teams won less than the pune strykers?",
+    "original": "SELECT COUNT ( (\"Opposition\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Won\" AS NUMERIC) < ( SELECT CAST(\"Won\" AS NUMERIC) FROM records WHERE (\"Opposition\" COLLATE NOCASE) = 'pune strykers' )",
+    "answers": [
+      "4",
+      "3"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT COUNT ( (\"Opposition\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Won\" AS NUMERIC) < ( SELECT CAST(\"Lost\" AS NUMERIC) FROM records WHERE (\"Opposition\" COLLATE NOCASE) = 'pune strykers' )",
+        "results": [
+          1,
+          0
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8937",
+    "question": "at least how many parties have won?",
+    "original": "SELECT COUNT ( DISTINCT (\"Party\" COLLATE NOCASE) ) FROM records",
+    "answers": [
+      "3",
+      "2"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT COUNT ( DISTINCT (\"#\" COLLATE NOCASE) ) FROM records",
+        "results": [
+          10,
+          6
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6663",
+    "question": "how many games did the bombers win?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Result\" COLLATE NOCASE) = 'win'",
+    "answers": [
+      "11",
+      "13"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Result\" COLLATE NOCASE) != 'win'",
+        "results": [
+          5,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-4610",
+    "question": "who was the first canadian player to finish?",
+    "original": "SELECT (\"Name\" COLLATE NOCASE) FROM records WHERE (\"Nationality\" COLLATE NOCASE) = 'canada' ORDER BY CAST(\"Rank\" AS NUMERIC) ASC LIMIT 1",
+    "answers": [
+      "Erin Gammel",
+      "Haley Cope"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Time\" COLLATE NOCASE) FROM records WHERE (\"Nationality\" COLLATE NOCASE) = 'canada' ORDER BY CAST(\"Rank\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "1:02.63",
+          "1:02.10"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Name\" COLLATE NOCASE) FROM records WHERE (\"Nationality\" COLLATE NOCASE) = 'canada' ORDER BY CAST(\"Rank\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Kelly Stefanyshyn",
+          "Diana MacManus"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Name\" COLLATE NOCASE) FROM records WHERE (\"Nationality\" COLLATE NOCASE) != 'canada' ORDER BY CAST(\"Rank\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Dyana Calub",
+          "Natalie Coughlin"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6166",
+    "question": "how many skaters had points greater than 2600?",
+    "original": "SELECT COUNT ( (\"Name\" COLLATE NOCASE) ) FROM records WHERE CAST(NULLIF(TRIM(\"Points\"), '') AS NUMERIC) > 2600",
+    "answers": [
+      "6",
+      "9"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Name\" COLLATE NOCASE) ) FROM records WHERE CAST(NULLIF(TRIM(\"Points\"), '') AS NUMERIC) < 2600",
+        "results": [
+          5,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11938",
+    "question": "how many times did leonardo maia have the fastest lap?",
+    "original": "SELECT COUNT ( * ) FROM records WHERE (\"Fastest lap\" COLLATE NOCASE) = 'leonardo maia'",
+    "answers": [
+      "6",
+      "5"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT COUNT ( * ) FROM records WHERE (\"Pole position\" COLLATE NOCASE) = 'leonardo maia'",
+        "results": [
+          7,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-13046",
+    "question": "what are the total number of athletes representing bulgaria?",
+    "original": "SELECT COUNT ( (\"Athlete\" COLLATE NOCASE) ) FROM records WHERE (\"Country\" COLLATE NOCASE) = 'bulgaria'",
+    "answers": [
+      "2",
+      "4"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Athlete\" COLLATE NOCASE) ) FROM records WHERE (\"Country\" COLLATE NOCASE) != 'bulgaria'",
+        "results": [
+          23,
+          21
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-10245",
+    "question": "how many finalist were 28 years old?",
+    "original": "SELECT COUNT ( (\"Finalist\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Age\" AS NUMERIC) = 28",
+    "answers": [
+      "3",
+      "2"
+    ],
+    "rejected": [
+      {
+        "edit": "predicate",
+        "sql": "SELECT COUNT ( (\"Finalist\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Age\" AS NUMERIC) != 28",
+        "results": [
+          7,
+          8
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-12790",
+    "question": "who placed first in round 8?",
+    "original": "SELECT (\"Winning Driver\" COLLATE NOCASE) FROM records WHERE CAST(\"Rd.\" AS NUMERIC) = 8",
+    "answers": [
+      "Alain Prost",
+      "Thierry Boutsen"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Fastest Lap\" COLLATE NOCASE) FROM records WHERE CAST(\"Rd.\" AS NUMERIC) = 8",
+        "results": [
+          "Nigel Mansell",
+          "Satoru Nakajima"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-8577",
+    "question": "which position was represented the most on the team?",
+    "original": "SELECT (\"Position\" COLLATE NOCASE) FROM records GROUP BY (\"Position\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+    "answers": [
+      "F",
+      "D"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Birthdate\" COLLATE NOCASE) FROM records GROUP BY (\"Position\" COLLATE NOCASE) ORDER BY COUNT ( * ) DESC LIMIT 1",
+        "results": [
+          "March 13, 1982",
+          "February 5, 1987"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-7868",
+    "question": "who was the last flag bearer for georgia?",
+    "original": "SELECT (\"Flag bearer\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Event Year\" AS NUMERIC) DESC LIMIT 1",
+    "answers": [
+      "Nino Salukvadze",
+      "Giorgi K'andelak'i"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Season\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Event Year\" AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "Summer",
+          "Winter"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Flag bearer\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Event Year\" AS NUMERIC) ASC LIMIT 1",
+        "results": [
+          "Zurab Dzhidzhishvili",
+          "Ramaz Nozadze"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-6669",
+    "question": "after the championship in the hague, netherlands, where were the next championship held?",
+    "original": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Venue\" COLLATE NOCASE) = 'the hague, netherlands' ) + 1",
+    "answers": [
+      "Budapest, Hungary",
+      "Tokyo, Japan"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Competition\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Venue\" COLLATE NOCASE) = 'the hague, netherlands' ) + 1",
+        "results": [
+          "World Indoor Championships",
+          "European Indoor Championships"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Venue\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Venue\" COLLATE NOCASE) != 'the hague, netherlands' ) + 1",
+        "results": [
+          "Lisbon, Portugal",
+          "Budapest, Hungary"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-11281",
+    "question": "who was player of the year after ben mauk?",
+    "original": "SELECT (\"Player\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) = ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Player\" COLLATE NOCASE) = 'ben mauk' ) + 1",
+    "answers": [
+      "Ray Williams",
+      "Derek Combs"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"College\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) = ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Player\" COLLATE NOCASE) = 'ben mauk' ) + 1",
+        "results": [
+          "West Virginia",
+          "Ohio State"
+        ]
+      },
+      {
+        "edit": "predicate",
+        "sql": "SELECT (\"Player\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) = ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Player\" COLLATE NOCASE) != 'ben mauk' ) + 1",
+        "results": [
+          "Robert Smith",
+          "Maurice Clarett"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-5418",
+    "question": "what was the date of the game that had the least number of people in attendance?",
+    "original": "SELECT (\"Date\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Attendance\", ',', '') AS NUMERIC) LIMIT 1",
+    "answers": [
+      "September 30",
+      "November 25"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Site\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Attendance\", ',', '') AS NUMERIC) LIMIT 1",
+        "results": [
+          "Vaught\u2013Hemingway Stadium \u2022 Oxford, MS",
+          "Alltel Stadium \u2022 Jacksonville, FL (Florida\u2013Georgia game)"
+        ]
+      },
+      {
+        "edit": "direction",
+        "sql": "SELECT (\"Date\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Attendance\", ',', '') AS NUMERIC) DESC LIMIT 1",
+        "results": [
+          "September 2",
+          "September 16"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nt-187",
+    "question": "what is the name of the first jockey on this chart?",
+    "original": "SELECT (\"Jockey\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+    "answers": [
+      "Tom Kiley",
+      "Isaac Murphy"
+    ],
+    "rejected": [
+      {
+        "edit": "column",
+        "sql": "SELECT (\"Horse\" COLLATE NOCASE) FROM records WHERE rowid = 1",
+        "results": [
+          "Spokane",
+          "Proctor Knott"
+        ]
+      }
+    ]
+  }
+]
