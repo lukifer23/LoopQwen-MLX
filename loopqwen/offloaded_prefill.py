@@ -63,13 +63,17 @@ class OffloadedPrefill:
         self.groups = stages(model)
         self.group_attention = group_attention
         if group_attention:
+            from .bounded_read import BoundedContentRead
             from .content_read import ContentRead
             from .looped_model import LoopedModel
             from .shared_query import SharedQuery
 
-            if type(model) not in (LoopedModel, SharedQuery, ContentRead) or any(
-                p for _, p in model.sites
-            ):
+            if type(model) not in (
+                LoopedModel,
+                SharedQuery,
+                ContentRead,
+                BoundedContentRead,
+            ) or any(p for _, p in model.sites):
                 raise ValueError(
                     "Grouped staging requires an ordinary or shared-query decoder with one temporal state per layer"
                 )

@@ -2,6 +2,7 @@ import mlx.core as mx
 import pytest
 
 from test_shared_query import model
+from loopqwen.bounded_read import BoundedContentRead
 from loopqwen.content_read import ContentRead
 from loopqwen.evaluation.generation_eval import generate
 from loopqwen.looped_model import LoopedModel
@@ -21,19 +22,20 @@ class NumericTokenizer:
         return " ".join(map(str, tokens))
 
 
-@pytest.mark.parametrize("kind", ["base", "content"])
+@pytest.mark.parametrize("kind", ["base", "content", "bounded"])
 def test_document_generation_matches_full_openings_and_leaves_shared_prefix_unchanged(
     tmp_path, kind
 ):
     parent = model()
     text = parent.text
     text.set_dtype(mx.float16)
+    reader = BoundedContentRead if kind == "bounded" else ContentRead
     net = (
         LoopedModel(text, Span(len(text.layers) - 1, 1, 1))
         if kind == "base"
-        else ContentRead(text, revisits=2, rank=8, gate_rank=4)
+        else reader(text, revisits=2, rank=8, gate_rank=4)
     )
-    if kind == "content":
+    if kind != "base":
         net.step.write.weight = mx.random.normal(net.step.write.weight.shape) * 0.01
     net.eval()
     prefix = [(17 * i + 3) % 128 for i in range(129)]
