@@ -125,6 +125,8 @@ def main():
                     "scripts/role_binding_reading.py",
                     "scripts/role_binding_exposure.py",
                     "docs/measurements/role-binding-training-exposure.json",
+                    "docs/measurements/role-binding-activation.json",
+                    "research/diagnostics/role-binding-activation-01.json",
                     "research/diagnostics/role-binding-reading-audit.json",
                     "docs/measurements/role-binding-reading-decisions.json",
                     "scripts/assemble_field_paper.py",

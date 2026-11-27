@@ -1,5 +1,6 @@
 """Measure the sealed residual intervention on an independent prompt, with fresh native caches."""
 
+import argparse
 import signal
 from pathlib import Path
 from time import perf_counter
@@ -15,16 +16,23 @@ SOURCE = Path("research/diagnostics/instruction-interpolation-activation-01.json
 DESTINATION = Path("docs/measurements/instruction-interpolation-activation.json")
 
 
-def measure():
-    protocol = read(SOURCE)
+def measure(source):
+    protocol = read(source)
     policy = Path("research/results") / protocol["model_study"]
     spec = read(policy / "registration.json")
     start = perf_counter()
     mx.reset_peak_memory()
     actor = InterpolatedAssistant(spec["checkpoint"], policy)
     net = actor._tool_model
+    definitions = []
+    if "document" in protocol:
+        from loopqwen.csv_tools import tools
+
+        document = Path(protocol["document"])
+        assert digest(document) == protocol["document_sha256"]
+        definitions = qwen_tools.declarations(tools([document], keyed=True))
     prompt = qwen_tools.render(
-        actor.tokenizer, [{"role": "user", "content": protocol["prompt"]}], []
+        actor.tokenizer, [{"role": "user", "content": protocol["prompt"]}], definitions
     )
     tokens = actor.tokenizer.encode(prompt, add_special_tokens=False)
     inputs = mx.array([tokens])
@@ -66,7 +74,7 @@ def measure():
         mx.array_equal(active, repeat).item()
     )
     return {
-        "protocol_sha256": digest(SOURCE),
+        "protocol_sha256": digest(source),
         "policy_sha256": digest(policy / "registration.json"),
         "prompt_ids": tokens,
         "shared_projections": projections,
@@ -83,16 +91,29 @@ def measure():
 
 
 if __name__ == "__main__":
-    signal.alarm(read(SOURCE)["max_native_seconds"])
-    evidence = measure()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--role-binding", action="store_true")
+    binding = parser.parse_args().role_binding
+    source = (
+        Path("research/diagnostics/role-binding-activation-01.json")
+        if binding
+        else SOURCE
+    )
+    destination = (
+        Path("docs/measurements/role-binding-activation.json")
+        if binding
+        else DESTINATION
+    )
+    signal.alarm(read(source)["max_native_seconds"])
+    evidence = measure(source)
     signal.alarm(0)
-    if DESTINATION.is_file():
-        prior = read(DESTINATION)
+    if destination.is_file():
+        prior = read(destination)
         assert all(
             prior[k] == v
             for k, v in evidence.items()
             if k not in ("seconds", "peak_bytes")
         )
     else:
-        save(DESTINATION, evidence)
+        save(destination, evidence)
     print(evidence)
