@@ -1,0 +1,5 @@
+{
+  "study": "role-binding-01",
+  "purpose": "Check whether the operational accuracy result changes when a reader judges the complete visible table answer.",
+  "rule": "For all 32 held-out human table questions in both arms, consider the original wording, the independent publisher database answer and the complete visible response. Credit a response only if it reports the reference entity or equivalent numerical quantity as its answer without a conflicting conclusion. Count unfinished output as incorrect. Preserve every raw answer and identify undecidable cases. Review distinct question/visible-answer pairs without model labels and before viewing aggregate table outcomes. Accept exact full-string matches automatically only after Unicode/whitespace, case and surrounding emphasis normalization. The reviewer is the project coding assistant, not an external human annotator. Combine the independent reading with the existing exact key-column/value-column lookup and observation recorded in the primary. Publish the paired sensitivity alongside the immutable original endpoints. No training, model selection or primary decision may use these secondary labels."
+}
