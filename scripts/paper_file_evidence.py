@@ -2,6 +2,7 @@
 
 import csv
 import json
+from math import comb
 from pathlib import Path
 
 import matplotlib
@@ -18,6 +19,69 @@ from scripts.file_evidence_audit import NAME, PANEL
 
 P = Path("paper")
 OUT = Path("research/results") / NAME
+
+
+def discordant_interval(wins, losses):
+    """Invert equal-tailed binomial tests for the loop win share among discordant articles."""
+    n = wins + losses
+    if n == 0:
+        return None
+
+    def upper(k):
+        if k == n:
+            return 1.0
+        lo, hi = 0.0, 1.0
+        for _ in range(60):
+            p = (lo + hi) / 2
+            cdf = sum(comb(n, j) * p**j * (1 - p) ** (n - j) for j in range(k + 1))
+            if cdf > 0.025:
+                lo = p
+            else:
+                hi = p
+        return (lo + hi) / 2
+
+    return 1 - upper(losses), upper(wins)
+
+
+def uncertainty(rows, records, result):
+    summary = []
+    lines = [
+        '#table(columns:(1.4fr,1fr,1fr,1fr,1fr,1.8fr),stroke:none,inset:4pt,fill:(x,y)=>if y==0 {rgb("#dfede9")} else if calc.odd(y) {rgb("#f2f6f4")},[Source],[Both],[Loop only],[Base only],[Neither],[Loop share, 95% interval],'
+    ]
+    for family in ("file", "inline"):
+        x = result["pairs"][family]
+        articles = len({r["cluster"] for r in rows if r["family"] == family})
+        both = x["candidate"] - x["wins"]
+        assert both == x["base"] - x["losses"]
+        neither = articles - both - x["wins"] - x["losses"]
+        ci = discordant_interval(x["wins"], x["losses"])
+        note = "no discordance" if ci is None else f"{ci[0]:.2f} to {ci[1]:.2f}"
+        lines.append(
+            f"[{family.capitalize()}],[{both}],[{x['wins']}],[{x['losses']}],[{neither}],[{note}],"
+        )
+        summary.append(
+            dict(
+                family=family,
+                articles=articles,
+                both=both,
+                loop_only=x["wins"],
+                base_only=x["losses"],
+                neither=neither,
+                conditional_interval=ci,
+            )
+        )
+    lines.append(")")
+    for arm, title in (("candidate", "Loop"), ("control", "Base")):
+        rr = [q for record in records[arm] for q in record["requests"]]
+        turns = [t for q in rr for t in q["trajectory"]["turns"]]
+        nt = sum(len(t["token_ids"]) for t in turns)
+        events = sum(len(executions(q["trajectory"])) for q in rr)
+        completed = sum(q["score"]["completed"] for q in rr)
+        lines.append(
+            f"{title} produced {nt:,} generated tokens in {len(turns)} model turns, executed {events} function calls and completed {completed}/{len(rr)} requests.\n"
+        )
+    (P / "file-evidence-uncertainty.typ").write_text("\n".join(lines) + "\n")
+    save(P / "file-evidence-discordance.json", summary)
 
 
 def publish():
@@ -77,6 +141,7 @@ def publish():
         writer = csv.DictWriter(out, fieldnames=details[0])
         writer.writeheader()
         writer.writerows(details)
+    uncertainty(rows, records, d)
     m = d["groups"]
     a, b = m["candidate"], m["control"]
     f = d["pairs"]["file"]
@@ -149,8 +214,11 @@ def publish():
         f"Across 16 actual changed files, the new loop returned two correct judgments grounded in real lookups on *{f['candidate']}/16* article pairs. Untouched Base did so on *{f['base']}/16*. The loop gained {f['wins']} complete file pairs and lost {f['losses']} (two-sided exact paired p = {f['p']:.4g}). On 12 independent inline articles, requiring both versions correct gave {z['candidate']}/12 versus {z['base']}/12. Across the 56 user requests, the systems took {a['all']['wall_s']:.2f} and {b['all']['wall_s']:.2f} seconds, respectively.\n"
     )
     counts = exposure["sources"]
+    parity = fit["parity"]
+    original = read("research/sessions/window-1795755565.json")
+    previous_peak = max(r["peak_bytes"] for r in original["jobs"]) / 2**30
     (P / "file-evidence-fit.typ").write_text(
-        f"The two native layers share {fit['trainable']:,} trained adapter parameters. The optimizer completed {fit['updates']} AdamW updates over {fit['targets']:,} output-token targets. Of those, {counts['file lookup']['target_tokens']:,} supervised opening lookups, {counts['file conclusion']['target_tokens']:,} supervised post-observation conclusions, {counts['inline conclusion']['target_tokens']:,} supervised inline judgments and {counts['WikiSQL rehearsal']['target_tokens']:,} came from WikiSQL rehearsal. Each six-example batch contained two opposite-source pairs and two other turns. The loss combines ordinary response-token cross entropy with two context-specific logit margins on the first differing response token. Preparing frozen prefix states took {fit['prepare_seconds']:.2f} s and native optimization took {fit['optimizer_seconds']:.2f} s.\n"
+        f"The two native layers share {fit['trainable']:,} trained adapter parameters. The optimizer completed {fit['updates']} AdamW updates over {fit['targets']:,} output-token targets. Of those, {counts['file lookup']['target_tokens']:,} supervised opening lookups, {counts['file conclusion']['target_tokens']:,} supervised post-observation conclusions, {counts['inline conclusion']['target_tokens']:,} supervised inline judgments and {counts['WikiSQL rehearsal']['target_tokens']:,} came from WikiSQL rehearsal. Each six-example batch contained two opposite-source pairs and two other turns. The loss combines ordinary response-token cross entropy with two context-specific logit margins on the first differing response token. Preparing frozen prefix states took {fit['prepare_seconds']:.2f} s and native optimization took {fit['optimizer_seconds']:.2f} s. The original six-at-once run used {previous_peak:.3f} GiB, crossed its 6.50 GiB ceiling and ended before evaluating either model. This fit used physical groups of two, two, one and one with one optimizer update per logical batch. On the first sampled batch the MLX gradients differed by {parity['relative_gradient_l2']:.5f} in relative L2 norm and the losses by {parity['absolute_loss_error']:.5f}. The registered limits were 0.08 and 0.06, respectively.\n"
     )
     costs = [
         (
@@ -179,6 +247,44 @@ def publish():
         ),
         ("Decode tokens / native decode seconds", a["decode_tps"], b["decode_tps"]),
     ]
+    from statistics import median
+
+    warm = {}
+    for arm in sides:
+        reqs = [r["requests"][0] for r in records[arm]]
+        warm[arm] = {
+            "first_request": reqs[0]["wall_s"],
+            "peak_later": max(q["peak"] for q in reqs[1:]) / 2**30,
+            "median": median(q["wall_s"] for q in reqs[1:]),
+            "first_tokens": sum(
+                len(q["trajectory"]["turns"][0]["prompt_ids"]) for q in reqs
+            ),
+            "native_first": sum(q["trajectory"]["turns"][0]["ttft_s"] for q in reqs),
+        }
+    costs.extend(
+        [
+            (
+                "First cold request, seconds",
+                warm["candidate"]["first_request"],
+                warm["control"]["first_request"],
+            ),
+            (
+                "Later requests, median seconds",
+                warm["candidate"]["median"],
+                warm["control"]["median"],
+            ),
+            (
+                "Peak after first request, GiB",
+                warm["candidate"]["peak_later"],
+                warm["control"]["peak_later"],
+            ),
+            (
+                "Native opening input tokens/s",
+                warm["candidate"]["first_tokens"] / warm["candidate"]["native_first"],
+                warm["control"]["first_tokens"] / warm["control"]["native_first"],
+            ),
+        ]
+    )
     as_text = lambda n: f"{n:.2f}" if isinstance(n, float) else str(n)
     lines = [
         '#table(columns:(2.8fr,1fr,1fr),align:(left,right,right),stroke:none,inset:3.5pt,fill:(x,y)=>if y==0 {rgb("#dfede9")} else if calc.odd(y) {rgb("#f2f6f4")},[Measure],[Trained loop],[Untouched Base],'

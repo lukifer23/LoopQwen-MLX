@@ -134,6 +134,17 @@ def verify(root, d):
     assert fit["training"] == digest(Path(spec["training"])) and fit["turns"] == len(
         read(spec["training"])["examples"]
     )
+    if "physical_gradient_groups" in spec:
+        parity = read(root / "gradient-parity.json")
+        assert fit["parity"] == parity
+        assert 0 <= parity["relative_gradient_l2"] <= spec["gradient_relative_l2_max"]
+        assert (
+            abs(parity["reference_loss"] - parity["accumulated_loss"])
+            == parity["absolute_loss_error"]
+            <= spec["loss_absolute_error_max"]
+        )
+        assert fit["physical_gradient_groups"] == spec["physical_gradient_groups"]
+        assert fit["loss"][-1]["step"] == fit["updates"]
     from ..export_runtime import load_export_tokenizer
 
     release = Path(spec["checkpoint"])
@@ -166,7 +177,10 @@ def run(name=NAME):
     root = Path("outputs/research") / name
     root.mkdir(parents=True, exist_ok=True)
     if (root / "registration.json").is_file():
-        if {p.name for p in root.iterdir()} != {"registration.json"} or read(
+        allowed = {"registration.json"}
+        if "physical_gradient_groups" in s:
+            allowed.add("gradient-parity.json")
+        if {p.name for p in root.iterdir()} - allowed or read(
             root / "registration.json"
         ) != s:
             raise FileExistsError(

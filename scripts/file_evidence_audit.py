@@ -13,7 +13,7 @@ from loopqwen.io import digest, read, save
 from loopqwen.research.native_function_study import executions
 from scripts.revision_answer_reading import normalize
 
-NAME = "file-evidence-01"
+NAME = "file-evidence-accumulated-01"
 PANEL = Path("research/data/file-evidence-panel.json")
 SOURCE = Path("docs/measurements/file-evidence-cells.json")
 

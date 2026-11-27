@@ -20,7 +20,7 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 
-NAME = "file-evidence-01"
+NAME = "file-evidence-accumulated-01"
 WHEEL = "b980402"
 DEST = ROOT / "exports/loopqwen-field-update-03.zip"
 RECEIPT = ROOT / "docs/measurements/field-evidence-update-03.json"
@@ -31,7 +31,7 @@ def cmd(*args, **kwargs):
 
 
 def inventory(tmp, revision, wheel, kit):
-    spec = read(ROOT / "research/experiments/file-evidence-01.json")
+    spec = read(ROOT / "research/experiments" / (NAME + ".json"))
     files = {
         "README.md": ROOT / "docs/FILE_EVIDENCE_UPDATE.md",
         "runtime/" + wheel.name: wheel,
@@ -39,7 +39,7 @@ def inventory(tmp, revision, wheel, kit):
             tmp, revision, kit["source_revision"]
         ),
     }
-    for study in (NAME, "revision-evidence-01"):
+    for study in (NAME, "file-evidence-01", "revision-evidence-01"):
         folder = ROOT / "research/results" / study
         for path in sorted(folder.iterdir()):
             files["studies/" + study + "/" + path.name] = path

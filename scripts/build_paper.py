@@ -129,7 +129,7 @@ def main(verify):
         ):
             subprocess.run([sys.executable, "-m", module], cwd=ROOT, check=True)
 
-    field = ROOT / "research/results/file-evidence-01/decision.json"
+    field = ROOT / "research/results/file-evidence-accumulated-01/decision.json"
     if field.is_file() and read(field).get("status") != "interrupted":
         for args in (
             ["scripts.revision_source_check", "--file-evidence"],

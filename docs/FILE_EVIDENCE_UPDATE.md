@@ -19,7 +19,7 @@ export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 These two commands pass exactly the same question to independent sessions on the recurrent model and ordinary Base. The single changed cell is inside the two supplied copies of `clippings.csv`. Each CLI response displays the actual prompt tokens, emitted tokens, arguments, returns, final answer and costs. For a different CSV, identify a unique key and target field in the question. The runtime exposes exact header names and opens the caller's file at execution.
 
 ```sh
-.venv/bin/loopqwen ask --checkpoint release-05 --session-policy studies/file-evidence-01 \
+.venv/bin/loopqwen ask --checkpoint release-05 --session-policy studies/file-evidence-accumulated-01 \
   --tool-format qwen --keyed-csv your-file.csv --prompt-file your-question.txt \
   --max-tokens 640 --max-turns 3 --trace --compare-base
 ```

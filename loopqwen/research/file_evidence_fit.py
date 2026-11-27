@@ -6,8 +6,8 @@ from pathlib import Path
 from time import perf_counter
 
 import mlx.core as mx
-import mlx.nn as nn
 import mlx.optimizers as optim
+from mlx import nn
 from mlx.utils import tree_flatten, tree_map
 
 from .. import checkpoint
@@ -38,7 +38,9 @@ def fit(model, tok, spec, out, budget, *, prepare):
     started = perf_counter()
     training = read(spec["training"])
     bank = prepare(model, tok, training, budget)
-    paired = MatchedExamples(training["examples"], bank, tok, spec["pairs_per_batch"], spec["batch"])
+    paired = MatchedExamples(
+        training["examples"], bank, tok, spec["pairs_per_batch"], spec["batch"]
+    )
     groups = spec["physical_gradient_groups"]
     if groups != [2, 2, 1, 1] or paired.count != 2 or not spec["individual_margins"]:
         raise ValueError("Unrecognized logical batch design")
@@ -54,13 +56,20 @@ def fit(model, tok, spec, out, budget, *, prepare):
 
     def reference(net, h, r, c, labels, locations):
         logits = projected(net, h, r, c)
-        return nn.losses.cross_entropy(logits, labels).mean() + spec["ranking_weight"] * paired.loss(logits, locations, individual=True)
+        return nn.losses.cross_entropy(logits, labels).mean() + spec[
+            "ranking_weight"
+        ] * paired.loss(logits, locations, individual=True)
 
     def partial(net, h, r, c, labels, locations, total):
         logits = projected(net, h, r, c)
         loss = nn.losses.cross_entropy(logits, labels).sum() / total
         if locations is not None:
-            loss = loss + spec["ranking_weight"] * paired.loss(logits, locations, individual=True) / paired.count
+            loss = (
+                loss
+                + spec["ranking_weight"]
+                * paired.loss(logits, locations, individual=True)
+                / paired.count
+            )
         return loss
 
     full_grad = nn.value_and_grad(model, reference)
@@ -72,11 +81,21 @@ def fit(model, tok, spec, out, budget, *, prepare):
         state = checkpoint.restore(checkpoints, model, optimizer)
         if state["registration"] != binding:
             raise ValueError("Optimizer checkpoint registration differs")
-        first, logs, parity, prior_seconds = state["step"], state["loss"], state["parity"], state["optimizer_seconds"]
+        first, logs, parity, prior_seconds = (
+            state["step"],
+            state["loss"],
+            state["parity"],
+            state["optimizer_seconds"],
+        )
         for _ in range(first):
             targets_seen += sum(len(x[2]) for x in paired.sample(rng))
-        if targets_seen != state["targets"] or int(optimizer.state["step"].item()) != first:
-            raise ValueError("Recovered optimizer differs from registered example exposure")
+        if (
+            targets_seen != state["targets"]
+            or int(optimizer.state["step"].item()) != first
+        ):
+            raise ValueError(
+                "Recovered optimizer differs from registered example exposure"
+            )
     started = perf_counter()
     for step in range(first, spec["updates"]):
         budget.check()
@@ -96,7 +115,7 @@ def fit(model, tok, spec, out, budget, *, prepare):
             if i < paired.count:
                 a, b, x, y = locations[i].tolist()
                 offset = sum(len(v[2]) for v in batch[:start])
-                local = mx.array([[a-offset, b-offset, x, y]])
+                local = mx.array([[a - offset, b - offset, x, y]])
             loss, grads = stream_grad(model, *pack(subset), local, total)
             grads = tree_map(lambda g: g.astype(mx.float32), grads)
             acc = grads if acc is None else tree_map(lambda a, b: a + b, acc, grads)
@@ -105,29 +124,75 @@ def fit(model, tok, spec, out, budget, *, prepare):
             del grads, loss
             start += size
         if step == 0:
-            differences = tree_map(lambda a, b: mx.sum(mx.square(a.astype(mx.float32) - b)), ref, acc)
+            differences = tree_map(
+                lambda a, b: mx.sum(mx.square(a.astype(mx.float32) - b)), ref, acc
+            )
             norms = tree_map(lambda a: mx.sum(mx.square(a.astype(mx.float32))), ref)
             norm = lambda tree: math.sqrt(sum(v.item() for _, v in tree_flatten(tree)))
             relative = norm(differences) / max(norm(norms), 1e-30)
             error = abs(reference_loss.item() - value)
-            parity = dict(reference_loss=reference_loss.item(), accumulated_loss=value, absolute_loss_error=error, relative_gradient_l2=relative, targets=total)
+            parity = {
+                "reference_loss": reference_loss.item(),
+                "accumulated_loss": value,
+                "absolute_loss_error": error,
+                "relative_gradient_l2": relative,
+                "targets": total,
+            }
             save(out / "gradient-parity.json", parity)
             print("Native first-update equivalence", parity, flush=True)
             del ref, differences, norms
-            if not (math.isfinite(value) and relative <= spec["gradient_relative_l2_max"] and error <= spec["loss_absolute_error_max"]):
-                raise InterruptedError("First logical gradient equivalence prerequisite failed")
+            if not (
+                math.isfinite(value)
+                and relative <= spec["gradient_relative_l2_max"]
+                and error <= spec["loss_absolute_error_max"]
+            ):
+                raise InterruptedError(
+                    "First logical gradient equivalence prerequisite failed"
+                )
         if not math.isfinite(value):
             raise InterruptedError("Nonfinite training objective")
         optimizer.update(model, acc)
         mx.eval(model.trainable_parameters(), optimizer.state)
         del acc
         budget.check()
-        if step == 0 or (step+1) % spec["checkpoint_interval"] == 0 or step+1 == spec["updates"]:
-            logs.append(dict(step=step+1, loss=value))
+        if (
+            step == 0
+            or (step + 1) % spec["checkpoint_interval"] == 0
+            or step + 1 == spec["updates"]
+        ):
+            logs.append({"step": step + 1, "loss": value})
             print("fit", logs[-1], flush=True)
             if step:
-                checkpoint.write(checkpoints, model, optimizer, dict(step=step+1, registration=binding, targets=targets_seen, parity=parity, loss=logs, optimizer_seconds=prior_seconds+perf_counter()-started))
+                checkpoint.write(
+                    checkpoints,
+                    model,
+                    optimizer,
+                    {
+                        "step": step + 1,
+                        "registration": binding,
+                        "targets": targets_seen,
+                        "parity": parity,
+                        "loss": logs,
+                        "optimizer_seconds": prior_seconds + perf_counter() - started,
+                    },
+                )
     elapsed = prior_seconds + perf_counter() - started
     target = out / "tool-adapters.safetensors"
     mx.save_safetensors(str(target), dict(tree_flatten(model.trainable_parameters())))
-    save(out / "fit.json", dict(passes=model.span.passes, training=digest(Path(spec["training"])), trainable=count(model, True), turns=len(bank), updates=spec["updates"], targets=targets_seen, prepare_seconds=prepared, optimizer_seconds=elapsed, weights=digest(target), loss=logs, parity=parity, physical_gradient_groups=groups))
+    save(
+        out / "fit.json",
+        {
+            "passes": model.span.passes,
+            "training": digest(Path(spec["training"])),
+            "trainable": count(model, True),
+            "turns": len(bank),
+            "updates": spec["updates"],
+            "targets": targets_seen,
+            "prepare_seconds": prepared,
+            "optimizer_seconds": elapsed,
+            "weights": digest(target),
+            "loss": logs,
+            "parity": parity,
+            "physical_gradient_groups": groups,
+        },
+    )

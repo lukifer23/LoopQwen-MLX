@@ -74,4 +74,4 @@ def exposure(root):
 
 
 if __name__ == "__main__":
-    print(exposure(Path("research/results/file-evidence-01")))
+    print(exposure(Path("research/results/file-evidence-accumulated-01")))

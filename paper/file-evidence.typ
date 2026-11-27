@@ -61,6 +61,20 @@ Schuster, Fisch and Barzilay introduced contrastive evidence built from Wikipedi
 #link("https://aclanthology.org/2021.naacl-main.52/")[VitaminC, NAACL 2021] · #link("https://aclanthology.org/2023.emnlp-main.187/")[API-Bank, EMNLP 2023] · #link("https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html")[Toolformer, NeurIPS 2023].
 
 #pagebreak()
+= What one article contributes
+Each article supplies two related user requests. A file pair is successful only when both requests obtain the intended cell and answer correctly. An inline pair requires two correct answers. The two systems see the same articles. The table counts articles where both systems succeeded, where exactly one succeeded and where neither succeeded.
+
+#include "file-evidence-uncertainty.typ"
+
+The interval estimates the chance of a loop win conditional on the two systems disagreeing on an article. It inverts the two exact binomial tails at 2.5% each. The primary test uses the same discordant articles for a two-sided exact McNemar test. With 16 file pairs, six wins and zero losses give p = 0.03125. Five wins and zero losses give p = 0.0625. An improvement of five pairs alone therefore cannot pass. The inline articles and independent readings expose regressions and interpretation differences. The small panels and shared publisher limit extrapolation to other texts.
+
+= Measuring a completed task
+Actual wall time includes first construction, prompt processing, reasoning tokens, generated function calls, callback returns and the final reply. Both arms have the same per-turn token ceiling. They can use different amounts of it. Summed first-token time measures the user's initial wait on each independent request. The native opening rate on the preceding page measures only the inference engine's first turn. A shorter answer can reduce wall time even if the cost per emitted token rises. Each arm ran once in the frozen order on the same Mac, candidate first. The comparison cannot establish the distribution of timing differences across fresh processes, temperatures or machines.
+
+= What would justify a release?
+A positive first pair would license independent evidence and a matched one-pass control trained with the same data and optimizer. The single candidate would then need to retain its tool, question-answering and ordinary-language behavior and complete full 128K requests that change the evidence. Distinct models in earlier chapters each establish narrower results. The locked score and cost comparison here remains specific to the listed weights, prompt policy and user tasks.
+
+#pagebreak()
 = Which file questions changed the answer?
 #figure(image("file-evidence-articles.svg",width:100%),caption:[Each row is one article. Across the two versions of the same file, the human-annotated conclusion switches from yes to no. Every adjacent pair within an arm shares the same prompt, system, tool declarations and input token IDs.])
 
