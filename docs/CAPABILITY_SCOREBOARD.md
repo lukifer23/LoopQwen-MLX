@@ -15,6 +15,10 @@
 
 The loop gained 41 individual answers, lost 27 Base successes and retained 25 of 42 previous successes. All three human-reasoning F1 measures declined. The 12 independent SQL databases gave a paired p-value of 0.625. The earlier 128K field results belong to their original weights. [Paper and performance breakdown](../paper/integrated-assistance.pdf) · [Scores and sealed jobs](../research/results/integrated-assistance-01) · [Masked assessments](measurements/integrated-assistance-reading.json)
 
+On the 106 tool-enabled requests the loop executed at least one real call on 101, received data without a callback error on 92 and delivered a grounded answer on 47. Base reached those three points on 73, 59 and 24 requests. The loop and Base took 187.55 and 724.95 seconds on that workload. On the remaining 102 objective requests without tools the scores reversed to 9 versus 18, in 214.80 versus 299.94 seconds. The loop repeated an identical call on 26 tool-enabled requests versus 15 for Base. Neither grounded a final answer after a callback error. These comparisons describe the registered questions by their actual tool catalogue. [All executed paths](../paper/assistance-tool-path.csv) · [Reconstructed callback counts](measurements/integrated-assistance-tool-path.json)
+
+![Observed callbacks, returned data and final grounded answers for the two models](../paper/assistance-tool-path.svg)
+
 | Second-visit readout on 112 requests | Loop | Untouched Base |
 | --- | ---: | ---: |
 | Grounded or source-scored responses | 38 | 22 |
