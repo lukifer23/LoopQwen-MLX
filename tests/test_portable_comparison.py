@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from loopqwen.model_loader import ordinary
+from loopqwen.ordinary_model import ordinary
 
 
 def test_installed_comparison_import_is_independent_of_checkout(tmp_path):

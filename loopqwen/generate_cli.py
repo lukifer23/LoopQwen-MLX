@@ -83,7 +83,7 @@ def run(args, parser):
             **history,
         )
 
-    from .model_loader import ordinary as base
+    from .ordinary_model import ordinary as base
 
     runs = {}
     policy = None

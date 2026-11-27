@@ -10,7 +10,7 @@ from .. import REVISION
 from ..data import graphs, pointer5, reasoning
 from ..identity import fingerprint
 from ..io import digest, read, save
-from ..model_loader import ordinary as base
+from ..ordinary_model import ordinary as base
 from ..training.exposure import ARM, OUT, PARENT, S
 from .answers import numeric
 from .mechanism import load, packed, unpack
