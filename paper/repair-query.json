@@ -1,0 +1,75 @@
+{
+  "stages": [
+    {
+      "stage": "repair-query-features-01",
+      "decision": {
+        "passed": true,
+        "gates": {
+          "exposure": true,
+          "all_inputs": true,
+          "physical": true,
+          "ordinary_and_cached": true
+        },
+        "examples": 6394,
+        "labels": 302515,
+        "file_bytes": 11429119475
+      },
+      "seconds": 1624.9778439998627,
+      "peak": 1.588276106864214,
+      "budget": 4380,
+      "sha256": "e0221b817ddb7dde99c9d7bd860df9cd097933443ae93fbcfd08230036bd8ab7",
+      "cold": {
+        "features": "e0221b817ddb7dde99c9d7bd860df9cd097933443ae93fbcfd08230036bd8ab7",
+        "checked_files": 6394,
+        "independent_regenerations": [
+          "finqa/AAPL/2011/page_24.pdf-3/action",
+          "rehearsal/full_rows/nt-2543/0",
+          "strategyqa/30cca3728fe936ff1bae",
+          "sql-error/cosql-7747db5a033c482b7d1f/repair_after_schema",
+          "wrong-scalar/nt-8542/0/redirect_valid_read"
+        ]
+      }
+    }
+  ],
+  "groups": {
+    "Earlier assistance": {
+      "opening_positions": 688760,
+      "target_positions": 56221,
+      "turns": 1330
+    },
+    "Human multi-step reasoning": {
+      "opening_positions": 219952,
+      "target_positions": 64263,
+      "turns": 768
+    },
+    "Expert financial reports": {
+      "opening_positions": 1191518,
+      "target_positions": 75009,
+      "turns": 1016
+    },
+    "Database error repair": {
+      "opening_positions": 758031,
+      "target_positions": 39799,
+      "turns": 844
+    },
+    "CSV key and column repair": {
+      "opening_positions": 955176,
+      "target_positions": 33971,
+      "turns": 1224
+    },
+    "Misleading successful SQL": {
+      "opening_positions": 864211,
+      "target_positions": 33252,
+      "turns": 1212
+    }
+  },
+  "training": "427775bf9e4124f8c71a4a7ebcb25e07f814a387035fd98c6276e9d33cd98f39",
+  "examples": 6394,
+  "positions": 302515,
+  "citations": 2161,
+  "opening": 4677648,
+  "stages_done": 1,
+  "panel": "132f4ee00f1a8605399499517cf0f9ebed672aa5d74b8dbd51c1b51afcb92ad9",
+  "panel_check": "c3fbcb6492904a94bdf7bdad25b9e0ab33ed6f8f018e2d2ee0bfd2c8437cbe01",
+  "precision": "f514acb737510497fab74ca856ae636ccb929538ea766bc30b94453d80bc66c1"
+}
