@@ -17,6 +17,8 @@ class PrefixOnDisk(KVCache):
         self.path = path
         self.length = length
         self.tail = KVCache()
+        self.prefix_fetches = 0
+        self.prefix_bytes = Path(path).stat().st_size
 
     @property
     def offset(self):
@@ -24,6 +26,7 @@ class PrefixOnDisk(KVCache):
 
     def update_and_fetch(self, keys, values):
         prefix = mx.load(str(self.path))
+        self.prefix_fetches += 1
         if prefix["k"].shape[2] != self.length or prefix["v"].shape[2] != self.length:
             raise ValueError("Incomplete staged attention history")
         k, v = self.tail.update_and_fetch(keys, values)

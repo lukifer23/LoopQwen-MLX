@@ -1,5 +1,6 @@
 """Exclusive, cumulative wall budgets and preflight checks for the native study."""
 
+import ctypes
 import os
 import shutil
 import subprocess
@@ -19,6 +20,25 @@ ROOT = Path("docs/measurements/middle-depth")
 BASE = Path("exports/tool-language-packed-05")
 BUDGET = {"profile": 3600, "fit": 18000, "short": 7200, "long": 14400}
 GIB = 2**30
+
+
+class ProcessUsage(ctypes.Structure):
+    # Darwin rusage_info_v2, sys/resource.h. The 16 counters between UUID and
+    # diskio are CPU, memory and child-process statistics in the published ABI.
+    _fields_ = [
+        ("uuid", ctypes.c_uint8 * 16),
+        ("resource_counters", ctypes.c_uint64 * 16),
+        ("bytes_read", ctypes.c_uint64),
+        ("bytes_written", ctypes.c_uint64),
+    ]
+
+
+def disk_io():
+    usage = ProcessUsage()
+    proc = ctypes.CDLL("/usr/lib/libproc.dylib", use_errno=True)
+    if proc.proc_pid_rusage(os.getpid(), 2, ctypes.byref(usage)) != 0:
+        raise OSError(ctypes.get_errno(), "proc_pid_rusage")
+    return dict(read=usage.bytes_read, written=usage.bytes_written)
 
 
 def sample():
@@ -56,6 +76,7 @@ def worker(stage, job):
         stage=stage,
         dispatch=time.time(),
         pid=os.getpid(),
+        initial_process_disk_io=disk_io(),
         initial=initial,
         status="running",
         seconds=0,
@@ -91,4 +112,5 @@ def worker(stage, job):
         raise
     finally:
         record.update(seconds=time.monotonic() - start, final=sample())
+        record["final_process_disk_io"] = disk_io()
         save(path, record)

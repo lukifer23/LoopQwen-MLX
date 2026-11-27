@@ -357,6 +357,7 @@ def run(
                         "recurrent_from",
                         "context_route",
                         "scratch_bytes",
+                        "logical_kv_file_bytes",
                     )
                     if k in out
                 }
