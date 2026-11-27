@@ -133,6 +133,38 @@ def collect():
         trials[prefix] = (fit, hist)
         if prefix == "bounded-read":
             out["bounded"] = fit
+            out["bounded_jobs"] = [
+                job
+                for session in Path("research/sessions").glob("window-*.json")
+                for job in read(session)["jobs"]
+                if job["job"] == name
+            ]
+            replay = DOC / (name + "-cold.json")
+            if replay.is_file():
+                committed(replay)
+                out["bounded_cold"] = read(replay)
+            write_csv(
+                P / "bounded-read-updates.csv",
+                [
+                    dict(
+                        update=i + 1,
+                        **{
+                            k: r[k]
+                            for k in (
+                                "epoch",
+                                "positions",
+                                "marks",
+                                "loss",
+                                "nll",
+                                "gradient",
+                                "evidence",
+                                "kl",
+                            )
+                        },
+                    )
+                    for i, r in enumerate(hist)
+                ],
+            )
         out[prefix + "_early"] = [w["kl"] for w in hist[:16]]
     if trials:
         fig, axes = plt.subplots(1, 2, figsize=(8.3, 3), layout="constrained")

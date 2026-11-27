@@ -2229,6 +2229,86 @@
       8.710308074951172,
       8.838996887207031
     ],
+    "bounded": {
+      "passed": true,
+      "gates": {
+        "identity": true,
+        "exposure": true,
+        "finite": true,
+        "reasoning": true,
+        "action": true,
+        "quantity": true,
+        "database": true,
+        "protected": true,
+        "evidence": true,
+        "content": true,
+        "second_read": true,
+        "early_parent_divergence": true
+      },
+      "gains": {
+        "redirect": 0.05360349897678169,
+        "program": 0.002312669904932396,
+        "instruction": 0.01117848850600752,
+        "service_action": -0.0031197052777941167,
+        "explanation": -0.0029045201875227042,
+        "arithmetic": 0.02120986547114882,
+        "calculate": 0.2583926262906357,
+        "full_rows": -0.11994637682227328,
+        "legacy": -0.0013121618258097971,
+        "reuse": -0.01935231542994835,
+        "quantity": 0.5105012007433958,
+        "reasoning": 0.12000769690199875,
+        "qualitative": 0.027889423521738264
+      },
+      "max_initial_error": 0.0,
+      "citation_gain": 2.918967759379974,
+      "protected_gain": -0.008086539588696613,
+      "content_gain": 0.06603541467486851,
+      "second_gain": 0.19015610542656966,
+      "updates": 921,
+      "positions": 253950,
+      "citations": 4056
+    },
+    "bounded_jobs": [
+      {
+        "job": "bounded-read-fit-01",
+        "seconds": 460.54771304130554,
+        "peak_bytes": 773079648,
+        "start": 1795804707.083531
+      }
+    ],
+    "bounded_cold": {
+      "passed": true,
+      "fit": "09228e43be1616f15bbf5c86b3a64afd2fdcb7231b38e0abffac07951f79022a",
+      "paths": 3,
+      "feature_hashes": 1800,
+      "regenerated": [
+        "hotpotqa/5a8d028a554299441c6b9fb5/answer",
+        "hotpotqa/5ae0ca2255429906c02dab53/answer",
+        "tatqa/d6f79f7b-5a24-4492-bc84-d397f76ceae6/reply",
+        "cosql/5MTGLQtfrbf7ZiYsQ/redirect"
+      ],
+      "max_error": 0.0,
+      "frozen_tensors": 7
+    },
+    "bounded-read_early": [
+      1.381502443109639e-06,
+      0.10168319940567017,
+      0.021714016795158386,
+      0.010718011297285557,
+      0.018954528495669365,
+      0.016916532069444656,
+      0.052571509033441544,
+      0.04405997693538666,
+      0.034129489213228226,
+      0.027927638962864876,
+      0.024046534672379494,
+      0.019948862493038177,
+      0.027276329696178436,
+      0.012881706468760967,
+      0.015962056815624237,
+      0.018852708861231804
+    ],
     "full_document_adjoint": {
       "passed": false,
       "reason": "Full-document update resource limit",
