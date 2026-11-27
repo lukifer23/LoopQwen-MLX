@@ -203,6 +203,7 @@ def training_lineage():
         "training_examples",
         "example_unit",
         "sampled_or_supervised_positions",
+        "total_fit_seconds",
     ]
     with (PAPER / "model-lineage.csv").open("w") as f:
         writer = csv.writer(f)
@@ -212,6 +213,25 @@ def training_lineage():
             if not fit_path.exists():
                 continue
             fit = read(fit_path)
+            if root.name == "document-frequency-reader-01":
+                result(root.name)
+                spec = read(root / "registration.json")
+                selector = {
+                    "study": root.name,
+                    "training_parent": spec["checkpoint"] + " with fresh span ranker",
+                    "backbone_revision": "dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68",
+                    "shared_passes": 2,
+                    "trainable_parameters": len(fit["coefficients"]),
+                    "updates": spec["updates"],
+                    "training_sha256": fit["training"],
+                    "adapter_sha256": fit["weights"],
+                    "training_examples": fit["rows"],
+                    "example_unit": "document and annotated answer span",
+                    "sampled_or_supervised_positions": spec["updates"] * spec["batch"],
+                    "total_fit_seconds": fit["seconds"],
+                }
+                writer.writerow([selector.get(c, "") for c in columns])
+                continue
             additional = root.name in {
                 "selective-raw-01",
                 "future-token-prose-01",
@@ -289,6 +309,9 @@ def training_lineage():
                     count,
                     unit,
                     targets,
+                    sum(fit[k] for k in ("prepare_seconds", "optimizer_seconds"))
+                    if all(k in fit for k in ("prepare_seconds", "optimizer_seconds"))
+                    else "",
                 ]
             )
 
@@ -500,6 +523,9 @@ def main():
     from paper_document_frequency import make as document_frequency
 
     document_frequency(PAPER, RESULTS, result, finish)
+    from paper_conversation_prefill import make as conversation_prefill
+
+    conversation_prefill(PAPER, RESULTS, result, finish)
     from paper_question_contrast import make as question_contrast
 
     question_contrast(PAPER, RESULTS, result, finish)
