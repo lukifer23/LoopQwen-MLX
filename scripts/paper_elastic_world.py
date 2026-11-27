@@ -167,6 +167,10 @@ def build():
     if (elastic / "training-free-generation.json.gz").exists():
         out["specificity"] = specificity(True, name=ATTEMPTS[-1])
         fit_plot(stages[-1]["decision"]["mean_nll_gain"])
+        reading = DOC / "elastic-qualitative-training-reading.json"
+        if reading.is_file():
+            committed(reading)
+            out["training_reading"] = read(reading)["totals"]
         cold = DOC / (ATTEMPTS[-1] + "-cold.json")
         if cold.is_file():
             committed(cold)
@@ -176,6 +180,26 @@ def build():
                 "positions": receipt["positions"],
                 "error": receipt["max_mean_error"],
                 "receipt": digest(cold),
+            }
+    precision = DOC / "shared-query-precision-idle.json"
+    if precision.is_file():
+        committed(precision)
+        receipt = read(precision)
+        rows = receipt["records"]
+        if rows:
+            out["precision"] = {
+                "passed": receipt["passed"],
+                "n": len(rows),
+                "top": sum(len(set(r["top"])) == 1 for r in rows),
+                "ordinary_max": max(r["ordinary"] for r in rows),
+                "loop_max": max(r["recurrent"] for r in rows),
+                "same_partition_max": max(
+                    max(r["architectures_full"], r["architectures_split"]) for r in rows
+                ),
+                "bf16_to_fp16": max(r["bf16_to_fp16"] for r in rows),
+                "seconds": receipt["seconds"],
+                "peak": receipt["peak_bytes"],
+                "receipt": digest(precision),
             }
     primary = RESULT / "elastic-world-transfer-01"
     if (primary / "checksums.json").exists():

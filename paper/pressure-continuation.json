@@ -29,21 +29,110 @@
         "reason": "System memory pressure level 2, 3.87 GiB available (floor 1.5 GiB)",
         "durable_updates": 1920
       }
+    },
+    {
+      "name": "elastic-world-fit-01",
+      "updates": 3392,
+      "seconds": 1280.822814464569,
+      "peak": 1.7404460199177265,
+      "targets": 1953806,
+      "preferences": 28322,
+      "archive": "0c92ef72714baf3c2e43ff42e2e2d29446043d571fd432f1f34edda409267837",
+      "decision": {
+        "passed": false,
+        "gates": {
+          "complete": true,
+          "gradients": true,
+          "collapse": true,
+          "balanced_likelihood": true,
+          "broad_likelihood": true,
+          "unassisted_sql": true,
+          "paired_qualitative": false,
+          "paired_service_reply": true
+        },
+        "supervised_positions": 1953806,
+        "preferences": 28322,
+        "updates": 3392,
+        "mean_nll_gain": {
+          "arithmetic": 0.5128877870738506,
+          "discovery": 0.9435208563227206,
+          "explanation": 0.9095774218440056,
+          "full_rows": 2.1488570645451546,
+          "inspect": 0.9768567183054984,
+          "instruction": 1.2999266125261784,
+          "legacy": 1.0035387973766774,
+          "operator": 1.0342707163654268,
+          "program": 1.0054024886339903,
+          "qualitative": 5.231002416461706,
+          "resolved": 2.396048305905424,
+          "scalar": 3.009880959521979,
+          "service_action": 0.47963456623256207,
+          "service_reply": 1.5912271365523338
+        },
+        "free_whole": {
+          "operator": 14,
+          "qualitative": 0,
+          "service_reply": 9
+        },
+        "free_correct": {
+          "operator": 14,
+          "qualitative": 5,
+          "service_reply": 21
+        },
+        "free_distinct_sql": 14
+      }
     }
   ],
   "latest": {
-    "name": "streamed-world-fit-01",
-    "updates": 1920,
-    "seconds": 661.4635381698608,
-    "peak": 1.6617014333605766,
-    "targets": 1104636,
-    "preferences": 15983,
-    "archive": "b0acadca4737025332ca6fdc3233fe8f6331a98f4e86d11ccc0462e39954f51a",
+    "name": "elastic-world-fit-01",
+    "updates": 3392,
+    "seconds": 1280.822814464569,
+    "peak": 1.7404460199177265,
+    "targets": 1953806,
+    "preferences": 28322,
+    "archive": "0c92ef72714baf3c2e43ff42e2e2d29446043d571fd432f1f34edda409267837",
     "decision": {
       "passed": false,
-      "status": "interrupted",
-      "reason": "System memory pressure level 2, 3.87 GiB available (floor 1.5 GiB)",
-      "durable_updates": 1920
+      "gates": {
+        "complete": true,
+        "gradients": true,
+        "collapse": true,
+        "balanced_likelihood": true,
+        "broad_likelihood": true,
+        "unassisted_sql": true,
+        "paired_qualitative": false,
+        "paired_service_reply": true
+      },
+      "supervised_positions": 1953806,
+      "preferences": 28322,
+      "updates": 3392,
+      "mean_nll_gain": {
+        "arithmetic": 0.5128877870738506,
+        "discovery": 0.9435208563227206,
+        "explanation": 0.9095774218440056,
+        "full_rows": 2.1488570645451546,
+        "inspect": 0.9768567183054984,
+        "instruction": 1.2999266125261784,
+        "legacy": 1.0035387973766774,
+        "operator": 1.0342707163654268,
+        "program": 1.0054024886339903,
+        "qualitative": 5.231002416461706,
+        "resolved": 2.396048305905424,
+        "scalar": 3.009880959521979,
+        "service_action": 0.47963456623256207,
+        "service_reply": 1.5912271365523338
+      },
+      "free_whole": {
+        "operator": 14,
+        "qualitative": 0,
+        "service_reply": 9
+      },
+      "free_correct": {
+        "operator": 14,
+        "qualitative": 5,
+        "service_reply": 21
+      },
+      "free_distinct_sql": 14
     }
   },
   "target": 1953806,
@@ -105,5 +194,75 @@
     "research/sources/provider-recovery/field-score-controls.json": "9f409fddd469378fc7f3e22a45273b97373641f13100eae4ea677d3dd80591db",
     "research/sources/provider-recovery/semantic-independent-replay.json": "2c6ca00fca0954fde07975822931ccbbbf75907f50c0d90fc054eab84bfeeb64",
     "docs/measurements/shared-query-precision.json": "5cdf0c421ef1aa7493ac33bd48b266694feea17e1b6b7feb432db11c9f5ef792"
+  },
+  "specificity": {
+    "original human reply": {
+      "qualitative": {
+        "current_only": 24,
+        "other_only": 0,
+        "both": 0,
+        "neither": 0,
+        "same_nonempty_pairs": 0,
+        "both_members_current_only": 12
+      },
+      "service_reply": {
+        "current_only": 23,
+        "other_only": 0,
+        "both": 1,
+        "neither": 0,
+        "same_nonempty_pairs": 0,
+        "both_members_current_only": 11
+      }
+    },
+    "freely generated loop": {
+      "qualitative": {
+        "current_only": 5,
+        "other_only": 4,
+        "both": 0,
+        "neither": 15,
+        "same_nonempty_pairs": 4,
+        "both_members_current_only": 0
+      },
+      "service_reply": {
+        "current_only": 20,
+        "other_only": 0,
+        "both": 1,
+        "neither": 3,
+        "same_nonempty_pairs": 0,
+        "both_members_current_only": 8
+      }
+    }
+  },
+  "training_reading": {
+    "registered": {
+      "individual": 5,
+      "whole_pairs": 0
+    },
+    "direction_delivered": {
+      "individual": 15,
+      "whole_pairs": 3
+    },
+    "clean_direction": {
+      "individual": 13,
+      "whole_pairs": 1
+    }
+  },
+  "cold": {
+    "count": 112,
+    "positions": 4543,
+    "error": 4.76837158203125e-07,
+    "receipt": "0195f67bfd49e5e93811a375f01f9f66ce1ca2cd0a3d0aa15c2fd88bd62d9b0c"
+  },
+  "precision": {
+    "passed": true,
+    "n": 12,
+    "top": 12,
+    "ordinary_max": 0.126953125,
+    "loop_max": 0.1220703125,
+    "same_partition_max": 0.015625,
+    "bf16_to_fp16": 0.9404296875,
+    "seconds": 10.978890624945052,
+    "peak": 1712648800,
+    "receipt": "f514acb737510497fab74ca856ae636ccb929538ea766bc30b94453d80bc66c1"
   }
 }
