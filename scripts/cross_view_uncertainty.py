@@ -23,7 +23,7 @@ def paired_articles(rows):
         }
         assert all(len(pair) == 2 for pair in by_view.values())
         for arm in ("candidate", "control"):
-            get = lambda r, key: r[arm + "_" + key]
+            get = lambda r, key, side=arm: r[side + "_" + key]
             metrics[arm, "all_four"].append(all(get(r, "success") for r in items))
             for family, pair in by_view.items():
                 metrics[arm, family].append(sum(get(r, "success") for r in pair) / 2)

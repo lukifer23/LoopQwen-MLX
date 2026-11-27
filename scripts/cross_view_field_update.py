@@ -12,7 +12,7 @@ from zipfile import ZipFile
 from field_binding_update import history_update
 from field_kit import write_archive
 from portable_base_wheel import NETWORK_GUARD
-from verify_runtime_wheel import ROOT, CODE, build, trace
+from verify_runtime_wheel import CODE, ROOT, build, trace
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint

@@ -259,8 +259,8 @@ def build():
     generation = []
     for arm, name in (("candidate", "The trained loop"), ("control", "Base")):
 
-        def total(field):
-            return sum(r[arm + "_" + field] for r in records)
+        def total(field, side=arm):
+            return sum(r[side + "_" + field] for r in records)
 
         assert total("output_tokens") == groups[arm]["all"]["output_tokens"]
         generation.append(
@@ -294,8 +294,8 @@ def build():
     for arm, name in (("candidate", "The loop"), ("control", "Base")):
         items = uncertainty["two_completed"][arm]
 
-        def count_repeated(f):
-            return f"{sum(x['repeated_answer'] for x in items[f])}/{len(items[f])}"
+        def count_repeated(f, pairs=items):
+            return f"{sum(x['repeated_answer'] for x in pairs[f])}/{len(pairs[f])}"
 
         repeats.append(
             f"{name} gave the same normalized reply to both different questions on {count_repeated('file')} file articles and {count_repeated('inline')} inline articles with two completed replies."
