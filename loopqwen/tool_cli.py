@@ -59,6 +59,14 @@ def add_arguments(p, checkpoint=None):
         "--database", type=Path, help="Open an existing SQLite database read-only"
     )
     p.add_argument(
+        "--relational-db",
+        type=Path,
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="Expose schema inspection and read-only SQL joins on a supplied SQLite database.",
+    )
+    p.add_argument(
         "--table", help="Name of the one database table exposed to the assistant"
     )
     p.add_argument(
@@ -246,6 +254,10 @@ def respond(args, parser):
             from .wheel_tools import tools as wheel_tools
 
             supplied.extend(wheel_tools(args.wheel))
+        if getattr(args, "relational_db", None):
+            from .relational_tools import tools as relational_tools
+
+            supplied.extend(relational_tools(args.relational_db))
         if args.resource:
             from .resource_tools import tools as local_tools
 
