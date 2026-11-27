@@ -130,7 +130,7 @@ def optimize(net, root, s, idx, guard):
                 "gradient_norm": norm,
             }
         )
-        if step % 64 == 0 or step == len(steps):
+        if step % s.get("checkpoint_interval", 64) == 0 or step == len(steps):
             checkpoint.write(where, net.readout, opt, state)
             print("Increment update", step, "of", len(steps), flush=True)
     saved = checkpoint_location(where)
@@ -235,13 +235,15 @@ def free_probes(root, net, tok, s, guard):
     rows = selection(unpack(Path(s["training"])), s)
     worlds = {r["id"]: r for r in unpack(TABLES / "training.json.gz")}
     qualitative = {r["id"]: r for r in unpack(REASON / "training.json.gz")}
-    checks = []
+    partial = root / "free-probes-in-progress.json.gz"
+    checks = unpack(partial) if s.get("max_pressure_stops") and partial.exists() else []
+    assert [r["id"] for r in checks] == [r["id"] for r in rows[: len(checks)]]
     with TemporaryDirectory() as tmp:
         folder = Path(tmp)
         prepare_tables(
             folder, [worlds[w["pair"]] for w in rows if w["group"] == "operator"]
         )
-        for row in rows:
+        for row in rows[len(checks) :]:
             rec = greedy(
                 net,
                 tok,
@@ -253,7 +255,10 @@ def free_probes(root, net, tok, s, guard):
             )
             rec["score"] = grade(rec, row, worlds, qualitative, folder)
             checks.append(rec)
+            if s.get("max_pressure_stops"):
+                packed(partial, checks)
     packed(root / "training-free-generation.json.gz", checks)
+    partial.unlink(missing_ok=True)
     return checks
 
 
@@ -315,6 +320,28 @@ def summarize(s, log, likelihood, free):
     }
 
 
+def record_pressure(root, name, s, e):
+    if (
+        s.get("max_pressure_stops")
+        and isinstance(e, MemoryError)
+        and str(e).startswith("System memory pressure")
+    ):
+        record = root / "pressure-stops.json"
+        stops = read(record) if record.exists() else []
+        pointer = CACHE / name / "latest.json"
+        step = (
+            read(checkpoint_location(pointer.parent) / "state.json")["step"]
+            if pointer.exists()
+            else s["resume_step"]
+        )
+        stops.append({"reason": str(e), "durable_updates": step})
+        save(record, stops)
+        if len(stops) <= s["max_pressure_stops"]:
+            print("Releasing worker after", str(e), "at update", step, flush=True)
+            return True
+    return False
+
+
 def run(name=FIT):
     s = registered(name)
     idx, parents = index(s)
@@ -327,20 +354,41 @@ def run(name=FIT):
             "loopqwen/research/contrastive_grading.py",
             "loopqwen/research/conditional_fit.py",
             *(
+                ("scripts/elastic_world_worker.py",)
+                if s.get("max_pressure_stops")
+                else ()
+            ),
+            *(
                 ("loopqwen/research/streamed_contrastive.py",)
                 if "resume_archive" in s
                 else ()
             ),
         ),
     )
-    guard = Budget(name, s["limits"])
-    tok = tokenizer(s)
     try:
+        guard = Budget(name, s["limits"])
+    except (MemoryError, TimeoutError) as error:
+        if not s.get("max_pressure_stops"):
+            raise
+        if not record_pressure(root, name, s, error):
+            save(
+                root / "decision.json",
+                {"passed": False, "status": "interrupted", "reason": str(error)},
+            )
+        return
+    try:
+        tok = tokenizer(s)
         for r in idx:
             guard.check()
             assert digest(Path(r["file"])) == r["sha256"]
         ident = read(OLD / "backbone.json")
         net = resident(s["checkpoint"], root, s, ident)
+        if s.get("max_pressure_stops"):
+            # Cached states already contain every physical visit. The optimizer calls only
+            # the tied vocabulary projection and final norm until actual free generation.
+            assert net.args.tie_word_embeddings
+            net.text.model.layers = []
+            mx.clear_cache()
         log = optimize(net, root, s, idx, guard)
         packed(root / "training-log.json.gz", log)
         fit = {
@@ -362,9 +410,17 @@ def run(name=FIT):
                 net.readout(collapsed), ordinary
             ).item()
         save(root / "training-probes.json", probe)
+        if s.get("max_pressure_stops"):
+            del net
+            mx.clear_cache()
+            net = resident(s["checkpoint"], root, s, ident)
+            net.readout.load_weights(str(root / "readout.safetensors"), strict=True)
+            mx.eval(net.readout.parameters())
         free = free_probes(root, net, tok, s, guard)
         d = summarize(s, log, probe, free)
     except (TimeoutError, MemoryError, InterruptedError) as e:
+        if record_pressure(root, name, s, e):
+            return
         d = {"passed": False, "status": "interrupted", "reason": str(e)}
         where = CACHE / name
         if (where / "latest.json").exists():

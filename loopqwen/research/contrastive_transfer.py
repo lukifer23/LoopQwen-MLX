@@ -245,7 +245,7 @@ def run(name=PRIMARY):
     parent = Path("research/results") / s["feature_stage"]
     if not read(parent / "decision.json")["passed"]:
         raise ValueError("The contrastive fit did not qualify for held comparison")
-    if name == "streamed-world-transfer-01":
+    if name == "streamed-world-transfer-01" or s.get("cold_required"):
         receipt = read(Path("docs/measurements") / (s["feature_stage"] + "-cold.json"))
         assert receipt["archive"] == digest(parent / "checksums.json") and receipt[
             "weights"

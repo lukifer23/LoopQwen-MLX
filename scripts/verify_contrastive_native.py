@@ -158,7 +158,10 @@ def fitted(name=FIT):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("name", choices=(*FEATURES, FIT, "streamed-world-fit-01"))
+    parser.add_argument(
+        "name",
+        choices=(*FEATURES, FIT, "streamed-world-fit-01", "elastic-world-fit-01"),
+    )
     args = parser.parse_args()
     if args.name not in FEATURES:
         fitted(args.name)

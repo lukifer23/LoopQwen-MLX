@@ -79,7 +79,7 @@ def verify(root):
         from loopqwen.research.shared_query_transfer import verify as verify_query_transfer
 
         return verify_query_transfer(root, decision)
-    if study in ("contrastive-world-transfer-01", "streamed-world-transfer-01"):
+    if study in ("contrastive-world-transfer-01", "streamed-world-transfer-01", "elastic-world-transfer-01"):
         from loopqwen.research.contrastive_transfer import verify as verify_transfer
 
         return verify_transfer(root, decision)
@@ -87,7 +87,7 @@ def verify(root):
         from loopqwen.research.contrastive_features import verify as verify_world_features
 
         return verify_world_features(root, decision)
-    if study in ("contrastive-world-fit-01", "streamed-world-fit-01"):
+    if study in ("contrastive-world-fit-01", "streamed-world-fit-01", "elastic-world-fit-01"):
         from loopqwen.research.contrastive_fit_audit import verify as verify_world_fit
 
         return verify_world_fit(root, decision)
