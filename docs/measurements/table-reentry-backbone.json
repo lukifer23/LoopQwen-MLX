@@ -1,0 +1,17 @@
+{
+  "base_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "native_pack_sha256": "c9c6efbe73ee7763bf1b23762c5c4327047207ea23178d421ffa04c7867ffc6e",
+  "base_bytes": 1504827865,
+  "native_pack_bytes": 543234410,
+  "original_tensors": 320,
+  "packed_tensors": 632,
+  "quantized_matrices": 156,
+  "quantized_parameters": 668958720,
+  "unchanged_tensors": 164,
+  "unchanged_parameters": 83434304,
+  "unchanged_suffix_tensors": 53,
+  "unchanged_suffix_parameters": 83018720,
+  "quantized_coordinates_relative_rms_error": 0.09342121480808187,
+  "table_sha256": "3eaf90cd831e7b140fd78d1a99283845ed0b68f3f941c9d3d610c1bf10a29411",
+  "method": "Read physical native safetensors directly. For packed weights unpack low-nibble-first words and apply each 64-value affine scale and bias in FP32. Relative RMS is the square root of total squared reconstruction error divided by total squared original weight. All remaining tensor bytes must agree exactly."
+}
