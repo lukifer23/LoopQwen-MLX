@@ -31,7 +31,7 @@ def optimize(spec, root, budget):
     fit_messages(model, tok, spec, root, budget)
 
 
-def fit_messages(model, tok, spec, root, budget):
+def fit_messages(model, tok, spec, root, budget, *, trainer=fit):
     with TemporaryDirectory(dir=root.parent) as directory:
 
         def prepare(net, tokenizer, material, budget):
@@ -45,7 +45,7 @@ def fit_messages(model, tok, spec, root, budget):
                 bank.append((path, len(prefix) - 1, target))
             return bank
 
-        fit(model, tok, spec, root, budget, prepare=prepare)
+        trainer(model, tok, spec, root, budget, prepare=prepare)
 
 
 def executions(tr):

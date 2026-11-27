@@ -120,7 +120,7 @@ def aggregate(rows, runs):
 
 
 def verify(root, d):
-    spec = registered(NAME)
+    spec = registered(read(root / "registration.json")["id"])
     assert spec == read(root / "registration.json")
     if d.get("status") == "interrupted":
         assert not d["passed"] and d["reason"]
@@ -156,14 +156,14 @@ def verify(root, d):
     assert d == aggregate(rows, runs)
 
 
-def run():
-    s = registered(NAME)
+def run(name=NAME):
+    s = registered(name)
     release = Path(s["requires"])
     assert (
         digest(release / "checksums.json") == s["prerequisite_sha256"]
         and read(release / "decision.json")["passed"]
     )
-    root = Path("outputs/research") / NAME
+    root = Path("outputs/research") / name
     root.mkdir(parents=True, exist_ok=True)
     if (root / "registration.json").is_file():
         if {p.name for p in root.iterdir()} != {"registration.json"} or read(
@@ -175,10 +175,15 @@ def run():
     else:
         save(root / "registration.json", s)
     data = read(s["material"])
-    b = Budget(NAME, s["limits"])
+    b = Budget(name, s["limits"])
     try:
         m, t = model_for(s["checkpoint"], s)
-        fit_messages(m, t, s, root, b)
+        if "physical_gradient_groups" in s:
+            from .file_evidence_fit import fit
+
+            fit_messages(m, t, s, root, b, trainer=fit)
+        else:
+            fit_messages(m, t, s, root, b)
         del m, t
         mx.synchronize()
         gc.collect()
@@ -214,4 +219,8 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("study", nargs="?", default=NAME)
+    run(parser.parse_args().study)
