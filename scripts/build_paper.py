@@ -220,6 +220,7 @@ def main(verify):
             ["scripts.field_selection_provenance", "--valid-return", "--compact"],
             ["scripts.valid_return_exposure"],
             ["scripts.valid_return_analysis", "report"],
+            ["scripts.valid_return_ballots"],
             ["scripts.paper_valid_return"],
         ):
             subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)

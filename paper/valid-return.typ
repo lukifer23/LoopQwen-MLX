@@ -28,6 +28,21 @@ An assistant can select the correct file, row and tool and still answer from the
 Checking whether a particular interpreter can run a distribution requires a constraint from its metadata and an inference about a proposed Python version. Verifying a talk’s weekday requires retrieving a date and applying a calendar operation to it. Both problems admit a different call that succeeds on the same object. The study tests whether the model itself selects and interprets the relevant return. Public held labels never direct execution.
 
 #pagebreak()
+= Which gains have survived a new test?
+The project began with a controlled question about recurrent depth on a pinned decoder and expanded to evidence retrieval, practical tools and long inputs on one Apple Silicon computer. The original native induction comparison used matched training, then repeated the test on new examples. Later runs asked a different question: what does a user receive from a trained two-visit assistant compared with the untouched Base model? These comparisons have distinct controls.
+
+#image("valid-return-trajectory.svg",width:100%)
+#cap[Figure A. Human reading and reasoning scores from four separately identified trained policies. Each line connects the two models tested on precisely the same items. The two Quoref rows share questions; the FOLIO and InfoTabS rows combine the inline and tool-access conditions. Different populations, objectives and model artifacts preclude a pooled gain.]
+
+#grid(("Equal-training depth control","Loop","Ordinary depth","Paired p"),m.historical_depth,(1.65fr,.78fr,.95fr,.8fr))
+#cap[The induction panels compare three visits with equal-training ordinary depth and use the archived exact paired statistic. The tool panels compare two visits with independently fitted ordinary depth from the same quantized sibling. In the four-panel tool study the loop won eight paired items and lost four. The available evidence isolates recurrence on induction and leaves its contribution to practical tool use uncertain.]
+
+= Context capacity and useful long-context behavior
+The installed release 05 supplied both changed values on requests of 131,084 tokens, with every physical history checked. The ordinary Base model reached the common output cap on both. A separate recurrent reader’s repository-tree evaluation supplied 169,890 and 173,151 input tokens; both models scored zero on the two source-tree questions. Physical coverage and successful retrieval of the fact a user needs are separate measurements. The most recent policy’s digest, containing its fitted final layer, differs from the release 05 digest.
+
+The historical long-context inputs and outputs are in the installed long-replay receipt. Refer to the following study chapters for the full controlled induction protocol, the deployed long-context path, the source-tree experiment and the original training methodology.
+
+#pagebreak()
 = Model, physical recurrence and preference objective
 The candidate starts from the installed release 05 instruction sibling with an eight-bit prefix and a shared rank-32 adapter on seven attention and feed-forward projections in layer 23. The final layer executes twice for each input and generated token. Each visit receives its own physical attention history. The second visit uses residual coefficient 0.35. The control is the pinned untouched BF16 Qwen3.5-0.8B-Base at ordinary depth. Training and execution use native Apple Silicon MLX. An ordinary-depth matched fit would be necessary to isolate recurrence from instruction initialization, quantization and training.
 
@@ -78,6 +93,8 @@ The following examples were selected by enrollment order within each family. The
 
 #grid(("Human judgments, 72 per arm","Trained loop","Untouched Base"),m.sensitivity,(1.5fr,1fr,1fr))
 #cap[The registered scorer accepts an explicit final verdict. The bare scorer accepts the precise label alone. The last scorer accepts short, unambiguous final sentences. Each retains the original completion and evidence requirements.]
+
+#m.ballot_sensitivity
 
 = Limits of the comparison
 Three human labels, two conference days, one file API and a small number of real projects restrict coverage. The eight deliberately opposed session pairs cannot establish general calendar competence. The identical human statement appears in two presentation modes, so inference uses the whole entity as its unit. The public source texts may have appeared in model pretraining. Source and phrase overlap checks only apply to the known study materials. The control uses a different instruction history. The earlier 131,084-token qualification and matched three-pass induction gains belong to other identified weights.

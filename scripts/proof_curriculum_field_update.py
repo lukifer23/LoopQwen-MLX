@@ -82,6 +82,7 @@ VALID = Edition(
         ("valid_return_oracle", ()),
         ("valid_return_exposure", ()),
         ("valid_return_analysis", ("report",)),
+        ("valid_return_ballots", ()),
         ("paper_valid_return", ()),
     ),
 )

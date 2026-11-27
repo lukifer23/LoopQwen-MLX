@@ -28,6 +28,73 @@ def figure(fig, name):
     plt.close(fig)
 
 
+def historical_evidence(current):
+    def measured(study):
+        return read(Path("research/results") / study / "decision.json")
+
+    quoref = measured("cross-view-reading-01")["groups"]
+    proof = measured("proof-curriculum-01")
+    field = measured("field-selection-01")
+    panels = [
+        (label, 40, *[quoref[k][family]["grounded"] for k in ARMS])
+        for label, family in (("Quoref, inline", "inline"), ("Quoref, file", "file"))
+    ]
+    for label, result in (
+        ("FOLIO, both formats", proof),
+        ("InfoTabS α3, both formats", field),
+        ("InfoTabS α1, both formats", current),
+    ):
+        panels.append(
+            (label, 72, *[sum(result["arms"][k]["by_label"].values()) for k in ARMS])
+        )
+    fig, ax = plt.subplots(figsize=(7.15, 2.65), layout="constrained")
+    for y, (label, denom, a, b) in enumerate(reversed(panels)):
+        ax.plot(
+            [100 * a / denom, 100 * b / denom], [y, y], color="#a9b2af", linewidth=1.6
+        )
+        for value, mark, col, n in zip((a, b), ("o", "s"), COLORS, NAMES, strict=True):
+            ax.scatter(
+                100 * value / denom,
+                y,
+                marker=mark,
+                color=col,
+                label=n if y == 0 else None,
+                zorder=3,
+            )
+        ax.text(
+            max(100 * a / denom, 100 * b / denom) + 2,
+            y,
+            f"{a} vs {b} / {denom}",
+            va="center",
+            fontsize=8,
+        )
+    ax.set(
+        yticks=range(len(panels)),
+        yticklabels=[r[0] for r in reversed(panels)],
+        xlabel="Grounded answers (%)",
+        xlim=(0, 100),
+        ylim=(-0.75, len(panels) - 0.35),
+    )
+    ax.legend(frameon=False, ncols=2, loc="upper right")
+    figure(fig, "trajectory")
+    depth = []
+    for title, n, denom in (
+        ("Induction, original panel", "native-induction-anchored-matched-01", 64),
+        ("Induction, fresh panel", "native-induction-anchored-replication-01", 64),
+        ("Typed public tool calls", "tool-dialogue-typed-depth-01", 22),
+        ("Four tool panels", "tool-dialogue-counterfactual-depth-01", 132),
+    ):
+        d = measured(n)
+        if "scores" in d:
+            vals = [d["scores"][k]["correct"] for k in ("recurrent", "dense")]
+            p = d["p"]
+        else:
+            vals = [d["metrics"][k]["success"] for k in ARMS]
+            p = d["p_exact"]
+        depth.append([title, *[f"{v}/{denom}" for v in vals], f"{p:.5g}"])
+    return depth
+
+
 def build():
     spec = read(ROOT / "registration.json")
     fit = read(ROOT / "fit.json")
@@ -239,9 +306,21 @@ def build():
             "gold": row["gold"],
         }
 
+    depth = historical_evidence(decision)
+    ballots = read("docs/measurements/valid-return-ballot-sensitivity.json")
+    bt = [ballots[arm]["totals"] for arm in ARMS]
+    ballot_text = (
+        f"Sixteen of the 36 file claims had at least one dissenting field-selection ballot. "
+        f"Requiring the majority field gave {bt[0]['registered']} versus {bt[1]['registered']} grounded answers. "
+        f"Accepting any fully satisfied individual in-table ballot gave {bt[0]['votes_1']} versus {bt[1]['votes_1']}. "
+        f"Requiring three satisfied ballots gave {bt[0]['votes_3']} versus {bt[1]['votes_3']}. "
+        "All of a voter's selected fields must be retrieved, and the final verdict must still be correct."
+    )
     save(
         P / "valid-return-paper.json",
         {
+            "historical_depth": depth,
+            "ballot_sensitivity": ballot_text,
             "abstract": f"The loop grounded {human[0]}/72 human judgments versus {human[1]}/72 for Base. Across all 112 requests it grounded {groups[0]['grounded']} versus {groups[1]['grounded']} in {groups[0]['wall_s']:.2f} versus {groups[1]['wall_s']:.2f} seconds. The registered joint decision was {'pass' if decision['passed'] else 'fail'}.",
             "humans": f"The paired difference was {decision['net']:+d} of 72 judgments. A two-sided exact sign-flip test over 12 whole tables gave p = {decision['exact_story_p']:.5f}. The 95% table bootstrap interval was {ci[0]:+.1f} to {ci[1]:+.1f} percentage points.",
             "families": family_rows,
@@ -294,7 +373,14 @@ def build():
                 ]
                 for f in ("file", "wheel", "agenda")
             ],
-            "dates": dict(Counter(w["date"] for w in panel["agenda"])),
+            "dates": dict(
+                Counter(
+                    w["date"]
+                    for w in panel["agenda"]
+                    if w["id"]
+                    in {row["cluster"] for row in rows if row["family"] == "agenda"}
+                )
+            ),
         },
     )
     edition(P, "valid-return")

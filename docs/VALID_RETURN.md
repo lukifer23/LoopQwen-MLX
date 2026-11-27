@@ -62,6 +62,7 @@ The independent reader and publication routines also operate on the archived stu
 .venv/bin/python -m scripts.valid_return_exposure
 .venv/bin/python -m scripts.valid_return_analysis blind
 .venv/bin/python -m scripts.valid_return_analysis report
+.venv/bin/python -m scripts.valid_return_ballots
 .venv/bin/python -m scripts.paper_valid_return
 ```
 
