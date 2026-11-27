@@ -9,6 +9,7 @@ from pathlib import Path
 from statistics import median
 
 import pyarrow.parquet as pq
+from huggingface_hub import hf_hub_download
 
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
@@ -46,6 +47,15 @@ def build():
     studies, rows = [], []
     for subset, sha in HASHES.items():
         path = Path("data/smoltalk2-fc6cc210", subset + ".parquet")
+        if not path.is_file():
+            path = Path(
+                hf_hub_download(
+                    "HuggingFaceTB/smoltalk2",
+                    f"SFT/{subset}-00000-of-00001.parquet",
+                    repo_type="dataset",
+                    revision=REVISION,
+                )
+            )
         assert digest(path) == sha
         data = pq.ParquetFile(path)
         population = data.metadata.num_rows
@@ -119,7 +129,9 @@ def build():
                             "complete_in_128": bool(visible and length <= 128),
                             "complete_in_384": bool(visible and length <= CAP),
                             "has_source_tool_call": bool(
-                                re.search(r"<tool_call>.*?</tool_call>", visible, re.DOTALL)
+                                re.search(
+                                    r"<tool_call>.*?</tool_call>", visible, re.DOTALL
+                                )
                             ),
                             "previous_tool_observations": len(tool_obs),
                             "largest_prior_observation_tokens": max(
