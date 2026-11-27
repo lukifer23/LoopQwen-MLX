@@ -1,0 +1,82 @@
+{
+  "source": "Unicode CLDR",
+  "rows": [
+    {
+      "id": "en-48.2",
+      "locale": "en",
+      "release": "48.2",
+      "revision": "11299982335beb974c1c63c45265184e759c0f41",
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/11299982335beb974c1c63c45265184e759c0f41/common/main/en.xml",
+      "file_sha256": "67607f4c9cf57157e70564987d8ae92a9ddcd73c00a2f1cd6abf79524a969cbd",
+      "file_bytes": 478790,
+      "question": "Our recipe app needs to display 2 tablespoons using the short English unit width. According to this locale file, exactly what should it display? Give just the formatted value, preserving capitalization, spacing and punctuation.",
+      "xml_path": "./units/unitLength[@type='short']/unit[@type='volume-tablespoon']/unitPattern[@count='other']",
+      "pattern": "{0} tbsp",
+      "answer": "2 tbsp",
+      "pattern_start_tokens": [
+        134123,
+        134140
+      ],
+      "input_tokens": 161874,
+      "input_sha256": "c69714743228149760494b11100cbabfe9424d3d086f05bb438809da512572cf"
+    },
+    {
+      "id": "en-49",
+      "locale": "en",
+      "release": "49",
+      "revision": "96e54b273d2da4ec6fbad350ba19ff23fa24a588",
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/96e54b273d2da4ec6fbad350ba19ff23fa24a588/common/main/en.xml",
+      "file_sha256": "f8cbf26964d0e349fc96d9e5a56292edcbaab25c8e64177ca4f111773dfb79cf",
+      "file_bytes": 486056,
+      "question": "Our recipe app needs to display 2 tablespoons using the short English unit width. According to this locale file, exactly what should it display? Give just the formatted value, preserving capitalization, spacing and punctuation.",
+      "xml_path": "./units/unitLength[@type='short']/unit[@type='volume-tablespoon']/unitPattern[@count='other']",
+      "pattern": "{0} Tbsp",
+      "answer": "2 Tbsp",
+      "pattern_start_tokens": [
+        136332,
+        136350
+      ],
+      "input_tokens": 164271,
+      "input_sha256": "8a2162a18d0c4842486648bfe1214b782c426a2a429b4142931c016e3f02c78e"
+    },
+    {
+      "id": "it-48.2",
+      "locale": "it",
+      "release": "48.2",
+      "revision": "11299982335beb974c1c63c45265184e759c0f41",
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/11299982335beb974c1c63c45265184e759c0f41/common/main/it.xml",
+      "file_sha256": "cf1e21c333efa6b61c769be824f8a410503f210f60ee157fa40ed12950dcd632",
+      "file_bytes": 443952,
+      "question": "Our recipe app needs to display 2 imperial dessert spoons using the narrow Italian unit width. According to this locale file, exactly what should it display? Give just the formatted value, preserving capitalization, spacing and punctuation.",
+      "xml_path": "./units/unitLength[@type='narrow']/unit[@type='volume-dessert-spoon-imperial']/unitPattern[@count='other']",
+      "pattern": "{0}dstspn im",
+      "answer": "2dstspn im",
+      "pattern_start_tokens": [
+        142902,
+        142922
+      ],
+      "input_tokens": 152185,
+      "input_sha256": "f35f916fdfe2553a71ea2fb615e2e88480e08f9990f638ef5f7309568fabd27f"
+    },
+    {
+      "id": "it-49",
+      "locale": "it",
+      "release": "49",
+      "revision": "96e54b273d2da4ec6fbad350ba19ff23fa24a588",
+      "url": "https://raw.githubusercontent.com/unicode-org/cldr/96e54b273d2da4ec6fbad350ba19ff23fa24a588/common/main/it.xml",
+      "file_sha256": "a9e8612bd4b80477de74bfac9ad2e86f1d73cf7d4c4bec1b365debb6469cbde8",
+      "file_bytes": 459061,
+      "question": "Our recipe app needs to display 2 imperial dessert spoons using the narrow Italian unit width. According to this locale file, exactly what should it display? Give just the formatted value, preserving capitalization, spacing and punctuation.",
+      "xml_path": "./units/unitLength[@type='narrow']/unit[@type='volume-dessert-spoon-imperial']/unitPattern[@count='other']",
+      "pattern": "{0}cd imp.",
+      "answer": "2cd imp.",
+      "pattern_start_tokens": [
+        147605,
+        147623
+      ],
+      "input_tokens": 156874,
+      "input_sha256": "f67293fd183b1e57817dd88b73d5faf7f2efc006502552c8aea5627d044ad677"
+    }
+  ],
+  "scope": "Source and scorer qualification. No model inference or model accuracy."
+}
