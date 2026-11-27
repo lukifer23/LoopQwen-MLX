@@ -2,6 +2,12 @@
 
 The deployment question is whether a person gets more correct, completed answers from the trained decoder than from the pinned Qwen3.5-0.8B-Base, at a measured cost, while retaining ordinary language and useful long context. Establishing that repeating layers deserves credit requires a second comparison with a trained ordinary-depth model. These questions have produced different answers in this repository. [Capability scoreboard](CAPABILITY_SCOREBOARD.md)
 
+Two complete Git trees now provide a field example of useful long context. The same asset changed from 7,039 to 9,552 bytes. An optional two-pass reader generated both numbers after consuming the entire 173K and 191K prompts. It also gave the correct wheel size on a full lockfile, with extra prose. Base missed all three. The numerical result covers two file formats, and the registered exact-response rule leaves the reader opt-in. [Per-document predictions and physical cache receipts](../research/results/document-frequency-reader-01)
+
+Tool use has a different bottleneck. When shown a real calculator receipt, a recurrent reviewer distinguished the correct and incorrect computation on 16/24 held-out questions, against 2/24 for Base. In free dialogue neither system successfully repaired its own initially wrong computation. The candidate lost eight net fresh arithmetic answers. [Supplied receipts, actual actions and free answers](../research/results/observation-review-01)
+
+A new fit produced grounded arithmetic on 12/24 versus 9/24 but lost final-answer accuracy on both fresh arithmetic and the independent DROP corpus. Its apparent two-request service lead of 9/12 versus 2/12 shrank to 11/12 versus 9/12 after fixing how numbers inside quoted resource names were counted. Redundant correct lookups bring Base to 10/12. The original scored traces, retrospective alternatives and complete user exchanges are available together. [Registered primary](../research/results/question-contrast-01) · [Independent service recount](../paper/service-meaning-summary.csv)
+
 ## What runs in the released assistant
 
 ```mermaid

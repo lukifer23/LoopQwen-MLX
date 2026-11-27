@@ -1,0 +1,15 @@
+id,format,question,arm,input_tokens,gold_byte_count,gold_start,gold_stop,selected_start,selected_stop,answer,completed_exact,content,cold_first_s,cold_wall_s,peak_bytes,output_tokens,prefill_attended_fraction
+5bd60c2c678b3f527805e8050f5104a7bc9c78e0,tree,How many bytes does the listing give for paper/model-lineage.csv? Give the byte count.,candidate,173129,7039,67588,67592,67540,67599,"
+
+7039",True,True,112.02252454200061,112.8866667500115,2899184534,22,0.054298492256736455
+5bd60c2c678b3f527805e8050f5104a7bc9c78e0,tree,How many bytes does the listing give for paper/model-lineage.csv? Give the byte count.,control,173129,7039,67588,67592,,,,False,False,320.88272987504024,327.8650284160394,4844801792,160,
+4c4ecf26a04afd71fcccc702b2a1ec20fa8519e7,tree,How many bytes does the listing give for paper/model-lineage.csv? Give the byte count.,candidate,191099,9552,70571,70575,70525,70582,"
+
+9552",True,True,126.17332499998156,127.46593745797873,3172456255,31,0.049857246943475285
+4c4ecf26a04afd71fcccc702b2a1ec20fa8519e7,tree,How many bytes does the listing give for paper/model-lineage.csv? Give the byte count.,control,191099,9552,70571,70575,,,"
+
+The byte count for the file `paper/model-lineage.csv` is **3745**.",False,False,385.5500961659709,391.5644166659913,5179887360,125,
+4c4ecf26a04afd71fcccc702b2a1ec20fa8519e7-uv,lockfile,"According to this lockfile, what is the size in bytes of click-8.5.1-py3-none-any.whl? Give the byte count.",candidate,82862,126163,2154,2160,1996,2188,"
+
+The size of click-8.5.1-py3-none-any.whl is 126163 bytes.",False,True,53.24776212498546,54.87188150000293,2116666298,58,0.11186776077575215
+4c4ecf26a04afd71fcccc702b2a1ec20fa8519e7-uv,lockfile,"According to this lockfile, what is the size in bytes of click-8.5.1-py3-none-any.whl? Give the byte count.",control,82862,126163,2154,2160,,,,False,False,86.81260245799785,91.11176762497053,3337781012,160,

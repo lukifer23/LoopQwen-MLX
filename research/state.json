@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-27T01:28:07.895973+00:00",
-  "starting_revision": "23e2ceb",
+  "session_start_utc": "2026-11-27T02:02:54.757706+00:00",
+  "starting_revision": "7848bcc",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -33,9 +33,10 @@
     "installed_mode_switch_04": "research/results/session-tokenizer-02",
     "installed_mode_switch_03": "research/results/session-tokenizer-01",
     "measured_register_131086_rates_and_accuracy_vs_base": "research/results/register-mixed-weight-full-01",
-    "corrected_packed_offline_assistant": "research/results/packed-release-retention-04"
+    "corrected_packed_offline_assistant": "research/results/packed-release-retention-04",
+    "exact_private_tool_conversation_prefix": "research/results/conversation-document-prefill-01"
   },
-  "frontier": "On Qwen\u2019s published function interface the recurrent model achieved 35/58 whole dialogues versus 30/58 for ordinary Base (p=.359), including 8/12 versus 2/12 actual file and package pairs and 21/22 versus 20/22 public numerical executions. Fresh arithmetic final answers favored Base 15 versus 7. The checked calculator on the qualified release achieved nine grounded answers versus zero, but nine final numbers versus ten. A projected second pass lost on 18/24 new prose works. Release 05 preserved all historical long and short outputs and fixed 2,150 input token mismatches across 5,587 localized names. Packed release 04 recovered both historical 131084-token outputs while unchanged release 03 missed both. It retained both original 24593-token outputs, all 512 book targets, 12 short generations and both live tools. Corrected versus shipping per-swap output rates were 29.34/28.37 versus 17.24/17.23 tokens/s at 2.35 versus 2.80 GiB register peak. Its parent field stream was 21/50 vs 12/50 for untouched Base, 83.97 vs 234.20 s with one fewer arithmetic answer. The verified installed tokenizer switch preserved all 200 cold-stream outputs and reduced cumulative switching wait by 44.3%. On a fresh 131086-token register swap, the mixed-weight loop retrieved 2/2 vs 0/2, took 167.39 vs 390.86 seconds including conversion, emitted 29.27 vs 27.42 post-first tokens/s and used 3.32 vs 3.78 GiB. The corrected offline qualification is a separate paired historical replay. On the preceding physical 131084-token register pair the experimental fused model scored 2/2 vs 0/2 Base in 169.85 vs 390.94 s, 2.80 vs 3.78 GiB, but post-first output ran at 26.25 vs 27.81 tokens/s. On identical weights and 131080-token histories, fused decode was 26.10 vs 17.09 tokens/s. On both 162K natural-book questions shipped ordinary fallback reproduced Base, both wrong. K3 induction beat matched K1 124/128 vs 58/128. The 112/132 vs 15/132 joint tool advantage against Base and 45/78 vs 0/78 intent-adapter grounded advantage do not establish matched depth superiority. For semantic alignment, Wikipedia whole pairs were 20/24 vs 0/24, AskUbuntu 0/16 each. The selective raw decoder gained 70 top-one decisions across three suites while missing domain-level safeguards. The intact shared-view assistant won 67/120 vs 50/120 overall (p=.0300) and lost 29/48 vs 38/48 on fresh ordinary questions (p=.0490). The corrected single-adapter replay retained all 17 public calls and added two, but scored 45/72 vs 50/72 on fresh tasks and lost twelve earlier field successes. Its 74/144 vs 62/144 mixed difference had paired p=.148.",
+  "frontier": "Two real Git trees returned their changed values at 173129 and 191099 input tokens with cold time and peak memory below Base; all three long-file numerical values were correct versus zero, with one formatting miss. The independent receipt reviewer improved supplied-result choices (16/24 versus 2/24), but neither decoder repaired its initially wrong quantities in live use. Fresh DROP answers were 2/48 versus 13/48 for Base. The frozen original service scores were sensitive to echoed paths: operationally 11/12 versus 9/12 exactly grounded or 11/12 versus 10/12 allowing repeated correct calls. A six-request same-weight cache crossover preserved all trajectories and reduced follow-up first waits from 13.63 to 0.47 seconds. The unchanged tool model now faces ordinary Base on two new complete third-party books and real file callbacks. General prose and narrative reasoning remain unqualified.",
   "next": null,
   "completed": [
     {
@@ -776,7 +777,7 @@
     {
       "id": "session-tokenizer-01",
       "promoted": true,
-      "scope": "How much of the qualified assistant\u2019s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
+      "scope": "How much of the qualified assistant’s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
       "decision": "research/results/session-tokenizer-01/decision.json"
     },
     {
@@ -935,9 +936,33 @@
       "promoted": false,
       "scope": "Does the already qualified recurrent tool model outperform ordinary Base on new publisher arithmetic when the same actual calculator can verify equations as well as evaluate expressions?",
       "decision": "research/results/checked-equations-field-01/decision.json"
+    },
+    {
+      "id": "observation-review-01",
+      "promoted": false,
+      "scope": "Can a recurrent Base decoder distinguish an executable but incorrect calculation from a correct one after reading the real return, and improve freely generated human answers and service use?",
+      "decision": "research/results/observation-review-01/decision.json"
+    },
+    {
+      "id": "document-frequency-reader-01",
+      "promoted": false,
+      "scope": "Can a question-conditioned reader trained on human paragraphs and independent archive metadata guide an already trained native recurrent decoder to the correct value in complete, previously unqueried repository and dependency documents?",
+      "decision": "research/results/document-frequency-reader-01/decision.json"
+    },
+    {
+      "id": "question-contrast-01",
+      "promoted": false,
+      "scope": "Can a repeated native layer learn which quantity a changed human question requests, and transfer the distinction to unseen DROP passages, fresh word problems and real callable services?",
+      "decision": "research/results/question-contrast-01/decision.json"
+    },
+    {
+      "id": "conversation-document-prefill-01",
+      "promoted": true,
+      "scope": "Can a caller retain an exact private native prefix while reading a whole source file and checking real file metadata across user messages?",
+      "decision": "research/results/conversation-document-prefill-01/decision.json"
     }
   ],
-  "status": "Release 05 is the qualified 131K offline assistant. The source-balanced prose, callback recovery, official tool format and checked-equation field comparisons are complete. Their registered gates retain Base for ordinary prose and keep the new tool choices opt-in.",
+  "status": "Release 05 remains qualified for offline 131K use. The field reader followed the changed file size beyond 173K. The new question-contrast fit lost on fresh passage and arithmetic questions; the operational service recount gives 11/12 versus 9/12 with one correct call. Conversation-private KV reuse passed its same-weight crossover.",
   "next_action": null,
   "hypothesis": null,
   "known_limits": [
@@ -990,11 +1015,11 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795742887.8959732,
+  "closed_session_start": 1795744974.757706,
   "native_window": {
-    "start_utc": "2026-11-27T01:28:07.895973+00:00",
+    "start_utc": "2026-11-27T02:02:54.757706+00:00",
     "status": "closed",
-    "end_utc": "2026-11-27T01:51:08.805991+00:00"
+    "end_utc": "2026-11-27T03:05:25.367548+00:00"
   },
   "kinship_transfer": {
     "primary": {

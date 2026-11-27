@@ -5,9 +5,13 @@
 
 | Named question | Decision |
 |---|---|
+| Can the model learn which quantity a changed human question requests? | Zero complete DROP passage pairs versus two for Base. Grounded ASDiv answers favored the loop 12 to 9, final answers favored Base 15 to 12. The fit and its depth follow-up closed. [Frozen answers](../research/results/question-contrast-01) |
+| Can complete source documents stay available across real tool follow-ups? | Six identical token and callback trajectories. Four follow-up first-token waits fell from 13.63 to 0.47 s in total. The registered exact and cost gates passed. [Measured crossover](../research/results/conversation-document-prefill-01) |
+| Can full-history recurrent attention use real project documents above 128K? | The reader enclosed all three requested sizes and reported all three correct values. It followed the changed size across two complete large Git listings. The lockfile reply used a full sentence, giving 2/3 strict against the required three. Closed for default promotion. [Whole-document result](../research/results/document-frequency-reader-01) |
+| Will a trained second pass recognize a valid call that computed the wrong quantity? | Correct decisions on both supplied receipts rose to 16/24 vs 2/24. Neither arm repaired an initially wrong numerical call in free generation. Closed for deployment. [Independent free and controlled results](../research/results/observation-review-01) |
 | Does a learned second pass improve ordinary prose across authors? | Six unseen works had lower loss and eighteen had higher loss. The learned gate nearly closed on the fixed probe. Keep Base for ordinary prose. [396-passage result](../research/results/selective-raw-return-01) |
 | Can the tool model recover from an execution error? | On 38 affected fresh questions the repair obtained a numerical return on 37, with five grounded successes. Fresh final answers favored Base 26 to 10. Keep recovery opt-in. [120-item result](../research/results/callback-recovery-01) |
-| Will the loop sustain real tool use on the published Qwen interface? | Eight complete service conversations versus two for Base. Fresh arithmetic and first-token latency missed their gates. Keep the adapter opt-in. [58-dialogue result](../research/results/native-function-dialogue-01) |
+| Will the loop sustain real tool use on the published Qwen interface? | The registered service score was 8/12 versus 2/12. The operational recount gives 10/12 versus 9/12 with exactly one call, and 10/12 each if redundant correct calls are accepted. Fresh arithmetic and first-token latency missed their gates. Keep the adapter opt-in. [58-dialogue result](../research/results/native-function-dialogue-01) |
 | Can the qualified model use an exact equation-checking calculator? | Nine correctly grounded answers versus zero, nine versus ten correct final quantities. The provider is usable with either model. [24 fresh questions](../research/results/checked-equations-field-01) |
 
 ## Deployment objective and decision sequence
@@ -16,7 +20,7 @@ The objective is one offline assistant that improves useful answers over the pin
 
 ## Current decision sequence
 
-The joint two-pass adapter finished the corrected 144-request comparison. It retained every previously qualified public function call, scored 74 versus 62 overall and lost to Base on fresh human reasoning, 45 versus 50. The sealed weights remain available through the installed CLI. The release and general-language reference retain their existing qualification. [Complete comparison](../research/results/shared-session-tokenizer-replay-01) · [Real outcomes by time available](../paper/correct-by-deadline.csv)
+Three semantic or retrieval registrations closed without a new default. They exposed different problems: missing free arithmetic repairs, strict output formatting, and a model that called the calculator on all 24 word problems and on none of 48 passage questions. The subsequent runtime crossover preserved exact behavior and reduced the cost of repeatedly reading an actual file. It qualified a separate comparison with ordinary Base on new complete third-party documents. Both systems receive the same native Qwen functions and conversation cache, with real answers, file operations, cold costs and physical offsets scored together. [Source crossover](../research/results/conversation-document-prefill-01) · [Direct book registration](../research/experiments/book-conversation-field-01.json)
 
 | Decision | Evidence required before advancing |
 | --- | --- |
