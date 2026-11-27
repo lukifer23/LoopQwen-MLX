@@ -89,12 +89,12 @@ def build():
             text, spans = finance_spans(r)
             assert user == text + "\n\n" + r["qa"]["question"]
             labels.append(
-                dict(
-                    query=0,
-                    source=token_ranges(
+                {
+                    "query": 0,
+                    "source": token_ranges(
                         src, [(start + a, start + b) for a, b in spans], p_off
                     ),
-                )
+                }
             )
         else:
             r = strategy[w["id"].removeprefix("strategyqa/")]
@@ -133,25 +133,27 @@ def build():
                     )
                 char = target.index(line)
                 q = next(j for j, (a, b) in enumerate(t_off) if a <= char < b)
-                labels.append(dict(query=q, source=token_ranges(src, spans, p_off)))
+                labels.append({"query": q, "source": token_ranges(src, spans, p_off)})
         assert labels and all(
             0 <= x["query"] < len(y)
             and all(0 <= a < b <= len(p) for a, b in x["source"])
             for x in labels
         )
-        out[w["id"]] = dict(
-            prefix=fingerprint(p), labels=fingerprint(y), evidence=labels
-        )
+        out[w["id"]] = {
+            "prefix": fingerprint(p),
+            "labels": fingerprint(y),
+            "evidence": labels,
+        }
         counts[g] += len(labels)
     packed(ROOT / "evidence.json.gz", out)
     save(
         ROOT / "evidence-inventory.json",
-        dict(
-            traces=len(out),
-            queries=dict(counts),
-            training=digest(ROOT / "training.json.gz"),
-            evidence=digest(ROOT / "evidence.json.gz"),
-        ),
+        {
+            "traces": len(out),
+            "queries": dict(counts),
+            "training": digest(ROOT / "training.json.gz"),
+            "evidence": digest(ROOT / "evidence.json.gz"),
+        },
     )
     print(len(out), "original sources,", dict(counts), "human-cited causal queries")
 

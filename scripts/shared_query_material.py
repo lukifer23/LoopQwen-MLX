@@ -67,14 +67,14 @@ def priority(key):
 
 
 def row(key, group, cluster, messages, tools, target):
-    return dict(
-        id=key,
-        group=group,
-        cluster=cluster,
-        messages=messages,
-        tools=tools,
-        target=target,
-    )
+    return {
+        "id": key,
+        "group": group,
+        "cluster": cluster,
+        "messages": messages,
+        "tools": tools,
+        "target": target,
+    }
 
 
 def numeric_argument(arg):
@@ -120,20 +120,20 @@ def report_rows(raw):
             answer(target),
         ),
     ]
-    return rows, dict(
-        id=key,
-        cluster=w["cluster"],
-        source=w["report"],
-        request=prompt,
-        question=w["question"],
-        reference=target,
-        gold=w["gold"],
-        tolerance=w["tolerance"],
-        program=qa["program"],
-        steps=expr,
-        observed=result,
-        evidence=w["evidence"],
-    )
+    return rows, {
+        "id": key,
+        "cluster": w["cluster"],
+        "source": w["report"],
+        "request": prompt,
+        "question": w["question"],
+        "reference": target,
+        "gold": w["gold"],
+        "tolerance": w["tolerance"],
+        "program": qa["program"],
+        "steps": expr,
+        "observed": result,
+        "evidence": w["evidence"],
+    }
 
 
 def paragraph_ids(value, inventory):
@@ -168,17 +168,17 @@ def strategy_rows(raw, inventory):
     request = "\n\n".join([*sections, question])
     return [
         row(ident, "strategy", raw["term"], [user(request)], [], answer(visible, plan))
-    ], dict(
-        id=ident,
-        cluster=raw["term"],
-        request=request,
-        question=question,
-        reference=visible,
-        label=raw["answer"],
-        paragraphs=keys,
-        facts=raw["facts"],
-        decomposition=raw["decomposition"],
-    )
+    ], {
+        "id": ident,
+        "cluster": raw["term"],
+        "request": request,
+        "question": question,
+        "reference": visible,
+        "label": raw["answer"],
+        "paragraphs": keys,
+        "facts": raw["facts"],
+        "decomposition": raw["decomposition"],
+    }
 
 
 def fits(tok, rows):
@@ -307,25 +307,25 @@ def build():
     packed(ROOT / "held.json.gz", held)
     save(
         ROOT / "source-inventory.json",
-        dict(
-            publisher_sources=RAW,
-            prior_reserved_issuers=sorted(excluded_issuers),
-            seed=SEED,
-            input_plus_target_limit=MAX_SEQUENCE,
-            target_limit=MAX_TARGET,
-            selected=selected,
-            groups=groups,
-            exclusions=excluded,
-            training_sha256=digest(ROOT / "training.json.gz"),
-            held_sha256=digest(ROOT / "held.json.gz"),
-            held_topics=sorted(held_science),
-            held_issuers=sorted(held_fin),
-            held_paragraph_ids=sorted(held_paras),
-            rehearsal_sources={
+        {
+            "publisher_sources": RAW,
+            "prior_reserved_issuers": sorted(excluded_issuers),
+            "seed": SEED,
+            "input_plus_target_limit": MAX_SEQUENCE,
+            "target_limit": MAX_TARGET,
+            "selected": selected,
+            "groups": groups,
+            "exclusions": excluded,
+            "training_sha256": digest(ROOT / "training.json.gz"),
+            "held_sha256": digest(ROOT / "held.json.gz"),
+            "held_topics": sorted(held_science),
+            "held_issuers": sorted(held_fin),
+            "held_paragraph_ids": sorted(held_paras),
+            "rehearsal_sources": {
                 p: digest(Path("research/sources") / p / "training.json.gz")
                 for p in PARENTS
             },
-        ),
+        },
     )
     print(
         len(training),

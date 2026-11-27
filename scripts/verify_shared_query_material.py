@@ -120,18 +120,18 @@ def verify():
             v = Decimal(frac.numerator) / Decimal(frac.denominator)
             assert abs(v - Decimal(item["gold"])) <= Decimal(item["tolerance"])
         counted["held_" + item["family"]] += 1
-    result = dict(
-        verified=dict(counted),
-        unique_calculator_trajectories=len(stored_actions),
-        held_full_prompts_found_in_train=0,
-        shared_strategy_topics=len(topics & set(m["held_topics"])),
-        shared_strategy_paragraph_ids=len(pages & set(m["held_paragraph_ids"])),
-        shared_finance_issuers=len(companies & set(m["held_issuers"])),
-        repeated_question_wordings={
+    result = {
+        "verified": dict(counted),
+        "unique_calculator_trajectories": len(stored_actions),
+        "held_full_prompts_found_in_train": 0,
+        "shared_strategy_topics": len(topics & set(m["held_topics"])),
+        "shared_strategy_paragraph_ids": len(pages & set(m["held_paragraph_ids"])),
+        "shared_finance_issuers": len(companies & set(m["held_issuers"])),
+        "repeated_question_wordings": {
             k: questions[q] for k, q in held_questions.items() if q in questions
         },
-        inventory_sha256=digest(ROOT / "source-inventory.json"),
-    )
+        "inventory_sha256": digest(ROOT / "source-inventory.json"),
+    }
     save(ROOT / "independent-replay.json", result)
     print(result)
 

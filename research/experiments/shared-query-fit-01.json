@@ -1,0 +1,52 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "passes": 2,
+  "shared_query": true,
+  "revisits": 2,
+  "rank": 160,
+  "gate_rank": 32,
+  "fit_seed": 864371,
+  "training": "research/sources/shared-query/training.json.gz",
+  "evidence": "research/sources/shared-query/evidence.json.gz",
+  "sources": {
+    "research/experiments/conditional-program-fit-01.json": "b105a0a8d8c56fd962f15cff077ccfd636fab522905e40234ee529c946f22650",
+    "research/results/conditional-features-01/backbone.json": "13a4f541b6b894bb5483e9b1d1b0328fe8248e0c40e972b4005c891aaf6316e1",
+    "research/results/conditional-features-01/checksums.json": "6cf92efded6410f16b710d47c94a57a92be3536b201f5fde88b24f3923061898",
+    "research/experiments/contrastive-world-fit-01.json": "652a0e35bc98f7781a19829fdcfe7c33289765b3331a378208462cdbadfa0bb4",
+    "research/experiments/contrastive-world-transfer-01.json": "65d246fe5a8547195f0e305c4fad22eaf641329f8167f32df1ce97cff16c88ab",
+    "research/sources/shared-query/training.json.gz": "029d3d423f82a735fcbac487610d91a44eea29d32f021e11fc4a3778166176c2",
+    "research/sources/shared-query/held.json.gz": "2dcea2c2eac19dd1ccd25dcd3e28b28ab5306b8e2090509e3768684246e3dc7e",
+    "research/sources/shared-query/source-inventory.json": "d6101e9d5f18fd12015c918c27d013bcdabba5acae275808c81f36a6808a254f",
+    "research/sources/shared-query/independent-replay.json": "7929214bc59a4dbe9dad88fa5b244903449bb7a537b9bf0a5690b7b297bc841b",
+    "research/sources/shared-query/evidence.json.gz": "74ab7bbcd02e75a400ec14b590dd7ba445c9b63fa4299197af583271062cb6db",
+    "research/sources/shared-query/evidence-inventory.json": "76cdfcfe03d9542f196eb06ba6494ca1bd20102c4ebccded9b270b8fe128ebb2",
+    "research/sources/shared-query/transfer-panel.json.gz": "9a30fd3db5f29cb4a8e4a114395788ec7276b5fc6c72ad62e7f1fd3ceb13b23b",
+    "research/diagnostics/shared-query-reading.json": "71c6ae6745e02802c3322545ac6b455592dd45aff89cdea52e415d8dfd6c1785",
+    "research/experiments/shared-query-features-01.json": "3630aa4a09c1240ecd8d3a857682bee01866e81fe2fa1170a742a2030c2c7eac"
+  },
+  "limits": {
+    "wall_seconds": 4380,
+    "peak_gib": 8.25,
+    "available_gib": 1.5
+  },
+  "id": "shared-query-fit-01",
+  "epochs": 3,
+  "lr": 0.00022,
+  "teacher_kl": 0.24,
+  "evidence_weight": 8.0,
+  "micro_positions": 96,
+  "update_positions": 512,
+  "expected_positions": 590154,
+  "expected_citations": 6495,
+  "question": "Can gradients through actual tied attention reads improve the predicted answer and assign more probability to human-cited source evidence?",
+  "protocol": "Train all 3136 complete targets on three deterministic shuffled passes under native MLX. No test targets enter fitting. The full next-token likelihood, forward KL from the ordinary frozen instruction sibling and negative log probability assigned to cited source tokens are measured independently. Apply one exact loss per token and eight token-equivalents per annotated query. Report every update and four fixed training probes per group. Require finite positive gradients, all specified exposure, mean per-group NLL improvement >=0.04 nats, both new reasoning and report-action improvements, mean additional NLL gain >0.002 from the second read relative to the first at unchanged learned weights, and >0.02 nats better citation mass. Failure closes direct evaluation for those weights."
+}

@@ -1,0 +1,46 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "passes": 2,
+  "shared_query": true,
+  "revisits": 2,
+  "rank": 160,
+  "gate_rank": 32,
+  "fit_seed": 864371,
+  "training": "research/sources/shared-query/training.json.gz",
+  "evidence": "research/sources/shared-query/evidence.json.gz",
+  "sources": {
+    "research/experiments/conditional-program-fit-01.json": "b105a0a8d8c56fd962f15cff077ccfd636fab522905e40234ee529c946f22650",
+    "research/results/conditional-features-01/backbone.json": "13a4f541b6b894bb5483e9b1d1b0328fe8248e0c40e972b4005c891aaf6316e1",
+    "research/results/conditional-features-01/checksums.json": "6cf92efded6410f16b710d47c94a57a92be3536b201f5fde88b24f3923061898",
+    "research/experiments/contrastive-world-fit-01.json": "652a0e35bc98f7781a19829fdcfe7c33289765b3331a378208462cdbadfa0bb4",
+    "research/experiments/contrastive-world-transfer-01.json": "65d246fe5a8547195f0e305c4fad22eaf641329f8167f32df1ce97cff16c88ab",
+    "research/sources/shared-query/training.json.gz": "029d3d423f82a735fcbac487610d91a44eea29d32f021e11fc4a3778166176c2",
+    "research/sources/shared-query/held.json.gz": "2dcea2c2eac19dd1ccd25dcd3e28b28ab5306b8e2090509e3768684246e3dc7e",
+    "research/sources/shared-query/source-inventory.json": "d6101e9d5f18fd12015c918c27d013bcdabba5acae275808c81f36a6808a254f",
+    "research/sources/shared-query/independent-replay.json": "7929214bc59a4dbe9dad88fa5b244903449bb7a537b9bf0a5690b7b297bc841b",
+    "research/sources/shared-query/evidence.json.gz": "74ab7bbcd02e75a400ec14b590dd7ba445c9b63fa4299197af583271062cb6db",
+    "research/sources/shared-query/evidence-inventory.json": "76cdfcfe03d9542f196eb06ba6494ca1bd20102c4ebccded9b270b8fe128ebb2",
+    "research/sources/shared-query/transfer-panel.json.gz": "9a30fd3db5f29cb4a8e4a114395788ec7276b5fc6c72ad62e7f1fd3ceb13b23b",
+    "research/diagnostics/shared-query-reading.json": "71c6ae6745e02802c3322545ac6b455592dd45aff89cdea52e415d8dfd6c1785"
+  },
+  "limits": {
+    "wall_seconds": 4380,
+    "peak_gib": 8.25,
+    "available_gib": 1.5
+  },
+  "id": "shared-query-features-01",
+  "examples": 3136,
+  "target_positions": 196718,
+  "opening_positions": 2117954,
+  "question": "Can all ordinary Qwen positions and their full final attention memories be exposed for differentiable repeated source queries without losing cached-token parity?",
+  "protocol": "Run only after the preceding increment-based chain is archived and misses qualification. A completed primary must receive its blinded review first. Test three hash-selected original prompts for unmodified and split-cache top-token agreement, maximum logit errors <=0.55, 24 unique memory writers and six full attention histories. Require every original token label, degree of exposure and SHA-256. Stop on a missed prerequisite or any registered resource limit."
+}

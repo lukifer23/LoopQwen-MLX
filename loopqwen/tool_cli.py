@@ -156,6 +156,12 @@ def open_assistant(args):
         from .io import read
 
         policy = read(args.session_policy / "registration.json")
+        if policy.get("shared_query"):
+            from .shared_query_assistant import SharedQueryAssistant
+
+            if getattr(args, "tool_format", "compact") != "qwen":
+                raise ValueError("The shared-query model uses --tool-format qwen")
+            return SharedQueryAssistant(args.checkpoint, args.session_policy)
         if policy.get("conditional_reentry"):
             from .conditional_reentry import ConditionalAssistant
 
