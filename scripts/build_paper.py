@@ -196,6 +196,22 @@ def main(verify):
         ):
             subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)
 
+    fields = ROOT / "research/results/field-selection-01/decision.json"
+    if fields.is_file() and "arms" in read(fields):
+        for args in (
+            ["scripts.file_evidence_checkpoints", "--field-selection"],
+            ["scripts.field_selection_exposure"],
+            ["scripts.field_selection_analysis", "report"],
+            ["scripts.paper_field_selection"],
+        ):
+            subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)
+        if verify:
+            subprocess.run(
+                [sys.executable, "-m", "scripts.field_selection_oracle"],
+                cwd=ROOT,
+                check=True,
+            )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
