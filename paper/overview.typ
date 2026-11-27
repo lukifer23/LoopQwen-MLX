@@ -50,6 +50,8 @@ A readout trained on the actual second-visit change subsequently solved 38/112 r
 
 #if "assistance" in d [The consolidated two-visit assistant used one set of learned parameters on 220 requests. On the 208 objective requests it gained #d.assistance.gains individual answers and lost #d.assistance.losses Base successes. Its generated SQL grounded #d.assistance.sql.at(0) answers on 24 new questions versus #d.assistance.sql.at(1) for Base. An identity-masked project reviewer preferred the loop #d.assistance.open_win.at(0) times and Base #d.assistance.open_win.at(1) times on 12 open requests. The objective row in Table 1 includes only its 208 scored requests and their actual times.]
 
+#if "four_layer" in d [The four-layer policy learned from its own executed outcomes and solved #d.four_layer.totals.at(0)/256 objective requests versus #d.four_layer.totals.at(1)/256. It gained #d.four_layer.wins individual answers and lost #d.four_layer.losses. The exact whole-question test on 24 changed tables credited #d.four_layer.whole.at(0) pairs to the loop and #d.four_layer.whole.at(1) to Base.]
+
 These cohorts differ in author, difficulty and scoring unit. Repeated prompts establish retention across versions. New upstream lock revisions examine recent evidence that could not have been in the pinned checkpoint. Human-written datasets may already have contributed to the donor’s pretraining. Small paired cohorts give limited power to detect modest changes. One machine and an ordered run capture operational costs on that installation. Hardware variation, concurrent service demand and different user populations require new observations.
 
 #pagebreak()

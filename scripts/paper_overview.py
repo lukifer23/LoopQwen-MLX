@@ -118,6 +118,22 @@ def build():
             "grounded",
             "wall_s",
         )
+    four_layer = None
+    name = "table-policy-gradient-01"
+    if (P / "table-policy-paper.json").is_file():
+        four_layer = read(P / "table-policy-paper.json")
+        decision = read(R / name / "decision.json")
+        scored = {k: v["scored"] for k, v in decision["arms"].items()}
+        add(
+            name,
+            "Four-layer loop, objective",
+            "Untouched Base",
+            scored["candidate"]["requests"],
+            scored,
+            ("candidate", "control"),
+            "grounded",
+            "wall_s",
+        )
     name = "register-packed-direct-full-01"
     d = read(R / name / "decision.json")
     add(
@@ -291,6 +307,16 @@ def build():
         {
             "rows": summary,
             "scope": scope,
+            **(
+                {
+                    "four_layer": {
+                        k: four_layer[k]
+                        for k in ("totals", "whole", "wins", "losses")
+                    },
+                }
+                if four_layer
+                else {}
+            ),
             **(
                 {
                     "assistance": {
