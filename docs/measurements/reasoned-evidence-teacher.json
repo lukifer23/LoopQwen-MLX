@@ -1,0 +1,39 @@
+{
+  "training_sha256": "6954624c95f7b448387116ba56a039aada46e4a96a45f0c2f9b82b196982cd71",
+  "generations_sha256": "6b74cfee0bb537a7682485329ef6d887e4079a61b52dade6b6109d64a87717c6",
+  "n": 192,
+  "tokens": 27722,
+  "terminal_verdict": 97,
+  "terminal_correct": 85,
+  "stops": {
+    "Explanation length": 25,
+    "Accepted": 58,
+    "Reached output cap": 95,
+    "Missing or invalid premise citation": 6,
+    "Different verdict": 8
+  },
+  "by_label": {
+    "uncertain": {
+      "Explanation length": 16,
+      "Reached output cap": 26,
+      "Accepted": 11,
+      "Missing or invalid premise citation": 5,
+      "Different verdict": 6
+    },
+    "true": {
+      "Accepted": 30,
+      "Reached output cap": 26,
+      "Explanation length": 6,
+      "Different verdict": 1,
+      "Missing or invalid premise citation": 1
+    },
+    "false": {
+      "Reached output cap": 43,
+      "Accepted": 17,
+      "Explanation length": 3,
+      "Different verdict": 1
+    }
+  },
+  "seconds": 307.59603775001597,
+  "peak_bytes": 4043835762
+}

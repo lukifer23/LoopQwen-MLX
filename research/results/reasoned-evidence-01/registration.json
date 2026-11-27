@@ -1,0 +1,88 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "instruction_interpolation": {
+    "trained_fraction": 1.0,
+    "second_pass_fraction": 0.35,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "trained_instruction_adapter": true,
+  "teacher": {
+    "repo": "mlx-community/Qwen3.5-4B-4bit",
+    "revision": "0e7ffd5c629ef7719d4cbc04069232580bfa9d9c",
+    "directory": "data/research_external/cross-view-teacher",
+    "weights_sha256": "5fb9acd0246866381cf8c5c354c6db1019f6498eec4ccb4f5edcc71ffeacb2db",
+    "source": "https://huggingface.co/Qwen/Qwen3.5-4B",
+    "files": {
+      "config.json": "f3efc81b2ea8d96a45301037d3ccccbcccdef44a961845c87f286aaddbc6eaaa",
+      "tokenizer.json": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+      "tokenizer_config.json": "e98f1901ac6f0adff67b1d540bfa0c36ac1a0cf59eb72ed78146ef89aafa1182",
+      "chat_template.jinja": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "model.safetensors.index.json": "52e534c41f7b97708329c85f762e5882bf48bd5955a422c6ae74eba321e6048a"
+    }
+  },
+  "id": "reasoned-evidence-01",
+  "question": "Can supervising genuine intermediate explanations on both sides of a real file callback improve unsupported, entailed and contradicted judgments on human logical scenarios and practical package compatibility checks?",
+  "material": "research/data/reasoned-evidence-panel.json",
+  "training": "research/data/reasoned-evidence-training.json",
+  "sources": {
+    "esnli": {
+      "path": "data/research_external/esnli_train_1.csv",
+      "sha256": "7311c7bc16ad9f6a9adcd116a62ef991e1803dc0d71e253ce66b975c2aba8ee5",
+      "source": "https://github.com/OanaMariaCamburu/e-SNLI"
+    },
+    "folio_train": {
+      "path": "data/research_external/folio/folio-train.jsonl",
+      "sha256": "008d34b750d31fa7f014e953228adf4db81ec34bbda9e7f67c96c60438d1e6b2",
+      "source": "https://raw.githubusercontent.com/Yale-LILY/FOLIO/5d7bb84c7edab3fb358e057d2807f19cf5cf5e2d/data/v0.0/folio-train.jsonl"
+    },
+    "folio_validation": {
+      "path": "data/research_external/folio/folio-validation.jsonl",
+      "sha256": "6922c988ef10987bd6545568ee8e63e897af80994591fa20539767da58f8e3d1",
+      "source": "https://raw.githubusercontent.com/Yale-LILY/FOLIO/5d7bb84c7edab3fb358e057d2807f19cf5cf5e2d/data/v0.0/folio-validation.jsonl"
+    }
+  },
+  "wheel_inventory": "712051c00779855bd47726507c0b798bdf782c83f77520ded00f0a225b7f6c3f",
+  "sample_seed": 618393,
+  "fit_seed": 618394,
+  "human_per_label": 128,
+  "teacher_per_label": 64,
+  "teacher_min_per_label": 16,
+  "teacher_min_total": 64,
+  "teacher_cap": 176,
+  "teacher_batch": 4,
+  "test_stories": 12,
+  "wheel_pairs": 8,
+  "updates": 800,
+  "batch": 6,
+  "lr": 9e-05,
+  "max_tokens": 512,
+  "max_turns": 3,
+  "limits": {
+    "wall_seconds": 3700,
+    "peak_gib": 7.25,
+    "available_gib": 1.5
+  },
+  "protocol": "Start independently from the qualified release 05 instruction-sibling K2 adapter. The closed cross-view weights, its Quoref questions, and its teacher targets never enter this model. A training-only native 4B teacher receives 192 publisher FOLIO train conclusions with premises and no label, and greedily generates English explanations and a final verdict. Admit only an unambiguous correct verdict with an explanation of 5 to 100 words and a valid numbered premise citation. Require >=16 accepted examples in each of all three labels and >=64 overall before fitting. Archive all teacher inputs and complete generations. Human supervision is 384 original e-SNLI explanations, 128 per label from distinct premises. A step draws one human and one accepted teacher example, each in inline and real file-return views, one correct opening call and one historical WikiSQL rehearsal. Human and teacher draws use uniformly sampled labels. On four reasoning turns combine mean CE over real rationale tokens (0.50), the visible verdict (0.35), and the whole turn (0.15), with equal weight per view. The four reasoning turns receive 0.65 of total loss, openings 0.20, and rehearsal 0.15. Train 800 native AdamW steps. The final seven shared projections are fused once. Both physical visits retain full native attention histories. No teacher, symbolic solver, fixed reasoning string, claim classifier, forced call or external data selection at deployment.",
+  "decision": "Direct pair versus untouched certified BF16 Base. Twelve out-of-training FOLIO validation stories have one human true, false and uncertain conclusion each, all asked both with inline observations and via authentic CSV calls. Eight further paired user tasks compare the exact same real Python patch version against two actual locked distributions with opposite outcomes under their published Requires-Python constraints. Eight identical former real table requests measure retention. Identical reasoning-enabled prompt IDs, open greedy vocabulary, 512 tokens per model turn, 3 turns, same ordering and scorer. Primary on 12 independent stories: >=12 net additional correct grounded judgments across 72 and exact two-sided paired sign-flip p<=0.05 on story totals; more fully correct six-answer stories, more correct individually in both file and inline with no loss for any verdict category. At least four complete practical wheel pairs and more than Base; no previously successful table outcome under Base may be lost. At least half of completed FOLIO judgments must contain >=4 lexical words of generated reasoning before the final answer. For every source require no loss in completion. Strictly shorter complete stream, first-token sum and peak, higher pooled opening and decode rates. Record all timings, proof provenance, misses and physical histories. A failed teacher or resource prerequisite closes student work; a miss on the completed direct pair closes matched depth, replication and 128K for these weights. Only a pass licenses independent matched K1 and broad field qualification. No causal or general intelligence claim from this model comparison."
+}
