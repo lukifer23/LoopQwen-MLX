@@ -3,6 +3,7 @@
 import argparse
 import gc
 import json
+import random
 from fractions import Fraction
 from pathlib import Path
 from time import perf_counter
@@ -15,6 +16,7 @@ from ..callback_recovery import RecoveryAssistant
 from ..evaluation.mechanism import packed, unpack
 from ..evaluation.program_questions import score as arithmetic_score
 from ..evaluation.statistics import exact_mcnemar
+from ..identity import fingerprint
 from ..io import digest, read, save
 from ..model_loader import local_snapshot
 from ..tool_compare import DenseAssistant
@@ -101,6 +103,19 @@ def fit_recovery(spec, root, budget):
     lessons = curriculum(spec, inputs, attempts)
     if len(lessons["examples"]) < 2 * spec["minimum_failures"]:
         return failed_collection(lessons, spec)
+    receipt = {
+        "opening_attempts_sha256": digest(root / "opening-attempts.json.gz"),
+        "effective_lessons_sha256": fingerprint(lessons),
+        "eligible_questions": len(lessons["examples"]) // 2,
+    }
+    evidence_path = root / "training-evidence.json"
+    if evidence_path.exists():
+        if read(evidence_path) != receipt:
+            raise ValueError(
+                "The recorded failed interactions or training targets changed"
+            )
+    else:
+        save(evidence_path, receipt)
     if not (root / "fit.json").exists():
         mx.random.seed(spec["fit_seed"])
         fit(
@@ -344,6 +359,21 @@ def verify(root, decision):
         and meta["trainable"] == 802816
         and meta["training"] == digest(Path(spec["training"]))
     )
+    assert read(root / "training-evidence.json") == {
+        "opening_attempts_sha256": digest(root / "opening-attempts.json.gz"),
+        "effective_lessons_sha256": fingerprint(lessons),
+        "eligible_questions": eligible,
+    }
+    lengths = [
+        len(tok.encode("</think>\n\n" + r["visible"], add_special_tokens=False)) + 1
+        for r in lessons["examples"]
+    ]
+    rng = random.Random(spec["fit_seed"])
+    observed_targets = sum(
+        sum(lengths[j] for j in rng.sample(range(len(lengths)), spec["batch"]))
+        for _ in range(spec["updates"])
+    )
+    assert observed_targets == meta["targets"]
     panel = read(spec["material"])["rows"]
     field = read(spec["field_data"])
     data = {}
