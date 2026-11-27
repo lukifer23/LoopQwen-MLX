@@ -150,8 +150,32 @@ def outcome(root, spec):
 
 
 def verify(root, d):
+    from mlx_lm.utils import load_tokenizer
+    from ..model_loader import local_snapshot
+    from ..tool_session import system_message
+    from .mixed_field import replay_exchange
+
     spec = read(root / "registration.json")
     assert d == outcome(root, spec)
+    tok = load_tokenizer(local_snapshot())
+    for i, item in enumerate(spec["documents"]):
+        file, questions, _ = material(spec, item)
+        available = file_tools.tools([file])
+        for side in ("retain", "stock"):
+            rows = unpack(root / f"{i}-{side}.json.gz")
+            history = [system_message(available)]
+            for question, row in zip(questions, rows, strict=True):
+                history.append({"role": "user", "content": question})
+                tr = row["trajectory"]
+                replay_exchange(tok, available, history, tr, spec)
+                for turn in tr["turns"]:
+                    length = len(turn["prompt_ids"]) + len(turn["token_ids"]) - 1
+                    sites = turn["kv_history"]
+                    assert {(s["layer"], s["turn"]) for s in sites} == {
+                        *((layer, 0) for layer in range(3, 24, 4)),
+                        (23, 1),
+                    }
+                    assert all(s["offset"] == s["retained"] == length for s in sites)
 
 
 def run(name):
