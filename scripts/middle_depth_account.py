@@ -8,6 +8,77 @@ from scripts.middle_depth_budget import BUDGET, ROOT
 from scripts.middle_depth_recover import fit_directory
 
 
+def retained_updates(charge, before, after):
+    """Measure the verified optimizer work preserved by one resource-stopped fit."""
+    from pathlib import Path
+
+    charge = Path(charge)
+    before, after = Path(before) / "state.json", Path(after) / "state.json"
+    rec, start, end = read(charge), read(before), read(after)
+    if (
+        charge.parent != ROOT / "charges"
+        or rec["stage"] != "fit"
+        or rec["status"] != "stopped"
+        or "Native development limit" not in rec["reason"]
+        or before.parent.parent != after.parent.parent
+        or start["identity"] != end["identity"]
+        or start["step"] >= end["step"]
+        or end["log"][: start["step"]] != start["log"]
+    ):
+        raise ValueError(
+            "The charge and optimizer boundaries must describe a stopped continuation"
+        )
+    wrote = after.stat().st_mtime
+    if not (
+        before.stat().st_mtime
+        <= rec["dispatch"]
+        <= wrote
+        <= rec["dispatch"] + rec["seconds"]
+    ):
+        raise ValueError("Checkpoint commit times are outside the native invocation")
+    folder = after.parent.parent
+    generations = [
+        (f.stat().st_mtime, int(f.parent.name[5:]))
+        for f in folder.glob("step-[0-9]*/state.json")
+    ]
+
+    def latest_at(time):
+        return max(n for written, n in generations if written <= time)
+
+    if (
+        latest_at(rec["dispatch"]) != start["step"]
+        or latest_at(rec["dispatch"] + rec["seconds"]) != end["step"]
+        or rec["job"].split("/")[1] != folder.name
+    ):
+        raise ValueError("Inputs are not the actual boundary checkpoints for this fit")
+    for path, state in ((before, start), (after, end)):
+        if any(digest(path.parent / k) != v for k, v in state["hashes"].items()):
+            raise ValueError("Unverified retained optimizer checkpoint")
+    new = end["log"][start["step"] :]
+    seconds = sum(r["seconds"] for r in new)
+    if len(new) != end["step"] - start["step"] or seconds > rec["seconds"]:
+        raise ValueError("The recorded updates do not fit inside the charged run")
+    result = {
+        "charge": str(charge),
+        "charge_sha": digest(charge),
+        "charge_seconds": rec["seconds"],
+        "start_committed_at": before.stat().st_mtime,
+        "end_committed_at": wrote,
+        "start": str(before),
+        "start_sha": digest(before),
+        "end": str(after),
+        "end_sha": digest(after),
+        "start_step": start["step"],
+        "end_step": end["step"],
+        "retained_updates": len(new),
+        "retained_update_seconds": seconds,
+        "other_worker_seconds": rec["seconds"] - seconds,
+        "method": "Sum the measured completed updates in the hash-verified continuation. The remaining worker time includes startup, checkpointing and the interrupted update. Both components are already included in the stopped charge.",
+    }
+    save(ROOT / "accounting" / "retained-updates" / charge.name, result)
+    return result
+
+
 def account():
     buckets = {
         k: {
@@ -100,7 +171,11 @@ def account():
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--snapshot")
+    p.add_argument("--retained-updates", nargs=3, metavar=("CHARGE", "BEFORE", "AFTER"))
     a = p.parse_args()
+    if a.retained_updates:
+        print(json.dumps(retained_updates(*a.retained_updates), indent=2))
+        raise SystemExit(0)
     result = account()
     if a.snapshot:
         out = ROOT / "accounting" / (a.snapshot + ".json")
