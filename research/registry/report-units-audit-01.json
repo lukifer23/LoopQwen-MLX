@@ -1,0 +1,6 @@
+{
+  "study": "report-action-field-01",
+  "scope": "A complementary final-answer recount of all 48 human financial questions, recorded during fitting and before either model generated a primary test response. Keep the original operational and numerical primary decisions unchanged.",
+  "reference": "Use the exact publisher question UUID, numeric answer and annotated scale. Source scale counts on the held-out questions: 18 thousand, 18 million, 10 plain, 2 percent.",
+  "rule": "Read the last visible numeric quantity, as in the primary. Convert explicit thousand, million, billion or percent to absolute value. A currency symbol or an explicit unit such as shares or dollars without a magnitude denotes unscaled units. A bare number uses the scale requested by the source table. Require equality of exact fractions, a visible answer and completed generation. Release each raw response, interpretation and difference relative to the registered numerical score. This mechanical recount covers final quantities and does not adjudicate contradictions or narrative explanations."
+}

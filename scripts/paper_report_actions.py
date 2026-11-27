@@ -4,6 +4,8 @@ import csv
 import json
 
 import matplotlib.pyplot as plt
+from report_action_material import source
+from report_units_audit import visible_scale
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read
@@ -76,6 +78,49 @@ def make(paper, results, result, finish):
                             q["peak"],
                         ]
                     )
+    publisher = {q["uid"]: q for d in source("dev") for q in d["questions"]}
+    with (paper / "report-action-units.csv").open("w", newline="") as stream:
+        out = csv.writer(stream)
+        out.writerow(
+            [
+                "arm",
+                "question_id",
+                "question",
+                "reference",
+                "reference_scale",
+                "visible_answer_json",
+                "status",
+                "registered_numeric",
+                "scale_interpretation",
+                "scale_credited",
+            ]
+        )
+        for side in ("candidate", "control"):
+            for w, r in zip(
+                panel["rows"], unpack(folder / (side + ".json.gz")), strict=True
+            ):
+                if w["family"] != "report":
+                    continue
+                q = r["requests"][0]
+                tr = q["trajectory"]
+                human = publisher[w["id"]]
+                correct, interpretation = visible_scale(
+                    tr["answer"], human["scale"], w["gold"]
+                )
+                out.writerow(
+                    [
+                        side,
+                        w["id"],
+                        human["question"],
+                        w["gold"],
+                        human["scale"],
+                        json.dumps(tr["answer"], ensure_ascii=False),
+                        tr["status"],
+                        q["score"]["correct_answer"],
+                        interpretation,
+                        correct and tr["status"] == "answered",
+                    ]
+                )
     fig, axes = plt.subplots(1, 2, figsize=(7.3, 2.75))
     for ax, (fam, n, title) in zip(
         axes,
