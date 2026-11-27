@@ -89,6 +89,14 @@ EDITIONS = {
         "Human follow-up reasoning and fresh software requirements",
         "Full-context measurements, depth controls and technical history",
     ),
+    "visit-residual": (
+        "loopqwen-followup-study.pdf",
+        "00efc4211c3ecc9d0237614c2ac50cfc7e7597a86aa94d7bb5f61635c27bd4a9",
+        "loopqwen-visit-study.pdf",
+        "LoopQwen-MLX: testing what a second transformer visit contributes",
+        "Original human and tool decisions, mechanism and deployment cost",
+        "Previous paired controls, 128K tests and research history",
+    ),
 }
 
 
@@ -140,6 +148,7 @@ if __name__ == "__main__":
                 "linked-rollin",
                 "locked-context",
                 "followup",
+                "visit-residual",
             }
             and not (args.folder / (name + "-paper.json")).is_file()
         ):
