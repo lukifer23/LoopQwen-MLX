@@ -77,6 +77,7 @@ def agreement(rows):
 
 
 def build():
+    plt.rcParams.update({"font.size": 8, "svg.hashsalt": "loopqwen-stability"})
     oldmask, oldgrade = masked("table-policy", "table-reasoning")
     newmask, newgrade = masked("conditional-program", "conditional-reasoning")
     panel = {x["id"]: x for x in read("research/data/table-policy-panel.json")["rows"]}
@@ -214,9 +215,9 @@ def build():
         str(PAPER / "conditional-stability.typ"),
         output=str(PAPER / "conditional-stability.pdf"),
         root=".",
+        timestamp=0,
     )
 
 
 if __name__ == "__main__":
-    plt.rcParams.update({"font.size": 8, "svg.hashsalt": "loopqwen-stability"})
     build()

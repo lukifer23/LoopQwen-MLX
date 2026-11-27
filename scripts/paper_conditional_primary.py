@@ -29,6 +29,7 @@ from scripts.conditional_deliberation import account as channel_account
 from scripts.conditional_reading import MASK, RATINGS, ROOT, SCORES
 from scripts.conditional_reading import run as read_primary
 from scripts.conditional_tool_transfer import build as tool_transfer
+from scripts.paper_conditional_stability import build as repeat_review
 from scripts.paper_integrated_assistance import COLORS, LABELS
 from scripts.table_policy_reading import committed
 from scripts.table_reasoning_reading import run as read_reasoning
@@ -354,6 +355,7 @@ def build():
     pdf.write_bytes(
         typst.compile(str(P / "conditional-primary.typ"), root=".", timestamp=0)
     )
+    repeat_review()
     writer = PdfWriter()
     writer.add_metadata(
         {
@@ -363,6 +365,7 @@ def build():
     )
     for title, path in (
         ("Direct paired evaluation and masked source readings", pdf),
+        ("Item stability and repeat grading", P / "conditional-stability.pdf"),
         (
             "Training, architecture and earlier comparisons",
             P / "loopqwen-conditional-study.pdf",
