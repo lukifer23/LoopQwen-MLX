@@ -14,6 +14,7 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.assistance_deliberation import write_csv
+from scripts.assistance_source_overlap import build as source_overlap
 from scripts.assistance_reasoning_exposure import (
     DEST as THINKING_RECEIPT,
     observed as reasoning_exposure,
@@ -258,6 +259,19 @@ def evaluation():
         for g in common
         if g["family"] == "all" and g["completion"] == "Both completed"
     ]
+    overlap = source_overlap()["original_utterance"]["all"]
+    assert overlap["exact"] == 1
+    # Omit the entire independently counted database, preserving both questions in every other pair.
+    duplicate = [
+        r
+        for r in records
+        if r["family"] == "database" and r["cluster"] == "course_teach"
+    ]
+    assert len(duplicate) == 2
+    remaining = [r for r in records if r["family"] == "database" and r not in duplicate]
+    (sensitivity,) = paired_sources(remaining)
+    assert sensitivity["requests"] == 22 and sensitivity["registered_groups"] == 11
+    store("sql-utterance-sensitivity", [sensitivity])
     by_source = paired_sources(records)
     costs_by_item = cost_profile(records)
     store("source-uncertainty", by_source)
@@ -396,6 +410,8 @@ def evaluation():
                 ("outside_generation_s", "Time outside timed generation"),
             )
         ],
+        "sql_overlap_net": sensitivity["gains"] - sensitivity["losses"],
+        "sql_overlap_p": f"{sensitivity['exact_group_p']:.4g}",
         "both_finished": both,
         "joint": joint(records),
         "preference_p": f"{open_p(*[review['arms'][arm]['open'] for arm in ARMS]):.5g}",

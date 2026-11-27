@@ -1,0 +1,113 @@
+{
+  "definition": "Unicode NFKC and casefold, word tokens, then 4-word set Jaccard. Shorter texts have one whole-text gram. Retain each request including any repeated wording. Similarity describes observed wording, not access to pretraining.",
+  "unique_training_user_messages": 1522,
+  "comparisons": {
+    "complete_user_turn": {
+      "database": {
+        "n": 24,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.625
+      },
+      "all": {
+        "n": 220,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.75
+      },
+      "dependency": {
+        "n": 20,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.4375
+      },
+      "human_followup": {
+        "n": 24,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.03229974160206718
+      },
+      "wheel": {
+        "n": 8,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.42857142857142855
+      },
+      "effects": {
+        "n": 48,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.032467532467532464
+      },
+      "open": {
+        "n": 12,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.13043478260869565
+      },
+      "archive": {
+        "n": 24,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.543859649122807
+      },
+      "human_first": {
+        "n": 24,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.030467899891186073
+      },
+      "inline": {
+        "n": 6,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.2716049382716049
+      },
+      "same_version": {
+        "n": 8,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.41935483870967744
+      },
+      "retention": {
+        "n": 8,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.012345679012345678
+      },
+      "file": {
+        "n": 6,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.4583333333333333
+      },
+      "agenda": {
+        "n": 8,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.75
+      }
+    },
+    "original_utterance": {
+      "database": {
+        "n": 24,
+        "exact": 1,
+        "near_at_least_0.80": 1,
+        "max": 1.0
+      },
+      "all": {
+        "n": 36,
+        "exact": 1,
+        "near_at_least_0.80": 1,
+        "max": 1.0
+      },
+      "open": {
+        "n": 12,
+        "exact": 0,
+        "near_at_least_0.80": 0,
+        "max": 0.1875
+      }
+    }
+  },
+  "rows": "24c8331e51d539a1048f4c10bac5b66d42730a827e3e5fa377efa96b73cf4935"
+}
