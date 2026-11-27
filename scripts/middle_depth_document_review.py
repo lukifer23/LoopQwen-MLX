@@ -8,7 +8,7 @@ from loopqwen.io import digest, read, save
 from loopqwen.research.cross_view_study import tokenizer
 from scripts.middle_depth_budget import BASE, ROOT
 from scripts.middle_depth_documents import SPECS
-from scripts.middle_depth_review import first_visible
+from scripts.middle_depth_review import first_visible, lock, pending
 
 OUT = ROOT / "document-review"
 
@@ -116,7 +116,13 @@ def inspect(stage, aggregate):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("action", choices=("blind", "aggregate"))
+    p.add_argument("action", choices=("blind", "aggregate", "pending", "lock"))
     p.add_argument("stage")
+    p.add_argument("--prior", nargs="*", default=[])
     a = p.parse_args()
-    inspect(a.stage, a.action == "aggregate")
+    if a.action == "lock":
+        lock(OUT, a.stage)
+    else:
+        inspect(a.stage, a.action == "aggregate")
+        if a.action == "pending":
+            pending(OUT, a.stage, a.prior)

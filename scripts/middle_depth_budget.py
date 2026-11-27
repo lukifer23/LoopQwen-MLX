@@ -22,6 +22,15 @@ BUDGET = {"profile": 3600, "fit": 18000, "short": 7200, "long": 14400}
 GIB = 2**30
 
 
+class DevelopmentLimit(InterruptedError):
+    def __init__(self, current, remaining):
+        self.snapshot = current
+        self.remaining_seconds = remaining
+        super().__init__(
+            f"Native development limit: {current}; remaining worker seconds {remaining:.2f}"
+        )
+
+
 class ProcessUsage(ctypes.Structure):
     # Darwin rusage_info_v2, sys/resource.h. The 16 counters between UUID and
     # diskio are CPU, memory and child-process statistics in the published ABI.
@@ -141,7 +150,7 @@ def worker(stage, job):
             or current["peak"] >= 8 * GIB
             or current["free"] < 24 * GIB
         ):
-            raise InterruptedError(f"Native development limit: {current}")
+            raise DevelopmentLimit(current, credit - (now - start))
 
     try:
         guard(force=True)

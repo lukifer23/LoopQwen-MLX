@@ -17,7 +17,7 @@ from loopqwen.recurrence import Span
 from loopqwen.research.cross_view_study import tokenizer
 from loopqwen.research.resident_document import ResidentDocument
 from loopqwen.tool_session import run
-from scripts.middle_depth_budget import BASE, ROOT, worker
+from scripts.middle_depth_budget import BASE, ROOT, DevelopmentLimit, worker
 from scripts.middle_depth_retention import saved
 
 SPECS = Path("research/diagnostics/middle-depth")
@@ -241,11 +241,41 @@ def measure(args):
             [".venv/bin/python", "-m", "scripts.middle_depth_documents", *sys.argv[1:]],
         )
         prefill_seconds = monotonic() - prep
-        reader = (
-            qualified_resident(model, prefix, full, ident, args.tokens, guard)
-            if args.cache_mode == "resident"
-            else prefix
-        )
+        operating_point = args.cache_mode
+        pressure_receipt = ROOT / "resident-checks" / (ident + "-pressure.json")
+        if operating_point == "resident" and pressure_receipt.exists():
+            fallback = read(pressure_receipt)
+            if fallback["identity"] != ident or fallback["weights"] != weights:
+                raise ValueError(
+                    "Resource receipt belongs to a different deployed prefix"
+                )
+            operating_point = "staged"
+
+        def record_pressure(error):
+
+            save(
+                pressure_receipt,
+                {
+                    "identity": ident,
+                    "weights": weights,
+                    "while_executing": "resident",
+                    "error": str(error),
+                    "sample": error.snapshot,
+                    "remaining_worker_seconds": error.remaining_seconds,
+                    "fallback": "exact staged histories on next invocation",
+                },
+            )
+
+        reader = prefix
+        if operating_point == "resident":
+            try:
+                reader = qualified_resident(
+                    model, prefix, full, ident, args.tokens, guard
+                )
+            except DevelopmentLimit as error:
+                if error.snapshot["pressure"] != 1:
+                    record_pressure(error)
+                raise
 
         def take(kind, question, history):
             path = out / (args.world + "-" + kind + ".json.gz")
@@ -254,7 +284,10 @@ def measure(args):
                 assert record["identity"] == ident and record["frozen"] == digest(
                     FROZEN
                 )
-                assert record.get("cache_mode", "staged") == args.cache_mode
+                assert record.get("cache_mode", "staged") in (
+                    args.cache_mode,
+                    operating_point,
+                )
                 return record["history"]
             times = []
             start = monotonic()
@@ -263,19 +296,24 @@ def measure(args):
                 guard()
                 times.append((n, monotonic() - start))
 
-            trace = run(
-                model,
-                tok,
-                question,
-                t,
-                max_tokens=args.tokens,
-                max_turns=3,
-                document_prefix=reader,
-                tool_format="qwen",
-                record_kv_history=True,
-                progress=timer,
-                _messages=history,
-            )
+            try:
+                trace = run(
+                    model,
+                    tok,
+                    question,
+                    t,
+                    max_tokens=args.tokens,
+                    max_turns=3,
+                    document_prefix=reader,
+                    tool_format="qwen",
+                    record_kv_history=True,
+                    progress=timer,
+                    _messages=history,
+                )
+            except DevelopmentLimit as error:
+                if operating_point == "resident" and error.snapshot["pressure"] != 1:
+                    record_pressure(error)
+                raise
             if kind == "first":
                 assert trace["turns"][0]["prompt_ids"] == full
             elif kind in ("shared", "unanswerable"):
@@ -297,7 +335,11 @@ def measure(args):
             packed(
                 path,
                 {
-                    "cache_mode": args.cache_mode,
+                    "cache_mode": operating_point,
+                    "requested_cache_mode": args.cache_mode,
+                    "fallback_receipt": digest(pressure_receipt)
+                    if operating_point != args.cache_mode
+                    else None,
                     "identity": ident,
                     "weights": weights,
                     "frozen": digest(FROZEN),

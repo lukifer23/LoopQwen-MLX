@@ -57,6 +57,58 @@ def review(stage):
     return prompts
 
 
+def pending(directory, stage, prior):
+    """Carry a locked human/source judgment only for identical review content."""
+    target = directory / stage
+    deck = read(target / "blinded.json")
+    known, origins = {}, {}
+    for name in (*prior, stage):
+        folder = directory / name
+        grade_path = folder / "grades.json"
+        if not grade_path.exists():
+            continue
+        graded = read(grade_path)
+        originals = read(folder / "blinded.json")
+        sha = digest(grade_path)
+        for key in deck.keys() & graded.keys():
+            if originals.get(key) != deck[key] or fingerprint(deck[key]) != key:
+                raise ValueError("A prior grade belongs to different source material")
+            if key in known and known[key] != graded[key]:
+                raise ValueError("Conflicting locked judgments require source review")
+            known[key] = graded[key]
+            origins.setdefault(key, []).append({"stage": name, "grade_file": sha})
+    save(target / "carried.json", {k: known[k] for k in sorted(known)})
+    save(target / "carried-sources.json", {k: origins[k] for k in sorted(origins)})
+    new = {k: v for k, v in deck.items() if k not in known}
+    save(target / "pending.json", new)
+    print(
+        len(known),
+        "identical locked judgments and",
+        len(new),
+        "responses requiring source review",
+    )
+
+
+def lock(directory, stage):
+    folder = directory / stage
+    deck = read(folder / "blinded.json")
+    carried = read(folder / "carried.json")
+    path = folder / "new-grades.json"
+    new = read(path) if path.exists() else {}
+    if set(carried) & set(new) or set(carried) | set(new) != set(deck):
+        raise ValueError("Every new answer must have its own source judgment")
+    grades = carried | new
+    for key, grade in grades.items():
+        if fingerprint(deck[key]) != key or type(grade["correct"]) is not bool:
+            raise ValueError("Invalid judgment identity or correctness")
+        if grade["correct"] and (grade["unsupported"] or grade["first_error"]):
+            raise ValueError("An unsupported or incorrect answer cannot receive credit")
+    dest = folder / "grades.json"
+    if dest.exists() and any(grades.get(k) != v for k, v in read(dest).items()):
+        raise ValueError("Cannot silently replace an earlier locked grade")
+    save(dest, {k: grades[k] for k in sorted(grades)})
+
+
 def first_visible(turns, timestamps, tok):
     """Time of the first visible prose token in the actual public conversation."""
     closing = tok.convert_tokens_to_ids("</think>")
@@ -168,7 +220,16 @@ def aggregate(stage):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("action", choices=("blind", "aggregate"))
+    p.add_argument("action", choices=("blind", "aggregate", "pending", "lock"))
     p.add_argument("stage")
+    p.add_argument("--prior", nargs="*", default=[])
     args = p.parse_args()
-    review(args.stage) if args.action == "blind" else aggregate(args.stage)
+    if args.action == "pending":
+        review(args.stage)
+        pending(ROOT / "review", args.stage, args.prior)
+    elif args.action == "lock":
+        lock(ROOT / "review", args.stage)
+    elif args.action == "blind":
+        review(args.stage)
+    else:
+        aggregate(args.stage)
