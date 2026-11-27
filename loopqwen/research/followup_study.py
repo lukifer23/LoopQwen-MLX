@@ -9,7 +9,7 @@ from packaging.specifiers import InvalidSpecifier, SpecifierSet
 from ..evaluation.extractive import normalized
 from ..evaluation.extractive import score as extract
 from ..evaluation.mechanism import unpack
-from ..io import read, save
+from ..io import digest, read, save
 from ..wheel_tools import tools as wheel_tools
 from . import reasoned_evidence as comparison
 from .followup_fit import batches, fit
@@ -189,7 +189,7 @@ def outcome(panel, runs):
 
 def qualify(s, tok, root, guard):
     from scripts.followup_material import build
-    from scripts.followup_oracle import audit
+    from scripts.followup_oracle import RECEIPT, audit
     from scripts.followup_sources import enroll
 
     prior = read(Path("research/results/linked-rollin-02") / "decision.json")
@@ -198,6 +198,7 @@ def qualify(s, tok, root, guard):
     enroll()
     build()
     receipt = audit()
+    assert digest(RECEIPT) == s["source_oracle_sha256"]
     save(root / "source-qualification.json", receipt)
     guard.check()
 

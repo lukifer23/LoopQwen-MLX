@@ -40,7 +40,14 @@ def verify(root):
         "linked-rollin-01",
         "linked-rollin-02",
     )
-    interval = 100 if proof_fit else 80 if cross_view else s["checkpoint_interval"]
+    protected = s["id"] == "followup-protected-01"
+    interval = (
+        100
+        if proof_fit or protected
+        else 80
+        if cross_view
+        else s["checkpoint_interval"]
+    )
     steps = list(range(interval, s["updates"], interval)) + [s["updates"]]
     assert [h["step"] for h in history] == steps
     assert all(
@@ -49,8 +56,8 @@ def verify(root):
         for a, b in zip(history, history[1:])
     )
     assert history[-1]["targets"] == fit["targets"]
-    if cross_view or proof_fit:
-        key = "explanation_targets" if proof_fit else "teacher_positions"
+    if cross_view or proof_fit or protected:
+        key = "explanation_targets" if proof_fit or protected else "teacher_positions"
         assert history[-1][key] == fit[key]
         assert all(0 < a[key] < b[key] for a, b in zip(history, history[1:]))
     if s["id"] == "valid-return-01":
@@ -125,6 +132,21 @@ def record(root):
                 key: state["proof_tokens" if proof_fit else "positions"],
                 "optimizer_seconds": state["seconds"],
             }
+        elif spec["id"] == "followup-protected-01":
+            progress = {
+                k: state[k]
+                for k in (
+                    "step",
+                    "targets",
+                    "explanation_targets",
+                    "protected_targets",
+                    "optimizer_seconds",
+                )
+            }
+            assert (
+                state["steps"]
+                == read(root / "optimizer-directions.json")[: state["step"]]
+            )
         else:
             assert state["parity"] == read(root / "gradient-parity.json")
             progress = {k: state[k] for k in ("step", "targets", "optimizer_seconds")}
@@ -133,7 +155,10 @@ def record(root):
         if spec["id"] in ("linked-rollin-01", "linked-rollin-02"):
             progress["contrast_draws"] = state["contrast"]
             progress["optimizer_seconds"] = state["optimization_seconds"]
-        assert state["loss"] == [l for l in fit["loss"] if l["step"] <= state["step"]]
+        if spec["id"] != "followup-protected-01":
+            assert state["loss"] == [
+                l for l in fit["loss"] if l["step"] <= state["step"]
+            ]
         history.append(
             {
                 **progress,
@@ -171,10 +196,13 @@ if __name__ == "__main__":
     study.add_argument("--valid-return", action="store_true")
     study.add_argument("--linked-rollin", action="store_true")
     study.add_argument("--linked-rollin-text", action="store_true")
+    study.add_argument("--followup-protected", action="store_true")
     args = p.parse_args()
     base = "outputs/research" if args.record else "research/results"
     name = (
-        "linked-rollin-02"
+        "followup-protected-01"
+        if args.followup_protected
+        else "linked-rollin-02"
         if args.linked_rollin_text
         else "linked-rollin-01"
         if args.linked_rollin
