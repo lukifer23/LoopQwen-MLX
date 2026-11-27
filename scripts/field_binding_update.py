@@ -189,6 +189,19 @@ def main():
                 ).encode()
                 examples.append((name, family, i, row["id"]))
         long_examples = context_examples(ROOT, files)
+        # Assemble tracked files from the certified revision if the checkout advances.
+        tracked = set(
+            subprocess.check_output(
+                ["git", "ls-tree", "-r", "--name-only", revision], cwd=ROOT, text=True
+            ).splitlines()
+        )
+        for name, src in list(files.items()):
+            if isinstance(src, Path) and src.is_relative_to(ROOT):
+                rel = src.relative_to(ROOT).as_posix()
+                if rel in tracked:
+                    files[name] = subprocess.check_output(
+                        ["git", "show", revision + ":" + rel], cwd=ROOT
+                    )
         hashes = write_archive(archive, files)
         with ZipFile(archive) as z:
             assert set(z.namelist()) == set(hashes) | {"SHA256SUMS"}
@@ -251,7 +264,8 @@ def main():
             restored = subprocess.check_output(
                 ["git", "-C", str(checkout), "show", revision + ":" + path]
             )
-            assert restored == (ROOT / path).read_bytes()
+            member = path.replace("research/results/", "studies/", 1)
+            assert restored == (work / member).read_bytes()
         venv = tmp / "venv"
         subprocess.run(
             [
