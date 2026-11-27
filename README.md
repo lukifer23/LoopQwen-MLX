@@ -14,6 +14,8 @@ A separately trained assistant sharing one instruction backbone across reasoning
 
 The single-adapter experiment preserved all 17 previously grounded public numerical calls and added two. Across 144 mixed requests it scored **74 versus 62** for Base (paired $p=0.148$), and **45 versus 50** on the 72 new human requests. It took 107.60 versus 525.22 seconds and lost twelve earlier field successes. The original comparison uncovered a real tokenizer error on a mixed-script passage. The corrected installed loader reproduced all 144 prescribed opening token streams and all 120 previously valid recurrent trajectories. [Full corrective replay](research/results/shared-session-tokenizer-replay-01) · [Original token mismatch](research/results/shared-session-unified-01/tokenizer-parity.json)
 
+On the 144-request comparison, the loop solved **35 questions that Base missed**. All 35 took less total time and peak memory. On seven, the first token also arrived sooner. In the opposite direction, Base solved 23 questions that the loop missed. [All four metrics per request](paper/paired-request-tradeoffs.csv) · [Breakdown by family](paper/paired-request-tradeoffs.svg)
+
 ## Research report and executable tools
 
 The [technical paper](paper/loopqwen.pdf) covers matched depth controls, ordinary reasoning, correct tool execution, time, memory and full-history inference on the same 18 GiB M3 Pro. The [evidence index](paper/study-index.csv) links each claim to its preregistration and native output archive. [Figure sources and reproduction](paper/README.md)

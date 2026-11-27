@@ -219,6 +219,10 @@ The two-view assistant succeeded on 38/72 retention requests against 12/72 for B
 
 #figure(image("request-mix.svg",width:78%),caption:[Expected fraction of strictly correct outcomes at different proportions of fresh human questions. Dots mark the measured workload. Dotted lines mark equality where it occurs.])
 
+On the same 144 paired requests we asked how often a newly correct answer arrived with a first token, total time and peak memory all at least as good as Base. The recurrent model solved 35 requests that Base missed. All 35 finished sooner and used less peak memory. Seven also reached the first token sooner. Those seven included three file requests and one each in judgment, extraction, fresh arithmetic and field arithmetic. First-token latency accounted for the other 28. Fourteen additional requests were correct in both arms and met all three cost conditions. When each cost had to improve by at least 5%, two newly correct answers and ten shared successes remained. These are descriptive counts from a single stream per model; repeated timing would be needed to distinguish small first-token differences from device variation.
+
+#figure(image("paired-request-tradeoffs.svg",width:96%),caption:[Per-request accuracy and cost on the same installed models. The three cost conditions use measured time to first token, whole-request time and peak native bytes. Five requests saved all three costs while both answers were wrong.])
+
 == Lossless distribution of the complete assistant
 The qualified bundle contains separate language and tool backbones. We compared ordinary level-six DEFLATE of its complete file inventory with a reversible representation that uses the original Base tensors and the sibling's actual scale and bias to predict quantized weight bytes. The archive stores the residual bytes; the decoder reconstructs the exact original tensor headers and payloads. The encoding is applied before DEFLATE and leaves the installed model precision intact.
 
