@@ -273,6 +273,8 @@ The two visits share all parameters. Query and content corrections have rank 160
 
   *Where the calculations failed.* We replayed every call after unmasking. The loop attempted the provider on 21 reports and got a valid calculation on 20. Eight last successful programs contained every required operand magnitude and just one returned the requested value. Base attempted three and returned one correct value. The loop subtracted the right accrued-expense cells and delivered −181 without the thousands scale. On payroll it used a ratio for a requested arithmetic mean; Base executed the mean and delivered 111.4 in the source units. Matching digits alone cannot establish a correct row, operation or direction.
 
+  *Uncertainty.* Resampling the 24 paired topics or reports 10,000 times gave a 95% interval of −12.5 to +37.5 percentage points for the reasoning difference and −12.5 to +12.5 points for financial correctness. Mean elapsed time per request fell by 4.03 s for reasoning (95% interval 3.54–4.47 s) and by 4.85 s for finance (4.25–5.54 s). The loop emitted 6,977 tokens overall and Base emitted 17,860. The elapsed difference reflects both the rate of decoding and the number of tokens produced. Fixed arm order limits hardware timing inference.
+
   One project reviewer saw the original sources, complete replies and executed calculations before model identity was revealed. Each of the 48 paired judgments was committed before unmasking.
  ]
 ]
