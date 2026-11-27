@@ -1,0 +1,245 @@
+{
+  "name": "loopqwen-field-kit-01.zip",
+  "bytes": 2422522101,
+  "sha256": "ba5a1326e0205f2a5727a6f8229290a81e2b03f04cceab44ceb32e6700418e5c",
+  "verified_members": 299,
+  "restored_model_files": 65,
+  "model_sha256": "8c1fbb6850ca72b38e8fa90ebc7c15803f005880a1e43687e224d8016a99a2b3",
+  "wheel_sha256": "e416a35c1cec93982267f847ad9c470e2c283878610f8995d8b6400904dc6f47",
+  "pdf_sha256": "87ce7d863edd5750c9a99ca02cf1e202a7f7778e89ec07bb82b3095588c9e2ad",
+  "rebuilt_pdf_pages": 64,
+  "locked_paper_wheels": 2,
+  "source_revision": "114e4266c4350dabce8a0472a56182b68e61387b",
+  "verified_git_history": true,
+  "recounted_matched_induction_items": 128,
+  "registrations": 163,
+  "study_archives": 166,
+  "empty_cache": true,
+  "outside_checkout": true,
+  "fresh_venv": true,
+  "locked_dependency_wheels": 44,
+  "network_blocked": true,
+  "initial_prompt_identical": true,
+  "verified_examples": [
+    {
+      "study": "question-contrast-01",
+      "id": "2eb9c5a0c7066af467bcb6346837dec3a7608be37a382278b676bf4b9bd86b37",
+      "domain": "ASDiv",
+      "command": [
+        "ask",
+        "--checkpoint",
+        "release-05",
+        "--tool-adapter",
+        "studies/question-contrast-01",
+        "--tool-format",
+        "qwen",
+        "--calculator",
+        "--prompt",
+        "I have 80 cents to buy candy. If each gumdrop costs 4 cents, how many gumdrops can I buy?\nUse the calculator for the arithmetic and give the final numeric answer.",
+        "--reuse-prefix",
+        "--compare-base",
+        "--trace",
+        "--max-tokens",
+        "384",
+        "--max-turns",
+        "3"
+      ],
+      "reference": "20",
+      "models": {
+        "recurrent": {
+          "status": "answered",
+          "answer": "20",
+          "trace_sha256": "28a071613d04973d8e527d79e8bb911e534344e6e4f7211d394d4264fbf0c9f1",
+          "calls": [
+            {
+              "call": {
+                "name": "calculate",
+                "arguments": {
+                  "steps": [
+                    "80/4"
+                  ]
+                }
+              },
+              "observation": {
+                "results": [
+                  "20"
+                ],
+                "value": "20"
+              }
+            }
+          ]
+        },
+        "base": {
+          "status": "turn_limit",
+          "answer": null,
+          "trace_sha256": "ed2fd30e00c39bc44e13b98f0dcf340a6ac2e921c3b6a0437ebf8bbb091263d9",
+          "calls": [
+            {
+              "call": {
+                "name": "calculate",
+                "arguments": {
+                  "steps": [
+                    "80",
+                    "\u00f7",
+                    "4",
+                    "=",
+                    "20"
+                  ]
+                }
+              },
+              "observation": {
+                "error": "ValueError"
+              }
+            },
+            {
+              "call": {
+                "name": "calculate",
+                "arguments": {
+                  "steps": [
+                    "80",
+                    "\u00f7",
+                    "4",
+                    "=",
+                    "20"
+                  ]
+                }
+              },
+              "observation": {
+                "error": "ValueError"
+              }
+            },
+            {
+              "call": {
+                "name": "calculate",
+                "arguments": {
+                  "steps": [
+                    "80",
+                    "\u00f7",
+                    "4",
+                    "=",
+                    "20"
+                  ]
+                }
+              },
+              "observation": {
+                "error": "ValueError"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "study": "report-action-field-01",
+      "id": "e02b2c21-3972-41cc-b391-5478da7df9d8",
+      "domain": "report",
+      "command": [
+        "ask",
+        "--checkpoint",
+        "release-05",
+        "--tool-adapter",
+        "studies/report-action-field-01",
+        "--tool-format",
+        "qwen",
+        "--calculator",
+        "--prompt-file",
+        "examples/report-question.txt",
+        "--reuse-prefix",
+        "--compare-base",
+        "--trace",
+        "--max-tokens",
+        "320",
+        "--max-turns",
+        "3"
+      ],
+      "reference": "228",
+      "models": {
+        "recurrent": {
+          "status": "answered",
+          "answer": "3642",
+          "trace_sha256": "e2f58744b5929226c442ce65759a741206523a274eeace774e183563bb8d2920",
+          "calls": [
+            {
+              "call": {
+                "name": "calculate",
+                "arguments": {
+                  "steps": [
+                    "262+3380"
+                  ]
+                }
+              },
+              "observation": {
+                "results": [
+                  "3642"
+                ],
+                "value": "3642"
+              }
+            }
+          ]
+        },
+        "base": {
+          "status": "answered",
+          "answer": "3,118",
+          "trace_sha256": "1bdc60d234542331fb80246dc3547f420d2c3940d36b0ae33ed09717501c70cc",
+          "calls": []
+        }
+      }
+    },
+    {
+      "study": "report-action-field-01",
+      "id": "markupsafe-change",
+      "domain": "distribution",
+      "command": [
+        "ask",
+        "--checkpoint",
+        "release-05",
+        "--tool-adapter",
+        "studies/report-action-field-01",
+        "--tool-format",
+        "qwen",
+        "--calculator",
+        "--prompt-file",
+        "examples/distribution-question.txt",
+        "--reuse-prefix",
+        "--compare-base",
+        "--trace",
+        "--max-tokens",
+        "320",
+        "--max-turns",
+        "3"
+      ],
+      "reference": "8337",
+      "models": {
+        "recurrent": {
+          "status": "answered",
+          "answer": "14222",
+          "trace_sha256": "f5b52f046502859c04898b6d121b47d209e7d15e63e56ea756e232c68f1781a4",
+          "calls": [
+            {
+              "call": {
+                "name": "calculate",
+                "arguments": {
+                  "steps": [
+                    "28525-14303"
+                  ]
+                }
+              },
+              "observation": {
+                "results": [
+                  "14222"
+                ],
+                "value": "14222"
+              }
+            }
+          ]
+        },
+        "base": {
+          "status": "token_limit",
+          "answer": null,
+          "trace_sha256": "1aad4c78692f85adcd92182591ae11097a0e63950c95a32c7bbb0c25b4dfbf68",
+          "calls": []
+        }
+      }
+    }
+  ]
+}
