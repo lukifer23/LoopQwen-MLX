@@ -137,12 +137,86 @@ def work(step):
     save(report, rec)
 
 
+def exits(step):
+    """Summarize observed pre-update losses on identical last-epoch exposures."""
+    from collections import defaultdict
+    from statistics import fmean
+    from scripts.middle_depth_recover import fit_directory
+
+    deck = unpack(ROWS)
+    epoch = len(deck) // 2
+    if step % epoch or step < epoch:
+        raise ValueError("Compare complete matched epochs only")
+    states = {
+        arm: fit_directory(arm, step) / f"step-{step:04d}" / "state.json"
+        for arm in ("loop", "ordinary")
+    }
+    logs = [read(path)["log"][-epoch:] for path in states.values()]
+    compared = []
+    for i, (loop, ordinary) in enumerate(zip(*logs, strict=True)):
+        expected = deck[2 * i : 2 * i + 2]
+        assert loop["ids"] == ordinary["ids"] == [row["id"] for row in expected]
+        assert loop["step"] == ordinary["step"] == step - epoch + i + 1
+        k = len(loop["exit_loss"]) // 2
+        assert k in (2, 3) and len(ordinary["exit_loss"]) == 2
+        for j, row in enumerate(expected):
+            scores = loop["exit_loss"][j * k : (j + 1) * k]
+            compared.append(
+                {
+                    "id": row["id"],
+                    "source": row["cluster"],
+                    "family": row["family"],
+                    "group": row["group"],
+                    "update": loop["step"],
+                    "loop": scores,
+                    "ordinary": ordinary["exit_loss"][j],
+                }
+            )
+    by_family = {}
+    for family in sorted({r["family"] for r in compared}):
+        cell = [r for r in compared if r["family"] == family]
+        for label, left, right in (
+            ("loop2_minus_loop1", 1, 0),
+            ("loop3_minus_loop2", 2, 1),
+            ("loop2_minus_trained_ordinary", 1, None),
+        ):
+            diffs = defaultdict(list)
+            for r in cell:
+                if left < len(r["loop"]):
+                    ref = r["ordinary"] if right is None else r["loop"][right]
+                    diffs[r["source"]].append(r["loop"][left] - ref)
+            by_family.setdefault(family, {})[label] = {
+                "sources": len(diffs),
+                "rows": sum(map(len, diffs.values())),
+                "mean_source_delta": fmean(map(fmean, diffs.values())),
+                "sources_with_lower_objective": sum(
+                    fmean(x) < 0 for x in diffs.values()
+                ),
+            }
+    save(
+        ROOT / f"fit-exits-{step:04d}.json",
+        {
+            "steps": step,
+            "epoch": step // epoch,
+            "states": {a: digest(p) for a, p in states.items()},
+            "source_weighted": by_family,
+            "rows": compared,
+            "scope": "Observed training-turn objectives before each optimizer update in the named epoch. Values include the registered foil penalty where present. Warmup has two loop exits. Only public free generation earns answer credit.",
+        },
+    )
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("action", choices=("profile", "work"))
+    p.add_argument("action", choices=("profile", "work", "exits"))
     p.add_argument("--arm", choices=("ordinary", "loop"))
     p.add_argument("--policy", type=Path)
     p.add_argument("--stage", default="terminal")
     p.add_argument("--step", type=int, default=144)
     a = p.parse_args()
-    work(a.step) if a.action == "work" else profile(a.arm, a.policy, a.stage)
+    if a.action == "work":
+        work(a.step)
+    elif a.action == "exits":
+        exits(a.step)
+    else:
+        profile(a.arm, a.policy, a.stage)
