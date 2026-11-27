@@ -169,6 +169,12 @@ def main(verify):
                 [sys.executable, "-m", "scripts." + command], cwd=ROOT, check=True
             )
 
+    if (ROOT / "research/results/reasoned-evidence-01/teacher-fit.json").is_file():
+        for module in ("reasoned_evidence_teacher_audit", "paper_reasoned_evidence"):
+            subprocess.run(
+                [sys.executable, "-m", "scripts." + module], cwd=ROOT, check=True
+            )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

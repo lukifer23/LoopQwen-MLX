@@ -33,6 +33,14 @@ EDITIONS = {
         "Current study · Can the loop read its own tool returns?",
         "Changed files, independent reasoning and technical paper",
     ),
+    "reasoned-evidence": (
+        "loopqwen-study.pdf",
+        "c4e8346d252e46f39731bc1849686372b1aafa73aee4b90c724d3f1bae092142",
+        "loopqwen-findings.pdf",
+        "LoopQwen-MLX: qualifying reasoning supervision for recurrent tool use",
+        "Current study · Qualifying explanations before recurrent training",
+        "Cross-view reading, tools, full context and earlier technical evidence",
+    ),
 }
 
 
@@ -74,8 +82,8 @@ if __name__ == "__main__":
     args = p.parse_args()
     for name in EDITIONS:
         if (
-            name == "cross-view"
-            and not (args.folder / "cross-view-paper.json").is_file()
+            name in {"cross-view", "reasoned-evidence"}
+            and not (args.folder / (name + "-paper.json")).is_file()
         ):
             continue
         edition(args.folder, name, verify=args.verify)

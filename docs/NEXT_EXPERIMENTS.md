@@ -1,5 +1,9 @@
 # Research decisions
 
+## Transfer from validated proofs to human decisions
+
+The explanation teacher qualified 58/192 cases with 11/64 on uncertain claims. The original specification required 64 in total and 16 in each class and closed the student. A separate fit starts from the release 05 adapter. Its second visit learns to raise supported verdict odds relative to the first, using human e-SNLI explanations and independently replayed ProofWriter training worlds. A quarter of second-example draws use published Python constraints from ten packages disjoint from the 44 held inventory packages. Every step also teaches a genuine call and rehearses an earlier table. The user-facing endpoint is the original, still unscored panel of 96 human, practical and retention requests. The registered decision requires field transfer, reasoning, speed and memory together. [Decision and limits](../research/experiments/proof-curriculum-01.json) · [Closed teacher gate](../research/results/reasoned-evidence-01) · [Independent proof replay](measurements/proof-curriculum-source-oracle.json)
+
 
 ## Reading the same evidence through a file and inline
 

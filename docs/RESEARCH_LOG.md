@@ -1,5 +1,11 @@
 # Research ledger
 
+## November 27 explanation qualification and proof training
+
+A 4B teacher generated 27,722 tokens on 192 distinct human FOLIO training situations in 307.60 s at 3.77 GiB peak. It supplied 30 qualifying explanations for true claims, 17 for false and 11 for uncertain. Ninety-five generations reached the 176-token maximum. The archived teacher study closed before fitting or scoring a student. Z3 reproduced all 36 formal held verdicts. A pre-outcome review flagged five of 12 stories for English/formula discrepancies and kept all 12 in the primary endpoint. [Generation-level audit](measurements/reasoned-evidence-teacher.json) · [Paper and chart](../paper/reasoned-evidence.pdf) · [Full formal replay](measurements/reasoned-evidence-source-oracle.json)
+
+The independent proof curriculum requires an independently computed truth value for each of 192 distinct training worlds. A second Datalog implementation agreed on both the signed query and its opposite for all 192. The first launch caught a source-accounting wiring error before any student update or held generation. We retained the failing log and execution revision, corrected the plumbing and revalidated all 2,066 training views. The data, loss, order, caps and registered criteria were unchanged. [Training materials](../research/data/proof-curriculum-training.json) · [Independent Datalog oracle](measurements/proof-curriculum-source-oracle.json)
+
 **2026-11-27 — Cross-view reading.** After the 4B teacher met the training-only coverage floor (336/384), the 0.8B instruction-derived K2 student completed 640 MLX updates. All 88 requests per arm were replayed against the actual source files. It got 24 useful results versus 22, including 9 versus 5 on files, 12 versus 17 inline and 3 versus 0 on table retention. Both scored 0/20 whole articles. The loop took 81.37 s versus 477.58 s, with a first-token sum of 14.84 versus 14.61 s. The ordinary Base remains the stronger inline reader on this panel. All eight optimizer checkpoint identities and the final AdamW moments are archived. [Registration, trained weights and outcomes](../research/results/cross-view-reading-01) · [88-page paper](../paper/loopqwen-study.pdf)
 
 ## Changed files and streamed native optimization
