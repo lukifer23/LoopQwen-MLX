@@ -19,7 +19,7 @@ from verify_runtime_wheel import CODE, ROOT, trace
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 
-SOURCE_REVISION = "4c83f4fa4e715f6135454e62f09f6f2315a0413b"
+SOURCE_REVISION = "22d49272762904e5c38a4b9e22587651172e0a27"
 
 STUDIES = (
     "observation-review-01",
