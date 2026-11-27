@@ -1,0 +1,59 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "passes": 2,
+  "shared_query": true,
+  "revisits": 2,
+  "rank": 160,
+  "gate_rank": 32,
+  "fit_seed": 864371,
+  "compute_precision": "float16",
+  "training": "research/sources/repair-query/verified-training.json.gz",
+  "evidence": "research/sources/repair-query/verified-evidence.json.gz",
+  "sources": {
+    "research/sources/repair-query/verified-inventory.json": "34a7da0e0bf3b783d53bded07a914189dd70e587f8d1d5c18db0d28766f8fbe4",
+    "research/sources/repair-query/verified-training.json.gz": "427775bf9e4124f8c71a4a7ebcb25e07f814a387035fd98c6276e9d33cd98f39",
+    "research/sources/repair-query/verified-evidence.json.gz": "faf8ecbe3b467115aeb2a03ff4db67afce6ea400203d76b7b3ee76c4f0721223",
+    "research/sources/repair-query/transfer-panel.json.gz": "132f4ee00f1a8605399499517cf0f9ebed672aa5d74b8dbd51c1b51afcb92ad9",
+    "research/diagnostics/repair-query-reading.json": "9d1450e6753604190c62e535c41992b3ad87300eb346f427e97a57244aec3eeb",
+    "docs/measurements/shared-query-precision-idle.json": "f514acb737510497fab74ca856ae636ccb929538ea766bc30b94453d80bc66c1",
+    "research/results/elastic-world-fit-01/checksums.json": "0c92ef72714baf3c2e43ff42e2e2d29446043d571fd432f1f34edda409267837",
+    "research/sources/provider-recovery/field-score-controls.json": "9f409fddd469378fc7f3e22a45273b97373641f13100eae4ea677d3dd80591db",
+    "research/sources/repair-query/panel-replay.json": "c3fbcb6492904a94bdf7bdad25b9e0ab33ed6f8f018e2d2ee0bfd2c8437cbe01",
+    "research/experiments/repair-query-fit-01.json": "93207d1f9b61a239aa62ababf2f39aa8fb43c91d4c253717bb90634fbb767d57"
+  },
+  "precision_receipt": "docs/measurements/shared-query-precision-idle.json",
+  "predecessor": {
+    "stage": "elastic-world-fit-01",
+    "archive": "0c92ef72714baf3c2e43ff42e2e2d29446043d571fd432f1f34edda409267837"
+  },
+  "cold_groups": [
+    "strategy",
+    "report_action",
+    "full_rows",
+    "repair_after_schema",
+    "redirect_valid_read"
+  ],
+  "limits": {
+    "wall_seconds": 4380,
+    "peak_gib": 8.25,
+    "available_gib": 1.5
+  },
+  "id": "repair-query-transfer-01",
+  "fit_stage": "repair-query-fit-01",
+  "material": "research/sources/repair-query/transfer-panel.json.gz",
+  "field_history": true,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "context_turns": 1,
+  "question": "Does one physically recurrent model improve credible database repairs, expert calculations, multi-step explanations and complete 128K-plus requests over the untouched ordinary Base?",
+  "protocol": "One 180-request matched direct pair. Both arms use identical native Qwen thinking prompts, unconstrained greedy generation, source histories, real callbacks and output caps. Record time, first-token wait, peak, prefill and decode alongside all successes. Require >=6 net improvements and zero lost successes separately in database, strategy and financial families with two-sided exact p<=0.05. For database cases use schema-cluster sign flips and positive gains under each of the four conditions. Each short family requires at least as many completions. Four unabridged prompts above 131072 tokens must all be correct and strictly exceed Base. Require lower total wall, first-token wait and peak and faster opening and decode. Grade all 176 masked short cases before examining the cost or decision. A joint pass is prerequisite to the fully matched ordinary-depth training, second independent seed, broad retention and clean 128K deployment. All failed registered prerequisites close downstream stages."
+}
