@@ -1,0 +1,14 @@
+{
+  "training": [
+    9,
+    1,
+    6,
+    4,
+    7,
+    8
+  ],
+  "measure": "4fe487fe3545b03546189af7df57fd859b180cd354798dcb188e0cc9cc308d53",
+  "weights": "8eaa1a82dc122f44f95c669dfd3a80e9a705acd32bddc2739062d20e4d4e0213",
+  "implementation": "ce172972786b9fc3704dd7c52960b2cb26222a0abd3f427a62c46fcdf8513014",
+  "protocol": "A training-source intervention only. Never load any held-field feature. For each of the 12 original training source/version presentations, examine the first token where the two original answers differ. Hold the full native ordinary representation, all causal positions and learned weights fixed. Mask the true annotated value span on all additional read operations at this output position; compare a matched-width mask 64 original tokens before that span in exactly the same document and an intact reference. Neither mask changes the source tokens, ordinary cache write, position, or ordinary backbone history. Compare the correct-versus-alternative logit margin and full-vocabulary target NLL. Require intact logits to reproduce the archived training margins within .15, finite complete measurements, and a larger target margin after the decoy mask than after the evidence mask on >=9/12 with mean advantage >.10 for positive source dependence. Limit 120 native seconds and 3 GiB peak. No free answer or independent semantic credit; no additional runs on prior held sources."
+}
