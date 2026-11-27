@@ -40,11 +40,14 @@ def snapshot(model, ids, lean):
     result = {"logits": array_sha(logits), "sites": []}
     for (layer, visit), slot in cache.slots.items():
         fields = [array_sha(v) if isinstance(v, mx.array) else v for v in slot.state]
+        offset = getattr(slot, "offset", None)
+        if isinstance(offset, mx.array):
+            offset = offset.tolist()
         result["sites"].append(
             {
                 "layer": layer,
                 "visit": visit,
-                "offset": getattr(slot, "offset", None),
+                "offset": offset,
                 "state": fields,
             }
         )
@@ -187,5 +190,47 @@ def run():
     verify(root, d)
 
 
+def finish_numeric():
+    """Recover only the untimed state probes if serialization failed after all timed rounds."""
+    root = Path("outputs/research") / NAME
+    s = registered(NAME)
+    rounds = unpack(root / "rounds.json.gz")
+    assert [r["mode"] for r in rounds] == s["order"] and not (
+        root / "decision.json"
+    ).exists()
+    guard = Budget(NAME, s["limits"])
+    try:
+        states = {}
+        for mode in ("state", "stock"):
+            model = bind(None, Path(s["checkpoint"]) / "tool")
+            model.eval()
+            probes = {}
+            for w in read(s["material"])["rows"]:
+                guard.check()
+                probes[w["id"]] = snapshot(model, w["initial_ids"], mode == "state")
+            states[mode] = probes
+            del model
+            gc.collect()
+            mx.clear_cache()
+        save(root / "physical-state-digests.json", states)
+        save(
+            root / "numeric-recovery.json",
+            {
+                "timed_rounds": digest(root / "rounds.json.gz"),
+                "source": digest(Path(__file__)),
+                "reason": "The original eight timed rounds completed. An MLX offset needed conversion to JSON for the untimed equality probes; only the probes were re-executed.",
+            },
+        )
+        d = decide(rounds, states)
+        save(root / "decision.json", d)
+        verify(root, d)
+    finally:
+        guard.close()
+
+
 if __name__ == "__main__":
-    run()
+    import argparse
+
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--finish-numeric", action="store_true")
+    (finish_numeric if p.parse_args().finish_numeric else run)()
