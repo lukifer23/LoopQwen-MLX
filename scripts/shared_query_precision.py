@@ -82,11 +82,19 @@ def cases(s):
     return selected
 
 
-def run():
+def run(*, idle=False):
+    plan = PLAN.with_name("shared-query-precision-idle.json") if idle else PLAN
+    output = REPORT.with_name("shared-query-precision-idle.json") if idle else REPORT
+    committed(plan)
+    if idle:
+        assert (
+            digest(REPORT) == read(plan)["earlier_receipt"]
+            and not read(REPORT)["records"]
+        )
     committed(PLAN)
     committed(INVENTORY)
     s = read(RESULTS / FEATURES / "registration.json")
-    cfg = read(PLAN)
+    cfg = read(plan)
     assert digest(INVENTORY) == cfg["storage"]
     chosen = cases(s)
     assert [r["id"] for r in chosen] == cfg["ids"]
@@ -198,23 +206,37 @@ def run():
         status = str(e)
         passed = False
     result = {
-        "plan": digest(PLAN),
+        "plan": digest(plan),
         "passed": passed,
         "status": status,
         "records": records,
         "seconds": perf_counter() - start,
         "peak_bytes": mx.get_peak_memory(),
     }
-    persist(REPORT, result)
+    persist(output, result)
     print(result["status"], result["passed"], len(records))
 
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("mode", choices=("freeze", "measure"))
+    p.add_argument("mode", choices=("freeze", "measure", "freeze-idle", "measure-idle"))
     a = p.parse_args()
-    if a.mode == "measure":
-        run()
+    if a.mode in ("measure", "measure-idle"):
+        run(idle=a.mode == "measure-idle")
+    elif a.mode == "freeze-idle":
+        committed(REPORT)
+        prior = read(REPORT)
+        assert not prior["records"] and prior["status"] == "System memory warning"
+        persist(
+            PLAN.with_name("shared-query-precision-idle.json"),
+            {
+                **read(PLAN),
+                "earlier_receipt": digest(REPORT),
+                "original_plan": digest(PLAN),
+                "max_seconds": read(PLAN)["max_seconds"] - prior["seconds"],
+                "eligibility": "Only after the pressure-aware fit misses its quality gate, or its direct pair has been archived and both complete source readings miss joint qualification. The earlier attempt produced zero measured examples. Require ten seconds of nominal host pressure before loading. Stop again on any resource warning. Use exactly the same twelve inputs and criteria and share the original 180-second native budget.",
+            },
+        )
     else:
         rc = storage()
         s = read(RESULTS / FEATURES / "registration.json")

@@ -19,15 +19,18 @@ RATINGS = DOC / "contrastive-qualitative-blinded-ratings.json"
 REPORT = DOC / "contrastive-qualitative-reading.json"
 
 
-def run(mode, *, streamed=False):
-    root = ROOT.parent / "streamed-world-transfer-01" if streamed else ROOT
-    prefix = ("streamed" if streamed else "contrastive") + "-qualitative"
+def run(mode, *, streamed=False, variant=None):
+    variant = variant or ("streamed" if streamed else "contrastive")
+    if variant not in ("contrastive", "streamed", "elastic"):
+        raise ValueError("Unknown registered comparison")
+    root = ROOT.parent / (variant + "-world-transfer-01")
+    prefix = variant + "-qualitative"
     mask_file = DOC / (prefix + "-blinded.json")
     rating_file = DOC / (prefix + "-blinded-ratings.json")
     report_file = DOC / (prefix + "-reading.json")
     if mode == "report":
         for group in ("services", "qualitative"):
-            prefix = ("streamed" if streamed else "contrastive") + "-" + group
+            prefix = variant + "-" + group
             committed(DOC / (prefix + "-blinded-ratings.json"))
     items = [w for w in unpack(PANEL)["rows"] if w["family"] == "qualitative"]
     assert len(items) == 48
@@ -106,5 +109,6 @@ if __name__ == "__main__":
     args = argparse.ArgumentParser()
     args.add_argument("mode", choices=("plan", "blind", "report"))
     args.add_argument("--streamed", action="store_true")
+    args.add_argument("--variant", choices=("contrastive", "streamed", "elastic"))
     options = args.parse_args()
-    run(options.mode, streamed=options.streamed)
+    run(options.mode, streamed=options.streamed, variant=options.variant)

@@ -62,8 +62,11 @@ def build(study):
     }
 
 
-def run(study, mode, *, streamed=False):
-    if streamed and (study != "contrastive-worlds" or mode != "report"):
+def run(study, mode, *, streamed=False, variant=None):
+    variant = variant or ("streamed" if streamed else None)
+    if variant and variant not in ("streamed", "elastic"):
+        raise ValueError("Unknown registered comparison")
+    if variant and (study != "contrastive-worlds" or mode != "report"):
         raise ValueError(
             "The streamed comparison inherits the frozen contrastive wording strata"
         )
@@ -76,9 +79,9 @@ def run(study, mode, *, streamed=False):
     committed(plan)
     assert expected == read(plan)
     stage, reviews = STUDIES[study]
-    if streamed:
-        stage = "streamed-world-transfer-01"
-        reviews = ("streamed-services", "streamed-qualitative")
+    if variant:
+        stage = variant + "-world-transfer-01"
+        reviews = (variant + "-services", variant + "-qualitative")
     root = Path("research/results") / stage
     committed(root / "checksums.json")
     for prefix in reviews:
@@ -117,7 +120,8 @@ def run(study, mode, *, streamed=False):
             }
         )
     save(
-        DOC / (("streamed-world" if streamed else study) + "-wording-sensitivity.json"),
+        DOC
+        / ((variant + "-world" if variant else study) + "-wording-sensitivity.json"),
         {
             "registration": digest(plan),
             "primary": digest(root / "checksums.json"),
@@ -132,5 +136,6 @@ if __name__ == "__main__":
     p.add_argument("study", choices=STUDIES)
     p.add_argument("mode", choices=("freeze", "report"))
     p.add_argument("--streamed", action="store_true")
+    p.add_argument("--variant", choices=("streamed", "elastic"))
     a = p.parse_args()
-    run(a.study, a.mode, streamed=a.streamed)
+    run(a.study, a.mode, streamed=a.streamed, variant=a.variant)
