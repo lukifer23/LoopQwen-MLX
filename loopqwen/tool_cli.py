@@ -130,6 +130,12 @@ def open_assistant(args):
         from .io import read
 
         policy = read(args.session_policy / "registration.json")
+        if policy.get("file_evidence"):
+            from .file_evidence import FileEvidenceAssistant
+
+            if getattr(args, "tool_format", "compact") != "qwen":
+                raise ValueError("File evidence requires --tool-format qwen")
+            return FileEvidenceAssistant(args.checkpoint, args.session_policy)
         if policy.get("instruction_interpolation"):
             from .interpolated_instruction import InterpolatedAssistant
 
