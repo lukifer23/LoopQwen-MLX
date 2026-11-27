@@ -8,14 +8,16 @@ from loopqwen.research.registered import registered
 
 
 def run(root):
-    if root.name == "valid-return-01":
+    source = read(root / "registration.json")
+    name = source["id"]
+    if name == "valid-return-01":
         from loopqwen.research.valid_return import verify
-    elif root.name == "field-selection-01":
+    elif name == "field-selection-01":
         from loopqwen.research.field_selection import verify
     else:
-        raise ValueError(f"Unknown field study {root.name}")
-    spec = registered(root.name)
-    assert read(root / "registration.json") == spec
+        raise ValueError(f"Unknown field study {name}")
+    spec = registered(name)
+    assert source == spec
     expected = read(root / "checksums.json")
     registry = read("research/registry.json")["experiments"][spec["id"]]
     assert digest(root / "checksums.json") == registry["archive"]
