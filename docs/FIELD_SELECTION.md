@@ -2,6 +2,25 @@
 
 The experiment starts from the qualified release 05 backbone. It uses a shared rank-32 update on the final layer and executes that layer twice per token. The held data include cross-domain human table judgments, real distribution requirements and retained file lookups. The decision requires gains in answer quality and speed on the same trained weights. [Frozen protocol](../research/experiments/field-selection-01.json) · [Analysis protocol](../research/diagnostics/field-selection-analysis.json)
 
+## Ask the trained loop about your own file
+
+The offline policy add-on uses field kit 01 for the model and field update 04 for the installed runtime. Extract each into a separate directory. From the unpacked policy directory, set the two paths to your local parent kits and run:
+
+```sh
+base_kit=/path/to/field-kit-01
+runtime_kit=/path/to/field-update-04
+uv venv --offline --no-project --python 3.12 .venv
+uv --no-cache pip install --offline --no-index --python .venv/bin/python \
+  --find-links "$base_kit/dependencies" "$runtime_kit"/runtime/*.whl
+.venv/bin/python -m loopqwen.weight_transport unpack \
+  "$base_kit/model/tool-language-packed-05.lqzip" release-05
+.venv/bin/loopqwen ask --checkpoint release-05 --session-policy policy \
+  --tool-format qwen --keyed-csv my-records.csv --prompt-file my-question.txt \
+  --max-turns 3 --max-tokens 512 --trace --compare-base
+```
+
+Supply a CSV with headers and a text file containing your question. The trace records arguments, observations, reply tokens and physical histories for both models. The add-on carries five replayable example requests under `examples/`, plus the complete measured policy and the report. To restore the source from local bundles, fetch `sources/update.bundle` from update 04 then `sources/field-selection.bundle` from this add-on onto kit 01’s bare repository. Clone the explicit `main` branch.
+
 ## Restore the sources
 
 Use the pinned environment from the repository root. The full InfoTabS and evidence archives are stored outside Git in the research cache. The source builder checks their SHA-256 digests before sampling. The human agreement counts, selected original values, package sidecars and final frozen prompt IDs are already present in the checkout.

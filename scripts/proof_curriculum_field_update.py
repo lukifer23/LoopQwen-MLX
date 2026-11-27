@@ -1,10 +1,12 @@
 """Build a research-policy add-on and independently exercise the installed model and paper."""
 
+import argparse
 import json
 import os
 import shutil
 import subprocess
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile
@@ -19,27 +21,81 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 
-NAME = "proof-curriculum-01"
-DEST = ROOT / "exports/loopqwen-proof-update-05.zip"
-RECEIPT = ROOT / "docs/measurements/proof-curriculum-field-update-05.json"
+
+@dataclass(frozen=True)
+class Edition:
+    study: str
+    archive: str
+    manual: str
+    paper: str
+    verification: str
+    bundle: str
+    modules: tuple
 
 
-def make(tmp, revision, update):
-    policy = ROOT / "research/results" / NAME
+PROOF = Edition(
+    "proof-curriculum",
+    "loopqwen-proof-update-05.zip",
+    "PROOF_UPDATE.md",
+    "loopqwen-proof-study.pdf",
+    "proof-curriculum-field-update-05.json",
+    "proof-study.bundle",
+    (
+        ("proof_curriculum_exposure", ()),
+        ("proof_curriculum_reading", ("report",)),
+        ("paper_proof_curriculum", ()),
+    ),
+)
+FIELD = Edition(
+    "field-selection",
+    "loopqwen-field-selection-06.zip",
+    "FIELD_SELECTION.md",
+    "loopqwen-field-study.pdf",
+    "field-selection-update-06.json",
+    "field-selection.bundle",
+    (
+        ("field_selection_exposure", ()),
+        ("field_selection_analysis", ("report",)),
+        ("paper_field_selection", ()),
+    ),
+)
+
+
+def tracked(revision, path):
+    names = subprocess.check_output(
+        ["git", "ls-tree", "-r", "--name-only", "-z", revision, "--", path],
+        cwd=ROOT,
+    )
+    return [ROOT / n.decode() for n in names.split(b"\0") if n]
+
+
+def make(tmp, revision, update, edition):
+    policy = ROOT / "research/results" / (edition.study + "-01")
     spec = read(policy / "registration.json")
     panel = read(ROOT / spec["material"])
     docs = ROOT / "paper"
     files = {
-        "README.md": ROOT / "docs/PROOF_UPDATE.md",
-        "sources/proof-study.bundle": history_update(
+        "README.md": ROOT / "docs" / edition.manual,
+        "sources/" + edition.bundle: history_update(
             tmp, revision, update["source_revision"]
         ),
     }
-    files.update({"policy/" + p.name: p for p in policy.iterdir()})
-    files.update({"paper/" + p.name: p for p in docs.glob("proof-curriculum*")})
-    files["paper/loopqwen-proof-study.pdf"] = docs / "loopqwen-proof-study.pdf"
-    for p in (ROOT / "docs/measurements").glob("proof-curriculum-*"):
-        if p != RECEIPT:
+    files.update(
+        {
+            "policy/" + p.name: p
+            for p in tracked(revision, str(policy.relative_to(ROOT)))
+        }
+    )
+    files.update(
+        {
+            "paper/" + p.name: p
+            for p in tracked(revision, "paper")
+            if p.name.startswith(edition.study)
+        }
+    )
+    files["paper/" + edition.paper] = docs / edition.paper
+    for p in tracked(revision, "docs/measurements"):
+        if p.name.startswith(edition.study + "-") and p.name != edition.verification:
             files["verification/" + p.name] = p
     files["sources/REASONED-EVIDENCE-SOURCES.md"] = (
         ROOT / "research/licenses/REASONED-EVIDENCE-SOURCES.md"
@@ -94,14 +150,16 @@ def make(tmp, revision, update):
     return files, cases
 
 
-def main():
+def main(edition=PROOF):
+    dest = ROOT / "exports" / edition.archive
+    receipt_path = ROOT / "docs/measurements" / edition.verification
     base, update = (
         read(ROOT / "docs/measurements" / n)
         for n in ("field-kit-01.json", "cross-view-field-update-04.json")
     )
     revision = (
-        read(RECEIPT)["source_revision"]
-        if RECEIPT.exists()
+        read(receipt_path)["source_revision"]
+        if receipt_path.exists()
         else subprocess.check_output(
             ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
         ).strip()
@@ -110,8 +168,8 @@ def main():
         tmp = Path(tmp)
         work = tmp / "installed"
         work.mkdir()
-        files, cases = make(tmp, revision, update)
-        archive = tmp / DEST.name
+        files, cases = make(tmp, revision, update, edition)
+        archive = tmp / dest.name
         hashes = write_archive(archive, files)
         with ZipFile(archive) as z:
             z.extractall(work)
@@ -139,7 +197,7 @@ def main():
             work / "sources/loopqwen-research.bundle",
             repo,
         )
-        for name in ("update.bundle", "proof-study.bundle"):
+        for name in ("update.bundle", edition.bundle):
             command(
                 "git",
                 "-C",
@@ -156,7 +214,9 @@ def main():
             == revision
         )
         checkout = tmp / "research"
-        command("git", "clone", "--quiet", "--local", "--branch", "main", repo, checkout)
+        command(
+            "git", "clone", "--quiet", "--local", "--branch", "main", repo, checkout
+        )
         python = tmp / "venv/bin/python"
         command(
             "uv",
@@ -212,7 +272,9 @@ def main():
         for p in (work / "policy").iterdir():
             assert (
                 p.read_bytes()
-                == (checkout / "research/results" / NAME / p.name).read_bytes()
+                == (
+                    checkout / "research/results" / (edition.study + "-01") / p.name
+                ).read_bytes()
             )
         generated = [
             k
@@ -221,11 +283,7 @@ def main():
         ]
         for n in generated:
             (checkout / n).unlink()
-        for module, args in (
-            ("proof_curriculum_exposure", []),
-            ("proof_curriculum_reading", ["report"]),
-            ("paper_proof_curriculum", []),
-        ):
+        for module, args in edition.modules:
             code = (
                 NETWORK_GUARD
                 + "import sys,runpy;from pathlib import Path;sys.path.append(str(Path.cwd()));"
@@ -266,7 +324,7 @@ def main():
             results.append({"example": key, "id": r["id"], "traces": streams})
         assert not any(p.is_file() for p in cache.rglob("*"))
         receipt = {
-            "name": DEST.name,
+            "name": dest.name,
             "bytes": archive.stat().st_size,
             "sha256": digest(archive),
             "payloads": len(hashes),
@@ -280,16 +338,16 @@ def main():
             "actual_comparisons": results,
             "regenerated": {n: hashes[n] for n in generated},
         }
-        if DEST.exists():
-            assert digest(DEST) == receipt["sha256"]
+        if dest.exists():
+            assert digest(dest) == receipt["sha256"]
         else:
-            partial = DEST.with_suffix(".tmp")
+            partial = dest.with_suffix(".tmp")
             shutil.copyfile(archive, partial)
-            partial.replace(DEST)
-        if RECEIPT.exists():
-            assert receipt == read(RECEIPT)
+            partial.replace(dest)
+        if receipt_path.exists():
+            assert receipt == read(receipt_path)
         else:
-            save(RECEIPT, receipt)
+            save(receipt_path, receipt)
         print(
             "Verified",
             len(results),
@@ -301,4 +359,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--field-selection", action="store_true")
+    main(FIELD if parser.parse_args().field_selection else PROOF)

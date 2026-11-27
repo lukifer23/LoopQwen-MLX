@@ -44,7 +44,7 @@ update="$(pwd)"
 git clone --bare "$kit/sources/loopqwen-research.bundle" research.git
 git -C research.git fetch "$previous/sources/update.bundle" refs/heads/main:refs/heads/main
 git -C research.git fetch "$update/sources/proof-study.bundle" refs/heads/main:refs/heads/main
-git clone research.git research
+git clone --branch main research.git research
 mkdir -p research/exports
 ln -s "$update/release-05" research/exports/tool-language-packed-05
 uv --no-cache pip install --offline --no-index --python .venv/bin/python \
