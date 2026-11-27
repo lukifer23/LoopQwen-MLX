@@ -94,6 +94,25 @@ Both models delivered complete answers on #d.both_finished.requests objective re
 The research program selected hypotheses using earlier experiments. Confidence intervals summarize variation across the enrolled source groups for fixed weights. A general deployment claim requires replication on new source material and a new training seed. The separate natural-language, software and physical results prevent a composite average from hiding a regression.
 
 #pagebreak()
+= What happened on two original user requests?
+We selected these cases before seeing either model’s responses. One repeats a training question with different database contents. The other has an incorrect volunteer reference. Together they show how execution and independent source checks affect interpretation.
+
+*Database question.* #d.examples.teachers.question The original training database returned 15 teachers. The held database contains seven. Grounding requires the last successful statement to read the table, match every alternate test instance and support the delivered answer.
+#grid(("Observed evidence","Loop","Base"),(
+ ("Executed SQL",..d.examples.teachers.queries),
+ ("Visible reply",..d.examples.teachers.answers),
+ ("Grounded",..d.examples.teachers.earned)
+),(.68fr,1.16fr,1.16fr))
+
+*Science question.* #d.examples.crystal.question
+#grid(("Loop reply","Base reply"),(d.examples.crystal.answers,),(1fr,1fr))
+#cap[The independent source check requires an electron at an anion vacancy, a formation mechanism and the effect of selective absorption on colour. The sealed review recorded the following rationale.]
+#d.examples.crystal.reason
+
+#image("assistance-completion-history.svg",width:95%)
+#cap[Figure 3. Across five separate paired studies, split the total net gain into cases where both models delivered a visible answer and cases where only one did. Heights divide each net by the number of objective requests. Labels give the underlying net counts. The cohorts overlap and answer excerpts above preserve up to 380 characters. The downloadable files retain complete text.]
+
+#pagebreak()
 = Reproduction and data access
 The source checkout contains the preregistration, preparation code, exact drawn training positions, held prompt IDs, judgments, raw model outputs, timestamps and complete tool events. The immutable study archive is #raw("research/results/integrated-assistance-01"). Its inventory has SHA-256 #raw(d.archive). The seven serving matrices have SHA-256 #raw(d.merged). Model inference, gradients and optimization ran through Apple Silicon MLX.
 

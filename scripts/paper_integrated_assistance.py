@@ -13,6 +13,7 @@ import numpy as np
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from scripts.assemble_evidence_paper import edition
+from scripts.assistance_completion_history import build as completion_history
 from scripts.assistance_deliberation import write_csv
 from scripts.assistance_source_overlap import build as source_overlap
 from scripts.assistance_reasoning_exposure import (
@@ -371,7 +372,49 @@ def evaluation():
             "tie",
         )
     ]
+
+    def excerpt(text, cap):
+        if not text.strip():
+            return "No visible reply."
+        text = " ".join(text.split())
+        return text if len(text) <= cap else text[:cap].rsplit(" ", 1)[0] + " […]"
+
+    study_examples = {}
+    for key, name in (
+        ("cosql-4965c07a165db696f9f5", "teachers"),
+        ("oasst-87ba7f60-95ac-4658-ad9f-bb7f3ac63e48", "crystal"),
+    ):
+        (w,) = [r for r in panel if r["id"] == key]
+        (r,) = [r for r in records if r["id"] == key]
+        study_examples[name] = {
+            "id": key,
+            "question": w.get("original_question", w["questions"][0]),
+            "answers": [excerpt(r[a + "_answer"], 380) for a in ARMS],
+            "reason": read(RATINGS)[key]["reason"],
+        }
+        if name == "teachers":
+            study_examples[name]["queries"] = [
+                excerpt(
+                    next(
+                        x["generated_queries"]
+                        for x in sql
+                        if x["id"] == key and x["arm"] == a
+                    ),
+                    230,
+                )
+                if any(
+                    x["generated_queries"]
+                    for x in sql
+                    if x["id"] == key and x["arm"] == a
+                )
+                else "No executed query."
+                for a in ARMS
+            ]
+            study_examples[name]["earned"] = [
+                "Yes" if r[a + "_grounded"] else "No" for a in ARMS
+            ]
     return {
+        "examples": study_examples,
         "family": family,
         "intervals": [
             [
@@ -441,6 +484,7 @@ def evaluation():
 def build():
     assert RATINGS.is_file()
     reading("report")
+    assert len(completion_history()) == 5
     exposure(ROOT)
     thinking = reasoning_exposure(ROOT)
     assert thinking == read(THINKING_RECEIPT)
