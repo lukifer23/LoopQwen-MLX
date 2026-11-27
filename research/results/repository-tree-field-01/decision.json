@@ -1,0 +1,43 @@
+{
+  "passed": false,
+  "full_history": true,
+  "metrics": {
+    "candidate": {
+      "correct": 0,
+      "content": 0,
+      "seconds": 231.7653086670325,
+      "ttft": 219.0753072919906,
+      "peak": 2904609415,
+      "routes": [
+        "register",
+        "register"
+      ]
+    },
+    "control": {
+      "correct": 0,
+      "content": 0,
+      "seconds": 641.8802563750651,
+      "ttft": 627.5147055000416,
+      "peak": 4844801792,
+      "routes": [
+        "base",
+        "base"
+      ]
+    }
+  },
+  "tree_read_evidence": false,
+  "resources": {
+    "candidate": {
+      "cold_seconds": 233.61627995898016,
+      "cold_first": 220.89716508396668,
+      "prefill_tps": 1565.858810106718,
+      "decode_tps": 25.059098939534195
+    },
+    "control": {
+      "cold_seconds": 644.0123531260178,
+      "cold_first": 629.6092047499842,
+      "prefill_tps": 546.6660733100179,
+      "decode_tps": 22.136289987520605
+    }
+  }
+}
