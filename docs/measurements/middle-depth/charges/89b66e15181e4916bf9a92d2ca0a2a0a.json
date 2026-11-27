@@ -1,0 +1,47 @@
+{
+  "job": "layerwise/loop/288",
+  "allocator": {
+    "cache_bytes": 0,
+    "memory_guideline_bytes": 3221225472
+  },
+  "stage": "fit",
+  "dispatch": 1795819582.5134132,
+  "pid": 30040,
+  "process_start": 1795819581.591417,
+  "initial_process_disk_io": {
+    "read": 3432448,
+    "written": 16384
+  },
+  "initial": {
+    "pressure": 1,
+    "available": 6078267392,
+    "swap": 1194655744,
+    "free": 132690612224,
+    "active": 8,
+    "peak": 0
+  },
+  "status": "stopped",
+  "seconds": 61.22651325003244,
+  "last": {
+    "pressure": 2,
+    "available": 3384360960,
+    "swap": 1194655744,
+    "free": 132501385216,
+    "active": 1018063244,
+    "peak": 3197500714
+  },
+  "observed_seconds": 57.56447629199829,
+  "reason": "DevelopmentLimit(\"Native development limit: {'pressure': 2, 'available': 3384360960, 'swap': 1194655744, 'free': 132501385216, 'active': 1018063244, 'peak': 3197500714}; remaining worker seconds 16819.72\")",
+  "final": {
+    "pressure": 2,
+    "available": 4848074752,
+    "swap": 1194655744,
+    "free": 132495953920,
+    "active": 1018063244,
+    "peak": 3197500714
+  },
+  "final_process_disk_io": {
+    "read": 1564446720,
+    "written": 5484544
+  }
+}

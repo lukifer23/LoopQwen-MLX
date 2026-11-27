@@ -5,8 +5,9 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from uuid import uuid4
 
-from loopqwen.io import read
+from loopqwen.io import read, save
 from scripts.middle_depth_budget import ROOT, recover_charge
 from scripts.middle_depth_recover import fit_directory
 
@@ -21,13 +22,41 @@ def dispatch(module, *args):
     ]
     failures = 0
     while True:
-        while (
-            subprocess.check_output(
-                ["sysctl", "-n", "kern.memorystatus_vm_pressure_level"], text=True
-            ).strip()
-            != "1"
-        ):
+        wait_record = None
+        started = time.time()
+        while True:
+            pressure = int(
+                subprocess.check_output(
+                    ["sysctl", "-n", "kern.memorystatus_vm_pressure_level"], text=True
+                ).strip()
+            )
+            if pressure == 1:
+                break
+            if wait_record is None:
+                wait_record = ROOT / "waiting" / (uuid4().hex + ".json")
+            save(
+                wait_record,
+                {
+                    "job": cmd[3:],
+                    "started": started,
+                    "last": time.time(),
+                    "pressure": pressure,
+                    "status": "waiting",
+                },
+            )
             time.sleep(10)
+        if wait_record is not None:
+            save(
+                wait_record,
+                {
+                    "job": cmd[3:],
+                    "started": started,
+                    "ended": time.time(),
+                    "seconds": time.time() - started,
+                    "status": "dispatched",
+                    "gpu_worker_seconds": 0,
+                },
+            )
         begin = time.time()
         run = subprocess.run(cmd)
         if run.returncode == 0:
@@ -211,12 +240,49 @@ def early_excerpts():
             dispatch("excerpt", *args)
 
 
+def resume_training_wave():
+    from scripts.middle_depth_stages import early_book, forks
+
+    # Resume the genuine failed update before revisiting the saved full prefix.
+    fit("loop", 160)
+    previous = ROOT / "epoch-one-stop.json"
+    attempt = ROOT / "epoch-one-allocator-recovery.json"
+    if previous.exists() and not attempt.exists():
+        from loopqwen.io import digest
+
+        try:
+            early_book()
+        except RuntimeError as error:
+            if "Native development limit" not in str(error):
+                raise
+            outcome = {"status": "resource_stop", "reason": str(error)}
+        else:
+            outcome = {"status": "complete"}
+        save(
+            attempt,
+            {
+                **outcome,
+                "original_stop": digest(previous),
+                "allocator": digest(
+                    Path("research/diagnostics/middle-depth/allocator-recovery.json")
+                ),
+                "saved_presentations": len(
+                    list((ROOT / "documents" / "epoch-one").rglob("*.json.gz"))
+                ),
+            },
+        )
+    paired_fit()
+    short_terminal()
+    forks()
+
+
 if __name__ == "__main__":
     actions = {
         "first": first,
         "early-headroom": early_headroom,
         "early-excerpts": early_excerpts,
         "fit": paired_fit,
+        "resume-trained": resume_training_wave,
         "short-terminal": short_terminal,
         "depth": depths,
     }

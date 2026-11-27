@@ -163,7 +163,7 @@ def fit(arm, condition):
         recovered = (ROOT / "bounded-fit-operating-point.json").is_file()
         if recovered:
             from loopqwen.ordinary_model import ordinary
-            from scripts.middle_depth_bounded_fit import gradient
+            from scripts.middle_depth_bounded_fit import gradient, use_backed_head
 
             assert ident["donor"] == "base"
             native, tok, _ = ordinary(BASE, require_release=True, lazy=True)
@@ -179,6 +179,8 @@ def fit(arm, condition):
             raise ValueError("Corrupt short-fit parent")
         model.load_weights(str(parent / "adapters.safetensors"), strict=False)
         model.train()
+        if recovered:
+            use_backed_head(model)
         opt = optimizer(
             dict(learning_rate=0.00012, weight_decay=0.01, warmup=4, steps=32)
         )

@@ -51,6 +51,27 @@ def gradient(guard):
     return partial(bounded, guard=guard)
 
 
+def use_backed_head(model):
+    from scripts import middle_depth_head_storage as storage
+
+    receipt = ROOT / "file-backed-head.json"
+    if not receipt.is_file():
+        return None
+    result = read(receipt)
+    if not result["passed"] or result["implementation"] != digest(
+        Path(storage.__file__)
+    ):
+        raise ValueError(
+            "The frozen head must pass its native output and adjoint comparison"
+        )
+    if (
+        read(BASE / "tool-export-files.json")["model.safetensors"]
+        != result["tensor_file"]
+    ):
+        raise ValueError("Different donor file for the frozen vocabulary")
+    return storage.install(model)
+
+
 def fit(arm, until):
     kval = qualify()
     cfg = read(primary.SPEC)
@@ -104,6 +125,7 @@ def fit(arm, until):
             }
         )
         step, log = primary.restore(root, model, opt, ident)
+        head = use_backed_head(model)
         grad = gradient(guard)
         engine = digest(Path(__file__))
         schedule = digest(QUALIFICATION)
@@ -119,6 +141,9 @@ def fit(arm, until):
                     model, opt, grad, rows, step, depth, ident["feature_id"], cfg, guard
                 )
                 rec.update(adjoint_qualification=schedule, continuation_trainer=engine)
+                if head is not None:
+                    rec["frozen_head_receipt"] = digest(ROOT / "file-backed-head.json")
+                    rec["cumulative_head_reads_in_process"] = head.reads
                 step += 1
                 log.append(rec)
                 if step % cfg["checkpoint_every"] == 0 or step == until:

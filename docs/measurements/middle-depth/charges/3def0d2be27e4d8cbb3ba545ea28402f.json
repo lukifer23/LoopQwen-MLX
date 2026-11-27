@@ -1,0 +1,43 @@
+{
+  "job": "loop/288/replay=False",
+  "stage": "fit",
+  "dispatch": 1795819135.638422,
+  "pid": 22040,
+  "process_start": 1795819134.214724,
+  "initial_process_disk_io": {
+    "read": 63590400,
+    "written": 12288
+  },
+  "initial": {
+    "pressure": 1,
+    "available": 6302072832,
+    "swap": 1176109056,
+    "free": 132818526208,
+    "active": 8,
+    "peak": 0
+  },
+  "status": "stopped",
+  "seconds": 5.152148958004545,
+  "last": {
+    "pressure": 2,
+    "available": 5368266752,
+    "swap": 1176109056,
+    "free": 132829233152,
+    "active": 1515735788,
+    "peak": 4695356730
+  },
+  "observed_seconds": 5.136009500012733,
+  "reason": "DevelopmentLimit(\"Native development limit: {'pressure': 2, 'available': 5368266752, 'swap': 1176109056, 'free': 132829233152, 'active': 1515735788, 'peak': 4695356730}; remaining worker seconds 17018.65\")",
+  "final": {
+    "pressure": 2,
+    "available": 5368201216,
+    "swap": 1176109056,
+    "free": 132823736320,
+    "active": 1515735788,
+    "peak": 4695356730
+  },
+  "final_process_disk_io": {
+    "read": 1598705664,
+    "written": 5459968
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "job": "anne/loop/original/512/epoch-one",
+  "stage": "long",
+  "dispatch": 1795819101.392585,
+  "pid": 21623,
+  "process_start": 1795819100.195274,
+  "initial_process_disk_io": {
+    "read": 60235776,
+    "written": 20480
+  },
+  "initial": {
+    "pressure": 1,
+    "available": 6961332224,
+    "swap": 1176109056,
+    "free": 132820398080,
+    "active": 8,
+    "peak": 0
+  },
+  "status": "stopped",
+  "seconds": 32.27582912496291,
+  "last": {
+    "pressure": 2,
+    "available": 3529162752,
+    "swap": 1176109056,
+    "free": 132819578880,
+    "active": 1667287758,
+    "peak": 3408859462
+  },
+  "observed_seconds": 30.652454916969873,
+  "reason": "InterruptedError(\"Native development limit: {'pressure': 2, 'available': 3529162752, 'swap': 1176109056, 'free': 132819578880, 'active': 1667287758, 'peak': 3408859462}\")",
+  "final": {
+    "pressure": 2,
+    "available": 3637346304,
+    "swap": 1176109056,
+    "free": 132819574784,
+    "active": 1667287758,
+    "peak": 3408859462
+  },
+  "final_process_disk_io": {
+    "read": 4887568384,
+    "written": 65536
+  }
+}
