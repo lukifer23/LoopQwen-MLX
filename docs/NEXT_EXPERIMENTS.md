@@ -1,5 +1,21 @@
 # Research decisions
 
+## Source-conditioned recurrence
+
+The most recent direct comparison gained 49 objective answers over untouched Base and lost 25. The trained loop also lost eleven net fully usable answers in the 48-question source-based reasoning review. Its first-token wait increased. These outcomes closed the instruction-initialized conditional weights for release. [Complete study](../paper/loopqwen-conditional-primary-study.pdf)
+
+The next candidate trains a correction from four physical layer updates. The correction becomes zero if the repeated layer states contain no change. Source pairs teach the model to change its answer when an observed table, a qualitative situation or a service result changes. All 5,640 native table training records passed validation, and a separate process checked the complete 1,356,874,504-byte inventory. The language extraction, optimizer and held comparison each have a separate maximum of 4,380 native seconds. [Live study paper built from closed stages](../paper/contrastive-world.pdf) · [Table verification](measurements/contrastive-table-features-01-cold.json)
+
+| Stage | Evidence required to advance |
+| --- | --- |
+| Language extraction | Every enrolled positive and changed negative position, correct physical site count, and parity with the ordinary exit at initialization |
+| Recurrent fit | Full positive and preference exposure, finite updates, preserved broad likelihood, and freely generated source-sensitive answers on enrolled SQL, qualitative and service cases |
+| Direct product pair | 148 matched requests per arm, including actual SQLite calls and four complete 152K–164K documents. Require the registered paired quality, completion, first-token wait, total time, memory and throughput thresholds. Seal both masked readings before interpreting results. |
+| Replication and transfer | After joint qualification, measure a second training seed, an equally trained ordinary-depth model, broad retention and clean offline reproduction on the same product weights. |
+
+A separate shared-query architecture writes each prompt position once and makes two tied reads when predicting an output. Its registered fit adds evidence supervision from human multi-step questions and executable financial reports. It may begin only after an unsuccessful predecessor. Its 84-request comparison includes the same physical long-context requirement. [Direct comparison specification](../research/experiments/shared-query-transfer-01.json) · [Source inventory and limitations](../research/sources/shared-query/README.md)
+
+
 ## Original-Base re-entry and execution-based learning
 
 Consolidation preserved 25 of 42 earlier successes and raised the overall objective score by 14. It lost 27 individual Base successes, reduced all three human-reasoning F1 values and produced an extra thinking delimiter in six of eight delivered open replies. The fixed combination therefore closes. The paper includes the shared training exposure, all 220 paired requests, the masked assessments and per-family uncertainty. [Integrated study](../paper/integrated-assistance.pdf) · [Sealed primary](../research/results/integrated-assistance-01)
