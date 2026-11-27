@@ -1,0 +1,4289 @@
+{
+  "weights": "e0b2402f923fe892bbba083b8101e7528b6714e5ed34ba944bcecc91ed5ad83d",
+  "archive": "ea3fbaf13d440ac21ad6cf58ed6edeb04c43fa6138eb7afa1f6631ac5cbd9b4d",
+  "turns": 56,
+  "positions": 3490,
+  "maximum_turn_mean_abs_error": 4.76837158203125e-07,
+  "records": [
+    {
+      "id": "gsm-1232",
+      "group": "arithmetic",
+      "positions": 79,
+      "ordinary": 1.1831995248794556,
+      "trained": 0.740513026714325,
+      "trained_with_ordinary_state_at_every_site": 0.8008773326873779,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.06036430597305298,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 1.7881393432617188e-07
+    },
+    {
+      "id": "gsm-1836",
+      "group": "arithmetic",
+      "positions": 120,
+      "ordinary": 1.5714244842529297,
+      "trained": 1.0918822288513184,
+      "trained_with_ordinary_state_at_every_site": 1.1572976112365723,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.0654153823852539,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 1.1920928955078125e-07
+    },
+    {
+      "id": "gsm-5351",
+      "group": "arithmetic",
+      "positions": 68,
+      "ordinary": 1.8553757667541504,
+      "trained": 1.2051376104354858,
+      "trained_with_ordinary_state_at_every_site": 1.3081499338150024,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.1030123233795166,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 1.1920928955078125e-07
+    },
+    {
+      "id": "gsm-5398",
+      "group": "arithmetic",
+      "positions": 57,
+      "ordinary": 2.29036283493042,
+      "trained": 1.357128620147705,
+      "trained_with_ordinary_state_at_every_site": 1.6340934038162231,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.27696478366851807,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "gsm-4949",
+      "group": "arithmetic",
+      "positions": 54,
+      "ordinary": 1.5688680410385132,
+      "trained": 0.8716769218444824,
+      "trained_with_ordinary_state_at_every_site": 0.9536421298980713,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.08196520805358887,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 5.960464477539063e-08
+    },
+    {
+      "id": "gsm-3816",
+      "group": "arithmetic",
+      "positions": 50,
+      "ordinary": 1.6065393686294556,
+      "trained": 0.7541242837905884,
+      "trained_with_ordinary_state_at_every_site": 0.909698486328125,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.15557420253753662,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 1.7881393432617188e-07
+    },
+    {
+      "id": "gsm-3919",
+      "group": "arithmetic",
+      "positions": 64,
+      "ordinary": 1.1394709348678589,
+      "trained": 0.6182007193565369,
+      "trained_with_ordinary_state_at_every_site": 0.750758171081543,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.1325574517250061,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 5.960464477539063e-08
+    },
+    {
+      "id": "gsm-3518",
+      "group": "arithmetic",
+      "positions": 318,
+      "ordinary": 0.9799361228942871,
+      "trained": 0.6801595687866211,
+      "trained_with_ordinary_state_at_every_site": 0.7570546865463257,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.07689511775970459,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "nt-13019-schema",
+      "group": "discovery",
+      "positions": 32,
+      "ordinary": 0.9820139408111572,
+      "trained": 0.00029462575912475586,
+      "trained_with_ordinary_state_at_every_site": 0.012029767036437988,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.011735141277313232,
+      "ordinary_abs_error": 1.7881393432617188e-07,
+      "trained_abs_error": 7.927883416414261e-08
+    },
+    {
+      "id": "nt-8604-schema",
+      "group": "discovery",
+      "positions": 32,
+      "ordinary": 1.1419291496276855,
+      "trained": 0.0046901702880859375,
+      "trained_with_ordinary_state_at_every_site": 0.06177932024002075,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.057089149951934814,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 1.1082738637924194e-07
+    },
+    {
+      "id": "nt-8977-schema",
+      "group": "discovery",
+      "positions": 32,
+      "ordinary": 1.0063575506210327,
+      "trained": 0.0005095601081848145,
+      "trained_with_ordinary_state_at_every_site": 0.019207537174224854,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.01869797706604004,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 1.023290678858757e-07
+    },
+    {
+      "id": "nt-4533-schema",
+      "group": "discovery",
+      "positions": 32,
+      "ordinary": 0.9611703157424927,
+      "trained": 0.0002319812774658203,
+      "trained_with_ordinary_state_at_every_site": 0.015383303165435791,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.01515132188796997,
+      "ordinary_abs_error": 3.5762786865234375e-07,
+      "trained_abs_error": 2.1798769012093544e-08
+    },
+    {
+      "id": "nt-1819-schema",
+      "group": "discovery",
+      "positions": 32,
+      "ordinary": 1.0496962070465088,
+      "trained": 0.00042432546615600586,
+      "trained_with_ordinary_state_at_every_site": 0.01768171787261963,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.017257392406463623,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 2.939486876130104e-09
+    },
+    {
+      "id": "nt-1200-schema",
+      "group": "discovery",
+      "positions": 32,
+      "ordinary": 0.9544178247451782,
+      "trained": 0.000260770320892334,
+      "trained_with_ordinary_state_at_every_site": 0.007100522518157959,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.006839752197265625,
+      "ordinary_abs_error": 1.7881393432617188e-07,
+      "trained_abs_error": 2.210726961493492e-07
+    },
+    {
+      "id": "nt-10914-schema",
+      "group": "discovery",
+      "positions": 32,
+      "ordinary": 1.0906420946121216,
+      "trained": 0.0005443692207336426,
+      "trained_with_ordinary_state_at_every_site": 0.017031729221343994,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.01648736000061035,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 2.2118911147117615e-09
+    },
+    {
+      "id": "nt-7544-schema",
+      "group": "discovery",
+      "positions": 32,
+      "ordinary": 1.1036958694458008,
+      "trained": 0.0004242062568664551,
+      "trained_with_ordinary_state_at_every_site": 0.019776225090026855,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.0193520188331604,
+      "ordinary_abs_error": 3.5762786865234375e-07,
+      "trained_abs_error": 6.222398951649666e-08
+    },
+    {
+      "id": "feta-417-inline",
+      "group": "explanation",
+      "positions": 18,
+      "ordinary": 1.8841476440429688,
+      "trained": 0.4247969090938568,
+      "trained_with_ordinary_state_at_every_site": 0.5294691920280457,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.10467228293418884,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 8.940696716308594e-08
+    },
+    {
+      "id": "feta-13282-observed",
+      "group": "explanation",
+      "positions": 30,
+      "ordinary": 1.3494327068328857,
+      "trained": 0.5300294756889343,
+      "trained_with_ordinary_state_at_every_site": 0.5898998379707336,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.059870362281799316,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 5.960464477539063e-08
+    },
+    {
+      "id": "feta-18111-observed",
+      "group": "explanation",
+      "positions": 23,
+      "ordinary": 1.9179927110671997,
+      "trained": 0.4765828549861908,
+      "trained_with_ordinary_state_at_every_site": 0.5509832501411438,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.074400395154953,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 1.4901161193847656e-07
+    },
+    {
+      "id": "feta-16830-inline",
+      "group": "explanation",
+      "positions": 31,
+      "ordinary": 1.7083802223205566,
+      "trained": 0.31322601437568665,
+      "trained_with_ordinary_state_at_every_site": 0.3244195580482483,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.011193543672561646,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 5.960464477539063e-08
+    },
+    {
+      "id": "feta-12975-observed",
+      "group": "explanation",
+      "positions": 38,
+      "ordinary": 1.2647550106048584,
+      "trained": 0.4903799295425415,
+      "trained_with_ordinary_state_at_every_site": 0.5901642441749573,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.09978431463241577,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 1.4901161193847656e-07
+    },
+    {
+      "id": "feta-7727-observed",
+      "group": "explanation",
+      "positions": 57,
+      "ordinary": 1.6200342178344727,
+      "trained": 0.9910848736763,
+      "trained_with_ordinary_state_at_every_site": 1.0560193061828613,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.06493443250656128,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "feta-7995-inline",
+      "group": "explanation",
+      "positions": 38,
+      "ordinary": 2.2494325637817383,
+      "trained": 0.8437020182609558,
+      "trained_with_ordinary_state_at_every_site": 1.1460363864898682,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.30233436822891235,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 1.7881393432617188e-07
+    },
+    {
+      "id": "feta-12800-inline",
+      "group": "explanation",
+      "positions": 28,
+      "ordinary": 1.8453046083450317,
+      "trained": 0.7326450943946838,
+      "trained_with_ordinary_state_at_every_site": 0.9016976356506348,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.16905254125595093,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "dolly-4978",
+      "group": "instruction",
+      "positions": 20,
+      "ordinary": 2.271012544631958,
+      "trained": 0.9875617027282715,
+      "trained_with_ordinary_state_at_every_site": 1.0723798274993896,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.08481812477111816,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 1.1920928955078125e-07
+    },
+    {
+      "id": "dolly-5410",
+      "group": "instruction",
+      "positions": 38,
+      "ordinary": 0.9800052642822266,
+      "trained": 0.19144761562347412,
+      "trained_with_ordinary_state_at_every_site": 0.24688129127025604,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.05543367564678192,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 1.9371509552001953e-07
+    },
+    {
+      "id": "dolly-8930",
+      "group": "instruction",
+      "positions": 352,
+      "ordinary": 2.5142292976379395,
+      "trained": 2.2051029205322266,
+      "trained_with_ordinary_state_at_every_site": 2.323942184448242,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.11883926391601562,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "dolly-2881",
+      "group": "instruction",
+      "positions": 155,
+      "ordinary": 2.168722152709961,
+      "trained": 1.6592035293579102,
+      "trained_with_ordinary_state_at_every_site": 1.789485216140747,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.13028168678283691,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "dolly-3839",
+      "group": "instruction",
+      "positions": 71,
+      "ordinary": 1.9454715251922607,
+      "trained": 1.346222996711731,
+      "trained_with_ordinary_state_at_every_site": 1.4763081073760986,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.13008511066436768,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "dolly-9948",
+      "group": "instruction",
+      "positions": 325,
+      "ordinary": 2.607048988342285,
+      "trained": 2.380601644515991,
+      "trained_with_ordinary_state_at_every_site": 2.4416775703430176,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.06107592582702637,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "dolly-12787",
+      "group": "instruction",
+      "positions": 153,
+      "ordinary": 3.023564338684082,
+      "trained": 2.494297742843628,
+      "trained_with_ordinary_state_at_every_site": 2.6595041751861572,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.1652064323425293,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 2.384185791015625e-07
+    },
+    {
+      "id": "dolly-9091",
+      "group": "instruction",
+      "positions": 21,
+      "ordinary": 4.757429122924805,
+      "trained": 3.3290586471557617,
+      "trained_with_ordinary_state_at_every_site": 3.5187814235687256,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.18972277641296387,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 2.384185791015625e-07
+    },
+    {
+      "id": "reasoning/effects-3547659567-answer",
+      "group": "legacy",
+      "positions": 32,
+      "ordinary": 1.366529941558838,
+      "trained": 0.2018413543701172,
+      "trained_with_ordinary_state_at_every_site": 0.41547030210494995,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.21362894773483276,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "reasoning/effects-2182646066-answer",
+      "group": "legacy",
+      "positions": 16,
+      "ordinary": 3.604907512664795,
+      "trained": 0.6315759420394897,
+      "trained_with_ordinary_state_at_every_site": 1.3000556230545044,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.6684796810150146,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 0.0
+    },
+    {
+      "id": "reasoning/effects-2803103874-answer",
+      "group": "legacy",
+      "positions": 25,
+      "ordinary": 1.66313898563385,
+      "trained": 0.06321441382169724,
+      "trained_with_ordinary_state_at_every_site": 0.2953703999519348,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.23215598613023758,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 1.7881393432617188e-07
+    },
+    {
+      "id": "database/cosql-a231af772c8ccb1ee969-answer",
+      "group": "legacy",
+      "positions": 11,
+      "ordinary": 2.490863084793091,
+      "trained": 0.5081889629364014,
+      "trained_with_ordinary_state_at_every_site": 0.5933616161346436,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.08517265319824219,
+      "ordinary_abs_error": 4.76837158203125e-07,
+      "trained_abs_error": 1.7881393432617188e-07
+    },
+    {
+      "id": "oasst-7a9fffb9-b1e6-4748-b418-eca0ebe5b67a",
+      "group": "legacy",
+      "positions": 239,
+      "ordinary": 1.257545828819275,
+      "trained": 0.9920628070831299,
+      "trained_with_ordinary_state_at_every_site": 1.0676774978637695,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.07561469078063965,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 5.960464477539063e-08
+    },
+    {
+      "id": "database/cosql-f23f061b1093de7a647b-database_schema",
+      "group": "legacy",
+      "positions": 34,
+      "ordinary": 0.697842001914978,
+      "trained": 0.0004615222860593349,
+      "trained_with_ordinary_state_at_every_site": 0.0807565227150917,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.08029500042903237,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 2.3786560632288456e-07
+    },
+    {
+      "id": "reasoning/C_a06ee15502954dc4a926c36fa90f4dc6_0_q#1-answer",
+      "group": "legacy",
+      "positions": 15,
+      "ordinary": 2.3300507068634033,
+      "trained": 0.1715848445892334,
+      "trained_with_ordinary_state_at_every_site": 0.9229820966720581,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.7513972520828247,
+      "ordinary_abs_error": 4.76837158203125e-07,
+      "trained_abs_error": 4.470348358154297e-08
+    },
+    {
+      "id": "database/cosql-65a6de51807d2e823d0e-database_schema",
+      "group": "legacy",
+      "positions": 35,
+      "ordinary": 0.7124568819999695,
+      "trained": 0.0006119319587014616,
+      "trained_with_ordinary_state_at_every_site": 0.08195839077234268,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.08134645881364122,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 5.0175003707408905e-08
+    },
+    {
+      "id": "nt-8568-program",
+      "group": "program",
+      "positions": 68,
+      "ordinary": 0.9802384972572327,
+      "trained": 0.04547610133886337,
+      "trained_with_ordinary_state_at_every_site": 0.08387425541877747,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.03839815407991409,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 1.0058283805847168e-07
+    },
+    {
+      "id": "nt-12182-program",
+      "group": "program",
+      "positions": 74,
+      "ordinary": 1.3684298992156982,
+      "trained": 0.009424209594726562,
+      "trained_with_ordinary_state_at_every_site": 0.11931056529283524,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.10988635569810867,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 7.636845111846924e-08
+    },
+    {
+      "id": "nt-11728-program",
+      "group": "program",
+      "positions": 69,
+      "ordinary": 1.38044011592865,
+      "trained": 0.008081657811999321,
+      "trained_with_ordinary_state_at_every_site": 0.10854262113571167,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.10046096332371235,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 9.406358003616333e-08
+    },
+    {
+      "id": "nt-10987-program",
+      "group": "program",
+      "positions": 69,
+      "ordinary": 1.086848497390747,
+      "trained": 0.015112338587641716,
+      "trained_with_ordinary_state_at_every_site": 0.0838090106844902,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.06869667209684849,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 1.2014061212539673e-07
+    },
+    {
+      "id": "nt-5903-program",
+      "group": "program",
+      "positions": 69,
+      "ordinary": 1.1435188055038452,
+      "trained": 0.004963833373039961,
+      "trained_with_ordinary_state_at_every_site": 0.021545300260186195,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.016581466887146235,
+      "ordinary_abs_error": 1.1920928955078125e-07,
+      "trained_abs_error": 5.494803190231323e-08
+    },
+    {
+      "id": "nt-9755-program",
+      "group": "program",
+      "positions": 75,
+      "ordinary": 1.3198533058166504,
+      "trained": 0.013819682411849499,
+      "trained_with_ordinary_state_at_every_site": 0.07215886563062668,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.05833918321877718,
+      "ordinary_abs_error": 3.5762786865234375e-07,
+      "trained_abs_error": 1.8533319234848022e-07
+    },
+    {
+      "id": "nt-9216-program",
+      "group": "program",
+      "positions": 64,
+      "ordinary": 1.2659635543823242,
+      "trained": 0.010119259357452393,
+      "trained_with_ordinary_state_at_every_site": 0.07654502987861633,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.06642577052116394,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 4.284083843231201e-08
+    },
+    {
+      "id": "nt-1715-program",
+      "group": "program",
+      "positions": 70,
+      "ordinary": 0.8122957348823547,
+      "trained": 0.0027786255814135075,
+      "trained_with_ordinary_state_at_every_site": 0.008522115647792816,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.005743490066379309,
+      "ordinary_abs_error": 1.7881393432617188e-07,
+      "trained_abs_error": 2.1117739379405975e-07
+    },
+    {
+      "id": "nt-3407-result-0",
+      "group": "scalar",
+      "positions": 7,
+      "ordinary": 2.417454481124878,
+      "trained": 0.0038999831303954124,
+      "trained_with_ordinary_state_at_every_site": 0.013116019777953625,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.009216036647558212,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 6.984919309616089e-10
+    },
+    {
+      "id": "nt-13993-result-0",
+      "group": "scalar",
+      "positions": 6,
+      "ordinary": 2.7612929344177246,
+      "trained": 0.005758603569120169,
+      "trained_with_ordinary_state_at_every_site": 0.01617399975657463,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.010415396187454462,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 1.7276033759117126e-07
+    },
+    {
+      "id": "nt-6669-result-19",
+      "group": "scalar",
+      "positions": 8,
+      "ordinary": 2.039822578430176,
+      "trained": 0.022480010986328125,
+      "trained_with_ordinary_state_at_every_site": 0.027723073959350586,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.005243062973022461,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 1.5087425708770752e-07
+    },
+    {
+      "id": "nt-12790-result-27",
+      "group": "scalar",
+      "positions": 9,
+      "ordinary": 1.9772659540176392,
+      "trained": 0.013062583282589912,
+      "trained_with_ordinary_state_at_every_site": 0.021772809326648712,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.0087102260440588,
+      "ordinary_abs_error": 2.384185791015625e-07,
+      "trained_abs_error": 2.0582228899002075e-07
+    },
+    {
+      "id": "nt-13787-result-1",
+      "group": "scalar",
+      "positions": 8,
+      "ordinary": 2.1013898849487305,
+      "trained": 0.0006380081176757812,
+      "trained_with_ordinary_state_at_every_site": 0.03613114356994629,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.03549313545227051,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 9.837094694375992e-08
+    },
+    {
+      "id": "nt-14066-result-0",
+      "group": "scalar",
+      "positions": 8,
+      "ordinary": 2.1929194927215576,
+      "trained": 0.008458614349365234,
+      "trained_with_ordinary_state_at_every_site": 0.061406850814819336,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.0529482364654541,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 9.685754776000977e-08
+    },
+    {
+      "id": "nt-9216-result-17",
+      "group": "scalar",
+      "positions": 5,
+      "ordinary": 3.259153127670288,
+      "trained": 0.009326172061264515,
+      "trained_with_ordinary_state_at_every_site": 0.09564285725355148,
+      "gain_from_actual_states_over_repeated_ordinary_state": 0.08631668519228697,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 3.473833203315735e-07
+    },
+    {
+      "id": "nt-10935-result-0",
+      "group": "scalar",
+      "positions": 10,
+      "ordinary": 1.825121283531189,
+      "trained": 0.019220924004912376,
+      "trained_with_ordinary_state_at_every_site": 0.018024636432528496,
+      "gain_from_actual_states_over_repeated_ordinary_state": -0.0011962875723838806,
+      "ordinary_abs_error": 0.0,
+      "trained_abs_error": 1.1920928955078125e-07
+    }
+  ],
+  "training_sql_span_margins": [
+    {
+      "id": "nt-13666-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 1.2436637878417969,
+        "rejected_nll": 1.993673324584961,
+        "margin": 0.7500095367431641
+      },
+      "trained": {
+        "chosen_nll": 0.014558792114257812,
+        "rejected_nll": 9.389545440673828,
+        "margin": 9.37498664855957
+      }
+    },
+    {
+      "id": "nt-10035-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        49
+      ],
+      "rejected_positions": [
+        49
+      ],
+      "ordinary": {
+        "chosen_nll": 0.3809032440185547,
+        "rejected_nll": 3.193359375,
+        "margin": 2.8124561309814453
+      },
+      "trained": {
+        "chosen_nll": 0.0033130645751953125,
+        "rejected_nll": 8.253162384033203,
+        "margin": 8.249849319458008
+      }
+    },
+    {
+      "id": "nt-11728-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        55
+      ],
+      "rejected_positions": [
+        55
+      ],
+      "ordinary": {
+        "chosen_nll": 0.2390880584716797,
+        "rejected_nll": 4.488367080688477,
+        "margin": 4.249279022216797
+      },
+      "trained": {
+        "chosen_nll": 0.0077991485595703125,
+        "rejected_nll": 9.445289611816406,
+        "margin": 9.437490463256836
+      }
+    },
+    {
+      "id": "nt-4533-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.24028587341308594,
+        "rejected_nll": 6.55284309387207,
+        "margin": 6.312557220458984
+      },
+      "trained": {
+        "chosen_nll": 0.000823974609375,
+        "rejected_nll": 14.188325881958008,
+        "margin": 14.187501907348633
+      }
+    },
+    {
+      "id": "nt-9301-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        49
+      ],
+      "rejected_positions": [
+        49
+      ],
+      "ordinary": {
+        "chosen_nll": 2.2007484436035156,
+        "rejected_nll": 1.9507293701171875,
+        "margin": -0.2500190734863281
+      },
+      "trained": {
+        "chosen_nll": 1.0399799346923828,
+        "rejected_nll": 6.977766036987305,
+        "margin": 5.937786102294922
+      }
+    },
+    {
+      "id": "nt-3450-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.0028362274169922,
+        "rejected_nll": 6.501604080200195,
+        "margin": 5.498767852783203
+      },
+      "trained": {
+        "chosen_nll": 0.4222078323364258,
+        "rejected_nll": 12.091413497924805,
+        "margin": 11.669205665588379
+      }
+    },
+    {
+      "id": "nt-10572-program",
+      "edit": "column",
+      "chosen_positions": [
+        35,
+        36
+      ],
+      "rejected_positions": [
+        35,
+        36
+      ],
+      "ordinary": {
+        "chosen_nll": 0.3751659393310547,
+        "rejected_nll": 2.5476694107055664,
+        "margin": 2.1725034713745117
+      },
+      "trained": {
+        "chosen_nll": 0.03596210479736328,
+        "rejected_nll": 7.105196952819824,
+        "margin": 7.069234848022461
+      }
+    },
+    {
+      "id": "nt-11884-program",
+      "edit": "column",
+      "chosen_positions": [
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59
+      ],
+      "rejected_positions": [
+        46,
+        47,
+        48,
+        49
+      ],
+      "ordinary": {
+        "chosen_nll": 2.401622772216797,
+        "rejected_nll": 2.3052163124084473,
+        "margin": -0.09640645980834961
+      },
+      "trained": {
+        "chosen_nll": 0.07000133395195007,
+        "rejected_nll": 5.835737705230713,
+        "margin": 5.765736371278763
+      }
+    },
+    {
+      "id": "nt-11884-program",
+      "edit": "direction",
+      "chosen_positions": [
+        64
+      ],
+      "rejected_positions": [
+        64
+      ],
+      "ordinary": {
+        "chosen_nll": 0.21812057495117188,
+        "rejected_nll": 4.030601501464844,
+        "margin": 3.812480926513672
+      },
+      "trained": {
+        "chosen_nll": 0.015195846557617188,
+        "rejected_nll": 11.015195846557617,
+        "margin": 11.0
+      }
+    },
+    {
+      "id": "nt-6758-program",
+      "edit": "column",
+      "chosen_positions": [
+        46
+      ],
+      "rejected_positions": [
+        46,
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 0.35478973388671875,
+        "rejected_nll": 4.307180404663086,
+        "margin": 3.952390670776367
+      },
+      "trained": {
+        "chosen_nll": 0.0084686279296875,
+        "rejected_nll": 10.776651382446289,
+        "margin": 10.768182754516602
+      }
+    },
+    {
+      "id": "nt-12470-program",
+      "edit": "column",
+      "chosen_positions": [
+        47
+      ],
+      "rejected_positions": [
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 1.2465133666992188,
+        "rejected_nll": 0.7465000152587891,
+        "margin": -0.5000133514404297
+      },
+      "trained": {
+        "chosen_nll": 0.034458160400390625,
+        "rejected_nll": 4.909458160400391,
+        "margin": 4.875
+      }
+    },
+    {
+      "id": "nt-12470-program",
+      "edit": "direction",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.13868141174316406,
+        "rejected_nll": 4.888589859008789,
+        "margin": 4.749908447265625
+      },
+      "trained": {
+        "chosen_nll": 0.0030803680419921875,
+        "rejected_nll": 13.440582275390625,
+        "margin": 13.437501907348633
+      }
+    },
+    {
+      "id": "nt-13019-program",
+      "edit": "column",
+      "chosen_positions": [
+        47
+      ],
+      "rejected_positions": [
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 0.7452239990234375,
+        "rejected_nll": 4.245386123657227,
+        "margin": 3.500162124633789
+      },
+      "trained": {
+        "chosen_nll": 0.04639434814453125,
+        "rejected_nll": 11.108896255493164,
+        "margin": 11.062501907348633
+      }
+    },
+    {
+      "id": "nt-13019-program",
+      "edit": "direction",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 3.8258113861083984,
+        "rejected_nll": 0.07585716247558594,
+        "margin": -3.7499542236328125
+      },
+      "trained": {
+        "chosen_nll": 0.14717483520507812,
+        "rejected_nll": 9.084661483764648,
+        "margin": 8.93748664855957
+      }
+    },
+    {
+      "id": "nt-7155-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.2938804626464844,
+        "rejected_nll": 3.337543487548828,
+        "margin": 3.0436630249023438
+      },
+      "trained": {
+        "chosen_nll": 0.015535354614257812,
+        "rejected_nll": 15.281021118164062,
+        "margin": 15.265485763549805
+      }
+    },
+    {
+      "id": "nt-7155-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.22646141052246094,
+        "rejected_nll": 7.288944244384766,
+        "margin": 7.062482833862305
+      },
+      "trained": {
+        "chosen_nll": 0.005237579345703125,
+        "rejected_nll": 12.505237579345703,
+        "margin": 12.5
+      }
+    },
+    {
+      "id": "nt-9076-program",
+      "edit": "column",
+      "chosen_positions": [
+        47
+      ],
+      "rejected_positions": [
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 2.7071380615234375,
+        "rejected_nll": 4.957250595092773,
+        "margin": 2.250112533569336
+      },
+      "trained": {
+        "chosen_nll": 0.06621932983398438,
+        "rejected_nll": 9.503725051879883,
+        "margin": 9.437505722045898
+      }
+    },
+    {
+      "id": "nt-9076-program",
+      "edit": "direction",
+      "chosen_positions": [
+        54
+      ],
+      "rejected_positions": [
+        54
+      ],
+      "ordinary": {
+        "chosen_nll": 0.0513153076171875,
+        "rejected_nll": 5.9264068603515625,
+        "margin": 5.875091552734375
+      },
+      "trained": {
+        "chosen_nll": 0.004283905029296875,
+        "rejected_nll": 12.629854202270508,
+        "margin": 12.625570297241211
+      }
+    },
+    {
+      "id": "nt-13773-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4326286315917969,
+        "rejected_nll": 4.746187210083008,
+        "margin": 4.313558578491211
+      },
+      "trained": {
+        "chosen_nll": 0.0057220458984375,
+        "rejected_nll": 10.005668640136719,
+        "margin": 9.999946594238281
+      }
+    },
+    {
+      "id": "nt-3870-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        49
+      ],
+      "rejected_positions": [
+        49
+      ],
+      "ordinary": {
+        "chosen_nll": 0.25630950927734375,
+        "rejected_nll": 5.19482421875,
+        "margin": 4.938514709472656
+      },
+      "trained": {
+        "chosen_nll": 0.0011272430419921875,
+        "rejected_nll": 12.876127243041992,
+        "margin": 12.875
+      }
+    },
+    {
+      "id": "nt-4765-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 2.1837902069091797,
+        "rejected_nll": 4.722353935241699,
+        "margin": 2.5385637283325195
+      },
+      "trained": {
+        "chosen_nll": 1.3460044860839844,
+        "rejected_nll": 12.924637794494629,
+        "margin": 11.578633308410645
+      }
+    },
+    {
+      "id": "nt-13466-program",
+      "edit": "column",
+      "chosen_positions": [
+        46
+      ],
+      "rejected_positions": [
+        46
+      ],
+      "ordinary": {
+        "chosen_nll": 0.05937957763671875,
+        "rejected_nll": 6.809553146362305,
+        "margin": 6.750173568725586
+      },
+      "trained": {
+        "chosen_nll": 0.12563133239746094,
+        "rejected_nll": 7.625631332397461,
+        "margin": 7.5
+      }
+    },
+    {
+      "id": "nt-13466-program",
+      "edit": "direction",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 2.554258346557617,
+        "rejected_nll": 0.17834854125976562,
+        "margin": -2.3759098052978516
+      },
+      "trained": {
+        "chosen_nll": 0.0478363037109375,
+        "rejected_nll": 12.922836303710938,
+        "margin": 12.875
+      }
+    },
+    {
+      "id": "nt-8688-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4022560119628906,
+        "rejected_nll": 6.385570526123047,
+        "margin": 5.983314514160156
+      },
+      "trained": {
+        "chosen_nll": 0.1333739012479782,
+        "rejected_nll": 10.549873352050781,
+        "margin": 10.416499450802803
+      }
+    },
+    {
+      "id": "nt-9755-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.99725341796875,
+        "rejected_nll": 4.622701644897461,
+        "margin": 3.625448226928711
+      },
+      "trained": {
+        "chosen_nll": 0.024866104125976562,
+        "rejected_nll": 8.399829864501953,
+        "margin": 8.374963760375977
+      }
+    },
+    {
+      "id": "nt-9755-program",
+      "edit": "direction",
+      "chosen_positions": [
+        60
+      ],
+      "rejected_positions": [
+        60
+      ],
+      "ordinary": {
+        "chosen_nll": 2.489961624145508,
+        "rejected_nll": 0.2400188446044922,
+        "margin": -2.2499427795410156
+      },
+      "trained": {
+        "chosen_nll": 0.4909629821777344,
+        "rejected_nll": 13.053464889526367,
+        "margin": 12.562501907348633
+      }
+    },
+    {
+      "id": "nt-4268-program",
+      "edit": "direction",
+      "chosen_positions": [
+        77
+      ],
+      "rejected_positions": [
+        77,
+        78
+      ],
+      "ordinary": {
+        "chosen_nll": 3.822620391845703,
+        "rejected_nll": 1.6774358749389648,
+        "margin": -2.1451845169067383
+      },
+      "trained": {
+        "chosen_nll": 0.0016078948974609375,
+        "rejected_nll": 5.778268814086914,
+        "margin": 5.776660919189453
+      }
+    },
+    {
+      "id": "nt-8868-program",
+      "edit": "column",
+      "chosen_positions": [
+        57,
+        58
+      ],
+      "rejected_positions": [
+        57,
+        58
+      ],
+      "ordinary": {
+        "chosen_nll": 0.20952415466308594,
+        "rejected_nll": 2.6463069915771484,
+        "margin": 2.4367828369140625
+      },
+      "trained": {
+        "chosen_nll": 0.015214920043945312,
+        "rejected_nll": 5.577075958251953,
+        "margin": 5.561861038208008
+      }
+    },
+    {
+      "id": "nt-8868-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        65
+      ],
+      "rejected_positions": [
+        65
+      ],
+      "ordinary": {
+        "chosen_nll": 0.11144447326660156,
+        "rejected_nll": 3.486452102661133,
+        "margin": 3.3750076293945312
+      },
+      "trained": {
+        "chosen_nll": 0.0003833770751953125,
+        "rejected_nll": 11.062883377075195,
+        "margin": 11.0625
+      }
+    },
+    {
+      "id": "nt-509-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4308910369873047,
+        "rejected_nll": 4.306022644042969,
+        "margin": 3.875131607055664
+      },
+      "trained": {
+        "chosen_nll": 0.041431427001953125,
+        "rejected_nll": 5.5414276123046875,
+        "margin": 5.499996185302734
+      }
+    },
+    {
+      "id": "nt-11-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 2.4120521545410156,
+        "rejected_nll": 7.787078857421875,
+        "margin": 5.375026702880859
+      },
+      "trained": {
+        "chosen_nll": 0.020441055297851562,
+        "rejected_nll": 9.268051147460938,
+        "margin": 9.247610092163086
+      }
+    },
+    {
+      "id": "nt-11-program",
+      "edit": "direction",
+      "chosen_positions": [
+        68
+      ],
+      "rejected_positions": [
+        68
+      ],
+      "ordinary": {
+        "chosen_nll": 1.156646728515625,
+        "rejected_nll": 0.656768798828125,
+        "margin": -0.4998779296875
+      },
+      "trained": {
+        "chosen_nll": 0.0039997100830078125,
+        "rejected_nll": 10.628997802734375,
+        "margin": 10.624998092651367
+      }
+    },
+    {
+      "id": "nt-11-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.10178184509277344,
+        "rejected_nll": 7.289264678955078,
+        "margin": 7.187482833862305
+      },
+      "trained": {
+        "chosen_nll": 0.002140045166015625,
+        "rejected_nll": 11.064640045166016,
+        "margin": 11.0625
+      }
+    },
+    {
+      "id": "nt-13638-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36,
+        37
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.3610410690307617,
+        "rejected_nll": 5.29975700378418,
+        "margin": 4.938715934753418
+      },
+      "trained": {
+        "chosen_nll": 0.16301441192626953,
+        "rejected_nll": 8.566255569458008,
+        "margin": 8.403241157531738
+      }
+    },
+    {
+      "id": "nt-6658-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.0038166046142578,
+        "rejected_nll": 4.75419807434082,
+        "margin": 3.7503814697265625
+      },
+      "trained": {
+        "chosen_nll": 0.059332847595214844,
+        "rejected_nll": 7.958766937255859,
+        "margin": 7.8994340896606445
+      }
+    },
+    {
+      "id": "nt-6658-program",
+      "edit": "direction",
+      "chosen_positions": [
+        92
+      ],
+      "rejected_positions": [
+        92,
+        93
+      ],
+      "ordinary": {
+        "chosen_nll": 4.435995101928711,
+        "rejected_nll": 0.25215721130371094,
+        "margin": -4.183837890625
+      },
+      "trained": {
+        "chosen_nll": 0.12047958374023438,
+        "rejected_nll": 5.1586761474609375,
+        "margin": 5.038196563720703
+      }
+    },
+    {
+      "id": "nt-6658-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        76
+      ],
+      "rejected_positions": [
+        76
+      ],
+      "ordinary": {
+        "chosen_nll": 0.2142467498779297,
+        "rejected_nll": 6.464395523071289,
+        "margin": 6.250148773193359
+      },
+      "trained": {
+        "chosen_nll": 0.012010574340820312,
+        "rejected_nll": 8.699493408203125,
+        "margin": 8.687482833862305
+      }
+    },
+    {
+      "id": "nt-13221-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.658299446105957,
+        "rejected_nll": 2.179086685180664,
+        "margin": 1.520787239074707
+      },
+      "trained": {
+        "chosen_nll": 0.06592845916748047,
+        "rejected_nll": 10.128711700439453,
+        "margin": 10.062783241271973
+      }
+    },
+    {
+      "id": "nt-1201-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        49
+      ],
+      "rejected_positions": [
+        49
+      ],
+      "ordinary": {
+        "chosen_nll": 0.2740955352783203,
+        "rejected_nll": 5.774229049682617,
+        "margin": 5.500133514404297
+      },
+      "trained": {
+        "chosen_nll": 0.0012531280517578125,
+        "rejected_nll": 13.126253128051758,
+        "margin": 13.125
+      }
+    },
+    {
+      "id": "nt-12564-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        65
+      ],
+      "rejected_positions": [
+        65
+      ],
+      "ordinary": {
+        "chosen_nll": 0.018949508666992188,
+        "rejected_nll": 5.268938064575195,
+        "margin": 5.249988555908203
+      },
+      "trained": {
+        "chosen_nll": 6.103515625e-05,
+        "rejected_nll": 12.00006103515625,
+        "margin": 12.0
+      }
+    },
+    {
+      "id": "nt-8620-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36,
+        37
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.25519418716430664,
+        "rejected_nll": 2.129556655883789,
+        "margin": 1.8743624687194824
+      },
+      "trained": {
+        "chosen_nll": 0.04008769989013672,
+        "rejected_nll": 6.383523941040039,
+        "margin": 6.343436241149902
+      }
+    },
+    {
+      "id": "nt-8620-program",
+      "edit": "direction",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.31147003173828125,
+        "rejected_nll": 3.624004364013672,
+        "margin": 3.3125343322753906
+      },
+      "trained": {
+        "chosen_nll": 0.0008563995361328125,
+        "rejected_nll": 14.563356399536133,
+        "margin": 14.5625
+      }
+    },
+    {
+      "id": "nt-7544-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.0642852783203125,
+        "rejected_nll": 7.249704360961914,
+        "margin": 7.185419082641602
+      },
+      "trained": {
+        "chosen_nll": 0.022348403930664062,
+        "rejected_nll": 8.084579467773438,
+        "margin": 8.062231063842773
+      }
+    },
+    {
+      "id": "nt-12182-program",
+      "edit": "column",
+      "chosen_positions": [
+        49,
+        50,
+        51,
+        52
+      ],
+      "rejected_positions": [
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55
+      ],
+      "ordinary": {
+        "chosen_nll": 0.5598645210266113,
+        "rejected_nll": 0.9176211357116699,
+        "margin": 0.3577566146850586
+      },
+      "trained": {
+        "chosen_nll": 0.030613422393798828,
+        "rejected_nll": 4.036757946014404,
+        "margin": 4.0061445236206055
+      }
+    },
+    {
+      "id": "nt-12182-program",
+      "edit": "direction",
+      "chosen_positions": [
+        60
+      ],
+      "rejected_positions": [
+        60,
+        61
+      ],
+      "ordinary": {
+        "chosen_nll": 5.735515594482422,
+        "rejected_nll": 1.0707998275756836,
+        "margin": -4.664715766906738
+      },
+      "trained": {
+        "chosen_nll": 0.1754608154296875,
+        "rejected_nll": 5.21794319152832,
+        "margin": 5.042482376098633
+      }
+    },
+    {
+      "id": "nt-7079-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 3.0567626953125,
+        "rejected_nll": 3.732370376586914,
+        "margin": 0.6756076812744141
+      },
+      "trained": {
+        "chosen_nll": 0.000171661376953125,
+        "rejected_nll": 6.587770462036133,
+        "margin": 6.58759880065918
+      }
+    },
+    {
+      "id": "nt-720-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.04301643371582031,
+        "rejected_nll": 7.605518341064453,
+        "margin": 7.562501907348633
+      },
+      "trained": {
+        "chosen_nll": 0.0003681182861328125,
+        "rejected_nll": 12.625368118286133,
+        "margin": 12.625
+      }
+    },
+    {
+      "id": "nt-10805-program",
+      "edit": "column",
+      "chosen_positions": [
+        35
+      ],
+      "rejected_positions": [
+        35,
+        36
+      ],
+      "ordinary": {
+        "chosen_nll": 3.986919403076172,
+        "rejected_nll": 3.7881250381469727,
+        "margin": -0.19879436492919922
+      },
+      "trained": {
+        "chosen_nll": 0.0680999755859375,
+        "rejected_nll": 12.202948570251465,
+        "margin": 12.134848594665527
+      }
+    },
+    {
+      "id": "nt-10805-program",
+      "edit": "direction",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.029104232788085938,
+        "rejected_nll": 5.404104232788086,
+        "margin": 5.375
+      },
+      "trained": {
+        "chosen_nll": 0.05652809143066406,
+        "rejected_nll": 7.751317977905273,
+        "margin": 7.694789886474609
+      }
+    },
+    {
+      "id": "nt-7842-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4683952331542969,
+        "rejected_nll": 6.653615951538086,
+        "margin": 6.185220718383789
+      },
+      "trained": {
+        "chosen_nll": 0.0008220672607421875,
+        "rejected_nll": 14.625822067260742,
+        "margin": 14.625
+      }
+    },
+    {
+      "id": "nt-2902-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 2.6442394256591797,
+        "rejected_nll": 2.024080276489258,
+        "margin": -0.6201591491699219
+      },
+      "trained": {
+        "chosen_nll": 0.010747909545898438,
+        "rejected_nll": 6.722339630126953,
+        "margin": 6.711591720581055
+      }
+    },
+    {
+      "id": "nt-2902-program",
+      "edit": "direction",
+      "chosen_positions": [
+        62
+      ],
+      "rejected_positions": [
+        62
+      ],
+      "ordinary": {
+        "chosen_nll": 0.017171859741210938,
+        "rejected_nll": 6.079620361328125,
+        "margin": 6.062448501586914
+      },
+      "trained": {
+        "chosen_nll": 0.0049037933349609375,
+        "rejected_nll": 7.504903793334961,
+        "margin": 7.5
+      }
+    },
+    {
+      "id": "nt-1070-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4263458251953125,
+        "rejected_nll": 9.426252365112305,
+        "margin": 8.999906539916992
+      },
+      "trained": {
+        "chosen_nll": 0.0702667236328125,
+        "rejected_nll": 10.695211410522461,
+        "margin": 10.624944686889648
+      }
+    },
+    {
+      "id": "nt-1070-program",
+      "edit": "direction",
+      "chosen_positions": [
+        90
+      ],
+      "rejected_positions": [
+        90
+      ],
+      "ordinary": {
+        "chosen_nll": 3.126504898071289,
+        "rejected_nll": 0.2515411376953125,
+        "margin": -2.8749637603759766
+      },
+      "trained": {
+        "chosen_nll": 1.5108680725097656,
+        "rejected_nll": 11.0733642578125,
+        "margin": 9.562496185302734
+      }
+    },
+    {
+      "id": "nt-1070-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        74
+      ],
+      "rejected_positions": [
+        74
+      ],
+      "ordinary": {
+        "chosen_nll": 0.5686244964599609,
+        "rejected_nll": 6.2560577392578125,
+        "margin": 5.687433242797852
+      },
+      "trained": {
+        "chosen_nll": 0.04060935974121094,
+        "rejected_nll": 8.478107452392578,
+        "margin": 8.437498092651367
+      }
+    },
+    {
+      "id": "nt-10299-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.30762195587158203,
+        "rejected_nll": 6.051548004150391,
+        "margin": 5.743926048278809
+      },
+      "trained": {
+        "chosen_nll": 0.009740829467773438,
+        "rejected_nll": 11.518989562988281,
+        "margin": 11.509248733520508
+      }
+    },
+    {
+      "id": "nt-5928-program",
+      "edit": "column",
+      "chosen_positions": [
+        47
+      ],
+      "rejected_positions": [
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 0.7601242065429688,
+        "rejected_nll": 6.32261848449707,
+        "margin": 5.562494277954102
+      },
+      "trained": {
+        "chosen_nll": 0.04738044738769531,
+        "rejected_nll": 7.047380447387695,
+        "margin": 7.0
+      }
+    },
+    {
+      "id": "nt-5928-program",
+      "edit": "direction",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53,
+        54
+      ],
+      "ordinary": {
+        "chosen_nll": 6.885135650634766,
+        "rejected_nll": 0.6372585296630859,
+        "margin": -6.24787712097168
+      },
+      "trained": {
+        "chosen_nll": 0.04986381530761719,
+        "rejected_nll": 2.6566829681396484,
+        "margin": 2.6068191528320312
+      }
+    },
+    {
+      "id": "nt-7535-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4642162322998047,
+        "rejected_nll": 8.268304824829102,
+        "margin": 7.804088592529297
+      },
+      "trained": {
+        "chosen_nll": 0.11755084991455078,
+        "rejected_nll": 6.763250350952148,
+        "margin": 6.645699501037598
+      }
+    },
+    {
+      "id": "nt-7535-program",
+      "edit": "direction",
+      "chosen_positions": [
+        59
+      ],
+      "rejected_positions": [
+        59
+      ],
+      "ordinary": {
+        "chosen_nll": 0.37456703186035156,
+        "rejected_nll": 4.374589920043945,
+        "margin": 4.000022888183594
+      },
+      "trained": {
+        "chosen_nll": 0.0051708221435546875,
+        "rejected_nll": 12.192663192749023,
+        "margin": 12.187492370605469
+      }
+    },
+    {
+      "id": "nt-13646-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        55
+      ],
+      "rejected_positions": [
+        55
+      ],
+      "ordinary": {
+        "chosen_nll": 0.07863426208496094,
+        "rejected_nll": 6.266132354736328,
+        "margin": 6.187498092651367
+      },
+      "trained": {
+        "chosen_nll": 0.0067844390869140625,
+        "rejected_nll": 8.506782531738281,
+        "margin": 8.499998092651367
+      }
+    },
+    {
+      "id": "nt-4625-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.8809127807617188,
+        "rejected_nll": 0.8808917999267578,
+        "margin": -2.09808349609375e-05
+      },
+      "trained": {
+        "chosen_nll": 0.021083831787109375,
+        "rejected_nll": 10.396121978759766,
+        "margin": 10.375038146972656
+      }
+    },
+    {
+      "id": "nt-4625-program",
+      "edit": "direction",
+      "chosen_positions": [
+        47
+      ],
+      "rejected_positions": [
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 1.1093502044677734,
+        "rejected_nll": 2.877490997314453,
+        "margin": 1.7681407928466797
+      },
+      "trained": {
+        "chosen_nll": 0.001651763916015625,
+        "rejected_nll": 16.439151763916016,
+        "margin": 16.4375
+      }
+    },
+    {
+      "id": "nt-6468-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        49
+      ],
+      "rejected_positions": [
+        49
+      ],
+      "ordinary": {
+        "chosen_nll": 2.7661991119384766,
+        "rejected_nll": 2.079273223876953,
+        "margin": -0.6869258880615234
+      },
+      "trained": {
+        "chosen_nll": 2.965503692626953,
+        "rejected_nll": 3.215240478515625,
+        "margin": 0.24973678588867188
+      }
+    },
+    {
+      "id": "nt-3290-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.25613975524902344,
+        "rejected_nll": 4.693641662597656,
+        "margin": 4.437501907348633
+      },
+      "trained": {
+        "chosen_nll": 0.00151824951171875,
+        "rejected_nll": 11.376466751098633,
+        "margin": 11.374948501586914
+      }
+    },
+    {
+      "id": "nt-10009-program",
+      "edit": "column",
+      "chosen_positions": [
+        37
+      ],
+      "rejected_positions": [
+        37
+      ],
+      "ordinary": {
+        "chosen_nll": 2.2395172119140625,
+        "rejected_nll": 2.4881114959716797,
+        "margin": 0.2485942840576172
+      },
+      "trained": {
+        "chosen_nll": 0.018352508544921875,
+        "rejected_nll": 9.891206741333008,
+        "margin": 9.872854232788086
+      }
+    },
+    {
+      "id": "nt-5112-program",
+      "edit": "column",
+      "chosen_positions": [
+        47,
+        48
+      ],
+      "rejected_positions": [
+        47,
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.19564533233642578,
+        "rejected_nll": 1.9485177993774414,
+        "margin": 1.7528724670410156
+      },
+      "trained": {
+        "chosen_nll": 0.009285926818847656,
+        "rejected_nll": 6.584891319274902,
+        "margin": 6.575605392456055
+      }
+    },
+    {
+      "id": "nt-5112-program",
+      "edit": "direction",
+      "chosen_positions": [
+        54
+      ],
+      "rejected_positions": [
+        54
+      ],
+      "ordinary": {
+        "chosen_nll": 0.015542984008789062,
+        "rejected_nll": 6.20306396484375,
+        "margin": 6.187520980834961
+      },
+      "trained": {
+        "chosen_nll": 0.0063629150390625,
+        "rejected_nll": 10.256362915039062,
+        "margin": 10.25
+      }
+    },
+    {
+      "id": "nt-2336-program",
+      "edit": "column",
+      "chosen_positions": [
+        35
+      ],
+      "rejected_positions": [
+        35,
+        36
+      ],
+      "ordinary": {
+        "chosen_nll": 6.561687469482422,
+        "rejected_nll": 2.550570487976074,
+        "margin": -4.011116981506348
+      },
+      "trained": {
+        "chosen_nll": 0.12281608581542969,
+        "rejected_nll": 11.09123706817627,
+        "margin": 10.96842098236084
+      }
+    },
+    {
+      "id": "nt-2783-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40
+      ],
+      "ordinary": {
+        "chosen_nll": 3.021869659423828,
+        "rejected_nll": 1.3596197366714478,
+        "margin": -1.6622499227523804
+      },
+      "trained": {
+        "chosen_nll": 0.005420684814453125,
+        "rejected_nll": 4.135036468505859,
+        "margin": 4.129615783691406
+      }
+    },
+    {
+      "id": "nt-2783-program",
+      "edit": "direction",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.093963623046875,
+        "rejected_nll": 4.1578369140625,
+        "margin": 4.063873291015625
+      },
+      "trained": {
+        "chosen_nll": 0.0005054473876953125,
+        "rejected_nll": 13.250507354736328,
+        "margin": 13.250001907348633
+      }
+    },
+    {
+      "id": "nt-3895-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 3.9328231811523438,
+        "rejected_nll": 7.432903289794922,
+        "margin": 3.500080108642578
+      },
+      "trained": {
+        "chosen_nll": 0.012874603271484375,
+        "rejected_nll": 17.294126510620117,
+        "margin": 17.281251907348633
+      }
+    },
+    {
+      "id": "nt-2063-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.189382553100586,
+        "rejected_nll": 4.938724517822266,
+        "margin": 3.7493419647216797
+      },
+      "trained": {
+        "chosen_nll": 0.335540771484375,
+        "rejected_nll": 7.710521697998047,
+        "margin": 7.374980926513672
+      }
+    },
+    {
+      "id": "nt-2063-program",
+      "edit": "direction",
+      "chosen_positions": [
+        57
+      ],
+      "rejected_positions": [
+        57
+      ],
+      "ordinary": {
+        "chosen_nll": 3.021390914916992,
+        "rejected_nll": 0.27141571044921875,
+        "margin": -2.7499752044677734
+      },
+      "trained": {
+        "chosen_nll": 0.22026824951171875,
+        "rejected_nll": 12.28274154663086,
+        "margin": 12.06247329711914
+      }
+    },
+    {
+      "id": "nt-4216-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ],
+      "ordinary": {
+        "chosen_nll": 0.3802909851074219,
+        "rejected_nll": 0.7327613830566406,
+        "margin": 0.35247039794921875
+      },
+      "trained": {
+        "chosen_nll": 0.08864021301269531,
+        "rejected_nll": 4.124891757965088,
+        "margin": 4.036251544952393
+      }
+    },
+    {
+      "id": "nt-4216-program",
+      "edit": "direction",
+      "chosen_positions": [
+        68
+      ],
+      "rejected_positions": [
+        68,
+        69
+      ],
+      "ordinary": {
+        "chosen_nll": 6.947477340698242,
+        "rejected_nll": 0.7558784484863281,
+        "margin": -6.191598892211914
+      },
+      "trained": {
+        "chosen_nll": 0.015682220458984375,
+        "rejected_nll": 4.0426435470581055,
+        "margin": 4.026961326599121
+      }
+    },
+    {
+      "id": "nt-11121-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.2646350860595703,
+        "rejected_nll": 4.512825012207031,
+        "margin": 4.248189926147461
+      },
+      "trained": {
+        "chosen_nll": 0.0011615753173828125,
+        "rejected_nll": 11.938661575317383,
+        "margin": 11.9375
+      }
+    },
+    {
+      "id": "nt-4978-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        55
+      ],
+      "rejected_positions": [
+        55
+      ],
+      "ordinary": {
+        "chosen_nll": 0.7071628570556641,
+        "rejected_nll": 2.5802574157714844,
+        "margin": 1.8730945587158203
+      },
+      "trained": {
+        "chosen_nll": 0.0037136077880859375,
+        "rejected_nll": 7.878786087036133,
+        "margin": 7.875072479248047
+      }
+    },
+    {
+      "id": "nt-3604-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 2.9480018615722656,
+        "rejected_nll": 6.948173522949219,
+        "margin": 4.000171661376953
+      },
+      "trained": {
+        "chosen_nll": 0.0289459228515625,
+        "rejected_nll": 13.591445922851562,
+        "margin": 13.5625
+      }
+    },
+    {
+      "id": "nt-6938-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.3637847900390625,
+        "rejected_nll": 4.363727569580078,
+        "margin": 3.9999427795410156
+      },
+      "trained": {
+        "chosen_nll": 0.09144973754882812,
+        "rejected_nll": 10.403947830200195,
+        "margin": 10.312498092651367
+      }
+    },
+    {
+      "id": "nt-9562-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.1670379638671875,
+        "rejected_nll": 4.39869499206543,
+        "margin": 4.231657028198242
+      },
+      "trained": {
+        "chosen_nll": 0.020818710327148438,
+        "rejected_nll": 7.270822525024414,
+        "margin": 7.250003814697266
+      }
+    },
+    {
+      "id": "nt-12536-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 0.9178333282470703,
+        "rejected_nll": 1.0839223861694336,
+        "margin": 0.16608905792236328
+      },
+      "trained": {
+        "chosen_nll": 0.0035953521728515625,
+        "rejected_nll": 5.409247398376465,
+        "margin": 5.405652046203613
+      }
+    },
+    {
+      "id": "nt-12536-program",
+      "edit": "direction",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.06757354736328125,
+        "rejected_nll": 3.817567825317383,
+        "margin": 3.7499942779541016
+      },
+      "trained": {
+        "chosen_nll": 0.0045566558837890625,
+        "rejected_nll": 7.254556655883789,
+        "margin": 7.25
+      }
+    },
+    {
+      "id": "nt-41-program",
+      "edit": "column",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48,
+        49,
+        50
+      ],
+      "ordinary": {
+        "chosen_nll": 1.121194839477539,
+        "rejected_nll": 0.21383604407310486,
+        "margin": -0.9073587954044342
+      },
+      "trained": {
+        "chosen_nll": 0.000316619873046875,
+        "rejected_nll": 5.708659648895264,
+        "margin": 5.708343029022217
+      }
+    },
+    {
+      "id": "nt-41-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        55
+      ],
+      "rejected_positions": [
+        55
+      ],
+      "ordinary": {
+        "chosen_nll": 0.11098289489746094,
+        "rejected_nll": 7.673494338989258,
+        "margin": 7.562511444091797
+      },
+      "trained": {
+        "chosen_nll": 0.0007686614990234375,
+        "rejected_nll": 13.250768661499023,
+        "margin": 13.25
+      }
+    },
+    {
+      "id": "nt-7332-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36,
+        37
+      ],
+      "ordinary": {
+        "chosen_nll": 0.9533125758171082,
+        "rejected_nll": 1.79353666305542,
+        "margin": 0.8402240872383118
+      },
+      "trained": {
+        "chosen_nll": 0.028664907440543175,
+        "rejected_nll": 5.286227703094482,
+        "margin": 5.257562795653939
+      }
+    },
+    {
+      "id": "nt-2022-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 5.2460174560546875,
+        "rejected_nll": 3.870595932006836,
+        "margin": -1.3754215240478516
+      },
+      "trained": {
+        "chosen_nll": 0.04378700256347656,
+        "rejected_nll": 11.48127555847168,
+        "margin": 11.437488555908203
+      }
+    },
+    {
+      "id": "nt-13310-program",
+      "edit": "column",
+      "chosen_positions": [
+        41,
+        42,
+        43
+      ],
+      "rejected_positions": [
+        41,
+        42,
+        43
+      ],
+      "ordinary": {
+        "chosen_nll": 0.19905154407024384,
+        "rejected_nll": 1.2916679382324219,
+        "margin": 1.092616394162178
+      },
+      "trained": {
+        "chosen_nll": 0.09821510314941406,
+        "rejected_nll": 6.673509120941162,
+        "margin": 6.575294017791748
+      }
+    },
+    {
+      "id": "nt-13310-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        50
+      ],
+      "rejected_positions": [
+        50
+      ],
+      "ordinary": {
+        "chosen_nll": 0.21361160278320312,
+        "rejected_nll": 6.088651657104492,
+        "margin": 5.875040054321289
+      },
+      "trained": {
+        "chosen_nll": 0.0014820098876953125,
+        "rejected_nll": 13.126482009887695,
+        "margin": 13.125
+      }
+    },
+    {
+      "id": "nt-7438-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.24598121643066406,
+        "rejected_nll": 5.9334564208984375,
+        "margin": 5.687475204467773
+      },
+      "trained": {
+        "chosen_nll": 0.0006542205810546875,
+        "rejected_nll": 13.313154220581055,
+        "margin": 13.3125
+      }
+    },
+    {
+      "id": "nt-8977-program",
+      "edit": "column",
+      "chosen_positions": [
+        37,
+        38
+      ],
+      "rejected_positions": [
+        37,
+        38,
+        39
+      ],
+      "ordinary": {
+        "chosen_nll": 0.11218738555908203,
+        "rejected_nll": 1.0895627737045288,
+        "margin": 0.9773753881454468
+      },
+      "trained": {
+        "chosen_nll": 0.02918529510498047,
+        "rejected_nll": 6.788769721984863,
+        "margin": 6.759584426879883
+      }
+    },
+    {
+      "id": "nt-8604-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36,
+        37
+      ],
+      "ordinary": {
+        "chosen_nll": 0.5384311676025391,
+        "rejected_nll": 1.1591625213623047,
+        "margin": 0.6207313537597656
+      },
+      "trained": {
+        "chosen_nll": 0.03154754638671875,
+        "rejected_nll": 7.4617438316345215,
+        "margin": 7.430196285247803
+      }
+    },
+    {
+      "id": "nt-4275-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.07034683227539062,
+        "rejected_nll": 6.507835388183594,
+        "margin": 6.437488555908203
+      },
+      "trained": {
+        "chosen_nll": 0.0032978057861328125,
+        "rejected_nll": 9.878299713134766,
+        "margin": 9.875001907348633
+      }
+    },
+    {
+      "id": "nt-8568-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.219247817993164,
+        "rejected_nll": 4.09416389465332,
+        "margin": 2.8749160766601562
+      },
+      "trained": {
+        "chosen_nll": 0.07238006591796875,
+        "rejected_nll": 7.697385787963867,
+        "margin": 7.625005722045898
+      }
+    },
+    {
+      "id": "nt-3407-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 2.472026824951172,
+        "rejected_nll": 5.427238464355469,
+        "margin": 2.955211639404297
+      },
+      "trained": {
+        "chosen_nll": 0.16420555114746094,
+        "rejected_nll": 12.41417121887207,
+        "margin": 12.24996566772461
+      }
+    },
+    {
+      "id": "nt-13061-program",
+      "edit": "column",
+      "chosen_positions": [
+        46
+      ],
+      "rejected_positions": [
+        46,
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 0.015336990356445312,
+        "rejected_nll": 2.5904130935668945,
+        "margin": 2.575076103210449
+      },
+      "trained": {
+        "chosen_nll": 0.00028228759765625,
+        "rejected_nll": 6.899877548217773,
+        "margin": 6.899595260620117
+      }
+    },
+    {
+      "id": "nt-10987-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.7293167114257812,
+        "rejected_nll": 6.354227066040039,
+        "margin": 5.624910354614258
+      },
+      "trained": {
+        "chosen_nll": 0.11459732055664062,
+        "rejected_nll": 8.875587463378906,
+        "margin": 8.760990142822266
+      }
+    },
+    {
+      "id": "nt-8524-program",
+      "edit": "column",
+      "chosen_positions": [
+        49
+      ],
+      "rejected_positions": [
+        49
+      ],
+      "ordinary": {
+        "chosen_nll": 0.3634967803955078,
+        "rejected_nll": 6.925983428955078,
+        "margin": 6.56248664855957
+      },
+      "trained": {
+        "chosen_nll": 0.009281158447265625,
+        "rejected_nll": 8.259281158447266,
+        "margin": 8.25
+      }
+    },
+    {
+      "id": "nt-8524-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        55
+      ],
+      "rejected_positions": [
+        55
+      ],
+      "ordinary": {
+        "chosen_nll": 0.298614501953125,
+        "rejected_nll": 4.423988342285156,
+        "margin": 4.125373840332031
+      },
+      "trained": {
+        "chosen_nll": 0.0087890625,
+        "rejected_nll": 9.5087890625,
+        "margin": 9.5
+      }
+    },
+    {
+      "id": "nt-10147-program",
+      "edit": "column",
+      "chosen_positions": [
+        42
+      ],
+      "rejected_positions": [
+        42,
+        43
+      ],
+      "ordinary": {
+        "chosen_nll": 0.33652496337890625,
+        "rejected_nll": 0.9808588027954102,
+        "margin": 0.6443338394165039
+      },
+      "trained": {
+        "chosen_nll": 0.003528594970703125,
+        "rejected_nll": 4.814548492431641,
+        "margin": 4.8110198974609375
+      }
+    },
+    {
+      "id": "nt-3512-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        58
+      ],
+      "rejected_positions": [
+        58
+      ],
+      "ordinary": {
+        "chosen_nll": 0.27788543701171875,
+        "rejected_nll": 3.151662826538086,
+        "margin": 2.873777389526367
+      },
+      "trained": {
+        "chosen_nll": 0.002841949462890625,
+        "rejected_nll": 7.627843856811523,
+        "margin": 7.625001907348633
+      }
+    },
+    {
+      "id": "nt-11554-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.7073221206665039,
+        "rejected_nll": 3.7567996978759766,
+        "margin": 3.0494775772094727
+      },
+      "trained": {
+        "chosen_nll": 0.07416534423828125,
+        "rejected_nll": 8.145219802856445,
+        "margin": 8.071054458618164
+      }
+    },
+    {
+      "id": "nt-11554-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        64
+      ],
+      "rejected_positions": [
+        64
+      ],
+      "ordinary": {
+        "chosen_nll": 0.26024818420410156,
+        "rejected_nll": 4.977811813354492,
+        "margin": 4.717563629150391
+      },
+      "trained": {
+        "chosen_nll": 0.013956069946289062,
+        "rejected_nll": 6.138935089111328,
+        "margin": 6.124979019165039
+      }
+    },
+    {
+      "id": "nt-1309-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.8914031982421875,
+        "rejected_nll": 6.266439437866211,
+        "margin": 5.375036239624023
+      },
+      "trained": {
+        "chosen_nll": 0.0392913818359375,
+        "rejected_nll": 10.039312362670898,
+        "margin": 10.000020980834961
+      }
+    },
+    {
+      "id": "nt-9286-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.11662864685058594,
+        "rejected_nll": 5.241735458374023,
+        "margin": 5.1251068115234375
+      },
+      "trained": {
+        "chosen_nll": 0.00921630859375,
+        "rejected_nll": 7.44671630859375,
+        "margin": 7.4375
+      }
+    },
+    {
+      "id": "nt-759-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.6521186828613281,
+        "rejected_nll": 4.179145812988281,
+        "margin": 3.527027130126953
+      },
+      "trained": {
+        "chosen_nll": 0.17588043212890625,
+        "rejected_nll": 8.225667953491211,
+        "margin": 8.049787521362305
+      }
+    },
+    {
+      "id": "nt-6791-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.5998706817626953,
+        "rejected_nll": 7.475011825561523,
+        "margin": 5.875141143798828
+      },
+      "trained": {
+        "chosen_nll": 0.024225234985351562,
+        "rejected_nll": 12.836725234985352,
+        "margin": 12.8125
+      }
+    },
+    {
+      "id": "nt-5903-program",
+      "edit": "column",
+      "chosen_positions": [
+        35
+      ],
+      "rejected_positions": [
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 1.5739631652832031,
+        "rejected_nll": 7.013265609741211,
+        "margin": 5.439302444458008
+      },
+      "trained": {
+        "chosen_nll": 0.022375106811523438,
+        "rejected_nll": 12.209875106811523,
+        "margin": 12.1875
+      }
+    },
+    {
+      "id": "nt-12203-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.185567855834961,
+        "rejected_nll": 2.4352169036865234,
+        "margin": 1.2496490478515625
+      },
+      "trained": {
+        "chosen_nll": 0.05433464050292969,
+        "rejected_nll": 9.366836547851562,
+        "margin": 9.312501907348633
+      }
+    },
+    {
+      "id": "nt-1200-program",
+      "edit": "column",
+      "chosen_positions": [
+        68
+      ],
+      "rejected_positions": [
+        68
+      ],
+      "ordinary": {
+        "chosen_nll": 0.010843276977539062,
+        "rejected_nll": 9.260841369628906,
+        "margin": 9.249998092651367
+      },
+      "trained": {
+        "chosen_nll": 0.012271881103515625,
+        "rejected_nll": 8.511270523071289,
+        "margin": 8.498998641967773
+      }
+    },
+    {
+      "id": "nt-1200-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.1374969482421875,
+        "rejected_nll": 4.32475471496582,
+        "margin": 4.187257766723633
+      },
+      "trained": {
+        "chosen_nll": 0.0036525726318359375,
+        "rejected_nll": 9.628654479980469,
+        "margin": 9.625001907348633
+      }
+    },
+    {
+      "id": "nt-10575-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 3.3241100311279297,
+        "rejected_nll": 4.949460983276367,
+        "margin": 1.6253509521484375
+      },
+      "trained": {
+        "chosen_nll": 0.09336471557617188,
+        "rejected_nll": 9.343385696411133,
+        "margin": 9.250020980834961
+      }
+    },
+    {
+      "id": "nt-3041-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 3.2004165649414062,
+        "rejected_nll": 3.5751991271972656,
+        "margin": 0.3747825622558594
+      },
+      "trained": {
+        "chosen_nll": 0.3222370147705078,
+        "rejected_nll": 7.822238922119141,
+        "margin": 7.500001907348633
+      }
+    },
+    {
+      "id": "nt-14066-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 0.5098648071289062,
+        "rejected_nll": 2.02481746673584,
+        "margin": 1.5149526596069336
+      },
+      "trained": {
+        "chosen_nll": 0.0019817352294921875,
+        "rejected_nll": 7.312617301940918,
+        "margin": 7.310635566711426
+      }
+    },
+    {
+      "id": "nt-14066-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        74
+      ],
+      "rejected_positions": [
+        74
+      ],
+      "ordinary": {
+        "chosen_nll": 0.10960578918457031,
+        "rejected_nll": 5.795724868774414,
+        "margin": 5.686119079589844
+      },
+      "trained": {
+        "chosen_nll": 0.0043315887451171875,
+        "rejected_nll": 7.941987991333008,
+        "margin": 7.937656402587891
+      }
+    },
+    {
+      "id": "nt-9438-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.6826877593994141,
+        "rejected_nll": 4.865499496459961,
+        "margin": 4.182811737060547
+      },
+      "trained": {
+        "chosen_nll": 0.13280582427978516,
+        "rejected_nll": 11.201244354248047,
+        "margin": 11.068438529968262
+      }
+    },
+    {
+      "id": "nt-4100-program",
+      "edit": "column",
+      "chosen_positions": [
+        46
+      ],
+      "rejected_positions": [
+        46
+      ],
+      "ordinary": {
+        "chosen_nll": 0.5724887847900391,
+        "rejected_nll": 1.1974754333496094,
+        "margin": 0.6249866485595703
+      },
+      "trained": {
+        "chosen_nll": 0.03652381896972656,
+        "rejected_nll": 12.911510467529297,
+        "margin": 12.87498664855957
+      }
+    },
+    {
+      "id": "nt-6619-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36
+      ],
+      "ordinary": {
+        "chosen_nll": 0.05374336242675781,
+        "rejected_nll": 1.9971650838851929,
+        "margin": 1.943421721458435
+      },
+      "trained": {
+        "chosen_nll": 0.005429267883300781,
+        "rejected_nll": 5.587639808654785,
+        "margin": 5.582210540771484
+      }
+    },
+    {
+      "id": "nt-6619-program",
+      "edit": "direction",
+      "chosen_positions": [
+        79
+      ],
+      "rejected_positions": [
+        79
+      ],
+      "ordinary": {
+        "chosen_nll": 0.026861190795898438,
+        "rejected_nll": 5.151857376098633,
+        "margin": 5.124996185302734
+      },
+      "trained": {
+        "chosen_nll": 0.0074634552001953125,
+        "rejected_nll": 9.632463455200195,
+        "margin": 9.625
+      }
+    },
+    {
+      "id": "nt-10818-program",
+      "edit": "direction",
+      "chosen_positions": [
+        68
+      ],
+      "rejected_positions": [
+        68
+      ],
+      "ordinary": {
+        "chosen_nll": 3.5750064849853516,
+        "rejected_nll": 0.07500267028808594,
+        "margin": -3.5000038146972656
+      },
+      "trained": {
+        "chosen_nll": 0.23377418518066406,
+        "rejected_nll": 8.04627799987793,
+        "margin": 7.812503814697266
+      }
+    },
+    {
+      "id": "nt-10818-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        52
+      ],
+      "rejected_positions": [
+        52
+      ],
+      "ordinary": {
+        "chosen_nll": 2.9570255279541016,
+        "rejected_nll": 3.582012176513672,
+        "margin": 0.6249866485595703
+      },
+      "trained": {
+        "chosen_nll": 0.6068058013916016,
+        "rejected_nll": 9.794305801391602,
+        "margin": 9.1875
+      }
+    },
+    {
+      "id": "nt-10914-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.251312255859375,
+        "rejected_nll": 5.189949035644531,
+        "margin": 4.938636779785156
+      },
+      "trained": {
+        "chosen_nll": 0.0059795379638671875,
+        "rejected_nll": 10.755989074707031,
+        "margin": 10.750009536743164
+      }
+    },
+    {
+      "id": "nt-750-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.540717363357544,
+        "rejected_nll": 6.654026031494141,
+        "margin": 5.113308668136597
+      },
+      "trained": {
+        "chosen_nll": 0.2591094970703125,
+        "rejected_nll": 11.357583999633789,
+        "margin": 11.098474502563477
+      }
+    },
+    {
+      "id": "nt-6770-program",
+      "edit": "column",
+      "chosen_positions": [
+        46
+      ],
+      "rejected_positions": [
+        46
+      ],
+      "ordinary": {
+        "chosen_nll": 0.04246711730957031,
+        "rejected_nll": 4.792469024658203,
+        "margin": 4.750001907348633
+      },
+      "trained": {
+        "chosen_nll": 0.14673805236816406,
+        "rejected_nll": 8.27174186706543,
+        "margin": 8.125003814697266
+      }
+    },
+    {
+      "id": "nt-7318-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.3912830352783203,
+        "rejected_nll": 8.14113998413086,
+        "margin": 6.749856948852539
+      },
+      "trained": {
+        "chosen_nll": 0.4023094177246094,
+        "rejected_nll": 10.402372360229492,
+        "margin": 10.000062942504883
+      }
+    },
+    {
+      "id": "nt-10580-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.7799110412597656,
+        "rejected_nll": 7.279890060424805,
+        "margin": 5.499979019165039
+      },
+      "trained": {
+        "chosen_nll": 0.047733306884765625,
+        "rejected_nll": 16.672819137573242,
+        "margin": 16.625085830688477
+      }
+    },
+    {
+      "id": "nt-8448-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.0397090911865234,
+        "rejected_nll": 1.1705245971679688,
+        "margin": 0.1308155059814453
+      },
+      "trained": {
+        "chosen_nll": 0.034111976623535156,
+        "rejected_nll": 8.590131759643555,
+        "margin": 8.55601978302002
+      }
+    },
+    {
+      "id": "nt-8448-program",
+      "edit": "direction",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.207794189453125,
+        "rejected_nll": 3.332723617553711,
+        "margin": 3.124929428100586
+      },
+      "trained": {
+        "chosen_nll": 0.000888824462890625,
+        "rejected_nll": 18.40713882446289,
+        "margin": 18.40625
+      }
+    },
+    {
+      "id": "nt-13287-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 1.2545528411865234,
+        "rejected_nll": 3.189883232116699,
+        "margin": 1.9353303909301758
+      },
+      "trained": {
+        "chosen_nll": 0.0022716522216796875,
+        "rejected_nll": 7.345283508300781,
+        "margin": 7.343011856079102
+      }
+    },
+    {
+      "id": "nt-10935-program",
+      "edit": "column",
+      "chosen_positions": [
+        47
+      ],
+      "rejected_positions": [
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 2.273822784423828,
+        "rejected_nll": 6.211490631103516,
+        "margin": 3.9376678466796875
+      },
+      "trained": {
+        "chosen_nll": 0.12709999084472656,
+        "rejected_nll": 9.251951217651367,
+        "margin": 9.12485122680664
+      }
+    },
+    {
+      "id": "nt-10935-program",
+      "edit": "direction",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.07452201843261719,
+        "rejected_nll": 3.574420928955078,
+        "margin": 3.499898910522461
+      },
+      "trained": {
+        "chosen_nll": 0.0022907257080078125,
+        "rejected_nll": 9.502286911010742,
+        "margin": 9.499996185302734
+      }
+    },
+    {
+      "id": "nt-10676-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 0.7248516082763672,
+        "rejected_nll": 2.3100881576538086,
+        "margin": 1.5852365493774414
+      },
+      "trained": {
+        "chosen_nll": 0.07759539783000946,
+        "rejected_nll": 7.809094429016113,
+        "margin": 7.731499031186104
+      }
+    },
+    {
+      "id": "nt-10676-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.11938285827636719,
+        "rejected_nll": 7.36937141418457,
+        "margin": 7.249988555908203
+      },
+      "trained": {
+        "chosen_nll": 0.0016231536865234375,
+        "rejected_nll": 12.939338684082031,
+        "margin": 12.937715530395508
+      }
+    },
+    {
+      "id": "nt-13658-program",
+      "edit": "column",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 1.7273082733154297,
+        "rejected_nll": 4.227258682250977,
+        "margin": 2.499950408935547
+      },
+      "trained": {
+        "chosen_nll": 0.096282958984375,
+        "rejected_nll": 9.471487045288086,
+        "margin": 9.375204086303711
+      }
+    },
+    {
+      "id": "nt-13658-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        75
+      ],
+      "rejected_positions": [
+        75
+      ],
+      "ordinary": {
+        "chosen_nll": 0.17521286010742188,
+        "rejected_nll": 4.299261093139648,
+        "margin": 4.124048233032227
+      },
+      "trained": {
+        "chosen_nll": 0.049625396728515625,
+        "rejected_nll": 6.987119674682617,
+        "margin": 6.937494277954102
+      }
+    },
+    {
+      "id": "nt-296-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.6062593460083008,
+        "rejected_nll": 2.086048126220703,
+        "margin": 1.4797887802124023
+      },
+      "trained": {
+        "chosen_nll": 0.027367591857910156,
+        "rejected_nll": 7.988054275512695,
+        "margin": 7.960686683654785
+      }
+    },
+    {
+      "id": "nt-12369-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36
+      ],
+      "ordinary": {
+        "chosen_nll": 0.8084583282470703,
+        "rejected_nll": 1.6587575674057007,
+        "margin": 0.8502992391586304
+      },
+      "trained": {
+        "chosen_nll": 0.000629425048828125,
+        "rejected_nll": 7.461276054382324,
+        "margin": 7.460646629333496
+      }
+    },
+    {
+      "id": "nt-12369-program",
+      "edit": "direction",
+      "chosen_positions": [
+        77
+      ],
+      "rejected_positions": [
+        77
+      ],
+      "ordinary": {
+        "chosen_nll": 0.32939910888671875,
+        "rejected_nll": 3.329376220703125,
+        "margin": 2.9999771118164062
+      },
+      "trained": {
+        "chosen_nll": 0.10099029541015625,
+        "rejected_nll": 9.038436889648438,
+        "margin": 8.937446594238281
+      }
+    },
+    {
+      "id": "nt-9216-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4249897003173828,
+        "rejected_nll": 3.9874744415283203,
+        "margin": 3.5624847412109375
+      },
+      "trained": {
+        "chosen_nll": 0.000728607177734375,
+        "rejected_nll": 12.813203811645508,
+        "margin": 12.812475204467773
+      }
+    },
+    {
+      "id": "nt-11887-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 7.059062957763672,
+        "rejected_nll": 0.8423786163330078,
+        "margin": -6.216684341430664
+      },
+      "trained": {
+        "chosen_nll": 0.0051364898681640625,
+        "rejected_nll": 5.316362380981445,
+        "margin": 5.311225891113281
+      }
+    },
+    {
+      "id": "nt-1819-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36
+      ],
+      "ordinary": {
+        "chosen_nll": 0.8706849813461304,
+        "rejected_nll": 1.397902250289917,
+        "margin": 0.5272172689437866
+      },
+      "trained": {
+        "chosen_nll": 0.0062917075119912624,
+        "rejected_nll": 5.925984859466553,
+        "margin": 5.9196931519545615
+      }
+    },
+    {
+      "id": "nt-8720-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4457511901855469,
+        "rejected_nll": 3.609323501586914,
+        "margin": 3.163572311401367
+      },
+      "trained": {
+        "chosen_nll": 0.03719043731689453,
+        "rejected_nll": 7.920228958129883,
+        "margin": 7.883038520812988
+      }
+    },
+    {
+      "id": "nt-13676-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 2.4965553283691406,
+        "rejected_nll": 1.1147098541259766,
+        "margin": -1.381845474243164
+      },
+      "trained": {
+        "chosen_nll": 0.055694580078125,
+        "rejected_nll": 8.346309661865234,
+        "margin": 8.29061508178711
+      }
+    },
+    {
+      "id": "nt-13676-program",
+      "edit": "direction",
+      "chosen_positions": [
+        76
+      ],
+      "rejected_positions": [
+        76
+      ],
+      "ordinary": {
+        "chosen_nll": 0.0517578125,
+        "rejected_nll": 4.3017578125,
+        "margin": 4.25
+      },
+      "trained": {
+        "chosen_nll": 0.020193099975585938,
+        "rejected_nll": 7.020191192626953,
+        "margin": 6.999998092651367
+      }
+    },
+    {
+      "id": "nt-7592-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.15444374084472656,
+        "rejected_nll": 6.966955184936523,
+        "margin": 6.812511444091797
+      },
+      "trained": {
+        "chosen_nll": 0.000850677490234375,
+        "rejected_nll": 14.313350677490234,
+        "margin": 14.3125
+      }
+    },
+    {
+      "id": "nt-1886-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.4781551361083984,
+        "rejected_nll": 3.477659225463867,
+        "margin": 1.9995040893554688
+      },
+      "trained": {
+        "chosen_nll": 0.06376266479492188,
+        "rejected_nll": 10.438762664794922,
+        "margin": 10.375
+      }
+    },
+    {
+      "id": "nt-11713-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.14629173278808594,
+        "rejected_nll": 6.8338775634765625,
+        "margin": 6.687585830688477
+      },
+      "trained": {
+        "chosen_nll": 0.0004482269287109375,
+        "rejected_nll": 15.000448226928711,
+        "margin": 15.0
+      }
+    },
+    {
+      "id": "nt-5744-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36,
+        37,
+        38
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.1454933136701584,
+        "rejected_nll": 7.159170150756836,
+        "margin": 7.0136768370866776
+      },
+      "trained": {
+        "chosen_nll": 0.013262176886200905,
+        "rejected_nll": 12.431034088134766,
+        "margin": 12.417771911248565
+      }
+    },
+    {
+      "id": "nt-12504-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 2.530729293823242,
+        "rejected_nll": 8.343338012695312,
+        "margin": 5.81260871887207
+      },
+      "trained": {
+        "chosen_nll": 0.020694732666015625,
+        "rejected_nll": 13.583192825317383,
+        "margin": 13.562498092651367
+      }
+    },
+    {
+      "id": "nt-13458-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        55
+      ],
+      "rejected_positions": [
+        55
+      ],
+      "ordinary": {
+        "chosen_nll": 0.1895427703857422,
+        "rejected_nll": 5.252044677734375,
+        "margin": 5.062501907348633
+      },
+      "trained": {
+        "chosen_nll": 0.029109954833984375,
+        "rejected_nll": 7.338895797729492,
+        "margin": 7.309785842895508
+      }
+    },
+    {
+      "id": "nt-7656-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36
+      ],
+      "ordinary": {
+        "chosen_nll": 1.574747085571289,
+        "rejected_nll": 0.7906475067138672,
+        "margin": -0.7840995788574219
+      },
+      "trained": {
+        "chosen_nll": 0.002777099609375,
+        "rejected_nll": 6.135636806488037,
+        "margin": 6.132859706878662
+      }
+    },
+    {
+      "id": "nt-5600-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 3.0930347442626953,
+        "rejected_nll": 2.468181610107422,
+        "margin": -0.6248531341552734
+      },
+      "trained": {
+        "chosen_nll": 0.04567909240722656,
+        "rejected_nll": 7.170679092407227,
+        "margin": 7.125
+      }
+    },
+    {
+      "id": "nt-7688-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.08831024169921875,
+        "rejected_nll": 8.025711059570312,
+        "margin": 7.937400817871094
+      },
+      "trained": {
+        "chosen_nll": 0.026981353759765625,
+        "rejected_nll": 11.839481353759766,
+        "margin": 11.8125
+      }
+    },
+    {
+      "id": "nt-7654-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 0.25835227966308594,
+        "rejected_nll": 2.1842546463012695,
+        "margin": 1.9259023666381836
+      },
+      "trained": {
+        "chosen_nll": 0.0037097930908203125,
+        "rejected_nll": 6.482767105102539,
+        "margin": 6.479057312011719
+      }
+    },
+    {
+      "id": "nt-7654-program",
+      "edit": "direction",
+      "chosen_positions": [
+        47
+      ],
+      "rejected_positions": [
+        47
+      ],
+      "ordinary": {
+        "chosen_nll": 0.3240203857421875,
+        "rejected_nll": 2.5740890502929688,
+        "margin": 2.2500686645507812
+      },
+      "trained": {
+        "chosen_nll": 0.00194549560546875,
+        "rejected_nll": 15.564445495605469,
+        "margin": 15.5625
+      }
+    },
+    {
+      "id": "nt-1351-program",
+      "edit": "column",
+      "chosen_positions": [
+        61
+      ],
+      "rejected_positions": [
+        61
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4289436340332031,
+        "rejected_nll": 6.928670883178711,
+        "margin": 6.499727249145508
+      },
+      "trained": {
+        "chosen_nll": 0.05492973327636719,
+        "rejected_nll": 12.179927825927734,
+        "margin": 12.124998092651367
+      }
+    },
+    {
+      "id": "nt-8937-program",
+      "edit": "column",
+      "chosen_positions": [
+        37,
+        38
+      ],
+      "rejected_positions": [
+        37
+      ],
+      "ordinary": {
+        "chosen_nll": 1.3736963272094727,
+        "rejected_nll": 6.910451889038086,
+        "margin": 5.536755561828613
+      },
+      "trained": {
+        "chosen_nll": 0.013505935668945312,
+        "rejected_nll": 11.96351432800293,
+        "margin": 11.950008392333984
+      }
+    },
+    {
+      "id": "nt-6663-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        48
+      ],
+      "rejected_positions": [
+        48
+      ],
+      "ordinary": {
+        "chosen_nll": 0.2755584716796875,
+        "rejected_nll": 5.713123321533203,
+        "margin": 5.437564849853516
+      },
+      "trained": {
+        "chosen_nll": 0.0009212493896484375,
+        "rejected_nll": 12.813421249389648,
+        "margin": 12.8125
+      }
+    },
+    {
+      "id": "nt-4610-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.1283760070800781,
+        "rejected_nll": 4.127231597900391,
+        "margin": 2.9988555908203125
+      },
+      "trained": {
+        "chosen_nll": 0.0018978118896484375,
+        "rejected_nll": 11.626897811889648,
+        "margin": 11.625
+      }
+    },
+    {
+      "id": "nt-4610-program",
+      "edit": "direction",
+      "chosen_positions": [
+        68
+      ],
+      "rejected_positions": [
+        68
+      ],
+      "ordinary": {
+        "chosen_nll": 1.3841495513916016,
+        "rejected_nll": 0.38376808166503906,
+        "margin": -1.0003814697265625
+      },
+      "trained": {
+        "chosen_nll": 0.006534576416015625,
+        "rejected_nll": 8.694034576416016,
+        "margin": 8.6875
+      }
+    },
+    {
+      "id": "nt-4610-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        53
+      ],
+      "rejected_positions": [
+        53
+      ],
+      "ordinary": {
+        "chosen_nll": 0.1055755615234375,
+        "rejected_nll": 7.2935028076171875,
+        "margin": 7.18792724609375
+      },
+      "trained": {
+        "chosen_nll": 0.002826690673828125,
+        "rejected_nll": 11.565349578857422,
+        "margin": 11.562522888183594
+      }
+    },
+    {
+      "id": "nt-6166-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        60
+      ],
+      "rejected_positions": [
+        60
+      ],
+      "ordinary": {
+        "chosen_nll": 0.18260955810546875,
+        "rejected_nll": 4.057636260986328,
+        "margin": 3.8750267028808594
+      },
+      "trained": {
+        "chosen_nll": 0.018743515014648438,
+        "rejected_nll": 10.768741607666016,
+        "margin": 10.749998092651367
+      }
+    },
+    {
+      "id": "nt-11938-program",
+      "edit": "column",
+      "chosen_positions": [
+        41,
+        42,
+        43
+      ],
+      "rejected_positions": [
+        41,
+        42,
+        43
+      ],
+      "ordinary": {
+        "chosen_nll": 0.07452774047851562,
+        "rejected_nll": 0.9574108123779297,
+        "margin": 0.8828830718994141
+      },
+      "trained": {
+        "chosen_nll": 0.01170857809484005,
+        "rejected_nll": 5.313741207122803,
+        "margin": 5.302032629027963
+      }
+    },
+    {
+      "id": "nt-13046-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.0747528076171875,
+        "rejected_nll": 7.075584411621094,
+        "margin": 7.000831604003906
+      },
+      "trained": {
+        "chosen_nll": 0.0012226104736328125,
+        "rejected_nll": 10.938724517822266,
+        "margin": 10.937501907348633
+      }
+    },
+    {
+      "id": "nt-10245-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        56
+      ],
+      "rejected_positions": [
+        56
+      ],
+      "ordinary": {
+        "chosen_nll": 0.26563453674316406,
+        "rejected_nll": 7.265636444091797,
+        "margin": 7.000001907348633
+      },
+      "trained": {
+        "chosen_nll": 0.20168495178222656,
+        "rejected_nll": 9.76418685913086,
+        "margin": 9.562501907348633
+      }
+    },
+    {
+      "id": "nt-12790-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35,
+        36
+      ],
+      "rejected_positions": [
+        34,
+        35,
+        36
+      ],
+      "ordinary": {
+        "chosen_nll": 2.161576747894287,
+        "rejected_nll": 0.5675067901611328,
+        "margin": -1.5940699577331543
+      },
+      "trained": {
+        "chosen_nll": 0.04386711120605469,
+        "rejected_nll": 7.812735557556152,
+        "margin": 7.768868446350098
+      }
+    },
+    {
+      "id": "nt-8577-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4995231628417969,
+        "rejected_nll": 5.786927223205566,
+        "margin": 5.2874040603637695
+      },
+      "trained": {
+        "chosen_nll": 0.05632209777832031,
+        "rejected_nll": 16.169620513916016,
+        "margin": 16.113298416137695
+      }
+    },
+    {
+      "id": "nt-7868-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4032745361328125,
+        "rejected_nll": 3.333650588989258,
+        "margin": 2.9303760528564453
+      },
+      "trained": {
+        "chosen_nll": 0.05575275421142578,
+        "rejected_nll": 6.339750289916992,
+        "margin": 6.283997535705566
+      }
+    },
+    {
+      "id": "nt-7868-program",
+      "edit": "direction",
+      "chosen_positions": [
+        55
+      ],
+      "rejected_positions": [
+        55
+      ],
+      "ordinary": {
+        "chosen_nll": 0.057903289794921875,
+        "rejected_nll": 3.932920455932617,
+        "margin": 3.8750171661376953
+      },
+      "trained": {
+        "chosen_nll": 0.002552032470703125,
+        "rejected_nll": 8.377552032470703,
+        "margin": 8.375
+      }
+    },
+    {
+      "id": "nt-6669-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 2.908479690551758,
+        "rejected_nll": 0.7044649124145508,
+        "margin": -2.204014778137207
+      },
+      "trained": {
+        "chosen_nll": 0.007852554321289062,
+        "rejected_nll": 5.379301071166992,
+        "margin": 5.371448516845703
+      }
+    },
+    {
+      "id": "nt-6669-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        62
+      ],
+      "rejected_positions": [
+        62
+      ],
+      "ordinary": {
+        "chosen_nll": 0.2845020294189453,
+        "rejected_nll": 4.471990585327148,
+        "margin": 4.187488555908203
+      },
+      "trained": {
+        "chosen_nll": 0.0129852294921875,
+        "rejected_nll": 6.387973785400391,
+        "margin": 6.374988555908203
+      }
+    },
+    {
+      "id": "nt-11281-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 1.6683464050292969,
+        "rejected_nll": 7.043222427368164,
+        "margin": 5.374876022338867
+      },
+      "trained": {
+        "chosen_nll": 0.005649566650390625,
+        "rejected_nll": 18.16189956665039,
+        "margin": 18.15625
+      }
+    },
+    {
+      "id": "nt-11281-program",
+      "edit": "predicate",
+      "chosen_positions": [
+        74
+      ],
+      "rejected_positions": [
+        74
+      ],
+      "ordinary": {
+        "chosen_nll": 0.11058616638183594,
+        "rejected_nll": 5.234281539916992,
+        "margin": 5.123695373535156
+      },
+      "trained": {
+        "chosen_nll": 0.00397491455078125,
+        "rejected_nll": 8.56648063659668,
+        "margin": 8.562505722045898
+      }
+    },
+    {
+      "id": "nt-5418-program",
+      "edit": "column",
+      "chosen_positions": [
+        34
+      ],
+      "rejected_positions": [
+        34
+      ],
+      "ordinary": {
+        "chosen_nll": 0.4991607666015625,
+        "rejected_nll": 4.498241424560547,
+        "margin": 3.9990806579589844
+      },
+      "trained": {
+        "chosen_nll": 0.09216880798339844,
+        "rejected_nll": 13.342168807983398,
+        "margin": 13.25
+      }
+    },
+    {
+      "id": "nt-5418-program",
+      "edit": "direction",
+      "chosen_positions": [
+        57
+      ],
+      "rejected_positions": [
+        57,
+        58
+      ],
+      "ordinary": {
+        "chosen_nll": 6.220987319946289,
+        "rejected_nll": 0.7236270904541016,
+        "margin": -5.4973602294921875
+      },
+      "trained": {
+        "chosen_nll": 0.7917633056640625,
+        "rejected_nll": 5.153467178344727,
+        "margin": 4.361703872680664
+      }
+    },
+    {
+      "id": "nt-187-program",
+      "edit": "column",
+      "chosen_positions": [
+        34,
+        35
+      ],
+      "rejected_positions": [
+        34,
+        35
+      ],
+      "ordinary": {
+        "chosen_nll": 0.821904182434082,
+        "rejected_nll": 0.7580423355102539,
+        "margin": -0.06386184692382812
+      },
+      "trained": {
+        "chosen_nll": 0.01806926727294922,
+        "rejected_nll": 6.991090774536133,
+        "margin": 6.973021507263184
+      }
+    }
+  ]
+}
