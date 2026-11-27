@@ -13,6 +13,7 @@ from .tool_model import Assistant, tool_view
 
 
 def model_for(directory, spec):
+    directory = Path(directory)
     text = backbone(directory, spec)
     mx.random.seed(spec["fit_seed"])
     model = tool_view(text, spec["start_layer"], spec["rank"], 2)

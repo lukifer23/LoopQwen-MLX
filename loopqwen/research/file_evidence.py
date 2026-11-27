@@ -164,8 +164,17 @@ def run():
         and read(release / "decision.json")["passed"]
     )
     root = Path("outputs/research") / NAME
-    root.mkdir(parents=True, exist_ok=False)
-    save(root / "registration.json", s)
+    root.mkdir(parents=True, exist_ok=True)
+    if (root / "registration.json").is_file():
+        if (
+            set(p.name for p in root.iterdir()) != {"registration.json"}
+            or read(root / "registration.json") != s
+        ):
+            raise FileExistsError(
+                "A measured run or different registration already exists"
+            )
+    else:
+        save(root / "registration.json", s)
     data = read(s["material"])
     b = Budget(NAME, s["limits"])
     try:
