@@ -19,7 +19,7 @@ def grams(tokens, n):
     return {tokens[i : i + n] for i in range(len(tokens) - n + 1)}
 
 
-def run():
+def run(*, text_disjoint=False):
     panel_path = Path("research/data/linked-rollin-panel.json")
     held = {
         w["cluster"]: w
@@ -29,7 +29,7 @@ def run():
     training = {}
     questions = {}
     reused_text = defaultdict(set)
-    for split, w, _, pages in cases():
+    for split, w, _, pages in cases(text_disjoint=text_disjoint):
         if split == "train":
             questions[w["question_id"]] = words(w["question"])
             for page, text in pages.items():
@@ -86,10 +86,11 @@ def run():
         "held_questions": len(counts),
         "items": counts,
     }
-    if OUT.exists():
-        assert read(OUT) == result
+    dest = OUT.with_name("linked-text-source-overlap.json") if text_disjoint else OUT
+    if dest.exists():
+        assert read(dest) == result
     else:
-        save(OUT, result)
+        save(dest, result)
     print(
         "Normalized exact held questions, articles, and entire answer-bearing quotes in training:",
         sum(r["exact_normalized_question"] for r in counts.values()),

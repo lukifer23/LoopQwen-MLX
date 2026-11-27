@@ -20,7 +20,12 @@ FILES = ("records.csv", "articles.csv")
 REPORT = Path("docs/measurements/linked-table-callbacks.json")
 
 
-def cases():
+def cases(*, text_disjoint=False):
+    if text_disjoint:
+        from scripts.linked_text_repair import corrected
+
+        yield from corrected(cases())
+        return
     enrolled = read(DEST / "enrollment.json")["items"]
     index = {w["question_id"]: w for group in enrolled.values() for w in group}
     for line in gzip.decompress(Z.read_bytes()).splitlines():
@@ -111,14 +116,14 @@ def render(w, source, pages, folder):
     return result
 
 
-def run():
+def run(*, text_disjoint=False):
     tok = tokenizer({"checkpoint": "exports/tool-language-packed-05"})
     material = []
     lengths = {}
     counts = Counter()
     with TemporaryDirectory() as tmp:
         folder = Path(tmp)
-        for split, w, source, pages in cases():
+        for split, w, source, pages in cases(text_disjoint=text_disjoint):
             for mode, v in render(w, source, pages, folder).items():
                 msgs = [{"role": "user", "content": v["question"]}]
                 ids = tok.encode(
@@ -146,10 +151,17 @@ def run():
         "items": material,
     }
     assert (len(material), sum(counts.values())) == (304, 456)
-    if REPORT.exists():
-        assert read(REPORT) == receipt
+    report = REPORT
+    if text_disjoint:
+        from scripts.linked_text_repair import PATCH
+        from loopqwen.io import digest
+
+        report = REPORT.with_name("linked-text-callbacks.json")
+        receipt["replacement_source"] = digest(PATCH)
+    if report.exists():
+        assert read(report) == receipt
     else:
-        save(REPORT, receipt)
+        save(report, receipt)
     print(
         "Verified",
         len(material),

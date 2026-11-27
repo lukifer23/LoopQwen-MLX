@@ -17,7 +17,7 @@ from loopqwen.research.linked_rollin import exact_sign_flip
 from loopqwen.research.linked_rollin_data import matched, reached
 from loopqwen.research.native_function_study import executions
 
-NAME = "linked-rollin-01"
+NAME = "linked-rollin-02"
 ARMS = ("candidate", "control")
 ROOT = Path("research/results") / NAME
 DOC = Path("docs/measurements")

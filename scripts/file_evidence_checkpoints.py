@@ -38,6 +38,7 @@ def verify(root):
         "field-selection-01",
         "valid-return-01",
         "linked-rollin-01",
+        "linked-rollin-02",
     )
     interval = 100 if proof_fit else 80 if cross_view else s["checkpoint_interval"]
     steps = list(range(interval, s["updates"], interval)) + [s["updates"]]
@@ -108,12 +109,14 @@ def record(root):
             "field-selection-01",
             "valid-return-01",
             "linked-rollin-01",
+            "linked-rollin-02",
         ):
             proof_fit = spec["id"] in (
                 "proof-curriculum-01",
                 "field-selection-01",
                 "valid-return-01",
                 "linked-rollin-01",
+                "linked-rollin-02",
             )
             key = "explanation_targets" if proof_fit else "teacher_positions"
             progress = {
@@ -127,7 +130,7 @@ def record(root):
             progress = {k: state[k] for k in ("step", "targets", "optimizer_seconds")}
         if spec["id"] == "valid-return-01":
             progress["rejected_tokens"] = state["rejected_tokens"]
-        if spec["id"] == "linked-rollin-01":
+        if spec["id"] in ("linked-rollin-01", "linked-rollin-02"):
             progress["contrast_draws"] = state["contrast"]
             progress["optimizer_seconds"] = state["optimization_seconds"]
         assert state["loss"] == [l for l in fit["loss"] if l["step"] <= state["step"]]
@@ -167,10 +170,13 @@ if __name__ == "__main__":
     study.add_argument("--field-selection", action="store_true")
     study.add_argument("--valid-return", action="store_true")
     study.add_argument("--linked-rollin", action="store_true")
+    study.add_argument("--linked-rollin-text", action="store_true")
     args = p.parse_args()
     base = "outputs/research" if args.record else "research/results"
     name = (
-        "linked-rollin-01"
+        "linked-rollin-02"
+        if args.linked_rollin_text
+        else "linked-rollin-01"
         if args.linked_rollin
         else "valid-return-01"
         if args.valid_return

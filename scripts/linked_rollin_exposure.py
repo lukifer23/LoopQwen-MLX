@@ -102,6 +102,6 @@ def run(root):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument(
-        "--root", type=Path, default=Path("research/results/linked-rollin-01")
+        "--root", type=Path, default=Path("research/results/linked-rollin-02")
     )
     run(p.parse_args().root)

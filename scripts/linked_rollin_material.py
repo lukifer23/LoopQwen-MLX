@@ -59,11 +59,11 @@ def bind_links(tok, w, source, pages, folder):
     return rows, {w["question_id"] + "/" + k: v for k, v in docs.items()}
 
 
-def build():
+def build(*, text_disjoint=False):
     tok = tokenizer({"checkpoint": "exports/tool-language-packed-05"})
     sets = {s: {"rows": [], "documents": {}} for s in ("train", "dev")}
     with TemporaryDirectory() as tmp:
-        for split, w, source, pages in cases():
+        for split, w, source, pages in cases(text_disjoint=text_disjoint):
             rows, docs = bind_links(tok, w, source, pages, Path(tmp))
             sets[split]["rows"].extend(rows)
             sets[split]["documents"].update(docs)
@@ -90,7 +90,10 @@ def build():
         }
     )
     assert (len(sets["train"]["rows"]), len(p["rows"])) == (256, 84)
-    for dest, data in ((TRAIN, sets["train"]), (PANEL, p)):
+    train = (
+        TRAIN.with_name("linked-rollin-text-training.json") if text_disjoint else TRAIN
+    )
+    for dest, data in ((train, sets["train"]), (PANEL, p)):
         if dest.exists():
             assert read(dest) == data
         else:

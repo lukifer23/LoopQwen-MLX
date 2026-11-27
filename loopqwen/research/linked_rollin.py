@@ -1,5 +1,6 @@
 """Test whether corrections at naturally visited decision boundaries improve open-answer tool use."""
 
+import argparse
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -11,6 +12,7 @@ from .linked_rollin_fit import fit, turns
 from .native_function_study import summarize
 
 NAME = "linked-rollin-01"
+TEXT_DISJOINT = "linked-rollin-02"
 
 
 def qualify(s, tok, root, guard):
@@ -25,8 +27,24 @@ def qualify(s, tok, root, guard):
             "The previous direct pair has priority for its own staged follow-up"
         )
     audit(read(DEST / "enrollment.json"))
-    run()
-    build()
+    corrected = s["id"] == TEXT_DISJOINT
+    callbacks = Path("docs/measurements/linked-table-callbacks.json")
+    if corrected:
+        from scripts.linked_text_repair import audit as audit_text, RECEIPT
+
+        stopped = Path("research/results") / NAME
+        assert read(stopped / "decision.json").get("status") == "interrupted"
+        assert not any(
+            (stopped / n).exists()
+            for n in ("candidate.json.gz", "control.json.gz", "fit.json")
+        )
+        assert digest(stopped / "checksums.json") == s["stopped_source_study_sha256"]
+        audit_text()
+        assert digest(RECEIPT) == s["sources"]["bidirectional_text_audit"]
+        callbacks = callbacks.with_name("linked-text-callbacks.json")
+    run(text_disjoint=corrected)
+    build(text_disjoint=corrected)
+    assert digest(callbacks) == s["sources"]["callbacks"]
     train = read(s["training"])
     panel = read(s["material"])
     tr = {w["cluster"] for w in train["rows"]}
@@ -52,7 +70,12 @@ def qualify(s, tok, root, guard):
             "offline_sources": digest(
                 Path("docs/measurements/linked-table-source-audit.json")
             ),
-            "callbacks": digest(Path("docs/measurements/linked-table-callbacks.json")),
+            "callbacks": digest(callbacks),
+            **(
+                {"bidirectional_text_audit": s["sources"]["bidirectional_text_audit"]}
+                if corrected
+                else {}
+            ),
         },
     )
     guard.check()
@@ -152,7 +175,7 @@ def verify(root, d):
     pair.verify(
         root,
         d,
-        name=NAME,
+        name=read(root / "registration.json")["id"],
         make_views=turns,
         decision_rule=decision,
         score_fn=score,
@@ -172,8 +195,11 @@ def verify(root, d):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--text-disjoint", action="store_true")
+    args = parser.parse_args()
     pair.run(
-        name=NAME,
+        name=TEXT_DISJOINT if args.text_disjoint else NAME,
         qualify=qualify,
         trainer=fit,
         decision_rule=decision,
@@ -193,5 +219,10 @@ if __name__ == "__main__":
             "loopqwen/evaluation/observed_chain.py",
             "loopqwen/evaluation/generation_eval.py",
             "loopqwen/qwen_tools.py",
+            *(
+                ("scripts/linked_text_repair.py", "scripts/linked_source_overlap.py")
+                if args.text_disjoint
+                else ()
+            ),
         ),
     )

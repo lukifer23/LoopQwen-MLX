@@ -71,11 +71,11 @@ def verify(root):
         from scripts.cache_state_conversations import verify as verify_conversations
 
         return verify_conversations(root, decision)
-    if study == "linked-rollin-01":
+    if study in ("linked-rollin-01", "linked-rollin-02"):
         from loopqwen.research.linked_rollin import verify as verify_links
         from scripts.linked_rollin_material import build
 
-        build()
+        build(text_disjoint=study == "linked-rollin-02")
         return verify_links(root, decision)
     if study == "cache-state-prefill-01":
         from loopqwen.research.cache_state import verify as verify_cache_states

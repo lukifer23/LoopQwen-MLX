@@ -1,0 +1,19 @@
+{
+  "replacement_source": "0b4928c40ff474119f73d681de4de7a27d2116584c34e2dd7b03b7b4cee93b5e",
+  "original_source": "4230d8c0fef51efb90a2a5a5dd0709a609b49b43d7cc73aeb40a6544fbe74ef8",
+  "changed_training_questions": [
+    {
+      "old": "22efc6ad38d17483",
+      "new": "02c506f0c80cf480",
+      "reason": [
+        "at least 80 percent target 5-gram coverage",
+        "complete answer quotation",
+        "identical normalized article"
+      ]
+    }
+  ],
+  "held_questions": 24,
+  "identical_held_records": true,
+  "training_questions": 128,
+  "checks": "Both directions: no target page ID, complete normalized target article, complete answer-bearing quotation, or passage sharing >=80% of the target\u2019s distinct normalized word 5-grams in the other split. No identical normalized train/held question."
+}
