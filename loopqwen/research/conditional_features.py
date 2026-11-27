@@ -65,7 +65,10 @@ def parity(net, prefix):
     x = mx.array([prefix])
     net.eval()
     dense = LoopedModel(net.text, Span(start=20, length=4, passes=1))
+    dense.eval()
     expected = dense.project(dense.hidden(x)[:, -1:])
+    uncached = net.project(net.hidden(x)[:, -1:])
+    ordinary_cached = dense.project(dense.hidden(x, dense.make_cache())[:, -1:])
     direct = net.project(net.last_hidden(x, net.make_cache()))
     cache = net.make_cache()
     cut = len(prefix) // 2
@@ -75,7 +78,13 @@ def parity(net, prefix):
     source = states[..., 0 if net.span.passes == 2 else -1, :]
     return {
         "vocab": expected.shape[-1],
-        "same_ordinary": mx.array_equal(expected, direct).item(),
+        "same_ordinary": mx.array_equal(expected, uncached).item(),
+        "cached_same_ordinary": mx.array_equal(ordinary_cached, direct).item(),
+        "uncached_top": mx.argmax(uncached).item(),
+        "cached_vs_uncached_max": mx.max(
+            mx.abs(direct.astype(mx.float32) - uncached)
+        ).item(),
+        "prefix": prefix,
         "same_initialized_state": mx.array_equal(net.readout(states), source).item(),
         "top_full": mx.argmax(direct).item(),
         "top_chunk": mx.argmax(incremental).item(),
@@ -84,6 +93,19 @@ def parity(net, prefix):
         ).item(),
         "sites": len(cache.slots),
         "independent_slots": len({id(v) for v in cache.slots.values()}),
+        "separate_gdn_states": [
+            [
+                mx.max(
+                    mx.abs(
+                        cache.slots[i, 0][j].astype(mx.float32)
+                        - cache.slots[i, 1][j].astype(mx.float32)
+                    )
+                ).item()
+                for j in (0, 1)
+            ]
+            for i in range(20, 23)
+            if net.span.passes == 2
+        ],
         "suffix_state_changes": [
             mx.mean(
                 mx.abs((states[..., i + 1, :] - states[..., i, :]).astype(mx.float32))
@@ -137,6 +159,7 @@ def qualifies(d, s):
     p = d["parity"]
     return (
         p["same_ordinary"]
+        and p["cached_same_ordinary"]
         and p["same_initialized_state"]
         and p["top_full"] == p["top_chunk"]
         and p["vocab"] == 248320
@@ -175,7 +198,11 @@ def run(name):
         p, _ = token_pair(tok, chosen)
         check = parity(net, p)
         save(root / "initial-parity.json", check)
-        if not check["same_ordinary"] or check["top_full"] != check["top_chunk"]:
+        if not (
+            check["same_ordinary"]
+            and check["cached_same_ordinary"]
+            and check["top_full"] == check["top_chunk"]
+        ):
             raise InterruptedError(
                 "Native initialized logits or cache parity failed on the registered opening"
             )
