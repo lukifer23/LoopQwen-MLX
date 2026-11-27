@@ -15,6 +15,7 @@ from loopqwen.research.contrastive_fit import index
 from loopqwen.research.cross_view_study import tokenizer
 from loopqwen.research.native_function_data import token_pair
 from loopqwen.research.registered import registered
+from scripts.restore_conditional_features import run as verify_files
 from scripts.table_policy_material import persist
 from scripts.verify_conditional_features import physical
 from scripts.verify_conditional_fit import hidden_cost
@@ -25,6 +26,8 @@ DOC = Path("docs/measurements")
 def feature(name):
     s = registered(name)
     root = Path("research/results") / name
+    inventory = verify_files(name, check_rebuild=3)
+    mx.clear_cache()
     tok = tokenizer(s)
     net = resident(s["checkpoint"], root, s, read(root / "backbone.json"))
     rows = {w["id"]: w for w in unpack(Path(s["training"]))}
@@ -94,6 +97,7 @@ def feature(name):
         "archive": digest(root / "checksums.json"),
         "backbone": read(root / "backbone.json")["sha256"],
         "physical_steps": 28,
+        "full_inventory": inventory,
         "positive_positions": sum(len(r["positive_positions"]) for r in tests),
         "cases": tests,
     }

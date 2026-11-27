@@ -61,7 +61,8 @@ def run(name, restore=False, backbone_only=False, check_rebuild=0):
     if restore:
         where.mkdir(exist_ok=True, parents=True)
     net = tok = material = None
-    repaired = checked = 0
+    repaired = 0
+    rebuilt_ids = []
     for i, r in enumerate(idx):
         dest = where / r["file"]
         exists = dest.exists()
@@ -89,7 +90,7 @@ def run(name, restore=False, backbone_only=False, check_rebuild=0):
             else:
                 measured = subsequent.record(net, tok, material[r["id"]], target)
             assert measured == r, (r["id"], measured["sha256"], r["sha256"])
-            checked += 1
+            rebuilt_ids.append(r["id"])
             if not exists:
                 target.replace(dest)
                 repaired += 1
@@ -103,10 +104,16 @@ def run(name, restore=False, backbone_only=False, check_rebuild=0):
         "bytes,",
         repaired,
         "restored,",
-        checked,
+        len(rebuilt_ids),
         "independently regenerated",
         flush=True,
     )
+    return {
+        "feature_index": digest(root / "feature-index.json.gz"),
+        "checked_files": len(idx),
+        "checked_bytes": sum(r["bytes"] for r in idx),
+        "regenerated_full_files": rebuilt_ids,
+    }
 
 
 if __name__ == "__main__":
