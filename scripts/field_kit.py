@@ -12,6 +12,7 @@ import zipfile
 from pathlib import Path
 
 from document_frequency_material import documents
+from field_wheelhouse import wheelhouse
 from portable_base_wheel import NETWORK_GUARD
 from verify_runtime_wheel import CODE, ROOT, trace
 
@@ -45,6 +46,8 @@ def entries():
         "runtime/" + runtime.name: runtime,
         "model/" + weights.name: weights,
     }
+    for dep in wheelhouse(ROOT / "exports/field-dependencies-01"):
+        records["dependencies/" + dep.name] = dep
     registry = read(ROOT / "research/registry.json")
     for name in STUDIES:
         folder = ROOT / "research/results" / name
@@ -99,8 +102,22 @@ def entries():
         cwd=ROOT,
     )
     records["sources/loopqwen-source.tar.gz"] = gzip.compress(code, mtime=0)
-    _, _, source, question, _, _ = next(documents())
-    records["examples/complete-tree.txt"] = (source + "\n\n" + question).encode()
+    panel = read(ROOT / "research/data/document-frequency-panel.json")["panel"]
+    names = [
+        "complete-tree.txt",
+        "complete-tree-next-revision.txt",
+        "complete-lockfile.txt",
+    ]
+    for name, r, (revision, _, source, question, _, _) in zip(
+        names, panel, documents(), strict=True
+    ):
+        assert revision == r["id"] and question == r["question"]
+        assert hashlib.sha256(source.encode()).hexdigest() == r["source_sha256"]
+        records["examples/" + name] = (source + "\n\n" + question).encode()
+    for book in read(ROOT / "research/data/book-conversation-panel.json")["items"]:
+        file = ROOT / book["file"]
+        assert digest(file) == book["sha256"] and file.stat().st_size == book["size"]
+        records[book["file"]] = file
     return records
 
 
@@ -140,37 +157,70 @@ def write_archive(path, files):
 def main():
     directory = ROOT / "exports"
     target = directory / "loopqwen-field-kit-01.zip"
-    with tempfile.TemporaryDirectory(dir=directory) as tmp:
+    with (
+        tempfile.TemporaryDirectory(dir=directory) as staging,
+        tempfile.TemporaryDirectory() as tmp,
+    ):
         tmp = Path(tmp)
-        building = tmp / target.name
+        building = Path(staging) / target.name
         hashes = write_archive(building, entries())
         if target.exists():
             assert digest(target) == digest(building)
-        else:
-            os.replace(building, target)
         work = tmp / "field"
-        with zipfile.ZipFile(target) as archive:
+        with zipfile.ZipFile(building) as archive:
             assert set(archive.namelist()) == set(hashes) | {"SHA256SUMS"}
             archive.extractall(work)
         assert (work / "SHA256SUMS").read_text() == "".join(
             f"{h}  {name}\n" for name, h in hashes.items()
         )
         assert all(digest(work / k) == v for k, v in hashes.items())
-        site = tmp / "site"
+        assert not work.resolve().is_relative_to(ROOT)
+        venv = tmp / "venv"
+        subprocess.run(
+            [
+                "uv",
+                "venv",
+                "--offline",
+                "--no-project",
+                "--python",
+                sys.executable,
+                str(venv),
+            ],
+            check=True,
+        )
+        python = str(venv / "bin/python")
         wheel = next((work / "runtime").glob("*.whl"))
         subprocess.run(
             [
                 "uv",
+                "--no-cache",
                 "pip",
                 "install",
                 "--offline",
-                "--no-deps",
-                "--target",
-                str(site),
+                "--no-index",
+                "--python",
+                python,
+                "--find-links",
+                str(work / "dependencies"),
                 str(wheel),
             ],
+            cwd=work,
             check=True,
         )
+        subprocess.run(["uv", "pip", "check", "--python", python], cwd=work, check=True)
+        site = Path(
+            subprocess.check_output(
+                [
+                    python,
+                    "-I",
+                    "-c",
+                    "import sysconfig; print(sysconfig.get_path('purelib'))",
+                ],
+                cwd=work,
+                text=True,
+            ).strip()
+        )
+        assert site.is_relative_to(venv)
         env = {
             **os.environ,
             "HF_HOME": str(tmp / "empty"),
@@ -183,7 +233,7 @@ def main():
         bootstrap = "import runpy,sys;sys.path.insert(0,sys.argv.pop(1));runpy.run_module('loopqwen.weight_transport',run_name='__main__')"
         subprocess.run(
             [
-                sys.executable,
+                python,
                 "-I",
                 "-c",
                 NETWORK_GUARD + bootstrap,
@@ -235,7 +285,7 @@ def main():
         ]
         raw = json.loads(
             subprocess.check_output(
-                [sys.executable, "-I", "-c", NETWORK_GUARD + CODE, str(site), *args],
+                [python, "-I", "-c", NETWORK_GUARD + CODE, str(site), *args],
                 cwd=work,
                 env=env,
             )
@@ -271,8 +321,8 @@ def main():
         }
         record = {
             "name": target.name,
-            "bytes": target.stat().st_size,
-            "sha256": digest(target),
+            "bytes": building.stat().st_size,
+            "sha256": digest(building),
             "verified_members": len(hashes),
             "restored_model_files": len(original),
             "model_sha256": hashes["model/tool-language-packed-05.lqzip"],
@@ -280,6 +330,11 @@ def main():
             "pdf_sha256": hashes["paper/loopqwen.pdf"],
             "source_revision": SOURCE_REVISION,
             "empty_cache": True,
+            "outside_checkout": True,
+            "fresh_venv": True,
+            "locked_dependency_wheels": len(
+                list((work / "dependencies").glob("*.whl"))
+            ),
             "network_blocked": True,
             "initial_prompt_identical": True,
             "command": args,
@@ -289,7 +344,9 @@ def main():
         receipt = ROOT / "docs/measurements/field-kit-01.json"
         if receipt.exists():
             assert read(receipt) == record
-        else:
+        if not target.exists():
+            os.replace(building, target)
+        if not receipt.exists():
             save(receipt, record)
         print(target, record["bytes"], record["sha256"])
 

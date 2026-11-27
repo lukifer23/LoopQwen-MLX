@@ -1,12 +1,14 @@
 # LoopQwen offline field kit
 
-The kit contains the qualified release 05 weights, the untouched ordinary Base text weights, the installed Python runtime, five field-study archives and the technical paper. Use an Apple Silicon machine with the project’s Python 3.12 MLX environment. The model and tokenizer are local. The kit includes the original software licenses with the restored release.
+The kit contains the qualified release 05 weights, the untouched ordinary Base text weights, the installed Python runtime, five field-study archives and the technical paper. Use an Apple Silicon Mac with Python 3.12 and uv. The kit supplies the locked native MLX runtime and its Python dependencies. The model and tokenizer are local. The kit includes the original software licenses with the restored release.
 
-From the extracted directory, verify the files, install the wheel into that environment and restore the model.
+From the extracted directory, verify the files, create an empty environment, install the supplied wheels and restore the model.
 
 ```sh
 shasum -a 256 -c SHA256SUMS
-uv pip install --offline --no-deps runtime/*.whl
+uv venv --offline --python python3.12 .venv
+source .venv/bin/activate
+uv pip install --offline --no-index --find-links dependencies runtime/*.whl
 python -m loopqwen.weight_transport unpack model/tool-language-packed-05.lqzip release-05
 ```
 
@@ -20,7 +22,7 @@ python -m loopqwen generate --checkpoint release-05 \
   --prompt-file examples/complete-tree.txt --thinking --max-tokens 160 --compare-base --trace
 ```
 
-The verified reference is 7,039 bytes. The loop returned it on the archived run. Base exhausted its output budget. The second revision and a complete lockfile are documented in the paper.
+The verified reference is 7,039 bytes. The loop returned it on the archived run. Base exhausted its output budget. Repeat the command with `examples/complete-tree-next-revision.txt` for the changed file or `examples/complete-lockfile.txt` for the third case. Both complete original books, including their notices, are under `data/research_external/narrativeqa/field-books/`.
 
 ## Ask the model about an actual file
 
