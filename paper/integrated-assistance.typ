@@ -83,6 +83,9 @@ The qualified release 05 processed 131,084 actual input tokens and answered both
 #grid(("Family","Groups","Gains","Losses","Net pp","95% interval (pp)","Holm p"),d.intervals,(1.65fr,.5fr,.43fr,.48fr,.55fr,1.15fr,.55fr))
 #cap[Table 5. Each gain is an individual request the loop solved and Base missed. Losses reverse the roles. The interval resamples complete registered source groups 10,000 times. The sign-flip p-values are two-sided and Holm-adjusted across the 12 displayed families. Both procedures assume exchangeability at the source level. Results for closely related dependency projects can share an ecosystem. Small panels and degenerate intervals limit what can be inferred.]
 
+#grid(("Request time components (seconds)","Loop","Base"),d.phase_costs,(2fr,1fr,1fr))
+#cap[The three components sum to measured wall time. Opening includes the first generated token on each tool or answer turn. The last row includes model construction on the first request, tokenization, callbacks and other work outside the generation timer. A shorter answer can reduce wall time at either decoding rate.]
+
 Across the 208 objective requests both models solved #d.joint.both_correct and both missed #d.joint.neither_correct. Among the #d.joint.individual_gains individual successes unique to the loop, #d.joint.additional_correct_and_all_three_costs_lower also improved all three per-request costs, including total time, first-token time and peak allocation. On the separate 12 open requests the exact two-sided sign test of non-tied preferences gave p = #d.preference_p. This describes one reviewer’s paired judgments.
 
 #grid(("Cost unit","Loop lower / 220","Loop p50","Base p50","Loop p95","Base p95"),d.percentiles,(1.2fr,1fr,.75fr,.75fr,.75fr,.75fr))

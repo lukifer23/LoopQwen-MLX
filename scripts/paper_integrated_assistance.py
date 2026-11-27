@@ -166,7 +166,7 @@ def evaluation():
     spec = read(ROOT / "registration.json")
     panel = read(spec["material"])["rows"]
     runs = [unpack(ROOT / (a + ".json.gz")) for a in ARMS]
-    records, sql = [], []
+    records, sql, phases = [], [], []
     for w, *pair in zip(panel, *runs, strict=True):
         row = {"id": w["id"], "family": w["family"], "cluster": w["cluster"]}
         for a, case in zip(ARMS, pair, strict=True):
@@ -188,6 +188,31 @@ def evaluation():
                         "answer": tr["answer"] or "",
                         "f1": s.get("f1", ""),
                     }.items()
+                }
+            )
+            turns = tr["turns"]
+            opening = sum(t["ttft_s"] for t in turns)
+            decode = sum(t["seconds"] - t["ttft_s"] for t in turns)
+            overhead = q["wall_s"] - opening - decode
+            assert min(opening, decode, overhead) >= -1e-6
+            phases.append(
+                {
+                    "id": w["id"],
+                    "family": w["family"],
+                    "arm": a,
+                    "turns": len(turns),
+                    "uncached_prompt_tokens": sum(
+                        len(t["prompt_ids"]) - t.get("reused_prompt_tokens", 0)
+                        for t in turns
+                    ),
+                    "post_first_output_tokens": sum(
+                        len(t["token_ids"]) - 1 for t in turns
+                    ),
+                    "all_turn_opening_s": opening,
+                    "all_post_first_decode_s": decode,
+                    "outside_generation_s": overhead,
+                    "request_wall_s": q["wall_s"],
+                    "first_turn_generation_s": turns[0]["seconds"],
                 }
             )
             if w["family"] == "database":
@@ -219,6 +244,7 @@ def evaluation():
                 )
         records.append(row)
     store("requests", records)
+    store("latency-phases", phases)
     by_source = paired_sources(records)
     costs_by_item = cost_profile(records)
     store("source-uncertainty", by_source)
@@ -342,6 +368,20 @@ def evaluation():
                 f"{r['base_p95']:.3f}",
             ]
             for r in costs_by_item
+        ],
+        "phase_costs": [
+            [
+                label,
+                *[
+                    f"{sum(r[field] for r in phases if r['arm'] == arm):,.2f}"
+                    for arm in ARMS
+                ],
+            ]
+            for field, label in (
+                ("all_turn_opening_s", "Opening through first token on every turn"),
+                ("all_post_first_decode_s", "Decoding after the first token"),
+                ("outside_generation_s", "Time outside timed generation"),
+            )
         ],
         "joint": joint(records),
         "preference_p": f"{open_p(*[review['arms'][arm]['open'] for arm in ARMS]):.5g}",
