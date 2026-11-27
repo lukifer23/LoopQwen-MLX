@@ -1,0 +1,35 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "max_tokens": 384,
+  "max_turns": 3,
+  "id": "visit-residual-01",
+  "question": "Can a learned function of the actual second visit preserve existing representations and improve whole human reasoning and tool decisions when a real source changes?",
+  "material": "research/data/visit-residual-panel.json",
+  "training": "research/data/visit-residual-training.json",
+  "visit_residual": true,
+  "deferred_after": "followup-protected-01",
+  "donor_metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+  "source_oracle_sha256": "2fe80c5a681d3bce21ece0c02dd04dd2247e5e0332e5de58098e9f19cca789a5",
+  "residual_rank": 256,
+  "updates": 1600,
+  "lr": 0.0002,
+  "max_gradient_norm": 1.0,
+  "positions_per_view": 24,
+  "fit_seed": 771934,
+  "limits": {
+    "wall_seconds": 4350,
+    "peak_gib": 7.25,
+    "available_gib": 1.5
+  },
+  "training_protocol": "Start from the qualified two-visit release, after the preceding complete direct primary has missed its gate. Freeze every parameter and both physical visits of the original instruction decoder. With x the first state and y the actual damped second state, predict y + RMS(y) U[silu(V unit(x)) times D unit(y-x)] using three bias-free matrices of rank 256, U initially zero. Skip no visits. All three matrices are shared across request types and tokens. Check bitwise zero-initial full-vocabulary parity with the original two-visit decoder on one real training sequence; require a genuine state change between visits. Cache the real response-position states on all 2072 training views in native MLX. Train by full-vocabulary backpropagation only into the 786432 readout parameters. Each update uses both actual questions of one background, two genuine package turns and three distinct earlier source families. Draw at most 24 positions per view, keeping the first, first nonblank visible, final, and first different visible token where defined. Objective: .45 new source cross entropy (35% all,65% visible), .15 first-difference softplus margin of one, .20 rehearsal cross entropy, .20 exact full-vocabulary KL from the unchanged two-visit donor on the rehearsal positions. Native AdamW, weight decay .01, global gradient limit 1.0. Stop on nonfinite data or resource exhaustion. Persist all draws, losses, input and feature hashes, optimizer moments and learned matrices. Verify the learned correction vanishes at identical visit states even after fitting.",
+  "decision": "One direct two-model comparison. Freeze both original prompts for each of 24 human-authored ROPES situations, 10 current project wheels each with two real candidate dependency releases, four paired swaps of the requested wheel at exactly the same Sphinx version and 36 earlier practical and human requests. Same thinking-enabled prompt IDs, case order, greedy output policy, three 384-token turns, normal public tools and actual callbacks. Require eight net additional exact human answers at exact two-sided whole-background sign-flip p<=.05; at least six whole human situations and at least two more than Base; mean human F1 at least .08 higher. For a software success require a real prior read of Requires-Dist on the right wheel, the exact dependency constraint and the correct yes/no decision. Require at least four complete independent project pairs and at least two complete same-version wheel swaps, both more than Base. The swaps share an ecosystem, so do not treat them as independent projects for inference. Preserve every former Base success on 36 older cases; at least two whole schedule and older manifest pairs and more than Base; no lower completion by family. Require strictly lower total wait, first-token sum and peak plus higher physical uncached opening and post-first decode rates. Stop on any missed gate. A pass licenses an equal-exposure ordinary-depth control with a matched readout on its own single-visit residual, a new fit seed and separate installed 128k changed-source tests on these exact weights. No held answer or source identity is a runtime feature."
+}
