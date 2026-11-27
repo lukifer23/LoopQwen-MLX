@@ -62,6 +62,9 @@ Each article contributes two questions in two settings to both models. Counting 
 = Can the answer change with the question?
 The two human questions on each passage have different reference answers. We compared freely generated replies after case, punctuation, article and whitespace normalization. #m.repetitions Different replies can still both be wrong. This count describes answer behavior among completed pairs.
 
+= Where the generation budget went
+Both systems saw the official thinking-enabled template. The student's supervised answer turns contain the short human answer and an empty reasoning field. #m.generation The token count measures generated work and leaves its validity to the answer and execution checks.
+
 = Physical verification after a tool return
 #m.intervention The probe uses a separate project file and issues no scored answers. It establishes that the repeated layer influences a real post-observation prediction. The all-article comparison measures whether the complete system answers users successfully.
 

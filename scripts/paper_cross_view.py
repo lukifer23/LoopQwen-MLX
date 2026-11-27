@@ -12,7 +12,7 @@ from matplotlib.lines import Line2D
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read, save
-from loopqwen.research.cross_view_study import NAME
+from loopqwen.research.cross_view_study import NAME, tokenizer
 from loopqwen.research.native_function_study import executions
 from scripts.assemble_evidence_paper import edition
 from scripts.cross_view_uncertainty import paired_articles
@@ -33,6 +33,7 @@ def build():
     exposure = read("docs/measurements/cross-view-exposure.json")
     blind = read("docs/measurements/cross-view-answer-reading.json")
     runs = {k: unpack(root / (k + ".json.gz")) for k in groups}
+    close_reasoning = tokenizer(s).convert_tokens_to_ids("</think>")
     records = []
     for i, w in enumerate(items):
         out = {
@@ -54,6 +55,7 @@ def build():
             r = rr[i]
             q = r["requests"][0]
             tr = q["trajectory"]
+            sequences = [t["token_ids"] for t in tr["turns"]]
             assert r["id"] == w["id"]
             record = {
                 **q["score"],
@@ -63,7 +65,15 @@ def build():
                 "wall_s": q["wall_s"],
                 "first_s": q["first_s"],
                 "peak": q["peak"],
-                "output_tokens": sum(len(t["token_ids"]) for t in tr["turns"]),
+                "output_tokens": sum(map(len, sequences)),
+                "reasoning_prefix_tokens": sum(
+                    ids.index(close_reasoning) if close_reasoning in ids else len(ids)
+                    for ids in sequences
+                ),
+                "model_turns": len(sequences),
+                "turns_without_reasoning_close": sum(
+                    close_reasoning not in ids for ids in sequences
+                ),
             }
             out.update({arm + "_" + k: v for k, v in record.items()})
         records.append(out)
@@ -246,6 +256,16 @@ def build():
         + "."
     )
     checks = blind["arms"]
+    generation = []
+    for arm, name in (("candidate", "The trained loop"), ("control", "Base")):
+
+        def total(field):
+            return sum(r[arm + "_" + field] for r in records)
+
+        assert total("output_tokens") == groups[arm]["all"]["output_tokens"]
+        generation.append(
+            f"{name} generated {total('output_tokens'):,} tokens in {total('model_turns')} model turns. It emitted {total('reasoning_prefix_tokens'):,} tokens before the first reasoning-close marker, including the entire generated prefix on {total('turns_without_reasoning_close')} turns that never emitted that marker."
+        )
     uncertainty = paired_articles(records)
     save(P / "cross-view-uncertainty.json", uncertainty)
     primary = uncertainty["paired"]["all_four"]
@@ -283,6 +303,7 @@ def build():
     activation = read("docs/measurements/cross-view-activation.json")
     assert activation["compiled_weights"] == read(root / "compiled.json")["weights"]
     value = {
+        "generation": " ".join(generation),
         "repetitions": " ".join(repeats),
         "intervention": f"The physical probe uses the actual compiled weights and calls the project measurement file for the sum of first-token waits. The callback returned {activation['actual_observation']['value']} seconds. Both final-layer visits independently retained all {len(activation['prompt_ids'])} tokens of the resulting conversation. Setting the repeated residual contribution to zero changed the next-token logits by RMS {activation['rms_logit_change']:.4f}. Restoring the coefficient reproduced all {activation['vocabulary_size']:,} logits bit for bit.",
         "channels": channel,
