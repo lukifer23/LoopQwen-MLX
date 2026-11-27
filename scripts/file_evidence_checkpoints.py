@@ -24,9 +24,12 @@ def verify(root):
     environment = read(root / "environment.json")
     assert environment["registration_sha256"] == digest(root / "registration.json")
     for path, expected in environment["execution_sources"].items():
-        source = subprocess.check_output(
-            ["git", "show", environment["execution_revision"] + ":" + path]
-        )
+        if path in environment.get("working_source_text", {}):
+            source = environment["working_source_text"][path].encode()
+        else:
+            source = subprocess.check_output(
+                ["git", "show", environment["execution_revision"] + ":" + path]
+            )
         assert hashlib.sha256(source).hexdigest() == expected
     history = read(root / "optimizer-steps.json")
     steps = list(

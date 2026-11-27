@@ -179,7 +179,7 @@ def run(name=NAME):
     if (root / "registration.json").is_file():
         allowed = {"registration.json"}
         if "physical_gradient_groups" in s:
-            allowed.add("gradient-parity.json")
+            allowed.update(("gradient-parity.json", "environment.json"))
         if {p.name for p in root.iterdir()} - allowed or read(
             root / "registration.json"
         ) != s:
@@ -188,6 +188,10 @@ def run(name=NAME):
             )
     else:
         save(root / "registration.json", s)
+    if "physical_gradient_groups" in s:
+        from .file_evidence_environment import capture
+
+        capture(root)
     data = read(s["material"])
     b = Budget(name, s["limits"])
     try:
