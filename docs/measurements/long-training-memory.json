@@ -1,0 +1,50 @@
+{
+  "plan": "6dcbdd751ec023432668df0669bbfa373e81a875e86e119ad9ea4cefa52a095c",
+  "passed": true,
+  "rows": [
+    {
+      "id": "strategyqa/66101dcd75caa3fe265d",
+      "prompt": 339,
+      "n": 6,
+      "state_max_error": {
+        "keys": 0.02392578125,
+        "values": 0.017578125,
+        "pre": 0.0042724609375,
+        "ordinary": 0.009765625
+      },
+      "logits_max": 0.05859375,
+      "top_equal": 6,
+      "nll_mae": 0.0017741521587595344
+    },
+    {
+      "id": "finqa/HWM/2015/page_72.pdf-1/action",
+      "prompt": 757,
+      "n": 6,
+      "state_max_error": {
+        "keys": 0.119140625,
+        "values": 0.0908203125,
+        "pre": 0.0068359375,
+        "ordinary": 0.011962890625
+      },
+      "logits_max": 0.0576171875,
+      "top_equal": 6,
+      "nll_mae": 0.00505828857421875
+    },
+    {
+      "id": "sql-error/cosql-9d4ef0336c14ce297fda/repair_known_schema",
+      "prompt": 816,
+      "n": 6,
+      "state_max_error": {
+        "keys": 0.130859375,
+        "values": 0.14453125,
+        "pre": 0.009765625,
+        "ordinary": 0.01953125
+      },
+      "logits_max": 0.078125,
+      "top_equal": 6,
+      "nll_mae": 0.0014273326378315687
+    }
+  ],
+  "seconds": 2.725136791006662,
+  "peak_bytes": 1598409074
+}
