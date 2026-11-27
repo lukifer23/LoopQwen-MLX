@@ -1,0 +1,80 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "instruction_interpolation": {
+    "trained_fraction": 1.0,
+    "second_pass_fraction": 0.35,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "trained_instruction_adapter": true,
+  "material": "research/data/valid-return-panel.json",
+  "batch": 6,
+  "max_tokens": 512,
+  "max_turns": 3,
+  "id": "valid-return-01",
+  "question": "Can a physical two-visit model learn to reject successful but irrelevant callbacks and transfer that distinction to human judgments, real package decisions and multi-tool calendar requests?",
+  "training": "research/data/valid-return-training.json",
+  "fit_seed": 290771,
+  "updates": 800,
+  "lr": 7e-05,
+  "limits": {
+    "wall_seconds": 4100,
+    "peak_gib": 7.25,
+    "available_gib": 1.5
+  },
+  "protocol": "Independent release 05 initialization with its original installed two-visit tool weights. Preference pairs share the entire identical user and tool history. In the field pairs both candidate calls really execute on the same table and key and return distinct authentic values. The alternative field is correct for a different real property. Package training asks about both the release number and its interpreter constraint. For schedule operation pairs both real calendar operations execute with the same actual date and different outputs. For verdict pairs retain the same evidence or original human rationale, substituting the wrong visible verdict only in the rejected response. Compute reference log odds for every pair using both full serialized responses, actual unmodified starting weights, native MLX and no held prompts. Fit 800 AdamW steps, learning rate 0.00007, existing rank 32 on seven shared projections, physical K2 for every input/output token. Field or calendar operation receives 44% (operation probability .18), verdict 41%, correction following a successful but irrelevant observation 10%, historical table rehearsal 5%. Sources are equiprobable within each kind. Within each preference pair use 45% direct preference loss softplus(-.25*(current log odds - frozen reference log odds)) plus 55% positive-response cross entropy with equal weight on the complete reply and the distinguishing suffix for actions or semantic verdict tokens for judgments. No grammar, repair override, task router or teacher in inference. Record all reference odds, chosen and rejected targets, cumulative optimizer exposure and paired outputs. 4,100 native seconds, 7.25 GiB peak, before any held output. Input qualification requires 64 verified training tables, 64 original 2023/24 event records, 96 human e-SNLI explanations, 8 independently checked novel package names and 112 registered requests; failure stops subsequent work.",
+  "decision": "One direct pair on untouched BF16 Qwen3.5-0.8B-Base and the independently trained two-visit candidate. Same token IDs, native tools, thinking mode, unrestricted greedy policy, 512 tokens per model turn and at most three turns. Twelve previously untested original InfoTabS alpha1 entities each contribute a human-supported true/false/uncertain claim in inline and file modes. Alpha1 is the publisher's ordinary-domain held partition; 4-of-5 or better independent verdict agreement and at least three identical field ballots. Require >=30/72 grounded judgments, >=12 net additional, exact two-sided whole-table sign-flip p<=.05, >=2 entirely correct tables and strictly more than Base, separate gains in both views and no verdict-class regression. Eight previously unscored PyPI distributions require two opposite decisions per package with exact real observations, >=4 complete pairs and more than Base. Eight original 2025 FOSDEM events each have a room claim and weekday claim with opposite verdicts. The weekday task requires both an actual CSV date retrieval and a later correct calendar service result; the alternative ordinal service is genuine. Require >=4 complete event pairs and more than Base. Preserve all Base successes on eight old table requests, no decrease in completion within any source, substantive reasoning in at least half of completed human judgments. Improve total wall, first-token sum, peak, opening throughput and subsequent decoding rate strictly. Failed direct pair closes matched depth, replication and 128K for these weights. Only a pass qualifies independent matched K1 and subsequent broad 128K testing.",
+  "panel_history": "Independent of both preceding failed weights. The earlier alpha3 result identified a successful wrong-field callback on 12 of 16 compatibility requests. This design teaches the verified competing properties and tests on disjoint alpha1 entities, previously untested distributions, and a new real scheduling workflow. Eight acknowledged retention items are reused. Conference requests are project-authored about genuine event records, not a dataset of user-authored questions.",
+  "sources": {
+    "infotabs": {
+      "url": "https://codeload.github.com/infotabs/infotabs/zip/34e7dc0900a0d861ad62be3d7371d8eb0aace4fe",
+      "sha256": "86c62510db0a8200967205313fdf8b3183a8d7c7ea73e8ef4185207606f04cb3"
+    },
+    "evidence": {
+      "url": "https://zenodo.org/api/records/6578593/files/annotation.zip/content",
+      "sha256": "8df9ce4852ebf143172411005890732b2a9138cdb691559f927fa866d352e476"
+    },
+    "wikisql": {
+      "repo": "https://github.com/salesforce/WikiSQL",
+      "sha256": "755c728ab188e364575705c8641f3fafd86fb089cb8b08e8c03f01832aae0881"
+    },
+    "inventory": "dbbdf1a41b0831b5959becb98dc4e0daf2a0b07ec6216056c6c5ae67d148b494",
+    "conference": {
+      "2023": {
+        "xml": "36003f37f7a218bd0c15df3e36d1c1dad168db33ed89cd2160ba1906fc986a29",
+        "ical": "f2499a48ebb705e63232eca5288ab2622da6d565b181d769533686dc5df8576f",
+        "url": "https://archive.fosdem.org/2023/schedule/"
+      },
+      "2024": {
+        "xml": "db4c47980d93ab4a613cd99d5ac8416fa9bec41dba582223c45023543508674e",
+        "ical": "0297d02f5aaaf342856db4bf60c4eda279090a8a141ea8d86060d6afdc1893fe",
+        "url": "https://archive.fosdem.org/2024/schedule/"
+      },
+      "2025": {
+        "xml": "958c70712f080ba4e55a35f9eb6bbec9e00c7e4482f7e2724d894ccc3cb45d94",
+        "ical": "f6daf12a6dbac3a1d921cc1ace5e451a6b59f40df6092c5de232b3d5e212cbfc",
+        "url": "https://archive.fosdem.org/2025/schedule/"
+      }
+    }
+  }
+}

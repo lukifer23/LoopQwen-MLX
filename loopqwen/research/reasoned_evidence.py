@@ -101,7 +101,7 @@ def outcome(panel, arms):
                 reasoned["nontrivial"] += q["completed"] and q["reasoning_words"] >= 4
             elif f == "wheel":
                 wheels[w["cluster"]].append(q["success"])
-            elif q["success"]:
+            elif f == "retention" and q["success"]:
                 retained.add(w["id"])
         assert (
             len(stories) == 12
@@ -165,7 +165,16 @@ def outcome(panel, arms):
     }
 
 
-def verify(root, d, *, name=NAME, make_views=turns, decision_rule=outcome):
+def verify(
+    root,
+    d,
+    *,
+    name=NAME,
+    make_views=turns,
+    decision_rule=outcome,
+    score_fn=score,
+    tool_catalog=providers,
+):
     s = registered(name)
     assert read(root / "registration.json") == s
     if (root / "teacher-fit.json").exists():
@@ -215,7 +224,7 @@ def verify(root, d, *, name=NAME, make_views=turns, decision_rule=outcome):
                 replay(
                     tok,
                     w,
-                    providers(w, folder),
+                    tool_catalog(w, folder),
                     [{"role": "user", "content": w["questions"][0]}],
                     q,
                     s,
@@ -223,12 +232,19 @@ def verify(root, d, *, name=NAME, make_views=turns, decision_rule=outcome):
                 )
                 assert q["trajectory"]["turns"][0]["prompt_ids"] == w[
                     "initial_ids"
-                ] and q["score"] == score(tok, w, 0, q["trajectory"])
+                ] and q["score"] == score_fn(tok, w, 0, q["trajectory"])
     assert decision_rule(p, arms) == d
 
 
 def run(
-    *, name=NAME, qualify=teach, trainer=fit, extra_sources=(), decision_rule=outcome
+    *,
+    name=NAME,
+    qualify=teach,
+    trainer=fit,
+    extra_sources=(),
+    decision_rule=outcome,
+    score_fn=score,
+    tool_catalog=providers,
 ):
     s = registered(name)
     root = Path("outputs/research") / name
@@ -308,8 +324,8 @@ def run(
                         side,
                         guard,
                         make,
-                        lambda w: providers(w, folder),
-                        scorer=lambda w, i, tr: score(tok, w, i, tr),
+                        lambda w: tool_catalog(w, folder),
+                        scorer=lambda w, i, tr: score_fn(tok, w, i, tr),
                     )
                     packed(path, records)
                 arms[side] = unpack(path)

@@ -29,7 +29,7 @@ def records(z, suffix):
         )
 
 
-def take_tables():
+def take_tables(*, excluded_test=(), sample_seed=SEED, held_split="test_alpha3"):
     assert digest(SOURCE) == SHA and digest(ANNOTATION) == ANNOTATION_SHA
     splits = {}
     with ZipFile(SOURCE) as z, ZipFile(ANNOTATION) as ann:
@@ -40,11 +40,11 @@ def take_tables():
         }
         validations = {
             (r["table_id"], r["hypothesis"]): r
-            for r in records(z, "/infotabs_valid_test_alpha3.tsv")
+            for r in records(z, "/infotabs_valid_" + held_split + ".tsv")
         }
         for split, member, limit in (
             (
-                "test_alpha3",
+                held_split,
                 "results_test/modified_batches_integrated_batch_annotations.tsv",
                 12,
             ),
@@ -60,7 +60,7 @@ def take_tables():
             }
             groups = defaultdict(lambda: defaultdict(list))
             forbidden = {
-                w["fields"]["title"].casefold() for w in splits.get("test_alpha3", [])
+                w["fields"]["title"].casefold() for w in splits.get(held_split, [])
             }
             for r in records(ann, member):
                 ident, h, y = r["Table ID"], r["Hypothesis"], r["Truth Label"]
@@ -119,7 +119,9 @@ def take_tables():
                 groups[ident][y].append(row)
             selected = []
             used = set()
-            for ident in choose(groups, SEED, str):
+            for ident in choose(groups, sample_seed, str):
+                if split == held_split and ident in excluded_test:
+                    continue
                 by_label = groups[ident]
                 if set(by_label) != set(LABELS):
                     continue
@@ -132,7 +134,7 @@ def take_tables():
                         "id": ident,
                         "fields": fields,
                         "claims": [
-                            choose(by_label[y], SEED, lambda r: r["claim"])[0]
+                            choose(by_label[y], sample_seed, lambda r: r["claim"])[0]
                             for y in LABELS
                         ],
                     }
@@ -153,7 +155,7 @@ def take_tables():
                 for w in rows
             }
 
-        assert not values(splits["train"]) & values(splits["test_alpha3"])
+        assert not values(splits["train"]) & values(splits[held_split])
     return splits
 
 
