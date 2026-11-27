@@ -280,6 +280,7 @@ def run(name=PRIMARY):
         (
             *SOURCES,
             *(("loopqwen/content_read.py",) if s.get("content_read") else ()),
+            *(("loopqwen/bounded_read.py",) if s.get("bounded_write") else ()),
             "loopqwen/research/shared_query_fit.py",
             "loopqwen/research/shared_query_transfer.py",
             "loopqwen/research/native_function_study.py",

@@ -67,7 +67,7 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
-    if study == "content-read-fit-01":
+    if study in ("content-read-fit-01", "bounded-read-fit-01"):
         from loopqwen.research.content_read_fit import verify as verify_content_fit
 
         return verify_content_fit(root, decision)
@@ -87,7 +87,7 @@ def verify(root):
                 require(read(root / file)["execution_sources"][correction["source"]] == correction[key],
                         "Frozen teacher implementation digest")
         return verify_prefix_fit(root, decision)
-    if study in ("learner-prefix-transfer-01", "content-read-transfer-01"):
+    if study in ("learner-prefix-transfer-01", "content-read-transfer-01", "bounded-read-transfer-01"):
         from loopqwen.research.shared_query_transfer import verify as verify_prefix_pair
 
         return verify_prefix_pair(root, decision)

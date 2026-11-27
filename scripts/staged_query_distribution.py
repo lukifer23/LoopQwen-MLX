@@ -27,6 +27,8 @@ def run(freeze, cohort="staged-query"):
         from scripts.register_learner_prefix import PANEL as panel_path, PRIMARY as stage
     elif cohort == "content-read":
         from scripts.register_content_read import PANEL as panel_path, PRIMARY as stage
+    elif cohort == "bounded-read":
+        from scripts.register_bounded_read import PANEL as panel_path, PRIMARY as stage
     plan_path = Path("research/diagnostics") / (cohort + "-distribution.json")
     registration = Path("research/experiments") / (stage + ".json")
     panel = unpack(panel_path)["rows"]
@@ -156,6 +158,6 @@ def run(freeze, cohort="staged-query"):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("mode", choices=("freeze", "report"))
-    p.add_argument("--cohort", choices=("staged-query", "learner-prefix", "content-read"), default="staged-query")
+    p.add_argument("--cohort", choices=("staged-query", "learner-prefix", "content-read", "bounded-read"), default="staged-query")
     args = p.parse_args()
     run(args.mode == "freeze", args.cohort)

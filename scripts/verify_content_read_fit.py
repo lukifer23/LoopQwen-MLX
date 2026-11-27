@@ -16,13 +16,14 @@ from scripts.table_policy_material import persist
 from scripts.table_policy_reading import committed
 
 
-def run():
-    root = RESULTS / NAME
+def run(name=NAME):
+    root = RESULTS / name
     committed(root / "checksums.json")
     if not (root / "step.safetensors").is_file():
         return
     s = read(root / "registration.json")
-    folder = CACHE / NAME / digest(root / "registration.json")
+    src = s.get("feature_source", name)
+    folder = CACHE / src / digest(RESULTS / src / "registration.json")
     idx = unpack(root / "feature-index.json.gz")
     rows = unpack(Path(s["training"]))
     ev = evidence_for(rows)
@@ -58,7 +59,7 @@ def run():
         max_error=max(errors),
         frozen_tensors=len(earlier),
     )
-    persist(Path("docs/measurements") / (NAME + "-cold.json"), receipt)
+    persist(Path("docs/measurements") / (name + "-cold.json"), receipt)
     print(receipt)
 
 

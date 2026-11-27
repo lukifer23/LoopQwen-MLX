@@ -31,7 +31,12 @@ NAME = "content-read-fit-01"
 def build(s):
     parent = SharedQueryAssistant(s["checkpoint"], RESULTS / s["parent"])._tool_model
     mx.random.seed(s["fit_seed"])
-    net = ContentRead(
+    model_class = ContentRead
+    if s.get("bounded_write"):
+        from ..bounded_read import BoundedContentRead
+
+        model_class = BoundedContentRead
+    net = model_class(
         parent.text, revisits=s["revisits"], rank=s["rank"], gate_rank=s["gate_rank"]
     )
     net.step.load_weights(tree_flatten(parent.step.parameters()), strict=False)
@@ -159,6 +164,8 @@ def decide(s, idx, h, p):
         content=mean(extra) > 0.01,
         second_read=mean(depth) > 0.002,
     )
+    if s.get("bounded_write"):
+        gates["early_parent_divergence"] = max(w["kl"] for w in h[:16]) < 0.5
     return dict(
         passed=all(gates.values()),
         gates=gates,
@@ -174,29 +181,44 @@ def decide(s, idx, h, p):
     )
 
 
-def fit():
-    s = registered(NAME)
+def fit(name=NAME):
+    s = registered(name)
     root = root_for(s)
     capture(
         root,
         (
             *SOURCES,
             "loopqwen/content_read.py",
+            *(("loopqwen/bounded_read.py",) if s.get("bounded_write") else ()),
             "loopqwen/research/content_read_fit.py",
             "loopqwen/research/learner_prefix_fit.py",
             "loopqwen/research/shared_query_fit.py",
             "scripts/register_content_read.py",
         ),
     )
-    guard = Budget(NAME, s["limits"])
+    guard = Budget(name, s["limits"])
     history = []
     try:
         net = build(s)
         rows = unpack(Path(s["training"]))
         ev = evidence_for(rows)
-        folder = CACHE / NAME / digest(root / "registration.json")
+        work = CACHE / name / digest(root / "registration.json")
+        work.mkdir(parents=True, exist_ok=True)
+        folder = work
         folder.mkdir(parents=True, exist_ok=True)
-        idx = extract(net, rows, folder, guard)
+        if s.get("feature_source"):
+            source = RESULTS / s["feature_source"]
+            folder = CACHE / s["feature_source"] / digest(source / "registration.json")
+            idx = unpack(source / "feature-index.json.gz")
+            for r, w in zip(idx, rows, strict=True):
+                guard.check()
+                assert r["id"] == w["id"] and r["sha256"] == digest(folder / r["file"])
+                assert (r["prefix"], r["labels"]) == (
+                    fingerprint(w["p"]),
+                    fingerprint(w["y"]),
+                )
+        else:
+            idx = extract(net, rows, folder, guard)
         packed(root / "feature-index.json.gz", idx)
         p = {m: probes(net, s, idx, folder, ev, m, guard) for m in ("before", "parent")}
         if any(
@@ -252,9 +274,13 @@ def fit():
                     kl=kl,
                 )
             )
+            if s.get("bounded_write") and j < 16 and kl >= 0.5:
+                raise InterruptedError(
+                    "Early parent divergence reached the registered limit"
+                )
             if j + 1 == len(steps) or steps[j + 1][0] != epoch:
                 checkpoint.write(
-                    folder,
+                    work,
                     net.step,
                     opt,
                     dict(
@@ -298,7 +324,7 @@ def fit():
 
 
 def verify(root, d):
-    s = registered(NAME)
+    s = registered(read(root / "registration.json")["id"])
     assert s == read(root / "registration.json")
     if d.get("status") == "interrupted":
         assert (

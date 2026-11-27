@@ -24,6 +24,10 @@ def from_backbone(directory, folder, spec, identity):
         from .content_read import ContentRead
 
         model_class = ContentRead
+        if spec.get("bounded_write"):
+            from .bounded_read import BoundedContentRead
+
+            model_class = BoundedContentRead
     net = model_class(
         donor.text,
         revisits=spec["revisits"],
