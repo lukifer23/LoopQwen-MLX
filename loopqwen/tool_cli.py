@@ -33,8 +33,14 @@ def add_arguments(p, checkpoint=None):
     p.add_argument(
         "--catalog", type=Path, help="JSON file with read-only lookup definitions"
     )
-    p.add_argument(
+    arithmetic = p.add_mutually_exclusive_group()
+    arithmetic.add_argument(
         "--calculator", action="store_true", help="Expose exact arithmetic expressions"
+    )
+    arithmetic.add_argument(
+        "--checked-calculator",
+        action="store_true",
+        help="Accept arithmetic expressions and verify every side of an equality exactly",
     )
     p.add_argument(
         "--packages",
@@ -159,10 +165,12 @@ def respond(args, parser):
             from .document_tools import documents
 
             supplied.extend(resources.enter_context(documents(args.document)))
-        if args.calculator:
+        if args.calculator or getattr(args, "checked_calculator", False):
             from .calculator_tool import tool
 
-            supplied.append(tool())
+            supplied.append(
+                tool(check_equalities=getattr(args, "checked_calculator", False))
+            )
         if args.packages:
             from .package_tools import tools as packages
 
