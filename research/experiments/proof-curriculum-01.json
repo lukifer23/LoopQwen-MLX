@@ -1,0 +1,58 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "instruction_interpolation": {
+    "trained_fraction": 1.0,
+    "second_pass_fraction": 0.35,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "trained_instruction_adapter": true,
+  "material": "research/data/reasoned-evidence-panel.json",
+  "batch": 6,
+  "max_tokens": 512,
+  "max_turns": 3,
+  "id": "proof-curriculum-01",
+  "question": "Does explicitly training the second physical visit to improve its verdict, with supervised proof steps and disjoint real Python distribution metadata, transfer to human inference and practical checks?",
+  "training": "research/data/proof-curriculum-training.json",
+  "fit_seed": 618921,
+  "updates": 800,
+  "lr": 9e-05,
+  "limits": {
+    "wall_seconds": 4100,
+    "peak_gib": 7.25,
+    "available_gib": 1.5
+  },
+  "protocol": "Independent release 05 start. Require 192 disjoint open-world training theories, 64 exact replayed labels per class, >=24 positive or negative proofs of at least two hops, >=8 authentic distributions disjoint from the entire held wheel inventory, and 384 published human explanations. Hard negation and open-world uncertainty are preserved. Every step samples one human, one verified proof (75%) or field example (25%), sampling labels uniformly within source. For both examples fit an inline and actual CSV-return turn, one real opening and one old table response. Reasoning tasks receive 65%, openings 20%, table retention 15%. Within reasoning, 85% is token CE weighted .50 over explanation, .35 over verdict and .15 over all tokens. The remaining 15% is a hinge with margin .25 nats for the correct verdict versus the two wrong leading tokens, between first and second physical visits. Stop gradients on the first-visit comparison scores. Every generated token uses both physical visits. No proof engine, version comparison, constrained vocabulary or decision-time teacher in the model. Checkpoints every 100 steps. Fixed M3 Pro, 4100 native seconds maximum and 7.25 GiB peak.",
+  "decision": "Direct pair versus untouched certified BF16 Base. Twelve out-of-training FOLIO validation stories have one human true, false and uncertain conclusion each, all asked both with inline observations and via authentic CSV calls. Eight further paired user tasks compare the exact same real Python patch version against two actual locked distributions with opposite outcomes under their published Requires-Python constraints. Eight identical former real table requests measure retention. Identical reasoning-enabled prompt IDs, open greedy vocabulary, 512 tokens per model turn, 3 turns, same ordering and scorer. Primary on 12 independent stories: >=12 net additional correct grounded judgments across 72 and exact two-sided paired sign-flip p<=0.05 on story totals; more fully correct six-answer stories, more correct individually in both file and inline with no loss for any verdict category. At least four complete practical wheel pairs and more than Base; no previously successful table outcome under Base may be lost. At least half of completed FOLIO judgments must contain >=4 lexical words of generated reasoning before the final answer. For every source require no loss in completion. Strictly shorter complete stream, first-token sum and peak, higher pooled opening and decode rates. Record all timings, proof provenance, misses and physical histories. A failed independently replayed source or resource prerequisite closes student work; a miss on the completed direct pair closes matched depth, replication and 128K for these weights. Only a pass licenses independent matched K1 and broad field qualification. No causal or general intelligence claim from this model comparison.",
+  "panel_history": "This is the first permitted model scoring of the already frozen 96 requests. The earlier teacher prerequisite stopped before student training or either arm. No teacher generations or failed student weights enter this experiment.",
+  "sources": {
+    "proofwriter": "https://aristo-data-public.s3.amazonaws.com/proofwriter/proofwriter-dataset-V2020.12.3.zip",
+    "sha256": "bbc5694901e8306d0bd659aa1ad53ccfd02c201864f4b320ffa3777827d1fc26",
+    "member": "proofwriter-dataset-V2020.12.3/OWA/depth-3/meta-train.jsonl",
+    "eSNLI": {
+      "path": "data/research_external/esnli_train_1.csv",
+      "sha256": "7311c7bc16ad9f6a9adcd116a62ef991e1803dc0d71e253ce66b975c2aba8ee5",
+      "source": "https://github.com/OanaMariaCamburu/e-SNLI"
+    }
+  }
+}

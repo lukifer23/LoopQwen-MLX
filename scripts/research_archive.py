@@ -67,6 +67,12 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "proof-curriculum-01":
+        from loopqwen.research.proof_curriculum import verify as verify_proofs
+        from scripts.proof_curriculum_material import build
+
+        build()
+        return verify_proofs(root, decision)
     if study == "reasoned-evidence-01":
         from loopqwen.research.reasoned_evidence import verify as verify_reasoned
         from scripts.reasoned_evidence_material import build
@@ -97,7 +103,9 @@ def verify(root):
         return verify_binding(root, decision)
     if study.startswith("instruction-interpolation-"):
         from interpolation_material import material
-        from loopqwen.research.instruction_interpolation import verify as verify_interpolation
+        from loopqwen.research.instruction_interpolation import (
+            verify as verify_interpolation,
+        )
 
         material()
         return verify_interpolation(root, decision)
@@ -112,7 +120,9 @@ def verify(root):
 
         return verify_book(root, decision)
     if study.startswith("conversation-document-prefill-"):
-        from loopqwen.research.conversation_prefill import verify as verify_conversation_prefill
+        from loopqwen.research.conversation_prefill import (
+            verify as verify_conversation_prefill,
+        )
 
         return verify_conversation_prefill(root, decision)
     if study.startswith("question-contrast-"):

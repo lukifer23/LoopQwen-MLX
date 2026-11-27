@@ -165,8 +165,8 @@ def outcome(panel, arms):
     }
 
 
-def verify(root, d):
-    s = registered(NAME)
+def verify(root, d, *, name=NAME, make_views=turns):
+    s = registered(name)
     assert read(root / "registration.json") == s
     if (root / "teacher-fit.json").exists():
         report = read(root / "teacher-fit.json")
@@ -200,7 +200,7 @@ def verify(root, d):
     )
     assert f["views"] == digest(root / "training-views.json.gz") and unpack(
         root / "training-views.json.gz"
-    ) == turns(s, root)
+    ) == make_views(s, root)
     assert (
         cp["weights"] == digest(root / "cross-view.safetensors")
         and cp["adapter"] == f["weights"]
@@ -227,9 +227,9 @@ def verify(root, d):
     assert outcome(p, arms) == d
 
 
-def run():
-    s = registered(NAME)
-    root = Path("outputs/research") / NAME
+def run(*, name=NAME, qualify=teach, trainer=fit, extra_sources=()):
+    s = registered(name)
+    root = Path("outputs/research") / name
     root.mkdir(exist_ok=True, parents=True)
     assert (
         read(Path(s["requires"]) / "decision.json")["passed"]
@@ -259,17 +259,18 @@ def run():
             "loopqwen/tool_model.py",
             "pyproject.toml",
             "uv.lock",
+            *extra_sources,
         ),
     )
-    guard = Budget(NAME, s["limits"])
+    guard = Budget(name, s["limits"])
     try:
         tok = tokenizer(s)
-        teach(s, tok, root, guard)
+        qualify(s, tok, root, guard)
         guard.check()
         mx.reset_peak_memory()
         if not (root / "fit.json").exists():
             net = bind(None, Path(s["checkpoint"]) / "tool")
-            fit_messages(net, tok, s, root, guard, trainer=fit)
+            fit_messages(net, tok, s, root, guard, trainer=trainer)
             del net
             gc.collect()
             mx.clear_cache()

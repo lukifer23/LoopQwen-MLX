@@ -1,6 +1,7 @@
 """Learn emitted explanations and verdicts on a shared recurrent instruction layer."""
 
 import gc
+import math
 import random
 import re
 from collections import Counter, defaultdict
@@ -170,6 +171,10 @@ def turns(s, root):
                     {**by_id[result["id"]], "reason": result["parsed"]["reason"]},
                 )
             )
+    return supervised_turns(supervised)
+
+
+def supervised_turns(supervised):
     examples = []
     with TemporaryDirectory() as temp:
         tmp = Path(temp)
@@ -193,6 +198,21 @@ def turns(s, root):
                 ],
             )
             request = text(f'Read "{key}" from the attached file.', r["claim"])
+            if source == "package":
+                peers = {w["package"]: w for src, w in supervised if src == source}
+                key = r["package"]
+                filename = "distribution-metadata.csv"
+                raw = table(
+                    ["Name", "Requires-Python", "Version"],
+                    [
+                        (w["package"], w["requirement"], w["release"])
+                        for w in sorted(peers.values(), key=lambda x: x["package"])
+                    ],
+                )
+                request = text(
+                    f'Look up the Python requirement for "{key}" in the metadata file.',
+                    r["claim"],
+                )
             defs, call, _, hist = bind_file(
                 tmp, filename, raw, key, r["evidence"], request
             )
@@ -230,9 +250,20 @@ def turns(s, root):
     return examples
 
 
-def fit(net, tok, s, root, guard, *, prepare):
+def fit(
+    net,
+    tok,
+    s,
+    root,
+    guard,
+    *,
+    prepare,
+    make_views=turns,
+    draw_cases=None,
+    refinement=None,
+):
     start = perf_counter()
-    examples = turns(s, root)
+    examples = make_views(s, root)
     packed(root / "training-views.json.gz", examples)
     bank = prepare(net, tok, {"examples": examples}, guard)
     sources = defaultdict(lambda: defaultdict(dict))
@@ -251,6 +282,8 @@ def fit(net, tok, s, root, guard, *, prepare):
     rng = random.Random(s["fit_seed"])
 
     def draw():
+        if draw_cases is not None:
+            return draw_cases(rng, streams, rehearsal)
         pair = [
             rng.choice(streams[k][rng.choice(LABELS)]) for k in ("human", "teacher")
         ]
@@ -270,7 +303,7 @@ def fit(net, tok, s, root, guard, *, prepare):
         return nn.losses.cross_entropy(projected(model, h, r, c), y).mean()
 
     raw = nn.value_and_grad(net, ordinary)
-    reason = nn.value_and_grad(net, judged)
+    reason = nn.value_and_grad(net, refinement(tok) if refinement else judged)
     net.train()
     net.checkpointing = True
     adam = optim.AdamW(learning_rate=s["lr"], weight_decay=0.01)
@@ -314,6 +347,13 @@ def fit(net, tok, s, root, guard, *, prepare):
                     if tok.decode([labels[j]]).strip()
                 ]
                 assert rp and ap
+                if refinement:
+                    row_label = tok.decode(labels[ap[0] : ap[-1] + 1]).strip()
+                    assert (
+                        row_label in LABELS
+                        and labels[ap[0]]
+                        == tok.encode(row_label, add_special_tokens=False)[0]
+                    )
                 pp, aa = [
                     mx.array([*ix, *(j + len(labels) for j in ix)]) for ix in (rp, ap)
                 ]
@@ -333,6 +373,8 @@ def fit(net, tok, s, root, guard, *, prepare):
             mx.eval(grads, loss)
             objective += loss.item() * weight
             total += sum(len(item[2]) for item in batch)
+        if not math.isfinite(objective):
+            raise InterruptedError("Nonfinite reasoning objective")
         adam.update(net, grads)
         mx.eval(net.trainable_parameters(), adam.state)
         guard.check()
