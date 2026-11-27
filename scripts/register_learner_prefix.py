@@ -43,11 +43,12 @@ def targets():
     spec = read(RESULT / PARENT / "registration.json")
     tok = tokenizer(spec)
     close = tok.convert_tokens_to_ids("</think>")
-    stops = {close, *tok.eos_token_ids}
+    end = tok.convert_tokens_to_ids("<|im_end|>")
+    stops = {close, end, *tok.eos_token_ids}
     pairs = []
 
     def add(key, group, p, y, region):
-        assert y and y[-1] in tok.eos_token_ids and close in y
+        assert y and y[-1] == end and close in y
         if region == "learner":
             assert p[-1] not in stops
         pairs.append({"id": key, "group": group, "region": region, "p": p, "y": y})
@@ -66,6 +67,7 @@ def targets():
         p, y = token_pair(tok, {**w, "target": target})
         assert r["opening"] == fingerprint(p) and r["visits"] == 2 * len(r["tokens"])
         assert not stops.intersection(r["tokens"][:-1])
+        assert r["closed"] == (r["tokens"][-1] in stops)
         add(r["id"] + "/clean", w["group"], p, y, "clean")
         # Only correct a still-open deliberation. Never insert reasoning into a visible
         # answer, submitted callback, or a completed assistant message.
