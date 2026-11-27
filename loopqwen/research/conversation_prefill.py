@@ -64,9 +64,10 @@ def grade(tr, index, path, value):
         )
     else:
         grounded = True
-    return dict(
-        answer=correct, success=correct and grounded and tr["status"] == "answered"
-    )
+    return {
+        "answer": correct,
+        "success": correct and grounded and tr["status"] == "answered",
+    }
 
 
 def timed(spec, item, side, budget):
@@ -82,8 +83,8 @@ def timed(spec, item, side, budget):
         stamps = {}
         start = began if not i else perf_counter()
 
-        def observe(n):
-            stamps.setdefault(n, perf_counter() - start)
+        def observe(n, times=stamps, origin=start):
+            times.setdefault(n, perf_counter() - origin)
             budget.check()
 
         tr = chat.respond(
@@ -99,13 +100,13 @@ def timed(spec, item, side, budget):
             initial = tr["turns"][0]["prompt_ids"]
             check_tokens(item, initial)
         rows.append(
-            dict(
-                trajectory=tr,
-                first=stamps[len(tr["turns"][0]["prompt_ids"])],
-                wall=perf_counter() - start,
-                peak=mx.get_peak_memory(),
-                score=grade(tr, i, file, answer),
-            )
+            {
+                "trajectory": tr,
+                "first": stamps[len(tr["turns"][0]["prompt_ids"])],
+                "wall": perf_counter() - start,
+                "peak": mx.get_peak_memory(),
+                "score": grade(tr, i, file, answer),
+            }
         )
     return rows
 
@@ -149,22 +150,26 @@ def outcome(root, spec):
                 assert 0 < v["first"] <= v["wall"] and v["peak"] > 0
             exact.append(trace(x["trajectory"]) == trace(y["trajectory"]))
     a, b = metrics["retain"], metrics["stock"]
-    gates = dict(
-        exact=all(exact),
-        grounded=all(a["grounded_by_document"]),
-        reused=all(v[0] == 0 and min(v[1:]) > 4096 for v in a["first_turn_reused"]),
-        stock=all(not any(v) for v in b["first_turn_reused"]),
-        latency=a["first_followup"] < 0.7 * b["first_followup"],
-        wall=a["wall"] < b["wall"],
-        peak=a["max_peak"] <= 1.25 * b["max_peak"],
-    )
-    return dict(
-        passed=all(gates.values()), gates=gates, metrics=metrics, identical=exact
-    )
+    gates = {
+        "exact": all(exact),
+        "grounded": all(a["grounded_by_document"]),
+        "reused": all(v[0] == 0 and min(v[1:]) > 4096 for v in a["first_turn_reused"]),
+        "stock": all(not any(v) for v in b["first_turn_reused"]),
+        "latency": a["first_followup"] < 0.7 * b["first_followup"],
+        "wall": a["wall"] < b["wall"],
+        "peak": a["max_peak"] <= 1.25 * b["max_peak"],
+    }
+    return {
+        "passed": all(gates.values()),
+        "gates": gates,
+        "metrics": metrics,
+        "identical": exact,
+    }
 
 
 def verify(root, d):
     from mlx_lm.utils import load_tokenizer
+
     from ..model_loader import local_snapshot
     from ..tool_session import system_message
     from .mixed_field import replay_exchange
