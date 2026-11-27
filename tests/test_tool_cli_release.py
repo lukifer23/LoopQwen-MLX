@@ -360,3 +360,66 @@ def test_generate_compares_user_file_on_two_loaded_native_checkpoints(
             > 0
         )
         assert 0 < len(row["token_ids"]) <= 2 and row["peak_bytes"] > 0
+
+
+@pytest.mark.skipif(
+    not Path("exports/tool-language-packed-05/tool-export-files.json").is_file()
+    or not Path("research/results/table-reentry-fit-01/fit.json").is_file(),
+    reason="Requires the trained native four-layer model and its pinned Base export",
+)
+def test_plain_four_layer_policy_and_base_cli_prefill_all_physical_sites(tmp_path):
+    # Exercise multiple full prefill blocks and the decode path without adding a tool to the user's prompt.
+    from loopqwen import qwen_tools
+    from loopqwen.research.cross_view_study import tokenizer
+
+    bundle = Path("exports/tool-language-packed-05").resolve()
+    policy = Path("research/results/table-reentry-fit-01").resolve()
+    source = tmp_path / "reading.txt"
+    question = (
+        "A square has four equal sides. A rectangle has four right angles.\n" * 23
+    ) + "How many sides does a square have?"
+    source.write_text(question)
+    command = [
+        sys.executable,
+        "-m",
+        "loopqwen",
+        "ask",
+        "--checkpoint",
+        str(bundle),
+        "--session-policy",
+        str(policy),
+        "--tool-format",
+        "qwen",
+        "--prompt-file",
+        str(source),
+        "--compare-base",
+        "--cache-state-prefill",
+        "--trace",
+        "--max-turns",
+        "1",
+        "--max-tokens",
+        "4",
+    ]
+    result = json.loads(subprocess.check_output(command, text=True, **child_lease()))
+    tok = tokenizer({"checkpoint": bundle})
+    ids = tok.encode(
+        qwen_tools.render(tok, [{"role": "user", "content": question}], []),
+        add_special_tokens=False,
+    )
+    assert result["prefill_cache_state"] and result["initial_prompt_identical"]
+    assert len(ids) > 256
+    for side, rows in result["runs"].items():
+        (entry,) = rows
+        (turn,) = entry["turns"]
+        assert (
+            turn["prompt_ids"] == ids
+            and turn["cache_state_blocks"] == (len(ids) - 1) // 128
+        )
+        expected_sites = {(i, 0) for i in (3, 7, 11, 15, 19, 23)}
+        if side == "recurrent":
+            expected_sites.add((23, 1))
+        assert {(r["layer"], r["turn"]) for r in turn["kv_history"]} == expected_sites
+        assert all(
+            r["retained"] == r["offset"] == len(ids) + len(turn["token_ids"]) - 1
+            for r in turn["kv_history"]
+        )

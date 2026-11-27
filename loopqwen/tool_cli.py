@@ -136,7 +136,7 @@ def add_arguments(p, checkpoint=None):
     p.add_argument(
         "--cache-state-prefill",
         action="store_true",
-        help="Evaluate native cache states after intermediate blocks in tool conversations",
+        help="Evaluate native cache states after intermediate blocks on a fixed resident decoder",
     )
     p.add_argument(
         "--reuse-prefix",
@@ -300,8 +300,6 @@ def respond(args, parser):
         if args.trace:
             options["record_kv_history"] = True
         if getattr(args, "cache_state_prefill", False):
-            if not supplied:
-                parser.error("--cache-state-prefill requires at least one tool")
             options["prefill_cache_state"] = True
         prompts = [args.prompt, *args.follow_up]
         if any(not text.strip() for text in prompts):

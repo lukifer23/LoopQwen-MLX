@@ -280,7 +280,7 @@ class Assistant:
             )
         if prefill_cache_state:
             raise ValueError(
-                "Cache-state prefill requires a fixed resident tool decoder"
+                "Cache-state prefill requires a fixed resident decoder for this request"
             )
         from .evaluation.generation_eval import generate
         from .tool_session import prompt
