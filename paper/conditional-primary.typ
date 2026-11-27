@@ -57,6 +57,10 @@ For the 156 primary readings, the reviewer saw the original request, the complet
 
 *Related work.* Marchenko and colleagues continued a fully shared Qwen3-1.7B on 60 billion curated tokens and 84 billion web tokens. Against identically continued dense Qwen3-1.7B, Tables 3 and 23 show gains on nine of eleven curated tasks and eight of eight web tasks. BoolQ and CRUXEval-O on the curated mix illustrate why individual outcomes matter. Their full-stack recurrence, embedding injection and trainable backbone differ from the four-layer hybrid revisit studied here. LoopUS decomposes a pretrained model into a recurrent reasoning block with input-dependent gating and adaptive exits. Our fixed-depth comparison measures the cost of every visit. #link("https://arxiv.org/html/2610.00673v2")[Marchenko et al., Sections 4–5 and Appendix H] · #link("https://arxiv.org/abs/2605.11011")[Park et al., LoopUS]
 
+#let lc=d.tool_recovery.candidate
+#let bc=d.tool_recovery.control
+*Recovery after a provider error.* On #lc.all.requests tool-enabled requests the loop called a tool on #lc.all.with_calls and Base on #bc.all.with_calls. Providers returned errors on #lc.all.provider_errors/#lc.all.calls loop calls and #bc.all.provider_errors/#bc.all.calls Base calls. After an error with another turn available, the loop obtained a successful later callback on #lc.all.successful_later_callback/#lc.all.could_generate_after_error requests and Base on #bc.all.successful_later_callback/#bc.all.could_generate_after_error. The loop retried identical failed arguments on #lc.all.same_failed_arguments_again of its #lc.all.requests_with_error. Among the #lc.same_request_both_had_another_turn.requests common requests with another turn available, later calls succeeded on #pair((lc.same_request_both_had_another_turn.successful_later_callback,bc.same_request_both_had_another_turn.successful_later_callback)). Grounded final answers after an error totaled #pair((lc.all.grounded_after_error,bc.all.grounded_after_error)).
+
 #pagebreak()
 #text(size:20pt,weight:"bold")[Native performance, decision and reproducibility]
 #image("conditional-primary-cost.svg",width:99%)

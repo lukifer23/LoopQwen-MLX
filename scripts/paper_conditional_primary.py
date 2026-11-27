@@ -28,6 +28,7 @@ from scripts.assistance_uncertainty import (
 from scripts.conditional_deliberation import account as channel_account
 from scripts.conditional_reading import MASK, RATINGS, ROOT, SCORES
 from scripts.conditional_reading import run as read_primary
+from scripts.conditional_tool_recovery import build as tool_recovery
 from scripts.conditional_tool_transfer import build as tool_transfer
 from scripts.paper_conditional_stability import build as repeat_review
 from scripts.paper_integrated_assistance import COLORS, LABELS
@@ -308,6 +309,7 @@ def build():
         "environment": read(ROOT / "environment.json"),
         "generation_channels": channel_account(ROOT, streams),
         "tool_diagnostics": diagnostics,
+        "tool_recovery": tool_recovery()["arms"],
         "decode_savings": {
             "length": length_s,
             "rate": rate_s,
