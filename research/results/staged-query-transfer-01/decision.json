@@ -1,0 +1,115 @@
+{
+  "passed": false,
+  "gates": {
+    "strategy": false,
+    "strategy_completion": false,
+    "field": false,
+    "all_field_conditions": false,
+    "field_completion": false,
+    "report": false,
+    "report_completion": false,
+    "locale": false,
+    "locale_completion": true,
+    "peak": true,
+    "wall_s": true,
+    "first_s": true,
+    "opening_tps": true,
+    "decode_tps": true
+  },
+  "counts": {
+    "strategy": {
+      "total": [
+        9,
+        8
+      ],
+      "completed": [
+        15,
+        18
+      ],
+      "gains": 7,
+      "losses": 6,
+      "p": 1.0,
+      "n": 48
+    },
+    "field": {
+      "total": [
+        10,
+        0
+      ],
+      "completed": [
+        67,
+        70
+      ],
+      "gains": 10,
+      "losses": 0,
+      "p": 0.0625,
+      "n": 96,
+      "condition_net": {
+        "valid_current": 7,
+        "provider_error": 0,
+        "valid_other": 0,
+        "unassisted": 3
+      },
+      "schema_net": {
+        "poker_player": 1,
+        "company_office": 0,
+        "concert_singer": 3,
+        "chinook_1": 2,
+        "battle_death": 0,
+        "tracking_software_problems": 0,
+        "architecture": 1,
+        "theme_gallery": 0,
+        "student_transcripts_tracking": 0,
+        "customers_and_invoices": 3,
+        "news_report": 0,
+        "pets_1": 0
+      }
+    },
+    "report": {
+      "total": [
+        0,
+        0
+      ],
+      "completed": [
+        4,
+        9
+      ],
+      "gains": 0,
+      "losses": 0,
+      "p": 1.0,
+      "n": 32
+    },
+    "locale": {
+      "total": [
+        0,
+        0
+      ],
+      "completed": [
+        4,
+        0
+      ],
+      "gains": 0,
+      "losses": 0,
+      "p": null,
+      "n": 4
+    }
+  },
+  "costs": {
+    "candidate": {
+      "first_s": 1303.091095464304,
+      "wall_s": 1569.685807175585,
+      "peak": 1222225144,
+      "output": 34416,
+      "opening_tps": 738.1910841920433,
+      "decode_tps": 133.76802150834496
+    },
+    "control": {
+      "first_s": 1504.3156756294193,
+      "wall_s": 2724.800424913701,
+      "peak": 2286882042,
+      "output": 57872,
+      "opening_tps": 647.0967509859652,
+      "decode_tps": 47.90916901259526
+    }
+  }
+}
