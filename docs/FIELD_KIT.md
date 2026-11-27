@@ -60,3 +60,14 @@ The Git bundle contains the paper revision of `main`, its ancestors, all tracked
 git clone --branch main sources/loopqwen-research.bundle research-project
 git -C research-project fsck --full
 ```
+
+
+## Rebuild the supplied PDF
+
+The paper’s figure sources, generated charts, numerical supplements, Typst manuscript and the two pinned typesetting wheels are included. From the extracted directory, with the kit environment active, rebuild the document and compare every byte.
+
+```sh
+uv pip install --offline --no-index paper-tools/*.whl
+python -c 'import typst; typst.compile("paper/loopqwen.typ", output="rebuilt.pdf", timestamp=0)'
+cmp rebuilt.pdf paper/loopqwen.pdf
+```

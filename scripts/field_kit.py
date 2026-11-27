@@ -79,6 +79,10 @@ def entries(revision, staging):
     }
     for dep in wheelhouse(ROOT / "exports/field-dependencies-01"):
         records["dependencies/" + dep.name] = dep
+    for dep in wheelhouse(
+        ROOT / "exports/field-paper-dependencies-01", only_group="paper"
+    ):
+        records["paper-tools/" + dep.name] = dep
     registry = read(ROOT / "research/registry.json")
     for name in STUDIES:
         folder = ROOT / "research/results" / name
@@ -471,6 +475,40 @@ def main():
         assert not any(
             p.suffix in {".bin", ".safetensors"} for p in (tmp / "empty").rglob("*")
         )
+        paper_wheels = sorted((work / "paper-tools").glob("*.whl"))
+        subprocess.run(
+            [
+                "uv",
+                "--no-cache",
+                "pip",
+                "install",
+                "--offline",
+                "--no-index",
+                "--python",
+                python,
+                *map(str, paper_wheels),
+            ],
+            cwd=work,
+            check=True,
+        )
+        rebuilt = tmp / "reconstructed.pdf"
+        pages = int(
+            subprocess.check_output(
+                [
+                    python,
+                    "-I",
+                    "-c",
+                    NETWORK_GUARD
+                    + "import sys,typst;from pypdf import PdfReader;typst.compile(sys.argv[1],output=sys.argv[2],timestamp=0);print(len(PdfReader(sys.argv[2]).pages))",
+                    str(work / "paper/loopqwen.typ"),
+                    str(rebuilt),
+                ],
+                cwd=work,
+                env=env,
+                text=True,
+            )
+        )
+        assert digest(rebuilt) == hashes["paper/loopqwen.pdf"]
         record = {
             "name": target.name,
             "bytes": building.stat().st_size,
@@ -480,6 +518,8 @@ def main():
             "model_sha256": hashes["model/tool-language-packed-05.lqzip"],
             "wheel_sha256": digest(wheel),
             "pdf_sha256": hashes["paper/loopqwen.pdf"],
+            "rebuilt_pdf_pages": pages,
+            "locked_paper_wheels": len(paper_wheels),
             "source_revision": revision,
             "verified_git_history": True,
             "recounted_matched_induction_items": 128,

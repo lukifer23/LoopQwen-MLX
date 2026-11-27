@@ -19,7 +19,7 @@ from loopqwen.io import digest
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def wheelhouse(directory):
+def wheelhouse(directory, *, only_group=None):
     if (
         platform.system() != "Darwin"
         or platform.machine() != "arm64"
@@ -35,7 +35,7 @@ def wheelhouse(directory):
             "export",
             "--frozen",
             "--offline",
-            "--no-dev",
+            *(["--only-group", only_group] if only_group else ["--no-dev"]),
             "--no-emit-project",
             "--no-header",
             "--no-hashes",
