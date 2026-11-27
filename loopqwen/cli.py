@@ -110,6 +110,11 @@ def main():
         action="store_true",
         help="Generate from the same input IDs on the candidate and pinned ordinary Base, including cold timing",
     )
+    p.add_argument(
+        "--base-checkpoint",
+        type=Path,
+        help="Use the certified release 05 directory as the offline ordinary Base for --compare-base",
+    )
     prompts = p.add_mutually_exclusive_group(required=True)
     p.add_argument(
         "--offload-dir",

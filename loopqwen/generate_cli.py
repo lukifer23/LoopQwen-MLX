@@ -65,6 +65,9 @@ def render(tok, source, thinking):
 
 def run(args, parser):
     trace = getattr(args, "trace", False)
+    explicit_base = getattr(args, "base_checkpoint", None)
+    if explicit_base is not None and not args.compare_base:
+        parser.error("--base-checkpoint requires --compare-base")
     if trace and args.offload_dir is not None:
         parser.error("--trace measures native resident attention histories")
     history = {"record_kv_history": True} if trace else {}
@@ -97,12 +100,13 @@ def run(args, parser):
         mx.synchronize()
         mx.reset_peak_memory()
         start = perf_counter()
-        model, tok = (
-            candidate(args, parser)
-            if side == "recurrent"
-            else base(args.checkpoint)[:2]
-        )
-        if side == "base":
+        if side == "recurrent":
+            model, tok = candidate(args, parser)
+        else:
+            model, tok, _ = base(
+                explicit_base or args.checkpoint,
+                require_release=explicit_base is not None,
+            )
             base_source = model.base_source
         loaded = perf_counter() - start
         text, stops = render(tok, source, args.thinking)

@@ -8,7 +8,10 @@ from .io import read
 from .model_loader import load_base
 
 
-def ordinary(directory=None):
+CERTIFIED_INVENTORY = "e296d289a70a1dbe4de592fda55d6c650e7de46fcb2b38aa110b6199d7d15a3f"
+
+
+def ordinary(directory=None, *, require_release=False):
     """Load pinned ordinary-depth weights from a certified text export or its original snapshot."""
     from .looped_model import LoopedModel
     from .recurrence import Span
@@ -17,11 +20,12 @@ def ordinary(directory=None):
     if inventory is not None and inventory.is_file():
         from .io import digest
 
-        if (
-            digest(inventory)
-            == "e296d289a70a1dbe4de592fda55d6c650e7de46fcb2b38aa110b6199d7d15a3f"
-        ):
+        if digest(inventory) == CERTIFIED_INVENTORY:
             return _ordinary_from_release(inventory.parent)
+    if require_release:
+        raise ValueError(
+            "The explicit Base checkpoint must contain the certified release 05 inventory"
+        )
     text, tokenizer, _ = load_base()
     model = LoopedModel(text, Span(passes=1))
     object.__setattr__(model, "base_source", "official_snapshot")

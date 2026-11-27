@@ -45,6 +45,19 @@ def load(directory):
     cert = read(directory / MARKER)
     if cert["adapter_sha256"] != ADAPTER or cert["base_revision"] != REVISION:
         raise ValueError("Different compact reader lineage")
+    members = {
+        str(p.relative_to(directory))
+        for p in directory.rglob("*")
+        if p.is_file() and p != directory / MARKER
+    }
+    required = {
+        "config.json",
+        "model.safetensors",
+        "tokenizer_config.json",
+        "tokenizer.json",
+    }
+    if not required <= members or members != cert["files"].keys():
+        raise ValueError("Incomplete compact reader payload inventory")
     for name, checksum in cert["files"].items():
         if digest(directory / name) != checksum:
             raise ValueError(f"Compact reader payload differs at {name}")
@@ -75,7 +88,7 @@ def build(release, adapter, directory):
     acquire()
     start = perf_counter()
     mx.reset_peak_memory()
-    base, tok, _ = ordinary(release)
+    base, tok, _ = ordinary(release, require_release=True)
     if base.base_source != "certified_release_text":
         raise ValueError("Use the certified release 05 weights")
     c = read(adapter / "state.json")["spec"]["deployment"]["config"]

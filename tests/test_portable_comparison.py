@@ -30,3 +30,12 @@ def test_registered_inventory_with_missing_text_files_fails_closed(tmp_path):
     (tmp_path / "tool-export-files.json").write_bytes(inventory.read_bytes())
     with pytest.raises(ValueError, match="certified Base file inventory"):
         ordinary(tmp_path)
+
+
+def test_explicit_offline_control_rejects_an_unknown_directory(tmp_path, monkeypatch):
+    def unexpected_download():
+        pytest.fail("An explicitly selected offline control fell through to the Hub")
+
+    monkeypatch.setattr("loopqwen.ordinary_model.load_base", unexpected_download)
+    with pytest.raises(ValueError, match="explicit Base checkpoint"):
+        ordinary(tmp_path, require_release=True)
