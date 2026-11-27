@@ -18,7 +18,13 @@ from scripts.assistance_reasoning_exposure import (
     DEST as THINKING_RECEIPT,
     observed as reasoning_exposure,
 )
-from scripts.assistance_uncertainty import cost_profile, joint, open_p, paired_sources
+from scripts.assistance_uncertainty import (
+    completed_pairs,
+    cost_profile,
+    joint,
+    open_p,
+    paired_sources,
+)
 from scripts.integrated_assistance_reading import RATINGS, ROOT
 from scripts.integrated_assistance_reading import run as reading
 from scripts.integrated_training_exposure import build as exposure
@@ -245,6 +251,13 @@ def evaluation():
         records.append(row)
     store("requests", records)
     store("latency-phases", phases)
+    common = completed_pairs(records)
+    store("common-completion", common)
+    (both,) = [
+        g
+        for g in common
+        if g["family"] == "all" and g["completion"] == "Both completed"
+    ]
     by_source = paired_sources(records)
     costs_by_item = cost_profile(records)
     store("source-uncertainty", by_source)
@@ -383,6 +396,7 @@ def evaluation():
                 ("outside_generation_s", "Time outside timed generation"),
             )
         ],
+        "both_finished": both,
         "joint": joint(records),
         "preference_p": f"{open_p(*[review['arms'][arm]['open'] for arm in ARMS]):.5g}",
         "costs": costs,

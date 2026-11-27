@@ -91,6 +91,43 @@ def cost_profile(rows):
     return records
 
 
+def completed_pairs(rows):
+    counts = {}
+    for r in rows:
+        if r["family"] == "open":
+            continue
+        loop, base = (r[k + "_completed"] for k in ("candidate", "control"))
+        status = (
+            "Both completed"
+            if loop and base
+            else "Loop only"
+            if loop
+            else "Base only"
+            if base
+            else "Neither completed"
+        )
+        for family in ("all", r["family"]):
+            grp = counts.setdefault(
+                (family, status),
+                {
+                    "family": family,
+                    "completion": status,
+                    "requests": 0,
+                    "loop_correct": 0,
+                    "base_correct": 0,
+                    "gains": 0,
+                    "losses": 0,
+                },
+            )
+            a, b = (r[k + "_grounded"] for k in ("candidate", "control"))
+            grp["requests"] += 1
+            grp["loop_correct"] += a
+            grp["base_correct"] += b
+            grp["gains"] += a and not b
+            grp["losses"] += b and not a
+    return [counts[k] for k in sorted(counts)]
+
+
 def joint(rows):
     numeric = [r for r in rows if r["family"] != "open"]
     qualified = [
