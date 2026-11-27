@@ -1,0 +1,138 @@
+{
+  "rows": [
+    {
+      "file": "base-0.json.gz",
+      "sha256": "00fef875bfa174f838745832867a72c693295d988464a961eb676ae3f3299164",
+      "source": "cabinet",
+      "arm": "base",
+      "correct": false,
+      "seconds": 4.437105707998853
+    },
+    {
+      "file": "base-1.json.gz",
+      "sha256": "0b88b171299cb834ba0203c18de373df56585b90d5ba4f83ad243c2339274046",
+      "source": "gallery",
+      "arm": "base",
+      "correct": true,
+      "seconds": 2.733983709011227
+    },
+    {
+      "file": "base-2.json.gz",
+      "sha256": "607d0e29240be2f01f0e2bffa4bae5e02ff26bbadebae98fa6fe2177e6f8caee",
+      "source": "concise",
+      "arm": "base",
+      "correct": false,
+      "seconds": 5.46005699998932
+    },
+    {
+      "file": "base-3.json.gz",
+      "sha256": "0284b5df6f9981a0e35348a4dc4ee72e3eafa3a97b34f1de23d87b641311de73",
+      "source": "clarification",
+      "arm": "base",
+      "correct": true,
+      "seconds": 2.449655417003669
+    },
+    {
+      "file": "base-4.json.gz",
+      "sha256": "69982a983a79eef194dbcfd2d8a8272771642bad60013cd237caad3fe2a97b29",
+      "source": "tool",
+      "arm": "base",
+      "correct": false,
+      "seconds": 11.230720499996096
+    },
+    {
+      "file": "base-5.json.gz",
+      "sha256": "74b7aebb66cb28f6d601864252710156d84643feb52175343c93812ec5469653",
+      "source": "followup",
+      "arm": "base",
+      "correct": true,
+      "seconds": 2.6075986250070855
+    },
+    {
+      "file": "base-6.json.gz",
+      "sha256": "5f64ba99bf6374b9da33150a445026c66daca277132dd020092d4ef99f81c668",
+      "source": "negation",
+      "arm": "base",
+      "correct": false,
+      "seconds": 4.416228834015783
+    },
+    {
+      "file": "base-7.json.gz",
+      "sha256": "a440de9e7667fc53ed44f2c72b68cd675f613890c578e482a01627bd29f0b44e",
+      "source": "sort",
+      "arm": "base",
+      "correct": false,
+      "seconds": 5.288205332995858
+    },
+    {
+      "file": "instruction-0.json.gz",
+      "sha256": "9bed54698cdf6e33f163e21cc9c2bece1ccbff708bbd04681e8b6241f5b9dc86",
+      "source": "cabinet",
+      "arm": "instruction",
+      "correct": false,
+      "seconds": 5.24484466703143
+    },
+    {
+      "file": "instruction-1.json.gz",
+      "sha256": "10325de1274c47d7cf04d548ed4ae0bd4478fb483eaadfa72511c962661e0583",
+      "source": "gallery",
+      "arm": "instruction",
+      "correct": false,
+      "seconds": 5.912228625034913
+    },
+    {
+      "file": "instruction-2.json.gz",
+      "sha256": "ce79577542136849fa797c54f4eb9e7af1f5d548fbfeebc20915a36a075cdbf6",
+      "source": "concise",
+      "arm": "instruction",
+      "correct": false,
+      "seconds": 4.913827667012811
+    },
+    {
+      "file": "instruction-3.json.gz",
+      "sha256": "15611f2a386b4065b4c3be1e3163b64518859a35705d812cc2e96bcc03f33cbe",
+      "source": "clarification",
+      "arm": "instruction",
+      "correct": false,
+      "seconds": 5.75963608303573
+    },
+    {
+      "file": "instruction-4.json.gz",
+      "sha256": "76723dc38d1e754548eb7a54b4e9cbb8448ae257f4943743abc230a4cabec641",
+      "source": "tool",
+      "arm": "instruction",
+      "correct": false,
+      "seconds": 4.383555708045606
+    },
+    {
+      "file": "instruction-5.json.gz",
+      "sha256": "5d82dec13ceea9d36f7b1728659afe61ca078e400c822932437624edff97b42c",
+      "source": "followup",
+      "arm": "instruction",
+      "correct": false,
+      "seconds": 5.324315959005617
+    },
+    {
+      "file": "instruction-6.json.gz",
+      "sha256": "9c2e7fc62499f017ec572f718c4e73a30b31ba70b4e561876cb008ffd4460f70",
+      "source": "negation",
+      "arm": "instruction",
+      "correct": false,
+      "seconds": 4.748258708976209
+    },
+    {
+      "file": "instruction-7.json.gz",
+      "sha256": "fe81f39d134f32a767feda7499803dd02f7b8ce766ac36bea3b6eb8dbba7d96d",
+      "source": "sort",
+      "arm": "instruction",
+      "correct": false,
+      "seconds": 5.095041666005272
+    }
+  ],
+  "correct": {
+    "instruction": 0,
+    "base": 3
+  },
+  "selected": "base",
+  "review": "Single project reviewer saw anonymous response file hashes, visible answers, status and executed callbacks before unmasking. Both calculator trajectories failed; neither delivered 208 labels."
+}

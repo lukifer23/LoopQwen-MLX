@@ -1,4 +1,5 @@
 """Matched native Qwen middle-span and ordinary-depth decoders."""
+
 from pathlib import Path
 
 import mlx.core as mx

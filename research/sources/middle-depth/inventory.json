@@ -1,0 +1,45 @@
+{
+  "source_hashes": {
+    "research/sources/qualitative-pairs/training.json.gz": "5b770b83ddd2913862b6caea2702c25a6fccfc55e9818135e1690380fa2f9846",
+    "research/sources/receipt-repair/targets.json.gz": "0e1fe2d9eaa5bb380466db057498c9bf4eaee8248c22a8df13c51abfa18902cf",
+    "research/sources/source-copy/training.json.gz": "788d4d872149d43e1af89443bf2610103592df84281e9c889886ad0e049c7d1a",
+    "research/sources/grounded-table-sentences/originals.json": "7b4b807dace4b7657e9e0befa32901d6e0fc861e54a34c886964e63650dd48f0",
+    "research/sources/human-assistance/originals.json": "d78f896fae9e0967523e776e3aa735640264a1eaa6d0fe038fb708e6d0700000",
+    "data/research_external/dolly/original.jsonl": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec",
+    "data/research_external/fosdem/2023.ical": "f2499a48ebb705e63232eca5288ab2622da6d565b181d769533686dc5df8576f",
+    "data/research_external/fosdem/2023.xml": "36003f37f7a218bd0c15df3e36d1c1dad168db33ed89cd2160ba1906fc986a29",
+    "research/sources/middle-depth/conversation-edits.json": "69b171947d032c0a538ca6cd010503e58aa301f3d9af0823eec0a0394f0c771f"
+  },
+  "builder": "4eee03c6f118fd5b23c50ce8db08a585085579c959a598d5e9bcd35336dc0584",
+  "seed": 4619,
+  "training": "1dc6bfa524162758dea23e3000a3041c388f6cf678f7c2109f7bcb03b2435349",
+  "quotas": {
+    "reasoning": {
+      "polarity": 48,
+      "comparison": 24
+    },
+    "chat": {
+      "conversation": 32,
+      "rewrite": 32,
+      "edited_reply": 8
+    },
+    "tools": {
+      "open": 12,
+      "deliver": 12,
+      "repair": 12,
+      "recovered": 12,
+      "reuse": 12,
+      "redirect": 12
+    },
+    "documents": {
+      "complete_table": 40,
+      "agenda": 32
+    }
+  },
+  "rows": 288,
+  "input_positions": 123323,
+  "target_positions": 17133,
+  "seconds": 1.0705039579770528,
+  "teacher_draws": 0,
+  "exposure": "Two original agenda entries per training prompt; edited end times are counterfactual. FeTaQA includes the whole table. Full-length prefill and suffix adaptation use a separate native stage."
+}

@@ -1,0 +1,118 @@
+{
+  "donor": "instruction",
+  "passed": true,
+  "parity": 0.0,
+  "rows": [
+    {
+      "depth": 1,
+      "slots": 24,
+      "attention_offsets": [
+        121,
+        121,
+        121,
+        121,
+        121,
+        121
+      ],
+      "states": [
+        {
+          "entry": 0.06975111365318298,
+          "exit": 0.13091617822647095,
+          "change": 0.09530919790267944
+        }
+      ],
+      "first_state_fraction": null,
+      "chunk_rms": 0.012469061022655634,
+      "nll": 0.7342519760131836,
+      "gradient": 2.371624708175659,
+      "seconds": 0.14941966702463105,
+      "peak": 2398580485
+    },
+    {
+      "depth": 2,
+      "slots": 28,
+      "attention_offsets": [
+        121,
+        121,
+        121,
+        121,
+        121,
+        121,
+        121
+      ],
+      "states": [
+        {
+          "entry": 0.06975111365318298,
+          "exit": 0.13091617822647095,
+          "change": 0.09530919790267944
+        },
+        {
+          "entry": 0.07659430801868439,
+          "exit": 0.14170393347740173,
+          "change": 0.0873214453458786
+        }
+      ],
+      "first_state_fraction": 0.20000181360743405,
+      "chunk_rms": 0.015731714993915083,
+      "nll": 0.6588211059570312,
+      "gradient": 2.39467191696167,
+      "seconds": 0.18372258404269814,
+      "peak": 2405638465
+    },
+    {
+      "depth": 3,
+      "slots": 32,
+      "attention_offsets": [
+        121,
+        121,
+        121,
+        121,
+        121,
+        121,
+        121,
+        121
+      ],
+      "states": [
+        {
+          "entry": 0.06975111365318298,
+          "exit": 0.13091617822647095,
+          "change": 0.09530919790267944
+        },
+        {
+          "entry": 0.07659430801868439,
+          "exit": 0.14170393347740173,
+          "change": 0.0873214453458786
+        },
+        {
+          "entry": 0.07816530019044876,
+          "exit": 0.14408297836780548,
+          "change": 0.08742205053567886
+        }
+      ],
+      "first_state_fraction": 0.20000181360743405,
+      "chunk_rms": 0.01897908396557461,
+      "nll": 0.635707676410675,
+      "gradient": 2.375094413757324,
+      "seconds": 0.22232649999205023,
+      "peak": 2412744174
+    }
+  ],
+  "length": 121,
+  "trainable": 442369,
+  "physical": 752835393,
+  "tensor_names": [
+    "text.model.layers.12.mlp.down_proj.lora_a",
+    "text.model.layers.12.mlp.down_proj.lora_b",
+    "text.model.layers.13.mlp.down_proj.lora_a",
+    "text.model.layers.13.mlp.down_proj.lora_b",
+    "text.model.layers.14.mlp.down_proj.lora_a",
+    "text.model.layers.14.mlp.down_proj.lora_b",
+    "text.model.layers.15.mlp.down_proj.lora_a",
+    "text.model.layers.15.mlp.down_proj.lora_b",
+    "text.model.layers.19.mlp.down_proj.lora_a",
+    "text.model.layers.19.mlp.down_proj.lora_b",
+    "text.model.layers.23.mlp.down_proj.lora_a",
+    "text.model.layers.23.mlp.down_proj.lora_b",
+    "alpha_logit"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "seed": 4619,
+  "donor": "base",
+  "base_text": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "prelude_code": {
+    "loopqwen/kernels/gdn_backend.py": "2c1a99ba910a16b6e764f8990800512fffaa0de6d1101dc3a7b4bdc998837a01",
+    "loopqwen/looped_model.py": "54e5369d40d4d37ae0f50fc9645ba018746fd1e124203286d6a262c9afa94e6c"
+  },
+  "data": "1dc6bfa524162758dea23e3000a3041c388f6cf678f7c2109f7bcb03b2435349",
+  "batch": 2,
+  "epochs": 4,
+  "steps": 576,
+  "lr": 0.0003,
+  "warmup": 24,
+  "two_exit_warmup": 32,
+  "early": 32,
+  "checkpoint_every": 16,
+  "decisions": "Perform the deliberate process restart after the first update, verify update two against uninterrupted continuation, and make a fixed early development measurement at 32. Complete both fits if safe and retain matched exposure on resource stop. Estimate from 0.154/0.231 s per 121-token K=1/3 training gradient; 565k input and target positions per arm under the 18,000 s shared fit ceiling. Quantify realized cost independently. Gate promotion on complete public generation."
+}

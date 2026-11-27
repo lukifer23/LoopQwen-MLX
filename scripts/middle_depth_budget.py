@@ -1,11 +1,12 @@
 """Exclusive, cumulative wall budgets and preflight checks for the native study."""
-from contextlib import contextmanager
-from pathlib import Path
+
 import os
 import shutil
 import subprocess
 import time
 import uuid
+from contextlib import contextmanager
+from pathlib import Path
 
 import mlx.core as mx
 import psutil
@@ -21,11 +22,18 @@ GIB = 2**30
 
 
 def sample():
-    return dict(pressure=int(subprocess.check_output(
-        ["sysctl", "-n", "kern.memorystatus_vm_pressure_level"], text=True)),
-        available=psutil.virtual_memory().available, swap=psutil.swap_memory().used,
-        free=shutil.disk_usage(".").free, active=mx.get_active_memory(),
-        peak=mx.get_peak_memory())
+    return dict(
+        pressure=int(
+            subprocess.check_output(
+                ["sysctl", "-n", "kern.memorystatus_vm_pressure_level"], text=True
+            )
+        ),
+        available=psutil.virtual_memory().available,
+        swap=psutil.swap_memory().used,
+        free=shutil.disk_usage(".").free,
+        active=mx.get_active_memory(),
+        peak=mx.get_peak_memory(),
+    )
 
 
 @contextmanager
@@ -43,10 +51,18 @@ def worker(stage, job):
     mx.reset_peak_memory()
     initial = sample()
     start = time.monotonic()
-    record = dict(job=job, stage=stage, dispatch=time.time(), pid=os.getpid(),
-                  initial=initial, status="running", seconds=0)
+    record = dict(
+        job=job,
+        stage=stage,
+        dispatch=time.time(),
+        pid=os.getpid(),
+        initial=initial,
+        status="running",
+        seconds=0,
+    )
     save(path, record)
-    last = 0.
+    last = 0.0
+
     def guard(*_, force=False):
         nonlocal last
         now = time.monotonic()
@@ -55,10 +71,16 @@ def worker(stage, job):
         last = now
         current = sample()
         record["last"] = current
-        if (now - start >= credit or current["pressure"] != 1 or
-            current["available"] < 1.5 * GIB or current["swap"] - initial["swap"] > GIB
-            or current["peak"] >= 8 * GIB or current["free"] < 24 * GIB):
+        if (
+            now - start >= credit
+            or current["pressure"] != 1
+            or current["available"] < 1.5 * GIB
+            or current["swap"] - initial["swap"] > GIB
+            or current["peak"] >= 8 * GIB
+            or current["free"] < 24 * GIB
+        ):
             raise InterruptedError(f"Native development limit: {current}")
+
     try:
         guard(force=True)
         yield guard
