@@ -228,3 +228,33 @@ def test_shared_query_resume_restores_exact_exposure_and_optimizer(
         assert a.keys() == b.keys() and all(
             mx.array_equal(a[k], b[k]).item() for k in a
         )
+
+
+def test_staged_fp16_history_reproduces_two_trained_reads_and_preserves_every_kv_row(
+    tmp_path,
+):
+    from loopqwen.offloaded_prefill import OffloadedPrefill, PrefixOnDisk
+
+    net = model()
+    net.text.set_dtype(mx.float16)
+    net.step.bias = mx.full(net.step.bias.shape, 0.35)
+    ids = [i % 97 for i in range(267)]
+    cache = net.make_cache()
+    for start in range(0, 256, 128):
+        net.populate_cache(mx.array([ids[start : start + 128]]), cache)
+        mx.eval([s.state for s in cache.slots.values()])
+    ref = net.project(net.last_hidden(mx.array([ids[256:]]), cache))
+    disk = OffloadedPrefill(net, tmp_path, group_attention=True)
+    actual = disk.prefill(ids)
+    for j in range(4):
+        assert mx.array_equal(ref, actual).item()
+        assert all(
+            s.offset == s.physical_length() == len(ids) + j
+            for s in disk.cache.slots.values()
+            if isinstance(s, PrefixOnDisk)
+        )
+        assert net.output_revisits == 2 * net.output_positions == 4 * (j + 1)
+        if j < 3:
+            token = mx.argmax(ref[:, -1], axis=-1)[:, None]
+            ref = net.project(net.last_hidden(token, cache))
+            actual = disk.decode(token)

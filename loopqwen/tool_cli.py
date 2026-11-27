@@ -134,6 +134,10 @@ def add_arguments(p, checkpoint=None):
     p.add_argument("--max-tokens", type=int, default=160)
     p.add_argument("--max-turns", type=int, default=4)
     p.add_argument(
+        "--staged-context-dir",
+        help="Stage full 16-bit attention history in this scratch directory on a fixed ordinary-depth or tied-query decoder",
+    )
+    p.add_argument(
         "--cache-state-prefill",
         action="store_true",
         help="Evaluate native cache states after intermediate blocks on a fixed resident decoder",
@@ -309,6 +313,8 @@ def respond(args, parser):
                     "--extend-tool-prefix requires a supplied tool and enabled prefix reuse"
                 )
             options.update(reuse_prefix=True, extend_tool_prefix=True)
+        if args.staged_context_dir is not None:
+            options["staged_context_dir"] = args.staged_context_dir
         if args.trace:
             options["record_kv_history"] = True
         if getattr(args, "cache_state_prefill", False):

@@ -72,6 +72,7 @@ class Conversation:
         reuse_prefix=None,
         record_kv_history=False,
         prefill_cache_state=False,
+        staged_context_dir=None,
         extend_tool_prefix=False,
     ):
         if not isinstance(question, str) or not question.strip():
@@ -93,6 +94,11 @@ class Conversation:
                     else {}
                 ),
                 **({"record_kv_history": True} if record_kv_history else {}),
+                **(
+                    {"staged_context_dir": staged_context_dir}
+                    if staged_context_dir is not None
+                    else {}
+                ),
                 **({"prefill_cache_state": True} if prefill_cache_state else {}),
                 **({"extend_tool_prefix": True} if extend_tool_prefix else {}),
             )
@@ -185,6 +191,7 @@ def run(
     tool_format="compact",
     record_kv_history=False,
     prefill_cache_state=False,
+    staged_context_dir=None,
     extend_tool_prefix=False,
     _messages=None,
     _conversation_prefix=None,
@@ -302,6 +309,11 @@ def run(
             tool_prefix=prefix,
             **({"return_prompt_ids": True} if decoder is generate else {}),
             **({"record_kv_history": True} if record_kv_history else {}),
+            **(
+                {"staged_context_dir": staged_context_dir}
+                if staged_context_dir is not None
+                else {}
+            ),
             **({"prefill_cache_state": True} if prefill_cache_state else {}),
             **({"tool_grammar": grammar} if grammar is not None else {}),
         )
@@ -324,7 +336,12 @@ def run(
             row.update(
                 {
                     k: out[k]
-                    for k in ("kv_history", "recurrent_from", "context_route")
+                    for k in (
+                        "kv_history",
+                        "recurrent_from",
+                        "context_route",
+                        "scratch_bytes",
+                    )
                     if k in out
                 }
             )

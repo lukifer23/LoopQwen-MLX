@@ -35,6 +35,7 @@ def generate(
     progress=None,
     stop_ids=(),
     offload_dir=None,
+    staged_context_dir=None,
     prefill_block=128,
     tool_prefix=None,
     reserve_full_kv=False,
@@ -45,6 +46,14 @@ def generate(
 ):
     if type(prefill_block) is not int or prefill_block < 1:
         raise ValueError("Prefill block must be a positive integer")
+    if staged_context_dir is not None:
+        if offload_dir is not None or any(
+            getattr(model, key, None) is not None
+            for key in ("context_policy", "deliberation_policy", "attention_reader")
+        ):
+            raise ValueError("Grouped full-history staging requires one fixed decoder")
+        offload_dir = staged_context_dir
+        tool_prefix = None
     if offload_dir is not None and prefill_block != 128:
         raise ValueError("Disk-backed prefill requires the validated 128-token block")
     ids = tokenizer.encode(prompt, add_special_tokens=False)
@@ -133,7 +142,9 @@ def generate(
         else:
             from ..offloaded_prefill import OffloadedPrefill
 
-            disk = OffloadedPrefill(model, directory)
+            disk = OffloadedPrefill(
+                model, directory, group_attention=staged_context_dir is not None
+            )
         inputs = mx.array([ids])
         model.eval()
         mx.synchronize()
@@ -247,18 +258,21 @@ def generate(
     if record_kv_history:
         from mlx_lm.models.cache import KVCache, QuantizedKVCache
 
-        if disk is not None:
-            raise ValueError("Resident history measurements require a resident cache")
+        from ..offloaded_prefill import PrefixOnDisk
+
+        history_cache = disk.cache if disk is not None else cache
         result["kv_history"] = [
             dict(
                 layer=i,
                 turn=p,
                 offset=slot.offset,
-                retained=slot.keys_and_values()[0][0].shape[2]
+                retained=slot.physical_length()
+                if isinstance(slot, PrefixOnDisk)
+                else slot.keys_and_values()[0][0].shape[2]
                 if isinstance(slot, QuantizedKVCache)
                 else slot.keys_and_values()[0].shape[2],
             )
-            for (i, p), slot in cache.slots.items()
+            for (i, p), slot in history_cache.slots.items()
             if isinstance(slot, (KVCache, QuantizedKVCache))
         ]
     if disk is not None:

@@ -243,6 +243,7 @@ class Assistant:
         reuse_prefix=None,
         record_kv_history=False,
         prefill_cache_state=False,
+        staged_context_dir=None,
         extend_tool_prefix=False,
         _messages=None,
         _conversation_prefix=None,
@@ -280,12 +281,21 @@ class Assistant:
                 ),
                 record_kv_history=record_kv_history,
                 **({"extend_tool_prefix": True} if extend_tool_prefix else {}),
+                **(
+                    {"staged_context_dir": staged_context_dir}
+                    if staged_context_dir is not None
+                    else {}
+                ),
                 **({"prefill_cache_state": True} if prefill_cache_state else {}),
                 recover_callback=getattr(self, "_recover_callback", None),
                 tool_format=getattr(self, "tool_format", "compact"),
                 reuse_prefix=self.reuse_prefix
                 if reuse_prefix is None
                 else reuse_prefix,
+            )
+        if staged_context_dir is not None:
+            raise ValueError(
+                "Grouped full-history staging requires a fixed native decoder"
             )
         if extend_tool_prefix:
             raise ValueError(

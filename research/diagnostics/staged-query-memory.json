@@ -1,0 +1,37 @@
+{
+  "fit": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+  "interrupted": "7ff0da160260918e1a1a8bbcf81a46d0e71388f339212c5b7926db5f7867da96",
+  "implementation": {
+    "loopqwen/offloaded_prefill.py": "fe0db23ffc5f7ce93c65de66e492c0b333210a3fcf8c82c959b83828b4e81cb2",
+    "loopqwen/shared_query.py": "29835d3e3adbe0d774aa4e5f1d87ded114c756a8fcb5989b2b6bb4e9d791073c",
+    "loopqwen/evaluation/generation_eval.py": "0560da59fa66689dd5eaa34c84f07d8daf486e08e6c8c9c38d5a36608eaa3fb9",
+    "scripts/verify_staged_query.py": "6f420f9335f1e2cb2b01c95108026959a24068c1e915b94992fa4006ccaceead"
+  },
+  "short": {
+    "strategyqa/01254b50648f4fb08b51": {
+      "tokens": 466,
+      "ids": "e6ca9cd815efa90f23786b88a6040f1f756c8d563a9c207bb89393e9f3475ae1"
+    },
+    "finqa/SWKS/2012/page_116.pdf-1/action": {
+      "tokens": 1287,
+      "ids": "86f77e1d9a46326f57d9da66e88b500dccf50d3b9a2cc3a90dd8ec66c0ec3678"
+    },
+    "wrong-scalar/nt-6744/5/redirect_valid_read": {
+      "tokens": 664,
+      "ids": "ec79e3e7cb54487a03351e40e72987e4288d608333549f0a8f4d0fcf9deb5cbc"
+    }
+  },
+  "long": {
+    "file": "research/sources/locked-context/648f1ccd472451e31f56a0a6f5596d71313a9ffa.lock.gz",
+    "sha256": "e9d8a8389f2cbc1a484edf1018abc85dea881657faea3c67d2f628bf6d9dbcd4",
+    "tokens": 148364,
+    "ids": "37cd611dd9430295c8e5badfc5f70af53cd82d16c394c02b942f3d909f4b086b"
+  },
+  "protocol": "Compare four complete vocabulary outputs per original prompt on each of the trained loop and untouched ordinary Base, with 128-token blocks and identical greedy steps. Require identical token decisions and maximum absolute logit difference at most 0.03125. Require every full attention offset and physical row plus two actual learned reads per emitted loop token. Then process one complete independent archival lockfile on the trained model with four output positions and six full attention histories. Count capacity and actual costs. This engineering run measures numerical fidelity and context processing. Primary accuracy, matched depth and user-facing costs retain their separate registrations.",
+  "limits": {
+    "native_seconds": 780,
+    "peak_gib": 3.15,
+    "available_gib": 1.5,
+    "scratch_gib": 4
+  }
+}

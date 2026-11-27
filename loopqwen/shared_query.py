@@ -215,11 +215,26 @@ class SharedQuery(LoopedModel):
         features = self.encode(ids, cache, window_size=window_size, observer=observer)
         return self.text.model.norm(self.refine(*features, observer=observer))
 
-    def last_hidden(self, ids, cache):
-        features = self.encode(ids, cache, start=ids.shape[1] - 1)
-        self.output_positions += ids.shape[0]
+    def _final_output(self, features):
+        self.output_positions += features[0].shape[0]
 
         def count_visit(_, visit, state):
             self.output_revisits += state.shape[0]
 
-        return self.text.model.norm(self.refine(*features, observer=count_visit))
+        return self.refine(*features, observer=count_visit)
+
+    def staged_final(self, hidden, slot, *, emit):
+        """Write the last site's full memory and run the learned reads only at an output."""
+        layer = self.text.layers[-1]
+        keys, values, offset, _ = memory(layer, hidden, slot, None, mask_needed=False)
+        if not emit:
+            mx.eval(keys, values)
+            return None
+        position = offset + hidden.shape[1] - 1
+        pre = hidden[:, -1:]
+        ordinary = attend(layer, pre, keys, values, position, None)
+        return self._final_output((pre, ordinary, keys, values, position, None))
+
+    def last_hidden(self, ids, cache):
+        features = self.encode(ids, cache, start=ids.shape[1] - 1)
+        return self.text.model.norm(self._final_output(features))
