@@ -1,0 +1,80 @@
+{
+  "counts": {
+    "candidate": {
+      "effects": {
+        "wrong": 11,
+        "unsupported": 0,
+        "automatic_exact": 7,
+        "f1_sum": 9.176190476190477,
+        "fully usable": 12,
+        "absent": 1
+      },
+      "human_first": {
+        "partial": 3,
+        "unsupported": 1,
+        "automatic_exact": 2,
+        "f1_sum": 3.5239620449425875,
+        "fully usable": 6,
+        "wrong": 3
+      },
+      "human_followup": {
+        "fully usable": 4,
+        "unsupported": 2,
+        "automatic_exact": 2,
+        "f1_sum": 2.9423577180977287,
+        "wrong": 7,
+        "partial": 1
+      }
+    },
+    "control": {
+      "effects": {
+        "fully usable": 14,
+        "unsupported": 0,
+        "automatic_exact": 3,
+        "f1_sum": 6.388383838383839,
+        "wrong": 6,
+        "partial": 1,
+        "absent": 3
+      },
+      "human_first": {
+        "fully usable": 7,
+        "unsupported": 2,
+        "automatic_exact": 3,
+        "f1_sum": 3.6648191142114896,
+        "partial": 3,
+        "absent": 1,
+        "wrong": 1
+      },
+      "human_followup": {
+        "fully usable": 8,
+        "unsupported": 2,
+        "automatic_exact": 3,
+        "f1_sum": 3.7898473041388856,
+        "wrong": 1,
+        "partial": 3
+      }
+    }
+  },
+  "sources": {
+    "causal": {
+      "whole": [
+        3,
+        5
+      ],
+      "whole_exact_p": 0.6875,
+      "individual_gains": 3,
+      "individual_losses": 5
+    },
+    "conversation": {
+      "whole": [
+        2,
+        5
+      ],
+      "whole_exact_p": 0.25,
+      "individual_gains": 4,
+      "individual_losses": 9
+    }
+  },
+  "ratings": "52b9bc201b94e01917c350c1db377828f279c5a82f6268a02e5db48e804eb3d0",
+  "plan": "1cd42c092e175578e56f79b066e8aedea04307616cd15c8cb5f73c56e9bff009"
+}

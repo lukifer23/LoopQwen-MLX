@@ -427,9 +427,17 @@ def build():
     )
     from scripts.table_policy_answer_concentration import run as concentration
 
+    from scripts.table_reasoning_reading import run as source_reading
+
     concentration()
+    source_reading("report")
+    reasoning = typst.compile(
+        str(P / "table-reasoning-reading.typ"), root=str(P.resolve().parent), timestamp=0
+    )
+    (P / "table-reasoning-reading.pdf").write_bytes(reasoning)
     for title, raw in (
         ("Four-layer direct comparison", new),
+        ("Masked source reading of causal and conversational reasoning", reasoning),
         (
             "Changed evidence and identical answers",
             (P / "table-answer-concentration.pdf").read_bytes(),
