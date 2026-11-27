@@ -1,0 +1,35 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "prefix_bits": 8,
+  "rank": 32,
+  "start_layer": 23,
+  "max_tokens": 320,
+  "max_turns": 3,
+  "id": "report-action-field-01",
+  "question": "Can a shared two-pass model learn to read a value or execute arithmetic according to a changed human question on the same original report, and transfer that behavior to real distribution records?",
+  "release": "research/results/packed-release-retention-04",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "training": "research/data/report-action-training.json",
+  "material": "research/data/report-action-panel.json",
+  "fit_seed": 739153,
+  "updates": 640,
+  "batch": 6,
+  "lr": 8.5e-05,
+  "limits": {
+    "wall_seconds": 2400,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "protocol": "Start afresh from the frozen instruction sibling in the qualified release. Train shared rank-32 layer-23 native K2 adapters throughout each token. Match 144 distinct complete TAT-QA training contexts, each containing an original numeric span question and an original arithmetic question in the same scale with a different result. All arithmetic operands occur in the original context and the real calculator reproduces the publisher answer exactly without rounding. Exclude exact question repeats and all shared 16-token text shingles with the 24 held-out source documents. Include the post-calculation answer and 320 native rehearsal turns. Optimize native action/answer CE with 0.5 contrastive margin at the first distinct target token, two paired contexts and two ordinary turns per update, 640 updates. Hold out 24 whole development reports, plus eight separately sourced real package distributions from the pinned repository lock with a lookup and a size-difference question each. Include the 22 public numerical functions and twelve existing two-request live file/package conversations as retention only. Greedy official native Qwen function messages, thinking, 320 output tokens per turn and three turns for both models. Identical initial IDs, sources, functions and ordered items, independent conversations for changed questions, keep actual service history on follow-ups. Grade ordinary numerical finals on original report scale, require the actual calculator to compute a correct result on arithmetic for operational success. Ignore echoed complete wheel filenames before scoring their values. Actual file/package retention uses the audited exactly-one-requested-call rule. Record answers, actions and true source-operand substitutions at +11/7 per distinct original operand as an additional diagnostic, with original-reference exactness reported separately. Each report or distribution is one independent unit for paired results. Charge cold load, first wait, all turns, MLX peak, initial input tokens per opening wait, and post-first-token throughput.",
+  "gate": "Require at least four additional completely successful reports and exact paired two-sided p<=.05, strictly more successful distribution pairs, no final-quantity decline on any of report arithmetic, report lookup, distribution arithmetic or distribution lookup, and no loss in each service retention family. Require strictly lower wall time, summed first wait, peak live allocation and higher opening prompt and output rates. Stop after the direct pair or budget or resource guard. A failed gate closes this fit and its depth/replication descendants. A successful gate licenses an equally trained one-pass test and fresh cross-source replication, neither established by this primary.",
+  "pairs_per_batch": 2,
+  "ranking_weight": 0.5
+}

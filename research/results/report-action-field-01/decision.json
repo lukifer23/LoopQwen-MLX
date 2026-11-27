@@ -1,0 +1,252 @@
+{
+  "passed": false,
+  "gates": {
+    "reports": false,
+    "operations": false,
+    "field": false,
+    "retention": false,
+    "wall": true,
+    "first": false,
+    "peak": true,
+    "opening_rate": false,
+    "decode_rate": true
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 98,
+        "strict": 35,
+        "requests": 110,
+        "answers": 47,
+        "grounded": 47,
+        "completed": 106,
+        "wall_s": 92.09392354480224,
+        "first_s": 28.969781377818435,
+        "peak": 1204700178,
+        "output_tokens": 6038
+      },
+      "report": {
+        "dialogues": 48,
+        "strict": 6,
+        "requests": 48,
+        "answers": 6,
+        "grounded": 6,
+        "completed": 47,
+        "wall_s": 34.074486543016974,
+        "first_s": 15.660789709945675,
+        "peak": 1184063530,
+        "output_tokens": 1756
+      },
+      "distribution": {
+        "dialogues": 16,
+        "strict": 2,
+        "requests": 16,
+        "answers": 2,
+        "grounded": 2,
+        "completed": 15,
+        "wall_s": 17.20728108176263,
+        "first_s": 5.780322373902891,
+        "peak": 1204700178,
+        "output_tokens": 1101
+      },
+      "files": {
+        "dialogues": 6,
+        "strict": 4,
+        "requests": 12,
+        "answers": 10,
+        "grounded": 10,
+        "completed": 12,
+        "wall_s": 7.943227998912334,
+        "first_s": 2.12647279194789,
+        "peak": 1172761586,
+        "output_tokens": 541
+      },
+      "packages": {
+        "dialogues": 6,
+        "strict": 3,
+        "requests": 12,
+        "answers": 9,
+        "grounded": 9,
+        "completed": 11,
+        "wall_s": 11.543328251922503,
+        "first_s": 1.8745496679912321,
+        "peak": 1160494122,
+        "output_tokens": 915
+      },
+      "public": {
+        "dialogues": 22,
+        "strict": 20,
+        "requests": 22,
+        "answers": 20,
+        "grounded": 20,
+        "completed": 21,
+        "wall_s": 21.325599669187795,
+        "first_s": 3.5276468340307474,
+        "peak": 1191600674,
+        "output_tokens": 1725
+      }
+    },
+    "control": {
+      "all": {
+        "dialogues": 98,
+        "strict": 42,
+        "requests": 110,
+        "answers": 59,
+        "grounded": 53,
+        "completed": 81,
+        "wall_s": 488.92148329061456,
+        "first_s": 27.271358880621847,
+        "peak": 1847357362,
+        "output_tokens": 32008
+      },
+      "report": {
+        "dialogues": 48,
+        "strict": 13,
+        "requests": 48,
+        "answers": 18,
+        "grounded": 13,
+        "completed": 33,
+        "wall_s": 239.52956824807916,
+        "first_s": 14.616888419084717,
+        "peak": 1847357362,
+        "output_tokens": 15672
+      },
+      "distribution": {
+        "dialogues": 16,
+        "strict": 0,
+        "requests": 16,
+        "answers": 0,
+        "grounded": 0,
+        "completed": 3,
+        "wall_s": 93.3819387498661,
+        "first_s": 5.391095415921882,
+        "peak": 1839984946,
+        "output_tokens": 6095
+      },
+      "files": {
+        "dialogues": 6,
+        "strict": 6,
+        "requests": 12,
+        "answers": 12,
+        "grounded": 12,
+        "completed": 12,
+        "wall_s": 34.74631845887052,
+        "first_s": 2.1051196668413468,
+        "peak": 1808085938,
+        "output_tokens": 2252
+      },
+      "packages": {
+        "dialogues": 6,
+        "strict": 3,
+        "requests": 12,
+        "answers": 9,
+        "grounded": 8,
+        "completed": 12,
+        "wall_s": 31.435532166971825,
+        "first_s": 1.8229724179254845,
+        "peak": 1807954866,
+        "output_tokens": 2034
+      },
+      "public": {
+        "dialogues": 22,
+        "strict": 20,
+        "requests": 22,
+        "answers": 20,
+        "grounded": 20,
+        "completed": 21,
+        "wall_s": 89.82812566682696,
+        "first_s": 3.335282960848417,
+        "peak": 1811059466,
+        "output_tokens": 5955
+      }
+    }
+  },
+  "pairs": {
+    "report": {
+      "loop": 1,
+      "base": 0,
+      "wins": 1,
+      "losses": 0,
+      "p": 1.0
+    },
+    "distribution": {
+      "loop": 0,
+      "base": 0,
+      "wins": 0,
+      "losses": 0,
+      "p": 1.0
+    }
+  },
+  "operations": {
+    "candidate": {
+      "report lookup": {
+        "correct_answer": 2,
+        "success": 2,
+        "calculator_executed": 1,
+        "bound_operands": 0,
+        "completed": 23
+      },
+      "report arithmetic": {
+        "correct_answer": 4,
+        "success": 4,
+        "calculator_executed": 24,
+        "bound_operands": 4,
+        "completed": 24
+      },
+      "distribution lookup": {
+        "correct_answer": 2,
+        "success": 2,
+        "calculator_executed": 4,
+        "bound_operands": 0,
+        "completed": 7
+      },
+      "distribution arithmetic": {
+        "correct_answer": 0,
+        "success": 0,
+        "calculator_executed": 8,
+        "bound_operands": 0,
+        "completed": 8
+      }
+    },
+    "control": {
+      "report lookup": {
+        "correct_answer": 10,
+        "success": 10,
+        "calculator_executed": 2,
+        "bound_operands": 0,
+        "completed": 15
+      },
+      "report arithmetic": {
+        "correct_answer": 8,
+        "success": 3,
+        "calculator_executed": 13,
+        "bound_operands": 3,
+        "completed": 18
+      },
+      "distribution lookup": {
+        "correct_answer": 0,
+        "success": 0,
+        "calculator_executed": 1,
+        "bound_operands": 0,
+        "completed": 0
+      },
+      "distribution arithmetic": {
+        "correct_answer": 0,
+        "success": 0,
+        "calculator_executed": 4,
+        "bound_operands": 0,
+        "completed": 3
+      }
+    }
+  },
+  "rates": {
+    "candidate": {
+      "opening_tps": 2575.44228680743,
+      "decode_tps": 101.298026809276
+    },
+    "control": {
+      "opening_tps": 2749.1846052920423,
+      "decode_tps": 70.13309723357712
+    }
+  }
+}
