@@ -2,9 +2,11 @@
 
 import argparse
 import gc
+import json
 import random
 from collections import defaultdict
 from pathlib import Path
+from zipfile import ZipFile
 
 import mlx.core as mx
 from mlx_lm.utils import load_tokenizer
@@ -98,10 +100,53 @@ def outcome(panel, data):
     }
 
 
+def verify_public_labels(panel):
+    path = next(Path(k) for k in panel["sources"] if k.endswith("drop_dataset.zip"))
+    if not path.is_file():
+        from urllib.request import urlopen
+
+        url = (
+            "https://s3-us-west-2.amazonaws.com/allennlp/datasets/drop/drop_dataset.zip"
+        )
+        with urlopen(url, timeout=60) as reply:
+            raw = reply.read()
+        import hashlib
+
+        if hashlib.sha256(raw).hexdigest() != panel["sources"][str(path)]:
+            raise ValueError("DROP source archive differs")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(raw)
+    assert digest(path) == panel["sources"][str(path)]
+    with ZipFile(path) as archive:
+        publisher = json.loads(archive.read("drop_dataset/drop_dataset_dev.json"))
+    from ..evaluation.answers import numeric
+
+    seen = defaultdict(set)
+    for w in panel["rows"]:
+        if w["family"] != "DROP":
+            continue
+        doc = publisher[w["cluster"]]
+        q = next(v for v in doc["qa_pairs"] if v["query_id"] == w["id"])
+        assert (
+            w["questions"][0]
+            == doc["passage"]
+            + "\n\n"
+            + q["question"]
+            + "\nGive the numerical answer. You may use the calculator for arithmetic."
+        )
+        labels = [q["answer"], *q["validated_answers"]]
+        assert len(labels) > 1 and all(
+            numeric(v["number"]) == w["gold"] for v in labels
+        )
+        seen[w["cluster"]].add(w["gold"])
+    assert len(seen) == 24 and all(len(v) == 2 for v in seen.values())
+
+
 def verify(root, d):
     spec = read(root / "registration.json")
     assert spec == registered(spec["id"])
     train, panel = (read(spec[k]) for k in ("training", "material"))
+    verify_public_labels(panel)
     tok = load_tokenizer(local_snapshot())
     fit = read(root / "fit.json")
     assert fit["training"] == digest(Path(spec["training"])) and fit[

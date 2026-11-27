@@ -250,9 +250,7 @@ def main():
                 continue
             questions = [
                 full(a),
-                a["Body"].strip()
-                + " "
-                + NUMBER.sub(lambda m: mapping.get(m[0], m[0]), b["Question"]).strip(),
+                a["Body"].strip() + " " + b["Question"].strip(),
             ]
             if not all(distinct(q) for q in questions):
                 continue
