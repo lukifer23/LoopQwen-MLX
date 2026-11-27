@@ -71,6 +71,12 @@ The interval estimates the chance of a loop win conditional on the two systems d
 = Measuring a completed task
 Actual wall time includes first construction, prompt processing, reasoning tokens, generated function calls, callback returns and the final reply. Both arms have the same per-turn token ceiling. They can use different amounts of it. Summed first-token time measures the user's initial wait on each independent request. The native opening rate on the preceding page measures only the inference engine's first turn. A shorter answer can reduce wall time even if the cost per emitted token rises. Each arm ran once in the frozen order on the same Mac, candidate first. The comparison cannot establish the distribution of timing differences across fresh processes, temperatures or machines.
 
+#pagebreak()
+= What latency bought on each request
+#figure(image("file-evidence-latency.svg",width:100%),caption:[Both axes show actual whole-request seconds on logarithmic scales. Each point is one user request. A point below the diagonal finished sooner on the recurrent model. File success includes a correct real callback and a correct visible answer.])
+
+A quick incorrect response costs the user a failed task. A slower correct response can be preferable. The symbols distinguish which system succeeded on each request. The first point in execution order for each model includes model construction, and the other points use its resident weights. The downloadable request table identifies every point by article and supplies both timings, both visible replies and the executed calls.
+
 = How this compares with other looped models
 Huginn trained a 3.5B depth-recurrent model on 800 billion tokens. Relaxed Recursive Transformers converted pretrained models by sharing layers and learning depth-specific corrections. Training-Free Looped Transformers measured the effect of reapplying frozen middle layers. In their Qwen3-4B-Instruct timing study, looping on every generated token increased wall time by 21.6% on 200 GSM8K questions. Their main multiple-choice results used likelihood scoring. Our changed-file experiment starts with a smaller hybrid Base, shares the same two trained layers on every pass, and scores whole free-running conversations after tool execution. These differences limit direct numerical comparison.
 

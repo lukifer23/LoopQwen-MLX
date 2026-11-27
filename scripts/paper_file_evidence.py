@@ -355,6 +355,57 @@ def publish():
     ax.legend(loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.17), frameon=False)
     fig.savefig(P / "file-evidence.svg", metadata={"Date": None})
     plt.close(fig)
+    fig, axes = plt.subplots(
+        1, 2, figsize=(7.55, 3.3), layout="constrained", sharex=True, sharey=True
+    )
+    all_times = [r[a + "_wall_seconds"] for r in details for a in sides]
+    lo, hi = min(all_times) / 1.25, max(all_times) * 1.25
+    outcomes = {
+        (True, True): ("o", "#146953", "Both successful"),
+        (True, False): ("^", "#2178a3", "Loop only"),
+        (False, True): ("v", "#aa4a2f", "Base only"),
+        (False, False): ("x", "#737479", "Neither"),
+    }
+    for ax, family, title in zip(
+        axes, ("file", "inline"), ("With a file", "Inline passage"), strict=True
+    ):
+        ax.plot([lo, hi], [lo, hi], linewidth=0.8, linestyle="--", color="#aaa")
+        subset = [r for r in details if r["family"] == family]
+        for key, (mark, color, label) in outcomes.items():
+            group = [
+                r
+                for r in subset
+                if (r["candidate_grounded"], r["control_grounded"]) == key
+            ]
+            ax.scatter(
+                [r["control_wall_seconds"] for r in group],
+                [r["candidate_wall_seconds"] for r in group],
+                marker=mark,
+                color=color,
+                s=25,
+                alpha=0.86,
+                label=label,
+            )
+        ax.set(
+            xscale="log",
+            yscale="log",
+            xlim=(lo, hi),
+            ylim=(lo, hi),
+            title=f"{title} · {len(subset)} requests",
+            xlabel="Untouched Base seconds",
+            aspect="equal",
+        )
+        ax.spines[["right", "top"]].set_visible(False)
+    axes[0].set_ylabel("Recurrent seconds")
+    fig.legend(
+        *axes[0].get_legend_handles_labels(),
+        loc="outside lower center",
+        ncol=4,
+        frameon=False,
+        fontsize=8,
+    )
+    fig.savefig(P / "file-evidence-latency.svg", metadata={"Date": None})
+    plt.close(fig)
     # One dot per real file request. The row labels refer to the actual changed article.
     from matplotlib.lines import Line2D
 
