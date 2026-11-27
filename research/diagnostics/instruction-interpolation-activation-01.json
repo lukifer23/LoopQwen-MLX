@@ -1,0 +1,7 @@
+{
+  "model_study": "instruction-interpolation-01",
+  "prompt": "A technician replaced a fuse after the lamp stopped working. What stopped working?",
+  "question": "Does the shared second pass measurably affect next-token logits on an independent prompt?",
+  "protocol": "Use the actual released candidate and official native prompt. With weights fixed, run three fresh complete prefills in the order registered strength, zero residual contribution, registered strength. Read final-position full vocabulary logits. Require a nonzero finite logit RMS and maximum absolute difference, identical repeated active logits, reused final-layer projection objects and distinct physical final-layer cache states at full prompt length. This single-prefix intervention measures activation only. It does not score an extra model or authorize any downstream evaluation.",
+  "max_native_seconds": 60
+}
