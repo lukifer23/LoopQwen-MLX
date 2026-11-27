@@ -33,15 +33,16 @@ def export(folder):
             p.write_bytes(content)
 
 
-def verify(folder, checkpoint, policy):
-    # Bind the reported comparison to its independently hashed registered source weights.
+def weight_identity(checkpoint, policy):
     registration = read(policy / "registration.json")
     fit = read(policy / "fit.json")
-    weights = policy / (
-        "reentry.safetensors"
-        if registration.get("reentry_block")
-        else "cross-view.safetensors"
-    )
+    if registration.get("conditional_reentry"):
+        filename = "readout.safetensors"
+    elif registration.get("reentry_block"):
+        filename = "reentry.safetensors"
+    else:
+        filename = "cross-view.safetensors"
+    weights = policy / filename
     sha = digest(weights)
     inventory = read(policy / "checksums.json")
     assert (
@@ -49,6 +50,27 @@ def verify(folder, checkpoint, policy):
         and digest(policy / "fit.json") == inventory["fit.json"]
     )
     assert digest(policy / "registration.json") == inventory["registration.json"]
+    if registration.get("conditional_reentry"):
+        from loopqwen.conditional_reentry import PACKED
+
+        assert registration["passes"] == 2 and fit["weights"] == sha
+        assert fit["registration"] == inventory["registration.json"]
+        assert digest(checkpoint / "config.json") == registration["config_sha256"]
+        assert (
+            digest(checkpoint / "model.safetensors") == registration["base_text_sha256"]
+        )
+        identity = fit["backbone"]
+        assert identity["donor"] == registration["donor"]["sha256"]
+        backbone = policy / PACKED
+        if not backbone.is_file():
+            backbone = checkpoint.parent / "conditional-reentry-backbone" / PACKED
+        assert backbone.stat().st_size == identity["bytes"]
+        assert digest(backbone) == identity["sha256"]
+        return {
+            "policy_weights": sha,
+            "packed_backbone": identity["sha256"],
+            "instruction_source": registration["donor"],
+        }
     if registration.get("reentry_block"):
         assert fit["weights"] == sha and registration["reentry_block"] == [
             20,
@@ -58,6 +80,11 @@ def verify(folder, checkpoint, policy):
         ]
     else:
         assert read(policy / "compiled.json")["weights"] == sha
+    return {"policy_weights": sha}
+
+
+def verify(folder, checkpoint, policy):
+    weights = weight_identity(checkpoint, policy)
     tok = tokenizer({"checkpoint": checkpoint})
     ids = unpack(SOURCE / "prompt-ids.json.gz")
     spec = {"max_turns": 1, "max_tokens": CAP}
@@ -148,7 +175,7 @@ def verify(folder, checkpoint, policy):
             / sum(r["decode_s"] for r in group),
         }
     return {
-        "policy_weights": sha,
+        **weights,
         "base_revision": REVISION,
         "metrics": metrics,
         "rows": rows,
