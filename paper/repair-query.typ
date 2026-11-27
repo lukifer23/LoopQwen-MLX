@@ -123,6 +123,8 @@ The two visits share all parameters. Query and content corrections have rank 160
 
  *Storage cost.* Each of six attention layers keeps two key/value heads of width 256. At two bytes per scalar the keys and values occupy 12,288 bytes per input token. A working file adds 2,048 bytes per token for the 1,024-wide hidden state. The resulting 14,336 bytes per input token predict the scratch payload before file headers. The hidden file is removed before decoding. Repeatedly restoring each prefix during generation makes longer replies more expensive. FlexGen studies scheduling model inference across GPU, CPU and disk. PagedAttention addresses allocation and sharing of KV blocks across serving requests. Our measurement covers one user request at a time and exact 16-bit histories on unified memory. #link("https://proceedings.mlr.press/v202/sheng23a.html")[Sheng et al., FlexGen] · #link("https://doi.org/10.1145/3600006.3613165")[Kwon et al., PagedAttention].
 
+ *Interpreting elapsed time.* The two deployed decoders perform different amounts of work at the last layer during a staged opening. Ordinary Base runs its stock final block on every prompt row. The loop writes keys and values for every row, then evaluates the final attention output, feed-forward block and learned revisits at the last prompt position. Both models retain all six complete attention histories. Opening time therefore includes the choice of output computation, backbone precision and storage I/O. An equal-precision, equal-output-schedule comparison would be needed to isolate the latency effect of recurrence.
+
  #if "staging_proof" in d [
   #let e=d.staging_proof
   *Independent qualification.* The engineering run lasted #fmt(e.native_seconds) seconds with a peak of #fmt(e.peak_bytes/1073741824) GiB. It recorded #e.short.len() ordinary or recurrent prompt comparisons, each with four successive full-vocabulary outputs under both storage paths.
@@ -142,7 +144,7 @@ The two visits share all parameters. Query and content corrections have rank 160
 ]
 #if "reading" in d [
  #pagebreak()
- #text(size:19pt,weight:"bold")[Held product comparison]
+ #block(text(size:19pt,weight:"bold")[Held product comparison])
  #let r=d.stages.last().decision
  #let t=r.costs
  #let misses=r.gates.pairs().filter(z=>not z.at(1)).map(z=>z.at(0).replace("_"," "))
@@ -158,6 +160,10 @@ The two visits share all parameters. Query and content corrections have rank 160
    let val=pair.at(1)
    (pair.at(0),str(val.arms.candidate.grounded_usable),str(val.arms.control.grounded_usable),str(val.gains)+" / "+str(val.losses),fmt(val.p,n:4))
  }))
+
+ *Reasoning and tool use.* The loop improved the strict database count by ten and preserved every Base success under that scorer. In the masked review, its ten net gains after a correct supplied result were accompanied by three losses and zero gains following a provider error, and three losses and zero gains following a successful but irrelevant result. On financial questions the loop once selected a program that tracked changes to the actual operands but gave the user the wrong percentage. Among the reasoning requests, one loop response spent its entire 384-token budget repeatedly asking for the main idea of the passage.
+
+ *Long-context evidence.* In the two source-edited locale pairs, the recurrent model repeated the same visible answer on both versions. Base exhausted the output budget on all four documents. Both models processed the full input and neither recovered a correct changed value. This checkpoint therefore qualifies for neither the matched-depth confirmation nor a release.
 
  The public request ledger contains both delivered responses, costs and decisions. Raw archives preserve prompt IDs, emitted tokens, causal history offsets, actual read-only visits and every provider observation. A project assistant performed the masked adjudication. These findings apply to the enrolled sources and conditions.
 ]
