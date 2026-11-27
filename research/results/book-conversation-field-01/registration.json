@@ -1,0 +1,28 @@
+{
+  "id": "book-conversation-field-01",
+  "question": "Can the qualified two-pass tool model beat ordinary Base on full human-authored books with real file follow-ups and an identical retained native prefix for both decoders?",
+  "requires": "research/results/conversation-document-prefill-01",
+  "prerequisite_sha256": "e078875f8de16bb77360e84013c4162874610c0c38d98ae0919695241e85d917",
+  "release": "research/results/packed-release-retention-04",
+  "checkpoint": "exports/tool-language-packed-05",
+  "material": "research/data/book-conversation-panel.json",
+  "order": [
+    [
+      "control",
+      "candidate"
+    ],
+    [
+      "candidate",
+      "control"
+    ]
+  ],
+  "max_tokens": 256,
+  "max_turns": 3,
+  "protocol": "One direct comparison of unchanged shipping K2 and pinned untouched BF16 ordinary Base, using official Qwen function messages and reasoning for both. Two new public-domain books by independent authors with original NarrativeQA test questions and agreeing human annotations, followed by file size and line count queries against the actual bytes. Every original input byte including notices is retained. Frozen initial IDs, identical questions, greedy 256 generated tokens per turn, three turns per request. Permit both models the same exact conversation-private native prefix and local per-request prefix. Cold new assistant for each work and side, alternate order. Grade completed answers with an unambiguous reference including words from the annotators, handle echoed filenames and grouped integers. Metadata additionally requires an actual correct callback returning the true value. Record exact-one-call separately. Opening prefill is the two total actual input lengths divided by summed cold first-token waits; decode rate excludes each turn's first token. No answer rewriting, crop, evidence selector or retraining. The qualified shipped model was trained on the compact tool format; both arms use the wire format published by Qwen.",
+  "gate": "Require 6/6 operational answers, more than ordinary Base, every global site through every actual token replayed, a real >=131072 input, and nearly the full first prompt reused on every later user opening for both arms (within 256 original tokens). Require strictly lower cold total, summed first-token time and maximum MLX allocation and higher cold opening prefill and pooled post-first output throughput. A miss closes expansion of this model for combined book reasoning and tools. The two books cannot establish a population-level or matched-depth effect. Stop after the pair or budget; no tuning on their references.",
+  "limits": {
+    "wall_seconds": 2180,
+    "peak_gib": 8.5,
+    "available_gib": 1.3
+  }
+}

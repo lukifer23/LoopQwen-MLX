@@ -1,0 +1,64 @@
+{
+  "passed": false,
+  "gates": {
+    "helpful": false,
+    "history": true,
+    "wall": false,
+    "first": false,
+    "peak": true,
+    "initial_prefill_tps": false,
+    "decode_tps": true
+  },
+  "metrics": {
+    "candidate": {
+      "n": 6,
+      "success": 2,
+      "books": 0,
+      "metadata": 2,
+      "whole": 0,
+      "wall": 353.202455251012,
+      "first": 323.30481433396926,
+      "peak": 6538239820,
+      "initial_prefill_tps": 544.9519243118584,
+      "decode_tps": 41.422464515485686,
+      "output_tokens": 1081,
+      "reused": [
+        [
+          0,
+          158592,
+          158592
+        ],
+        [
+          0,
+          16128,
+          16128
+        ]
+      ]
+    },
+    "control": {
+      "n": 6,
+      "success": 3,
+      "books": 0,
+      "metadata": 3,
+      "whole": 0,
+      "wall": 319.3197925419081,
+      "first": 281.83385166799417,
+      "peak": 6551588608,
+      "initial_prefill_tps": 624.9354401815946,
+      "decode_tps": 36.958837943540175,
+      "output_tokens": 1250,
+      "reused": [
+        [
+          0,
+          158592,
+          158592
+        ],
+        [
+          0,
+          16128,
+          16128
+        ]
+      ]
+    }
+  }
+}

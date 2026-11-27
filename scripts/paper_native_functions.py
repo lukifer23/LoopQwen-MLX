@@ -66,7 +66,7 @@ def make(paper, results, result, finish):
     finish(fig, "native-function-dialogues")
 
 
-def write_requests(path, root, panel):
+def write_requests(path, root, panel, *, json_answers=False):
     with path.open("w") as f:
         writer = csv.writer(f)
         writer.writerow(
@@ -77,7 +77,7 @@ def write_requests(path, root, panel):
                 "exchange",
                 "question",
                 "status",
-                "answer",
+                "answer_json" if json_answers else "answer",
                 "correct_answer",
                 "strict_success",
                 "call_and_observation",
@@ -101,7 +101,9 @@ def write_requests(path, root, panel):
                             i,
                             question,
                             tr["status"],
-                            tr["answer"],
+                            json.dumps(tr["answer"], ensure_ascii=False)
+                            if json_answers
+                            else tr["answer"],
                             q["score"]["correct_answer"],
                             q["score"]["success"],
                             json.dumps(executions(tr), ensure_ascii=False),

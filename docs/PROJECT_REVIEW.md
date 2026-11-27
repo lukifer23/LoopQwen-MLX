@@ -8,6 +8,8 @@ Tool use has a different bottleneck. When shown a real calculator receipt, a rec
 
 A new fit produced grounded arithmetic on 12/24 versus 9/24 but lost final-answer accuracy on both fresh arithmetic and the independent DROP corpus. Its apparent two-request service lead of 9/12 versus 2/12 shrank to 11/12 versus 9/12 after fixing how numbers inside quoted resource names were counted. Redundant correct lookups bring Base to 10/12. The original scored traces, retrospective alternatives and complete user exchanges are available together. [Registered primary](../research/results/question-contrast-01) · [Independent service recount](../paper/service-meaning-summary.csv)
 
+Both systems retained the full 158,693-token opening of Hawthorne’s novel across follow-ups. Neither completed either human question. The loop grounded both Hawthorne file answers and neither Piper file answer. Base grounded one on Hawthorne and both on Piper. Six complete requests took 353.20 versus 319.32 seconds. The released tool model missed its book-quality, wall-time, first-token and cold-prefill gates. [Sealed book conversations](../research/results/book-conversation-field-01) · [Calls, returned quantities and latency](../paper/book-conversation-requests.csv)
+
 ## What runs in the released assistant
 
 ```mermaid

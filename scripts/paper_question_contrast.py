@@ -74,7 +74,9 @@ def make(paper, results, result, finish):
     spec = read(root / "registration.json")
     overlap(paper, spec)
     rows = read(spec["material"])["rows"]
-    write_requests(paper / "question-contrast-requests.csv", root, rows)
+    write_requests(
+        paper / "question-contrast-requests.csv", root, rows, json_answers=True
+    )
     fig, ax = plt.subplots(figsize=(7, 2.65))
     labels = [
         "DROP questions",

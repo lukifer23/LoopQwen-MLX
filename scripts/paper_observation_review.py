@@ -14,7 +14,12 @@ def make(paper, results, result, finish):
     root = results / name
     decision = result(name)
     panel = read(read(root / "registration.json")["material"])
-    write_requests(paper / "observation-review-requests.csv", root, panel["rows"])
+    write_requests(
+        paper / "observation-review-requests.csv",
+        root,
+        panel["rows"],
+        json_answers=True,
+    )
     write_actions(root, paper / "observation-review-first-actions.csv")
     fig, (accuracy, margins) = plt.subplots(1, 2, figsize=(7.15, 3.2))
     colors = {"candidate": "#11675d", "control": "#9d5932"}
