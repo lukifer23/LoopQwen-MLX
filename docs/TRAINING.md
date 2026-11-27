@@ -443,6 +443,7 @@ The interpolation study ran the trained final instruction layer twice on every t
 .venv/bin/python scripts/report_distribution_bytes.py --keyed-inventories
 .venv/bin/python scripts/interpolation_activation.py
 .venv/bin/python scripts/role_binding_reading.py
+.venv/bin/python scripts/role_binding_exposure.py
 .venv/bin/python scripts/paper_instruction_interpolation.py
 .venv/bin/python scripts/paper_role_binding.py
 ```
