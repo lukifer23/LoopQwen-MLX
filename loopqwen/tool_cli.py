@@ -113,6 +113,11 @@ def add_arguments(p, checkpoint=None):
     p.add_argument("--max-tokens", type=int, default=160)
     p.add_argument("--max-turns", type=int, default=4)
     p.add_argument(
+        "--cache-state-prefill",
+        action="store_true",
+        help="Evaluate native cache states after intermediate blocks in tool conversations",
+    )
+    p.add_argument(
         "--reuse-prefix",
         action=argparse.BooleanOptionalAction,
         default=None,
@@ -247,6 +252,10 @@ def respond(args, parser):
         }
         if args.trace:
             options["record_kv_history"] = True
+        if getattr(args, "cache_state_prefill", False):
+            if not supplied:
+                parser.error("--cache-state-prefill requires at least one tool")
+            options["prefill_cache_state"] = True
         prompts = [args.prompt, *args.follow_up]
         if any(not text.strip() for text in prompts):
             parser.error("Every conversation message needs text")

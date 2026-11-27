@@ -100,6 +100,7 @@ class SharedAssistant(Assistant):
         progress=None,
         reuse_prefix=None,
         record_kv_history=False,
+        prefill_cache_state=False,
         _messages=None,
         _conversation_prefix=None,
     ):
@@ -108,6 +109,7 @@ class SharedAssistant(Assistant):
             "max_turns": max_turns,
             "progress": progress,
             "record_kv_history": record_kv_history,
+            **({"prefill_cache_state": True} if prefill_cache_state else {}),
             "reuse_prefix": reuse_prefix,
             "_messages": _messages,
             **(

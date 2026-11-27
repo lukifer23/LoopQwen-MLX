@@ -71,6 +71,7 @@ class Conversation:
         progress=None,
         reuse_prefix=None,
         record_kv_history=False,
+        prefill_cache_state=False,
     ):
         if not isinstance(question, str) or not question.strip():
             raise ValueError("The next user message must contain text")
@@ -91,6 +92,7 @@ class Conversation:
                     else {}
                 ),
                 **({"record_kv_history": True} if record_kv_history else {}),
+                **({"prefill_cache_state": True} if prefill_cache_state else {}),
             )
         finally:
             self._active.release()
@@ -160,6 +162,7 @@ def run(
     recover_callback=None,
     tool_format="compact",
     record_kv_history=False,
+    prefill_cache_state=False,
     _messages=None,
     _conversation_prefix=None,
 ):
@@ -249,6 +252,7 @@ def run(
             stop_ids=stop_ids,
             tool_prefix=prefix,
             **({"record_kv_history": True} if record_kv_history else {}),
+            **({"prefill_cache_state": True} if prefill_cache_state else {}),
             **({"tool_grammar": grammar} if grammar is not None else {}),
         )
         ids = out["token_ids"]
@@ -269,6 +273,8 @@ def run(
                     if k in out
                 }
             )
+        if prefill_cache_state:
+            row["cache_state_blocks"] = out["cache_state_blocks"]
         if tool_prefix is not None:
             row["reused_prompt_tokens"] = out.get("reused_prompt_tokens", 0)
         if grammar is not None:

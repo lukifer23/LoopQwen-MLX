@@ -149,10 +149,12 @@ def generate(
         if tool_prefix is not None:
             offset = tool_prefix.begin(model, ids, prefill_block, cache)
             inputs = inputs[:, offset:]
+        state_blocks = 0
         while disk is None and inputs.shape[1] > prefill_block:
             chunk = inputs[:, :prefill_block]
             if prefill_cache_state:
                 advance_cache(model, chunk, cache)
+                state_blocks += 1
             elif hasattr(model, "hidden"):
                 mx.eval(model.hidden(chunk, cache))
             else:
@@ -214,6 +216,8 @@ def generate(
         }
     if tool_prefix is not None:
         result["reused_prompt_tokens"] = tool_prefix.reused
+    if prefill_cache_state:
+        result["cache_state_blocks"] = state_blocks
     if reserve_full_kv:
         from ..reserved_cache import ReservedKVCache
 
