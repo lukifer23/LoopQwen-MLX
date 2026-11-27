@@ -1,0 +1,956 @@
+{
+  "version": "4.15.4",
+  "source_sha256": "6922c988ef10987bd6545568ee8e63e897af80994591fa20539767da58f8e3d1",
+  "worlds": 12,
+  "answers": 36,
+  "agreements": 36,
+  "formal_verdicts": {
+    "uncertain": 12,
+    "false": 12,
+    "true": 12
+  },
+  "rows": [
+    {
+      "id": "953f62edd5914136-inline",
+      "cluster": "Record ea85a6ba",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (DeadlyDiseases(x) → SurvivalRateIsLow(x))",
+        "∀x (SevereCancer(x) → DeadlyDiseases(x))",
+        "∀x (BileDuctCancer(x) → SevereCancer(x))",
+        "∀x (Cholangiocarcinoma(x) → BileDuctCancer(x))",
+        "∀x (MildFlu(x) → ¬SurvivalRateIsLow(x)) ",
+        "BileDuctCancer(colorectalCancer) ∨ SurvivalRateIsLow(colorectalCancer) → ¬BileDuctCancer(colorectalCancer)"
+      ],
+      "conclusion_fol": "SevereCancer(colorectalCancer)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (DeadlyDiseases x) (SurvivalRateIsLow x)))",
+        "(forall ((x Entity)) (=> (SevereCancer x) (DeadlyDiseases x)))",
+        "(forall ((x Entity)) (=> (BileDuctCancer x) (SevereCancer x)))",
+        "(forall ((x Entity)) (=> (Cholangiocarcinoma x) (BileDuctCancer x)))",
+        "(forall ((x Entity)) (=> (MildFlu x) (not (SurvivalRateIsLow x))))",
+        "(=> (or (BileDuctCancer colorectalCancer) (SurvivalRateIsLow colorectalCancer))\n    (not (BileDuctCancer colorectalCancer)))"
+      ],
+      "smtlib_conclusion": "(SevereCancer colorectalCancer)"
+    },
+    {
+      "id": "a410146eed10a781-inline",
+      "cluster": "Record 02af12e1",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (Desktop(x) → WorkHome(x))",
+        "∀x (HomeOffice(x) → Desktop(x))",
+        "∀x (WorkHome(x) → Tidying(x))",
+        "∀x (WorkHome(x) → OfficeStore(x))",
+        "∀x (Tidying(x) → ¬Late(x))",
+        "(Late(remy) ∧ Tidying(remy)) ⊕ (¬Late(remy) ∧ ¬Tidying(remy))"
+      ],
+      "conclusion_fol": "HomeOffice(remy) ∧ OfficeStore(remy)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Desktop x) (WorkHome x)))",
+        "(forall ((x Entity)) (=> (HomeOffice x) (Desktop x)))",
+        "(forall ((x Entity)) (=> (WorkHome x) (Tidying x)))",
+        "(forall ((x Entity)) (=> (WorkHome x) (OfficeStore x)))",
+        "(forall ((x Entity)) (=> (Tidying x) (not (Late x))))",
+        "(xor (and (Late remy) (Tidying remy))\n     (and (not (Late remy)) (not (Tidying remy))))"
+      ],
+      "smtlib_conclusion": "(and (HomeOffice remy) (OfficeStore remy))"
+    },
+    {
+      "id": "94b9ac0affa6fc8a-inline",
+      "cluster": "Record 7cae3b5e",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (Plunger(x) → Suck(x))",
+        "∀x (Vacuum(x) → Suck(x))",
+        "∀x (Vampire(x) → Suck(x))",
+        "Vacuum(space)",
+        "HouseHoldApp(duster) ∧ ¬ Suck(duster)"
+      ],
+      "conclusion_fol": "∀x (HouseHoldApp(x) → Suck(x))",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Plunger x) (Suck x)))",
+        "(forall ((x Entity)) (=> (Vacuum x) (Suck x)))",
+        "(forall ((x Entity)) (=> (Vampire x) (Suck x)))",
+        "(Vacuum space)",
+        "(and (HouseHoldApp duster) (not (Suck duster)))"
+      ],
+      "smtlib_conclusion": "(forall ((x Entity)) (=> (HouseHoldApp x) (Suck x)))"
+    },
+    {
+      "id": "95010485d8f41396-inline",
+      "cluster": "Record c907fd11",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "CityIn(billings, montana)",
+        "CityIn(butte, montana) ∧ CityIn(helena, montana) ∧ CityIn(missoula, montana)",
+        "∃x (CityIn(whitesulphursprings, x) ∧ CityIn(butte, x))",
+        "¬CityIn(pierre, montana)",
+        "∀x (CityIn(butte, x) → ¬CityIn(pierre, x))"
+      ],
+      "conclusion_fol": "CityIn(missoula, montana)",
+      "smtlib_premises": [
+        "(CityIn billings montana)",
+        "(and (CityIn butte montana) (CityIn helena montana) (CityIn missoula montana))",
+        "(exists ((x Entity)) (and (CityIn whitesulphursprings x) (CityIn butte x)))",
+        "(not (CityIn pierre montana))",
+        "(forall ((x Entity)) (=> (CityIn butte x) (not (CityIn pierre x))))"
+      ],
+      "smtlib_conclusion": "(CityIn missoula montana)"
+    },
+    {
+      "id": "f86f95c5fdc2aa2d-inline",
+      "cluster": "Record 6155bc80",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (WorkLibrary(x) → ¬ComputerScience(x))",
+        "∀x (PartTime(x) → WorkLibrary(x))",
+        "∀x (Database(x) → ComputerScience(x))",
+        "∀x (ProfessorDavid(x) → Database(x))",
+        "∀x (WorkInLab(x) → ProfessorDavid(x))",
+        "WorkInLab(james)",
+        "¬PartTime(jack) ∧ ¬WorkInLab(jack)"
+      ],
+      "conclusion_fol": "Database(jack)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (WorkLibrary x) (not (ComputerScience x))))",
+        "(forall ((x Entity)) (=> (PartTime x) (WorkLibrary x)))",
+        "(forall ((x Entity)) (=> (Database x) (ComputerScience x)))",
+        "(forall ((x Entity)) (=> (ProfessorDavid x) (Database x)))",
+        "(forall ((x Entity)) (=> (WorkInLab x) (ProfessorDavid x)))",
+        "(WorkInLab james)",
+        "(and (not (PartTime jack)) (not (WorkInLab jack)))"
+      ],
+      "smtlib_conclusion": "(Database jack)"
+    },
+    {
+      "id": "eec2ed88b2799c0d-inline",
+      "cluster": "Record c8025d7b",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x (RomanceLanguage(x) → IndoEuropeanLanguage(x))",
+        "∀x (RomanceLanguage(x) → MemberOf(x, romancefamily))",
+        "∀x ∀y ∀z ((MemberOf(x, z) ∧ MemberOf(y, z)) → (Related(x, y) ∧ Related(y, x)))",
+        "RomanceLanguage(french) ∧ RomanceLanguage(spanish)",
+        "Related(german, spanish)",
+        "∀x (¬Related(basque, x))"
+      ],
+      "conclusion_fol": "IndoEuropeanLanguage(french)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (RomanceLanguage x) (IndoEuropeanLanguage x)))",
+        "(forall ((x Entity)) (=> (RomanceLanguage x) (MemberOf x romancefamily)))",
+        "(forall ((x Entity))\n  (forall ((y Entity))\n    (forall ((z Entity))\n      (=> (and (MemberOf x z) (MemberOf y z)) (and (Related x y) (Related y x))))))",
+        "(and (RomanceLanguage french) (RomanceLanguage spanish))",
+        "(Related german spanish)",
+        "(forall ((x Entity)) (not (Related basque x)))"
+      ],
+      "smtlib_conclusion": "(IndoEuropeanLanguage french)"
+    },
+    {
+      "id": "52080d33297a017a-inline",
+      "cluster": "Record a403763d",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x (StudentJobs(x) → Tuition(x))",
+        "∀x (Takeout(x) → StudentJobs(x))",
+        "∀x (Takeout(x) ∨ DiningHall(x))",
+        "∀x (DiningHall(x) → NotPicky(x))",
+        "∀x (DiningHall(x) → Eating(x))",
+        "StudentJobs(mary) ∧ Tuition(mary) → ¬(NotPicky(mary) ∨ Tuition(mary))"
+      ],
+      "conclusion_fol": "NotPicky(mary) ∧ Eating(mary)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (StudentJobs x) (Tuition x)))",
+        "(forall ((x Entity)) (=> (Takeout x) (StudentJobs x)))",
+        "(forall ((x Entity)) (or (Takeout x) (DiningHall x)))",
+        "(forall ((x Entity)) (=> (DiningHall x) (NotPicky x)))",
+        "(forall ((x Entity)) (=> (DiningHall x) (Eating x)))",
+        "(=> (and (StudentJobs mary) (Tuition mary))\n    (not (or (NotPicky mary) (Tuition mary))))"
+      ],
+      "smtlib_conclusion": "(and (NotPicky mary) (Eating mary))"
+    },
+    {
+      "id": "dfe924ada7e8104e-inline",
+      "cluster": "Record ea85a6ba",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x (DeadlyDiseases(x) → SurvivalRateIsLow(x))",
+        "∀x (SevereCancer(x) → DeadlyDiseases(x))",
+        "∀x (BileDuctCancer(x) → SevereCancer(x))",
+        "∀x (Cholangiocarcinoma(x) → BileDuctCancer(x))",
+        "∀x (MildFlu(x) → ¬SurvivalRateIsLow(x)) ",
+        "BileDuctCancer(colorectalCancer) ∨ SurvivalRateIsLow(colorectalCancer) → ¬BileDuctCancer(colorectalCancer)"
+      ],
+      "conclusion_fol": "BileDuctCancer(colorectalCancer) ∨ Cholangiocarcinoma(colorectalCancer) → BileDuctCancer(colorectalCancer) ∧ MildFlu(colorectalCancer)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (DeadlyDiseases x) (SurvivalRateIsLow x)))",
+        "(forall ((x Entity)) (=> (SevereCancer x) (DeadlyDiseases x)))",
+        "(forall ((x Entity)) (=> (BileDuctCancer x) (SevereCancer x)))",
+        "(forall ((x Entity)) (=> (Cholangiocarcinoma x) (BileDuctCancer x)))",
+        "(forall ((x Entity)) (=> (MildFlu x) (not (SurvivalRateIsLow x))))",
+        "(=> (or (BileDuctCancer colorectalCancer) (SurvivalRateIsLow colorectalCancer))\n    (not (BileDuctCancer colorectalCancer)))"
+      ],
+      "smtlib_conclusion": "(=> (or (BileDuctCancer colorectalCancer) (Cholangiocarcinoma colorectalCancer))\n    (and (BileDuctCancer colorectalCancer) (MildFlu colorectalCancer)))"
+    },
+    {
+      "id": "e86be6b8be991a06-inline",
+      "cluster": "Record ea85a6ba",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (DeadlyDiseases(x) → SurvivalRateIsLow(x))",
+        "∀x (SevereCancer(x) → DeadlyDiseases(x))",
+        "∀x (BileDuctCancer(x) → SevereCancer(x))",
+        "∀x (Cholangiocarcinoma(x) → BileDuctCancer(x))",
+        "∀x (MildFlu(x) → ¬SurvivalRateIsLow(x)) ",
+        "BileDuctCancer(colorectalCancer) ∨ SurvivalRateIsLow(colorectalCancer) → ¬BileDuctCancer(colorectalCancer)"
+      ],
+      "conclusion_fol": "¬MildFlu(colorectalCancer) ∨ ¬Cholangiocarcinoma(colorectalCancer) → BileDuctCancer(colorectalCancer) ∨ Cholangiocarcinoma(colorectalCancer)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (DeadlyDiseases x) (SurvivalRateIsLow x)))",
+        "(forall ((x Entity)) (=> (SevereCancer x) (DeadlyDiseases x)))",
+        "(forall ((x Entity)) (=> (BileDuctCancer x) (SevereCancer x)))",
+        "(forall ((x Entity)) (=> (Cholangiocarcinoma x) (BileDuctCancer x)))",
+        "(forall ((x Entity)) (=> (MildFlu x) (not (SurvivalRateIsLow x))))",
+        "(=> (or (BileDuctCancer colorectalCancer) (SurvivalRateIsLow colorectalCancer))\n    (not (BileDuctCancer colorectalCancer)))"
+      ],
+      "smtlib_conclusion": "(=> (or (not (MildFlu colorectalCancer))\n        (not (Cholangiocarcinoma colorectalCancer)))\n    (or (BileDuctCancer colorectalCancer) (Cholangiocarcinoma colorectalCancer)))"
+    },
+    {
+      "id": "03aa7257b29c156c-inline",
+      "cluster": "Record 6155bc80",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (WorkLibrary(x) → ¬ComputerScience(x))",
+        "∀x (PartTime(x) → WorkLibrary(x))",
+        "∀x (Database(x) → ComputerScience(x))",
+        "∀x (ProfessorDavid(x) → Database(x))",
+        "∀x (WorkInLab(x) → ProfessorDavid(x))",
+        "WorkInLab(james)",
+        "¬PartTime(jack) ∧ ¬WorkInLab(jack)"
+      ],
+      "conclusion_fol": "PartTime(james)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (WorkLibrary x) (not (ComputerScience x))))",
+        "(forall ((x Entity)) (=> (PartTime x) (WorkLibrary x)))",
+        "(forall ((x Entity)) (=> (Database x) (ComputerScience x)))",
+        "(forall ((x Entity)) (=> (ProfessorDavid x) (Database x)))",
+        "(forall ((x Entity)) (=> (WorkInLab x) (ProfessorDavid x)))",
+        "(WorkInLab james)",
+        "(and (not (PartTime jack)) (not (WorkInLab jack)))"
+      ],
+      "smtlib_conclusion": "(PartTime james)"
+    },
+    {
+      "id": "9f0a7ec13c8b0522-inline",
+      "cluster": "Record 625961af",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x  (Mammal (x)→  Animal (x))",
+        "∀x  (Monkey (x)→  Mammal (x))",
+        "∀x ( Monkey (x) ∨  Bird (x))",
+        "∀x  (Bird (x)→  Fly (x))",
+        "∀x  (Animal (x)→  Breathe (x))",
+        "∀x  (Fly (x)→  HaveWings (x))",
+        "¬ Fly (rock) ∧ ¬ Bird (rock) → ¬ Fly (rock) ∧ ¬ Breathe (rock) "
+      ],
+      "conclusion_fol": "Monkey(rock)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Mammal x) (Animal x)))",
+        "(forall ((x Entity)) (=> (Monkey x) (Mammal x)))",
+        "(forall ((x Entity)) (or (Monkey x) (Bird x)))",
+        "(forall ((x Entity)) (=> (Bird x) (Fly x)))",
+        "(forall ((x Entity)) (=> (Animal x) (Breathe x)))",
+        "(forall ((x Entity)) (=> (Fly x) (HaveWings x)))",
+        "(=> (and (not (Fly rock)) (not (Bird rock)))\n    (and (not (Fly rock)) (not (Breathe rock))))"
+      ],
+      "smtlib_conclusion": "(Monkey rock)"
+    },
+    {
+      "id": "571026705c53b6bd-inline",
+      "cluster": "Record 7cae3b5e",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (Plunger(x) → Suck(x))",
+        "∀x (Vacuum(x) → Suck(x))",
+        "∀x (Vampire(x) → Suck(x))",
+        "Vacuum(space)",
+        "HouseHoldApp(duster) ∧ ¬ Suck(duster)"
+      ],
+      "conclusion_fol": "Vampire(space)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Plunger x) (Suck x)))",
+        "(forall ((x Entity)) (=> (Vacuum x) (Suck x)))",
+        "(forall ((x Entity)) (=> (Vampire x) (Suck x)))",
+        "(Vacuum space)",
+        "(and (HouseHoldApp duster) (not (Suck duster)))"
+      ],
+      "smtlib_conclusion": "(Vampire space)"
+    },
+    {
+      "id": "2bc782587afa20ba-inline",
+      "cluster": "Record 24c0f52a",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "ProfessionalWrestlingStable(diamondmine) ∧ FormedIn(diamondmine, wwe)",
+        "Leads(roderickstrong, diamondmine)",
+        "Includes(diamondmine, creedbrothers) ∧ Includes(diamondmine, ivynile)",
+        "HasFeud(imperium, diamondmine)"
+      ],
+      "conclusion_fol": "∃x (Leads(roderickstrong, x) ∧ ProfessionalWrestlingStable(x))",
+      "smtlib_premises": [
+        "(and (ProfessionalWrestlingStable diamondmine) (FormedIn diamondmine wwe))",
+        "(Leads roderickstrong diamondmine)",
+        "(and (Includes diamondmine creedbrothers) (Includes diamondmine ivynile))",
+        "(HasFeud imperium diamondmine)"
+      ],
+      "smtlib_conclusion": "(exists ((x Entity))\n  (and (Leads roderickstrong x) (ProfessionalWrestlingStable x)))"
+    },
+    {
+      "id": "4f408382fbd2da92-inline",
+      "cluster": "Record a2817d1b",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (Wedding(x) → Child(x))",
+        "∀x (Paris(x) → Wedding(x))",
+        "∀x (July(x) → Paris(x))",
+        "∃x (July(x) ∧ WellAttended(x))",
+        "Child(john) → ¬(Paris(john) ∧ Wedding(john))",
+        "WellAttended(john) → July(john) ⊕ Paris(john)"
+      ],
+      "conclusion_fol": "WellAttended(john)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Wedding x) (Child x)))",
+        "(forall ((x Entity)) (=> (Paris x) (Wedding x)))",
+        "(forall ((x Entity)) (=> (July x) (Paris x)))",
+        "(exists ((x Entity)) (and (July x) (WellAttended x)))",
+        "(=> (Child john) (not (and (Paris john) (Wedding john))))",
+        "(=> (WellAttended john) (xor (July john) (Paris john)))"
+      ],
+      "smtlib_conclusion": "(WellAttended john)"
+    },
+    {
+      "id": "9a1daf1fdb889ab6-inline",
+      "cluster": "Record c907fd11",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "CityIn(billings, montana)",
+        "CityIn(butte, montana) ∧ CityIn(helena, montana) ∧ CityIn(missoula, montana)",
+        "∃x (CityIn(whitesulphursprings, x) ∧ CityIn(butte, x))",
+        "¬CityIn(pierre, montana)",
+        "∀x (CityIn(butte, x) → ¬CityIn(pierre, x))"
+      ],
+      "conclusion_fol": "∃x (CityIn(pierre, x) ∧ CityIn(bismarck, x))",
+      "smtlib_premises": [
+        "(CityIn billings montana)",
+        "(and (CityIn butte montana) (CityIn helena montana) (CityIn missoula montana))",
+        "(exists ((x Entity)) (and (CityIn whitesulphursprings x) (CityIn butte x)))",
+        "(not (CityIn pierre montana))",
+        "(forall ((x Entity)) (=> (CityIn butte x) (not (CityIn pierre x))))"
+      ],
+      "smtlib_conclusion": "(exists ((x Entity)) (and (CityIn pierre x) (CityIn bismarck x)))"
+    },
+    {
+      "id": "c89b0148b0a4dd46-inline",
+      "cluster": "Record c8025d7b",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (RomanceLanguage(x) → IndoEuropeanLanguage(x))",
+        "∀x (RomanceLanguage(x) → MemberOf(x, romancefamily))",
+        "∀x ∀y ∀z ((MemberOf(x, z) ∧ MemberOf(y, z)) → (Related(x, y) ∧ Related(y, x)))",
+        "RomanceLanguage(french) ∧ RomanceLanguage(spanish)",
+        "Related(german, spanish)",
+        "∀x (¬Related(basque, x))"
+      ],
+      "conclusion_fol": "RomanceLanguage(basque)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (RomanceLanguage x) (IndoEuropeanLanguage x)))",
+        "(forall ((x Entity)) (=> (RomanceLanguage x) (MemberOf x romancefamily)))",
+        "(forall ((x Entity))\n  (forall ((y Entity))\n    (forall ((z Entity))\n      (=> (and (MemberOf x z) (MemberOf y z)) (and (Related x y) (Related y x))))))",
+        "(and (RomanceLanguage french) (RomanceLanguage spanish))",
+        "(Related german spanish)",
+        "(forall ((x Entity)) (not (Related basque x)))"
+      ],
+      "smtlib_conclusion": "(RomanceLanguage basque)"
+    },
+    {
+      "id": "bb0fc7e0ef64fbc7-inline",
+      "cluster": "Record 346547c2",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (Digital(x) → ¬Analog(x))",
+        "∀x (PrintedText(x) → Analog(x))",
+        "∀x (StreamingService(x) → Digital(x))",
+        "∀x (HardcoverBook(x) → PrintedText(x))",
+        "StreamingService(y1984) → HardcoverBook(y1984)"
+      ],
+      "conclusion_fol": "StreamingService(y1984)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Digital x) (not (Analog x))))",
+        "(forall ((x Entity)) (=> (PrintedText x) (Analog x)))",
+        "(forall ((x Entity)) (=> (StreamingService x) (Digital x)))",
+        "(forall ((x Entity)) (=> (HardcoverBook x) (PrintedText x)))",
+        "(=> (StreamingService y1984) (HardcoverBook y1984))"
+      ],
+      "smtlib_conclusion": "(StreamingService y1984)"
+    },
+    {
+      "id": "d3f532c27036be45-inline",
+      "cluster": "Record c8025d7b",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (RomanceLanguage(x) → IndoEuropeanLanguage(x))",
+        "∀x (RomanceLanguage(x) → MemberOf(x, romancefamily))",
+        "∀x ∀y ∀z ((MemberOf(x, z) ∧ MemberOf(y, z)) → (Related(x, y) ∧ Related(y, x)))",
+        "RomanceLanguage(french) ∧ RomanceLanguage(spanish)",
+        "Related(german, spanish)",
+        "∀x (¬Related(basque, x))"
+      ],
+      "conclusion_fol": "RomanceLanguage(german)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (RomanceLanguage x) (IndoEuropeanLanguage x)))",
+        "(forall ((x Entity)) (=> (RomanceLanguage x) (MemberOf x romancefamily)))",
+        "(forall ((x Entity))\n  (forall ((y Entity))\n    (forall ((z Entity))\n      (=> (and (MemberOf x z) (MemberOf y z)) (and (Related x y) (Related y x))))))",
+        "(and (RomanceLanguage french) (RomanceLanguage spanish))",
+        "(Related german spanish)",
+        "(forall ((x Entity)) (not (Related basque x)))"
+      ],
+      "smtlib_conclusion": "(RomanceLanguage german)"
+    },
+    {
+      "id": "4c01190bd0360a8f-inline",
+      "cluster": "Record a2817d1b",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x (Wedding(x) → Child(x))",
+        "∀x (Paris(x) → Wedding(x))",
+        "∀x (July(x) → Paris(x))",
+        "∃x (July(x) ∧ WellAttended(x))",
+        "Child(john) → ¬(Paris(john) ∧ Wedding(john))",
+        "WellAttended(john) → July(john) ⊕ Paris(john)"
+      ],
+      "conclusion_fol": "¬WellAttended(john)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Wedding x) (Child x)))",
+        "(forall ((x Entity)) (=> (Paris x) (Wedding x)))",
+        "(forall ((x Entity)) (=> (July x) (Paris x)))",
+        "(exists ((x Entity)) (and (July x) (WellAttended x)))",
+        "(=> (Child john) (not (and (Paris john) (Wedding john))))",
+        "(=> (WellAttended john) (xor (July john) (Paris john)))"
+      ],
+      "smtlib_conclusion": "(not (WellAttended john))"
+    },
+    {
+      "id": "58154bedb6fc314c-inline",
+      "cluster": "Record f30a96fe",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "IsStriker(robertLewandowski)",
+        "∀x (IsStriker(x) → IsSoccerPlayer(x))",
+        "LeftTeam(robertLewandowski, bayernMunchen)",
+        "∀x ∀y (LeftTeam(x, y) → ¬PlaysForTeam(x, y))"
+      ],
+      "conclusion_fol": "IsSoccerStar(robertLewandowski)",
+      "smtlib_premises": [
+        "(IsStriker robertLewandowski)",
+        "(forall ((x Entity)) (=> (IsStriker x) (IsSoccerPlayer x)))",
+        "(LeftTeam robertLewandowski bayernMunchen)",
+        "(forall ((x Entity))\n  (forall ((y Entity)) (=> (LeftTeam x y) (not (PlaysForTeam x y)))))"
+      ],
+      "smtlib_conclusion": "(IsSoccerStar robertLewandowski)"
+    },
+    {
+      "id": "229d581139c9a2d5-inline",
+      "cluster": "Record f30a96fe",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "IsStriker(robertLewandowski)",
+        "∀x (IsStriker(x) → IsSoccerPlayer(x))",
+        "LeftTeam(robertLewandowski, bayernMunchen)",
+        "∀x ∀y (LeftTeam(x, y) → ¬PlaysForTeam(x, y))"
+      ],
+      "conclusion_fol": "IsSoccerPlayer(robertLewandowski)",
+      "smtlib_premises": [
+        "(IsStriker robertLewandowski)",
+        "(forall ((x Entity)) (=> (IsStriker x) (IsSoccerPlayer x)))",
+        "(LeftTeam robertLewandowski bayernMunchen)",
+        "(forall ((x Entity))\n  (forall ((y Entity)) (=> (LeftTeam x y) (not (PlaysForTeam x y)))))"
+      ],
+      "smtlib_conclusion": "(IsSoccerPlayer robertLewandowski)"
+    },
+    {
+      "id": "7b975b9c6967c598-inline",
+      "cluster": "Record 346547c2",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (Digital(x) → ¬Analog(x))",
+        "∀x (PrintedText(x) → Analog(x))",
+        "∀x (StreamingService(x) → Digital(x))",
+        "∀x (HardcoverBook(x) → PrintedText(x))",
+        "StreamingService(y1984) → HardcoverBook(y1984)"
+      ],
+      "conclusion_fol": "PrintedText(y1984)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Digital x) (not (Analog x))))",
+        "(forall ((x Entity)) (=> (PrintedText x) (Analog x)))",
+        "(forall ((x Entity)) (=> (StreamingService x) (Digital x)))",
+        "(forall ((x Entity)) (=> (HardcoverBook x) (PrintedText x)))",
+        "(=> (StreamingService y1984) (HardcoverBook y1984))"
+      ],
+      "smtlib_conclusion": "(PrintedText y1984)"
+    },
+    {
+      "id": "45942f17a95cf88d-inline",
+      "cluster": "Record 7cae3b5e",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x (Plunger(x) → Suck(x))",
+        "∀x (Vacuum(x) → Suck(x))",
+        "∀x (Vampire(x) → Suck(x))",
+        "Vacuum(space)",
+        "HouseHoldApp(duster) ∧ ¬ Suck(duster)"
+      ],
+      "conclusion_fol": "Suck(space)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Plunger x) (Suck x)))",
+        "(forall ((x Entity)) (=> (Vacuum x) (Suck x)))",
+        "(forall ((x Entity)) (=> (Vampire x) (Suck x)))",
+        "(Vacuum space)",
+        "(and (HouseHoldApp duster) (not (Suck duster)))"
+      ],
+      "smtlib_conclusion": "(Suck space)"
+    },
+    {
+      "id": "00acaa5ab6643104-inline",
+      "cluster": "Record 24c0f52a",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "ProfessionalWrestlingStable(diamondmine) ∧ FormedIn(diamondmine, wwe)",
+        "Leads(roderickstrong, diamondmine)",
+        "Includes(diamondmine, creedbrothers) ∧ Includes(diamondmine, ivynile)",
+        "HasFeud(imperium, diamondmine)"
+      ],
+      "conclusion_fol": "∀x (ProfessionalWrestlingStable(x) ∧ Includes(x, ivynile) → ¬HasFeud(imperium, x))",
+      "smtlib_premises": [
+        "(and (ProfessionalWrestlingStable diamondmine) (FormedIn diamondmine wwe))",
+        "(Leads roderickstrong diamondmine)",
+        "(and (Includes diamondmine creedbrothers) (Includes diamondmine ivynile))",
+        "(HasFeud imperium diamondmine)"
+      ],
+      "smtlib_conclusion": "(forall ((x Entity))\n  (=> (and (ProfessionalWrestlingStable x) (Includes x ivynile))\n      (not (HasFeud imperium x))))"
+    },
+    {
+      "id": "c98d3c40637a571f-inline",
+      "cluster": "Record a403763d",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (StudentJobs(x) → Tuition(x))",
+        "∀x (Takeout(x) → StudentJobs(x))",
+        "∀x (Takeout(x) ∨ DiningHall(x))",
+        "∀x (DiningHall(x) → NotPicky(x))",
+        "∀x (DiningHall(x) → Eating(x))",
+        "StudentJobs(mary) ∧ Tuition(mary) → ¬(NotPicky(mary) ∨ Tuition(mary))"
+      ],
+      "conclusion_fol": "Tuition(mary)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (StudentJobs x) (Tuition x)))",
+        "(forall ((x Entity)) (=> (Takeout x) (StudentJobs x)))",
+        "(forall ((x Entity)) (or (Takeout x) (DiningHall x)))",
+        "(forall ((x Entity)) (=> (DiningHall x) (NotPicky x)))",
+        "(forall ((x Entity)) (=> (DiningHall x) (Eating x)))",
+        "(=> (and (StudentJobs mary) (Tuition mary))\n    (not (or (NotPicky mary) (Tuition mary))))"
+      ],
+      "smtlib_conclusion": "(Tuition mary)"
+    },
+    {
+      "id": "7b60a5895b8224ef-inline",
+      "cluster": "Record 625961af",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x  (Mammal (x)→  Animal (x))",
+        "∀x  (Monkey (x)→  Mammal (x))",
+        "∀x ( Monkey (x) ∨  Bird (x))",
+        "∀x  (Bird (x)→  Fly (x))",
+        "∀x  (Animal (x)→  Breathe (x))",
+        "∀x  (Fly (x)→  HaveWings (x))",
+        "¬ Fly (rock) ∧ ¬ Bird (rock) → ¬ Fly (rock) ∧ ¬ Breathe (rock) "
+      ],
+      "conclusion_fol": "¬ HaveWings(rock)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Mammal x) (Animal x)))",
+        "(forall ((x Entity)) (=> (Monkey x) (Mammal x)))",
+        "(forall ((x Entity)) (or (Monkey x) (Bird x)))",
+        "(forall ((x Entity)) (=> (Bird x) (Fly x)))",
+        "(forall ((x Entity)) (=> (Animal x) (Breathe x)))",
+        "(forall ((x Entity)) (=> (Fly x) (HaveWings x)))",
+        "(=> (and (not (Fly rock)) (not (Bird rock)))\n    (and (not (Fly rock)) (not (Breathe rock))))"
+      ],
+      "smtlib_conclusion": "(not (HaveWings rock))"
+    },
+    {
+      "id": "72023a165107f624-inline",
+      "cluster": "Record 6155bc80",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x (WorkLibrary(x) → ¬ComputerScience(x))",
+        "∀x (PartTime(x) → WorkLibrary(x))",
+        "∀x (Database(x) → ComputerScience(x))",
+        "∀x (ProfessorDavid(x) → Database(x))",
+        "∀x (WorkInLab(x) → ProfessorDavid(x))",
+        "WorkInLab(james)",
+        "¬PartTime(jack) ∧ ¬WorkInLab(jack)"
+      ],
+      "conclusion_fol": "Database(james) ⊕ PartTime(james)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (WorkLibrary x) (not (ComputerScience x))))",
+        "(forall ((x Entity)) (=> (PartTime x) (WorkLibrary x)))",
+        "(forall ((x Entity)) (=> (Database x) (ComputerScience x)))",
+        "(forall ((x Entity)) (=> (ProfessorDavid x) (Database x)))",
+        "(forall ((x Entity)) (=> (WorkInLab x) (ProfessorDavid x)))",
+        "(WorkInLab james)",
+        "(and (not (PartTime jack)) (not (WorkInLab jack)))"
+      ],
+      "smtlib_conclusion": "(xor (Database james) (PartTime james))"
+    },
+    {
+      "id": "ac390df6d79378ac-inline",
+      "cluster": "Record f30a96fe",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "IsStriker(robertLewandowski)",
+        "∀x (IsStriker(x) → IsSoccerPlayer(x))",
+        "LeftTeam(robertLewandowski, bayernMunchen)",
+        "∀x ∀y (LeftTeam(x, y) → ¬PlaysForTeam(x, y))"
+      ],
+      "conclusion_fol": "PlaysForTeam(robertLewandowski, bayernMunchen)",
+      "smtlib_premises": [
+        "(IsStriker robertLewandowski)",
+        "(forall ((x Entity)) (=> (IsStriker x) (IsSoccerPlayer x)))",
+        "(LeftTeam robertLewandowski bayernMunchen)",
+        "(forall ((x Entity))\n  (forall ((y Entity)) (=> (LeftTeam x y) (not (PlaysForTeam x y)))))"
+      ],
+      "smtlib_conclusion": "(PlaysForTeam robertLewandowski bayernMunchen)"
+    },
+    {
+      "id": "579e61822cc237d7-inline",
+      "cluster": "Record c907fd11",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "CityIn(billings, montana)",
+        "CityIn(butte, montana) ∧ CityIn(helena, montana) ∧ CityIn(missoula, montana)",
+        "∃x (CityIn(whitesulphursprings, x) ∧ CityIn(butte, x))",
+        "¬CityIn(pierre, montana)",
+        "∀x (CityIn(butte, x) → ¬CityIn(pierre, x))"
+      ],
+      "conclusion_fol": "∃x (CityIn(butte, x) ∧ CityIn(pierre, x))",
+      "smtlib_premises": [
+        "(CityIn billings montana)",
+        "(and (CityIn butte montana) (CityIn helena montana) (CityIn missoula montana))",
+        "(exists ((x Entity)) (and (CityIn whitesulphursprings x) (CityIn butte x)))",
+        "(not (CityIn pierre montana))",
+        "(forall ((x Entity)) (=> (CityIn butte x) (not (CityIn pierre x))))"
+      ],
+      "smtlib_conclusion": "(exists ((x Entity)) (and (CityIn butte x) (CityIn pierre x)))"
+    },
+    {
+      "id": "b40de23caadf1134-inline",
+      "cluster": "Record a403763d",
+      "publisher": "false",
+      "formal": "false",
+      "agrees": true,
+      "satisfiable_with_claim": "unsat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (StudentJobs(x) → Tuition(x))",
+        "∀x (Takeout(x) → StudentJobs(x))",
+        "∀x (Takeout(x) ∨ DiningHall(x))",
+        "∀x (DiningHall(x) → NotPicky(x))",
+        "∀x (DiningHall(x) → Eating(x))",
+        "StudentJobs(mary) ∧ Tuition(mary) → ¬(NotPicky(mary) ∨ Tuition(mary))"
+      ],
+      "conclusion_fol": "NotPicky(mary) ⊕ Eating(mary)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (StudentJobs x) (Tuition x)))",
+        "(forall ((x Entity)) (=> (Takeout x) (StudentJobs x)))",
+        "(forall ((x Entity)) (or (Takeout x) (DiningHall x)))",
+        "(forall ((x Entity)) (=> (DiningHall x) (NotPicky x)))",
+        "(forall ((x Entity)) (=> (DiningHall x) (Eating x)))",
+        "(=> (and (StudentJobs mary) (Tuition mary))\n    (not (or (NotPicky mary) (Tuition mary))))"
+      ],
+      "smtlib_conclusion": "(xor (NotPicky mary) (Eating mary))"
+    },
+    {
+      "id": "76b807de6db85a64-inline",
+      "cluster": "Record a2817d1b",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (Wedding(x) → Child(x))",
+        "∀x (Paris(x) → Wedding(x))",
+        "∀x (July(x) → Paris(x))",
+        "∃x (July(x) ∧ WellAttended(x))",
+        "Child(john) → ¬(Paris(john) ∧ Wedding(john))",
+        "WellAttended(john) → July(john) ⊕ Paris(john)"
+      ],
+      "conclusion_fol": "Child(john)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Wedding x) (Child x)))",
+        "(forall ((x Entity)) (=> (Paris x) (Wedding x)))",
+        "(forall ((x Entity)) (=> (July x) (Paris x)))",
+        "(exists ((x Entity)) (and (July x) (WellAttended x)))",
+        "(=> (Child john) (not (and (Paris john) (Wedding john))))",
+        "(=> (WellAttended john) (xor (July john) (Paris john)))"
+      ],
+      "smtlib_conclusion": "(Child john)"
+    },
+    {
+      "id": "4aad032c57d2a980-inline",
+      "cluster": "Record 24c0f52a",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "ProfessionalWrestlingStable(diamondmine) ∧ FormedIn(diamondmine, wwe)",
+        "Leads(roderickstrong, diamondmine)",
+        "Includes(diamondmine, creedbrothers) ∧ Includes(diamondmine, ivynile)",
+        "HasFeud(imperium, diamondmine)"
+      ],
+      "conclusion_fol": "Leads(roderickstrong, creedbrothers)",
+      "smtlib_premises": [
+        "(and (ProfessionalWrestlingStable diamondmine) (FormedIn diamondmine wwe))",
+        "(Leads roderickstrong diamondmine)",
+        "(and (Includes diamondmine creedbrothers) (Includes diamondmine ivynile))",
+        "(HasFeud imperium diamondmine)"
+      ],
+      "smtlib_conclusion": "(Leads roderickstrong creedbrothers)"
+    },
+    {
+      "id": "95764f32be5e3917-inline",
+      "cluster": "Record 346547c2",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x (Digital(x) → ¬Analog(x))",
+        "∀x (PrintedText(x) → Analog(x))",
+        "∀x (StreamingService(x) → Digital(x))",
+        "∀x (HardcoverBook(x) → PrintedText(x))",
+        "StreamingService(y1984) → HardcoverBook(y1984)"
+      ],
+      "conclusion_fol": "¬StreamingService(y1984)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Digital x) (not (Analog x))))",
+        "(forall ((x Entity)) (=> (PrintedText x) (Analog x)))",
+        "(forall ((x Entity)) (=> (StreamingService x) (Digital x)))",
+        "(forall ((x Entity)) (=> (HardcoverBook x) (PrintedText x)))",
+        "(=> (StreamingService y1984) (HardcoverBook y1984))"
+      ],
+      "smtlib_conclusion": "(not (StreamingService y1984))"
+    },
+    {
+      "id": "ff02d9c49f10a99b-inline",
+      "cluster": "Record 02af12e1",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x (Desktop(x) → WorkHome(x))",
+        "∀x (HomeOffice(x) → Desktop(x))",
+        "∀x (WorkHome(x) → Tidying(x))",
+        "∀x (WorkHome(x) → OfficeStore(x))",
+        "∀x (Tidying(x) → ¬Late(x))",
+        "(Late(remy) ∧ Tidying(remy)) ⊕ (¬Late(remy) ∧ ¬Tidying(remy))"
+      ],
+      "conclusion_fol": "Late(remy) ∨ OfficeStore(remy) → ¬(Tidying(remy) ∨ HomeOffice(remy))",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Desktop x) (WorkHome x)))",
+        "(forall ((x Entity)) (=> (HomeOffice x) (Desktop x)))",
+        "(forall ((x Entity)) (=> (WorkHome x) (Tidying x)))",
+        "(forall ((x Entity)) (=> (WorkHome x) (OfficeStore x)))",
+        "(forall ((x Entity)) (=> (Tidying x) (not (Late x))))",
+        "(xor (and (Late remy) (Tidying remy))\n     (and (not (Late remy)) (not (Tidying remy))))"
+      ],
+      "smtlib_conclusion": "(=> (or (Late remy) (OfficeStore remy))\n    (not (or (Tidying remy) (HomeOffice remy))))"
+    },
+    {
+      "id": "8951fd12e189b905-inline",
+      "cluster": "Record 625961af",
+      "publisher": "true",
+      "formal": "true",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "unsat",
+      "premises_fol": [
+        "∀x  (Mammal (x)→  Animal (x))",
+        "∀x  (Monkey (x)→  Mammal (x))",
+        "∀x ( Monkey (x) ∨  Bird (x))",
+        "∀x  (Bird (x)→  Fly (x))",
+        "∀x  (Animal (x)→  Breathe (x))",
+        "∀x  (Fly (x)→  HaveWings (x))",
+        "¬ Fly (rock) ∧ ¬ Bird (rock) → ¬ Fly (rock) ∧ ¬ Breathe (rock) "
+      ],
+      "conclusion_fol": "HaveWings(rock)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Mammal x) (Animal x)))",
+        "(forall ((x Entity)) (=> (Monkey x) (Mammal x)))",
+        "(forall ((x Entity)) (or (Monkey x) (Bird x)))",
+        "(forall ((x Entity)) (=> (Bird x) (Fly x)))",
+        "(forall ((x Entity)) (=> (Animal x) (Breathe x)))",
+        "(forall ((x Entity)) (=> (Fly x) (HaveWings x)))",
+        "(=> (and (not (Fly rock)) (not (Bird rock)))\n    (and (not (Fly rock)) (not (Breathe rock))))"
+      ],
+      "smtlib_conclusion": "(HaveWings rock)"
+    },
+    {
+      "id": "23f2d0bc03aa8486-inline",
+      "cluster": "Record 02af12e1",
+      "publisher": "uncertain",
+      "formal": "uncertain",
+      "agrees": true,
+      "satisfiable_with_claim": "sat",
+      "satisfiable_with_negation": "sat",
+      "premises_fol": [
+        "∀x (Desktop(x) → WorkHome(x))",
+        "∀x (HomeOffice(x) → Desktop(x))",
+        "∀x (WorkHome(x) → Tidying(x))",
+        "∀x (WorkHome(x) → OfficeStore(x))",
+        "∀x (Tidying(x) → ¬Late(x))",
+        "(Late(remy) ∧ Tidying(remy)) ⊕ (¬Late(remy) ∧ ¬Tidying(remy))"
+      ],
+      "conclusion_fol": "OfficeStore(remy)",
+      "smtlib_premises": [
+        "(forall ((x Entity)) (=> (Desktop x) (WorkHome x)))",
+        "(forall ((x Entity)) (=> (HomeOffice x) (Desktop x)))",
+        "(forall ((x Entity)) (=> (WorkHome x) (Tidying x)))",
+        "(forall ((x Entity)) (=> (WorkHome x) (OfficeStore x)))",
+        "(forall ((x Entity)) (=> (Tidying x) (not (Late x))))",
+        "(xor (and (Late remy) (Tidying remy))\n     (and (not (Late remy)) (not (Tidying remy))))"
+      ],
+      "smtlib_conclusion": "(OfficeStore remy)"
+    }
+  ]
+}
