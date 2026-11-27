@@ -353,6 +353,10 @@ def collect():
         from scripts.paper_content_read import collect as collect_content
 
         out["content_read"] = collect_content()
+    if (DOC / "source-copy-panel.json").is_file():
+        from scripts.paper_source_copy import collect as collect_copy
+
+        out["source_copy"] = collect_copy()
     return out
 
 

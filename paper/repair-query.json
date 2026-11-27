@@ -2988,5 +2988,485 @@
         }
       }
     }
+  },
+  "source_copy": {
+    "attention": {
+      "passed": true,
+      "stop": null,
+      "positions": 1352,
+      "sums": {
+        "calculate/1": {
+          "n": 678.0,
+          "span_mass": 247.8104045756627,
+          "source_hit": 367.0,
+          "opening_mass": 677.7750368714333,
+          "copy_probability": 134.83409913923242,
+          "copy_hit": 152.0,
+          "base_probability": 346.7014742281026,
+          "native_hit": 385.0,
+          "uniform_top": 23.0,
+          "better_than_uniform": 529.0
+        },
+        "calculate/2": {
+          "n": 678.0,
+          "span_mass": 253.62046948052011,
+          "source_hit": 384.0,
+          "opening_mass": 677.8183553218842,
+          "copy_probability": 133.46109547994274,
+          "copy_hit": 149.0,
+          "base_probability": 335.33307282468013,
+          "native_hit": 380.0,
+          "uniform_top": 23.0,
+          "better_than_uniform": 530.0
+        },
+        "reasoning/1": {
+          "n": 674.0,
+          "span_mass": 268.9049920011312,
+          "source_hit": 384.0,
+          "opening_mass": 672.8147960305214,
+          "copy_probability": 4.435355334498794,
+          "copy_hit": 2.0,
+          "base_probability": 275.6929082647604,
+          "native_hit": 402.0,
+          "uniform_top": 0.0,
+          "better_than_uniform": 41.0
+        },
+        "reasoning/2": {
+          "n": 674.0,
+          "span_mass": 281.92073811404407,
+          "source_hit": 391.0,
+          "opening_mass": 672.6987060904503,
+          "copy_probability": 4.070522128213256,
+          "copy_hit": 2.0,
+          "base_probability": 326.29074584255056,
+          "native_hit": 425.0,
+          "uniform_top": 0.0,
+          "better_than_uniform": 38.0
+        }
+      },
+      "plan": "47c04be079b097be480cb119ff2ef4c3d8bb5fc854e90e82a8bef1be6b61363f",
+      "seconds": 12.339295499958098,
+      "peak_bytes": 439832452,
+      "data": "d2a355c9953fcc75f6d6b4fe8c1642e8f34e82b9aef10a700ff736c4b4da84ad",
+      "copy_investigation": true
+    },
+    "teacher": {
+      "passed": true,
+      "limit": null,
+      "plan": "fb1dd4a12a780b76770bc0bac3c47dc05e382dfe02d709696e3cfbcc9c42797d",
+      "traces": "f9ddbc8aa01e74e55d2d34304a08686d9c4fed90b6f8e9d36d7b60fed4545573",
+      "completed": 24,
+      "accepted": 15,
+      "seconds": 198.40411324996967,
+      "peak_bytes": 2959927062
+    },
+    "accepted": 10,
+    "material": {
+      "rows": 900,
+      "tokens": 35166,
+      "groups": {
+        "calculate": 160,
+        "redirect": 48,
+        "reuse": 48,
+        "retention": 96,
+        "conversation_read": 256,
+        "teacher_action": 10,
+        "reasoning": 112,
+        "quantity": 160,
+        "teacher_delivery": 10
+      },
+      "panel": {
+        "report": 24,
+        "reading": 24
+      },
+      "previous_issuer": 22,
+      "source": "788d4d872149d43e1af89443bf2610103592df84281e9c889886ad0e049c7d1a",
+      "fresh": "a8952c3df0cba51029b4d2d7a3cf2cd75d7a4bfea262011929f6def2c6c06bd0",
+      "teacher_review": "6379d01e4210247c9d3a602e2eb83e68645aa9e255b4c58c1dffc2d45c554add"
+    },
+    "panel": {
+      "passed": true,
+      "plan": "60e578d074fc4e40146efe44564b424d3712bb688a9d67644ec77c815c1d42a5",
+      "panel": "a8952c3df0cba51029b4d2d7a3cf2cd75d7a4bfea262011929f6def2c6c06bd0",
+      "items": 96,
+      "matched_openings": 96,
+      "source_files_scanned": 321,
+      "earlier_literal_page_hits": {},
+      "training": "788d4d872149d43e1af89443bf2610103592df84281e9c889886ad0e049c7d1a",
+      "scorer": "322b19fa8e55389b6ecebd8293e0e90081e611d34ae05cd60a5ac7c35691aadf",
+      "description": "96 exact openings and 96 reference answers. All 48 report programs were executed. Both a valid program with the wrong delivered quantity and the correct quantity without a call failed each report test. Complete normalized reference text was required for reading. 24 independent report issuers; 22 were represented by other pages in earlier project panels."
+    },
+    "registration": "b80b797ee840d3f1fa32d743d3cc1e1d1488f11e11216884c66e917709081e93",
+    "locale": {
+      "plan": "f3b53ac3199fa552f1add9d6e94474eb640bf41fd78751fb97b7b64b48dd4d1a",
+      "passed": false,
+      "training_passed": true,
+      "initial": "a2783dbcf60c300aa861c1db986b0de3a45f5b706510e948b4f8607b11f82cf4",
+      "weights": "8eaa1a82dc122f44f95c669dfd3a80e9a705acd32bddc2739062d20e4d4e0213",
+      "training": {
+        "before": [
+          {
+            "key": 9,
+            "version": 0,
+            "nll": 1.420600414276123,
+            "address": 9.240234375,
+            "margin": 0.6015625
+          },
+          {
+            "key": 9,
+            "version": 1,
+            "nll": 2.483189105987549,
+            "address": 9.893352508544922,
+            "margin": 1.2109375
+          },
+          {
+            "key": 1,
+            "version": 0,
+            "nll": 2.019680976867676,
+            "address": 10.389537811279297,
+            "margin": -2.71875
+          },
+          {
+            "key": 1,
+            "version": 1,
+            "nll": 2.086137294769287,
+            "address": 10.457374572753906,
+            "margin": 3.703125
+          },
+          {
+            "key": 6,
+            "version": 0,
+            "nll": 2.2562127113342285,
+            "address": 10.371868133544922,
+            "margin": 0.578125
+          },
+          {
+            "key": 6,
+            "version": 1,
+            "nll": 2.2531282901763916,
+            "address": 10.508905410766602,
+            "margin": -0.57421875
+          },
+          {
+            "key": 4,
+            "version": 0,
+            "nll": 1.430489420890808,
+            "address": 11.124988555908203,
+            "margin": 0.1015625
+          },
+          {
+            "key": 4,
+            "version": 1,
+            "nll": 3.2952346801757812,
+            "address": 10.80546760559082,
+            "margin": -0.390625
+          },
+          {
+            "key": 7,
+            "version": 0,
+            "nll": 1.4718072414398193,
+            "address": 10.114606857299805,
+            "margin": 1.2734375
+          },
+          {
+            "key": 7,
+            "version": 1,
+            "nll": 1.6655746698379517,
+            "address": 10.268316268920898,
+            "margin": -1.0546875
+          },
+          {
+            "key": 8,
+            "version": 0,
+            "nll": 1.9773950576782227,
+            "address": 10.437189102172852,
+            "margin": -0.15625
+          },
+          {
+            "key": 8,
+            "version": 1,
+            "nll": 2.2090959548950195,
+            "address": 10.602108001708984,
+            "margin": 1.984375
+          }
+        ],
+        "after": [
+          {
+            "key": 9,
+            "version": 0,
+            "nll": 1.3568075895309448,
+            "address": 0.6931548118591309,
+            "margin": 1.3046875
+          },
+          {
+            "key": 9,
+            "version": 1,
+            "nll": 2.315782070159912,
+            "address": 0.6931471824645996,
+            "margin": 1.53125
+          },
+          {
+            "key": 1,
+            "version": 0,
+            "nll": 1.1803271770477295,
+            "address": 0.6932387351989746,
+            "margin": -0.1484375
+          },
+          {
+            "key": 1,
+            "version": 1,
+            "nll": 1.663541555404663,
+            "address": 0.7020964622497559,
+            "margin": 1.578125
+          },
+          {
+            "key": 6,
+            "version": 0,
+            "nll": 1.2941133975982666,
+            "address": 0.7896935939788818,
+            "margin": -0.6328125
+          },
+          {
+            "key": 6,
+            "version": 1,
+            "nll": 1.1573476791381836,
+            "address": 0.6710997819900513,
+            "margin": 0.7421875
+          },
+          {
+            "key": 4,
+            "version": 0,
+            "nll": 0.7736606597900391,
+            "address": 0.6931853294372559,
+            "margin": -0.078125
+          },
+          {
+            "key": 4,
+            "version": 1,
+            "nll": 1.8407948017120361,
+            "address": 0.0003586411476135254,
+            "margin": 1.1875
+          },
+          {
+            "key": 7,
+            "version": 0,
+            "nll": 0.8053244352340698,
+            "address": 0.7031413316726685,
+            "margin": 0.0625
+          },
+          {
+            "key": 7,
+            "version": 1,
+            "nll": 0.8616806268692017,
+            "address": 0.7081724405288696,
+            "margin": 0.2578125
+          },
+          {
+            "key": 8,
+            "version": 0,
+            "nll": 0.8865641951560974,
+            "address": 0.703214168548584,
+            "margin": 0.890625
+          },
+          {
+            "key": 8,
+            "version": 1,
+            "nll": 1.0655593872070312,
+            "address": 0.7236189842224121,
+            "margin": 0.953125
+          }
+        ],
+        "both": 3,
+        "address_gain": 9.703318978349367,
+        "answer_gain": 0.7805868536233902
+      },
+      "held": {
+        "initial": [
+          {
+            "key": 3,
+            "version": 0,
+            "nll": 1.2759720087051392,
+            "address": 9.715616226196289,
+            "margin": -2.4765625
+          },
+          {
+            "key": 3,
+            "version": 1,
+            "nll": 1.7646938562393188,
+            "address": 9.81252670288086,
+            "margin": 3.2578125
+          },
+          {
+            "key": 0,
+            "version": 0,
+            "nll": 1.089463710784912,
+            "address": 10.391788482666016,
+            "margin": 5.203125
+          },
+          {
+            "key": 0,
+            "version": 1,
+            "nll": 1.868307113647461,
+            "address": 10.807632446289062,
+            "margin": 1.375
+          },
+          {
+            "key": 5,
+            "version": 0,
+            "nll": 2.434998035430908,
+            "address": 10.397151947021484,
+            "margin": 0.890625
+          },
+          {
+            "key": 5,
+            "version": 1,
+            "nll": 2.625561475753784,
+            "address": 10.582828521728516,
+            "margin": -0.9921875
+          },
+          {
+            "key": 2,
+            "version": 0,
+            "nll": 1.8677995204925537,
+            "address": 10.413497924804688,
+            "margin": -2.2890625
+          },
+          {
+            "key": 2,
+            "version": 1,
+            "nll": 3.4479827880859375,
+            "address": 10.517704010009766,
+            "margin": 3.015625
+          }
+        ],
+        "one": [
+          {
+            "key": 3,
+            "version": 0,
+            "nll": 1.067948579788208,
+            "address": 10.999734878540039,
+            "margin": -1.25
+          },
+          {
+            "key": 3,
+            "version": 1,
+            "nll": 1.5584146976470947,
+            "address": 10.653951644897461,
+            "margin": 2.203125
+          },
+          {
+            "key": 0,
+            "version": 0,
+            "nll": 1.0023338794708252,
+            "address": 31.04505729675293,
+            "margin": 4.40625
+          },
+          {
+            "key": 0,
+            "version": 1,
+            "nll": 1.7052631378173828,
+            "address": 18.41242027282715,
+            "margin": 2.46875
+          },
+          {
+            "key": 5,
+            "version": 0,
+            "nll": 1.9538004398345947,
+            "address": 8.876014709472656,
+            "margin": 0.0546875
+          },
+          {
+            "key": 5,
+            "version": 1,
+            "nll": 2.0181424617767334,
+            "address": 8.354259490966797,
+            "margin": -0.1015625
+          },
+          {
+            "key": 2,
+            "version": 0,
+            "nll": 1.3699005842208862,
+            "address": 10.090188980102539,
+            "margin": -1.015625
+          },
+          {
+            "key": 2,
+            "version": 1,
+            "nll": 3.0733516216278076,
+            "address": 6.705098628997803,
+            "margin": 1.9375
+          }
+        ],
+        "two": [
+          {
+            "key": 3,
+            "version": 0,
+            "nll": 1.0934102535247803,
+            "address": 11.154298782348633,
+            "margin": 0.078125
+          },
+          {
+            "key": 3,
+            "version": 1,
+            "nll": 1.6400396823883057,
+            "address": 10.799459457397461,
+            "margin": 1.171875
+          },
+          {
+            "key": 0,
+            "version": 0,
+            "nll": 1.0257220268249512,
+            "address": 31.266006469726562,
+            "margin": 3.6875
+          },
+          {
+            "key": 0,
+            "version": 1,
+            "nll": 1.7580198049545288,
+            "address": 18.502614974975586,
+            "margin": 3.015625
+          },
+          {
+            "key": 5,
+            "version": 0,
+            "nll": 1.454708456993103,
+            "address": 9.069906234741211,
+            "margin": -0.3125
+          },
+          {
+            "key": 5,
+            "version": 1,
+            "nll": 1.4307187795639038,
+            "address": 8.549249649047852,
+            "margin": 0.3359375
+          },
+          {
+            "key": 2,
+            "version": 0,
+            "nll": 1.103863000869751,
+            "address": 10.246469497680664,
+            "margin": 0.28125
+          },
+          {
+            "key": 2,
+            "version": 1,
+            "nll": 3.0577304363250732,
+            "address": 6.794885158538818,
+            "margin": 0.9140625
+          }
+        ],
+        "both": 3,
+        "address_gain": -2.9680179953575134,
+        "second_gain": 0.14811787009239197
+      },
+      "seconds": 584.4255817499943,
+      "peak_bytes": 2273268285,
+      "updates": 96,
+      "dual": {
+        "initial": 1,
+        "one": 1,
+        "two": 3
+      }
+    }
   }
 }
