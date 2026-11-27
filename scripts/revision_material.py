@@ -58,17 +58,17 @@ def material():
             body = f"Article excerpt:\n{r['evidence']}\n\nClaim:\n{claim}\n\nBased on this excerpt, is the claim supported? Give your final answer as yes or no."
             text, _ = render(tok, body, True)
             rows.append(
-                dict(
-                    id=r["unique_id"],
-                    page=page,
-                    revision=rev,
-                    case=case,
-                    claim=claim,
-                    evidence=r["evidence"],
-                    label=r["label"],
-                    body=body,
-                    prompt_ids=tok.encode(text, add_special_tokens=False),
-                )
+                {
+                    "id": r["unique_id"],
+                    "page": page,
+                    "revision": rev,
+                    "case": case,
+                    "claim": claim,
+                    "evidence": r["evidence"],
+                    "label": r["label"],
+                    "body": body,
+                    "prompt_ids": tok.encode(text, add_special_tokens=False),
+                }
             )
         if len(pages) == s["pairs"]:
             break

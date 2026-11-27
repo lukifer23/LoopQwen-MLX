@@ -8,7 +8,7 @@ from tempfile import TemporaryDirectory
 from time import perf_counter
 
 import mlx.core as mx
-import mlx.nn as nn
+from mlx import nn
 from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
 from mlx_lm.tuner.lora import LoRALinear
 
@@ -129,11 +129,11 @@ def build(release, adapter, directory):
         cfg = read(release / "config.json")
         save(
             root / "config.json",
-            dict(
-                model_type="qwen3_5_looped",
-                text_config=cfg["text_config"],
-                span=asdict(model.span),
-            ),
+            {
+                "model_type": "qwen3_5_looped",
+                "text_config": cfg["text_config"],
+                "span": asdict(model.span),
+            },
         )
         for name in (
             "tokenizer.json",
@@ -154,16 +154,16 @@ def build(release, adapter, directory):
             for p in sorted(root.rglob("*"))
             if p.is_file()
         }
-        cert = dict(
-            base_revision=REVISION,
-            adapter_sha256=ADAPTER,
-            files=files,
-            fused=fused,
-            relative_logit_rms=rms,
-            learned_gate=model.effective_alpha().item(),
-            seconds=perf_counter() - start,
-            peak_bytes=mx.get_peak_memory(),
-        )
+        cert = {
+            "base_revision": REVISION,
+            "adapter_sha256": ADAPTER,
+            "files": files,
+            "fused": fused,
+            "relative_logit_rms": rms,
+            "learned_gate": model.effective_alpha().item(),
+            "seconds": perf_counter() - start,
+            "peak_bytes": mx.get_peak_memory(),
+        }
         save(root / MARKER, cert)
         root.rename(directory)
     return cert

@@ -6,6 +6,8 @@ from time import perf_counter
 
 import mlx.core as mx
 
+from scripts.revision_material import NAME, PANEL, REG, material
+
 from ..compact_entailment import MARKER, build, load
 from ..evaluation.generation_eval import generate
 from ..evaluation.mechanism import packed, unpack
@@ -16,7 +18,6 @@ from ..generate_cli import render
 from ..io import digest, read, save
 from ..ordinary_model import ordinary
 from . import core
-from scripts.revision_material import NAME, PANEL, REG, material
 
 
 def score(tok, row, record, arm):
@@ -40,12 +41,12 @@ def score(tok, row, record, arm):
     assert sorted((h["layer"], h["turn"]) for h in hist) == sorted(sites)
     assert all(h["offset"] == h["retained"] == len(ids) + len(tokens) - 1 for h in hist)
     answer = conclusion(visible) if complete else None
-    return dict(
-        complete=complete,
-        visible=visible,
-        answer=answer,
-        correct=answer == {"SUPPORTS": "yes", "REFUTES": "no"}[row["label"]],
-    )
+    return {
+        "complete": complete,
+        "visible": visible,
+        "answer": answer,
+        "correct": answer == {"SUPPORTS": "yes", "REFUTES": "no"}[row["label"]],
+    }
 
 
 def recount(root, rows, s):
@@ -70,49 +71,49 @@ def recount(root, rows, s):
         first = sum(r["ttft_s"] for r in records)
         decode = sum(r["elapsed_s"] - r["ttft_s"] for r in records)
         setup = sum(r["load_s"] for r in records)
-        totals[arm] = dict(
-            pairs=sum(work[arm].values()),
-            correct=sum(r["score"]["correct"] for r in records),
-            supports=sum(
+        totals[arm] = {
+            "pairs": sum(work[arm].values()),
+            "correct": sum(r["score"]["correct"] for r in records),
+            "supports": sum(
                 r["score"]["correct"]
                 for row, r in zip(rows, records)
                 if row["label"] == "SUPPORTS"
             ),
-            refutes=sum(
+            "refutes": sum(
                 r["score"]["correct"]
                 for row, r in zip(rows, records)
                 if row["label"] == "REFUTES"
             ),
-            complete=sum(r["score"]["complete"] for r in records),
-            stream_s=sum(r["request_s"] for r in records) + setup,
-            first_s=sum(r["first_s"] for r in records) + setup,
-            load_s=setup,
-            peak_bytes=max(r["peak_bytes"] for r in records),
-            prefill_tps=sum(r["prompt_tokens"] for r in records) / first,
-            decode_tps=sum(len(r["token_ids"]) - 1 for r in records) / decode,
-        )
+            "complete": sum(r["score"]["complete"] for r in records),
+            "stream_s": sum(r["request_s"] for r in records) + setup,
+            "first_s": sum(r["first_s"] for r in records) + setup,
+            "load_s": setup,
+            "peak_bytes": max(r["peak_bytes"] for r in records),
+            "prefill_tps": sum(r["prompt_tokens"] for r in records) / first,
+            "decode_tps": sum(len(r["token_ids"]) - 1 for r in records) / decode,
+        }
     wins = sum(v and not work["base"][k] for k, v in work["candidate"].items())
     losses = sum(v and not work["candidate"][k] for k, v in work["base"].items())
     p = exact_mcnemar(wins, losses)
     c, b = totals["candidate"], totals["base"]
-    gates = dict(
-        opposing_pairs=wins - losses >= 5 and p <= 0.05,
-        supports=c["supports"] > b["supports"],
-        refutes=c["refutes"] > b["refutes"],
-        completion=c["complete"] >= b["complete"],
-    )
+    gates = {
+        "opposing_pairs": wins - losses >= 5 and p <= 0.05,
+        "supports": c["supports"] > b["supports"],
+        "refutes": c["refutes"] > b["refutes"],
+        "completion": c["complete"] >= b["complete"],
+    }
     for key in ("stream_s", "first_s", "peak_bytes"):
         gates[key] = c[key] < b[key]
     for key in ("prefill_tps", "decode_tps"):
         gates[key] = c[key] > b[key]
-    return dict(
-        scores=totals,
-        wins=wins,
-        losses=losses,
-        paired_p=p,
-        gates=gates,
-        passed=all(gates.values()),
-    )
+    return {
+        "scores": totals,
+        "wins": wins,
+        "losses": losses,
+        "paired_p": p,
+        "gates": gates,
+        "passed": all(gates.values()),
+    }
 
 
 def prerequisites(s):
@@ -149,7 +150,7 @@ def run():
     root = core.OUT / NAME
     root.mkdir(parents=True, exist_ok=False)
     b = core.Budget(NAME, s["limits"])
-    result = dict(data=digest(PANEL), registration=digest(REG), passed=False)
+    result = {"data": digest(PANEL), "registration": digest(REG), "passed": False}
     export = Path(s["export"])
     records = {"candidate": [], "base": []}
     try:
@@ -178,10 +179,16 @@ def run():
                         tok.encode(body, add_special_tokens=False) == row["prompt_ids"]
                     )
                     first = []
+                    prompt_length = len(row["prompt_ids"])
 
-                    def progress(consumed):
-                        if consumed == len(row["prompt_ids"]) and not first:
-                            first.append(perf_counter() - start)
+                    def progress(
+                        consumed,
+                        length=prompt_length,
+                        seen=first,
+                        origin=start,
+                    ):
+                        if consumed == length and not seen:
+                            seen.append(perf_counter() - origin)
                         b.check()
 
                     r = generate(

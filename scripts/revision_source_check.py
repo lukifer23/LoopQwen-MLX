@@ -42,13 +42,13 @@ def recover(ids):
         for rev in page["revisions"]:
             child, parent = rev["revid"], rev["parentid"]
             url = "https://en.wikipedia.org/w/api.php?" + urlencode(
-                dict(
-                    action="compare",
-                    format="json",
-                    fromrev=parent,
-                    torev=child,
-                    prop="ids|diff|title",
-                )
+                {
+                    "action": "compare",
+                    "format": "json",
+                    "fromrev": parent,
+                    "torev": child,
+                    "prop": "ids|diff|title",
+                }
             )
             req = Request(
                 url,
@@ -59,13 +59,13 @@ def recover(ids):
             with urlopen(req, timeout=45) as response:
                 diff = json.load(response)["compare"]
             assert (diff["fromrevid"], diff["torevid"]) == (parent, child)
-            docs[str(child)] = dict(
-                pageid=page["pageid"],
-                title=page["title"],
-                timestamp=rev["timestamp"],
-                parent=parent,
-                diff=diff["*"],
-            )
+            docs[str(child)] = {
+                "pageid": page["pageid"],
+                "title": page["title"],
+                "timestamp": rev["timestamp"],
+                "parent": parent,
+                "diff": diff["*"],
+            }
     assert docs.keys() == set(ids)
     return dict(sorted(docs.items()))
 
@@ -106,7 +106,7 @@ def main(fetch=False):
             cells = re.findall(
                 r'<td\b[^>]*class="[^"]*\b' + cls + r'\b[^"]*"[^>]*>(.*?)</td>',
                 doc["diff"],
-                re.S,
+                re.DOTALL,
             )
             sides.append(html.unescape(re.sub(r"<[^>]+>", " ", " ".join(cells))))
         pair = [r for r in rows if r["revision"] == key]
@@ -114,24 +114,24 @@ def main(fetch=False):
         matrix = [[overlap(r["evidence"], cell) for cell in sides] for r in pair]
         aligned = max(min(matrix[0][0], matrix[1][1]), min(matrix[1][0], matrix[0][1]))
         scores.append(
-            dict(
-                revision=int(key),
-                parent=doc["parent"],
-                title=doc["title"],
-                timestamp=doc["timestamp"],
-                ids=[r["id"] for r in pair],
-                trigram_coverage=matrix,
-                weakest_opposite_side_coverage=aligned,
-                url=f"https://en.wikipedia.org/wiki/Special:Diff/{key}",
-            )
+            {
+                "revision": int(key),
+                "parent": doc["parent"],
+                "title": doc["title"],
+                "timestamp": doc["timestamp"],
+                "ids": [r["id"] for r in pair],
+                "trigram_coverage": matrix,
+                "weakest_opposite_side_coverage": aligned,
+                "url": f"https://en.wikipedia.org/wiki/Special:Diff/{key}",
+            }
         )
-    result = dict(
-        edits=len(ids),
-        rows=len(rows),
-        years=dict(Counter(r["timestamp"][:4] for r in scores)),
-        source_sha256=hashlib.sha256(DIFFS.read_bytes()).hexdigest(),
-        articles=scores,
-    )
+    result = {
+        "edits": len(ids),
+        "rows": len(rows),
+        "years": dict(Counter(r["timestamp"][:4] for r in scores)),
+        "source_sha256": hashlib.sha256(DIFFS.read_bytes()).hexdigest(),
+        "articles": scores,
+    }
     if RESULT.exists():
         assert read(RESULT) == result
     else:
