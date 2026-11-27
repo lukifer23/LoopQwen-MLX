@@ -37,9 +37,16 @@ def snapshot(model, ids, lean):
         raw = np.asarray(v.view(mx.uint8)).tobytes()
         return [str(v.dtype), list(v.shape), hashlib.sha256(raw).hexdigest()]
 
+    def fingerprint_state(value):
+        if isinstance(value, mx.array):
+            return array_sha(value)
+        if isinstance(value, (tuple, list)):
+            return [fingerprint_state(v) for v in value]
+        return value
+
     result = {"logits": array_sha(logits), "sites": []}
     for (layer, visit), slot in cache.slots.items():
-        fields = [array_sha(v) if isinstance(v, mx.array) else v for v in slot.state]
+        fields = fingerprint_state(slot.state)
         offset = getattr(slot, "offset", None)
         if isinstance(offset, mx.array):
             offset = offset.tolist()
@@ -88,7 +95,14 @@ def verify(root, d):
             assert (
                 v["logits"][1][0] >= 200000
                 and len(v["sites"]) == 25
-                and all(len(s["state"]) == 2 for s in v["sites"])
+                and all(
+                    (
+                        len(s["state"]) == 2
+                        if (s["layer"] + 1) % 4 == 0
+                        else len(s["state"][0]) == 2 and s["state"][1:] == [None, None]
+                    )
+                    for s in v["sites"]
+                )
             )
     assert d == decide(rounds, states)
 
@@ -218,7 +232,7 @@ def finish_numeric():
             {
                 "timed_rounds": digest(root / "rounds.json.gz"),
                 "source": digest(Path(__file__)),
-                "reason": "The original eight timed rounds completed. An MLX offset needed conversion to JSON for the untimed equality probes; only the probes were re-executed.",
+                "reason": "The original eight timed rounds completed. Nested MLX convolution and delta tensors needed recursive fingerprinting for the untimed equality probes. The timing blocks were preserved and only the probes were re-executed.",
             },
         )
         d = decide(rounds, states)
