@@ -258,6 +258,8 @@ The three cold requests took a total of 295.22 versus 810.54 seconds, with summe
 
 #include "reading-results.typ"
 
+*Isolated 173K replay.* We built the portable wheel twice and installed it outside the checkout with a fresh, empty model cache. A Python audit hook rejected socket connections and DNS lookups. On the entire first Git tree, the installed recurrent and ordinary CLI paths reproduced every original output token, all eight recurrent attention histories and all six control histories. The loop answered 7,039 in 111.66 seconds at 2.70 GiB. Base exhausted 160 output tokens in 326.59 seconds at 4.51 GiB. The final retained lengths were 173,150 and 173,288. Both began with the same 173,129 input IDs. The ordinary control loaded the 320 verified original text arrays included in the same release.
+
 = The cost of full-history attention
 The released decoder repeats layers 10–15, including two global attention sites. Two separately registered experiments tested whether changing where it spends that work preserves the ability to use an earlier record. Each paired run includes both an original ledger and a counterfactual with the same numbers at the same token positions but two record names swapped. Timing includes locating the evidence. Each length contributes one pair per study.
 
