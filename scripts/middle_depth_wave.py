@@ -1,10 +1,10 @@
 """Run resumable first-wave decisions in source-counterbalanced order on one GPU."""
 
 import argparse
-from pathlib import Path
 import subprocess
 import sys
 import time
+from pathlib import Path
 
 from loopqwen.io import read
 from scripts.middle_depth_budget import ROOT
@@ -105,19 +105,40 @@ def paired_fit():
 
 def short_terminal():
     policies = {arm: fit(arm, 576) for arm in ("loop", "ordinary")}
-    generate("terminal", ["loop", "ordinary", "base", "instruction"], [128, 512], policies)
+    generate(
+        "terminal", ["loop", "ordinary", "base", "instruction"], [128, 512], policies
+    )
 
 
 def depths():
     policy = fit("loop", 576)
     for block in (0, 1):
-        for depth in ((1, 2, 3) if block == 0 else (3, 2, 1)):
-            dispatch("development", "collect", "--stage", "depth", "--arm", "loop",
-                     "--depth", depth, "--policy", policy, "--tokens", 512, "--block", block)
+        for depth in (1, 2, 3) if block == 0 else (3, 2, 1):
+            dispatch(
+                "development",
+                "collect",
+                "--stage",
+                "depth",
+                "--arm",
+                "loop",
+                "--depth",
+                depth,
+                "--policy",
+                policy,
+                "--tokens",
+                512,
+                "--block",
+                block,
+            )
 
 
 if __name__ == "__main__":
-    actions = {"first": first, "fit": paired_fit, "short-terminal": short_terminal, "depth": depths}
+    actions = {
+        "first": first,
+        "fit": paired_fit,
+        "short-terminal": short_terminal,
+        "depth": depths,
+    }
     p = argparse.ArgumentParser()
     p.add_argument("stage", choices=actions)
     actions[p.parse_args().stage]()

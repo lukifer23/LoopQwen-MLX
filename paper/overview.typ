@@ -111,3 +111,13 @@ The same weights then processed #r.context.long.prompt tokens from a complete pr
 #if "bounded" in r [*Bounded source read.* On 48 new requests the loop completed 38 versus 28, taking 68.24 versus 265.78 seconds. It answered 13/24 reasoning choices versus 15/24, with seven supported explanations each. It executed valid calls on 23/24 financial reports versus one for Base. Two loop programs returned the correct amount and one delivered it correctly. A separate full-document gradient check reduced native peak allocation from 8.90 to 1.43 GiB at 147,481 positions. Held quality at 128K remains unverified for this checkpoint.] else if "fresh" in r [*Fresh correction fit.* After training on its own unfinished deliberation, the loop completed 37/48 versus 20/48 and took 57.93 versus 271.00 seconds. Correct reasoning choices were 9/24 versus 6/24, with six gains and three losses. Neither earned a fully usable explanation. Each had one strict calculation, and only Base delivered a fully usable financial answer with source units.]
 
 ]
+
+#if "middle_depth" in d [
+#pagebreak()
+= What did a middle-span loop change?
+#let m=d.middle_depth
+The new comparison starts with one verified Base donor. The loop repeats four middle layers with separate physical caches, and eight pretrained suffix layers interpret the result. An independently trained ordinary-depth sibling receives the same sequence of questions, answers, ranking targets and optimizer updates. The frozen Base and instruction checkpoints show what the donors already supplied.
+#image("middle-depth-generation.svg",width:97%)
+The figure shows completed, source-supported answers at 128 output tokens. The underlying short panel uses an original question, a relevant evidence change and an irrelevant edit for each source. A model offering to use a tool without executing the requested action earns zero. Full-document development separately uses complete books at 145,891 and 167,014–167,017 actual input tokens. A longer-output comparison distinguishes reaching the end of deliberation from making the correct decision.
+#if m.decision == none [This comparison is in development. A four-family product effect and a replicated causal depth effect remain open.] else [#m.decision.reading]
+]

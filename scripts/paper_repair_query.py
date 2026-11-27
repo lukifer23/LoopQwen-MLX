@@ -375,6 +375,11 @@ def build():
             "/Author": "LoopQwen-MLX",
         }
     )
+    extra = P / "middle-depth.pdf"
+    current = PdfReader(extra) if extra.is_file() else None
+    if current is not None:
+        writer.add_metadata({"/Title": "Shared depth, ordinary depth and supported answers on Apple Silicon"})
+        writer.append(current, outline_item="Can four repeated Qwen layers turn evidence into a decision?")
     writer.append(
         doc,
         outline_item="Shared query recurrence, trained source repair and measured prerequisites",
@@ -382,7 +387,7 @@ def build():
     writer.append(prior, outline_item="Prior methods, training and direct evaluations")
     dest = P / "loopqwen-repair-query-study.pdf"
     writer.write(dest)
-    assert len(PdfReader(dest).pages) == len(doc.pages) + len(prior.pages)
+    assert len(PdfReader(dest).pages) == len(doc.pages) + len(prior.pages) + (len(current.pages) if current else 0)
     print(
         len(doc.pages),
         "local pages;",

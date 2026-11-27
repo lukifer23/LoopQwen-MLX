@@ -334,6 +334,7 @@ def build():
         P / "overview-data.json",
         {
             "rows": summary,
+            **({"middle_depth": read(P / "middle-depth-data.json")} if (P / "middle-depth-data.json").exists() else {}),
             **({"repair_query": repair} if repair else {}),
             **({"conditional": conditional} if conditional else {}),
             "scope": scope,
@@ -362,7 +363,7 @@ def build():
     doc = typst.compile(str(P / "overview.typ"), timestamp=0)
     (P / "evidence-overview.pdf").write_bytes(doc)
     pages = PdfReader(P / "evidence-overview.pdf").pages
-    assert len(pages) == (5 if conditional else 4) + bool(repair) and all(len(p.extract_text()) > 550 for p in pages)
+    assert len(pages) == (5 if conditional else 4) + bool(repair) + int((P / "middle-depth-data.json").exists()) and all(len(p.extract_text()) > 550 for p in pages)
     print(len(rows) // 2, "direct comparisons;", len(pages), "pages")
 
 

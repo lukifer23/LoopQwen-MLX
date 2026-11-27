@@ -2,8 +2,6 @@
 
 import argparse
 from collections import defaultdict
-from pathlib import Path
-from statistics import mean
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint
@@ -104,19 +102,22 @@ def aggregate(stage):
         for turn in tr["turns"]:
             generated = turn["token_ids"]
             start = len(turn["prompt_ids"])
-            stamps = [next(t for pos, t in timing if pos == start + i) for i in range(len(generated))]
+            stamps = [
+                next(t for pos, t in timing if pos == start + i)
+                for i in range(len(generated))
+            ]
             if visible is not None or 248069 not in generated:
                 continue
             after = generated.index(248069) + 1
             # Only natural-language text visible before an action can count.
             # Token-limit traces may still contain the beginning of a reply.
-            before_call = tok.decode(generated[after:]).split("<tool_call>", 1)[0]
-            before_call = before_call.split("<|im_end|>", 1)[0].strip()
-            if before_call:
-                for i in range(after, len(generated)):
-                    if tok.decode(generated[after:i + 1]).strip():
-                        visible = stamps[i]
-                        break
+            for i in range(after, len(generated)):
+                piece = tok.decode([generated[i]]).strip()
+                if piece in ("<tool_call>", "<|im_end|>", "<think>"):
+                    break
+                if piece and piece != "</think>":
+                    visible = stamps[i]
+                    break
         results.append(
             dict(
                 file=str(f.relative_to(ROOT)),

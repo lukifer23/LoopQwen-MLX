@@ -154,6 +154,209 @@
       "1256.00"
     ]
   ],
+  "middle_depth": {
+    "summaries": [
+      {
+        "stage": "early",
+        "arm": "loop",
+        "cap": 128,
+        "family": "reasoning",
+        "total": 9,
+        "correct": 2,
+        "seconds": 12.49,
+        "percent": 22.2,
+        "deadline_percent": 22.2,
+        "median_tps": 55.2,
+        "peak_gib": 1.56
+      },
+      {
+        "stage": "early",
+        "arm": "loop",
+        "cap": 128,
+        "family": "tools",
+        "total": 9,
+        "correct": 0,
+        "seconds": 16.16,
+        "percent": 0.0,
+        "deadline_percent": 0.0,
+        "median_tps": 55.0,
+        "peak_gib": 1.65
+      },
+      {
+        "stage": "early",
+        "arm": "loop",
+        "cap": 128,
+        "family": "chat",
+        "total": 9,
+        "correct": 3,
+        "seconds": 5.61,
+        "percent": 33.3,
+        "deadline_percent": 33.3,
+        "median_tps": 54.2,
+        "peak_gib": 1.53
+      },
+      {
+        "stage": "early",
+        "arm": "ordinary",
+        "cap": 128,
+        "family": "reasoning",
+        "total": 9,
+        "correct": 2,
+        "seconds": 8.74,
+        "percent": 22.2,
+        "deadline_percent": 22.2,
+        "median_tps": 65.3,
+        "peak_gib": 1.57
+      },
+      {
+        "stage": "early",
+        "arm": "ordinary",
+        "cap": 128,
+        "family": "tools",
+        "total": 9,
+        "correct": 0,
+        "seconds": 8.53,
+        "percent": 0.0,
+        "deadline_percent": 0.0,
+        "median_tps": 61.2,
+        "peak_gib": 1.65
+      },
+      {
+        "stage": "early",
+        "arm": "ordinary",
+        "cap": 128,
+        "family": "chat",
+        "total": 9,
+        "correct": 3,
+        "seconds": 4.18,
+        "percent": 33.3,
+        "deadline_percent": 33.3,
+        "median_tps": 62.2,
+        "peak_gib": 1.53
+      },
+      {
+        "stage": "initial",
+        "arm": "base",
+        "cap": 128,
+        "family": "reasoning",
+        "total": 9,
+        "correct": 0,
+        "seconds": 18.02,
+        "percent": 0.0,
+        "deadline_percent": 0.0,
+        "median_tps": 66.1,
+        "peak_gib": 1.55
+      },
+      {
+        "stage": "initial",
+        "arm": "base",
+        "cap": 128,
+        "family": "tools",
+        "total": 9,
+        "correct": 0,
+        "seconds": 19.52,
+        "percent": 0.0,
+        "deadline_percent": 0.0,
+        "median_tps": 62.6,
+        "peak_gib": 1.64
+      },
+      {
+        "stage": "initial",
+        "arm": "base",
+        "cap": 128,
+        "family": "chat",
+        "total": 9,
+        "correct": 0,
+        "seconds": 18.55,
+        "percent": 0.0,
+        "deadline_percent": 0.0,
+        "median_tps": 62.2,
+        "peak_gib": 1.52
+      },
+      {
+        "stage": "initial",
+        "arm": "loop",
+        "cap": 128,
+        "family": "reasoning",
+        "total": 9,
+        "correct": 0,
+        "seconds": 21.21,
+        "percent": 0.0,
+        "deadline_percent": 0.0,
+        "median_tps": 54.5,
+        "peak_gib": 1.56
+      },
+      {
+        "stage": "initial",
+        "arm": "loop",
+        "cap": 128,
+        "family": "tools",
+        "total": 9,
+        "correct": 0,
+        "seconds": 22.54,
+        "percent": 0.0,
+        "deadline_percent": 0.0,
+        "median_tps": 54.2,
+        "peak_gib": 1.65
+      },
+      {
+        "stage": "initial",
+        "arm": "loop",
+        "cap": 128,
+        "family": "chat",
+        "total": 9,
+        "correct": 1,
+        "seconds": 20.8,
+        "percent": 11.1,
+        "deadline_percent": 11.1,
+        "median_tps": 55.5,
+        "peak_gib": 1.53
+      }
+    ],
+    "spend": {
+      "profile": 117.57,
+      "fit": 215.88,
+      "short": 212.37,
+      "long": 477.1
+    },
+    "books": [
+      {
+        "file": "book/initial-loop-original-128.json.gz",
+        "length": 167014,
+        "status": "token_limit",
+        "tokens": 128,
+        "warm_s": 421.3,
+        "build_s": 0,
+        "peak_gib": 2.83,
+        "scratch_gib": 2.55
+      }
+    ],
+    "trajectories": 124,
+    "source_rows": 36,
+    "archive": 1527751054,
+    "history": {
+      "plan": "cb240ef97cfdef114641e99d9d235182d161a5061b9c3a1816d642e40aa29240",
+      "review": "b2573d81c98a4c74aace9f7b42c32c9285651fea7713f26437a0f7f59dfeaac5",
+      "source": "4027e5d004825ca69e19c9424e194959b9027652b7df44d20653d9aede50a3fe",
+      "deck": "8ae5b76c073d36baaeeab835c5438cefd72355fed40275b6f2ac115e11afacf0",
+      "rollins": {
+        "ordinary_attempts": 8,
+        "loop_attempts": 8,
+        "excluded_correct": 1
+      },
+      "real_model_callbacks": 0,
+      "shared_executions": 16,
+      "unique_failed_prefixes": 15,
+      "distinct_input_rows": 13,
+      "positions": {
+        "p": 37922,
+        "simple": 37896,
+        "y": 3198
+      },
+      "seconds": 0.6192885419586673
+    },
+    "decision": null
+  },
   "repair_query": {
     "fit": {
       "stage": "repair-query-fit-01",

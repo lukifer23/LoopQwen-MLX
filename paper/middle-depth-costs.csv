@@ -1,0 +1,42 @@
+stage,job,status,seconds,peak_bytes,delta_swap,free_bytes,disk_read,disk_written,reason,receipt
+fit,ordinary/32/replay=False,stopped,3.093215625034645,4817401354,0,138886070272,,,"InterruptedError(""Native development limit: {'pressure': 2, 'available': 6007767040, 'swap': 1581907968, 'free': 138891440128, 'active': 1514113756, 'peak': 4817401354}"")",04d35c71ac074c69a123bc8e11c25d83.json
+fit,ordinary/32/replay=False,stopped,5.357599999988452,5199950602,-16777216,138880421888,,,"InterruptedError(""Native development limit: {'pressure': 2, 'available': 6079594496, 'swap': 1795751936, 'free': 138885779456, 'active': 1514425052, 'peak': 5199950602}"")",0762e7c7381b4042b81ac4738f3bb872.json
+profile,screen/0/instruction,finished,21.985053584037814,1634161470,-16777216,139487981568,,,,0f5ec836a6cf4819a666aa06733e104a.json
+fit,loop/1/replay=False,stopped,1.3833264579880051,2093045600,0,139036200960,,,"TypeError(""'int' object is not callable"")",1952c316df5941388dcd3c6fb3a7153d.json
+short,docs/measurements/middle-depth/short/initial/128/base/1,finished,25.99224587494973,1762790682,-16777216,138870956032,,,,1f5a458aaade4efba5104dff72b9ae3d.json
+fit,training roll-in/loop,finished,30.975336875009816,1787276210,-8388608,138880655360,102400,36864,,220e5186cac0454eb9af1247a1189ae2.json
+profile,restart diagnosis/loop,finished,8.70161879202351,5083362256,-33554432,139009826816,,,,257fd5c0c5604099bc478487f50da1bf.json
+short,docs/measurements/middle-depth/short/initial/128/loop/0,finished,47.22594320902135,1773262262,0,138854064128,,,,25aec9dacdb4410fbf09b655d24737cf.json
+fit,ordinary/1/replay=False,finished,3.232679457985796,5061063442,0,138987802624,,,,2a7a66826b044babb34bc5d501245914.json
+short,docs/measurements/middle-depth/short/early/128/ordinary/0,finished,18.54474337497959,1767375254,0,138881929216,,,,317558b3abd542d6b5633f62dbde5d9f.json
+long,docs/measurements/middle-depth/book/base-original-128.json.gz,stopped,53.93827250000322,2223148282,-8388608,138723176448,,,"InterruptedError(""Native development limit: {'pressure': 2, 'available': 3658792960, 'swap': 1774911488, 'free': 138723184640, 'active': 1862830794, 'peak': 2223148282}"")",34712d6f50314c92b181558750736e31.json
+profile,architecture/base,finished,4.010163708997425,2412728767,0,139059789824,,,,4141119c007e424584e412258656999b.json
+fit,ordinary/prepare prepared update,finished,2.6799928749678656,5057524486,0,138978619392,,,,468b42f73322492fb4110ceff209ce68.json
+profile,saved-prefix-and-sparse-adjoint,stopped,2.2118320830049925,2008101542,0,138874925056,3047424,33460224,"AssertionError({'normal_logit_max': 0.0, 'normal_full_loss': 3.063199996948242, 'normal_sparse_loss': 3.063199996948242, 'full_loss': 3.095810890197754, 'sparse_loss': 3.063199996948242, 'norm': 1.4909169673919678, 'relative': 0.07456398133387192, 'maximum': {'lora_a': 0.0, 'lora_b': 0.005899157375097275}})",4d65d69eadfd4cac9619fd0f54998839.json
+fit,ordinary/32/replay=False,finished,32.47766012500506,5173277622,0,138877743104,,,,54f1a063d8794f72a525dffe0e1be0d5.json
+long,docs/measurements/middle-depth/book/initial-loop-original-128.json.gz,finished,423.16483512497507,3033354092,-125894656,139038408704,,,,5b2b89221dfe4ac7bd1237dfca2103c4.json
+profile,saved-prefix-and-sparse-adjoint,stopped,2.1094287500018254,1891999346,0,138890903552,,,AssertionError(),5cb37e5a0ced42cc84101118299dc7e8.json
+short,docs/measurements/middle-depth/short/early/128/loop/1,finished,16.942442875006236,1773472786,0,138896105472,20480,77824,,602b49d9b74d48939edb9e9ed8a92244.json
+fit,loop/32/replay=False,finished,88.50500908400863,5267826998,-8388608,138898083840,,,,643480313eef44edbed68f1ee35cc589.json
+profile,architecture/instruction,finished,3.2747443330008537,2412744174,0,139495616512,,,,64648cfa187446f58c4a9c3d7ef3994e.json
+profile,screen/1/instruction,finished,26.028920665965416,1632015198,-33554432,139125846016,,,,6e5f5a699dba4b7384e1fe25a6198916.json
+fit,loop/commit prepared update,finished,1.168026125000324,1518948200,0,139001716736,,,,7397dce959d14b82892f083594b71a3f.json
+fit,loop/2/replay=True,stopped,5.0560445000301115,5069255564,0,139001929728,,,ValueError('Restored update differs'),751f1893ec2b4ef192fe4fa98250d63d.json
+fit,loop/2/replay=True,stopped,2.192804583988618,4488003166,0,139006537728,,,"InterruptedError(""Native development limit: {'pressure': 2, 'available': 4543070208, 'swap': 1649016832, 'free': 139006537728, 'active': 1510247120, 'peak': 4488003166}"")",8319045671bb4485a6f65ade859bf44b.json
+profile,saved-prefix-and-sparse-adjoint,stopped,1.9398962080013007,1891966834,0,138877800448,3796992,33456128,RuntimeError('[scaled_dot_product_attention] the vector kernels do not produce a logsumexp; the VJP path requires the full-attention kernel.'),8645789d4db640ed91c8c7fcd55470f0.json
+short,docs/measurements/middle-depth/short/initial/128/base/0,finished,41.225332125031855,1762732954,0,138861436928,,,,8f77dd5044b24dd7ab987e418af9ce58.json
+fit,training roll-in/ordinary,finished,18.85609470802592,1781790626,0,138879578112,705249280,36864,,93172cd4844e45efa4ea904fb74224e3.json
+fit,ordinary/32/replay=False,stopped,2.3707584580406547,5115799744,0,138875625472,,,"InterruptedError(""Native development limit: {'pressure': 2, 'available': 4214390784, 'swap': 1787363328, 'free': 138875625472, 'active': 1510886096, 'peak': 5115799744}"")",94794ff80e2b456abebf102a21ed1680.json
+profile,saved-prefix-and-sparse-adjoint,stopped,1.9744992079795338,1944528550,0,138876239872,3411968,33460224,"AssertionError({'full_loss': 3.095810890197754, 'sparse_loss': 3.063199996948242, 'norm': 1.4909169673919678, 'relative': 0.07456398133387192, 'maximum': {'lora_a': 0.0, 'lora_b': 0.005899157375097275}})",952d804c92124ccfa2b56ce3d19ef78f.json
+profile,screen/0/base,finished,27.038209750026,1633080074,-8388608,139494739968,,,,9e4a5a4985344ec8b9c9cd4833cc3101.json
+fit,ordinary/commit prepared update,finished,1.1649803339969367,1518948056,0,138972270592,,,,a1c91d626d994a78b6b409187d693baf.json
+fit,loop/1/replay=False,finished,6.956642874982208,5072745378,0,139008393216,,,,a7ad57369d17407887a57a562c0033a3.json
+profile,saved-prefix-and-sparse-adjoint,stopped,2.1399708749959245,2008120230,0,138887950336,3051520,33460224,"AssertionError({'normal_logit_max': 0.0, 'normal_full_loss': 3.063199996948242, 'normal_sparse_loss': 3.063199996948242, 'full_loss': 3.074397087097168, 'sparse_loss': 3.063199996948242, 'norm': 1.4909169673919678, 'relative': 0.06579241552420068, 'maximum': {'lora_a': 0.0, 'lora_b': 0.008049963042140007}})",a8ddf3b19b884c8daf5d9555176de709.json
+short,docs/measurements/middle-depth/short/early/128/ordinary/1,finished,8.621902250044513,1769122306,0,138891706368,0,57344,,adb2fb21dd924323b49c2de1373fb52f.json
+fit,ordinary/32/replay=False,stopped,2.2426940830191597,5115799744,0,138881863680,,,"InterruptedError(""Native development limit: {'pressure': 2, 'available': 5054693376, 'swap': 1778974720, 'free': 138881863680, 'active': 1510886096, 'peak': 5115799744}"")",b7b75afd04ca4b6194733d75eafed5dd.json
+profile,screen/1/base,finished,14.985372958006337,1631474526,0,139370164224,,,,c187434ffda447218986a1a040ce3712.json
+fit,ordinary/32/replay=False,stopped,3.1099760829820298,4742916742,230621184,138879225856,,,"InterruptedError(""Native development limit: {'pressure': 2, 'available': 3449634816, 'swap': 1812529152, 'free': 138879397888, 'active': 1510591184, 'peak': 4742916742}"")",c33c5fa5953a40a683c2e445ef2a0978.json
+short,docs/measurements/middle-depth/short/early/128/loop/0,finished,24.03853808302665,1773245870,-8388608,138883305472,,,,ccffa4f92146443f9b828163177cac07.json
+fit,loop/prepare prepared update,finished,5.05536724999547,5069206412,0,139008950272,,,,d0e43e7c485743f6a73d4ba13938a37b.json
+profile,saved-prefix-and-sparse-adjoint,stopped,1.169601125002373,1557449578,0,138971209728,,,RuntimeError('std::bad_cast'),e5875d871a0942a89a6797df7ce865f9.json
+short,docs/measurements/middle-depth/short/initial/128/loop/1,finished,29.774485833011568,1773550618,0,138883432448,,,,f5fad8e319d7402e8ced8e9e828351d7.json
