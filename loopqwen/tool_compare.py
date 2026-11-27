@@ -16,7 +16,8 @@ from .worker import acquire
 class DenseAssistant(Assistant):
     """Run the same conversation protocol with the untouched ordinary-depth checkpoint."""
 
-    def __init__(self, reuse):
+    def __init__(self, reuse, tool_format="compact"):
+        self.tool_format = tool_format
         self.language, self.tokenizer, _ = base()
         self._tool_model = self.language
         self.reuse_prefix = reuse
@@ -43,7 +44,9 @@ def compare(args, tools, options):
                     if reuse is None:
                         reuse = assistant.reuse_prefix
                 else:
-                    assistant = DenseAssistant(reuse)
+                    assistant = DenseAssistant(
+                        reuse, getattr(args, "tool_format", "compact")
+                    )
                 chat = assistant.conversation(tools)
             observed_at = {}
 
@@ -77,6 +80,11 @@ def compare(args, tools, options):
         raise ValueError("Initial prompt tokens differ across assistants")
     return {
         "base_revision": REVISION,
+        **(
+            {"tool_format": "qwen"}
+            if getattr(args, "tool_format", "compact") == "qwen"
+            else {}
+        ),
         "recurrent_checkpoint": str(args.checkpoint),
         "tool_adapter": str(args.tool_adapter) if args.tool_adapter else None,
         **(

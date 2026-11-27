@@ -46,12 +46,16 @@ class Conversation:
             Tool(t.name, t.description, deepcopy(t.parameters), t.callback)
             for t in tools
         )
-        self._messages = [system_message(self._tools)] if self._tools else []
+        self._messages = (
+            [system_message(self._tools)]
+            if self._tools and getattr(assistant, "tool_format", "compact") == "compact"
+            else []
+        )
         self._active = Lock()
 
     @property
     def messages(self):
-        return tuple(dict(m) for m in self._messages)
+        return tuple(deepcopy(m) for m in self._messages)
 
     def respond(
         self,
@@ -144,10 +148,21 @@ def run(
     first_turn_decoder=None,
     observation_model=None,
     recover_callback=None,
+    tool_format="compact",
     record_kv_history=False,
     _messages=None,
 ):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
+    if tool_format not in ("compact", "qwen"):
+        raise ValueError("Unknown tool format")
+    native = tool_format == "qwen"
+    if native:
+        from . import qwen_tools
+
+        if schema_guided:
+            raise ValueError("The JSON grammar requires compact tool syntax")
+        definitions = qwen_tools.declarations(tools)
+        declared = {d["function"]["name"]: d["function"] for d in definitions}
     if not 1 <= max_turns <= 64:
         raise ValueError("max_turns must be between 1 and 64")
     catalog = {tool.name: tool for tool in tools}
@@ -167,7 +182,11 @@ def run(
     if stop_at_turn_end:
         stop_ids.add(tokenizer.convert_tokens_to_ids("<|im_end|>"))
     if _messages is None:
-        messages = initial_messages(question, tools)
+        messages = (
+            [{"role": "user", "content": question}]
+            if native
+            else initial_messages(question, tools)
+        )
     else:
         messages = _messages
         messages.append(dict(role="user", content=question))
@@ -187,7 +206,11 @@ def run(
     for turn_number in range(max_turns):
         if grammar is not None:
             grammar.begin_turn()
-        request = prompt(tokenizer, messages)
+        request = (
+            qwen_tools.render(tokenizer, messages, definitions)
+            if native
+            else prompt(tokenizer, messages)
+        )
         decoder = (
             first_turn_decoder
             if not turns and first_turn_decoder is not None
@@ -243,45 +266,63 @@ def run(
         visible = raw.split("</think>", 1)[1].strip()
         row["visible"] = visible
         try:
-            action = decode_action(visible)
-            if action is None:
+            if native:
+                actions = qwen_tools.parse(visible, declared)
+            else:
+                action = decode_action(visible)
+                actions = [] if action is None else [action]
+            if not actions:
                 answer = visible
                 status = "answered" if visible else "empty_answer"
                 if answer and _messages is not None:
                     messages.append(dict(role="assistant", content=answer))
                 break
-            row["call"] = action
-            name = action["name"]
-            if name not in catalog:
-                raise ValueError("Unknown tool")
-            validators[name].validate(action["arguments"])
+            if len(actions) == 1:
+                row["call"] = actions[0]
+            else:
+                row["calls"] = actions
+            for action in actions:
+                name = action["name"]
+                if name not in catalog:
+                    raise ValueError("Unknown tool")
+                validators[name].validate(action["arguments"])
         except (ValueError, ValidationError):
             status = "invalid_call"
             if _messages is not None:
                 messages.append(dict(role="assistant", content=visible))
             break
-        try:
-            result = catalog[name].callback(**action["arguments"])
-            payload = compact(result)
-        except Exception as exc:
-            # Callback failures are returned to the model as observations.
-            payload = compact({"error": type(exc).__name__})
-            if (
-                recover_callback is not None
-                and recovery_model is None
-                and turn_number + 1 < max_turns
-            ):
-                recovery_model = recover_callback(model, catalog[name])
-                if recovery_model is not None and tool_prefix is not None:
-                    # Keys and values produced with the opening adapter cannot serve its successor.
-                    tool_prefix = ToolPrefix()
-        row["observation"] = json.loads(payload)
-        messages.extend(
-            (
-                dict(role="assistant", content=visible),
-                dict(role="tool", content=payload),
+        assistant_turn = (
+            qwen_tools.assistant_message(
+                actions,
+                visible.partition("<tool_call>")[0].strip(),
+                raw.partition("</think>")[0].strip(),
             )
+            if native
+            else dict(role="assistant", content=visible)
         )
+        observations = []
+        tool_messages = []
+        for action in actions:
+            tool = catalog[action["name"]]
+            try:
+                payload = compact(tool.callback(**action["arguments"]))
+            except Exception as exc:
+                payload = compact({"error": type(exc).__name__})
+                if (
+                    recover_callback is not None
+                    and recovery_model is None
+                    and turn_number + 1 < max_turns
+                ):
+                    recovery_model = recover_callback(model, tool)
+                    if recovery_model is not None and tool_prefix is not None:
+                        tool_prefix = ToolPrefix()
+            observations.append(json.loads(payload))
+            tool_messages.append(dict(role="tool", content=payload))
+        messages.extend([assistant_turn, *tool_messages])
+        if len(observations) == 1:
+            row["observation"] = observations[0]
+        else:
+            row["observations"] = observations
     return dict(
         answer=answer, status=status, turns=turns, seconds=perf_counter() - start
     )

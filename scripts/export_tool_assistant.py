@@ -161,6 +161,7 @@ def export(
         for file in (
             "tool_model.py",
             "tool_session.py",
+            "qwen_tools.py",
             "export_runtime.py",
             "register_session.py",
             "mixed_register.py",

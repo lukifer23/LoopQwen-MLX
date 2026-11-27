@@ -13,6 +13,12 @@ def add_arguments(p, checkpoint=None):
         required=checkpoint is None,
         help="Combined language and tool export",
     )
+    p.add_argument(
+        "--tool-format",
+        choices=("compact", "qwen"),
+        default="compact",
+        help="Use compact JSON or the official Qwen function-call template",
+    )
     policies = p.add_mutually_exclusive_group()
     policies.add_argument(
         "--tool-adapter",
@@ -102,6 +108,10 @@ def add_arguments(p, checkpoint=None):
 
 def open_assistant(args):
     if getattr(args, "session_policy", None) is not None:
+        if getattr(args, "tool_format", "compact") != "compact":
+            raise ValueError(
+                "This session policy was fitted with the compact tool template"
+            )
         from .io import read
 
         policy = read(args.session_policy / "registration.json")
@@ -118,7 +128,11 @@ def open_assistant(args):
         return SharedAssistant(args.checkpoint, args.session_policy)
     from .tool_model import Assistant
 
-    return Assistant(args.checkpoint, tool_adapter=args.tool_adapter)
+    return Assistant(
+        args.checkpoint,
+        tool_adapter=args.tool_adapter,
+        tool_format=getattr(args, "tool_format", "compact"),
+    )
 
 
 def respond(args, parser):
@@ -204,13 +218,16 @@ def respond(args, parser):
 def present(result, trace):
     if trace:
         return result
-    return {k: v for k, v in result.items() if k != "turns"} | {
-        "calls": [
-            t["call"] | {"result": t["observation"]}
-            for t in result["turns"]
-            if "observation" in t
-        ]
-    }
+    calls = []
+    for t in result["turns"]:
+        if "observation" in t:
+            calls.append({**t["call"], "result": t["observation"]})
+        elif "observations" in t:
+            calls.extend(
+                {**a, "result": v}
+                for a, v in zip(t["calls"], t["observations"], strict=True)
+            )
+    return {k: v for k, v in result.items() if k != "turns"} | {"calls": calls}
 
 
 if __name__ == "__main__":

@@ -135,8 +135,18 @@ def bind(language_model, folder, adapter=None):
 
 
 class Assistant:
-    def __init__(self, directory, *, tool_adapter=None, reuse_tokenizer=None):
+    def __init__(
+        self,
+        directory,
+        *,
+        tool_adapter=None,
+        reuse_tokenizer=None,
+        tool_format="compact",
+    ):
         self.directory = Path(directory)
+        if tool_format not in ("compact", "qwen"):
+            raise ValueError("Unknown tool format")
+        self.tool_format = tool_format
         self.tool_adapter = Path(tool_adapter) if tool_adapter is not None else None
         meta = read(self.directory / "tool/tool-model.json")
         self.dedicated = meta["schema"] == 2
@@ -249,6 +259,7 @@ class Assistant:
                 _messages=_messages,
                 record_kv_history=record_kv_history,
                 recover_callback=getattr(self, "_recover_callback", None),
+                tool_format=getattr(self, "tool_format", "compact"),
                 reuse_prefix=self.reuse_prefix
                 if reuse_prefix is None
                 else reuse_prefix,
