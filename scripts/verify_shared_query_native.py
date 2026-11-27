@@ -3,6 +3,7 @@
 import argparse
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from time import perf_counter
 
 import mlx.core as mx
 
@@ -14,18 +15,28 @@ from loopqwen.research.cross_view_study import tokenizer
 from loopqwen.research.native_function_data import token_pair
 from loopqwen.research.registered import registered
 from loopqwen.research.shared_query_features import FEATURES, FIT, OLD, RESULTS, arrays
-from loopqwen.research.shared_query_fit import probe
+from loopqwen.research.shared_query_fit import decision, probe, verify
 from loopqwen.shared_query_assistant import SharedQueryAssistant, from_backbone
 from loopqwen.worker import acquire
 
 
 def check(name, restore):
     acquire()
+    started = perf_counter()
+    mx.reset_peak_memory()
     s = registered(name)
     root = RESULTS / name
     fs = registered(s.get("feature_stage", name if "examples" in s else FEATURES))
     features = RESULTS / fs["id"]
-    assert read(root / "decision.json")["passed"]
+    outcome = read(root / "decision.json")
+    if "expected_positions" in s:
+        if outcome.get("status") == "interrupted":
+            raise ValueError(
+                "A completed optimizer schedule is required for weight replay"
+            )
+        verify(root, outcome)
+    elif not outcome["passed"]:
+        raise ValueError("Feature extraction must be complete for source-memory replay")
     folder = feature_root(fs)
     folder.mkdir(exist_ok=True, parents=True)
     idx = unpack(features / "feature-index.json.gz")
@@ -69,21 +80,54 @@ def check(name, restore):
         "independent_regenerations": verified,
     }
     if "expected_positions" in s:
-        model = SharedQueryAssistant(s["checkpoint"], root)._tool_model
         # This process has no reference to the optimizer or training graph.
-        native = probe(model, idx, folder, unpack(Path(s["evidence"])), s)
-        saved = read(root / "probes.json")["after"]
-        assert [r["id"] for r in native] == [r["id"] for r in saved]
-        errors = {
-            m: max(abs(r[m] - a[m]) for r, a in zip(native, saved, strict=True))
-            for m in ("ce", "ordinary_ce", "kl", "citation_nll")
+        evidence = unpack(Path(s["evidence"]))
+        before = probe(net, idx, folder, evidence, s)
+        del net
+        mx.clear_cache()
+        model = SharedQueryAssistant(s["checkpoint"], root)._tool_model
+        native = {
+            "before": before,
+            "after": probe(model, idx, folder, evidence, s),
+            "first_visit": probe(model, idx, folder, evidence, s, first_only=True),
         }
-        assert max(errors.values()) <= 1e-5
+        saved = read(root / "probes.json")
+        errors = {}
+        for state, records in native.items():
+            pairs = list(zip(records, saved[state], strict=True))
+            assert all(
+                r[k] == a[k]
+                for r, a in pairs
+                for k in ("id", "group", "positions", "citations")
+            )
+            errors[state] = {
+                m: max(abs(r[m] - a[m]) for r, a in pairs)
+                for m in ("ce", "ordinary_ce", "kl", "citation_nll")
+            }
+            assert max(errors[state].values()) <= 1e-5
+        replay = decision(
+            s,
+            unpack(root / "training-log.json.gz"),
+            native["before"],
+            native["after"],
+            native["first_visit"],
+        )
+        assert (
+            replay["gates"] == outcome["gates"]
+            and replay["passed"] == outcome["passed"]
+        )
         report.update(
             fit=digest(root / "checksums.json"),
-            trained_positions=sum(r["positions"] for r in native),
-            max_errors=errors,
+            probe_cases=len(native["after"]),
+            trained_positions=sum(r["positions"] for r in native["after"]),
+            max_errors=errors["after"],
+            max_errors_by_state=errors,
+            reproduced_gates=replay["gates"],
+            reproduced_pass=replay["passed"],
         )
+    report.update(
+        native_seconds=perf_counter() - started, peak_bytes=mx.get_peak_memory()
+    )
     out = Path("docs/measurements") / (name + "-cold.json")
     save(out, report)
     print(
