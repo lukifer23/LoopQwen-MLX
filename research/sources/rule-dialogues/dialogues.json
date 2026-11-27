@@ -1,0 +1,3365 @@
+{
+  "train": [
+    {
+      "id": "5068ab97e55dcfc6eadee618a4a3aa1197a33e962251458e6b2f020e8b0e5409",
+      "tree": "94f5722a28e203ce2604fc2a8dfb3d407913ddf0",
+      "url": "https://www.gov.uk/changes-affect-tax-credits",
+      "rule": "## Why your tax credits change\n\nYour payments can go up because:\n\n* your income goes down by more than \u00a32,500\n* your benefits stop or go down\n* you have a child\n* your childcare costs go up",
+      "initial_question": "Can my payments go up?",
+      "scenario": "My wife and I are both 65 and the checks we get for our age related benefits have been the same every month so far.",
+      "history": [
+        {
+          "question": "Did your income goes down by more than \u00a32,500?",
+          "answer": "No"
+        },
+        {
+          "question": "Did your benefits stop or go down?",
+          "answer": "No"
+        },
+        {
+          "question": "Do you have a child?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Did your childcare costs go up?",
+      "parent_utterance": "cad1e6c90e5928be8e84ac5afafe88807256627c",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "dcd8b465f748a61c6b5cd694df77d4b4191eeae4",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "d8aab3f644f99b0f6cd904c19cabe5516f7e38c4",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "28824af7bf7b16e3f05afe3c65c74443910f1ebd47aed9479faf9594836bde79",
+      "tree": "a68ad436db506a45bba11b0b930fe7cc4ebbb9c1",
+      "url": "https://www.gov.uk/the-warm-home-discount-scheme",
+      "rule": "#  1. Overview\n\nYou may be able to get the discount on your gas bill instead if your supplier provides you with both gas and electricity. Contact your supplier to find out.",
+      "initial_question": "Can I get the discount on my gas bill instead?",
+      "scenario": "I am a 50 year old man from the United States who has questions about payments. My income has risen by $2,500, but I won't be leaving the United States anytime soon.",
+      "history": [],
+      "source_followup": "Does your supplier provide you with both gas and electricity?",
+      "parent_utterance": "390d33998e4e48bc9e020c3019b56e988567f425",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "44bd29aa428d253da960021b9de8d29005561ddd",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "9d434d11dfcdcb12fbb3937800dc24832f48842a",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "33574bd9755e58c43ed4a433f7101ede2a5c68a78604cb865f89123317baaa58",
+      "tree": "65acfe6e858ff9ad48f80b65a7d05cdcb9c06268",
+      "url": "https://www.gov.uk/affordable-home-ownership-schemes/help-to-buy-equity-loan",
+      "rule": "## Eligibility\n\nThe home you buy must:\n\n* be one that you can show you can\u2019t afford (if you\u2019re applying in Wales)",
+      "initial_question": "Can I get a low-interest loan towards my deposit?",
+      "scenario": "Right now, I don't need need any information regarding income-related benefits",
+      "history": [
+        {
+          "question": "Can you show that you cannot afford the home?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Is it in Wales?",
+      "parent_utterance": "9fe8edd5407060542bd974802eab5b9a59266904",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "0d0fec9b693b7aa11271ff7b7e53fde2f0cc441e",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "8225f3e7e418d3c92ee0a15d6573fcee88f91426",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "bc85404622e4f3a4aa91d840e2306df69e56aae6c3a7af7f31a383732d05fb02",
+      "tree": "fc189fcfcad31123e1f63b3070a804288b698481",
+      "url": "https://www.humanservices.gov.au/organisations/business/services/child-support/child-support-business-online-services",
+      "rule": "### Session time out\n\nYour session will time out if you don\u2019t submit your update within 15 minutes of starting it. You\u2019ll have to log back in if this happens.",
+      "initial_question": "Will my session time out?",
+      "scenario": "My marriage began in 2014 but i dont meet all the other eligibility requirements",
+      "history": [],
+      "source_followup": "Will you submit your update within 15 minutes of starting it?",
+      "parent_utterance": "f2e66d6d18f8a9eb3609c8ad293a3a42c2c4b982",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "a2736737472ba2b5e0110742ff66d64c88a6d31d",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "8648bc6073c17e01f768ad20e6c4573b076bd5b7",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "d1cc43f089eb81321b74785742d8f4dcf10d2937aa19602ef46ef46cbbead2c9",
+      "tree": "23c4df360ff99332b717f4d3e7786ff326ced550",
+      "url": "https://www.gov.uk/vat-businesses/when-not-to-charge-vat",
+      "rule": "#  5. When not to charge VAT\n\nYou can\u2019t charge VAT on exempt or \u2018out of scope\u2019 items.",
+      "initial_question": "Can I charge VAT on this item?",
+      "scenario": "I'm not sure if I can get any benefits.  I'm working while I go to college.  I'm 18 right now.",
+      "history": [],
+      "source_followup": "Is this an exempt or \u2018out of scope\u2019 item?",
+      "parent_utterance": "c92c289e6d8a5c66892a805562179320a94ba0aa",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "aba8de0d4d4ae8696e64858edc6c2c8c630d159f",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "f97178312bde922159c913ce88dda98565453418",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "cd622f1919296904596eb6699dce6f38a8f9a7cd8b142fec6de184c93796ccc3",
+      "tree": "e7f910fea3f3223e7fad1d1821c5ae0361fef0c7",
+      "url": "https://www.humanservices.gov.au/individuals/enablers/someone-deal-us-your-behalf",
+      "rule": "## Child Support representative\n\nThis person must be 18 or older. They shouldn\u2019t be:\n\n* a child who you paid or get child support for, even if they\u2019ve turned 18\n* the other parent in your child support case",
+      "initial_question": "Can I appoint a Child Support representative?",
+      "scenario": "The individual just has their 18th birthday a month ago.",
+      "history": [
+        {
+          "question": "Is the person 18 years of age or older?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Is the person a child who you paid or get child support for, even if they've turned 18?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is the person the other parent in your child support case?",
+      "parent_utterance": "f2176aaa90f13a9190e0978b4de12345c40f240f",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "d582744115266121b4597ee33485c7f3ac8a0add",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "3c9eb1f08477dd3a548acd0407a5d4848575c39c",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "4b1ed439bf8b590c40a69ab36db1ae04d5ffeee452269357732a9630894500c4",
+      "tree": "1cc7fdc6dfd2c02171801e32f4e17ec1dff0bf4b",
+      "url": "https://www.gov.uk/tier-4-general-visa",
+      "rule": "#  1. Overview\n\nYou can apply for a Tier 4 (General) student visa to study in the UK if you\u2019re 16 or over and you:\n\n* have been offered a place on a course\n* can speak, read, write and understand English\n* have enough money to support yourself and pay for your course - the amount will vary depending on your circumstances\n* are from a country that\u2019s not in the European Economic Area (EEA) or Switzerland",
+      "initial_question": "Can I apply for a Tier 4 (General) student visa?",
+      "scenario": "I'm from overseas but I was offered a spot in a course and I'm currently 17 years old",
+      "history": [
+        {
+          "question": "Are you 16 or over?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Have you been offered a place on a course?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Can you speak, read, write and understand English?",
+      "parent_utterance": "187d7f43507f1f60b78bdc0fbce3c4bbab1af71e",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "615b666180a09463abedfc76a454f5b05d83693c",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "0923edd8fe34a4ba510adea4bb1de3daf6864b34",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "cc2ef7c6b2ab14b13e86a43ebd77eb1a69e6bf9b72f975f648026a89b296f7e9",
+      "tree": "629eb4823f0f85c60bdc90aed0238c151edff2ee",
+      "url": "https://www.benefits.gov/benefits/benefit-details/4735",
+      "rule": "The annual renewal fee is paid once a year and is required to maintain the enforceability of the guarantee as to the lender. There is also an upfront guarantee fee of three percent. A limited amount of loans may be guaranteed with a two percent fee, subject to meeting regulatory requirements.",
+      "initial_question": "Can the loan be guaranteed?",
+      "scenario": "I have worked for an insurance company for over 25 years. ",
+      "history": [],
+      "source_followup": "Do you meet regulatory requirements?",
+      "parent_utterance": "fe2ee949717d2daa012ea7a57bf03f37dc2da405",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "b46f3fa58884f1b761c8e70697a536603da25bf4",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "351afaa37b0c3d1af12f916cbbbc2c72fc774bca",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "d658977ba7f9cc216a0f77691d71d201e14c56bc3d7af60b5895d942193c812d",
+      "tree": "b46bbe99d99a2ea2a96a1b02fbeb24759134eb65",
+      "url": "https://www.gov.uk/mandatory-reconsideration",
+      "rule": "## Benefits this applies to\n\nYou can ask for mandatory reconsideration for benefits including:\n\n* Maternity Allowance\n* Pension Credit\n* Personal Independence Payment (PIP)\n* Sure Start Maternity Grant",
+      "initial_question": "Can I ask for mandatory reconsideration for this benefit?",
+      "scenario": "I want someone else to look at my case.  I really need my disability.",
+      "history": [
+        {
+          "question": "Is this benefit Maternity Allowance?",
+          "answer": "No"
+        },
+        {
+          "question": "Is this benefit a Pension Credit?",
+          "answer": "No"
+        },
+        {
+          "question": "Is this a personal independence payment (PIP)?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is this benefit a Sure Start Maternity Grant?",
+      "parent_utterance": "bcc24cf42873b38b50f07e2bd58b45501c9f719b",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "17e3983362245e12095663d9e30af76fd3cc76bb",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "657cdc69dc40e3308ff49c243b27dd3b5aad2dd1",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "43e475a775673ef0fe14f3d7cc43713126ccbca198a61e6b1d6eb1448a073377",
+      "tree": "e14236fe70200d956cf29c9fccfdd870cd30cc1d",
+      "url": "https://www.humanservices.gov.au/individuals/subjects/after-your-baby-born",
+      "rule": "## Checklist\n\nYou may get a higher rate of Family Tax Benefit Part B if you\u2019re returning to work for the first time since:\n\n* the birth of your child, or\n* your child entered your care",
+      "initial_question": "Can I apply for a higher rate of Family Tax Benefit Part B?",
+      "scenario": "I took off time after my son was born.  He's only a month old and I still haven't returned yet.",
+      "history": [
+        {
+          "question": "Are you returning to work for the first time since the birth of your child?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you returning to work after your child entered your care?",
+      "parent_utterance": "7808cc612bc71193fb7458d3521b05bb5e3fe35e",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "abb77dc3348c602a6e8546a8c3e9e889d8414893",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "402d6bb9c9817ca204cc37500c3952468cbfdaec",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "7b7f6c5fc131dc98dbce087b58acee673bbbf2dd40ab35bca7202e17286b3d15",
+      "tree": "21ceca14e6c1156b05155d337c294c4db97c0441",
+      "url": "https://www.humanservices.gov.au/organisations/business/services/centrelink/centrepay-businesses",
+      "rule": "#### Centrepay promotional products include:\n\nA Business can have up to 30,000 brochures free each year. You can talk to us about larger printing requests, which we will generally charge at cost.",
+      "initial_question": "Can I have free brochures this year?",
+      "scenario": "The improvement I'm seeking to make won't help lower the cost of utilities",
+      "history": [],
+      "source_followup": "Does your business have more than 30,000 brochures?",
+      "parent_utterance": "9995fc7c29a943740f704a0e51e5a9fd0b081a8e",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "45fcfe1cf59ca99349a54717843ab701ba23f287",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "851e8a9716eeed4f3ded51993f398b5c7c0ea77b",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "aa9cdca221c6d0dfbac1b467b328bd0b2f1963445c8eeba2d2d80a0ef6ccb6d6",
+      "tree": "673a4e7cc528ba38f5ca1ac8c79cd41283b858bb",
+      "url": "https://www.humanservices.gov.au/individuals/services/centrelink/age-pension",
+      "rule": "### Income and assets from outside Australia\n\nIf you or your partner get income from, or have assets outside Australia, we may have to reduce the amount of Age Pension you get.",
+      "initial_question": "Can I keep the full amount of Age Pension?",
+      "scenario": "Yes, I will be selling tulip bulbs in the EU. No, unfortunately, I'm ineligible.",
+      "history": [],
+      "source_followup": "Do you or your partner get income from, or have assets outside Australia?",
+      "parent_utterance": "4e6b8668d7701e9a19b0eaa2be6db6f0044af1c3",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "cb43a41d3880b67ba4d977f841e303e433561899",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "0866d0f879ccd0b4e3a39803c28dee4d096952be",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "3ecbc09dc2d1dc4f708a31014b6b81aa912bfe79be9399056694d25266cf2daa",
+      "tree": "9fd9f87991df5a1035d20a20c0089fc2e17e78d0",
+      "url": "https://www.gov.uk/benefit-overpayments",
+      "rule": "#  1. Overview\n\nYou may be prosecuted for benefit fraud or have to pay a penalty if you don\u2019t tell benefit providers about overpayments.",
+      "initial_question": "Can I get prosecuted for benefit fraud?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Did you failed to report overpayment?",
+      "parent_utterance": "f39576112877b2daedeba2fc6386eb90e9d43afc",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "2b5986215c0cd01cbb9b6ecbd229e480e816264a",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "595a7360d92c28e16465032afe6a4d8e3ce16b80",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "cf7e707c8972039b2268861c1bc678489fda6663e0bc69b823f8d2191119d650",
+      "tree": "e579aa599ceda30399379976383f28979760dc8e",
+      "url": "https://www.benefits.gov/benefits/benefit-details/4388",
+      "rule": "The Social Security Divorced Spouse Benefits are a federally funded program administered by the U.S. Social Security Administration (SSA). These benefits are paid to divorced spouses of workers who are receiving (or are eligible to receive) Social Security benefits.",
+      "initial_question": "Is this program suitable for me?",
+      "scenario": "I am a 22 year old divorced man from the United States who is curious about a program. I'll be 23 when I start my course.",
+      "history": [
+        {
+          "question": "Are you divorced?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Is your ex-spouse receiving Social Security benefits?",
+      "parent_utterance": "94f761a49b2fd6ecdf17a1dd2a764e14d53e3572",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "a7d5f128bf4a5bd668775bd0cf2cca660a5cbc66",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "a9717aeca9d116a5d64e87454dbce22e1ff235c0",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "a8d60dde9845061a015838e0a638b756c7c82e59593459a51614bf2e8a5ca33f",
+      "tree": "54bbdc5cdea357390ec8d11c13d1c4c26238074b",
+      "url": "https://www.uscis.gov/greencard/employment-authorization-document",
+      "rule": "# Employment Authorization Document\n\nYou do not need to apply for an EAD if you are a lawful permanent resident. Your Green Card (Form I-551, Permanent Resident Card) is evidence of your employment authorization. You also do not need to apply for an EAD if you have a nonimmigrant visa that authorizes you to work for a specific employer.",
+      "initial_question": "Do I need to apply for an EAD?",
+      "scenario": "I am a 34 year old man from Canada. I did not buy my home to make a gain, but rather to live in with my family.",
+      "history": [
+        {
+          "question": "Are you a lawful permanent resident?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Do you have a nonimmigrant visa that authorizes you to work for a specific employer?",
+      "parent_utterance": "0a79202600bffcf394e270f2a2275ea19f2e1443",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "1d3166af3bed353aeda99ee1317f73d08c394209",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "3643388133d818c04946679e271c77b4c7d89296",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "00e76f30e72db7b21cc0a601879ca902014005c7c0f2ddb08b779d130ea29c23",
+      "tree": "fd5aa30f87ab8504342d0718c0125f99f14dabbe",
+      "url": "https://www.benefits.gov/benefits/benefit-details/4404",
+      "rule": "This benefit cannot be paid to the Veteran's dependents or survivors.",
+      "initial_question": "Can it be paid to my dependent?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Is your dependent a Veteran or survivor?",
+      "parent_utterance": "2ebf5e4bc6e9554dc1d5cfee98f2095cced67102",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "1cea63ba39572dbf639aaaa9ebd87f0c5186ef00",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "2862ab5d21f9b28a507c25d0603c8f7d5ded485f",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "f2a58e278f8efc93f96eb8230f87e1cbc853f33db89d9a9dbb282c5b861904d3",
+      "tree": "c93f2c985b98ec9c1dfa7a68551f26486f79f06b",
+      "url": "https://www.gov.uk/claim-benefits-abroad/bereavement-benefits",
+      "rule": "## Countries outside the EEA\n\nBereavement Support Payment:\n\n* Jamaica\n* Kosovo\n* Macedonia\n* Montenegro",
+      "initial_question": "Can I claim bereavement benefits?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Are you in Jamaica, Kosovo, Macedonia or Montenegro?",
+      "parent_utterance": "c6cff9311b8016f11672428edfd5ffdc1bec5bc2",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "191d0c68e61a54ea677e5b60f45849e5508c2f59",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "ba78f07f02d3f790e57a936742b8a54d4e74ac7b",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "114dcdeb8212417481e4e985ca4d7541e0a028a0a1c2fcac5044f23376e20850",
+      "tree": "31bb96aaa90435933358cce2d617a4614887baa9",
+      "url": "https://www.gov.uk/1619-bursary-fund/eligibility",
+      "rule": "#  3. Eligibility\n\nYou must:\n\n* be at least 16 and under 19 on 31 August 2017\n* study at a publicly funded school or college, or be on an unpaid training course\n* meet the residency requirements - your school or college can check this",
+      "initial_question": "Am I eligible for 16 to 19 Bursary Fund?",
+      "scenario": "I am curious about a Bursary Fund. I study at a privately funded college, and am currently in the United States.",
+      "history": [
+        {
+          "question": "Are you at least 16 and under 19 on  31 August 2017?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Do you study at a publicly funded school or college?",
+          "answer": "No"
+        },
+        {
+          "question": "Are you on an unpaid training course?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Do you meet the residency requirements?",
+      "parent_utterance": "b1dd234a46105704f4242f85d77e7bbbb562f9e5",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "a6d41c507e923eeadd3c41995c130e798432d6ed",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "f922968627c71e34ee426a219f5c49b1b7f28376",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "46acbfeb625fc542e446e6cfac86f2b6c987a04c375ac3555bd70ad7c89cd611",
+      "tree": "60999263898b5ed1ec9a6a45306c56058450c37b",
+      "url": "http://legislature.maine.gov/statutes/6/title6sec103.html",
+      "rule": "\u00a7103. Physical description of airports and minimum airport facilities",
+      "initial_question": "Is this a legal commerical airport?",
+      "scenario": "I have no delusions of living anywhere other than the squalor of a home I currently live in on Brooklands Estate in East Jaywick because at 7,000 a year income I can't afford to live anywhere else.",
+      "history": [],
+      "source_followup": "Does the airport meet physical description of airports and minimum airport facilities requirement?",
+      "parent_utterance": "14f65715f4e29d1b9953b2b9de3b8659ec40d909",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "f48d5aa816a474b624d464fd3d8a216e89cd66ce",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "1c163a41e74970c265d123d5cc56ce3f80d40f08",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "b284396316cc15457b9c0a1bad217c761c7f4d1c890bb238be0f737520dee38e",
+      "tree": "2888c7fd4b98f44902f40be510af3fdb68f3d0f2",
+      "url": "https://www.gov.uk/claim-benefits-abroad",
+      "rule": "## Claiming when abroad\n\nThere will be no change to the rights and status of EU nationals living in the UK, nor UK nationals living in the EU, while the UK remains in the EU.",
+      "initial_question": "Will there will be any change to my rights and status?",
+      "scenario": "I'm a EU national, but I'm not in the UK right now.  I run a business based in the EU supplying cellular services.",
+      "history": [
+        {
+          "question": "Are you an EU national living in the UK ?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you a UK national living in the EU?",
+      "parent_utterance": "5b8e8d7c1bd25ed397e5863012f98c261ad1b249",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "a05e45720a1cc7fd3eaf559f65d24891d97910cb",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "5ef46ce4b4a56ae1868e75b3ef0721d60ac3a638",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "01e03db611dfee0c85725aeec59c1d0b17a47aaf87cb667e1e600de8fc7b1e4d",
+      "tree": "6b3e804c2a695d509eaa551507eb3641093bd82b",
+      "url": "https://www.gov.uk/tax-sell-property",
+      "rule": "## When you don\u2019t pay\n\nYou don\u2019t usually need to pay tax on gifts to your husband, wife, civil partner or a charity.",
+      "initial_question": "May I have to pay tax when selling my property?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Is this a gift to your husband, wife, civil partner, or a charity?",
+      "parent_utterance": "79d323e2b3d183ff021be30c901d4239ca5602ff",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "ad1fe62472f0062e2c59cb7a81f02fb9b2b4712d",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "8cfa44451523f310994e7e91e0e16841632fd5ec",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "d97ea066df14398cd5fa1835d5ff67ea755b58c2cfbc47081a5bd45912f654e7",
+      "tree": "ae635e2d27165e84b3226ec0a4eda46674948e62",
+      "url": "https://www.gov.uk/state-pension",
+      "rule": "## You reached State Pension age before 6 April 2016\n\nTo get the basic State Pension you must have paid or been credited with National Insurance contributions.",
+      "initial_question": "Can I get the basic State Pension?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Did you reach State Pension age before 6 April 2016?",
+      "parent_utterance": "513b26b2bb8db3d15f7a62aaf3f5783caf2b759b",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "34313a8397bf0e57c24ad8bd37b69c9899bb454e",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "1202517a55e2627168fc7b0d8d158f4db132b488",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "632d47fccccaf9b3e29898494531e363b1497f80e719dbf5f6212e1163fa2dbf",
+      "tree": "4e8df180948a0da8c96b783770191f8fbf6b8a47",
+      "url": "https://www.humanservices.gov.au/individuals/enablers/getting-centrelink-letters-online-someone-else",
+      "rule": "# Getting Centrelink letters online for someone else\n\nIf you\u2019re a nominee for someone, you can get their letters online too.",
+      "initial_question": "Can I get someone else's letters online?",
+      "scenario": "I disagree with the Adjudicator's response",
+      "history": [],
+      "source_followup": "Are you a nominee for someone?",
+      "parent_utterance": "1e179f6adfda8b97c52b02ae54cfedb1ea833b7b",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "a1d5e11a5e8bf07581ad105ca0c522f94bb97ec0",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "7facac926770dfde3611797e365edd16411a2c8a",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "270501965f6e9b1ad4d2e604c6c0d569fcc7da2937574a3e4eb7c9dee90f08a9",
+      "tree": "b39c85baca8d016ae4d61d9afae753f85c31fa01",
+      "url": "https://www.gov.uk/working-tax-credit/eligibility",
+      "rule": "### Exceptions\n\nPaid work does not include money paid:\n\n* for a \u2018Rent a Room\u2019 scheme\n* for work done while in prison\n* as a grant for training or studying\n* as a sports award",
+      "initial_question": "Does this payment count as paid work?",
+      "scenario": "The money was not used to pay for a \"Rent a Room\" scheme",
+      "history": [
+        {
+          "question": "Was it money paid for a 'Rent a Room' scheme?",
+          "answer": "No"
+        },
+        {
+          "question": "Does it include work done while in prison?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Did you win a sports award?",
+      "parent_utterance": "6843fbed9a65d3bbe5114d7ad186d51415526f47",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "12f88e64abcf9ff58de45f90e47ece25e8efa7db",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "7b431a95b135fc155f183deb5d3e21ccb6f44101",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "83627564f6eddac561cb203fae807d51711b6df7c7ef1c5df6e25dd822b25462",
+      "tree": "c29d5ef15a87bc7cfd37faa8f95cdb3163b501ed",
+      "url": "https://www.gov.uk/paternity-pay-leave/leave",
+      "rule": "## Shared Parental Leave\n\nYou can\u2019t take Paternity Leave after you take SPL.",
+      "initial_question": "Can I take paternity leave?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Have you taken SPL?",
+      "parent_utterance": "c88b67fd272ca3237bef7829676d44f5557416ca",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "47484b31e80721982268e0f2d47ab53370e732d5",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "34f6698ffad36d69674d2c0926003e0e853f53b0",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "2598c2a2c9011e81d729a50a4f082a57c962127ee9e85d287894dec7165f6657",
+      "tree": "eb373feb0e022c15ca5b084cc847abdb725d7588",
+      "url": "https://www.humanservices.gov.au/individuals/services/medicare/medicare-safety-net",
+      "rule": "### Who it's for\n\nIf you\u2019re single, you don\u2019t need to do anything - you\u2019re automatically registered. If you\u2019re a couple or part of a family, you need to register.",
+      "initial_question": "Do I need to register?",
+      "scenario": "I was born in Germany. My parents were butchers. My application is against national importance.",
+      "history": [
+        {
+          "question": "Are you single?",
+          "answer": "No"
+        },
+        {
+          "question": "Are you a couple?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you part of a family?",
+      "parent_utterance": "70094e593bddfa33b9a70bfbc1a9faff4d8a18d0",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "892987b9213ab7d0a068f068b0d1a07b436f81d7",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "97bf64afe1b68806045e3290c310199b79184fa5",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "3516b96a1d98d803d5f3b44e34245cd5f5bc32ecba63f16186e6f353db25c755",
+      "tree": "63e7182445e5724e6df58d957869939e90335cdf",
+      "url": "https://www.gov.uk/guidance/export-medical-devices-special-rules",
+      "rule": "#  Export medical devices: special rules\n\nYou don\u2019t need a certificate to move medical devices within the EU.",
+      "initial_question": "Do I need a certificate to move this medical device?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Are you moving the device within the EU?",
+      "parent_utterance": "b1088b5852935252bb327bc6b7ba860feb979f7a",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "16467504c2971e097e3be5937c9bdec8602e9097",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "a865e0b7af8ef00cf97dd076c8e64e9c9b20935d",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "5e7361c339585de76e5d34b51dec2bb2a96804eb9e2491c7a390cc4c767676fe",
+      "tree": "751c6b14abfac9f786fe4f6d1b85b69568ba0062",
+      "url": "https://www.gov.uk/tax-on-pension",
+      "rule": "#  1. What\u2019s taxed\n\nYou pay tax if your total annual income adds up to more than your Personal Allowance. Find out about your Personal Allowance and Income Tax rates.",
+      "initial_question": "Do I have to pay tax?",
+      "scenario": "As of right now, the Tax Credit Office hasn't admitted to making any mistakes",
+      "history": [],
+      "source_followup": "Is your total annual income more than your personal allowance?",
+      "parent_utterance": "c8f5f8c524e9dc036f1ba487893f504bc86e355e",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "6d2b381f6146924d6b369dcde36e298ddd28318d",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "7b7b8cb1b87318c22c7e6f698a0bd5f47ab12cd0",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "bc5762e0d9e5ef11ac7ed4f03e347377ee5cbbc27da6d5dd79dacd9d720eb62d",
+      "tree": "61bf03cff85e0a8d3b40baf8cc98a116cedaf27f",
+      "url": "https://www.gov.uk/getting-help-with-your-tax-credits-claim/appointees",
+      "rule": "#  3. Appointees\n\nYou\u2019re not an appointee if you just help someone complete their claim form.",
+      "initial_question": "Am I an appointee?",
+      "scenario": "I am a 40 year old man with a private non-profit organization that has sustained economic injury.",
+      "history": [],
+      "source_followup": "Did you just help someone complete their claim form?",
+      "parent_utterance": "7a3bd6b7a0b1b8c0e45fff3d31027dfd4c6943a4",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "5916f755670e1f2417039cd380df4c160e620199",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "86a6755be6fa1511898c6f8247d5b8ff39644528",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "3002b57f8dabca606129936ca0cbb1beb44cd46b7631c3a10852a8392b2194f4",
+      "tree": "5128436eaf1a6c9b613bba8f40653e540ee27775",
+      "url": "https://www.humanservices.gov.au/individuals/enablers/opting-out",
+      "rule": "# Opting out of the Australian Immunisation Register\n\nPlease keep in mind, if you choose to opt out of sharing your immunisation history, even your GP can\u2019t see your records. You may receive questions from your GP when they can\u2019t see your immunisation history.",
+      "initial_question": "Will my GP have access to my immunisation records?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Do you choose to opt out of sharing your immunisation history?",
+      "parent_utterance": "6607ac66b2dc5745bc5c1d3dce74c2f50d97365b",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "8a781937c072ae7b324507e480627696c2ba749e",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "9ab42d1c1bdf8334774ff50b53ae898e547de097",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "a0038df740d7ec21588813e5a8104f4ef579ec3a6c5105ef4308573d628c9d6c",
+      "tree": "c75c2d16432dd86a00c9347008c5f27f8736eb1c",
+      "url": "https://www.benefits.gov/benefits/benefit-details/347",
+      "rule": "Eligible applicants may obtain direct loans for up to a maximum indebtedness of $300,000 and a direct operating Microloan for up to a maximum indebtedness of $50,000. Maximum indebtedness for a guaranteed loan is $1,399,000 (amount adjusted annually for inflation). The repayment term may vary, but typically it will not exceed seven years for intermediate-term purposes. Annual operating loans are generally repaid within 12 months or when the commodities produced are sold. In general, loan funds may be used for normal operating expenses, machinery and equipment, minor real estate repairs or improvements, and refinancing debt.",
+      "initial_question": "Can I use the loan for this expense?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Will the loan be used for normal operating expenses?",
+          "answer": "No"
+        },
+        {
+          "question": "Will it be used for machinery and equipment?",
+          "answer": "No"
+        },
+        {
+          "question": "Will it be used to refinance debt?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Will it be used for minor real estate repairs?",
+      "parent_utterance": "b7baa80e58f1da0a874938c54de4380ce5ff8aac",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "e142ed56c6702196f92f93540dc211ea790e94c8",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "bf8290399f281872f6671a4ea5385bb459791c4a",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "b3a1b63a748b0a95ae76ebc63ecb7758be89fc8317470a21fe76a28b983cb4f7",
+      "tree": "1eff77b04dbd9c260fa6b3a78db9ab0f29ff7184",
+      "url": "https://www.gov.uk/tax-sell-home/work-out-your-gain",
+      "rule": "## Selling in special circumstances\n\nThere are special rules for calculating your gain if:\n\n* you sell a lease or part of your land\n* your property is compulsorily purchased",
+      "initial_question": "Are there special rules for calculating my gain?",
+      "scenario": "I currently own all of my land.",
+      "history": [
+        {
+          "question": "Did you sell a lease or part of your land?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is your property compulsorily purchased?",
+      "parent_utterance": "2f88b998d91f28010eca33539591bfc6a01959f1",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "c5c0a79800a34c8fb852f6ef360a0f5ac27e846d",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "a02fd005997dd48fb4582ae67812dbc4c7a3a624",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "f92533325545bde6b3fb13e1a36a57b0d747e42d509d1ead0fa16ccf40c32bb4",
+      "tree": "381567dfefcfa9ccb81096967185a1072f7d1c3e",
+      "url": "https://www.humanservices.gov.au/individuals/services/centrelink/youth-allowance",
+      "rule": "# Youth Allowance\n\nFinancial help if you\u2019re 24 or younger and studying, an Australian Apprentice, looking for work or sick.",
+      "initial_question": "Can I apply for Youth allowance?",
+      "scenario": "I brought my most recent pay stubs with me",
+      "history": [],
+      "source_followup": "Are you 24 or younger and studying, an Australians Apprentice, or looking for work or sick?",
+      "parent_utterance": "9b46fcb794059c8b37d49aa8ff947c4ac0d5acaa",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "b9b1fb4f62c317a42856bc64c6926f1fe49a1bd0",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "5c3a33ad38ffa084734c23ee767a71332e025e53",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "848cb65349a5cc0e74c736d530a57324b8102ba543294dde5ae070da8c0cf459",
+      "tree": "681f5c961b52c0e1794571f76124b6b1bd1ecaa8",
+      "url": "https://www.benefits.gov/benefits/benefit-details/780",
+      "rule": "Educational and Career Counseling can help you:\n\n* Assess your vocational interests, aptitudes and abilities\n* Explore career opportunities\n* Obtain guidance on effective use of VA benefits and resources to achieve education and career goals\n* Address barriers that may impede success in training or employment",
+      "initial_question": "Can Educational and Career Counseling help me?",
+      "scenario": "I've already looked over the education and career benefits.  I'm interested in residential care offerings at level 8.",
+      "history": [
+        {
+          "question": "Do you need to assess your vocational interests, aptitudes, and abilities?",
+          "answer": "No"
+        },
+        {
+          "question": "Do you want to explore career opportunities?",
+          "answer": "No"
+        },
+        {
+          "question": "Do you want to obtain guidance on ffective use of VA benefits and resources to achieve education and career goals?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Do you want to address barriers that may impede success in training or employment?",
+      "parent_utterance": "764454b12dd5261ab1fa2d09053ddb72665f86fa",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "de81a467473d3aae5197e7f31ef5e64ceb7c5f2d",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "69446ac277cd7431f2217850b7104f67f284b7a4",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "b9c69836b5b86e08e72a10d7c847fb38cae26ee74e04a62060ad7edaf8004074",
+      "tree": "2a1615ec2e4a784335cbcdb9b84a9324b59f5ab7",
+      "url": "https://www.gov.uk/vat-businesses",
+      "rule": "#  1. How VAT works\n\nVAT is charged on things like:\n\n* items sold to staff - for example canteen meals\n* business goods used for personal reasons\n* \u2018non-sales\u2019 like bartering, part-exchange and gifts",
+      "initial_question": "Can I charge VAT on this?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Are you a member of the staff?",
+          "answer": "No"
+        },
+        {
+          "question": "Is it a business good used for personal reasons?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is it a non-sales item?",
+      "parent_utterance": "279340cb51e3ab00c301a2fb2e63481bc079eace",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "19c90fa1e1659adc6991eb5d4ac449bd9b52e08b",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "875bcb206ff94801adf6f0e0aadc5116761d13c6",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "077e1e8dc9d2837e02b7ef24df4fe01b280d9cf62483b1b6ce6b32da9b6265f4",
+      "tree": "a9607cc6b7bf9a70bdb858bfd32128a2dabc7209",
+      "url": "https://www.humanservices.gov.au/individuals/services/child-support/express-plus-child-support-mobile-app",
+      "rule": "### Logging out\n\nWhen you log out of your app a message will say: you have successfully logged out. If you don\u2019t see this message, you haven\u2019t logged out properly.",
+      "initial_question": "Have I logged out properly?",
+      "scenario": "I'm 30% Native and I was born in Canada",
+      "history": [],
+      "source_followup": "Did you see a message that said: you have successfully logged out?",
+      "parent_utterance": "2969cc4ee18e8060d6a74937ad1588bd50063355",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "6a5646ae0b44d3d90ff2e4d93f2e604bc17e0c3c",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "08a431cb84f2c9a99a3021c54c4cfe12c66a2fb6",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "0781cc1d7964db1494b765bf9beeab596971dfdc4a7ee22024af1cbfc3e7366b",
+      "tree": "469c382ebebcff5eb721e4cc34dc1e93950e7b3f",
+      "url": "https://www.dmv.org/me-maine/safety-laws.php",
+      "rule": "In the state of Maine all passengers of a vehicle must wear seat belts unless:\n\n* The passenger is older than 1 year old and there are more people in the vehicle than seat belts.\n* The driver or passenger has a disability or other medical condition that makes it unsafe or impossible to wear a seat belt (in which case the driver or passenger must have documentation from a physician).\n* The driver is a mail carrier and in the process of delivering mail.",
+      "initial_question": "Do I need to wear a seat belt?",
+      "scenario": "I'm a perfectly healthy adult, no health issues.",
+      "history": [
+        {
+          "question": "Are you older than 1 year old and there are more people in the vehicle than seat belts?",
+          "answer": "No"
+        },
+        {
+          "question": "Do you have a disability or other medical condition that makes it unsafe or impossible to wear a seat belt?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you a mail carrier and in the process of delivering mail?",
+      "parent_utterance": "bdc089cca3af4acc9285eb591e039dc518865c61",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "0cd33aea10d21f7cba4f7b17b40ff6fd721edd0a",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "6a217af30ca91a9f615ec14375da06543a83a42a",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "de27370e75570536f0b999590d513b43564d5924064425efde9d313b5805c38c",
+      "tree": "857b35033ef36aa4730844ce555ebcca19394bea",
+      "url": "https://www.benefits.gov/benefits/benefit-details/288",
+      "rule": "Reservists and National Guard members who are activated for Federal service OR who die/become disabled while on training status are considered Veterans.",
+      "initial_question": "Am I considered Veteran?",
+      "scenario": "I have no service with the government.",
+      "history": [
+        {
+          "question": "Are you activated for Federal service?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Did you become disabled while on training status?",
+      "parent_utterance": "75e2ba09f31eb5c014822bcec1c577232139e40e",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "7f6a08697f104a90f6a4fc7a0467ce417884238f",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "13a7515d93c3f73835f95438bba7c5a900aa6f5c",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "bbdbdc5c8ef90f05fc9b25e7cc329afe526c0b56ff9eb4223388dcd74404e936",
+      "tree": "2615c2e542859fe7f4b373ac234944571841ffe0",
+      "url": "https://www.benefits.gov/benefits/benefit-details/4384",
+      "rule": "In order to qualify for this benefit program, you must be divorced from a deceased spouse and meet the following requirements:\n\n* Not entitled to an equal or higher Social Security retirement benefit based on your own work.",
+      "initial_question": "Do I qualify for this benefit program?",
+      "scenario": "I had gotten a divorce from my husband five years ago.  He died only last year.",
+      "history": [
+        {
+          "question": "Are you divorced from the deceased spouse?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Are you entitled to an equal or higher Social Security retirement benefit based on your own work?",
+      "parent_utterance": "3c7a29ffa0898c803d9377a092329f8a4ce6940f",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "a500df453f1bb43e8d9a912a474349c92596908d",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "f040f1ffdf81dbc59b5b9cd3866b010d1ddc5c35",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "266745ef00fec512a4883c1f128f86dd0db1ea92c3e00b25cdbbe8b09df9ec05",
+      "tree": "c1bcbeaf8735cfae3ff4decdb5a783311cb0d49c",
+      "url": "https://www.humanservices.gov.au/individuals/enablers/submit-medicare-claim-online",
+      "rule": "## What are the claiming limits\n\nIf you claim using your Medicare online account, there are daily and monthly claiming limits. You can claim up to:\n\n* $75 per day, or\n* $150 in total for 30 days per Medicare card and bank account \u2013 we call this the monthly limit",
+      "initial_question": "Can I claim this amount?",
+      "scenario": "I earn a salary",
+      "history": [],
+      "source_followup": "Have you exceeded the daily and monthly claiming limits?",
+      "parent_utterance": "65c12ee6c17f06a585a64fa005799963168feaf2",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "ab2564795349734475a9936bcb443f01022ddc24",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "d21bc4c6e068d31b071c5f9fe4150f9b19c9f3b0",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "813aeb5481397b34b87f84c9f0876d1cc025fe63e9b6db5d6299fa6f34b43cc7",
+      "tree": "ec853b302721acf0a07449307499986d7f3fb6ac",
+      "url": "https://www.gov.uk/guidance/export-drugs-and-medicines-special-rules",
+      "rule": "### Apply for an export licence\n\nYou don\u2019t need one of these licences to export \u2018over the counter\u2019 veterinary medicines classed as \u2018AVM-GSL\u2019. You can check classifications on the Veterinary Medicines Directorate (VMD) product information database.",
+      "initial_question": "Do I need an export licence for this medicine?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Is the medicine a veterinary medicine classed as  \u2018AVM-GSL\u2019?",
+      "parent_utterance": "cfd949ce534d31eff0e306d5ff2d068c9bae29ec",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "f3ff360a4f890b86df1da4c4ad7db64ae8a0e4f6",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "6790b7c22004c7a3b1e4912945e5214cd512617c",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "865503c3aa471fbe696dfd3e3542a757a65b9ba64dbde5544ccb442123d6a41e",
+      "tree": "a50904bdf5f21b9d625280122573cc8e1e3f090b",
+      "url": "https://www.gov.uk/new-state-pension/inheriting-or-increasing-state-pension-from-a-spouse-or-civil-partner",
+      "rule": "#  7. Inheriting or increasing State Pension from a spouse or civil partner\n\nYou won\u2019t be able to inherit anything if you remarry or form a new civil partnership before you reach State Pension age.",
+      "initial_question": "Can I inherit my spouse's State Pension?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Did you remarry or form a new civil partnership before reaching State Pension age?",
+      "parent_utterance": "9c04c9795ec36be66471d0dbd4497653fc05e395",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "d6acbeea59cc5704ce4cf763acdbe0cbb12bcc54",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "00f3c591c231734af607b07441b8d129fa0d3b23",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "b9183ca5ed612337abd66ae725901261220b71e869fe3e902bb711c2ef96d18f",
+      "tree": "5d2b0f0309de9eaf40b4377d6ac435bf021b95aa",
+      "url": "https://www.humanservices.gov.au/individuals/enablers/who-can-get-crisis-payment",
+      "rule": "## Who can\u2019t get it\n\nYou can\u2019t get Crisis Payment if you\u2019ve received a Disaster Recovery Payment or another disaster relief payment for the same event.",
+      "initial_question": "Can I get Crisis Payment?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Have you received a Disaster Recovery Payment or another disaster relief payment for the same event?",
+      "parent_utterance": "ec5bd5e49d70e7a97ad1e233ff524c8cda3bd913",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "794b8e4d30a1f1d6247c7d2017f16cbf68ceb684",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "bb1e6668dc1e6b70599aced667c897be251aa63f",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "7e8528d5a24fd2e5f77a74617a58063a76a4840c8b21690189e71ad016b472b9",
+      "tree": "f8a5281086240ac5a81b3e306677ebb17bccfeea",
+      "url": "https://www.benefits.gov/benefits/benefit-details/1497",
+      "rule": "7(a) loans are the most basic and most used type loan of the Small Business Administration's (SBA) business loan programs. It's name comes from section 7(a) of the Small Business Act, which authorizes the agency to provide business loans to American small businesses. The loan program is designed to assist for-profit businesses that are not able to get other financing from other resources.",
+      "initial_question": "Is the 7(a) loan program for me?",
+      "scenario": "No, it is a non profit agency. No, we are not moving it anywhere.",
+      "history": [
+        {
+          "question": "Are you an American small businesses?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Are you a for profit business?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Are you able to get financing from other resources?",
+      "parent_utterance": "19f0934e48b19e79206ad4e103d4eaaa0dc5401e",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "ac446414c8c004a9cdaf5304d559f688d8d0f472",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "8dac5d8b2c5cc0f73ca6519ddc63abff7cee0ef1",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "4b2b0bc962c3960043ed14f27f8da00e1a20192d308faa45eb5a4a2150b1e9bb",
+      "tree": "d57acb7b56e8c493d83b1768a121d77816ce589d",
+      "url": "https://www.doh.wa.gov/YouandYourFamily/Marijuana/MedicalMarijuana/PatientInformation/DesignatedProvider",
+      "rule": "## Designated Provider\n\nTo be a designated provider for a qualifying medical marijuana patient, the person must be:\n\n* Twenty-one years of age or older;\n* Named on the patient's medical marijuana authorization form.\n* Have a fully completed form also printed on tamper-resistant paper. The patient signs his or her copy of the authorization form, and the designated provider signs his or her own copy; and\n* Entered into the medical marijuana database and have a designated provider recognition card, if the patient chooses to be entered into the database.",
+      "initial_question": "Can I be a designated provider for this person?",
+      "scenario": "There's no limit noted on the paperwork I have.  My name is on the form for the medical marijuana.",
+      "history": [
+        {
+          "question": "Are you age 21 or older?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Are you named on the patient's medical marijuana form?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Have you fully completed and printed required forms?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Has the patient signed his or her copy of the authorization form?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Has the designated provider signed his or her own copy?",
+      "parent_utterance": "0bd74aa912008343af05bac85e303c2c0583fa6d",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "5f8bd7fcf9ec95b314c66f16edcd253c30f7b12b",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "71d4914a5b29f50226b8fd79e82fe2c9a017ab93",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "430cce488b054f0002b503e2aa5362802beee401999c57e11ef200e676d872d7",
+      "tree": "14276c1cdf6472deb3dd107c6b482c89d07228da",
+      "url": "https://www.gov.uk/au-pairs-employment-law",
+      "rule": "#  1. Overview\n\nYou\u2019re usually considered the employer of a nanny, housekeeper, gardener or anyone else who works in your home if both:\n\n* you hire them\n* they\u2019re not self-employed or paid through an agency",
+      "initial_question": "Could I be considered as an employer?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Did you hire them?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Are they self employed or paid through an agency?",
+      "parent_utterance": "4baf10173d69831883da66566488ab5349069280",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "cf90f5b725b4201168e49ae9f23a66c144536739",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "96b26b332c0012aa7eb13a5d4ddb3de200383970",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "269442ff22486776baa2060fe94b17f37d1260d2af626dad0c6ead442fa6beba",
+      "tree": "ee2278e59b66b9db76bcaa921e5e4549bb9b53e7",
+      "url": "https://www.gov.uk/claim-benefits-abroad/disability-benefits",
+      "rule": "#  6. Benefits for carers and people with disabilities\n\nYou can carry on claiming Carer\u2019s Allowance if you take up to 4 weeks holiday out of a 26-week period.",
+      "initial_question": "Can I carry on claiming Carer\u2019s Allowance if I go on holiday?",
+      "scenario": "I made sure to get authorization from my healthcare provider ahead of time",
+      "history": [],
+      "source_followup": "Are you taking more than 4 weeks of holiday in a 26-week period?",
+      "parent_utterance": "81385e308e87a3a11a077e5a8cbb81cc187dddc3",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "f37de363e288e3f4df18b6735f3c2d271db1d386",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "2cd8249b2552ddfbf66eaa4ea81bda8ff2f2c592",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "013bbc74fde0f6629dd9e76168efa112b1268d11a3a149e64abbe357f6d38174",
+      "tree": "1d2410a662de27f616edd96df300daf5a91a4a5f",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/business-taxes",
+      "rule": "# Income Tax\n\nThe federal income tax is a pay-as-you-go tax. You must pay the tax as you earn or receive income during the year. An employee usually has income tax withheld from his or her pay. If you do not pay your tax through withholding, or do not pay enough tax that way, you have to pay estimated tax.",
+      "initial_question": "Would I have to pay estimated tax?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Do you pay your tax through withholding?",
+      "parent_utterance": "4145a819d232807c715d64cb36c9383d0557d0b9",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "e1b64e7f3527d1c39c11dc3c0450372267f2f0d8",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "dd19d40307461814ce6915c49369b1232ff65a4b",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "47026bd9519d069e2ac7d72a123584b668cb4cda1735ee72f8be913bfffd36ff",
+      "tree": "6304e70d33215eda082e53d3d5e6eb112a1bf20a",
+      "url": "https://www.benefits.gov/benefits/benefit-details/5937",
+      "rule": "The Agricultural Conservation Easement Program (ACEP) provides financial and technical assistance to help conserve agricultural lands and wetlands. There are two program components under ACEP, the Agricultural Land Easement (ALE) component and the Wetlands Reserve Easement (WRE) component.",
+      "initial_question": "Can the ACEP help me?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Do you need  financial and technical assistance to help conserve agricultural lands and wetlands?",
+      "parent_utterance": "f56a8c9617e3b178d4f25782040c9756290d717f",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "a824456a00c28edc92328c228d30f8958ad2a3d7",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "fafe9435864b0ce98133d1fa5b9801b4e19ca1d0",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "b5435215e038dc8f97900e347d03d066983fa11d36a5e3d9bae7a2f17e98c41c",
+      "tree": "edbae41e63620189548506200db0188cd65f6b7f",
+      "url": "https://www.gov.uk/claim-benefits-abroad/maternity-and-childcare-benefits",
+      "rule": "## Statutory Maternity Pay (SMP)\n\nIf you can\u2019t get SMP, you might be eligible for Maternity Allowance.",
+      "initial_question": "May I be eligible for Maternity Allowance?",
+      "scenario": "I deferred for 10 months. Neither myself nor my partner has reached Pension Credit qualifying age.",
+      "history": [],
+      "source_followup": "Can you get SMP?",
+      "parent_utterance": "94cbddfa272a8d19ff9f4cca8271b0d2bc540372",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "eac2729ee5ef34caca2ac2555a8a38f6ce95755b",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "f7f1e4cb5513a8ebca60620cfdfd88681165c1ba",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "ca014175e8754b99782a44d08bfc26d7cff0e747bd7e73805ab5a56b604dd164",
+      "tree": "71f12c59ca75ae4bb39d322a73ec73d1ece30bb9",
+      "url": "https://www.gov.uk/tax-sell-property/selling-overseas-property",
+      "rule": "## If you\u2019re non-resident\n\nNon-residents may have to pay UK tax on overseas property if they return to the UK within 5 years of leaving.",
+      "initial_question": "Is it possible that I may have to pay UK tax on overseas property?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Are you a non-resident?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Did you return to the UK within 5 years of leaving?",
+      "parent_utterance": "65ae28680fd68dcf45ecfa66d3bb0d0b6b984df0",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "b44c55b0a710b60def2ac4487123d46d2fb981ca",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "32a57ebcb70c6f1349e6c1f5f3a99650ff8bbe49",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "eca1607664903b94c4ee7f8c84c919c7e79105ec98e6ee65c92bddd349a925ea",
+      "tree": "7060f13b78f1c604088f35f8edb3a6f88b4ae45a",
+      "url": "https://www.benefits.gov/benefits/benefit-details/1910",
+      "rule": "# Indiana Head Start\n\nChildren in foster care, homeless children, and children from families receiving public assistance (Temporary Assistance for Needy Families or Supplemental Security Income) are also eligible for Head Start and Early Head Start services regardless of income.",
+      "initial_question": "Am I eligible for Head Start and Early Head Start?",
+      "scenario": "I live in New York right now.  I want to transfer my studies to the UK.",
+      "history": [
+        {
+          "question": "Are you an Indiana child in foster care?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you an Indiana child in a family receiving public assistance (Temporary Assistance for Needy Families or Supplemental Security Income)?",
+      "parent_utterance": "79bb3a92002c66afa0e1554449e443d0e43a540f",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "e5a26202b0aea067c33b632696e000ddb14d39a2",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "bab306e683b8f89812fefae8a857e3da66573c40",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "b9efd0adaf1d302355ce78400b4e7bd12efe46cdb1d8d6b57d60481ffb963af7",
+      "tree": "bc3cb105f1b1edec7a97eafcbf93e089ed4a1d3c",
+      "url": "https://www.gov.uk/tax-credits-if-moving-country-or-travelling/moving-to-the-uk",
+      "rule": "#  4. Moving to the UK\n\nYou must have been living in the UK for 3 months before you\u2019re eligible to claim Child Tax Credit if you moved to the UK on or after 1 July 2014 and don\u2019t have a job. This doesn\u2019t apply if you:\n\n* were working in the UK before but temporarily can\u2019t work because of your health or an accident\n* have been abroad for less than a year but usually live in the UK and were claiming Child Tax Credits before moving\n* have been abroad for less than a year but usually live in the UK and were in the UK for at least 3 months before moving\n* paid Class 1 or Class 2 National Insurance contributions while you were working abroad, and paid these in the 3 month period before returning to the UK",
+      "initial_question": "Am I eligible to claim Child Tax Credit?",
+      "scenario": "I have questions about a program. I am a small business who is eligible, but I will be staying in the United States for medical treatment.",
+      "history": [
+        {
+          "question": "Have you been living  in the UK for 3 months before you\u2019re eligible to claim Child Tax Credit ?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Do you have a job?",
+      "parent_utterance": "68b60fe2daf2f164b8dc50c3134f15040be76bdd",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "3ca94cb38300af70dd752ff7d0a52138091d79d6",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "18a3cf97c3100194858d4bb088d194f695596173",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "5543354ea0f469933a91a01ba5b02d9c6c3c66bc87e404aecbdb4ca18695687f",
+      "tree": "9b06b032aa9a316e11d692f99c295add95196f57",
+      "url": "https://www.gov.uk/guidance/export-animal-bones-protein-and-other-by-products-special-rules",
+      "rule": "#  Export animal bones, protein and other by-products: special rules\n\nOtherwise, you can create your own commercial document.",
+      "initial_question": "Do I need to use TRACES to create a commercial document?",
+      "scenario": "I do not own an Indian-owned business.",
+      "history": [],
+      "source_followup": "Do you export animal bones, protein and other by-products?",
+      "parent_utterance": "cb042e641e3a47c10e75c5d3ede3c3ed452ad93a",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "9fb1d67dde07703a03cc76f8cf48f6297a10ecb9",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "7f350978dea01d6196e99f1b4555748a9a2e5b05",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "6be509908e60b415797e2ed577e25e85adf67987aa29cbf035e78bf042acf193",
+      "tree": "db17b5ea7f0727e40f5d022180ba341670ed1bb8",
+      "url": "https://www.gov.uk/tax-sell-home/absence-from-home",
+      "rule": "#  3. Businesses\n\nIf the purpose of your business is to buy and sell property (you\u2019re a property developer, for example) you don\u2019t pay Capital Gains Tax when you sell a property. Instead, you pay:\n\n* Income Tax - if you\u2019re a sole trader or partner\n* Corporation Tax - if you\u2019re a limited company",
+      "initial_question": "Do I have to pay Capital Gains Tax when I sell a property?",
+      "scenario": "My wife and I recently took out a loan to refinance our mortgage debt. Neither of us will be eligible for pension for at least ten more years.",
+      "history": [],
+      "source_followup": "Is the purpose of your business to buy and sell property?",
+      "parent_utterance": "cd0144df2325ea374b51b8c0373e9ccc8a62370b",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "b0b01c44b551479b117170865374fe15a385b770",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "e91367590516b2c4973f01d7510f40a79acbfabe",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "8b29c4514486572711bb34f6dac8aeea17e30fd905d59170bc5cbe6228865fa0",
+      "tree": "0b92d65ebfe8bfc7807547faa6ba464991ef3b8a",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-defined",
+      "rule": "# Independent Contractor Defined\n\nIf an employer-employee relationship exists (regardless of what the relationship is called), you are not an independent contractor and your earnings are generally not subject to Self-Employment Tax.",
+      "initial_question": "Am I subject to Self-Employment Tax?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Does an employer-employee relationship exist?",
+      "parent_utterance": "94d1285f49be6d4cf56022597594e2cd5fac4be0",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "d6b5d4f441d3088095b65e041260639e5d1af5c0",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "296d912f108c23161ed3967ac68dbd2726529d5a",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "126e4fcce0cbedb2236264ae10db25513f7370f7698358de15bf70cd843a4d57",
+      "tree": "3e276836bcd6e90e63105d41a14d6b65b21b487d",
+      "url": "https://www.usa.gov/finding-home",
+      "rule": "# Find Affordable Rental Housing\n\nPublic Housing provides affordable rental houses or apartments for low-income families, people who are elderly, and people with disabilities. To apply, contact a public housing agency in your state.",
+      "initial_question": "Can I get Public Housing?",
+      "scenario": "I'm 28.  My wife is 27.  We have one child.  We live in the suburbs.  Both of us have jobs and we do well for ourselves.",
+      "history": [
+        {
+          "question": "Are you a low-income family?",
+          "answer": "No"
+        },
+        {
+          "question": "Are you elderly?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Do you have a disability?",
+      "parent_utterance": "7d086e9cba58cec1fb9d0291ac8e092a0c7aed92",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "bc89f0b1b29faeabd27565c2eb4557330fe03cb8",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "eb324bf86843e24f6ac9cf7f790238e7fcb15c3b",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "5623d8d8488b6040edc22c4bfa3681c6ae7d811af432473ed44a675f75eab7f9",
+      "tree": "8bde5cc1fa70d6ee596f92e3063f27d000f69346",
+      "url": "https://www.gov.uk/tax-credits-if-moving-country-or-travelling/immigration-control",
+      "rule": "### You\u2019re from Algeria, Morocco, San Marino or Tunisia\n\nYou can\u2019t get Working Tax Credit.",
+      "initial_question": "Can I get Working Tax Credit?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Are you from Algeria?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you from Morocco,San Marino or Tunisia?",
+      "parent_utterance": "b3f22b0efad67cd0441fe337966e1c2cd5ed2434",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "03527f5441f56a0dde414978a6056ed245860600",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "705c50dc3584cb703122d0cf2b53992a436d15fc",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "682b4fa6382e853603c8987cc6a74e0b0d858317aa0fe1c51ba5cc21694701f2",
+      "tree": "d077ce869500c06e80bf953d67beb2823825f8be",
+      "url": "https://www.gov.uk/guidance/export-food-and-agricultural-products-special-rules",
+      "rule": "#  Export food, drink and agricultural products: special rules\n\nSome countries may have import rules for certain goods. You can check by talking to your importer or getting help researching your export.  There is a ban on most food exports to Russia. Contact the APHA Centre for International Trade Carlisle for details.",
+      "initial_question": "Can I export this product?",
+      "scenario": "I am permanently moving to the USA. I am not a student. This an action under the CRS",
+      "history": [],
+      "source_followup": "Are you attempting to export food to Russia?",
+      "parent_utterance": "a49c6a82b12766a1278fb255adb885b951d4315d",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "ce23a2acc2a4ee0a990a26d6e629bd7c9c2fb6bb",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "5ab6ee14e85d33fbc569ef5638c5338523e3d040",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "6ddf14d4233e8d99377424ba03edbc4a512488c2fc74d43a17a716de589a2a0e",
+      "tree": "e1848601b35c0d57df1adf40ad9239cb45b8676f",
+      "url": "https://www.gov.uk/guidance/export-plants-seeds-bulbs-and-wood-special-rules",
+      "rule": "#  Export plants, seeds, bulbs and wood: special rules\n\nIf your plant is a fireblight host, you can only send it to another \u2018protected zone\u2019 if they come from a place with  fireblight buffer zone status (PDF, 202KB, 2 pages)  . Contact the Plant Health Office if you\u2019re not sure where protected zones are.",
+      "initial_question": "Can I export this plant?",
+      "scenario": "I'm eligible for exporting this plant.  The zone I'm sending it to is not protected.",
+      "history": [
+        {
+          "question": "Are you sending it to another \u2018protected zone\u2019?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is your plant a fireblight host?",
+      "parent_utterance": "270f160c21f7e69dd76cf60cd837b79f7581aa32",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "b66bf0c6f8a42c5f62098fe9f398f9d26a63e4da",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "07e5e05893d649f6af08218a6f18c0331efa6149",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "c99df19d53124a255fb5cb8b57388554557a8b87af7df80affec29b94051d484",
+      "tree": "48c982732850679af991f0a8ee21fcb68fdca3c9",
+      "url": "https://www.doh.wa.gov/YouandYourFamily/Marijuana/MedicalMarijuana",
+      "rule": "## Healthcare practitioners may access patient information in database\n\nThe laws and rules allow authorizing practitioners and those who prescribe or dispense controlled substances to access patient information in the database.",
+      "initial_question": "Can access patient information in the database?",
+      "scenario": "My native country is Macedonia",
+      "history": [],
+      "source_followup": "Do you prescribe or dispense controlled substances?",
+      "parent_utterance": "4dca899fb99ee44eb6d6e30a8ff7c09a3efe5da6",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "b427572e12b817e417b1baeeb747c7308cceeb78",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "4a6325ac1dd4b93ad2bc2979bd1e5cc660b6f243",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "51b94fd6d23435940d4f9df3dbc8a8f5a265be94043fef744daed5a99517e099",
+      "tree": "b691b4a804b083a006564c80d3a8ae1a848158e1",
+      "url": "https://www.gov.uk/employment-status/worker",
+      "rule": "## Casual or irregular work\n\nSomeone is likely to be a worker if one of these apply:\n\n* they are under the supervision or control of a manager or director\n* they can\u2019t send someone else to do their work\n* the business deducts tax and National Insurance contributions from their wages\n* the business provides materials, tools or equipment they need to do the work",
+      "initial_question": "Can I be classified as a worker?",
+      "scenario": "I have to pay my contributions but I think the ESA benefits I'm receiving are for an amount greater than they should be.",
+      "history": [
+        {
+          "question": "Are you under the supervision or control of a manager or director?",
+          "answer": "No"
+        },
+        {
+          "question": "Can they send someone else to do your work?",
+          "answer": "No"
+        },
+        {
+          "question": "Does the business deduct tax and National Insurance contributions from your wages?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Does the business provides materials, tools or equipment you need to do the work?",
+      "parent_utterance": "6f9a0095a13a521c92caa763603aa70a12dad6ea",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "b65ea5def0d1126d35836202b801db4e5325f3d7",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "05cbd988f4a00c301a8c80930509508fac3f9c59",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "399bf53bfa169546d7b058f45956550fb7de5cc64033baef3a4d799136e4cda2",
+      "tree": "7c1d623523f043988643df48b02715191128cafa",
+      "url": "https://www.benefits.gov/benefits/benefit-details/1504",
+      "rule": "The Small Business Administration's (SBA) disaster loans are the primary form of Federal assistance for the repair and rebuilding of non-farm, private sector disaster losses. The disaster loan program is the only form of SBA assistance not limited to small businesses.",
+      "initial_question": "Should I apply for the SBA's disaster loan?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Do you need financiak assistance with repair or rebuilding?",
+      "parent_utterance": "6fb9097646fd05af38e0b7bc7ff38940bba38daf",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "197200001b0929740683946ff5b03488b3db1e81",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "4c92f52ceac66023f9a0ecf4725dec7295061118",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "39cddcbb77726910006c42c3982dc7a3cada6e148488b5fc58585805359c1e81",
+      "tree": "5788f251ff787519be979fb60c45aea00ead411b",
+      "url": "https://www.gov.uk/guidance/export-luxury-goods-to-north-korea-or-syria-special-rules",
+      "rule": "## North Korea\n\nThe banned luxury goods for North Korea are:\n\n* high quality tableware made from porcelain, china, stone or earthenware or fine pottery\n* high quality lead crystal glassware\n* high end electronic items for domestic use (for example toasters, coffee makers and sewing machines)\n* high end video equipment, audio equipment and cameras",
+      "initial_question": "Can I export this product to North Korea?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Is it a high quality tableware made from porcelain, china, stone or earthenware or fine pottery?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is it high quality lead crystal glassware?",
+      "parent_utterance": "d9ae29b883b6254be990ec0a1e2f107fba8b156f",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "79ff599b013d5cce41a4dc013c23702a313029fd",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "f272b1a1fba23626499cf0836d2da9614a67d0b7",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "ecf2d59ee32ae7be3eea3072344798d2081df8469d1905e48035b5be4aa85e62",
+      "tree": "873fa063c002e51dc67e62bcfafac11ca568cfe7",
+      "url": "https://www.gov.uk/vat-businesses/vat-rates",
+      "rule": "### Standard rate\n\nMost goods and services are standard rate. You should charge this rate unless the goods or services are classed as reduced or zero-rated.",
+      "initial_question": "Can I charge the standard rate for this good?",
+      "scenario": "I live alone currently and I'm renting my place from a private landlord",
+      "history": [],
+      "source_followup": "Are the goods or services classed as reduced or zero-rated?",
+      "parent_utterance": "ac6c7bab2f1d8e40ff1b57ac82dc8bc48b35d729",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "4c3bafbc6b08b2fd983dee1e9bc38d7638dcd2f1",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "e986066610f5a59a745d68d6ae8d717ebcb8a014",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "c661ad8c6fe0f19112ee3465dbe7b4cedd1bf0df87760264a8423bf6826fbb5e",
+      "tree": "d5a7eb84a20ee3c812f028fdc0f17f1b0eb991c9",
+      "url": "https://www.gov.uk/social-security-child-support-tribunal/what-happens-at-the-hearing",
+      "rule": "#  3. What happens at the hearing\n\nYou must take your appeal papers and the documents you\u2019re using as evidence. Evidence will usually be shared with all parties.",
+      "initial_question": "Do I need to take this as evidence?",
+      "scenario": "I was married twice.  My second marriage was thirty years ago.  I reached pension age two years ago.",
+      "history": [],
+      "source_followup": "Are going to the hearing?",
+      "parent_utterance": "13ff4dd7def2af1abcab7edfdeaa096d7d26074f",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "a51679c916307c657ff9ae23b16f8ed0dfb1ccb2",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "5f592731b7e7b32d9bf734f8b80cd58f14495666",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "fd580d2abe6728a75b3508542ac29c458189d20c753d03af254379b2323ab072",
+      "tree": "dd4cb41e8c180a800a000c796ac71f7fc58eb66d",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/declaring-bankruptcy",
+      "rule": "# Bankruptcy\n\nOther types of bankruptcy include Chapters 9, 12 and 15. Cases under these chapters of the bankruptcy code involve municipalities, family farmers and fisherman, and international cases.",
+      "initial_question": "Can I file bankruptcy under Chapter 9, 12 or 15?",
+      "scenario": "I am a salesman.",
+      "history": [
+        {
+          "question": "Are you a family farmer or fisherman?",
+          "answer": "No"
+        },
+        {
+          "question": "Does it involve a municipality?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Does it involve an international case?",
+      "parent_utterance": "3ea468c8bbb9abaaa574cd096832734a51bc064b",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "1c7b5679bcb6b6486e3c02b11d3b82ffe205f037",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "ef89f181392f41e6b8731ed8be0d6328038be875",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "653191e0cf115933b833ebdb35cd0dd6f31f8b3e0798a200365d77daf767ae65",
+      "tree": "8fd24dac77d2a910364bf12151d43009511f725c",
+      "url": "https://www.gov.uk/additional-state-pension/inheriting",
+      "rule": "## When you can\u2019t inherit Additional State Pension\n\nYou can\u2019t inherit your spouse or civil partner\u2019s Additional State Pension if you remarry or form another civil partnership before you reach State Pension age.",
+      "initial_question": "Can I inherit my spouse\u2019s Additional State Pension?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Did you remarry or form another civil partnership before you reach State Pension age?",
+      "parent_utterance": "e86acfc0be032fa44273d830b97932ab0f60184d",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "3191ce448a3039ba0333e597213b80208d3108df",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "d8effafc86ea0d390a47e430f8d9d75c2b558c50",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "a087ce55800465e0f9592ca77f908a8440f1fbd3871fc5ccbea649ba3501b318",
+      "tree": "2b48a053981dc4c15c730751c5fbe21ba75b3aa9",
+      "url": "https://www.gov.uk/benefit-overpayments/when-repayments-have-to-be-made",
+      "rule": "## Taking repayments from your benefits\n\nIf you\u2019re still receiving the benefit, the regular amount you get will be reduced until you\u2019ve paid back the money.",
+      "initial_question": "Can the regular amount of benefit I get be reduced?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Are you still receiving the benefit?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Have you paid back the money?",
+      "parent_utterance": "fb523403507960a93519fef8f6f30a98df790d25",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "46a611850d868ff78e25e0026ed78b1a89f537f4",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "9b2df2d664639013646d1663db6a6fc25b54bc39",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "f36a96bfcd4ee7ed08ed0ccdde58535a7a6065a96e030aac0f57e08aaadb096b",
+      "tree": "53395c06b535e98d2421dd34a9a83d59ca85ad32",
+      "url": "https://www.benefits.gov/benefits/benefit-details/1502",
+      "rule": "Credit Requirements: SBA's assistance is in the form of loans, as such SBA must have a reasonable assurance that such loans can and will be repaid.",
+      "initial_question": "Am I eligible for the loan?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Can you assure that you can and will repay the loan?",
+      "parent_utterance": "229140c60961fb0005e512e0dafd6d6ab49fd6b0",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "01f06767bbbbc753f7becaca8a97ecf1bc57cd96",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "0bf0c81f69f81a5edde3e15c74f02e339658f65c",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "6286135a0ec731cabcb7354d53c639d330c50f5816b1955d6c815c31dfedf114",
+      "tree": "e8fc13ea3c94dc780fa8b0c08bd45de24937d361",
+      "url": "https://www.benefits.gov/benefits/benefit-details/1505",
+      "rule": "In order to qualify for this benefit program, your business or private non-profit organization must have sustained physical damage and be located in a disaster declared county.",
+      "initial_question": "Does this program meet my needs?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Do you own a business or private non-profit organization?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Did your business sustain physical damage?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Is your business located in a disaster declared county?",
+      "parent_utterance": "fbb3f682f0518ec52f93d07d545880f45204fe44",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "4531d0a80b0fa2dad288672e8b527fb83bb83b63",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "03317a70eb306a20e515d4ff64060c192de072b4",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "6eb318518d09bce9194bd6829d088742a59af73292ec5719b8efa1d789de4324",
+      "tree": "b7e4edee744c7008af92b6695703021ee517b642",
+      "url": "https://www.gov.uk/housing-benefit/further-information",
+      "rule": "## Extra help to pay the rent\n\nYou may also get extra help from your council called a \u2018discretionary housing payment\u2019 if your Housing Benefit doesn\u2019t cover your rent.",
+      "initial_question": "Can I get discretionary housing payment?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Is your Housing Benefit covering your rent?",
+      "parent_utterance": "2a1b5f79d22d7bab9bc969822f883bf31f40f92f",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "9f33d828b3aae68dc27ffd0ec00d0a87aa4b924f",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "fde4a3bed9fd9a53680d90795a31afa1eb841765",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "ce0259ca4161aa74494be4ee50545eed8c4b5c8d8e598805a096f5aba86df932",
+      "tree": "4ec3b705a0537a8882f14315ac10a799ea63b5da",
+      "url": "https://www.gov.uk/vat-registration/changes-to-your-details",
+      "rule": "#  7. Changes to your details\n\nYou need to tell HM Revenue and Customs (HMRC) about any changes to the following within 30 days or you could face a financial penalty.",
+      "initial_question": "Can I face a financial penalty?",
+      "scenario": "I'll be moving to Texas next year.  I don't have any pay or benefits to draw on.",
+      "history": [],
+      "source_followup": "Have you told HM Revenue and Customs (HMRC) about any changes to the following within 30 days?",
+      "parent_utterance": "84afe20123246ed2b505a785432842530f04b792",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "abf5b5b33e1275b0ebe10c61a8afd34890e288e9",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "2069a115fef196574ff082d2042921f810946e59",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "6b58165e073d5f9114b7e6fb0ec6b7ebb37535b0d2d6f0a55f79e9b3b92030b2",
+      "tree": "6cf7444a22c02af2f6ecc03d1443c0dae4d827d2",
+      "url": "http://legislature.maine.gov/statutes/6/title6sec102.html",
+      "rule": "* The airport manager, or his authorized representative, shall be available during all hours of operation. A current telephone number shall be on file with the department.\n* The manager shall file a notice to airmen with the Federal Aviation Administration designating any changes in airport conditions that may effect safety. A \"notice to airmen\" file shall be maintained at the airport.\n* The manager shall display the local traffic pattern, airport traffic safety rules, any noise abatement procedures, and any special orders relating to the airport and its operations at a prominent location on the airport.\n* The manager shall submit a list of federal aviation registration numbers twice yearly to the department in May and November of all aircraft based at his airport.",
+      "initial_question": "Is this airport manager performing all their duties?",
+      "scenario": "I'm exporting some pills.  I'm not sure of the rules, but they should be okay.  It is just Tylenol.",
+      "history": [
+        {
+          "question": "Is the  airport manager, or his authorized representative, shall be available during all hours of operation?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Has the manager shall file a notice to airmen with the Federal Aviation Administration designating any changes in airport conditions that may effect safety?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Does the manager shall display the local traffic pattern, airport traffic safety rules, any noise abatement procedures, and any special orders relating to the airport and its operations at a prominent location on the airport?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Does the manager shall submit a list of federal aviation registration numbers twice yearly to the department in May and November of all aircraft based at his airport?",
+      "parent_utterance": "9a05abbbc6c51d8a34f8f7682305bfa8b2b40594",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "5c4f33fd93d879408973f1aebe2f7fb52415f36a",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "16bf653ca9a659e564b0bbf13cc8bc33ff5b564b",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "eca443b067f9a944e1191e8a70cda9b8637f31951e04e393d853c238e2fff977",
+      "tree": "66528f04ffe4b2ce47234dd853f3713696058848",
+      "url": "https://www.doh.wa.gov/YouandYourFamily/IllnessandDisease/Cancer/BreastCervicalandColonHealth/Eligibility",
+      "rule": "# Eligibility Criteria\n\nLimited openings are available for women ages 18\u201339 with breast symptoms with funds from Susan G. Komen.",
+      "initial_question": "Can openings be available to me?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Are you a woman?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Are you aged 18-39 with breast symptoms with funds from Susan G. Komen?",
+      "parent_utterance": "adbea2c750ecdc7721cc807008329882c6c3f9a8",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "00dce5cf769f4d8c1ed4e3dff869086052a978f3",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "2f1bfe9e9354c79e0e991262239752271929b68e",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "20c32ec4eb9ab18fb1f84139b3688111042699797ed0e3240fa5c29fcf7fde60",
+      "tree": "cee96fab3367e96a557ea6725560ef7a76418d6a",
+      "url": "https://www.gov.uk/tax-right-retire-abroad-return-to-uk",
+      "rule": "#  Tax if you leave the UK to live abroad\n\nYou\u2019ll be charged a penalty if you don\u2019t meet the deadline - it\u2019s earlier if you\u2019re sending your return by post (31 October).",
+      "initial_question": "Will I be charged a penalty?",
+      "scenario": "My husband and I bought our first home about a year ago",
+      "history": [],
+      "source_followup": "Did you meet the deadline?",
+      "parent_utterance": "63f8d55a29239a9fe33c918097f08b1b35c86e91",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "9ea1262340e9e0ef6e738a3688307f428dae180b",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "ea73de14ed14e2f243a5db793c3c095483923807",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "ac6c3325bcb380b74f62b987f639a1c9d86451ccd17849be904bf6fc2be7e1e7",
+      "tree": "e3aad523e67232d59887410a14315784d7ecee2c",
+      "url": "https://www.gov.uk/new-state-pension",
+      "rule": "## Working after State Pension age\n\nYou don\u2019t have to stop working when you reach State Pension age but you\u2019ll no longer have to pay National Insurance. You can also request flexible working arrangements.",
+      "initial_question": "Do I still have to pay National Insurance?",
+      "scenario": "I only have one savings account and I'd like to get a loan against it so I can purchase a crate of truffles to resell.",
+      "history": [],
+      "source_followup": "Have you reached State Pension Age?",
+      "parent_utterance": "51b1ec0aa51d3d2f49a29143b2a188007ef447bd",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "3e1ac8b24878f6b17eba6ab8c0d6a9f47b5545a4",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "ffba31326c14228d8a43cd8016d7c91eb943428b",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "168483dd0a82a910d24ff841f6f9f4c44454c04cc3513c8549125246f06b5cf9",
+      "tree": "3e86917109499e3d04faceeb141812828f88241c",
+      "url": "https://www.gov.uk/income-tax-reliefs/maintenance-payments-tax-relief",
+      "rule": "### You get Married Couple\u2019s Allowance\n\nYour tax-free allowance may increase if you make donations through Gift Aid and claim Married Couple\u2019s Allowance.",
+      "initial_question": "Could my tax-free allowance increase?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Did you make donations through Gift Aid and claim Married Couple\u2019s Allowance?",
+      "parent_utterance": "eca30235aca0f5c370c114282710a1a8beeca1b3",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "795b0c6cb894954c32398b9acf2819adafcaee63",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "9992df0db287c9ef1dc3afb621ef99b8731492a5",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "372f837c1d456e0585de79fcf8a0dddb4c7cd0382221a089b3bd54fe4c5362ad",
+      "tree": "e93af50d988dc5c2e62d92b8ab3bd4266ba16d98",
+      "url": "https://www.gov.uk/income-tax",
+      "rule": "#  1. Overview\n\nYou don\u2019t pay tax on things like:\n\n* rent you get from a lodger in your house that\u2019s below the rent a room limit",
+      "initial_question": "Do I pay tax on rent I get from a lodger?",
+      "scenario": "I have NOT taken the Benefit Eligibility Screening Tool. ",
+      "history": [],
+      "source_followup": "Is it below the rent a room limit?",
+      "parent_utterance": "42026f309f7884cd7378e4be28847ef8cf6d5aa8",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "fe93319c5396d836e8449684dc44d02a757baec2",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "deb9df0b7a4c6fce8881192945c925957cfab8b2",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "586c0f0a2f3700230ee9dfcecf407de4d3e67e2322848724cbf6d3ee30066b1f",
+      "tree": "4fc9669c863c57dd7393c68250b3e88056fbe466",
+      "url": "https://www.gov.uk/vat-registration/purchases-made-before-registration",
+      "rule": "#  6. Purchases made before registration\n\nThere\u2019s a time limit for backdating claims for VAT paid before registration. From your date of registration the time limit is:\n\n* 4 years for goods you still have, or that were used to make other goods you still have\n* 6 months for services",
+      "initial_question": "Can I backdate this claim?",
+      "scenario": "I still have all of the items I made, but I made them quite some time ago, in 2010. I registered them at the time, but never claimed them.",
+      "history": [
+        {
+          "question": "Has it been 4 years or less since your date of registration for goods you still have or goods that were used to make other goods you still have?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Has it been 6 months or less from your date of registration for services?",
+      "parent_utterance": "d916389024993fd4c9acdc2b1f7073e4c095e1d8",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "d9013300e5e83ab48765a5c6bd15f52b757eee97",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "580165af4f42d07bc15418228285ff965ab8db0a",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "94b9bf53a93138e01dc2a40ea0ad0e8be09e992b1c84a3f1ffa267c221c22a80",
+      "tree": "90d62b51353a6ccef87c4cc9644f9e75d749722f",
+      "url": "https://www.humanservices.gov.au/organisations/health-professionals/subjects/online-options-health-professionals",
+      "rule": "### Public Key Infrastructure\n\nIf you don\u2019t have access to HPOS or wish to use other online services you\u2019ll need a Human Services Public Key Infrastructure (PKI) certificate.",
+      "initial_question": "Do I need a Human Services PKL certificate?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Do you have access to HPOS?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Do you wish to use other online services?",
+      "parent_utterance": "a6dc64ac4df0692068be476a434cf0441512e174",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "2909d23f43bfa5d0494d74f43dcd736ad5cca774",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "6f6c160a14832963230a4ea004dc387b5b89b90d",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "d64e99d6053d0262036430130e2a0867fe2d0d01e7420d05604779cbc4ed82dc",
+      "tree": "2e38b8362c6ef06e15718f0e86667818a701e8bf",
+      "url": "https://www.gov.uk/getting-help-with-your-tax-credits-claim/claim-on-behalf-of-your-child",
+      "rule": "## Your child is over 16\n\nYou must stop claiming tax credits for your child if they start claiming tax credits for themselves. Phone the helpline to stop claiming tax credits.",
+      "initial_question": "Can I claim and deal with tax credits for this person?",
+      "scenario": "I'm having trouble paying my bills.  I wanted to know if I could lower my deduction for a month or two.",
+      "history": [
+        {
+          "question": "Is your child over 16?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Are they claiming tax credits for themselves?",
+      "parent_utterance": "2fd7c12025c0e08fdbfbf91afb842105d7622fac",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "4d1fddcb484f364f4814cebbe2f9c8a2d365ccae",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "cb1981ce785e5854c32c173c7fcbb6d4e9a998fd",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "c191f2bd2a811fbab341a78f2b37cffae3a1990792a9d9c425d98da3393a6fc6",
+      "tree": "ceebc0213578eeeee230349d07253836e2e6d91f",
+      "url": "https://www.gov.uk/employee-rights-when-on-leave",
+      "rule": "#  Employee rights when on leave\n\nEmployee rights aren\u2019t usually affected when they take maternity, paternity, adoption or parental leave and some employees can work up to 10 paid days during their leave.",
+      "initial_question": "Are my employee rights affected?",
+      "scenario": "I believe that his tax credits are completely wrong. ",
+      "history": [],
+      "source_followup": "Did you  take maternity, paternity, adoption or parental leave?",
+      "parent_utterance": "7e8b869e4b839235ca344da705c5c629cf53d830",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "9095307718151116109a593c0af8a56eda9e9dee",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "9d117692064dd11844341c2bc8a9fcd4d28c8795",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "20dbb842ccd72dd6426d7ac16c8102bcd5f2acdef18ed4fd5bebcf20fdf011c4",
+      "tree": "5f0edf28d705edc2e714c21267166921ecb9844c",
+      "url": "https://www.gov.uk/tier-4-general-visa/eligibility",
+      "rule": "#  2. Eligibility\n\nYou can get a CAS if you\u2019re:\n\n* re-sitting exams or repeating modules\n* applying for the first time to a new institution to complete a course you started at an institution that lost its Tier 4 sponsorship\n* applying to extend your stay to complete your studies because you\u2019ve done (or want to do) a work placement or study abroad programme",
+      "initial_question": "Can I get a CAS?",
+      "scenario": "My wife and I owned a rental house when we were married and after we got divorced I needed some money so I sold her 25% of my side of the house so I get a bit less every month from the income now but it gave me the money I needed to take night courses at a school here in town to get my license to sell homes.",
+      "history": [
+        {
+          "question": "Are you re-sitting exams or repeating modules?",
+          "answer": "No"
+        },
+        {
+          "question": "Are you applying for the first time to a new institution to complete a course you started at an institution that lost its Tier 4 sponsorship?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you applying to extend your stay to complete your studies because you\u2019ve done (or want to do) a work placement or study abroad programme?",
+      "parent_utterance": "f1aa7b8f6daa4329fa60803ee1eeba22468a539a",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "62c0b8e4bc42a8a9dc6426a5034573760fdfef9b",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "eebaaa9749398e85504755d94fea2c6a8af4aa06",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "cf21d9e66113179b6e276613219676ce948698fe9c1d876c509fef4bc305becc",
+      "tree": "577179943b13a67b3e60fa62e02dfd3e6114d171",
+      "url": "https://www.gov.uk/benefit-fraud",
+      "rule": "## Benefits that can\u2019t be reduced or stopped\n\nThe following benefits can\u2019t be reduced or stopped if you commit benefit fraud:\n\n* Guardian\u2019s Allowance\n* Industrial Injuries Constant Attendance Allowance (where a Disablement Pension is payable)\n* Industrial Injuries Exceptionally Severe Disablement Allowance (where a Disablement Pension is payable)\n* Personal Independence Payment",
+      "initial_question": "Can this benefit reduced or stopped?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Is the benefit a Guardian's allowance?",
+          "answer": "No"
+        },
+        {
+          "question": "Is the benefit Industrial Injuries Constant Attendance Allowance (where a Disablement Pension is payable)?",
+          "answer": "No"
+        },
+        {
+          "question": "Is the benefit Industrial Injuries Exceptionally Severe Disablement Allowance (where a Disablement Pension is payable)?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is the benefit a Personal Independence Payment?",
+      "parent_utterance": "02bdcb7cffe1fc8a3e46aa457a2399ba8ce24f4c",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "91025321eb05afca9440b45434efb1cfd003ac51",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "1a9e3398cba25e6c6354844a8ab2fb168235752b",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "a8909dd90678855822989c085740fca588e24be9e955893261c7d99e4fa0d99e",
+      "tree": "a3b0124b26dc1eed1a5ef963cc8e2674326e926d",
+      "url": "https://www.gov.uk/tier-4-general-visa/extend-your-visa",
+      "rule": "#  6. Extend your visa\n\nYou must:\n\n* meet the eligibility requirements of this visa\n* be in the UK\n* have a sponsor",
+      "initial_question": "Could I be able to stay longer to continue my course?",
+      "scenario": "I took some payments from my pension before grabbing the rest as a lump sum. ",
+      "history": [
+        {
+          "question": "Do you meet the eligibility requirements of this visa?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Are you in the UK?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "do you have a sponsor?",
+      "parent_utterance": "cfffa61e5b9df392149bc39b27a838289e293c39",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "c85cf10ef3cf53e1ae7baf2c0167846ab1d98e4e",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "05039c3e2cc2d0b606f79a3668fba3d4b43cf881",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "f9c4004d005e767d7dbb247740d0c78aedcdd1c2b7370afa12cd26df6b8d01a6",
+      "tree": "92c79dfa4c5014428649e7957c317876362b4e74",
+      "url": "https://www.gov.uk/guidance/export-art-antiques-and-cultural-goods-special-rules",
+      "rule": "#  Export art, antiques and cultural goods: special rules\n\nThere\u2019s a ban on supplying art works, collectors\u2019 pieces and antiques to North Korea and Syria.",
+      "initial_question": "Can I export this?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Is this art work, collectors' pieces or antiques?",
+      "parent_utterance": "608e90903311c924649edf2dba5821a3de8405e6",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "20fcc609d46039f9c0b9392eb1ff43f886ecd5f9",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "ed288610abc525a8c8b42131c275e9728b8fb28a",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "7883916ee0b8eb462960a135df4cf6da1c88a72bd1a843f04c04a963632040fe",
+      "tree": "c469af81ca07e79d0e3309c458da88a86a2fdd8a",
+      "url": "https://www.gov.uk/national-minimum-wage/who-gets-the-minimum-wage",
+      "rule": "## Not entitled to the minimum wage\n\nThe following types of workers aren\u2019t entitled to the National Minimum Wage or National Living Wage:\n\n* members of the armed forces\n* family members of the employer living in the employer\u2019s home\n* non-family members living in the employer\u2019s home who share in the work and leisure activities, are treated as one of the family and aren\u2019t charged for meals or accommodation, for example au pairs\n* workers younger than school leaving age (usually 16)",
+      "initial_question": "Am I entitled to the National Minimum Wage?",
+      "scenario": "The land is cropland.",
+      "history": [],
+      "source_followup": "Are you a member of the armed forces?",
+      "parent_utterance": "a8850749abe24d6af8d9c3d1dd00cd64a95dfc97",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "22df083e550eab771ad96c71163a998d60b64534",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "a5568004e99ecab6b25002135e5b881d8109a1cf",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "03406fb706f0f3d0830d1aad0942d7161bc04a70868b9d8d7a0720d9cd7f36db",
+      "tree": "c57bb1a2bfdf3e185ae724283e511b594444ea92",
+      "url": "https://www.humanservices.gov.au/organisations/health-professionals/services/medicare/medicare-provider-number-health-professionals",
+      "rule": "## Apply for your initial Medicare provider number\n\nIf you\u2019re a new health professional you must be registered with the Australian Health Practitioner Regulation Agency (AHPRA), or a relevant registration body, before you apply.",
+      "initial_question": "Can I apply?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Are you a new health professional registered with the Australian Health Practitioner Regulation Agency?",
+      "parent_utterance": "6dfd9364174f7dd3f6d3781557595ef157eeade1",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "3611433426897442b58111e692192d1af7eb0950",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "a55608bed319c1d9b7b0326fa71066318a6286b9",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "a77fff73efa4ca2d49ae6dc73e7dd647e844cdf54d1071d1b814a947c995ac8b",
+      "tree": "4246385bce6841ca6064b27340d282ed32314a62",
+      "url": "https://www.gov.uk/guidance/export-animal-semen-ova-and-embryos-special-rules",
+      "rule": "#  Export animal semen, ova and embryos: special rules\n\nTo move germplasm within the EU, you must:\n\n* apply for an Intra Trade Animal Health certificate (ITAHC)\n* register your premises",
+      "initial_question": "Can I export germplasm?",
+      "scenario": "I have been employed by the same employer for 3 years. I was offered a similar job, but I ended up refusing.",
+      "history": [
+        {
+          "question": "Do you have an ITAHC?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Have you registered your premises?",
+      "parent_utterance": "2f4ab6db8c4df266d5b4a41b2f550a27907dfc48",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "060798ba843159ce047ec694a2524d8874389f51",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "3a964e379bfd76f397ff8ee6558502bcc87e5690",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "1bf9173b2c9706d82c9e8ac7cb561917d75f3b17a20252b49aa39043ad96653c",
+      "tree": "d758764617f61c47aa3c1e9e3430050f5ecfdee4",
+      "url": "https://www.doh.wa.gov/YouandYourFamily/Marijuana/MedicalMarijuana/PatientInformation/Cooperatives",
+      "rule": "## Cooperatives\n\nNo cooperative may be located in any of the following areas:\n\n** Where prohibited by city, town, or county zoning laws.",
+      "initial_question": "Can I have a cooperative in this location?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Is a cooperative prohibited by city, town, or county zoning laws?",
+      "parent_utterance": "f42cd1654b60b843dd600768b38b311fb846f473",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "c5dd8f5a563aa98bab4c459c5a4f764f9ec066c4",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "f481c94bbb0e93e69e03f933c0c219b7a045a793",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "94e4a4cbe3d6ad1098a6db405b3333adf999c50f12664eea7bd2ac184ac2e52f",
+      "tree": "592826f006aa14c25b786710b50753249d1e3513",
+      "url": "https://www.humanservices.gov.au/organisations/health-professionals/services/medicare/online-claiming-aged-care-providers",
+      "rule": "### Register for Aged Care Online Services\n\nIf you\u2019re registered for Aged Care Online Claiming, you don\u2019t need to register for Aged Care Online Services. You can log on using the same user ID and password. You need to select either the \u2018Home Care\u2019 or the \u2018Residential Care and ACAT\u2019 system.",
+      "initial_question": "Do I need to register for Aged Care Online Services?",
+      "scenario": "My son was born in the US.  I'm not a citizen, but he and his wife are.",
+      "history": [],
+      "source_followup": "Are you registered for Aged Care Online Claiming?",
+      "parent_utterance": "f01bb5364e94de8eac1ef7dd60c8beb7c978823c",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "96ad8a0164013d5b0eb1dc56a6b8dd161e9d3e5d",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "0fae08e0c8f1feea85b2582b0938ef2784ae5c36",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "d568a8be067b80714edccd89aeb631413cf9976e816f4e56335e0dd94d24fcdd",
+      "tree": "142894db598da6535087c68a06e72c72fad4cd42",
+      "url": "https://www.gov.uk/additional-state-pension/eligibility",
+      "rule": "### The State Second Pension since 2002\n\nYou contributed through your National Insurance contributions if at any time between 6 April 2002 and 5 April 2016 you were:\n\n* employed and earning at least the lower earnings limit - this was \u00a35,824 in the 2015 to 2016 tax year\n* looking after children under 12 and claiming Child Benefit\n* caring for a sick or disabled person more than 20 hours a week and claiming Carer\u2019s Credit\n* working as a registered foster carer and claiming Carer\u2019s Credit",
+      "initial_question": "Have I contributed through my National Insurance contributions?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Did you make contributions  between 6 April 2002 and 5 April 2016?",
+          "answer": "No"
+        },
+        {
+          "question": "Were you looking after children under 12 and claiming Child Benefit?",
+          "answer": "No"
+        },
+        {
+          "question": "Were you caring for a sick or disabled person more than 20 hours a week and claiming Carer\u2019s Credit?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Were you working as a registered foster carer and claiming Carer\u2019s Credit?",
+      "parent_utterance": "4c907ceaa00bb570b8e4127b4ab8070b4d0188cf",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "1965d5c83a66f6ad59f5e068ab04e07c900746ed",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "71ae8e0ee6ae01d54cc2282c16ca4bc735069104",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "195a0b6d8a8f8bac657c2813588002502f805b9a4a4c4ef1269d705c7bdeba9e",
+      "tree": "21fe1028028910dd3f9b4071a3135639efedc236",
+      "url": "https://www.humanservices.gov.au/individuals/families",
+      "rule": "### Parenting Payment\n\n* have income under the limits\n* meet principal carer rules and care for a child under 8 if you\u2019re single or under 6 if you\u2019re partnered\n* meet residence rules\n* can\u2019t claim before the birth of a child",
+      "initial_question": "Am I eligible for the Parenting Payment?",
+      "scenario": "I am curious about Parenting Payments. Fortunately, my income is well under the limits set.",
+      "history": [
+        {
+          "question": "Is your income under the limits?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Do you meet principal carer rules and care for a child under 8 if you\u2019re single or under 6 if you\u2019re partnered?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Do you meet residence rules?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Has your child been born?",
+      "parent_utterance": "0a7e0bc438bd67e0dbaa9605abf1c65f8095647b",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "cc45e6311b13a9700fcb14f8ed3d5bbdecd13bd4",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "a706a7c8a7b6d2a0c0b9a9767fd06a5d76eed0fd",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "dc73650d9f95a1efe944b337c1ba7411907b32a562a0e974bf108394bbf71788",
+      "tree": "f6773a30ce9f5e46432c361c0134584163835d44",
+      "url": "https://www.benefits.gov/benefits/benefit-details/278",
+      "rule": "The Department of Veterans Affairs (VA) provides a one-time payment to disabled Veterans of no more than $19,817 toward the purchase of an automobile or other transportation. Additionally, the VA will pay for adaptive equipment, or for repair, replacement, and reinstallation of automobile equipment required because of disability. Payments for adaptive equipment may be made multiple times during the Veteran's life.",
+      "initial_question": "Can the VA help me with this purchase?",
+      "scenario": "I've never gotten this benefit before.  I have been registered for three years.",
+      "history": [
+        {
+          "question": "Are you a Veteran?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Have you received this payment before?",
+          "answer": "No"
+        },
+        {
+          "question": "Are you disabled?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Is the purchase for an automobile?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Is the payment more than $19,817?",
+      "parent_utterance": "bb86a1894b6383662c121ab91906390aca1ac21b",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "e59e876af0d2f556cea44e79f8157089635dafda",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "df44e309252a5655b8ec8e05acece30f27309ab7",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "f895e1afe84abdc922cdba5b97f6ed9a8f87d376ea3d7f7564fd7137c03cb79c",
+      "tree": "6a49144f8c59b552a98b2ffa6ecf761715bafa03",
+      "url": "https://www.gov.uk/claim-benefits-abroad/illness-injury-benefits",
+      "rule": "## Industrial Injuries Disablement Benefit (IIDB)\n\nIf you\u2019re getting Industrial Injuries Benefit for work-related accidents and illnesses, you can still get this in an EEA country.",
+      "initial_question": "Can I get IIDB?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Are you in an EEA country?",
+      "parent_utterance": "925153e0aaaa059a4becb4b43b1807f82d60a95a",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "505d0fc4ff544b2f7d79dc247b4ead15c5b10ce8",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "a5ac701265f87b6fe2ab18969002d2f89fd8d943",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    }
+  ],
+  "test": [
+    {
+      "id": "6c25af124bb0c30bc62a483de4b3729e0a8f358d9e32dabc28a78c58332f85cb",
+      "tree": "f76c21c908b02e4a946b78780c43f0a83c1fd2f0",
+      "url": "https://www.gov.uk/tax-credits-appeals-complaints/dispute-tax-credits-overpayment",
+      "rule": "## If you don\u2019t agree with the decision\n\nYou can:\n\n* send the Tax Credit Office new information\n* ask them to review the information you sent",
+      "initial_question": "Can I send the Tax Credit Office new information?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Do you agree with the decision?",
+      "parent_utterance": "807d544b7ecc0b6582f075e8bd5b09c23b7eb8af",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "44c2101dc9a8f58955b4ace1da23067a43f348ff",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "a1dbeebaf275f7f8036e71f5d213caf065de4c5f",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "dac61337e825403551bee859c68c0f372da46092686784073430ae932ee577ce",
+      "tree": "69b195f2694033ea1221f57a827bc934fd16fa84",
+      "url": "https://www.gov.uk/claim-benefits-abroad/where-you-can-claim-benefits",
+      "rule": "## Other countries with UK benefits arrangements\n\nThe following countries have social security agreements with the UK:\n\n* Kosovo\n* Mauritius\n* Montenegro\n* New Zealand",
+      "initial_question": "Does this country have social security agreements with the UK?",
+      "scenario": "This country is  Germany",
+      "history": [
+        {
+          "question": "Is this country Kosovo?",
+          "answer": "No"
+        },
+        {
+          "question": "Is the country Mauritius?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is this country Montenegro or New Zealand?",
+      "parent_utterance": "b07596bbe12d1e24475df8664ae3adccaba60f90",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "0c74c293908b6e0097304ecfd8c846a646152b9a",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "a8225d5451c41bd47e12e50b265065887cfa1261",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "5e260bb2cce1f46e1c9a60a3be4dd38e955ba8f146c1cb569c49b082db22598a",
+      "tree": "fb8e4f960935d33af75592f8daceecf4bb54d16d",
+      "url": "https://www.benefits.gov/benefits/benefit-details/4366",
+      "rule": "The Small Business Investment Company (SBIC) program, part of the U.S. Small Business Administration (SBA), was created in 1958 to fill the gap between the availability of venture capital and the needs of small businesses in start-up and growth situations. SBICs exist to supply equity capital, long\u00adterm loans and management assistance to qualifying small businesses.",
+      "initial_question": "Is the SBIC program suitable for me?",
+      "scenario": "I'm getting my motorcycle license next week.  I'll use it to ride to work.  I work in fast food while I'm going to school.",
+      "history": [
+        {
+          "question": "Are you a qualifying small business that needs equity capital?",
+          "answer": "No"
+        },
+        {
+          "question": "Are you a qualifying small business that needs longterm loans?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you a qualifying small business that needs management assistance?",
+      "parent_utterance": "7046f91b1a81aa1f7bcf879fc04e3e08d4a7478b",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "ecbb29c4a83218becc994e104599a487d681ce30",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "bd67281b567a36d09ee6746cd3bf7ed3dcecf874",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "3ab13a461bd882a54891c98a60585444e712a167cdc9dd613e782650f2d34366",
+      "tree": "e9b7d8125d8f789a5d7afb28c3d12263d1765d3a",
+      "url": "https://www.benefits.gov/benefits/benefit-details/1507",
+      "rule": "To be eligible, the Veteran/Servicemember must have been discharged under conditions other than dishonorable and meet length of service requirements.",
+      "initial_question": "Am I eligible?",
+      "scenario": "I am a married woman.",
+      "history": [
+        {
+          "question": "Are you a discharged veteran or servicemember?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Was you dishonorably discharged?",
+      "parent_utterance": "888bf5fdc75b6f1381aecf3d4ae6012466a752fe",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "2177831cf1840a5ed30912d5918163254ef59ed3",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "8c6f5f3266cae239a6f444d951eea5b2cee3725e",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "2b1b878ac49003e51a96511d8a43eca9b4923892fe7fe378d2f2858a89dffa8d",
+      "tree": "d2bb3a2e2fa471e7a8bd898f24e9d99a35bfc370",
+      "url": "https://www.gov.uk/claim-benefits-abroad/jobseekers-allowance",
+      "rule": "#  3. Jobseeker's Allowance\n\nThere are 2 types of Jobseeker\u2019s Allowance (JSA) - contribution-based and income-based. You can get contribution-based JSA in the European Economic Area (EEA) or Switzerland for up to 3 months if you:\n\n* are entitled to it on the day you go abroad\n* register as a jobseeker at least 4 weeks before you leave\n* are looking for work in the UK up to the day you leave\n* are going abroad to look for work",
+      "initial_question": "Can I get JSA abroad?",
+      "scenario": "I am a cook.",
+      "history": [
+        {
+          "question": "Are you in the EEA?",
+          "answer": "Yes"
+        },
+        {
+          "question": "Are you registered as a job seek at least 4 weeks prior to leaving?",
+          "answer": "No"
+        },
+        {
+          "question": "Are you looking for work in the UK up to when you leave?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you going to look for work abroad?",
+      "parent_utterance": "ae2bd8d5bfe7c40e65e33d56fa532aa668a3e767",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "0213b511871dd496f486eb4d7e575468f1d6a3ce",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "c0715185f29fc106052e42f8efa14bfb39b84b41",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "90bf672b1d66e47bd7246e99816577c00ac8f50c55c63b8460ac3049ffe10702",
+      "tree": "e58be762e1520081590dc0b9ab5437d611c6d3b5",
+      "url": "https://www.gov.uk/tier-4-general-visa/knowledge-of-english",
+      "rule": "## Exceptions\n\nYou don\u2019t need to prove your knowledge of English if you\u2019ve completed a qualification equivalent to a UK degree in:\n\n* Antigua and Barbuda\n* Australia\n* the Bahamas\n* Barbados",
+      "initial_question": "Do I need to prove my knowledge of English?",
+      "scenario": "I have completed the Australian equivalent of a UK degree.",
+      "history": [
+        {
+          "question": "Have youcompleted a qualification equivalent to a UK degree in Barbados?",
+          "answer": "No"
+        },
+        {
+          "question": "Have you completed a qualification equivalent to a UK degree in Australia?",
+          "answer": "No"
+        },
+        {
+          "question": "Have you completed a qualification equivalent to a UK degree in the Bahamas?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Have you completed a qualification equivalent to a UK degree in the Antigua and Barbuda?",
+      "parent_utterance": "6757a5607f4eb83f48c88817ce90cb3611bd9d31",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "157c13d6f9be42ca9db7d042a7658ab0874fe93b",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "2cc77394caf902a6c09e341f194f8dc179d37b8c",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "47de8ad484c3104118d6df3b3fb2763906b41bfc205be0b37effc06a88924c3d",
+      "tree": "ed0dc6b25bafc1f00105e36e958b751849767383",
+      "url": "https://www.humanservices.gov.au/organisations/health-professionals/enablers/education-guide-prescribing-dispensing-and-claiming-hsd",
+      "rule": "## Additional information for pharmacists\n\nAfter you complete the required information in the pharmacy dispensing software (PDS), you will need to act on any warning or rejection messages. A warning or rejection message will be displayed if the prescription cannot be supplied by your pharmacy type. You can contact us if you need clarification.",
+      "initial_question": "Will a warning or rejection message be displayed?",
+      "scenario": "I am 21 years old and need to drive to get back and forth to Uni where I'm studying for my Masters in contemporary art.",
+      "history": [],
+      "source_followup": "Can the prescription be supplied by your pharmacy type?",
+      "parent_utterance": "b9643b028f49760b319bb24aa35618f6f1b2c1dd",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "e456bec1cb2c4dcb4544fec273789b3165723aaa",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "e809c0f19fcc86ad9d3ef7fea533a57282846aff",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "dbd3f80cb1dcd2a40121247f78aaf1878af7a18b1d902607ac17988b1c56a033",
+      "tree": "e9a89d273d2aa836d4d6636025ad4153b6f62c97",
+      "url": "https://www.gov.uk/paternity-pay-leave/eligibility",
+      "rule": "#  4. Eligibility\n\nYou can\u2019t get paternity pay and leave if you\u2019ve taken paid time off to attend adoption appointments.",
+      "initial_question": "Can I get paternity pay and leave?",
+      "scenario": "My car is completely destroyed. ",
+      "history": [],
+      "source_followup": "Have you taken paid time off to attend adoption appointments?",
+      "parent_utterance": "b81b3b78d8d17cecbc80988540c3fa640fa8c63a",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "7d1e12c416e74de4bf7eab07a3be1260c3cc4e8f",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "95fc5575081755657f77bf783289a40d449a6c10",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "520a73b0cea6ce9ed1d8da1ee0d43ff80889139f35f84bea97b1289d151e1615",
+      "tree": "bbc9892c78697d0bcc6fd26322f24f5b49802880",
+      "url": "https://www.dmv.org/nh-new-hampshire/safety-laws.php",
+      "rule": "Headlights must be turned on:\n\n* From 30 minutes after sunset until 30 minutes before sunrise.\n* When visibility due to inclement weather is reduced to 1,000 feet or less.",
+      "initial_question": "Do I need to turn on headlights now?",
+      "scenario": "The current time is 3:00pm",
+      "history": [
+        {
+          "question": "Is it currently between 30 minutes after sunset and 30 minutes before sunrise?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is visibility due to inclement weather reduced to 1,000 feet or less?",
+      "parent_utterance": "917f75c2921a9e326d380d61a4525bbafafbeb8a",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "266b7e0a354f8b07d249d365293bf99246befd72",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "c1aa813a508f9428eae935adb55b77e638efea71",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "fbc3d9227b3848924c1a15b44fc2af497ba195d7b6ced800fd55a15e7cc8e46c",
+      "tree": "3a0c541c166c494da7ba3b40a89bdf76dbcd658c",
+      "url": "https://www.gov.uk/government/publications/social-entitlement-chamber-tribunal-procedure-rules",
+      "rule": "#  Social Entitlement Chamber tribunal procedure rules\n\nThe rules are used in the following tribunal cases:\n\n* Social Security and Child Support\n* Asylum Support\n* Criminal Injuries Compensation",
+      "initial_question": "Can the rules be used in this case?",
+      "scenario": "This case is not about asylum support, but I am under the care of an eligible doctor.",
+      "history": [
+        {
+          "question": "Is this case about social security and child support?",
+          "answer": "No"
+        },
+        {
+          "question": "This the case about Asylum Support?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is the case about Criminal Injuries Compensation?",
+      "parent_utterance": "8537fba95c189b675b6e6a8af0e2b481d6754e66",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "102b1179b294d805fe7cbe3ee9e122df5dfe7b9f",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "170e28ba23d52c05f18b576502f120adfe16abe1",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "89c93081b4e8e0c1a417b6c2d01a4e8c0fd09c5a3d2cf31dab3e1845a485572c",
+      "tree": "dd31c5f0193f6fed470b223f29a588837aec3078",
+      "url": "https://www.gov.uk/advanced-learner-loan/bursary-fund",
+      "rule": "## Eligibility\n\nYou can\u2019t apply if you\u2019re:\n\n* getting student finance for higher education\n* on an apprenticeship training scheme",
+      "initial_question": "Can I apply if I am getting this other funding?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Are you receiving student finance for higher education or a part of an apprenticeship training scheme?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you on an apprenticeship training scheme?",
+      "parent_utterance": "21f4d42c23ff7a598192481911b26828cdfed5d8",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "14964c670bc26ea5eae60b68482654f24a63b194",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "dbe60ab785f157fc444ca56c986cb0b4f57f604e",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "a9afd6ea4c4546c49c265c2e9288e39607e60ca7d9337de3f8432baa214bc037",
+      "tree": "a4e979cdada26abdf222bc0fcf42afd8eb061580",
+      "url": "https://www.irs.gov/businesses/small-businesses-self-employed/employer-id-numbers",
+      "rule": "# Change of Ownership or Structure\n\nGenerally, businesses need a new EIN when their ownership or structure has changed. Refer to \"Do You Need a New EIN?\" to determine if this applies to your business.",
+      "initial_question": "Do I need a new EIN for my business?",
+      "scenario": "",
+      "history": [
+        {
+          "question": "Are you a new business owner?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Does your business Structure changed?",
+      "parent_utterance": "6bcd8a3bb87b822f6bf04143611c6fb43d7a949f",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "ff01979e480f7fa770d3038755d4716ed4343d78",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "a443654c60f0b17bd435fdde402b89e201adbff4",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "d1b2a19a24087a4f3b960274470449b6e52423aa51d787404f4376f148427a1d",
+      "tree": "4ad8d3be53dba8c990fcea794627adc4b897530e",
+      "url": "https://www.gov.uk/tax-foreign-income/study-in-the-uk",
+      "rule": "#  7. If you come to study in the UK\n\nForeign students usually don\u2019t pay UK tax on foreign income or gains, as long as they\u2019re used for course fees or living costs like:\n\n* food\n* rent\n* bills\n* study materials",
+      "initial_question": "Do I need to pay UK tax on foreign income or gains?",
+      "scenario": "I am a 28 year old man in the first year of my apprenticeship.",
+      "history": [
+        {
+          "question": "Is your foreign income or gains used for course fees?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Is your income used for living costs such as food, rent, bills or study materials?",
+      "parent_utterance": "8cde9af62f748520518ac628787f8afb9fe2d1f3",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "fb558fd65143f8995df480e1a0df6e1a1b239fa1",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "c77b0f3e30f05e47870c01710affd29862ca4d3a",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "c27f4e539815c13a38e4d1e12a6d1d7897cfd00b4833e253f1eca9d6a92d6e6c",
+      "tree": "6efd2ecd4f3766877953f1661c0bea3e5ded67ac",
+      "url": "https://www.gov.uk/housing-benefit/eligibility",
+      "rule": "### If you own your home\n\nYou can\u2019t get Housing Benefit, but you may be able to get Support for Mortgage Interest (SMI).",
+      "initial_question": "Can I get housing benefit?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Do you own your home?",
+      "parent_utterance": "948d63b066374e420d122685bbc98b4871f8934b",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "0d7ba4e2104d6ccc09075e10e62a0f2b47f6c411",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "d5c2f559a7c81e3513f719be7781d68407dee5af",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "0b1e94dbb00d4c78cf593bad21f17a55902eeaf6ec0bad00c9594ade00cb35da",
+      "tree": "5705b7f9c6f9197a6af5b1be850204643ca8ee74",
+      "url": "https://www.benefits.gov/benefits/benefit-details/348",
+      "rule": "Farm Ownership Loans will help you purchase or enlarge a farm or ranch, construct a new or improve an existing farm or ranch building, pay closing costs, and pay for soil and water conservation and protection.",
+      "initial_question": "Do Farm Ownernship Loans meet my needs?",
+      "scenario": "I found a farm that I think would be perfect for my family. It needs a lot of money though to get the soil and land workable and fertile, rebuilding the barns, plus all the costs of the PMI and lead inspections and termite inspections Survey fees and Title Transfer fees.",
+      "history": [
+        {
+          "question": "Do you need help to purchase or enlarge a farm or ranch, construct a new or improve an existing farm or ranch building, pay closing costs, and pay for soil and water conservation and protection?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Do you need help to construct a new or improve an existing farm or ranch building?",
+      "parent_utterance": "7ce84587ce7ca93d7805c2c7c5e93e2dfd1a1a7e",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "b3ae281daa8a9e059d7f270d205fe6e808e2305f",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "c27ba3d6ad33c757d925baa7887dcceff35946b1",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "5a88aa10977f72200d4707c608da4592e711d4548d9bc6f1368518185cff1175",
+      "tree": "f0b84e1f721f15f5db13d4a6069db76650d6bf0d",
+      "url": "https://www.benefits.gov/benefits/benefit-details/5935",
+      "rule": "The Regional Conservation Partnership Program (RCPP) offers new opportunities for the NRCS, conservation partners and agricultural producers to work together to harness innovation, expand the conservation mission and demonstrate the value and efficacy of voluntary, private lands conservation.",
+      "initial_question": "Does this program offer me opportunities?",
+      "scenario": "I am curious about program opportunities. Unfortunately, I am not a conservation partner.",
+      "history": [
+        {
+          "question": "Are you involved with the NRCS?",
+          "answer": "No"
+        },
+        {
+          "question": "Are you a conservation partner?",
+          "answer": "No"
+        }
+      ],
+      "source_followup": "Are you an agricultural producer?",
+      "parent_utterance": "d293a6833edb441e10841a151dabd32a9f19d43b",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "b545749cf4eaffe923d9f20ffb15098a5068432e",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "742780a92c85920d6de7323156b6768386c2e613",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "845f9bab7b4c9ddd17e03bebd101d7ed73e3cac18ab5fffd35345676e4527c60",
+      "tree": "c1727103dd238e6f262589d10c87ae36565c4111",
+      "url": "https://www.gov.uk/income-tax-rates",
+      "rule": "#  1. Current rates and allowances\n\nYour Personal Allowance may be bigger if you claim Marriage Allowance or Blind Person\u2019s Allowance. It\u2019s smaller if your income is over \u00a3100,000.",
+      "initial_question": "Can I get a bigger Personal Allowance?",
+      "scenario": "I'm married and claiming Marriage Allowance",
+      "history": [
+        {
+          "question": "Are you claiming Marriage Allowance?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Is your income over \u00a3100,000?",
+      "parent_utterance": "d9be48f07b63f127bbd694eb868685daccd20d0d",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "56f9b621964673d0103e79f19634d42197d3e9c0",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "2734c16f49edcc1d065e0f7ba9ca1e84197ca2a7",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "da419cb05c72adc759cf8dd3a7c1a9a6cc24257c8b1003be8cfdee7b5f0c778b",
+      "tree": "62db5f4730e000aedd6fb2c1937d3e1e85af24f4",
+      "url": "https://www.gov.uk/national-insurance-if-you-go-abroad",
+      "rule": "# National Insurance if you go abroad\n\nBarbados, Bermuda, Bosnia-Herzegovina, Canada, Chile, Croatia, Guernsey, Israel, Jamaica",
+      "initial_question": "Do I need to pay security contributions instead of National Insurance?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Are you going to Barbados, Bermuda, Bosnia-Herzegovina, Canada, Chile, Croatia, Guernsey, Israel, Jamaica?",
+      "parent_utterance": "e2419b81bcbf78f1e7b105c710b07850a859e8b2",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "39724b0e5d2a798975afdac66cf1df25f6ce7987",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "0bdee49a8ad44e73d8fd5d3b87781f0d961d0891",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "367f17b71a3b844150b28e1d0efa96254cce87571a6e311650c96b59939d1924",
+      "tree": "030ede83a3cec3de05c85a5fea8b21a91b268eee",
+      "url": "https://www.gov.uk/vat-annual-accounting-scheme/join-or-leave-the-scheme",
+      "rule": "#  2. Join or leave the scheme\n\nYou have to wait 12 months before you can rejoin the scheme.",
+      "initial_question": "Can I rejoin the scheme?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Has it been 12 months since you left the scheme?",
+      "parent_utterance": "f6859e9b59b6c7a3419bcb2bfd0d3449b5dbf362",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "99e22caf781fe3b72e378e699dea05581b6f08f3",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "8b0a1bcfde72bbbd121dbbfe997751709a23db04",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "fc3607001f1c3fe7164e096f93ddd223a327f1d83b0d0a2fe01816b4bebbe7d7",
+      "tree": "29bfb4607e25f004d4ca8f9268bc702c9a7c38c8",
+      "url": "https://www.gov.uk/tax-credits-if-moving-country-or-travelling/you-live-outside-the-uk",
+      "rule": "## You have a child - and get UK benefits or State Pension\n\nIf none of the sections above apply to you, you might be able to claim Child Tax Credit if you and your child live in a European Union (EU) member state and you get State Pension or one of the following benefits:\n\n* Industrial Injuries Disablement Benefit\n* contribution-based Employment and Support Allowance\n* Severe Disablement Allowance",
+      "initial_question": "May I be able to claim Child Tax Credit?",
+      "scenario": "I'll definitely have what I need with me when I make the claim",
+      "history": [],
+      "source_followup": "Do you and your child live in a EU member state?",
+      "parent_utterance": "33c42738cc842e1c6eb0c2fd9f506d42d7f17d40",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "9747b2facd2d9376153aa9a6902fb5a86b514b46",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "8a4f72fd6ddbae77a38712fc4042042b478250cd",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "9858a4a52cc26975a9d1fc7c81e8d3f7924924032bf86ca3b396111e1d76e21d",
+      "tree": "1b87ec96d4c0f272617a1239fdd6bf838dee8092",
+      "url": "http://legislature.maine.gov/statutes/7/title7sec2452.html",
+      "rule": "* Possess, grow, cultivate, process or transport up to 6 flowering marijuana plants, 12 immature plants and unlimited seedlings, and possess all the marijuana produced by the plants at the adult's residence; [IB 2015, c. 5, \u00a71 (NEW).]\n* Beginning February 1, 2018, purchase up to 2 1/2 ounces of retail marijuana and marijuana accessories from a retail marijuana store; and [2017, c. 1, \u00a714 (AMD).]\n* Beginning February 1, 2018, purchase up to 12 seedlings or immature plants from a retail marijuana cultivation facility. [2017, c. 1, \u00a714 (AMD).]",
+      "initial_question": "Can I possess this marijuana?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Is it more than 6 flowering marijuana plants, 12 immature plants and unlimited seedlings?",
+      "parent_utterance": "8323273e7518a7db39dd580286299a80b4641efb",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "33abc5d1d407e242b2a7c1551439cbdd4ac0d913",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "2d7358a2a5f5aa4b8de8d07eb33c742cfc34f532",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    },
+    {
+      "id": "fa239933a1ba448bd39c3a7aca42253aab3597d7a40c574f31d8f19134d5d665",
+      "tree": "059fa257b1b2704937da2d17b7b61452d1b5067d",
+      "url": "https://www.uscis.gov/greencard/eligibility-categories",
+      "rule": "# Green Card\n\nYou may be eligible to apply as a Widow(er) of a U.S. citizen, if you are:\n\n* Widow or widower of a U.S. citizen and you were married to your U.S. citizen spouse at the time your spouse died",
+      "initial_question": "Could I be eligible to apply?",
+      "scenario": "My husband of 43 years was born in New York recently passed away while we were on vacation in London.",
+      "history": [
+        {
+          "question": "Are you a widow or widower of a U.S. citizen?",
+          "answer": "Yes"
+        }
+      ],
+      "source_followup": "Were you married to your US citizen spouse at the time your spouse died?",
+      "parent_utterance": "cb01b6b52da064b34ecf103efdbe6619e17a5eba",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "5266d2b1851d6aab44b2f4f905aea42c961db6c7",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "19baf4dfaf80f09e661dd4bca5bc54411c50bc7c",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "1f9ed8273fde188ddeab9eea3c9be6f88a16e2c2a8b41964dda1aeaaecf10e8f",
+      "tree": "9af24a1faaa2acce56682a9d7f4ae1416c88be6d",
+      "url": "https://www.humanservices.gov.au/individuals/subjects/payments-students-and-trainees",
+      "rule": "## Other payments and support for students\n\nEducation Entry Payment is a yearly payment you get when you start study and get certain income support from us.",
+      "initial_question": "Am I eligible for Education Entry Payment?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Did you start study and get certain income support?",
+      "parent_utterance": "6b897eabfa508db999d3d52933c974bc7515017d",
+      "orientation": "agrees",
+      "versions": [
+        {
+          "utterance_id": "bc420960339b8a2886c74891a79d3ae47e43722e",
+          "last_user_reply": "Yes",
+          "decision": "Yes"
+        },
+        {
+          "utterance_id": "af782bf89c50c42fa6ba92c0578087dace305eb6",
+          "last_user_reply": "No",
+          "decision": "No"
+        }
+      ]
+    },
+    {
+      "id": "d00e251e77a3f85af59e09df550bf4c33659f205d3158877071f7e5c3672bcc4",
+      "tree": "f78220d4933d6a160b2838a2ea95046989b818ec",
+      "url": "http://legislature.maine.gov/statutes/6/title6sec101.html",
+      "rule": "* Utility airports may not conduct commercial activities.",
+      "initial_question": "Is this a utility airport?",
+      "scenario": "",
+      "history": [],
+      "source_followup": "Does this airport conduct commercial activities?",
+      "parent_utterance": "53e46833cda3a1771798595eb6fe3f177057ec2b",
+      "orientation": "reverses",
+      "versions": [
+        {
+          "utterance_id": "ea2b64f6acde00f00cea3da892e8685d218f8e8a",
+          "last_user_reply": "Yes",
+          "decision": "No"
+        },
+        {
+          "utterance_id": "b31efeee16a2d63467c3891f3a958c9e151fa0a9",
+          "last_user_reply": "No",
+          "decision": "Yes"
+        }
+      ]
+    }
+  ]
+}
