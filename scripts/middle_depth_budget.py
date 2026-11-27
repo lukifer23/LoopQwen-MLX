@@ -56,15 +56,43 @@ def sample():
     )
 
 
+def recover_charge(path, ended=None):
+    """Settle a lost process after the exclusive lease is regained.
+
+    The conductor can supply the observed exit time. After machine loss the
+    first recovery time is a conservative upper bound, labeled explicitly.
+    """
+    r = read(path)
+    if r["status"] != "running":
+        return r
+    if psutil.pid_exists(r["pid"]):
+        proc = psutil.Process(r["pid"])
+        if (
+            proc.status() != psutil.STATUS_ZOMBIE
+            and abs(proc.create_time() - r.get("process_start", r["dispatch"])) < 20
+        ):
+            raise RuntimeError("A recorded native process is still live")
+    real_end = time.time() if ended is None else ended
+    r.update(
+        status="interrupted",
+        seconds=max(r.get("observed_seconds", 0), real_end - r["dispatch"]),
+        reason="Native process exited before its final receipt",
+        final=r.get("last", r["initial"]),
+        cost_basis="upper bound to next lease acquisition"
+        if ended is None
+        else "observed process exit",
+    )
+    save(path, r)
+    return r
+
+
 @contextmanager
 def worker(stage, job):
     require_metal()
     acquire()
     ledger = ROOT / "charges"
     ledger.mkdir(exist_ok=True, parents=True)
-    past = [read(p) for p in ledger.glob("*.json")]
-    if any(r["status"] == "running" for r in past):
-        raise RuntimeError("Reconcile interrupted worker charge first")
+    past = [recover_charge(p) for p in ledger.glob("*.json")]
     credit = BUDGET[stage] - sum(r["seconds"] for r in past if r["stage"] == stage)
     path = ledger / (uuid.uuid4().hex + ".json")
     mx.set_cache_limit(64 * 2**20)
@@ -76,6 +104,7 @@ def worker(stage, job):
         stage=stage,
         dispatch=time.time(),
         pid=os.getpid(),
+        process_start=psutil.Process().create_time(),
         initial_process_disk_io=disk_io(),
         initial=initial,
         status="running",
@@ -83,15 +112,20 @@ def worker(stage, job):
     )
     save(path, record)
     last = 0.0
+    heartbeat = start
 
     def guard(*_, force=False):
-        nonlocal last
+        nonlocal last, heartbeat
         now = time.monotonic()
         if not force and now - last < 0.5:
             return
         last = now
         current = sample()
         record["last"] = current
+        if now - heartbeat >= 5:
+            record["observed_seconds"] = now - start
+            save(path, record)
+            heartbeat = now
         if (
             now - start >= credit
             or current["pressure"] != 1

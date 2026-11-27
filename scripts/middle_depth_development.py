@@ -191,7 +191,7 @@ if __name__ == "__main__":
     p.add_argument("--arm", choices=("loop", "ordinary", "instruction", "base"))
     p.add_argument(
         "--stage",
-        choices=("initial", "early", "terminal", "simple", "corrected", "deployed", "depth"),
+        choices=("initial", "early", "terminal", "simple", "corrected", "deployed", "headroom-early", "depth"),
         default="initial",
     )
     p.add_argument("--block", choices=(0, 1), type=int, default=0)

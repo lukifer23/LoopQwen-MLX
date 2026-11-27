@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 
 from loopqwen.io import read
-from scripts.middle_depth_budget import ROOT
+from scripts.middle_depth_budget import ROOT, recover_charge
 
 
 def dispatch(module, *args):
@@ -31,8 +31,9 @@ def dispatch(module, *args):
         run = subprocess.run(cmd)
         if run.returncode == 0:
             return
+        ended = time.time()
         charges = [
-            r
+            recover_charge(p, ended)
             for p in (ROOT / "charges").glob("*.json")
             if (r := read(p))["dispatch"] >= begin
         ]
@@ -52,7 +53,13 @@ def dispatch(module, *args):
 
 def fit(arm, step):
     folder = Path("checkpoints/middle-depth/4619") / arm
-    state = read(folder / read(folder / "latest.json")["path"] / "state.json")
+    subprocess.run(
+        [sys.executable, "-m", "scripts.middle_depth_recover", str(folder)], check=True
+    )
+    pointer = (
+        read(folder / "latest.json") if (folder / "latest.json").exists() else None
+    )
+    state = read(folder / pointer["path"] / "state.json") if pointer else {"step": 0}
     if state["step"] < step:
         dispatch("fit", arm, "--until", step)
     return folder / f"step-{step:04d}"
