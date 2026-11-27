@@ -302,6 +302,29 @@ The two visits share all parameters. Query and content corrections have rank 160
 
  *Protocol.* The 1,800 training turns contain #a.source.training_opening_tokens opening tokens and 1,352 source-location labels per epoch. Three epochs provide 253,950 supervised output positions. We measure the probability placed on the correct operand or sentence at its output decision, full-vocabulary target loss, protected language and the effect of removing the second read. A passing fit and independent replay are prerequisites for a matched free-generation comparison. Source selection and thresholds were committed in advance.
  #if "fit" in a and "gates" in a.fit [
-  *Training outcome.* The native optimizer completed #a.fit.updates updates. Source-location loss improved by #fmt(a.fit.citation_gain,n:3) nats per marked decision. Removing the second visit increased mean probe loss by #fmt(a.fit.second_gain,n:3) nats/token. #if a.fit.passed [The fit passed all registered checks.] else [The missed checks were #a.fit.gates.pairs().filter(v=>not v.at(1)).map(v=>v.at(0)).join(", "). The direct test for this fit closed.]
+  *Training outcome.* The native optimizer completed #a.fit.updates updates. Source-location loss improved by #fmt(a.fit.citation_gain,n:3) nats per marked decision. The two-visit target-loss gain relative to a single visit was #fmt(a.fit.second_gain,n:3) nats/token. #if a.fit.passed [The fit passed all registered checks.] else [The missed checks were #a.fit.gates.pairs().filter(v=>not v.at(1)).map(v=>v.at(0)).join(", "). The direct test for this fit closed.]
  ] else if "fit" in a [*Training outcome.* The native worker stopped after #a.fit.updates updates. The archived reason was #a.fit.reason.]
+]
+
+#if "content_read" in d and "replay" in d.content_read [
+ #let a = d.content_read
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[When a more accurate read worsens the answer])
+ The first content reader improved the likelihood of its cited evidence by #fmt(a.fit.citation_gain,n:3) nats per marked decision. Its mean protected target loss rose by #fmt(-a.fit.protected_gain,n:3) nats per token. The native optimizer processed all #a.fit.positions output positions. After the first update, the next batch's divergence from the frozen parent reached #fmt(a.at("content-read_early").at(1)) nats/token. The first batch's divergence was below 0.001. Different batches contain different examples. The change identifies an early instability. A controlled intervention is needed to identify its cause. The unchanged trained parent tensors and all #a.replay.feature_hashes feature files passed independent verification. Four newly generated feature files were identical. Three physical paths reproduced their probe losses with maximum absolute error #fmt(a.replay.max_error,n:6).
+ #image("content-write-optimization.svg",width:95%)
+ #text(size:9pt)[Fig. 8. The left panel follows the first 16 optimizer batches. The right panel compares the untrained and trained checkpoint on the same preregistered group probes. Positive values mean a better trained prediction.]
+ #parbreak()
+ *Bounded write.* A separate fit starts again at the same learner-prefix checkpoint. It normalizes the read vector and bounds each FP32 output coordinate by one sixteenth of the current state's root mean square before casting back to the model's precision. The original seed, data order, loss and all eleven fit criteria are fixed. An extra gate limits divergence from the parent to 0.5 nats/token on each of the first 16 batches. The 48 held requests remained unopened at registration.
+ #if "bounded" in a [
+  #parbreak()
+  *Result.* This fit completed #a.bounded.updates optimizer updates. #if "gates" in a.bounded [Its protected gain was #fmt(a.bounded.protected_gain,n:3), its source gain #fmt(a.bounded.citation_gain,n:3) and its second-visit gain #fmt(a.bounded.second_gain,n:3) nats. #if a.bounded.passed [It qualified for the prospective generation comparison.] else [Its failed fit checks were #a.bounded.gates.pairs().filter(x=>not x.at(1)).map(x=>x.at(0)).join(", ").]] else [The stopping reason was #a.bounded.reason.]
+ ]
+ #if "full_document_adjoint" in a [
+  #parbreak()
+  *Native full-context differentiation.* The first differentiated training example processed 147,432 common document tokens and all seven supervised suffix positions. The complete gradient norm was #fmt(a.full_document_adjoint.history.first().gradient). MLX peak allocation was #fmt(a.full_document_adjoint.peak_bytes/1073741824) GiB, above the 3 GiB limit. The fit stopped after this update. None of the four held packages were scored. This closed the Foundry and Agave release comparison for these weights.
+ ]
+ #if "document_generation_parity" in a [
+  #parbreak()
+  *User-facing prefix verification.* On a real financial report, the independently forked public serving path reproduced all 48 greedy output tokens of fresh prefill across both real models, including repeated questions after a different branch. All six physical attention histories had the expected lengths. The engineering test used #fmt(a.document_generation_parity.seconds) seconds.
+ ]
 ]

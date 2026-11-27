@@ -2149,6 +2149,341 @@
       },
       "question": "Can an additional learned content read at each recurrent visit distinguish the quantities and facts relevant to the current request?"
     },
-    "plan": "3e625be61d7a4aa836562cbc34e93cb125dc3cefd914a6a912cf43213dd6b388"
+    "plan": "3e625be61d7a4aa836562cbc34e93cb125dc3cefd914a6a912cf43213dd6b388",
+    "fit": {
+      "passed": false,
+      "gates": {
+        "identity": true,
+        "exposure": true,
+        "finite": true,
+        "reasoning": false,
+        "action": true,
+        "quantity": true,
+        "database": false,
+        "protected": false,
+        "evidence": true,
+        "content": false,
+        "second_read": false
+      },
+      "gains": {
+        "redirect": -0.4191359161090065,
+        "program": -1.0655314599052712,
+        "instruction": -3.7038571263171325,
+        "service_action": -1.0831010890866817,
+        "explanation": -3.2723372705773506,
+        "arithmetic": -2.105957005950049,
+        "calculate": 0.3516078474266163,
+        "full_rows": -1.8580549522682472,
+        "legacy": -3.202168364818845,
+        "reuse": -1.567520767195612,
+        "quantity": 0.7879693204706365,
+        "reasoning": -3.0848767350797877,
+        "qualitative": -2.0627003124782015
+      },
+      "max_initial_error": 0.0,
+      "citation_gain": 1.8524261231605823,
+      "protected_gain": -2.2942134476752223,
+      "content_gain": -1.7142818332222254,
+      "second_gain": -0.07634248921544594,
+      "updates": 921,
+      "positions": 253950,
+      "citations": 4056
+    },
+    "jobs": [
+      {
+        "job": "content-read-fit-01",
+        "seconds": 1052.7457342147827,
+        "peak_bytes": 1709604180,
+        "start": 1795803467.804798
+      }
+    ],
+    "replay": {
+      "passed": true,
+      "fit": "043c806eb88bd78d67c21db994c74d40f5bf8d0bea1feeccc0765576e0e01e30",
+      "paths": 3,
+      "feature_hashes": 1800,
+      "regenerated": [
+        "hotpotqa/5a8d028a554299441c6b9fb5/answer",
+        "hotpotqa/5ae0ca2255429906c02dab53/answer",
+        "tatqa/d6f79f7b-5a24-4492-bc84-d397f76ceae6/reply",
+        "cosql/5MTGLQtfrbf7ZiYsQ/redirect"
+      ],
+      "max_error": 0.0,
+      "frozen_tensors": 7
+    },
+    "content-read_early": [
+      1.381502443109639e-06,
+      51.64816665649414,
+      27.922115325927734,
+      24.030475616455078,
+      20.883468627929688,
+      16.523574829101562,
+      16.839906692504883,
+      15.110671997070312,
+      13.649419784545898,
+      11.732942581176758,
+      11.971339225769043,
+      11.167623519897461,
+      10.611111640930176,
+      9.452835083007812,
+      8.710308074951172,
+      8.838996887207031
+    ],
+    "full_document_adjoint": {
+      "passed": false,
+      "reason": "Full-document update resource limit",
+      "plan": "ac9a0f7237498b41d626fe1d2049e0d7df5102855e265c9f336fc08033713a6c",
+      "correction": "90d62e3bfa35346dcdeab92523749071b56b93d799a4b8fa48725b5d9a207dac",
+      "history": [
+        {
+          "epoch": 0,
+          "index": 1,
+          "gradient": 182.09466552734375,
+          "loss": 11.200315475463867,
+          "nll": 1.1078072786331177,
+          "address": 10.092508316040039
+        }
+      ],
+      "detail": {
+        "before_train": {
+          "11": {
+            "nll": 0.837468147277832,
+            "address": 10.551290512084961,
+            "labels": 6
+          },
+          "10": {
+            "nll": 0.8456515669822693,
+            "address": 10.520267486572266,
+            "labels": 6
+          },
+          "3": {
+            "nll": 0.5830809473991394,
+            "address": 10.114259719848633,
+            "labels": 7
+          },
+          "4": {
+            "nll": 0.6988863348960876,
+            "address": 10.085529327392578,
+            "labels": 7
+          },
+          "1": {
+            "nll": 1.107805609703064,
+            "address": 10.092599868774414,
+            "labels": 7
+          },
+          "2": {
+            "nll": 0.5845740437507629,
+            "address": 10.067907333374023,
+            "labels": 8
+          },
+          "6": {
+            "nll": 1.1575638055801392,
+            "address": 10.102088928222656,
+            "labels": 7
+          },
+          "9": {
+            "nll": 1.0491622686386108,
+            "address": 10.425893783569336,
+            "labels": 6
+          }
+        }
+      },
+      "seconds": 7.112859624961857,
+      "peak_bytes": 9554017866
+    },
+    "document_generation_parity": {
+      "passed": true,
+      "rows": [
+        {
+          "arm": "loop",
+          "question": 0,
+          "equal": true,
+          "output": [
+            760,
+            7915,
+            10517,
+            314,
+            39313,
+            58261,
+            41158,
+            11
+          ],
+          "reference": [
+            760,
+            7915,
+            10517,
+            314,
+            39313,
+            58261,
+            41158,
+            11
+          ],
+          "opening": 548,
+          "reused": 514,
+          "new": 34,
+          "staging_s": 0.23985800001537427,
+          "branch_s": 0.0889936659950763,
+          "fresh_s": 0.2842454159981571
+        },
+        {
+          "arm": "loop",
+          "question": 1,
+          "equal": true,
+          "output": [
+            760,
+            7915,
+            10517,
+            314,
+            279,
+            2724,
+            430,
+            314
+          ],
+          "reference": [
+            760,
+            7915,
+            10517,
+            314,
+            279,
+            2724,
+            430,
+            314
+          ],
+          "opening": 549,
+          "reused": 514,
+          "new": 35,
+          "staging_s": 0.23985800001537427,
+          "branch_s": 0.08739654201781377,
+          "fresh_s": 0.28473708301316947
+        },
+        {
+          "arm": "loop",
+          "question": 0,
+          "equal": true,
+          "output": [
+            760,
+            7915,
+            10517,
+            314,
+            39313,
+            58261,
+            41158,
+            11
+          ],
+          "reference": [
+            760,
+            7915,
+            10517,
+            314,
+            39313,
+            58261,
+            41158,
+            11
+          ],
+          "opening": 548,
+          "reused": 514,
+          "new": 34,
+          "staging_s": 0.23985800001537427,
+          "branch_s": 0.08817791700130329,
+          "fresh_s": 0.28227766702184454
+        },
+        {
+          "arm": "base",
+          "question": 0,
+          "equal": true,
+          "output": [
+            1596,
+            513,
+            2574,
+            264,
+            1898,
+            440,
+            8306,
+            321
+          ],
+          "reference": [
+            1596,
+            513,
+            2574,
+            264,
+            1898,
+            440,
+            8306,
+            321
+          ],
+          "opening": 548,
+          "reused": 514,
+          "new": 34,
+          "staging_s": 0.22723304200917482,
+          "branch_s": 0.14560154196806252,
+          "fresh_s": 0.339475582994055
+        },
+        {
+          "arm": "base",
+          "question": 1,
+          "equal": true,
+          "output": [
+            1596,
+            513,
+            2574,
+            264,
+            1898,
+            440,
+            8306,
+            37568
+          ],
+          "reference": [
+            1596,
+            513,
+            2574,
+            264,
+            1898,
+            440,
+            8306,
+            37568
+          ],
+          "opening": 549,
+          "reused": 514,
+          "new": 35,
+          "staging_s": 0.22723304200917482,
+          "branch_s": 0.146037292026449,
+          "fresh_s": 0.34123883297434077
+        },
+        {
+          "arm": "base",
+          "question": 0,
+          "equal": true,
+          "output": [
+            1596,
+            513,
+            2574,
+            264,
+            1898,
+            440,
+            8306,
+            321
+          ],
+          "reference": [
+            1596,
+            513,
+            2574,
+            264,
+            1898,
+            440,
+            8306,
+            321
+          ],
+          "opening": 548,
+          "reused": 514,
+          "new": 34,
+          "staging_s": 0.22723304200917482,
+          "branch_s": 0.1446250409935601,
+          "fresh_s": 0.33950337499845773
+        }
+      ],
+      "plan": "fc94f4b94841d638220b421860f66d886e39111651d0e7b30edb248f1914d956",
+      "seconds": 4.802498749981169,
+      "peak_bytes": 1612981508
+    }
   }
 }
