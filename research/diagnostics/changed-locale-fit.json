@@ -1,0 +1,29 @@
+{
+  "seed": 981337,
+  "source": "fa64aec091fd61514a820e384f00e9cd31c513e6729a614b82619a8cc6bffb71",
+  "model": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+  "kernel": "f5b2c527224ccc79782e04c258147263f163c50b33d0f6178a23f2c919614f6e",
+  "implementation": "b90079353dc5ed06ef649a24612c9ab8c6def3bcc1cf8ff30351963d6b9efca0",
+  "train": [
+    9,
+    1,
+    6,
+    4,
+    7,
+    8
+  ],
+  "held": [
+    3,
+    0,
+    5,
+    2
+  ],
+  "epochs": 8,
+  "lr": 0.0004,
+  "limits": {
+    "seconds": 1800,
+    "peak_gib": 3,
+    "free_gib": 1.5
+  },
+  "protocol": "Different experiment on two original Spanish CLDR upstream versions with naturally changed answers. No Deno held name or previously closed release panel. Prepare the entire native history of each document once, using all ten independently verified questions per version. Recheck the first branch after the others. Freeze the seven parent repair-query tensors, train only the two new shared bounded-read matrices. For each correct version supervise all visible answer tokens and the genuine turn terminator, the original evidence span, and a binary preference over the two real versions' first differing target token after their identical answer prefix. Loss = full-vocabulary NLL + source NLL + binary softplus loss. Each epoch covers all 12 training cases in seeded hash order. Stop at eight epochs, the resource limit, nonfinite loss, or numerical error. Save weights before any evaluation of held fields. Advance from training only if 96 updates complete, mean source NLL improves by at least .10, mean answer NLL improves by at least .03, and at least two of six training fields have positive likelihood margins on both source versions. A failed prerequisite closes evaluation. For the four previously unused field names on these same two documents require at least two correct dual-version margins, positive mean second-visit answer likelihood gain and positive mean evidence gain against initialization. Treat this as teacher-forced evidence dependence only. Free generation, product quality, generalization to unrelated files and ordinary Base comparison require separate direct evaluation. Count all native time, including both prefills."
+}
