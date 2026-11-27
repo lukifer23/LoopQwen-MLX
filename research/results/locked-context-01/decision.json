@@ -1,0 +1,143 @@
+{
+  "passed": false,
+  "gates": {
+    "accuracy": false,
+    "wall_s": false,
+    "first_s": false,
+    "peak": true,
+    "prefill_tps": false,
+    "decode_tps": true
+  },
+  "totals": {
+    "recurrent": {
+      "version": 0,
+      "size": 0,
+      "measured": 0,
+      "complete": 0,
+      "grounded": 0,
+      "first_s": 450.97164158301894,
+      "wall_s": 469.74786200001836,
+      "generated": 512,
+      "reuse": 0,
+      "peak": 5829296122,
+      "prefill_tps": 636.160747884481,
+      "decode_tps": 27.439328321166037
+    },
+    "base": {
+      "version": 0,
+      "size": 0,
+      "measured": 0,
+      "complete": 0,
+      "grounded": 0,
+      "first_s": 387.8740773749887,
+      "wall_s": 413.23551920900354,
+      "generated": 661,
+      "reuse": 148736,
+      "peak": 5895607858,
+      "prefill_tps": 741.4066261376736,
+      "decode_tps": 26.8817896190229
+    }
+  },
+  "rows": [
+    {
+      "revision": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "side": "recurrent",
+      "version": false,
+      "size": false,
+      "measured": false,
+      "complete": false,
+      "grounded": false,
+      "answer": null,
+      "status": "token_limit",
+      "calls": [],
+      "first_s": 242.50796912499936,
+      "wall_s": 252.24459991703043,
+      "peak": 5829296122,
+      "initial_tokens": 148741,
+      "prefill_s": 241.652615125,
+      "sites": 7,
+      "generated": 256,
+      "decode_tokens": 255,
+      "decode_s": 9.619962750002742,
+      "reuse": 0
+    },
+    {
+      "revision": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "side": "base",
+      "version": false,
+      "size": false,
+      "measured": false,
+      "complete": false,
+      "grounded": false,
+      "answer": null,
+      "status": "token_limit",
+      "calls": [
+        {
+          "call": {
+            "name": "file_lines",
+            "arguments": {
+              "path": "uv.lock"
+            }
+          },
+          "observation": {
+            "lines": 1386
+          }
+        }
+      ],
+      "first_s": 208.21540174999973,
+      "wall_s": 224.3793028750224,
+      "peak": 5895607858,
+      "initial_tokens": 148741,
+      "prefill_s": 206.97235674998956,
+      "sites": 6,
+      "generated": 405,
+      "decode_tokens": 403,
+      "decode_s": 15.353096874023322,
+      "reuse": 148736
+    },
+    {
+      "revision": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "side": "recurrent",
+      "version": false,
+      "size": false,
+      "measured": false,
+      "complete": false,
+      "grounded": false,
+      "answer": null,
+      "status": "token_limit",
+      "calls": [],
+      "first_s": 208.46367245801957,
+      "wall_s": 217.50326208298793,
+      "peak": 5443371002,
+      "initial_tokens": 137017,
+      "prefill_s": 207.53888395801187,
+      "sites": 7,
+      "generated": 256,
+      "decode_tokens": 255,
+      "decode_s": 8.966498041991144,
+      "reuse": 0
+    },
+    {
+      "revision": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "side": "base",
+      "version": false,
+      "size": false,
+      "measured": false,
+      "complete": false,
+      "grounded": false,
+      "answer": null,
+      "status": "token_limit",
+      "calls": [],
+      "first_s": 179.65867562498897,
+      "wall_s": 188.85621633398114,
+      "peak": 5557917234,
+      "initial_tokens": 137017,
+      "prefill_s": 178.45446562499274,
+      "sites": 6,
+      "generated": 256,
+      "decode_tokens": 255,
+      "decode_s": 9.124440125015099,
+      "reuse": 0
+    }
+  ]
+}
