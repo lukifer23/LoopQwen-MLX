@@ -101,6 +101,23 @@ def build():
             "grounded",
             "wall_s",
         )
+    assistance = None
+    name = "integrated-assistance-01"
+    published = P / "integrated-assistance-paper.json"
+    if published.is_file():
+        assistance = read(published)
+        d = read(R / name / "decision.json")
+        data = {k: v["scored"] for k, v in d["arms"].items()}
+        add(
+            name,
+            "Consolidated assistant, objective",
+            "Untouched Base",
+            data["candidate"]["requests"],
+            data,
+            ("candidate", "control"),
+            "grounded",
+            "wall_s",
+        )
     name = "register-packed-direct-full-01"
     d = read(R / name / "decision.json")
     add(
@@ -269,7 +286,23 @@ def build():
                 f"{b['seconds']:.2f}",
             ]
         )
-    save(P / "overview-data.json", {"rows": summary, "scope": scope})
+    save(
+        P / "overview-data.json",
+        {
+            "rows": summary,
+            "scope": scope,
+            **(
+                {
+                    "assistance": {
+                        k: assistance[k]
+                        for k in ("correct", "gains", "losses", "open_win", "sql")
+                    }
+                }
+                if assistance
+                else {}
+            ),
+        },
+    )
     doc = typst.compile(str(P / "overview.typ"), timestamp=0)
     (P / "evidence-overview.pdf").write_bytes(doc)
     pages = PdfReader(P / "evidence-overview.pdf").pages

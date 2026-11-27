@@ -48,6 +48,8 @@ A protected optimizer subsequently applied 735 of 800 proposed updates. Despite 
 
 A readout trained on the actual second-visit change subsequently solved 38/112 requests versus 22/112 for Base. On two questions per whole software project it won 7/10 versus 4/10, and on four fixed-version swaps it won 3/4 versus 0/4. Human exact matches favored the loop 13/48 to 6/48. Source-masked review credited the loop on 8/24 human answers and Base on 16/24. The loop repeated its answer on nine of 24 backgrounds.
 
+#if "assistance" in d [The consolidated two-visit assistant used one set of learned parameters on 220 requests. On the 208 objective requests it gained #d.assistance.gains individual answers and lost #d.assistance.losses Base successes. Its generated SQL grounded #d.assistance.sql.at(0) answers on 24 new questions versus #d.assistance.sql.at(1) for Base. An identity-masked project reviewer preferred the loop #d.assistance.open_win.at(0) times and Base #d.assistance.open_win.at(1) times on 12 open requests. The objective row in Table 1 includes only its 208 scored requests and their actual times.]
+
 These cohorts differ in author, difficulty and scoring unit. Repeated prompts establish retention across versions. New upstream lock revisions examine recent evidence that could not have been in the pinned checkpoint. Human-written datasets may already have contributed to the donor’s pretraining. Small paired cohorts give limited power to detect modest changes. One machine and an ordered run capture operational costs on that installation. Hardware variation, concurrent service demand and different user populations require new observations.
 
 #pagebreak()
