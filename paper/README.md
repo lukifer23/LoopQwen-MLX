@@ -39,6 +39,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Per-family mixed deployment accuracy, latency, tokens and peak memory](mixed-deployment.csv)
 - [Paired sensitivity to leaving out one entire field family](mixed-family-sensitivity.csv)
 - [Installed and isolated field CLI calls, observations, answers and timings](field-cli.csv)
+- [Correct completed answers at each observed time threshold](correct-by-deadline.csv)
 - [Installed size, transport bytes and restoration time](transport.csv)
 - [Release-specific checksums, size reduction, and offline parity](release-transport.csv)
 - [Native time charged across research windows](native-compute.csv)
