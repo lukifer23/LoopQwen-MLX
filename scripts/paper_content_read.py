@@ -227,6 +227,11 @@ def collect():
         out["bounded_primary"] = read(root / "decision.json")
         out["bounded_reading"] = read(bounded_reading)
         paired_requests(root, "bounded-read")
+        for stem in ("distribution", "calculator-audit"):
+            extra = DOC / ("bounded-read-" + stem + ".json")
+            if extra.is_file():
+                committed(extra)
+                out["bounded_" + stem.replace("-", "_")] = read(extra)
     for name in (
         "full-document-adjoint",
         "document-generation-parity",

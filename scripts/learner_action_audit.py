@@ -36,12 +36,15 @@ def quantities(expressions):
     return values
 
 
-def run():
-    root = RESULT / PRIMARY
-    reading = Path("docs/measurements/learner-prefix-reading.json")
-    for p in (PANEL, root / "checksums.json", reading):
+def run(cohort="learner-prefix"):
+    panel_path, stage = PANEL, PRIMARY
+    if cohort == "bounded-read":
+        from scripts.register_bounded_read import PANEL as panel_path, PRIMARY as stage
+    root = RESULT / stage
+    reading = Path("docs/measurements") / (cohort + "-reading.json")
+    for p in (panel_path, root / "checksums.json", reading):
         committed(p)
-    panel = {r["id"]: r for r in unpack(PANEL)["rows"] if r["family"] == "report"}
+    panel = {r["id"]: r for r in unpack(panel_path)["rows"] if r["family"] == "report"}
     rows = []
     totals = {}
     for arm in ("candidate", "control"):
@@ -110,9 +113,9 @@ def run():
                 stats[k] += v
             rows.append(r)
         totals[arm] = dict(stats)
-    write_csv(Path("paper/learner-prefix-calculator-audit.csv"), rows)
+    write_csv(Path("paper") / (cohort + "-calculator-audit.csv"), rows)
     persist(
-        Path("docs/measurements/learner-prefix-calculator-audit.json"),
+        Path("docs/measurements") / (cohort + "-calculator-audit.json"),
         dict(
             archive=digest(root / "checksums.json"),
             reading=digest(reading),
@@ -124,4 +127,10 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    import argparse
+
+    p = argparse.ArgumentParser()
+    p.add_argument(
+        "--cohort", choices=("learner-prefix", "bounded-read"), default="learner-prefix"
+    )
+    run(p.parse_args().cohort)

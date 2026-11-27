@@ -346,3 +346,22 @@ The two visits share all parameters. Query and content corrections have rank 160
  #parbreak()
  *Release conclusion.* Establishing deployable superiority still requires the same learned weights to clear fresh reasoning and tool-use comparisons, maintain useful answers under complete document changes beyond 128K, preserve older abilities, and replicate with a second training seed. A matched, equally trained ordinary-depth control is required to attribute an improvement to recurrence. Results from different weight identities do not supply that evidence.
 ]
+
+#if "content_read" in d and "bounded_primary" in d.content_read [
+ #let a=d.content_read
+ #let r=a.bounded_primary
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Free generation after bounding the read])
+ The registered comparison used the same 48 original openings, official thinking template, order, three-turn limit and 384-token allowance per turn for both systems. Every actual response and executed calculator observation was preserved. All 48 anonymous paired judgments were recorded before model identity was exposed. The loop and Base came from their pinned, separately verified weights.
+ #tbl((1.15fr,.8fr,1fr,1fr,1fr),("Family","Requests","Correct loop / Base","Gain / loss","Paired p"),r.counts.pairs().map(x=>{
+   let c=x.at(1);(if x.at(0)=="strategy"{"Comparison reasoning"}else{"Financial actions"},str(c.n),c.total.map(str).join(" / "),str(c.gains)+" / "+str(c.losses),fmt(c.p,n:4))}))
+ #tbl((1.15fr,1fr,1fr,1fr),("Masked assessment","Usable loop / Base","Gain / loss","Unsupported loop / Base"),a.bounded_reading.families.pairs().map(x=>{
+   let c=x.at(1);(if x.at(0)=="strategy"{"Comparison reasoning"}else{"Financial actions"},str(c.arms.candidate.grounded_usable)+" / "+str(c.arms.control.grounded_usable),str(c.gains)+" / "+str(c.losses),str(c.arms.candidate.unsupported)+" / "+str(c.arms.control.unsupported))}))
+ #image("bounded-read-transfer.svg",width:83%)
+ #text(size:9pt)[Each point is a matched request. The axes show loop and Base wall seconds. Green marks a new strict success, red a lost strict success and gray an unchanged result.]
+ #parbreak()
+ #tbl((1.25fr,1fr,1fr),("Measured deployment cost","Loop","Untouched Base"),("wall_s","first_s","peak","opening_tps","decode_tps","output").map(k=>{
+  let label=(wall_s:"Wall seconds",first_s:"Summed first-token seconds",peak:"Peak MLX GiB",opening_tps:"New opening tokens/s",decode_tps:"Post-first tokens/s",output:"Total emitted tokens")
+  let div=if k=="peak"{1073741824}else{1};(label.at(k),fmt(r.costs.candidate.at(k)/div),fmt(r.costs.control.at(k)/div))}))
+ *Decision.* #if r.passed and a.bounded_reading.passed [The registered product comparison and source-quality assessment both passed.] else [The complete product and masked quality requirement failed. Preregistered confirmation and release evaluation of this checkpoint closed.]
+]
