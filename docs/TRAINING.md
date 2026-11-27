@@ -290,6 +290,32 @@ print(first["answer"], follow["answer"])
 
 Multi-user-turn callers can use the installed CLI with repeated follow-up arguments, or retain a conversation from the Python assistant. The release workload replays actual package and interpreter callbacks. Its equal-training control restores the one- and two-pass adapters, checks identical supervision and reconstructs every prompt and observation from both users’ messages. [Module evaluation](../research/results/conversation-followup-modules-01) · [Equal-training registration](../research/experiments/conversation-followup-depth-01.json)
 
+### Resuming from an external tool result
+
+Use this entry point when your application owns the tool execution. Supply the original user request, the assistant call and one tool return per call in the original order. The model sees that history and can answer or make a fresh call through the supplied catalog. The returned trace contains the newly generated turns. The input history is preserved.
+
+```python
+from loopqwen.calculator_tool import tool
+from loopqwen.conditional_reentry import ConditionalAssistant
+from loopqwen.qwen_tools import assistant_message
+from loopqwen.tool_session import compact
+
+calculator = tool()
+assistant = ConditionalAssistant(
+    "exports/tool-language-packed-05",
+    "research/results/conditional-program-fit-01",
+)
+action = {"name": calculator.name, "arguments": {"steps": ["37 * 14"]}}
+result = calculator.callback(**action["arguments"])
+history = [
+    {"role": "user", "content": "What is 37 times 14? Use the calculator."},
+    assistant_message([action]),
+    {"role": "tool", "content": compact(result)},
+]
+reply = assistant.continue_after_tool(history, [calculator], max_turns=2)
+print(reply["status"], reply["answer"])
+```
+
 The linked document reader runs with `python -m loopqwen.research.linked_reading linked-reading-01`. Its material builder excludes earlier human questions and support titles before enrolling the new fit and evaluation. The reader exposes its two document scores per item. The archive verifier reconstructs the selected indices, the full input IDs and the attention window, then regrades the complete unforced answer. [Training and evaluation registration](../research/experiments/linked-reading-01.json)
 
 ### Rebuild the field and packed-register releases
