@@ -78,6 +78,29 @@ def verify(root):
     if study == "staged-query-transfer-01":
         from loopqwen.research.staged_query_transfer import verify as verify_staged
 
+        if (root / "history-correction.json").exists():
+            import subprocess
+
+            amendment = read(root / "history-correction.json")
+            receipt = Path("research/diagnostics/staged-query-history-correction.json")
+            require(read(receipt) == amendment, "Staged trace correction identity")
+            old = read(root / "environment.json")["execution_revision"]
+            new = amendment["revision"]
+            scorer = amendment["scorer"]
+            changed = subprocess.check_output(["git", "diff", "--name-only", old, new, "--", "loopqwen"], text=True).splitlines()
+            require(changed == [scorer], "Only the physical trace validator was amended")
+            for revision, key in ((old, "prior_sha256"), (new, "corrected_sha256")):
+                code = subprocess.check_output(["git", "show", revision + ":" + scorer])
+                require(hashlib.sha256(code).hexdigest() == amendment[key], "Archived scoring implementation")
+            require(
+                sha(root / "environment.json") == amendment["previous_environment"]
+                and sha(root / "registration.json") == amendment["registration"],
+                "Native provenance for staged trace validation",
+            )
+            require(
+                amendment["charged_failure"] in read(root / "failed-attempts.json"),
+                "Interrupted staged trace cost is missing",
+            )
         return verify_staged(root, decision)
     if study in ("shared-query-transfer-01", "repair-query-transfer-01"):
         from loopqwen.research.shared_query_transfer import verify as verify_query_transfer

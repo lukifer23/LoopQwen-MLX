@@ -240,6 +240,10 @@ def collect():
     if proof.is_file():
         committed(proof)
         out["staging_proof"] = read(proof)
+    amendment = Path("research/diagnostics/staged-query-history-correction.json")
+    if amendment.is_file():
+        committed(amendment)
+        out["trace_correction"] = read(amendment)["charged_failure"]["wall_s"]
     primary = RESULT / (STAGED if len(stages) == 4 else PRIMARY)
     if len(stages) >= 3 and (primary / "control.json.gz").exists():
         panel = unpack(PANEL)["rows"]

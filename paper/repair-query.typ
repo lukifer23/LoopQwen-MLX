@@ -117,6 +117,9 @@ The two visits share all parameters. Query and content corrections have rank 160
  #if d.stages_done == 4 and d.stages.last().decision.at("status",default:"") == "interrupted" [
   The second attempt also stopped. Its recorded reason was “#d.stages.last().decision.reason.” The archive records the completed prefixes for each arm without extrapolating to the remaining questions.
  ]
+ #if "trace_correction" in d [
+  *Trace correction and cost.* The first staged 152,185-token generation reached scoring. The validator expected the count of resident token-block advances, whereas the staged route advances layers in groups. The original attempt stopped before returning a score. The amended validator checks the actual prefix and decoded tail lengths at all six attention sites and requires zero resident advances. The answer comparison still requires the exact source value. We preserved the five preceding requests, discarded the unscored generation, and charged the full #fmt(d.trace_correction)-second interval and peak to its retry. The two code revisions and frozen receipt are part of the comparison evidence.
+ ]
 ]
 #if "reading" in d [
  #pagebreak()
