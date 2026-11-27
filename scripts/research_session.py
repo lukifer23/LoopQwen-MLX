@@ -10,7 +10,7 @@ from loopqwen.io import digest, read, save
 from loopqwen.worker import acquire
 
 
-def close(path, started, state, now):
+def close(path, started, state, now, *, checkpoint=None):
     closed = path.parent / f"closed-{int(started)}.json"
     if closed.exists():
         raise SystemExit("This execution window is already closed")
@@ -19,7 +19,15 @@ def close(path, started, state, now):
     if any(r.get("status") == "unclosed reservation" for r in jobs):
         raise SystemExit("An unresolved native reservation remains")
     registry = read("research/registry.json")
+    interim = None
+    if checkpoint is not None and {r["job"] for r in jobs} != {checkpoint}:
+        raise SystemExit("The checkpoint must cover the entire window")
     for name in dict.fromkeys(r["job"] for r in jobs):
+        if checkpoint == name:
+            from scripts.seal_staged_window import check
+
+            interim = check(name, int(started))
+            continue
         src = Path("research/results") / name
         if (
             not (src / "checksums.json").exists()
@@ -43,6 +51,8 @@ def close(path, started, state, now):
         native_seconds=sum(r["seconds"] for r in jobs),
         jobs=jobs,
     )
+    if interim is not None:
+        record["checkpoint"] = interim
     state.update(active=None, closed_session_start=started)
     state["native_window"].update(
         status="closed", end_utc=datetime.fromtimestamp(now, timezone.utc).isoformat()
@@ -66,7 +76,14 @@ def main():
         action="store_true",
         help="Record completed jobs and close the current execution window",
     )
+    parser.add_argument(
+        "--checkpoint",
+        choices=["staged-query-transfer-01"],
+        help="Close the intermediate window against the committed complete arm archive",
+    )
     args = parser.parse_args()
+    if args.checkpoint and not args.close:
+        parser.error("--checkpoint requires --close")
     acquire()
     path = Path("outputs/research/active-session.json")
     now = time.time()
@@ -79,7 +96,7 @@ def main():
         ).timestamp()
     )
     if args.close:
-        close(path, prior, state, now)
+        close(path, prior, state, now, checkpoint=args.checkpoint)
         return
     if (
         not (path.parent / f"closed-{int(prior)}.json").exists()
