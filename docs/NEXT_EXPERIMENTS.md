@@ -5,6 +5,7 @@
 
 | Named question | Decision |
 |---|---|
+| Does interpolation alone restore meaning-sensitive answers and file use? | No complete Winograd pairs for the loop versus one for Base. Neither completed an inventory pair. The independent second-pass intervention changed logits and recovered the original logits exactly when restored. This policy's downstream jobs closed. [Field study](../research/results/instruction-interpolation-01) |
 | Can the model learn which quantity a changed human question requests? | Zero complete DROP passage pairs versus two for Base. Grounded ASDiv answers favored the loop 12 to 9, final answers favored Base 15 to 12. The fit and its depth follow-up closed. [Frozen answers](../research/results/question-contrast-01) |
 | Can complete source documents stay available across real tool follow-ups? | Six identical token and callback trajectories. Four follow-up first-token waits fell from 13.63 to 0.47 s in total. The registered exact and cost gates passed. [Measured crossover](../research/results/conversation-document-prefill-01) |
 | Can full-history recurrent attention use real project documents above 128K? | The reader enclosed all three requested sizes and reported all three correct values. It followed the changed size across two complete large Git listings. The lockfile reply used a full sentence, giving 2/3 strict against the required three. Closed for default promotion. [Whole-document result](../research/results/document-frequency-reader-01) |

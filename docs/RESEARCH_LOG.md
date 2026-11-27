@@ -1,5 +1,9 @@
 # Research ledger
 
+## November 26 meaning and file argument studies
+
+The fixed half-strength interpolation lost one complete Winograd pair and gained zero. Each system grounded one file request. A fresh native intervention on a separate prompt confirmed seven shared projections, distinct final-layer KV states and a 0.3284 RMS vocabulary-logit change. Restoring the trained residual reproduced all 248,320 logits exactly. The full comparison ran for 485.08 native seconds. [Registration and both streams](../research/results/instruction-interpolation-01) · [Mechanism receipt](measurements/instruction-interpolation-activation.json)
+
 ## November 26 offline tool and language qualification
 
 One standalone build physically reproduced 22 tool sessions, 64 induction requests, 56 deduction requests and 80 mixed language requests. The isolated offline interpreter reproduced the first live package trace, and the field endpoint scored 4/5. All 120 raw routes and domain NLLs matched the language parent. The two 131,083-token key swaps again returned the correct values after a mode switch, in 525.815 seconds with a 4.33 GiB peak MLX allocation. The older matched Base run took 393.203 seconds and answered neither. [Sealed qualification](../research/results/tool-language-release-01)
