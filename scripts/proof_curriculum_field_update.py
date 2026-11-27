@@ -156,7 +156,7 @@ def main():
             == revision
         )
         checkout = tmp / "research"
-        command("git", "clone", "--quiet", "--local", repo, checkout)
+        command("git", "clone", "--quiet", "--local", "--branch", "main", repo, checkout)
         python = tmp / "venv/bin/python"
         command(
             "uv",
