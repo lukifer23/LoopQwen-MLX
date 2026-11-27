@@ -15,6 +15,7 @@ from loopqwen.io import read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.followup_learning import build as learning
 from scripts.followup_reading import ARMS, DOC, ROOT, run
+from scripts.followup_retention import FAMILIES, NAMES, build as retention
 
 P = Path("paper")
 
@@ -26,6 +27,7 @@ def build():
     fit = read(ROOT / "fit.json")
     logs = read(DOC / "followup-learning.json")
     reviews = read(DOC / "followup-reading.json")
+    retained, records = retention()
     arms = [d["arms"][a] for a in ARMS]
     with (P / "followup-requests.csv").open(newline="") as file:
         cases = list(csv.DictReader(file))
@@ -188,12 +190,31 @@ def build():
             )
             or "none",
             "sha": fit["weights"],
+            "retention": [
+                [
+                    k,
+                    *[
+                        str(retained[k][c])
+                        for c in ("n", "base", *NAMES, "gained", "lost")
+                    ],
+                ]
+                for k in FAMILIES
+            ],
+            "consistent": str(sum(v["all_three"] for v in retained.values())),
+            "censored": [
+                str(sum(r[k] for r in records))
+                for k in (
+                    "earlier_base_truncated",
+                    NAMES[0] + "_truncated",
+                    NAMES[1] + "_truncated",
+                )
+            ],
         },
     )
     raw = typst.compile(str(P / "followup.typ"), timestamp=0)
     (P / "followup.pdf").write_bytes(raw)
     pages = PdfReader(P / "followup.pdf").pages
-    assert len(pages) == 4 and all(len(page.extract_text()) > 400 for page in pages)
+    assert len(pages) == 5 and all(len(page.extract_text()) > 400 for page in pages)
     edition(P, "followup")
     edition(P, "followup", verify=True)
     print("Published", len(cases), "paired requests and", len(pages), "pages")

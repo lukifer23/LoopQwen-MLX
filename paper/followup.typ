@@ -59,3 +59,16 @@ The model lost #d.lost individual successes previously achieved by Base on the 3
 
 = Verification and scope
 The repository preserves both source cohorts, every held prompt, 216 complete trajectories, actual tool observations, optimizer moments and the independent model-masked ratings. Rebuild the numerical table and figures with scripts.paper_followup. Verify every source-indexed score and native history with scripts.research_archive. The optimizer uses Apple Silicon MLX for every differentiated forward and update. Equal-training ordinary-depth comparison and same-weights long-context qualification each require their own passed prerequisite. Source licensing, the original wheel hashes and public corpus versions are in research/sources. Adapter SHA-256 #linebreak() #text(font:"DejaVu Sans Mono",size:7.5pt)[#d.sha]
+
+#pagebreak()
+= Which earlier answers survived three training changes?
+The preceding two comparisons each allowed 512 tokens per turn. This experiment allowed 384. Thirty-six identical requests, their initial token IDs and the underlying files occurred in all three studies. For each older generation we retained its actual tokens up to the new limit. If the older model had continued beyond token 384, its first 384 tokens by definition contained no stop token. At that point the public session returns a token-limit status and executes no new callback. Previously completed tool calls keep their original observations. No historical latency is estimated in this analysis.
+
+We checked the reconstruction on the untreated Base. On all 36 requests, the historical traces at the common limit match the new native Base run in every prompt token, generated token, tool action and result, visible answer and terminal status. Applying the smaller budget shortened #d.censored.at(0) Base requests, #d.censored.at(1) requests on the valid-return adapter and #d.censored.at(2) on the learner-history adapter.
+
+#grid(("Original task","N","Base","Valid return","Learner history","Protected","Gained","Lost"),d.retention,(1.1fr,.36fr,.48fr,.85fr,.95fr,.78fr,.58fr,.45fr))
+#cap[Table 4. Grounded successes over the same 36 requests. Gained and lost compare the protected model with its immediate predecessor. Each column represents a separately trained checkpoint. Only #d.consistent requests succeeded under all three trained policies.]
+
+Each family has a different operational definition. The two practical families require actual file or calendar events on the way to the correct verdict. The file-reading task requires grounding in the requested file, while the inline task includes evidence in the prompt. The lookup family tests whether the model can retain earlier information retrieval skills. The public request-level table records a digest of every compared response and individual budget truncation.
+
+These repeated items measure retention on a known cohort. Independent titles and project wheels on the first four pages test transfer. The present training rule protects loss locally on two randomly sampled older demonstrations in each update. A retention claim about a particular user request requires its own completed generation. [Machine-readable file: followup-retention.csv.]
