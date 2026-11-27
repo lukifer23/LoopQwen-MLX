@@ -1310,5 +1310,347 @@
         "upper": -0.008015312573843403
       }
     ]
+  },
+  "learner_prefix": {
+    "training": {
+      "plan": "777f0a1f6253254edd588f3f1b9cb979d43d4c2d80327a2e2b6a6b5fcb9d6bf6",
+      "sha256": "63edc9283a1f3b63471587898502a8c0acd25f6c49b846f18e6d3534dd4bf1ac",
+      "rows": 672,
+      "reached_limit": {
+        "strategy": 129,
+        "repair_known_schema": 0,
+        "report_action": 141,
+        "report_reply": 0,
+        "redirect_valid_read": 0,
+        "answer_valid_read": 0,
+        "repair_after_schema": 0
+      },
+      "seconds": 314.1132285000058,
+      "peak_bytes": 783621304,
+      "passed": true
+    },
+    "native_tokens": 20418,
+    "regions": {
+      "clean": 672,
+      "learner": 270,
+      "retain": 192
+    },
+    "epochs": 3,
+    "positions": 219507,
+    "probes": 68,
+    "panel": {
+      "panel": "085b4bc4e7dfb3123eb68417f7ee557dcfe1aff499eeaf4b7f829b690c135f39",
+      "source_sha256": "8da095a819af6db3c14877c6df2d4d29960e41d1a63dd1fa853507bd2a616af5",
+      "openings": 48,
+      "reasoning_topics": 24,
+      "distinct_reasoning_passages": 46,
+      "financial_tables": 24,
+      "programs": [
+        {
+          "id": "tatqa/405f18a8-803b-4f68-be49-7490b74b3697",
+          "report": "65cde743-18a6-418f-8f5a-000660a38cdf",
+          "source_operands": [
+            "713",
+            "828"
+          ],
+          "averaging_divisors": [],
+          "returned": "115",
+          "reference": "115",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/9fce8f25-dd3b-4c50-9b7b-d200ced15ded",
+          "report": "d423c6ef-50f3-4535-a74f-13cb46728627",
+          "source_operands": [
+            "62",
+            "200"
+          ],
+          "averaging_divisors": [],
+          "returned": "6900/31",
+          "reference": "222.58",
+          "scale": "percent"
+        },
+        {
+          "id": "tatqa/191c3926-7356-4ab8-a8f9-41e7b7c8a492",
+          "report": "386352cf-f7e3-4148-920c-63bc57cf156b",
+          "source_operands": [
+            "19373",
+            "22510",
+            "22626"
+          ],
+          "averaging_divisors": [],
+          "returned": "64509",
+          "reference": "64509",
+          "scale": "thousand"
+        },
+        {
+          "id": "tatqa/74183d5d-7633-43b5-bd7b-f0894fbe2299",
+          "report": "ba26cd64-e448-4ffb-bfaa-c6ad4760fba7",
+          "source_operands": [
+            "4144/5",
+            "8853/10"
+          ],
+          "averaging_divisors": [],
+          "returned": "-56500/8853",
+          "reference": "-6.38",
+          "scale": "percent"
+        },
+        {
+          "id": "tatqa/ea159bf1-8401-4540-b5a7-8fbdb5476944",
+          "report": "f5cab3e6-1f49-4434-b9a2-5e97073b985b",
+          "source_operands": [
+            "1059/10",
+            "1169/10"
+          ],
+          "averaging_divisors": [
+            "2"
+          ],
+          "returned": "557/5",
+          "reference": "111.4",
+          "scale": ""
+        },
+        {
+          "id": "tatqa/2e453484-3c53-4073-a29f-56a64364f4d9",
+          "report": "79a8ddc2-5848-4471-ad53-c3c70e4ec0c4",
+          "source_operands": [
+            "2025",
+            "2082"
+          ],
+          "averaging_divisors": [],
+          "returned": "57",
+          "reference": "57",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/163f08ab-cfae-426a-9c03-4f84feba3bb6",
+          "report": "15348b2f-52e0-498d-b0ea-b73ae40815b3",
+          "source_operands": [
+            "3",
+            "429",
+            "707",
+            "709"
+          ],
+          "averaging_divisors": [],
+          "returned": "615",
+          "reference": "615",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/55a6f613-38bc-4bf6-b53a-bf2ef01c6ed2",
+          "report": "9b0abd12-8d9e-48ba-9ac2-baacfa92e7eb",
+          "source_operands": [
+            "2",
+            "275792",
+            "282950"
+          ],
+          "averaging_divisors": [],
+          "returned": "279371",
+          "reference": "279371",
+          "scale": "thousand"
+        },
+        {
+          "id": "tatqa/b5ede057-3e98-4851-a1e1-1774c52cd908",
+          "report": "02a7787e-92f9-4a5a-9f95-c4c9ed0f7eff",
+          "source_operands": [
+            "2",
+            "4"
+          ],
+          "averaging_divisors": [],
+          "returned": "4",
+          "reference": "4",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/2af4c7cf-79a2-4bdf-81b8-dbaff5081bc3",
+          "report": "47fb3538-2c0a-4a82-97b2-90a1543b871d",
+          "source_operands": [
+            "173934",
+            "209005"
+          ],
+          "averaging_divisors": [],
+          "returned": "35071",
+          "reference": "35071",
+          "scale": ""
+        },
+        {
+          "id": "tatqa/765f1e20-9c75-4611-99ef-68a193d7e101",
+          "report": "a5fb7f90-4f37-460a-886e-13195f501f1b",
+          "source_operands": [
+            "131/5",
+            "172/5"
+          ],
+          "averaging_divisors": [
+            "2"
+          ],
+          "returned": "303/10",
+          "reference": "30.3",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/a4be9eab-ad03-4d67-9136-62d7cbe40e1e",
+          "report": "428d5e87-612b-468c-80f3-5b5298d589c8",
+          "source_operands": [
+            "697280",
+            "819073",
+            "2941324"
+          ],
+          "averaging_divisors": [],
+          "returned": "3044825/735331",
+          "reference": "4.14",
+          "scale": "percent"
+        },
+        {
+          "id": "tatqa/15cd82e8-7fe9-4529-a44f-eca0ce5137fb",
+          "report": "1fc1784c-38a0-49a2-a985-8c8a479f5f66",
+          "source_operands": [
+            "1664",
+            "2280"
+          ],
+          "averaging_divisors": [],
+          "returned": "3944",
+          "reference": "3944",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/25c87384-03af-40a7-85e3-e26341bf93cf",
+          "report": "e6c3cb87-13e2-49c8-81dc-d913b2071499",
+          "source_operands": [
+            "44618",
+            "60807"
+          ],
+          "averaging_divisors": [],
+          "returned": "-16189",
+          "reference": "-16189",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/032682c3-c3c1-4e3b-9554-05f68fdb4cc8",
+          "report": "88f5faa2-dd5b-48bb-8b53-8edd6714f894",
+          "source_operands": [
+            "15400475",
+            "18649161"
+          ],
+          "averaging_divisors": [
+            "2"
+          ],
+          "returned": "17024818",
+          "reference": "17024818",
+          "scale": ""
+        },
+        {
+          "id": "tatqa/f1a33e83-3a96-410a-8878-5e1fd1773a6d",
+          "report": "687d09ee-4aa8-402a-ae27-96ce063115a5",
+          "source_operands": [
+            "958",
+            "2703",
+            "23406"
+          ],
+          "averaging_divisors": [],
+          "returned": "183050/11703",
+          "reference": "15.64",
+          "scale": "percent"
+        },
+        {
+          "id": "tatqa/7a16ae56-dce9-436f-ab17-7638fd5c9f17",
+          "report": "88097457-b056-45fb-bb8d-9106df18df0d",
+          "source_operands": [
+            "2246",
+            "12186"
+          ],
+          "averaging_divisors": [],
+          "returned": "9940",
+          "reference": "9940",
+          "scale": "thousand"
+        },
+        {
+          "id": "tatqa/8ada4c33-1bde-46cf-95ec-dc7938cd7521",
+          "report": "6455b0fa-9637-4d36-95d6-2890c7728f54",
+          "source_operands": [
+            "240",
+            "470"
+          ],
+          "averaging_divisors": [],
+          "returned": "575/6",
+          "reference": "95.83",
+          "scale": "percent"
+        },
+        {
+          "id": "tatqa/48e5f6f9-a340-43e8-962d-f35ae0712b05",
+          "report": "9afaa852-4103-4782-9109-34104931dbc1",
+          "source_operands": [
+            "81731",
+            "81912"
+          ],
+          "averaging_divisors": [],
+          "returned": "-181",
+          "reference": "-181",
+          "scale": "thousand"
+        },
+        {
+          "id": "tatqa/95497d9b-23d7-4c89-832c-bcf408981985",
+          "report": "502dd70a-926b-49d7-b236-63855c98e740",
+          "source_operands": [
+            "0",
+            "27603"
+          ],
+          "averaging_divisors": [],
+          "returned": "-27603",
+          "reference": "-27603",
+          "scale": ""
+        },
+        {
+          "id": "tatqa/df12359b-c35a-4c26-bfbf-a8c05f063be9",
+          "report": "75ab135a-beab-4a3e-ae96-356cd0dd0b59",
+          "source_operands": [
+            "4848",
+            "18030"
+          ],
+          "averaging_divisors": [],
+          "returned": "13182",
+          "reference": "13182",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/1d92a278-69c4-4b79-adcc-615db7d2e5cc",
+          "report": "e614befa-40ae-43c0-93b1-385899b6b181",
+          "source_operands": [
+            "4568",
+            "5036"
+          ],
+          "averaging_divisors": [],
+          "returned": "468",
+          "reference": "468",
+          "scale": "million"
+        },
+        {
+          "id": "tatqa/fda3b0cb-bc87-4cbc-bc8f-79604538a700",
+          "report": "d7d65228-96c1-4890-951c-c3d7578f8031",
+          "source_operands": [
+            "707299",
+            "963947"
+          ],
+          "averaging_divisors": [
+            "2"
+          ],
+          "returned": "835623",
+          "reference": "835623",
+          "scale": "thousand"
+        },
+        {
+          "id": "tatqa/09ea9c6e-fc49-4282-ae37-2b69d4eb192c",
+          "report": "241e4c9c-5707-477f-b519-a3c5d1af417f",
+          "source_operands": [
+            "3211",
+            "3805"
+          ],
+          "averaging_divisors": [],
+          "returned": "-11880/761",
+          "reference": "-15.61",
+          "scale": "percent"
+        }
+      ]
+    },
+    "lr": 0.00012,
+    "kl": 0.12
   }
 }

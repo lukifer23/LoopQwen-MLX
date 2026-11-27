@@ -230,3 +230,41 @@ The two visits share all parameters. Query and content corrections have rank 160
 
  #tbl((.78fr,1.7fr,.66fr,.85fr,.85fr),("Family","Wording stratum","Requests","Loop / Base","Gains / losses"),d.wording.cells.map(x=>(x.family,x.stratum,str(x.items),str(x.candidate_correct)+" / "+str(x.base_correct),str(x.paired_gains)+" / "+str(x.paired_losses))))
 ]
+
+#if "learner_prefix" in d [
+ #pagebreak()
+ #let a=d.learner_prefix
+ #block(text(size:19pt,weight:"bold")[Learning to recover from unfinished deliberation])
+
+ *Observed failure and hypothesis.* In the 180-request comparison the recurrent model often reached the output limit before closing its reasoning channel. The previous training conditioned every next-token target on an expert prefix. Its reasoning traces enumerated intermediate questions, and its financial traces often copied complete evidence rows. We tested whether supervising a correct continuation after the model's own unfinished text could teach it to reach a supported answer or execute the appropriate calculation. Ross, Gordon and Bagnell studied the effect of imitation learning on states visited by a learned policy. This study uses a single collection from a frozen parent and includes a separate distribution-preserving loss. #link("https://proceedings.mlr.press/v15/ross11a.html")[Ross et al., AISTATS 2011].
+
+ *Training data.* The parent generated #a.native_tokens tokens on #a.training.rows earlier training sources, using the original thinking-enabled interface and two physical reads for each prediction. The collection used #fmt(a.training.seconds) seconds. We enrolled #a.regions.clean clean turns, #a.regions.learner unfinished learner continuations and #a.regions.retain ordinary rehearsal turns. The learner continuations came from reasoning and financial actions. In the other enrolled groups the parent had already emitted the end of its thought before reaching its assigned prefix length. No continuation is spliced after an already submitted tool call.
+
+ *Optimization.* The model starts from the preceding trained controller. It learns the original human supporting facts on reasoning examples and the verified sequence of operations on calculator actions. All #a.positions target positions across #a.epochs epochs contribute to the fit. Closing a thought and ending the turn each receive three times the ordinary token weight. A full-vocabulary penalty with coefficient #a.kl anchors the two-read prediction to its fixed trained parent. Clean and learner-prefix examples use the same physical attention and the same deployed output head. Neither model receives an injected prefix during evaluation.
+
+ *Prospective test.* The new panel has #a.panel.reasoning_topics previously unused StrategyQA topics and #a.panel.financial_tables TAT-QA development tables. The tokenized openings were reconstructed from the published contexts and every financial derivation was executed independently. The new financial contexts have no shared 16-word sequence with the previous financial material checked here. Their issuer identities are unavailable. The public donor's pretraining exposure is unknown. #link("https://nextplusplus.github.io/TAT-QA/")[TAT-QA data and paper] · #link("https://arxiv.org/abs/2101.02235")[Geva et al., StrategyQA].
+
+ #if "fit" in a and "second_read_gain" in a.fit [
+  *Training results.* The fit completed #a.fit.updates optimizer updates on #a.fit.positions supervised positions. Across #a.probes training probes, removing the second physical read increased mean target loss by #fmt(a.fit.second_read_gain,n:3) nats/token. Mean protected-group gain was #fmt(a.fit.protected_gain,n:3) nats/token.
+  #image("learner-prefix-fit.svg",width:95%)
+  #text(size:9pt)[Fig. 5. Per-example probe improvement at left and position-weighted optimization measurements at right. The two read counts share the fitted weights.]
+  #if a.fit.passed [The fit passed its registered training criteria.] else [The missed training criteria were #a.fit.gates.pairs().filter(x=>not x.at(1)).map(x=>x.at(0)).join(", "). The registered direct test closed at this prerequisite.]
+  #if "replay" in a [A fresh process checked #a.replay.feature_hashes feature files and reproduced all three probe paths with maximum absolute error #fmt(a.replay.max_abs_nll_error,n:6).]
+ ] else if "fit" in a [
+  The native fit stopped after #a.fit.updates updates. The recorded reason was #a.fit.reason.
+ ] else [
+  The comparison requires improved training-source likelihood for clean and learner-prefix reasoning and calculator actions, protected ordinary language, and a measured benefit from the second physical read.
+ ]
+ #if "primary" in a [
+  #pagebreak()
+  #block(text(size:19pt,weight:"bold")[Fresh source reasoning and financial actions])
+  #tbl((1.15fr,.65fr,.85fr,.85fr,1fr),("Family","Requests","Loop / Base correct","Gains / losses","Paired p"),a.primary.counts.pairs().map(x=>{
+   let c=x.at(1);(x.at(0),str(c.n),str(c.total.at(0))+" / "+str(c.total.at(1)),str(c.gains)+" / "+str(c.losses),fmt(c.p,n:4))}))
+  #tbl((1.15fr,1fr,1fr),("Resource","Loop","Untouched Base"),("wall_s","first_s","peak","opening_tps","decode_tps").map(k=>{
+   let label=(wall_s:"Wall time (s)",first_s:"Summed first-token time (s)",peak:"Peak MLX GiB",opening_tps:"Opening tokens/s",decode_tps:"Decode tokens/s")
+   let div=if k=="peak"{1073741824}else{1};(label.at(k),fmt(a.primary.costs.candidate.at(k)/div),fmt(a.primary.costs.control.at(k)/div))}))
+  #tbl((1.15fr,.9fr,.9fr,1fr),("Masked source review","Usable loop","Usable Base","Gains / losses"),a.reading.families.pairs().map(x=>{
+   let c=x.at(1);(x.at(0),str(c.arms.candidate.grounded_usable),str(c.arms.control.grounded_usable),str(c.gains)+" / "+str(c.losses))}))
+  One project reviewer saw the original sources, complete replies and executed calculations before model identity was revealed. Each of the 48 paired judgments was committed before unmasking.
+ ]
+]

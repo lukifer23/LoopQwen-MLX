@@ -346,6 +346,9 @@ def collect():
             axes[0, 0].legend(fontsize=8)
             fig.savefig(P / "staged-query-delivery.svg", metadata={"Date": None})
             plt.close(fig)
+    if Path("research/sources/learner-prefix/supervised-tokens.json.gz").is_file():
+        from scripts.paper_learner_prefix import collect as collect_learner
+        out["learner_prefix"] = collect_learner()
     return out
 
 
