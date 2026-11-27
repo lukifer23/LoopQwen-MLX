@@ -14,6 +14,7 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.assistance_deliberation import write_csv
+from scripts.assistance_uncertainty import cost_profile, joint, open_p, paired_sources
 from scripts.integrated_assistance_reading import RATINGS, ROOT
 from scripts.integrated_assistance_reading import run as reading
 from scripts.integrated_training_exposure import build as exposure
@@ -214,6 +215,10 @@ def evaluation():
                 )
         records.append(row)
     store("requests", records)
+    by_source = paired_sources(records)
+    costs_by_item = cost_profile(records)
+    store("source-uncertainty", by_source)
+    store("cost-percentiles", costs_by_item)
     store("sql", sql)
     a, b = [d["arms"][k] for k in ARMS]
     family = []
@@ -311,6 +316,31 @@ def evaluation():
     ]
     return {
         "family": family,
+        "intervals": [
+            [
+                LABELS[r["family"]],
+                r["registered_groups"],
+                r["gains"],
+                r["losses"],
+                f"{100 * r['net_rate']:+.1f}",
+                f"{100 * r['resampled_low']:+.1f} to {100 * r['resampled_high']:+.1f}",
+                f"{r['holm_p']:.3g}",
+            ]
+            for r in by_source
+        ],
+        "percentiles": [
+            [
+                r["metric"],
+                r["loop_lower"],
+                f"{r['loop_p50']:.3f}",
+                f"{r['base_p50']:.3f}",
+                f"{r['loop_p95']:.3f}",
+                f"{r['base_p95']:.3f}",
+            ]
+            for r in costs_by_item
+        ],
+        "joint": joint(records),
+        "preference_p": f"{open_p(*[review['arms'][arm]['open'] for arm in ARMS]):.5g}",
         "costs": costs,
         "grades": grades,
         "correct": [z["scored"]["grounded"] for z in (a, b)],
