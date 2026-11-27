@@ -126,6 +126,7 @@ def run():
                 raise LimitReached("registered time, scratch or memory limit")
 
         closed = None
+        load = None
         try:
             guard(force=True)
             with TemporaryDirectory() as policy:
@@ -165,16 +166,46 @@ def run():
                             peak_scratch = max(peak_scratch, prefix.disk.scratch_bytes)
                             guard(force=True)
                             for q, case in zip(qs, doc["cases"], strict=True):
+                                requested_at = monotonic()
+                                first = None
+                                net = actor._tool_model
+                                counts = (
+                                    (net.output_positions, net.output_revisits)
+                                    if arm == "candidate"
+                                    else None
+                                )
+
+                                def progress(position):
+                                    nonlocal first
+                                    if first is None and position == case["opening"]:
+                                        first = monotonic() - requested_at
+                                    guard(position)
+
                                 served = actor.respond(
                                     q,
                                     max_tokens=384,
                                     max_turns=1,
-                                    progress=guard,
+                                    progress=progress,
                                     record_kv_history=True,
                                     prefill_cache_state=True,
                                     document_prefix=prefix,
                                 )
                                 (turn,) = served["turns"]
+                                served["request_s"] = monotonic() - requested_at
+                                assert first is not None
+                                served["first_s"] = first
+                                if counts is not None:
+                                    n = len(turn["token_ids"])
+                                    served["output_positions"] = (
+                                        net.output_positions - counts[0]
+                                    )
+                                    served["read_only_visits"] = (
+                                        net.output_revisits - counts[1]
+                                    )
+                                    assert (
+                                        served["output_positions"] == n
+                                        and served["read_only_visits"] == 2 * n
+                                    )
                                 ids = turn["prompt_ids"]
                                 assert (
                                     fingerprint(ids) == case["input_sha256"]
@@ -209,7 +240,7 @@ def run():
             seconds=elapsed,
             peak_bytes=mx.get_peak_memory(),
             peak_scratch=peak_scratch,
-            load_s=load if documents else None,
+            load_s=load,
             requests=sum(len(d["rows"]) for d in documents),
             closed=closed,
         )
