@@ -55,6 +55,8 @@ For the 156 primary readings, the reviewer saw the original request, the complet
 
 *Open instructions.* The 24 new instructions span brainstorming, classification, closed questions, creative writing, general questions, extraction, open questions and summarization. Review used the user's requested form and the supplied source, with explicit allowance for stale or incorrect reference answers. The complete output file discloses all items including refusals, truncations, ties and unsupported claims.
 
+*Related work.* Marchenko and colleagues continued a fully shared Qwen3-1.7B on 60 billion curated tokens and 84 billion web tokens. Against identically continued dense Qwen3-1.7B, Tables 3 and 23 show gains on nine of eleven curated tasks and eight of eight web tasks. BoolQ and CRUXEval-O on the curated mix illustrate why individual outcomes matter. Their full-stack recurrence, embedding injection and trainable backbone differ from the four-layer hybrid revisit studied here. LoopUS decomposes a pretrained model into a recurrent reasoning block with input-dependent gating and adaptive exits. Our fixed-depth comparison measures the cost of every visit. #link("https://arxiv.org/html/2610.00673v2")[Marchenko et al., Sections 4–5 and Appendix H] · #link("https://arxiv.org/abs/2605.11011")[Park et al., LoopUS]
+
 #pagebreak()
 #text(size:20pt,weight:"bold")[Native performance, decision and reproducibility]
 #image("conditional-primary-cost.svg",width:99%)
