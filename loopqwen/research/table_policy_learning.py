@@ -32,7 +32,9 @@ from .table_reentry_fit import (
     inputs,
     optimizer,
     parity,
+    preserve_interruption,
     root_for,
+    verify_interruption,
     verify_optimizer,
 )
 from .table_worlds import (
@@ -382,12 +384,13 @@ def outcome(log, parity_report, changed):
 
 
 def verify(root, d):
-    if d.get("status") == "interrupted":
-        assert not d["passed"] and d["reason"]
-        return
     s = registered(NAME)
-    tok = tokenizer(s)
     assert s == read(root / "registration.json")
+    if d.get("status") == "interrupted":
+        return verify_interruption(
+            root, d, s["policy_lr"], s["reward_updates"], "rollouts"
+        )
+    tok = tokenizer(s)
     world_list = sorted(
         read(SOURCE)["cohorts"]["train"],
         key=lambda w: fingerprint([s["fit_seed"], "policy", w["id"]]),
@@ -481,7 +484,7 @@ def run():
     try:
         d = train(from_base(s["checkpoint"], s), tokenizer(s), s, root, guard)
     except (TimeoutError, MemoryError, InterruptedError) as exc:
-        d = {"passed": False, "status": "interrupted", "reason": str(exc)}
+        d = preserve_interruption(root, s, exc)
     finally:
         guard.close()
     save(root / "decision.json", d)

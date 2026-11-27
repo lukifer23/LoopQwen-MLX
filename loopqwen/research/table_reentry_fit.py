@@ -405,12 +405,73 @@ def verify_optimizer(root, s, lr, updates):
         assert set(opt.keys()) == names
 
 
+def preserve_interruption(root, s, exc):
+    directory = Path("checkpoints/research") / s["id"]
+    receipt = {
+        "registration": digest(root / "registration.json"),
+        "last_durable_step": 0,
+        "weights": None,
+        "optimizer": None,
+    }
+    if (directory / "latest.json").is_file():
+        last = checkpoint.location(directory)
+        state = read(last / "state.json")
+        assert state["registration"] == receipt["registration"]
+        packed(root / "partial-state.json.gz", state)
+        for src, dst in (
+            ("adapters.safetensors", "reentry.safetensors"),
+            ("optimizer.safetensors", "optimizer.safetensors"),
+        ):
+            shutil.copyfile(last / src, root / dst)
+        receipt.update(
+            last_durable_step=state["step"],
+            weights=digest(root / "reentry.safetensors"),
+            optimizer=digest(root / "optimizer.safetensors"),
+        )
+    save(root / "interruption.json", receipt)
+    return {
+        "passed": False,
+        "status": "interrupted",
+        "reason": str(exc),
+        "last_durable_step": receipt["last_durable_step"],
+    }
+
+
+def verify_interruption(root, d, lr, updates, key):
+    s = read(root / "registration.json")
+    receipt = read(root / "interruption.json")
+    assert (
+        not d["passed"]
+        and d["reason"]
+        and receipt["registration"] == digest(root / "registration.json")
+    )
+    n = receipt["last_durable_step"]
+    assert n == d["last_durable_step"] and 0 <= n <= updates
+    if n:
+        state = unpack(root / "partial-state.json.gz")
+        assert (
+            state["step"] == len(state[key]) == n
+            and state["registration"] == receipt["registration"]
+        )
+        assert [r["step"] for r in state[key]] == list(range(1, n + 1))
+        assert (
+            digest(root / "reentry.safetensors") == receipt["weights"]
+            and digest(root / "optimizer.safetensors") == receipt["optimizer"]
+        )
+        verify_optimizer(root, s, lr, n)
+    else:
+        assert (
+            receipt["weights"] is None
+            and receipt["optimizer"] is None
+            and not (root / "partial-state.json.gz").exists()
+        )
+
+
 def verify(root, d):
-    if d.get("status") == "interrupted":
-        assert not d["passed"] and d["reason"]
-        return
     s = registered(NAME)
     assert s == read(root / "registration.json")
+    if d.get("status") == "interrupted":
+        return verify_interruption(root, d, s["warm_lr"], s["warm_updates"], "log")
     items = inputs(tokenizer(s), s)
     streams = decks(items, s["fit_seed"])
     fit = read(root / "fit.json")
@@ -503,7 +564,7 @@ def run():
     try:
         d = train(from_base(s["checkpoint"], s), tokenizer(s), s, root, guard)
     except (TimeoutError, MemoryError, InterruptedError) as exc:
-        d = {"passed": False, "status": "interrupted", "reason": str(exc)}
+        d = preserve_interruption(root, s, exc)
     finally:
         guard.close()
     save(root / "decision.json", d)
