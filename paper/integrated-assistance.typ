@@ -54,7 +54,7 @@ We reran each model’s last successful query on the requested database when its
 
 #pagebreak()
 = Reviewing what the user actually received
-A project-agent reviewer read all 36 new questions, their references and the complete visible replies. The two replies were digest-ordered independently for each question. Timing, identity, automatic scores and generation status were hidden. Identical visible answers appeared only once and necessarily tied. Judgments were committed before the mapping was opened. This is one machine reviewer and cannot establish independent human preference. The archived blinded material supports reannotation.
+A project-agent reviewer read all 36 new questions, their references and the complete visible replies. The two replies were digest-ordered independently for each question. Timing, identity, automatic scores and generation status were hidden. Identical visible answers appeared only once and necessarily tied. Judgments were committed before the mapping was opened. One project-agent reviewer supplied these judgments. Familiarity with earlier responses may make some styles recognizable even with labels hidden. An independent human preference estimate remains open. The archived sheet supports reannotation.
 
 #grid(("Source","Visible-reply judgment","Loop","Base"),d.grades,(1.55fr,1.55fr,.6fr,.6fr))
 #cap[Table 2. “Unsupported” counts replies with material unsupported claims. “Win” and “tie” give the paired preference. A reply may be useful and still contain an unsupported claim.]
