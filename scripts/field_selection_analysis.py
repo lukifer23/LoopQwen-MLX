@@ -182,6 +182,37 @@ def report(rows):
         ],
         "arms": {},
     }
+
+    def jointly_faster(row):
+        return all(
+            row["candidate_" + metric] < row["control_" + metric]
+            for metric in ("seconds", "first_seconds", "peak_bytes")
+        )
+
+    gained = [r for r in rows if r["candidate_success"] and not r["control_success"]]
+    both = [r for r in rows if r["candidate_success"] and r["control_success"]]
+    output["request_tradeoffs"] = {
+        "all_with_lower_wall_first_and_peak": sum(map(jointly_faster, rows)),
+        "loop_only_successes": len(gained),
+        "loop_only_successes_with_lower_wall_first_and_peak": sum(
+            map(jointly_faster, gained)
+        ),
+        "both_successful": len(both),
+        "both_successful_with_lower_wall_first_and_peak": sum(
+            map(jointly_faster, both)
+        ),
+        "lower_wall": sum(r["candidate_seconds"] < r["control_seconds"] for r in rows),
+        "lower_first": sum(
+            r["candidate_first_seconds"] < r["control_first_seconds"] for r in rows
+        ),
+        "lower_peak": sum(
+            r["candidate_peak_bytes"] < r["control_peak_bytes"] for r in rows
+        ),
+        "first_request_seconds": {arm: rows[0][arm + "_first_seconds"] for arm in ARMS},
+        "remaining_95_first_sum": {
+            arm: sum(r[arm + "_first_seconds"] for r in rows[1:]) for arm in ARMS
+        },
+    }
     for arm in ARMS:
 
         def value(row, key, arm=arm):

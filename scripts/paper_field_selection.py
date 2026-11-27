@@ -228,6 +228,10 @@ def build():
             w["package"] + " " + w["version"] for w in panel["wheels"]
         ),
     }
+    trade = a["request_tradeoffs"]
+    m["per_request"] = (
+        f"Across all requests the loop finished sooner on {trade['lower_wall']}/96, emitted a first token sooner on {trade['lower_first']}/96, and used less peak memory on {trade['lower_peak']}/96. It gained {trade['loop_only_successes']} correct answers over Base. On {trade['loop_only_successes_with_lower_wall_first_and_peak']} of those gains it simultaneously reduced complete time, first latency and peak memory. Of {trade['both_successful']} requests that both grounded correctly, {trade['both_successful_with_lower_wall_first_and_peak']} improved on all three resource measures."
+    )
     save(P / "field-selection-paper.json", m)
     edition(P, "field-selection")
     edition(P, "field-selection", verify=True)

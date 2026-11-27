@@ -74,6 +74,8 @@ Both models receive the same ordered initial token IDs and tools, with thinking 
 
 The opening rate divides all initial prompt tokens by the summed first-token latency. The subsequent rate divides tokens after the first in each turn by the summed remaining turn time. The loop always ran before Base under the registered stream. Relative temperature and operating-system activity can affect small timing differences. A shorter total stream can reflect fewer generated tokens, including premature completion. Reported peak measures MLX allocations on this device. It does not measure wall-outlet energy or total system RAM.
 
+#m.per_request
+
 = Blinded reading
 #grid(("Explanation rating","Trained loop","Untouched Base"),m.reading,(2fr,1fr,1fr))
 #caption[Table 3. Twenty prespecified requests from each arm. One project-agent reader judged evidence, reasoning and the visible answer, with arm names and aggregate scores withheld. “Supported” requires the inferential link to the correct verdict. A source fact without that link can receive partial credit. An absent visible verdict receives absent. Style can reveal a model’s identity. Independent human raters would strengthen this measurement.]
