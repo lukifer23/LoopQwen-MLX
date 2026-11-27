@@ -81,17 +81,18 @@ def measure(guard):
         tick = monotonic()
         disk = reader.branch(model, opening)
         tokens, values, times = [], {}, []
-        x = mx.array([opening[len(ids) :]])
         for i in range(3):
             guard(force=True)
             begin = monotonic()
-            scores = disk.decode(x)[:, -1]
+            if i == 0:
+                scores = reader.complete_opening(disk, opening, guard)[:, -1]
+            else:
+                scores = disk.decode(mx.array([[tokens[-1]]]))[:, -1]
             mx.eval(scores)
             values[str(i)] = scores
             token = mx.argmax(scores, axis=-1).item()
             tokens.append(token)
             times.append(monotonic() - begin)
-            x = mx.array([[token]])
         guard(force=True)
         row = {
             "mode": mode,
