@@ -45,21 +45,31 @@ def predecessor():
         archive = RESULTS / parent
         if not (archive / "checksums.json").is_file():
             raise ValueError("The preceding experiment has not finished: " + parent)
-        if not read(archive / "decision.json")["passed"]:
-            if (
-                parent.endswith("transfer-01")
-                and (archive / "candidate.json.gz").exists()
-            ):
-                # Finish already enrolled blind readings even when automatic criteria failed.
-                read("docs/measurements/contrastive-services-reading.json")
-                read("docs/measurements/contrastive-qualitative-reading.json")
-            return {"stage": parent, "archive": digest(archive / "checksums.json")}
-    masked = read("docs/measurements/contrastive-services-reading.json")
-    if not masked["passed"]:
-        return {
-            "stage": "contrastive-world-transfer-01",
-            "mask": digest(Path("docs/measurements/contrastive-services-reading.json")),
-        }
+        passed = read(archive / "decision.json")["passed"]
+        evidence = {"stage": parent, "archive": digest(archive / "checksums.json")}
+        if parent == "contrastive-world-transfer-01":
+            complete = all(
+                (archive / (arm + ".json.gz")).is_file()
+                for arm in ("candidate", "control")
+            )
+            if complete:
+                # Both source readings belong to every completed comparison, regardless
+                # of its automatic result. A partial run has no complete pair to grade.
+                root = Path("docs/measurements")
+                service = root / "contrastive-services-reading.json"
+                qualitative = root / "contrastive-qualitative-reading.json"
+                masked = read(service)
+                read(qualitative)
+                evidence["source_readings"] = {
+                    p.name: digest(p) for p in (service, qualitative)
+                }
+                passed = passed and masked["passed"]
+            elif passed:
+                raise ValueError(
+                    "A passing transfer archive lacks complete generation streams"
+                )
+        if not passed:
+            return evidence
     raise ValueError("Replicate the qualifying predecessor")
 
 

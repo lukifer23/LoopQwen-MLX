@@ -35,3 +35,42 @@ def test_full_explanations_can_state_the_conclusion_and_cannot_gain_keyword_cred
     assert not score(w, {"status": "token_limit", "answer": "No.", "turns": []})[
         "success"
     ]
+
+
+def test_successor_reads_both_reviews_of_a_completed_pair_and_accepts_an_archived_partial(
+    tmp_path, monkeypatch
+):
+    import pytest
+
+    from loopqwen.io import save
+    from loopqwen.research import shared_query_features as features
+
+    monkeypatch.chdir(tmp_path)
+    root = tmp_path / "results"
+    monkeypatch.setattr(features, "RESULTS", root)
+    for stage in (
+        "contrastive-table-features-01",
+        "contrastive-language-features-01",
+        "contrastive-world-fit-01",
+        "contrastive-world-transfer-01",
+    ):
+        path = root / stage
+        save(path / "checksums.json", {})
+        save(path / "decision.json", {"passed": True})
+    save(path / "decision.json", {"passed": False})
+    (path / "candidate.json.gz").touch()
+    assert features.predecessor()["stage"] == stage
+    (path / "control.json.gz").touch()
+    reports = tmp_path / "docs" / "measurements"
+    service = reports / "contrastive-services-reading.json"
+    qual = reports / "contrastive-qualitative-reading.json"
+    save(service, {"passed": False})
+    with pytest.raises(FileNotFoundError):
+        features.predecessor()
+    save(qual, {"source_pairs": {}})
+    assert len(features.predecessor()["source_readings"]) == 2
+    save(path / "decision.json", {"passed": True})
+    assert features.predecessor()["stage"] == stage
+    save(service, {"passed": True})
+    with pytest.raises(ValueError, match="Replicate"):
+        features.predecessor()
