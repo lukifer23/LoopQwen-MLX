@@ -29,9 +29,10 @@ class ContentStep(QueryStep):
         # The original contextual values carry the token and its causal context.
         # The content query does not rotate with distance from the output.
         if differentiate:
-            result = differentiable_attention(
-                q, values, values, self.dimension**-0.5, mask
+            kernel = (
+                differentiate if callable(differentiate) else differentiable_attention
             )
+            result = kernel(q, values, values, self.dimension**-0.5, mask)
         else:
             result = scaled_dot_product_attention(
                 q, values, values, cache=None, scale=self.dimension**-0.5, mask=mask

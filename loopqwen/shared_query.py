@@ -98,7 +98,8 @@ def attend(
     if observe_query is not None:
         observe_query(q)
     if differentiate:
-        z = differentiable_attention(q, k, v, a.scale, mask)
+        kernel = differentiate if callable(differentiate) else differentiable_attention
+        z = kernel(q, k, v, a.scale, mask)
     else:
         z = scaled_dot_product_attention(q, k, v, cache=None, scale=a.scale, mask=mask)
     z = z.transpose(0, 2, 1, 3).reshape(batch, length, -1)

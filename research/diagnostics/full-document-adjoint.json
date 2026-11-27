@@ -1,0 +1,38 @@
+{
+  "seed": 973111,
+  "features": "360c5e9c815ed829ab3e8c6684a2a2dc2ce3fd50fd9f676ba0a66479b6d262be",
+  "model": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+  "doc": "460cd080e041c79d78785c04b5667037e91f16134122d5e2f1d0924e9062dfdc",
+  "implementation": {
+    "/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/scripts/full_document_adjoint.py": "e92f5658940ad3220fa9b65a8099aa8b58a2c38a842c67ba18862f2a42209676",
+    "loopqwen/frozen_memory_attention.py": "71be862bbdbe7dbbccc5b3cebd294a5eea163e182b8b15c4457009625054f7e9",
+    "loopqwen/content_read.py": "5df9a4304bf04d92d2f78afdb9bd60d95a9ca8c5785ad3149f01f1c59a5c2d23",
+    "loopqwen/shared_query.py": "aab7a44041f78947686d1f6e8c7f59b12bf74b7274bafdd402099e489b770106"
+  },
+  "train": [
+    11,
+    10,
+    3,
+    4,
+    1,
+    2,
+    6,
+    9
+  ],
+  "held": [
+    7,
+    8,
+    0,
+    5
+  ],
+  "epochs": 8,
+  "lr": 0.0007,
+  "weight": 1.0,
+  "limits": {
+    "seconds": 900,
+    "peak_gib": 3,
+    "available_gib": 1.5
+  },
+  "question": "Can native gradients learn to address an unchanged full-length document and predict complete source versions, including for different questions about the same document?",
+  "protocol": "Numerical and training feasibility only. Require passing complete-prefix extraction and the independent grouped and causal derivative parity test. Use the frozen original two-read repair donor; train only two shared content matrices. Keep all 147432 document entries at native precisions. Use every visible version token and the turn terminator under full causal teacher forcing, plus log probability of its original source span at the first such decision. Fit exactly 8 deterministic epochs of 8 independent package questions. Four disjoint package names on the same unchanged file are withheld until the weights are sealed. Test all 12 in immutable order. Require all 64 finite nonzero updates, mean training source NLL gain >=0.1 and target NLL gain >0.02; separately require >=3/4 held improvements in target NLL and positive mean held address gain. No free-generation, semantic accuracy or release credit. Do not rerun this panel after a missed gate. Terminate at the resource cap."
+}
