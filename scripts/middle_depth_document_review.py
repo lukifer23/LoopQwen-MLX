@@ -58,6 +58,16 @@ def inspect(stage, aggregate):
         visible = first_visible(turns, raw["timing"], tok)
         tokens = sum(len(t["token_ids"]) for t in turns)
         decode = sum(t["seconds"] - t["ttft_s"] for t in turns)
+        basis = raw.get("cold_time_basis")
+        if basis is None:
+            legacy = (
+                ROOT / "prefix-retention" / ("documents-" + raw["identity"] + ".json")
+            )
+            if read(legacy)["seconds"] != raw["cold_build_seconds"]:
+                raise ValueError(
+                    "Historical cold time differs from measured prefix groups"
+                )
+            basis = "sum of completed native prefix-group construction times"
         rows.append(
             {
                 "arm": arm,
@@ -77,7 +87,7 @@ def inspect(stage, aggregate):
                 "first_visible_cold": visible + raw["cold_build_seconds"]
                 if visible is not None
                 else None,
-                "cold_time_basis": raw["cold_time_basis"],
+                "cold_time_basis": basis,
                 "first_token_cold": first + raw["cold_build_seconds"],
                 "cold_build_seconds": raw["cold_build_seconds"],
                 "seconds_warm": tr["seconds"],

@@ -22,7 +22,7 @@ from scripts.middle_depth_documents import FROZEN, worlds
 from scripts.middle_depth_retention import saved
 
 
-def callbacks(model, tok, guard):
+def callbacks(model, tok, guard, alternate=None, output=None):
     row = next(r for r in read(SOURCE) if r["source"] == "tool")
     first = unpack(ROOT / "screen" / "base-4.json.gz")["trace"]["turns"][0][
         "prompt_ids"
@@ -30,7 +30,14 @@ def callbacks(model, tok, guard):
     traces = []
     with TemporaryDirectory() as tmp:
         doc = SavedDocument(model, first[:256], Path(tmp), "screen-tool-replay", guard)
-        for reader in (doc, ResidentDocument(doc, 256, guard)):
+        for second in (False, True):
+            reader = doc
+            if second:
+                reader = (
+                    alternate(doc)
+                    if alternate is not None
+                    else ResidentDocument(doc, 256, guard)
+                )
             result = run(
                 model,
                 tok,
@@ -51,7 +58,7 @@ def callbacks(model, tok, guard):
     )
     same = trace(traces[0]) == trace(traces[1])
     packed(
-        ROOT / "resident-callbacks.json.gz",
+        output or ROOT / "resident-callbacks.json.gz",
         dict(traces=traces, calls=calls, identical=same),
     )
     return same and calls > 0

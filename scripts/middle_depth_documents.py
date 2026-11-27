@@ -267,6 +267,25 @@ def measure(args):
             )
 
         reader = prefix
+        runtime_proof = None
+        if operating_point == "staged" and pressure_receipt.is_file():
+            from scripts.middle_depth_staged_verify import (
+                PROOF,
+                alternate,
+                implementation,
+            )
+
+            if PROOF.is_file():
+                verified = read(PROOF)
+                identity = verified["identity"]
+                if (
+                    verified["passed"]
+                    and ident == identity["prefix"]
+                    and identity["implementation"] == implementation()
+                ):
+                    reader = alternate(model, prefix)
+                    operating_point = "staged-visits"
+                    runtime_proof = digest(PROOF)
         if operating_point == "resident":
             try:
                 reader = qualified_resident(
@@ -337,6 +356,7 @@ def measure(args):
                 {
                     "cache_mode": operating_point,
                     "requested_cache_mode": args.cache_mode,
+                    "staged_visit_qualification": runtime_proof,
                     "fallback_receipt": digest(pressure_receipt)
                     if operating_point != args.cache_mode
                     else None,

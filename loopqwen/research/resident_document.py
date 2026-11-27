@@ -35,3 +35,15 @@ class ResidentDocument(DocumentPrefix):
             disk.materialized_kv_bytes += prefix.prefix_bytes
             del kv, k, v
         return disk
+
+
+class StagedVisitDocument(DocumentPrefix):
+    """Use a separate exact staged history and a materialization boundary per visit."""
+
+    def __init__(self, source):
+        self.ids, self.disk = source.ids, source.disk
+
+    def branch(self, model, opening):
+        reader = super().branch(model, opening)
+        reader.materialize_visits = True
+        return reader

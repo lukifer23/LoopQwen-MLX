@@ -271,6 +271,40 @@ def resume_training_wave():
                 ),
             },
         )
+    if attempt.is_file() and read(attempt)["status"] == "resource_stop":
+        from scripts.middle_depth_staged_verify import PROOF
+        from loopqwen.io import digest
+
+        recovery = ROOT / "epoch-one-staged-visit.json"
+        if not recovery.exists():
+            try:
+                if not PROOF.exists():
+                    dispatch("staged_verify")
+                if read(PROOF)["passed"]:
+                    early_book()
+                else:
+                    raise RuntimeError("Staged visit qualification missed")
+            except RuntimeError as error:
+                # Keep independent optimization available on a measured resource
+                # stop or an exact-output miss. Surface other implementation errors.
+                if "Native development limit" not in str(error) and not (
+                    PROOF.is_file() and not read(PROOF)["passed"]
+                ):
+                    raise
+                outcome = {"status": "stopped", "reason": str(error)}
+            else:
+                outcome = {"status": "complete"}
+            save(
+                recovery,
+                {
+                    **outcome,
+                    "previous": digest(attempt),
+                    "qualification": digest(PROOF) if PROOF.exists() else None,
+                    "saved_presentations": len(
+                        list((ROOT / "documents" / "epoch-one").rglob("*.json.gz"))
+                    ),
+                },
+            )
     paired_fit()
     short_terminal()
     forks()

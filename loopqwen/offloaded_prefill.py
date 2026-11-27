@@ -76,6 +76,7 @@ class OffloadedPrefill:
         self.cache = model.make_cache()
         self.groups = stages(model)
         self.group_attention = group_attention
+        self.materialize_visits = False
         if group_attention:
             from .bounded_read import BoundedContentRead
             from .content_read import ContentRead
@@ -224,11 +225,19 @@ class OffloadedPrefill:
                 if index == len(self.groups) - 1
                 else None
             )
-            h = (
-                final(h, self.cache.slots[group[0]], emit=emit)
-                if final
-                else m._execute(h, group, self.cache)
-            )
+            if final:
+                h = final(h, self.cache.slots[group[0]], emit=emit)
+            elif self.materialize_visits:
+                # A repeated unit needs the original anchor across its visits.
+                # Materializing each exit releases that visit's temporary K/V
+                # tensors while the enclosing native call still owns the anchor.
+                def observe(event, visit, state):
+                    if event == "exit":
+                        mx.eval(state)
+
+                h = m._execute(h, group, self.cache, observer=observe)
+            else:
+                h = m._execute(h, group, self.cache)
             if h is None:
                 return None
             # Release this stage's loaded prefix before the next stage reads its own.
