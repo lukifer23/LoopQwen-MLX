@@ -8,6 +8,7 @@ from loopqwen.looped_model import LoopedModel
 from loopqwen.recurrence import Span
 from loopqwen.reentry import ReentryModel
 from loopqwen.research.table_policy_learning import advantages, token_objective
+from loopqwen.research.table_reentry_fit import parity
 from loopqwen.worker import acquire
 
 
@@ -20,6 +21,10 @@ def test_full_hybrid_reentry_identity_cached_states_and_policy_gradient():
     ordinary.eval()
     x = mx.array([[2, 8, 12, 19, 3, 11, 7]])
     assert mx.array_equal(ordinary(x), net(x)).item()
+    report = parity(net, x[0].tolist())
+    assert len(report["gdn_state_differences"]) == 3
+    assert all(len(d) == 2 and min(d) > 0 for d in report["gdn_state_differences"])
+    assert report["attention_offsets"] == [x.shape[1]] * 2
     assert len(tree_flatten(net.trainable_parameters())) == 9
     net.mixing = mx.full((64,), 0.4)
     cache = net.make_cache()

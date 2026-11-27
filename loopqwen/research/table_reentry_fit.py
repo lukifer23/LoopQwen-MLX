@@ -160,8 +160,8 @@ def parity(net, ids):
         "gdn_state_differences": [
             [
                 mx.max(mx.abs(a.astype(mx.float32) - b.astype(mx.float32))).item()
-                for a, b in zip(
-                    cache.slots[i, 0].state, cache.slots[i, 1].state, strict=True
+                for a, b in (
+                    (cache.slots[i, 0][k], cache.slots[i, 1][k]) for k in (0, 1)
                 )
             ]
             for i in range(net.span.start, net.span.start + 3)
