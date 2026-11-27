@@ -15,3 +15,5 @@ Run these commands from the checkout to reconstruct the receipts.
 ```
 
 The missed query asked for the first name listed and returned the first row. In the altered table the first two Name fields contain a dash. The first actual name appears in the third row. All three annotators chose that name. The diagnostic preserves this miss, which illustrates why even a plausible executable query needs to be tested on the changed source.
+
+The Base-rooted fit packs the fixed 4-bit prefix and the four original BF16 suffix layers once. A separate cold decoder must reproduce all vocabulary logits on the registered real training opening from the packed weights. The learned policy records these bytes’ digest together with the original Base and config digests. The CLI can load the verified pack beside the policy or from the research export. With only the original Base release it reconstructs the quantized graph from the registered full-precision tensors. Both evaluation arms include actual cold construction in their timing.

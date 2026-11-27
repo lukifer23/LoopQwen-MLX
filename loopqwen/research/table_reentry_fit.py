@@ -20,7 +20,7 @@ from ..io import digest, read, save
 from ..kernels.gdn_backend import select
 from ..looped_model import LoopedModel
 from ..recurrence import Span
-from ..reentry import from_base
+from ..reentry import from_base, packed_path, resident
 from .core import Budget
 from .cross_view_study import tokenizer
 from .file_evidence_environment import capture
@@ -175,18 +175,65 @@ def parity(net, ids):
     }
 
 
+def portable(net, s, root, opening):
+    path = packed_path(s["checkpoint"])
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(dir=path.parent) as tmp:
+        output = Path(tmp) / path.name
+        mx.save_safetensors(
+            str(output), dict(sorted(tree_flatten(net.text.parameters())))
+        )
+        sha = digest(output)
+        if path.exists():
+            if digest(path) != sha:
+                raise ValueError(
+                    "Existing prequantized Base differs from direct native packing"
+                )
+        else:
+            output.replace(path)
+    identity = {
+        "sha256": sha,
+        "bytes": path.stat().st_size,
+        "base": s["base_text_sha256"],
+        "config": s["config_sha256"],
+    }
+    other = resident(s["checkpoint"], root, s, identity)
+    net.eval()
+    other.eval()
+    seq = mx.array([opening])
+    a = net.project(net.hidden(seq)[:, -1])
+    b = other.project(other.hidden(seq)[:, -1])
+    exact = mx.array_equal(a, b).item()
+    save(
+        root / "packed-base.json",
+        {
+            **identity,
+            "exact_logits": exact,
+            "compared": a.size,
+            "input": fingerprint(opening),
+        },
+    )
+    if not exact:
+        raise InterruptedError("Prepacked Base failed full-vocabulary reload parity")
+    return identity
+
+
 def train(net, tok, s, root, guard):
     items = inputs(tok, s)
     seed = s["fit_seed"]
     chosen = min(items, key=lambda k: fingerprint([seed, "parity", k]))
     check = parity(net, items[chosen][1])
-    assert (
-        check["sites"] == check["unique_slots"] == 28 and check["vocabulary"] == 248320
-    )
-    assert (
-        check["exact_ordinary_logits"] and check["full_top"] == check["incremental_top"]
-    )
     save(root / "initial-parity.json", check)
+    if not (
+        check["sites"] == check["unique_slots"] == 28
+        and check["vocabulary"] == 248320
+        and check["exact_ordinary_logits"]
+        and check["full_top"] == check["incremental_top"]
+    ):
+        raise InterruptedError(
+            "Initial ordinary logits or recurrent cache failed the registered parity check"
+        )
+    pack_identity = portable(net, s, root, items[chosen][1])
     streams = decks(items, seed)
     opt = optimizer(s["warm_lr"], s)
     directory = Path("checkpoints/research") / NAME
@@ -283,6 +330,7 @@ def train(net, tok, s, root, guard):
         "weights": digest(weights),
         "registration": identity,
         "views": len(items),
+        "backbone": pack_identity,
         "updates": state["step"],
         "gate_rms": mx.sqrt(mx.mean(mx.square(mx.tanh(net.mixing)))).item(),
         "residual_norms": [mx.linalg.norm(r.up.weight).item() for r in net.residuals],

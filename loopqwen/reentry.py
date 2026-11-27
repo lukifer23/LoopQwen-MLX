@@ -6,12 +6,15 @@ import mlx.core as mx
 from mlx import nn
 from mlx.utils import tree_flatten
 
+from . import REVISION
 from .export_runtime import load_export_tokenizer
+from .hardware import require_metal
 from .io import digest, read
 from .looped_model import LoopedModel
 from .observation_review import backbone
 from .recurrence import Span
-from .tool_model import Assistant
+from .tool_model import Assistant, quantize_prefix
+from .worker import acquire
 
 
 class ReentryResidual(nn.Module):
@@ -78,15 +81,62 @@ class ReentryModel(LoopedModel):
         )
 
 
-def from_base(directory, spec):
+def check_architecture(spec):
     if (
         spec.get("reentry_block") != [20, 21, 22, 23]
         or spec["start_layer"] != 20
         or spec["prefix_bits"] != 4
     ):
         raise ValueError("Incompatible recurrent block or Base quantization")
+
+
+def from_base(directory, spec):
+    check_architecture(spec)
     mx.random.seed(spec["fit_seed"])
     return ReentryModel(backbone(directory, spec), spec["rank"])
+
+
+PACKED = "qwen-base-prefix20-q4.safetensors"
+
+
+def packed_path(directory):
+    return Path(directory).parent / "reentry-backbone-01" / PACKED
+
+
+def resident(directory, policy, spec, identity):
+    """Accept a verified offline pack, or reconstruct from the exact signed Base inputs."""
+    from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
+
+    directory = Path(directory)
+    check_architecture(spec)
+    if (
+        identity["base"] != spec["base_text_sha256"]
+        or identity["config"] != spec["config_sha256"]
+        or digest(directory / "config.json") != identity["config"]
+        or read(directory / "provenance.json")["base_revision"] != REVISION
+    ):
+        raise ValueError("The recurrent backbone does not match the registered Base")
+    for path in (Path(policy) / PACKED, packed_path(directory)):
+        if not path.is_file():
+            continue
+        if (
+            digest(path) != identity["sha256"]
+            or path.stat().st_size != identity["bytes"]
+        ):
+            raise ValueError(
+                "The prequantized recurrent backbone differs from its trained source"
+            )
+        require_metal()
+        acquire()
+        text = TextModel(
+            TextModelArgs.from_dict(read(directory / "config.json")["text_config"])
+        )
+        quantize_prefix(text, spec["start_layer"], spec["prefix_bits"])
+        text.load_weights(str(path), strict=True)
+        mx.eval(text.parameters())
+        text.eval()
+        return ReentryModel(text, spec["rank"])
+    return from_base(directory, spec)
 
 
 class ReentryAssistant(Assistant):
@@ -111,7 +161,7 @@ class ReentryAssistant(Assistant):
                 for k in ("registration.json", "fit.json", path.name)
             ):
                 raise ValueError("The re-entry policy differs from its archived model")
-        net = from_base(directory, spec)
+        net = resident(directory, policy, spec, fit["backbone"])
         trained = mx.load(str(path))
         expected = dict(tree_flatten(net.trainable_parameters()))
         if trained.keys() != expected.keys() or any(

@@ -334,6 +334,9 @@ def train(net, tok, s, root, guard):
             "registration": identity,
             "updates": cursor["step"],
             "parent": parent_sha,
+            "backbone": read(Path("research/results") / PARENT / "fit.json")[
+                "backbone"
+            ],
             "trainable": sum(
                 v.size for _, v in tree_flatten(net.trainable_parameters())
             ),
