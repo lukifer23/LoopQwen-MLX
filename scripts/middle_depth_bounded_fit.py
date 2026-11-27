@@ -16,7 +16,7 @@ from scripts import middle_depth_adjoint
 from scripts import middle_depth_fit as primary
 from scripts.middle_depth_budget import BASE, ROOT, worker
 from scripts.middle_depth_material import ROWS
-from scripts.middle_depth_recover import reconcile
+from scripts.middle_depth_recover import fit_directory, reconcile
 
 QUALIFICATION = ROOT / "adjoint-recovery.json"
 
@@ -54,13 +54,30 @@ def gradient(guard):
 def fit(arm, until):
     kval = qualify()
     cfg = read(primary.SPEC)
-    root = primary.RUN / str(cfg["seed"]) / arm
+    root = fit_directory(arm, until)
     deck = unpack(ROWS)
     assert (
         1 <= until <= cfg["steps"]
         and len(deck) * cfg["epochs"] == cfg["steps"] * cfg["batch"]
     )
     with worker("fit", f"layerwise/{arm}/{until}") as guard:
+        if (
+            not (root / "latest.json").exists()
+            and root != primary.RUN / str(cfg["seed"]) / arm
+        ):
+            import os
+            import tempfile
+            from shutil import copytree
+
+            boundary = primary.RUN / str(cfg["seed"]) / arm / "step-0144"
+            state = read(boundary / "state.json")
+            assert state["step"] == 144 and state["identity"]["depth"] == 3
+            root.mkdir(parents=True, exist_ok=True)
+            if not (root / boundary.name).exists():
+                with tempfile.TemporaryDirectory(dir=root) as tmp:
+                    copied = Path(tmp) / boundary.name
+                    copytree(boundary, copied, copy_function=os.link)
+                    copied.rename(root / boundary.name)
         material = reconcile(root)
         st = read(root / material["path"] / "state.json")
         ident = st["identity"]

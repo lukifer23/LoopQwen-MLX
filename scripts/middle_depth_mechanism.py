@@ -104,7 +104,9 @@ def work(step):
     rows = {r["id"]: r for r in unpack(ROWS)}
     rec = []
     for arm in ("ordinary", "loop"):
-        p = Path("checkpoints/middle-depth/4619") / arm
+        from scripts.middle_depth_recover import fit_directory
+
+        p = fit_directory(arm, step)
         state = p / f"step-{step:04d}" / "state.json"
         st = read(state)
         assert st["step"] == step

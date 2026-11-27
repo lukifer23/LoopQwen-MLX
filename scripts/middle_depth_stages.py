@@ -7,6 +7,7 @@ from statistics import fmean
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from scripts.middle_depth_budget import ROOT
+from scripts.middle_depth_recover import fit_directory
 from scripts.middle_depth_wave import dispatch, fit, generate
 
 ARMS = ("ordinary", "loop")
@@ -44,7 +45,7 @@ def select_history():
         arm: (
             RUN / "correction" / "actual" / arm / "step-0032"
             if chosen
-            else RUN / "4619" / arm / "step-0576"
+            else fit_directory(arm) / "step-0576"
         )
         for arm in ARMS
     }

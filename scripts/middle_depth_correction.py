@@ -134,7 +134,9 @@ def material():
 
 
 def fit(arm, condition):
-    parent = RUN / "4619" / arm / "step-0576"
+    from scripts.middle_depth_recover import fit_directory
+
+    parent = fit_directory(arm) / "step-0576"
     dest = RUN / "correction" / condition / arm
     spec = read(SPEC)
     seed = spec["seed"]

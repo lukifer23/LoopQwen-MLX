@@ -6,6 +6,17 @@ from pathlib import Path
 from loopqwen.io import digest, read, save
 
 
+def fit_directory(arm, step=576):
+    original = Path("checkpoints/middle-depth/4619") / arm
+    if (
+        arm == "loop"
+        and step > 144
+        and Path("research/diagnostics/middle-depth/matched-adjoint.md").is_file()
+    ):
+        return Path("checkpoints/middle-depth/matched-4619") / arm
+    return original
+
+
 def reconcile(folder):
     folder = Path(folder)
     pointer = folder / "latest.json"
@@ -64,6 +75,7 @@ def reconcile(folder):
 
 if __name__ == "__main__":
     import argparse
+
     from loopqwen.worker import acquire
 
     p = argparse.ArgumentParser()

@@ -8,6 +8,7 @@ from pathlib import Path
 
 from loopqwen.io import read
 from scripts.middle_depth_budget import ROOT, recover_charge
+from scripts.middle_depth_recover import fit_directory
 
 
 def dispatch(module, *args):
@@ -52,7 +53,7 @@ def dispatch(module, *args):
 
 
 def fit(arm, step):
-    folder = Path("checkpoints/middle-depth/4619") / arm
+    folder = fit_directory(arm, step)
     subprocess.run(
         [sys.executable, "-m", "scripts.middle_depth_recover", str(folder)], check=True
     )
