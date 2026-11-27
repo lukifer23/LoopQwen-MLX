@@ -72,6 +72,14 @@ The two arms share the reasoning-enabled chat template, greedy generation, 512-t
 #m.context The replicated, matched-depth induction result also belongs to a separate K3 model. The requirements for a replacement remain a repeatable improvement on human reasoning, usable functions, resource costs and retained long-context behavior in the same released weights. The public evaluation material may also have appeared in the original pretraining corpora, whose complete contents we cannot inspect. Generated explanations provide evidence about behavior. They alone cannot identify the hidden computations responsible for a verdict.
 
 #pagebreak()
+= Where the project has gained ground
+#figure(image("proof-curriculum-system-inventory.svg",width:100%),caption:[All #m.systems system comparisons in the earlier paper inventory and its subsequent reading studies. Each point compares that configuration with ordinary Base on its own enrolled stream. Right of zero means more successful tasks. Above one means less elapsed time. “First wait” uses the reported first-token metric for that stream. Overlapping points include two-item context studies.])
+
+Endpoints include complete conversations, correct numerical answers and changed-register retrieval. The CSV identifies the outcome, denominator, configuration and release decision for every point. These point estimates come from different experiments and some reuse data or weights. They do not estimate an average improvement for one model.
+
+The clearest replicated causal result uses two independent 64-item three-fact induction panels. K3 answered 124 of 128 correctly and the equally supervised K1 control answered 58. Removing the eight ambiguous cases gives 120 versus 55 on 120 cases. Tool use and 128K deployment have separate qualification histories. For example, the released changed-register replay measured two distinct values at 131,084 actual prompt tokens. The broad field replacement requires the same candidate to satisfy all of its direct tests.
+
+#pagebreak()
 = Relation to other work
 Hsieh and colleagues use large-model explanations as additional supervision for small models. Our first 4B teacher missed the minimum number of usable uncertain explanations. The present fit uses original human or independently verified formal supervision. Tafjord, Dalvi and Clark study proof generation over controlled rule systems. Here their open-world training theories supply checkable derivations, while held human FOLIO stories and package requests test transfer. #link("https://aclanthology.org/2023.findings-acl.507/")[Distilling Step-by-Step] · #link("https://aclanthology.org/2021.findings-acl.317/")[ProofWriter] · #link("https://aclanthology.org/2024.emnlp-main.1229/")[FOLIO].
 

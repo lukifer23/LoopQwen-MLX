@@ -12,6 +12,7 @@ import numpy as np
 from loopqwen.io import read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.proof_curriculum_reading import STUDY, extract, report
+from scripts.proof_curriculum_systems import generate as generate_inventory
 
 P = Path("paper")
 GREEN = "#126c5d"
@@ -236,6 +237,7 @@ def build():
         "completion_analysis": f"Both arms completed {get('candidate', 'jointly_completed')}/72 logical judgments. On that selected subset the loop grounded {get('candidate', 'grounded_when_both_complete')} and Base {get('control', 'grounded_when_both_complete')}. At least one turn reached the allowance on {get('candidate', 'capped')} loop requests and {get('control', 'capped')} Base requests. Among 24 story/view groups, the loop emitted all three distinct verdicts in {get('candidate', 'three_different_verdicts')} groups and Base in {get('control', 'three_different_verdicts')}.",
         "context": "Release 05 separately retrieved both changed keys with 131,084 actual prompt tokens. The physical long-context result belongs to that qualified release. The present proof-supervised checkpoint has its own acceptance and verification record.",
     }
+    data["systems"] = generate_inventory(P)
     save(P / "proof-curriculum-paper.json", data)
     edition(P, "proof-curriculum")
 

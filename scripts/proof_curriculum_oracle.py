@@ -1,9 +1,12 @@
 """Solve the publisher's open-world rule programs again with Z3's Datalog engine."""
 
+import argparse
+import gzip
 import hashlib
 import json
 import re
 from collections import Counter
+from contextlib import ExitStack
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -73,18 +76,39 @@ def solve(world, question):
     )
 
 
-def run():
+def run(compact=False):
     spec = json.loads(
         Path("research/experiments/proof-curriculum-01.json").read_bytes()
     )
     corpus = Path(spec["training"])
     material = json.loads(corpus.read_bytes())
     original = Path("data/research_external/proofwriter-V2020.12.3.zip")
-    with original.open("rb") as f:
-        assert hashlib.file_digest(f, "sha256").hexdigest() == spec["sources"]["sha256"]
     selected = {r["theory"]: r for r in material["proof"]}
     trace = []
-    with ZipFile(original) as z, z.open(spec["sources"]["member"]) as stream:
+    with ExitStack() as stack:
+        if compact:
+            root = Path(
+                "research/sources/proof-curriculum/proofwriter-train-worlds.jsonl.gz"
+            )
+            inventory = json.loads(
+                Path(
+                    "docs/measurements/proof-curriculum-curated-sources.json"
+                ).read_bytes()
+            )["proofwriter"]
+            assert (
+                hashlib.sha256(root.read_bytes()).hexdigest()
+                == inventory["selected_original_lines"]
+            )
+            assert inventory["full_zip_sha256"] == spec["sources"]["sha256"]
+            stream = stack.enter_context(gzip.open(root, "rb"))
+        else:
+            with original.open("rb") as f:
+                assert (
+                    hashlib.file_digest(f, "sha256").hexdigest()
+                    == spec["sources"]["sha256"]
+                )
+            archive = stack.enter_context(ZipFile(original))
+            stream = stack.enter_context(archive.open(spec["sources"]["member"]))
         for line in stream:
             w = json.loads(line)
             if w["id"] not in selected:
@@ -124,4 +148,10 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument(
+        "--compact",
+        action="store_true",
+        help="Verify byte-preserved original sampled records from the research bundle",
+    )
+    run(p.parse_args().compact)

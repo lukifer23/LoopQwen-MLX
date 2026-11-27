@@ -80,3 +80,5 @@ python -m scripts.proof_curriculum_exposure --study-dir outputs/research/proof-c
 ```
 
 To verify the published primary result from the restored source and dependencies, run `python scripts/research_archive.py proof-curriculum-01 --verify`. The independent proof and minimal-support solvers use the isolated environment `uv run --isolated --no-project --python 3.12 --with z3-solver==4.15.4.0 python` followed by `scripts/proof_curriculum_oracle.py` or `scripts/proof_curriculum_support.py`. Neither solver runs inside model generation.
+
+The restored source includes byte-preserved original records for all 192 selected ProofWriter worlds, the complete annotation fields for 384 e-SNLI examples and the unmodified FOLIO development file under `research/sources/proof-curriculum/`. To repeat the independent signed proof solver from that compact copy, pass `--compact` to `scripts/proof_curriculum_oracle.py`. Reconstruction of the original sampling from the entire population still uses the pinned full upstream archives.

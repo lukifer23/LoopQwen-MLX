@@ -177,6 +177,17 @@ def main(verify):
 
     proof = ROOT / "research/results/proof-curriculum-01/decision.json"
     if proof.is_file() and "arms" in read(proof):
+        if verify:
+            subprocess.run(
+                [sys.executable, "-m", "scripts.proof_curriculum_sources"],
+                cwd=ROOT,
+                check=True,
+            )
+            subprocess.run(
+                [sys.executable, "-m", "scripts.proof_curriculum_readout", "--verify"],
+                cwd=ROOT,
+                check=True,
+            )
         for args in (
             ["scripts.file_evidence_checkpoints", "--proof-curriculum"],
             ["scripts.proof_curriculum_exposure"],
