@@ -16,3 +16,19 @@ Offline reproduction uses the enclosed raw sources. Adding `--acquire` fetches t
 ```sh
 .venv/bin/python -m scripts.locale_context_material
 ```
+
+The installed comparison uses one ordinary greedy turn with a 384-token output allowance, reasoning enabled, no tools, an absolute checkpoint path and an absolute policy path. The trace verifier checks the exact initial ID vector, each generated sequence and terminal status, and full physical retention at all native attention sites on both arms. It reports strict case- and spacing-sensitive answers, both versions correct per locale, actual times, opening and decoding rates, and native allocation. A new model must qualify through its registered primary before these field requests are scored.
+
+```sh
+.venv/bin/python -m scripts.locale_context_trace inputs /tmp/loopqwen-locale
+```
+
+For each of the four input stems, run the installed CLI from the qualified release environment. Supply its full archive path as the policy so the verifier can check the weight and registration digests. Capture the full JSON trace as the corresponding `.json` in the same directory.
+
+```sh
+loopqwen ask --checkpoint "$release" --session-policy "$policy" --tool-format qwen \
+  --prompt-file "/tmp/loopqwen-locale/$stem.txt" --max-turns 1 --max-tokens 384 \
+  --trace --compare-base --cache-state-prefill > "/tmp/loopqwen-locale/$stem.json"
+.venv/bin/python -m scripts.locale_context_trace verify /tmp/loopqwen-locale \
+  --checkpoint "$release" --policy "$policy" --receipt /tmp/loopqwen-locale-results.json
+```

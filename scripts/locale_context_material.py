@@ -52,6 +52,12 @@ FIELDS = {
 }
 
 
+def request(locale, xml):
+    filename = "common/main/" + locale + ".xml"
+    question = FIELDS[locale][2]
+    return f"Here is the complete {filename} file.\n\n{xml}\nEnd of file.\n\n{question}"
+
+
 def material(acquire=False, write=False):
     tok = tokenizer({"checkpoint": "exports/tool-language-packed-05"})
     rows = []
@@ -82,7 +88,7 @@ def material(acquire=False, write=False):
             pattern = patterns[0].text
             answer = pattern.format(2)
             answers.append(answer)
-            user = f"Here is the complete {filename} file.\n\n{xml}\nEnd of file.\n\n{question}"
+            user = request(locale, xml)
             chat = render(tok, [{"role": "user", "content": user}], [])
             assert chat.count(xml) == 1 and answer not in chat
             encoded = tok._tokenizer(
