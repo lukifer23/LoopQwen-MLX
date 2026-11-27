@@ -1,0 +1,35 @@
+{
+  "original_plan": "ac9a0f7237498b41d626fe1d2049e0d7df5102855e265c9f336fc08033713a6c",
+  "original_implementation": {
+    "scripts/full_document_adjoint.py": "aaba4f06b3c8f86b89748f15403419eefbd5b12ce92509d0e84c5489ae5bd299",
+    "loopqwen/frozen_memory_attention.py": "71be862bbdbe7dbbccc5b3cebd294a5eea163e182b8b15c4457009625054f7e9",
+    "loopqwen/content_read.py": "5df9a4304bf04d92d2f78afdb9bd60d95a9ca8c5785ad3149f01f1c59a5c2d23",
+    "loopqwen/shared_query.py": "aab7a44041f78947686d1f6e8c7f59b12bf74b7274bafdd402099e489b770106"
+  },
+  "implementation": {
+    "scripts/full_document_adjoint.py": "0bd4c10074519c57195858a4ff8087f737b1ab9df7f41d0b88fbff9b4c74a13c",
+    "loopqwen/frozen_memory_attention.py": "dcfade522384bb76683ec149a96a548803316e1e26b62d6e7b9b3cd900bad84c",
+    "loopqwen/content_read.py": "5df9a4304bf04d92d2f78afdb9bd60d95a9ca8c5785ad3149f01f1c59a5c2d23",
+    "loopqwen/shared_query.py": "aab7a44041f78947686d1f6e8c7f59b12bf74b7274bafdd402099e489b770106"
+  },
+  "charged_seconds": 4,
+  "first_attempt_trace": [
+    "Traceback (most recent call last):",
+    "  File \"<frozen runpy>\", line 198, in _run_module_as_main",
+    "  File \"<frozen runpy>\", line 88, in _run_code",
+    "  File \"/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/scripts/full_document_adjoint.py\", line 240, in <module>",
+    "    run(parser.parse_args().action == \"register\")",
+    "  File \"/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/scripts/full_document_adjoint.py\", line 182, in run",
+    "    (total, ce, ad), g = div(net.step, args)",
+    "                         ^^^^^^^^^^^^^^^^^^^",
+    "  File \"/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/.venv/lib/python3.12/site-packages/mlx/nn/utils.py\", line 35, in wrapped_value_grad_fn",
+    "    value, grad = value_grad_fn(model.trainable_parameters(), *args, **kwargs)",
+    "                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^",
+    "  File \"/Users/admin/Downloads/CodeProjects/LoopQwen-MLX/loopqwen/frozen_memory_attention.py\", line 64, in query_gradient",
+    "    mx.eval(maxima)",
+    "RuntimeError: [scaled_dot_product_attention] the vector kernels do not produce a logsumexp; the VJP path requires the full-attention kernel."
+  ],
+  "completed_updates": 0,
+  "held_evaluated": false,
+  "reason": "The separate 2-case derivative test passed, but the first full-model nested differentiated path triggered an unsupported fused short-query vector-kernel VJP. Preserve the registered initialization, targets, inputs, split, thresholds and optimizer. Use exact native blockwise softmax both forwards and backwards during differentiation. Deployment and measurements outside differentiation retain the fused evaluation path. The first run log extended from UTC 18:35:35 to 18:35:37; reserve four seconds against the original 900-second cap. Original peak memory was not recorded on this exception."
+}

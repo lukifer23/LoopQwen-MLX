@@ -23,3 +23,21 @@ def test_frozen_memory_adjoint_all_heads_chunks_and_single_or_causal_suffix():
         b, db = mx.value_and_grad(streamed)(q)
         assert mx.allclose(a, b, rtol=1e-5, atol=1e-5).item()
         assert mx.allclose(da, db, rtol=3e-5, atol=2e-6).item()
+
+
+def test_nested_short_query_reads_match_dense_forward_and_backward():
+    acquire()
+    mx.random.seed(82)
+    k = mx.random.normal((1, 2, 73, 64)).astype(mx.float16)
+    v = mx.random.normal(k.shape).astype(mx.float16)
+    q = mx.random.normal((1, 4, 8, 64)).astype(mx.float16)
+
+    def loss(z, fn):
+        a = fn(z, k, v, 0.125, "causal")
+        b = fn(a + z, k, v, 0.125, "causal")
+        return b.astype(mx.float32).square().sum()
+
+    exact, gradient = mx.value_and_grad(lambda z: loss(z, differentiable_attention))(q)
+    actual, derivative = mx.value_and_grad(lambda z: loss(z, frozen_attention))(q)
+    assert mx.allclose(exact, actual, atol=0.01, rtol=0.001).item()
+    assert mx.allclose(gradient, derivative, atol=0.002, rtol=0.003).item()

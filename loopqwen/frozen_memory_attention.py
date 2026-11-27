@@ -52,7 +52,23 @@ def frozen_attention(q, k, v, scale, mask, *, chunk_size=2048):
 
     @mx.custom_function
     def forward(query):
-        return mx.fast.scaled_dot_product_attention(query, k, v, scale=scale, mask=mask)
+        # A traced short Metal SDPA can request an unsupported log-normalizer
+        # even under a custom derivative when its output feeds the next visit.
+        shape = (b, groups, heads // groups, length, 1)
+        largest = mx.full(shape, mx.finfo(mx.float32).min)
+        partition = mx.zeros(shape)
+        weighted = mx.zeros((*shape[:-1], d))
+        for first, last, _, scores in blocks(query):
+            new_largest = mx.maximum(largest, scores.max(axis=-1, keepdims=True))
+            previous = mx.exp(largest - new_largest)
+            weights = mx.exp(scores - new_largest)
+            values = v[:, :, None, first:last].astype(mx.float32)
+            weighted = previous * weighted + weights @ values
+            partition = previous * partition + weights.sum(axis=-1, keepdims=True)
+            largest = new_largest
+            mx.eval(weighted, partition, largest)
+        result = weighted / mx.where(partition > 0, partition, 1)
+        return result.reshape(query.shape).astype(query.dtype)
 
     @forward.vjp
     def query_gradient(query, upstream, _result):

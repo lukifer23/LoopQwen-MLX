@@ -68,8 +68,14 @@ def run(register):
         persist(PLAN, s)
         return
     committed(PLAN)
-    assert s == read(PLAN) and not OUT.exists()
-    start = monotonic()
+    correction = Path("research/diagnostics/full-document-adjoint-kernel.json")
+    committed(correction)
+    fix = read(correction)
+    original = read(PLAN)
+    assert fix["original_plan"] == digest(PLAN)
+    assert fix["implementation"] == s["implementation"]
+    assert {**original, "implementation": s["implementation"]} == s and not OUT.exists()
+    start = monotonic() - fix["charged_seconds"]
     next_check = 0
 
     def guard():
@@ -226,6 +232,7 @@ def run(register):
         dict(
             **result,
             plan=digest(PLAN),
+            correction=digest(correction),
             history=history,
             detail=detail,
             seconds=monotonic() - start,
