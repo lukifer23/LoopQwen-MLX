@@ -1,0 +1,41 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "passes": 2,
+  "revisits": 2,
+  "id": "content-read-transfer-01",
+  "fit_stage": "content-read-fit-01",
+  "material": "research/sources/content-read/held.json.gz",
+  "sources": {
+    "research/sources/content-read/inventory.json": "14a55ed7f2635b49a101c751ed96ea2c0c5d9062fc9bca10a0b360a63e956210",
+    "research/sources/content-read/training.json.gz": "cbc83580edbc308833cef5bb30f9bc9b049936f1cf8172c4f13c4ff92d01255b",
+    "research/sources/content-read/held.json.gz": "8db0a80bd5441448e4e1616860c7ef477a70c84ac894338e321e8091ed5fa8c0",
+    "research/sources/native-tool-histories/training.json": "9efcd1feeeefc4bdc4bfa1d7a0923930ca9a491c711f520e2e6493189837b05f",
+    "research/sources/repair-query/verified-training.json.gz": "427775bf9e4124f8c71a4a7ebcb25e07f814a387035fd98c6276e9d33cd98f39",
+    "research/results/learner-prefix-fit-01/checksums.json": "b146ad085c1c901cad4767aa5f5c7d9e10242cc502f29bd6168045dcdfa3229d",
+    "docs/measurements/learner-prefix-calculator-audit.json": "1f0cd06734a37f14a85a0230ba58b0ff45fcd2c7863b44e016923482ee2c4626",
+    "research/sources/content-read/tokens.json.gz": "6a549ed7951d3a2f3e866d2f2dac6702170ffa84391028eeeaf1a86edf1adba4",
+    "research/diagnostics/content-read-direct.json": "3e625be61d7a4aa836562cbc34e93cb125dc3cefd914a6a912cf43213dd6b388",
+    "research/experiments/content-read-fit-01.json": "971c2e2924cddb590379526f5ed583cd9fb63caa325766fa427c6de9597b7be2"
+  },
+  "limits": {
+    "wall_seconds": 3000,
+    "peak_gib": 3,
+    "available_gib": 1.5
+  },
+  "seconds_per_arm": 1500,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "context_turns": 1,
+  "question": "Can the tied content reader generalize to new source-grounded explanations and correct executed arithmetic?",
+  "protocol": "One direct comparison on all 24 original HotpotQA yes/no comparison questions, using all ten published distractor-context passages, and 24 previously unused TAT-QA development tables. Both get the identical opening token IDs, official reasoning-enabled template, ordered requests, greedy unforced generation, 384 tokens per turn and three turns, and the same actual calculator when applicable. Preserve every emitted token, observation, completion and source answer. Grade masked original responses first. No annotated facts, evidence indices, source parser, model selection or externally supplied thought in deployment. Within each family require six net new strict successes and six net new fully usable grounded answers, with zero lost prior successes and two-sided exact paired p<=0.05 on both endpoints. Require no increase in unsupported replies or missed completions per family. Require lower peak MLX, total wall and summed first-token seconds and higher opening and decode tokens/s; a miss closes downstream confirmation. At a pass separately verify the same digest on long full sources, broad retention, real SQL error histories, same-donor equally trained ordinary depth and another seed.",
+  "content_read": true
+}

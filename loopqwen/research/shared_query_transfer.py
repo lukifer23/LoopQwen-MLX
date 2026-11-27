@@ -269,16 +269,17 @@ def run(name=PRIMARY):
     fit = RESULTS / s.get("fit_stage", FIT)
     if not read(fit / "decision.json")["passed"]:
         raise ValueError("The tied-query fit missed its registered prerequisite")
-    if s.get("field_history") or name == "learner-prefix-transfer-01":
+    if s.get("field_history") or name == "learner-prefix-transfer-01" or s.get("content_read"):
         cold = read(Path("docs/measurements") / (s["fit_stage"] + "-cold.json"))
         assert cold["fit"] == digest(fit / "checksums.json")
-        if name == "learner-prefix-transfer-01":
+        if name == "learner-prefix-transfer-01" or s.get("content_read"):
             assert cold["passed"] and cold["paths"] == 3
     root = root_for(s)
     capture(
         root,
         (
             *SOURCES,
+            *(("loopqwen/content_read.py",) if s.get("content_read") else ()),
             "loopqwen/research/shared_query_fit.py",
             "loopqwen/research/shared_query_transfer.py",
             "loopqwen/research/native_function_study.py",

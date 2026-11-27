@@ -21,7 +21,7 @@ RATINGS = DOC / "shared-query-blinded-ratings.json"
 REPORT = DOC / "shared-query-reading.json"
 
 
-def run(mode, *, repair=False, staged=False, learner=False):
+def run(mode, *, repair=False, staged=False, learner=False, content=False):
     panel, plan, stage = PANEL, PLAN, PRIMARY
     mask_path, rating_path, report_path = MASK, RATINGS, REPORT
     if learner:
@@ -31,6 +31,12 @@ def run(mode, *, repair=False, staged=False, learner=False):
         mask_path = DOC / "learner-prefix-blinded.json"
         rating_path = DOC / "learner-prefix-blinded-ratings.json"
         report_path = DOC / "learner-prefix-reading.json"
+    if content:
+        from scripts.register_content_read import PANEL as panel, PLAN as plan, PRIMARY as stage
+
+        mask_path = DOC / "content-read-blinded.json"
+        rating_path = DOC / "content-read-blinded-ratings.json"
+        report_path = DOC / "content-read-reading.json"
     if repair or staged:
         from scripts.register_repair_query import (
             PANEL as panel,
@@ -194,5 +200,6 @@ if __name__ == "__main__":
     cohort.add_argument("--repair", action="store_true")
     cohort.add_argument("--staged", action="store_true")
     cohort.add_argument("--learner", action="store_true")
+    cohort.add_argument("--content", action="store_true")
     a = p.parse_args()
-    run(a.mode, repair=a.repair, staged=a.staged, learner=a.learner)
+    run(a.mode, repair=a.repair, staged=a.staged, learner=a.learner, content=a.content)
