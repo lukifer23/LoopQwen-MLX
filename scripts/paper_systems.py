@@ -7,6 +7,15 @@ def write(paper, results, result):
     # Each row names exactly one candidate, denominator and semantic endpoint.
     rows = [
         (
+            "report-action-field-01",
+            "Actions by question",
+            "strict dialogues",
+            98,
+            "candidate",
+            "control",
+            "strict",
+        ),
+        (
             "book-conversation-field-01",
             "Books and live files",
             "operational",
@@ -288,6 +297,7 @@ def write(paper, results, result):
                 "observation-review-01",
                 "document-frequency-reader-01",
                 "question-contrast-01",
+                "report-action-field-01",
             ):
                 arms = {}
                 for side in (first, second):

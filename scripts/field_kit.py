@@ -18,6 +18,7 @@ from verify_runtime_wheel import CODE, ROOT, trace
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
+from loopqwen.research.native_function_study import executions
 
 SOURCE_REVISION = "22d49272762904e5c38a4b9e22587651172e0a27"
 
@@ -27,6 +28,7 @@ STUDIES = (
     "question-contrast-01",
     "conversation-document-prefill-01",
     "book-conversation-field-01",
+    "report-action-field-01",
 )
 
 
@@ -69,6 +71,33 @@ def entries():
                 relative = p.relative_to(folder).as_posix()
                 assert relative == "checksums.json" or digest(p) == index[relative]
                 records["studies/" + name + "/" + relative] = p
+    reporting = read(ROOT / "research/data/report-action-training.json")
+    financial = ROOT / "data/research_external/tatqa"
+    for split, sha in reporting["sources"].items():
+        document = financial / ("tatqa_dataset_" + split + ".json")
+        assert digest(document) == sha
+        records[document.relative_to(ROOT).as_posix()] = document
+    for name, expected in (
+        ("LICENSE", "46e27ffbc49c3fd44a9595c2213f8a5f4319a81b53238e49ce1eec39e7e25662"),
+        (
+            "README.md",
+            "85c398173d771a2531abea5b81f3696914296642da2af78c2c34545715c14d5f",
+        ),
+    ):
+        notice = ROOT / "docs/sources/tatqa" / name
+        assert digest(notice) == expected
+        records[(financial / name).relative_to(ROOT).as_posix()] = notice
+    panel = read(ROOT / "research/data/report-action-panel.json")
+    for domain in ("report", "distribution"):
+        row = next(
+            r for r in panel["rows"] if r["family"] == domain and r["expression"]
+        )
+        records["examples/" + domain + "-question.txt"] = row["questions"][0].encode()
+    locked = subprocess.check_output(
+        ["git", "show", panel["lock_revision"] + ":uv.lock"], cwd=ROOT
+    )
+    assert hashlib.sha256(locked).hexdigest() == panel["lock_sha256"]
+    records["examples/distribution-inventory.lock"] = locked
     for p in sorted((ROOT / "paper").iterdir()):
         if p.is_file() and p.suffix in {".pdf", ".csv", ".svg", ".typ", ".md", ".json"}:
             records["paper/" + p.name] = p
@@ -252,73 +281,94 @@ def main():
             ROOT / "research/results/packed-release-retention-04/export-files.json"
         )
         assert all(digest(restored / p) == h for p, h in original.items())
-        trial = work / "studies/question-contrast-01"
-        candidate = unpack(trial / "candidate.json.gz")
-        control = unpack(trial / "control.json.gz")
-        idx = next(
-            i
-            for i, r in enumerate(candidate)
-            if r["family"] == "ASDiv" and r["requests"][0]["score"]["success"]
-        )
-        original_request = read(work / read(trial / "registration.json")["material"])[
-            "rows"
-        ][idx]
-        assert original_request["id"] == candidate[idx]["id"] == control[idx]["id"]
-        args = [
-            "ask",
-            "--checkpoint",
-            "release-05",
-            "--tool-adapter",
-            "studies/question-contrast-01",
-            "--tool-format",
-            "qwen",
-            "--calculator",
-            "--prompt",
-            original_request["questions"][0],
-            "--reuse-prefix",
-            "--compare-base",
-            "--trace",
-            "--max-tokens",
-            "384",
-            "--max-turns",
-            "3",
-        ]
-        raw = json.loads(
-            subprocess.check_output(
-                [python, "-I", "-c", NETWORK_GUARD + CODE, str(site), *args],
-                cwd=work,
-                env=env,
+        examples = []
+        for name, family in (
+            ("question-contrast-01", "ASDiv"),
+            ("report-action-field-01", "report"),
+            ("report-action-field-01", "distribution"),
+        ):
+            trial = work / "studies" / name
+            spec = read(trial / "registration.json")
+            rows = read(work / spec["material"])["rows"]
+            candidate = unpack(trial / "candidate.json.gz")
+            if family == "ASDiv":
+                idx = next(
+                    i
+                    for i, r in enumerate(candidate)
+                    if r["family"] == family and r["requests"][0]["score"]["success"]
+                )
+                prompt = ["--prompt", rows[idx]["questions"][0]]
+            else:
+                idx = next(
+                    i
+                    for i, r in enumerate(rows)
+                    if r["family"] == family and r["expression"]
+                )
+                file = "examples/" + family + "-question.txt"
+                assert (work / file).read_text() == rows[idx]["questions"][0]
+                prompt = ["--prompt-file", file]
+            request = rows[idx]
+            args = [
+                "ask",
+                "--checkpoint",
+                "release-05",
+                "--tool-adapter",
+                "studies/" + name,
+                "--tool-format",
+                "qwen",
+                "--calculator",
+                *prompt,
+                "--reuse-prefix",
+                "--compare-base",
+                "--trace",
+                "--max-tokens",
+                str(spec["max_tokens"]),
+                "--max-turns",
+                str(spec["max_turns"]),
+            ]
+            raw = json.loads(
+                subprocess.check_output(
+                    [python, "-I", "-c", NETWORK_GUARD + CODE, str(site), *args],
+                    cwd=work,
+                    env=env,
+                )
             )
-        )
-        assert (
-            raw["base_source"] == "certified_release_text"
-            and raw["initial_prompt_identical"]
-        )
-        assert all(len(v) == 1 for v in raw["runs"].values())
-        for side, arm in (("recurrent", candidate), ("base", control)):
-            assert trace(raw["runs"][side][0]) == trace(
-                arm[idx]["requests"][0]["trajectory"]
+            assert (
+                raw["base_source"] == "certified_release_text"
+                and raw["initial_prompt_identical"]
             )
-        assert raw["runs"]["recurrent"][0]["answer"] == original_request["gold"]
+            result = {}
+            for side, arm in (
+                ("recurrent", candidate),
+                ("base", unpack(trial / "control.json.gz")),
+            ):
+                assert arm[idx]["id"] == request["id"] and len(raw["runs"][side]) == 1
+                row = raw["runs"][side][0]
+                verified = trace(row)
+                assert verified == trace(arm[idx]["requests"][0]["trajectory"])
+                result[side] = {
+                    "status": row["status"],
+                    "answer": row["answer"],
+                    "trace_sha256": hashlib.sha256(
+                        json.dumps(verified, ensure_ascii=False).encode()
+                    ).hexdigest(),
+                    "calls": executions(row),
+                }
+            if family == "ASDiv":
+                assert result["recurrent"]["answer"] == request["gold"]
+            examples.append(
+                {
+                    "study": name,
+                    "id": request["id"],
+                    "domain": family,
+                    "command": args,
+                    "reference": request["gold"],
+                    "models": result,
+                }
+            )
         assert not any(
             p.suffix in {".bin", ".safetensors"} for p in (tmp / "empty").rglob("*")
         )
-        # Strip the temporary root from the receipt. Arguments inside the kit are all relative.
-        answer = {
-            s: {
-                "answer": rows[0]["answer"],
-                "status": rows[0]["status"],
-                "trace_sha256": hashlib.sha256(
-                    json.dumps(trace(rows[0]), ensure_ascii=False).encode()
-                ).hexdigest(),
-                "calls": [
-                    {k: t[k] for k in ("call", "observation")}
-                    for t in rows[0]["turns"]
-                    if "call" in t and "observation" in t
-                ],
-            }
-            for s, rows in raw["runs"].items()
-        }
         record = {
             "name": target.name,
             "bytes": building.stat().st_size,
@@ -337,9 +387,7 @@ def main():
             ),
             "network_blocked": True,
             "initial_prompt_identical": True,
-            "command": args,
-            "replayed_registered_id": original_request["id"],
-            "example": answer,
+            "verified_examples": examples,
         }
         receipt = ROOT / "docs/measurements/field-kit-01.json"
         if receipt.exists():

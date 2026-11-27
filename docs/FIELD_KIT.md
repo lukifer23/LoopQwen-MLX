@@ -1,6 +1,6 @@
 # LoopQwen offline field kit
 
-The kit contains the qualified release 05 weights, the untouched ordinary Base text weights, the installed Python runtime, five field-study archives and the technical paper. Use an Apple Silicon Mac with Python 3.12 and uv. The kit supplies the locked native MLX runtime and its Python dependencies. The model and tokenizer are local. The kit includes the original software licenses with the restored release.
+The kit contains the qualified release 05 weights, the untouched ordinary Base text weights, the installed Python runtime, six field-study archives and the technical paper. Use an Apple Silicon Mac with Python 3.12 and uv. The kit supplies the locked native MLX runtime and its Python dependencies. The model and tokenizer are local. The kit includes the original software licenses with the restored release.
 
 From the extracted directory, verify the files, create an empty environment, install the supplied wheels and restore the model.
 
@@ -24,6 +24,17 @@ python -m loopqwen generate --checkpoint release-05 \
 
 The verified reference is 7,039 bytes. The loop returned it on the archived run. Base exhausted its output budget. Repeat the command with `examples/complete-tree-next-revision.txt` for the changed file or `examples/complete-lockfile.txt` for the third case. Both complete original books, including their notices, are under `data/research_external/narrativeqa/field-books/`.
 
+## Ask both models a human question about a complete financial report
+
+The two included inputs are the first arithmetic question in the frozen order for each source. One contains a human question, its original table and its paragraphs. The other asks for a difference in sizes from a real package listing. To use the latter, substitute `examples/distribution-question.txt` in the same command.
+
+```sh
+python -m loopqwen ask --checkpoint release-05 --tool-format qwen \
+  --tool-adapter studies/report-action-field-01 --calculator \
+  --prompt-file examples/report-question.txt --reuse-prefix \
+  --max-tokens 320 --max-turns 3 --compare-base --trace
+```
+
 ## Ask the model about an actual file
 
 ```sh
@@ -37,3 +48,5 @@ python -m loopqwen ask --checkpoint release-05 --tool-format qwen \
 The file provider reads the chosen file on disk. Supply a different text file to check your own data. The loop and Base receive the same functions and opening tokens. The trained question-contrast and observation-review weights are experimental. They lost to ordinary Base on fresh reasoning endpoints. The paper gives the registered service scores alongside a recount that handles numbers inside filenames.
 
 Read `paper/loopqwen.pdf` for methods, figures, results and limits. The CSV supplements accompany the paper. Each included study contains its registration, full model outputs, decision and checksums. Frozen training and evaluation manifests are in `research/data/`. The source snapshot with the training and verification programs, tests and dependency lock is in `sources/loopqwen-source.tar.gz`. The registrations identify additional upstream corpora and the adapter parents.
+
+The paired financial questions keep the original tables, paragraphs and questions from Fengbin Zhu and colleagues’ TAT-QA. The kit supplies their unmodified training and development JSON, original notices, and the complete independent software package lock used for the transfer test. The training examples translate verified published arithmetic derivations into native Qwen calculator calls. [TAT-QA paper](https://aclanthology.org/2021.acl-long.254/) · [Dataset license, CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
