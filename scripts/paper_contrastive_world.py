@@ -8,7 +8,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import typst
-from pypdf import PdfReader
+from pypdf import PdfReader, PdfWriter
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
@@ -281,6 +281,27 @@ def build():
     )
     doc = PdfReader(pdf)
     assert all(len(p.extract_text()) > 180 for p in doc.pages)
+    if not seen[-1]["passed"] or len(seen) == len(STAGES):
+        combined = P / "loopqwen-contrastive-world-study.pdf"
+        volume = PdfWriter()
+        volume.add_metadata(
+            {
+                "/Title": "Can a recurrent language model change its answer when the evidence changes?",
+                "/Author": "LoopQwen-MLX",
+            }
+        )
+        volume.append(
+            doc,
+            outline_item="Source-conditioned recurrence: methods and observed results",
+        )
+        previous = PdfReader(P / "loopqwen-conditional-primary-study.pdf")
+        volume.append(
+            previous,
+            outline_item="Earlier direct comparisons, masked reviews, training and architecture",
+        )
+        with combined.open("wb") as writer:
+            volume.write(writer)
+        assert len(PdfReader(combined).pages) == len(doc.pages) + len(previous.pages)
     print(len(seen), "archived stages,", len(doc.pages), "pages")
 
 
