@@ -25,6 +25,14 @@ EDITIONS = {
         "Current study · When only the file changes",
         "Recurrent reasoning, field studies and technical paper",
     ),
+    "cross-view": (
+        "loopqwen-report.pdf",
+        "7b48e85701c2566af36469851ac5daffcd726186ac45e19e51f24122a0a70e69",
+        "loopqwen-study.pdf",
+        "LoopQwen-MLX: cross-view reading, real tools and full-context inference",
+        "Current study · Can the loop read its own tool returns?",
+        "Changed files, independent reasoning and technical paper",
+    ),
 }
 
 
@@ -65,4 +73,9 @@ if __name__ == "__main__":
     p.add_argument("--verify", action="store_true")
     args = p.parse_args()
     for name in EDITIONS:
+        if (
+            name == "cross-view"
+            and not (args.folder / "cross-view-paper.json").is_file()
+        ):
+            continue
         edition(args.folder, name, verify=args.verify)
