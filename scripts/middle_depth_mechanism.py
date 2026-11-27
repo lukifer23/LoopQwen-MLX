@@ -100,12 +100,14 @@ def profile(arm, policy, stage):
         )
 
 
-def work():
+def work(step):
     rows = {r["id"]: r for r in unpack(ROWS)}
     rec = []
     for arm in ("ordinary", "loop"):
         p = Path("checkpoints/middle-depth/4619") / arm
-        st = read(p / read(p / "latest.json")["path"] / "state.json")
+        state = p / f"step-{step:04d}" / "state.json"
+        st = read(state)
+        assert st["step"] == step
         sizes = []
         visits = 0
         for u in st["log"]:
@@ -124,12 +126,13 @@ def work():
                 feature_seconds=sum(r["feature_seconds"] for r in st["log"]),
                 features_created=sum(r["created"] for r in st["log"]),
                 peak=max(r["peak"] for r in st["log"]),
-                last_saved_state=digest(
-                    p / read(p / "latest.json")["path"] / "state.json"
-                ),
+                last_saved_state=digest(state),
             )
         )
-    save(ROOT / "fit-work.json", rec)
+    report = ROOT / ("fit-work.json" if step == 144 else f"fit-work-{step:04d}.json")
+    if report.exists() and read(report) != rec:
+        raise ValueError("Previously recorded matched optimizer work changed")
+    save(report, rec)
 
 
 if __name__ == "__main__":
@@ -138,5 +141,6 @@ if __name__ == "__main__":
     p.add_argument("--arm", choices=("ordinary", "loop"))
     p.add_argument("--policy", type=Path)
     p.add_argument("--stage", default="terminal")
+    p.add_argument("--step", type=int, default=144)
     a = p.parse_args()
-    work() if a.action == "work" else profile(a.arm, a.policy, a.stage)
+    work(a.step) if a.action == "work" else profile(a.arm, a.policy, a.stage)

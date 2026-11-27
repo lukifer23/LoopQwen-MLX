@@ -39,12 +39,12 @@ def run(stage, policies):
                         + "/"
                         + ("original" if world in ("own", "shared") else world)
                     )
-    spec = dict(
-        registration=digest(REG),
-        items=sorted(items),
-        stops=reasons,
-        source_trajectories=hashes,
-    )
+    spec = {
+        "registration": digest(REG),
+        "items": sorted(items),
+        "stops": reasons,
+        "source_trajectories": hashes,
+    }
     if plan.exists() and read(plan) != spec:
         raise ValueError("Changed earlier generations after headroom enrollment")
     save(plan, spec)

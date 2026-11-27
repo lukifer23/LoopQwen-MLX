@@ -237,6 +237,17 @@ def select_long():
         and x["child_short"] >= x["parent_short"]
     )
     paths = {a: RUN / "long" / a for a in ARMS} if keep else selected()
+    # Report the best eligible ordinary sibling as well as the recipe-matched
+    # one. All eligible source groups have the registered equal-family weights.
+    control = evidence["ordinary"]
+    ordinary_macro = {
+        variant: (3 * control[variant + "_short"] + sum(control[variant].values()) / 4)
+        / 4
+        for variant in ("parent", "child")
+    }
+    best_ordinary = (
+        "child" if ordinary_macro["child"] > ordinary_macro["parent"] else "parent"
+    )
     save(
         ROOT / "long-decision.json",
         {
@@ -244,12 +255,55 @@ def select_long():
             "passed": keep,
             "short_stage": "deployed" if keep else policy["stage"],
             "document_stage": "child" if keep else "parent",
+            "ordinary_development_macro": ordinary_macro,
+            "strongest_ordinary": {
+                "long_stage": best_ordinary,
+                "short_stage": "deployed"
+                if best_ordinary == "child"
+                else policy["stage"],
+                "path": str(
+                    RUN / "long" / "ordinary"
+                    if best_ordinary == "child"
+                    else selected()["ordinary"]
+                ),
+            },
             "models": {
                 k: {"path": str(p), "weights": digest(p / "adapters.safetensors")}
                 for k, p in paths.items()
             },
         },
     )
+
+
+def final_decisions():
+    from argparse import Namespace
+
+    from scripts.middle_depth_decision import measure
+
+    chosen = read(ROOT / "long-decision.json")
+    for cap in (128, 512):
+        for control, pair in (
+            ("matched", (chosen["short_stage"], chosen["document_stage"])),
+            (
+                "strongest",
+                (
+                    chosen["strongest_ordinary"]["short_stage"],
+                    chosen["strongest_ordinary"]["long_stage"],
+                ),
+            ),
+        ):
+            measure(
+                Namespace(
+                    name=f"chosen-{control}-{cap}",
+                    cap=cap,
+                    candidate_short=chosen["short_stage"],
+                    candidate_long=chosen["document_stage"],
+                    ordinary_short=pair[0],
+                    ordinary_long=pair[1],
+                    base_short="terminal",
+                    base_long="parent",
+                )
+            )
 
 
 if __name__ == "__main__":
@@ -259,6 +313,7 @@ if __name__ == "__main__":
         "history": select_history,
         "parent-books": short_parent_books,
         "final-books": final_books,
+        "decisions": final_decisions,
         "long-fit": long_fit,
         "children": long_children,
         "select": select_long,

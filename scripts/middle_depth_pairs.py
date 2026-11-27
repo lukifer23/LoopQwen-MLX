@@ -8,6 +8,14 @@ from loopqwen.io import read, save
 from scripts.middle_depth_budget import ROOT
 
 
+def mechanism_item(family, world):
+    return (
+        family == "reasoning"
+        or (family == "tools" and world in ("original", "changed", "irrelevant"))
+        or (family == "chat" and world == "changed")
+    )
+
+
 def result(stage, candidate, control, cap):
     rows = read(ROOT / "review" / stage / "scored.json")
 
@@ -65,16 +73,7 @@ def result(stage, candidate, control, cap):
                 macro=fmean(z["left"] - z["right"] for z in record.values()),
             )
         )
-    mechanisms = [
-        r
-        for r in paired
-        if r["family"] == "reasoning"
-        or (
-            r["family"] == "tools"
-            and r["world"] in ("original", "changed", "irrelevant")
-        )
-        or r["world"] == "changed"
-    ]
+    mechanisms = [r for r in paired if mechanism_item(r["family"], r["world"])]
     regroup = defaultdict(list)
     for r in mechanisms:
         regroup[r["source"]].append(r)

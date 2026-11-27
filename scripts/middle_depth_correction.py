@@ -155,6 +155,9 @@ def fit(arm, condition):
     )
     assert identity["data"] == read(ROOT / "history-material.json")["deck"]
     with worker("fit", f"correction/{arm}/{condition}") as guard:
+        from scripts.middle_depth_recover import reconcile
+
+        reconcile(dest)
         text, _ = donor(BASE, ident["donor"])
         model = architecture(text, depth, seed)
         if (
