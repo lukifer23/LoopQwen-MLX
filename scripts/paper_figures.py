@@ -529,6 +529,9 @@ def main():
     from paper_conversation_prefill import make as conversation_prefill
 
     conversation_prefill(PAPER, RESULTS, result, finish)
+    from paper_book_conversation import make as book_conversation
+
+    book_conversation(PAPER, RESULTS, result, finish)
     from paper_question_contrast import make as question_contrast
 
     question_contrast(PAPER, RESULTS, result, finish)
