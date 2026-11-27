@@ -1,5 +1,6 @@
 """Render the two-read source-repair study from committed qualification, fit and paired outputs."""
 
+import csv
 from collections import Counter, defaultdict
 from pathlib import Path
 from statistics import mean, median
@@ -278,6 +279,48 @@ def collect():
         write_csv(P / "repair-query-requests.csv", rows)
         prefix = "staged-query" if primary.name == STAGED else "repair-query"
         out["reading"] = read(DOC / (prefix + "-reading.json"))
+        distribution = DOC / "staged-query-distribution.json"
+        if prefix == "staged-query" and distribution.exists():
+            committed(distribution)
+            out["distribution"] = read(distribution)
+            source = P / "staged-query-deadlines.csv"
+            committed(source)
+            with source.open() as f:
+                times = list(csv.DictReader(f))
+            fig, axes = plt.subplots(2, 2, figsize=(9, 4.15), layout="constrained")
+            for ax, (family, label) in zip(
+                axes.flat,
+                (
+                    ("strategy", "Human multi-step questions"),
+                    ("report", "Financial reports"),
+                    ("field", "Database histories"),
+                    ("locale", "Complete locale files"),
+                ),
+                strict=True,
+            ):
+                for arm, name, color in (
+                    ("loop", "Loop", "#306f77"),
+                    ("base", "Untouched Base", "#a85c34"),
+                ):
+                    stream = [
+                        r for r in times if (r["family"], r["arm"]) == (family, arm)
+                    ]
+                    ax.step(
+                        [int(r["seconds"]) for r in stream],
+                        [int(r["correct"]) / int(r["n"]) for r in stream],
+                        where="post",
+                        label=name,
+                        color=color,
+                    )
+                ax.set_xscale("log")
+                ax.set_ylim(-0.025, 1.025)
+                ax.set_title(label, fontsize=10)
+                ax.set_xlabel("Deadline per request (seconds)")
+                ax.set_ylabel("Fraction correct")
+                ax.spines[["top", "right"]].set_visible(False)
+            axes[0, 0].legend(fontsize=8)
+            fig.savefig(P / "staged-query-delivery.svg", metadata={"Date": None})
+            plt.close(fig)
     return out
 
 

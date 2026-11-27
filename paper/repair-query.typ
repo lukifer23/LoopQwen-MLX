@@ -135,3 +135,22 @@ The two visits share all parameters. Query and content corrections have rank 160
 
  The public request ledger contains both delivered responses, costs and decisions. Raw archives preserve prompt IDs, emitted tokens, causal history offsets, actual read-only visits and every provider observation. A project assistant performed the masked adjudication. These findings apply to the enrolled sources and conditions.
 ]
+
+#if "distribution" in d [
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Accuracy at user deadlines and variation across sources])
+
+ Every request remains in the denominator. Each point counts correct final answers delivered by that deadline, with measured model loading, opening, tool execution and generation included. Short answers that arrive quickly still need a correct result to contribute.
+
+ #image("staged-query-delivery.svg",width:100%)
+ #text(size:9pt)[Fig. 4. Each panel uses the original workload and scoring. Deadlines are fixed in advance and plotted on a log time axis.]
+
+ #tbl((1.3fr,.7fr,.7fr,.9fr,1.2fr),("Source family","Clusters","Requests","Loop − Base","95% interval"),d.distribution.intervals.filter(x=>x.metric=="correct").map(x=>(
+ x.family,str(x.source_clusters),str(x.n),fmt(100*x.loop_minus_base,n:1)+" pp",
+ fmt(100*x.lower,n:1)+" to "+fmt(100*x.upper,n:1)+" pp")))
+
+ The interval resamples entire database schemas, financial issuers or reasoning topics within each family. Both responses to an item travel together on each of 10,000 draws. Intervals describe variability across the enrolled sources. The two locale clusters are reported individually in the request ledger. The original paired sign-flip tests and masked reading govern the decision. The archived timings reflect the order and thermal state of one Apple Silicon machine.
+
+ #let l=d.distribution.families.all
+ Of #l.both_correct requests answered correctly by both models, the loop finished first on #l.faster_on_both_correct. The loop gained correctness and also finished faster on #l.loop_gained_and_faster requests. It lost correctness and finished slower on #l.loop_lost_and_slower.
+]
