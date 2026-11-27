@@ -423,3 +423,67 @@ def test_plain_four_layer_policy_and_base_cli_prefill_all_physical_sites(tmp_pat
             r["retained"] == r["offset"] == len(ids) + len(turn["token_ids"]) - 1
             for r in turn["kv_history"]
         )
+
+
+@pytest.mark.skipif(
+    not Path(
+        "exports/conditional-reentry-backbone/instruction-all-q4.safetensors"
+    ).is_file()
+    or not Path("research/results/repair-query-fit-01/step.safetensors").is_file(),
+    reason="Requires the local native quantized instruction backbone",
+)
+def test_staged_shared_query_cli_uses_trained_weights_and_complete_histories(tmp_path):
+    from loopqwen.evaluation.mechanism import unpack
+
+    fit = Path("research/results/repair-query-fit-01")
+    spec = json.loads((fit / "registration.json").read_text())
+    rows = unpack(Path(spec["training"]))
+    w = next(r for r in rows if r["group"] == "report_action")
+    assert len(w["messages"]) == 1 and w["messages"][0]["role"] == "user"
+    request = tmp_path / "request.txt"
+    request.write_text(w["messages"][0]["content"])
+    command = [
+        sys.executable,
+        "-m",
+        "loopqwen",
+        "ask",
+        "--checkpoint",
+        spec["checkpoint"],
+        "--session-policy",
+        str(fit),
+        "--tool-format",
+        "qwen",
+        "--calculator",
+        "--prompt-file",
+        str(request),
+        "--max-tokens",
+        "64",
+        "--max-turns",
+        "2",
+        "--trace",
+    ]
+    scratch = tmp_path / "scratch"
+    scratch.mkdir()
+    resident, staged = [
+        json.loads(
+            subprocess.check_output([*command, *flags], text=True, **child_lease())
+        )
+        for flags in ([], ["--staged-context-dir", str(scratch)])
+    ]
+    assert (
+        resident["status"] == staged["status"]
+        and resident["answer"] == staged["answer"]
+    )
+    for a, b in zip(resident["turns"], staged["turns"], strict=True):
+        for field in (
+            "prompt_ids",
+            "token_ids",
+            "kv_history",
+            "call",
+            "observation",
+            "calls",
+            "observations",
+        ):
+            assert a.get(field) == b.get(field)
+        assert b["scratch_bytes"] > 0 and "scratch_bytes" not in a
+    assert not list(scratch.iterdir())
