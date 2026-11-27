@@ -78,6 +78,8 @@ The gates require at least 30 grounded human judgments, 12 net gains, exact pair
 #image("valid-return-milestones.svg",width:100%)
 #cap[Figure 3. The first bar counts successful but irrelevant first operations. The remaining bars show the required lookup, complete ordered evidence and a correct grounded answer. For a wheel the required lookup alone supplies the complete sequence. A weekday also requires a subsequent calendar result.]
 
+#m.dependent_success
+
 #grid(("Family","Loop · valid wrong / recovered","Base · valid wrong / recovered"),m.grounding,(.85fr,1.6fr,1.6fr))
 #cap[Recovery requires that the full expected sequence eventually appears after a successful irrelevant first return. A later correct final label can still be lost if the sequence is incomplete.]
 

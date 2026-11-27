@@ -1,0 +1,5 @@
+{
+  "study": "valid-return-01",
+  "question": "Could two calls emitted in one assistant message receive ordered credit before the model had seen the first observation?",
+  "analysis": "The sealed primary runner flattens batched callbacks in execution order. Before reading either model's outcomes, add a distinct assistant-turn sensitivity. For each necessary callback milestone advance by at most one step per assistant message. Require an actual returned scheduled date in the model's prompt before the generation of its weekday call. Recount all grounded successes and disclose any difference. Any claimed dependent workflow must meet this stronger criterion."
+}

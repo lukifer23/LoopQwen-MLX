@@ -341,6 +341,11 @@ def build():
         P / "valid-return-paper.json",
         {
             "historical_depth": depth,
+            "dependent_success": (
+                f"The registered ordered scorer counted {analyses[0]['agenda']['success']} versus {analyses[1]['agenda']['success']} correct schedule requests. "
+                f"Requiring the model to see the lookup return in its conversation before generating the calendar call gave {analyses[0]['agenda']['turn_dependent_success']} versus {analyses[1]['agenda']['turn_dependent_success']}. "
+                "Parallel calls written in one message cannot meet this additional requirement."
+            ),
             "time_uncertainty": time_text,
             "initial_choices": initial_choices,
             "deadlines": [

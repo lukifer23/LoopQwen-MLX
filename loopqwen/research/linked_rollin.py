@@ -190,6 +190,7 @@ if __name__ == "__main__":
             "loopqwen/research/valid_return_data.py",
             "scripts/valid_return_material.py",
             "loopqwen/evaluation/extractive.py",
+            "loopqwen/evaluation/observed_chain.py",
             "loopqwen/evaluation/generation_eval.py",
             "loopqwen/qwen_tools.py",
         ),

@@ -66,4 +66,4 @@ The independent reader and publication routines also operate on the archived stu
 .venv/bin/python -m scripts.paper_valid_return
 ```
 
-The report uses the original blinded ratings. The ordered-events audit retains every wrong but successful return. A weekday call made before the correct date lookup cannot satisfy the registered requirement. Timing and peak allocation are original measurements on one M3 Pro. The separate portable kit verifier starts from an empty model cache and rebuilds the paper and seven installed pairs with network access blocked.
+The report uses the original blinded ratings. The ordered-events audit retains every wrong but successful return. A weekday call made before the correct date lookup cannot satisfy the registered requirement. The additional message-level sensitivity also excludes calendar calls issued in the same assistant message as the original lookup. Timing and peak allocation are original measurements on one M3 Pro. The separate portable kit verifier starts from an empty model cache and rebuilds the paper and seven installed pairs with network access blocked.

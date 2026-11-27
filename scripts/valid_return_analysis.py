@@ -11,6 +11,7 @@ from pathlib import Path
 import numpy as np
 
 from loopqwen.evaluation.mechanism import unpack
+from loopqwen.evaluation.observed_chain import progress
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.research.cross_view_study import tokenizer
@@ -114,7 +115,19 @@ def rows_and_blind(root):
                 assert score["success"] == bool(
                     score["completed"] and proper and score.get("verdict") == w["gold"]
                 )
+            observed_steps = progress(
+                [executions({"turns": [t]}) for t in tr["turns"]],
+                len(expected),
+                lambda pos, e: e == expected[pos],
+            )
             fields = {
+                "turn_dependent_grounding": bool(
+                    expected and observed_steps == len(expected)
+                ),
+                "turn_dependent_success": bool(
+                    score["success"]
+                    and (not expected or observed_steps == len(expected))
+                ),
                 "success": score["success"],
                 "complete": score["completed"],
                 "verdict": score.get("verdict") or "none",
@@ -246,6 +259,8 @@ def report(rows, ratings):
                     "first_valid_wrong",
                     "recovered",
                     "grounded_sequence",
+                    "turn_dependent_grounding",
+                    "turn_dependent_success",
                     "first_milestone",
                     "last_milestone",
                     "bare",

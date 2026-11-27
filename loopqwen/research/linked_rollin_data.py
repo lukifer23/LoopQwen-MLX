@@ -1,9 +1,9 @@
 """Train on source-backed decisions at the actual histories visited by a recurrent decoder."""
 
-
 from .. import qwen_tools
 from ..csv_tools import tools as csv_tools
 from ..evaluation.extractive import score as qa
+from ..evaluation.observed_chain import progress
 from ..io import read
 from ..tool_session import compact
 from .native_function_data import token_pair
@@ -38,12 +38,8 @@ def matched(w, index, e):
     return w["page"] in str(e["observation"].get("value", "")).split(" | ")
 
 
-def reached(w, events):
-    i = 0
-    for e in events:
-        if i < len(w["events"]) and matched(w, i, e):
-            i += 1
-    return i
+def reached(w, event_turns):
+    return progress(event_turns, len(w["events"]), lambda pos, e: matched(w, pos, e))
 
 
 def score(tok, w, i, tr):
@@ -54,7 +50,7 @@ def score(tok, w, i, tr):
     gold = w["gold"]
     answer = (tr["answer"] or "").strip()
     exact, f1 = qa(answer, [gold])
-    observed = reached(w, executions(tr))
+    observed = reached(w, [executions({"turns": [t]}) for t in tr["turns"]])
     grounded = observed == len(w["events"])
     return {
         "completed": done,
@@ -130,7 +126,7 @@ def corrections(w, tr, tok, defs, phase):
                 "visited_milestones": pos,
                 "actual_valid_return": any("value" in e["observation"] for e in acts),
             }
-        observed.extend(acts)
+        observed.append(acts)
         if acts:
             raw = tok.decode(actual[:-1])
             reasoning = raw.partition("</think>")[0].strip()

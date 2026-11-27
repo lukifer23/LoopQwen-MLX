@@ -31,9 +31,15 @@ def test_article_text_and_table_link_must_be_observed_in_order(tmp_path):
             None, w, 0, {"status": "answered", "answer": answer, "turns": events}
         )
 
-    assert reached(w, [expected[1], expected[0]]) == 1
+    assert reached(w, [[expected[1]], [expected[0]]]) == 1
     assert grade([expected[0], wrong], w["gold"])["correct_answer"]
     assert not grade([expected[0], wrong], w["gold"])["success"]
+    batch = {
+        "calls": [e["call"] for e in expected],
+        "observations": [e["observation"] for e in expected],
+    }
+    assert reached(w, [expected]) == 1
+    assert not grade([batch], w["gold"])["success"]
     assert grade([wrong, *expected], w["gold"])["success"]
     assert not grade(expected, "An unrelated place")["success"]
 
