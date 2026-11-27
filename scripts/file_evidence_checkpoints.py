@@ -33,7 +33,11 @@ def verify(root):
         assert hashlib.sha256(source).hexdigest() == expected
     history = read(root / "optimizer-steps.json")
     cross_view = s["id"] == "cross-view-reading-01"
-    proof_fit = s["id"] in ("proof-curriculum-01", "field-selection-01")
+    proof_fit = s["id"] in (
+        "proof-curriculum-01",
+        "field-selection-01",
+        "valid-return-01",
+    )
     interval = 100 if proof_fit else 80 if cross_view else s["checkpoint_interval"]
     steps = list(range(interval, s["updates"], interval)) + [s["updates"]]
     assert [h["step"] for h in history] == steps
@@ -47,6 +51,12 @@ def verify(root):
         key = "explanation_targets" if proof_fit else "teacher_positions"
         assert history[-1][key] == fit[key]
         assert all(0 < a[key] < b[key] for a, b in zip(history, history[1:]))
+    if s["id"] == "valid-return-01":
+        assert history[-1]["rejected_tokens"] == fit["rejected_tokens"]
+        assert all(
+            a["rejected_tokens"] < b["rejected_tokens"]
+            for a, b in zip(history, history[1:])
+        )
     optimizer = root / "optimizer.safetensors"
     assert digest(optimizer) == history[-1]["optimizer_sha256"]
     weights = root / "tool-adapters.safetensors"
@@ -95,8 +105,13 @@ def record(root):
             "cross-view-reading-01",
             "proof-curriculum-01",
             "field-selection-01",
+            "valid-return-01",
         ):
-            proof_fit = spec["id"] in ("proof-curriculum-01", "field-selection-01")
+            proof_fit = spec["id"] in (
+                "proof-curriculum-01",
+                "field-selection-01",
+                "valid-return-01",
+            )
             key = "explanation_targets" if proof_fit else "teacher_positions"
             progress = {
                 "step": state["step"],
@@ -107,6 +122,8 @@ def record(root):
         else:
             assert state["parity"] == read(root / "gradient-parity.json")
             progress = {k: state[k] for k in ("step", "targets", "optimizer_seconds")}
+        if spec["id"] == "valid-return-01":
+            progress["rejected_tokens"] = state["rejected_tokens"]
         assert state["loss"] == [l for l in fit["loss"] if l["step"] <= state["step"]]
         history.append(
             {
@@ -142,10 +159,13 @@ if __name__ == "__main__":
     study.add_argument("--cross-view", action="store_true")
     study.add_argument("--proof-curriculum", action="store_true")
     study.add_argument("--field-selection", action="store_true")
+    study.add_argument("--valid-return", action="store_true")
     args = p.parse_args()
     base = "outputs/research" if args.record else "research/results"
     name = (
-        "field-selection-01"
+        "valid-return-01"
+        if args.valid_return
+        else "field-selection-01"
         if args.field_selection
         else "proof-curriculum-01"
         if args.proof_curriculum
