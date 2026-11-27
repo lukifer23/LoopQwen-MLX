@@ -24,9 +24,9 @@ SOURCES = (
 )
 
 
-def capture(root):
+def capture(root, paths=SOURCES):
     path = root / "environment.json"
-    sources = {k: digest(Path(k)) for k in SOURCES}
+    sources = {k: digest(Path(k)) for k in paths}
     registration = digest(root / "registration.json")
     if path.exists():
         prior = read(path)

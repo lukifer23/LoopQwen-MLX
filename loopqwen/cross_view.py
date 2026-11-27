@@ -36,6 +36,7 @@ def compile_layer(directory, policy):
             "registration": digest(policy / "registration.json"),
             "projections": sorted(weights),
             "bytes": output.stat().st_size,
+            "peak_bytes": mx.get_peak_memory(),
             "seconds": perf_counter() - start,
         },
     )
@@ -85,11 +86,18 @@ class CrossViewAssistant(Assistant):
         quantize_prefix(text, 23, 8)
         tensors = mx.load(str(backbone))
         fused = mx.load(str(weights))
-        if sorted(fused) != compiled["projections"] or any(
-            k not in tensors
-            or v.shape != tensors[k].shape
-            or v.dtype != tensors[k].dtype
-            for k, v in fused.items()
+        expected = sorted(
+            "model.layers.23." + name + ".weight" for name in recipe["projections"]
+        )
+        if (
+            sorted(fused) != expected
+            or compiled["projections"] != expected
+            or any(
+                k not in tensors
+                or v.shape != tensors[k].shape
+                or v.dtype != tensors[k].dtype
+                for k, v in fused.items()
+            )
         ):
             raise ValueError(
                 "The compiled recurrent layer differs from its source graph"

@@ -19,6 +19,7 @@ from ..tool_compare import DenseAssistant
 from ..tool_model import bind
 from .core import Budget
 from .cross_view_fit import fit, teacher
+from .file_evidence_environment import capture
 from .native_function_study import evaluate, executions, fit_messages, replay, summarize
 from .registered import registered
 
@@ -194,17 +195,40 @@ def run():
         assert read(root / "registration.json") == s
     else:
         save(root / "registration.json", s)
+    capture(
+        root,
+        (
+            "loopqwen/research/cross_view_study.py",
+            "loopqwen/research/cross_view_fit.py",
+            "loopqwen/research/file_evidence_fit.py",
+            "loopqwen/research/native_function_study.py",
+            "loopqwen/research/native_function_data.py",
+            "loopqwen/cross_view.py",
+            "loopqwen/interpolated_instruction.py",
+            "loopqwen/looped_model.py",
+            "loopqwen/tool_model.py",
+            "loopqwen/tool_session.py",
+            "loopqwen/tool_compare.py",
+            "scripts/cross_view_material.py",
+            "pyproject.toml",
+            "uv.lock",
+        ),
+    )
     p = read(s["material"])
     budget = Budget(NAME, s["limits"])
     try:
         tok = tokenizer(s)
         teacher(s, tok, root, budget)
+        budget.check()
+        mx.reset_peak_memory()
         if not (root / "fit.json").exists():
             model = bind(None, Path(s["checkpoint"]) / "tool")
             fit_messages(model, tok, s, root, budget, trainer=fit)
             del model
             gc.collect()
             mx.clear_cache()
+        budget.check()
+        mx.reset_peak_memory()
         if not (root / "compiled.json").exists():
             compile_layer(s["checkpoint"], root)
         gc.collect()
