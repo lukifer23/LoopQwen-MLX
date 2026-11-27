@@ -1,15 +1,16 @@
 """Exercise the installed release and shared native-cache paths under the study lease."""
 
 import argparse
+from pathlib import Path
 from time import monotonic
 
 import pytest
 
-from loopqwen.io import save
-from scripts.middle_depth_budget import ROOT, worker
+from loopqwen.io import digest, read, save
+from scripts.middle_depth_budget import ROOT, DevelopmentLimit, worker
 
 
-def run(full=False):
+def run(full=False, module=None):
     files = [
         "tests/test_offloaded_prefill.py",
         "tests/test_reserved_cache.py",
@@ -22,12 +23,27 @@ def run(full=False):
     if full:
         files = ["tests"]
         receipt = "full-regression"
+    if module is not None:
+        testfile = Path(module)
+        if (
+            testfile.parent != Path("tests")
+            or not testfile.is_file()
+            or not testfile.name.startswith("test_")
+        ):
+            raise ValueError("Expected a repository test module")
+        files = [str(testfile)]
+        receipt = "isolated-regression/" + testfile.stem
     with worker("profile", receipt) as guard:
         rows = []
+        stopped = []
 
         class Observe:
             def pytest_runtest_setup(self, item):
-                guard(force=True)
+                try:
+                    guard(force=True)
+                except DevelopmentLimit as error:
+                    stopped.append(error)
+                    pytest.exit("Saved native resource stop", returncode=2)
 
             def pytest_runtest_logreport(self, report):
                 if report.when == "call" or report.failed or report.skipped:
@@ -36,6 +52,12 @@ def run(full=False):
                             "test": report.nodeid,
                             "status": report.outcome,
                             "seconds": report.duration,
+                            "phase": report.when,
+                            **(
+                                {"failure": str(report.longrepr)[-2000:]}
+                                if report.failed
+                                else {}
+                            ),
                         }
                     )
 
@@ -48,13 +70,46 @@ def run(full=False):
                 "tests": rows,
                 "seconds": monotonic() - start,
                 "files": files,
+                "module_sha": digest(Path(module)) if module else None,
+                "stopped": str(stopped[0]) if stopped else None,
             },
         )
+        if stopped:
+            raise stopped[0]
         if code:
             raise RuntimeError(f"Native release regression exit {code}")
+
+
+def isolated():
+    from scripts.middle_depth_wave import dispatch
+
+    suite = sorted(Path("tests").glob("test_*.py"))
+    observations = []
+    for path in suite:
+        result = ROOT / "isolated-regression" / (path.stem + ".json")
+        done = read(result) if result.exists() else {}
+        if not done.get("passed") or done.get("module_sha") != digest(path):
+            dispatch("regression", "--module", path)
+        observations += read(result)["tests"]
+    expected = {r["test"] for r in read(ROOT / "full-regression.json")["tests"]}
+    if {r["test"] for r in observations} != expected:
+        raise ValueError("The rerun and original collected suite differ")
+    save(
+        ROOT / "full-regression-isolated.json",
+        {
+            "passed": all(r["status"] == "passed" for r in observations),
+            "tests": observations,
+            "files": len(suite),
+            "original": digest(ROOT / "full-regression.json"),
+            "method": "One independent native pytest process per module under the same exclusive resource guard.",
+        },
+    )
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--full", action="store_true")
-    run(parser.parse_args().full)
+    parser.add_argument("--module")
+    parser.add_argument("--isolated", action="store_true")
+    a = parser.parse_args()
+    isolated() if a.isolated else run(a.full, a.module)
