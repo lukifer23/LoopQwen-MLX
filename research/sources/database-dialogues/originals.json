@@ -1,0 +1,4338 @@
+{
+  "archive_sha256": "0d6fc424ea914fcbb6728055b847685acc854e16c034b7831c4937bfe18d53bf",
+  "official_source": "https://drive.usercontent.google.com/download?id=1Y3ydpFiQQ3FC0bzdfy3groV95O_f1nXF&export=download&confirm=t",
+  "cohorts": {
+    "train": [
+      {
+        "database": "journal_committee",
+        "member": "cosql_dataset/database/journal_committee/journal_committee.sqlite",
+        "sqlite_sha256": "669e6bc2ca07838e7a3d225b190387fc003e267d3a9fc4ae03056f5699dfae39",
+        "dialogues": [
+          {
+            "source": "vP66rNRf7bXa2keuX",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Hello. What is the name of the youngest editor?"
+              },
+              {
+                "role": "assistant",
+                "content": "The name of the youngest editor is Szymon Wydra."
+              },
+              {
+                "role": "user",
+                "content": "What is the age of the youngest editor?"
+              },
+              {
+                "role": "assistant",
+                "content": "The age of the youngest editor is 20.0"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the name of that editor?",
+                "query": "SELECT name FROM editor ORDER BY Age ASC LIMIT 1",
+                "returned": "Szymon Wydra",
+                "column": "Name",
+                "human_answer": "The name of the youngest editor is Szymon Wydra."
+              },
+              {
+                "question": "Can you tell me the name of the oldest editor as well?",
+                "query": "SELECT name FROM editor ORDER BY Age desc LIMIT 1",
+                "returned": "Gra\u017cyna Wolszczak",
+                "column": "Name",
+                "human_answer": "The name of the oldest editor is Gra\u017cyna Wolszczak"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "railway",
+        "member": "cosql_dataset/database/railway/railway.sqlite",
+        "sqlite_sha256": "8df66ea51b3845868e5fd7b218eeb691cd6792de16ec8536c145d42e16b355fd",
+        "dialogues": [
+          {
+            "source": "p9REhQXffz86zZdk6",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Can you list the names of the locations that have two or more railways?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here is the list of the locations that have two or more railways."
+              },
+              {
+                "role": "user",
+                "content": "When were those built?"
+              },
+              {
+                "role": "assistant",
+                "content": "the locations where have two or more railways were built in 1905 and 1909."
+              },
+              {
+                "role": "user",
+                "content": "What is the location of the most recently built railway?"
+              },
+              {
+                "role": "assistant",
+                "content": "Basingstoke is the location of the most recently built railway."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Who is the builder of the railway built earliest?",
+                "query": "SELECT builder FROM railway order by built asc limit 1",
+                "returned": "SECR Ashford",
+                "column": "Builder",
+                "human_answer": "SECR Ashford is the builder of the railway built earliest."
+              },
+              {
+                "question": "When was that railway built?",
+                "query": "SELECT built FROM railway order by built asc limit 1",
+                "returned": "1901",
+                "column": "Built",
+                "human_answer": "the earliest railway was built in 1901."
+              }
+            ]
+          },
+          {
+            "source": "LaaGAqtQBANviZT5v",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Can you tell me the name of the oldest manager please?"
+              },
+              {
+                "role": "assistant",
+                "content": "the name of the oldest manager is Todd Hamilton"
+              },
+              {
+                "role": "user",
+                "content": "What about the second youngest manager?"
+              },
+              {
+                "role": "assistant",
+                "content": "the name of the second youngest manager is Tiger Woods"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the name of the manager with the earliest working year?",
+                "query": "SELECT Name FROM manager ORDER BY Working_year_starts asc LIMIT 1",
+                "returned": "Sandy Lyle",
+                "column": "Name",
+                "human_answer": "the name of the manager with the earliest working year is Sandy Lyle"
+              },
+              {
+                "question": "Can you list the names of all managers with the highest level?",
+                "query": "SELECT Name FROM manager where level = (select max(level) from manager)",
+                "returned": "Greg Norman",
+                "column": "Name",
+                "human_answer": " the name of the manager with the highest level is Greg Norman"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "college_3",
+        "member": "cosql_dataset/database/college_3/college_3.sqlite",
+        "sqlite_sha256": "9f47b8f927f27a63ba4aa35fcf6cc8360fd68bfd267e6cf05c04430f19cd773e",
+        "dialogues": [
+          {
+            "source": "YpnDTyY2KCMfiNcva",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the maximum grade point of all students who live in NYC?",
+                "query": "SELECT max(T2.gradepoint)  FROM ENROLLED_IN AS T1 JOIN GRADECONVERSION AS T2 JOIN STUDENT AS T3 ON T1.Grade  =  T2.lettergrade AND T1.StuID  =  T3.StuID WHERE T3.city_code  =  \"NYC\"",
+                "returned": 4.0,
+                "column": "max(T2.gradepoint)",
+                "human_answer": " the maximum grade point of all students who live in NYC is 4.0"
+              },
+              {
+                "question": "What is the minimum grade point of all students who live in NYC?",
+                "query": "SELECT min(T2.gradepoint)  FROM ENROLLED_IN AS T1 JOIN GRADECONVERSION AS T2 JOIN STUDENT AS T3 ON T1.Grade  =  T2.lettergrade AND T1.StuID  =  T3.StuID WHERE T3.city_code  =  \"NYC\"",
+                "returned": 2.0,
+                "column": "min(T2.gradepoint)",
+                "human_answer": "the minimum grade point of all students who live in NYC is 2.0"
+              }
+            ]
+          },
+          {
+            "source": "vy4fvp3cyYBngooRk",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What department is the Introduction to Computer Science course in?"
+              },
+              {
+                "role": "assistant",
+                "content": "this shows the department name and room of the course INTRODUCTION TO COMPUTER SCIENCE."
+              },
+              {
+                "role": "user",
+                "content": "Ok, the class will be in Room 224. Do you know who the instructor will be?  "
+              },
+              {
+                "role": "assistant",
+                "content": "the instructor of the course INTRODUCTION TO COMPUTER SCIENCE is 4230"
+              },
+              {
+                "role": "user",
+                "content": "What day is class? "
+              },
+              {
+                "role": "assistant",
+                "content": "the day of the course INTRODUCTION TO COMPUTER SCIENCE is Thursday"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How long is the class? ",
+                "query": "SELECT Hours\t FROM COURSE AS T1 JOIN DEPARTMENT AS T2 ON T1.DNO  =  T2.DNO WHERE T1.CName  =  \"INTRODUCTION TO COMPUTER SCIENCE\"",
+                "returned": "4",
+                "column": "Hours",
+                "human_answer": "the number of hours of the course INTRODUCTION TO COMPUTER SCIENCE is 4"
+              },
+              {
+                "question": "Oh ok, how many credit hours is this course worth?\n",
+                "query": "SELECT Credits\t\t FROM COURSE AS T1 JOIN DEPARTMENT AS T2 ON T1.DNO  =  T2.DNO WHERE T1.CName  =  \"INTRODUCTION TO COMPUTER SCIENCE\"",
+                "returned": 1,
+                "column": "Credits",
+                "human_answer": "the credit of the course INTRODUCTION TO COMPUTER SCIENCE is 1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "protein_institute",
+        "member": "cosql_dataset/database/protein_institute/protein_institute.sqlite",
+        "sqlite_sha256": "b13b84cabf62d1e2a3dfd9f54687acd7df73b8f51e5f7111e9b335c7f0189096",
+        "dialogues": [
+          {
+            "source": "jZfzJMwFkdTxzoMES",
+            "turn": 4,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Do any of these institutions have other institutions?"
+              },
+              {
+                "role": "assistant",
+                "content": "I don't understand your question. Please rephrase."
+              },
+              {
+                "role": "user",
+                "content": "Do any of these institutions (universities, college) have any other affiliated institutions (other university locations) ?"
+              },
+              {
+                "role": "assistant",
+                "content": "Sorry the question cannot be answered from the table."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Which institution type has the largest number of institutions?",
+                "query": "SELECT TYPE FROM institution GROUP BY TYPE ORDER BY count(*) DESC LIMIT 1",
+                "returned": "Private",
+                "column": "Type",
+                "human_answer": "Private is the institution type that has the largest number of institutions."
+              },
+              {
+                "question": "Which institution type has the smallest number of institutions?",
+                "query": "SELECT TYPE FROM institution GROUP BY TYPE ORDER BY count(*) ASC LIMIT 1",
+                "returned": "Tribal",
+                "column": "Type",
+                "human_answer": "Tribal is the institution type with the smallest number of institutions."
+              }
+            ]
+          },
+          {
+            "source": "czHY3NEfFeKDtwiLf",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "which team performed in Ave Maria university ?",
+                "query": "SELECT Team FROM institution WHERE Institution  =  'Ave Maria University'",
+                "returned": "Gyrenes",
+                "column": "Team",
+                "human_answer": "The team that performed in the institution Ave Maria University is Gyrenes."
+              },
+              {
+                "question": "How many number of floors are in Tampa City Hall ? ",
+                "query": "SELECT Floors FROM building WHERE Name  =  'Tampa City Hall'",
+                "returned": 10,
+                "column": "Floors",
+                "human_answer": "There are 10 floors in the building of Tampa City Hall."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "debate",
+        "member": "cosql_dataset/database/debate/debate.sqlite",
+        "sqlite_sha256": "6e9d72cbaf8e3e695a2e8865e6a35ee8c73042ddd651c30b1816d72fadfccaa7",
+        "dialogues": [
+          {
+            "source": "HAdgsY9f7mncvGEN7",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Can you show me the names of the people who were on the affirmative side of debates with an audience bigger than 200?"
+              },
+              {
+                "role": "assistant",
+                "content": "The following table shows the names of the people who were on the affirmative side of debates with an audience bigger than 200."
+              },
+              {
+                "role": "user",
+                "content": "Of those three, who is the oldest?"
+              },
+              {
+                "role": "assistant",
+                "content": "James Humphrey is the oldest person who was on the affirmative side of debates with an audience bigger than 200. "
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What party affiliation does James Humphrey hold?",
+                "query": "SELECT party from people where name = \"James Humphrey\"",
+                "returned": "Republican",
+                "column": "Party",
+                "human_answer": "James Humphrey is affiliated with the Republican party."
+              },
+              {
+                "question": "What district does James Humphrey represent?",
+                "query": "SELECT district from people where name = \"James Humphrey\"",
+                "returned": "New York 2",
+                "column": "District",
+                "human_answer": "James Humphrey represents the district New York 2 "
+              }
+            ]
+          },
+          {
+            "source": "gwhsq3zobYAtrFCLC",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "what is the name of people aged either 35 or 36"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the names of people whose age is either 35 or 36."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "how old is Luther C. Carter?\n",
+                "query": "SELECT Age FROM  people WHERE name = \"Luther C. Carter\"",
+                "returned": 35,
+                "column": "Age",
+                "human_answer": "The age of Luther C. Carter is 35."
+              },
+              {
+                "question": "what is the age of William B. Maclay\n",
+                "query": "SELECT Age FROM  people WHERE name = \"William B. Maclay\"",
+                "returned": 36,
+                "column": "Age",
+                "human_answer": "the age of William B. Maclay is 36"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "entertainment_awards",
+        "member": "cosql_dataset/database/entertainment_awards/entertainment_awards.sqlite",
+        "sqlite_sha256": "35c7b2b1532c63139784543c2465b9a149f9c46c925c1316f9e78b45e054c32b",
+        "dialogues": [
+          {
+            "source": "Fdn37v9fkbaKMxMnw",
+            "turn": 7,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Which festival name  was nimonated for artwork?"
+              },
+              {
+                "role": "assistant",
+                "content": "you want all of festival name was nimonated for artwork?"
+              },
+              {
+                "role": "user",
+                "content": "Yes "
+              },
+              {
+                "role": "assistant",
+                "content": "this shows all of  festival name was nimonated for artwork"
+              },
+              {
+                "role": "user",
+                "content": "What was LA awards  num of audience?"
+              },
+              {
+                "role": "assistant",
+                "content": "sorry,i dont have the anwser to your question"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Which festival name was associated with program talent show?",
+                "query": "SELECT T3.Festival_Name FROM nomination AS T1 JOIN artwork AS T2 ON T1.Artwork_ID  =  T2.Artwork_ID JOIN festival_detail AS T3 ON T1.Festival_ID  =  T3.Festival_ID WHERE T2.Type  =  \"Program Talent Show\"",
+                "returned": "LA Awards",
+                "column": "Festival_Name",
+                "human_answer": "LA Awards was associated with program talent show"
+              },
+              {
+                "question": "What was the location of LA awards?",
+                "query": "SELECT Location from festival_detail where Festival_Name='LA Awards'",
+                "returned": "United States",
+                "column": "Location",
+                "human_answer": "the location of LA awards is United States"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "phone_1",
+        "member": "cosql_dataset/database/phone_1/phone_1.sqlite",
+        "sqlite_sha256": "d4c874e411976e7b8a971cdb3f0685dc5d2f40f4ab225260aa8cd143b4ab76f7",
+        "dialogues": [
+          {
+            "source": "4LXarFcKmfdwMYCTH",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "how many screen mode there"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 7 screen modes."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "how many phone there",
+                "query": "SELECT count(*) from phone",
+                "returned": 8,
+                "column": "count(*)",
+                "human_answer": "There are 8 phones."
+              },
+              {
+                "question": "what is the  company name of XPERIA T, XPERIA J",
+                "query": "SELECT Company_name from phone WHERE Hardware_Model_name = \"XPERIA T, XPERIA J\"",
+                "returned": "Sony Mobile Communications",
+                "column": "Company_name",
+                "human_answer": "the  company name of XPERIA T, XPERIA J is  Sony Mobile Communications"
+              }
+            ]
+          },
+          {
+            "source": "X33CfBXohD4HF8G5D",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many phones are on the list?",
+                "query": "SELECT count(*) FROM phone",
+                "returned": 8,
+                "column": "count(*)",
+                "human_answer": "There are 8 phones in total."
+              },
+              {
+                "question": "How many different chip models are there?",
+                "query": "SELECT count(*) FROM chip_model",
+                "returned": 14,
+                "column": "count(*)",
+                "human_answer": "There 14 different chip models"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "flight_1",
+        "member": "cosql_dataset/database/flight_1/flight_1.sqlite",
+        "sqlite_sha256": "1b2414f44c04f84bbe30b4dee2eac4c0f24eb39829d694a40e779e8eb069cd01",
+        "dialogues": [
+          {
+            "source": "AzDucAvMBaEad2dkr",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Can you display the salary and name of the employees?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the  salaries and names of the employees"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the name of the employee who has the most number of aircraft certificates?",
+                "query": "SELECT T1.name FROM Employee AS T1 JOIN Certificate AS T2 ON T1.eid = T2.eid GROUP BY T1.eid ORDER BY count(*) DESC LIMIT 1",
+                "returned": "George Wright",
+                "column": "name",
+                "human_answer": "George Wright is the name of the employee who has the most number of aircraft certificates"
+              },
+              {
+                "question": "Hmm, can you just list his salary?",
+                "query": "SELECT T1.salary FROM Employee AS T1 JOIN Certificate AS T2 ON T1.eid = T2.eid GROUP BY T1.eid ORDER BY count(*) DESC LIMIT 1",
+                "returned": 289950,
+                "column": "salary",
+                "human_answer": "Yes sure. the salary of the employee who has the most number of aircraft certificates is 289950"
+              }
+            ]
+          },
+          {
+            "source": "wswXBKxXp9rL6XNWC",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the average price for flights from Los Angeles to Honolulu",
+                "query": "SELECT avg(price) FROM Flight WHERE origin  =  \"Los Angeles\" AND destination  =  \"Honolulu\"",
+                "returned": 400.605,
+                "column": "avg(price)",
+                "human_answer": "The average price of flights from Los Angeles to Honolulu is 400.605"
+              },
+              {
+                "question": "What is the average price for flights from Los Angeles to Chicago",
+                "query": "SELECT avg(price) FROM Flight WHERE origin  =  \"Los Angeles\" AND destination  =  \"Chicago\"",
+                "returned": 220.98,
+                "column": "avg(price)",
+                "human_answer": "the average price for flights from Los Angeles to Chicago is 220.98"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "formula_1",
+        "member": "cosql_dataset/database/formula_1/formula_1.sqlite",
+        "sqlite_sha256": "fb6dad97c0a4da22f01bdf817a77fe8f6b6559554661ff0120b40cb81b8c3b68",
+        "dialogues": [
+          {
+            "source": "cMiLJG6TWvA8do7dh",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "How many drivers are there, total?"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 843 drivers in total"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "of these total drivers, how many countries are represented?\n",
+                "query": "SELECT count(distinct nationality) FROM drivers",
+                "returned": 41,
+                "column": "count(distinct nationality)",
+                "human_answer": "The drivers are from 41 different countries."
+              },
+              {
+                "question": "and of those 41 countries, which one has the most drivers?\n",
+                "query": "SELECT nationality FROM drivers group by nationality order by count(*) desc limit 1",
+                "returned": "British",
+                "column": "nationality",
+                "human_answer": "The nationality British has the most drivers"
+              }
+            ]
+          },
+          {
+            "source": "PJYNoRTmjL67fFrSG",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the id and last name of the driver who participated in the most races after 2010?"
+              },
+              {
+                "role": "assistant",
+                "content": "The id and last name of the driver who participated in the most races after 2010 is '1' and 'Hamilton'."
+              },
+              {
+                "role": "user",
+                "content": "What is the id of the driver who participated in the least races after 2010?"
+              },
+              {
+                "role": "assistant",
+                "content": "The id of the driver who participated in the least races after 2010 is \"812\"."
+              },
+              {
+                "role": "user",
+                "content": "Hmm. Can you also give me his last name."
+              },
+              {
+                "role": "assistant",
+                "content": "The last name of the driver who participated in the least races after 2010 is \"Chandhok\"."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Okay. How many races did he participate in?",
+                "query": "SELECT count(*) FROM drivers AS T1 JOIN results AS T2 ON T1.driverid = T2.driverid JOIN races AS T3 ON T2.raceid = T3.raceid WHERE T3.year > 2010 GROUP BY T1.driverid ORDER BY count(*) limit 1",
+                "returned": 1,
+                "column": "count(*)",
+                "human_answer": "The driver who participated in the least races after 2010 participated in just 1 race after 2010."
+              },
+              {
+                "question": "How many races did Hamilton participate in after 2010?",
+                "query": "SELECT count(*) FROM drivers AS T1 JOIN results AS T2 ON T1.driverid = T2.driverid JOIN races AS T3 ON T2.raceid = T3.raceid WHERE T3.year > 2010 and T1.surname='Hamilton' GROUP BY T1.driverid",
+                "returned": 137,
+                "column": "count(*)",
+                "human_answer": "The driver with last name \"Hamilton\" participated in 137 races after 2010."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "tracking_orders",
+        "member": "cosql_dataset/database/tracking_orders/tracking_orders.sqlite",
+        "sqlite_sha256": "218482989e7b3ff71c89c9a46bab802e17a5628433d9f3a9b2948aadc05813f4",
+        "dialogues": [
+          {
+            "source": "xMfmy38cgkybxnZE5",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the ID of the oldest customer?"
+              },
+              {
+                "role": "assistant",
+                "content": " customer id of  8 is the oldest one"
+              },
+              {
+                "role": "user",
+                "content": "what about the newest customer?"
+              },
+              {
+                "role": "assistant",
+                "content": "customer id of 5  is the  newest customer"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the order status of the order for customer with ID 11",
+                "query": "SELECT order_status FROM orders where customer_id=11",
+                "returned": "Shipped",
+                "column": "order_status",
+                "human_answer": "the order status of the order for customer with ID 11 is Shipped"
+              },
+              {
+                "question": "What date did customer with ID 11 place an order?",
+                "query": "SELECT date_order_placed FROM orders where customer_id=11",
+                "returned": "1974-06-24 22:10:26",
+                "column": "date_order_placed",
+                "human_answer": "the date of 1974-06-24 22:10:26  customer with ID 11 place an order"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "machine_repair",
+        "member": "cosql_dataset/database/machine_repair/machine_repair.sqlite",
+        "sqlite_sha256": "7f0c84fe10eada47019897bc6301ac5d6944b6b1a7e3f9929e0e7de68195c6ac",
+        "dialogues": [
+          {
+            "source": "FfvYiEhNPoJxKQPdz",
+            "turn": 8,
+            "prior": [
+              {
+                "role": "user",
+                "content": "show names of technicians by order of quality rank of machine they are assigned from worst to best"
+              },
+              {
+                "role": "assistant",
+                "content": "The result table of the names of the technicians in ascending order of the quality rank of the machine they are assigned is shown."
+              },
+              {
+                "role": "user",
+                "content": "Which technician is the oldest?"
+              },
+              {
+                "role": "assistant",
+                "content": "Do you mean the id of the oldest technician?"
+              },
+              {
+                "role": "user",
+                "content": "What is the Name of the oldest technician?"
+              },
+              {
+                "role": "assistant",
+                "content": "The name of the oldest technician is Eddie Collins."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the name of the Team with the most number of value points?",
+                "query": "SELECT team from machine order by value_points DESC limit 1",
+                "returned": "Honda",
+                "column": "Team",
+                "human_answer": "The name of the Team with the most number of value points is Honda."
+              },
+              {
+                "question": "What was the Making Year of the Machine series With the lowest quality rank?",
+                "query": "SELECT Making_Year from machine order by  quality_rank limit 1",
+                "returned": 1992,
+                "column": "Making_Year",
+                "human_answer": "The making year of the machine with the lowest quality rank is 1992."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "store_product",
+        "member": "cosql_dataset/database/store_product/store_product.sqlite",
+        "sqlite_sha256": "f36004a47e0a221b56b5eab99198f0f234161399f745545b9a39338ca77a64ba",
+        "dialogues": [
+          {
+            "source": "kXiRjW6ti8dbg7ypQ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "Please list the headquarters of the store that is called Blackville?",
+                "query": "SELECT t3.headquartered_city FROM store AS t1 JOIN store_district AS t2 ON t1.store_id  =  t2.store_id JOIN district AS t3 ON t2.district_id  =  t3.district_id WHERE t1.store_name  =  \"Blackville\"",
+                "returned": "Bhakkar City",
+                "column": "Headquartered_City",
+                "human_answer": "the headquartered city of the store named \"Blackville\" is the Bhakkar City"
+              },
+              {
+                "question": "What is the population of that city?",
+                "query": "SELECT t3.City_Population FROM store AS t1 JOIN store_district AS t2 ON t1.store_id  =  t2.store_id JOIN district AS t3 ON t2.district_id  =  t3.district_id WHERE t1.store_name  =  \"Blackville\"",
+                "returned": 89380.0,
+                "column": "City_Population",
+                "human_answer": "The city population of the headquartered city of the store named \"Blackville\" is 89380.0"
+              }
+            ]
+          },
+          {
+            "source": "TeTQgS9GZQC8rBxbn",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "what is the average of city populations?",
+                "query": "SELECT avg(City_Population) FROM district",
+                "returned": 498543.8,
+                "column": "avg(City_Population)",
+                "human_answer": "the average of city populations is 498543.8"
+              },
+              {
+                "question": "what is the highest city population?",
+                "query": "SELECT max(City_Population) FROM district",
+                "returned": 2793721.0,
+                "column": "max(City_Population)",
+                "human_answer": "The highest city population is 2793721.0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "bike_1",
+        "member": "cosql_dataset/database/bike_1/bike_1.sqlite",
+        "sqlite_sha256": "f5ae0e24e3a9d860a38ec6256828e3b9e37691c80931ef554adc202f8eb2950c",
+        "dialogues": [
+          {
+            "source": "c6C23GadYp3piv993",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "what city has the shortest trip?"
+              },
+              {
+                "role": "assistant",
+                "content": "sorry, there is no  feature about distance of a trip"
+              },
+              {
+                "role": "user",
+                "content": "What is the latitude of the shortest trip?"
+              },
+              {
+                "role": "assistant",
+                "content": "there is no feature of distance in trip "
+              },
+              {
+                "role": "user",
+                "content": "what is the city of the station from which the shortest trip started?"
+              },
+              {
+                "role": "assistant",
+                "content": "trip cannot be described by distance"
+              },
+              {
+                "role": "user",
+                "content": "what is the latitude of San Jose Diridon Caltrain Station?"
+              },
+              {
+                "role": "assistant",
+                "content": "The latitude of San Jose Diridon Caltrain Station is 37.329732"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "what is the longitude of Santa Clara at Almaden?",
+                "query": "SELECT distinct T1.\tlong FROM station AS T1 JOIN trip AS T2 where T1.name = 'Santa Clara at Almaden'",
+                "returned": -121.894902,
+                "column": "long",
+                "human_answer": " the longitude of Santa Clara at Almaden is -121.894902"
+              },
+              {
+                "question": "what is the latitude of San Jose Civic Center?",
+                "query": "SELECT distinct T1.lat FROM station AS T1 JOIN trip AS T2 where T1.name = 'San Jose Civic Center'",
+                "returned": 37.330698,
+                "column": "lat",
+                "human_answer": " the latitude of San Jose Civic Center is 37.330698"
+              }
+            ]
+          },
+          {
+            "source": "58zJRHzLCtxKk6kxM",
+            "turn": 2,
+            "prior": [
+              {
+                "role": "user",
+                "content": "what is the zip code of the highest number of trips taken\n"
+              },
+              {
+                "role": "assistant",
+                "content": "What do you mean by \"highest number of trips taken\"?"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "i would like to know the zip code of trips taken above 200 with humidity below 70\n",
+                "query": "SELECT zip_code FROM weather GROUP BY zip_code HAVING avg(mean_humidity)  <  70 INTERSECT SELECT zip_code FROM trip GROUP BY zip_code HAVING count(*)  >=  200",
+                "returned": 94107,
+                "column": "zip_code",
+                "human_answer": "The zip code of trips taken above 200 with humidity below 70 is 94107."
+              },
+              {
+                "question": "what end station name has the least amount of trips taken but still above 100 trips\n",
+                "query": "SELECT \tend_station_name FROM trip GROUP BY zip_code HAVING count(*)  >=  100 order by count(*) asc limit 1",
+                "returned": "San Francisco Caltrain 2 (330 Townsend)",
+                "column": "end_station_name",
+                "human_answer": "The end station name that has the least amount of trips taken but still above 100 trips is San Francisco Caltrain 2 (330 Townsend)."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "book_2",
+        "member": "cosql_dataset/database/book_2/book_2.sqlite",
+        "sqlite_sha256": "8b0bffbf8805809461b29573dc55782d810cc688af526e28088b299326d72407",
+        "dialogues": [
+          {
+            "source": "YFTrLncEoPqjEM899",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "what's the highest price of book published on this list?",
+                "query": "SELECT max(T2.price) FROM book AS T1 JOIN publication AS T2 ON T1.Book_ID  =  T2.Book_ID",
+                "returned": 15000000.0,
+                "column": "max(T2.price)",
+                "human_answer": "The highest price for a book is 15000000.0."
+              },
+              {
+                "question": "who's the writer of The Black Lamb?",
+                "query": "SELECT T1.Writer FROM book AS T1 JOIN publication AS T2 ON T1.Book_ID  =  T2.Book_ID WHERE T1.Title = \"The Black Lamb\"",
+                "returned": "Timothy Truman",
+                "column": "Writer",
+                "human_answer": "The writer of The Black Lamb is Timothy Truman."
+              }
+            ]
+          },
+          {
+            "source": "PNhFbzrKvsBXjRgR4",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Show publishers that have less than one publication?"
+              },
+              {
+                "role": "assistant",
+                "content": "The publishers Pearson and Wiley have less than one publication."
+              },
+              {
+                "role": "user",
+                "content": "Show all the publishers?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are all the publishers."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the highest price that a publisher earns?",
+                "query": "SELECT Price FROM publication order by Price DESC limit 1",
+                "returned": 15000000.0,
+                "column": "Price",
+                "human_answer": "The highest price a publisher earns is 15000000.0"
+              },
+              {
+                "question": "What is the lowest price that a publisher earns?",
+                "query": "SELECT Price FROM publication order by Price  limit 1",
+                "returned": 2000000.0,
+                "column": "Price",
+                "human_answer": "The lowest prices a publisher earns is 2000000.0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "product_catalog",
+        "member": "cosql_dataset/database/product_catalog/product_catalog.sqlite",
+        "sqlite_sha256": "818f8d5d6eca960ad28bc088d87085a1cf4fed4aa0c59fdb016784b5d23bd70a",
+        "dialogues": [
+          {
+            "source": "razWQbaXGTtDEGAzA",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "how many Catalog Contents there"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 15 catalog contents."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "what is the parent entry id of cola",
+                "query": "SELECT parent_entry_id FROM catalog_contents where catalog_entry_name = \"Cola\"",
+                "returned": 5,
+                "column": "parent_entry_id",
+                "human_answer": "The parent entry id of catalog whose catalog entry name is cola is 5"
+              },
+              {
+                "question": "what is the product stock number of Cream Soda",
+                "query": "SELECT product_stock_number FROM catalog_contents where catalog_entry_name = \"Cream Soda\"",
+                "returned": "52 ee",
+                "column": "product_stock_number",
+                "human_answer": "The product stock number of catalog whose catalog entry name is Cream Soda is 52 ee."
+              }
+            ]
+          },
+          {
+            "source": "THaK4MAqhjNbJXMsJ",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Could you please tell me all the catalog publishers whose name contains \"Murray\"?"
+              },
+              {
+                "role": "assistant",
+                "content": "Murray Coffee shop is the catalog publisher whose name contains \"Murray\""
+              },
+              {
+                "role": "user",
+                "content": "What is the name of that catalog?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the names of catelogs whose publisher contains \"Murray\""
+              },
+              {
+                "role": "user",
+                "content": "What are the dates of latest revision for those?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the dates of latest revision of catelogs whose publisher contains \"Murray\" "
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Could you please tell me all the catalog publishers whose name contains \"chocolate\"?",
+                "query": "SELECT catalog_publisher FROM catalogs WHERE catalog_publisher LIKE \"%chocolate%\"",
+                "returned": "Koepp-Rutherford handmade chocolate store",
+                "column": "catalog_publisher",
+                "human_answer": "Koepp-Rutherford handmade chocolate store is the catalog publishers whose name contains \"chocolate\""
+              },
+              {
+                "question": "How many catalogs do they publish?",
+                "query": "select count(*) from catalogs where catalog_publisher in (SELECT distinct(catalog_publisher) FROM catalogs WHERE catalog_publisher LIKE \"%chocolate%\")",
+                "returned": 1,
+                "column": "count(*)",
+                "human_answer": "Koepp-Rutherford handmade chocolate store published 1 catalog."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "wrestler",
+        "member": "cosql_dataset/database/wrestler/wrestler.sqlite",
+        "sqlite_sha256": "ef538c66862d997561619be1ac1b0c488bc54e7171ad33f7fe6195e903619ae4",
+        "dialogues": [
+          {
+            "source": "YWrXEtGFK8tB9JkeD",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Show the teams that have wrestlers eliminated by \"Orton\"."
+              },
+              {
+                "role": "assistant",
+                "content": "The team that has wrestlers eliminated by \"Orton\" is \"Team Batista\"."
+              },
+              {
+                "role": "user",
+                "content": "Show me the teams that have wrestlers eliminated by \"Benjamin\"."
+              },
+              {
+                "role": "assistant",
+                "content": "The team that has wrestlers eliminated by \"Benjamin\" is \"Team Batista\"."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What was the elimination move when the wrestlers in team Batista were eliminated by \"Benjamin\".",
+                "query": "SELECT Elimination_Move FROM Elimination WHERE Eliminated_By = \"Benjamin\" and team='Team Batista'",
+                "returned": "Paydirt",
+                "column": "Elimination_Move",
+                "human_answer": "The elimination move when the wrestlers in \"Team Batista\" were eliminated by \"Benjamin\" is \"Paydirt\"."
+              },
+              {
+                "question": "And what was the time duration in this case?",
+                "query": "SELECT Time FROM Elimination WHERE Eliminated_By = \"Benjamin\" and team='Team Batista'",
+                "returned": "07:38",
+                "column": "Time",
+                "human_answer": "The time duration when the wrestlers in \"Team Batista\" were eliminated by \"Benjamin\" is 07:38."
+              }
+            ]
+          },
+          {
+            "source": "m7t4NSLLWDsrdhzB6",
+            "turn": 2,
+            "prior": [
+              {
+                "role": "user",
+                "content": "what is the average number of days"
+              },
+              {
+                "role": "assistant",
+                "content": "did you mean the average days held by all wrestlers?"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "yes",
+                "query": "SELECT avg(Days_held) FROM wrestler",
+                "returned": 313.0,
+                "column": "avg(Days_held)",
+                "human_answer": "the average days held by all wrestlers is 313.0."
+              },
+              {
+                "question": "what is the name of the wrestler with the fewest days held",
+                "query": "SELECT name FROM wrestler order by Days_held limit 1",
+                "returned": "El Samurai",
+                "column": "Name",
+                "human_answer": "he name of the wrestler with the fewest days held is El Samurai."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "climbing",
+        "member": "cosql_dataset/database/climbing/climbing.sqlite",
+        "sqlite_sha256": "f2d3893fc5e79943ffad120b59522358b90ef077a989fb40c7c5fbbe16bfccd9",
+        "dialogues": [
+          {
+            "source": "ypbiLJc2HtLFYdk2J",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many mountains in this table?",
+                "query": "SELECT count(*) FROM mountain",
+                "returned": 7,
+                "column": "count(*)",
+                "human_answer": "there are 7 mountains"
+              },
+              {
+                "question": "How many countries in this table?",
+                "query": "SELECT count(distinct country) FROM mountain",
+                "returned": 4,
+                "column": "count(distinct(country))",
+                "human_answer": "there are  4  countries"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "train_station",
+        "member": "cosql_dataset/database/train_station/train_station.sqlite",
+        "sqlite_sha256": "0e3b2e8ed2965b01bd22f3eec4f8d9447b8c0ea006a16e3c325316e605e49b7b",
+        "dialogues": [
+          {
+            "source": "n5yn6G296TNA4QJhW",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Find the total passengers of London Waterloo?"
+              },
+              {
+                "role": "assistant",
+                "content": "The total number of passengers of the London Waterloo station is 103.534."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How many Number of Platforms in station id 2?",
+                "query": "select number_of_platforms from station where station_id = 2",
+                "returned": 19,
+                "column": "Number_of_Platforms",
+                "human_answer": "the number of platforms in the station with id 2 is 19."
+              },
+              {
+                "question": "What are the Main Services of station id 3?",
+                "query": "select main_services from station where station_id = 3",
+                "returned": "South Eastern Main Line Thameslink",
+                "column": "Main_Services",
+                "human_answer": "The main services of station id 3 is South Eastern Main Line Thameslink."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "university_basketball",
+        "member": "cosql_dataset/database/university_basketball/university_basketball.sqlite",
+        "sqlite_sha256": "1e80df40a33f074844fb89fc7ebc7586467643e24c8b87b0839818dca1c1da4c",
+        "dialogues": [
+          {
+            "source": "h7doAdwg5MPbQgsR5",
+            "turn": 5,
+            "prior": [
+              {
+                "role": "assistant",
+                "content": "Did you want to know when the school that has the lowest acc percent score was founded?\n"
+              },
+              {
+                "role": "user",
+                "content": "Yes."
+              },
+              {
+                "role": "user",
+                "content": "how many schools are there?"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 5 schools."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Which school has the highest acc percent score?",
+                "query": "SELECT t1.school FROM university AS t1 JOIN basketball_match AS t2 ON t1.school_id  =  t2.school_id ORDER BY t2.acc_percent DESC LIMIT 1",
+                "returned": "University of Delaware",
+                "column": "School",
+                "human_answer": "The school that has the highest accuracy percent score is the University of Delaware."
+              },
+              {
+                "question": "How about the lowest?",
+                "query": "SELECT t1.school FROM university AS t1 JOIN basketball_match AS t2 ON t1.school_id  =  t2.school_id ORDER BY t2.acc_percent LIMIT 1",
+                "returned": "Stony Brook University",
+                "column": "School",
+                "human_answer": "The school that has the lowest accuracy percent score is Stony Brook University"
+              }
+            ]
+          },
+          {
+            "source": "vhfAzpeCbKfRmoRzr",
+            "turn": 2,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the total number of students who were in enrolled in all colleges?"
+              },
+              {
+                "role": "assistant",
+                "content": "Do you mean the total number of enrollments for all colleges?"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Yes please",
+                "query": "SELECT sum(Enrollment)  FROM university",
+                "returned": 121127.0,
+                "column": "sum(Enrollment)",
+                "human_answer": "the total number of enrollments for all colleges is 121127.0"
+              },
+              {
+                "question": "How about the total number of enrollments for just colleges that were founded after the year 1850?",
+                "query": "SELECT sum(Enrollment)  FROM university  WHERE founded > 1850",
+                "returned": 45192.0,
+                "column": "sum(Enrollment)",
+                "human_answer": " the total number of enrollments for just colleges that were founded after the year 1850 is 45192.0"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "loan_1",
+        "member": "cosql_dataset/database/loan_1/loan_1.sqlite",
+        "sqlite_sha256": "b5142ff67a31901ebea4003f89ab8e9d8182217721072cf3aa0f86916feee663",
+        "dialogues": [
+          {
+            "source": "j5k659th9E7JrsdAq",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Find the name of customers who do not have a saving account."
+              },
+              {
+                "role": "assistant",
+                "content": "Jack is the only customer who do not have a saving account."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "what other types of accounts are available?",
+                "query": "SELECT acc_type FROM customer where acc_type != \"saving\"",
+                "returned": "checking",
+                "column": "acc_type",
+                "human_answer": "The type of accounts other than saving is checking."
+              },
+              {
+                "question": "who has the highest credit score?",
+                "query": "select cust_name from customer order by credit_score desc limit 1",
+                "returned": "Owen",
+                "column": "cust_name",
+                "human_answer": "The name of the customer who has the highest credit score is Owen."
+              }
+            ]
+          },
+          {
+            "source": "WhqQXEburK3bPFoCX",
+            "turn": 5,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What are the names of the bank branches?"
+              },
+              {
+                "role": "assistant",
+                "content": "here are the  names  for each bank branch"
+              },
+              {
+                "role": "user",
+                "content": "Which bank branches provide business loans?"
+              },
+              {
+                "role": "assistant",
+                "content": "do you want the id or the name of the bank branches?"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Names of the bank branches please.",
+                "query": "SELECT T1.bname FROM bank AS T1 JOIN loan AS T2 ON T1.branch_id  =  T2.branch_id WHERE T2.loan_type  =  'Business'",
+                "returned": "broadway",
+                "column": "bname",
+                "human_answer": "the  name of the bank branch that provides business loans is broadway"
+              },
+              {
+                "question": "What is the city of the bank branch that provides business loans?",
+                "query": "SELECT T1.city FROM bank AS T1 JOIN loan AS T2 ON T1.branch_id  =  T2.branch_id WHERE T2.loan_type  =  'Business'",
+                "returned": "New York City",
+                "column": "city",
+                "human_answer": " the city of the bank branch that provides business loans is New York City"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "browser_web",
+        "member": "cosql_dataset/database/browser_web/browser_web.sqlite",
+        "sqlite_sha256": "ced1ee75f531e02adf66f387ced5997f416653adbcf519c037813aa69599f17a",
+        "dialogues": [
+          {
+            "source": "WvgL6c77GwJd6GFQN",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the maximum market share of the browsers?",
+                "query": "SELECT max(market_share) FROM browser",
+                "returned": 28.96,
+                "column": "max(market_share)",
+                "human_answer": "28.96 is the maximum market share of all browsers."
+              },
+              {
+                "question": "What is the minimum market share of all browsers?",
+                "query": "SELECT min(market_share) FROM browser",
+                "returned": 1.2,
+                "column": "min(market_share)",
+                "human_answer": "1.2 is the minimum market share of all browsers."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "network_2",
+        "member": "cosql_dataset/database/network_2/network_2.sqlite",
+        "sqlite_sha256": "f49b1043d6491f0af5e084340bc3f9dcaac35ed5893a5ff021644c2cb3428936",
+        "dialogues": [
+          {
+            "source": "qBaZSMHrQXptHJ4P3",
+            "turn": 4,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the total number of people who has no friend living in the city of Austin?"
+              },
+              {
+                "role": "assistant",
+                "content": "* I have left the chat *"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 3 people who have no friend living in the city of \"Austin\"."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What about in New York City?",
+                "query": "SELECT count(DISTINCT name) FROM PersonFriend WHERE friend NOT IN (SELECT name FROM person WHERE city = 'new york city')",
+                "returned": 3,
+                "column": "count(DISTINCT name)",
+                "human_answer": "There are 3 people who have no friend living in the city of \"New York City\"."
+              },
+              {
+                "question": "What about Salt Lake City?",
+                "query": "SELECT count(DISTINCT name) FROM PersonFriend WHERE friend NOT IN (SELECT name FROM person WHERE city = 'salt lake city')",
+                "returned": 2,
+                "column": "count(DISTINCT name)",
+                "human_answer": "There are 2 people who have no friend living in the city of \"Salt Lake City\"."
+              }
+            ]
+          },
+          {
+            "source": "LaQ3Fo8dRD5RGzvpD",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Hello, could you find how many friends Alice has?"
+              },
+              {
+                "role": "assistant",
+                "content": "The person named Alice has 1 friend"
+              },
+              {
+                "role": "user",
+                "content": "Is this friend a female?"
+              },
+              {
+                "role": "assistant",
+                "content": "No, the gender of the friend of the person named Alice is male"
+              },
+              {
+                "role": "user",
+                "content": "Does Alice have any female friends?"
+              },
+              {
+                "role": "assistant",
+                "content": "No, the only friend of Alice is a male"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the name of Alice's friend?",
+                "query": "SELECT friend from personfriend where name = \"Alice\"",
+                "returned": "Bob",
+                "column": "friend",
+                "human_answer": "the friend of the person named Alice is Bob"
+              },
+              {
+                "question": "What are the names of Bob's friends?",
+                "query": "SELECT friend from personfriend where name = \"Bob\"",
+                "returned": "Zach",
+                "column": "friend",
+                "human_answer": "the friend of Bob has name Zach"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "phone_market",
+        "member": "cosql_dataset/database/phone_market/phone_market.sqlite",
+        "sqlite_sha256": "eb035586e49616661b170ed754960f64306b38839dc20a758a5aaedfc8022050",
+        "dialogues": [
+          {
+            "source": "rkF4228SBxYqrSEMs",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "Can you show me the total number of phones?",
+                "query": "SELECT count(*) from phone",
+                "returned": 5,
+                "column": "count(*)",
+                "human_answer": "The total number of phones is 5."
+              },
+              {
+                "question": "how about the total number of different carriers?",
+                "query": "SELECT count(distinct carrier) from phone",
+                "returned": 2,
+                "column": "count(distinct carrier)",
+                "human_answer": "The total number of different carriers is 2."
+              }
+            ]
+          },
+          {
+            "source": "3ZL7NWhzP3PH5LnwE",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many different markets are there?",
+                "query": "select count(distinct market_id) from phone_market",
+                "returned": 4,
+                "column": "count(distinct(market_id))",
+                "human_answer": "There are 4 different markets."
+              },
+              {
+                "question": "How many different phones are there?",
+                "query": "select count(distinct name) from phone",
+                "returned": 5,
+                "column": "count(distinct(name))",
+                "human_answer": "There are 5 different phones."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "company_1",
+        "member": "cosql_dataset/database/company_1/company_1.sqlite",
+        "sqlite_sha256": "a58f492277a8b1bfa575746ac8b06dcbaed059c2a24ba6eb6090debc8b6c892f",
+        "dialogues": [
+          {
+            "source": "55JuG8b3ewoy8D49i",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Yes. Can you tell me the number of employees?"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 8 employees."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Thank you. Can you tell me how many of them are males?",
+                "query": "SELECT count(*) FROM employee WHERE Sex = \"M\"",
+                "returned": 5,
+                "column": "count(*)",
+                "human_answer": "There are 5 male employees."
+              },
+              {
+                "question": "Can you also tell me how many employees have a salary lower than 50000?",
+                "query": "SELECT count(*) FROM employee WHERE salary < 50000",
+                "returned": 7,
+                "column": "count(*)",
+                "human_answer": "There are 7 employees with a salary lower than 50000"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "customers_and_addresses",
+        "member": "cosql_dataset/database/customers_and_addresses/customers_and_addresses.sqlite",
+        "sqlite_sha256": "7d8ceb2520e7b2db55eca8c2a1e9a52a5f1d9e27d7f0dd11bcd367274e6fee96",
+        "dialogues": [
+          {
+            "source": "GfZgzSyQDQv6sME8Z",
+            "turn": 11,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Which customer bought the most items?"
+              },
+              {
+                "role": "assistant",
+                "content": "Do you want the name of the customer?"
+              },
+              {
+                "role": "user",
+                "content": "That would be lovely.\n"
+              },
+              {
+                "role": "assistant",
+                "content": " the name of the customer that has purchased the most items is Clifford Pagac"
+              },
+              {
+                "role": "user",
+                "content": "How many did he purchase?"
+              },
+              {
+                "role": "assistant",
+                "content": "the customer who has purchased the most items has purchased 40 items in total"
+              },
+              {
+                "role": "user",
+                "content": "How did he pay?"
+              },
+              {
+                "role": "assistant",
+                "content": "The payment method of the customer who has purchased the most items is Cheque."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "When did he become a customer?",
+                "query": "SELECT t1.date_became_customer FROM customers AS t1 JOIN customer_orders AS t2 ON t1.customer_id  =  t2.customer_id JOIN order_items AS t3 ON t2.order_id  =  t3.order_id GROUP BY t1.customer_name ORDER BY sum(t3.order_quantity) DESC LIMIT 1",
+                "returned": "2018-02-24 10:24:23",
+                "column": "date_became_customer",
+                "human_answer": "The date that the customer who has purchased the most items became a customer is 2018-02-24 10:24:23"
+              },
+              {
+                "question": "How many became customers before that?",
+                "query": "SELECT count(*)  FROM customers where date_became_customer < (SELECT t1.date_became_customer FROM customers AS t1 JOIN customer_orders AS t2 ON t1.customer_id  =  t2.customer_id JOIN order_items AS t3 ON t2.order_id  =  t3.order_id GROUP BY t1.customer_name ORDER BY sum(t3.order_quantity) DESC LIMIT 1)",
+                "returned": 1,
+                "column": "count(*)",
+                "human_answer": "There is 1 customer who became a customer before  The date that the customer who has purchased the most items became a customer."
+              }
+            ]
+          },
+          {
+            "source": "DTu2iTtwSmZeGwW8Q",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the customer name of customer id 9?",
+                "query": "SELECT customer_name FROM Customers WHERE customer_id = 9",
+                "returned": "Devin Mills",
+                "column": "customer_name",
+                "human_answer": "The customer with id 9 has a name Devin Mills."
+              },
+              {
+                "question": "Find the payment method of Tillman Ernser.",
+                "query": "SELECT payment_method FROM Customers WHERE customer_name = \"Tillman Ernser\"",
+                "returned": "Cheque",
+                "column": "payment_method",
+                "human_answer": "the customer Tillman Ernser used a payment method of Cheque."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "college_2",
+        "member": "cosql_dataset/database/college_2/college_2.sqlite",
+        "sqlite_sha256": "cb729920ad0b7f06d38a12f6f678307964acc7d3417af83d98c519c65c90d386",
+        "dialogues": [
+          {
+            "source": "23P4dyaevDzeD9oar",
+            "turn": 12,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Find out the average salary of professors?"
+              },
+              {
+                "role": "assistant",
+                "content": "The average salary of all the instructors is 77600.18819999999."
+              },
+              {
+                "role": "user",
+                "content": "Find the average salary of the professors of each department?"
+              },
+              {
+                "role": "assistant",
+                "content": "The result table shows the average salary of all the instructors in each department"
+              },
+              {
+                "role": "user",
+                "content": "Which department has the highest average salary of professors?"
+              },
+              {
+                "role": "assistant",
+                "content": "Physics is the name of the department that has the highest average salary of instructors."
+              },
+              {
+                "role": "user",
+                "content": "Which department has the lowest average salary of professors?"
+              },
+              {
+                "role": "assistant",
+                "content": "Accounting is the name of the department that has the lowest average salary of instructors."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "In which department Mr. Mird work for?",
+                "query": "SELECT dept_name FROM instructor where name = 'Mird'",
+                "returned": "Marketing",
+                "column": "dept_name",
+                "human_answer": "The name of the department where the instructor with the name 'Mird' works for is Marketing."
+              },
+              {
+                "question": "How much is the salary Mr. Mird earns currently?",
+                "query": "SELECT \tsalary FROM instructor where name = 'Mird'",
+                "returned": 119921.41,
+                "column": "salary",
+                "human_answer": "The salary of the instructor with the name 'Mird' is 119921.41."
+              }
+            ]
+          },
+          {
+            "source": "LW2LiDja3zrsvkpyH",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many instructors are in the statistics department?",
+                "query": "SELECT count(*) FROM instructor WHERE dept_name  =  'Statistics'",
+                "returned": 6,
+                "column": "count(*)",
+                "human_answer": "There are 6 instructors in the statistics department"
+              },
+              {
+                "question": "What is the lowest salary of the instructors in the statistics department?",
+                "query": "SELECT min(salary) FROM instructor WHERE dept_name  =  'Statistics'",
+                "returned": 45310.53,
+                "column": "min(salary)",
+                "human_answer": "the lowest salary of the instructors in the statistics department is 45310.53"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "tracking_grants_for_research",
+        "member": "cosql_dataset/database/tracking_grants_for_research/tracking_grants_for_research.sqlite",
+        "sqlite_sha256": "7ac4cc3ceb52e354504fa32600ba7df11ee7d537e1c82202e9121b71382b6618",
+        "dialogues": [
+          {
+            "source": "Nzkj5pq6cFvuwGwd8",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many projects are there?",
+                "query": "SELECT count(*) FROM Projects",
+                "returned": 15,
+                "column": "count(*)",
+                "human_answer": "There are 15 projects"
+              },
+              {
+                "question": "How many of those projects did not hire anyone for a researcher role?",
+                "query": "SELECT count(project_id) FROM Projects WHERE project_id NOT IN ( SELECT project_id FROM Project_Staff WHERE role_code = 'researcher' )",
+                "returned": 8,
+                "column": "count(project_id)",
+                "human_answer": "There are 8  projects  that did not hire anyone for a researcher role"
+              }
+            ]
+          },
+          {
+            "source": "MKAnAam64PcMNZp7z",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "Hello there!  Which roll code on this list is the most common?",
+                "query": "SELECT role_code FROM Project_Staff GROUP BY role_code ORDER BY count(*) DESC LIMIT 1",
+                "returned": "researcher",
+                "column": "role_code",
+                "human_answer": " researcher  is the most common on this list "
+              },
+              {
+                "question": "Great!  Can you tell me how many instances of role code \"researcher\" there are?",
+                "query": "SELECT count(*) FROM Project_Staff where role_code='researcher'",
+                "returned": 9,
+                "column": "count(*)",
+                "human_answer": "There are 9 instances of role code \"researcher\"."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "allergy_1",
+        "member": "cosql_dataset/database/allergy_1/allergy_1.sqlite",
+        "sqlite_sha256": "d3ce73d649463526f6f6b04f457f40a778c8c192b8451cc2837437dc7a18a207",
+        "dialogues": [
+          {
+            "source": "p7XuKXe6Wc3yZ9WDY",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "Which allergy has the most number of students affected?",
+                "query": "SELECT Allergy FROM Has_allergy GROUP BY Allergy ORDER BY count(*) DESC LIMIT 1",
+                "returned": "Tree Pollen",
+                "column": "Allergy",
+                "human_answer": "Tree Pollen has most number of students affected"
+              },
+              {
+                "question": "How many students has tree pollen affected?",
+                "query": "SELECT count(StuID) FROM Has_allergy where \tAllergy='Tree Pollen'",
+                "returned": 13,
+                "column": "count(StuID)",
+                "human_answer": "13  students are affected by the allergy tree pollen "
+              }
+            ]
+          },
+          {
+            "source": "kR52pDdHCiWanHpaj",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "Which major has the highest number of students?\n",
+                "query": "SELECT major FROM Student GROUP BY major ORDER BY count(*) DESC LIMIT 1",
+                "returned": 600,
+                "column": "Major",
+                "human_answer": "the major that has the most students is 600"
+              },
+              {
+                "question": "What is the average age of the students in this major?\n",
+                "query": "select avg(age) from student where major = (SELECT major FROM Student GROUP BY major ORDER BY count(*) DESC LIMIT 1)",
+                "returned": 19.666666666666668,
+                "column": "avg(age)",
+                "human_answer": " the average age of the students in the major that has the most students is 19.666666666666668"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "coffee_shop",
+        "member": "cosql_dataset/database/coffee_shop/coffee_shop.sqlite",
+        "sqlite_sha256": "a182a8a7f9b5df6da8b2976b42aca0a7db6c2b13300b13b398e568a5bf4a6b2e",
+        "dialogues": [
+          {
+            "source": "7mqQoYd7XEwKbEYse",
+            "turn": 8,
+            "prior": [
+              {
+                "role": "assistant",
+                "content": "Do you mean how many different types of membership cards are there?"
+              },
+              {
+                "role": "user",
+                "content": "Yes"
+              },
+              {
+                "role": "user",
+                "content": "how many membership cards?"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 2 different membership cards."
+              },
+              {
+                "role": "user",
+                "content": "what is age of Ashby Lazale"
+              },
+              {
+                "role": "assistant",
+                "content": "The age of Ashby, Lazale is 29."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "how many time of purchase in ashby lazale",
+                "query": "SELECT Time_of_purchase from member where name = 'Ashby, Lazale'",
+                "returned": 18,
+                "column": "Time_of_purchase",
+                "human_answer": "The time of purchase of Ashby, Lazale is 18."
+              },
+              {
+                "question": "Level of membership Breton, Robert",
+                "query": "SELECT Level_of_membership from member where name = 'Breton, Robert'",
+                "returned": 4,
+                "column": "Level_of_membership",
+                "human_answer": "The level of membership of Breton Robert is 4."
+              }
+            ]
+          },
+          {
+            "source": "5aXT68JA4DqbM8yjG",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "what is the average level of membership?",
+                "query": "SELECT avg(level_of_membership) FROM member",
+                "returned": 5.5,
+                "column": "avg(level_of_membership)",
+                "human_answer": "The average level of membership is 5.5"
+              },
+              {
+                "question": "How many membership cards are black?",
+                "query": "SELECT count(*) FROM member WHERE membership_card = \"Black\"",
+                "returned": 6,
+                "column": "count(*)",
+                "human_answer": "6 membership cards are black."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "gymnast",
+        "member": "cosql_dataset/database/gymnast/gymnast.sqlite",
+        "sqlite_sha256": "99e04d7903f4adc48e195c74c83c9247d068381781768a061015d8d0c6fbcdfa",
+        "dialogues": [
+          {
+            "source": "jZfoNCTGhnuoFM2Xg",
+            "turn": 12,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Show the ages of gymnasts in descending order of total points."
+              },
+              {
+                "role": "assistant",
+                "content": "this shows the ages of gymnasts in descending order of total points."
+              },
+              {
+                "role": "user",
+                "content": "Show their names."
+              },
+              {
+                "role": "assistant",
+                "content": "this shows the names of gymnasts in descending order of total points."
+              },
+              {
+                "role": "user",
+                "content": "What is the height of Paul Hamm?"
+              },
+              {
+                "role": "assistant",
+                "content": " Paul Hamm\u2018s height is 1.71 meters"
+              },
+              {
+                "role": "user",
+                "content": "What is his hometown?"
+              },
+              {
+                "role": "assistant",
+                "content": "The hometown of Paul Hamm is Santo Domingo"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How many total points does he have?",
+                "query": "SELECT sum(Total_Points) FROM gymnast AS T1 JOIN people AS T2 ON T1.Gymnast_ID  =  T2.People_ID where t2.Name='Paul Hamm'",
+                "returned": 58.061,
+                "column": "sum(Total_Points)",
+                "human_answer": "Paul Hamm has 58.061  total points in total"
+              },
+              {
+                "question": "How many rings points does he have?",
+                "query": "SELECT Rings_Points FROM gymnast AS T1 JOIN people AS T2 ON T1.Gymnast_ID  =  T2.People_ID where t2.Name='Paul Hamm'",
+                "returned": 9.512,
+                "column": "Rings_Points",
+                "human_answer": "Paul Hamm's rings points is 9.512"
+              }
+            ]
+          },
+          {
+            "source": "NswdSXhevE9ZWEciJ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "Who is the tallest gymnast?",
+                "query": "SELECT T2.Name FROM gymnast AS T1 JOIN people AS T2 ON T1.Gymnast_ID = T2.People_ID ORDER BY T2.Height desc limit 1",
+                "returned": "Nadia Caba Rodr\u00edguez",
+                "column": "Name",
+                "human_answer": "The names of tallest gymnast is \"Nadia Caba Rodr\u00edguez\"."
+              },
+              {
+                "question": "How tall is Nadia Caba Rodr\u00edguez?",
+                "query": "select height from people where name='Nadia Caba Rodr\u00edguez'",
+                "returned": 1.79,
+                "column": "Height",
+                "human_answer": "The height of the gymnast named \"Nadia Caba Rodr\u00edguez\" is 1.79"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "icfp_1",
+        "member": "cosql_dataset/database/icfp_1/icfp_1.sqlite",
+        "sqlite_sha256": "e616296ac28a94dc686047a34ee57b8e058c959a8fb0170a8d8e59db3853368a",
+        "dialogues": [
+          {
+            "source": "SifkbTqMbADvZrBcJ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the title of the paper that has the largest number of authors?",
+                "query": "SELECT t2.title FROM authorship AS t1 JOIN papers AS t2 ON t1.paperid  =  t2.paperid WHERE t1.authorder  =  (SELECT max(authorder) FROM authorship)",
+                "returned": "Binders Unbound",
+                "column": "title",
+                "human_answer": "Binders Unbound has the largest number of authors"
+              },
+              {
+                "question": "How many authors are there?",
+                "query": "SELECT count(distinct authID) fROM Authorship",
+                "returned": 13,
+                "column": "count(distinct authID)",
+                "human_answer": "There are 13 authors in total"
+              }
+            ]
+          },
+          {
+            "source": "QWqP6WBomap5ry3Kx",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the name of the organization that published the greatest number of papers?"
+              },
+              {
+                "role": "assistant",
+                "content": "the name of the organization that published the greatest number of papers is the University of Oxford"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the name of the organization that published the least number of papers?",
+                "query": "SELECT t1.name FROM inst AS t1 JOIN authorship AS t2 ON t1.instid  =  t2.instid JOIN papers AS t3 ON t2.paperid  =  t3.paperid GROUP BY t1.name ORDER BY count(*) Asc LIMIT 1",
+                "returned": "Google",
+                "column": "name",
+                "human_answer": "the name of the organization that published the least number of papers is Google"
+              },
+              {
+                "question": "What are the titles of all the papers Google published?",
+                "query": "SELECT t3.title FROM inst AS t1 JOIN authorship AS t2 ON t1.instid  =  t2.instid JOIN papers AS t3 ON t2.paperid  =  t3.paperid where t1.name = \"Google\"",
+                "returned": "An Equivalence-Preserving CPS Translation via Multi-Language Semantics",
+                "column": "title",
+                "human_answer": "the title of the papers Google published is An Equivalence-Preserving CPS Translation via Multi-Language Semantics"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "gas_company",
+        "member": "cosql_dataset/database/gas_company/gas_company.sqlite",
+        "sqlite_sha256": "8800c43067ed4de67c7ca9bea0f8188a65b1cb9f41400b1f3c0d1cfdff85c32b",
+        "dialogues": [
+          {
+            "source": "pBaQcCojoko3gpcEJ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many gas stations opened after 2000?",
+                "query": "SELECT count(*) from gas_station where open_year > 2000",
+                "returned": 8,
+                "column": "count(*)",
+                "human_answer": "There are 8 gas stations that opened after 2000"
+              },
+              {
+                "question": "What's the name of the manager that opened the most gas stations after 2000?",
+                "query": "SELECT manager_name FROM gas_station WHERE open_year  >  2000 GROUP BY manager_name ORDER BY count(*) DESC LIMIT 1",
+                "returned": "Colin Denman",
+                "column": "Manager_Name",
+                "human_answer": "Colin Denman is the name of the manager that opened the most gas stations after 2000"
+              }
+            ]
+          },
+          {
+            "source": "iixJkPn3LpZ7ae2GT",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "find the rank, company names, market values of the companies in the banking industry order by their sales and profits in billion."
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the ranks, company names, and market values of the companies in the banking industry, ordered by their sales and profits in billion."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Which company has the biggest market value in billion?",
+                "query": "SELECT company FROM company  ORDER BY market_value LIMIT 1",
+                "returned": "BP",
+                "column": "Company",
+                "human_answer": "BP has the biggest market value."
+              },
+              {
+                "question": "what is BP's market value?",
+                "query": "SELECT market_value FROM company WHERE Company = \"BP\"",
+                "returned": 147.4,
+                "column": "Market_Value",
+                "human_answer": "BP's market value is 147.4"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "music_4",
+        "member": "cosql_dataset/database/music_4/music_4.sqlite",
+        "sqlite_sha256": "9218150008f10c4dbb97395116dab00f68e646c90f839e00698a876ff5b7d17d",
+        "dialogues": [
+          {
+            "source": "CcMykEfhH4tAHeY2d",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What are the issue date of 34th England Academy Prize?",
+                "query": "SELECT T2.Issue_Date FROM music_festival AS T1 JOIN volume AS T2 ON T1.Volume  =  T2.Volume_ID WHERE T1.Music_Festival = \"34th England Academy Prize\"",
+                "returned": "27 December 1986 - 10 January",
+                "column": "Issue_Date",
+                "human_answer": "the issue date of a volume presented in the music festival of 34th England Academy Prize is '27 December 1986 - 10 January'."
+              },
+              {
+                "question": "What are the music festivals of Everybody Have Fun Tonight song? ",
+                "query": "SELECT T1.Music_Festival FROM music_festival AS T1 JOIN volume AS T2 ON T1.Volume  =  T2.Volume_ID WHERE T2.Song = \" Everybody Have Fun Tonight \"",
+                "returned": "34th Japan Academy Prize",
+                "column": "Music_Festival",
+                "human_answer": "the music festivals of Everybody Have Fun Tonight song is 34th Japan Academy Prize."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "musical",
+        "member": "cosql_dataset/database/musical/musical.sqlite",
+        "sqlite_sha256": "3ac3c942bf8af489d217a1877980fdbfde2202ede336e3e5f216b35b2b47ca92",
+        "dialogues": [
+          {
+            "source": "7sW82qeWnjPRTvgCZ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the duration of the oldest actor?",
+                "query": "SELECT Duration FROM actor ORDER BY Age DESC LIMIT 1",
+                "returned": "1988\u2014",
+                "column": "Duration",
+                "human_answer": " the duration of the oldest actor is 1988\u2014"
+              },
+              {
+                "question": "What is the character of Tom Oliver?",
+                "query": "SELECT \tCharacter FROM actor where Name = 'Tom Oliver'",
+                "returned": "Lou Carpenter",
+                "column": "Character",
+                "human_answer": "the character of the actor Tom Oliver is Lou Carpenter"
+              }
+            ]
+          },
+          {
+            "source": "rikq8pAADmGqkzSvE",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "which musical ids showed up at least three times in the actor table?"
+              },
+              {
+                "role": "assistant",
+                "content": "The musical ID that showed up at least three times in the actor table is 6."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What year is that musical with id 6?",
+                "query": "SELECT DISTINcT(T2.Year) FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.musical_ID = 6",
+                "returned": 1986,
+                "column": "Year",
+                "human_answer": "The year of the musical with ID 6 is 1986."
+              },
+              {
+                "question": "And what's the name for that musical with ID 6?",
+                "query": "SELECT DISTINCT(T2.Name) FROM actor AS T1 JOIN musical AS T2 ON T1.Musical_ID  =  T2.Musical_ID WHERE T2.musical_ID = 6",
+                "returned": "The Book of Mormon",
+                "column": "Name",
+                "human_answer": "The name of the musical with ID 6 is The Book of Mormon."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "college_1",
+        "member": "cosql_dataset/database/college_1/college_1.sqlite",
+        "sqlite_sha256": "5bf3ee598b9f10b4d9bef9a2d390f1391bccbcb64986c88241fad24452695d18",
+        "dialogues": [
+          {
+            "source": "wcKzD76bvPqJop8hm",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "How many students number in this table?"
+              },
+              {
+                "role": "assistant",
+                "content": "The number of students is 8."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How many class rooms in this table?",
+                "query": "SELECT count(class_room) FROM class",
+                "returned": 13,
+                "column": "count(class_room)",
+                "human_answer": "The number of classrooms is 13."
+              },
+              {
+                "question": "Find the average gpa of the students?",
+                "query": "SELECT avg(STU_GPA) FROM student",
+                "returned": 2.9387499999999998,
+                "column": "avg(STU_GPA)",
+                "human_answer": "the average GPA of the students is 2.9387499999999998"
+              }
+            ]
+          },
+          {
+            "source": "JEu6LwbvwMWcDem2D",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many professors in this table?",
+                "query": "SELECT count(*) FROM professor",
+                "returned": 22,
+                "column": "count(*)",
+                "human_answer": "there are 22 professors"
+              },
+              {
+                "question": "How many department names in this table?",
+                "query": "SELECT count(distinct DEPT_NAME) FROM DEPARTMENT",
+                "returned": 11,
+                "column": "count(distinct DEPT_NAME)",
+                "human_answer": "there are 11 distinct department names"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "baseball_1",
+        "member": "cosql_dataset/database/baseball_1/baseball_1.sqlite",
+        "sqlite_sha256": "cbeb49298ffc84465f7a27f3477fe73e05a2ced8d4c3c972d20d75c25820f29b",
+        "dialogues": [
+          {
+            "source": "4FBAdXoKLMcd5EKSp",
+            "turn": 2,
+            "prior": [
+              {
+                "role": "user",
+                "content": "HOW MANY ON THE TABLE"
+              },
+              {
+                "role": "assistant",
+                "content": "did you mean HOW MANY player  ON THE TABLE ?"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "YES EXACTLY",
+                "query": "SELECT count(distinct player_id) from player",
+                "returned": 18846,
+                "column": "count(distinct player_id)",
+                "human_answer": "there are  18846 player in table player"
+              },
+              {
+                "question": "WHAT IS BIRTH YEAR of aardsda01",
+                "query": "SELECT birth_year\t from player where \nplayer_id='aardsda01'",
+                "returned": 1981,
+                "column": "birth_year",
+                "human_answer": "aardsda01's BIRTH YEAR is 1981"
+              }
+            ]
+          },
+          {
+            "source": "EsKnteJ8SRPhS6JkC",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Which player has the highest salary on the list?"
+              },
+              {
+                "role": "assistant",
+                "content": "the id of  player who has the highest salary on the list is rodrial01"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How many players has the birth country in USA?",
+                "query": "select count(player_id) from player where birth_country = 'USA'",
+                "returned": 16504,
+                "column": "count(player_id)",
+                "human_answer": "there are 16504 players who  have the birth country USA"
+              },
+              {
+                "question": "State the team id which has the highest rank in the list?",
+                "query": "select team_id from team order by rank limit 1",
+                "returned": "PH1",
+                "column": "team_id",
+                "human_answer": " the team id of the team that has the highest rank is PH1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "department_management",
+        "member": "cosql_dataset/database/department_management/department_management.sqlite",
+        "sqlite_sha256": "14474b9543dcdf6f8bdd1ce129819af8237b54143ccaef1fd0d8b2d5ea55911f",
+        "dialogues": [
+          {
+            "source": "aQfWeZhoCYtKZvL3c",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "In which year were most departments established?"
+              },
+              {
+                "role": "assistant",
+                "content": "In 1789, the greatest number of departments was established."
+              },
+              {
+                "role": "user",
+                "content": "How many different departments were created in 1789?"
+              },
+              {
+                "role": "assistant",
+                "content": "2 departments were created in 1789"
+              },
+              {
+                "role": "user",
+                "content": "What are the names of those two departments?"
+              },
+              {
+                "role": "assistant",
+                "content": "The names of the two departments created in 1789 are state and treasury."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How many employees does the Treasury Department have?",
+                "query": "SELECT Num_Employees FROM department where name = \"Treasury\"",
+                "returned": 115897.0,
+                "column": "Num_Employees",
+                "human_answer": "The treasury department has 115897.0 employees."
+              },
+              {
+                "question": "What is the budget in billions of the Treasury Department?",
+                "query": "SELECT Budget_in_Billions FROM department where name = \"Treasury\"",
+                "returned": 11.1,
+                "column": "Budget_in_Billions",
+                "human_answer": "The budget in billions of the Treasury Department is 11.1"
+              }
+            ]
+          },
+          {
+            "source": "KpAYbNiwSMKKbCMnG",
+            "turn": 2,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Are there any distinct creation years managed by a secretary"
+              },
+              {
+                "role": "assistant",
+                "content": "Sorry do you mean the distinct creation years of the departments managed by a secretary? But I think all the departments are managed by a secretary."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "where is Sergio Garc\u00eda born",
+                "query": "SELECT born_state from head where name = \"Sergio Garc\u00eda\"",
+                "returned": "California",
+                "column": "born_state",
+                "human_answer": "Sergio Garcia is born in California "
+              },
+              {
+                "question": "what is the highest head id in the management",
+                "query": "SELECT max(head_ID) from head",
+                "returned": 10,
+                "column": "max(head_ID)",
+                "human_answer": "the highest head id is 10"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "apartment_rentals",
+        "member": "cosql_dataset/database/apartment_rentals/apartment_rentals.sqlite",
+        "sqlite_sha256": "42121c39f5132a9df8eea63ff01d4cdb446144e020079c073a58a949f9d40e34",
+        "dialogues": [
+          {
+            "source": "cK4dYM57ENwMMHEf5",
+            "turn": 5,
+            "prior": [
+              {
+                "role": "assistant",
+                "content": "Did you mean the total bathroom count of the building with id 809?"
+              },
+              {
+                "role": "user",
+                "content": "Yes"
+              },
+              {
+                "role": "user",
+                "content": "How many bathroom count those building 809 has?"
+              },
+              {
+                "role": "assistant",
+                "content": "The total number of bathrooms building 809 has is NULL."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How about building 808?",
+                "query": "SELECT sum(bathroom_count) FROM Apartments WHERE building_id = 808",
+                "returned": 1,
+                "column": "sum(bathroom_count)",
+                "human_answer": "The total number of bathrooms in building 808 has is 1. "
+              },
+              {
+                "question": "How about the total number of rooms it has?",
+                "query": "SELECT sum(room_count) FROM Apartments WHERE building_id = 808",
+                "returned": 7,
+                "column": "sum(room_count)",
+                "human_answer": "The total number of rooms in building with id 808 is 7."
+              }
+            ]
+          },
+          {
+            "source": "9xuzMiQKsaD5WFAkM",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the apartment code of the apartment with the most number of rooms?"
+              },
+              {
+                "role": "assistant",
+                "content": "the apartment code of the apartment with the most number of rooms is flat"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What about the code with the least rooms?",
+                "query": "select apt_type_code from Apartments order by room_count  limit 1",
+                "returned": "Flat",
+                "column": "apt_type_code",
+                "human_answer": "the apartment code of the apartment with the least number of rooms is flat"
+              },
+              {
+                "question": "What is the building ID  with  apartment Suite 645?",
+                "query": "select \tbuilding_id from Apartments where apt_number = 'Suite 645'",
+                "returned": 808,
+                "column": "building_id",
+                "human_answer": "the  building ID of the apartment with the apartment number Suite 645 is 808"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "customers_card_transactions",
+        "member": "cosql_dataset/database/customers_card_transactions/customers_card_transactions.sqlite",
+        "sqlite_sha256": "c2cde3ed8c5a33dd1f708a657ef9fab552c1a74ce19010bcc0dbff37ce708d62",
+        "dialogues": [
+          {
+            "source": "FjA8gfDTEc9Ahv6og",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "how many customers cards there"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 15 customers cards from the customers  cards  table "
+              }
+            ],
+            "sequence": [
+              {
+                "question": "how many credit cards there",
+                "query": "SELECT count(*) from Customers_Cards where card_type_code = \"Credit\"",
+                "returned": 7,
+                "column": "count(*)",
+                "human_answer": "There are 7 credit cards."
+              },
+              {
+                "question": "how many debit cards there",
+                "query": "SELECT count(*) from Customers_Cards where card_type_code = \"Debit\"",
+                "returned": 8,
+                "column": "count(*)",
+                "human_answer": "There are 8 debit cards."
+              }
+            ]
+          },
+          {
+            "source": "n2sK6Dm9D9EH2MuTQ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the card type with the most number of cards?",
+                "query": "SELECT card_type_code FROM Customers_cards GROUP BY card_type_code ORDER BY count(*) DESC LIMIT 1",
+                "returned": "Debit",
+                "column": "card_type_code",
+                "human_answer": " the card type with the most number of cards is Debit"
+              },
+              {
+                "question": "And the one with the least number of cards?",
+                "query": "SELECT card_type_code FROM Customers_cards GROUP BY card_type_code ORDER BY count(*) LIMIT 1",
+                "returned": "Credit",
+                "column": "card_type_code",
+                "human_answer": "the card type with the least number of cards is  Credit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "movie_1",
+        "member": "cosql_dataset/database/movie_1/movie_1.sqlite",
+        "sqlite_sha256": "71b33287968e5238593ea7154e4e38a03be3680ff84bf338d9cbb3206cf6ea3e",
+        "dialogues": [
+          {
+            "source": "5YkzGvpEQsLu7FAPf",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "Hello, how many ratings have the same reviewer and director name?",
+                "query": "SELECT count(*) FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID JOIN Reviewer AS T3 ON T1.rID  =  T3.rID WHERE T2.director  =  T3.name",
+                "returned": 1,
+                "column": "count(*)",
+                "human_answer": "only 1 rating  have the same reviewer and director name"
+              },
+              {
+                "question": "What is the reviewer name associated with that rating?",
+                "query": "SELECT DISTINCT T3.name  FROM Rating AS T1 JOIN Movie AS T2 ON T1.mID  =  T2.mID JOIN Reviewer AS T3 ON T1.rID  =  T3.rID WHERE T2.director  =  T3.name",
+                "returned": "James Cameron",
+                "column": "name",
+                "human_answer": "the reviewer name associated with the rating which has the same reviewer name and director name is James Cameron"
+              }
+            ]
+          },
+          {
+            "source": "LNXixLA4Mfxrdbqts",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "what is the highest rating star?",
+                "query": "SELECT max(stars) FROM Rating",
+                "returned": 5,
+                "column": "max(stars)",
+                "human_answer": "the highest rating star is 5 stars"
+              },
+              {
+                "question": "what is the average of rating stars?",
+                "query": "SELECT avg(stars) FROM Rating",
+                "returned": 3.2857142857142856,
+                "column": "avg(stars)",
+                "human_answer": "the average of rating stars is 3.2857142857142856 stars"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "perpetrator",
+        "member": "cosql_dataset/database/perpetrator/perpetrator.sqlite",
+        "sqlite_sha256": "752ddb2c9d1024d92caa25afe441afa337028f8dd947373aec15b82ed53a35b6",
+        "dialogues": [
+          {
+            "source": "965szkT4EHCzMN3AZ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "tell me the total number of injured in both china and japan\n",
+                "query": "SELECT sum(injured) FROM perpetrator WHERE country = \"China\" OR country = \"Japan\"",
+                "returned": 99,
+                "column": "sum(injured)",
+                "human_answer": "the total number of injured in both China and Japan is 99 "
+              },
+              {
+                "question": "what is the rate of kill in south korea",
+                "query": "SELECT Killed FROM perpetrator WHERE country = \"South Korea\"",
+                "returned": 56,
+                "column": "Killed",
+                "human_answer": "the kill number in South Korea is 56"
+              }
+            ]
+          },
+          {
+            "source": "rvpDQzs9uYhEua5tj",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "show the date of the tallest perpetrator.\n"
+              },
+              {
+                "role": "assistant",
+                "content": "the date of the tallest perpetrator is 05.21 May 21"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "show me the location of the tallest perpetrator.",
+                "query": "SELECT T2.Location FROM people AS T1 JOIN perpetrator AS T2 ON T1.People_ID  =  T2.People_ID ORDER BY T1.Height DESC LIMIT 1",
+                "returned": "Kaio",
+                "column": "Location",
+                "human_answer": "the location of the tallest perpetrator is Kaio"
+              },
+              {
+                "question": "what country is Kaio from?",
+                "query": "SELECT Country FROM perpetrator where location='Kaio'",
+                "returned": "Japan",
+                "column": "Country",
+                "human_answer": "The location kaio is in the country Japan"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "hospital_1",
+        "member": "cosql_dataset/database/hospital_1/hospital_1.sqlite",
+        "sqlite_sha256": "9814885b9c315749a4b57d4532e489260640eb79daf3f06b8de465aa27416dd1",
+        "dialogues": [
+          {
+            "source": "A585nqkQ2PJPd7F65",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What are the names and positions of all physicians who prescribed brand X medications?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the name and  the position of the physician who prescribed brand X medications"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What were the dates he prescribed those medications?",
+                "query": "SELECT DISTINCT T2.date FROM physician AS T1 JOIN prescribes AS T2 ON T1.employeeid = T2.physician JOIN medication AS T3 ON T3.code = T2.medication WHERE T3.Brand  =  \"X\"",
+                "returned": "2008-04-24 10:47",
+                "column": "Date",
+                "human_answer": " the date when the physician prescribed a brand X medication is 2008-04-24 10:47"
+              },
+              {
+                "question": "What was the dose of that medication?",
+                "query": "SELECT dose FROM physician AS T1 JOIN prescribes AS T2 ON T1.employeeid = T2.physician JOIN medication AS T3 ON T3.code = T2.medication WHERE T3.Brand  =  \"X\"",
+                "returned": "5",
+                "column": "Dose",
+                "human_answer": "the dose of the prescrition of a brand X medication is 5"
+              }
+            ]
+          },
+          {
+            "source": "uKGwvn23mfLHtnNqy",
+            "turn": 5,
+            "prior": [
+              {
+                "role": "user",
+                "content": "When was the most recent appointment?"
+              },
+              {
+                "role": "assistant",
+                "content": "do you want the most recent start or end of appointment"
+              },
+              {
+                "role": "user",
+                "content": "Start"
+              },
+              {
+                "role": "assistant",
+                "content": "the id of appointment which was the most recent appointment is 86213939"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the patient id of that appointment?",
+                "query": "select patient from appointment order by start desc limit 1",
+                "returned": 100000004,
+                "column": "Patient",
+                "human_answer": "the id of patient of the most recent appointment is 100000004"
+              },
+              {
+                "question": "What is their name?",
+                "query": "SELECT T1.name FROM patient AS T1 JOIN appointment AS T2 ON T1.ssn = T2.patient ORDER BY T2.start DESC LIMIT 1",
+                "returned": "Dennis Doe",
+                "column": "Name",
+                "human_answer": "the name of patient of the most recent appointment is Dennis Doe"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "hr_1",
+        "member": "cosql_dataset/database/hr_1/hr_1.sqlite",
+        "sqlite_sha256": "5e3358561f210b2f75d9ced5eafc13744c773f3f27eb8e0967afddd21fb25350",
+        "dialogues": [
+          {
+            "source": "k9CB9CZFm8Tdz2nnN",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "how many employees there"
+              },
+              {
+                "role": "assistant",
+                "content": "there are 107 employees"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "what is the salary of the employee id 101",
+                "query": "select SALARY from employees where EMPLOYEE_ID = 101;",
+                "returned": 17000,
+                "column": "SALARY",
+                "human_answer": "the salary of the employee with id 101 is 17000"
+              },
+              {
+                "question": "what is the phone number of 102",
+                "query": "select \tPHONE_NUMBER from employees where EMPLOYEE_ID = 102;",
+                "returned": "515.123.4569",
+                "column": "PHONE_NUMBER",
+                "human_answer": " the phone number of the employee with id 102 is 515.123.4569"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "local_govt_and_lot",
+        "member": "cosql_dataset/database/local_govt_and_lot/local_govt_and_lot.sqlite",
+        "sqlite_sha256": "6b3f0b4d537e6a784df4c0b17445ae891075a099fcdc172024524ed6e4dc8005",
+        "dialogues": [
+          {
+            "source": "4oaTGwECtoo546poY",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "How many customers have at least 3 events\n"
+              },
+              {
+                "role": "assistant",
+                "content": "there are 1 customer who has at least 3 events"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the id of the customer with at least 3 events?",
+                "query": "SELECT (T1.customer_id)  FROM Customers AS T1 JOIN Customer_Events AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id HAVING count(*)  >=  3",
+                "returned": 19,
+                "column": "customer_id",
+                "human_answer": " the id of the customer with at least 3 events is 19"
+              },
+              {
+                "question": "What are the details for the customer with at least 3 events?",
+                "query": "SELECT T1.customer_details FROM Customers AS T1 JOIN Customer_Events AS T2 ON T1.customer_id  =  T2.customer_id GROUP BY T1.customer_id HAVING count(*)  >=  3",
+                "returned": "Sabryna Moore PhD",
+                "column": "customer_details",
+                "human_answer": " the details for the customer with at least 3 events is Sabryna Moore PhD"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "epinions_1",
+        "member": "cosql_dataset/database/epinions_1/epinions_1.sqlite",
+        "sqlite_sha256": "12ce3aba8022f11940c605336fb3ce6e659d1d38c6aa0faf6b36b84e9df2dee1",
+        "dialogues": [
+          {
+            "source": "zGL62W4JWecRQ2Mam",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "which item has the highest rating?\n",
+                "query": "SELECT T1.title FROM item AS T1 JOIN review AS T2 ON T1.i_id  =  T2.i_id order by rating desc limit 1",
+                "returned": "orange",
+                "column": "title",
+                "human_answer": "orange  has the highest rating"
+              },
+              {
+                "question": "what is the average rating?\n",
+                "query": "SELECT avg(rating) FROM review",
+                "returned": 7.142857142857143,
+                "column": "avg(rating)",
+                "human_answer": "the average rating is 7.142857142857143"
+              }
+            ]
+          },
+          {
+            "source": "8ib8qZSrH7vwnQDov",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the name of the good with the highest average rank?\n",
+                "query": "SELECT T1.title FROM item AS T1 JOIN review AS T2 ON T1.i_id  =  T2.i_id GROUP BY T2.i_id ORDER BY avg(T2.rank) DESC LIMIT 1",
+                "returned": "cup",
+                "column": "title",
+                "human_answer": "Cup is the title of the good with the highest average rank"
+              },
+              {
+                "question": "What is the ID of cup?",
+                "query": "SELECT i_id FROM item where title = \"cup\"",
+                "returned": 7,
+                "column": "i_id",
+                "human_answer": "7 is the id of the item with the title cup."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "twitter_1",
+        "member": "cosql_dataset/database/twitter_1/twitter_1.sqlite",
+        "sqlite_sha256": "e6733f66370f826f98aafd378926d4781283d62daf4494c6a1f2875b928e7ee1",
+        "dialogues": [
+          {
+            "source": "P4NXsyW4RuzAr7KoF",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Hi, I was wondering how many users do not have tweets?\n"
+              },
+              {
+                "role": "assistant",
+                "content": "2 users do not have any tweets."
+              },
+              {
+                "role": "user",
+                "content": "Great, what is the average number of followers for everyone in the data set?"
+              },
+              {
+                "role": "assistant",
+                "content": "The average number of followers for all users is 37198882.571428575"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Okay, and what about the average followers for those who do have tweets?",
+                "query": "SELECT avg(followers) FROM user_profiles WHERE UID IN (SELECT UID FROM tweets)",
+                "returned": 33203172.0,
+                "column": "avg(followers)",
+                "human_answer": "The average followers for users who do have tweets is 33203172.0"
+              },
+              {
+                "question": "And what was the average followers for those who do not have any tweets?",
+                "query": "SELECT avg(followers) FROM user_profiles WHERE UID NOT IN (SELECT UID FROM tweets)",
+                "returned": 47188159.0,
+                "column": "avg(followers)",
+                "human_answer": "The average followers for users who do not have tweets is 47188159.0."
+              }
+            ]
+          },
+          {
+            "source": "MbDYquJEjAHBqYNze",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What are the total number of followers for all users?",
+                "query": "SELECT sum(followers) FROM user_profiles",
+                "returned": 260392178,
+                "column": "sum(followers)",
+                "human_answer": " the total number of followers for all users is 260392178"
+              },
+              {
+                "question": "What are the lowest number of followers?",
+                "query": "SELECT min(followers) FROM user_profiles",
+                "returned": 100,
+                "column": "min(followers)",
+                "human_answer": " the lowest number of followers is 100"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "customer_deliveries",
+        "member": "cosql_dataset/database/customer_deliveries/customer_deliveries.sqlite",
+        "sqlite_sha256": "e4d269a357190432d3f0b154070dccf1cc5f7f7715571c1597e2fdd9ee47d485",
+        "dialogues": [
+          {
+            "source": "jjQzmcJEugEHkwEtt",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "Which state has the most employees?",
+                "query": "select T1.state_province_county from Addresses as T1 join Employees as T2 on T1.address_id = T2.employee_address_id group by T1.state_province_county order by count(*) desc limit 1",
+                "returned": "Michigan",
+                "column": "state_province_county",
+                "human_answer": "the state which has the most employees is Michigan"
+              },
+              {
+                "question": "Which state has the least?",
+                "query": "select T1.state_province_county from Addresses as T1 join Employees as T2 on T1.address_id = T2.employee_address_id group by T1.state_province_county order by count(*)  limit 1",
+                "returned": "California",
+                "column": "state_province_county",
+                "human_answer": "the state which has the least employees is California"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "cre_Doc_Control_Systems",
+        "member": "cosql_dataset/database/cre_Doc_Control_Systems/cre_Doc_Control_Systems.sqlite",
+        "sqlite_sha256": "8451c4a097dcbf8fabf7993e70e91df3d825c3c941ba96eb41faa8d236897d30",
+        "dialogues": [
+          {
+            "source": "H7gDrBLDWMmGMengT",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "how many documents are there?"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 8 documents."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What's the least amount of draft copies that a document has?",
+                "query": "SELECT count(copy_number) FROM Draft_Copies GROUP BY document_id ORDER BY count(copy_number) LIMIT 1;",
+                "returned": 1,
+                "column": "count(copy_number)",
+                "human_answer": "the least amount of draft copies that a document has is 1."
+              },
+              {
+                "question": "What's the most amount of draft copies that a document has?",
+                "query": "SELECT count(copy_number) FROM Draft_Copies GROUP BY document_id ORDER BY count(copy_number) DESC LIMIT 1;",
+                "returned": 2,
+                "column": "count(copy_number)",
+                "human_answer": "the most amount of draft copies that a document has is 2."
+              }
+            ]
+          },
+          {
+            "source": "YYMTSWoik7f82CXLy",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the name of the shipping agent that shipped the largest number of documents?",
+                "query": "SELECT T1.shipping_agent_name FROM Ref_Shipping_Agents AS T1 JOIN Documents AS T2 ON T2.shipping_agent_code = T1.shipping_agent_code GROUP BY T1.shipping_agent_code ORDER BY count(T2.document_id) DESC LIMIT 1;",
+                "returned": "UPS",
+                "column": "shipping_agent_name",
+                "human_answer": "The shipping agent that shipped the largest number of documents is UPS"
+              },
+              {
+                "question": "What is the name of the shipping agent that shipped the smallest number of documents?",
+                "query": "SELECT T1.shipping_agent_name FROM Ref_Shipping_Agents AS T1 JOIN Documents AS T2 ON T2.shipping_agent_code = T1.shipping_agent_code GROUP BY T1.shipping_agent_code ORDER BY count(T2.document_id)  LIMIT 1;",
+                "returned": "Airline",
+                "column": "shipping_agent_name",
+                "human_answer": "Airline is  the name of the shipping agent that shipped the smallest number of documents"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "products_gen_characteristics",
+        "member": "cosql_dataset/database/products_gen_characteristics/products_gen_characteristics.sqlite",
+        "sqlite_sha256": "5b964952f7d61b20885b5a90e0cde1e5d2bceb19ee57bdb21fc8f2fdd2ade331",
+        "dialogues": [
+          {
+            "source": "H5KKcd246TaqQFDtn",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "how many distinct names of the products have characteristc name warm?"
+              },
+              {
+                "role": "assistant",
+                "content": "There is 1 distinct name of the product that has characteristc name warm"
+              },
+              {
+                "role": "user",
+                "content": "Which distinct name is that?"
+              },
+              {
+                "role": "assistant",
+                "content": "The distinct name of the product that has characteristc name warm is chervil"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the name of a spice with buying price of 352447.2874677?",
+                "query": "SELECT product_name from products where typical_buying_price = 352447.2874677",
+                "returned": "peper",
+                "column": "product_name",
+                "human_answer": "The name of the product with typical buying price of 352447.2874677 is peper"
+              },
+              {
+                "question": "What is its color code?",
+                "query": "SELECT color_code from products where typical_buying_price = 352447.2874677",
+                "returned": "2",
+                "column": "color_code",
+                "human_answer": "The color code of the product with typical buying price of 352447.2874677 is 2"
+              }
+            ]
+          },
+          {
+            "source": "MXmsoz7cg3EirZH8N",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "what are the characteristics of the product name 'sesame'?\n"
+              },
+              {
+                "role": "assistant",
+                "content": "here are the id of characteristics of the product name 'sesame'"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "how many characteristics does the product name 'sesame' have?\n",
+                "query": "SELECT count(*) FROM products AS t1 JOIN product_characteristics AS t2 ON t1.product_id  =  t2.product_id WHERE t1.product_name  =  \"sesame\"",
+                "returned": 2,
+                "column": "count(*)",
+                "human_answer": "there are 2 characteristics which have the product name 'sesame' "
+              },
+              {
+                "question": "what is the product category code for product name 'sesame'\n",
+                "query": "select \tproduct_category_code from Products where product_name = 'sesame'",
+                "returned": "Seeds",
+                "column": "product_category_code",
+                "human_answer": "the product category code for product name 'sesame' is Seeds"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "student_1",
+        "member": "cosql_dataset/database/student_1/student_1.sqlite",
+        "sqlite_sha256": "671cc99b3e2cbc52547377eecdcbb365347aa4a3ff706243d48520bcd24658df",
+        "dialogues": [
+          {
+            "source": "fT93R7zmAYRtZwbtf",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "how many classrooms are available?",
+                "query": "SELECT count(distinct classroom) FROM list",
+                "returned": 12,
+                "column": "count(distinct classroom)",
+                "human_answer": "there are 12 lassrooms are available"
+              },
+              {
+                "question": "how many grades are available?",
+                "query": "SELECT count(distinct \tGrade) FROM list",
+                "returned": 7,
+                "column": "count(distinct \tGrade)",
+                "human_answer": "7 grades are available"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "soccer_1",
+        "member": "cosql_dataset/database/soccer_1/soccer_1.sqlite",
+        "sqlite_sha256": "402ea587e7cc71051f4479b5c2b70dcda1ac75176af15b3a1932febee4a528e5",
+        "dialogues": [
+          {
+            "source": "heH43gCF3FF7fY7ei",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Who are the top 3 players in terms of overall rating?"
+              },
+              {
+                "role": "assistant",
+                "content": "The top three players in terms of overall rating are shown in the table."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Which player scored highest in dribbling?",
+                "query": "SELECT DISTINCT T1.player_name FROM Player AS T1 JOIN Player_Attributes AS T2 ON T1.player_api_id  =  T2.player_api_id ORDER BY dribbling DESC LIMIT 1",
+                "returned": "Lionel Messi",
+                "column": "player_name",
+                "human_answer": "Lionel Messi has the highest score in dribbling."
+              },
+              {
+                "question": "What is Cristiano Ronaldo's birthday?",
+                "query": "SELECT birthday from Player where player_name = \"Cristiano Ronaldo\"",
+                "returned": "1985-02-05 00:00:00",
+                "column": "birthday",
+                "human_answer": "Cristiano Ronaldo's birthday is 1985-02-05 00:00:00."
+              }
+            ]
+          },
+          {
+            "source": "7aBwGYhnjv27m73dY",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "what players have a overall rating greater than 80?\n"
+              },
+              {
+                "role": "assistant",
+                "content": "There is all the info of players who have an overall rating greater than 80."
+              },
+              {
+                "role": "user",
+                "content": "of those players how many are right-footed?"
+              },
+              {
+                "role": "assistant",
+                "content": "The number of players who have an overall rating over 80 and prefer the right foot is 5955."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "of the players with an overall rating greater than 80 how many are left-footed?",
+                "query": "SELECT count(*) FROM Player_Attributes WHERE overall_rating  >  80 and preferred_foot = 'left'",
+                "returned": 1606,
+                "column": "count(*)",
+                "human_answer": "The number of players with an overall rating greater than 80 who prefer the left foot is 1606."
+              },
+              {
+                "question": "of the players with an overall rating greater than 80 how many are right-footed?",
+                "query": "SELECT count(*) FROM Player_Attributes WHERE overall_rating  >  80 and preferred_foot = 'right'",
+                "returned": 5955,
+                "column": "count(*)",
+                "human_answer": "The number of players with an overall rating greater than 80 who prefer the right foot is 5955."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "e_learning",
+        "member": "cosql_dataset/database/e_learning/e_learning.sqlite",
+        "sqlite_sha256": "dc06b485f9e041c8af060593fb31746ad1f97b07543ca69a94560dd6c89f3d1b",
+        "dialogues": [
+          {
+            "source": "XuZG7FETh6eRwrDkk",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "How many courses are there in Computer Science?"
+              },
+              {
+                "role": "assistant",
+                "content": "The number of courses in computer science is 6."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Great, and how many courses are there in Arts?",
+                "query": "SELECT COUNT(*) FROM Courses AS T1 JOIN Subjects AS T2 ON T1.subject_id  =  T2.subject_id WHERE T2.subject_name = \"Arts\"",
+                "returned": 4,
+                "column": "COUNT(*)",
+                "human_answer": "The number of courses in Arts is 4."
+              },
+              {
+                "question": "Wonderful. And how many courses in Language?",
+                "query": "SELECT COUNT(*) FROM Courses AS T1 JOIN Subjects AS T2 ON T1.subject_id  =  T2.subject_id WHERE T2.subject_name = \"Language\"",
+                "returned": 5,
+                "column": "COUNT(*)",
+                "human_answer": "The number of courses in Language is 5."
+              }
+            ]
+          },
+          {
+            "source": "dGuKNSwyZjDfomLMa",
+            "turn": 5,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the highest number of enrollments?\n"
+              },
+              {
+                "role": "assistant",
+                "content": "do you mean the highest number of course enrollments of student?"
+              },
+              {
+                "role": "user",
+                "content": "yes\n"
+              },
+              {
+                "role": "assistant",
+                "content": "the highest number of course enrollments of student is 5"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the student ID with the most course enrollments",
+                "query": "SELECT T1.student_id FROM Student_Course_Enrolment AS T1 JOIN Students AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC LIMIT 1",
+                "returned": 15,
+                "column": "student_id",
+                "human_answer": " the student ID with the most course enrollments is 15"
+              },
+              {
+                "question": "what is the login name of the student with the most course enrollments?",
+                "query": "SELECT T2.login_name FROM Student_Course_Enrolment AS T1 JOIN Students AS T2 ON T1.student_id  =  T2.student_id GROUP BY T1.student_id ORDER BY COUNT(*) DESC LIMIT 1",
+                "returned": "jgulgowski",
+                "column": "login_name",
+                "human_answer": "the login name of the student with the most course enrollments is jgulgowski"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "e_government",
+        "member": "cosql_dataset/database/e_government/e_government.sqlite",
+        "sqlite_sha256": "3fd703754d0334da78878f0f2544c7b44c75a7e86dee938d4f0ebd033c265636",
+        "dialogues": [
+          {
+            "source": "XKiWW5RXHPnfw6ig3",
+            "turn": 8,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Find the name of all the cities and states."
+              },
+              {
+                "role": "assistant",
+                "content": "you want the columns of town_city and state_province_county,right?"
+              },
+              {
+                "role": "user",
+                "content": "Umm. Give me the names and the states please"
+              },
+              {
+                "role": "assistant",
+                "content": "here is the name of all the cities and states"
+              },
+              {
+                "role": "user",
+                "content": "Can you give me the zip_postcode for Colorado"
+              },
+              {
+                "role": "assistant",
+                "content": "The zip_postcode for Colorado is 227"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Give me the cities where the state is Colorado",
+                "query": "SELECT town_city FROM addresses where state_province_county='Colorado'",
+                "returned": "Lake Meaghan",
+                "column": "town_city",
+                "human_answer": "Lake Meaghan is the cities where the state is Colorado"
+              },
+              {
+                "question": "Ok. Can you give me the cities where the state is NorthCarolina",
+                "query": "SELECT town_city FROM addresses where state_province_county='NorthCarolina'",
+                "returned": "West Stacy",
+                "column": "town_city",
+                "human_answer": "West Stacy\u3000 is\u3000the cities where the state is\u3000NorthCarolina "
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "game_1",
+        "member": "cosql_dataset/database/game_1/game_1.sqlite",
+        "sqlite_sha256": "b988661bebc7b34de11e3c1a5cd70b8f9d431bbc5c6ee191e688a7889944be0b",
+        "dialogues": [
+          {
+            "source": "qovu26bYLSTMPKEd5",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "what is the lname of linda"
+              },
+              {
+                "role": "assistant",
+                "content": "the lname of linda  is Smith"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "what is the age of linda",
+                "query": "SELECT Age FROM Student where Fname='Linda'",
+                "returned": 18,
+                "column": "Age",
+                "human_answer": "the age of linda is 18"
+              },
+              {
+                "question": "what is the age of kim",
+                "query": "SELECT Age FROM Student where Lname='Kim'",
+                "returned": 19,
+                "column": "Age",
+                "human_answer": "the age of Kim is 19"
+              }
+            ]
+          },
+          {
+            "source": "RX9789XGAZshohAtQ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "list number of games played by students ",
+                "query": "select sum(GamesPlayed) from sportsinfo",
+                "returned": 474,
+                "column": "sum(GamesPlayed)",
+                "human_answer": "the total number of games played by students is 474."
+              },
+              {
+                "question": "how many of those are played by students on scholarship? ",
+                "query": "SELECT sum(gamesplayed) FROM Sportsinfo WHERE onscholarship  =  'Y'",
+                "returned": 241,
+                "column": "sum(gamesplayed)",
+                "human_answer": "There are 241 games that are played by students on scholarship."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "insurance_and_eClaims",
+        "member": "cosql_dataset/database/insurance_and_eClaims/insurance_and_eClaims.sqlite",
+        "sqlite_sha256": "62d20c5b8e7c6af8ba844ae523cefe91779d3a1f0a096a784524390d96863595",
+        "dialogues": [
+          {
+            "source": "3JkLqzpnoY5psLkF3",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the name of the customer who has made the minimum amount of payment in one claim?"
+              },
+              {
+                "role": "assistant",
+                "content": " the name of the customer who has made the minimum paid amount  in one claim is Mrs. Hanna Willms"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the amount claimed for this customer?",
+                "query": "SELECT t1.amount_claimed FROM claim_headers AS t1 JOIN policies AS t2 ON t1.policy_id  =  t2.policy_id JOIN customers AS t3 ON t2.customer_id  =  t3.customer_id WHERE t1.amount_piad  =  (SELECT min(amount_piad) FROM claim_headers)",
+                "returned": 789.19,
+                "column": "Amount_Claimed",
+                "human_answer": "the claimed amount of the customer who has made the minimum paid amount in one claim is 789.19"
+              },
+              {
+                "question": "Can you also give me  the name of the customer who has made the maximum amount of payment in one claim?",
+                "query": "SELECT t3.Customer_Details FROM claim_headers AS t1 JOIN policies AS t2 ON t1.policy_id  =  t2.policy_id JOIN customers AS t3 ON t2.customer_id  =  t3.customer_id WHERE t1.amount_piad  =  (SELECT max(amount_piad) FROM claim_headers)",
+                "returned": "Lauriane Ferry PhD",
+                "column": "Customer_Details",
+                "human_answer": "The customer detail of the  customer who has made the maximum amount of payment in one claim is Lauriane Ferry PhD"
+              }
+            ]
+          },
+          {
+            "source": "LYjTmkBQ52jGkmS8N",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Could you please tell me the total amount paid in claim headers?"
+              },
+              {
+                "role": "assistant",
+                "content": "7314.68 is the total amount paid in claim headers"
+              },
+              {
+                "role": "user",
+                "content": "Could you please tell me the average amount paid in claim headers?"
+              },
+              {
+                "role": "assistant",
+                "content": "487.6453333333333 is the average amount paid in claim headers"
+              },
+              {
+                "role": "user",
+                "content": "Could you please tell me the total amount claimed?"
+              },
+              {
+                "role": "assistant",
+                "content": "8117.319999999998 is the total amount claimed"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the date of the largest amount claimed?",
+                "query": "SELECT date_of_claim from claim_headers order by amount_claimed desc limit 1",
+                "returned": "2016-12-17 08:28:16",
+                "column": "Date_of_Claim",
+                "human_answer": "2016-12-17 08:28:16 is the date of the claim with the largest amount claimed. "
+              },
+              {
+                "question": "What is the date of the smallest amount paid?",
+                "query": "SELECT date_of_claim from claim_headers order by amount_claimed limit 1",
+                "returned": "2017-07-05 02:54:30",
+                "column": "Date_of_Claim",
+                "human_answer": "2017-07-05 02:54:30 is the date of the claim with the smallest amount claimed"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "party_host",
+        "member": "cosql_dataset/database/party_host/party_host.sqlite",
+        "sqlite_sha256": "15fe4143a5e920b5635024750a8720cb13a0dfce4e3c3e15d805187dc436f435",
+        "dialogues": [
+          {
+            "source": "voNKNPcd92QiBuD8A",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "what is the average age"
+              },
+              {
+                "role": "assistant",
+                "content": "The average age of all hosts is 39.0."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "who is the youngest",
+                "query": "SELECT name FROM HOST order by age limit 1",
+                "returned": "Antonio Davis",
+                "column": "Name",
+                "human_answer": "The name of the youngest host is 'Antonio Davis'."
+              },
+              {
+                "question": "show the most common nationality of hosts",
+                "query": "SELECT Nationality FROM HOST group by Nationality order by count(*) desc limit 1",
+                "returned": "United States",
+                "column": "Nationality",
+                "human_answer": "the most common nationality of hosts is the United States."
+              }
+            ]
+          },
+          {
+            "source": "zY7nTbujvXhA4g56R",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the location of the Id no-1?\n"
+              },
+              {
+                "role": "assistant",
+                "content": "The location of the Id no-1 is Hemkade 48 Zaandam."
+              },
+              {
+                "role": "user",
+                "content": "how  many party theme in the united states?"
+              },
+              {
+                "role": "assistant",
+                "content": "* I have left the chat *"
+              },
+              {
+                "role": "assistant",
+                "content": "Sorry, I can not answer this question in sql."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "how many host in the id no_3?",
+                "query": "SELECT Number_of_hosts from party where Party_ID = 3",
+                "returned": 4,
+                "column": "Number_of_hosts",
+                "human_answer": "There are 4 hosts in the Party_ID no_3."
+              },
+              {
+                "question": "what is the age of the host id 3?",
+                "query": "SELECT age from host where Host_ID = 3",
+                "returned": "31",
+                "column": "Age",
+                "human_answer": "the age of the host id 3 is 31."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "student_assessment",
+        "member": "cosql_dataset/database/student_assessment/student_assessment.sqlite",
+        "sqlite_sha256": "23977676ac6170ea91819d6e1a9389942335bb224fbd0a953e4cba0e25dec748",
+        "dialogues": [
+          {
+            "source": "cjjk9aXaGsXAfwbab",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Can you tell me the id of the students who registered for course 301?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the ids of the students who registered for course 301."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Which one of them registered the earliest?",
+                "query": "SELECT student_id FROM student_course_attendance WHERE course_id = 301 ORDER BY date_of_attendance LIMIT 1",
+                "returned": 111,
+                "column": "student_id",
+                "human_answer": "The student with id 111 registered the course with id 301 the earliest."
+              },
+              {
+                "question": "Which one registered most recently for that course?",
+                "query": "SELECT student_id FROM student_course_attendance WHERE course_id = 301 ORDER BY date_of_attendance DESC LIMIT 1",
+                "returned": 171,
+                "column": "student_id",
+                "human_answer": "The student with id 171 registered the course with id 301 most recently."
+              }
+            ]
+          },
+          {
+            "source": "LKrvwyRwaq5twN4AF",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "whats the course id of statistics "
+              },
+              {
+                "role": "assistant",
+                "content": "The course id of statistics is 301."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "whats the course description of french",
+                "query": "SELECT course_description FROM courses WHERE course_name = \"French\"",
+                "returned": "French",
+                "column": "course_description",
+                "human_answer": "The course description of the course name French is French."
+              },
+              {
+                "question": "which course has most number of registered students ?",
+                "query": "SELECT T1.course_name FROM courses AS T1 JOIN student_course_registrations AS T2 ON T1.course_id = T2.course_Id GROUP BY T1.course_id ORDER BY count(*) DESC LIMIT 1",
+                "returned": "statistics",
+                "column": "course_name",
+                "human_answer": "Statistics has the most number of registered students."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "match_season",
+        "member": "cosql_dataset/database/match_season/match_season.sqlite",
+        "sqlite_sha256": "51f029a0762ce7cf2957ba38666da08f1a185f8db7f66f9d4c056d0fb6b527e5",
+        "dialogues": [
+          {
+            "source": "K969kvriaajGACdfr",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "how many different languages do countries speak?\n",
+                "query": "SELECT count(distinct Official_native_language) FROM country",
+                "returned": 6,
+                "column": "count(distinct Official_native_language)",
+                "human_answer": "The number of different languages is 6."
+              },
+              {
+                "question": "how  many of them are some form of English?\n",
+                "query": "SELECT count(distinct Official_native_language) FROM country WHERE Official_native_language LIKE \"%English%\"",
+                "returned": 3,
+                "column": "count(distinct Official_native_language)",
+                "human_answer": "The number of languages that are some form of English is 3"
+              }
+            ]
+          },
+          {
+            "source": "9RPFKKEXEgWjySNJr",
+            "turn": 8,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Tell me the Draft Class for the season 1996.0 ?"
+              },
+              {
+                "role": "assistant",
+                "content": "the Draft Class for the season 1996.0 is 1996 MLS College Draft"
+              },
+              {
+                "role": "user",
+                "content": "Tell me the Draft Pick Number for the country 6 ?"
+              },
+              {
+                "role": "assistant",
+                "content": "For which season do you want?"
+              },
+              {
+                "role": "user",
+                "content": "for 1998.0"
+              },
+              {
+                "role": "assistant",
+                "content": "There is no result."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Tell me the player for team 1 in the season 1996 ?",
+                "query": "SELECT player from match_season WHERE season = \"1996.0\" AND team = \"1\"",
+                "returned": "Steve Ralston Category:Articles with hCards",
+                "column": "Player",
+                "human_answer": " the player for team 1 in the season 1996 is Steve Ralston Category:Articles with hCards"
+              },
+              {
+                "question": "Which college have both players with position midfielder and players with position defender ?",
+                "query": "SELECT College FROM match_season WHERE POSITION  =  \"Midfielder\" INTERSECT SELECT College FROM match_season WHERE POSITION  =  \"Defender\"",
+                "returned": "Maryland",
+                "column": "College",
+                "human_answer": "Maryland is the school that has both players with position midfielder and players with position defender."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "ship_1",
+        "member": "cosql_dataset/database/ship_1/ship_1.sqlite",
+        "sqlite_sha256": "41d181f77e213f55a8ad8d17ab904870b24706dd6f145ce3972cda5601ef4afe",
+        "dialogues": [
+          {
+            "source": "ZvRXBZRHyEm7LgJ4v",
+            "turn": 4,
+            "prior": [
+              {
+                "role": "user",
+                "content": "When is the soonest to be captains in different class?\n"
+              },
+              {
+                "role": "assistant",
+                "content": "What do you mean by soonest?"
+              },
+              {
+                "role": "user",
+                "content": "the minimum age?\n"
+              },
+              {
+                "role": "assistant",
+                "content": "Here is a list of minimum age to be a captain in different classes."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Who is the oldest in the list?\n",
+                "query": "SELECT name FROM captain order by age desc limit 1",
+                "returned": "Captain Gilbert Pears",
+                "column": "Name",
+                "human_answer": "The name of the oldest captain is Captain Gilbert Pears."
+              },
+              {
+                "question": "what is the rank of Captain Gilbert Pears?\n",
+                "query": "select rank from captain where name = \"Captain Gilbert Pears\"",
+                "returned": "Lieutenant",
+                "column": "Rank",
+                "human_answer": "the rank of Captain Gilbert Pears is Lieutenant."
+              }
+            ]
+          },
+          {
+            "source": "iFgaFRToT56A4bJgh",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "let me know the name of the youngest captain\n",
+                "query": "SELECT name FROM captain ORDER BY age LIMIT 1",
+                "returned": "Captain Henry Dumaresq",
+                "column": "Name",
+                "human_answer": "The name of the youngest captain is Captain Henry Dumaresq."
+              },
+              {
+                "question": "How young is he?\n",
+                "query": "SELECT age FROM captain ORDER BY age LIMIT 1",
+                "returned": "38",
+                "column": "age",
+                "human_answer": "the age of the youngest captain is 38."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "roller_coaster",
+        "member": "cosql_dataset/database/roller_coaster/roller_coaster.sqlite",
+        "sqlite_sha256": "d0b3dcaf97a601063cf65b05fd251b223d22e75e7f05d4bad9539f0fb368b6c6",
+        "dialogues": [
+          {
+            "source": "TnCbraTPCZegyL4ga",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "HOW MANY COUNTRIES DO NOT HAVE AN ROLLER COASTER LONGER THAN 3000?"
+              },
+              {
+                "role": "assistant",
+                "content": "there are 1 country do not have an roller coaster longer than 3000"
+              },
+              {
+                "role": "user",
+                "content": "WHICH COUNTRY HAVE A ROLLER COASTER LONGER THAN 5000"
+              },
+              {
+                "role": "assistant",
+                "content": "the name of country which have a roller coaster longer than 5000 is Sweden"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "WHAT IS THE HIGHEST LENGTH OF ROLL COASTER",
+                "query": "select max(Length) from roller_coaster",
+                "returned": 6442.0,
+                "column": "max(Length)",
+                "human_answer": "the highest length of roll coaster is 6442.0"
+              },
+              {
+                "question": "WHICH PARK HAS HIGHEST SPEED OF ROLL COASTER",
+                "query": "select Park from roller_coaster order by Speed desc limit 1",
+                "returned": "Mt. Olympus",
+                "column": "Park",
+                "human_answer": "the park which has the highest speed is Mt. Olympus"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "sports_competition",
+        "member": "cosql_dataset/database/sports_competition/sports_competition.sqlite",
+        "sqlite_sha256": "ae8f322b30d1634e2cf0e3e9f033082096d469152a567e0e3014c000386f7c2f",
+        "dialogues": [
+          {
+            "source": "dQP9SNY4c79XKRgay",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the name of the country that participated in the greatest number of tournaments?",
+                "query": "SELECT country FROM competition WHERE competition_type  =  'Tournament' GROUP BY country ORDER BY count(*) DESC LIMIT 1",
+                "returned": "Slovenia",
+                "column": "Country",
+                "human_answer": "the name of the country that participated in the greatest number of tournaments is Slovenia"
+              },
+              {
+                "question": "What about the name of the country that participated in the least number of tournaments?",
+                "query": "SELECT country FROM competition WHERE competition_type  =  'Tournament' GROUP BY country ORDER BY count(*) asc LIMIT 1",
+                "returned": "Russia",
+                "column": "Country",
+                "human_answer": "the name of the country that participated in the least number of tournaments is Russia"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "cre_Doc_Tracking_DB",
+        "member": "cosql_dataset/database/cre_Doc_Tracking_DB/cre_Doc_Tracking_DB.sqlite",
+        "sqlite_sha256": "9c9df67d3c16e585d159328b627c334383bea333d250c515052f65613a48fc86",
+        "dialogues": [
+          {
+            "source": "e4FLLcqBcwSWNLCaW",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the location code that has the largest number of documents?",
+                "query": "SELECT location_code FROM Document_locations GROUP BY location_code ORDER BY count(*) DESC LIMIT 1",
+                "returned": "x",
+                "column": "Location_Code",
+                "human_answer": "the location code that has the largest number of documents is x"
+              },
+              {
+                "question": "What about the least number of documents?",
+                "query": "SELECT location_code FROM Document_locations GROUP BY location_code ORDER BY count(*) asc LIMIT 1",
+                "returned": "n",
+                "column": "Location_Code",
+                "human_answer": "the location code that has the least number of documents is n"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "behavior_monitoring",
+        "member": "cosql_dataset/database/behavior_monitoring/behavior_monitoring.sqlite",
+        "sqlite_sha256": "689af3fbf11164f50d02f4a75ff6c9a7fb419938de861a1c26477ae577c1443a",
+        "dialogues": [
+          {
+            "source": "W37qEhsPbxjzkSjaZ",
+            "turn": 5,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Add a column for monthly rental to the table Addresses"
+              },
+              {
+                "role": "assistant",
+                "content": "i cannot understand your question, can you give more information? thanks"
+              },
+              {
+                "role": "user",
+                "content": "What's the highest monthly rental in the table Student Addresses?"
+              },
+              {
+                "role": "assistant",
+                "content": "the highest monthly rental in the table Student Addresses is 1297.807"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "And what is the zip postcode of the address with monthly rental 1297.807?",
+                "query": "SELECT T1.zip_postcode FROM Addresses AS T1 JOIN Student_Addresses AS T2 ON T1.address_id  =  T2.address_id where T2.monthly_rental = 1297.807",
+                "returned": "637",
+                "column": "zip_postcode",
+                "human_answer": " the zip postcode of the address with monthly rental 1297.807 is 637"
+              },
+              {
+                "question": "And can you also tell me the line 1 value from the table Addresses for the same property?",
+                "query": "SELECT T1.line_1 FROM Addresses AS T1 JOIN Student_Addresses AS T2 ON T1.address_id  =  T2.address_id where T2.monthly_rental = 1297.807",
+                "returned": "014 Runte Haven Apt. 870",
+                "column": "line_1",
+                "human_answer": "the value of line 1 of the address with monthly rental 1297.807 is 014 Runte Haven Apt. 870"
+              }
+            ]
+          },
+          {
+            "source": "q7hDTiSfsKyjkrCTQ",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many teachers are there?",
+                "query": "select count(teacher_id) from Teachers",
+                "returned": 15,
+                "column": "count(teacher_id)",
+                "human_answer": "there are 15  teachers"
+              },
+              {
+                "question": "How many of them involve in detention?",
+                "query": "SELECT count(distinct T2.teacher_id) FROM Teachers AS T1 JOIN Detention AS T2 ON T1.teacher_id = T2.teacher_id",
+                "returned": 9,
+                "column": "count(distinct T2.teacher_id)",
+                "human_answer": "9 of teachers involve in detention"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "farm",
+        "member": "cosql_dataset/database/farm/farm.sqlite",
+        "sqlite_sha256": "4e2be63e448a8cee55564ee22e3a7596102338caabfbb20c61db1882389cf576",
+        "dialogues": [
+          {
+            "source": "FPLuw3Ka3ZPo8BPkr",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the population of city Id 2?"
+              },
+              {
+                "role": "assistant",
+                "content": "the population of the city with Id 2 is 1778"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the census ranking of Perth-Andover?",
+                "query": "SELECT census_ranking FROM city WHERE official_name = \"Perth-Andover\"",
+                "returned": "1442 of 5,008",
+                "column": "Census_Ranking",
+                "human_answer": "the census ranking of Perth-Andover is 1442 of 5,008"
+              },
+              {
+                "question": "What is the name of hosts of Carnival M is back?",
+                "query": "SELECT hosts FROM farm_competition WHERE Theme like \"%Carnival M is back%\"",
+                "returned": "Miley Cyrus Jared Leto and Karen Mok",
+                "column": "Hosts",
+                "human_answer": " the name of the hosts of the theme Carnival M is back are Miley Cyrus Jared Leto and Karen Mok"
+              }
+            ]
+          },
+          {
+            "source": "Xeo4zBXqZNMJgGLrJ",
+            "turn": 9,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Show me the official names of the cities that have hosted more than one competition?"
+              },
+              {
+                "role": "assistant",
+                "content": "The official name of the city that has hosted more than one competition is Aroostook"
+              },
+              {
+                "role": "user",
+                "content": "Show me the official names of the cities that have hosted only one competition?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here is a list of the official names of the cities that have hosted one competition. For example, Grand Falls/Grand-Sault is one of the cities that have hosted one competition."
+              },
+              {
+                "role": "user",
+                "content": "What were the themes of each of those competitions?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the official names of the cities that have hosted one competition and the themes of their competitions."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "What is the census rating of the city with the official name \"Plaster Rock\"?",
+                "query": "SELECT T1.Census_Ranking FROM city AS T1 JOIN farm_competition AS T2 ON T1.City_ID  =  T2.Host_city_ID where T1.Official_Name = \"Plaster Rock\"",
+                "returned": "1936 of 5,008",
+                "column": "Census_Ranking",
+                "human_answer": "The census rating of the city with the official name \"Plaster Rock\" is 1936 of 5,008"
+              },
+              {
+                "question": "What is the census rating of the city that hosted the competition with the theme \"Carnival M is back!\"?",
+                "query": "SELECT T1.Census_Ranking FROM city AS T1 JOIN farm_competition AS T2 ON T1.City_ID  =  T2.Host_city_ID where T2.Theme = \"Carnival M is back!\"",
+                "returned": "636 of 5008",
+                "column": "Census_Ranking",
+                "human_answer": "636 of 5008 is the census ranking of the city that hosted the competition with the theme \"Carnival M is back!\"."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "dev": [
+      {
+        "database": "network_1",
+        "member": "cosql_dataset/database/network_1/network_1.sqlite",
+        "sqlite_sha256": "bec92cd9a68d6f23469a0df246429299f44caaf75eab12275784e0bb7d0aa9ca",
+        "dialogues": [
+          {
+            "source": "mi7jBwN29udJSchmC",
+            "turn": 11,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Can you show me a list of student IDs and their friends IDs?"
+              },
+              {
+                "role": "assistant",
+                "content": "The table shows student IDs and their friends IDs"
+              },
+              {
+                "role": "user",
+                "content": "Can you show me a list of all student IDs?"
+              },
+              {
+                "role": "assistant",
+                "content": "Did you mean the id of all High schoolers?"
+              },
+              {
+                "role": "user",
+                "content": "Yes"
+              },
+              {
+                "role": "assistant",
+                "content": "The table shows the ids of all High schoolers."
+              },
+              {
+                "role": "user",
+                "content": "Can you show a list of IDs that are on the second list, but are not on the first list?"
+              },
+              {
+                "role": "assistant",
+                "content": "There is no ID that is on the second list but is not on the first list."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "Can you tell me the total number of student IDs?",
+                "query": "SELECT count(id) FROM Highschooler",
+                "returned": 16,
+                "column": "count(id)",
+                "human_answer": "The total number of High schooler ids is 16."
+              },
+              {
+                "question": "Can you tell me the total number of Friend IDs?",
+                "query": "SELECT count(distinct friend_id) FROM Friend",
+                "returned": 15,
+                "column": "count(distinct friend_id)",
+                "human_answer": "The total number of Friend IDs is 15."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "cre_Doc_Template_Mgt",
+        "member": "cosql_dataset/database/cre_Doc_Template_Mgt/cre_Doc_Template_Mgt.sqlite",
+        "sqlite_sha256": "9c3fdd03d8795ecde60aae782ce50c4fb1d6c03de1401fcdd6dc177342a53df5",
+        "dialogues": [
+          {
+            "source": "xoHcNoeL5xFS8ubGS",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the document id with least number of paragraphs?",
+                "query": "SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count(*) ASC LIMIT 1",
+                "returned": 3,
+                "column": "Document_ID",
+                "human_answer": "the id of document with least number of paragraphs is 3"
+              },
+              {
+                "question": "and the document with the most number of paragraphs?",
+                "query": "SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count(*) desc LIMIT 1",
+                "returned": 2394,
+                "column": "Document_ID",
+                "human_answer": "the id of document with most number of paragraphs is 2394"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "flight_2",
+        "member": "cosql_dataset/database/flight_2/flight_2.sqlite",
+        "sqlite_sha256": "db777ba6488ae2b515cb138d71ff23c4533e5fd0355854648a1102faff3fb7af",
+        "dialogues": [
+          {
+            "source": "7Jw9cKcuznuigfNgd",
+            "turn": 5,
+            "prior": [
+              {
+                "role": "user",
+                "content": "how many airline's there"
+              },
+              {
+                "role": "assistant",
+                "content": "The number of airlines is 12."
+              },
+              {
+                "role": "user",
+                "content": "what is the name of the usa airline"
+              },
+              {
+                "role": "assistant",
+                "content": "What did you mean by \"the name of the USA airline?\""
+              }
+            ],
+            "sequence": [
+              {
+                "question": "united sates of america",
+                "query": "SELECT Airline FROM AIRLINES WHERE Airline=\"United Airlines\"",
+                "returned": "United Airlines",
+                "column": "Airline",
+                "human_answer": "The name of the USA airline is United Airlines."
+              },
+              {
+                "question": "what is the abbreviation of us airways",
+                "query": "SELECT Abbreviation FROM AIRLINES WHERE Airline=\"US Airways\"",
+                "returned": "USAir",
+                "column": "Abbreviation",
+                "human_answer": "The abbreviation of US Airways is USAir."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "dog_kennels",
+        "member": "cosql_dataset/database/dog_kennels/dog_kennels.sqlite",
+        "sqlite_sha256": "ea5fbc6cf6aaf500371c5c121c339d9802ba6f5fbecd948a5274c0b487a9f486",
+        "dialogues": [
+          {
+            "source": "PeCoL6c7piJRp9PB8",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many dog owner's are there?",
+                "query": "SELECT count(*) FROM Owners",
+                "returned": 15,
+                "column": "count(*)",
+                "human_answer": "The number of owners is 15."
+              },
+              {
+                "question": "What is the age of the youngest dog?",
+                "query": "SELECT age FROM Dogs ORDER BY age ASC LIMIT 1",
+                "returned": "1",
+                "column": "age",
+                "human_answer": "The age of the youngest dog is 1."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "orchestra",
+        "member": "cosql_dataset/database/orchestra/orchestra.sqlite",
+        "sqlite_sha256": "13b64af1cf6fcbd34953a44f951b2bf79bedc000b344549212dac1a9345e2f86",
+        "dialogues": [
+          {
+            "source": "EZZANBHzSexc68Yee",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "List the name of the conductor with the most years of work.",
+                "query": "SELECT Name FROM conductor ORDER BY Year_of_Work DESC LIMIT 1",
+                "returned": "Robert Craft",
+                "column": "Name",
+                "human_answer": "Robert Craft works the most years"
+              },
+              {
+                "question": "How many years did Robert Craft work?",
+                "query": "SELECT Year_of_Work FROM conductor where name='Robert Craft'",
+                "returned": 21,
+                "column": "Year_of_Work",
+                "human_answer": "Robert Craft  worked 21 years"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "tvshow",
+        "member": "cosql_dataset/database/tvshow/tvshow.sqlite",
+        "sqlite_sha256": "1212c2e75cf1dcf3aeb4055331a85298b073d8a613ead77975b13bd3346b9fc4",
+        "dialogues": [
+          {
+            "source": "jMoEMefetn5LYQy6Y",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the TV Channel of TV series \"A love of a lifetime\"?\n"
+              },
+              {
+                "role": "assistant",
+                "content": " the TV Channel of TV series \"A love of a lifetime\" is \u201cSky Radio\u201d"
+              },
+              {
+                "role": "user",
+                "content": "How may viewers does \"A love of a lifetime\" have?"
+              },
+              {
+                "role": "assistant",
+                "content": "the  \"A love of a lifetime\" has 9.16 viewers"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How about the rating of \"A love of a lifetime?\"",
+                "query": "SELECT  Weekly_Rank  FROM  TV_series  where Episode = \"A Love of a Lifetime\";",
+                "returned": 43.0,
+                "column": "Weekly_Rank",
+                "human_answer": "the rating of \"A love of a lifetime\" is 43.0"
+              },
+              {
+                "question": "And when was \"A love of a lifetime\" aired?",
+                "query": "SELECT  \tAir_Date  FROM  TV_series  where Episode = \"A Love of a Lifetime\";",
+                "returned": "September 24, 2007",
+                "column": "Air_Date",
+                "human_answer": " \"A love of a lifetime\" aired in September 24, 2007"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "employee_hire_evaluation",
+        "member": "cosql_dataset/database/employee_hire_evaluation/employee_hire_evaluation.sqlite",
+        "sqlite_sha256": "760fec5cc872ef0cdf99242614f05c93dbd00d422ac9da87ea64fcf555be7373",
+        "dialogues": [
+          {
+            "source": "a5Jdyod5paCk5ntaE",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "what is the age of George Chuter?",
+                "query": "SELECT Age from employee where Name='George Chuter'",
+                "returned": 23,
+                "column": "Age",
+                "human_answer": "George Chuter is 23 years old"
+              },
+              {
+                "question": "what is the age of lee mears?",
+                "query": "SELECT Age from employee where Name='Lee Mears'",
+                "returned": 29,
+                "column": "Age",
+                "human_answer": "lee mearsis 29  years old"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "course_teach",
+        "member": "cosql_dataset/database/course_teach/course_teach.sqlite",
+        "sqlite_sha256": "da45fcdde64ac2b9330146506b7653ad4417489d8e496e509045e1b02245d793",
+        "dialogues": [
+          {
+            "source": "45Wccps7fiTJYvu8P",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "How many teachers are there?",
+                "query": "SELECT COUNT(*) FROM teacher",
+                "returned": 7,
+                "column": "COUNT(*)",
+                "human_answer": "There are 7 teachers"
+              },
+              {
+                "question": "How many courses do you have?",
+                "query": "SELECT COUNT(*) FROM course_arrange",
+                "returned": 6,
+                "column": "COUNT(*)",
+                "human_answer": "There are 6 different courses"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "wta_1",
+        "member": "cosql_dataset/database/wta_1/wta_1.sqlite",
+        "sqlite_sha256": "8f20747456d7748674b4f05432f3de96446ced95b8bd5a6fd01284f6c28f727c",
+        "dialogues": [
+          {
+            "source": "aKi4fJ8jZyBzTjJNi",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "how many players are presented on the table"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 20662 players"
+              },
+              {
+                "role": "user",
+                "content": "list out the players first name"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the first names of all the players."
+              }
+            ],
+            "sequence": [
+              {
+                "question": "what is the country code of Mirjana",
+                "query": "SELECT country_code FROM players  where first_name = \"Mirjana\"",
+                "returned": "CRO",
+                "column": "country_code",
+                "human_answer": "The country code of the player with first name Mirjana is CRO"
+              },
+              {
+                "question": "what is the birth date of Justine",
+                "query": "SELECT birth_date FROM players  where first_name = \"Mirjana\"",
+                "returned": 19820309,
+                "column": "birth_date",
+                "human_answer": "the birth date of the player with first name Justine is 19820309"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "museum_visit",
+        "member": "cosql_dataset/database/museum_visit/museum_visit.sqlite",
+        "sqlite_sha256": "3217aee38d8e3661d374bf025591b7164a1179c568ef5d20f3c338035fc6e1dd",
+        "dialogues": [
+          {
+            "source": "BEe6Th96F2jLbt8wr",
+            "turn": 0,
+            "prior": [],
+            "sequence": [
+              {
+                "question": "What is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?",
+                "query": "SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 INTERSECT SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  >  2011",
+                "returned": "Fernando Gago",
+                "column": "Name",
+                "human_answer": "The name of the visitor who visited a museum opened before 2009 and a museum opened after 2011 is Fernando Gago."
+              },
+              {
+                "question": "What museum did he visit before 2009?",
+                "query": "SELECT t3.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 AND t1.name = (SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 INTERSECT SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  >  2011)",
+                "returned": "Plaza Museum",
+                "column": "Name",
+                "human_answer": "The name of the museum that the visitor who visited a museum opened before 2009 and a museum opened after 2011 and also visited before 2009 is Plaza Museum."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "world_1",
+        "member": "cosql_dataset/database/world_1/world_1.sqlite",
+        "sqlite_sha256": "17b986695f16786d58d66f85e49dba87bdfe72953207ab9b1b49da9d2301ef65",
+        "dialogues": [
+          {
+            "source": "b6KaSTHzRmALvmbgn",
+            "turn": 3,
+            "prior": [
+              {
+                "role": "user",
+                "content": "What is the total number of countries?"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 239 countries in total"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How many cities are there?",
+                "query": "SELECT count(*) FROM city",
+                "returned": 4079,
+                "column": "count(*)",
+                "human_answer": "There are 4079 cities"
+              },
+              {
+                "question": "Can you tell me the region where the city of Kabul is?",
+                "query": "SELECT Region FROM country AS T1 JOIN city AS T2 ON T1.Code = T2.CountryCode WHERE T2.Name = \"Kabul\"",
+                "returned": "Southern and Central Asia",
+                "column": "Region",
+                "human_answer": "The city with name Kabul is in the region of Southern and Central Asia"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "database": "car_1",
+        "member": "cosql_dataset/database/car_1/car_1.sqlite",
+        "sqlite_sha256": "9d851e396e02997a1de073ae982fe1e4b1769fdffce2fac6e325857a3a938709",
+        "dialogues": [
+          {
+            "source": "arDyA7cpwgm2L9ZRg",
+            "turn": 6,
+            "prior": [
+              {
+                "role": "user",
+                "content": "Can you list the number of car makers on each continent?"
+              },
+              {
+                "role": "assistant",
+                "content": "Here are the continents with their corresponding number of car makers"
+              },
+              {
+                "role": "user",
+                "content": "What about the number of car makers in the country USA?"
+              },
+              {
+                "role": "assistant",
+                "content": "There are 4 car makers in the country USA"
+              }
+            ],
+            "sequence": [
+              {
+                "question": "How about in the country Germany?",
+                "query": "seLECT count(*) FROM car_makers as T1 join countries as T2 on T2.CountryId  =  T1.Country where T2.countryname = \"germany\"",
+                "returned": 4,
+                "column": "count(*)",
+                "human_answer": "There are 4 car makers in the country Germany"
+              },
+              {
+                "question": "What about France?",
+                "query": "seLECT count(*) FROM car_makers as T1 join countries as T2 on T2.CountryId  =  T1.Country where T2.countryname = \"france\"",
+                "returned": 3,
+                "column": "count(*)",
+                "human_answer": "There are 3 car makers in the country France."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
