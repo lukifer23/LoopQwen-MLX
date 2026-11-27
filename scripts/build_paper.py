@@ -267,6 +267,15 @@ def main(verify):
             [sys.executable, "-m", "scripts.paper_visit_residual"], cwd=ROOT, check=True
         )
 
+    integrated = ROOT / "research/results/integrated-assistance-01/decision.json"
+    ratings = ROOT / "docs/measurements/integrated-assistance-blinded-ratings.json"
+    if integrated.is_file() and ratings.is_file() and "arms" in read(integrated):
+        for task in (
+            "scripts.assistance_deliberation",
+            "scripts.paper_integrated_assistance",
+        ):
+            subprocess.run([sys.executable, "-m", task], cwd=ROOT, check=True)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

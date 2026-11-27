@@ -89,6 +89,14 @@ EDITIONS = {
         "Human follow-up reasoning and fresh software requirements",
         "Full-context measurements, depth controls and technical history",
     ),
+    "integrated-assistance": (
+        "loopqwen-visit-study.pdf",
+        "5abd4d00bfd05d024190b68a279db590612f6d80fc15c4523fc1441ec06dee9b",
+        "loopqwen-assistance-study.pdf",
+        "LoopQwen-MLX: recurring computation for real tools and open-ended assistance",
+        "Assistance, database reasoning and consolidation across tasks",
+        "Prior reasoning, deployment, long-context and matched-depth evidence",
+    ),
     "visit-residual": (
         "loopqwen-followup-study.pdf",
         "00efc4211c3ecc9d0237614c2ac50cfc7e7597a86aa94d7bb5f61635c27bd4a9",
@@ -149,6 +157,7 @@ if __name__ == "__main__":
                 "locked-context",
                 "followup",
                 "visit-residual",
+                "integrated-assistance",
             }
             and not (args.folder / (name + "-paper.json")).is_file()
         ):
