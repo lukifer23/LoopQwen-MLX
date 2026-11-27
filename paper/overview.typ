@@ -26,7 +26,7 @@ The common starting architecture is a 24-layer hybrid decoder with gated linear 
 #pagebreak()
 = Accuracy beside elapsed time
 #note[Table 1. Each line is a separate experiment. The denominator is the number of original items or requests in that row. Both time columns are sums of actual seconds on the complete ordered workload.]
-#tableview(("Workload","Comparator","N","Loop ✓","Other ✓","Loop s","Other s"),d.rows)
+#tableview(("Workload","Comparator","N","Loop ✓","Other ✓","Loop s","Other s"),if "conditional" in d {d.rows.slice(0,-1)} else {d.rows})
 
 #image("overview-delivery.svg",width:100%)
 #note[Figure 2. At each deadline, the numerator includes only correct final answers already delivered. Every enrolled request stays in the denominator, including unfinished generations and wrong answers. Each panel uses its own model and source cohort.]
@@ -68,3 +68,18 @@ ToolACE uses verified generated dialogues across a large API collection. Our pub
 The complete registry contains #d.scope.registrations registrations. Its primary archives include #t.at("primary/passed") explicit passed decisions, #t.at("primary/missed") missed decisions and #t.at("primary/archived without boolean gate") without a Boolean release decision. Four recovered executions have separate provenance. We recomputed SHA-256 over #t.payloads archived payloads and compared their inventories to the registry. The separate closed-window ledgers contain #d.scope.closed_worker_windows.jobs sequential jobs across #d.scope.closed_worker_windows.windows windows, totaling #d.scope.closed_worker_windows.worker_hours worker-hours. This covers recorded windows only and includes host work inside each reservation. The archive count includes systems tests, source qualification and experiments with different criteria.
 
 Read evidence-overview.pdf with overview-comparisons.csv for selected measurements and research-scope.csv for all original decisions, registrations and archive directories. The detailed paper includes methods, figures, ablations, archived failures and hardware measurements. The offline kits restore the model, runtime and sources and replay selected real requests outside the checkout. From the repository root, run #raw(".venv/bin/python -m scripts.paper_overview") to regenerate this overview and inventory.
+
+#if "conditional" in d [
+#pagebreak()
+= The broader instruction-initialized model
+
+#let c=d.conditional
+The next four-layer model starts from Qwen's public instruction sibling, shares the last four hybrid layers and learns to combine the physical states. On the same 256 objective questions as the preceding policy it scored #c.objective.at(0) against #c.objective.at(1) for untouched BF16 Base, with #c.gains_losses.at(0) individual gains and #c.gains_losses.at(1) losses. It solved #c.tools.at(0) / #c.tools.at(1) of 154 tool-enabled requests and #c.ordinary.at(0) / #c.ordinary.at(1) of 102 ordinary objective requests. All 340 paired requests took #calc.round(c.costs.candidate.wall_s,digits:2) / #calc.round(c.costs.control.wall_s,digits:2) seconds.
+
+#image("conditional-primary-quality.svg",width:100%)
+#text(size:9pt)[Left, changes in objective success with intervals resampling the registered sources. Right, fully usable responses on all six masked primary categories. SQLite-backed Wikipedia answers also require two attested values in a genuine observed result.]
+
+Whole questions test whether an answer follows its source. Both natural-table presentations were fully usable for #c.whole.natural.scores.at(0) / #c.whole.natural.scores.at(1) out of 24 questions. Both changed numeric tables received the correct grounded final answer on #c.whole_tables.at(0) / #c.whole_tables.at(1) out of 24 questions. The original supervised fit had generated 19 correct paired programs on 24 *training* questions entered from a supplied real schema.
+
+The broad automatic criterion #if c.automatic [passed] else [failed] and the masked source criterion #if c.masked [passed] else [failed]. Quantization, instruction initialization and training differ alongside recurrence. The independent same-foundation depth control is needed to identify the loop's contribution. Historical 128K results belong to their measured checkpoints. The paired study provides complete per-request outputs, measured costs and source-level decisions.
+]

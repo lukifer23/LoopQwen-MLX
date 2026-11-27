@@ -168,6 +168,15 @@ def build():
         "grounded",
         "wall_s",
     )
+    conditional = None
+    if (P / "conditional-primary.json").is_file():
+        conditional = read(P / "conditional-primary.json")
+        name = "conditional-program-primary-01"
+        dec = read(R / name / "decision.json")
+        assert digest(R / name / "checksums.json") == conditional["source_sha256"]
+        scored = {a: result["scored"] for a, result in dec["retention"]["arms"].items()}
+        add(name, "Instruction-initialized loop, objective", "Untouched Base",
+            scored["candidate"]["requests"], scored, ("candidate", "control"), "grounded", "wall_s")
     pairs = list(zip(rows[::2], rows[1::2], strict=True))
     with (P / "overview-comparisons.csv").open("w", newline="") as f:
         writer = csv.DictWriter(f, rows[0].keys(), lineterminator="\n")
@@ -306,6 +315,7 @@ def build():
         P / "overview-data.json",
         {
             "rows": summary,
+            **({"conditional": conditional} if conditional else {}),
             "scope": scope,
             **(
                 {
@@ -332,7 +342,7 @@ def build():
     doc = typst.compile(str(P / "overview.typ"), timestamp=0)
     (P / "evidence-overview.pdf").write_bytes(doc)
     pages = PdfReader(P / "evidence-overview.pdf").pages
-    assert len(pages) == 4 and all(len(p.extract_text()) > 550 for p in pages)
+    assert len(pages) == (5 if conditional else 4) and all(len(p.extract_text()) > 550 for p in pages)
     print(len(rows) // 2, "direct comparisons;", len(pages), "pages")
 
 
