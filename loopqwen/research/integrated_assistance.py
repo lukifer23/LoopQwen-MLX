@@ -306,6 +306,36 @@ def verify(root, d):
             )
             n += len(pos)
     assert n == fitlog["targets"]
+    import numpy as np
+    from safetensors import safe_open
+
+    with (
+        safe_open(root / "tool-adapters.safetensors", framework="np") as trained,
+        safe_open(root / "optimizer.safetensors", framework="np") as opt,
+    ):
+        names = trained.keys()
+        assert len(names) == 14 and set(opt.keys()) == {"step", "learning_rate"} | {
+            k + "." + t for k in names for t in ("m", "v")
+        }
+        assert opt.get_tensor("step").item() == s["updates"] and np.isclose(
+            opt.get_tensor("learning_rate").item(), s["lr"]
+        )
+        for k in names:
+            value = trained.get_tensor(k)
+            assert (
+                value.ndim == 2
+                and s["rank"] in value.shape
+                and np.isfinite(value).all()
+            )
+            for t in ("m", "v"):
+                moment = opt.get_tensor(k + "." + t)
+                assert (
+                    moment.shape == value.shape
+                    and np.isfinite(moment).all()
+                    and moment.any()
+                )
+                if t == "v":
+                    assert (moment >= 0).all()
     cm = read(root / "compiled.json")
     merge = read(root / "task-merge.json")
     assert cm["merge"] == digest(root / "task-merge.json") and merge["compiled"] == cm[
