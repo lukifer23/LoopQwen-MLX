@@ -260,6 +260,8 @@ The two visits share all parameters. Query and content corrections have rank 160
  #if "primary" in a [
   #pagebreak()
   #block(text(size:19pt,weight:"bold")[Fresh source reasoning and financial actions])
+  #image("learner-prefix-transfer.svg",width:85%)
+  #text(size:9pt)[Fig. 6. Matched wall time for every held request on logarithmic axes. Points below the diagonal are faster with the loop. Green identifies a new strict success, red a lost success and gray an unchanged outcome.]
   #tbl((1.15fr,.65fr,.85fr,.85fr,1fr),("Family","Requests","Loop / Base correct","Gains / losses","Paired p"),a.primary.counts.pairs().map(x=>{
    let c=x.at(1);(x.at(0),str(c.n),str(c.total.at(0))+" / "+str(c.total.at(1)),str(c.gains)+" / "+str(c.losses),fmt(c.p,n:4))}))
   #tbl((1.15fr,1fr,1fr),("Resource","Loop","Untouched Base"),("wall_s","first_s","peak","opening_tps","decode_tps").map(k=>{

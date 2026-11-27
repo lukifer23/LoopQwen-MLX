@@ -168,4 +168,44 @@ def collect():
                     }
                 )
         write_csv(P / "learner-prefix-requests.csv", records)
+        figure, axes = plt.subplots(1, 2, figsize=(7.8, 2.9), layout="constrained")
+        by_arm = {
+            arm: {r["id"]: r for r in records if r["arm"] == arm}
+            for arm in ("candidate", "control")
+        }
+        for ax, family, title in zip(
+            axes,
+            ("strategy", "report"),
+            ("Reasoning", "Financial calculations"),
+            strict=True,
+        ):
+            xs, ys = [], []
+            for key, loop in by_arm["candidate"].items():
+                if loop["family"] != family:
+                    continue
+                base = by_arm["control"][key]
+                xs.append(base["wall_s"])
+                ys.append(loop["wall_s"])
+                color = (
+                    "#287265"
+                    if loop["success"] and not base["success"]
+                    else "#b44c34"
+                    if base["success"] and not loop["success"]
+                    else "#667287"
+                )
+                ax.scatter(xs[-1], ys[-1], color=color, alpha=0.75, s=22)
+            low, high = min(xs + ys) * 0.8, max(xs + ys) * 1.18
+            ax.plot([low, high], [low, high], color="#999999", lw=0.7, ls="--")
+            ax.set(
+                xscale="log",
+                yscale="log",
+                xlim=(low, high),
+                ylim=(low, high),
+                xlabel="Base request time (seconds)",
+                ylabel="Loop request time (seconds)",
+                title=title,
+            )
+            ax.spines[["top", "right"]].set_visible(False)
+        figure.savefig(P / "learner-prefix-transfer.svg", metadata={"Date": None})
+        plt.close(figure)
     return report
