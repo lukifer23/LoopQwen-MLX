@@ -115,6 +115,8 @@ def measure(s, w, arm, actor, guard, fields=None):
         "reuse_prefix": True,
         "record_kv_history": True,
     }
+    if s.get("stage_from_tokens") and len(w["initial_ids"]) >= s["stage_from_tokens"]:
+        options["staged_context_dir"] = fields.folder
     if w["family"] == "field" and w["condition"] != "unassisted":
         tr = actor.continue_after_tool(w["messages"], prov, **options)
     else:
@@ -223,6 +225,12 @@ def verify(root, d):
             for w, r in zip(rows, runs[arm], strict=True):
                 (q,) = r["requests"]
                 t = q["trajectory"]
+                if s.get("stage_from_tokens"):
+                    staged = len(w["initial_ids"]) >= s["stage_from_tokens"]
+                    for turn in t["turns"]:
+                        assert ("scratch_bytes" in turn) == staged
+                        if staged:
+                            assert 0 < turn["scratch_bytes"] < s["scratch_gib"] * 2**30
                 assert (
                     t["turns"][0]["prompt_ids"] == w["initial_ids"]
                     and fingerprint(w["initial_ids"]) == w["initial_sha256"]

@@ -16,6 +16,7 @@ MODULE = {
     FEATURES: "shared_query_features",
     FIT: "shared_query_fit",
     PRIMARY: "shared_query_transfer",
+    "staged-query-transfer-01": "staged_query_transfer",
 }
 
 
@@ -51,6 +52,13 @@ def work(name):
             )
             if (root / "decision.json").exists():
                 return
+            marker = root / "candidate-window.json"
+            if (
+                name == "staged-query-transfer-01"
+                and marker.exists()
+                and read(marker)["window"] == int(session["start"])
+            ):
+                return
             if (
                 not spec.get("max_pressure_restarts")
                 or not (root / "pressure-stops.json").exists()
@@ -67,7 +75,11 @@ def work(name):
         "status": "interrupted",
         "reason": "Host availability window expired",
     }
-    if name == PRIMARY:
+    if name == "staged-query-transfer-01":
+        from loopqwen.research.staged_query_transfer import expire
+
+        decision["durable"] = expire(spec, root)
+    elif name == PRIMARY:
         decision["durable"] = {}
     elif name == FEATURES:
         from loopqwen.evaluation.mechanism import unpack

@@ -1,4 +1,4 @@
-"""Mask all 80 complete source responses and require committed judgments before unmasking."""
+"""Mask every short source response and require committed judgments before unmasking."""
 
 import argparse
 from collections import Counter, defaultdict
@@ -21,10 +21,10 @@ RATINGS = DOC / "shared-query-blinded-ratings.json"
 REPORT = DOC / "shared-query-reading.json"
 
 
-def run(mode, *, repair=False):
+def run(mode, *, repair=False, staged=False):
     panel, plan, stage = PANEL, PLAN, PRIMARY
     mask_path, rating_path, report_path = MASK, RATINGS, REPORT
-    if repair:
+    if repair or staged:
         from scripts.register_repair_query import (
             PANEL as panel,
         )
@@ -35,9 +35,12 @@ def run(mode, *, repair=False):
             PRIMARY as stage,
         )
 
-        mask_path = DOC / "repair-query-blinded.json"
-        rating_path = DOC / "repair-query-blinded-ratings.json"
-        report_path = DOC / "repair-query-reading.json"
+        prefix = "staged-query" if staged else "repair-query"
+        if staged:
+            stage = "staged-query-transfer-01"
+        mask_path = DOC / (prefix + "-blinded.json")
+        rating_path = DOC / (prefix + "-blinded-ratings.json")
+        report_path = DOC / (prefix + "-reading.json")
     assert read(plan)["material"] == digest(panel)
     rows = [w for w in unpack(panel)["rows"] if w["family"] != "locale"]
     data = {
@@ -181,5 +184,6 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("mode", choices=("blind", "report"))
     p.add_argument("--repair", action="store_true")
+    p.add_argument("--staged", action="store_true")
     a = p.parse_args()
-    run(a.mode, repair=a.repair)
+    run(a.mode, repair=a.repair, staged=a.staged)

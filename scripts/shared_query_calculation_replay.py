@@ -113,7 +113,7 @@ def probe(w, steps):
     }
 
 
-def run(report=False, *, repair=False):
+def run(report=False, *, repair=False, staged=False):
     source = ROOT / "held.json.gz"
     rows = [w for w in unpack(source) if w["family"] == "report"]
     assert len(rows) == 32
@@ -152,11 +152,11 @@ def run(report=False, *, repair=False):
         }
     committed(PLAN)
     assert read(PLAN) == plan
-    prefix = "repair-query" if repair else "shared-query"
+    prefix = "staged-query" if staged else "repair-query" if repair else "shared-query"
     committed(Path("docs/measurements") / (prefix + "-reading.json"))
     result = []
     summary = {}
-    archive = RESULTS / ("repair-query-transfer-01" if repair else PRIMARY)
+    archive = RESULTS / (prefix + "-transfer-01")
     for arm in ("candidate", "control"):
         c = Counter()
         records = {r["id"]: r for r in unpack(archive / (arm + ".json.gz"))}
@@ -206,5 +206,6 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--report", action="store_true")
     p.add_argument("--repair", action="store_true")
+    p.add_argument("--staged", action="store_true")
     a = p.parse_args()
-    print(run(a.report, repair=a.repair))
+    print(run(a.report, repair=a.repair, staged=a.staged))

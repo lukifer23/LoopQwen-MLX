@@ -65,11 +65,12 @@ def build(study):
 
 def run(study, mode, *, streamed=False, variant=None):
     variant = variant or ("streamed" if streamed else None)
-    if variant and variant not in ("streamed", "elastic"):
+    if variant and variant not in ("streamed", "elastic", "staged"):
         raise ValueError("Unknown registered comparison")
-    if variant and (study != "contrastive-worlds" or mode != "report"):
+    parent = "repair-query" if variant == "staged" else "contrastive-worlds"
+    if variant and (study != parent or mode != "report"):
         raise ValueError(
-            "The streamed comparison inherits the frozen contrastive wording strata"
+            "A storage variant inherits the original frozen wording strata"
         )
     plan = Path("research/diagnostics") / (study + "-wording-strata.json")
     expected = build(study)
@@ -80,7 +81,9 @@ def run(study, mode, *, streamed=False, variant=None):
     committed(plan)
     assert expected == read(plan)
     stage, reviews = STUDIES[study]
-    if variant:
+    if variant == "staged":
+        stage, reviews = "staged-query-transfer-01", ("staged-query",)
+    elif variant:
         stage = variant + "-world-transfer-01"
         reviews = (variant + "-services", variant + "-qualitative")
     root = Path("research/results") / stage
@@ -120,9 +123,15 @@ def run(study, mode, *, streamed=False, variant=None):
                 ],
             }
         )
+    report_prefix = (
+        "staged-query"
+        if variant == "staged"
+        else variant + "-world"
+        if variant
+        else study
+    )
     save(
-        DOC
-        / ((variant + "-world" if variant else study) + "-wording-sensitivity.json"),
+        DOC / (report_prefix + "-wording-sensitivity.json"),
         {
             "registration": digest(plan),
             "primary": digest(root / "checksums.json"),
@@ -137,6 +146,6 @@ if __name__ == "__main__":
     p.add_argument("study", choices=STUDIES)
     p.add_argument("mode", choices=("freeze", "report"))
     p.add_argument("--streamed", action="store_true")
-    p.add_argument("--variant", choices=("streamed", "elastic"))
+    p.add_argument("--variant", choices=("streamed", "elastic", "staged"))
     a = p.parse_args()
     run(a.study, a.mode, streamed=a.streamed, variant=a.variant)

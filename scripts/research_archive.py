@@ -75,6 +75,10 @@ def verify(root):
         from loopqwen.research.shared_query_fit import verify as verify_query_fit
 
         return verify_query_fit(root, decision)
+    if study == "staged-query-transfer-01":
+        from loopqwen.research.staged_query_transfer import verify as verify_staged
+
+        return verify_staged(root, decision)
     if study in ("shared-query-transfer-01", "repair-query-transfer-01"):
         from loopqwen.research.shared_query_transfer import verify as verify_query_transfer
 
