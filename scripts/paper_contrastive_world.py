@@ -14,6 +14,7 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from scripts.assistance_deliberation import write_csv
 from scripts.conditional_deliberation import account as channel_account
+from scripts.conditional_tool_recovery import summarize as recovery_summary
 from scripts.contrastive_fit_specificity import run as source_specificity
 from scripts.table_policy_reading import committed
 from scripts.wording_sensitivity import run as sensitivity
@@ -160,7 +161,16 @@ def held(out):
     out["sensitivity"] = read(DOC / "contrastive-worlds-wording-sensitivity.json")[
         "cells"
     ]
-    out["service"] = read(DOC / "contrastive-services-reading.json")["source_pairs"]
+    services = read(DOC / "contrastive-services-reading.json")
+    out["service"] = services["source_pairs"]
+    offered = {w["id"] for w in panel if w["family"] in ("service", "tables")}
+    grounded = {
+        (r["id"], r["arm"]): r["grounded"] for r in services["source_decisions"]
+    }
+    recovery, repairs = recovery_summary(root, runs, offered, grounded)
+    assert len(repairs) == 192
+    out["tool_recovery"] = recovery
+    write_csv(P / "contrastive-world-tool-recovery.csv", repairs)
     out["qualitative"] = read(DOC / "contrastive-qualitative-reading.json")
 
 

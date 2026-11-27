@@ -94,33 +94,22 @@ def stats(rows):
     }
 
 
-def build():
-    reg = read(ROOT / "registration.json")
-    with (P / "conditional-primary-requests.csv").open() as f:
-        offered = {r["id"] for r in csv.DictReader(f) if r["tools_available"] == "True"}
-    with (P / "conditional-primary-reading.csv").open() as f:
-        grounded = {
-            (r["id"], r["arm"]): r["grounded_usable"] == "True"
-            for r in csv.DictReader(f)
-            if r["family"] == "natural_mounted"
-        }
+def summarize(root, streams, offered, grounded):
+    reg = read(root / "registration.json")
     rows = []
     methods = defaultdict(Counter)
-    for arm in ARMS:
-        for r in unpack(ROOT / (arm + ".json.gz")):
+    for arm, stream in zip(ARMS, streams, strict=True):
+        for r in stream:
             if r["id"] not in offered:
                 continue
             (q,) = r["requests"]
-            success = (
-                q["score"]["success"]
-                if "success" in q["score"]
-                else grounded[r["id"], arm]
-            )
+            key = (r["id"], arm)
+            success = grounded[key] if key in grounded else q["score"]["success"]
             rows.append(detail(r, arm, reg["max_turns"], success))
             for t in callback_turns(q["trajectory"]):
                 for name, _, fail in t:
                     methods[arm, name]["error" if fail else "returned"] += 1
-    assert len(rows) == 2 * len(offered) == 356
+    assert len(rows) == 2 * len(offered)
     common = set.intersection(
         *[
             {
@@ -132,7 +121,7 @@ def build():
         ]
     )
     report = {
-        "primary": digest(ROOT / "checksums.json"),
+        "primary": digest(root / "checksums.json"),
         "common_opportunity_ids": sorted(common),
         "arms": {},
     }
@@ -151,6 +140,21 @@ def build():
                 m: dict(c) for (a, m), c in sorted(methods.items()) if a == arm
             },
         }
+    return report, rows
+
+
+def build():
+    with (P / "conditional-primary-requests.csv").open() as f:
+        offered = {r["id"] for r in csv.DictReader(f) if r["tools_available"] == "True"}
+    with (P / "conditional-primary-reading.csv").open() as f:
+        grounded = {
+            (r["id"], r["arm"]): r["grounded_usable"] == "True"
+            for r in csv.DictReader(f)
+            if r["family"] == "natural_mounted"
+        }
+    streams = [unpack(ROOT / (arm + ".json.gz")) for arm in ARMS]
+    report, rows = summarize(ROOT, streams, offered, grounded)
+    assert len(rows) == 356
     write_csv(P / "conditional-primary-tool-recovery.csv", rows)
     save(P / "conditional-primary-tool-recovery.json", report)
     return report
