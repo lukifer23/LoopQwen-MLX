@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "gates": {
+    "identical": true,
+    "exercised": true,
+    "live_tools": true,
+    "reused": true,
+    "peak": true,
+    "cold": true,
+    "cold_first": true,
+    "native_open": true,
+    "decode": true
+  },
+  "totals": {
+    "stock": {
+      "requests": 32,
+      "cold_s": 89.84672116691945,
+      "cold_first_s": 26.174007586028893,
+      "peak": 1237008394,
+      "turn_open_s": 8.712397500290535,
+      "decode_tps": 102.30890099570361,
+      "output_tokens": 5824,
+      "reused": 28672,
+      "state_blocks": 0,
+      "callback_domains": [
+        "agenda",
+        "file",
+        "packages",
+        "wheel"
+      ]
+    },
+    "state": {
+      "requests": 32,
+      "cold_s": 89.17430974985473,
+      "cold_first_s": 25.713400915032253,
+      "peak": 1220521958,
+      "turn_open_s": 8.469127632095478,
+      "decode_tps": 102.32358393822969,
+      "output_tokens": 5824,
+      "reused": 28672,
+      "state_blocks": 120,
+      "callback_domains": [
+        "agenda",
+        "file",
+        "packages",
+        "wheel"
+      ]
+    }
+  },
+  "native_open_ratios": [
+    0.9686518454186117,
+    0.9778959869081315,
+    0.9706650802893922,
+    0.9711389039567464
+  ]
+}

@@ -214,6 +214,13 @@ def main(verify):
             )
 
     preferred = ROOT / "research/results/valid-return-01/decision.json"
+    installed_cache = (
+        ROOT / "research/results/cache-state-conversations-01/decision.json"
+    )
+    if installed_cache.is_file() and "totals" in read(installed_cache):
+        subprocess.run(
+            [sys.executable, "-m", "scripts.paper_cache_state"], cwd=ROOT, check=True
+        )
     if preferred.is_file() and "arms" in read(preferred):
         for args in (
             ["scripts.file_evidence_checkpoints", "--valid-return"],

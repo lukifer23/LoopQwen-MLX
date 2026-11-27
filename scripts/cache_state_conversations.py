@@ -1,5 +1,6 @@
 """Run a same-weight, installed-runtime crossover through real two-message tool conversations."""
 
+import argparse
 import json
 import subprocess
 import sys
@@ -308,4 +309,13 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--build-wheel",
+        action="store_true",
+        help="Rebuild and compare both offline wheel copies",
+    )
+    if parser.parse_args().build_wheel:
+        print(wheel(registered(NAME)))
+    else:
+        run()
