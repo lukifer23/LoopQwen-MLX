@@ -97,7 +97,9 @@ def verify(root, d):
                 and len(v["sites"]) == 25
                 and all(
                     (
-                        len(s["state"]) == 2
+                        len(s["state"]) == 3
+                        and s["state"][2] == s["offset"]
+                        and all(len(tensor) == 3 for tensor in s["state"][:2])
                         if (s["layer"] + 1) % 4 == 0
                         else len(s["state"][0]) == 2 and s["state"][1:] == [None, None]
                     )
