@@ -4,12 +4,56 @@ import csv
 import json
 
 import matplotlib.pyplot as plt
-from report_action_material import source
+from paper_overlap import audit
+from report_action_material import INSTRUCTION, source
 from report_units_audit import visible_scale
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read
 from loopqwen.research.native_function_study import executions
+
+
+def overlap(paper, training, panel):
+    users = {
+        m["content"]
+        for r in training["examples"]
+        for m in r["messages"]
+        if m["role"] == "user"
+    }
+    texts = [r for r in users if r.endswith(INSTRUCTION)]
+    contexts = [r.removesuffix(INSTRUCTION).rsplit("\n\n", 1)[0] for r in texts]
+    questions = [r.removesuffix(INSTRUCTION).rsplit("\n\n", 1)[-1] for r in users]
+    with (paper / "report-action-overlap.csv").open("w", newline="") as stream:
+        out = csv.writer(stream)
+        out.writerow(
+            [
+                "comparison",
+                "mask_numbers",
+                "distinct_train",
+                "distinct_held",
+                "exact",
+                "nonexact_jaccard_at_least_0.6",
+                "max_five_word_jaccard",
+            ]
+        )
+        for domain in ("report", "distribution"):
+            held = [
+                w["questions"][0].removesuffix(INSTRUCTION).rsplit("\n\n", 1)
+                for w in panel["rows"]
+                if w["family"] == domain
+            ]
+            for label, fit, idx in (
+                ("questions", questions, 1),
+                ("source documents", contexts, 0),
+            ):
+                for mask in (False, True):
+                    out.writerow(
+                        [
+                            domain + " " + label,
+                            mask,
+                            *audit(fit, [t[idx] for t in held], mask),
+                        ]
+                    )
 
 
 def make(paper, results, result, finish):
@@ -18,7 +62,9 @@ def make(paper, results, result, finish):
     if not (folder / "checksums.json").exists():
         return
     decision = result(name)
-    panel = read(read(folder / "registration.json")["material"])
+    spec = read(folder / "registration.json")
+    panel = read(spec["material"])
+    overlap(paper, read(spec["training"]), panel)
     with (paper / "report-action-requests.csv").open("w", newline="") as stream:
         out = csv.writer(stream)
         out.writerow(

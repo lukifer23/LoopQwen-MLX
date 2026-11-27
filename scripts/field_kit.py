@@ -135,6 +135,7 @@ def entries(revision, staging):
         "contrast-reader-installed-02.json",
         "document-reader-installed-02.json",
         "observation-review-base-identity.json",
+        "report-distribution-bytes.json",
     ):
         records["verification/" + name] = docs / name
     records["research/data/conversation-document-prefill-tokens.json"] = (
