@@ -77,7 +77,10 @@ def build():
         ("valid-return-01", "Alternate tool results"),
         ("linked-rollin-02", "Learner-generated histories"),
         ("followup-protected-01", "Human and wheel follow-ups"),
+        ("visit-residual-01", "Second-visit readout"),
     ):
+        if name == "visit-residual-01" and not (P / "visit-residual-paper.json").exists():
+            continue
         if name.startswith("followup") and not (P / "followup-paper.json").exists():
             continue
         d = read(R / name / "decision.json")
@@ -188,7 +191,7 @@ def build():
         (x["study"], x["domain"])
         for x, _ in pairs
         if x["study"].startswith(
-            ("valid-return", "linked-rollin", "followup-protected")
+            ("valid-return", "linked-rollin", "followup-protected", "visit-residual")
         )
     ]
     fig, axes = plt.subplots(
