@@ -1,5 +1,6 @@
 """Verify the exact sampled target tokens and evidence contrast from each teaching source."""
 
+import argparse
 import random
 from collections import Counter
 from pathlib import Path
@@ -10,7 +11,10 @@ from loopqwen.research.native_function_data import token_pair
 from loopqwen.research.reading_pairs import MatchedExamples
 
 
-def exposure(root):
+DEFAULT = Path("docs/measurements/file-evidence-exposure.json")
+
+
+def exposure(root, destination=DEFAULT):
     s = read(root / "registration.json")
     train = read(s["training"])
     rows = train["examples"]
@@ -70,13 +74,20 @@ def exposure(root):
             for g in sorted(set(groups.values()))
         },
     }
-    path = Path("docs/measurements/file-evidence-exposure.json")
-    if path.exists():
-        assert read(path) == out
+    if destination.exists():
+        assert read(destination) == out
     else:
-        save(path, out)
+        save(destination, out)
     return out
 
 
 if __name__ == "__main__":
-    print(exposure(Path("research/results/file-evidence-accumulated-01")))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--study-dir",
+        type=Path,
+        default=Path("research/results/file-evidence-accumulated-01"),
+    )
+    parser.add_argument("--output", type=Path, default=DEFAULT)
+    args = parser.parse_args()
+    print(exposure(args.study_dir, args.output))

@@ -58,3 +58,20 @@ git clone loopqwen-source.git research-checkout
 To verify training exposure from the restored checkout, place the supplied publisher files under `data/research_external/vitaminc/` and unpack release 05 under `exports/tool-language-packed-05/`. Run `.venv/bin/python -m scripts.file_evidence_exposure` using the installed native environment. This independently replays the registered sample order and teacher tokenization and checks the published total.
 
 The two original VitaminC distributions in `sources/vitaminc` include the project training split and untouched publisher test split. Their original licenses and the sampled Wikipedia edit provenance accompany them. The study uses different articles and claims for training and testing. The earlier field update retains its original instructions and receipts.
+
+## Repeat the native fit and the direct comparison
+
+Use a fresh clone of the restored Git history so its checkout and local compute ledger belong to this run. Set `py` to the absolute path of the Python interpreter from the offline installation above. From the cloned repository root, place release 05 in `exports/tool-language-packed-05/` and copy the supplied original VitaminC train and test files into `data/research_external/vitaminc/`. The registered training and test material, controls, original human labels and study decisions are tracked in Git. The commands below rebuild the material, open a bounded session, fit new weights, run both models and check the new run’s optimizer and exposure. They can take tens of minutes on an M3 Pro.
+
+```sh
+py=/absolute/path/to/the/offline/.venv/bin/python
+study=file-evidence-accumulated-01
+"$py" -m scripts.file_evidence_material
+"$py" -m scripts.research_session
+"$py" -u -m loopqwen.research.file_evidence "$study"
+"$py" -m scripts.file_evidence_checkpoints --record
+"$py" -m scripts.file_evidence_exposure --study-dir "outputs/research/$study"     --output "outputs/research/$study/exposure.json"
+"$py" -c 'from pathlib import Path; from loopqwen.io import read; from loopqwen.research.file_evidence import verify; p=Path("outputs/research/file-evidence-accumulated-01"); verify(p,read(p/"decision.json"))'
+```
+
+The newly measured weights, trajectories, decision and wall times are under `outputs/research/file-evidence-accumulated-01/`. The published run stays under `research/results/`. Its `environment.json` names the original execution revision and its precise source hashes. The 720 optimizer updates used a fixed sample order on the training articles. Comparisons across installations should check raw scores and receipts separately from timing, which varies with the device and host load.
