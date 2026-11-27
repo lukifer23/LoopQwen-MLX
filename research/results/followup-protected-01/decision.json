@@ -1,0 +1,305 @@
+{
+  "passed": false,
+  "gates": {
+    "human_net": false,
+    "followup_gain": false,
+    "first_gain": false,
+    "whole_human": false,
+    "archive_pairs": true,
+    "old_cases": false,
+    "old_pairs": false,
+    "completion": true,
+    "first_s": false,
+    "wall_s": true,
+    "peak": true,
+    "opening_tps": false,
+    "decode_tps": true
+  },
+  "arms": {
+    "candidate": {
+      "all": {
+        "dialogues": 108,
+        "strict": 31,
+        "requests": 108,
+        "answers": 32,
+        "grounded": 31,
+        "completed": 78,
+        "wall_s": 123.63033195788739,
+        "first_s": 23.902344457048457,
+        "peak": 1217254380,
+        "output_tokens": 10148
+      },
+      "families": {
+        "archive": {
+          "dialogues": 24,
+          "strict": 20,
+          "requests": 24,
+          "answers": 20,
+          "grounded": 20,
+          "completed": 20,
+          "wall_s": 25.783243958081584,
+          "first_s": 4.981960208097007,
+          "peak": 1184431084,
+          "output_tokens": 2101
+        },
+        "human_followup": {
+          "dialogues": 24,
+          "strict": 3,
+          "requests": 24,
+          "answers": 3,
+          "grounded": 3,
+          "completed": 23,
+          "wall_s": 16.818483997893054,
+          "first_s": 6.526496206992306,
+          "peak": 1217254380,
+          "output_tokens": 1101
+        },
+        "wheel": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 17.848867625987623,
+          "first_s": 1.3183687918935902,
+          "peak": 1184365548,
+          "output_tokens": 1679
+        },
+        "human_first": {
+          "dialogues": 24,
+          "strict": 5,
+          "requests": 24,
+          "answers": 5,
+          "grounded": 5,
+          "completed": 23,
+          "wall_s": 20.465452836011536,
+          "first_s": 6.308044624980539,
+          "peak": 1196053804,
+          "output_tokens": 1515
+        },
+        "agenda": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 1,
+          "grounded": 0,
+          "completed": 2,
+          "wall_s": 12.955933373887092,
+          "first_s": 1.7501365839270875,
+          "peak": 1196028908,
+          "output_tokens": 1086
+        },
+        "inline": {
+          "dialogues": 6,
+          "strict": 1,
+          "requests": 6,
+          "answers": 1,
+          "grounded": 1,
+          "completed": 6,
+          "wall_s": 1.3120186660671607,
+          "first_s": 0.5398395830416121,
+          "peak": 1157315564,
+          "output_tokens": 87
+        },
+        "retention": {
+          "dialogues": 8,
+          "strict": 2,
+          "requests": 8,
+          "answers": 2,
+          "grounded": 2,
+          "completed": 4,
+          "wall_s": 14.930695417046081,
+          "first_s": 1.3094087500940077,
+          "peak": 1188618724,
+          "output_tokens": 1361
+        },
+        "file": {
+          "dialogues": 6,
+          "strict": 0,
+          "requests": 6,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 13.515636082913261,
+          "first_s": 1.1680897080223076,
+          "peak": 1196078060,
+          "output_tokens": 1218
+        }
+      },
+      "whole": {
+        "archive": 10,
+        "human": 1,
+        "wheel": 0,
+        "agenda": 0,
+        "inline": 0,
+        "retention": 2,
+        "file": 0
+      },
+      "mean_f1": {
+        "human_first": 0.25472228452766227,
+        "human_followup": 0.16433701329534664
+      },
+      "opening_tps": 2671.87917318495,
+      "decode_tps": 105.6130000997317
+    },
+    "control": {
+      "all": {
+        "dialogues": 108,
+        "strict": 21,
+        "requests": 108,
+        "answers": 21,
+        "grounded": 21,
+        "completed": 65,
+        "wall_s": 558.76175546163,
+        "first_s": 23.41837545594899,
+        "peak": 1856553898,
+        "output_tokens": 37003
+      },
+      "families": {
+        "archive": {
+          "dialogues": 24,
+          "strict": 9,
+          "requests": 24,
+          "answers": 9,
+          "grounded": 9,
+          "completed": 15,
+          "wall_s": 112.65224395791302,
+          "first_s": 5.194284037919715,
+          "peak": 1834678698,
+          "output_tokens": 7435
+        },
+        "human_followup": {
+          "dialogues": 24,
+          "strict": 5,
+          "requests": 24,
+          "answers": 5,
+          "grounded": 5,
+          "completed": 22,
+          "wall_s": 71.88419558876194,
+          "first_s": 6.27761291898787,
+          "peak": 1835840474,
+          "output_tokens": 4604
+        },
+        "wheel": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 89.66410024999641,
+          "first_s": 1.2675428339280188,
+          "peak": 1821233498,
+          "output_tokens": 6018
+        },
+        "human_first": {
+          "dialogues": 24,
+          "strict": 5,
+          "requests": 24,
+          "answers": 5,
+          "grounded": 5,
+          "completed": 23,
+          "wall_s": 72.87216912710574,
+          "first_s": 6.066043375176378,
+          "peak": 1856553898,
+          "output_tokens": 4696
+        },
+        "agenda": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 2,
+          "wall_s": 57.62103208294138,
+          "first_s": 1.703186750994064,
+          "peak": 1826078682,
+          "output_tokens": 3832
+        },
+        "inline": {
+          "dialogues": 6,
+          "strict": 2,
+          "requests": 6,
+          "answers": 2,
+          "grounded": 2,
+          "completed": 2,
+          "wall_s": 30.834241706994362,
+          "first_s": 0.5192039159010164,
+          "peak": 1830652890,
+          "output_tokens": 2139
+        },
+        "retention": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 1,
+          "wall_s": 74.35899037291529,
+          "first_s": 1.265158039983362,
+          "peak": 1841416186,
+          "output_tokens": 5006
+        },
+        "file": {
+          "dialogues": 6,
+          "strict": 0,
+          "requests": 6,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 48.874782375001814,
+          "first_s": 1.1253435830585659,
+          "peak": 1825968090,
+          "output_tokens": 3273
+        }
+      },
+      "whole": {
+        "archive": 3,
+        "human": 0,
+        "wheel": 0,
+        "agenda": 0,
+        "inline": 0,
+        "retention": 0,
+        "file": 0
+      },
+      "mean_f1": {
+        "human_first": 0.2767414946935119,
+        "human_followup": 0.2645020247318008
+      },
+      "opening_tps": 2792.8506610270983,
+      "decode_tps": 69.94474634192275
+    }
+  },
+  "lost": [
+    "8eac8554cc1c6a22-inline",
+    "8aee60adaf6fa2b3-inline"
+  ],
+  "source_differences": {
+    "C_4757135666114907bfc0d709ba3b8acd_1": -1,
+    "C_a241f0afef9645a7b30590b0594a581e_0": 0,
+    "C_b82cebc289f04e378fc6a55461067aa4_1": -1,
+    "C_59f8fbd570f1414fb2e297bc0248af09_0": -1,
+    "C_706ee6c9f1b24be7aa241c1553bcb05e_0": -1,
+    "C_285ee1902de14373aee5162ac637ba42_0": 0,
+    "C_456d35fb4879441db7b032e3e623cef4_0": -1,
+    "C_05d94c3f81744bcdaea9dd56d3903e1e_1": 0,
+    "C_f16b10dbf2d54c7c9553045b0eff4f97_1": 1,
+    "C_a32bc7485b764ac9b8af875b955675b5_0": 0,
+    "C_2f4b44dac0a644348787d20df0054a6b_0": -1,
+    "C_96121ddf151b438591f32a90aa80ee15_1": 1,
+    "C_420bfcf5d8b344a480ac654f08ee55ad_0": 0,
+    "C_d5e9a739dded440da2c0250727dc57f8_1": 0,
+    "C_898087a45105402ab04da342233b1341_1": 0,
+    "C_89de3bf647e24845a8d8458fb94432d8_1": 1,
+    "C_5c07535a5a154b7f866ba89668c1998c_0": 1,
+    "C_c058211d95284484acd627e48c812f40_0": 0,
+    "C_71b8193bd8234404b0287d62f7878b8c_0": -1,
+    "C_39192746e949490b961b3d405735a703_0": 0,
+    "C_20ee6a2279e7499b9341cf357875ff11_0": 1,
+    "C_da16783a3783445e95ebdf57bf33da15_0": 0,
+    "C_fb7d703ef29d4076a00c2e70d2e93221_0": 0,
+    "C_2073ac4c6989480ab64e48630252f13f_0": 0
+  },
+  "paired_p": 0.7744140625
+}
