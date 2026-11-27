@@ -73,6 +73,14 @@ EDITIONS = {
         "Current study · Learning on the learner’s own tool histories",
         "Preference learning, matched depth, context and technical history",
     ),
+    "locked-context": (
+        "loopqwen-grounding-study.pdf",
+        "ebb39708f2cc5a53480804a8b2bbafcb575c48fbf68b2c2415c8767dc7764f1c",
+        "loopqwen-lockfile-study.pdf",
+        "LoopQwen-MLX: full-context tool use on changed software dependencies",
+        "Two complete upstream revisions beyond 131,072 tokens",
+        "Grounded generation, training controls and full research history",
+    ),
 }
 
 
@@ -122,6 +130,7 @@ if __name__ == "__main__":
                 "field-selection",
                 "valid-return",
                 "linked-rollin",
+                "locked-context",
             }
             and not (args.folder / (name + "-paper.json")).is_file()
         ):

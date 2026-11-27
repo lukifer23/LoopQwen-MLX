@@ -12,6 +12,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from loopqwen.io import read, save
+from scripts.assemble_evidence_paper import edition
 from scripts.locked_context_material import MATERIAL, SOURCE
 from scripts.locked_context_study import NAME, verify
 
@@ -162,6 +163,8 @@ def run():
     (P / "locked-context.pdf").write_bytes(raw)
     doc = PdfReader(P / "locked-context.pdf")
     assert len(doc.pages) == 2 and all(len(p.extract_text()) > 400 for p in doc.pages)
+    edition(P, "locked-context")
+    edition(P, "locked-context", verify=True)
 
 
 if __name__ == "__main__":
