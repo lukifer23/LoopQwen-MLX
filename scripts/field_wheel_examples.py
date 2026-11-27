@@ -45,6 +45,7 @@ def main(case):
             root = ROOT / "research/results/document-frequency-reader-01"
             _, _, source, question, expected, _ = next(documents())
             original = unpack(root / "candidate.json.gz")[0]
+            original_base = unpack(root / "control.json.gz")[0]
             request = work / "request.txt"
             request.write_text(source + "\n\n" + question)
             args = [
@@ -58,6 +59,8 @@ def main(case):
                 str(request),
                 "--max-tokens",
                 "160",
+                "--trace",
+                "--compare-base",
             ]
         else:
             root = ROOT / "research/results/question-contrast-01"
@@ -110,8 +113,10 @@ def main(case):
             and (p.suffix in {".bin", ".safetensors"} or "snapshots" in p.parts)
             for p in cache.rglob("*")
         )
-        if case == "contrast":
-            assert raw["base_source"] == "certified_release_text"
+        assert (
+            raw["base_source"] == "certified_release_text"
+            and raw["initial_prompt_identical"]
+        )
     record = {
         "case": case,
         "wheel_sha256": receipt["sha256"],
@@ -123,13 +128,38 @@ def main(case):
         "question": question,
     }
     if case == "document":
-        for k in ("token_ids", "context_route", "attention_memory", "prompt_tokens"):
-            assert raw[k] == original[k]
+        candidate, base = (raw["runs"][side] for side in ("recurrent", "base"))
+        for side, ref in ((candidate, original), (base, original_base)):
+            assert side["initial_sha256"] == ref["input_sha256"]
+            for key in ("token_ids", "prompt_tokens", "kv_history"):
+                assert side[key] == ref[key]
+        for key in ("context_route", "attention_memory"):
+            assert candidate[key] == original[key]
         record.update(
-            {
-                k: raw[k]
+            base_source=raw["base_source"],
+            initial_prompt_identical=raw["initial_prompt_identical"],
+            base={
+                k: base[k]
                 for k in (
                     "token_ids",
+                    "text",
+                    "initial_sha256",
+                    "kv_history",
+                    "cold_first_seconds",
+                    "request_seconds",
+                    "peak_bytes",
+                )
+            },
+            base_grade=original_base["grade"],
+        )
+        record.update(
+            {
+                k: candidate[k]
+                for k in (
+                    "token_ids",
+                    "kv_history",
+                    "cold_first_seconds",
+                    "request_seconds",
                     "context_route",
                     "attention_memory",
                     "prompt_tokens",
@@ -158,7 +188,8 @@ def main(case):
             assert old[k] == record[k]
         if case == "document":
             assert (
-                old["token_ids"] == record["token_ids"]
+                old["base"]["token_ids"] == record["base"]["token_ids"]
+                and old["token_ids"] == record["token_ids"]
                 and old["rendered_prompt_sha256"] == record["rendered_prompt_sha256"]
             )
         else:

@@ -147,6 +147,16 @@ def main():
     root = results / "document-frequency-reader-01"
     assert document["policy"] == digest(root / "checksums.json")
     document_row = unpack(root / "candidate.json.gz")[0]
+    base_row = unpack(root / "control.json.gz")[0]
+    assert (
+        document["base_source"] == "certified_release_text"
+        and document["initial_prompt_identical"]
+    )
+    assert document["base_grade"] == base_row["grade"]
+    assert document["base"]["initial_sha256"] == base_row["input_sha256"]
+    assert all(
+        document["base"][k] == base_row[k] for k in ("token_ids", "kv_history", "text")
+    )
     _, _, original, question, expected, _ = next(documents())
     rendered, _ = render(tok, original + "\n\n" + question, True)
     assert document["rendered_prompt_sha256"] == fingerprint(rendered)
@@ -155,7 +165,13 @@ def main():
     )
     assert all(
         document[k] == document_row[k]
-        for k in ("token_ids", "context_route", "attention_memory", "prompt_tokens")
+        for k in (
+            "token_ids",
+            "context_route",
+            "attention_memory",
+            "prompt_tokens",
+            "kv_history",
+        )
     )
     contrast = read(docs / "contrast-reader-installed.json")
     assert contrast["policy"] == digest(results / "question-contrast-01/checksums.json")

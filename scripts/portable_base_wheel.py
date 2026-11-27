@@ -12,7 +12,7 @@ from verify_runtime_wheel import CODE, ROOT, build, trace
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 
-REVISION = "b08bc560eb07f78c244fd513226e952d50ce30bf"
+REVISION = "20516864ad2a7f8a199f55306b6560746c7bb68e"
 NETWORK_GUARD = """import sys
 def isolated(event,args):
     if event in ('socket.connect','socket.getaddrinfo'):
