@@ -24,7 +24,7 @@ SQLITE_CASE = str.maketrans(ascii_uppercase, ascii_lowercase)
 def database(path):
     """Open an existing resource read-only and bound the work of a model-proposed SELECT."""
     with closing(
-        sqlite3.connect(path.as_uri() + "?mode=ro", uri=True, timeout=1)
+        sqlite3.connect(path.resolve(strict=True).as_uri() + "?mode=ro", uri=True, timeout=1)
     ) as db:
         db.execute("PRAGMA trusted_schema=OFF")
         db.execute("PRAGMA query_only=ON")
@@ -37,6 +37,65 @@ def database(path):
             if r[0] == "main" and r[2] == "table" and not r[1].startswith("sqlite_")
         )
         yield db, tables
+
+
+def select(path, statement, *, max_rows=MAX_ROWS):
+    """Read a bounded result and record every table SQLite resolves for the query."""
+    with database(path) as (db, tables):
+        allowed = {t.translate(SQLITE_CASE): t for t in tables}
+        referenced = set()
+        steps = 0
+
+        def progress():
+            nonlocal steps
+            steps += 1000
+            return steps > 2_000_000
+
+        def authorize(action, first, second, catalog, origin):
+            if action in (sqlite3.SQLITE_SELECT, sqlite3.SQLITE_RECURSIVE):
+                return sqlite3.SQLITE_OK
+            if (
+                action == sqlite3.SQLITE_READ
+                and catalog in (None, "main")
+                and first is not None
+                and first.translate(SQLITE_CASE) in allowed
+            ):
+                referenced.add(allowed[first.translate(SQLITE_CASE)])
+                return sqlite3.SQLITE_OK
+            if (
+                action == sqlite3.SQLITE_FUNCTION
+                and (second or "").lower() in READ_FUNCTIONS
+            ):
+                return sqlite3.SQLITE_OK
+            return sqlite3.SQLITE_DENY
+
+        db.set_authorizer(authorize)
+        db.set_progress_handler(progress, 1000)
+        cursor = db.execute(statement)
+        if cursor.description is None:
+            raise ValueError("A row-producing query is required")
+        rows = []
+        size = 0
+        truncated = False
+        for row in cursor:
+            if len(rows) == max_rows:
+                truncated = True
+                break
+            values = [
+                {"hex": val.hex()} if isinstance(val, bytes) else val for val in row
+            ]
+            size += len(
+                json.dumps(values, ensure_ascii=False, allow_nan=False).encode()
+            )
+            if size > MAX_BYTES:
+                raise ValueError("Select fewer or shorter values from the database")
+            rows.append(values)
+        return {
+            "columns": [c[0] for c in cursor.description],
+            "rows": rows,
+            "truncated": truncated,
+            "referenced_tables": sorted(referenced),
+        }
 
 
 def tools(paths):
@@ -70,61 +129,7 @@ def tools(paths):
             return {"tables": result}
 
     def query(database_name, statement):
-        with database(files[database_name]) as (db, tables):
-            allowed = {t.translate(SQLITE_CASE): t for t in tables}
-            referenced = set()
-            steps = 0
-
-            def progress():
-                nonlocal steps
-                steps += 1000
-                return steps > 2_000_000
-
-            def authorize(action, first, second, catalog, origin):
-                if action in (sqlite3.SQLITE_SELECT, sqlite3.SQLITE_RECURSIVE):
-                    return sqlite3.SQLITE_OK
-                if (
-                    action == sqlite3.SQLITE_READ
-                    and catalog in (None, "main")
-                    and first is not None
-                    and first.translate(SQLITE_CASE) in allowed
-                ):
-                    referenced.add(allowed[first.translate(SQLITE_CASE)])
-                    return sqlite3.SQLITE_OK
-                if (
-                    action == sqlite3.SQLITE_FUNCTION
-                    and (second or "").lower() in READ_FUNCTIONS
-                ):
-                    return sqlite3.SQLITE_OK
-                return sqlite3.SQLITE_DENY
-
-            db.set_authorizer(authorize)
-            db.set_progress_handler(progress, 1000)
-            cursor = db.execute(statement)
-            if cursor.description is None:
-                raise ValueError("A row-producing query is required")
-            rows = []
-            size = 0
-            truncated = False
-            for row in cursor:
-                if len(rows) == MAX_ROWS:
-                    truncated = True
-                    break
-                values = [
-                    {"hex": val.hex()} if isinstance(val, bytes) else val for val in row
-                ]
-                size += len(
-                    json.dumps(values, ensure_ascii=False, allow_nan=False).encode()
-                )
-                if size > MAX_BYTES:
-                    raise ValueError("Select fewer or shorter values from the database")
-                rows.append(values)
-            return {
-                "columns": [c[0] for c in cursor.description],
-                "rows": rows,
-                "truncated": truncated,
-                "referenced_tables": sorted(referenced),
-            }
+        return select(files[database_name], statement)
 
     def arguments(fields):
         return {
