@@ -62,7 +62,12 @@ class ConditionalReentry(LoopedModel):
             )
         super().__init__(text, span)
         self.freeze()
-        self.readout = ConditionalReadout(
+        readout = ConditionalReadout
+        if spec.get("increment_readout"):
+            from .contrastive_reentry import IncrementReadout
+
+            readout = IncrementReadout
+        self.readout = readout(
             text.args.hidden_size, spec["rank"], spec["gate_rank"], span.passes
         )
 

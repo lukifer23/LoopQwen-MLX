@@ -66,3 +66,30 @@ def test_sql_preference_spans_include_continuation_for_insertions():
     assert changed_token_spans([4, 9, 0], [4, 11, 0]) == ([1], [1])
     assert changed_token_spans([4, 9, 21, 0], [4, 21, 0]) == ([1, 2], [1])
     assert changed_token_spans([4, 21, 0], [4, 9, 21, 0]) == ([1], [1, 2])
+
+
+@pytest.mark.parametrize("passes", [1, 2])
+def test_fitted_increment_readout_requires_actual_physical_differences(passes):
+    from loopqwen.contrastive_reentry import IncrementReadout
+
+    acquire()
+    mx.random.seed(778634)
+    readout = IncrementReadout(64, 8, 4, passes)
+    states = mx.random.normal((2, 7, 5, 64)).astype(mx.bfloat16)
+    ordinary = states[..., 0 if passes == 2 else -1, :]
+    assert mx.array_equal(readout(states), ordinary).item()
+    # Use nonzero weights in all output channels so this invariant cannot pass
+    # merely because every trained branch is still initialized to zero.
+    readout.up.weight = mx.random.normal(readout.up.weight.shape)
+    readout.context.up.weight = mx.random.normal(readout.context.up.weight.shape)
+    readout.bias = mx.random.normal(readout.bias.shape)
+    collapsed = mx.broadcast_to(ordinary[..., None, :], states.shape)
+    assert mx.array_equal(readout(collapsed), ordinary).item()
+    measured = readout(states)
+    assert not mx.array_equal(measured, ordinary).item()
+    for i in range(2):
+        for j in range(7):
+            assert mx.allclose(
+                readout(states[i, j]), measured[i, j], rtol=0.02, atol=0.02
+            ).item()
+    assert readout.up.weight.shape == (64, 32) and readout.down.shape == (4, 8, 64)
