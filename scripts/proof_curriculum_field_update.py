@@ -65,6 +65,28 @@ FIELD = Edition(
 )
 
 
+VALID = Edition(
+    "valid-return",
+    "loopqwen-valid-return-07.zip",
+    "VALID_RETURN.md",
+    "loopqwen-preference-study.pdf",
+    "valid-return-update-07.json",
+    "valid-return.bundle",
+    (
+        (
+            "verify_field_selection_frozen",
+            ("--root", "research/results/valid-return-01"),
+        ),
+        ("field_selection_provenance", ("--compact", "--valid-return")),
+        ("agenda_sources", ()),
+        ("valid_return_oracle", ()),
+        ("valid_return_exposure", ()),
+        ("valid_return_analysis", ("report",)),
+        ("paper_valid_return", ()),
+    ),
+)
+
+
 def tracked(revision, path):
     names = subprocess.check_output(
         ["git", "ls-tree", "-r", "--name-only", "-z", revision, "--", path],
@@ -104,13 +126,21 @@ def make(tmp, revision, update, edition):
     files["sources/REASONED-EVIDENCE-SOURCES.md"] = (
         ROOT / "research/licenses/REASONED-EVIDENCE-SOURCES.md"
     )
-    if edition == FIELD:
+    if edition in (FIELD, VALID):
         for wheel in panel["wheels"]:
             source = (
                 ROOT / "data/research_external/field_selection/wheels" / wheel["wheel"]
             )
             assert digest(source) == wheel["wheel_sha256"]
             files["source-wheels/" + wheel["wheel"]] = source.read_bytes()
+    if edition == VALID:
+        from agenda_sources import FILES, source
+
+        for year, formats in FILES.items():
+            for fmt in formats:
+                files[f"schedule-sources/{year}.{fmt}"] = source(
+                    year, fmt, False
+                ).read_bytes()
     rows = panel["rows"]
     # Select by enrollment order alone: the first story through both channels, a whole
     # practical contrast, and first retained table. No success or latency is consulted.
@@ -123,7 +153,10 @@ def make(tmp, revision, update, edition):
         or w["cluster"] == pair
     ]
     selected.append(next(w for w in rows if w["family"] == "retention"))
-    assert len(selected) == 5
+    if edition == VALID:
+        event = next(w["cluster"] for w in rows if w["family"] == "agenda")
+        selected.extend(w for w in rows if w["cluster"] == event)
+    assert len(selected) == (7 if edition == VALID else 5)
     cases = []
     for j, w in enumerate(selected):
         key = f"{j + 1}-{w['family']}"
@@ -148,6 +181,8 @@ def make(tmp, revision, update, edition):
             name = "examples/" + w["document"]
             files[name] = panel["documents"][w["document"]].encode()
             args.extend(["--keyed-csv", name])
+        if w["family"] == "agenda":
+            args.extend(["--resource", "calendar"])
         files["examples/" + key + ".json"] = (
             json.dumps(args, ensure_ascii=False, indent=2) + "\n"
         ).encode()
@@ -174,7 +209,7 @@ def main(edition=PROOF):
         else subprocess.check_output(
             (
                 ["git", "log", "-1", "--format=%H", "--", "paper/" + edition.paper]
-                if edition == FIELD
+                if edition in (FIELD, VALID)
                 else ["git", "rev-parse", "HEAD"]
             ),
             cwd=ROOT,
@@ -300,14 +335,18 @@ def main(edition=PROOF):
         ]
         for n in generated:
             (checkout / n).unlink()
-        if edition == FIELD:
+        if edition in (FIELD, VALID):
             wheel_cache = checkout / "data/research_external/field_selection/wheels"
             wheel_cache.parent.mkdir(parents=True, exist_ok=True)
             wheel_cache.symlink_to(work / "source-wheels")
+        if edition == VALID:
+            (checkout / "data/research_external/fosdem").symlink_to(
+                work / "schedule-sources"
+            )
         for module, args in edition.modules:
             research_path = (
                 "sys.path.insert(0,str(Path.cwd()));"
-                if module == "verify_field_selection_frozen"
+                if edition == VALID or module == "verify_field_selection_frozen"
                 else "sys.path.append(str(Path.cwd()));"
             )
             code = (
@@ -387,5 +426,8 @@ def main(edition=PROOF):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--field-selection", action="store_true")
-    main(FIELD if parser.parse_args().field_selection else PROOF)
+    editions = parser.add_mutually_exclusive_group()
+    editions.add_argument("--field-selection", action="store_true")
+    editions.add_argument("--valid-return", action="store_true")
+    options = parser.parse_args()
+    main(VALID if options.valid_return else FIELD if options.field_selection else PROOF)

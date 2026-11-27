@@ -213,6 +213,23 @@ def main(verify):
                 check=True,
             )
 
+    preferred = ROOT / "research/results/valid-return-01/decision.json"
+    if preferred.is_file() and "arms" in read(preferred):
+        for args in (
+            ["scripts.file_evidence_checkpoints", "--valid-return"],
+            ["scripts.field_selection_provenance", "--valid-return", "--compact"],
+            ["scripts.valid_return_exposure"],
+            ["scripts.valid_return_analysis", "report"],
+            ["scripts.paper_valid_return"],
+        ):
+            subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)
+        if verify:
+            subprocess.run(
+                [sys.executable, "-m", "scripts.valid_return_oracle"],
+                cwd=ROOT,
+                check=True,
+            )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

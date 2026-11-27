@@ -57,6 +57,14 @@ EDITIONS = {
         "Current study · Choosing and interpreting the right field",
         "Previous reasoning studies and the complete technical report",
     ),
+    "valid-return": (
+        "loopqwen-field-study.pdf",
+        "ee144b3d94b72141ee493b5b07d92b00f6376c9b1354156200f7ab15fa4ed37a",
+        "loopqwen-preference-study.pdf",
+        "LoopQwen-MLX: recurrent reasoning and successful but irrelevant tool returns",
+        "Current study · Choosing between two real observations",
+        "Field selection, reasoning, long context and historical technical report",
+    ),
 }
 
 
@@ -104,6 +112,7 @@ if __name__ == "__main__":
                 "reasoned-evidence",
                 "proof-curriculum",
                 "field-selection",
+                "valid-return",
             }
             and not (args.folder / (name + "-paper.json")).is_file()
         ):

@@ -4,12 +4,17 @@ import argparse
 from pathlib import Path
 
 from loopqwen.io import digest, read
-from loopqwen.research.field_selection import verify
 from loopqwen.research.registered import registered
 
 
 def run(root):
-    spec = registered("field-selection-01")
+    if root.name == "valid-return-01":
+        from loopqwen.research.valid_return import verify
+    elif root.name == "field-selection-01":
+        from loopqwen.research.field_selection import verify
+    else:
+        raise ValueError(f"Unknown field study {root.name}")
+    spec = registered(root.name)
     assert read(root / "registration.json") == spec
     expected = read(root / "checksums.json")
     registry = read("research/registry.json")["experiments"][spec["id"]]
