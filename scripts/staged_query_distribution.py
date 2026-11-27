@@ -21,14 +21,21 @@ DEADLINES = (1, 2, 5, 10, 30, 60, 120, 240, 480)
 METRICS = ("correct", "completed", "wall_s", "first_s")
 
 
-def run(freeze):
-    panel = unpack(PANEL)["rows"]
+def run(freeze, cohort="staged-query"):
+    stage, panel_path = STAGE, PANEL
+    if cohort == "learner-prefix":
+        from scripts.register_learner_prefix import PANEL as panel_path, PRIMARY as stage
+    elif cohort == "content-read":
+        from scripts.register_content_read import PANEL as panel_path, PRIMARY as stage
+    plan_path = Path("research/diagnostics") / (cohort + "-distribution.json")
+    registration = Path("research/experiments") / (stage + ".json")
+    panel = unpack(panel_path)["rows"]
     families = defaultdict(list)
     for i, w in enumerate(panel):
         families[w["family"]].append(i)
     plan = {
-        "registration": digest(REG),
-        "panel": digest(PANEL),
+        "registration": digest(registration),
+        "panel": digest(panel_path),
         "cluster_sizes": {
             f: dict(Counter(panel[i]["cluster"] for i in ix))
             for f, ix in families.items()
@@ -38,14 +45,17 @@ def run(freeze):
         "deadlines_s": list(DEADLINES),
         "scope": "Secondary descriptive extension for the original complete pair. After source judgments are sealed, report raw p50/p95 elapsed and first-output seconds for each arm, every family's complete and correct counts before each fixed deadline, and joint correctness/time wins and losses. Use percentile 95% bootstrap intervals on paired differences of request means within short families by sampling whole topics, issuers or database schemas with replacement, retaining original multiplicities. Two locale clusters do not support credible sampling intervals. All paired requests and observed failures remain in each denominator. Native costs include registered retry charges. This analysis cannot change the registered decision, resolve hardware run-order confounding or establish reliability on a new task family.",
     }
+    if cohort != "staged-query":
+        timing = "After completion of the registered primary." if cohort == "learner-prefix" else "Reserved before the primary."
+        plan["scope"] = timing + " Descriptive secondary analysis. Apply the identical deadline grid and 10,000 paired topic- or report-level bootstrap draws for mean differences in correctness, completion, elapsed and first-token seconds. Count all requests. Report conditional empirical intervals. Issuer dependence, public pretraining overlap, one training seed and fixed hardware run order limit generalization."
     if freeze:
-        committed(REG)
-        persist(PLAN, plan)
+        committed(registration)
+        persist(plan_path, plan)
         return
-    committed(PLAN)
-    assert read(PLAN) == plan
-    committed(DOC / "staged-query-reading.json")
-    root = Path("research/results") / STAGE
+    committed(plan_path)
+    assert read(plan_path) == plan
+    committed(DOC / (cohort + "-reading.json"))
+    root = Path("research/results") / stage
     control = unpack(root / "control.json.gz")
     loop = unpack(root / "candidate.json.gz")
     data = []
@@ -130,12 +140,12 @@ def run(freeze):
                     "upper": float(hi),
                 }
             )
-    write_csv(Path("paper/staged-query-deadlines.csv"), deadlines)
-    write_csv(Path("paper/staged-query-source-intervals.csv"), intervals)
+    write_csv(Path("paper") / (cohort + "-deadlines.csv"), deadlines)
+    write_csv(Path("paper") / (cohort + "-source-intervals.csv"), intervals)
     persist(
-        DOC / "staged-query-distribution.json",
+        DOC / (cohort + "-distribution.json"),
         {
-            "plan": digest(PLAN),
+            "plan": digest(plan_path),
             "archive": digest(root / "checksums.json"),
             "families": output,
             "intervals": intervals,
@@ -146,4 +156,6 @@ def run(freeze):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("mode", choices=("freeze", "report"))
-    run(p.parse_args().mode == "freeze")
+    p.add_argument("--cohort", choices=("staged-query", "learner-prefix", "content-read"), default="staged-query")
+    args = p.parse_args()
+    run(args.mode == "freeze", args.cohort)
