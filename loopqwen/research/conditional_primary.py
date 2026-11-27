@@ -1,7 +1,6 @@
 """One direct product comparison with intact natural tables, original instructions and retention."""
 
 import gc
-from collections import Counter
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -118,9 +117,7 @@ def outcome(panel, runs):
         for f in sorted(FRESH):
             q = [r["requests"][0]["score"] for r in rr if r["family"] == f]
             assert len(q) == 24
-            summary[f] = dict(
-                Counter({k: sum(row[k] for row in q) for k in ("completed",) if q})
-            )
+            summary[f] = {"completed": sum(row["completed"] for row in q)}
             if f != "instruction":
                 summary[f].update(
                     {
@@ -129,6 +126,8 @@ def outcome(panel, runs):
                             "attested_mentions",
                             "attested_total",
                             "all_attested",
+                            "observed_attested",
+                            "supported_read",
                             "read",
                         )
                     }

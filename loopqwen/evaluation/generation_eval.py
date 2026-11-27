@@ -172,6 +172,8 @@ def generate(
                 logits = (
                     disk.prefill(ids, progress) if step == 0 else disk.decode(inputs)
                 )
+            elif hasattr(model, "last_hidden"):
+                logits = model.project(model.last_hidden(inputs, cache))
             elif hasattr(model, "hidden"):
                 logits = model.project(model.hidden(inputs, cache)[:, -1:])
             else:
