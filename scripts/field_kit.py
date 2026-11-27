@@ -186,7 +186,9 @@ def entries(revision, staging):
     return records
 
 
-def write_archive(path, files):
+def write_archive(path, files, *, checksum_name="SHA256SUMS"):
+    if checksum_name in files:
+        raise ValueError("The checksum path overlaps an archive payload")
     hashes = {}
     with zipfile.ZipFile(path, "w", allowZip64=True) as archive:
 
@@ -213,7 +215,7 @@ def write_archive(path, files):
         for name, src in sorted(files.items()):
             hashes[name] = put(name, src)
         put(
-            "SHA256SUMS",
+            checksum_name,
             "".join(f"{h}  {name}\n" for name, h in hashes.items()).encode(),
         )
     return hashes
