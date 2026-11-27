@@ -62,6 +62,8 @@ The two visits share all parameters. Query and content corrections have rank 160
 
 *Reproduction.* The feature archive records the pinned source revisions, input hashes, native library versions, numerical parity cases, all feature digests, timing and memory. The public script #raw("scripts.verify_shared_query_native") compares newly generated native tensors to these digests. The fit and primary registrations specify the frozen stage order and advancement criteria. #raw("python -m scripts.paper_repair_query") rebuilds the figures, tables and this document from archived records.
 
+*Scope of inference.* Earlier project failures informed the architecture and the choice of tool histories. The team also knows the task families and can read their public source material. A per-study significance test addresses its frozen comparison. Project-wide claims must also account for these adaptive design choices. The 120 training probes measure the effect of removing a learned step under teacher forcing. Establishing a general reasoning or tool advantage requires fresh source-level transfers, complete answers under free generation and a matched ordinary-depth fit. The independent seed measures training stability. An external reviewer would also help quantify uncertainty from the single project adjudicator. #link("https://doi.org/10.1126/science.aaa9375")[Dwork et al., The Reusable Holdout].
+
 #if d.stages_done >= 2 [
  #pagebreak()
  #block(text(size:19pt,weight:"bold")[Native learning and physical depth intervention])
