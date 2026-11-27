@@ -191,13 +191,26 @@ if __name__ == "__main__":
     p.add_argument("--arm", choices=("loop", "ordinary", "instruction", "base"))
     p.add_argument(
         "--stage",
-        choices=("initial", "early", "terminal", "simple", "corrected", "deployed", "headroom-early", "depth"),
+        choices=(
+            "initial",
+            "early",
+            "terminal",
+            "simple",
+            "corrected",
+            "deployed",
+            "headroom-early",
+            "depth",
+        ),
         default="initial",
     )
     p.add_argument("--block", choices=(0, 1), type=int, default=0)
     p.add_argument("--depth", type=int, choices=(1, 2, 3))
     p.add_argument("--policy", type=Path)
     p.add_argument("--tokens", type=int, choices=(128, 512, 4096), default=128)
-    p.add_argument("--items", type=Path, help="Frozen source/world keys for the supplemental headroom comparison")
+    p.add_argument(
+        "--items",
+        type=Path,
+        help="Frozen source/world keys for the supplemental headroom comparison",
+    )
     a = p.parse_args()
     freeze() if a.action == "freeze" else collect(a)

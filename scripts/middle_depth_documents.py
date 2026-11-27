@@ -16,6 +16,7 @@ from loopqwen.qwen_tools import declarations, render
 from loopqwen.recurrence import Span
 from loopqwen.research.cross_view_study import tokenizer
 from scripts.middle_depth_retention import saved
+from loopqwen.research.resident_document import ResidentDocument
 from loopqwen.tool_session import run
 from scripts.middle_depth_budget import BASE, ROOT, worker
 
@@ -70,6 +71,88 @@ def freeze():
     save(FROZEN, results)
 
 
+EXTRA = SPECS / "document-extra-openings.json"
+
+
+def extra_openings():
+    tok = tokenizer({"checkpoint": str(BASE)})
+    spec, tools, w, ids = worlds("anne", tok)
+    rows = {}
+    for world, (q, p) in w.items():
+        for kind, msgs in (
+            (
+                "shared",
+                [
+                    dict(role="user", content=q),
+                    dict(role="assistant", content=spec["rubric_" + world]),
+                    dict(role="user", content=spec["followup"]),
+                ],
+            ),
+            (
+                "unanswerable",
+                [
+                    dict(
+                        role="user",
+                        content=q.removesuffix(spec["question"]) + spec["unanswerable"],
+                    )
+                ],
+            ),
+        ):
+            tokens = tok.encode(
+                render(tok, msgs, declarations(tools)), add_special_tokens=False
+            )
+            assert tokens[: len(ids)] == ids
+            rows[world + "/" + kind] = dict(
+                input=fingerprint(tokens), length=len(tokens)
+            )
+    save(
+        EXTRA,
+        dict(
+            first=digest(FROZEN),
+            rows=rows,
+            protocol="Primary book inputs contain the complete published or edited document. The unanswerable asks for an undocumented clock minute without a supplied first answer. On separate follow-ups, own history retains actual model exchanges and shared history fixes a common supported first response.",
+        ),
+    )
+
+
+def qualified_resident(model, prefix, full, ident, output_tokens, guard):
+    if not read(ROOT / "resident-qualification.json")["passed"]:
+        raise ValueError("Long output and callback equivalence prerequisite failed")
+    audit = ROOT / "resident-checks" / (ident + ".json")
+    live = ResidentDocument(prefix, output_tokens, guard)
+    if not audit.exists():
+        start = len(prefix.ids)
+        opening = full[: start + 128]
+        probes = []
+        for reader in (prefix, live):
+            child = reader.branch(model, opening)
+            ids = mx.array([opening[start:]])
+            scores = []
+            for _ in range(2):
+                guard()
+                logits = child.decode(ids)[:, -1]
+                mx.eval(logits)
+                scores.append(logits)
+                ids = mx.argmax(logits, axis=-1)[:, None]
+            probes.append(scores)
+            del child
+        errors = [mx.max(mx.abs(a - b)).item() for a, b in zip(*probes, strict=True)]
+        save(
+            audit,
+            dict(
+                passed=max(errors) == 0,
+                identity=ident,
+                sites=model.sites,
+                input=fingerprint(opening),
+                positions=len(opening),
+                maximum_logit_error=errors,
+            ),
+        )
+    if not read(audit)["passed"]:
+        raise ValueError("This exact deployed prefix failed resident logit parity")
+    return live
+
+
 def measure(args):
     cfg = read(FROZEN)[args.book]
     with worker(
@@ -111,6 +194,11 @@ def measure(args):
             [".venv/bin/python", "-m", "scripts.middle_depth_documents", *sys.argv[1:]],
         )
         prefill_seconds = monotonic() - prep
+        reader = (
+            qualified_resident(model, prefix, full, ident, args.tokens, guard)
+            if args.cache_mode == "resident"
+            else prefix
+        )
 
         def take(kind, question, history):
             path = out / (args.world + "-" + kind + ".json.gz")
@@ -119,6 +207,7 @@ def measure(args):
                 assert record["identity"] == ident and record["frozen"] == digest(
                     FROZEN
                 )
+                assert record.get("cache_mode", "staged") == args.cache_mode
                 return record["history"]
             times = []
             start = monotonic()
@@ -134,7 +223,7 @@ def measure(args):
                 t,
                 max_tokens=args.tokens,
                 max_turns=3,
-                document_prefix=prefix,
+                document_prefix=reader,
                 tool_format="qwen",
                 record_kv_history=True,
                 progress=timer,
@@ -142,6 +231,13 @@ def measure(args):
             )
             if kind == "first":
                 assert trace["turns"][0]["prompt_ids"] == full
+            elif kind in ("shared", "unanswerable"):
+                extra = read(EXTRA)
+                assert extra["first"] == digest(FROZEN)
+                ids_used = trace["turns"][0]["prompt_ids"]
+                assert extra["rows"][args.world + "/" + kind] == dict(
+                    input=fingerprint(ids_used), length=len(ids_used)
+                )
             for turn in trace["turns"]:
                 length = len(turn["prompt_ids"]) + len(turn["token_ids"]) - 1
                 assert len(turn["kv_history"]) == sum(
@@ -153,6 +249,7 @@ def measure(args):
             packed(
                 path,
                 dict(
+                    cache_mode=args.cache_mode,
                     identity=ident,
                     weights=weights,
                     frozen=digest(FROZEN),
@@ -183,23 +280,26 @@ def measure(args):
                 take(kind, spec["followup"], list(h))
             take(
                 "unanswerable",
-                spec["unanswerable"],
-                [
-                    dict(role="user", content=q),
-                    dict(role="assistant", content=spec["rubric_" + args.world]),
-                ],
+                q.removesuffix(spec["question"]) + spec["unanswerable"],
+                [],
             )
 
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("action", choices=("freeze", "run"))
+    p.add_argument("action", choices=("freeze", "extra", "run"))
     p.add_argument("--book", choices=("book", "anne"), default="book")
     p.add_argument("--arm", choices=("base", "loop", "ordinary"), default="base")
     p.add_argument("--stage", default="initial")
     p.add_argument("--world", choices=("original", "edited"), default="original")
     p.add_argument("--tokens", choices=(128, 512, 4096), type=int, default=128)
+    p.add_argument("--cache-mode", choices=("resident", "staged"), default="staged")
     p.add_argument("--followups", action="store_true")
     p.add_argument("--policy", type=Path)
     a = p.parse_args()
-    freeze() if a.action == "freeze" else measure(a)
+    if a.action == "extra":
+        extra_openings()
+    elif a.action == "freeze":
+        freeze()
+    else:
+        measure(a)

@@ -6,6 +6,7 @@ from time import monotonic
 import mlx.core as mx
 import numpy as np
 from mlx_lm.models.cache import ArraysCache
+from safetensors import safe_open
 
 from ..identity import fingerprint
 from ..io import digest, read, save
@@ -44,20 +45,54 @@ class SavedDocument(DocumentPrefix):
                 "The prefix belongs to a different model, input or schedule"
             )
         reserve(disk.cache, length)
-        for entry in state["groups"]:
+        if len(state["groups"]) > len(disk.groups):
+            raise ValueError("Too many saved groups for the deployed span")
+        for group_index, entry in enumerate(state["groups"]):
+            if [tuple(row["site"]) for row in entry["states"]] != disk.groups[
+                group_index
+            ]:
+                raise ValueError(
+                    "Saved prefix is missing or reorders physical layer visits"
+                )
             for item in entry["states"]:
                 site = tuple(item["site"])
                 path = directory / item["file"]
                 if digest(path) != item["sha256"]:
                     raise ValueError("A persisted temporal state changed")
+                with safe_open(str(path), framework="np") as f:
+                    observed = {
+                        k: {
+                            "shape": f.get_slice(k).get_shape(),
+                            "dtype": f.get_slice(k).get_dtype(),
+                        }
+                        for k in f.keys()
+                    }
+                required = (
+                    {"convolution", "delta"}
+                    if model.text.layers[site[0]].is_linear
+                    else {"k", "v"}
+                )
+                if set(observed) != required or item.get("consumed", length) != length:
+                    raise ValueError("Wrong kind or length of native temporal state")
+                if "k" in required and any(
+                    v["shape"][2] != length for v in observed.values()
+                ):
+                    raise ValueError("Truncated full attention prefix")
+                if item.get("tensors", observed) != observed:
+                    raise ValueError("Saved temporal tensor descriptor differs")
+                item.update(consumed=length, tensors=observed)
                 if item["kind"] == "kv":
                     disk.cache.slots[site] = PrefixOnDisk(path, length)
                 else:
                     arrays = mx.load(str(path))
                     if set(arrays) != {"convolution", "delta"}:
-                        raise ValueError("Incomplete saved Qwen linear-attention history")
+                        raise ValueError(
+                            "Incomplete saved Qwen linear-attention history"
+                        )
                     disk.cache.slots[site].state = (
-                        [arrays["convolution"], arrays["delta"]], None, None
+                        [arrays["convolution"], arrays["delta"]],
+                        None,
+                        None,
                     )
         dtype = model.text.model.embed_tokens.weight.dtype
         if dtype not in (mx.bfloat16, mx.float16):
@@ -102,7 +137,9 @@ class SavedDocument(DocumentPrefix):
                 if isinstance(slot, ArraysCache):
                     pair, padding, lengths = slot.state
                     if padding is not None or lengths is not None or len(pair) != 2:
-                        raise ValueError("Saved documents require single unpadded Qwen histories")
+                        raise ValueError(
+                            "Saved documents require single unpadded Qwen histories"
+                        )
                     values = {"convolution": pair[0], "delta": pair[1]}
                     kind = "hybrid"
                 else:
@@ -118,6 +155,18 @@ class SavedDocument(DocumentPrefix):
                         sha256=digest(path),
                         kind=kind,
                         bytes=path.stat().st_size,
+                        consumed=length,
+                        tensors={
+                            k: {
+                                "shape": list(v.shape),
+                                "dtype": {
+                                    "mlx.core.bfloat16": "BF16",
+                                    "mlx.core.float16": "F16",
+                                    "mlx.core.float32": "F32",
+                                }[str(v.dtype)],
+                            }
+                            for k, v in values.items()
+                        },
                     )
                 )
                 if kind == "kv":

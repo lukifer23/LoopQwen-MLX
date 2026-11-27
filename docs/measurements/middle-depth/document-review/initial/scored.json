@@ -1,0 +1,36 @@
+[
+  {
+    "arm": "base",
+    "cap": 128,
+    "source": "book",
+    "world": "original",
+    "kind": "first",
+    "band": "148000+",
+    "input_tokens": 167014,
+    "input": "6411e910ac4840045efbf3aab6c662ad8ec0c2135aad41619b861121a3f2ef0a",
+    "status": "token_limit",
+    "review_key": "93ab9e1fb36bed4165dbb0bc3bb9dd46ca6ff16ca4cfe7d1260c4c7c6cf3e05f",
+    "requests": 1,
+    "generated": 128,
+    "first_token_warm": 33.070470666047186,
+    "first_token_cold": 346.95040112396237,
+    "cold_build_seconds": 313.8799304579152,
+    "seconds_warm": 66.40378516702913,
+    "seconds_cold": 380.2837156249443,
+    "decode_tps": 3.809991189354899,
+    "peak": 2729053950,
+    "scratch_bytes": 2018660372,
+    "logical_kv_file_bytes": 321856913826,
+    "cache_mode": "staged",
+    "file": "documents/initial/book/base/128/original-first.json.gz",
+    "sha": "78ae78861f18dbe96d2686c95ff448aa1340325dbabd82d2cd28f12af6938f0f",
+    "grade": {
+      "correct": false,
+      "unsupported": null,
+      "first_error": "token_limit"
+    },
+    "cold_by_600": false,
+    "warm_by_600": false,
+    "time_to_correct_cold": null
+  }
+]

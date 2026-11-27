@@ -139,9 +139,40 @@ def depths():
             )
 
 
+def early_headroom():
+    spec = Path("research/diagnostics/middle-depth/early-headroom.json")
+    for block in (0, 1):
+        arms = (
+            ("loop", "base", "ordinary", "instruction")
+            if block == 0
+            else ("instruction", "ordinary", "base", "loop")
+        )
+        for arm in arms:
+            args = [
+                "collect",
+                "--stage",
+                "headroom-early",
+                "--tokens",
+                "4096",
+                "--arm",
+                arm,
+                "--items",
+                spec,
+                "--block",
+                block,
+            ]
+            if arm in ("loop", "ordinary"):
+                args += [
+                    "--policy",
+                    Path("checkpoints/middle-depth/4619") / arm / "step-0032",
+                ]
+            dispatch("development", *args)
+
+
 if __name__ == "__main__":
     actions = {
         "first": first,
+        "early-headroom": early_headroom,
         "fit": paired_fit,
         "short-terminal": short_terminal,
         "depth": depths,

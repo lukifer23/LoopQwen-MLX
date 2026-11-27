@@ -3,6 +3,8 @@
 import argparse
 from datetime import datetime, timedelta
 from pathlib import Path
+import os
+import tempfile
 from time import monotonic
 
 import mlx.core as mx
@@ -251,7 +253,8 @@ def extract(model, tok, arm, weights, guard):
 
 
 def run(arm, policy):
-    from .middle_depth_fit import tensors
+    from .middle_depth_fit import checkpoint, restore
+    from .middle_depth_recover import reconcile
 
     cfg = read(SPEC)
     with worker("long", "full-fit/" + arm) as guard:
@@ -261,6 +264,17 @@ def run(arm, policy):
         guard()
         audit = read(ROOT / "sparse-parity.json")
         assert audit["passed"]
+        result_path = ROOT / f"long-fit-{arm}.json"
+        directory = Path("checkpoints/middle-depth/long") / arm
+        if result_path.exists():
+            previous = read(result_path)
+            if previous["parent"] != identity["weights"] or previous[
+                "weights"
+            ] != digest(directory / "adapters.safetensors"):
+                raise ValueError(
+                    "The completed document fit belongs to another lineage"
+                )
+            return
         rows = extract(model, tok, arm, identity["weights"], guard)
         target = model.text.layers[-1].mlp.down_proj
         params = dict(tree_flatten(model.trainable_parameters()))
@@ -273,9 +287,19 @@ def run(arm, policy):
 
         grad = nn.value_and_grad(target, objective)
         opt = optim.AdamW(cfg["lr"], weight_decay=0.01, bias_correction=True)
-        log = []
-        start = monotonic()
-        for n in range(cfg["steps"]):
+        dest = Path("checkpoints/middle-depth/long-optimizer") / arm
+        graph = dict(
+            identity["identity"],
+            parent=identity["weights"],
+            plan=digest(SPEC),
+            trainer=digest(Path(__file__)),
+            data=fingerprint(cfg["rows"]),
+            order=list(cfg["rows"]),
+            depth=identity["trained_depth"],
+        )
+        step, log = restore(dest, model, opt, graph) if reconcile(dest) else (0, [])
+        for n in range(step, cfg["steps"]):
+            tick = monotonic()
             guard()
             from mlx.utils import tree_map
 
@@ -291,24 +315,46 @@ def run(arm, policy):
             assert 0 < norm.item() < float("inf") and all(
                 v < float("inf") for v in losses
             )
+            guard(force=True)
             opt.update(target, gs)
             mx.eval(target.trainable_parameters(), opt.state)
-            log.append(dict(step=n + 1, loss=losses, gradient=norm.item()))
-        directory = Path("checkpoints/middle-depth/long") / arm
-        directory.mkdir(parents=True, exist_ok=True)
+            log.append(
+                dict(
+                    step=n + 1,
+                    loss=losses,
+                    gradient=norm.item(),
+                    seconds=monotonic() - tick,
+                )
+            )
+            checkpoint(
+                dest,
+                model,
+                opt,
+                n + 1,
+                graph,
+                log,
+                identity["seed"],
+                identity["trained_depth"],
+            )
+        last = dest / read(dest / "latest.json")["path"]
+        directory.parent.mkdir(parents=True, exist_ok=True)
+        if not directory.exists():
+            with tempfile.TemporaryDirectory(dir=directory.parent) as tmp:
+                view = Path(tmp) / "policy"
+                view.mkdir()
+                os.link(last / "adapters.safetensors", view / "adapters.safetensors")
+                save(
+                    view / "registration.json",
+                    dict(
+                        identity,
+                        weights=digest(view / "adapters.safetensors"),
+                        short_parent=identity["weights"],
+                        plan=digest(SPEC),
+                    ),
+                )
+                view.rename(directory)
         f = directory / "adapters.safetensors"
-        if f.exists():
-            raise FileExistsError(f)
-        tensors(f, model.trainable_parameters())
-        save(
-            directory / "registration.json",
-            dict(
-                identity,
-                weights=digest(f),
-                short_parent=identity["weights"],
-                plan=digest(SPEC),
-            ),
-        )
+        assert digest(f) == read(last / "registration.json")["weights"]
         save(
             ROOT / f"long-fit-{arm}.json",
             dict(
@@ -316,7 +362,7 @@ def run(arm, policy):
                 parent=identity["weights"],
                 log=log,
                 positions=[r["labels"].size for r in rows],
-                seconds=monotonic() - start,
+                seconds=sum(r["seconds"] for r in log),
                 peak=mx.get_peak_memory(),
                 changed_tensors=[
                     k

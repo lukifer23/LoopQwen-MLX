@@ -149,6 +149,8 @@ def generate(
         cache = None
         page_slots = {}
         if document_prefix is not None:
+            if routed_at is None:
+                routed_at = perf_counter()
             disk = document_prefix.branch(model, ids)
         elif directory is None:
             cache, page_slots = resident_cache(

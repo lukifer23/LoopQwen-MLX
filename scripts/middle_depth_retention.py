@@ -115,6 +115,15 @@ def seal(path, prefix, identity, command, previous):
         dict(
             identity=identity,
             states=hashes,
+            physical_sites=[
+                {
+                    k: v
+                    for k, v in item.items()
+                    if k in ("site", "kind", "consumed", "tensors")
+                }
+                for g in state["groups"]
+                for item in g["states"]
+            ],
             complete=True,
             evicted=False,
             last_use=time(),
