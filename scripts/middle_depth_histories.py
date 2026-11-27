@@ -16,7 +16,6 @@ from loopqwen.tool_session import run
 from scripts.middle_depth_budget import BASE, ROOT, worker
 from scripts.middle_depth_material import ROWS
 from scripts.program_language_material import answer
-from scripts.middle_depth_screen import SOURCE as DONOR_SCREEN
 
 SOURCE = Path("research/sources/crossed-report-calculations/training.json.gz")
 PLAN = Path("research/diagnostics/middle-depth/training-rollin.json")
@@ -97,21 +96,26 @@ def collect(arm, policy):
                 _messages=history,
             )
             corrections = []
-            added_prefix = False
+            completed_right_calculation = False
             for t in tr["turns"]:
-                if "call" in t:
-                    assert t["call"]["name"] == "calculate"
-                    try:
-                        replay = calculate(**t["call"]["arguments"])
-                    except Exception as e:
-                        replay = {"error": type(e).__name__}
-                    assert replay == t["observation"]
+                if "call" in t or "calls" in t:
+                    actions = t["calls"] if "calls" in t else [t["call"]]
+                    receipts = (
+                        t["observations"] if "observations" in t else [t["observation"]]
+                    )
+                    for action, receipt in zip(actions, receipts, strict=True):
+                        assert action["name"] == "calculate"
+                        try:
+                            replay = calculate(**action["arguments"])
+                        except Exception as e:
+                            replay = {"error": type(e).__name__}
+                        assert replay == receipt
+                        completed_right_calculation |= replay == obs
                 # A truncation before the visible answer is an independently
                 # established failure, even if some underlying reasoning was sound.
                 ids = t["token_ids"]
                 if (
-                    not added_prefix
-                    and tr["status"] == "token_limit"
+                    tr["status"] == "token_limit"
                     and t is tr["turns"][-1]
                     and 248069 not in ids[:32]
                 ):
@@ -121,7 +125,16 @@ def collect(arm, policy):
                         add_special_tokens=False,
                     )
                     gold_p, gold_y = token_pair(
-                        tok, dict(messages=[p], tools=r["tools"], target=gold)
+                        tok,
+                        dict(
+                            messages=r["messages"]
+                            if completed_right_calculation
+                            else [p],
+                            tools=r["tools"],
+                            target=answer(r["reference"])
+                            if completed_right_calculation
+                            else gold,
+                        ),
                     )
                     close = gold_y.index(248069)
                     reply = reply[: reply.index(248069)] + gold_y[close:]
@@ -135,9 +148,10 @@ def collect(arm, policy):
                             actual_prefix=prefix,
                         )
                     )
-                    added_prefix = True
             for i, msg in enumerate(history):
-                if msg["role"] != "tool":
+                if msg["role"] != "tool" or (
+                    i + 1 < len(history) and history[i + 1]["role"] == "tool"
+                ):
                     continue
                 seen = json.loads(msg["content"])
                 correct = seen == obs
