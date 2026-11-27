@@ -165,7 +165,9 @@ def collect():
                         for r in samples
                         if r["family"] == family and r["presentation"] == stage
                     ]
-                    counts.append(reading["positions"][f"{family}/{stage}/{arm}"]["correct"])
+                    counts.append(
+                        reading["positions"][f"{family}/{stage}/{arm}"]["correct"]
+                    )
                     times.append(sum(float(r[arm + "_wall_s"]) for r in cases))
                 positions = [k + (j - 0.5) * 0.37 for k in range(3)]
                 ax.bar(positions, counts, width=0.36, color=color, label=title)
@@ -183,5 +185,39 @@ def collect():
                 panel.spines[["top", "right"]].set_visible(False)
         axes[0, 0].legend(frameon=False)
         fig.savefig(P / "source-copy-conversation-results.svg", metadata={"Date": None})
+        plt.close(fig)
+    audit = D / "source-copy-program-audit.json"
+    if audit.exists():
+        checked = record(audit)
+        out["operative"] = {
+            "results": checked["results"],
+            "controls": sum(r["eligible"] for r in checked["controls"]),
+            "perturbations": sum(r["tests"] for r in checked["controls"]),
+        }
+        stages = (
+            ("At least one call", "executed"),
+            ("At least one valid return", "valid"),
+            ("Last valid return correct", "last_correct_return"),
+            ("Tracks source operands", "last_operative"),
+            ("Also delivered correctly", "last_operative_and_delivered"),
+        )
+        fig, ax = plt.subplots(figsize=(8, 2.9), layout="constrained")
+        for offset, (arm, title, color) in enumerate(
+            (
+                ("candidate", "Two reads", "#34737c"),
+                ("control", "Untouched Base", "#b46b44"),
+            )
+        ):
+            positions = [j + 0.34 * (offset - 0.5) for j in range(len(stages))]
+            values = [checked["results"][arm][k] for _, k in stages]
+            bars = ax.barh(positions, values, height=0.34, color=color, label=title)
+            ax.bar_label(bars, padding=3, fontsize=8)
+        ax.set_yticks(range(len(stages)), [title for title, _ in stages])
+        ax.invert_yaxis()
+        ax.set_xlim(0, 72)
+        ax.set_xlabel("Financial question presentations (72 per model)")
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.legend(frameon=False, loc="lower right")
+        fig.savefig(P / "source-copy-program-audit.svg", metadata={"Date": None})
         plt.close(fig)
     return out

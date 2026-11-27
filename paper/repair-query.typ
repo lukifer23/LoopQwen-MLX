@@ -462,3 +462,21 @@ The two visits share all parameters. Query and content corrections have rank 160
  #parbreak()
  The source-copy-requests.csv file includes every timing and terminal status. The conversation file retains joint outcomes by source and history. The interval file resamples whole passages and issuers, keeping models and presentations paired. The direct comparison retains full prompt IDs even when the previous answer differs.
 ]
+
+
+#if "source_copy" in d and "operative" in d.source_copy [
+ #let a=d.source_copy.operative
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Where a correct financial computation is lost])
+ We replayed the financial tool calls after completing the registered comparison and source-masked review. The 24 reports contain two original questions each. Their first, live and fixed-history presentations yield 72 requests per system. Each model saw the original report and its real calculator returns during generation. The perturbations below were applied afterward to the archived programs. They did not add observations or alter either model’s output.
+ #image("source-copy-program-audit.svg",width:100%)
+ #text(size:9pt)[A successful callback can return the wrong amount. The final two rows require the program to follow the annotated operative inputs when those inputs change. The final row also requires strict correct delivery on the original request.]
+ #parbreak()
+ *Method.* For each nonconstant number in the published derivation, shift that input independently by +11/7 and −5/13. Replay the expert and model expressions with exact arithmetic. Require agreement on the original and every change that affects the expert's result. For percentages, a common factor of 100 may distinguish ratio and percentage-point programs. Of the 48 original questions, #a.controls had at least one testable operand, producing #a.perturbations effective expert interventions. The remainder had only operands labeled as constants. Every eligible expert program passed its own checks, and substituting a fixed expression that copied its original result passed none.
+ #parbreak()
+ *Results.* The loop received at least one valid return on 52 of 72 presentations. The last successful program produced the correct original amount on eight. Seven tracked the operative inputs under perturbation. Strict delivery succeeded on two of these seven. Base produced one operative program and left its answer unfinished. Five of the seven loop presentations with an operative program were lost between execution and delivery. Selecting and combining the right operands remains the larger absolute failure.
+ #parbreak()
+ *A limit of single-call attribution.* In the acquisition example, after an invalid reference the loop successfully added 1,031 to the previous total of 17,627 and delivered 18,658 thousand. Changing the original goodwill amount in the final call alone leaves its pasted subtotal fixed. This genuine multi-turn success passes the registered delivery criterion and fails the single-call perturbation. Equivalent programs using differently scaled inputs can also fail this retrospective supplement. It is reported alongside the registered results.
+ #parbreak()
+ *Subsequent training intervention.* The new training corpus contains 320 original calculations on 160 financial reports. We executed both annotated programs on each report and combined each original question with its own receipt and the other question’s receipt. Training targets cover making the initial call, delivering a legitimate result, repairing a misleading observation and delivering after repair. The 16-report development set is withheld from the new intervention, though earlier project training included its source material. The registered decision also measures reasoning, reading and tool-history retention. A new product result requires independent free generation and comparison against Base.
+]
