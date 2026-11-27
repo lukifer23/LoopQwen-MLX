@@ -51,12 +51,31 @@ def score(w, i, tr):
 
 def outcome(panel, data):
     groups, document, entire, numeric = {}, {}, {}, {}
+    numerical_detail = {}
     for side, arm in data.items():
         families = sorted({w["family"] for w in panel["rows"]})
         groups[side] = {
             k: summarize([r for r in arm if k == "all" or k == r["family"]])
             for k in ("all", *families)
         }
+        numerical_detail[side] = {}
+        for family in ("DROP", "ASDiv"):
+            requests = [
+                q for row in arm if row["family"] == family for q in row["requests"]
+            ]
+            numerical_detail[side][family] = {
+                "strict_final": sum(q["score"]["strict_answer"] for q in requests),
+                "final_including_prose": sum(
+                    q["score"]["correct_answer"] for q in requests
+                ),
+                "grounded_calculation": sum(
+                    q["score"].get("grounded_arithmetic", q["score"]["success"])
+                    for q in requests
+                ),
+                "any_executed": sum(
+                    bool(executions(q["trajectory"])) for q in requests
+                ),
+            }
         by_cluster = defaultdict(list)
         doc = {}
         num = set()
@@ -95,6 +114,7 @@ def outcome(panel, data):
         "gates": gates,
         "groups": groups,
         "paired": comparisons,
+        "numeric_detail": numerical_detail,
         "whole_passages": {k: len(v) for k, v in document.items()},
         "whole_clusters": {k: len(v) for k, v in entire.items()},
     }
