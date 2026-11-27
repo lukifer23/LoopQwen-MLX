@@ -67,6 +67,14 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "learner-prefix-fit-01":
+        from loopqwen.research.learner_prefix_fit import verify as verify_prefix_fit
+
+        return verify_prefix_fit(root, decision)
+    if study == "learner-prefix-transfer-01":
+        from loopqwen.research.shared_query_transfer import verify as verify_prefix_pair
+
+        return verify_prefix_pair(root, decision)
     if study in ("shared-query-features-01", "repair-query-features-01"):
         from loopqwen.research.shared_query_features import verify as verify_query_features
 

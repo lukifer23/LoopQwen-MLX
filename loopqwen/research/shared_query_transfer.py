@@ -308,7 +308,12 @@ def run(name=PRIMARY):
         rows = unpack(Path(s["material"]))["rows"]
         with TemporaryDirectory() as tmp:
             fields = FieldDatabases(tmp) if s.get("field_history") else None
+            study_deadline = guard.deadline
             for arm in ARMS:
+                if "seconds_per_arm" in s:
+                    from time import time
+
+                    guard.deadline = min(study_deadline, time() + s["seconds_per_arm"])
                 seq = runs[arm] = []
                 actor = None
                 gc.collect()

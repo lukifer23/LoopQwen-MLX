@@ -1,12 +1,12 @@
 """Reserve source-disjoint human reasoning and executable financial questions for one direct pair."""
 
+import hashlib
 import json
+import re
 from collections import Counter
 from fractions import Fraction
-import hashlib
-import re
-from urllib.request import urlopen
 from pathlib import Path
+from urllib.request import urlopen
 from zipfile import ZipFile
 
 from loopqwen.evaluation.mechanism import packed, unpack
@@ -16,10 +16,10 @@ from loopqwen.qwen_tools import render
 from loopqwen.research.cross_view_study import tokenizer
 from scripts.learner_prefix_material import DATA, DIR, SEED
 from scripts.shared_query_material import (
+    CALCULATOR,
     ROOT,
     TOOLS,
     fits,
-    CALCULATOR,
     source,
     strategy_rows,
 )
@@ -172,25 +172,25 @@ def build():
                 > 1536
             ):
                 continue
-            w = dict(
-                id="tatqa/" + q["uid"],
-                cluster=doc["table"]["uid"],
-                source="TAT-QA development",
-                request=prompt,
-                question=q["question"],
-                reference=str(q["answer"]) + " " + q["scale"],
-                gold=str(gold),
-                tolerance="1/200",
-                program=q["derivation"],
-                steps=steps,
-                observed=val,
-                evidence=[table]
+            w = {
+                "id": "tatqa/" + q["uid"],
+                "cluster": doc["table"]["uid"],
+                "source": "TAT-QA development",
+                "request": prompt,
+                "question": q["question"],
+                "reference": str(q["answer"]) + " " + q["scale"],
+                "gold": str(gold),
+                "tolerance": "1/200",
+                "program": q["derivation"],
+                "steps": steps,
+                "observed": val,
+                "evidence": [table]
                 + [
                     p["text"]
                     for p in doc["paragraphs"]
                     if p["order"] in q["rel_paragraphs"]
                 ],
-            )
+            }
             add(w, "report", TOOLS)
             seen.update(shingles(body))
             break
@@ -198,35 +198,35 @@ def build():
             break
     assert len(held) == 48 and len({w["id"] for w in held}) == 48
     held.sort(key=lambda w: fingerprint([SEED, "fresh comparison", w["id"]]))
-    material = dict(
-        rows=held,
-        prior_topics=original_topics,
-        prior_passages=original_paras,
-        prior_issuers=sorted(finance_used),
-    )
+    material = {
+        "rows": held,
+        "prior_topics": original_topics,
+        "prior_passages": original_paras,
+        "prior_issuers": sorted(finance_used),
+    }
     if PANEL.exists():
         assert unpack(PANEL) == material
     else:
         packed(PANEL, material)
     persist(
         PLAN,
-        dict(
-            material=digest(PANEL),
-            predecessor=digest(
+        {
+            "material": digest(PANEL),
+            "predecessor": digest(
                 Path("research/results/staged-query-transfer-01/checksums.json")
             ),
-            question="Can corrective training from actual learner prefixes improve source-grounded reasoning and executable calculations on previously unused topics, passages and financial tables?",
-            design="One direct pair on 24 new human topics and 24 previously unused TAT-QA financial-report contexts. Both get identical original opening IDs, official thinking mode, greedy decoding, 384 tokens per turn, up to three turns and identical calculator callbacks. Report strict correctness, every gain and loss, actual wall time, first-output wait, peak MLX memory and both token rates. Blindly judge every source response before opening per-arm outcomes. The candidate is the prespecified two-read fit. Control is untouched certified BF16 Qwen Base at ordinary depth. No recovery suffix, forced token, answer verifier or deadline heuristic is available to either at inference.",
-            gate="Within each family require at least six additional correct and fully-usable source answers on their respective endpoints, zero lost successes, no additional unsupported claims and two-sided exact paired p<=0.05. The financial endpoint requires an executed substantive calculation and a correct delivered quantity. Require superior aggregate elapsed, first-token wait, opening throughput, decode throughput and peak, and no fewer completed answers within either family. All 48 pairs are retained. No later confirmation or release from a failed comparison. At a pass, test external tool error and misleading histories, broad retained tasks, full-length edited sources, matched trained depth and an independent seed.",
-            prerequisites="Commit a successful actual-prefix collection and a verified fit with fixed two physical reads, positive source and executed-action target improvements and protected language retention. Train only on existing training data. All earlier source-repair topics and reasoning paragraphs and all previously enrolled TAT-QA reports are excluded. No new finance context shares a normalized 16-word span with the preceding FinQA training or test or the earlier TAT-QA enrollments. TAT-QA does not supply a reliable issuer key, so issuer independence is unknown. Public donor pretraining exposure is unknown.",
-            limits={
+            "question": "Can corrective training from actual learner prefixes improve source-grounded reasoning and executable calculations on previously unused topics, passages and financial tables?",
+            "design": "One direct pair on 24 new human topics and 24 previously unused TAT-QA financial-report contexts. Both get identical original opening IDs, official thinking mode, greedy decoding, 384 tokens per turn, up to three turns and identical calculator callbacks. Report strict correctness, every gain and loss, actual wall time, first-output wait, peak MLX memory and both token rates. Blindly judge every source response before opening per-arm outcomes. The candidate is the prespecified two-read fit. Control is untouched certified BF16 Qwen Base at ordinary depth. No recovery suffix, forced token, answer verifier or deadline heuristic is available to either at inference.",
+            "gate": "Within each family require at least six additional correct and fully-usable source answers on their respective endpoints, zero lost successes, no additional unsupported claims and two-sided exact paired p<=0.05. The financial endpoint requires an executed substantive calculation and a correct delivered quantity. Require superior aggregate elapsed, first-token wait, opening throughput, decode throughput and peak, and no fewer completed answers within either family. All 48 pairs are retained. No later confirmation or release from a failed comparison. At a pass, test external tool error and misleading histories, broad retained tasks, full-length edited sources, matched trained depth and an independent seed.",
+            "prerequisites": "Commit a successful actual-prefix collection and a verified fit with fixed two physical reads, positive source and executed-action target improvements and protected language retention. Train only on existing training data. All earlier source-repair topics and reasoning paragraphs and all previously enrolled TAT-QA reports are excluded. No new finance context shares a normalized 16-word span with the preceding FinQA training or test or the earlier TAT-QA enrollments. TAT-QA does not supply a reliable issuer key, so issuer independence is unknown. Public donor pretraining exposure is unknown.",
+            "limits": {
                 "seconds_per_arm": 1200,
                 "total_seconds": 2400,
                 "peak_gib": 3.0,
                 "available_gib": 1.5,
             },
-            ordered=[w["id"] for w in held],
-        ),
+            "ordered": [w["id"] for w in held],
+        },
     )
     print(
         len(held),

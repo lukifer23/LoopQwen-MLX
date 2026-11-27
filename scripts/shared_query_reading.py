@@ -21,9 +21,16 @@ RATINGS = DOC / "shared-query-blinded-ratings.json"
 REPORT = DOC / "shared-query-reading.json"
 
 
-def run(mode, *, repair=False, staged=False):
+def run(mode, *, repair=False, staged=False, learner=False):
     panel, plan, stage = PANEL, PLAN, PRIMARY
     mask_path, rating_path, report_path = MASK, RATINGS, REPORT
+    if learner:
+        from scripts.learner_prefix_panel import PANEL as panel, PLAN as plan
+        from scripts.register_learner_prefix import PRIMARY as stage
+
+        mask_path = DOC / "learner-prefix-blinded.json"
+        rating_path = DOC / "learner-prefix-blinded-ratings.json"
+        report_path = DOC / "learner-prefix-reading.json"
     if repair or staged:
         from scripts.register_repair_query import (
             PANEL as panel,
@@ -183,7 +190,9 @@ def run(mode, *, repair=False, staged=False):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("mode", choices=("blind", "report"))
-    p.add_argument("--repair", action="store_true")
-    p.add_argument("--staged", action="store_true")
+    cohort = p.add_mutually_exclusive_group()
+    cohort.add_argument("--repair", action="store_true")
+    cohort.add_argument("--staged", action="store_true")
+    cohort.add_argument("--learner", action="store_true")
     a = p.parse_args()
-    run(a.mode, repair=a.repair, staged=a.staged)
+    run(a.mode, repair=a.repair, staged=a.staged, learner=a.learner)
