@@ -1,0 +1,53 @@
+{
+  "definition": "Count each target once if its actual input contains a prior tool-role message with a JSON object containing an error field. These repositories do not enumerate the public Qwen donor's pretraining, and general text may describe failure in other forms.",
+  "cohorts": [
+    {
+      "source": "research/sources/program-language/training.json.gz",
+      "sha256": "ee61a192f6156b9a58801d30b26292d3c2419554d35571031fb2c9aef5ff32e2",
+      "turns": 7591,
+      "with_prior_tool_return": 1585,
+      "with_structured_error": 0,
+      "error_followed_by_supervised_action": 0
+    },
+    {
+      "source": "research/sources/contrastive-worlds/training.json.gz",
+      "sha256": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
+      "turns": 11642,
+      "with_prior_tool_return": 6498,
+      "with_structured_error": 0,
+      "error_followed_by_supervised_action": 0
+    },
+    {
+      "source": "research/sources/shared-query/training.json.gz",
+      "sha256": "029d3d423f82a735fcbac487610d91a44eea29d32f021e11fc4a3778166176c2",
+      "turns": 3136,
+      "with_prior_tool_return": 1171,
+      "with_structured_error": 0,
+      "error_followed_by_supervised_action": 0
+    },
+    {
+      "source": "research/sources/provider-recovery/training.json.gz",
+      "sha256": "fb317bb125c7dc6119f98d4f2b1d54a583877d6972f093c0231e368d9133c15e",
+      "turns": 844,
+      "with_prior_tool_return": 844,
+      "with_structured_error": 844,
+      "error_followed_by_supervised_action": 633
+    },
+    {
+      "source": "research/sources/provider-recovery/csv-training.json.gz",
+      "sha256": "792788a614b72057a0a968b9b7df91fb9b398e335b73d7c413bc91c639da0768",
+      "turns": 984,
+      "with_prior_tool_return": 984,
+      "with_structured_error": 984,
+      "error_followed_by_supervised_action": 492
+    },
+    {
+      "source": "research/sources/provider-recovery/csv-role-training.json.gz",
+      "sha256": "23494e5b687ae7df6ab6b895240e4c22bef4e7919ab65321cdb0a94a63dca331",
+      "turns": 648,
+      "with_prior_tool_return": 648,
+      "with_structured_error": 648,
+      "error_followed_by_supervised_action": 324
+    }
+  ]
+}
