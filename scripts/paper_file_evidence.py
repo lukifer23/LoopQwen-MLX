@@ -159,6 +159,7 @@ def publish():
             "native-induction-anchored-replication-01",
         )
     ]
+    long = read(archived / "register-mixed-weight-full-01/decision.json")["throughput"]
     panels = [
         (
             "Changed files, complete grounded pairs /16",
@@ -194,6 +195,12 @@ def publish():
             "Complete real documents, correct values /3",
             document["candidate"]["content"],
             document["control"]["content"],
+            "untouched Base",
+        ),
+        (
+            "Full-context register, correct retrievals /2",
+            long["direct_pages"]["correct"],
+            long["base"]["correct"],
             "untouched Base",
         ),
         (
