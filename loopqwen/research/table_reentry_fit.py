@@ -363,6 +363,48 @@ def summarize(before, after, fit, probes):
     }
 
 
+def verify_optimizer(root, s, lr, updates):
+    """Audit each native AdamW group and both moments for every learned tensor."""
+    import numpy as np
+    from safetensors import safe_open
+
+    width = 1024
+    shapes = {"mixing": (width,)}
+    for layer in range(4):
+        shapes[f"residuals.{layer}.down.weight"] = (s["rank"], width)
+        shapes[f"residuals.{layer}.up.weight"] = (width, s["rank"])
+    names = set()
+    with (
+        safe_open(root / "reentry.safetensors", framework="np") as w,
+        safe_open(root / "optimizer.safetensors", framework="np") as opt,
+    ):
+        assert set(w.keys()) == set(shapes)
+        for i, rate in enumerate((lr * s["gate_multiplier"], lr)):
+            header = f"states.{i}."
+            names.update((header + "step", header + "learning_rate"))
+            assert opt.get_tensor(header + "step").item() == updates
+            assert np.isclose(opt.get_tensor(header + "learning_rate").item(), rate)
+        for k, shape in shapes.items():
+            tensor = w.get_tensor(k)
+            assert (
+                tensor.shape == shape
+                and tensor.dtype == np.float32
+                and np.isfinite(tensor).all()
+            )
+            for moment in ("m", "v"):
+                key = f"states.{0 if k == 'mixing' else 1}.{k}.{moment}"
+                names.add(key)
+                value = opt.get_tensor(key)
+                assert (
+                    value.shape == shape
+                    and value.dtype == np.float32
+                    and np.isfinite(value).all()
+                )
+                if moment == "v":
+                    assert (value >= 0).all()
+        assert set(opt.keys()) == names
+
+
 def verify(root, d):
     if d.get("status") == "interrupted":
         assert not d["passed"] and d["reason"]
@@ -382,6 +424,48 @@ def verify(root, d):
         digest(root / "reentry.safetensors") == fit["weights"]
         and digest(root / "registration.json") == fit["registration"]
     )
+    verify_optimizer(root, s, s["warm_lr"], len(log))
+    pack = read(root / "packed-base.json")
+    before = read(root / "initial-parity.json")
+    after = read(root / "trained-parity.json")
+    seed = s["fit_seed"]
+    chosen = min(items, key=lambda k: fingerprint([seed, "parity", k]))
+    assert before["ids"] == after["ids"] == items[chosen][1]
+    assert pack == {
+        **fit["backbone"],
+        "compared": 248320,
+        "exact_logits": True,
+        "input": fingerprint(before["ids"]),
+    }
+    assert (
+        pack["base"] == s["base_text_sha256"] and pack["config"] == s["config_sha256"]
+    )
+    probes = read(root / "training-probes.json")
+    expected = [
+        (g, key)
+        for g in streams
+        for key in sorted(
+            (k for k, v in items.items() if v[0] == g),
+            key=lambda k: fingerprint([seed, "probe", k]),
+        )[:8]
+    ]
+    assert len(expected) == 32
+    for (group, key), r in zip(expected, probes, strict=True):
+        _, _, y, visible = items[key]
+        assert (r["group"], r["view"]) == (group, key)
+        assert r["positions"] == positions(
+            y, visible, s["warm_targets"], f"{seed}/probe/{key}"
+        )
+        assert all(
+            math.isfinite(r[k]) and r[k] >= 0 for k in ("first_nll", "second_nll")
+        )
+    for r in (before, after):
+        assert (
+            r["sites"] == r["unique_slots"] == 28
+            and r["attention_offsets"] == [len(r["ids"])] * 2
+        )
+        assert r["vocabulary"] == 248320 and len(r["gdn_state_differences"]) == 3
+        assert r["max_logit_error"] >= 0 and math.isfinite(r["max_logit_error"])
     for n, row in enumerate(log, 1):
         assert n == row["step"] and math.isfinite(row["gradient_norm"])
         for stream, r in zip(streams.values(), row["observations"], strict=True):

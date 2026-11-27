@@ -33,6 +33,7 @@ from .table_reentry_fit import (
     optimizer,
     parity,
     root_for,
+    verify_optimizer,
 )
 from .table_worlds import (
     FILENAME,
@@ -397,6 +398,23 @@ def verify(root, d):
         len(log) == s["reward_updates"]
         and digest(root / "reentry.safetensors") == read(root / "fit.json")["weights"]
     )
+    fit = read(root / "fit.json")
+    parent = Path("research/results") / PARENT
+    assert fit["registration"] == digest(root / "registration.json") and fit[
+        "updates"
+    ] == len(log)
+    assert fit["parent"] == digest(parent / "reentry.safetensors")
+    assert read(root / "warm-parent.json") == {
+        "archive": digest(parent / "checksums.json"),
+        "weights": fit["parent"],
+    }
+    assert (
+        fit["backbone"] == read(parent / "fit.json")["backbone"]
+        and fit["trainable"] == 1049600
+    )
+    warm = inputs(tok, s)
+    anchor_stream = decks(warm, s["fit_seed"] + 1)["earlier"]
+    verify_optimizer(root, s, s["policy_lr"], len(log))
     with TemporaryDirectory() as tmp:
         folder = Path(tmp)
         prepare_tables(folder, world_list)
@@ -408,6 +426,25 @@ def verify(root, d):
                 tok.encode(qwen_tools.render(tok, m, defs), add_special_tokens=False)
                 for m in ([msgs] if phase == "query" else pairs)
             ]
+            anchor = next(anchor_stream)
+            _, _, y, at = warm[anchor]
+            assert anchor == row["anchor"] and row["anchor_positions"] == positions(
+                y, at, s["warm_targets"], f"{s['fit_seed']}/anchor/{step}"
+            )
+            assert len(row["draws"]) == len(row["prefixes"])
+            assert all(
+                math.isfinite(row[k]) and row[k] >= 0
+                for k in ("policy_gradient_norm", "gradient_norm", "anchor_nll")
+            )
+            replay_error = row["sampled_logp_mean_abs_replay_error"]
+            if any(row["advantages"]):
+                assert (
+                    replay_error is not None
+                    and math.isfinite(replay_error)
+                    and replay_error >= 0
+                )
+            else:
+                assert replay_error is None and row["policy_gradient_norm"] == 0
             for draws in row["draws"]:
                 assert len(draws) == s["group_size"]
                 for r in draws:
