@@ -78,9 +78,9 @@ def verify(root):
 
         return verify_book(root, decision)
     if study.startswith("conversation-document-prefill-"):
-        from loopqwen.research.conversation_prefill import verify as verify_prefill
+        from loopqwen.research.conversation_prefill import verify as verify_conversation_prefill
 
-        return verify_prefill(root, decision)
+        return verify_conversation_prefill(root, decision)
     if study.startswith("question-contrast-"):
         from loopqwen.research.question_contrast import verify as verify_contrast
 
