@@ -34,7 +34,8 @@ def build():
     exposure = read("docs/measurements/cross-view-exposure.json")
     blind = read("docs/measurements/cross-view-answer-reading.json")
     runs = {k: unpack(root / (k + ".json.gz")) for k in groups}
-    close_reasoning = tokenizer(s).convert_tokens_to_ids("</think>")
+    tok = tokenizer(s)
+    close_reasoning = tok.convert_tokens_to_ids("</think>")
     records = []
     for i, w in enumerate(items):
         out = {
@@ -57,6 +58,10 @@ def build():
             q = r["requests"][0]
             tr = q["trajectory"]
             sequences = [t["token_ids"] for t in tr["turns"]]
+            prefixes = [
+                ids[: ids.index(close_reasoning)] if close_reasoning in ids else ids
+                for ids in sequences
+            ]
             assert r["id"] == w["id"]
             record = {
                 **q["score"],
@@ -67,9 +72,9 @@ def build():
                 "first_s": q["first_s"],
                 "peak": q["peak"],
                 "output_tokens": sum(map(len, sequences)),
-                "reasoning_prefix_tokens": sum(
-                    ids.index(close_reasoning) if close_reasoning in ids else len(ids)
-                    for ids in sequences
+                "reasoning_prefix_tokens": sum(map(len, prefixes)),
+                "nonblank_reasoning_prefixes": sum(
+                    bool(tok.decode(ids).strip()) for ids in prefixes
                 ),
                 "model_turns": len(sequences),
                 "turns_without_reasoning_close": sum(
@@ -286,11 +291,20 @@ def build():
             f"For “{q['question']}” the publisher answer is “{q['answer']}”. The loop answered “{short('candidate', inline)}” inline and “{short('candidate', f)}” with the file. Base answered “{short('control', inline)}” and “{short('control', f)}”."
         )
     missed = [k for k, v in d["gates"].items() if not v]
+    labels = {
+        "article_gain": "complete-article gain",
+        "file_exact": "exact file answers",
+        "inline_grounded": "inline content accuracy",
+        "inline_exact": "exact inline answers",
+        "inline_mean_f1": "inline answer F1",
+        "first_s": "total first-token wait",
+        "opening_tps": "opening throughput",
+    }
     verdict = (
         "All registered thresholds passed."
         if d["passed"]
         else "The candidate missed its registered qualification. The failed thresholds were "
-        + ", ".join(k.replace("_", " ") for k in missed)
+        + ", ".join(labels.get(k, k.replace("_", " ")) for k in missed)
         + "."
     )
     checks = blind["arms"]
@@ -302,7 +316,7 @@ def build():
 
         assert total("output_tokens") == groups[arm]["all"]["output_tokens"]
         generation.append(
-            f"{name} generated {total('output_tokens'):,} tokens in {total('model_turns')} model turns. It emitted {total('reasoning_prefix_tokens'):,} tokens before the first reasoning-close marker, including the entire generated prefix on {total('turns_without_reasoning_close')} turns that never emitted that marker."
+            f"{name} generated {total('output_tokens'):,} tokens in {total('model_turns')} turns. Its reasoning field contained nonwhitespace text on {total('nonblank_reasoning_prefixes')}/{total('model_turns')} turns. The field accounted for {total('reasoning_prefix_tokens'):,} tokens, including the full output on {total('turns_without_reasoning_close')} turns that never closed it."
         )
     uncertainty = paired_articles(records)
     save(P / "cross-view-uncertainty.json", uncertainty)

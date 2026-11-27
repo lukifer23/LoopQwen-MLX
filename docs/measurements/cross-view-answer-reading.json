@@ -1,0 +1,49 @@
+{
+  "distinct_reviewed": 105,
+  "rubric_sha256": "d9fbf8c992222fbdcb0cc988bab7fb445426d002bc26921e8aef372016cf9427",
+  "labels_sha256": "7e2cc85104be45370334f7255dc3a125e9d652864c978d4ea5df1e242a3c6b05",
+  "arms": {
+    "candidate": {
+      "by_family": {
+        "inline": {
+          "requests": 40,
+          "semantic_answers": 16,
+          "grounded": 16,
+          "original_grounded": 12,
+          "unresolved": 1
+        },
+        "file": {
+          "requests": 40,
+          "semantic_answers": 7,
+          "grounded": 7,
+          "original_grounded": 9,
+          "unresolved": 4
+        }
+      },
+      "both_file": 0,
+      "both_inline": 1,
+      "all_four": 0
+    },
+    "control": {
+      "by_family": {
+        "inline": {
+          "requests": 40,
+          "semantic_answers": 23,
+          "grounded": 23,
+          "original_grounded": 17,
+          "unresolved": 1
+        },
+        "file": {
+          "requests": 40,
+          "semantic_answers": 6,
+          "grounded": 6,
+          "original_grounded": 5,
+          "unresolved": 14
+        }
+      },
+      "both_file": 1,
+      "both_inline": 7,
+      "all_four": 1
+    }
+  }
+}

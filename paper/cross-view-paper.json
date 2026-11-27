@@ -1,0 +1,24 @@
+{
+  "generation": "The trained loop generated 6,266 tokens in 139 turns. Its reasoning field contained nonwhitespace text on 0/139 turns. The field accounted for 139 tokens, including the full output on 0 turns that never closed it. Base generated 31,886 tokens in 131 turns. Its reasoning field contained nonwhitespace text on 131/131 turns. The field accounted for 23,947 tokens, including the full output on 4 turns that never closed it.",
+  "repetitions": "The loop gave the same normalized reply to both different questions on 1/20 file articles and 1/20 inline articles with two completed replies. Base gave the same normalized reply to both different questions on 0/11 file articles and 2/16 inline articles with two completed replies.",
+  "intervention": "The physical probe uses the actual compiled weights and calls the project measurement file for the sum of first-token waits. The callback returned 6.93 seconds. Both final-layer visits independently retained all 479 tokens of the resulting conversation. Setting the repeated residual contribution to zero changed the next-token logits by RMS 0.7085. Restoring the coefficient reproduced all 248,320 logits bit for bit.",
+  "channels": {
+    "candidate": {
+      "Both views": 3,
+      "Inline only": 9,
+      "File only": 6,
+      "Neither": 22
+    },
+    "control": {
+      "Both views": 2,
+      "Inline only": 15,
+      "File only": 3,
+      "Neither": 20
+    }
+  },
+  "summary": "The trained loop completed all four judgments on 0/20 articles and untouched Base on 0/20. The loop gained 0 articles and lost 0 (two-sided exact paired p = 1). The 88 requests took 81.37 and 477.58 seconds respectively.",
+  "decision": "The candidate missed its registered qualification. The failed thresholds were complete-article gain, exact file answers, inline content accuracy, exact inline answers, inline answer F1, total first-token wait, opening throughput.",
+  "training": "The teacher covered 336/384 first human answer tokens in its top 32, with 131 ranked first. The registered minimum top-32 coverage was 65%. Teacher targets took 161.36 seconds and 2.94 GiB peak. The student updated 802,816 parameters over 640 AdamW steps and 96,263 total target-token exposures across 1,159 distinct student examples. It received 12,198 supervised answer-position distributions. The frozen-prefix and optimization stages took 179.92 and 293.08 seconds. Its fit peaked at 2.04 GiB. The seven projections were fused once into a 36,700,965-byte layer. The registered analysis includes every user request.",
+  "sensitivity": "A single arm-blind project-agent reading covered 105 distinct completed nonexact replies. Under that secondary interpretation the whole-article count was 0/20 versus 1/20. The exact and token-F1 results above preserve the original machine-scored references.",
+  "example": "The first enrolled article was Saving Silverman. For \u201cWhat is the first name of the person who suggests non-penetrative sex as alternative?\u201d the publisher answer is \u201cJudith\u201d. The loop answered \u201cJudith Fessbeggler\u201d inline and \u201cDarren\u201d with the file. Base answered \u201cJudith\u201d and \u201cI can help you read the entry from the \"Saving Silverman\" CSV file. However, I don't see the attached fil\u2026\u201d. For \u201cWhat are the first names of the people who visit someone in jail?\u201d the publisher answer is \u201cWayne and J.D\u201d. The loop answered \u201cCoach Norton\u201d inline and \u201cDarren, Wayne, and J.D.\u201d with the file. Base answered \u201cno completed answer\u201d and \u201cThe first names of the people who visit someone in jail are: Darren, Wayne, and J.D.\u201d."
+}

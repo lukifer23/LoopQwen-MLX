@@ -1,5 +1,7 @@
 # LoopQwen research objective
 
+The latest transfer experiment solved the lookup on all 40 unseen file requests and returned nine correct grounded answers versus five for Base. Identical inline evidence favored Base 17 to 12. The emitted reasoning field contained only a newline on every recurrent turn. The independent article criterion tied at zero, and the first-token sum was longer. The next reasoning design must address how the model uses retrieved evidence and preserve answers it already gives correctly. The available 131K qualification belongs to release 05. [Complete measured paper](paper/loopqwen-study.pdf) · [Article evidence](research/results/cross-view-reading-01)
+
 The changed-file trial produced more grounded individual answers, 12/32 versus 4/32 for Base. It missed the stronger evidence-reversal criterion, 0/16 whole file pairs versus 1/16. Across 12 articles where the loop actually retrieved both pieces of evidence it never produced two correct conclusions. The opt-in checkpoint has no long-context promotion. [Complete study](research/results/file-evidence-accumulated-01) · [Current paper](paper/loopqwen-report.pdf)
 
 

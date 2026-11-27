@@ -1,0 +1,162 @@
+{
+  "passed": false,
+  "gates": {
+    "article_gain": false,
+    "retention": true,
+    "completed": true,
+    "file_grounded": true,
+    "file_exact": false,
+    "file_mean_f1": true,
+    "inline_grounded": false,
+    "inline_exact": false,
+    "inline_mean_f1": false,
+    "wall_s": true,
+    "first_s": false,
+    "peak": true,
+    "opening_tps": false,
+    "decode_tps": true
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 88,
+        "strict": 24,
+        "requests": 88,
+        "answers": 24,
+        "grounded": 24,
+        "completed": 85,
+        "wall_s": 81.3696562917321,
+        "first_s": 14.843746209749952,
+        "peak": 1202076652,
+        "output_tokens": 6266,
+        "exact": 12,
+        "mean_f1": 0.23070294715074235,
+        "right_reads": 44
+      },
+      "file": {
+        "dialogues": 40,
+        "strict": 9,
+        "requests": 40,
+        "answers": 9,
+        "grounded": 9,
+        "completed": 40,
+        "wall_s": 57.001994583930355,
+        "first_s": 6.117172416881658,
+        "peak": 1202076652,
+        "output_tokens": 4650,
+        "exact": 1,
+        "mean_f1": 0.14746245011818782,
+        "right_reads": 40
+      },
+      "inline": {
+        "dialogues": 40,
+        "strict": 12,
+        "requests": 40,
+        "answers": 12,
+        "grounded": 12,
+        "completed": 40,
+        "wall_s": 10.797898165881634,
+        "first_s": 7.428771958919242,
+        "peak": 1163244524,
+        "output_tokens": 391,
+        "exact": 8,
+        "mean_f1": 0.28508403361344536,
+        "right_reads": 0
+      },
+      "retention": {
+        "dialogues": 8,
+        "strict": 3,
+        "requests": 8,
+        "answers": 3,
+        "grounded": 3,
+        "completed": 5,
+        "wall_s": 13.56976354192011,
+        "first_s": 1.2978018339490518,
+        "peak": 1188356580,
+        "output_tokens": 1225,
+        "exact": 3,
+        "mean_f1": 0.375,
+        "right_reads": 4
+      },
+      "whole_articles": {
+        "file": 0,
+        "inline": 1
+      },
+      "both_modes_both_questions": 0,
+      "opening_tps": 2482.5269496857527,
+      "decode_tps": 105.78500380739855
+    },
+    "control": {
+      "all": {
+        "dialogues": 88,
+        "strict": 22,
+        "requests": 88,
+        "answers": 23,
+        "grounded": 22,
+        "completed": 67,
+        "wall_s": 477.58046720316634,
+        "first_s": 14.612146126979496,
+        "peak": 1872974170,
+        "output_tokens": 31886,
+        "exact": 15,
+        "mean_f1": 0.21204172378165753,
+        "right_reads": 16
+      },
+      "file": {
+        "dialogues": 40,
+        "strict": 5,
+        "requests": 40,
+        "answers": 6,
+        "grounded": 5,
+        "completed": 27,
+        "wall_s": 284.5415882089874,
+        "first_s": 5.910020626033656,
+        "peak": 1872974170,
+        "output_tokens": 19078,
+        "exact": 2,
+        "mean_f1": 0.07350159624121522,
+        "right_reads": 16
+      },
+      "inline": {
+        "dialogues": 40,
+        "strict": 17,
+        "requests": 40,
+        "answers": 17,
+        "grounded": 17,
+        "completed": 36,
+        "wall_s": 109.24708674632711,
+        "first_s": 7.448046210047323,
+        "peak": 1809945562,
+        "output_tokens": 7165,
+        "exact": 13,
+        "mean_f1": 0.39299019607843133,
+        "right_reads": 0
+      },
+      "retention": {
+        "dialogues": 8,
+        "strict": 0,
+        "requests": 8,
+        "answers": 0,
+        "grounded": 0,
+        "completed": 4,
+        "wall_s": 83.79179224785184,
+        "first_s": 1.2540792908985168,
+        "peak": 1822979370,
+        "output_tokens": 5643,
+        "exact": 0,
+        "mean_f1": 0.0,
+        "right_reads": 0
+      },
+      "whole_articles": {
+        "file": 0,
+        "inline": 4
+      },
+      "both_modes_both_questions": 0,
+      "opening_tps": 2521.874588426206,
+      "decode_tps": 69.9895157117606
+    }
+  },
+  "wins": 0,
+  "losses": 0,
+  "p": 1.0
+}

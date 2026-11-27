@@ -47,8 +47,6 @@ The whole-stream timings include model construction on the first request, genera
 
 #figure(image("cross-view-service.svg",width:100%),caption:[Left, grounded or correct answers delivered over one cold stream in frozen request order. Right, elapsed time for all 88 individual requests, including failures. Both systems received the same generation cap.])
 
-The historical system-comparison CSV had reported counts of correct first answers as seconds for the 16 module follow-up dialogues. The archived timers across their 32 user requests sum to 2.768 s for the loop and 2.528 s for Base. The corrected CSV uses these values. The original whole-dialogue outcome was 12/16 versus 0/16 in 13.97 versus 115.77 s.
-
 #pagebreak()
 = Where both modalities succeeded
 #figure(image("cross-view-articles.svg",width:100%),caption:[Each row is a distinct Quoref article. The four columns for each model show its two inline and two file answers. A complete article has four correct outcomes with both file reads grounded.])
@@ -56,6 +54,8 @@ The historical system-comparison CSV had reported counts of correct first answer
 #m.example
 
 The accompanying CSV includes every request, source, caller-visible reply, first call, exact and content scores, F1, peak memory and actual latency. The registration fixes thresholds and the maximum budget in advance. A direct comparison with untouched Base combines instruction post-training, recurrence, distillation and precision. An equally trained single-pass control is needed to attribute a quality gain to the loop itself.
+
+The historical system-comparison CSV had reported counts of correct first answers as seconds for the 16 module follow-up dialogues. The archived timers across their 32 user requests sum to 2.768 s for the loop and 2.528 s for Base. The corrected CSV uses these values. The original whole-dialogue outcome was 12/16 versus 0/16 in 13.97 versus 115.77 s.
 
 #pagebreak()
 = How much varies between articles?

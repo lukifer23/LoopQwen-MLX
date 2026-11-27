@@ -1,5 +1,19 @@
 # Capability scoreboard
 
+| Cross-view reading on one resident checkpoint | Trained loop | Untouched Base |
+| --- | ---: | ---: |
+| Both questions in both formats, complete articles | 0/20 | 0/20 |
+| Correct file retrievals | 40/40 | 16/40 |
+| Correct grounded file answers | 9/40 | 5/40 |
+| Correct inline answers | 12/40 | 17/40 |
+| Grounded table retention | 3/8 | 0/8 |
+| Completed requests | 85/88 | 67/88 |
+| Cold stream / first-token sum | 81.37 / 14.84 s | 477.58 / 14.61 s |
+| Opening / decode tokens per second | 2,482.5 / 105.79 | 2,521.9 / 69.99 |
+| Peak MLX allocation | 1.12 GiB | 1.74 GiB |
+
+The arm-blind reading credited seven versus six grounded file replies and 16 versus 23 inline replies. That yielded zero versus one complete article. A fixed-weight intervention on the compiled student changed next-token logits after a real file return (RMS 0.7085) and restored all 248,320 logits exactly. The direct trial missed its primary gate. [Predictions and weights](../research/results/cross-view-reading-01) · [Paper and figures](../paper/cross-view.pdf) · [Blind reading](measurements/cross-view-answer-reading.json)
+
 The new Base-derived two-layer decoder grounded 12 of 32 individual file judgments versus 4 for untouched Base. Across 16 independently changed files the loop grounded both correct answers zero times, Base once. The loop read the right source on both versions of 12 articles. On independent inline passages it solved 7/12 complete pairs versus 8/12. It completed 50/56 requests versus 34/56 and used 1.58 versus 1.71 GiB peak. Users waited 7.26 versus 6.93 seconds in total for first tokens. [All paired requests](../paper/file-evidence-requests.csv) · [Verified paths from file to model](measurements/file-evidence-return-path.json)
 
 
