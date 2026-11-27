@@ -25,13 +25,22 @@ sys.addaudithook(isolate)
 
 
 def cold(stage, source, cap, archive_stage, arm):
-    task = next(r for r in read(SOURCE) if r["id"] == source)
-    folder = ROOT / "short" / stage / str(cap) / arm
-    refs = [
-        unpack(folder / (source + "-" + s + ".json.gz")) for s in ("original", "own")
-    ]
+    if source == "anne":
+        from scripts.middle_depth_documents import SPECS
+
+        task = read(SPECS / "anne-dev.json")
+        folder = ROOT / "documents" / stage / "anne" / arm / str(cap)
+        names = ["original-first", "original-own"]
+    else:
+        task = next(r for r in read(SOURCE) if r["id"] == source)
+        folder = ROOT / "short" / stage / str(cap) / arm
+        names = [source + "-" + s for s in ("original", "own")]
+    refs = [unpack(folder / (name + ".json.gz")) for name in names]
     with (
-        worker("profile", "installed/" + stage + "/" + arm + "/" + source) as guard,
+        worker(
+            "long" if source == "anne" else "profile",
+            "installed/" + stage + "/" + arm + "/" + source,
+        ) as guard,
         TemporaryDirectory() as temp,
     ):
         tmp = Path(temp)
@@ -59,12 +68,28 @@ def cold(stage, source, cap, archive_stage, arm):
             ],
             check=True,
         )
-        question, _ = instance(task, "original", tmp)
-        provider = (
-            ["--calculator"]
-            if task["provider"] == "calculator"
-            else ["--keyed-csv", task["document"]]
-        )
+        if source == "anne":
+            prompt = tmp / "complete-prompt.txt"
+            prompt.write_text(
+                Path(task["source"]).read_text() + "\n\n" + task["question"]
+            )
+            stage_dir = tmp / "staged"
+            stage_dir.mkdir()
+            opening = [
+                "--calculator",
+                "--prompt-file",
+                str(prompt),
+                "--staged-context-dir",
+                str(stage_dir),
+            ]
+        else:
+            question, _ = instance(task, "original", tmp)
+            provider = (
+                ["--calculator"]
+                if task["provider"] == "calculator"
+                else ["--keyed-csv", task["document"]]
+            )
+            opening = [*provider, "--prompt", question, "--cache-state-prefill"]
         args = [
             "ask",
             "--checkpoint",
@@ -73,9 +98,7 @@ def cold(stage, source, cap, archive_stage, arm):
             str(policy),
             "--tool-format",
             "qwen",
-            *provider,
-            "--prompt",
-            question,
+            *opening,
             "--follow-up",
             task["followup"],
             "--max-tokens",
@@ -83,7 +106,6 @@ def cold(stage, source, cap, archive_stage, arm):
             "--max-turns",
             "3",
             "--no-reuse-prefix",
-            "--cache-state-prefill",
             "--trace",
         ]
         lease = child_lease()
@@ -134,8 +156,7 @@ def cold(stage, source, cap, archive_stage, arm):
             network_guard=True,
             results=result,
             compared=[
-                str((folder / (source + "-" + s + ".json.gz")).relative_to(ROOT))
-                for s in ("original", "own")
+                str((folder / (name + ".json.gz")).relative_to(ROOT)) for name in names
             ],
         )
         packed(ROOT / "installed" / f"{stage}-{arm}-{source}-{cap}.json.gz", rec)
@@ -150,7 +171,7 @@ if __name__ == "__main__":
     p.add_argument("--stage", required=True)
     p.add_argument("--archive-stage", required=True)
     p.add_argument("--arm", choices=("loop", "ordinary"), default="loop")
-    p.add_argument("--source", choices=("tiles", "parcels"), required=True)
-    p.add_argument("--cap", type=int, choices=(128, 512), required=True)
+    p.add_argument("--source", choices=("tiles", "parcels", "anne"), required=True)
+    p.add_argument("--cap", type=int, choices=(128, 512, 4096), required=True)
     a = p.parse_args()
     cold(a.stage, a.source, a.cap, a.archive_stage, a.arm)

@@ -259,7 +259,8 @@ def measure(args):
                     history=history,
                     sites=model.sites,
                     prefix_seconds=prefill_seconds,
-                    cold_build_seconds=prefix.receipt["seconds"],
+                    cold_build_seconds=prefix.cold_seconds,
+                    cold_time_basis=prefix.cold_time_basis,
                     scratch_bytes=prefix.disk.scratch_bytes,
                 ),
             )

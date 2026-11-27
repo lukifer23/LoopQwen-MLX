@@ -169,10 +169,25 @@ def early_headroom():
             dispatch("development", *args)
 
 
+def early_excerpts():
+    for block in (0, 1):
+        for arm in (
+            ("loop", "ordinary", "base") if block == 0 else ("base", "ordinary", "loop")
+        ):
+            args = ["run", "--stage", "early", "--arm", arm, "--block", block]
+            if arm != "base":
+                args += [
+                    "--policy",
+                    Path("checkpoints/middle-depth/4619") / arm / "step-0032",
+                ]
+            dispatch("excerpt", *args)
+
+
 if __name__ == "__main__":
     actions = {
         "first": first,
         "early-headroom": early_headroom,
+        "early-excerpts": early_excerpts,
         "fit": paired_fit,
         "short-terminal": short_terminal,
         "depth": depths,

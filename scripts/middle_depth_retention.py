@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 import shutil
-from time import time
+from time import time, monotonic
 
 from loopqwen.io import digest, read, save
 from scripts.middle_depth_budget import GIB, ROOT
@@ -139,8 +139,61 @@ def saved(model, ids, path, identity, guard, command):
     from loopqwen.research.saved_document import SavedDocument
 
     prev = open_prefix(path, model, ids, identity, command)
-    obj = SavedDocument(model, ids, path, identity, guard)
-    seal(path, obj, identity, command, prev)
+    tick = monotonic()
+    ledger = RECIPES / "building" / (recipe(path).stem + ".json")
+    observed = (
+        read(ledger) if ledger.exists() else {"identity": identity, "attempts": []}
+    )
+    if observed["identity"] != identity:
+        raise ValueError("Another source occupies this construction ledger")
+    already_complete = (
+        prev is not None and prev.get("complete") and not prev.get("evicted")
+    )
+    try:
+        obj = SavedDocument(model, ids, path, identity, guard)
+        seal(path, obj, identity, command, prev)
+    except BaseException as error:
+        if not already_complete:
+            observed["attempts"].append(
+                {
+                    "seconds": monotonic() - tick,
+                    "status": "stopped",
+                    "error": repr(error),
+                }
+            )
+            save(ledger, observed)
+        raise
+    if not already_complete:
+        observed["attempts"].append(
+            {"seconds": monotonic() - tick, "status": "complete"}
+        )
+        save(ledger, observed)
+    # Existing prefixes produced before the construction ledger use the
+    # sum of actual completed group timings as a separately labeled estimate.
+    if (
+        observed["attempts"]
+        and sum(r["seconds"] for r in observed["attempts"]) >= obj.receipt["seconds"]
+    ):
+        last_build = max(
+            i for i, r in enumerate(observed["attempts"]) if r["status"] == "complete"
+        )
+        earlier = [
+            i
+            for i, r in enumerate(observed["attempts"][:last_build])
+            if r["status"] == "complete"
+        ]
+        first = earlier[-1] + 1 if earlier else 0
+        obj.cold_seconds = sum(
+            r["seconds"] for r in observed["attempts"][first : last_build + 1]
+        )
+        obj.cold_time_basis = (
+            "wall time of construction attempts through the last complete prefix"
+        )
+    else:
+        obj.cold_seconds = obj.receipt["seconds"]
+        obj.cold_time_basis = (
+            "observed completed group seconds in the saved native prefix"
+        )
     return obj
 
 
