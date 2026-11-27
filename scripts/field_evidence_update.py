@@ -118,7 +118,7 @@ def inventory(tmp, revision, wheel, kit):
                 json.dumps(args, indent=2) + "\n"
             ).encode()
             examples.append((key, i, w["id"]))
-    long = prepare(ROOT, files)
+    long = prepare(ROOT, files, base_study="register-fused-base-full-01")
     # Snapshot tracked inputs from the precise source commit on later rebuilds.
     tracked = set(
         subprocess.check_output(
@@ -357,6 +357,9 @@ def main():
             "compact_replay": row["id"],
             "default_context_lengths": [
                 r["actual_initial_tokens"] for r in long_records
+            ],
+            "base_context_lengths": [
+                r["ordinary_base"]["actual_initial_tokens"] for r in long_records
             ],
             "paper_sha256": digest(work / "paper/loopqwen-report.pdf"),
         }

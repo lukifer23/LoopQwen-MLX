@@ -32,10 +32,10 @@ For the standalone six-layer reader, reconstruct the eight-bit weights once. The
   --thinking --trace --prompt-file your-question.txt --max-tokens 768
 ```
 
-The default release has separate long-context qualification. Its full registered examples are `examples/register-0.txt` and `examples/register-1.txt`. Omit the experimental session policy for these requests. Each is 131,084 actual input tokens after native chat rendering.
+The default release has separate long-context qualification. Update 03’s installed replay compares its complete native histories and those of the certified ordinary Base against their respective archived references. Its full registered examples are `examples/register-0.txt` and `examples/register-1.txt`. Omit the experimental session policy for these requests. Each is 131,084 actual input tokens after native chat rendering.
 
 ```sh
-.venv/bin/loopqwen ask --checkpoint release-05 --prompt-file examples/register-0.txt --max-tokens 96 --trace
+.venv/bin/loopqwen ask --checkpoint release-05 --prompt-file examples/register-0.txt --max-tokens 96 --trace --compare-base
 ```
 
 To rebuild the paper without a GPU, copy the original 64-page PDF from kit 01, install its two local typesetting wheels, and verify both assembly stages. Each stage independently typesets the supplements and checks byte identity of the PDFs.
@@ -70,7 +70,7 @@ study=file-evidence-accumulated-01
 "$py" -m scripts.research_session
 "$py" -u -m loopqwen.research.file_evidence "$study"
 "$py" -m scripts.file_evidence_checkpoints --record
-"$py" -m scripts.file_evidence_exposure --study-dir "outputs/research/$study"     --output "outputs/research/$study/exposure.json"
+"$py" -m scripts.file_evidence_exposure --study-dir "outputs/research/$study" --output "outputs/research/$study/exposure.json"
 "$py" -c 'from pathlib import Path; from loopqwen.io import read; from loopqwen.research.file_evidence import verify; p=Path("outputs/research/file-evidence-accumulated-01"); verify(p,read(p/"decision.json"))'
 ```
 

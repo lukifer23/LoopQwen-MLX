@@ -11,7 +11,7 @@ from loopqwen.model_loader import local_snapshot
 from loopqwen.tool_session import prompt
 
 
-def prepare(root, files):
+def prepare(root, files, *, base_study=None):
     release = root / "research/results/packed-release-retention-04"
     cert = read(release / "registration.json")
     source = root / cert["register_material"]
@@ -20,6 +20,14 @@ def prepare(root, files):
     before, after = prompt(tok, [{"role": "user", "content": "INPUT_MARKER"}]).split(
         "INPUT_MARKER"
     )
+    ordinary = None
+    if base_study:
+        from loopqwen.evaluation.mechanism import unpack
+
+        base_root = root / "research/results" / base_study
+        reference = base_root / "base.json.gz"
+        assert digest(reference) == read(base_root / "checksums.json")[reference.name]
+        ordinary = unpack(reference)
     expected = []
     for i, row in enumerate(read(source)[0]["panel"]):
         name = f"examples/register-{i}.txt"
@@ -56,6 +64,21 @@ def prepare(root, files):
                 )
             },
         }
+        if ordinary is not None:
+            base = ordinary[i]
+            assert (
+                base["input_sha256"] == evidence["input_sha256"]
+                and base["gold"] == evidence["gold"]
+                and base["prompt_tokens"] == len(ids)
+            )
+            evidence["ordinary"] = {
+                k: base[k]
+                for k in ("input_sha256", "token_ids", "kv_history", "gold", "correct")
+            }
+            evidence["ordinary"]["source"] = (
+                "research/results/" + base_study + "/base.json.gz"
+            )
+            evidence["ordinary"]["source_sha256"] = digest(base_root / "base.json.gz")
         ref = f"examples/register-{i}-reference.json"
         files[ref] = (json.dumps(evidence, indent=2) + "\n").encode()
         expected.append((name, ref))
@@ -78,8 +101,44 @@ def verify(work, examples, execute, receipt):
             "--trace",
         ]
         start = perf_counter()
+        paired = "ordinary" in expected
+        if paired:
+            args.append("--compare-base")
         actual = execute(args)
         wall = perf_counter() - start
+        if paired:
+            assert (
+                actual["initial_prompt_identical"]
+                and actual["base_source"] == "certified_release_text"
+            )
+            (base,) = actual["runs"]["base"]
+            (bt,) = base["turns"]
+            orig = expected["ordinary"]
+            assert (
+                base["initial_sha256"]
+                == orig["input_sha256"]
+                == fingerprint(bt["prompt_ids"])
+            )
+            assert len(bt["prompt_ids"]) == expected["prompt_tokens"]
+            assert (
+                bt["token_ids"] == orig["token_ids"]
+                and bt["kv_history"] == orig["kv_history"]
+            )
+            assert len(bt["kv_history"]) == 6
+            base_observation = {
+                "source_sha256": orig["source_sha256"],
+                "status": base["status"],
+                "visible": base["answer"],
+                "token_ids": bt["token_ids"],
+                "kv_history": bt["kv_history"],
+                "actual_initial_tokens": len(bt["prompt_ids"]),
+                "native_seconds": bt["seconds"],
+                "native_first_seconds": bt["ttft_s"],
+                "peak_bytes": base["peak_mlx_bytes"],
+                "request_seconds": base["request_seconds"],
+                "first_token_seconds": base["first_token_seconds"],
+            }
+            (actual,) = actual["runs"]["recurrent"]
         (turn,) = actual["turns"]
         assert (
             actual["status"] == "answered"
@@ -108,12 +167,21 @@ def verify(work, examples, execute, receipt):
                 "native_first_seconds": turn["ttft_s"],
                 "native_seconds": turn["seconds"],
                 "process_wall_seconds": wall,
+                **(
+                    {
+                        "ordinary_base": base_observation,
+                        "request_seconds": actual["request_seconds"],
+                        "first_token_seconds": actual["first_token_seconds"],
+                    }
+                    if paired
+                    else {}
+                ),
             }
         )
 
     def stable(row):
         return {
-            k: v
+            k: stable(v) if k == "ordinary_base" else v
             for k, v in row.items()
             if k
             not in (
@@ -121,6 +189,8 @@ def verify(work, examples, execute, receipt):
                 "native_first_seconds",
                 "native_seconds",
                 "process_wall_seconds",
+                "request_seconds",
+                "first_token_seconds",
             )
         }
 
@@ -132,7 +202,9 @@ def verify(work, examples, execute, receipt):
         save(
             receipt,
             {
-                "tested_policy": "original qualified release 05 default, installed update wheel",
+                "tested_policy": "qualified release 05 default and certified ordinary Base, installed update wheel"
+                if "ordinary_base" in results[0]
+                else "original qualified release 05 default, installed update wheel",
                 "requests": results,
             },
         )
