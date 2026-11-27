@@ -349,6 +349,10 @@ def collect():
     if Path("research/sources/learner-prefix/supervised-tokens.json.gz").is_file():
         from scripts.paper_learner_prefix import collect as collect_learner
         out["learner_prefix"] = collect_learner()
+    if (DOC / "content-read-sources.json").exists():
+        from scripts.paper_content_read import collect as collect_content
+
+        out["content_read"] = collect_content()
     return out
 
 
