@@ -5,17 +5,20 @@ import json
 import re
 import subprocess
 import sys
+from contextlib import chdir
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from time import perf_counter
 
 from loopqwen import REVISION
 from loopqwen.evaluation.mechanism import packed, unpack
+from loopqwen.file_tools import tools as file_tools
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.research.core import Budget
+from loopqwen.research.cross_view_study import tokenizer
 from loopqwen.research.file_evidence_environment import capture
-from loopqwen.research.native_function_study import executions
+from loopqwen.research.native_function_study import executions, replay
 from loopqwen.research.registered import registered
 from loopqwen.worker import child_lease
 from scripts.locked_context_material import SOURCE, material, request
@@ -181,7 +184,32 @@ def verify(root, decision):
     if decision.get("status") == "interrupted":
         assert decision["reason"] and not decision["passed"]
         return
-    assert decide(spec, data, unpack(root / "requests.json.gz")) == decision
+    runs = unpack(root / "requests.json.gz")
+    assert decide(spec, data, runs) == decision
+    tok = tokenizer(spec)
+    for row, pair in zip(data["rows"], runs, strict=True):
+        original = gzip.decompress(
+            (SOURCE / (row["revision"] + ".lock.gz")).read_bytes()
+        )
+        with TemporaryDirectory() as tmp, chdir(tmp):
+            Path("uv.lock").write_bytes(original)
+            callbacks = file_tools(["uv.lock"])
+            for side, arm in (("recurrent", "candidate"), ("base", "control")):
+                (q,) = pair["runs"][side]
+                replay(
+                    tok,
+                    row,
+                    callbacks,
+                    [{"role": "user", "content": request(original.decode())}],
+                    {
+                        "trajectory": q,
+                        "wall_s": q["request_seconds"],
+                        "first_s": q["first_token_seconds"],
+                        "peak": q["peak_mlx_bytes"],
+                    },
+                    spec,
+                    arm,
+                )
 
 
 def execute(s, row, work, site, budget):
