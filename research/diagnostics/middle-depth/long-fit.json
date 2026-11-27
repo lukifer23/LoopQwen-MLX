@@ -1,0 +1,44 @@
+{
+  "rows": {
+    "gables/published": {
+      "source": "data/research_external/narrativeqa/field-books/seven-gables.txt",
+      "source_sha": "bf23e00c3d6f2f13b46e8f07fd766d435f9bcb933b7848a934ab7e471484af15",
+      "question": "When Holgrave reveals what was hidden behind the portrait, does recovering it now give the Pyncheon heirs an enforceable claim according to his assessment? Identify what it conveys and explain.",
+      "target": "No. It is an old deed conveying eastern territory to Colonel Pyncheon and his heirs. Holgrave says the deed has long been worthless.",
+      "input": "1ff3d5f013c65b74cfcce2497cd1391bccfaa4c7937bf92b09823ef90cb25ee0",
+      "length": 158281,
+      "targets": "22ca70994c4013f9f9da0c9762f574d3ca189965d7a3a0d71b75dbfd03f62dde"
+    },
+    "gables/revision": {
+      "source": "data/research_external/narrativeqa/field-books/seven-gables.txt",
+      "source_sha": "bf23e00c3d6f2f13b46e8f07fd766d435f9bcb933b7848a934ab7e471484af15",
+      "question": "When Holgrave reveals what was hidden behind the portrait, does recovering it now give the Pyncheon heirs an enforceable claim according to his assessment? Identify what it conveys and explain.",
+      "target": "Yes. The recovered deed conveys eastern territory to Colonel Pyncheon and his heirs, and Holgrave says the claim is still enforceable.",
+      "input": "8d5e5f0864e0ee0f2e8d8fe950e0c17ec761a72d2f4968a57a4226270aa9c6bb",
+      "length": 158283,
+      "targets": "005f5b9e9906bea09e7b8ddccd25146aea07ce5c5d222858dacedc14c38b5e22"
+    },
+    "fosdem/published": {
+      "source": "data/research_external/fosdem/2025.ical",
+      "source_sha": "f6daf12a6dbac3a1d921cc1ace5e451a6b59f40df6092c5de232b3d5e212cbfc",
+      "question": "Compare the scheduled durations of \u201cWhat FLOSS Means in the AI World\u201d and \u201cI Like To Move IT, Move IT - Replication in TiDB & MySQL\u201d. Which session runs longer, and by how many minutes? Show both durations.",
+      "target": "What FLOSS Means in the AI World runs longer by 40 minutes. The first session lasts 50 minutes and the second lasts 10 minutes.",
+      "input": "e8b51378558a26228a1cc151d221c4539fb2a82f1b40a479f0a933fc66158b23",
+      "length": 232749,
+      "targets": "912571947e9fb24cd32618ab2c1eff0fdbc4645b9159e8b25c7cf280aacd15c0"
+    },
+    "fosdem/revision": {
+      "source": "data/research_external/fosdem/2025.ical",
+      "source_sha": "f6daf12a6dbac3a1d921cc1ace5e451a6b59f40df6092c5de232b3d5e212cbfc",
+      "question": "Compare the scheduled durations of \u201cWhat FLOSS Means in the AI World\u201d and \u201cI Like To Move IT, Move IT - Replication in TiDB & MySQL\u201d. Which session runs longer, and by how many minutes? Show both durations.",
+      "target": "I Like To Move IT, Move IT - Replication in TiDB & MySQL runs longer by 10 minutes. The first session lasts 50 minutes and the second lasts 60 minutes.",
+      "input": "cf27fd7740358b92f6f1efcc629e74b795252d3e4948342a81271e186e5930ac",
+      "length": 232749,
+      "targets": "0555c22b89a44af7bbbd354a5b24d696dfa83c65d4869d80e55308bb9f742b88"
+    }
+  },
+  "steps": 16,
+  "lr": 0.00012,
+  "seed": 4619,
+  "method": "Use the terminal short-fit weights. Keep every causal token, fitted span weights and native caches. Update only the last decoder MLP down-projection LoRA from the actual post-attention residuals of complete supported targets. Previous output positions from this final pointwise MLP cannot affect later attention histories. Check complete-graph gradient parity on a short prefix first. Fit four whole answers in equal turn weight for 16 updates. Compare public generation before and after; a likelihood gain alone cannot promote this intervention."
+}

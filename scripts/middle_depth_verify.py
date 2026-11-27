@@ -1,0 +1,118 @@
+"""Real-donor restart, callback-prefix, causal and exact sparse-gradient verification."""
+
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import mlx.core as mx
+import mlx.nn as nn
+from mlx.utils import tree_flatten
+
+from loopqwen.evaluation.mechanism import unpack
+from loopqwen.io import save
+from loopqwen.middle_depth import architecture, donor
+from loopqwen.research.saved_document import SavedDocument
+from scripts.middle_depth_budget import BASE, ROOT, worker
+from scripts.middle_depth_long_fit import output, residual
+from scripts.middle_depth_material import ROWS
+
+
+def run():
+    with (
+        worker("profile", "saved-prefix-and-sparse-adjoint") as guard,
+        TemporaryDirectory() as tmp,
+    ):
+        text, tok = donor(BASE, "base")
+        model = architecture(text, 2, 4619)
+        r = next(r for r in unpack(ROWS) if r["group"] == "deliver")
+        ids = r["p"][:256]
+        folder = Path(tmp)
+        count = 0
+
+        def interrupt(i):
+            nonlocal count
+            guard()
+            count += 1
+            if count == 5:
+                raise InterruptedError("Deliberate prefix boundary interruption")
+
+        try:
+            SavedDocument(model, ids, folder, "real-base-probe", interrupt)
+        except InterruptedError as error:
+            if str(error) != "Deliberate prefix boundary interruption":
+                raise
+        assert (folder / "prefix.json").is_file()
+        reopened = SavedDocument(model, ids, folder, "real-base-probe", guard)
+        native = model.make_cache()
+        for i in range(0, len(ids), 128):
+            mx.eval(model.hidden(mx.array([ids[i : i + 128]]), native))
+        errors = []
+        for tail in (r["p"][256:276], r["p"][256:266] + r["y"][:5]):
+            branch = reopened.branch(model, ids + tail)
+            plain = model.make_cache()
+            for i in range(0, len(ids), 128):
+                mx.eval(model.hidden(mx.array([ids[i : i + 128]]), plain))
+            x = mx.array([tail])
+            actual = branch.decode(x)
+            ref = model(x, plain)
+            errors.append(mx.max(mx.abs(actual - ref)).item())
+            assert errors[-1] == 0
+        x = mx.array([r["p"][:96]])
+        y = mx.array(r["p"][96:100])
+        target = model.text.layers[-1].mlp.down_proj
+
+        def full(_):
+            logits = model(x, model.make_cache())[0, -4:].astype(mx.float32)
+            return nn.losses.cross_entropy(logits, y).mean()
+
+        z = residual(model, x, model.make_cache())[:, -4:]
+        mx.eval(z)
+
+        def sparse(_):
+            return nn.losses.cross_entropy(
+                output(model, z)[0].astype(mx.float32), y
+            ).mean()
+
+        a, ga = nn.value_and_grad(target, full)(target)
+        b, gb = nn.value_and_grad(target, sparse)(target)
+        a, b = a.item(), b.item()
+        errors_grad = {}
+        for (k, v), (l, w) in zip(tree_flatten(ga), tree_flatten(gb), strict=True):
+            assert k == l
+            errors_grad[k] = mx.max(mx.abs(v - w)).item()
+        # The linear algebra can choose a different reduction tile when only
+        # four rows are presented. Bound the difference relative to the signal.
+        norm = mx.linalg.norm(gb["lora_b"]).item()
+        relative = mx.linalg.norm(ga["lora_b"] - gb["lora_b"]).item() / norm
+        assert norm > 0 and abs(a - b) < 0.01 and relative < 0.02
+        prior = model.project(model.hidden(x)[:, :60])
+        changed = model.project(
+            model.hidden(mx.concatenate([x[:, :60], x[:, 60:][:, ::-1]], axis=1))[
+                :, :60
+            ]
+        )
+        causal = mx.max(mx.abs(prior - changed)).item()
+        assert causal == 0
+        save(
+            ROOT / "sparse-parity.json",
+            dict(
+                passed=True,
+                model="Base initialization, two physical span visits",
+                chunks=len(ids) // 128,
+                interrupted_on_call=count,
+                completed_groups=len(reopened.receipt["groups"]),
+                reloaded_branch_max_logit_errors=errors,
+                sites=model.sites,
+                correct_causal_prefix=60,
+                causal_max_logit_error=causal,
+                full_loss=a,
+                sparse_loss=b,
+                gradient_max_errors=errors_grad,
+                relative_gradient_error=relative,
+                gradient_norm=norm,
+                peak=mx.get_peak_memory(),
+            ),
+        )
+
+
+if __name__ == "__main__":
+    run()
