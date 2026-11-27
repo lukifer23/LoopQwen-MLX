@@ -1,7 +1,8 @@
 """Render the two-read source-repair study from committed qualification, fit and paired outputs."""
 
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
+from statistics import mean, median
 
 import matplotlib
 import typst
@@ -101,6 +102,71 @@ def chart(rows):
     plt.close(fig)
 
 
+def depth_effects(probes, expected):
+    rows = []
+    families = defaultdict(list)
+    by_group = defaultdict(list)
+    for initial, one, two in zip(
+        probes["before"], probes["first_visit"], probes["after"], strict=True
+    ):
+        assert all(
+            initial[k] == one[k] == two[k]
+            for k in ("id", "positions", "group", "citations")
+        )
+        gain = one["ce"] - two["ce"]
+        family = category(two["group"])
+        rows.append(
+            {
+                "id": two["id"],
+                "group": two["group"],
+                "category": family,
+                "target_positions": two["positions"],
+                "cited_queries": two["citations"],
+                "initial_two_read_nll": initial["ce"],
+                "trained_one_read_nll": one["ce"],
+                "trained_two_read_nll": two["ce"],
+                "second_read_gain": gain,
+                "trained_one_read_citation_nll_sum": one["citation_nll"],
+                "trained_two_read_citation_nll_sum": two["citation_nll"],
+            }
+        )
+        by_group[two["group"]].append(gain)
+        families[family].append(gain)
+    assert abs(mean(mean(x) for x in by_group.values()) - expected) < 1e-9
+    write_csv(P / "repair-query-depth-probes.csv", rows)
+    fig, ax = plt.subplots(figsize=(9, 2.85), layout="constrained")
+    labels = sorted(families)
+    for i, label in enumerate(labels):
+        values = sorted(families[label])
+        # Displace dots within each row to expose individual observations.
+        offsets = [(j % 5 - 2) * 0.065 for j in range(len(values))]
+        ax.scatter(values, [i + z for z in offsets], color="#397d85", alpha=0.65, s=15)
+        ax.scatter(median(values), i, marker="D", s=33, color="#813b26")
+    ax.axvline(0, color="#333333", lw=0.8)
+    ax.set_yticks(range(len(labels)), labels)
+    ax.set_xlabel("Response NLL with one read minus two reads (nats per target token)")
+    ax.spines[["top", "right"]].set_visible(False)
+    fig.savefig(P / "repair-query-depth-probes.svg", metadata={"Date": None})
+    plt.close(fig)
+    return {
+        "n": len(rows),
+        "positions": sum(r["target_positions"] for r in rows),
+        "positive": sum(r["second_read_gain"] > 0 for r in rows),
+        "negative": sum(r["second_read_gain"] < 0 for r in rows),
+        "tied": sum(r["second_read_gain"] == 0 for r in rows),
+        "groups_positive": sum(mean(v) > 0 for v in by_group.values()),
+        "groups": len(by_group),
+        "families": {
+            key: {
+                "n": len(values),
+                "positive": sum(v > 0 for v in values),
+                "median": median(values),
+            }
+            for key, values in families.items()
+        },
+    }
+
+
 def collect():
     stages = [r for n in (FEATURES, FIT, PRIMARY) if (r := stage(n))]
     if not stages:
@@ -162,6 +228,10 @@ def collect():
         fig.savefig(P / "repair-query-optimization.svg", metadata={"Date": None})
         plt.close(fig)
         out["optimization"] = True
+        out["depth_effects"] = depth_effects(
+            read(fitroot / "probes.json"),
+            stages[1]["decision"]["mean_second_visit_gain"],
+        )
     primary = RESULT / PRIMARY
     if len(stages) == 3 and (primary / "control.json.gz").exists():
         panel = unpack(PANEL)["rows"]

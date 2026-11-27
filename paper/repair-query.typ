@@ -62,6 +62,23 @@
    The fit stopped with the recorded reason “#r.reason.” The archive preserves its actual resource expenditure and any durable optimizer state.
  ]
 ]
+#if "depth_effects" in d [
+ #pagebreak()
+ #text(size:19pt,weight:"bold")[What changes when the second read is removed?]
+
+ At the final learned weights we supplied the same source memory, complete prompt, target tokens and controller to both paths. We removed the final tied attention read and its state update on one path. Both paths used teacher forcing. Each dot is one complete training probe, with equal weight for every target token within that probe.
+
+ #image("repair-query-depth-probes.svg",width:100%)
+ #text(size:9pt)[Fig. 3. Values to the right of zero favor the second physical read. Diamonds show the median within each training family. Vertical displacement separates overlapping observations.]
+
+ #let v=d.depth_effects
+ Across #v.n probes and #v.positions response positions, adding the second read increased target likelihood for #v.positive probes, reduced it for #v.negative, and left #v.tied unchanged. The mean gain was positive in #v.groups_positive of #v.groups training groups. Individual probes were chosen deterministically before training. These measurements identify local effects on reference-token predictions. Free generation and the controlled tool histories test whether those effects transfer to complete answers.
+
+ #if "cold" in d.stages.at(1) [
+  #let c=d.stages.at(1).cold
+  An independent process rebuilt the input features, loaded the archived weights and repeated the one-read and two-read paths, along with the original initialization. It reproduced all eight training decisions.
+ ]
+]
 #if "reading" in d [
  #pagebreak()
  #text(size:19pt,weight:"bold")[Held product comparison]
