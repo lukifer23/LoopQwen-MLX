@@ -1,0 +1,50 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "conditional_reentry": true,
+  "passes": 2,
+  "rank": 160,
+  "gate_rank": 32,
+  "fit_seed": 526173,
+  "training": "research/sources/program-language/training.json.gz",
+  "examples": 7591,
+  "positions": 505873,
+  "limits": {
+    "wall_seconds": 4350,
+    "available_gib": 1.5,
+    "peak_gib": 8.25
+  },
+  "sources": {
+    "research/sources/program-language/training.json.gz": "ee61a192f6156b9a58801d30b26292d3c2419554d35571031fb2c9aef5ff32e2",
+    "research/sources/program-language/qualification.json": "b4abd6d8f4cb596e53995e94ee4dcaed8c0f06ddcc6211f0f8cc0c494a54dd46",
+    "research/sources/program-language/fresh-requests.json": "2570906e881719657eff0b12e921762a5d83884c983d4c31329b40af7ce2cc09",
+    "research/sources/grounded-table-sentences/source-review.json": "c69611c690ac9ba545a22482dff269662434542a53647dee523101c18f51491b",
+    "research/experiments/table-policy-gradient-01.json": "619fd121457a280341e5cef06ba525b156bf027bb19f39aad469ef356d83de8f",
+    "research/results/table-execution-learning-01/checksums.json": "147bf81d20be0a0daac6bd9ea1dc065444074a6d5c46997ca2867602cc9329b5"
+  },
+  "id": "conditional-program-fit-01",
+  "feature_stage": "conditional-features-01",
+  "epochs": 2,
+  "lr": 0.00032,
+  "margin": 1.0,
+  "preference_weight": 48,
+  "repeat_by_group": {
+    "program": 8,
+    "scalar": 3
+  },
+  "micro_positions": 192,
+  "micro_accumulation": 4,
+  "action_cap": 192,
+  "expected_targets": 1175348,
+  "expected_preferences": 2064,
+  "question": "Can full natural response supervision and verified SQL edits produce question-specific freely generated programs while preserving broad language likelihood?",
+  "protocol": "Require the complete verified feature archive. Two whole shuffled epochs over all 7591 turns, eight exposures per program and three per scalar-result example in each epoch. Use every target including stop, no truncation or token sampling. Supervise whole human responses, arithmetic deliberation and actual tool calls through the native full vocabulary. For a chosen/rejected pair compare conditional mean token log probability on each changed SQL span, conditioned on its own exact prefix. For an insertion include one common continuation on both. Add 48 times softplus(1 minus log odds) per pair to the sum of target NLLs. Average by the actual positive token count in four accumulated whole-turn microbatches. Cycle certified alternatives across all program exposures. AdamW .01 decay, clip global norm one. Use a single token-dependent low-rank channel gate and four rank-160 residuals on physically computed last-visit states. All five output projections and the channel bias start zero. The ordinary exit stays exact at initialization, and the networks have trainable gradients on the first update. Preserve both hidden-state and log-probability audits and trained model/optimizer tensors. Require every scheduled positive and negative exposure, finite positive gradient norms, balanced mean gain >=.08 nats on 56 preselected training turns, instruction/arithmetic/FeTaQA/legacy group mean >=-.02 individually, and at least six of 24 predetermined freely generated training SQL programs correct on BOTH data versions with at least four distinct correct statements. Only completely ended native outputs after a real schema call can earn credit. No grammar, candidate ranking, demonstration query, answer parser in generation, source lookup or fallback model. No retries after a closed decision."
+}
