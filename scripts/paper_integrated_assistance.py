@@ -15,11 +15,13 @@ from loopqwen.io import digest, read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.assistance_completion_history import build as completion_history
 from scripts.assistance_deliberation import write_csv
-from scripts.assistance_source_overlap import build as source_overlap
 from scripts.assistance_reasoning_exposure import (
     DEST as THINKING_RECEIPT,
+)
+from scripts.assistance_reasoning_exposure import (
     observed as reasoning_exposure,
 )
+from scripts.assistance_source_overlap import build as source_overlap
 from scripts.assistance_uncertainty import (
     completed_pairs,
     cost_profile,

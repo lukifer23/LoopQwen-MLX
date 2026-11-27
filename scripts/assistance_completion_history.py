@@ -42,42 +42,40 @@ def build():
             for l, r in zip(left["requests"], right["requests"], strict=True):
                 sa, sb = l["score"], r["score"]
                 items.append(
-                    dict(
-                        family=left["family"],
-                        candidate_completed=sa["completed"],
-                        control_completed=sb["completed"],
-                        candidate_grounded=sa["success"],
-                        control_grounded=sb["success"],
-                    )
+                    {
+                        "family": left["family"],
+                        "candidate_completed": sa["completed"],
+                        "control_completed": sb["completed"],
+                        "candidate_grounded": sa["success"],
+                        "control_grounded": sb["success"],
+                    }
                 )
         sub = {
             r["completion"]: r for r in completed_pairs(items) if r["family"] == "all"
         }
 
-        def net(k):
-            q = sub.get(k, {})
-            return q.get("gains", 0) - q.get("losses", 0)
+        deltas = {group: q["gains"] - q["losses"] for group, q in sub.items()}
 
         whole = sum(
             int(x["candidate_grounded"]) - int(x["control_grounded"]) for x in items
         )
-        common = net("Both completed")
-        one = net("Loop only") + net("Base only")
-        assert net("Neither completed") == 0 and whole == one + common
+        common = deltas.get("Both completed", 0)
+        one = deltas.get("Loop only", 0) + deltas.get("Base only", 0)
+        assert deltas.get("Neither completed", 0) == 0 and whole == one + common
         both = sub.get("Both completed", {})
         rows.append(
-            dict(
-                study=study,
-                label=label,
-                requests=len(items),
-                both_finished=both.get("requests", 0),
-                both_loop_correct=both.get("loop_correct", 0),
-                both_base_correct=both.get("base_correct", 0),
-                net_common=common,
-                net_one_sided=one,
-                net_all=whole,
-                archive=digest(root / "checksums.json"),
-            )
+            {
+                "study": study,
+                "label": label,
+                "requests": len(items),
+                "both_finished": both.get("requests", 0),
+                "both_loop_correct": both.get("loop_correct", 0),
+                "both_base_correct": both.get("base_correct", 0),
+                "net_common": common,
+                "net_one_sided": one,
+                "net_all": whole,
+                "archive": digest(root / "checksums.json"),
+            }
         )
     target = Path("paper")
     write_csv(target / "assistance-completion-history.csv", rows)

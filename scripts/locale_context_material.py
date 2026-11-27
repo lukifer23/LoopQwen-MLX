@@ -1,11 +1,11 @@
 """Rebuild complete long-context prompts from two adjacent Unicode CLDR releases."""
 
 import argparse
-from bisect import bisect_right
 import gzip
+import re
+from bisect import bisect_right
 from hashlib import sha256
 from pathlib import Path
-import re
 from urllib.request import urlopen
 from xml.etree import ElementTree
 
@@ -34,16 +34,20 @@ FIELDS = {
     "en": (
         "short",
         "volume-tablespoon",
-        "Our recipe app needs to display 2 tablespoons using the short English unit width. "
-        "According to this locale file, exactly what should it display? Give just the formatted "
-        "value, preserving capitalization, spacing and punctuation.",
+        (
+            "Our recipe app needs to display 2 tablespoons using the short English unit width. "
+            "According to this locale file, exactly what should it display? Give just the formatted "
+            "value, preserving capitalization, spacing and punctuation."
+        ),
     ),
     "it": (
         "narrow",
         "volume-dessert-spoon-imperial",
-        "Our recipe app needs to display 2 imperial dessert spoons using the narrow Italian unit "
-        "width. According to this locale file, exactly what should it display? Give just the "
-        "formatted value, preserving capitalization, spacing and punctuation.",
+        (
+            "Our recipe app needs to display 2 imperial dessert spoons using the narrow Italian unit "
+            "width. According to this locale file, exactly what should it display? Give just the "
+            "formatted value, preserving capitalization, spacing and punctuation."
+        ),
     ),
 }
 

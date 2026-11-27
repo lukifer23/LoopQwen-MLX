@@ -1,9 +1,9 @@
 """Seal source-visible ratings for every changed table, database and open reply."""
 
 import argparse
+import subprocess
 from collections import Counter, defaultdict
 from pathlib import Path
-import subprocess
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint

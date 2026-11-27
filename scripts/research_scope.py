@@ -1,6 +1,7 @@
 """Inventory the complete registered program, including missed gates and recovered executions."""
 
 import csv
+import itertools
 import json
 import math
 from collections import Counter, defaultdict
@@ -49,7 +50,7 @@ def execution_windows():
     records.sort(key=lambda r: r["start_unix_s"])
     assert all(
         a["start_unix_s"] + a["elapsed_s"] <= b["start_unix_s"] + 0.01
-        for a, b in zip(records, records[1:])
+        for a, b in itertools.pairwise(records)
     )
     target = PAPER / "research-worker-windows.csv"
     with target.open("w", newline="") as stream:

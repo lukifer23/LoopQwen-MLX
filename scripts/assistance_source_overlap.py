@@ -1,8 +1,8 @@
 """Audit reuse of text independently of tool schemas, chat framing and model outcomes."""
 
+import re
 from collections import Counter, defaultdict
 from pathlib import Path
-import re
 from unicodedata import normalize
 
 from loopqwen.io import digest, read, save
