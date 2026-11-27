@@ -67,13 +67,10 @@ def logprob(z):
     return z - mx.logsumexp(z, axis=-1, keepdims=True)
 
 
-def objective(net, teacher, close, eos, kl):
-    def loss(step, *args):
+def objective(net, close, eos, kl):
+    def loss(step, t, *args):
         y = args[-2]
         p = logprob(logits(net, step, args, visits=2, differentiate=True))
-        t = mx.stop_gradient(
-            logprob(logits(net, teacher, args, visits=2, differentiate=False))
-        )
         nll = -mx.take_along_axis(p, y[None, :, None], axis=-1)[0, :, 0]
         weights = mx.where((y == close) | (y == eos), 3.0, 1.0)
         anchor = (mx.exp(t) * (t - p)).sum() / y.size
@@ -168,7 +165,7 @@ def fit(name="learner-prefix-fit-01"):
         before = probe(net, idx, folder, s, guard, 2)
         close = actor.tokenizer.convert_tokens_to_ids("</think>")
         eos = actor.tokenizer.convert_tokens_to_ids("<|im_end|>")
-        fn = objective(net, teacher, close, eos, s["teacher_kl"])
+        fn = objective(net, close, eos, s["teacher_kl"])
         steps = schedule(idx, s)
         for j, (epoch, ids) in enumerate(steps):
             total = sum(idx[i]["positions"] for i in ids)
@@ -177,7 +174,13 @@ def fit(name="learner-prefix-fit-01"):
             for i in ids:
                 for args in parts(idx[i], folder, {}, s):
                     guard.check()
-                    (obj, nll, anchor), g = fn(net.step, *args)
+                    # Keep the original deployment kernel for the frozen target. MLX's
+                    # single-query fused kernel does not expose an attention backward pass.
+                    target_logp = logprob(
+                        logits(net, teacher, args, visits=2, differentiate=False)
+                    )
+                    mx.eval(target_logp)
+                    (obj, nll, anchor), g = fn(net.step, target_logp, *args)
                     scale = args[-2].size / total
                     grad = accumulate(grad, g, scale)
                     metrics = metrics + scale * mx.stack([obj, nll, anchor])

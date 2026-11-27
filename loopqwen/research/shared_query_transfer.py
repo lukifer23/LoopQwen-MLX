@@ -269,9 +269,11 @@ def run(name=PRIMARY):
     fit = RESULTS / s.get("fit_stage", FIT)
     if not read(fit / "decision.json")["passed"]:
         raise ValueError("The tied-query fit missed its registered prerequisite")
-    if s.get("field_history"):
+    if s.get("field_history") or name == "learner-prefix-transfer-01":
         cold = read(Path("docs/measurements") / (s["fit_stage"] + "-cold.json"))
         assert cold["fit"] == digest(fit / "checksums.json")
+        if name == "learner-prefix-transfer-01":
+            assert cold["passed"] and cold["paths"] == 3
     root = root_for(s)
     capture(
         root,
