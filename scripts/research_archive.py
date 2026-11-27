@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "conditional-program-primary-01":
+        from loopqwen.research.conditional_primary import verify as verify_conditional
+
+        return verify_conditional(root, decision)
     if study == "conditional-features-01":
         from loopqwen.research.conditional_features import verify as verify_features
 

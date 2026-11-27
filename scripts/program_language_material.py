@@ -282,7 +282,9 @@ def build():
     feta = read(FETA / "originals.json")
     forbidden = {norm(q) for r in read(PANEL)["rows"] for q in r["questions"]}
     forbidden.update(norm(r["question"]) for r in feta["test"])
-    for path in Path("research/data").glob("*panel.json"):
+    for name, sha in read(DEST / "historical-panel-files.json").items():
+        path = Path(name)
+        assert digest(path) == sha
         obj = read(path)
         rows = obj.get("rows", []) if isinstance(obj, dict) else obj
         for row in rows:
