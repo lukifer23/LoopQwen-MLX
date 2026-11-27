@@ -1,0 +1,17 @@
+{
+  "id": "checked-equations-field-01",
+  "question": "Does the already qualified recurrent tool model outperform ordinary Base on new publisher arithmetic when the same actual calculator can verify equations as well as evaluate expressions?",
+  "material": "research/data/checked-equations-field.json",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "limits": {
+    "wall_seconds": 360,
+    "peak_gib": 6.0,
+    "available_gib": 1.4
+  },
+  "protocol": "A real provider accepts the existing arithmetic language plus equality chains by executing each side as an exact bounded rational with the same references. Unequal statements raise an actual ValueError. Retain the ordinary provider separately. Use the qualified, unchanged compact two-pass tool weights and untouched Base on 12 new ASDiv and 12 new SVAMP questions, disjoint from all enrolled text through 36be03d. Freeze initial tokens, ordering and schemas. Both get the same checked calculator, 384 greedy thinking tokens, up to three turns, and prefix reuse. Run candidate then Base, including cold load once per arm, recording actual calls and observations and all physical KV histories. No callback-recovery or native-function experimental weights. This measures a trained system using a common tool. The retrospective replay that motivated the question is disjoint from this test.",
+  "gate": "Require at least three net extra correct final quantities, four net grounded successes and a two-sided paired exact p<=.05 for each. Require at least Base final answers on each human source, three grounded candidate successes with a real checked equality, and no greater total measured wall time, summed first-token time or peak allocation. A miss closes model promotion and dependent jobs. Stop at the native budget or the completed pair. The independently usable checked calculator is opt-in."
+}

@@ -1,0 +1,110 @@
+{
+  "passed": false,
+  "gates": {
+    "answer": false,
+    "grounded": true,
+    "domains": false,
+    "real_equalities": true,
+    "costs": false
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 24,
+        "strict": 9,
+        "requests": 24,
+        "answers": 9,
+        "grounded": 9,
+        "completed": 19,
+        "wall_s": 30.557887874892913,
+        "first_s": 3.1442656238214113,
+        "peak": 1162442730,
+        "output_tokens": 2669
+      },
+      "ASDiv": {
+        "dialogues": 12,
+        "strict": 5,
+        "requests": 12,
+        "answers": 5,
+        "grounded": 5,
+        "completed": 10,
+        "wall_s": 13.616623665904626,
+        "first_s": 1.979921830818057,
+        "peak": 1160444962,
+        "output_tokens": 1128
+      },
+      "SVAMP": {
+        "dialogues": 12,
+        "strict": 4,
+        "requests": 12,
+        "answers": 4,
+        "grounded": 4,
+        "completed": 9,
+        "wall_s": 16.941264208988287,
+        "first_s": 1.1643437930033542,
+        "peak": 1162442730,
+        "output_tokens": 1541
+      }
+    },
+    "control": {
+      "all": {
+        "dialogues": 24,
+        "strict": 0,
+        "requests": 24,
+        "answers": 10,
+        "grounded": 0,
+        "completed": 11,
+        "wall_s": 93.88489483098965,
+        "first_s": 2.743226245045662,
+        "peak": 1787730050,
+        "output_tokens": 6327
+      },
+      "ASDiv": {
+        "dialogues": 12,
+        "strict": 0,
+        "requests": 12,
+        "answers": 4,
+        "grounded": 0,
+        "completed": 5,
+        "wall_s": 44.295746581978165,
+        "first_s": 1.6193830389529467,
+        "peak": 1783506834,
+        "output_tokens": 2975
+      },
+      "SVAMP": {
+        "dialogues": 12,
+        "strict": 0,
+        "requests": 12,
+        "answers": 6,
+        "grounded": 0,
+        "completed": 6,
+        "wall_s": 49.58914824901149,
+        "first_s": 1.1238432060927153,
+        "peak": 1787730050,
+        "output_tokens": 3352
+      }
+    }
+  },
+  "changes": {
+    "correct_answer": {
+      "gains": 5,
+      "losses": 6,
+      "p": 1.0
+    },
+    "success": {
+      "gains": 9,
+      "losses": 0,
+      "p": 0.00390625
+    }
+  },
+  "equalities": {
+    "candidate": {
+      "executed": 15,
+      "correct": 6
+    },
+    "control": {
+      "executed": 0,
+      "correct": 0
+    }
+  }
+}
