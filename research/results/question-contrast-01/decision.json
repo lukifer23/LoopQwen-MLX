@@ -1,0 +1,217 @@
+{
+  "passed": false,
+  "gates": {
+    "changed_questions": false,
+    "arithmetic": false,
+    "overall": false,
+    "functions": true,
+    "wall_s": true,
+    "first_s": false,
+    "peak": true
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 106,
+        "strict": 44,
+        "requests": 118,
+        "answers": 55,
+        "grounded": 55,
+        "completed": 118,
+        "wall_s": 73.17322538461303,
+        "first_s": 24.17632242286345,
+        "peak": 1191584290,
+        "output_tokens": 4552
+      },
+      "ASDiv": {
+        "dialogues": 24,
+        "strict": 12,
+        "requests": 24,
+        "answers": 12,
+        "grounded": 12,
+        "completed": 24,
+        "wall_s": 17.66215804289095,
+        "first_s": 3.787505543907173,
+        "peak": 1189631018,
+        "output_tokens": 1274
+      },
+      "DROP": {
+        "dialogues": 48,
+        "strict": 2,
+        "requests": 48,
+        "answers": 2,
+        "grounded": 2,
+        "completed": 48,
+        "wall_s": 16.098061336844694,
+        "first_s": 12.755006294115447,
+        "peak": 1178578230,
+        "output_tokens": 357
+      },
+      "files": {
+        "dialogues": 6,
+        "strict": 4,
+        "requests": 12,
+        "answers": 9,
+        "grounded": 9,
+        "completed": 12,
+        "wall_s": 8.795675127010327,
+        "first_s": 2.175810209941119,
+        "peak": 1172761586,
+        "output_tokens": 599
+      },
+      "packages": {
+        "dialogues": 6,
+        "strict": 5,
+        "requests": 12,
+        "answers": 11,
+        "grounded": 11,
+        "completed": 12,
+        "wall_s": 8.473126207885798,
+        "first_s": 1.8991354579338804,
+        "peak": 1160461354,
+        "output_tokens": 584
+      },
+      "public": {
+        "dialogues": 22,
+        "strict": 21,
+        "requests": 22,
+        "answers": 21,
+        "grounded": 21,
+        "completed": 22,
+        "wall_s": 22.144204669981264,
+        "first_s": 3.558864916965831,
+        "peak": 1191584290,
+        "output_tokens": 1738
+      }
+    },
+    "control": {
+      "all": {
+        "dialogues": 106,
+        "strict": 44,
+        "requests": 118,
+        "answers": 57,
+        "grounded": 50,
+        "completed": 91,
+        "wall_s": 513.2878406668315,
+        "first_s": 22.39163542020833,
+        "peak": 1823887330,
+        "output_tokens": 33410
+      },
+      "ASDiv": {
+        "dialogues": 24,
+        "strict": 9,
+        "requests": 24,
+        "answers": 15,
+        "grounded": 9,
+        "completed": 16,
+        "wall_s": 116.13324262585957,
+        "first_s": 3.5059248759644106,
+        "peak": 1815413730,
+        "output_tokens": 7702
+      },
+      "DROP": {
+        "dialogues": 48,
+        "strict": 13,
+        "requests": 48,
+        "answers": 13,
+        "grounded": 13,
+        "completed": 30,
+        "wall_s": 231.86303225008305,
+        "first_s": 11.678325629269239,
+        "peak": 1823887330,
+        "output_tokens": 15027
+      },
+      "files": {
+        "dialogues": 6,
+        "strict": 0,
+        "requests": 12,
+        "answers": 1,
+        "grounded": 1,
+        "completed": 12,
+        "wall_s": 35.2821655429434,
+        "first_s": 2.100034333067015,
+        "peak": 1808217010,
+        "output_tokens": 2252
+      },
+      "packages": {
+        "dialogues": 6,
+        "strict": 2,
+        "requests": 12,
+        "answers": 8,
+        "grounded": 7,
+        "completed": 12,
+        "wall_s": 32.006269957870245,
+        "first_s": 1.795879749872256,
+        "peak": 1807872946,
+        "output_tokens": 2034
+      },
+      "public": {
+        "dialogues": 22,
+        "strict": 20,
+        "requests": 22,
+        "answers": 20,
+        "grounded": 20,
+        "completed": 21,
+        "wall_s": 98.0031302900752,
+        "first_s": 3.311470832035411,
+        "peak": 1815118818,
+        "output_tokens": 6395
+      }
+    }
+  },
+  "paired": {
+    "documents": {
+      "wins": 0,
+      "losses": 2,
+      "p": 0.5
+    },
+    "all": {
+      "wins": 14,
+      "losses": 5,
+      "p": 0.063568115234375
+    },
+    "arithmetic": {
+      "wins": 1,
+      "losses": 4,
+      "p": 0.375
+    }
+  },
+  "numeric_detail": {
+    "candidate": {
+      "DROP": {
+        "strict_final": 2,
+        "final_including_prose": 2,
+        "grounded_calculation": 0,
+        "any_executed": 0
+      },
+      "ASDiv": {
+        "strict_final": 12,
+        "final_including_prose": 12,
+        "grounded_calculation": 12,
+        "any_executed": 24
+      }
+    },
+    "control": {
+      "DROP": {
+        "strict_final": 7,
+        "final_including_prose": 13,
+        "grounded_calculation": 1,
+        "any_executed": 13
+      },
+      "ASDiv": {
+        "strict_final": 1,
+        "final_including_prose": 15,
+        "grounded_calculation": 9,
+        "any_executed": 16
+      }
+    }
+  },
+  "whole_passages": {
+    "candidate": 0,
+    "control": 2
+  },
+  "whole_clusters": {
+    "candidate": 42,
+    "control": 33
+  }
+}
