@@ -14,6 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 def main(verify):
     from loopqwen.io import read
 
+    subprocess.run(
+        [sys.executable, "scripts/paper_induction_evidence.py"], cwd=ROOT, check=True
+    )
     subprocess.run([sys.executable, "scripts/paper_figures.py"], cwd=ROOT, check=True)
     subprocess.run([sys.executable, "scripts/paper_overlap.py"], cwd=ROOT, check=True)
     subprocess.run([sys.executable, "scripts/folded_overlap.py"], cwd=ROOT, check=True)

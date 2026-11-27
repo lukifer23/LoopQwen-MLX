@@ -1,5 +1,7 @@
 # Capability scoreboard
 
+All 120 held-out induction questions with a single observed peer color were answered correctly by the trained three-pass model, against 55 for the equally trained one-pass control. In the eight stories with competing colors both returned an observed color. The original publisher scores across all 128 remain 124 and 58. [Every premise and native answer](../paper/induction-peer-requests.csv) · [Per-panel sensitivity](../paper/induction-peer-sensitivity.csv)
+
 Both systems retained the full 158,693-token opening of Hawthorne’s novel across follow-ups. Neither completed either human question. The loop grounded both Hawthorne file answers and neither Piper file answer. Base grounded one on Hawthorne and both on Piper. Six complete requests took 353.20 versus 319.32 seconds. The released tool model missed its book-quality, wall-time, first-token and cold-prefill gates. [Sealed book conversations](../research/results/book-conversation-field-01) · [Calls, returned quantities and latency](../paper/book-conversation-requests.csv)
 
 With an actual equality-checking calculator, the qualified loop produced nine correct grounded answers on 24 new human questions versus zero for Base, with six grounded successes involving checked equalities. Final quantities were 9/24 versus 10/24. Whole requests took 30.56 versus 93.89 s and summed first-token time was 3.14 versus 2.74 s. [All trajectories](../research/results/checked-equations-field-01) · [First-hand pencil calculation](measurements/checked-calculator-installed-cli.json)

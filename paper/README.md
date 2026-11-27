@@ -195,3 +195,5 @@ The complete-book follow-up figure and CSV identify cold opening time, reported 
 The field kit includes every tracked study and historical revision in a standalone Git bundle. The six latest field studies are also directly accessible beside the installed model for replay. [Field kit instructions](../docs/FIELD_KIT.md)
 
 The report-action study publishes the publisher expressions, executed calculator programs, changed-operand checks and an independently registered scale-sensitive recount alongside each final answer. [Preregistered scale interpretation](../research/registry/report-units-audit-01.json) · [Report and distribution protocol](../research/experiments/report-action-field-01.json)
+
+The standalone premise audit reads both original matched-depth panels using only Python’s standard library. Run `python scripts/paper_induction_evidence.py --verify` from the cloned field kit to check every premise, emitted answer, subgroup and paired count. [Item-level evidence](induction-peer-requests.csv) · [Scoring sensitivity](induction-peer-sensitivity.csv)

@@ -342,6 +342,16 @@ def main():
             ).strip()
         )
         assert site.is_relative_to(venv)
+        subprocess.run(
+            [
+                python,
+                "-I",
+                str(checkout / "scripts/paper_induction_evidence.py"),
+                "--verify",
+            ],
+            cwd=checkout,
+            check=True,
+        )
         env = {
             **os.environ,
             "HF_HOME": str(tmp / "empty"),
@@ -472,6 +482,7 @@ def main():
             "pdf_sha256": hashes["paper/loopqwen.pdf"],
             "source_revision": revision,
             "verified_git_history": True,
+            "recounted_matched_induction_items": 128,
             "registrations": len(registry["experiments"]),
             "study_archives": sum(
                 bool(e["archive"]) for e in registry["experiments"].values()
