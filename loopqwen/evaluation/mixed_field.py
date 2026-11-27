@@ -7,7 +7,7 @@ from pathlib import Path
 from packaging.utils import canonicalize_name
 
 from ..package_tools import tools as package_tools
-from ..tool_session import Tool
+from ..file_tools import definitions as file_definitions
 from . import program_questions, table_questions
 
 
@@ -35,26 +35,7 @@ def catalog(row, material, replay=False):
             raise ValueError("Project file changed")
         return {field: len(actual) if field == "bytes" else len(actual.splitlines())}
 
-    schema = dict(
-        type="object",
-        properties=dict(path=dict(type="string")),
-        required=["path"],
-        additionalProperties=False,
-    )
-    return [
-        Tool(
-            "file_bytes",
-            "Get the size in bytes of a project file by its exact repository-relative path.",
-            schema,
-            lambda path: stat(path, "bytes"),
-        ),
-        Tool(
-            "file_lines",
-            "Get the number of lines in a project file by its exact repository-relative path.",
-            schema,
-            lambda path: stat(path, "lines"),
-        ),
-    ]
+    return file_definitions(stat)
 
 
 def grade(row, tr, tok):

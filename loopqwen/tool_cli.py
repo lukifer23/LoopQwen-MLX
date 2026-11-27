@@ -57,6 +57,13 @@ def add_arguments(p, checkpoint=None):
         help="Expose a UTF-8 CSV file for read-only row counts and cell lookups. Can be repeated.",
     )
     p.add_argument(
+        "--file",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="Expose the byte size and line count of this file. Can be repeated.",
+    )
+    p.add_argument(
         "--document",
         type=Path,
         action="append",
@@ -130,6 +137,10 @@ def respond(args, parser):
             from .csv_tools import tools as csv_tools
 
             supplied.extend(csv_tools(args.csv))
+        if getattr(args, "file", None):
+            from .file_tools import tools as file_tools
+
+            supplied.extend(file_tools(args.file))
         if getattr(args, "document", None):
             from .document_tools import documents
 

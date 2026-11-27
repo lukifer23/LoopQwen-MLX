@@ -93,6 +93,16 @@ The installed assistant can inspect the CSV files you supply. It reads quoted UT
 
 In a separate live exchange, the qualified model read a newly created comparison CSV, counted its four records, and returned the correct field value of 96 on a follow-up. Base printed a proposed call as prose on the first request and reached the second output cap. The trace records each actual tool observation and both layer-23 cache states. [Both conversations](docs/measurements/local-csv-comparison.json)
 
+The installed `ask` command can inspect the byte size or line count of files you select with `--file`. Each supplied path appears in the tool declaration. Byte-size queries read the file metadata, so asking about a model archive does not load its weights. The following runs the released loop and Base on the same request.
+
+```sh
+.venv/bin/python -m loopqwen ask --checkpoint exports/tool-language-packed-04 \
+  --file exports/tool-language-packed-04.lqzip --file research/experiments/callback-recovery-01.json \
+  --prompt "How many bytes are in exports/tool-language-packed-04.lqzip? Check the actual file and give me its size." \
+  --follow-up "How many lines are in research/experiments/callback-recovery-01.json? Use the file tool." \
+  --compare-base --trace --max-tokens 384 --max-turns 3
+```
+
 For read-only search over your own text or Markdown files, supply each file using `--document`. The tool returns the original passage, filename and character offsets. For example:
 
 ```sh
