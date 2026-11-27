@@ -1,0 +1,365 @@
+{
+  "study": "linked-rollin-01",
+  "panel_sha256": "83d7daa8efe919d40d15a1c222a8514e776573d67155b471d060c47586441c57",
+  "reviewer": "Single project-agent source review, performed before training and held generations; not independent human annotation.",
+  "primary": "Keep the published gold, both formats and all 24 original questions unchanged in the registered analysis.",
+  "sensitivity": "Also report exact-normalized match to the fixed variants and paired differences on the 20 directly supported questions. Evaluate all actual callback milestones and final answers separately. For first-token and elapsed-time intervals resample whole sources separately in human, linked, wheel, agenda and retention families, 20,000 replicates, seed 670032. Retention cluster labels are reused across its two table presentations.",
+  "reading": "One predetermined presentation per question, exactly 12 of each. Blind both answers and source evidence to model identity and aggregate scores. Rate each visible answer as equivalent, incomplete, contradicted, appropriately qualified, or absent. Mark explicit hallucinated claims. Record independently whether source retrieval succeeded. Publish raw ratings and expose limited reviewer independence. No reranking or credit in the registered decision.",
+  "items": [
+    {
+      "cluster": "b91bc8f9974f1896",
+      "source": "https://en.wikipedia.org/wiki/2013_Big_East_Conference_men's_soccer_season",
+      "question": "What society of Catholicism first traversed the region of the city which contains Valley Fields ?",
+      "cell": "Milwaukee , Wisconsin",
+      "published": "Jesuit",
+      "supported_variants": [
+        "Jesuits",
+        "Society of Jesus",
+        "Jesuit missionaries",
+        "French Catholic Jesuit missionaries"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "The first Europeans to pass through the area were French Catholic Jesuit missionaries , who were ministering to Native Americans , and fur traders .",
+      "article_sha256": "2533990e0d76b6c71cc848cd6f6557473d0286f0ef2b9b5e5ffb08bfcb6579ad",
+      "blind_sample": "b91bc8f9974f1896-inline"
+    },
+    {
+      "cluster": "f8f1251afbf858c8",
+      "source": "https://en.wikipedia.org/wiki/America_East_Conference",
+      "question": "What has the school of the tournament runner up of the 1990 America East Conference tournament won national championships in ?",
+      "cell": "Vermont",
+      "published": "skiing",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "The Catamounts have won six national championships , all in skiing .",
+      "article_sha256": "bc42be12eacceb61e4942bae54747ae521aa5317c63b533527a4e004ac0a2407",
+      "blind_sample": "f8f1251afbf858c8-file"
+    },
+    {
+      "cluster": "09c182cb822ef946",
+      "source": "https://en.wikipedia.org/wiki/Danielle_Harris",
+      "question": "How much did it take to make the 1993 movie in which Danielle Harris played Gwenie ?",
+      "cell": "Free Willy",
+      "published": "$ 20 million",
+      "supported_variants": [
+        "$20 million",
+        "20 million dollars",
+        "20 million US dollars",
+        "USD 20 million"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "The film received positive attention from critics and was a commercial success , grossing $ 153.6 million from a $ 20 million budget .",
+      "article_sha256": "ac9e788c67d050f35dfbf58bf38e300b4c01090335f61fabce08a86ce08654f2",
+      "blind_sample": "09c182cb822ef946-inline"
+    },
+    {
+      "cluster": "3b34a4ae4eab49d8",
+      "source": "https://en.wikipedia.org/wiki/1962_College_Baseball_All-America_Team",
+      "question": "Which year did Augie Garrido first lead the baseball club of the university attended by Pat Rigby ?",
+      "cell": "Texas",
+      "published": "1997",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "From 1997 to 2016 , the Longhorns were led by head coach Augie Garrido , who holds the record for most wins in NCAA baseball history .",
+      "article_sha256": "d8c1cbf665fba25efb73ed5548d5370490a90a6fa53ba7306a7859a4595fc4e6",
+      "blind_sample": "3b34a4ae4eab49d8-file"
+    },
+    {
+      "cluster": "94c2eb5d1e047722",
+      "source": "https://en.wikipedia.org/wiki/List_of_oldest_known_surviving_buildings",
+      "question": "Which peninsula contains the passage grave first built in France in 4850 BC ?",
+      "cell": "Barnenez",
+      "published": "Kern\u00e9l\u00e9hen",
+      "supported_variants": [
+        "Kern\u00e9l\u00e9hen peninsula"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "The Cairn of Barnenez ( also : Barnenez Tumulus , Barnenez Mound ; in Breton Karn Barnenez ; in French : Cairn de Barnenez or Tumulus de Barnenez ) is a Neolithic monument located near Plouezoc ' h , on the Kern\u00e9l\u00e9hen peninsula in northern Finist\u00e8re , Brittany ( France ) .",
+      "article_sha256": "43990be1359fe351b7c473af108a696b32eb9abc5cd3d8e4338b3f43dc5988f7",
+      "blind_sample": "94c2eb5d1e047722-inline"
+    },
+    {
+      "cluster": "81c7798c0af5690a",
+      "source": "https://en.wikipedia.org/wiki/List_of_Hispanic_Medal_of_Honor_recipients",
+      "question": "There 's a good chance Santiago J. Erevia is a graduate of what ?",
+      "cell": "Company C , 1st Battalion ( Airmobile ) , 501st Infantry Regiment , 101st Airborne Division",
+      "published": "US Army Air Assault School",
+      "supported_variants": [],
+      "label": "underidentified",
+      "source_note": "The table places Erevia in the 101st in May 1969. The passage describes many current members. That gives no individual graduation record or probability for Erevia.",
+      "quote": "Many current members of the 101st are graduates of the US Army Air Assault School .",
+      "article_sha256": "daa2cc08c4bf9becb508c1aa787fedb98d605b597460b20e3398745cfd2055de",
+      "blind_sample": "81c7798c0af5690a-file"
+    },
+    {
+      "cluster": "1cf8983e957de1c1",
+      "source": "https://en.wikipedia.org/wiki/List_of_University_of_Central_Florida_alumni",
+      "question": "In what city and state is the resort located that has as its president the University of Central Florida alumni born in 1953 and of the class year 1976 ?",
+      "cell": "George Kalogridis",
+      "published": "Lake Buena Vista , Florida",
+      "supported_variants": [
+        "Lake Buena Vista, FL"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "Kalogridis is the president of the Walt Disney World Resort in Lake Buena Vista , Florida .",
+      "article_sha256": "93d58a30093f6021d09971944104cd01f097702669ba517e6978429f4a556f4f",
+      "blind_sample": "1cf8983e957de1c1-file"
+    },
+    {
+      "cluster": "82196a4e60db95ce",
+      "source": "https://en.wikipedia.org/wiki/List_of_the_busiest_airports_in_Canada",
+      "question": "What award did the airport that serves Metro Vancouver win in 2007 ?",
+      "cell": "Vancouver International Airport",
+      "published": "Skytrax Best North American Airport",
+      "supported_variants": [
+        "Skytrax Best North American Airport award"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "It won the Skytrax Best North American Airport award in 2007 and 2010 through 2019 , for a record 10 consecutive years .",
+      "article_sha256": "b85f2743f1816a0274cbbe3386bc009159307a83adbca8ce840bf50a9d245fa9",
+      "blind_sample": "82196a4e60db95ce-inline"
+    },
+    {
+      "cluster": "cdacabac28258741",
+      "source": "https://en.wikipedia.org/wiki/American_Champion_Two-Year-Old_Male_Horse",
+      "question": "What was the nickname of the trainer of the 1945 American Champion Two-Year-Old Male Horse ?",
+      "cell": "Tom Smith",
+      "published": "Silent Tom",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "Known as Silent Tom because of his quiet nature , Smith became famous as the trainer of Seabiscuit .",
+      "article_sha256": "b4cdce0db2c3cfab6f962ed94fb07ce1936dffa9706fbd85e6cc29200bfa8483",
+      "blind_sample": "cdacabac28258741-file"
+    },
+    {
+      "cluster": "806b159f85bee1c7",
+      "source": "https://en.wikipedia.org/wiki/List_of_impact_craters_on_Earth",
+      "question": "What people had a republican form of government in the area of the province which contains Vredefort ?",
+      "cell": "Free State",
+      "published": "Boer",
+      "supported_variants": [
+        "Boers",
+        "Boer people"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "Its historical origins lie in the Boer republic called the Orange Free State and later Orange Free State Province .",
+      "article_sha256": "4d5edcbe3ce80b0fb3a8c333b695247a9e2dce0875e295e12c50d04f6de7dca6",
+      "blind_sample": "806b159f85bee1c7-file"
+    },
+    {
+      "cluster": "9470c0b3c0ef1fbe",
+      "source": "https://en.wikipedia.org/wiki/Jaime_King",
+      "question": "Which first-time director helmed the 2003 movie in which Jaime King portrayed Jade ?",
+      "cell": "Bulletproof Monk",
+      "published": "Paul Hunter",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "Bulletproof Monk is a 2003 American superhero comedy film directed by Paul Hunter in his directorial debut , and starring Chow Yun-fat , Seann William Scott , and Jaime King .",
+      "article_sha256": "563cf1c0675d50f5595a72e731058e1df7bdde3833e28489a383fd17176b841f",
+      "blind_sample": "9470c0b3c0ef1fbe-file"
+    },
+    {
+      "cluster": "c56c44beba6becf2",
+      "source": "https://en.wikipedia.org/wiki/Blaenplwyf_transmitting_station",
+      "question": "How many listeners does the station with the frequency of 95.3 MHz have ?",
+      "cell": "BBC Radio Wales",
+      "published": "316,000 listeners",
+      "supported_variants": [
+        "316,000",
+        "316000",
+        "316000 listeners"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "According to RAJAR , the station has a weekly audience of 316,000 listeners and a listening share of 4% as of December 2018 .",
+      "article_sha256": "0f87f66f707911195c2e2595397812776dac05425e70a3f25394d400c5405712",
+      "blind_sample": "c56c44beba6becf2-inline"
+    },
+    {
+      "cluster": "2ef7d6d384512734",
+      "source": "https://en.wikipedia.org/wiki/Cunard_Line",
+      "question": "What is the distance from the closest international airport to the middle of the city which contains Cunard Paradise Beach Hotel & Club ?",
+      "cell": "Bridgetown , Barbados",
+      "published": "16 kilometres",
+      "supported_variants": [
+        "16 km",
+        "16 kilometers",
+        "10 miles",
+        "10 mi"
+      ],
+      "label": "qualified",
+      "source_note": "The passage explicitly gives the distance in kilometres and miles to the identified international airport. It does not compare distances to other airports.",
+      "quote": "The Grantley Adams International Airport for Barbados , is located 16 kilometres ( 10 mi ) southeast of Bridgetown city centre , and has daily flights to major cities in the United Kingdom , United States , Canada and the Caribbean .",
+      "article_sha256": "fe5d6ad2a03c71e00919552e49b11a8e05f96ee0cf2dbd463f813e10bf1461c4",
+      "blind_sample": "2ef7d6d384512734-inline"
+    },
+    {
+      "cluster": "12d9d06af7761468",
+      "source": "https://en.wikipedia.org/wiki/United_States_national_rugby_sevens_team",
+      "question": "Who is the sponsor of the finish tourney that had one silver medal in 2017 ?",
+      "cell": "Singapore Sevens",
+      "published": "Standard Chartered Bank",
+      "supported_variants": [
+        "Standard Chartered"
+      ],
+      "label": "underidentified",
+      "source_note": "The table gives the 2017 silver finish. The passage names the original title sponsor of a tournament first staged in 2002; it does not establish sponsorship in 2017 or at question time.",
+      "quote": "The Standard Chartered Bank was the original title sponsor .",
+      "article_sha256": "d58d99cde9430db3d98297c4353d818ea1f6b5a01bb89d9cbdd7d2e3f05eb096",
+      "blind_sample": "12d9d06af7761468-inline"
+    },
+    {
+      "cluster": "ed3216d29045c665",
+      "source": "https://en.wikipedia.org/wiki/List_of_English_football_transfers_summer_2006",
+      "question": "What musician was the person who departed Borussia Dortmund and joined Arsenal on May 23 , 2006 compared to ?",
+      "cell": "Tom\u00e1\u0161 Rosick\u00fd",
+      "published": "Mozart",
+      "supported_variants": [
+        "Wolfgang Amadeus Mozart",
+        "little Mozart"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "He was nicknamed the little Mozart for his ability to orchestrate the midfield .",
+      "article_sha256": "0c686641a3ef43b27e38135b0962b5019bc484b28c0aa7ce625be809d73d86ab",
+      "blind_sample": "ed3216d29045c665-inline"
+    },
+    {
+      "cluster": "2375c1c21c7cd32d",
+      "source": "https://en.wikipedia.org/wiki/List_of_flag_bearers_for_Nepal_at_the_Olympics",
+      "question": "What was corrected in the Olympic Games in which Rajendra Bahadur Bhandari bore the flag for Nepal ?",
+      "cell": "2004",
+      "published": "medal obverse",
+      "supported_variants": [
+        "medal design",
+        "obverse of the medal",
+        "design on the front of the medals",
+        "Roman Colosseum on the medal"
+      ],
+      "label": "qualified",
+      "source_note": "The passage explicitly explains the erroneous Roman Colosseum depiction and replacement with the Panathenaic Stadium. An answer describing the depicted venue can be correct without naming the medal obverse.",
+      "quote": "A new medal obverse was introduced at these Games , replacing the design by Giuseppe Cassioli that had been used since the 1928 Games .",
+      "article_sha256": "dcf0d5440d299e981056cfc96a13d8f964e79d8daa1d51a22425eb37a5add1d2",
+      "blind_sample": "2375c1c21c7cd32d-inline"
+    },
+    {
+      "cluster": "c21990dc1e6933b6",
+      "source": "https://en.wikipedia.org/wiki/Grammy_Award_for_Best_Jazz_Vocal_Performance,_Male",
+      "question": "Who composed the song performed by Al Jarreau ?",
+      "cell": "( Round , Round , Round ) Blue Rondo \u00e0 la Turk",
+      "published": "Dave Brubeck",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "Blue Rondo \u00e0 la Turk is a jazz standard composition by Dave Brubeck .",
+      "article_sha256": "c4057b0efbd47e68af2c45b3b7f0cbe067f5b5e38d826422e9dce39b8da9737c",
+      "blind_sample": "c21990dc1e6933b6-file"
+    },
+    {
+      "cluster": "bc0a4a6d3b175e61",
+      "source": "https://en.wikipedia.org/wiki/List_of_members_of_the_14th_National_Assembly_of_Pakistan",
+      "question": "Who founded the political party that has Asfandyar Wali Khan as its current president and is associated with the constituency NA-1 ( Peshawar-I ) ?",
+      "cell": "Awami National Party",
+      "published": "Abdul Wali Khan",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "The party was founded by Abdul Wali Khan in 1986 and its current president is Asfandyar Wali Khan , grandson of Bacha Khan , with Mian Iftikhar Hussain serving as the Secretary-General .",
+      "article_sha256": "188f54c3b3cea818691b421e27b6fb419ecaa6c5f9b41516d5caf81d449f0557",
+      "blind_sample": "bc0a4a6d3b175e61-file"
+    },
+    {
+      "cluster": "40c90d425dd103e2",
+      "source": "https://en.wikipedia.org/wiki/2010_European_Team_Championships_Super_League",
+      "question": "Which peninsula is the home country of Mariya Shatalova in a dispute with Russia over ?",
+      "cell": "Ukraine",
+      "published": "Crimean Peninsula",
+      "supported_variants": [
+        "Crimea",
+        "Crimea peninsula"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "Ukraine is currently in a territorial dispute with Russia over the Crimean Peninsula , which Russia annexed in 2014 .",
+      "article_sha256": "04390956974dde0193a15ea9e7fa4f99d4facb0fa761f5d9a50add3ad67a6805",
+      "blind_sample": "40c90d425dd103e2-inline"
+    },
+    {
+      "cluster": "54908d9c032cc309",
+      "source": "https://en.wikipedia.org/wiki/List_of_female_boxers",
+      "question": "Which year was the foreign revolution that preceded the home country of Alesia Graf proclaiming independence ?",
+      "cell": "Belarus",
+      "published": "1917",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "In the aftermath of the 1917 Russian Revolution , Belarus declared independence as the Belarusian People 's Republic , which was conquered by Soviet Russia .",
+      "article_sha256": "fd16e36eba14adf2cc7dfa5da02544bda32ce36cfee3fe8bb84683fb5db273bc",
+      "blind_sample": "54908d9c032cc309-inline"
+    },
+    {
+      "cluster": "0bf187132a85c932",
+      "source": "https://en.wikipedia.org/wiki/List_of_Games_for_Windows_titles",
+      "question": "The game released on 2011-05-17 developed by TopWare Interactive was subject to a lawsuit by what company ?",
+      "cell": "Battle vs . Chess",
+      "published": "Interplay Entertainment",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "The game was not initially released in the United States because of a lawsuit by Interplay Entertainment for trademark infringement due to its similarity to their title Battle Chess .",
+      "article_sha256": "6824a7ab1d1c52bf41373e44648ed261644502b6ddfd759d7061297a42ad77ed",
+      "blind_sample": "0bf187132a85c932-file"
+    },
+    {
+      "cluster": "96e2e72852b2a281",
+      "source": "https://en.wikipedia.org/wiki/Compagnie_Internationale_des_Grands_Hotels",
+      "question": "What is the population of Avenida Palace 's location city ?",
+      "cell": "Lisbon",
+      "published": "505,526",
+      "supported_variants": [
+        "505526"
+      ],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "Lisbon ( /\u02c8l\u026azb\u0259n/ ; Portuguese : Lisboa [ li\u0292\u02c8bo\u0250 ] ( listen ) ) is the capital and the largest city of Portugal , with an estimated population of 505,526 within its administrative limits in an area of 100.05 km2 .",
+      "article_sha256": "82443af737df4e3bf9ae56471ee81fed9f1f7b66ee446baa64527af075c87559",
+      "blind_sample": "96e2e72852b2a281-file"
+    },
+    {
+      "cluster": "b10336e00230151d",
+      "source": "https://en.wikipedia.org/wiki/List_of_fictional_canines_in_animation",
+      "question": "Who was the story editor of the series that featured Antoine D'Coolette ?",
+      "cell": "Sonic the Hedgehog",
+      "published": "Len Janson",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "It was story edited by Len Janson and produced by DIC Productions , L.P.",
+      "article_sha256": "fa249196f6eb6172b1c2fdf38581b2a4fb7995b9f6186bf186251a9af1d2ea07",
+      "blind_sample": "b10336e00230151d-inline"
+    },
+    {
+      "cluster": "f2f50ad106185184",
+      "source": "https://en.wikipedia.org/wiki/List_of_football_clubs_in_Argentina",
+      "question": "Which country contains the namesake of the city of the Argentinian football club Racing ?",
+      "cell": "C\u00f3rdoba",
+      "published": "Spain",
+      "supported_variants": [],
+      "label": "supported",
+      "source_note": "The original table link and article support the published answer.",
+      "quote": "It was founded on 6 July 1573 by Jer\u00f3nimo Luis de Cabrera , who named it after C\u00f3rdoba , Spain .",
+      "article_sha256": "a6d879e460c59fc6f56c9dd6b894df1edb134b622c0db5c2d7b878731f7b2364",
+      "blind_sample": "f2f50ad106185184-file"
+    }
+  ]
+}
