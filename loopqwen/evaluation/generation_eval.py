@@ -36,6 +36,7 @@ def generate(
     stop_ids=(),
     offload_dir=None,
     staged_context_dir=None,
+    document_prefix=None,
     prefill_block=128,
     tool_prefix=None,
     reserve_full_kv=False,
@@ -46,6 +47,20 @@ def generate(
 ):
     if type(prefill_block) is not int or prefill_block < 1:
         raise ValueError("Prefill block must be a positive integer")
+    if document_prefix is not None and (
+        offload_dir is not None
+        or staged_context_dir is not None
+        or tool_prefix is not None
+        or reserve_full_kv
+        or prefill_block != 128
+        or any(
+            getattr(model, k, None) is not None
+            for k in ("context_policy", "deliberation_policy", "attention_reader")
+        )
+    ):
+        raise ValueError(
+            "Document reuse requires the original fixed model and a single cache owner"
+        )
     if staged_context_dir is not None:
         if offload_dir is not None or any(
             getattr(model, key, None) is not None
@@ -130,7 +145,9 @@ def generate(
         disk = None
         cache = None
         page_slots = {}
-        if directory is None:
+        if document_prefix is not None:
+            disk = document_prefix.branch(model, ids)
+        elif directory is None:
             cache, page_slots = resident_cache(
                 model,
                 route,
@@ -181,9 +198,12 @@ def generate(
         output = []
         for step in range(max_tokens):
             if disk is not None:
-                logits = (
-                    disk.prefill(ids, progress) if step == 0 else disk.decode(inputs)
-                )
+                if step:
+                    logits = disk.decode(inputs)
+                elif document_prefix is None:
+                    logits = disk.prefill(ids, progress)
+                else:
+                    logits = document_prefix.complete_opening(disk, ids, progress)
             elif hasattr(model, "last_hidden"):
                 logits = model.project(model.last_hidden(inputs, cache))
             elif hasattr(model, "hidden"):
@@ -221,6 +241,13 @@ def generate(
         "peak_bytes": mx.get_peak_memory(),
         "active_bytes": mx.get_active_memory(),
     }
+    if document_prefix is not None:
+        reused = len(document_prefix.ids)
+        result.update(
+            reused_prompt_tokens=reused,
+            new_prompt_tokens=len(ids) - reused,
+            prefill_tps=(len(ids) - reused) / result["ttft_s"],
+        )
     if return_prompt_ids:
         result["prompt_ids"] = ids
     precision = getattr(model, "weight_precision_receipt", None)

@@ -63,10 +63,11 @@ class OffloadedPrefill:
         self.groups = stages(model)
         self.group_attention = group_attention
         if group_attention:
+            from .content_read import ContentRead
             from .looped_model import LoopedModel
             from .shared_query import SharedQuery
 
-            if type(model) not in (LoopedModel, SharedQuery) or any(
+            if type(model) not in (LoopedModel, SharedQuery, ContentRead) or any(
                 p for _, p in model.sites
             ):
                 raise ValueError(
@@ -150,10 +151,36 @@ class OffloadedPrefill:
         hidden_path.unlink()
         return m.text.model.norm(h[:, -1:])
 
+    def fork(self, length):
+        """Fork a completed staged prefix while sharing only its immutable files."""
+        from mlx.utils import tree_map
+        from mlx_lm.models.cache import ArraysCache
+        from .tool_prefill import copy_state
+
+        self.cache.validate(self.model, None)
+        child = OffloadedPrefill(
+            self.model, self.directory, group_attention=self.group_attention
+        )
+        for site, slot in self.cache.slots.items():
+            if (
+                isinstance(slot, PrefixOnDisk)
+                and slot.offset == length
+                and slot.tail.empty()
+            ):
+                child.cache.slots[site] = PrefixOnDisk(slot.path, length)
+            elif isinstance(slot, ArraysCache):
+                child.cache.slots[site].state = tree_map(copy_state, slot.state)
+            else:
+                raise ValueError(
+                    "A document must have complete immutable prefix states before branching"
+                )
+        child.scratch_bytes = self.scratch_bytes
+        return child
+
     def decode(self, ids):
         return self.model.project(self.decode_hidden(ids))
 
-    def decode_hidden(self, ids):
+    def decode_hidden(self, ids, *, emit=True):
         m = self.model
         self.cache.validate(m, None)
         h = m.text.model.embed_tokens(ids)
@@ -164,10 +191,50 @@ class OffloadedPrefill:
                 else None
             )
             h = (
-                final(h, self.cache.slots[group[0]], emit=True)
+                final(h, self.cache.slots[group[0]], emit=emit)
                 if final
                 else m._execute(h, group, self.cache)
             )
+            if h is None:
+                return None
             # Release this stage's loaded prefix before the next stage reads its own.
             mx.eval(h)
         return m.text.model.norm(h)
+
+
+class DocumentPrefix:
+    """Reuse an unchanged token prefix for independent requests to the same frozen model.
+
+    The caller owns an empty scratch directory and keeps it alive for every request.
+    """
+
+    def __init__(self, model, ids, directory, progress=None):
+        if model.training or not ids:
+            raise ValueError("A nonempty prefix requires a fixed evaluation-mode model")
+        directory = Path(directory)
+        if not directory.is_dir() or any(directory.iterdir()):
+            raise ValueError("Document staging requires an empty private directory")
+        self.ids = tuple(ids)
+        self.disk = OffloadedPrefill(model, directory, group_attention=True)
+        self.disk.prefill_hidden(self.ids, progress)
+
+    def branch(self, model, opening):
+        if (
+            model is not self.disk.model
+            or tuple(opening[: len(self.ids)]) != self.ids
+            or len(opening) <= len(self.ids)
+        ):
+            raise ValueError(
+                "A request must extend this exact document with the same model"
+            )
+        return self.disk.fork(len(self.ids))
+
+    def complete_opening(self, disk, opening, progress=None):
+        for start in range(len(self.ids), len(opening), 128):
+            end = min(start + 128, len(opening))
+            hidden = disk.decode_hidden(
+                mx.array([opening[start:end]]), emit=end == len(opening)
+            )
+            if progress is not None:
+                progress(start)
+        return disk.model.project(hidden[:, -1:])
