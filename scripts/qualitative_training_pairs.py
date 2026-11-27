@@ -86,7 +86,7 @@ def build():
                 {
                     "id": fingerprint([ka, kb]),
                     "source_background": pid,
-                    "choices": choices,
+                    "choices": list(choices),
                     "question_word_jaccard": similarity,
                     "members": [by_id[ka], by_id[kb]],
                 }
