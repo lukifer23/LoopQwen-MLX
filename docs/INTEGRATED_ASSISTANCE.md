@@ -2,6 +2,8 @@
 
 This policy repeats the last native transformer layer of the 0.8B instruction sibling on every token. Four independently learned parameter updates contribute to the shared projections. The same compiled tensors serve database queries, open conversation and ordinary text. The pinned BF16 Qwen3.5-0.8B-Base is the ordinary-depth control. The measured training exposure contains 258,469 selected target positions. [Study registration](../research/experiments/integrated-assistance-01.json) · [Training exposure](measurements/integrated-assistance-exposure.json)
 
+The direct comparison delivered 56 grounded or source-scored answers on 208 objective requests versus 42 for ordinary Base. Across all 220 requests the models took 421.66 and 1,089.86 seconds. The loop gained 41 individual answers and lost 27 Base successes. On the new database questions it grounded 3/24 answers versus 1/24 and completed both questions on 0/12 databases in either arm. A project reviewer, masked to model identity, preferred the loop three times and Base once over 12 open questions, with eight ties. The loop produced four materially unsupported open replies versus two for Base. Its scores fell on all three human reasoning measures. These weights remain experimental. [Complete decision](../research/results/integrated-assistance-01/decision.json) · [Sealed review](measurements/integrated-assistance-blinded-ratings.json)
+
 Use the pinned Apple Silicon environment and the qualified release 05 files. In the extracted add-on, make that checkpoint available as `release-05` and install the enclosed runtime wheel. Each example includes the complete original request and all its input files. The commands below run outside the source checkout.
 
 ```sh

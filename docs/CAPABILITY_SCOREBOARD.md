@@ -1,5 +1,20 @@
 # Capability scoreboard
 
+| Consolidated assistant | Learned loop | Untouched Base |
+| --- | ---: | ---: |
+| Objective answers | 56/208 | 42/208 |
+| Correct when both completed | 32/82 | 27/82 |
+| New queries grounded on original and alternate databases | 3/24 | 1/24 |
+| Both questions grounded, whole database | 0/12 | 0/12 |
+| Masked open preferences, 8 ties | 3/12 | 1/12 |
+| Materially unsupported open replies | 4/12 | 2/12 |
+| Full elapsed seconds, 220 requests | 421.66 | 1,089.86 |
+| Summed time to first token, seconds | 37.80 | 37.07 |
+| Opening / decode tokens per second | 2,659 / 105.64 | 2,771 / 69.99 |
+| Peak MLX allocation, GiB | 1.139 | 1.724 |
+
+The loop gained 41 individual answers, lost 27 Base successes and retained 25 of 42 previous successes. All three human-reasoning F1 measures declined. The 12 independent SQL databases gave a paired p-value of 0.625. The earlier 128K field results belong to their original weights. [Paper and performance breakdown](../paper/integrated-assistance.pdf) · [Scores and sealed jobs](../research/results/integrated-assistance-01) · [Masked assessments](measurements/integrated-assistance-reading.json)
+
 | Second-visit readout on 112 requests | Loop | Untouched Base |
 | --- | ---: | ---: |
 | Grounded or source-scored responses | 38 | 22 |

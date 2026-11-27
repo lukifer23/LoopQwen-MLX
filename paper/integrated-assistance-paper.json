@@ -1,0 +1,527 @@
+{
+  "targets": 258469,
+  "fit_seconds": 683.65,
+  "positions": 84,
+  "first_hits": 75,
+  "second_hits": 74,
+  "first_nll": "0.541",
+  "second_nll": "0.514",
+  "merged": "0bf6784b476d3347826731c10c53db37287f9fe9f3af3c209ec62e84fdb7839a",
+  "opposed": 1486713,
+  "coordinates": 18350080,
+  "examples": {
+    "teachers": {
+      "id": "cosql-4965c07a165db696f9f5",
+      "question": "How many teachers are there?",
+      "answers": [
+        "7",
+        "I'd be happy to help you find the number of teachers in the database! However, I need the name of the database to access it. Could you please provide the database name (e.g., \"course_teach.sqlite\") so I can query it for the teacher count?"
+      ],
+      "reason": "The first asks for a filename even while naming the supplied file and gives no count. The second correctly reports seven teachers in this database.",
+      "queries": [
+        "SELECT COUNT(*) FROM teacher",
+        "No executed query."
+      ],
+      "earned": [
+        "Yes",
+        "No"
+      ]
+    },
+    "crystal": {
+      "id": "oasst-87ba7f60-95ac-4658-ad9f-bb7f3ac63e48",
+      "question": "What are F-centers in crystallography ? How are they created and what consequences do they have on the overall appearance of crystal ?",
+      "answers": [
+        "In crystallography, a F-center is a type of impurity atom that is electrically neutral but possesses a localized charge separation. It is a type of defect that can be created by the incorporation of certain impurities or radiation damage. The F-center is a type of impurity atom that is electrically neutral but possesses a localized charge separation. </think> A F-center is a [\u2026]",
+        "No visible reply."
+      ],
+      "reason": "Radiation is a possible formation mechanism, but the answer repeatedly misidentifies the defect as a neutral impurity atom. It omits both the electron at an anion vacancy and the visible absorption that alters the colour."
+    }
+  },
+  "family": [
+    [
+      "New database questions",
+      24,
+      3,
+      1,
+      8,
+      10
+    ],
+    [
+      "New open assistance",
+      12,
+      "\u2014",
+      "\u2014",
+      8,
+      2
+    ],
+    [
+      "Python compatibility",
+      24,
+      21,
+      9,
+      22,
+      15
+    ],
+    [
+      "Declared dependencies",
+      20,
+      5,
+      12,
+      11,
+      17
+    ],
+    [
+      "Fixed-version changes",
+      8,
+      6,
+      2,
+      7,
+      5
+    ],
+    [
+      "First human questions",
+      24,
+      2,
+      5,
+      12,
+      23
+    ],
+    [
+      "Human follow-ups",
+      24,
+      1,
+      5,
+      9,
+      22
+    ],
+    [
+      "Human causal questions",
+      48,
+      6,
+      6,
+      26,
+      43
+    ],
+    [
+      "Schedules",
+      8,
+      8,
+      0,
+      8,
+      2
+    ],
+    [
+      "Earlier manifests",
+      8,
+      4,
+      0,
+      4,
+      0
+    ],
+    [
+      "Earlier lookups",
+      8,
+      0,
+      0,
+      2,
+      1
+    ],
+    [
+      "File judgments",
+      6,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "Inline judgments",
+      6,
+      0,
+      2,
+      4,
+      2
+    ]
+  ],
+  "intervals": [
+    [
+      "Schedules",
+      4,
+      8,
+      0,
+      "+100.0",
+      "+100.0 to +100.0",
+      "1"
+    ],
+    [
+      "Python compatibility",
+      12,
+      12,
+      0,
+      "+50.0",
+      "+29.2 to +70.8",
+      "0.0938"
+    ],
+    [
+      "New database questions",
+      12,
+      3,
+      1,
+      "+8.3",
+      "-8.3 to +25.0",
+      "1"
+    ],
+    [
+      "Declared dependencies",
+      10,
+      2,
+      9,
+      "-35.0",
+      "-60.0 to -5.0",
+      "1"
+    ],
+    [
+      "Human causal questions",
+      24,
+      5,
+      5,
+      "+0.0",
+      "-16.7 to +16.7",
+      "1"
+    ],
+    [
+      "File judgments",
+      2,
+      0,
+      0,
+      "+0.0",
+      "+0.0 to +0.0",
+      "1"
+    ],
+    [
+      "First human questions",
+      24,
+      2,
+      5,
+      "-12.5",
+      "-33.3 to +8.3",
+      "1"
+    ],
+    [
+      "Human follow-ups",
+      24,
+      1,
+      5,
+      "-16.7",
+      "-37.5 to +0.0",
+      "1"
+    ],
+    [
+      "Inline judgments",
+      2,
+      0,
+      2,
+      "-33.3",
+      "-33.3 to -33.3",
+      "1"
+    ],
+    [
+      "Earlier lookups",
+      8,
+      0,
+      0,
+      "+0.0",
+      "+0.0 to +0.0",
+      "1"
+    ],
+    [
+      "Fixed-version changes",
+      4,
+      4,
+      0,
+      "+50.0",
+      "+12.5 to +87.5",
+      "1"
+    ],
+    [
+      "Earlier manifests",
+      4,
+      4,
+      0,
+      "+50.0",
+      "+0.0 to +100.0",
+      "1"
+    ]
+  ],
+  "percentiles": [
+    [
+      "wall_s",
+      177,
+      "1.385",
+      "4.707",
+      "3.933",
+      "10.858"
+    ],
+    [
+      "first_s",
+      46,
+      "0.171",
+      "0.168",
+      "0.296",
+      "0.281"
+    ],
+    [
+      "peak_MiB",
+      220,
+      "1103.687",
+      "1701.401",
+      "1140.732",
+      "1741.555"
+    ]
+  ],
+  "phase_costs": [
+    [
+      "Opening through first token on every turn",
+      "52.04",
+      "53.81"
+    ],
+    [
+      "Decoding after the first token",
+      "367.85",
+      "1,033.92"
+    ],
+    [
+      "Time outside timed generation",
+      "1.76",
+      "2.13"
+    ]
+  ],
+  "sql_overlap_net": 1,
+  "sql_overlap_p": "1",
+  "both_finished": {
+    "family": "all",
+    "completion": "Both completed",
+    "requests": 82,
+    "loop_correct": 32,
+    "base_correct": 27,
+    "gains": 17,
+    "losses": 12
+  },
+  "joint": {
+    "individual_gains": 41,
+    "additional_correct_and_all_three_costs_lower": 6,
+    "both_correct": 15,
+    "neither_correct": 125
+  },
+  "preference_p": "0.625",
+  "costs": [
+    [
+      "Total time (s)",
+      "421.66",
+      "1,089.86"
+    ],
+    [
+      "Summed first-token time (s)",
+      "37.80",
+      "37.07"
+    ],
+    [
+      "Peak native allocation (GiB)",
+      "1.139",
+      "1.724"
+    ],
+    [
+      "Uncached opening (tokens/s)",
+      "2,659.16",
+      "2,771.25"
+    ],
+    [
+      "Post-first generation (tokens/s)",
+      "105.64",
+      "69.99"
+    ],
+    [
+      "Generated tokens",
+      "39,231",
+      "72,683"
+    ]
+  ],
+  "grades": [
+    [
+      "New open assistance",
+      "fully usable",
+      1,
+      0
+    ],
+    [
+      "New open assistance",
+      "partial",
+      2,
+      1
+    ],
+    [
+      "New open assistance",
+      "wrong",
+      5,
+      1
+    ],
+    [
+      "New open assistance",
+      "absent",
+      4,
+      10
+    ],
+    [
+      "New open assistance",
+      "unsupported",
+      4,
+      2
+    ],
+    [
+      "New open assistance",
+      "win",
+      3,
+      1
+    ],
+    [
+      "New open assistance",
+      "tie",
+      8,
+      8
+    ],
+    [
+      "New database questions",
+      "fully usable",
+      6,
+      1
+    ],
+    [
+      "New database questions",
+      "partial",
+      0,
+      7
+    ],
+    [
+      "New database questions",
+      "wrong",
+      2,
+      2
+    ],
+    [
+      "New database questions",
+      "absent",
+      16,
+      14
+    ],
+    [
+      "New database questions",
+      "unsupported",
+      2,
+      2
+    ],
+    [
+      "New database questions",
+      "win",
+      6,
+      4
+    ],
+    [
+      "New database questions",
+      "tie",
+      14,
+      14
+    ]
+  ],
+  "correct": [
+    56,
+    42
+  ],
+  "open_win": [
+    3,
+    1
+  ],
+  "whole_sql": [
+    0,
+    0
+  ],
+  "sql": [
+    3,
+    1
+  ],
+  "f1": [
+    [
+      "First human questions",
+      "0.152",
+      "0.277"
+    ],
+    [
+      "Human follow-ups",
+      "0.073",
+      "0.265"
+    ],
+    [
+      "Human causal questions",
+      "0.159",
+      "0.263"
+    ]
+  ],
+  "gains": 41,
+  "losses": 27,
+  "prior_lost": 17,
+  "prior_total": 42,
+  "database_p": "0.625",
+  "gates": [
+    [
+      "semantic sql",
+      "miss"
+    ],
+    [
+      "prior skills",
+      "miss"
+    ],
+    [
+      "prior base",
+      "miss"
+    ],
+    [
+      "human reasoning",
+      "miss"
+    ],
+    [
+      "all families",
+      "miss"
+    ],
+    [
+      "completion",
+      "miss"
+    ],
+    [
+      "first s",
+      "miss"
+    ],
+    [
+      "wall s",
+      "pass"
+    ],
+    [
+      "peak",
+      "pass"
+    ],
+    [
+      "opening tps",
+      "miss"
+    ],
+    [
+      "decode tps",
+      "pass"
+    ],
+    [
+      "blinded review",
+      "miss"
+    ]
+  ],
+  "qualified": false,
+  "reasoning_targets": 34752,
+  "reasoning_draws": 1652,
+  "archive": "5b2601b163fdb8d745d91d19e9e65c5560f4321b798c72014db2fa3e82dd43b4"
+}

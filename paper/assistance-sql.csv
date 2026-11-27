@@ -1,0 +1,386 @@
+id,database,question,arm,reference_query,expected,query_calls,schema_calls,correct_original,alternative_matches,alternatives,semantic_pass,grounded,generated_queries,answer
+cosql-0fb058d437f9f1d5f696,tvshow,"Conversation so far:
+Customer: What is the TV Channel of TV series ""A love of a lifetime""?
+
+Analyst:  the TV Channel of TV series ""A love of a lifetime"" is “Sky Radio”
+Customer: How may viewers does ""A love of a lifetime"" have?
+Analyst: the  ""A love of a lifetime"" has 9.16 viewers
+Customer: How about the rating of ""A love of a lifetime?""
+Analyst: the rating of ""A love of a lifetime"" is 43.0
+
+Use the supplied database to answer the customer's current question.
+And when was ""A love of a lifetime"" aired?",candidate,"SELECT  	Air_Date  FROM  TV_series  where Episode = ""A Love of a Lifetime"";","September 24, 2007",0,1,False,0,25,False,False,"SELECT Channel, series_name, original_air_date, rating, viewers_m FROM TV_series WHERE Channel = 'Sky Radio' AND series_name = 'A love of a lifetime' LIMIT 1;
+SELECT Channel, series_name, original_air_date, rating, viewers_m FROM TV_series WHERE Channel = 'Sky Radio' AND series_name = 'A love of a lifetime' LIMIT 1;",
+cosql-0fb058d437f9f1d5f696,tvshow,"Conversation so far:
+Customer: What is the TV Channel of TV series ""A love of a lifetime""?
+
+Analyst:  the TV Channel of TV series ""A love of a lifetime"" is “Sky Radio”
+Customer: How may viewers does ""A love of a lifetime"" have?
+Analyst: the  ""A love of a lifetime"" has 9.16 viewers
+Customer: How about the rating of ""A love of a lifetime?""
+Analyst: the rating of ""A love of a lifetime"" is 43.0
+
+Use the supplied database to answer the customer's current question.
+And when was ""A love of a lifetime"" aired?",control,"SELECT  	Air_Date  FROM  TV_series  where Episode = ""A Love of a Lifetime"";","September 24, 2007",1,1,False,0,25,False,False,"SELECT * FROM TV_Channel WHERE series_name = 'A love of a lifetime'
+SELECT * FROM TV_series WHERE Channel = 'Sky Radio' AND series_name = 'A love of a lifetime'",
+cosql-4673820734352a0305f9,world_1,"Conversation so far:
+Customer: What is the total number of countries?
+Analyst: There are 239 countries in total
+Customer: How many cities are there?
+Analyst: There are 4079 cities
+
+Use the supplied database to answer the customer's current question.
+Can you tell me the region where the city of Kabul is?",candidate,"SELECT Region FROM country AS T1 JOIN city AS T2 ON T1.Code = T2.CountryCode WHERE T2.Name = ""Kabul""",Southern and Central Asia,0,1,False,0,46,False,False,"SELECT CountryCode, Continent FROM country WHERE CountryCode = 'KBAU' LIMIT 1;
+SELECT CountryCode, Continent FROM country WHERE CountryCode = 'KBAU' LIMIT 1;",
+cosql-4673820734352a0305f9,world_1,"Conversation so far:
+Customer: What is the total number of countries?
+Analyst: There are 239 countries in total
+Customer: How many cities are there?
+Analyst: There are 4079 cities
+
+Use the supplied database to answer the customer's current question.
+Can you tell me the region where the city of Kabul is?",control,"SELECT Region FROM country AS T1 JOIN city AS T2 ON T1.Code = T2.CountryCode WHERE T2.Name = ""Kabul""",Southern and Central Asia,0,2,False,0,46,False,False,SELECT Region FROM city WHERE Name = 'Kabul',
+cosql-08eea8e3c9c9db7e51be,course_teach,"Conversation so far:
+Customer: How many teachers are there?
+Analyst: There are 7 teachers
+
+Use the supplied database to answer the customer's current question.
+How many courses do you have?",candidate,SELECT COUNT(*) FROM course_arrange,6,2,1,False,0,25,False,False,"SELECT count(*) FROM course
+SELECT count(*) FROM course",
+cosql-08eea8e3c9c9db7e51be,course_teach,"Conversation so far:
+Customer: How many teachers are there?
+Analyst: There are 7 teachers
+
+Use the supplied database to answer the customer's current question.
+How many courses do you have?",control,SELECT COUNT(*) FROM course_arrange,6,1,1,False,0,25,False,False,SELECT COUNT(*) FROM teacher,"Based on the database, I can answer the customer's question. The database contains 7 teachers.
+
+Here's the complete answer:
+
+**Customer:** How many teachers are there?
+**Analyst:** There are 7 teachers
+
+The database query confirmed this by counting the number of teachers in the teacher table, which returned 7."
+cosql-30b12e47ba9337ab90bb,employee_hire_evaluation,"Use the supplied database to answer the customer's current question.
+what is the age of George Chuter?",candidate,SELECT Age from employee where Name='George Chuter',23,1,1,True,15,27,False,False,SELECT Age FROM employee WHERE Name = 'George Chuter' LIMIT 1;,23
+cosql-30b12e47ba9337ab90bb,employee_hire_evaluation,"Use the supplied database to answer the customer's current question.
+what is the age of George Chuter?",control,SELECT Age from employee where Name='George Chuter',23,0,0,False,0,27,False,False,,"I'd be happy to help you find the age of George Chuter in the database. However, I need a bit more information to proceed.
+
+Could you please provide:
+1. The name of the database (e.g., ""employee_hire_evaluation.sqlite"")
+2. The name of the table that contains George Chuter's information (e.g., ""employee"", ""staff"", etc.)
+
+Once you provide these details, I can use the database query function to retrieve the information about George Chuter's age."
+cosql-3d8ef7d53efcfa60c02b,network_1,"Conversation so far:
+Customer: Can you show me a list of student IDs and their friends IDs?
+Analyst: The table shows student IDs and their friends IDs
+Customer: Can you show me a list of all student IDs?
+Analyst: Did you mean the id of all High schoolers?
+Customer: Yes
+Analyst: The table shows the ids of all High schoolers.
+Customer: Can you show a list of IDs that are on the second list, but are not on the first list?
+Analyst: There is no ID that is on the second list but is not on the first list.
+
+Use the supplied database to answer the customer's current question.
+Can you tell me the total number of student IDs?",candidate,SELECT count(id) FROM Highschooler,16,1,1,True,29,29,True,True,SELECT count(*) FROM Highschooler,16
+cosql-3d8ef7d53efcfa60c02b,network_1,"Conversation so far:
+Customer: Can you show me a list of student IDs and their friends IDs?
+Analyst: The table shows student IDs and their friends IDs
+Customer: Can you show me a list of all student IDs?
+Analyst: Did you mean the id of all High schoolers?
+Customer: Yes
+Analyst: The table shows the ids of all High schoolers.
+Customer: Can you show a list of IDs that are on the second list, but are not on the first list?
+Analyst: There is no ID that is on the second list but is not on the first list.
+
+Use the supplied database to answer the customer's current question.
+Can you tell me the total number of student IDs?",control,SELECT count(id) FROM Highschooler,16,0,1,False,0,29,False,False,"SELECT * FROM student_ids;
+SELECT * FROM friends_ids;",
+cosql-96f90360366edf2ed377,wta_1,"Conversation so far:
+Customer: how many players are presented on the table
+Analyst: There are 20662 players
+Customer: list out the players first name
+Analyst: Here are the first names of all the players.
+
+Use the supplied database to answer the customer's current question.
+what is the country code of Mirjana",candidate,"SELECT country_code FROM players  where first_name = ""Mirjana""",CRO,1,1,False,0,33,False,False,SELECT first_name FROM players WHERE country_code = 'MIRJANA' LIMIT 1;,Mirjana does not have a first name in the supplied database.
+cosql-96f90360366edf2ed377,wta_1,"Conversation so far:
+Customer: how many players are presented on the table
+Analyst: There are 20662 players
+Customer: list out the players first name
+Analyst: Here are the first names of all the players.
+
+Use the supplied database to answer the customer's current question.
+what is the country code of Mirjana",control,"SELECT country_code FROM players  where first_name = ""Mirjana""",CRO,1,1,True,33,33,True,True,SELECT country_code FROM players WHERE first_name = 'Mirjana',"Based on the database query, the country code of Mirjana is **CRO**.
+
+Here's the complete answer to the customer's question:
+
+**Customer:** how many players are presented on the table
+**Analyst:** There are 20662 players
+**Customer:** list out the players first name
+**Analyst:** Here are the first names of all the players.
+**Customer:** what is the country code of Mirjana
+
+**Answer:** The country code of Mirjana is **CRO**."
+cosql-198e7250e50d2d96feab,cre_Doc_Template_Mgt,"Conversation so far:
+Customer: What is the document id with least number of paragraphs?
+Analyst: the id of document with least number of paragraphs is 3
+
+Use the supplied database to answer the customer's current question.
+and the document with the most number of paragraphs?",candidate,SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count(*) desc LIMIT 1,2394,2,1,False,0,25,False,False,"SELECT Document_ID FROM Documents GROUP BY Document_ID ORDER BY Document_ID ASC LIMIT 1
+SELECT Document_ID FROM Documents GROUP BY Document_ID ORDER BY Document_ID DESC LIMIT 1",
+cosql-198e7250e50d2d96feab,cre_Doc_Template_Mgt,"Conversation so far:
+Customer: What is the document id with least number of paragraphs?
+Analyst: the id of document with least number of paragraphs is 3
+
+Use the supplied database to answer the customer's current question.
+and the document with the most number of paragraphs?",control,SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count(*) desc LIMIT 1,2394,0,1,False,0,25,False,False,"SELECT document_id, paragraph_count FROM document_templates
+SELECT document_id, paragraph_count FROM document_templates",
+cosql-35f7932b5f8c9b83a09e,orchestra,"Conversation so far:
+Customer: List the name of the conductor with the most years of work.
+Analyst: Robert Craft works the most years
+
+Use the supplied database to answer the customer's current question.
+How many years did Robert Craft work?",candidate,SELECT Year_of_Work FROM conductor where name='Robert Craft',21,2,1,False,0,28,False,False,"SELECT Name FROM conductor GROUP BY Name HAVING COUNT(*) > (SELECT COUNT(*) FROM conductor GROUP BY Name) ORDER BY Name LIMIT 1;
+SELECT Name FROM conductor GROUP BY Name HAVING COUNT(*) > (SELECT COUNT(*) FROM conductor GROUP BY Name) ORDER BY Name LIMIT 1;",
+cosql-35f7932b5f8c9b83a09e,orchestra,"Conversation so far:
+Customer: List the name of the conductor with the most years of work.
+Analyst: Robert Craft works the most years
+
+Use the supplied database to answer the customer's current question.
+How many years did Robert Craft work?",control,SELECT Year_of_Work FROM conductor where name='Robert Craft',21,0,0,False,0,28,False,False,,
+cosql-184ac60057706be61caa,employee_hire_evaluation,"Conversation so far:
+Customer: what is the age of George Chuter?
+Analyst: George Chuter is 23 years old
+
+Use the supplied database to answer the customer's current question.
+what is the age of lee mears?",candidate,SELECT Age from employee where Name='Lee Mears',29,1,1,True,17,27,False,False,SELECT Age FROM employee WHERE Name = 'Lee Mears' LIMIT 1;,29
+cosql-184ac60057706be61caa,employee_hire_evaluation,"Conversation so far:
+Customer: what is the age of George Chuter?
+Analyst: George Chuter is 23 years old
+
+Use the supplied database to answer the customer's current question.
+what is the age of lee mears?",control,SELECT Age from employee where Name='Lee Mears',29,1,0,False,0,27,False,False,SELECT age FROM employee WHERE name = 'lee mears';,"Based on the database query, I found the information about Lee Mears. The query returned the age column from the employee table.
+
+**Answer to Customer:**
+The age of Lee Mears is **23 years old**.
+
+The database query successfully retrieved the age information from the employee table, and the result shows that Lee Mears is 23 years old."
+cosql-f42a7835b75fd680a5fc,car_1,"Conversation so far:
+Customer: Can you list the number of car makers on each continent?
+Analyst: Here are the continents with their corresponding number of car makers
+Customer: What about the number of car makers in the country USA?
+Analyst: There are 4 car makers in the country USA
+Customer: How about in the country Germany?
+Analyst: There are 4 car makers in the country Germany
+
+Use the supplied database to answer the customer's current question.
+What about France?",candidate,"seLECT count(*) FROM car_makers as T1 join countries as T2 on T2.CountryId  =  T1.Country where T2.countryname = ""france""",3,2,1,False,0,60,False,False,"SELECT Continent FROM continents GROUP BY Continent HAVING COUNT(*) > 0 ORDER BY Continent LIMIT 10;
+SELECT Continent FROM continents GROUP BY Continent HAVING COUNT(*) > 0 ORDER BY Continent LIMIT 10;",
+cosql-f42a7835b75fd680a5fc,car_1,"Conversation so far:
+Customer: Can you list the number of car makers on each continent?
+Analyst: Here are the continents with their corresponding number of car makers
+Customer: What about the number of car makers in the country USA?
+Analyst: There are 4 car makers in the country USA
+Customer: How about in the country Germany?
+Analyst: There are 4 car makers in the country Germany
+
+Use the supplied database to answer the customer's current question.
+What about France?",control,"seLECT count(*) FROM car_makers as T1 join countries as T2 on T2.CountryId  =  T1.Country where T2.countryname = ""france""",3,1,1,False,0,60,False,False,"SELECT Continent FROM continents WHERE CountryName = 'France'
+SELECT * FROM car_makers WHERE Country = 'France'",
+cosql-1fea19384f5139d06b27,museum_visit,"Conversation so far:
+Customer: What is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?
+Analyst: The name of the visitor who visited a museum opened before 2009 and a museum opened after 2011 is Fernando Gago.
+
+Use the supplied database to answer the customer's current question.
+What museum did he visit before 2009?",candidate,SELECT t3.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 AND t1.name = (SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 INTERSECT SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  >  2011),Plaza Museum,0,1,False,0,35,False,False,,
+cosql-1fea19384f5139d06b27,museum_visit,"Conversation so far:
+Customer: What is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?
+Analyst: The name of the visitor who visited a museum opened before 2009 and a museum opened after 2011 is Fernando Gago.
+
+Use the supplied database to answer the customer's current question.
+What museum did he visit before 2009?",control,SELECT t3.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 AND t1.name = (SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 INTERSECT SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  >  2011),Plaza Museum,0,0,False,0,35,False,False,,
+cosql-6390c0adaa8a95025176,wta_1,"Conversation so far:
+Customer: how many players are presented on the table
+Analyst: There are 20662 players
+Customer: list out the players first name
+Analyst: Here are the first names of all the players.
+Customer: what is the country code of Mirjana
+Analyst: The country code of the player with first name Mirjana is CRO
+
+Use the supplied database to answer the customer's current question.
+what is the birth date of Justine",candidate,"SELECT birth_date FROM players  where first_name = ""Mirjana""",19820309,2,1,False,0,33,False,False,"SELECT first_name FROM players WHERE first_name = 'Mirjana' LIMIT 1;
+SELECT first_name FROM players WHERE first_name = 'Mirjana' LIMIT 1;",
+cosql-6390c0adaa8a95025176,wta_1,"Conversation so far:
+Customer: how many players are presented on the table
+Analyst: There are 20662 players
+Customer: list out the players first name
+Analyst: Here are the first names of all the players.
+Customer: what is the country code of Mirjana
+Analyst: The country code of the player with first name Mirjana is CRO
+
+Use the supplied database to answer the customer's current question.
+what is the birth date of Justine",control,"SELECT birth_date FROM players  where first_name = ""Mirjana""",19820309,1,0,False,0,33,False,False,SELECT birth_date FROM players WHERE first_name = 'Justine',
+cosql-10224e1fdecbc77c1d40,orchestra,"Use the supplied database to answer the customer's current question.
+List the name of the conductor with the most years of work.",candidate,SELECT Name FROM conductor ORDER BY Year_of_Work DESC LIMIT 1,Robert Craft,1,1,True,12,28,False,False,SELECT Name FROM conductor GROUP BY Name ORDER BY Year_of_Work DESC LIMIT 1;,Robert Craft
+cosql-10224e1fdecbc77c1d40,orchestra,"Use the supplied database to answer the customer's current question.
+List the name of the conductor with the most years of work.",control,SELECT Name FROM conductor ORDER BY Year_of_Work DESC LIMIT 1,Robert Craft,0,0,False,0,28,False,False,,"I'd be happy to help you answer the customer's question using the database! However, I need the name of the SQLite database to proceed with the query.
+
+Could you please provide the database name (e.g., ""orchestra.sqlite"") so I can retrieve the conductor information with the most years of work?"
+cosql-9ca2aa146bce4b9e2e9d,dog_kennels,"Use the supplied database to answer the customer's current question.
+How many dog owner's are there?",candidate,SELECT count(*) FROM Owners,15,0,1,False,0,48,False,False,,
+cosql-9ca2aa146bce4b9e2e9d,dog_kennels,"Use the supplied database to answer the customer's current question.
+How many dog owner's are there?",control,SELECT count(*) FROM Owners,15,0,0,False,0,48,False,False,,"I'd be happy to help you find the number of dog owners in the database! However, I need to know which database you're referring to. Could you please provide the database name (e.g., ""dog_kennels.sqlite"") so I can query it for you?
+
+Once you provide the database name, I'll:
+1. First inspect the database schema to see what tables exist
+2. Then run a query to count the number of dog owners"
+cosql-11571656f407b98668c7,flight_2,"Conversation so far:
+Customer: how many airline's there
+Analyst: The number of airlines is 12.
+Customer: what is the name of the usa airline
+Analyst: What did you mean by ""the name of the USA airline?""
+
+Use the supplied database to answer the customer's current question.
+united sates of america",candidate,"SELECT Airline FROM AIRLINES WHERE Airline=""United Airlines""",United Airlines,2,1,False,0,56,False,False,"SELECT Country FROM airlines WHERE Country = 'United States of America' LIMIT 1;
+SELECT Country FROM airlines WHERE Country = 'United States of America' LIMIT 1;",
+cosql-11571656f407b98668c7,flight_2,"Conversation so far:
+Customer: how many airline's there
+Analyst: The number of airlines is 12.
+Customer: what is the name of the usa airline
+Analyst: What did you mean by ""the name of the USA airline?""
+
+Use the supplied database to answer the customer's current question.
+united sates of america",control,"SELECT Airline FROM AIRLINES WHERE Airline=""United Airlines""",United Airlines,0,1,False,0,56,False,False,"SELECT Name FROM airlines WHERE Country = 'United States of America'
+SELECT Name FROM airlines WHERE Country = 'United States of America'",
+cosql-4965c07a165db696f9f5,course_teach,"Use the supplied database to answer the customer's current question.
+How many teachers are there?",candidate,SELECT COUNT(*) FROM teacher,7,1,1,True,25,25,True,True,SELECT COUNT(*) FROM teacher,7
+cosql-4965c07a165db696f9f5,course_teach,"Use the supplied database to answer the customer's current question.
+How many teachers are there?",control,SELECT COUNT(*) FROM teacher,7,0,0,False,0,25,False,False,,"I'd be happy to help you find the number of teachers in the database! However, I need the name of the database to access it. Could you please provide the database name (e.g., ""course_teach.sqlite"") so I can query it for the teacher count?"
+cosql-d4d52f319a04dbeac6fd,cre_Doc_Template_Mgt,"Use the supplied database to answer the customer's current question.
+What is the document id with least number of paragraphs?",candidate,SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count(*) ASC LIMIT 1,3,1,1,False,0,25,False,False,SELECT Document_ID FROM Documents GROUP BY Document_ID ORDER BY Document_ID ASC LIMIT 1,
+cosql-d4d52f319a04dbeac6fd,cre_Doc_Template_Mgt,"Use the supplied database to answer the customer's current question.
+What is the document id with least number of paragraphs?",control,SELECT document_id FROM Paragraphs GROUP BY document_id ORDER BY count(*) ASC LIMIT 1,3,0,0,False,0,25,False,False,,"I'd be happy to help you find the document with the least number of paragraphs using the database. However, I need the name of the database file to access it.
+
+Could you please provide the name of the database file (e.g., ""cre_Doc_Template_Mgt.sqlite"") that you'd like me to use? Once you provide the database name, I can inspect its schema and then query it to find the document with the fewest paragraphs."
+cosql-65384642dd38b9c8d1c3,museum_visit,"Use the supplied database to answer the customer's current question.
+What is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?",candidate,SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 INTERSECT SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  >  2011,Fernando Gago,0,1,False,0,35,False,False,"SELECT DISTINCT v.visitor_name FROM visit v JOIN museum m ON v.museum_id = m.museum_id WHERE m.open_year < 2010 OR m.open_year > 2011 GROUP BY v.visitor_name ORDER BY COUNT(DISTINCT v.museum_id) DESC LIMIT 1;
+SELECT DISTINCT v.visitor_name FROM visit v JOIN museum m ON v.museum_id = m.museum_id WHERE m.open_year < 2010 OR m.open_year > 2011 GROUP BY v.visitor_name ORDER BY COUNT(DISTINCT v.museum_id) DESC LIMIT 1;",
+cosql-65384642dd38b9c8d1c3,museum_visit,"Use the supplied database to answer the customer's current question.
+What is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?",control,SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  <  2009 INTERSECT SELECT t1.name FROM visitor AS t1 JOIN visit AS t2 ON t1.id  =  t2.visitor_id JOIN museum AS t3 ON t3.Museum_ID  =  t2.Museum_ID WHERE t3.open_year  >  2011,Fernando Gago,2,1,False,0,35,False,False,"SELECT * FROM museum WHERE Open_Year < 2009
+SELECT * FROM museum WHERE Open_Year > 2011",
+cosql-97c7c96a5f0502179a9c,world_1,"Conversation so far:
+Customer: What is the total number of countries?
+Analyst: There are 239 countries in total
+
+Use the supplied database to answer the customer's current question.
+How many cities are there?",candidate,SELECT count(*) FROM city,4079,1,1,True,46,46,True,True,SELECT count(*) FROM city,4079
+cosql-97c7c96a5f0502179a9c,world_1,"Conversation so far:
+Customer: What is the total number of countries?
+Analyst: There are 239 countries in total
+
+Use the supplied database to answer the customer's current question.
+How many cities are there?",control,SELECT count(*) FROM city,4079,0,0,False,0,46,False,False,,"I can help you get the information about the total number of countries and cities. However, I need to know which database you'd like me to use. Could you please provide the database name (e.g., ""world_1.sqlite"") so I can query it for the information you need?"
+cosql-b053b7d51b2430144a4d,dog_kennels,"Conversation so far:
+Customer: How many dog owner's are there?
+Analyst: The number of owners is 15.
+
+Use the supplied database to answer the customer's current question.
+What is the age of the youngest dog?",candidate,SELECT age FROM Dogs ORDER BY age ASC LIMIT 1,1,0,1,False,0,48,False,False,,
+cosql-b053b7d51b2430144a4d,dog_kennels,"Conversation so far:
+Customer: How many dog owner's are there?
+Analyst: The number of owners is 15.
+
+Use the supplied database to answer the customer's current question.
+What is the age of the youngest dog?",control,SELECT age FROM Dogs ORDER BY age ASC LIMIT 1,1,2,1,True,48,48,True,False,"SELECT COUNT(*) as owner_count FROM Dogs
+SELECT MIN(age) as youngest_age FROM Dogs",
+cosql-cee46ea85fb12a9169f2,tvshow,"Conversation so far:
+Customer: What is the TV Channel of TV series ""A love of a lifetime""?
+
+Analyst:  the TV Channel of TV series ""A love of a lifetime"" is “Sky Radio”
+Customer: How may viewers does ""A love of a lifetime"" have?
+Analyst: the  ""A love of a lifetime"" has 9.16 viewers
+
+Use the supplied database to answer the customer's current question.
+How about the rating of ""A love of a lifetime?""",candidate,"SELECT  Weekly_Rank  FROM  TV_series  where Episode = ""A Love of a Lifetime"";",43.0,0,1,False,0,25,False,False,"SELECT Rating  FROM TV_series WHERE Channel = 'Sky Radio' AND Title = 'A love of a lifetime' LIMIT 1;
+SELECT Rating  FROM TV_series WHERE Channel = 'Sky Radio' AND Title = 'A love of a lifetime' LIMIT 1;",
+cosql-cee46ea85fb12a9169f2,tvshow,"Conversation so far:
+Customer: What is the TV Channel of TV series ""A love of a lifetime""?
+
+Analyst:  the TV Channel of TV series ""A love of a lifetime"" is “Sky Radio”
+Customer: How may viewers does ""A love of a lifetime"" have?
+Analyst: the  ""A love of a lifetime"" has 9.16 viewers
+
+Use the supplied database to answer the customer's current question.
+How about the rating of ""A love of a lifetime?""",control,"SELECT  Weekly_Rank  FROM  TV_series  where Episode = ""A Love of a Lifetime"";",43.0,0,1,False,0,25,False,False,"SELECT COUNT(*) FROM tvshow WHERE title = 'A love of a lifetime'
+SELECT Viewers_m FROM TV_series WHERE Title = 'A love of a lifetime'",
+cosql-2f25b58e3c5194a63ee7,flight_2,"Conversation so far:
+Customer: how many airline's there
+Analyst: The number of airlines is 12.
+Customer: what is the name of the usa airline
+Analyst: What did you mean by ""the name of the USA airline?""
+Customer: united sates of america
+Analyst: The name of the USA airline is United Airlines.
+
+Use the supplied database to answer the customer's current question.
+what is the abbreviation of us airways",candidate,"SELECT Abbreviation FROM AIRLINES WHERE Airline=""US Airways""",USAir,2,1,False,0,56,False,False,"SELECT Abbreviation FROM airlines WHERE Country = 'United States of America' LIMIT 1;
+SELECT Abbreviation FROM airlines WHERE Country = 'United States of America' LIMIT 1;",
+cosql-2f25b58e3c5194a63ee7,flight_2,"Conversation so far:
+Customer: how many airline's there
+Analyst: The number of airlines is 12.
+Customer: what is the name of the usa airline
+Analyst: What did you mean by ""the name of the USA airline?""
+Customer: united sates of america
+Analyst: The name of the USA airline is United Airlines.
+
+Use the supplied database to answer the customer's current question.
+what is the abbreviation of us airways",control,"SELECT Abbreviation FROM AIRLINES WHERE Airline=""US Airways""",USAir,1,1,False,0,56,False,False,SELECT Abbreviation FROM airlines WHERE Country = 'USA',"Based on the database, I can answer the customer's question:
+
+**The abbreviation of ""us airways"" is USAir.**
+
+This information comes from the airline database, which shows that United Airlines (USAir) is one of the airlines in the United States. The database also shows that there are 12 airlines total, and United Airlines is indeed one of them."
+cosql-776e3b16e3e9c9eb6eed,car_1,"Conversation so far:
+Customer: Can you list the number of car makers on each continent?
+Analyst: Here are the continents with their corresponding number of car makers
+Customer: What about the number of car makers in the country USA?
+Analyst: There are 4 car makers in the country USA
+
+Use the supplied database to answer the customer's current question.
+How about in the country Germany?",candidate,"seLECT count(*) FROM car_makers as T1 join countries as T2 on T2.CountryId  =  T1.Country where T2.countryname = ""germany""",4,2,1,False,0,60,False,False,"SELECT Continent FROM continents GROUP BY Continent HAVING COUNT(*) > 0 ORDER BY Continent LIMIT 10;
+SELECT CountryName FROM countries WHERE Continent = 'america' GROUP BY CountryName ORDER BY CountryName LIMIT 10;",
+cosql-776e3b16e3e9c9eb6eed,car_1,"Conversation so far:
+Customer: Can you list the number of car makers on each continent?
+Analyst: Here are the continents with their corresponding number of car makers
+Customer: What about the number of car makers in the country USA?
+Analyst: There are 4 car makers in the country USA
+
+Use the supplied database to answer the customer's current question.
+How about in the country Germany?",control,"seLECT count(*) FROM car_makers as T1 join countries as T2 on T2.CountryId  =  T1.Country where T2.countryname = ""germany""",4,2,1,False,0,60,False,False,"SELECT * FROM car_makers WHERE Country = 'USA'
+SELECT * FROM countries WHERE CountryName = 'USA'",
+cosql-1b206efe0798addc3435,network_1,"Conversation so far:
+Customer: Can you show me a list of student IDs and their friends IDs?
+Analyst: The table shows student IDs and their friends IDs
+Customer: Can you show me a list of all student IDs?
+Analyst: Did you mean the id of all High schoolers?
+Customer: Yes
+Analyst: The table shows the ids of all High schoolers.
+Customer: Can you show a list of IDs that are on the second list, but are not on the first list?
+Analyst: There is no ID that is on the second list but is not on the first list.
+Customer: Can you tell me the total number of student IDs?
+Analyst: The total number of High schooler ids is 16.
+
+Use the supplied database to answer the customer's current question.
+Can you tell me the total number of Friend IDs?",candidate,SELECT count(distinct friend_id) FROM Friend,15,1,1,False,0,29,False,False,SELECT count(*) FROM Friend,20
+cosql-1b206efe0798addc3435,network_1,"Conversation so far:
+Customer: Can you show me a list of student IDs and their friends IDs?
+Analyst: The table shows student IDs and their friends IDs
+Customer: Can you show me a list of all student IDs?
+Analyst: Did you mean the id of all High schoolers?
+Customer: Yes
+Analyst: The table shows the ids of all High schoolers.
+Customer: Can you show a list of IDs that are on the second list, but are not on the first list?
+Analyst: There is no ID that is on the second list but is not on the first list.
+Customer: Can you tell me the total number of student IDs?
+Analyst: The total number of High schooler ids is 16.
+
+Use the supplied database to answer the customer's current question.
+Can you tell me the total number of Friend IDs?",control,SELECT count(distinct friend_id) FROM Friend,15,0,0,False,0,29,False,False,,

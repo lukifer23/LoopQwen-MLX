@@ -1,5 +1,7 @@
 # LoopQwen research objective
 
+The consolidated two-visit assistant gained 41 individually correct answers and lost 27 established Base successes across 208 objective requests. Its three open preferences, four unsupported open replies and weaker human reasoning close this weight set. The new Base-only mechanism reuses four native layers and learns from execution on changed tables, conditional on passing its training checks. [Complete results](paper/integrated-assistance.pdf) · [Current decision path](docs/RELEASE_EVIDENCE.md)
+
 The frozen-loop readout improved real dependency decisions to 22/28 versus 14/28 and cut total time on a 112-request direct comparison by 78%. On the masked human sample it delivered eight supported answers versus sixteen for Base. Nine of 24 distinct backgrounds received the same recurrent answer to both questions. The model simultaneously improved automatic token overlap, illustrating why the release requires review of whole user answers. This checkpoint closes without matched-depth or full-context qualification. The independent static integration experiment retains the original 184 requests and adds 36 source-grounded or open-ended user requests. [Primary study](paper/visit-residual.pdf) · [New pair and stop rule](research/experiments/integrated-assistance-01.json)
 
 
