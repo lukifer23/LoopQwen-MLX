@@ -320,6 +320,22 @@ def build():
         P / "valid-return-paper.json",
         {
             "historical_depth": depth,
+            "deadlines": [
+                [
+                    f"{seconds:g} s",
+                    *[
+                        str(
+                            sum(
+                                r[arm + "_success"] == "True"
+                                and float(r[arm + "_wall_s"]) <= seconds
+                                for r in rows
+                            )
+                        )
+                        for arm in ARMS
+                    ],
+                ]
+                for seconds in (0.5, 1.0, 2.0, 4.0, 8.0, 16.0)
+            ],
             "ballot_sensitivity": ballot_text,
             "abstract": f"The loop grounded {human[0]}/72 human judgments versus {human[1]}/72 for Base. Across all 112 requests it grounded {groups[0]['grounded']} versus {groups[1]['grounded']} in {groups[0]['wall_s']:.2f} versus {groups[1]['wall_s']:.2f} seconds. The registered joint decision was {'pass' if decision['passed'] else 'fail'}.",
             "humans": f"The paired difference was {decision['net']:+d} of 72 judgments. A two-sided exact sign-flip test over 12 whole tables gave p = {decision['exact_story_p']:.5f}. The 95% table bootstrap interval was {ci[0]:+.1f} to {ci[1]:+.1f} percentage points.",

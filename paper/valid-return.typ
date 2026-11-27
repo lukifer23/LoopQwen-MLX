@@ -111,6 +111,16 @@ Registered gate failures: #m.gates
 
 The archived registration binds the data, starting policy, decision thresholds and native limits. The archive stores the exact response IDs, real tool returns, starting reference log odds, trained parameters and final AdamW moments. The accompanying request CSV and figures rebuild from that archive. The following 103 pages retain the earlier investigations, matched controls, portable tooling and installed long-context trials.
 
+#pagebreak()
+= A correct response within the user’s time budget
+#grid(("Deadline per request","Loop · correct by deadline","Base · correct by deadline"),m.deadlines,(1.05fr,1.55fr,1.55fr))
+#cap[All 112 requests remain in each denominator. Success requires the registered final answer and actual ordered evidence. A fast invalid call earns zero. The measured clock starts before constructing the actor on its first item and before each user conversation thereafter. Breakpoints are descriptive; the original registered decision uses the complete streams.]
+
+= Using and inspecting the model
+The installed runtime exposes the ordinary Base comparison through the same command as the trained loop. The release 05 backbone supplies the frozen instruction prefix. The policy directory supplies the trained second-visit model. For file work, provide a keyed CSV. For a dependent calendar request, expose that file and the calendar service together. The trace records the exact user prompt tokens, every generated argument and actual return, final response and retained physical histories.
+
+The source verifier reconstructs all 224 model trajectories from the enrolled documents, recorded tokens and published tokenizer. Each original held wheel is reopened as a ZIP, and all human field ballots can be replayed from a compact source copy. The original conference programs are preserved in both XML and calendar formats. Retraining uses the published learning rate, reference-policy odds, physical depth, seed, example schedule and optimizer exposure. The archive is suitable for checking the reported decisions independently; performance timings reflect the measured machine.
+
 = References
 #text(size:9pt)[
 1. Rafailov et al. (2023). #link("https://proceedings.neurips.cc/paper_files/paper/2023/hash/a85b405ed65c6477a4fe8302b5e06ce7-Abstract.html")[Direct Preference Optimization]. NeurIPS. \
