@@ -45,13 +45,21 @@ def entries():
         "runtime/" + runtime.name: runtime,
         "model/" + weights.name: weights,
     }
+    registry = read(ROOT / "research/registry.json")
     for name in STUDIES:
         folder = ROOT / "research/results" / name
+        assert (
+            digest(folder / "checksums.json")
+            == registry["experiments"][name]["archive"]
+        )
         index = read(folder / "checksums.json")
         protocol = read(folder / "registration.json")
         for field in ("material", "training"):
             relative = protocol.get(field, "")
             if isinstance(relative, str) and relative.startswith("research/data/"):
+                assert (
+                    digest(ROOT / relative) == registry["datasets"][relative]["sha256"]
+                )
                 records[relative] = ROOT / relative
         for p in sorted(folder.rglob("*")):
             if p.is_file():
