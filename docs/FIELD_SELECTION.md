@@ -36,7 +36,7 @@ curl --fail --location https://raw.githubusercontent.com/salesforce/WikiSQL/cffb
 .venv/bin/python -m scripts.field_selection_oracle --acquire
 ```
 
-A compact source snapshot retains all 140 original tables with 420 anonymous evidence ballots and the published held verdict votes. Run `.venv/bin/python -m scripts.field_selection_provenance --compact` to check this material offline. The policy add-on carries the eight original held wheels under `source-wheels/`.
+A compact source snapshot retains all 140 original tables with all 2,110 anonymous field-selection ballots on 420 claims, plus 180 published independent verdict votes on the held claims. Run `.venv/bin/python -m scripts.field_selection_provenance --compact` to check this material offline. The policy add-on carries the eight original held wheels under `source-wheels/`.
 
 The independent oracle opens each original wheel as a ZIP and checks the name, version, declared Python constraint and the complete embedded distribution metadata. It also executes the registered queries in an in-memory SQLite database. Subsequent runs of the oracle can use the local wheel cache.
 
@@ -65,5 +65,7 @@ The original first-token timing includes model startup on the first request. Run
 .venv/bin/python -m scripts.field_selection_analysis report
 .venv/bin/python -m scripts.paper_field_selection
 ```
+
+For an offline restored checkout, `.venv/bin/python -m scripts.verify_field_selection_frozen` reconstructs the original comparison using the frozen enrolled material, raw response IDs and restored release tokenizer. Repeating the original population sampling across the whole public datasets requires their full archives.
 
 The blinded responses and reading protocol support independent raters. The report uses the archived original ratings to reproduce the published analysis. The direct pair cannot isolate the causal contribution of recurrent depth. The separate 128K release and matched-depth induction studies retain their own registrations and weights.

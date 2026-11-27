@@ -54,6 +54,7 @@ FIELD = Edition(
     "field-selection-update-06.json",
     "field-selection.bundle",
     (
+        ("verify_field_selection_frozen", ()),
         ("field_selection_provenance", ("--compact",)),
         ("field_selection_oracle", ()),
         ("field_selection_exposure", ()),
@@ -298,9 +299,15 @@ def main(edition=PROOF):
             wheel_cache.parent.mkdir(parents=True, exist_ok=True)
             wheel_cache.symlink_to(work / "source-wheels")
         for module, args in edition.modules:
+            research_path = (
+                "sys.path.insert(0,str(Path.cwd()));"
+                if module == "verify_field_selection_frozen"
+                else "sys.path.append(str(Path.cwd()));"
+            )
             code = (
                 NETWORK_GUARD
-                + "import sys,runpy;from pathlib import Path;sys.path.append(str(Path.cwd()));"
+                + "import sys,runpy;from pathlib import Path;"
+                + research_path
                 + f"runpy.run_module('scripts.{module}',run_name='__main__')"
             )
             command(python, "-I", "-c", code, *args, cwd=checkout, env=env)
