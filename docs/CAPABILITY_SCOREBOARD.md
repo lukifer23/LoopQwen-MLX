@@ -7,7 +7,7 @@
 | Whole independent project pairs | 7/10 | 4/10 |
 | Fixed-version wheel swaps, whole | 3/4 | 0/4 |
 | Original human questions, exact | 13/48 | 6/48 |
-| Supported replies in masked human review | 8/24 | 16/24 |
+| Supported replies on masked review of human questions | 8/24 | 16/24 |
 | Elapsed seconds including callbacks | 127.32 | 587.18 |
 | Summed first-token seconds | 16.49 | 16.07 |
 | Peak MLX allocation, GiB | 1.124 | 1.708 |
