@@ -1,0 +1,23 @@
+{
+  "archive": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+  "probes": "5ac5ff82830525707f0cb729de939a177d3231154ee5a827952adf931fd76ca3",
+  "feature_archive": "e0221b817ddb7dde99c9d7bd860df9cd097933443ae93fbcfd08230036bd8ab7",
+  "code": "5121b7f8a9252fabf88cdcb909e9b1f50d693d776a237f83b6f69690026eb3d2",
+  "labels_sha256": "26548d985fff0156f8a5dde7655a624ef1ca86072768371042da154006477bc8",
+  "positions": {
+    "whitespace": 888,
+    "format": 1464,
+    "visible": 802,
+    "function name": 107,
+    "argument name": 146,
+    "argument value": 1088,
+    "reasoning": 883,
+    "mixed boundary": 37
+  },
+  "protocol": "Use all 120 preselected training probes. At the exact same saved weights score every natural target token with either one or two physical reads. Preserve causal memory, logits and gold IDs. Freeze token classification from the original rendered suffix and offsets before inference. Non-whitespace characters crossing a role boundary are mixed. Separate reasoning-channel content, visible answers, function names, parameter names, parameter values, syntax and whitespace. Report target-token NLL and actual greedy top-1 token accuracy, with one-to-two gains and losses for every class. Require all 5415 positions and all archived complete-example losses within 0.00002 nats for a valid diagnostic. Credit likelihood support beyond syntax only if reasoning, visible answers and tool argument values each improve. This is a within-training local intervention; it cannot promote a checkpoint or change product gates.",
+  "limits": {
+    "seconds": 120,
+    "peak_gib": 2.5,
+    "available_gib": 1.5
+  }
+}
