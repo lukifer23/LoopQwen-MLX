@@ -1,0 +1,71 @@
+{
+  "name": "loopqwen-field-update-04.zip",
+  "sha256": "ccca015162718891c7a7d58edfb4249c7dd65cf0689ee27c8d748c5071997d69",
+  "bytes": 132104046,
+  "source_revision": "28ed790e40d1a8dbf0a7068ef748a9c2b6058693",
+  "wheel_source": "7f9ab69956b266fcf5e77e0d5e2cd375b3fb96bd",
+  "payloads": 61,
+  "required_kit": "ba5a1326e0205f2a5727a6f8229290a81e2b03f04cceab44ceb32e6700418e5c",
+  "outside_checkout": true,
+  "network_blocked": true,
+  "empty_model_cache": true,
+  "history_restored": true,
+  "teacher_checkpoint_present": false,
+  "teacher_targets": "dd7968eda17daeb9c6f74f092953d4101041dd726ed8d98936afb9e4b9b33181",
+  "compiled_layer": "e0cae20a4727534de8daa6347d565f0b9e1a41a5137b995eafa98190ec705d9e",
+  "verified_cases": [
+    {
+      "case": "case-0-inline",
+      "id": "416d577258b541b1d4ffa9c66cb0e806a9d83780-inline",
+      "traces": {
+        "recurrent": "97d2c14e7cb9306597cea18588bc2e1bdf1708e44eab877cb2bbc11a69840912",
+        "base": "ecd77d547d551c66948c4f6f5d437fa9d8f7f915e8b2b2c81a840df489c7b7aa"
+      }
+    },
+    {
+      "case": "case-1-inline",
+      "id": "5c721577aa507ac2680d9bc253a9cafd2e5b553e-inline",
+      "traces": {
+        "recurrent": "9e64cf28d99fad566667dee895143e973dfab7aa957af6bb3794cd025db0fe5e",
+        "base": "419ca26a6bb96a9576cc9ee048e0d868eae35beaf7a2bd397cda99a99ccdca61"
+      }
+    },
+    {
+      "case": "case-2-file",
+      "id": "416d577258b541b1d4ffa9c66cb0e806a9d83780-file",
+      "traces": {
+        "recurrent": "16cd4f6ab4e2c7f4cb190e0a3fd0f53ff4c31585fcb22ecf349b44f77071e10d",
+        "base": "2b29615909bf94aa65c3f88b4537f05c3d5373cce256971691c370706f5641c0"
+      }
+    },
+    {
+      "case": "case-3-file",
+      "id": "5c721577aa507ac2680d9bc253a9cafd2e5b553e-file",
+      "traces": {
+        "recurrent": "d23889cbd29739e3ff37b0fbf1c5cf5ae9cbf7db9329be54d1ea801830cd29eb",
+        "base": "8fc61a4d6f89495912284902c9556967bcfa4aca934727fa675f1b187b004784"
+      }
+    },
+    {
+      "case": "case-4-retention",
+      "id": "wiki-test-11110",
+      "traces": {
+        "recurrent": "27bccb434d0076dd81cc4e0ff06fbed007fc2f491a31a1a569e1f5308074340d",
+        "base": "463d385c4eb04ac629fa022941456d77e50fe34ee52fd2eaec77c745d5968fdd"
+      }
+    }
+  ],
+  "paper_sha256": "c4e8346d252e46f39731bc1849686372b1aafa73aee4b90c724d3f1bae092142",
+  "regenerated_from_original_traces": [
+    "paper/cross-view-articles.svg",
+    "paper/cross-view-channels.svg",
+    "paper/cross-view-intervals.typ",
+    "paper/cross-view-metrics.typ",
+    "paper/cross-view-paper.json",
+    "paper/cross-view-requests.csv",
+    "paper/cross-view-service.svg",
+    "paper/cross-view-uncertainty.json",
+    "paper/cross-view.pdf",
+    "paper/loopqwen-study.pdf"
+  ]
+}
