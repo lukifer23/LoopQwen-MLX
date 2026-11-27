@@ -261,6 +261,12 @@ def main(verify):
             [sys.executable, "-m", "scripts.paper_followup"], cwd=ROOT, check=True
         )
 
+    visit = ROOT / "research/results/visit-residual-01/decision.json"
+    if visit.is_file() and "arms" in read(visit):
+        subprocess.run(
+            [sys.executable, "-m", "scripts.paper_visit_residual"], cwd=ROOT, check=True
+        )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

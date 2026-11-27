@@ -24,7 +24,7 @@ Previous training improved answers about Python packages but lost all eleven pre
 #pagebreak()
 = A readout tied to the second visit
 The original 0.8B instruction decoder uses an eight-bit prefix and a repeated final attention layer. Its two visits share weights and have independent physical key and value caches. Let $x$ be the hidden state after the first visit and $y$ the state after the second visit with its 0.35 residual coefficient. For each token the trainable readout returns
-$ y + op("RMS")(y) U[op("silu")(V n(x)) times.circle D n(y-x)] , $
+$ y + op("RMS")(y) U[op("silu")(V n(x)) ⊙ D n(y-x)] , $
 where $n$ is root-mean-square normalization with a small stabilizer and the product is elementwise. Each of the two input maps projects from 1,024 to 256 features. The output map projects back to 1,024. When the two visits agree, the correction is exactly zero. Initializing the output map to zero reproduced every one of the donor's 248,320 logits on the registered training position. The donor itself differs from untouched Base in instruction training, quantization and depth.
 
 Native MLX cached first- and second-visit states for 2,072 full training turns and optimized only 786,432 parameters. We used 1,600 AdamW updates, learning rate 0.0002, global gradient norm limit 1.0 and weight decay 0.01. Every batch included both original questions from one background, two package turns and three examples from different earlier task families. On each example we used at most 24 response positions, retaining boundaries and the first token that distinguished the correct visible answer from its paired alternative. Every drawn position and its parent input identity is archived.
@@ -73,5 +73,7 @@ An additional user-facing SQLite provider supports inspecting relationships and 
 
 = Reproduction and scope
 The archive at research/results/visit-residual-01 preserves raw prompt IDs, generations, callbacks, scores, learned weights, AdamW moments, training draws, software identities and the registered decision. The project’s archive verifier reconstructs the sampling process, checks all saved tensor shapes and replays responses against original resources. The paper’s CSV files contain all paired requests, all training updates, the 96 interchange measurements and all 32 installed crossover commands. Rebuild the tables and figures with scripts.paper_visit_residual.
+
+The first evaluation attempt stopped at tokenizer construction before any held generation. After normalizing the checkpoint path, the runner resumed from the completed training state using the same weights, example order, scorer and remaining budget. The archive records both execution windows.
 
 The 128K results elsewhere in this volume belong to their named checkpoints and tasks. A claim about the present readout requires additional measurements on these exact weights. The directly compared Base is the untouched pinned Qwen3.5-0.8B-Base. Repeated depth, separately trained components and quantization can each affect the measured difference. A causal depth attribution requires a matched one-visit training run.
