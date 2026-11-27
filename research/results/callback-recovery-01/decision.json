@@ -1,0 +1,440 @@
+{
+  "passed": false,
+  "eligible_training_errors": 119,
+  "groups": {
+    "all": {
+      "n": 120,
+      "candidate": {
+        "grounded": 36,
+        "answer": 55,
+        "completed": 103,
+        "success": 44,
+        "seconds": 139.62756017106585,
+        "first": 21.701126341242343,
+        "peak": 1810590710,
+        "tokens": 10242,
+        "actual_errors": 52,
+        "used_recovery": 48,
+        "successful_after_error": 5
+      },
+      "control": {
+        "grounded": 1,
+        "answer": 47,
+        "completed": 59,
+        "success": 12,
+        "seconds": 506.09861003793776,
+        "first": 15.447834662394598,
+        "peak": 1805202394,
+        "tokens": 34281,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 35,
+        "losses": 3,
+        "p": 6.677873898297548e-08
+      },
+      "answer_pairs": {
+        "gains": 31,
+        "losses": 23,
+        "p": 0.34089094122009733
+      }
+    },
+    "fresh": {
+      "n": 48,
+      "candidate": {
+        "grounded": 8,
+        "answer": 10,
+        "completed": 41,
+        "success": 8,
+        "seconds": 59.95603862492135,
+        "first": 7.357954834937118,
+        "peak": 1164195818,
+        "tokens": 4732,
+        "actual_errors": 40,
+        "used_recovery": 38,
+        "successful_after_error": 5
+      },
+      "control": {
+        "grounded": 0,
+        "answer": 26,
+        "completed": 28,
+        "success": 0,
+        "seconds": 191.7629992478178,
+        "first": 5.090180164668709,
+        "peak": 1786832786,
+        "tokens": 13068,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 8,
+        "losses": 0,
+        "p": 0.0078125
+      },
+      "answer_pairs": {
+        "gains": 2,
+        "losses": 18,
+        "p": 0.0004024505615234375
+      }
+    },
+    "ASDiv": {
+      "n": 24,
+      "candidate": {
+        "grounded": 6,
+        "answer": 7,
+        "completed": 18,
+        "success": 6,
+        "seconds": 35.22546024894109,
+        "first": 3.7948244168655947,
+        "peak": 1164195818,
+        "tokens": 2936,
+        "actual_errors": 19,
+        "used_recovery": 17,
+        "successful_after_error": 4
+      },
+      "control": {
+        "grounded": 0,
+        "answer": 13,
+        "completed": 14,
+        "success": 0,
+        "seconds": 91.30360008403659,
+        "first": 2.111675416934304,
+        "peak": 1785407378,
+        "tokens": 6249,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 6,
+        "losses": 0,
+        "p": 0.03125
+      },
+      "answer_pairs": {
+        "gains": 2,
+        "losses": 8,
+        "p": 0.109375
+      }
+    },
+    "SVAMP": {
+      "n": 24,
+      "candidate": {
+        "grounded": 2,
+        "answer": 3,
+        "completed": 23,
+        "success": 2,
+        "seconds": 24.730578375980258,
+        "first": 3.5631304180715233,
+        "peak": 1163721762,
+        "tokens": 1796,
+        "actual_errors": 21,
+        "used_recovery": 21,
+        "successful_after_error": 1
+      },
+      "control": {
+        "grounded": 0,
+        "answer": 13,
+        "completed": 14,
+        "success": 0,
+        "seconds": 100.4593991637812,
+        "first": 2.978504747734405,
+        "peak": 1786832786,
+        "tokens": 6819,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 2,
+        "losses": 0,
+        "p": 0.5
+      },
+      "answer_pairs": {
+        "gains": 0,
+        "losses": 10,
+        "p": 0.001953125
+      }
+    },
+    "retention": {
+      "n": 72,
+      "candidate": {
+        "grounded": 28,
+        "answer": 45,
+        "completed": 62,
+        "success": 36,
+        "seconds": 79.6715215461445,
+        "first": 14.343171506305225,
+        "peak": 1810590710,
+        "tokens": 5510,
+        "actual_errors": 12,
+        "used_recovery": 10,
+        "successful_after_error": 0
+      },
+      "control": {
+        "grounded": 1,
+        "answer": 21,
+        "completed": 31,
+        "success": 12,
+        "seconds": 314.33561079012,
+        "first": 10.357654497725889,
+        "peak": 1805202394,
+        "tokens": 21213,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 27,
+        "losses": 3,
+        "p": 8.430331945419312e-06
+      },
+      "answer_pairs": {
+        "gains": 29,
+        "losses": 5,
+        "p": 3.8558151572942734e-05
+      }
+    },
+    "arithmetic": {
+      "n": 10,
+      "candidate": {
+        "grounded": 0,
+        "answer": 0,
+        "completed": 9,
+        "success": 0,
+        "seconds": 9.909564001893159,
+        "first": 0.929102294088807,
+        "peak": 1163656258,
+        "tokens": 754,
+        "actual_errors": 12,
+        "used_recovery": 10,
+        "successful_after_error": 0
+      },
+      "control": {
+        "grounded": 0,
+        "answer": 3,
+        "completed": 3,
+        "success": 3,
+        "seconds": 44.70378174993675,
+        "first": 0.8946223747334443,
+        "peak": 1782458258,
+        "tokens": 3052,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 0,
+        "losses": 3,
+        "p": 0.25
+      },
+      "answer_pairs": {
+        "gains": 0,
+        "losses": 3,
+        "p": 0.25
+      }
+    },
+    "database": {
+      "n": 12,
+      "candidate": {
+        "grounded": 3,
+        "answer": 3,
+        "completed": 6,
+        "success": 3,
+        "seconds": 14.169260625145398,
+        "first": 2.310222541971598,
+        "peak": 1160756322,
+        "tokens": 1186,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "control": {
+        "grounded": 0,
+        "answer": 1,
+        "completed": 2,
+        "success": 0,
+        "seconds": 66.85665820701979,
+        "first": 1.391724374028854,
+        "peak": 1778879450,
+        "tokens": 4573,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 3,
+        "losses": 0,
+        "p": 0.25
+      },
+      "answer_pairs": {
+        "gains": 3,
+        "losses": 1,
+        "p": 0.625
+      }
+    },
+    "file": {
+      "n": 8,
+      "candidate": {
+        "grounded": 8,
+        "answer": 8,
+        "completed": 8,
+        "success": 8,
+        "seconds": 3.6366303759859875,
+        "first": 1.0494932099827565,
+        "peak": 1142955796,
+        "tokens": 230,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "control": {
+        "grounded": 1,
+        "answer": 1,
+        "completed": 1,
+        "success": 1,
+        "seconds": 41.62270633201115,
+        "first": 0.6741418749443255,
+        "peak": 1748901854,
+        "tokens": 2862,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 7,
+        "losses": 0,
+        "p": 0.015625
+      },
+      "answer_pairs": {
+        "gains": 7,
+        "losses": 0,
+        "p": 0.015625
+      }
+    },
+    "package": {
+      "n": 10,
+      "candidate": {
+        "grounded": 0,
+        "answer": 9,
+        "completed": 10,
+        "success": 0,
+        "seconds": 8.505135708954185,
+        "first": 1.1619272090028971,
+        "peak": 1147333580,
+        "tokens": 657,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "control": {
+        "grounded": 0,
+        "answer": 0,
+        "completed": 3,
+        "success": 0,
+        "seconds": 51.039855001086835,
+        "first": 0.7396275840583257,
+        "peak": 1749508062,
+        "tokens": 3493,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 0,
+        "losses": 0,
+        "p": 1.0
+      },
+      "answer_pairs": {
+        "gains": 9,
+        "losses": 0,
+        "p": 0.00390625
+      }
+    },
+    "public": {
+      "n": 22,
+      "candidate": {
+        "grounded": 17,
+        "answer": 17,
+        "completed": 19,
+        "success": 17,
+        "seconds": 14.251481001090724,
+        "first": 2.6254104591789655,
+        "peak": 1162351808,
+        "tokens": 1084,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "control": {
+        "grounded": 0,
+        "answer": 8,
+        "completed": 12,
+        "success": 0,
+        "seconds": 82.55196033406537,
+        "first": 2.1065173340030015,
+        "peak": 1783539602,
+        "tokens": 5634,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 17,
+        "losses": 0,
+        "p": 1.52587890625e-05
+      },
+      "answer_pairs": {
+        "gains": 10,
+        "losses": 1,
+        "p": 0.01171875
+      }
+    },
+    "reading": {
+      "n": 10,
+      "candidate": {
+        "grounded": 0,
+        "answer": 8,
+        "completed": 10,
+        "success": 8,
+        "seconds": 29.19944983307505,
+        "first": 6.267015792080201,
+        "peak": 1810590710,
+        "tokens": 1599,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "control": {
+        "grounded": 0,
+        "answer": 8,
+        "completed": 10,
+        "success": 8,
+        "seconds": 27.560649166000076,
+        "first": 4.551020955957938,
+        "peak": 1805202394,
+        "tokens": 1599,
+        "actual_errors": 0,
+        "used_recovery": 0,
+        "successful_after_error": 0
+      },
+      "strict_pairs": {
+        "gains": 0,
+        "losses": 0,
+        "p": 1.0
+      },
+      "answer_pairs": {
+        "gains": 0,
+        "losses": 0,
+        "p": 1.0
+      }
+    }
+  },
+  "historical_losses": [
+    "asdiv-00cdb2d8fb7171df7c0c9191d0dd8dc97c177612f3fd20097a2ed95947ef6da3",
+    "asdiv-007a83c4477a6b33177ff4a491ed4a799bec412ee7ba01b80ac31abeea830ea9"
+  ],
+  "changed_before_error_or_on_unaffected_requests": []
+}
