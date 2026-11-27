@@ -1,0 +1,87 @@
+{
+  "id": "extended-tool-prefix-01",
+  "requires": "research/results/cache-state-conversations-01",
+  "prerequisite_sha256": "7e3124d47e81e8d31b8327966cd79fded2e3430b18e6dd49f0dda27bb6d5883e",
+  "checkpoint": "exports/tool-language-packed-05",
+  "wheel_revision": "0b1286043e7dc355c368e8eae2438fd868ac4262",
+  "material": "research/data/valid-return-panel.json",
+  "file_sha256": "5b6a3f87f7e9b6a9b81d3fb56a62d1eb27431ba02c902054cf34b96283a1c3a1",
+  "cases": [
+    {
+      "id": "packages",
+      "format": "compact",
+      "prompts": [
+        "\u0907\u0938 \u0935\u093e\u0924\u093e\u0935\u0930\u0923 \u092e\u0947\u0902 \u0938\u094d\u0925\u093e\u092a\u093f\u0924 numpy \u0915\u093e \u0938\u0902\u0938\u094d\u0915\u0930\u0923 \u0915\u094d\u092f\u093e \u0939\u0948? \u0909\u092a\u0932\u092c\u094d\u0927 \u091f\u0942\u0932 \u0915\u093e \u0909\u092a\u092f\u094b\u0917 \u0915\u0930\u0947\u0902\u0964",
+        "\u0914\u0930 mlx \u0915\u093e \u0938\u0902\u0938\u094d\u0915\u0930\u0923 \u0915\u094d\u092f\u093e \u0939\u0948?"
+      ],
+      "flags": [
+        "--packages"
+      ]
+    },
+    {
+      "id": "file",
+      "format": "compact",
+      "prompts": [
+        "How many bytes are in research/experiments/native-function-dialogue-01.json? Please check it.",
+        "Now read the same file and tell me the number of lines."
+      ],
+      "flags": [
+        "--file",
+        "research/experiments/native-function-dialogue-01.json"
+      ]
+    },
+    {
+      "id": "agenda",
+      "format": "qwen",
+      "prompts": [
+        "Use the agenda file and calendar service to check the scheduled weekday for \"Kernel support for Mobile Linux: The missing 20%\".\n\nClaim: This session was scheduled on Saturday.\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain.",
+        "Check the venue entry for \"Kernel support for Mobile Linux: The missing 20%\" in the agenda.\n\nClaim: The listed room was UA2.114 (Baudoux).\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain."
+      ],
+      "flags": [
+        "--keyed-csv",
+        "brussels-program-0.csv",
+        "--resource",
+        "calendar"
+      ],
+      "ids": [
+        "2025-4836-weekday",
+        "2025-4836-room"
+      ]
+    },
+    {
+      "id": "wheel",
+      "format": "qwen",
+      "prompts": [
+        "Consult the published interpreter constraint for \"tomlkit\" in the release manifest.\n\nClaim: Python 3.7.17 is permitted by tomlkit 0.13.3.\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain.",
+        "Consult the published interpreter constraint for \"tomlkit\" in the release manifest.\n\nClaim: Python 3.8.20 is permitted by tomlkit 0.13.3.\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain."
+      ],
+      "flags": [
+        "--keyed-csv",
+        "release-manifest.csv"
+      ],
+      "ids": [
+        "tomlkit-3.7.17",
+        "tomlkit-3.8.20"
+      ]
+    }
+  ],
+  "order": [
+    "fixed",
+    "extended",
+    "extended",
+    "fixed",
+    "fixed",
+    "extended",
+    "extended",
+    "fixed"
+  ],
+  "max_tokens": 256,
+  "max_turns": 3,
+  "limits": {
+    "wall_seconds": 1000,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "question": "Does advancing a bounded request-local prefill snapshot after a real tool return reduce work on later turns without changing a single response?",
+  "protocol": "Same qualified release 05 and same four actual two-message workflows as the prior installed crossover. Eight four-command rounds with alternating order within four pairs. Both run cache-state prefill, conversation-local reuse, identical greedy limits and prompts; only --extend-tool-prefix varies. Each case starts a new offline process. Require literal original prompts, outputs, callbacks, statuses and physical histories for every turn, at least 1,024 additional reused tokens over at least two workloads, pooled native turn-opening time at least 2% lower with three of four matched wins, lower pooled cold first and end-to-end latency, no higher peak and no lower decode rate. Stop on resource violation or completion. A missed gate closes default promotion. This is an equal-weight engineering question about repeated interaction; it gives no training or new capability credit."
+}

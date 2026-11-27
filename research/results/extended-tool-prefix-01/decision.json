@@ -1,0 +1,84 @@
+{
+  "passed": false,
+  "gates": {
+    "streams": true,
+    "exercised": true,
+    "turn_open": true,
+    "cold_response": true,
+    "first": true,
+    "peak": false,
+    "decode": true
+  },
+  "totals": {
+    "extended": {
+      "requests": 32,
+      "cold_s": 88.68578599893954,
+      "cold_first_s": 25.852092001005076,
+      "peak": 1224175590,
+      "turn_open_s": 7.78951824689284,
+      "decode_tps": 102.31575269950713,
+      "output_tokens": 5824,
+      "reused": 30720,
+      "state_blocks": 104,
+      "callback_domains": [
+        "agenda",
+        "file",
+        "packages",
+        "wheel"
+      ]
+    },
+    "fixed": {
+      "requests": 32,
+      "cold_s": 89.859625918034,
+      "cold_first_s": 26.372221128025558,
+      "peak": 1220505574,
+      "turn_open_s": 8.480364375107456,
+      "decode_tps": 102.31344657484192,
+      "output_tokens": 5824,
+      "reused": 28672,
+      "state_blocks": 120,
+      "callback_domains": [
+        "agenda",
+        "file",
+        "packages",
+        "wheel"
+      ]
+    }
+  },
+  "paired_ratios": [
+    {
+      "cold_s": 0.9903464313935613,
+      "turn_open_s": 0.9151990262710344,
+      "cold_first_s": 0.988848525628831,
+      "peak": 1.0029801158450096,
+      "decode_tps": 1.0009395119249536
+    },
+    {
+      "cold_s": 0.9777949618401859,
+      "turn_open_s": 0.9200369264826259,
+      "cold_first_s": 0.9432922295823121,
+      "peak": 1.0029935397902574,
+      "decode_tps": 0.9951032715619204
+    },
+    {
+      "cold_s": 0.9907573682407705,
+      "turn_open_s": 0.9199333789322691,
+      "cold_first_s": 0.9917233813055754,
+      "peak": 1.0029801158450096,
+      "decode_tps": 0.9990772907145682
+    },
+    {
+      "cold_s": 0.9889388388466281,
+      "turn_open_s": 0.9189970957334495,
+      "cold_first_s": 0.9990982692845104,
+      "peak": 1.0030069637355052,
+      "decode_tps": 1.0049845429244575
+    }
+  ],
+  "additional_tokens_by_case": {
+    "packages": 0,
+    "file": 0,
+    "agenda": 1024,
+    "wheel": 1024
+  }
+}
