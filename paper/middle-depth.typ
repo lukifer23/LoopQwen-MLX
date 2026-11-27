@@ -7,7 +7,7 @@
 #text(size:12pt)[Native matched training and unrestricted generation on an 18 GiB M3 Pro]
 = Donor, control and intervention
 A frozen eight-question donor screen credited three answers from Qwen3.5-0.8B Base and zero from its instruction sibling at 256 generated tokens. Both fitted models therefore inherit the same Base text weights. The two-pass candidate repeats layers 12–15, including one global attention layer. Eight pretrained layers read out the result. Rank-16 adapters on six MLP output projections give each model 442,368 trainable coefficients. Only the recurrent model also fits the input-mixing coefficient. Both retain the ordinary vocabulary projection. Its one-pass initialization matched the donor logits exactly.
- 
+
 Huang et al. (arXiv:2610.23036) studied loop placement and input injection. Marchenko et al. (arXiv:2610.00673) motivated supervising multiple exits. Here the first 32 updates supervise one and two physical passes, followed by equal weighting of all three exits. The ordinary-depth sibling receives its own optimization on the same source order, final answers, rejected decisions and suffix adapters. The public effect and the causal depth effect use different comparators. Four families receive equal weight only when all four have measurements for the same checkpoint.
 
 = Development generations

@@ -4,6 +4,15 @@
     "lukifer23",
     "GPT 6.2 Astra"
   ],
+  "hardware": {
+    "machine": "arm64",
+    "chip": "Apple M3 Pro",
+    "gpu_cores": 14,
+    "memory_bytes": 19327352832,
+    "macos": "27.3",
+    "python": "3.12.12",
+    "gpu_source": "system_profiler SPDisplaysDataType"
+  },
   "historical": [
     {
       "label": "Rule induction",
@@ -416,6 +425,7 @@
     ]
   },
   "input_files": {
+    "docs/measurements/middle-depth/hardware.json": "f0074131d77055246fec8c774eba2cf8fe3f9ec45ac49dc3705972d940a49016",
     "paper/overview-comparisons.csv": "5c56b54dc0b46c663d911cadcef9222380e13fc7fd55250015bcbca18e0fbbd3",
     "docs/measurements/source-copy-supported-delivery.json": "451d262eeab0d1ef3e90afc691b23bafbc9c4f264448fe961455314d4eea0bc6",
     "docs/measurements/middle-depth/review/early/summary.json": "92dec260da65440c1c6224aded7386e56feb3a0dc06fc514053b1350484b26ca",

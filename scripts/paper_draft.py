@@ -36,6 +36,7 @@ def snapshot():
         inputs[str(path)] = digest(path)
         return read(path) if path.suffix == ".json" else unpack(path)
 
+    hardware = use(ROOT / "hardware.json")
     comparisons = P / "overview-comparisons.csv"
     inputs[str(comparisons)] = digest(comparisons)
     with comparisons.open() as stream:
@@ -138,6 +139,7 @@ def snapshot():
         dict(
             title=TITLE,
             authors=AUTHORS,
+            hardware=hardware,
             historical=historical,
             source_copy=src["scores"],
             early=early,
