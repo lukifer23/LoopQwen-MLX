@@ -429,3 +429,22 @@ From a research checkout with release 05 and the pinned original model snapshots
 ```
 
 The first command verifies the publisher's original reports against pinned SHA-256 hashes and compares the regenerated examples with the frozen research data. The second reads the original wheel bytes and their embedded package metadata. The training output under `outputs/research/report-action-field-01` includes weights, counts, optimizer and preparation time, token-level trajectories, callback observations and the gate decision. To verify the published records, run `.venv/bin/python scripts/research_archive.py report-action-field-01 --verify`. The offline inference kit includes both sets of weights and runs the installed model on its bundled questions. [Offline kit instructions](FIELD_KIT.md)
+
+## Argument binding in natural questions and file operations
+
+The interpolation study ran the trained final instruction layer twice on every token, with half of the previous update and 0.175 of its second residual. The independent role-binding fit starts from the original instruction sibling and trains a fresh two-pass adapter. Its minibatches contrast the original targets of paired human questions and include executed file returns. Both comparisons use the pinned ordinary Base, identical native thinking prompts and fully recorded callbacks. Each registration specifies its domains, output allowance, resource ceiling and stop rule.
+
+```sh
+.venv/bin/python scripts/interpolation_material.py
+.venv/bin/python scripts/binding_material.py
+.venv/bin/python scripts/research_archive.py instruction-interpolation-01 --verify
+.venv/bin/python scripts/research_archive.py role-binding-01 --verify
+.venv/bin/python scripts/binding_source_check.py
+.venv/bin/python scripts/report_distribution_bytes.py --keyed-inventories
+.venv/bin/python scripts/interpolation_activation.py
+.venv/bin/python scripts/role_binding_reading.py
+.venv/bin/python scripts/paper_instruction_interpolation.py
+.venv/bin/python scripts/paper_role_binding.py
+```
+
+The first two commands reconstruct the training and test data from pinned sources. The archive verifiers replay each model’s history and execute every recorded tool call. The source checks compare the held-out labels with the publisher's original SQLite database and the recorded wheel hashes. Adding `--fetch` to the distribution check downloads and measures all 16 original files. The activation check uses native MLX and an independent prompt. The paper build puts both supplements and the historical 64-page publication in one bookmarked PDF.
