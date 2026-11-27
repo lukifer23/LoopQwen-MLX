@@ -237,6 +237,9 @@ def qualify(s, tok, root, guard):
     prior = read(Path("research/results") / s["deferred_after"] / "decision.json")
     if prior["passed"] or "arms" not in prior:
         raise InterruptedError("The preceding primary requires its own resolution")
+    from scripts.integrated_assistance_oracle import audit
+
+    audit()
     data = read(s["material"])
     for file, expected in s["sources"].items():
         assert digest(Path(file)) == expected
@@ -367,6 +370,7 @@ if __name__ == "__main__":
             "loopqwen/research/task_merge_probe.py",
             "loopqwen/research/integrated_assistance_fit.py",
             "scripts/dialogue_database_semantics.py",
+            "scripts/integrated_assistance_oracle.py",
             "loopqwen/relational_tools.py",
             "scripts/integrated_assistance_material.py",
         ),

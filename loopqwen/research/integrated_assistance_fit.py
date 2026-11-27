@@ -59,6 +59,23 @@ def positions(labels, visible, cap, seed):
     )
 
 
+def learning_objective(model, h, p, y):
+    sites = model.sites[model.span.start :]
+    first = model._execute(h, sites[:1])
+    second = model._execute(first, sites[1:])
+
+    def nll(state):
+        logits = model.project(model.text.model.norm(state[0, p])).astype(mx.float32)
+        return nn.losses.cross_entropy(logits, y, reduction="none")
+
+    reference = mx.stop_gradient(nll(first))
+    observed = nll(second)
+    gain = reference - observed
+    ranking = mx.logaddexp(mx.zeros_like(gain), 0.1 - gain).mean()
+    total = observed.mean() + 0.15 * ranking
+    return total, observed.mean(), reference.mean(), ranking
+
+
 def fit(net, tok, s, root, guard, *, prepare):
     start = perf_counter()
     views = read(s["training"])["examples"]
@@ -76,25 +93,7 @@ def fit(net, tok, s, root, guard, *, prepare):
     net.checkpointing = True
     net.train()
 
-    def objective(model, h, p, y):
-        sites = model.sites[model.span.start :]
-        first = model._execute(h, sites[:1])
-        second = model._execute(first, sites[1:])
-
-        def nll(state):
-            logits = model.project(model.text.model.norm(state[0, p])).astype(
-                mx.float32
-            )
-            return nn.losses.cross_entropy(logits, y, reduction="none")
-
-        reference = mx.stop_gradient(nll(first))
-        observed = nll(second)
-        gain = reference - observed
-        ranking = mx.logaddexp(mx.zeros_like(gain), 0.1 - gain).mean()
-        objective = observed.mean() + 0.15 * ranking
-        return objective, observed.mean(), reference.mean(), ranking
-
-    grad = nn.value_and_grad(net, objective)
+    grad = nn.value_and_grad(net, learning_objective)
     directory = Path("checkpoints/research") / s["id"]
     directory.mkdir(exist_ok=True, parents=True)
     identity = {
@@ -136,9 +135,7 @@ def fit(net, tok, s, root, guard, *, prepare):
                 net, h, mx.array(pos) + offset, mx.array([y[j] for j in pos])
             )
             if total_grad is None:
-                total_grad = tree_map(
-                    lambda t, n=width: t.astype(mx.float32) / n, g
-                )
+                total_grad = tree_map(lambda t, n=width: t.astype(mx.float32) / n, g)
             else:
                 total_grad = tree_map(
                     lambda a, b, n=width: a + b.astype(mx.float32) / n,
