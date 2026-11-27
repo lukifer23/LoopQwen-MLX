@@ -15,6 +15,7 @@ from loopqwen.io import read, save
 from loopqwen.research.cross_view_study import NAME
 from loopqwen.research.native_function_study import executions
 from scripts.assemble_evidence_paper import edition
+from scripts.cross_view_uncertainty import paired_articles
 
 P = Path("paper")
 
@@ -245,7 +246,45 @@ def build():
         + "."
     )
     checks = blind["arms"]
+    uncertainty = paired_articles(records)
+    save(P / "cross-view-uncertainty.json", uncertainty)
+    primary = uncertainty["paired"]["all_four"]
+    assert (primary["wins"], primary["losses"], primary["paired_p"]) == (
+        d["wins"],
+        d["losses"],
+        d["p"],
+    )
+    intervals = [
+        '#table(columns:(2.25fr,1fr,1.7fr),stroke:none,inset:4pt,fill:(x,y)=>if y==0 {rgb("#dfede9")} else if calc.odd(y) {rgb("#f2f6f4")},[Paired measure],[Loop − Base],[95% interval],'
+    ]
+    for key, label in (
+        ("all_four", "All four answers"),
+        ("file", "File success"),
+        ("inline", "Inline success"),
+        ("file_f1", "File token F1"),
+        ("inline_f1", "Inline token F1"),
+    ):
+        v = uncertainty["paired"][key]
+        lo, hi = v["interval"]
+        intervals.append(
+            f"[{label}],[{v['difference']:+.3f}],[{lo:+.3f} to {hi:+.3f}],"
+        )
+    (P / "cross-view-intervals.typ").write_text("\n".join(intervals) + ")\n")
+    repeats = []
+    for arm, name in (("candidate", "The loop"), ("control", "Base")):
+        items = uncertainty["two_completed"][arm]
+
+        def count_repeated(f):
+            return f"{sum(x['repeated_answer'] for x in items[f])}/{len(items[f])}"
+
+        repeats.append(
+            f"{name} gave the same normalized reply to both different questions on {count_repeated('file')} file articles and {count_repeated('inline')} inline articles with two completed replies."
+        )
+    activation = read("docs/measurements/cross-view-activation.json")
+    assert activation["compiled_weights"] == read(root / "compiled.json")["weights"]
     value = {
+        "repetitions": " ".join(repeats),
+        "intervention": f"The physical probe uses the actual compiled weights and calls the project measurement file for the sum of first-token waits. The callback returned {activation['actual_observation']['value']} seconds. Both final-layer visits independently retained all {len(activation['prompt_ids'])} tokens of the resulting conversation. Setting the repeated residual contribution to zero changed the next-token logits by RMS {activation['rms_logit_change']:.4f}. Restoring the coefficient reproduced all {activation['vocabulary_size']:,} logits bit for bit.",
         "channels": channel,
         "summary": f"The trained loop completed all four judgments on {a['both_modes_both_questions']}/20 articles and untouched Base on {b['both_modes_both_questions']}/20. The loop gained {d['wins']} articles and lost {d['losses']} (two-sided exact paired p = {d['p']:.4g}). The 88 requests took {a['all']['wall_s']:.2f} and {b['all']['wall_s']:.2f} seconds respectively.",
         "decision": verdict,

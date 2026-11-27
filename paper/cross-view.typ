@@ -52,3 +52,18 @@ The whole-stream timings include model construction on the first request, genera
 #m.example
 
 The accompanying CSV includes every request, source, caller-visible reply, first call, exact and content scores, F1, peak memory and actual latency. The registration fixes thresholds and the maximum budget in advance. A direct comparison with untouched Base combines instruction post-training, recurrence, distillation and precision. An equally trained single-pass control is needed to attribute a quality gain to the loop itself.
+
+#pagebreak()
+= How much varies between articles?
+Each article contributes two questions in two settings to both models. Counting those eight replies as independent would understate uncertainty. For this descriptive analysis we resampled 20 whole articles with replacement 20,000 times, preserving all questions, settings and arms within an article. The table gives the difference on the original sample and percentile bounds. The eight table-retention requests have a different sampling unit and are excluded. The exact paired article test on page one governs the decision.
+
+#include "cross-view-intervals.typ"
+
+= Can the answer change with the question?
+The two human questions on each passage have different reference answers. We compared freely generated replies after case, punctuation, article and whitespace normalization. #m.repetitions Different replies can still both be wrong. This count describes answer behavior among completed pairs.
+
+= Physical verification after a tool return
+#m.intervention The probe uses a separate project file and issues no scored answers. It establishes that the repeated layer influences a real post-observation prediction. The all-article comparison measures whether the complete system answers users successfully.
+
+= Reproducing the measurements
+The update supplies the panel, original source archives, per-token teacher distributions, fitted adapters, compiled layer, per-request traces and an installable runtime. Kit 01 supplies the original smaller checkpoints and locked native dependencies. The reconstruction script verifies tokenization, human answer offsets, article disjointness, teacher ranks, scheduled optimizer exposure, model hashes, physical attention histories, every real callback and the article-level decision. The published CSV and SVG plots are regenerated from both complete traces. The field guide includes the offline commands for an arbitrary caller-supplied CSV.
