@@ -229,6 +229,8 @@ def training_lineage():
                 continue
             result(root.name)
             spec = read(root / "registration.json")
+            if "frozen_fit" in spec:
+                continue
             donor = spec.get("donor", {})
             if root.name == "folded-system-01":
                 donor = read(Path(spec["public"]) / "registration.json")["donor"]
@@ -428,7 +430,7 @@ def main():
     workload_mix(PAPER, RESULTS, result, finish)
     repeated_requests(PAPER, RESULTS, result)
     plot_folded(PAPER, RESULTS, result, finish, "shared-session-01")
-    plot_folded(PAPER, RESULTS, result, finish, "shared-session-unified-01")
+    plot_folded(PAPER, RESULTS, result, finish, "shared-session-tokenizer-replay-01")
     plot_intents(PAPER, RESULTS, result, finish)
     plot_field(PAPER, RESULTS, result, finish)
     from paper_table import make as table_actions

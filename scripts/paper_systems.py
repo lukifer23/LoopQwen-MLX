@@ -142,7 +142,7 @@ def write(paper, results, result):
             "success",
         ),
         (
-            "shared-session-unified-01",
+            "shared-session-tokenizer-replay-01",
             "Unified recurrent assistant",
             "mixed",
             144,

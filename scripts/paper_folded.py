@@ -26,7 +26,7 @@ def user_evidence(item, trajectory):
 
 
 def make(paper, results, result, finish, name="folded-system-01"):
-    unified = name == "shared-session-unified-01"
+    unified = name == "shared-session-tokenizer-replay-01"
     shared = name.startswith("shared-session-")
     prefix = (
         "unified-session"
@@ -237,7 +237,7 @@ def shared_objective(paper, results, result):
 
 def workload_mix(paper, results, result, finish):
     """Standardize measured fresh and retention outcomes to different request mixes."""
-    names = ("shared-session-01", "shared-session-unified-01")
+    names = ("shared-session-01", "shared-session-tokenizer-replay-01")
     names = [n for n in names if (results / n / "checksums.json").exists()]
     if not names:
         return
@@ -312,7 +312,7 @@ def repeated_requests(paper, results, result):
     """Compare the two service designs only on requests that actually recur."""
     from scripts.field_cli_replay import identical
 
-    studies = ("shared-session-01", "shared-session-unified-01")
+    studies = ("shared-session-01", "shared-session-tokenizer-replay-01")
     if not all((results / n / "checksums.json").exists() for n in studies):
         return
     panel, arms = [], []
