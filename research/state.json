@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-26T23:03:39.342032+00:00",
-  "starting_revision": "77c2d38",
+  "session_start_utc": "2026-11-27T00:14:29.875023+00:00",
+  "starting_revision": "5edf763",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -874,6 +874,18 @@
       "id": "document-evidence-01",
       "promoted": false,
       "reason": "Six grounded exact answers versus zero on 40 real files, with 22 annotated spans retrieved, four successful project-guide lookups and slower first tokens. Missed the 14-answer floor."
+    },
+    {
+      "id": "shared-session-unified-01",
+      "promoted": false,
+      "scope": "Can the same two native applications, with one shared adapter for reasoning, general instructions and external actions, outperform untouched Base on new human requests while retaining the released tool behavior?",
+      "decision": "research/results/shared-session-unified-01/decision.json"
+    },
+    {
+      "id": "shared-session-tokenizer-replay-01",
+      "promoted": false,
+      "scope": "Can the native Qwen3.5 tokenizer restore byte-for-byte prompt parity across the same 144 complete requests, preserve every previously valid trajectory and let the finished joint decoder beat untouched Base on the prespecified semantic and resource outcomes?",
+      "decision": "research/results/shared-session-tokenizer-replay-01/decision.json"
     }
   ],
   "status": "The qualified 131K offline assistant is release 04. Active research compares field clarification, free language modeling, combined reasoning and tool use, trained document search and complete Git-tree retrieval under their registered stop rules.",
@@ -929,9 +941,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795731422.65461,
+  "closed_session_start": 1795734219.342032,
   "native_window": {
-    "start_utc": "2026-11-26T23:03:39.342032+00:00",
+    "start_utc": "2026-11-27T00:14:29.875023+00:00",
     "status": "open"
   },
   "kinship_transfer": {
