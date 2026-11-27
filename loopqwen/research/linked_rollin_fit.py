@@ -112,7 +112,7 @@ def collect(net, tok, s, t, folder, root, phase, guard):
         guard,
         lambda: actor,
         lambda w: providers(w, folder),
-        scorer=score,
+        scorer=lambda w, i, tr: score(tok, w, i, tr),
     )
     packed(path, output)
 
