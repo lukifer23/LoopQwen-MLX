@@ -82,6 +82,23 @@ def figure(data):
     plt.close(fig)
 
 
+def fit_plot(gains):
+    fig, ax = plt.subplots(figsize=(8, 3.5), layout="constrained")
+    ordered = sorted(gains, key=gains.get)
+    vals = [gains[k] for k in ordered]
+    ax.barh(
+        [k.replace("_", " ") for k in ordered],
+        vals,
+        color=["#306f77" if v > 0 else "#b45d40" for v in vals],
+    )
+    ax.axvline(0, color="#333333", linewidth=0.8)
+    ax.axvline(-0.02, color="#b45d40", linestyle="--", linewidth=1)
+    ax.set_xlabel("Mean reduction in NLL (nats per target token)")
+    ax.spines[["top", "right"]].set_visible(False)
+    fig.savefig(P / "pressure-continuation-fit-effects.svg", metadata={"Date": None})
+    plt.close(fig)
+
+
 def build():
     stages, log = history()
     optimizer_plot(log, prefix="pressure-continuation")
@@ -148,6 +165,17 @@ def build():
     }
     if (elastic / "training-free-generation.json.gz").exists():
         out["specificity"] = specificity(True, name=ATTEMPTS[-1])
+        fit_plot(stages[-1]["decision"]["mean_nll_gain"])
+        cold = DOC / (ATTEMPTS[-1] + "-cold.json")
+        if cold.is_file():
+            committed(cold)
+            receipt = read(cold)
+            out["cold"] = {
+                "count": len(receipt["checks"]),
+                "positions": receipt["positions"],
+                "error": receipt["max_mean_error"],
+                "receipt": digest(cold),
+            }
     primary = RESULT / "elastic-world-transfer-01"
     if (primary / "checksums.json").exists():
         committed(primary / "checksums.json")
