@@ -1,0 +1,49 @@
+id,expert_sql,generated_sql,exact_own_expert,exact_any_training_target,all_worlds,tested,correct_worlds,distinct_nonempty_values,current_request
+operator/nt-5636,"SELECT (""Nation"" COLLATE NOCASE) FROM records WHERE CAST(""Silver"" AS NUMERIC) < ( SELECT MAX ( CAST(""Silver"" AS NUMERIC) ) FROM records ) ORDER BY CAST(""Silver"" AS NUMERIC) DESC LIMIT 1","SELECT (""Nation"" COLLATE NOCASE) FROM records ORDER BY CAST(""Total"" AS NUMERIC) LIMIT 1 OFFSET 1",False,False,False,5,0,4,"Use the supplied table to answer the question. Give the answer in a short phrase.
+which is the other nation with the second highest sliver medal"
+operator/nt-1958,"SELECT COUNT ( (""Driver"" COLLATE NOCASE) ) FROM records WHERE CAST(NULLIF(TRIM(""Points""), '') AS NUMERIC) >= 4","SELECT COUNT ( (""Driver"" COLLATE NOCASE) ) FROM records WHERE CAST(NULLIF(TRIM(""Points""), '') AS NUMERIC) >= 4",True,True,True,5,5,4,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many drivers scored at least 4 or more points?"
+operator/nt-11415,"SELECT COUNT ( (""Full Name"" COLLATE NOCASE) ) FROM records WHERE (""Gender"" COLLATE NOCASE) != 'girl'","SELECT COUNT ( * ) FROM records WHERE (""Gender"" COLLATE NOCASE) != 'girl'",False,False,True,6,6,5,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many names were not given to girls?"
+operator/nt-12963,"SELECT COUNT ( * ) FROM records WHERE (""Victor"" COLLATE NOCASE) = 'wales'","SELECT COUNT ( * ) FROM records WHERE (""Victor"" COLLATE NOCASE) = 'wales'",True,True,True,7,7,6,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many matches have been won by wales?"
+operator/nt-8610,"SELECT (""Place"" COLLATE NOCASE) FROM records ORDER BY (""Season"" COLLATE NOCASE) DESC LIMIT 1","SELECT (""Place"" COLLATE NOCASE) FROM records WHERE (""Place"" COLLATE NOCASE) = 'place_last_season'",False,False,False,7,0,0,"Use the supplied table to answer the question. Give the answer in a short phrase.
+where did they place the last season?"
+operator/nt-7356,"SELECT COUNT ( (""Season"" COLLATE NOCASE) ) FROM records WHERE (""Notes"" COLLATE NOCASE) = 'league champion'","SELECT COUNT ( (""Season"" COLLATE NOCASE) ) FROM records WHERE (""Season"" COLLATE NOCASE) = '2019'",False,False,False,5,0,1,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many years did this team become league champion?"
+operator/nt-10153,"SELECT COUNT ( * ) FROM records WHERE (""Event"" COLLATE NOCASE) = 'golden gloves'","SELECT COUNT ( * ) FROM records WHERE (""Result"" COLLATE NOCASE) = 'golden gloves'",False,False,False,4,0,1,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many times did scheider appear in the golden gloves event?"
+operator/nt-5380,"SELECT (""Driver"" COLLATE NOCASE) FROM records WHERE CAST(""Pos"" AS NUMERIC) = ( SELECT CAST(""Pos"" AS NUMERIC) FROM records WHERE (""Driver"" COLLATE NOCASE) = 'will power' ) + 1","SELECT (""Driver"" COLLATE NOCASE) FROM records WHERE (""Pos"" COLLATE NOCASE) = 'will power'",False,False,False,7,0,0,"Use the supplied table to answer the question. Give the answer in a short phrase.
+who finished after will power?"
+operator/nt-494,"SELECT COUNT ( * ) FROM records WHERE (""Opponent"" COLLATE NOCASE) = 'macau'","SELECT COUNT ( * ) FROM records WHERE (""Opponent"" COLLATE NOCASE) = 'macau'",True,True,True,7,7,3,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many times was macau the opponent?"
+operator/nt-8508,"SELECT COUNT ( (""Competition"" COLLATE NOCASE) ) FROM records WHERE CAST(""Year"" AS NUMERIC) = 2005","SELECT COUNT ( (""Competition"" COLLATE NOCASE) ) FROM records WHERE CAST(""Year"" AS NUMERIC) = 2005",True,True,True,5,5,3,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many competitions were held in 2005?"
+operator/nt-6640,"SELECT COUNT ( (""Original title"" COLLATE NOCASE) ) FROM records GROUP BY CAST(""Year"" AS NUMERIC) ORDER BY COUNT ( (""Original title"" COLLATE NOCASE) ) DESC LIMIT 1","SELECT COUNT ( * ) FROM records WHERE (""Role"" COLLATE NOCASE) = 'henrick malberg'",False,False,False,5,0,1,"Use the supplied table to answer the question. Give the answer in a short phrase.
+the most films henrick malberg appeared in in one year."
+operator/nt-2990,"SELECT COUNT ( (""Contestant"" COLLATE NOCASE) ) FROM records WHERE CAST(""Age"" AS NUMERIC) < 20","SELECT COUNT ( (""Represent"" COLLATE NOCASE) ) FROM records WHERE CAST(""Age"" AS NUMERIC) != 20",False,False,False,6,0,2,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many delegates are not in their 20's"
+operator/nt-1587,"SELECT CAST(""Total"" AS NUMERIC) FROM records WHERE (""Nation"" COLLATE NOCASE) = 'south africa'","SELECT SUM ( CAST(""Total"" AS NUMERIC) ) FROM records WHERE (""Nation"" COLLATE NOCASE) = 'south africa'",False,False,True,5,5,5,"Use the supplied table to answer the question. Give the answer in a short phrase.
+the total number of medals won by south africa was how many?"
+operator/nt-5418,"SELECT (""Date"" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(""Attendance"", ',', '') AS NUMERIC) LIMIT 1","SELECT (""Attendance"" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(""Attendance"", ',', '') AS NUMERIC) LIMIT 1",False,False,False,6,0,2,"Use the supplied table to answer the question. Give the answer in a short phrase.
+what was the date of the game that had the least number of people in attendance?"
+operator/nt-2714,"SELECT COUNT ( (""Player"" COLLATE NOCASE) ) FROM records WHERE CAST(NULLIF(TRIM(""Height""), '') AS NUMERIC) >= 1.90","SELECT COUNT ( (""Player"" COLLATE NOCASE) ) FROM records WHERE CAST(""Height"" AS NUMERIC) >= 1.90",False,False,True,7,7,4,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many players have a height of at least 1.90?"
+operator/nt-2180,"SELECT (""Name"" COLLATE NOCASE) FROM records WHERE CAST(""Rank"" AS NUMERIC) = 1","SELECT (""Name"" COLLATE NOCASE) FROM records WHERE CAST(""Rank"" AS NUMERIC) = 1",True,True,True,6,6,5,"Use the supplied table to answer the question. Give the answer in a short phrase.
+who is ranked first?"
+operator/nt-5035,"SELECT CAST(""Year signed"" AS NUMERIC) FROM records WHERE (""Act"" COLLATE NOCASE) = 'machine gun kelly'","SELECT CAST(""Year signed"" AS NUMERIC) FROM records WHERE (""Act"" COLLATE NOCASE) = 'machine gun kelly'",True,True,True,8,8,5,"Use the supplied table to answer the question. Give the answer in a short phrase.
+what year was machine gun kelly signed?"
+operator/nt-8303,"SELECT COUNT ( * ) FROM records WHERE (""Type of game"" COLLATE NOCASE) = 'friendly'","SELECT COUNT ( * ) FROM records WHERE (""Type of game"" COLLATE NOCASE) = 'friendly'",True,True,True,8,8,5,"Use the supplied table to answer the question. Give the answer in a short phrase.
+how many friendly games have been played?"
+operator/nt-945,"SELECT COUNT ( * ) FROM records WHERE (""Artist"" COLLATE NOCASE) = '2ne1'","SELECT COUNT ( * ) FROM records WHERE (""Artist"" COLLATE NOCASE) = '2ne1'",True,True,True,9,9,4,"Use the supplied table to answer the question. Give the answer in a short phrase.
+what is the total number of albums that 2ne1 has released?"
+operator/nt-2644,"SELECT (""Name"" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (""Name"" COLLATE NOCASE) = 'alan smith' ) + 1","SELECT (""Name"" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (""Name"" COLLATE NOCASE) = 'alan smith' ) - 1",False,False,False,9,0,6,"Use the supplied table to answer the question. Give the answer in a short phrase.
+which name is listed after alan smith?"
+operator/nt-2809,"SELECT (""Team 1"" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (""Team 1"" COLLATE NOCASE) = 'botswana' ) - 1","SELECT (""Team 1"" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (""Team 1"" COLLATE NOCASE) = 'botswana' ) - 1",True,True,True,6,6,3,"Use the supplied table to answer the question. Give the answer in a short phrase.
+what team is before team botswana in column team 1?"
+operator/nt-2543,"SELECT (""Competition"" COLLATE NOCASE) FROM records WHERE rowid = 1","SELECT (""Year"" COLLATE NOCASE) FROM records WHERE rowid = 1",False,False,False,9,0,3,"Use the supplied table to answer the question. Give the answer in a short phrase.
+what is the name of the first competiton on this chart?"
+operator/nt-7804,"SELECT (""Gold"" COLLATE NOCASE) FROM records WHERE (""Nation"" COLLATE NOCASE) = 'france'","SELECT CAST(""Gold"" AS NUMERIC) FROM records WHERE (""Nation"" COLLATE NOCASE) = 'france'",False,False,True,4,4,3,"Use the supplied table to answer the question. Give the answer in a short phrase.
+what is the total amount of gold awards that france won?"
+operator/nt-2549,"SELECT (""Player"" COLLATE NOCASE) FROM records WHERE (""Position"" COLLATE NOCASE) = 's'","SELECT (""Player"" COLLATE NOCASE) FROM records WHERE (""Position"" COLLATE NOCASE) = 's'",True,True,True,4,4,4,"Use the supplied table to answer the question. Give the answer in a short phrase.
+what was the name of the only player with the position listed as s?"
