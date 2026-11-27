@@ -125,5 +125,85 @@ def replay():
     print(receipt)
 
 
+def replay_roles():
+    target = ROOT / "csv-role-training.json.gz"
+    info = read(ROOT / "csv-role-qualification.json")
+    assert digest(target) == info["training"]
+    programs = {w["id"]: w for w in unpack(MULTI)}
+    enrolled = defaultdict(list)
+    for r in unpack(target):
+        key, world, group = r["id"].split("/")
+        assert group == r["group"] and key == r["source"]
+        enrolled[key, int(world)].append(r)
+    outcomes = Counter()
+    with TemporaryDirectory() as tmp:
+        p = Path(tmp) / "records.csv"
+        for w in info["cases"]:
+            original = programs[w["id"]]
+            for v, trace in zip(original["versions"], w["versions"], strict=True):
+                assert v["world"] == trace["world"] and v["answer"] == trace["human"]
+                with p.open("w", encoding="utf-8", newline="") as f:
+                    csv.writer(f).writerows(v["rows"])
+                (tool,) = csv_tools([p], keyed=True)
+                assert (
+                    trace["bad"]["key"] == trace["correct"]["key"]
+                    and trace["bad"]["key_column"] != trace["correct"]["key_column"]
+                )
+                try:
+                    tool.callback(**trace["bad"])
+                except ValueError as e:
+                    assert str(e) == "No CSV record matches the key"
+                else:
+                    raise AssertionError("The recorded wrong field found a value")
+                result = tool.callback(**trace["correct"])
+                assert fingerprint(result) == trace["return"] and canonical(
+                    result["value"]
+                ) == canonical(v["answer"])
+                outcomes["live_versions"] += 1
+                if v["world"] not in w["enrolled"]:
+                    assert (w["id"], v["world"]) not in enrolled
+                    continue
+                rs = enrolled[w["id"], v["world"]]
+                assert len(rs) == 2
+                for r in rs:
+                    msgs = [*r["messages"]]
+                    assert msgs[0] == {"role": "user", "content": original["question"]}
+                    assert (
+                        msgs[1]["tool_calls"][0]["function"]["arguments"]
+                        == trace["bad"]
+                    )
+                    assert msgs[2] == {
+                        "role": "tool",
+                        "content": compact({"error": "ValueError"}),
+                    }
+                    if r["group"] == "repair_column_roles":
+                        assert (
+                            len(msgs) == 3
+                            and r["target"]["tool_calls"][0]["function"]["arguments"]
+                            == trace["correct"]
+                        )
+                        msgs += [
+                            r["target"],
+                            {"role": "tool", "content": compact(result)},
+                        ]
+                    else:
+                        assert len(msgs) == 5 and r["target"]["content"] == v["answer"]
+                    assert session(msgs, {"csv_lookup": tool}) == {
+                        "error": 1,
+                        "csv_lookup": 1,
+                    }
+                    outcomes["histories"] += 1
+    assert (
+        outcomes["histories"] == info["turns"]
+        and outcomes["live_versions"] == info["versions"]
+    )
+    persist(
+        ROOT / "csv-role-independent-replay.json",
+        {"training": digest(target), **outcomes},
+    )
+    print(dict(outcomes))
+
+
 if __name__ == "__main__":
     replay()
+    replay_roles()

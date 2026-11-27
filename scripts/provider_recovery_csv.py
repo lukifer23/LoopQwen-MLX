@@ -23,7 +23,7 @@ MULTI = Path("research/sources/multiworld-programs/training.json.gz")
 ENROLLED = Path("research/sources/contrastive-worlds/training.json.gz")
 
 
-def identify(w):
+def identify(w, *, case_change=True):
     versions = w["versions"]
     header, *body = versions[0]["rows"]
     choices = set()
@@ -32,9 +32,11 @@ def identify(w):
             if not key.strip():
                 continue
             hit = re.search(
-                r"(?<!\w)" + re.escape(key) + r"(?!\w)", w["question"], flags=re.IGNORECASE
+                r"(?<!\w)" + re.escape(key) + r"(?!\w)",
+                w["question"],
+                flags=re.IGNORECASE,
             )
-            if not hit or hit[0] == key:
+            if not hit or (case_change and hit[0] == key):
                 continue
             for j, v in enumerate(row):
                 if i == j or canonical(v) != canonical(versions[0]["answer"]):

@@ -1,0 +1,56 @@
+{
+  "candidate": {
+    "provider_diagnostics": {
+      "database_query / misuse of aggregate": 2,
+      "database_query / no such column": 12,
+      "csv_lookup / No CSV record matches the key": 27,
+      "database_query / wrong number of arguments to function REPLACE()": 4,
+      "database_query / no such table": 4
+    },
+    "different_csv_fields": {
+      "key_column": 21,
+      "value_column": 16,
+      "key_changed_only_in_case": 0,
+      "calls": 27,
+      "key": 18
+    },
+    "joint_csv_fields": {
+      "key_column + value_column": 3,
+      "key + key_column": 5,
+      "key + key_column + value_column": 7,
+      "key_column": 6,
+      "key + value_column": 6
+    }
+  },
+  "control": {
+    "provider_diagnostics": {
+      "database_query / no such column": 8,
+      "database_query / near \"\u2014\"": 1,
+      "csv_lookup / No CSV record matches the key": 39,
+      "database_query / no such table": 12,
+      "day_of_year / Invalid isoformat string": 1,
+      "database_query / near \"(\"": 2,
+      "database_query / near \"table\"": 1,
+      "database_query / near \"set\"": 4,
+      "database_query / near \"2008\"": 2,
+      "database_query / near \"1977\"": 2,
+      "database_query / near \"and\"": 2,
+      "database_query / near \"Filmography\"": 2,
+      "database_query / near \",\"": 2
+    },
+    "different_csv_fields": {
+      "key": 30,
+      "key_column": 37,
+      "value_column": 14,
+      "key_changed_only_in_case": 0,
+      "calls": 39
+    },
+    "joint_csv_fields": {
+      "key + key_column + value_column": 8,
+      "key_column + value_column": 4,
+      "key + key_column": 20,
+      "key_column": 5,
+      "key + value_column": 2
+    }
+  }
+}

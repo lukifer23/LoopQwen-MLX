@@ -26,6 +26,7 @@ from scripts.assistance_uncertainty import (
     paired_sources,
 )
 from scripts.conditional_deliberation import account as channel_account
+from scripts.conditional_provider_errors import build as provider_errors
 from scripts.conditional_reading import MASK, RATINGS, ROOT, SCORES
 from scripts.conditional_reading import run as read_primary
 from scripts.conditional_tool_recovery import build as tool_recovery
@@ -310,6 +311,7 @@ def build():
         "generation_channels": channel_account(ROOT, streams),
         "tool_diagnostics": diagnostics,
         "tool_recovery": tool_recovery()["arms"],
+        "provider_errors": provider_errors(),
         "decode_savings": {
             "length": length_s,
             "rate": rate_s,
