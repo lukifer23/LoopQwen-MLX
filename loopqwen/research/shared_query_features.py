@@ -11,9 +11,9 @@ from ..looped_model import LoopedModel
 from ..recurrence import Span
 from ..shared_query_assistant import from_backbone
 from .conditional_features import feature_root
-from .core import Budget
 from .cross_view_study import tokenizer
 from .file_evidence_environment import capture
+from .host_pressure import budget, relinquish
 from .native_function_data import token_pair
 from .registered import registered
 from .table_reentry_fit import root_for
@@ -145,14 +145,21 @@ def decision(s, idx, checks):
 
 
 def verify(root, d):
-    s = registered(FEATURES)
-    assert s == read(root / "registration.json") and read(
-        root / "backbone.json"
-    ) == read(OLD / "backbone.json")
-    if d.get("status") == "interrupted":
-        assert not d["passed"] and d["durable"] == len(
-            unpack(root / "partial-index.json.gz")
+    s = registered(read(root / "registration.json")["id"])
+    assert s == read(root / "registration.json")
+    if d.get("status") == "interrupted" and not (root / "backbone.json").exists():
+        assert (
+            d["reason"] == "Host availability window expired"
+            and d.get("durable", 0) == 0
         )
+        return
+    assert read(root / "backbone.json") == read(OLD / "backbone.json")
+    if d.get("status") == "interrupted":
+        assert not d["passed"]
+        if (root / "partial-index.json.gz").exists():
+            assert d["durable"] == len(unpack(root / "partial-index.json.gz"))
+        else:
+            assert d.get("durable", 0) == 0 and d["reason"]
         return
     idx = unpack(root / "feature-index.json.gz")
     assert decision(s, idx, read(root / "parity.json")) == d
@@ -173,16 +180,35 @@ def verify(root, d):
         assert len(r["sha256"]) == 64 and r["bytes"] > 0
 
 
-def run():
-    prior = predecessor()
-    s = registered(FEATURES)
+def run(name=FEATURES):
+    s = registered(name)
+    if "precision_receipt" in s:
+        receipt = Path(s["precision_receipt"])
+        evidence = read(receipt)
+        assert evidence["passed"] and len(evidence["records"]) == 12
+        prior = {"precision_receipt": digest(receipt), "predecessor": s["predecessor"]}
+    else:
+        prior = predecessor()
     root = root_for(s)
-    capture(root, SOURCES)
+    capture(
+        root,
+        (
+            *SOURCES,
+            "loopqwen/research/host_pressure.py",
+            "scripts/repair_query_worker.py",
+        )
+        if s.get("max_pressure_restarts")
+        else SOURCES,
+    )
     save(root / "predecessor.json", prior)
     ident = read(OLD / "backbone.json")
     save(root / "backbone.json", ident)
-    guard = Budget(FEATURES, s["limits"])
-    idx = []
+    guard = budget(root, s)
+    if guard is None:
+        return
+    folder = feature_root(s)
+    journal = folder.parent / "partial-index.json.gz"
+    idx = unpack(journal) if journal.exists() else []
     try:
         weights = from_backbone(s["checkpoint"], root, s, ident)
         tok = tokenizer(s)
@@ -199,10 +225,7 @@ def run():
         gates = decision(s, [], checks)["gates"]
         if not (gates["physical"] and gates["ordinary_and_cached"]):
             raise InterruptedError("Stock or cached Qwen parity failed")
-        folder = feature_root(s)
         folder.mkdir(exist_ok=True, parents=True)
-        journal = folder.parent / "partial-index.json.gz"
-        idx = unpack(journal) if journal.exists() else []
         for i, r in enumerate(idx):
             if r["id"] != rows[i]["id"] or digest(folder / r["file"]) != r["sha256"]:
                 raise ValueError("A previously stored shared-query feature changed")
@@ -234,6 +257,10 @@ def run():
         packed(root / "feature-index.json.gz", idx)
         d = decision(s, idx, checks)
     except (InterruptedError, TimeoutError, MemoryError) as error:
+        if s.get("max_pressure_restarts"):
+            packed(journal, idx)
+            if relinquish(root, s, error, {"encoded": len(idx)}):
+                return
         packed(root / "partial-index.json.gz", idx)
         d = {
             "passed": False,

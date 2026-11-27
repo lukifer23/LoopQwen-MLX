@@ -18,8 +18,8 @@ from ..identity import fingerprint
 from ..io import digest, read, save
 from ..shared_query_assistant import from_backbone
 from .conditional_features import CACHE, feature_root
-from .core import Budget
 from .file_evidence_environment import capture
+from .host_pressure import budget, relinquish
 from .registered import registered
 from .shared_query_features import FEATURES, FIT, OLD, RESULTS, SOURCES
 from .table_reentry_fit import accumulate, apply, root_for
@@ -179,7 +179,9 @@ def optimize(net, s, idx, folder, evidence, root, guard):
     opt = optim.AdamW(learning_rate=s["lr"], weight_decay=0.01)
     identity = {
         "registration": digest(root / "registration.json"),
-        "features": digest(RESULTS / FEATURES / "checksums.json"),
+        "features": digest(
+            RESULTS / s.get("feature_stage", FEATURES) / "checksums.json"
+        ),
         "evidence": digest(Path(s["evidence"])),
         "implementation": digest(root / "environment.json"),
     }
@@ -233,7 +235,9 @@ def optimize(net, s, idx, folder, evidence, root, guard):
             }
         )
         state["step"] = j
-        if j % CHECKPOINT_INTERVAL == 0 or j == len(steps):
+        if j % s.get("checkpoint_interval", CHECKPOINT_INTERVAL) == 0 or j == len(
+            steps
+        ):
             checkpoint.write(store, net.step, opt, state)
             # Only a fully published checkpoint can be exposed as durable.
             save(
@@ -275,6 +279,12 @@ def decision(s, history, before, after, one):
         "repeated_read": second > 0.002,
         "source_attention": citations > 0 and numerator / citations > 0.02,
     }
+    if s.get("repair_groups"):
+        gates["repair_likelihood"] = all(groups[k] > 0 for k in s["repair_groups"])
+        gates["protected_likelihood"] = all(
+            groups[k] >= -0.02
+            for k in ("instruction", "explanation", "arithmetic", "legacy")
+        )
     return {
         "passed": all(gates.values()),
         "gates": gates,
@@ -288,7 +298,7 @@ def decision(s, history, before, after, one):
 
 
 def verify(root, d):
-    s = registered(FIT)
+    s = registered(read(root / "registration.json")["id"])
     assert s == read(root / "registration.json")
     if d.get("status") == "interrupted":
         assert not d["passed"] and d["reason"]
@@ -299,7 +309,7 @@ def verify(root, d):
                 root / "registration.json"
             )
             assert state["identity"]["features"] == digest(
-                RESULTS / FEATURES / "checksums.json"
+                RESULTS / s.get("feature_stage", FEATURES) / "checksums.json"
             )
             assert state["identity"]["evidence"] == digest(Path(s["evidence"]))
             assert state["identity"]["implementation"] == digest(
@@ -309,7 +319,7 @@ def verify(root, d):
             for name, expected in d["partial_hashes"].items():
                 assert digest(root / name) == expected
         return
-    archive = RESULTS / FEATURES
+    archive = RESULTS / s.get("feature_stage", FEATURES)
     idx = unpack(archive / "feature-index.json.gz")
     history = unpack(root / "training-log.json.gz")
     for r, (epoch, indices) in zip(history, schedule(idx, s), strict=True):
@@ -329,9 +339,9 @@ def verify(root, d):
     ] == digest(archive / "checksums.json")
 
 
-def run():
-    s = registered(FIT)
-    archive = RESULTS / FEATURES
+def run(name=FIT):
+    s = registered(name)
+    archive = RESULTS / s.get("feature_stage", FEATURES)
     if not read(archive / "decision.json")["passed"]:
         raise ValueError("Native memory features did not qualify")
     root = root_for(s)
@@ -342,11 +352,18 @@ def run():
             "loopqwen/research/shared_query_fit.py",
             "scripts/shared_query_evidence.py",
             "loopqwen/checkpoint.py",
+            *(
+                ("loopqwen/research/host_pressure.py", "scripts/repair_query_worker.py")
+                if s.get("max_pressure_restarts")
+                else ()
+            ),
         ),
     )
-    guard = Budget(FIT, s["limits"])
+    guard = budget(root, s)
+    if guard is None:
+        return
     try:
-        fs = registered(FEATURES)
+        fs = registered(s.get("feature_stage", FEATURES))
         folder = feature_root(fs)
         idx = unpack(archive / "feature-index.json.gz")
         evidence = unpack(Path(s["evidence"]))
@@ -378,14 +395,26 @@ def run():
         )
         d = decision(s, history, before, after, one)
     except (InterruptedError, TimeoutError, MemoryError) as e:
+        checkpoint_file = root / "checkpoint.json"
+        progress = (
+            read(Path(read(checkpoint_file)["directory"]) / "state.json")["step"]
+            if checkpoint_file.exists()
+            else 0
+        )
+        if relinquish(root, s, e, {"updates": progress}):
+            return
         d = {"passed": False, "status": "interrupted", "reason": str(e)}
         if (root / "checkpoint.json").is_file():
             path = Path(read(root / "checkpoint.json")["directory"])
             state = read(path / "state.json")
             partial = {}
-            for name in ("state.json", "adapters.safetensors", "optimizer.safetensors"):
-                dest = root / ("partial-" + name)
-                shutil.copyfile(path / name, dest)
+            for filename in (
+                "state.json",
+                "adapters.safetensors",
+                "optimizer.safetensors",
+            ):
+                dest = root / ("partial-" + filename)
+                shutil.copyfile(path / filename, dest)
                 partial[dest.name] = digest(dest)
             d.update(
                 durable_updates=state["step"],
@@ -394,7 +423,7 @@ def run():
             )
     finally:
         guard.close()
-        (root / "checkpoint.json").unlink(missing_ok=True)
+    (root / "checkpoint.json").unlink(missing_ok=True)
     save(root / "decision.json", d)
 
 

@@ -23,8 +23,8 @@ def check(name, restore):
     acquire()
     s = registered(name)
     root = RESULTS / name
-    fs = registered(FEATURES)
-    features = RESULTS / FEATURES
+    fs = registered(s.get("feature_stage", name if "examples" in s else FEATURES))
+    features = RESULTS / fs["id"]
     assert read(root / "decision.json")["passed"]
     folder = feature_root(fs)
     folder.mkdir(exist_ok=True, parents=True)
@@ -37,7 +37,7 @@ def check(name, restore):
             (i for i, r in enumerate(idx) if r["group"] == g),
             key=lambda i: fingerprint(["cold native", idx[i]["id"]]),
         )
-        for g in ("strategy", "report_action", "full_rows")
+        for g in (s.get("cold_groups") or ("strategy", "report_action", "full_rows"))
     }
     rebuilt = 0
     verified = []
@@ -68,7 +68,7 @@ def check(name, restore):
         "checked_files": len(idx),
         "independent_regenerations": verified,
     }
-    if name == FIT:
+    if "expected_positions" in s:
         model = SharedQueryAssistant(s["checkpoint"], root)._tool_model
         # This process has no reference to the optimizer or training graph.
         native = probe(model, idx, folder, unpack(Path(s["evidence"])), s)
@@ -98,7 +98,10 @@ def check(name, restore):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("stage", choices=(FEATURES, FIT))
+    p.add_argument(
+        "stage",
+        choices=(FEATURES, FIT, "repair-query-features-01", "repair-query-fit-01"),
+    )
     p.add_argument("--restore", action="store_true")
     a = p.parse_args()
     check(a.stage, a.restore)

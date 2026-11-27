@@ -2,8 +2,11 @@
 
 import gc
 import re
+from collections import defaultdict
+from copy import deepcopy
 from fractions import Fraction
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from time import perf_counter
 
 import mlx.core as mx
@@ -21,6 +24,7 @@ from .cross_view_study import tokenizer
 from .file_evidence_environment import capture
 from .linked_rollin import exact_sign_flip
 from .native_function_study import executions, replay
+from .provider_field import FieldDatabases
 from .registered import registered
 from .report_calculation import grade, operation_evidence
 from .shared_query_features import FIT, PRIMARY, RESULTS, SOURCES
@@ -73,19 +77,26 @@ def score(w, tr):
     return result
 
 
-def measure(s, w, arm, actor, guard):
-    prov = [tool()] if w["family"] == "report" else []
+def providers(w, fields):
+    if w["family"] == "field":
+        return fields.providers(w)
+    return [tool()] if w["family"] == "report" else []
+
+
+def measure(s, w, arm, actor, guard, fields=None):
+    prov = providers(w, fields)
     mx.synchronize()
     mx.reset_peak_memory()
     start = perf_counter()
     if actor is None:
         if arm == "candidate":
-            actor = SharedQueryAssistant(s["checkpoint"], RESULTS / FIT)
+            actor = SharedQueryAssistant(
+                s["checkpoint"], RESULTS / s.get("fit_stage", FIT)
+            )
         else:
             actor = DenseAssistant(True, "qwen", s["checkpoint"])
             assert actor.language.base_source == "certified_release_text"
             actor.native_plain = True
-    chat = actor.conversation(prov)
     net = actor._tool_model
     count0 = (net.output_positions, net.output_revisits) if arm == "candidate" else None
     first = None
@@ -96,21 +107,24 @@ def measure(s, w, arm, actor, guard):
             first = perf_counter() - start
         guard.check()
 
-    tr = chat.respond(
-        w["questions"][0],
-        max_tokens=s["max_tokens"],
-        max_turns=s["context_turns"] if w["family"] == "locale" else s["max_turns"],
-        progress=progress,
-        prefill_cache_state=True,
-        reuse_prefix=True,
-        record_kv_history=True,
-    )
+    options = {
+        "max_tokens": s["max_tokens"],
+        "max_turns": s["context_turns"] if w["family"] == "locale" else s["max_turns"],
+        "progress": progress,
+        "prefill_cache_state": True,
+        "reuse_prefix": True,
+        "record_kv_history": True,
+    }
+    if w["family"] == "field" and w["condition"] != "unassisted":
+        tr = actor.continue_after_tool(w["messages"], prov, **options)
+    else:
+        tr = actor.conversation(prov).respond(w["questions"][0], **options)
     mx.synchronize()
     elapsed = perf_counter() - start
     assert first is not None and tr["turns"][0]["prompt_ids"] == w["initial_ids"]
     q = {
         "trajectory": tr,
-        "score": score(w, tr),
+        "score": fields.score(w, tr) if w["family"] == "field" else score(w, tr),
         "first_s": first,
         "wall_s": elapsed,
         "peak": mx.get_peak_memory(),
@@ -127,8 +141,10 @@ def outcome(rows, runs):
     counts = {}
     c = {arm: costs([r["requests"][0] for r in runs[arm]]) for arm in ARMS}
     gates = {}
-    for fam in ("strategy", "report", "locale"):
+    for fam in dict.fromkeys(r["family"] for r in rows):
         pairs = []
+        schemas = defaultdict(list)
+        conditions = defaultdict(list)
         complete = [0, 0]
         for i, w in enumerate(rows):
             if w["family"] != fam:
@@ -141,10 +157,15 @@ def outcome(rows, runs):
                 values.append(int(sc["success"]))
                 complete[a] += sc["completed"]
             pairs.append(values)
+            if fam == "field":
+                schemas[w["source"]].append(values[0] - values[1])
+                conditions[w["condition"]].append(values[0] - values[1])
         changes = [a - b for a, b in pairs]
         totals = [sum(r[j] for r in pairs) for j in (0, 1)]
         # Each short source occurs once. Long pairs use the same original locale across releases.
         p = exact_sign_flip(changes) if fam != "locale" else None
+        if schemas:
+            p = exact_sign_flip([sum(v) for v in schemas.values()])
         counts[fam] = {
             "total": totals,
             "completed": complete,
@@ -158,6 +179,11 @@ def outcome(rows, runs):
             if fam == "locale"
             else sum(changes) >= 6 and -1 not in changes and p <= 0.05
         )
+        if schemas:
+            gains = {k: sum(v) for k, v in conditions.items()}
+            counts[fam]["condition_net"] = gains
+            counts[fam]["schema_net"] = {k: sum(v) for k, v in schemas.items()}
+            gates["all_field_conditions"] = all(v > 0 for v in gains.values())
         gates[fam + "_completion"] = complete[0] >= complete[1]
     gates.update(
         {k: c["candidate"][k] < c["control"][k] for k in ("peak", "wall_s", "first_s")}
@@ -169,7 +195,7 @@ def outcome(rows, runs):
 
 
 def verify(root, d):
-    s = registered(PRIMARY)
+    s = registered(read(root / "registration.json")["id"])
     assert s == read(root / "registration.json")
     if d.get("status") == "interrupted":
         assert (
@@ -184,51 +210,60 @@ def verify(root, d):
     rows = unpack(Path(s["material"]))["rows"]
     tok = tokenizer(s)
     runs = {a: unpack(root / (a + ".json.gz")) for a in ARMS}
-    fit = RESULTS / FIT
+    fit = RESULTS / s.get("fit_stage", FIT)
     assert read(root / "weights.json") == {
         "step": digest(fit / "step.safetensors"),
         "archive": digest(fit / "checksums.json"),
         "backbone": read(fit / "fit.json")["backbone"]["sha256"],
         "base": s["base_text_sha256"],
     }
-    for arm in ARMS:
-        for w, r in zip(rows, runs[arm], strict=True):
-            (q,) = r["requests"]
-            t = q["trajectory"]
-            assert (
-                t["turns"][0]["prompt_ids"] == w["initial_ids"]
-                and fingerprint(w["initial_ids"]) == w["initial_sha256"]
-            )
-            # Both architectures own exactly the six ordinary temporal KV slots.
-            replay(
-                tok,
-                w,
-                [tool()] if w["family"] == "report" else [],
-                [{"role": "user", "content": w["questions"][0]}],
-                q,
-                {
-                    **s,
-                    "max_turns": s["context_turns"]
-                    if w["family"] == "locale"
-                    else s["max_turns"],
-                },
-                "shared_memory" if arm == "candidate" else "control",
-            )
-            if arm == "candidate":
+    with TemporaryDirectory() as tmp:
+        fields = FieldDatabases(tmp) if s.get("field_history") else None
+        for arm in ARMS:
+            for w, r in zip(rows, runs[arm], strict=True):
+                (q,) = r["requests"]
+                t = q["trajectory"]
                 assert (
-                    q["read_only_visits"]
-                    == 2 * q["output_positions"]
-                    == 2 * sum(len(z["token_ids"]) for z in t["turns"])
+                    t["turns"][0]["prompt_ids"] == w["initial_ids"]
+                    and fingerprint(w["initial_ids"]) == w["initial_sha256"]
                 )
-            assert score(w, t) == q["score"]
+                # Both architectures own exactly the six ordinary temporal KV slots.
+                replay(
+                    tok,
+                    w,
+                    providers(w, fields),
+                    deepcopy(w["messages"])
+                    if w["family"] == "field"
+                    else [{"role": "user", "content": w["questions"][0]}],
+                    q,
+                    {
+                        **s,
+                        "max_turns": s["context_turns"]
+                        if w["family"] == "locale"
+                        else s["max_turns"],
+                    },
+                    "shared_memory" if arm == "candidate" else "control",
+                )
+                if arm == "candidate":
+                    assert (
+                        q["read_only_visits"]
+                        == 2 * q["output_positions"]
+                        == 2 * sum(len(z["token_ids"]) for z in t["turns"])
+                    )
+                assert (
+                    fields.score(w, t) if w["family"] == "field" else score(w, t)
+                ) == q["score"]
     assert outcome(rows, runs) == d
 
 
-def run():
-    s = registered(PRIMARY)
-    fit = RESULTS / FIT
+def run(name=PRIMARY):
+    s = registered(name)
+    fit = RESULTS / s.get("fit_stage", FIT)
     if not read(fit / "decision.json")["passed"]:
         raise ValueError("The tied-query fit missed its registered prerequisite")
+    if s.get("field_history"):
+        cold = read(Path("docs/measurements") / (s["fit_stage"] + "-cold.json"))
+        assert cold["fit"] == digest(fit / "checksums.json")
     root = root_for(s)
     capture(
         root,
@@ -238,6 +273,16 @@ def run():
             "loopqwen/research/shared_query_transfer.py",
             "loopqwen/research/native_function_study.py",
             "loopqwen/evaluation/generation_eval.py",
+            *(
+                (
+                    "loopqwen/research/provider_field.py",
+                    "loopqwen/tool_session.py",
+                    "loopqwen/tool_model.py",
+                    "scripts/provider_field_mutations.py",
+                )
+                if s.get("field_history")
+                else ()
+            ),
         ),
     )
     save(
@@ -249,24 +294,26 @@ def run():
             "base": s["base_text_sha256"],
         },
     )
-    guard = Budget(PRIMARY, s["limits"])
+    guard = Budget(name, s["limits"])
     runs = {}
     try:
         rows = unpack(Path(s["material"]))["rows"]
-        for arm in ARMS:
-            seq = runs[arm] = []
-            actor = None
-            gc.collect()
-            mx.clear_cache()
-            for i, w in enumerate(rows, 1):
-                actor, r = measure(s, w, arm, actor, guard)
-                seq.append(r)
-                if i % 8 == 0:
-                    packed(root / (arm + "-partial.json.gz"), seq)
-                    print(arm, i, flush=True)
-            del actor
-            packed(root / (arm + ".json.gz"), seq)
-            (root / (arm + "-partial.json.gz")).unlink(missing_ok=True)
+        with TemporaryDirectory() as tmp:
+            fields = FieldDatabases(tmp) if s.get("field_history") else None
+            for arm in ARMS:
+                seq = runs[arm] = []
+                actor = None
+                gc.collect()
+                mx.clear_cache()
+                for i, w in enumerate(rows, 1):
+                    actor, r = measure(s, w, arm, actor, guard, fields)
+                    seq.append(r)
+                    if i % 8 == 0:
+                        packed(root / (arm + "-partial.json.gz"), seq)
+                        print(arm, i, flush=True)
+                del actor
+                packed(root / (arm + ".json.gz"), seq)
+                (root / (arm + "-partial.json.gz")).unlink(missing_ok=True)
         d = outcome(rows, runs)
     except (TimeoutError, MemoryError, InterruptedError) as e:
         d = {

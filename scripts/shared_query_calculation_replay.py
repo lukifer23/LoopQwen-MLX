@@ -113,7 +113,7 @@ def probe(w, steps):
     }
 
 
-def run(report=False):
+def run(report=False, *, repair=False):
     source = ROOT / "held.json.gz"
     rows = [w for w in unpack(source) if w["family"] == "report"]
     assert len(rows) == 32
@@ -152,10 +152,11 @@ def run(report=False):
         }
     committed(PLAN)
     assert read(PLAN) == plan
-    committed(Path("docs/measurements/shared-query-reading.json"))
+    prefix = "repair-query" if repair else "shared-query"
+    committed(Path("docs/measurements") / (prefix + "-reading.json"))
     result = []
     summary = {}
-    archive = RESULTS / PRIMARY
+    archive = RESULTS / ("repair-query-transfer-01" if repair else PRIMARY)
     for arm in ("candidate", "control"):
         c = Counter()
         records = {r["id"]: r for r in unpack(archive / (arm + ".json.gz"))}
@@ -189,9 +190,9 @@ def run(report=False):
                 }
             )
         summary[arm] = dict(c)
-    write_csv(Path("paper/shared-query-calculation-perturbations.csv"), result)
+    write_csv(Path("paper") / (prefix + "-calculation-perturbations.csv"), result)
     persist(
-        Path("docs/measurements/shared-query-calculation-perturbations.json"),
+        Path("docs/measurements") / (prefix + "-calculation-perturbations.json"),
         {
             "plan": digest(PLAN),
             "archive": digest(archive / "checksums.json"),
@@ -204,4 +205,6 @@ def run(report=False):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("--report", action="store_true")
-    print(run(p.parse_args().report))
+    p.add_argument("--repair", action="store_true")
+    a = p.parse_args()
+    print(run(a.report, repair=a.repair))

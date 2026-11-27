@@ -67,15 +67,15 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
-    if study == "shared-query-features-01":
+    if study in ("shared-query-features-01", "repair-query-features-01"):
         from loopqwen.research.shared_query_features import verify as verify_query_features
 
         return verify_query_features(root, decision)
-    if study == "shared-query-fit-01":
+    if study in ("shared-query-fit-01", "repair-query-fit-01"):
         from loopqwen.research.shared_query_fit import verify as verify_query_fit
 
         return verify_query_fit(root, decision)
-    if study == "shared-query-transfer-01":
+    if study in ("shared-query-transfer-01", "repair-query-transfer-01"):
         from loopqwen.research.shared_query_transfer import verify as verify_query_transfer
 
         return verify_query_transfer(root, decision)

@@ -15,6 +15,9 @@ from .tool_model import Assistant
 def from_backbone(directory, folder, spec, identity):
     # Use the same digest-verified Q4 text arrays as the earlier instruction studies.
     donor = resident(directory, folder, spec, identity)
+    if spec.get("compute_precision") == "float16":
+        donor.text.set_dtype(mx.float16, lambda dtype: dtype == mx.bfloat16)
+        mx.eval(donor.text.parameters())
     mx.random.seed(spec["fit_seed"])
     net = SharedQuery(
         donor.text,

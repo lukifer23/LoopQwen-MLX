@@ -1,7 +1,7 @@
 """Mask all 80 complete source responses and require committed judgments before unmasking."""
 
 import argparse
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 
 from loopqwen.evaluation.mechanism import unpack
@@ -21,13 +21,29 @@ RATINGS = DOC / "shared-query-blinded-ratings.json"
 REPORT = DOC / "shared-query-reading.json"
 
 
-def run(mode):
-    assert read(PLAN)["material"] == digest(PANEL)
-    rows = [w for w in unpack(PANEL)["rows"] if w["family"] != "locale"]
+def run(mode, *, repair=False):
+    panel, plan, stage = PANEL, PLAN, PRIMARY
+    mask_path, rating_path, report_path = MASK, RATINGS, REPORT
+    if repair:
+        from scripts.register_repair_query import (
+            PANEL as panel,
+        )
+        from scripts.register_repair_query import (
+            PLAN as plan,
+        )
+        from scripts.register_repair_query import (
+            PRIMARY as stage,
+        )
+
+        mask_path = DOC / "repair-query-blinded.json"
+        rating_path = DOC / "repair-query-blinded-ratings.json"
+        report_path = DOC / "repair-query-reading.json"
+    assert read(plan)["material"] == digest(panel)
+    rows = [w for w in unpack(panel)["rows"] if w["family"] != "locale"]
     data = {
         a: {
             r["id"]: r["requests"][0]
-            for r in unpack(RESULTS / PRIMARY / (a + ".json.gz"))
+            for r in unpack(RESULTS / stage / (a + ".json.gz"))
         }
         for a in ARMS
     }
@@ -57,17 +73,29 @@ def run(mode):
             "reasoning": w.get("decomposition", w.get("program")),
             "replies": unique,
         }
+        if w["family"] == "field":
+            mask[k].update(
+                condition=w["condition"],
+                history=w["messages"],
+                interpretation=w["interpretation"],
+                expert_evidence=w["expert_result"],
+                source_split=w["source_split"],
+            )
     if mode == "blind":
-        persist(MASK, mask)
+        persist(mask_path, mask)
         return
-    committed(MASK)
-    committed(RATINGS)
-    grades = read(RATINGS)
-    assert read(MASK) == mask and grades.keys() == mask.keys()
+    committed(mask_path)
+    committed(rating_path)
+    grades = read(rating_path)
+    assert read(mask_path) == mask and grades.keys() == mask.keys()
     out = {}
-    for fam in ("strategy", "report"):
+    for fam in dict.fromkeys(w["family"] for w in rows):
         stats = {a: Counter() for a in ARMS}
         pairs = []
+        schema = defaultdict(list)
+        conditions = defaultdict(list)
+        wording = defaultdict(list)
+        splits = defaultdict(list)
         for w in rows:
             if w["family"] != fam:
                 continue
@@ -92,6 +120,11 @@ def run(mode):
                 usable = g["rating"] == "fully usable" and (
                     fam != "report" or score["arithmetic_path"]
                 )
+                if fam == "field":
+                    if w["interpretation"]["tag"] == "no_specific_ambiguity_flagged":
+                        usable = usable and score["grounded"]
+                    elif w["condition"] != "valid_current":
+                        usable = usable and score["last_successful_is_fresh"]
                 values.append(int(usable))
                 c = stats[arm]
                 c[g["rating"]] += 1
@@ -100,10 +133,17 @@ def run(mode):
                 c["preferred"] += r["preferred"] == i
                 c["tie"] += r["preferred"] == "tie"
             pairs.append(values)
+            if fam == "field":
+                delta = values[0] - values[1]
+                schema[w["source"]].append(delta)
+                conditions[w["condition"]].append(delta)
+                wording[w["interpretation"]["tag"]].append(delta)
+                splits[w["source_split"]].append(delta)
         diff = [a - b for a, b in pairs]
-        p = exact_sign_flip(diff)
+        p = exact_sign_flip([sum(v) for v in schema.values()] if schema else diff)
         ok = (
-            sum(diff) >= 6
+            all(sum(v) > 0 for v in conditions.values())
+            and sum(diff) >= 6
             and -1 not in diff
             and p <= 0.05
             and stats["candidate"]["unsupported"] <= stats["control"]["unsupported"]
@@ -115,13 +155,24 @@ def run(mode):
             "p": p,
             "arms": stats,
         }
+        if schema:
+            out[fam]["net_by_schema"] = {k: sum(v) for k, v in schema.items()}
+            for key, group in (
+                ("condition", conditions),
+                ("wording", wording),
+                ("split", splits),
+            ):
+                out[fam][key] = {
+                    k: {"gains": v.count(1), "losses": v.count(-1), "n": len(v)}
+                    for k, v in group.items()
+                }
     save(
-        REPORT,
+        report_path,
         {
             "passed": all(v["passed"] for v in out.values()),
             "families": out,
-            "plan": digest(PLAN),
-            "ratings": digest(RATINGS),
+            "plan": digest(plan),
+            "ratings": digest(rating_path),
         },
     )
 
@@ -129,4 +180,6 @@ def run(mode):
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("mode", choices=("blind", "report"))
-    run(p.parse_args().mode)
+    p.add_argument("--repair", action="store_true")
+    a = p.parse_args()
+    run(a.mode, repair=a.repair)
