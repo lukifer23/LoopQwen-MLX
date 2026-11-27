@@ -1,6 +1,10 @@
 """Reserve real human source comparisons and same-report arithmetic for a recurrent content read."""
 
+import argparse
 import ast
+import shutil
+from tempfile import NamedTemporaryFile
+from urllib.request import urlopen
 import re
 from collections import Counter, defaultdict
 from fractions import Fraction
@@ -369,5 +373,46 @@ def build():
     print(inventory, flush=True)
 
 
+def fetch():
+    files = [
+        (
+            CACHE / "hotpotqa" / (k + ".parquet"),
+            v,
+            "https://huggingface.co/datasets/hotpotqa/hotpot_qa/resolve/1908d6afbbead072334abe2965f91bd2709910ab/distractor/"
+            + k
+            + ".parquet",
+        )
+        for k, v in HOT.items()
+    ]
+    for k, v in FIN.items():
+        name = "tatqa_dataset_" + k + ".json"
+        files.append(
+            (
+                CACHE / "tatqa" / name,
+                v,
+                "https://raw.githubusercontent.com/NExTplusplus/TAT-QA/870accc41953dcde885aabeb963d94aabdc0fbc3/dataset_raw/"
+                + name,
+            )
+        )
+    for path, sha, url in files:
+        if path.exists() and digest(path) == sha:
+            continue
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with NamedTemporaryFile(dir=path.parent, delete=False) as f:
+            temp = Path(f.name)
+        try:
+            with urlopen(url, timeout=120) as src, temp.open("wb") as dst:
+                shutil.copyfileobj(src, dst, 1024 * 1024)
+            if digest(temp) != sha:
+                raise ValueError("Downloaded source differs from pinned " + str(path))
+            temp.replace(path)
+        finally:
+            temp.unlink(missing_ok=True)
+
+
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--download", action="store_true")
+    if parser.parse_args().download:
+        fetch()
     build()
