@@ -1,0 +1,29 @@
+{
+  "stage": "staged-query-transfer-01",
+  "registration": "d72c545d265823e838db65a0034e6cc228cf5355e131eb4e2360e2d8982ebe11",
+  "previous_environment": "ed02faeaaa644747bc37460469ffaf96816b68d4fdecd148508fa4fbf9556b2c",
+  "completed_index": "e881abdc432d6ae7fa027da3dccce508675f0d10c995ffb19623dec6394be7ed",
+  "scorer": "loopqwen/research/contrastive_transfer.py",
+  "prior_sha256": "96f1151830cf257a21a0c28d2acc691213bc2d040e6429da21c6be2996916eaa",
+  "corrected_sha256": "268a55f3cb6390506378137f4349d6a6d8fd83b5e57534193cf56b7376344c2f",
+  "revision": "b9f28f84f38067bdda96affce45a987446d0f318",
+  "original_window": 1795797002,
+  "attempt": {
+    "job": "staged-query-transfer-01",
+    "seconds": 248.08138298988342,
+    "peak_bytes": 1186622718,
+    "start": 1795797014.60285
+  },
+  "failed_time_boundary_unix": [
+    1795797024.9673634,
+    1795797262.684233
+  ],
+  "charged_failure": {
+    "arm": "candidate",
+    "id": "it-48.2",
+    "wall_s": 237.71686959266663,
+    "peak": 1186622718,
+    "reason": "Staged native history was recorded. Original locale trace assertion expected resident cache-state advances. The interrupted turn was discarded before recording any answer score."
+  },
+  "method": "Charge the entire interval from the last durable successful request to release of the failed worker, including scorer overhead, and the recorded whole-worker peak. Preserve all five complete requests. Receiver checks all six original offsets and stored lengths for staged traces. The original visible-answer exact comparison, input identities, weights, resource ceilings and masked rules are unchanged."
+}
