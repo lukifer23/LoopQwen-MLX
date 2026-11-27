@@ -31,62 +31,25 @@ def main(verify):
         subprocess.run(
             [sys.executable, "scripts/verify_user_sessions.py"], cwd=ROOT, check=True
         )
-        tracked = read(ROOT / "paper/figure-sources.json")
-        tracked.update(
-            {
-                k: True
-                for k, v in read(ROOT / "research/registry.json")["experiments"].items()
-                if k.startswith(
-                    (
-                        "bridge-reading-",
-                        "linked-reading-",
-                        "narrative-full-book-",
-                        "repository-tree-field-",
-                        "transport-lossless-",
-                        "raw-distillation-",
-                        "selective-raw-",
-                        "future-token-",
-                        "packed-release-retention-",
-                        "passage-copy-",
-                        "packed-decode-kernel-",
-                        "packed-decode-full-",
-                        "session-tokenizer-",
-                        "meaning-alignment-",
-                        "draft-program-",
-                        "folded-system-",
-                        "action-preference-",
-                        "dialogue-state-fields-",
-                        "shared-session-",
-                        "report-calculation-",
-                        "document-search-field-",
-                        "document-evidence-",
-                        "callback-recovery-",
-                        "native-function-dialogue-",
-                        "checked-equations-field-",
-                        "cache-language-",
-                        "tool-",
-                        "schema-calls-",
-                        "operand-planner-",
-                        "table-parser-",
-                        "release-mixed-field-",
-                        "conversation-followup-",
-                        "contrast-boolq-",
-                        "register-rebalanced-",
-                        "register-allocation-",
-                        "register-page-prefill-",
-                        "register-page-full-",
-                        "register-packed-",
-                        "register-fused-base-",
-                        "register-mixed-weight-",
-                        "native-language-release-02",
-                    )
+        registry = read(ROOT / "research/registry.json")
+        for name, study in sorted(registry["experiments"].items()):
+            if study["archive"]:
+                subprocess.run(
+                    [sys.executable, "scripts/research_archive.py", name, "--verify"],
+                    cwd=ROOT,
+                    check=True,
                 )
-                and v["archive"]
-            }
-        )
-        for name in sorted(tracked):
+        for location in sorted(registry["session_results"]):
+            session, name = location.split("/", 1)
             subprocess.run(
-                [sys.executable, "scripts/research_archive.py", name, "--verify"],
+                [
+                    sys.executable,
+                    "scripts/research_archive.py",
+                    name,
+                    "--recovered-session",
+                    session,
+                    "--verify",
+                ],
                 cwd=ROOT,
                 check=True,
             )
@@ -117,6 +80,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--verify",
         action="store_true",
-        help="Independently recount the archives supporting the figures",
+        help="Verify every published archive and reconstruct the installed examples",
     )
     main(parser.parse_args().verify)

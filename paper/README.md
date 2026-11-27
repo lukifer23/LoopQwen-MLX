@@ -3,6 +3,7 @@
 The manuscript covers the original shared-span experiments, the matched reasoning controls, the standalone 128K language model, and the addition of executable tool sessions. The paper's numerical results come from native Apple Silicon MLX runs.
 
 - [Read the paper](loopqwen.pdf)
+- [Independent clean rebuilds, payload identity and outside-checkout replay](../docs/measurements/reproducible-runtime-wheel.json)
 - [Verified isolated wheel replay, including both Hindi failures](../docs/measurements/native-function-wheel.json)
 - [Native function conversations, actual actions and both final answers](native-function-requests.csv)
 - [Checked calculator on fresh human questions](checked-equations-field.csv)
@@ -59,7 +60,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 
 ## Rebuild and verify
 
-From the repository root, the following commands rebuild the vector figures, evidence index and PDF. The verification option first hashes every payload in every published archive, including recovered sessions, and verifies every registered dataset identity. It then independently reconstructs the predictions, executed callbacks and scores used by the manuscript. To run just the complete inventory check, use `.venv/bin/python scripts/research_registry.py --verify-files`. Some older verifiers require the pinned tokenizer in the local Hugging Face cache.
+The commands below rebuild the vector figures, evidence index and PDF. Verification hashes every published payload and registered dataset, checks the recorded user examples against their actual callbacks, and runs each study's archived verifier, including the recovered sessions. For the inventory check alone use `.venv/bin/python scripts/research_registry.py --verify-files`. Older verifiers require the pinned tokenizer in the local Hugging Face cache. To reproduce the runtime distribution separately, use `.venv/bin/python scripts/verify_runtime_wheel.py`. It makes two offline builds from the pinned code revision, compares every file to the delivered wheel, installs the rebuilt wheel into an isolated directory and replays the real file and Hindi package conversations.
 
 ```sh
 uv sync --locked --group data --group figures --group paper --extra guided
