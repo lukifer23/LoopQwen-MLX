@@ -1,0 +1,6419 @@
+{
+  "oasst-ce26db85-7848-4654-848f-2a533e69ee4e": {
+    "request": "Please help me write a poem for my valentine. I have been married to her for 20 years and I love her very much!",
+    "replies": [
+      ""
+    ],
+    "family": "open",
+    "reference": "Of all the joys in life that I have known,\nNone compare to the love we've shown.\nFor 20 years, you've been my Valentine,\nAnd I'm grateful to call you mine.\n\nThrough every challenge we've faced as one,\nWe've grown stronger, never come undone.\nThe memories we've made together,\nAre ones I'll cherish forever.\n\nYour smile still makes my heart skip a beat,\nAnd your touch makes my soul feel complete.\nI love you more with every passing day,\nAnd I'll never stop feeling that way.\n\nSo on this Valentine's Day, my dear,\nI want to make it crystal clear,\nThat I'm forever grateful for your love,\nAnd I'll cherish you, my precious dove."
+  },
+  "nt-6635-11": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat was the first club for the north in the 2000's?",
+    "replies": [
+      "I don't have access to a database schema to answer your question. To help you with this, I need the database schema information. Could you please provide the database schema details so I can inspect the tables and answer your question about the first club for the North in the 2000's?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Season",
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      [
+        "2000-01",
+        "BTS Bayreuth",
+        "SB Rosenheim",
+        "Deggendorfer SC II",
+        "ERC Lechbruck"
+      ],
+      [
+        "2001-02",
+        "EC Bayreuth",
+        "SC Gai\u00dfach",
+        "ESV Waldkirchen",
+        "1. EC Senden"
+      ],
+      [
+        "2002-03",
+        "EHC Ingolstadt II",
+        "EAC Bad Reichenhall",
+        "EV Bruckberg",
+        "TSV Pei\u00dfenberg"
+      ],
+      [
+        "2003-04",
+        "EHC Regensburg",
+        "TuS Geretsried II",
+        "ESV Gebensbach",
+        "ERC Lechbruck"
+      ],
+      [
+        "2004-05",
+        "EC Bad Kissingen",
+        "TSV Schliersee",
+        "ESV Gebensbach",
+        "1. EC Senden"
+      ],
+      [
+        "2005-06",
+        "VER Selb",
+        "ESC Holzkirchen",
+        "ESV Gebensbach",
+        "TSV Kottern"
+      ],
+      [
+        "2006-07",
+        "ERC Ingolstadt",
+        "ESC Geretsried",
+        "Deggendorfer SC II",
+        "TSV Kottern"
+      ],
+      [
+        "2007-08",
+        "EC Amberg",
+        "EHC M\u00fcnchen II",
+        "SE Freising",
+        "ERC Lechbruck"
+      ],
+      [
+        "2008-09",
+        "EHC Bayreuth",
+        "SC Riessersee II",
+        "ESV Waldkirchen",
+        "VfL Denklingen"
+      ]
+    ],
+    "reference": "BTS Bayreuth"
+  },
+  "cosql-35f7932b5f8c9b83a09e": {
+    "request": "Conversation so far:\nCustomer: List the name of the conductor with the most years of work.\nAnalyst: Robert Craft works the most years\n\nUse the supplied database to answer the customer's current question.\nHow many years did Robert Craft work?",
+    "replies": [
+      "",
+      "There are 63 years of work."
+    ],
+    "family": "database",
+    "reference": "Robert Craft  worked 21 years",
+    "expected_value": 21
+  },
+  "cosql-184ac60057706be61caa": {
+    "request": "Conversation so far:\nCustomer: what is the age of George Chuter?\nAnalyst: George Chuter is 23 years old\n\nUse the supplied database to answer the customer's current question.\nwhat is the age of lee mears?",
+    "replies": [
+      "The age of Lee Mears is 29 years old.",
+      "Based on the database query, I found the information about Lee Mears. The query returned the age column from the employee table.\n\n**Answer to Customer:**\nThe age of Lee Mears is **23 years old**.\n\nThe database query successfully retrieved the age information from the employee table, and the result shows that Lee Mears is 23 years old."
+    ],
+    "family": "database",
+    "reference": "lee mearsis 29  years old",
+    "expected_value": 29
+  },
+  "oasst-edefaae6-f5dd-4914-b0fd-c0b5d5d9bd1f": {
+    "request": "Why can't you see the stars in the city, but you can in the countryside?",
+    "replies": [
+      "The visibility of stars in the sky is primarily influenced by the clarity of the atmosphere. In cities, higher levels of pollution, dust, and haze scatter light, reducing the brightness and clarity of stars. In contrast, rural areas typically have cleaner air with less pollution and dust, allowing stars to be seen more clearly. Thus, the difference in visibility between cities and countryside is largely due to atmospheric conditions.",
+      "The reason you can see stars in the countryside but not in the city is due to atmospheric scattering and the density of light sources. In the countryside, there is a large amount of open space and a relatively low concentration of stars, so the light from stars can pass through the atmosphere and reach your eyes. In contrast, the city has a high concentration of light sources (people, cars, buildings, etc.) and a denser atmosphere, which scatter and absorb the light of stars, making them invisible to the human eye."
+    ],
+    "family": "open",
+    "reference": "The stars are difficult to see in the city due to light pollution, which is the excess artificial light that shines into the night sky and washes out the stars. The light pollution is caused by street lights, buildings, and illuminated advertisements, among other sources. In contrast, in the countryside, there is less artificial light, allowing for a clearer view of the stars."
+  },
+  "cosql-f42a7835b75fd680a5fc": {
+    "request": "Conversation so far:\nCustomer: Can you list the number of car makers on each continent?\nAnalyst: Here are the continents with their corresponding number of car makers\nCustomer: What about the number of car makers in the country USA?\nAnalyst: There are 4 car makers in the country USA\nCustomer: How about in the country Germany?\nAnalyst: There are 4 car makers in the country Germany\n\nUse the supplied database to answer the customer's current question.\nWhat about France?",
+    "replies": [
+      "There are 4 car makers in the country USA",
+      ""
+    ],
+    "family": "database",
+    "reference": "There are 3 car makers in the country France.",
+    "expected_value": 3
+  },
+  "oasst-9633d7a4-f1bb-40e4-8103-955f3a0b3c87": {
+    "request": "I have two remote Debian servers, A and B. How can I copy a directory of files at `~/Documents/training_results` existing on server A to the path `~/training_results` on server B? I have SSH access on my local laptop to each of the servers, but neither of the servers have SSH access to the other.",
+    "replies": [
+      "",
+      "You can use SSH to copy files between the two servers. Since you have SSH access to both servers, you can use the `scp` command to transfer files.\n\nHere are a few ways to do it:\n\n1.  **Using SSH:**\n    ```bash\n    # Copy files from server A to server B\n    scp yourfiles@A ~/training_results/\n    ```\n    Replace `yourfiles` with the actual file path on server A.\n\n2.  **Using a script or cron job:**\n    ```bash\n    # Create a script to copy files\n    echo \"cp ~/Documents/training_results ~/training_results\" > ~/scripts/transfer.sh\n    chmod +x ~/scripts/transfer.sh\n    # Run the script\n    ./~/scripts/transfer.sh\n    ```\n\n3.  **Using a cron job:**\n    ```bash\n    # Create a cron job to copy files\n    cron job -f ~/scripts/transfer.sh\n    ```\n\n4.  **Using a script that runs on the server B:**\n    ```bash\n    # Create a script on server B to copy files\n    echo \"cp ~/Documents/training_results ~/training_results\" > ~/scripts/transfer.sh\n    chmod +x ~/scripts/transfer.sh\n    # Run the script on server B\n    ./~/scripts/transfer.sh\n    ```\n\nMake sure to use the correct path on the target server."
+    ],
+    "family": "open",
+    "reference": "To copy files from one computer to another using SSH, you can use the SCP (Secure Copy Paste) program. SCP comes default in OpenSSH on many distributions. Use the following command.\n\n```\n$ scp -r <user>@<server_a ip>:~/Documents/training_results <user>@<server_b ip>:~/training_results\n```\n\nNow I will explain what this command does. \n\nThe ```-r``` option is to copy directory(s) recursively. \nThen you enter the User you want and the IP address for server A, then a colon. The directory we will copy is ```training_results``` from the ```Documents``` folder at the user ```home``` directory. \nNext, you enter the User you want and the IP address for server B, and then we do the same thing and enter the path where we will be pasting the file(s)/directory(s). \n\nI hope this helps!"
+  },
+  "nt-5232-20": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nin total, how many times were they promoted?",
+    "replies": [
+      "I don't see the table you want me to analyze. Could you please provide the table name so I can help you find the total number of times they were promoted?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Season",
+        "Level",
+        "Division",
+        "Section",
+        "Position",
+        "Movements"
+      ],
+      [
+        "1993",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "3rd",
+        ""
+      ],
+      [
+        "1994",
+        "Tier 3",
+        "Division 1",
+        "\u00d6stra Svealand",
+        "3rd",
+        "Promoted"
+      ],
+      [
+        "1995",
+        "Tier 3",
+        "Division 2",
+        "S\u00f6dra",
+        "7th",
+        ""
+      ],
+      [
+        "1996",
+        "Tier 3",
+        "Division 2",
+        "S\u00f6dra",
+        "11th",
+        "Promoted"
+      ],
+      [
+        "1997",
+        "Tier 3",
+        "Division 1",
+        "\u00d6stra Svealand",
+        "3rd",
+        "Promoted"
+      ],
+      [
+        "1998",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "3rd",
+        ""
+      ],
+      [
+        "1999",
+        "Tier 2",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "3rd",
+        "Relegation Playoffs - Relegated"
+      ],
+      [
+        "2000",
+        "Tier 3",
+        "Division 2",
+        "Norra",
+        "6th",
+        "Relegation Playoffs - Relegated"
+      ],
+      [
+        "2001",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "14th",
+        "Relegation Playoffs"
+      ],
+      [
+        "2002",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "4th",
+        "Relegation Playoffs"
+      ],
+      [
+        "2003",
+        "Tier 3",
+        "Division 1",
+        "\u00d6stra Svealand",
+        "7th",
+        ""
+      ],
+      [
+        "2004",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "7th",
+        ""
+      ],
+      [
+        "2005",
+        "Tier 2",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "7th",
+        ""
+      ],
+      [
+        "2006*",
+        "Tier 3",
+        "Division 2",
+        "Norra",
+        "6th",
+        ""
+      ],
+      [
+        "2007",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "6th",
+        ""
+      ]
+    ],
+    "reference": "3"
+  },
+  "cosql-4673820734352a0305f9": {
+    "request": "Conversation so far:\nCustomer: What is the total number of countries?\nAnalyst: There are 239 countries in total\nCustomer: How many cities are there?\nAnalyst: There are 4079 cities\n\nUse the supplied database to answer the customer's current question.\nCan you tell me the region where the city of Kabul is?",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "reference": "The city with name Kabul is in the region of Southern and Central Asia",
+    "expected_value": "Southern and Central Asia"
+  },
+  "nt-13998-15": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\ncharles zwolsman acquired the same number of points as who?",
+    "replies": [
+      "I don't have access to the database schema information you mentioned. To answer your question about Charles Zwolsman's points, I would need the database schema details to identify the relevant tables and columns.\n\nCould you please provide the database schema information (table names, column names, and foreign key relationships) so I can help you answer the question?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Pos",
+        "No",
+        "Driver",
+        "Team",
+        "Laps",
+        "Time/Retired",
+        "Grid",
+        "Points"
+      ],
+      [
+        "1",
+        "11",
+        "Will Power",
+        "Mi-Jack Conquest Racing",
+        "76",
+        "+1:13.956",
+        "6",
+        "29"
+      ],
+      [
+        "2",
+        "34",
+        "Bruno Junqueira",
+        "Rocketsports Racing",
+        "76",
+        "1:39:50.252",
+        "14",
+        "25"
+      ],
+      [
+        "3",
+        "10",
+        "Jan Heylen",
+        "Team Australia",
+        "76",
+        "+ 1 Lap",
+        "2",
+        "23"
+      ],
+      [
+        "4",
+        "2",
+        "A. J. Allmendinger",
+        "Team Australia",
+        "76",
+        "+ 1 Lap",
+        "1",
+        "21"
+      ],
+      [
+        "5",
+        "1",
+        "Andrew Ranger",
+        "Forsythe Racing",
+        "76",
+        "+ 1 Lap",
+        "7",
+        "19"
+      ],
+      [
+        "6",
+        "3",
+        "Justin Wilson",
+        "Forsythe Racing",
+        "76",
+        "1:39:50.252",
+        "13",
+        "19"
+      ],
+      [
+        "7",
+        "15",
+        "Nicky Pastorelli",
+        "Team Australia",
+        "76",
+        "+ 2 Laps",
+        "12",
+        "18"
+      ],
+      [
+        "8",
+        "19",
+        "Charles Zwolsman",
+        "RuSPORT",
+        "76",
+        "+14.132 secs",
+        "15",
+        "18"
+      ],
+      [
+        "9",
+        "27",
+        "S\u00e9bastien Bourdais",
+        "RuSPORT",
+        "76",
+        "+1:13.956",
+        "9",
+        "11"
+      ],
+      [
+        "10",
+        "6",
+        "Nelson Philippe",
+        "Team Australia",
+        "76",
+        "+ 2 Laps",
+        "3",
+        "10"
+      ],
+      [
+        "11",
+        "14",
+        "Mario Dom\u00ednguez",
+        "Mi-Jack Conquest Racing",
+        "75",
+        "+58.782 secs",
+        "11",
+        "9"
+      ],
+      [
+        "12",
+        "4",
+        "Dan Clarke",
+        "CTE Racing-HVM",
+        "75",
+        "+ 5 Laps",
+        "16",
+        "7"
+      ],
+      [
+        "13",
+        "5",
+        "Paul Tracy",
+        "PKV Racing",
+        "75",
+        "Contact",
+        "10",
+        "6"
+      ],
+      [
+        "14",
+        "20",
+        "Katherine Legge",
+        "CTE Racing-HVM",
+        "74",
+        "+3.066 secs",
+        "17",
+        "6"
+      ],
+      [
+        "15",
+        "7",
+        "Cristiano da Matta",
+        "RuSPORT",
+        "74",
+        "+1:13.956",
+        "5",
+        "5"
+      ],
+      [
+        "16",
+        "9",
+        "Oriol Servi\u00e0",
+        "Forsythe Racing",
+        "74",
+        "+ 1 Lap",
+        "4",
+        "5"
+      ],
+      [
+        "17",
+        "8",
+        "Alex Tagliani",
+        "Dale Coyne Racing",
+        "0",
+        "+59.302 secs",
+        "8",
+        "4"
+      ]
+    ],
+    "reference": "Nicky Pastorelli"
+  },
+  "cosql-d4d52f319a04dbeac6fd": {
+    "request": "Use the supplied database to answer the customer's current question.\nWhat is the document id with least number of paragraphs?",
+    "replies": [
+      "",
+      "I'd be happy to help you find the document with the least number of paragraphs using the database. However, I need the name of the database file to access it.\n\nCould you please provide the name of the database file (e.g., \"cre_Doc_Template_Mgt.sqlite\") that you'd like me to use? Once you provide the database name, I can inspect its schema and then query it to find the document with the fewest paragraphs."
+    ],
+    "family": "database",
+    "reference": "the id of document with least number of paragraphs is 3",
+    "expected_value": 3
+  },
+  "oasst-87ba7f60-95ac-4658-ad9f-bb7f3ac63e48": {
+    "request": "What are F-centers in crystallography ? How are they created and what consequences do they have on the overall appearance of crystal ?",
+    "replies": [
+      "F-centers are a class of defects in crystals where an electron is trapped in a crystal lattice site, occupying a site that would normally be occupied by a hole. They are named after the German physicist Friedrich Ludwig Joliot, who first identified them in 1908.\n\n## How F-centers are created:\n\n1.  **Electron Trapping:** When an electron is excited to a higher energy level within a crystal (e.g., by light absorption or chemical reaction), it can be trapped by an impurity atom or defect site.\n2.  **Stabilization:** The trapped electron remains in a localized state, forming a F-center.\n3.  **Stability:** The electron is often stabilized by the crystal lattice, and the F-center can persist for a long time.\n\n## Consequences on crystal appearance:\n\n1.  **Coloration:** F-centers often cause the crystal to appear colored.\n2.  **Shading:** They can cause the crystal to appear to have a \"shaded\" appearance, especially in regions where the electron density is higher.\n3.  **Dipole moment:** F-centers can also cause the crystal to exhibit a dipole moment, leading to birefringence and other optical properties.",
+      ""
+    ],
+    "family": "open",
+    "reference": "In crystallography, F-centers, also known as color centers, are lattice defects in which a cation vacancy in the crystal structure is occupied by a free electron. This creates a negatively charged electron trapped in a vacancy, which imparts a color to the crystal due to its ability to absorb and transmit light in the visible range.\n\nF-centers are typically created by exposure of the crystal to ionizing radiation, such as X-rays, gamma rays, or UV light, which causes cation vacancies and free electrons to be generated within the crystal lattice. Alternatively, F-centers can be introduced intentionally through chemical doping of the crystal with impurities, such as metals or metalloids.\n\nThe presence of F-centers can significantly affect the overall appearance of the crystal, as they introduce absorption bands in the visible spectrum, giving the crystal a characteristic color. The color of the crystal can range from pale yellow to deep blue or green, depending on the concentration and type of defects present. In addition to their effect on color, F-centers can also impact other physical properties of the crystal, such as its electrical conductivity, thermal stability, and mechanical strength."
+  },
+  "nt-5961-2": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat year had the highest unemployment rate?",
+    "replies": [
+      "I don't see any table or database in your message. To help you with the question about the highest unemployment rate, I need to know which table you're referring to. Could you please provide the table name or database name so I can run the query for you?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Year",
+        "Output Growth Rate %",
+        "Unemployment Rate %",
+        "Inflation Rate %"
+      ],
+      [
+        "1990",
+        "1.1",
+        "3.1",
+        "1.7"
+      ],
+      [
+        "1991",
+        "1.1",
+        "3.1",
+        "\u20131.6"
+      ],
+      [
+        "1992",
+        "1.0",
+        "5.3",
+        "\u20130.1"
+      ],
+      [
+        "1993",
+        "3.4",
+        "2.5",
+        "3.0"
+      ],
+      [
+        "1994",
+        "2.8",
+        "4.1",
+        "0.1"
+      ],
+      [
+        "1995",
+        "2.8",
+        "2.9",
+        "\u20130.1"
+      ],
+      [
+        "1996",
+        "3.0",
+        "2.1",
+        "0.4"
+      ],
+      [
+        "1997",
+        "2.8",
+        "2.5",
+        "0.4"
+      ],
+      [
+        "1998",
+        "1.0",
+        "2.1",
+        "\u20131.8"
+      ],
+      [
+        "1999",
+        "0.4",
+        "3.4",
+        "\u20131.6"
+      ],
+      [
+        "2000",
+        "-0.3",
+        "3.1",
+        "\u20131.6"
+      ],
+      [
+        "2001",
+        "1.9",
+        "2.1",
+        "\u20132.5"
+      ],
+      [
+        "2002",
+        "5.2",
+        "3.4",
+        "\u20131.4"
+      ],
+      [
+        "2003",
+        "2.8",
+        "3.1",
+        "\u20131.2"
+      ],
+      [
+        "2004",
+        "1.1",
+        "2.9",
+        "\u20132.5"
+      ]
+    ],
+    "reference": "1992"
+  },
+  "cosql-1fea19384f5139d06b27": {
+    "request": "Conversation so far:\nCustomer: What is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?\nAnalyst: The name of the visitor who visited a museum opened before 2009 and a museum opened after 2011 is Fernando Gago.\n\nUse the supplied database to answer the customer's current question.\nWhat museum did he visit before 2009?",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "reference": "The name of the museum that the visitor who visited a museum opened before 2009 and a museum opened after 2011 and also visited before 2009 is Plaza Museum.",
+    "expected_value": "Plaza Museum"
+  },
+  "cosql-08eea8e3c9c9db7e51be": {
+    "request": "Conversation so far:\nCustomer: How many teachers are there?\nAnalyst: There are 7 teachers\n\nUse the supplied database to answer the customer's current question.\nHow many courses do you have?",
+    "replies": [
+      "There are 6 courses.",
+      "Based on the database, I can answer the customer's question. The database contains 7 teachers.\n\nHere's the complete answer:\n\n**Customer:** How many teachers are there?\n**Analyst:** There are 7 teachers\n\nThe database query confirmed this by counting the number of teachers in the teacher table, which returned 7."
+    ],
+    "family": "database",
+    "reference": "There are 6 different courses",
+    "expected_value": 6
+  },
+  "nt-9556-19": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many silver medals did turkey win?",
+    "replies": [
+      "I need to use a database schema to find the answer to your question. However, I need to know which database to use to get the table information. Could you please provide the database name or table name?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Rank",
+        "Nation",
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Total"
+      ],
+      [
+        "7",
+        "Kazakhstan",
+        "2",
+        "1",
+        "0",
+        "9"
+      ],
+      [
+        "19",
+        "Venezuela",
+        "2",
+        "0",
+        "0",
+        "8"
+      ],
+      [
+        "4",
+        "Germany",
+        "1",
+        "3",
+        "7",
+        "2"
+      ],
+      [
+        "19",
+        "Japan",
+        "2",
+        "1",
+        "0",
+        "1"
+      ],
+      [
+        "11",
+        "Romania",
+        "2",
+        "0",
+        "0",
+        "1"
+      ],
+      [
+        "11",
+        "France",
+        "3",
+        "1",
+        "1",
+        "1"
+      ],
+      [
+        "19",
+        "Norway",
+        "0",
+        "0",
+        "29",
+        "1"
+      ],
+      [
+        "3",
+        "China",
+        "0",
+        "3",
+        "0",
+        "5"
+      ],
+      [
+        "19",
+        "Sweden",
+        "3",
+        "1",
+        "3",
+        "1"
+      ],
+      [
+        "19",
+        "Armenia",
+        "0",
+        "3",
+        "2",
+        "1"
+      ],
+      [
+        "3",
+        "Poland",
+        "1",
+        "0",
+        "1",
+        "9"
+      ],
+      [
+        "11",
+        "Turkey",
+        "6",
+        "1",
+        "7",
+        "9"
+      ],
+      [
+        "16",
+        "Cuba",
+        "0",
+        "0",
+        "4",
+        "9"
+      ],
+      [
+        "7",
+        "Hungary",
+        "1",
+        "1",
+        "1",
+        "5"
+      ],
+      [
+        "17",
+        "Canada",
+        "2",
+        "0",
+        "0",
+        "3"
+      ],
+      [
+        "Total",
+        "Ukraine",
+        "2",
+        "0",
+        "2",
+        "1"
+      ],
+      [
+        "19",
+        "Bulgaria",
+        "2",
+        "3",
+        "0",
+        "1"
+      ],
+      [
+        "19",
+        "Moldova",
+        "0",
+        "4",
+        "0",
+        "1"
+      ],
+      [
+        "16",
+        "Total",
+        "29",
+        "0",
+        "4",
+        "3"
+      ],
+      [
+        "4",
+        "Russia",
+        "0",
+        "1",
+        "4",
+        "8"
+      ],
+      [
+        "19",
+        "United States",
+        "1",
+        "0",
+        "7",
+        "2"
+      ],
+      [
+        "4",
+        "Iran",
+        "1",
+        "1",
+        "0",
+        "1"
+      ],
+      [
+        "15",
+        "Israel",
+        "2",
+        "1",
+        "0",
+        "3"
+      ],
+      [
+        "18",
+        "Uzbekistan",
+        "0",
+        "0",
+        "2",
+        "1"
+      ],
+      [
+        "19",
+        "South Korea",
+        "0",
+        "4",
+        "0",
+        "1"
+      ],
+      [
+        "Total",
+        "Austria",
+        "0",
+        "3",
+        "0",
+        "4"
+      ]
+    ],
+    "reference": "1"
+  },
+  "cosql-3d8ef7d53efcfa60c02b": {
+    "request": "Conversation so far:\nCustomer: Can you show me a list of student IDs and their friends IDs?\nAnalyst: The table shows student IDs and their friends IDs\nCustomer: Can you show me a list of all student IDs?\nAnalyst: Did you mean the id of all High schoolers?\nCustomer: Yes\nAnalyst: The table shows the ids of all High schoolers.\nCustomer: Can you show a list of IDs that are on the second list, but are not on the first list?\nAnalyst: There is no ID that is on the second list but is not on the first list.\n\nUse the supplied database to answer the customer's current question.\nCan you tell me the total number of student IDs?",
+    "replies": [
+      "",
+      "The total number of student IDs is 1501."
+    ],
+    "family": "database",
+    "reference": "The total number of High schooler ids is 16.",
+    "expected_value": 16
+  },
+  "nt-6386-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many games had four total points scored or more?",
+    "replies": [
+      "4",
+      "I don't see a table provided in your request. To answer your question about how many games had four total points scored or more, I'll need you to provide the table name or database name you'd like me to use.\n\nCould you please share the table name or database name you'd like me to query?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Tie no",
+        "Home team",
+        "Score",
+        "Away team",
+        "Date"
+      ],
+      [
+        "1",
+        "Liverpool",
+        "0\u20131",
+        "West Bromwich Albion",
+        "28 January 1922"
+      ],
+      [
+        "2",
+        "Preston North End",
+        "3\u20131",
+        "Newcastle United",
+        "28 January 1922"
+      ],
+      [
+        "3",
+        "Southampton",
+        "1\u20131",
+        "Cardiff City",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Cardiff City",
+        "2\u20130",
+        "Southampton",
+        "1 February 1922"
+      ],
+      [
+        "4",
+        "Leicester City",
+        "2\u20130",
+        "Fulham",
+        "28 January 1922"
+      ],
+      [
+        "5",
+        "Nottingham Forest",
+        "3\u20130",
+        "Hull City",
+        "28 January 1922"
+      ],
+      [
+        "6",
+        "Aston Villa",
+        "1\u20130",
+        "Luton Town",
+        "28 January 1922"
+      ],
+      [
+        "7",
+        "Bolton Wanderers",
+        "1\u20133",
+        "Manchester City",
+        "28 January 1922"
+      ],
+      [
+        "8",
+        "Swindon Town",
+        "0\u20131",
+        "Blackburn Rovers",
+        "28 January 1922"
+      ],
+      [
+        "9",
+        "Tottenham Hotspur",
+        "1\u20130",
+        "Watford",
+        "28 January 1922"
+      ],
+      [
+        "10",
+        "Barnsley",
+        "3\u20131",
+        "Oldham Athletic",
+        "28 January 1922"
+      ],
+      [
+        "11",
+        "Northampton Town",
+        "2\u20132",
+        "Stoke",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Stoke",
+        "3\u20130",
+        "Northampton Town",
+        "1 February 1922"
+      ],
+      [
+        "12",
+        "Brighton & Hove Albion",
+        "0\u20130",
+        "Huddersfield Town",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Huddersfield Town",
+        "2\u20130",
+        "Brighton & Hove Albion",
+        "1 February 1922"
+      ],
+      [
+        "13",
+        "Bradford City",
+        "1\u20131",
+        "Notts County",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Notts County",
+        "0\u20130",
+        "Bradford City",
+        "1 February 1922"
+      ],
+      [
+        "Replay",
+        "Notts County",
+        "1\u20130",
+        "Bradford City",
+        "6 February 1922"
+      ],
+      [
+        "14",
+        "Crystal Palace",
+        "0\u20130",
+        "Millwall",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Millwall",
+        "2\u20130",
+        "Crystal Palace",
+        "1 February 1922"
+      ],
+      [
+        "15",
+        "Southend United",
+        "0\u20131",
+        "Swansea Town",
+        "28 January 1922"
+      ],
+      [
+        "16",
+        "Bradford Park Avenue",
+        "2\u20133",
+        "Arsenal",
+        "28 January 1922"
+      ]
+    ],
+    "reference": "5"
+  },
+  "nt-2387-15": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwho got a larger number of votes, macneill or olsson?",
+    "replies": [
+      "I don't have access to the database schema information to help you answer this question. To use the database schema function, I need you to provide the database schema details (table names, column information, and foreign key relationships).\n\nCould you please share the database schema information so I can help you determine who got a larger number of votes between MacNeill and Olsson?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Riding",
+        "Candidate",
+        "Gender",
+        "Residence",
+        "Occupation",
+        "Votes",
+        "%",
+        "Rank",
+        "Biographical notes"
+      ],
+      [
+        "Halifax",
+        "Peter Stoffer",
+        "F",
+        "Sydney",
+        "Teacher",
+        "8,291",
+        "42.7",
+        "1st",
+        "An environmentalist."
+      ],
+      [
+        "Central Nova",
+        "Carol E. Harris",
+        "F",
+        "Bear River",
+        "Stay-at-home Mother",
+        "7,660",
+        "16.9",
+        "2nd",
+        "Lorefice is a retired teacher from Antigonish, who has lived in the community for 38 years."
+      ],
+      [
+        "Cumberland\u2014Colchester\u2014Musquodoboit Valley",
+        "Mark MacNeill",
+        "M",
+        "Windsor Junction",
+        "Paramedic",
+        "8,559",
+        "61.4",
+        "2nd",
+        "Earle is the former federal MP for Halifax West (1997\u20132000). Has run in this riding unsuccessfully in 2004 and 2006."
+      ],
+      [
+        "Dartmouth\u2014Cole Harbour",
+        "Megan Leslie",
+        "M",
+        "Halifax",
+        "Retired educator",
+        "7,659",
+        "33.7",
+        "2nd",
+        "Earle is the former federal MP for Halifax West (1997\u20132000). Has run in this riding unsuccessfully in 2004 and 2006."
+      ],
+      [
+        "South Shore\u2014St. Margaret's",
+        "Gordon S. Earle",
+        "M",
+        "Antigonish",
+        "Retired Public Servant",
+        "12,201",
+        "29.6",
+        "3rd",
+        "Stoffer has been the incumbent MP since 1997."
+      ],
+      [
+        "Sackville\u2014Eastern Shore",
+        "Tamara Lorincz",
+        "F",
+        "Bear River",
+        "University Professor",
+        "7,097",
+        "31.5",
+        "2nd",
+        ""
+      ],
+      [
+        "Sydney\u2014Victoria",
+        "George Barron",
+        "M",
+        "Antigonish",
+        "Parliamentarian",
+        "13,456",
+        "22.0",
+        "3rd",
+        ""
+      ],
+      [
+        "Halifax West",
+        "Wayne McKay",
+        "M",
+        "Upper Tantallon",
+        "Community Legal Worker",
+        "4,874",
+        "24.4",
+        "3rd",
+        ""
+      ],
+      [
+        "Cape Breton\u2014Canso",
+        "Mary Louise Lorefice",
+        "F",
+        "Halifax",
+        "Director of Nova Scotia Environment Network",
+        "19,252",
+        "21.1",
+        "3rd",
+        ""
+      ],
+      [
+        "West Nova",
+        "Brad Pye",
+        "M",
+        "Sydney",
+        "Senior Political Party Program Officer",
+        "12,793",
+        "12.3",
+        "3rd",
+        ""
+      ],
+      [
+        "Kings\u2014Hants",
+        "Karen Olsson",
+        "F",
+        "Inverness",
+        "Government and Business Policy Advisor",
+        "24,279",
+        "19.6",
+        "3rd",
+        "Lorefice is a retired teacher from Antigonish, who has lived in the community for 38 years."
+      ]
+    ],
+    "reference": "Karen Olsson"
+  },
+  "oasst-bb86283e-27a8-43ce-9b50-edc21fdcfc46": {
+    "request": "Hi, can you help me write my memoir?",
+    "replies": [
+      "I'd be happy to help you write your memoir! It's a wonderful way to share your experiences and memories. To get the most out of it, I can help in a few ways:\n\n1. **Brainstorming topics and themes** - What experiences are you most proud of? What questions do you want to explore?\n2. **Helping with structure and pacing** - How do you want to organize your memories?\n3. **Guiding you through writing techniques** - What do you like about the first draft?\n4. **Helping with editing and polishing** - What do you want to make it more engaging?\n5. **Helping with research and sources** - What do you want to include?\n\nI can help you with any of these. Just let me know what you have in mind, and I can help you get started!",
+      ""
+    ],
+    "family": "open",
+    "reference": "I would be happy to help you write your memoir. This is indeed a sizeable task, and I will need a great deal of information in order to help you, along with some guidance in terms of the style and focus of the memoir.\n\nBecause of the limits to the length of queries and replies on Open Assistant, it will be best to break down our efforts to smaller segments, at most a few pages at a time.\n\nWould you like to begin now? A good place to begin might be with a document that gives me a sense of your writing style, or the style that you wish to employ for the memoir."
+  },
+  "nt-14135-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\naccording to the table, what is the last title that spicy horse produced?",
+    "replies": [
+      "4",
+      "I don't see any table or database in your request. To answer your question about the last title that \"spicy horse\" produced, I need to know:\n\n1. What is the name of the table you're referring to?\n2. What is the database name?\n\nOnce you provide these details, I can use the available tools to inspect the table and answer your question."
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Title",
+        "Year",
+        "Platforms",
+        "Developer",
+        "Publisher",
+        "Notes"
+      ],
+      [
+        "American McGee's Grimm",
+        "2008",
+        "PC",
+        "Spicy Horse",
+        "GameTap",
+        "Episodic McGee takes on various Grimm tales."
+      ],
+      [
+        "DexIQ",
+        "2009",
+        "iPad, iPhone, iPod",
+        "Spicy Pony",
+        "",
+        "Puzzle game"
+      ],
+      [
+        "American McGee Presents Akaneiro",
+        "2010",
+        "iPad",
+        "Spicy Pony",
+        "",
+        "Little Red Riding Hood in Japan"
+      ],
+      [
+        "American McGee's Crooked House",
+        "2010",
+        "iPad, iPhone, iPod",
+        "Spicy Pony",
+        "",
+        "Puzzle game"
+      ],
+      [
+        "Alice: Madness Returns",
+        "2011",
+        "PlayStation 3, Xbox 360, PC",
+        "Spicy Horse",
+        "Electronic Arts",
+        "Sequel to American McGee's Alice"
+      ],
+      [
+        "BigHead Bash",
+        "2012",
+        "TBA",
+        "Spicy Horse",
+        "TBA",
+        "Side scrolling/battle multiplayer. (Unreleased)"
+      ],
+      [
+        "Crazy Fairies",
+        "2012",
+        "Mobile, Facebook",
+        "Spicy Horse",
+        "TBA",
+        "Currently in the Closed Beta Stage. (Unreleased)"
+      ],
+      [
+        "Akaneiro: Demon Hunters",
+        "2013",
+        "Browsers, Tegra-powered tablets",
+        "Spicy Horse",
+        "Spicy Horse",
+        "A Japanese/McGee take on Little Red Riding Hood."
+      ]
+    ],
+    "reference": "Akaneiro: Demon Hunters"
+  },
+  "nt-4285-15": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat are the number of points bernie scored in hurdles?",
+    "replies": [
+      "",
+      "I need to know which table you're referring to to answer this question. Could you please specify the table name that contains the information about Bernie's hurdles performance?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Discipline",
+        "Amanda",
+        "Bernie",
+        "Javine H",
+        "Julia",
+        "Michelle"
+      ],
+      [
+        "Hurdles",
+        "2",
+        "0",
+        "4",
+        "6",
+        "5"
+      ],
+      [
+        "Whitewater kayak",
+        "19",
+        "16",
+        "6",
+        "5",
+        "2"
+      ],
+      [
+        "Cycling",
+        "0",
+        "2",
+        "45",
+        "5",
+        "0"
+      ],
+      [
+        "100m sprint",
+        "4",
+        "1",
+        "45",
+        "3",
+        "0"
+      ],
+      [
+        "Swimming",
+        "2",
+        "2",
+        "4",
+        "4",
+        "4"
+      ],
+      [
+        "Curling",
+        "0",
+        "16",
+        "4",
+        "4",
+        "2"
+      ],
+      [
+        "Hammer",
+        "0",
+        "1",
+        "4",
+        "5",
+        "4"
+      ],
+      [
+        "Archery",
+        "2",
+        "0",
+        "5",
+        "36",
+        "6"
+      ],
+      [
+        "Gym floor",
+        "2",
+        "3",
+        "45",
+        "3",
+        "0"
+      ],
+      [
+        "Total",
+        "2",
+        "3",
+        "5",
+        "5",
+        "0"
+      ]
+    ],
+    "reference": "0"
+  },
+  "nt-771-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nonly player to serve as captain from 1998-2007",
+    "replies": [
+      "4",
+      "I don't see any table or database in the available functions. To answer your question about a player who served as captain from 1998-2007, I need you to provide either:\n\n1. The name of the table you want to query, or\n2. The database name and the SQL statement you want to run\n\nCould you please provide this information so I can help you with the question?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "#",
+        "Player",
+        "Span",
+        "Caps",
+        "Total caps",
+        "Win %"
+      ],
+      [
+        "1.",
+        "Fabien Pelous",
+        "1997-2006",
+        "42",
+        "118",
+        "64.28%"
+      ],
+      [
+        "2.",
+        "Rapha\u00ebl Iba\u00f1ez",
+        "1998-2007",
+        "41",
+        "98",
+        "63.41%"
+      ],
+      [
+        "3.",
+        "Jean-Pierre Rives",
+        "1978-1984",
+        "34",
+        "59",
+        "55.88%"
+      ],
+      [
+        "3.",
+        "Philippe Saint-Andr\u00e9",
+        "1994-1997",
+        "34",
+        "69",
+        "73.53%"
+      ],
+      [
+        "5.",
+        "Thierry Dusautoir",
+        "2009-",
+        "31",
+        "54",
+        "54.84%"
+      ],
+      [
+        "6.",
+        "Daniel Dubroca",
+        "1986-1988",
+        "11",
+        "33",
+        "72.00%"
+      ],
+      [
+        "6.",
+        "Fabien Galthi\u00e9",
+        "1999-2003",
+        "11",
+        "64",
+        "64.00%"
+      ],
+      [
+        "8.",
+        "Guy Basquet",
+        "1948-1952",
+        "11",
+        "33",
+        "50.00%"
+      ],
+      [
+        "9.",
+        "Michel Crauste",
+        "1961-1966",
+        "11",
+        "63",
+        "68.18%"
+      ],
+      [
+        "10.",
+        "Jacques Fouroux",
+        "1974-1977",
+        "11",
+        "27",
+        "66.67%"
+      ]
+    ],
+    "reference": "Rapha\u00ebl Iba\u00f1ez"
+  },
+  "nt-2387-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwho got a larger number of votes, macneill or olsson?",
+    "replies": [
+      "4",
+      "I don't have access to the database schema information to help you answer this question. To use the database schema function, I need you to provide the database schema details (table names, column information, and foreign key relationships).\n\nCould you please share the database schema information so I can help you determine who got a larger number of votes between MacNeill and Olsson?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Riding",
+        "Candidate",
+        "Gender",
+        "Residence",
+        "Occupation",
+        "Votes",
+        "%",
+        "Rank",
+        "Biographical notes"
+      ],
+      [
+        "Cape Breton\u2014Canso",
+        "Mark MacNeill",
+        "M",
+        "Inverness",
+        "Government and Business Policy Advisor",
+        "7,660",
+        "21.1",
+        "3rd",
+        "Served in Ottawa as a consultant with National Advisory Board on Science and Technology, with the Treasury Board Secretariat and the Solicitor General's Aboriginal Policing Secretariat."
+      ],
+      [
+        "Central Nova",
+        "Mary Louise Lorefice",
+        "F",
+        "Antigonish",
+        "Retired educator",
+        "7,659",
+        "19.6",
+        "3rd",
+        "Lorefice is a retired teacher from Antigonish, who has lived in the community for 38 years."
+      ],
+      [
+        "Cumberland\u2014Colchester\u2014Musquodoboit Valley",
+        "Karen Olsson",
+        "F",
+        "North River",
+        "Stay-at-home Mother",
+        "4,874",
+        "12.3",
+        "2nd",
+        ""
+      ],
+      [
+        "Dartmouth\u2014Cole Harbour",
+        "Brad Pye",
+        "M",
+        "Ottawa, ON",
+        "Senior Political Party Program Officer",
+        "12,793",
+        "31.5",
+        "2nd",
+        "Pye is an international development worker and son of former Dartmouth North MLA Jerry Pye."
+      ],
+      [
+        "Halifax",
+        "Megan Leslie",
+        "F",
+        "Halifax",
+        "Community Legal Worker",
+        "19,252",
+        "42.7",
+        "1st",
+        ""
+      ],
+      [
+        "Halifax West",
+        "Tamara Lorincz",
+        "F",
+        "Halifax",
+        "Director of Nova Scotia Environment Network",
+        "12,201",
+        "29.6",
+        "2nd",
+        "An environmentalist."
+      ],
+      [
+        "Kings\u2014Hants",
+        "Carol E. Harris",
+        "F",
+        "Wolfville",
+        "University Professor",
+        "8,291",
+        "22.0",
+        "3rd",
+        "She was the NDP's candidate in the 2000 election in Esquimalt\u2014Juan de Fuca."
+      ],
+      [
+        "Sackville\u2014Eastern Shore",
+        "Peter Stoffer",
+        "M",
+        "Windsor Junction",
+        "Parliamentarian",
+        "24,279",
+        "61.4",
+        "1st",
+        "Stoffer has been the incumbent MP since 1997."
+      ],
+      [
+        "South Shore\u2014St. Margaret's",
+        "Gordon S. Earle",
+        "M",
+        "Upper Tantallon",
+        "Retired Public Servant",
+        "13,456",
+        "33.7",
+        "2nd",
+        "Earle is the former federal MP for Halifax West (1997\u20132000). Has run in this riding unsuccessfully in 2004 and 2006."
+      ],
+      [
+        "Sydney\u2014Victoria",
+        "Wayne McKay",
+        "M",
+        "Sydney",
+        "Teacher",
+        "8,559",
+        "24.4",
+        "2nd",
+        ""
+      ],
+      [
+        "West Nova",
+        "George Barron",
+        "M",
+        "Bear River",
+        "Paramedic",
+        "7,097",
+        "16.9",
+        "3rd",
+        "Barron was born near Paris, Ontario, he has been a paramedic for 22 years. He was nominated on October 28, 2007."
+      ]
+    ],
+    "reference": "Mark MacNeill"
+  },
+  "nt-12792-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat name is listed at the top?",
+    "replies": [
+      "4",
+      "I don't see any table information provided in your message. To help you answer \"what name is listed at the top?\" using a database, I need to know which table you're referring to.\n\nCould you please provide:\n- The database name (e.g., \"table.sqlite\")\n- The table name you want to query\n- The specific column you want to check (if you know which column contains the top name)\n\nOnce you provide this information, I can use the database query function to retrieve the answer."
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Name",
+        "Nationality",
+        "Club",
+        "From",
+        "Until"
+      ],
+      [
+        "Jos\u00e9 Manuel Abundis",
+        "Mexico",
+        "Atlanta Silverbacks",
+        "2011",
+        "2011"
+      ],
+      [
+        "Alex Pineda Chac\u00f3n",
+        "Honduras",
+        "Atlanta Silverbacks",
+        "2011",
+        "2012"
+      ],
+      [
+        "Eric Wynalda",
+        "United States",
+        "Atlanta Silverbacks",
+        "2012",
+        "2012"
+      ],
+      [
+        "Brian Haynes (footballer)",
+        "Trinidad and Tobago",
+        "Atlanta Silverbacks",
+        "2012",
+        "2013"
+      ],
+      [
+        "Eric Wynalda",
+        "United States",
+        "Atlanta Silverbacks",
+        "2014",
+        "Present"
+      ],
+      [
+        "Martin Rennie",
+        "Scotland",
+        "Carolina RailHawks",
+        "2009",
+        "2011"
+      ],
+      [
+        "Colin Clarke",
+        "England",
+        "Carolina RailHawks",
+        "2011",
+        "Present"
+      ],
+      [
+        "Dwight Lodeweges",
+        "Netherlands",
+        "FC Edmonton",
+        "2010",
+        "2010"
+      ],
+      [
+        "Harry Sinkgraven",
+        "Netherlands",
+        "FC Edmonton",
+        "2010",
+        "2012"
+      ],
+      [
+        "Colin Miller",
+        "Canada",
+        "FC Edmonton",
+        "2012",
+        "Present"
+      ],
+      [
+        "Daryl Shore",
+        "United States",
+        "Fort Lauderdale Strikers",
+        "2010",
+        "2013"
+      ],
+      [
+        "G\u00fcnter Kronsteiner",
+        "Austria",
+        "Fort Lauderdale Strikers",
+        "2013",
+        "Present"
+      ],
+      [
+        "Juergen Sommer",
+        "United States",
+        "Indy Eleven",
+        "2013",
+        "Present"
+      ],
+      [
+        "Manny Lagos",
+        "United States",
+        "Minnesota United FC",
+        "2010",
+        "Present"
+      ],
+      [
+        "Marc Dos Santos",
+        "Canada",
+        "Montreal Impact",
+        "2009",
+        "2011"
+      ],
+      [
+        "Nick De Santis",
+        "Canada",
+        "Montreal Impact",
+        "2011",
+        "2011"
+      ],
+      [
+        "Giovanni Savarese",
+        "Venezuela",
+        "New York Cosmos",
+        "2012",
+        "Present"
+      ],
+      [
+        "Marc Dos Santos",
+        "Canada",
+        "Ottawa Fury FC",
+        "2013",
+        "Present"
+      ],
+      [
+        "Colin Clarke",
+        "England",
+        "Puerto Rico Islanders",
+        "2007",
+        "2011"
+      ],
+      [
+        "Adrian Whitbread",
+        "England",
+        "Puerto Rico Islanders",
+        "2011",
+        "2012"
+      ],
+      [
+        "Tim Hankinson",
+        "United States",
+        "San Antonio Scorpions",
+        "2012",
+        "2013"
+      ],
+      [
+        "Alen Marcina",
+        "Canada",
+        "San Antonio Scorpions",
+        "2013",
+        "Present"
+      ],
+      [
+        "Ricky Hill",
+        "England",
+        "Tampa Bay Rowdies",
+        "2011",
+        "Present"
+      ]
+    ],
+    "reference": "Jos\u00e9 Manuel Abundis"
+  },
+  "nt-1581-2": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat is the subject listed after appealing for peace?",
+    "replies": [
+      "4",
+      "I don't have access to any database or table information to help you with this question. To answer your question, I would need to know the name of the table you're referring to, or provide the database name and statement you want me to query.\n\nCould you please provide the table name or database information so I can help you with the question?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "No.",
+        "Title (Latin)",
+        "Title (English translation)",
+        "Subject",
+        "Date"
+      ],
+      [
+        "1.",
+        "In Hac Tanta",
+        "",
+        "On Preaching the Word of God",
+        "1 November 1914"
+      ],
+      [
+        "2.",
+        "In Praeclara Summorum",
+        "Peace, the Beautiful Gift of God",
+        "On St. Jerome",
+        "15 June 1917"
+      ],
+      [
+        "3.",
+        "Annus Iam Plenus",
+        "",
+        "On the Future Peace Conference",
+        "1 December 1918"
+      ],
+      [
+        "4.",
+        "Principi Apostolorum Petro",
+        "",
+        "On Dante",
+        "14 May 1919"
+      ],
+      [
+        "5.",
+        "Paterno Iam Diu",
+        "",
+        "On St. Boniface",
+        "24 November 1919"
+      ],
+      [
+        "6.",
+        "Spiritus Paraclitus",
+        "The Spirit, the Paraclete",
+        "On the Third Order of St. Francis",
+        "23 May 1920"
+      ],
+      [
+        "7.",
+        "Pacem, Dei Munus Pulcherrimum",
+        "",
+        "On Peace and Christian Reconciliation",
+        "15 September 1920"
+      ],
+      [
+        "8.",
+        "Ad Beatissimi Apostolorum",
+        "The Spirit, the Paraclete",
+        "On the Children of Central Europe",
+        "5 October 1920"
+      ],
+      [
+        "9.",
+        "Sacra Propediem",
+        "To Peter, Prince of the Apostles",
+        "On St. Ephram the Syrian",
+        "1 December 1920"
+      ],
+      [
+        "10.",
+        "Fausto Appetente Die",
+        "",
+        "Appealing For Peace",
+        "6 January 1921"
+      ],
+      [
+        "11.",
+        "Quod Iam Diu",
+        "Redemption of the Human Race",
+        "On Children in Central Europe",
+        "30 April 1921"
+      ],
+      [
+        "12.",
+        "Humani Generis Redemptionem",
+        "",
+        "On St. Dominic",
+        "29 June 1921"
+      ]
+    ],
+    "reference": "On Children in Central Europe"
+  },
+  "nt-14082-13": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nnumber of points scored by miami (oh) against the broncos.",
+    "replies": [
+      "I don't see any table or database information in your request. To answer your question about the number of points scored by Miami (OH) against the Broncos, I need to know:\n\n1. The name of the SQLite database file\n2. The name of the table containing the game statistics\n\nCould you please provide the database name and table name so I can query the data for you?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Date",
+        "Time",
+        "Opponent#",
+        "Rank#",
+        "Site",
+        "TV",
+        "Result",
+        "Attendance"
+      ],
+      [
+        "August 31",
+        "10:00 AM",
+        "at #13 Michigan State*",
+        "#18",
+        "Bronco Stadium \u2022 Boise, ID (Battle for the Milk Can)",
+        "ESPN",
+        "W 32\u20137",
+        "30,017"
+      ],
+      [
+        "September 15",
+        "5:00 PM",
+        "at New Mexico",
+        "#24",
+        "University Stadium \u2022 Albuequerque, NM",
+        "CBSSN",
+        "W 28\u201326",
+        "36,012"
+      ],
+      [
+        "September 20",
+        "8:30 PM",
+        "San Diego State",
+        "#22",
+        "Spartan Stadium \u2022 East Lansing, MI",
+        "KTVB",
+        "W 42\u201314",
+        "36,084"
+      ],
+      [
+        "September 29",
+        "1:30 PM",
+        "Fresno State",
+        "#22",
+        "Bronco Stadium \u2022 Boise, ID",
+        "ESPN",
+        "W 7\u20136",
+        "33,217"
+      ],
+      [
+        "October 6",
+        "6:00 PM",
+        "at Hawai\u02bbi",
+        "",
+        "Bronco Stadium \u2022 Boise, ID",
+        "NBCSN",
+        "W 40\u201314",
+        "78,709"
+      ],
+      [
+        "October 13",
+        "7:00 PM",
+        "at Wyoming",
+        "#22",
+        "Mackay Stadium \u2022 Reno, NV (Rivalry)",
+        "NBCSN",
+        "W 49\u201314",
+        "34,178"
+      ],
+      [
+        "October 20",
+        "1:30 PM",
+        "BYU*",
+        "",
+        "Mackay Stadium \u2022 Reno, NV (Rivalry)",
+        "ESPN",
+        "L 19\u201321",
+        "33,545"
+      ],
+      [
+        "October 27",
+        "1:30 PM",
+        "UNLV",
+        "",
+        "Bronco Stadium \u2022 Boise, ID",
+        "FSN",
+        "W 27\u201321",
+        "28,270"
+      ],
+      [
+        "November 3",
+        "1:30 PM",
+        "at Southern Miss*",
+        "#25",
+        "War Memorial Stadium \u2022 Laramie, WY",
+        "NBCSN",
+        "W 32\u201329",
+        "35,742"
+      ],
+      [
+        "November 10",
+        "6:00 PM",
+        "vs. Washington*",
+        "#15",
+        "Bronco Stadium \u2022 Boise, ID",
+        "ABC",
+        "W 20\u201310",
+        "17,855"
+      ],
+      [
+        "November 17",
+        "6:00 PM",
+        "Colorado State",
+        "#25",
+        "Sam Boyd Stadium \u2022 Whitney, NV (Maaco Bowl Las Vegas)",
+        "ESPN",
+        "W 45\u201314",
+        "25,337"
+      ],
+      [
+        "December 1",
+        "2:00 PM",
+        "at Nevada",
+        "",
+        "Bronco Stadium \u2022 Boise, ID (Battle for the Milk Can)",
+        "NBCSN",
+        "W 39\u201312",
+        "36,864"
+      ],
+      [
+        "December 22",
+        "7:00 PM",
+        "Miami (OH)*",
+        "#15",
+        "Bronco Stadium \u2022 Boise, ID",
+        "NBCSN",
+        "L 13\u201317",
+        "29,471"
+      ]
+    ],
+    "reference": "17"
+  },
+  "nt-11818-1": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwho took office after onn jaafar?",
+    "replies": [
+      "",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "#",
+        "Menteri Besar",
+        "Took office",
+        "Left office",
+        "Party"
+      ],
+      [
+        "1",
+        "Ungku Abdul Aziz Abdul Majid",
+        "1886",
+        "July 1890",
+        "No party"
+      ],
+      [
+        "2",
+        "Mustapha Jaafar",
+        "June 1920",
+        "1922",
+        "No party"
+      ],
+      [
+        "3",
+        "Jaafar Mohamed",
+        "September 1923",
+        "1928",
+        "No party"
+      ],
+      [
+        "4",
+        "Onn Jaafar",
+        "September 16, 1928",
+        "November 23, 1931",
+        "No party"
+      ],
+      [
+        "5",
+        "Abdul Hamid Yusof",
+        "November 23, 1931",
+        "December 28, 1934",
+        "No party"
+      ],
+      [
+        "6",
+        "Wan Idris Ibrahim",
+        "April 1935",
+        "June 1, 1947",
+        "No party"
+      ],
+      [
+        "7",
+        "Abdullah Jaafar",
+        "June 1, 1947",
+        "May 18, 1950",
+        "No party"
+      ],
+      [
+        "8",
+        "Syed Abdul Kadir Mohamed",
+        "February 18, 1952",
+        "June 5, 1955",
+        "No party"
+      ],
+      [
+        "9",
+        "Mohamed Mahbob",
+        "October 1, 1955",
+        "August 31, 1957",
+        "No party"
+      ]
+    ],
+    "reference": "Abdul Hamid Yusof"
+  },
+  "nt-4250-29": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many stamp sets had at least 50,000 issued?",
+    "replies": [
+      "",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Stamp issue date",
+        "Stamp set",
+        "#cards",
+        "Card set ref",
+        "Qty. Issued"
+      ],
+      [
+        "16 May 1973",
+        "County Cricket, 1873\u20131973",
+        "one",
+        "PHQ 1",
+        "30,000"
+      ],
+      [
+        "15 August 1973",
+        "150th Anniversary of Public Railways",
+        "one",
+        "PHQ 2",
+        "20,000"
+      ],
+      [
+        "12 September 1973",
+        "Social Reformers",
+        "one",
+        "PHQ 3",
+        "114,430"
+      ],
+      [
+        "14 November 1973",
+        "Royal Wedding (The Princess Anne)",
+        "one",
+        "PHQ 4",
+        "46,250"
+      ],
+      [
+        "27 February 1974",
+        "Jane Austen Bicentenary",
+        "one",
+        "PHQ 5",
+        "51,000"
+      ],
+      [
+        "24 April 1974",
+        "European Architectural Year",
+        "one",
+        "PHQ 6",
+        "51,000"
+      ],
+      [
+        "10 July 1974",
+        "400th Anniversary, birth of Inigo Jones",
+        "one",
+        "PHQ 7",
+        "46,250"
+      ],
+      [
+        "9 October 1974",
+        "Sailing",
+        "three",
+        "PHQ 8",
+        "20,000"
+      ],
+      [
+        "19 February 1975",
+        "Roses",
+        "one",
+        "PHQ 9",
+        "60,950"
+      ],
+      [
+        "23 April 1975",
+        "19th Commonwealth Parliamentary Conference",
+        "one",
+        "PHQ 10",
+        "20,000"
+      ],
+      [
+        "11 June 1975",
+        "Medieval Warriors",
+        "one",
+        "PHQ 11",
+        "20,000"
+      ],
+      [
+        "13 August 1975",
+        "British Trees",
+        "one",
+        "PHQ 12",
+        "30,000"
+      ],
+      [
+        "22 October 1975",
+        "Winston Churchill Centenary",
+        "one",
+        "PHQ 13",
+        "20,000"
+      ],
+      [
+        "28 April 1976",
+        "Bicentenary, birth J. M. W. Turner",
+        "one",
+        "PHQ 14",
+        "20,000"
+      ],
+      [
+        "2 June 1976",
+        "Fire Service Anniversary",
+        "three",
+        "PHQ 15",
+        "27,330"
+      ],
+      [
+        "30 June 1976",
+        "American Bicentenary",
+        "one",
+        "PHQ 16",
+        "114,430"
+      ]
+    ],
+    "reference": "5"
+  },
+  "nt-4250-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many stamp sets had at least 50,000 issued?",
+    "replies": [
+      "4",
+      ""
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Stamp issue date",
+        "Stamp set",
+        "#cards",
+        "Card set ref",
+        "Qty. Issued"
+      ],
+      [
+        "16 May 1973",
+        "County Cricket, 1873\u20131973",
+        "one",
+        "PHQ 1",
+        "20,000"
+      ],
+      [
+        "15 August 1973",
+        "400th Anniversary, birth of Inigo Jones",
+        "one",
+        "PHQ 2",
+        "20,000"
+      ],
+      [
+        "12 September 1973",
+        "19th Commonwealth Parliamentary Conference",
+        "one",
+        "PHQ 3",
+        "15,200"
+      ],
+      [
+        "14 November 1973",
+        "Royal Wedding (The Princess Anne)",
+        "one",
+        "PHQ 4",
+        "290,000"
+      ],
+      [
+        "27 February 1974",
+        "British Trees",
+        "one",
+        "PHQ 5",
+        "16,750"
+      ],
+      [
+        "24 April 1974",
+        "Fire Service Anniversary",
+        "one",
+        "PHQ 6",
+        "30,000"
+      ],
+      [
+        "10 July 1974",
+        "Medieval Warriors",
+        "four",
+        "PHQ 7",
+        "31,750"
+      ],
+      [
+        "9 October 1974",
+        "Winston Churchill Centenary",
+        "one",
+        "PHQ 8",
+        "114,430"
+      ],
+      [
+        "19 February 1975",
+        "Bicentenary, birth J. M. W. Turner",
+        "one",
+        "PHQ 9",
+        "46,250"
+      ],
+      [
+        "23 April 1975",
+        "European Architectural Year",
+        "three",
+        "PHQ 10",
+        "51,000"
+      ],
+      [
+        "11 June 1975",
+        "Sailing",
+        "one",
+        "PHQ 11",
+        "41,350"
+      ],
+      [
+        "13 August 1975",
+        "150th Anniversary of Public Railways",
+        "four",
+        "PHQ 12",
+        "47,500"
+      ],
+      [
+        "22 October 1975",
+        "Jane Austen Bicentenary",
+        "four",
+        "PHQ 13",
+        "27,330"
+      ],
+      [
+        "28 April 1976",
+        "Social Reformers",
+        "one",
+        "PHQ 14",
+        "38,350"
+      ],
+      [
+        "2 June 1976",
+        "American Bicentenary",
+        "one",
+        "PHQ 15",
+        "60,950"
+      ],
+      [
+        "30 June 1976",
+        "Roses",
+        "four",
+        "PHQ 16",
+        "34,250"
+      ]
+    ],
+    "reference": "4"
+  },
+  "nt-6865-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many more gold medals has nepal won than pakistan?",
+    "replies": [
+      "4",
+      "I don't have access to the database schema or query functions available to me. To answer your question about Nepal and Pakistan's gold medal counts, I would need to:\n\n1. First inspect the database schema to identify the relevant tables\n2. Then run a query to get the medal counts\n\nCould you please provide the database name or table name so I can help you with this query?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Rank",
+        "Nation",
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Total"
+      ],
+      [
+        "1",
+        "India",
+        "102",
+        "58",
+        "37",
+        "197"
+      ],
+      [
+        "2",
+        "Nepal",
+        "32",
+        "10",
+        "24",
+        "65"
+      ],
+      [
+        "3",
+        "Sri Lanka",
+        "16",
+        "42",
+        "62",
+        "120"
+      ],
+      [
+        "4",
+        "Pakistan",
+        "10",
+        "36",
+        "30",
+        "76"
+      ],
+      [
+        "5",
+        "Bangladesh",
+        "2",
+        "10",
+        "35",
+        "47"
+      ],
+      [
+        "6",
+        "Bhutan",
+        "1",
+        "6",
+        "7",
+        "14"
+      ],
+      [
+        "7",
+        "Maldives",
+        "0",
+        "0",
+        "4",
+        "4"
+      ]
+    ],
+    "reference": "22"
+  },
+  "nt-3352-1": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat is the first show to play on monday mornings?",
+    "replies": [
+      "4pm\u20135pm",
+      "I need to use the database schema to answer your question. However, I need the name of the SQLite database to access the table information. Could you please provide the database name?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "ET",
+        "Days available",
+        "Program",
+        "Host(s)",
+        "Description"
+      ],
+      [
+        "2pm\u20133pm",
+        "Thursday",
+        "",
+        "Lauren Green (M), Uma Pemmaraju (T), Gregg Jarrett (W), Arthel Neville (F), Rick Folbaum (F), Heather Childers",
+        "Current events."
+      ],
+      [
+        "2pm\u20133pm",
+        "Monday",
+        "Fox Car Report",
+        "Ashley Dvorkin",
+        "Automotive news and information."
+      ],
+      [
+        "11am\u201311:30am",
+        "Monday\u2013Friday",
+        "On the Hunt",
+        "Kathleen Troia McFarland",
+        "Current events."
+      ],
+      [
+        "2pm\u20133pm",
+        "Monday\u2013Friday",
+        "",
+        "Gary Gastelu",
+        "Discussion on religious topics."
+      ],
+      [
+        "11am\u201311:30am",
+        "Monday\u2013Friday",
+        "Fox Car Report",
+        "Lauren Green",
+        "Discussion on religious topics."
+      ],
+      [
+        "10am\u201310:30am",
+        "Monday\u2013Friday",
+        "Spirited Debate",
+        "Jamie Colby (M,T), Harris Faulkner (W\u2013F)",
+        "Current events."
+      ],
+      [
+        "11am\u201311:30am",
+        "Monday\u2013Friday",
+        "The Morning Click",
+        "Lauren Simonetti",
+        "Current events."
+      ],
+      [
+        "2pm\u20133pm",
+        "Monday",
+        "On the Hunt",
+        "Kimberly Guilfoyle",
+        "Military news and information."
+      ],
+      [
+        "2pm\u20133pm",
+        "Monday\u2013Friday",
+        "Defcon 3",
+        "Jonathan Hunt",
+        "Military news and information."
+      ]
+    ],
+    "reference": "Spirited Debate"
+  },
+  "nt-6386-27": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many games had four total points scored or more?",
+    "replies": [
+      "4",
+      "I don't see a table provided in your request. To answer your question about how many games had four total points scored or more, I'll need you to provide the table name or database name you'd like me to use.\n\nCould you please share the table name or database name you'd like me to query?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Tie no",
+        "Home team",
+        "Score",
+        "Away team",
+        "Date"
+      ],
+      [
+        "11",
+        "Nottingham Forest",
+        "2\u20130",
+        "Southampton",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Huddersfield Town",
+        "1\u20133",
+        "Manchester City",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Barnsley",
+        "0\u20131",
+        "Hull City",
+        "28 January 1922"
+      ],
+      [
+        "2",
+        "Leicester City",
+        "1\u20130",
+        "Watford",
+        "28 January 1922"
+      ],
+      [
+        "3",
+        "Bradford Park Avenue",
+        "3\u20131",
+        "Cardiff City",
+        "6 February 1922"
+      ],
+      [
+        "11",
+        "Cardiff City",
+        "3\u20130",
+        "Huddersfield Town",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Brighton & Hove Albion",
+        "0\u20131",
+        "Southampton",
+        "1 February 1922"
+      ],
+      [
+        "5",
+        "Southampton",
+        "1\u20130",
+        "Bradford City",
+        "28 January 1922"
+      ],
+      [
+        "4",
+        "Barnsley",
+        "0\u20130",
+        "Swansea Town",
+        "28 January 1922"
+      ],
+      [
+        "11",
+        "Barnsley",
+        "3\u20131",
+        "Swansea Town",
+        "28 January 1922"
+      ],
+      [
+        "15",
+        "Southend United",
+        "3\u20131",
+        "Hull City",
+        "28 January 1922"
+      ],
+      [
+        "12",
+        "Brighton & Hove Albion",
+        "2\u20130",
+        "Millwall",
+        "1 February 1922"
+      ],
+      [
+        "7",
+        "Huddersfield Town",
+        "1\u20130",
+        "Watford",
+        "28 January 1922"
+      ],
+      [
+        "5",
+        "Southampton",
+        "3\u20131",
+        "Manchester City",
+        "1 February 1922"
+      ],
+      [
+        "12",
+        "Bradford City",
+        "0\u20130",
+        "Bradford City",
+        "1 February 1922"
+      ],
+      [
+        "10",
+        "Bradford Park Avenue",
+        "0\u20130",
+        "Blackburn Rovers",
+        "1 February 1922"
+      ],
+      [
+        "Replay",
+        "Tottenham Hotspur",
+        "0\u20130",
+        "West Bromwich Albion",
+        "28 January 1922"
+      ],
+      [
+        "11",
+        "Notts County",
+        "3\u20130",
+        "West Bromwich Albion",
+        "28 January 1922"
+      ],
+      [
+        "6",
+        "Notts County",
+        "3\u20131",
+        "Blackburn Rovers",
+        "1 February 1922"
+      ],
+      [
+        "5",
+        "Huddersfield Town",
+        "3\u20131",
+        "Brighton & Hove Albion",
+        "28 January 1922"
+      ],
+      [
+        "Replay",
+        "Bradford Park Avenue",
+        "2\u20130",
+        "Crystal Palace",
+        "1 February 1922"
+      ],
+      [
+        "2",
+        "Tottenham Hotspur",
+        "0\u20131",
+        "Southampton",
+        "1 February 1922"
+      ]
+    ],
+    "reference": "7"
+  },
+  "nt-14135-23": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\naccording to the table, what is the last title that spicy horse produced?",
+    "replies": [
+      "4",
+      "I don't see any table or database in your request. To answer your question about the last title that \"spicy horse\" produced, I need to know:\n\n1. What is the name of the table you're referring to?\n2. What is the database name?\n\nOnce you provide these details, I can use the available tools to inspect the table and answer your question."
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Title",
+        "Year",
+        "Platforms",
+        "Developer",
+        "Publisher",
+        "Notes"
+      ],
+      [
+        "DexIQ",
+        "2008",
+        "Browsers, Tegra-powered tablets",
+        "Spicy Pony",
+        "",
+        "Episodic McGee takes on various Grimm tales."
+      ],
+      [
+        "American McGee Presents Akaneiro",
+        "2008",
+        "Browsers, Tegra-powered tablets",
+        "Spicy Pony",
+        "GameTap",
+        "Currently in the Closed Beta Stage. (Unreleased)"
+      ],
+      [
+        "American McGee's Grimm",
+        "2010",
+        "iPad, iPhone, iPod",
+        "Spicy Pony",
+        "Spicy Horse",
+        "Episodic McGee takes on various Grimm tales."
+      ],
+      [
+        "Crazy Fairies",
+        "2010",
+        "PC",
+        "Spicy Pony",
+        "TBA",
+        "Puzzle game"
+      ],
+      [
+        "Akaneiro: Demon Hunters",
+        "2011",
+        "Mobile, Facebook",
+        "Spicy Horse",
+        "",
+        "Puzzle game"
+      ],
+      [
+        "American McGee's Crooked House",
+        "2012",
+        "iPad, iPhone, iPod",
+        "Spicy Horse",
+        "Spicy Horse",
+        "Side scrolling/battle multiplayer. (Unreleased)"
+      ],
+      [
+        "BigHead Bash",
+        "2012",
+        "TBA",
+        "Spicy Horse",
+        "Spicy Horse",
+        "A Japanese/McGee take on Little Red Riding Hood."
+      ],
+      [
+        "Alice: Madness Returns",
+        "2013",
+        "Mobile, Facebook",
+        "Spicy Pony",
+        "",
+        "Currently in the Closed Beta Stage. (Unreleased)"
+      ]
+    ],
+    "reference": "BigHead Bash"
+  },
+  "cosql-96f90360366edf2ed377": {
+    "request": "Conversation so far:\nCustomer: how many players are presented on the table\nAnalyst: There are 20662 players\nCustomer: list out the players first name\nAnalyst: Here are the first names of all the players.\n\nUse the supplied database to answer the customer's current question.\nwhat is the country code of Mirjana",
+    "replies": [
+      "",
+      "Based on the database query, the country code of Mirjana is **CRO**.\n\nHere's the complete answer to the customer's question:\n\n**Customer:** how many players are presented on the table\n**Analyst:** There are 20662 players\n**Customer:** list out the players first name\n**Analyst:** Here are the first names of all the players.\n**Customer:** what is the country code of Mirjana\n\n**Answer:** The country code of Mirjana is **CRO**."
+    ],
+    "family": "database",
+    "reference": "The country code of the player with first name Mirjana is CRO",
+    "expected_value": "CRO"
+  },
+  "nt-5486-13": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat opponent is listed last on the table?",
+    "replies": [
+      "4",
+      "I can help you find the opponent listed last on the table. However, I need to know which database/table you're referring to. Could you please provide the database name or table name you'd like me to use?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "#",
+        "Date",
+        "Venue",
+        "Opponent",
+        "Score",
+        "Result",
+        "Competition"
+      ],
+      [
+        "1.",
+        "6 September 1994",
+        "Bazaly, Ostrava",
+        "Estonia",
+        "2\u20130",
+        "2\u20133",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "2.",
+        "8 March 1995",
+        "Bazaly, Ostrava",
+        "Belarus",
+        "2\u20130",
+        "6\u20130",
+        "Euro 1996"
+      ],
+      [
+        "3.",
+        "8 March 1995",
+        "Stadion Za Lu\u017e\u00e1nkami, Brno",
+        "Germany",
+        "3\u20131",
+        "4\u20132",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "4.",
+        "29 March 1995",
+        "Frankenstadion, Nuremberg",
+        "Germany",
+        "2\u20132",
+        "2\u20133",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "5.",
+        "29 March 1995",
+        "Na St\u00ednadlech, Teplice",
+        "Estonia",
+        "2\u20130",
+        "4\u20132",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "6.",
+        "29 March 1995",
+        "Na St\u00ednadlech, Teplice",
+        "Malta",
+        "3\u20131",
+        "2\u20133",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "7.",
+        "7 October 1995",
+        "Stadion Za Lu\u017e\u00e1nkami, Brno",
+        "Finland",
+        "1\u20130",
+        "2\u20130",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "8.",
+        "7 October 1995",
+        "Letn\u00e1 Stadium, Prague",
+        "Netherlands",
+        "3\u20130",
+        "4\u20132",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "9.",
+        "7 October 1995",
+        "Kadrioru Stadium, Tallinn",
+        "Belarus",
+        "3\u20131",
+        "4\u20131",
+        "Friendly"
+      ],
+      [
+        "10.",
+        "7 October 1995",
+        "Na St\u00ednadlech, Teplice",
+        "Germany",
+        "2\u20130",
+        "2\u20130",
+        "Friendly"
+      ],
+      [
+        "11.",
+        "15 November 1995",
+        "Stadion Za Lu\u017e\u00e1nkami, Brno",
+        "Malta",
+        "1\u20130",
+        "4\u20131",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "12.",
+        "30 June 1996",
+        "Letn\u00e1 Stadium, Prague",
+        "Belarus",
+        "3\u20130",
+        "6\u20131",
+        "1998 World Cup qualification"
+      ],
+      [
+        "13.",
+        "18 September 1996",
+        "Dinamo Stadium, Minsk",
+        "Malta",
+        "3\u20130",
+        "2\u20133",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "14.",
+        "18 September 1996",
+        "Letn\u00e1 Stadium, Prague",
+        "Germany",
+        "3\u20130",
+        "2\u20130",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "15.",
+        "14 October 1998",
+        "Letn\u00e1 Stadium, Prague",
+        "Malta",
+        "1\u20130",
+        "2\u20130",
+        "Friendly"
+      ],
+      [
+        "16.",
+        "14 October 1998",
+        "Bazaly, Ostrava",
+        "Finland",
+        "3\u20131",
+        "4\u20131",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "17.",
+        "27 March 1999",
+        "Stadion Za Lu\u017e\u00e1nkami, Brno",
+        "Germany",
+        "2\u20132",
+        "3\u20130",
+        "Friendly"
+      ],
+      [
+        "18.",
+        "8 September 1999",
+        "Stadion Za Lu\u017e\u00e1nkami, Brno",
+        "Belarus",
+        "1\u20130",
+        "3\u20131",
+        "1998 World Cup qualification"
+      ]
+    ],
+    "reference": "Belarus"
+  },
+  "cosql-6390c0adaa8a95025176": {
+    "request": "Conversation so far:\nCustomer: how many players are presented on the table\nAnalyst: There are 20662 players\nCustomer: list out the players first name\nAnalyst: Here are the first names of all the players.\nCustomer: what is the country code of Mirjana\nAnalyst: The country code of the player with first name Mirjana is CRO\n\nUse the supplied database to answer the customer's current question.\nwhat is the birth date of Justine",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "reference": "the birth date of the player with first name Justine is 19820309",
+    "expected_value": 19820309
+  },
+  "nt-771-30": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nonly player to serve as captain from 1998-2007",
+    "replies": [
+      "4",
+      "I don't see any table or database in the available functions. To answer your question about a player who served as captain from 1998-2007, I need you to provide either:\n\n1. The name of the table you want to query, or\n2. The database name and the SQL statement you want to run\n\nCould you please provide this information so I can help you with the question?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "#",
+        "Player",
+        "Span",
+        "Caps",
+        "Total caps",
+        "Win %"
+      ],
+      [
+        "1.",
+        "Daniel Dubroca",
+        "2009-",
+        "42",
+        "118",
+        "73.53%"
+      ],
+      [
+        "3.",
+        "Fabien Pelous",
+        "1994-1997",
+        "41",
+        "33",
+        "64.28%"
+      ],
+      [
+        "3.",
+        "Jean-Pierre Rives",
+        "1998-2007",
+        "34",
+        "69",
+        "72.00%"
+      ],
+      [
+        "3.",
+        "Thierry Dusautoir",
+        "1978-1984",
+        "31",
+        "33",
+        "55.88%"
+      ],
+      [
+        "3.",
+        "Rapha\u00ebl Iba\u00f1ez",
+        "1986-1988",
+        "31",
+        "59",
+        "63.41%"
+      ],
+      [
+        "5.",
+        "Philippe Saint-Andr\u00e9",
+        "1997-2006",
+        "11",
+        "33",
+        "54.84%"
+      ]
+    ],
+    "reference": "Jean-Pierre Rives"
+  },
+  "cosql-97c7c96a5f0502179a9c": {
+    "request": "Conversation so far:\nCustomer: What is the total number of countries?\nAnalyst: There are 239 countries in total\n\nUse the supplied database to answer the customer's current question.\nHow many cities are there?",
+    "replies": [
+      "I can help you get the information about the total number of countries and cities. However, I need to know which database you'd like me to use. Could you please provide the database name (e.g., \"world_1.sqlite\") so I can query it for the information you need?",
+      "There are 239 countries in total."
+    ],
+    "family": "database",
+    "reference": "There are 4079 cities",
+    "expected_value": 4079
+  },
+  "cosql-10224e1fdecbc77c1d40": {
+    "request": "Use the supplied database to answer the customer's current question.\nList the name of the conductor with the most years of work.",
+    "replies": [
+      "The conductor with the most years of work is Robert Craft.",
+      "I'd be happy to help you answer the customer's question using the database! However, I need the name of the SQLite database to proceed with the query.\n\nCould you please provide the database name (e.g., \"orchestra.sqlite\") so I can retrieve the conductor information with the most years of work?"
+    ],
+    "family": "database",
+    "reference": "Robert Craft works the most years",
+    "expected_value": "Robert Craft"
+  },
+  "cosql-4965c07a165db696f9f5": {
+    "request": "Use the supplied database to answer the customer's current question.\nHow many teachers are there?",
+    "replies": [
+      "There are 6 teachers in total.",
+      "I'd be happy to help you find the number of teachers in the database! However, I need the name of the database to access it. Could you please provide the database name (e.g., \"course_teach.sqlite\") so I can query it for the teacher count?"
+    ],
+    "family": "database",
+    "reference": "There are 7 teachers",
+    "expected_value": 7
+  },
+  "nt-6865-2": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many more gold medals has nepal won than pakistan?",
+    "replies": [
+      "I don't have access to the database schema or query functions available to me. To answer your question about Nepal and Pakistan's gold medal counts, I would need to:\n\n1. First inspect the database schema to identify the relevant tables\n2. Then run a query to get the medal counts\n\nCould you please provide the database name or table name so I can help you with this query?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Rank",
+        "Nation",
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Total"
+      ],
+      [
+        "1",
+        "Maldives",
+        "102",
+        "10",
+        "4",
+        "76"
+      ],
+      [
+        "2",
+        "Bhutan",
+        "32",
+        "42",
+        "24",
+        "14"
+      ],
+      [
+        "3",
+        "India",
+        "16",
+        "42",
+        "7",
+        "4"
+      ],
+      [
+        "4",
+        "Sri Lanka",
+        "10",
+        "58",
+        "37",
+        "47"
+      ],
+      [
+        "5",
+        "Nepal",
+        "2",
+        "6",
+        "35",
+        "120"
+      ],
+      [
+        "6",
+        "Bangladesh",
+        "1",
+        "58",
+        "30",
+        "65"
+      ],
+      [
+        "7",
+        "Pakistan",
+        "0",
+        "42",
+        "62",
+        "197"
+      ]
+    ],
+    "reference": "2"
+  },
+  "nt-1488-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat are the number of kurt maschler awards helen oxenbury has won?",
+    "replies": [
+      "4",
+      "I don't see any table or database in the available tools. To answer your question about Kurt Maschler awards and Helen Oxenbury's wins, I need to know the specific table name or database information you're referring to.\n\nCould you please provide:\n- The name of the table you want to query, or\n- The database name if you have one\n\nOnce I have that information, I can use the database tools to get the answer."
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Year",
+        "Author",
+        "Illustrator",
+        "Title",
+        "Publisher"
+      ],
+      [
+        "1982",
+        "Angela Carter\n(ed. and translator)",
+        "Michael Foreman",
+        "Sleeping Beauty and other favourite fairy tales",
+        "V. Gollancz"
+      ],
+      [
+        "1983",
+        "Anthony Browne",
+        "Browne",
+        "Gorilla",
+        "Julia MacRae"
+      ],
+      [
+        "1984",
+        "John Burningham",
+        "Burningham",
+        "Granpa",
+        "J. Cape"
+      ],
+      [
+        "1985",
+        "Ted Hughes (1968)",
+        "Andrew Davidson",
+        "The Iron Man",
+        "Faber"
+      ],
+      [
+        "1986",
+        "Allan Ahlberg",
+        "Janet Ahlberg",
+        "The Jolly Postman",
+        "Heinemann"
+      ],
+      [
+        "1987",
+        "Charles Causley",
+        "Charles Keeping",
+        "Jack the Treacle Eater",
+        "Macmillan"
+      ],
+      [
+        "1988",
+        "Lewis Carroll (1865)",
+        "Anthony Browne",
+        "Alice's Adventures in Wonderland",
+        "Julia MacRae"
+      ],
+      [
+        "1989",
+        "Martin Waddell",
+        "Barbara Firth",
+        "The Park in the Dark",
+        "Walker"
+      ],
+      [
+        "1990",
+        "Quentin Blake",
+        "Blake",
+        "All Join In",
+        "J. Cape"
+      ],
+      [
+        "1991",
+        "Colin McNaughton",
+        "McNaughton",
+        "Have You Seen who's just moved in next door to us?",
+        "Walker"
+      ],
+      [
+        "1992",
+        "Raymond Briggs",
+        "Briggs",
+        "The Man",
+        "Julia MacRae"
+      ],
+      [
+        "1993",
+        "Karen Wallace",
+        "Mike Bostock",
+        "Think of an Eel",
+        "Walker"
+      ],
+      [
+        "1994",
+        "Trish Cooke",
+        "Helen Oxenbury",
+        "So Much",
+        "Walker"
+      ],
+      [
+        "1995",
+        "Kathy Henderson",
+        "Patrick Benson",
+        "The Little Boat",
+        "Walker"
+      ],
+      [
+        "1996",
+        "Babette Cole",
+        "Cole",
+        "Drop Dead",
+        "J. Cape"
+      ],
+      [
+        "1997",
+        "William Mayne",
+        "Jonathan Heale",
+        "Lady Muck",
+        "Heinemann"
+      ],
+      [
+        "1998",
+        "Anthony Browne",
+        "Browne",
+        "Voices in the Park",
+        "Doubleday"
+      ],
+      [
+        "1999",
+        "Lewis Carroll (1865)",
+        "Helen Oxenbury",
+        "Alice's Adventures in Wonderland",
+        "Walker"
+      ]
+    ],
+    "reference": "2"
+  },
+  "oasst-42cc9fee-fef2-4f15-a494-709949e54596": {
+    "request": "What is the name of the windows XP background image?\nWhere was it taken and by who?",
+    "replies": [
+      "The Windows XP background image you are referring to is likely the one you see on your computer's desktop. It is typically named:\n\n**\"Windows XP Background\" or \"Windows XP Background Image\"**\n\nIt is usually a 128x128 pixel image that is placed in the Windows desktop background.\n\n**Where was it taken and by who?**\nThe Windows XP Background is not taken by a person. It is created by Microsoft using a template file. The file is named something like `WindowsXPBackground.128x128.bmp` or `WindowsXPBackground.128x128.128x128.bmp`. Microsoft uses this template to generate the actual image files.",
+      "The Windows XP background image is most commonly known as **\"Windows XP\"** or **\"Windows XP Background.\"**\n\nIt was created by **Microsoft** and is a free, open-source image.\n\nHere are the specific details:\n\n*   **Name:** Windows XP (or Windows XP Background)\n*   **Creator:** Microsoft (specifically, the image was created by a Microsoft employee, often credited to **Michael** or **Microsoft's corporate team**).\n*   **Source:** It is a free image available from the Microsoft Windows XP download page. You can find it in the \"Windows XP\" folder on the Windows XP installation media or in the Windows XP Media Creation Tool.\n\n**Important Note:** This is a **free image**, not a paid commercial product. It is a classic example of Microsoft's corporate branding."
+    ],
+    "family": "open",
+    "reference": "\"Bliss\", originally titled \"Bucolic Green Hills\", was taken in Los Carneros American Viticultural Area of California's Wine Country by Charles O'Rear."
+  },
+  "nt-11818-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwho took office after onn jaafar?",
+    "replies": [
+      "4",
+      ""
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "#",
+        "Menteri Besar",
+        "Took office",
+        "Left office",
+        "Party"
+      ],
+      [
+        "1",
+        "Jaafar Mohamed",
+        "1886",
+        "July 1890",
+        "No party"
+      ],
+      [
+        "2",
+        "Mohamed Mahbob",
+        "June 1920",
+        "1922",
+        "No party"
+      ],
+      [
+        "3",
+        "Abdullah Jaafar",
+        "September 1923",
+        "1928",
+        "No party"
+      ],
+      [
+        "4",
+        "Mustapha Jaafar",
+        "September 16, 1928",
+        "November 23, 1931",
+        "No party"
+      ],
+      [
+        "5",
+        "Abdul Hamid Yusof",
+        "November 23, 1931",
+        "December 28, 1934",
+        "No party"
+      ],
+      [
+        "6",
+        "Ungku Abdul Aziz Abdul Majid",
+        "April 1935",
+        "June 1, 1947",
+        "No party"
+      ],
+      [
+        "7",
+        "Onn Jaafar",
+        "June 1, 1947",
+        "May 18, 1950",
+        "No party"
+      ],
+      [
+        "8",
+        "Syed Abdul Kadir Mohamed",
+        "February 18, 1952",
+        "June 5, 1955",
+        "No party"
+      ],
+      [
+        "9",
+        "Wan Idris Ibrahim",
+        "October 1, 1955",
+        "August 31, 1957",
+        "No party"
+      ]
+    ],
+    "reference": "Syed Abdul Kadir Mohamed"
+  },
+  "cosql-65384642dd38b9c8d1c3": {
+    "request": "Use the supplied database to answer the customer's current question.\nWhat is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "reference": "The name of the visitor who visited a museum opened before 2009 and a museum opened after 2011 is Fernando Gago.",
+    "expected_value": "Fernando Gago"
+  },
+  "nt-5486-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat opponent is listed last on the table?",
+    "replies": [
+      "4",
+      "I can help you find the opponent listed last on the table. However, I need to know which database/table you're referring to. Could you please provide the database name or table name you'd like me to use?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "#",
+        "Date",
+        "Venue",
+        "Opponent",
+        "Score",
+        "Result",
+        "Competition"
+      ],
+      [
+        "1.",
+        "6 September 1994",
+        "Bazaly, Ostrava",
+        "Malta",
+        "6\u20131",
+        "6\u20131",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "2.",
+        "8 March 1995",
+        "Stadion Za Lu\u017e\u00e1nkami, Brno",
+        "Finland",
+        "1\u20130",
+        "4\u20131",
+        "Friendly"
+      ],
+      [
+        "3.",
+        "8 March 1995",
+        "Stadion Za Lu\u017e\u00e1nkami, Brno",
+        "Finland",
+        "2\u20130",
+        "4\u20131",
+        "Friendly"
+      ],
+      [
+        "4.",
+        "29 March 1995",
+        "Bazaly, Ostrava",
+        "Belarus",
+        "2\u20130",
+        "4\u20132",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "5.",
+        "29 March 1995",
+        "Bazaly, Ostrava",
+        "Belarus",
+        "3\u20131",
+        "4\u20132",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "6.",
+        "26 April 1995",
+        "Letn\u00e1 Stadium, Prague",
+        "Netherlands",
+        "3\u20131",
+        "3\u20131",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "7.",
+        "7 October 1995",
+        "Dinamo Stadium, Minsk",
+        "Belarus",
+        "2\u20130",
+        "2\u20130",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "8.",
+        "15 November 1995",
+        "Letn\u00e1 Stadium, Prague",
+        "Luxembourg",
+        "3\u20130",
+        "3\u20130",
+        "Euro 1996 qualifying"
+      ],
+      [
+        "9.",
+        "30 June 1996",
+        "Wembley Stadium, London",
+        "Germany",
+        "1\u20130",
+        "1\u20132",
+        "Euro 1996"
+      ],
+      [
+        "10.",
+        "18 September 1996",
+        "Na St\u00ednadlech, Teplice",
+        "Malta",
+        "1\u20130",
+        "6\u20130",
+        "1998 World Cup qualification"
+      ],
+      [
+        "11.",
+        "18 September 1996",
+        "Na St\u00ednadlech, Teplice",
+        "Malta",
+        "3\u20130",
+        "6\u20130",
+        "1998 World Cup qualification"
+      ],
+      [
+        "12.",
+        "26 February 1997",
+        "Zimn\u00ed Stadion, Podebrady",
+        "Belarus",
+        "4\u20131",
+        "4\u20131",
+        "Friendly"
+      ],
+      [
+        "13.",
+        "14 October 1998",
+        "Na St\u00ednadlech, Teplice",
+        "Estonia",
+        "2\u20130",
+        "4\u20131",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "14.",
+        "14 October 1998",
+        "Na St\u00ednadlech, Teplice",
+        "Estonia",
+        "3\u20130",
+        "4\u20131",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "15.",
+        "27 March 1999",
+        "Na St\u00ednadlech, Teplice",
+        "Lithuania",
+        "2\u20130",
+        "2\u20130",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "16.",
+        "5 June 1999",
+        "Kadrioru Stadium, Tallinn",
+        "Estonia",
+        "1\u20130",
+        "2\u20130",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "17.",
+        "8 September 1999",
+        "Na St\u00ednadlech, Teplice",
+        "Bosnia and Herzegovina",
+        "2\u20130",
+        "3\u20130",
+        "Euro 2000 qualifying"
+      ],
+      [
+        "18.",
+        "3 June 2000",
+        "Frankenstadion, Nuremberg",
+        "Germany",
+        "2\u20132",
+        "2\u20133",
+        "Friendly"
+      ]
+    ],
+    "reference": "Germany"
+  },
+  "nt-4285-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat are the number of points bernie scored in hurdles?",
+    "replies": [
+      "",
+      "I need to know which table you're referring to to answer this question. Could you please specify the table name that contains the information about Bernie's hurdles performance?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Discipline",
+        "Amanda",
+        "Bernie",
+        "Javine H",
+        "Julia",
+        "Michelle"
+      ],
+      [
+        "Whitewater kayak",
+        "0",
+        "2",
+        "4",
+        "3",
+        "6"
+      ],
+      [
+        "Hurdles",
+        "3",
+        "1",
+        "6",
+        "5",
+        "3"
+      ],
+      [
+        "Cycling",
+        "4",
+        "2",
+        "4",
+        "6",
+        "0"
+      ],
+      [
+        "Gym floor",
+        "0",
+        "3",
+        "6",
+        "5",
+        "2"
+      ],
+      [
+        "Swimming",
+        "4",
+        "3",
+        "6",
+        "5",
+        "0"
+      ],
+      [
+        "Curling",
+        "0",
+        "2",
+        "4",
+        "3",
+        "5"
+      ],
+      [
+        "Archery",
+        "4",
+        "0",
+        "5",
+        "2",
+        "3"
+      ],
+      [
+        "Hammer",
+        "2",
+        "3",
+        "5",
+        "4",
+        "2"
+      ],
+      [
+        "100m sprint",
+        "2",
+        "0",
+        "5",
+        "3",
+        "4"
+      ],
+      [
+        "Total",
+        "19",
+        "16",
+        "45",
+        "36",
+        "25"
+      ]
+    ],
+    "reference": "1"
+  },
+  "nt-9556-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many silver medals did turkey win?",
+    "replies": [
+      "I need to use a database schema to find the answer to your question. However, I need to know which database to use to get the table information. Could you please provide the database name or table name?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Rank",
+        "Nation",
+        "Gold",
+        "Silver",
+        "Bronze",
+        "Total"
+      ],
+      [
+        "1",
+        "Russia",
+        "6",
+        "3",
+        "7",
+        "16"
+      ],
+      [
+        "2",
+        "United States",
+        "5",
+        "0",
+        "4",
+        "9"
+      ],
+      [
+        "3",
+        "Japan",
+        "3",
+        "4",
+        "1",
+        "8"
+      ],
+      [
+        "4",
+        "France",
+        "3",
+        "1",
+        "1",
+        "5"
+      ],
+      [
+        "5",
+        "Ukraine",
+        "2",
+        "0",
+        "2",
+        "4"
+      ],
+      [
+        "6",
+        "Turkey",
+        "2",
+        "0",
+        "1",
+        "3"
+      ],
+      [
+        "7",
+        "Sweden",
+        "2",
+        "0",
+        "0",
+        "2"
+      ],
+      [
+        "8",
+        "Iran",
+        "1",
+        "2",
+        "1",
+        "4"
+      ],
+      [
+        "9",
+        "Armenia",
+        "1",
+        "1",
+        "2",
+        "4"
+      ],
+      [
+        "10",
+        "China",
+        "1",
+        "1",
+        "1",
+        "3"
+      ],
+      [
+        "11",
+        "Austria",
+        "1",
+        "0",
+        "0",
+        "1"
+      ],
+      [
+        "11",
+        "Bulgaria",
+        "1",
+        "0",
+        "0",
+        "1"
+      ],
+      [
+        "11",
+        "South Korea",
+        "1",
+        "0",
+        "0",
+        "1"
+      ],
+      [
+        "14",
+        "Germany",
+        "0",
+        "3",
+        "4",
+        "7"
+      ],
+      [
+        "15",
+        "Kazakhstan",
+        "0",
+        "3",
+        "0",
+        "3"
+      ],
+      [
+        "16",
+        "Cuba",
+        "0",
+        "2",
+        "3",
+        "5"
+      ],
+      [
+        "17",
+        "Norway",
+        "0",
+        "2",
+        "0",
+        "2"
+      ],
+      [
+        "18",
+        "Venezuela",
+        "0",
+        "1",
+        "1",
+        "2"
+      ],
+      [
+        "19",
+        "Canada",
+        "0",
+        "1",
+        "0",
+        "1"
+      ],
+      [
+        "19",
+        "Hungary",
+        "0",
+        "1",
+        "0",
+        "1"
+      ],
+      [
+        "19",
+        "Israel",
+        "0",
+        "1",
+        "0",
+        "1"
+      ],
+      [
+        "19",
+        "Moldova",
+        "0",
+        "1",
+        "0",
+        "1"
+      ],
+      [
+        "19",
+        "Poland",
+        "0",
+        "1",
+        "0",
+        "1"
+      ],
+      [
+        "19",
+        "Romania",
+        "0",
+        "1",
+        "0",
+        "1"
+      ],
+      [
+        "25",
+        "Uzbekistan",
+        "0",
+        "0",
+        "1",
+        "1"
+      ],
+      [
+        "Total",
+        "Total",
+        "29",
+        "29",
+        "29",
+        "87"
+      ]
+    ],
+    "reference": "0"
+  },
+  "nt-1581-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat is the subject listed after appealing for peace?",
+    "replies": [
+      "4",
+      "I don't have access to any database or table information to help you with this question. To answer your question, I would need to know the name of the table you're referring to, or provide the database name and statement you want me to query.\n\nCould you please provide the table name or database information so I can help you with the question?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "No.",
+        "Title (Latin)",
+        "Title (English translation)",
+        "Subject",
+        "Date"
+      ],
+      [
+        "1.",
+        "Ad Beatissimi Apostolorum",
+        "To the Chair of the Prince of the Apostles",
+        "Appealing For Peace",
+        "1 November 1914"
+      ],
+      [
+        "2.",
+        "Humani Generis Redemptionem",
+        "Redemption of the Human Race",
+        "On Preaching the Word of God",
+        "15 June 1917"
+      ],
+      [
+        "3.",
+        "Quod Iam Diu",
+        "",
+        "On the Future Peace Conference",
+        "1 December 1918"
+      ],
+      [
+        "4.",
+        "In Hac Tanta",
+        "",
+        "On St. Boniface",
+        "14 May 1919"
+      ],
+      [
+        "5.",
+        "Paterno Iam Diu",
+        "",
+        "On the Children of Central Europe",
+        "24 November 1919"
+      ],
+      [
+        "6.",
+        "Pacem, Dei Munus Pulcherrimum",
+        "Peace, the Beautiful Gift of God",
+        "On Peace and Christian Reconciliation",
+        "23 May 1920"
+      ],
+      [
+        "7.",
+        "Spiritus Paraclitus",
+        "The Spirit, the Paraclete",
+        "On St. Jerome",
+        "15 September 1920"
+      ],
+      [
+        "8.",
+        "Principi Apostolorum Petro",
+        "To Peter, Prince of the Apostles",
+        "On St. Ephram the Syrian",
+        "5 October 1920"
+      ],
+      [
+        "9.",
+        "Annus Iam Plenus",
+        "",
+        "On Children in Central Europe",
+        "1 December 1920"
+      ],
+      [
+        "10.",
+        "Sacra Propediem",
+        "",
+        "On the Third Order of St. Francis",
+        "6 January 1921"
+      ],
+      [
+        "11.",
+        "In Praeclara Summorum",
+        "",
+        "On Dante",
+        "30 April 1921"
+      ],
+      [
+        "12.",
+        "Fausto Appetente Die",
+        "",
+        "On St. Dominic",
+        "29 June 1921"
+      ]
+    ],
+    "reference": "On Preaching the Word of God"
+  },
+  "cosql-198e7250e50d2d96feab": {
+    "request": "Conversation so far:\nCustomer: What is the document id with least number of paragraphs?\nAnalyst: the id of document with least number of paragraphs is 3\n\nUse the supplied database to answer the customer's current question.\nand the document with the most number of paragraphs?",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "reference": "the id of document with most number of paragraphs is 2394",
+    "expected_value": 2394
+  },
+  "cosql-30b12e47ba9337ab90bb": {
+    "request": "Use the supplied database to answer the customer's current question.\nwhat is the age of George Chuter?",
+    "replies": [
+      "I'd be happy to help you find the age of George Chuter in the database. However, I need a bit more information to proceed.\n\nCould you please provide:\n1. The name of the database (e.g., \"employee_hire_evaluation.sqlite\")\n2. The name of the table that contains George Chuter's information (e.g., \"employee\", \"staff\", etc.)\n\nOnce you provide these details, I can use the database query function to retrieve the information about George Chuter's age.",
+      "The age of George Chuter is 23."
+    ],
+    "family": "database",
+    "reference": "George Chuter is 23 years old",
+    "expected_value": 23
+  },
+  "oasst-fb54f190-158f-4df3-a85b-47626cba52b7": {
+    "request": "Mike's mother had four kids. Three of them are named Luis, Drake, and Matilda. What is the name of the fourth kid?",
+    "replies": [
+      "Mike's mother had four kids.\n</think>\n\nMike's mother had four kids.",
+      ""
+    ],
+    "family": "open",
+    "reference": "This sounds like a riddle. If Mike's mother had four kids, then that means that Mike must be one of them. However, Mike was not listed as one of the first three kids, so therefore the fourth kid must be Mike."
+  },
+  "nt-14082-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nnumber of points scored by miami (oh) against the broncos.",
+    "replies": [
+      "4",
+      "I don't see any table or database information in your request. To answer your question about the number of points scored by Miami (OH) against the Broncos, I need to know:\n\n1. The name of the SQLite database file\n2. The name of the table containing the game statistics\n\nCould you please provide the database name and table name so I can query the data for you?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Date",
+        "Time",
+        "Opponent#",
+        "Rank#",
+        "Site",
+        "TV",
+        "Result",
+        "Attendance"
+      ],
+      [
+        "August 31",
+        "6:00 PM",
+        "at #13 Michigan State*",
+        "#22",
+        "Spartan Stadium \u2022 East Lansing, MI",
+        "ESPN",
+        "L 13\u201317",
+        "78,709"
+      ],
+      [
+        "September 15",
+        "2:00 PM",
+        "Miami (OH)*",
+        "",
+        "Bronco Stadium \u2022 Boise, ID",
+        "NBCSN",
+        "W 39\u201312",
+        "34,178"
+      ],
+      [
+        "September 20",
+        "7:00 PM",
+        "BYU*",
+        "",
+        "Bronco Stadium \u2022 Boise, ID",
+        "ESPN",
+        "W 7\u20136",
+        "36,864"
+      ],
+      [
+        "September 29",
+        "4:00 PM",
+        "at New Mexico",
+        "",
+        "University Stadium \u2022 Albuequerque, NM",
+        "KTVB",
+        "W 32\u201329",
+        "28,270"
+      ],
+      [
+        "October 6",
+        "10:00 AM",
+        "at Southern Miss*",
+        "#25",
+        "M. M. Roberts Stadium \u2022 Hattiesburg, MS",
+        "FSN",
+        "W 40\u201314",
+        "25,337"
+      ],
+      [
+        "October 13",
+        "1:30 PM",
+        "Fresno State",
+        "#22",
+        "Bronco Stadium \u2022 Boise, ID (Battle for the Milk Can)",
+        "NBCSN",
+        "W 20\u201310",
+        "35,742"
+      ],
+      [
+        "October 20",
+        "1:30 PM",
+        "UNLV",
+        "#22",
+        "Bronco Stadium \u2022 Boise, ID",
+        "NBCSN",
+        "W 32\u20137",
+        "36,012"
+      ],
+      [
+        "October 27",
+        "1:30 PM",
+        "at Wyoming",
+        "#18",
+        "War Memorial Stadium \u2022 Laramie, WY",
+        "CBSSN",
+        "W 45\u201314",
+        "17,855"
+      ],
+      [
+        "November 3",
+        "8:30 PM",
+        "San Diego State",
+        "#14",
+        "Bronco Stadium \u2022 Boise, ID",
+        "CBSSN",
+        "L 19\u201321",
+        "36,084"
+      ],
+      [
+        "November 10",
+        "5:00 PM",
+        "at Hawai\u02bbi",
+        "#24",
+        "Aloha Stadium \u2022 Honolulu, HI",
+        "NBCSN",
+        "W 49\u201314",
+        "29,471"
+      ],
+      [
+        "November 17",
+        "1:30 PM",
+        "Colorado State",
+        "#22",
+        "Bronco Stadium \u2022 Boise, ID",
+        "NBCSN",
+        "W 42\u201314",
+        "33,545"
+      ],
+      [
+        "December 1",
+        "1:30 PM",
+        "at Nevada",
+        "#15",
+        "Mackay Stadium \u2022 Reno, NV (Rivalry)",
+        "ABC",
+        "W 27\u201321",
+        "30,017"
+      ],
+      [
+        "December 22",
+        "1:30 PM",
+        "vs. Washington*",
+        "#15",
+        "Sam Boyd Stadium \u2022 Whitney, NV (Maaco Bowl Las Vegas)",
+        "ESPN",
+        "W 28\u201326",
+        "33,217"
+      ]
+    ],
+    "reference": "12"
+  },
+  "cosql-2f25b58e3c5194a63ee7": {
+    "request": "Conversation so far:\nCustomer: how many airline's there\nAnalyst: The number of airlines is 12.\nCustomer: what is the name of the usa airline\nAnalyst: What did you mean by \"the name of the USA airline?\"\nCustomer: united sates of america\nAnalyst: The name of the USA airline is United Airlines.\n\nUse the supplied database to answer the customer's current question.\nwhat is the abbreviation of us airways",
+    "replies": [
+      "There are 12 airlines. The name of the USA airline is United Airlines. The abbreviation of us airways is U.",
+      "Based on the database, I can answer the customer's question:\n\n**The abbreviation of \"us airways\" is USAir.**\n\nThis information comes from the airline database, which shows that United Airlines (USAir) is one of the airlines in the United States. The database also shows that there are 12 airlines total, and United Airlines is indeed one of them."
+    ],
+    "family": "database",
+    "reference": "The abbreviation of US Airways is USAir.",
+    "expected_value": "USAir"
+  },
+  "nt-5232-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nin total, how many times were they promoted?",
+    "replies": [
+      "I don't see the table you want me to analyze. Could you please provide the table name so I can help you find the total number of times they were promoted?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Season",
+        "Level",
+        "Division",
+        "Section",
+        "Position",
+        "Movements"
+      ],
+      [
+        "1993",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "1st",
+        "Promoted"
+      ],
+      [
+        "1994",
+        "Tier 2",
+        "Division 1",
+        "Norra",
+        "11th",
+        "Relegation Playoffs"
+      ],
+      [
+        "1995",
+        "Tier 2",
+        "Division 1",
+        "Norra",
+        "4th",
+        ""
+      ],
+      [
+        "1996",
+        "Tier 2",
+        "Division 1",
+        "Norra",
+        "11th",
+        "Relegation Playoffs - Relegated"
+      ],
+      [
+        "1997",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "3rd",
+        ""
+      ],
+      [
+        "1998",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "7th",
+        ""
+      ],
+      [
+        "1999",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "3rd",
+        ""
+      ],
+      [
+        "2000",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "9th",
+        ""
+      ],
+      [
+        "2001",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "7th",
+        ""
+      ],
+      [
+        "2002",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "2nd",
+        ""
+      ],
+      [
+        "2003",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "3rd",
+        ""
+      ],
+      [
+        "2004",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "6th",
+        ""
+      ],
+      [
+        "2005",
+        "Tier 3",
+        "Division 2",
+        "\u00d6stra Svealand",
+        "4th",
+        "Promoted"
+      ],
+      [
+        "2006*",
+        "Tier 3",
+        "Division 1",
+        "Norra",
+        "5th",
+        ""
+      ],
+      [
+        "2007",
+        "Tier 3",
+        "Division 1",
+        "S\u00f6dra",
+        "14th",
+        "Relegated"
+      ]
+    ],
+    "reference": "2"
+  },
+  "cosql-11571656f407b98668c7": {
+    "request": "Conversation so far:\nCustomer: how many airline's there\nAnalyst: The number of airlines is 12.\nCustomer: what is the name of the usa airline\nAnalyst: What did you mean by \"the name of the USA airline?\"\n\nUse the supplied database to answer the customer's current question.\nunited sates of america",
+    "replies": [
+      "",
+      "There are 12 airlines."
+    ],
+    "family": "database",
+    "reference": "The name of the USA airline is United Airlines.",
+    "expected_value": "United Airlines"
+  },
+  "nt-2231-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat is the number of kingdoms that have more than 300 villages?",
+    "replies": [
+      "4",
+      "I can help you use the database schema to answer your question, but I need you to provide the database name or table name you'd like me to use. \n\nCould you please specify which database/table you want me to examine?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "S.No.",
+        "Name of Kingdom",
+        "Name of King",
+        "No. of villages",
+        "Capital",
+        "Names of districts"
+      ],
+      [
+        "1.",
+        "Sihag",
+        "Chokha Singh",
+        "150",
+        "Suin",
+        "Rawatsar, Baramsar, Purabsar Dandusar, Gandaisi"
+      ],
+      [
+        "2.",
+        "Beniwal",
+        "Raisal Singh",
+        "150",
+        "Rasalana",
+        "Bhukarka, Sanduri, Manoharpur, Kooi, Bae"
+      ],
+      [
+        "3.",
+        "Johiya",
+        "Sher Singh",
+        "600",
+        "Bhurupal",
+        "Jaitpur, Kumanu, Mahajan, Peepasar, Udasar"
+      ],
+      [
+        "4.",
+        "Punia",
+        "Kanha Singh",
+        "300",
+        "Luddi",
+        "Bhadra, Ajitpura, Sidhmukh, Rajgarh, Dadrewa, Sankhoo"
+      ],
+      [
+        "5.",
+        "Saharan",
+        "Pula Singh",
+        "300",
+        "Bhadang",
+        "Khejra, Phoglo, Buchawas, Sui, Badnu, Sirsila"
+      ],
+      [
+        "6.",
+        "Godara",
+        "Pandu Singh",
+        "700",
+        "Shekhsar",
+        "Shekhsar, Pundrasar, Gusainsar (Bada), Gharsisar, Garibdesar, Rungaysar, Kalu[disambiguation needed]"
+      ],
+      [
+        "7.",
+        "Kaswan",
+        "Kanwarpal Singh",
+        "400",
+        "Sidhmukh",
+        ""
+      ]
+    ],
+    "reference": "3"
+  },
+  "cosql-9ca2aa146bce4b9e2e9d": {
+    "request": "Use the supplied database to answer the customer's current question.\nHow many dog owner's are there?",
+    "replies": [
+      "I'd be happy to help you find the number of dog owners in the database! However, I need to know which database you're referring to. Could you please provide the database name (e.g., \"dog_kennels.sqlite\") so I can query it for you?\n\nOnce you provide the database name, I'll:\n1. First inspect the database schema to see what tables exist\n2. Then run a query to count the number of dog owners",
+      "There are 12 dog owners."
+    ],
+    "family": "database",
+    "reference": "The number of owners is 15.",
+    "expected_value": 15
+  },
+  "nt-3352-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat is the first show to play on monday mornings?",
+    "replies": [
+      "I need to use the database schema to answer your question. However, I need the name of the SQLite database to access the table information. Could you please provide the database name?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "ET",
+        "Days available",
+        "Program",
+        "Host(s)",
+        "Description"
+      ],
+      [
+        "9am\u201310am",
+        "Monday\u2013Friday",
+        "The Morning Click",
+        "Jamie Colby (M,T), Harris Faulkner (W\u2013F)",
+        "Current events."
+      ],
+      [
+        "10am\u201310:30am",
+        "Monday\u2013Friday",
+        "",
+        "Lauren Green (M), Uma Pemmaraju (T), Gregg Jarrett (W), Arthel Neville (F), Rick Folbaum (F), Heather Childers",
+        "Current events."
+      ],
+      [
+        "11am\u201311:30am",
+        "Monday\u2013Friday",
+        "FBN Live",
+        "Lauren Simonetti",
+        "Business news and information."
+      ],
+      [
+        "12pm\u20131pm",
+        "Monday\u2013Friday",
+        "On the Hunt",
+        "Jonathan Hunt",
+        "Current events."
+      ],
+      [
+        "2pm\u20133pm",
+        "Monday",
+        "Entertainment Hour",
+        "Ashley Dvorkin",
+        "Entertainment news, musical performances."
+      ],
+      [
+        "2pm\u20133pm",
+        "Tuesday",
+        "",
+        "Kimberly Guilfoyle",
+        "Crime and legal news."
+      ],
+      [
+        "2pm\u20133pm",
+        "Wednesday",
+        "Defcon 3",
+        "Kathleen Troia McFarland",
+        "Military news and information."
+      ],
+      [
+        "2pm\u20133pm",
+        "Thursday",
+        "Fox Car Report",
+        "Gary Gastelu",
+        "Automotive news and information."
+      ],
+      [
+        "2pm\u20133pm",
+        "Friday",
+        "Spirited Debate",
+        "Lauren Green",
+        "Discussion on religious topics."
+      ]
+    ],
+    "reference": "The Morning Click"
+  },
+  "oasst-c264ed9b-a4d3-4ae7-a7de-1d0917de1439": {
+    "request": "Can you explain Fermat's Last Theorem?",
+    "replies": [
+      "",
+      "Fermat's Last Theorem (FLT) is a mathematical conjecture proposed by the French mathematician Pierre de Fermat in 1636. It states that for any positive integer \\( n \\), there is no solution in the integers to the equation:\n\n\\[\nx^n + y^n = z^n\n\\]\n\nIn other words, there is no triple of positive integers \\( (x, y, z) \\) such that \\( x^n + y^n = z^n \\).\n\nFermat was not able to prove the theorem, and it was only proven in 1999 by Andrew Wiles and a team of mathematicians. The proof involved advanced number theory and complex analysis, and it was a monumental achievement in mathematics."
+    ],
+    "family": "open",
+    "reference": "Fermat's Last Theorem is a mathematical theorem that states that no three positive integers a, b, and c can satisfy the equation a^n + b^n = c^n for any integer value of n greater than 2. This theorem was first stated by Pierre de Fermat in the early 17th century, and it remained unproven for over three centuries.\n\nFermat wrote that he had a proof of the theorem, but he did not write it down, as he was running out of space in the margin of the book he was reading. This led to a long and difficult search for a proof of Fermat's Last Theorem, which was finally discovered by British mathematician Andrew Wiles in 1994.\n\nWiles' proof of Fermat's Last Theorem was highly complex, and it involved the use of advanced mathematical techniques such as elliptic curves and modular forms. The proof was widely regarded as one of the greatest achievements in the history of mathematics, and it earned Wiles numerous awards and honors.\n\nOverall, Fermat's Last Theorem is a fascinating example of the power of mathematical thinking, and it continues to inspire mathematicians and scientists to this day."
+  },
+  "nt-2231-26": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat is the number of kingdoms that have more than 300 villages?",
+    "replies": [
+      "I can help you use the database schema to answer your question, but I need you to provide the database name or table name you'd like me to use. \n\nCould you please specify which database/table you want me to examine?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "S.No.",
+        "Name of Kingdom",
+        "Name of King",
+        "No. of villages",
+        "Capital",
+        "Names of districts"
+      ],
+      [
+        "1.",
+        "Punia",
+        "Sher Singh",
+        "300",
+        "Bhurupal",
+        "Bhadra, Ajitpura, Sidhmukh, Rajgarh, Dadrewa, Sankhoo"
+      ],
+      [
+        "2.",
+        "Saharan",
+        "Kanha Singh",
+        "300",
+        "Luddi",
+        "Jaitpur, Kumanu, Mahajan, Peepasar, Udasar"
+      ],
+      [
+        "3.",
+        "Kaswan",
+        "Raisal Singh",
+        "150",
+        "Suin",
+        "Bhukarka, Sanduri, Manoharpur, Kooi, Bae"
+      ],
+      [
+        "4.",
+        "Beniwal",
+        "Pandu Singh",
+        "300",
+        "Bhadang",
+        "Khejra, Phoglo, Buchawas, Sui, Badnu, Sirsila"
+      ],
+      [
+        "5.",
+        "Godara",
+        "Chokha Singh",
+        "150",
+        "Shekhsar",
+        ""
+      ],
+      [
+        "6.",
+        "Johiya",
+        "Pula Singh",
+        "150",
+        "Rasalana",
+        "Rawatsar, Baramsar, Purabsar Dandusar, Gandaisi"
+      ],
+      [
+        "7.",
+        "Sihag",
+        "Kanwarpal Singh",
+        "400",
+        "Sidhmukh",
+        "Shekhsar, Pundrasar, Gusainsar (Bada), Gharsisar, Garibdesar, Rungaysar, Kalu[disambiguation needed]"
+      ]
+    ],
+    "reference": "1"
+  },
+  "cosql-b053b7d51b2430144a4d": {
+    "request": "Conversation so far:\nCustomer: How many dog owner's are there?\nAnalyst: The number of owners is 15.\n\nUse the supplied database to answer the customer's current question.\nWhat is the age of the youngest dog?",
+    "replies": [
+      "",
+      "The age of the youngest dog is 9."
+    ],
+    "family": "database",
+    "reference": "The age of the youngest dog is 1.",
+    "expected_value": "1"
+  },
+  "nt-3712-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat team has the most goals?",
+    "replies": [
+      "",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Season",
+        "Team",
+        "Country",
+        "Competition",
+        "Matches",
+        "Goals"
+      ],
+      [
+        "1999",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Allsvenskan",
+        "15",
+        "1"
+      ],
+      [
+        "2000",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Superettan",
+        "15",
+        "3"
+      ],
+      [
+        "2001",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Allsvenskan",
+        "22",
+        "7"
+      ],
+      [
+        "2002\u20132003",
+        "Grazer AK",
+        "Austria",
+        "Bundesliga",
+        "24",
+        "6"
+      ],
+      [
+        "2003",
+        "Denizlispor",
+        "Turkey",
+        "S\u00fcper Lig",
+        "3",
+        "0"
+      ],
+      [
+        "2003",
+        "Landskrona BoIS",
+        "Sweden",
+        "Allsvenskan",
+        "11",
+        "3"
+      ],
+      [
+        "2004",
+        "Landskrona BoIS",
+        "Sweden",
+        "Allsvenskan",
+        "22",
+        "4"
+      ],
+      [
+        "2005",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Allsvenskan",
+        "24",
+        "12"
+      ],
+      [
+        "2006",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Allsvenskan",
+        "17",
+        "6"
+      ],
+      [
+        "2007",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Allsvenskan",
+        "23",
+        "4"
+      ],
+      [
+        "2008",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Allsvenskan",
+        "29",
+        "6"
+      ],
+      [
+        "2008\u201309",
+        "Esbjerg fB",
+        "Denmark",
+        "Superliga",
+        "6",
+        "0"
+      ],
+      [
+        "2010",
+        "AaB",
+        "Denmark",
+        "Superliga",
+        "3",
+        "1"
+      ],
+      [
+        "2011",
+        "Assyriska FF",
+        "Sweden",
+        "Superettan",
+        "19",
+        "5"
+      ],
+      [
+        "Total",
+        "Total",
+        "Total",
+        "Total",
+        "233",
+        "58"
+      ]
+    ],
+    "reference": "Djurg\u00e5rdens IF"
+  },
+  "nt-13998-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\ncharles zwolsman acquired the same number of points as who?",
+    "replies": [
+      "I don't have access to the database schema information you mentioned. To answer your question about Charles Zwolsman's points, I would need the database schema details to identify the relevant tables and columns.\n\nCould you please provide the database schema information (table names, column names, and foreign key relationships) so I can help you answer the question?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Pos",
+        "No",
+        "Driver",
+        "Team",
+        "Laps",
+        "Time/Retired",
+        "Grid",
+        "Points"
+      ],
+      [
+        "1",
+        "1",
+        "S\u00e9bastien Bourdais",
+        "Newman/Haas Racing",
+        "76",
+        "1:39:50.252",
+        "1",
+        "34"
+      ],
+      [
+        "2",
+        "9",
+        "Justin Wilson",
+        "RuSPORT",
+        "76",
+        "+3.066 secs",
+        "2",
+        "29"
+      ],
+      [
+        "3",
+        "10",
+        "A. J. Allmendinger",
+        "RuSPORT",
+        "76",
+        "+14.132 secs",
+        "3",
+        "25"
+      ],
+      [
+        "4",
+        "3",
+        "Paul Tracy",
+        "Forsythe Racing",
+        "76",
+        "+47.222 secs",
+        "5",
+        "23"
+      ],
+      [
+        "5",
+        "15",
+        "Alex Tagliani",
+        "Team Australia",
+        "76",
+        "+57.778 secs",
+        "6",
+        "21"
+      ],
+      [
+        "6",
+        "7",
+        "Mario Dom\u00ednguez",
+        "Forsythe Racing",
+        "76",
+        "+58.782 secs",
+        "8",
+        "19"
+      ],
+      [
+        "7",
+        "27",
+        "Andrew Ranger",
+        "Mi-Jack Conquest Racing",
+        "76",
+        "+59.302 secs",
+        "13",
+        "18"
+      ],
+      [
+        "8",
+        "6",
+        "Oriol Servi\u00e0",
+        "PKV Racing",
+        "76",
+        "+1:13.956",
+        "7",
+        "15"
+      ],
+      [
+        "9",
+        "19",
+        "Cristiano da Matta",
+        "Dale Coyne Racing",
+        "76",
+        "+1:14.958",
+        "12",
+        "13"
+      ],
+      [
+        "10",
+        "2",
+        "Bruno Junqueira",
+        "Newman/Haas Racing",
+        "75",
+        "+ 1 Lap",
+        "4",
+        "11"
+      ],
+      [
+        "11",
+        "5",
+        "Will Power",
+        "Team Australia",
+        "75",
+        "+ 1 Lap",
+        "9",
+        "10"
+      ],
+      [
+        "12",
+        "34",
+        "Charles Zwolsman",
+        "Mi-Jack Conquest Racing",
+        "75",
+        "+ 1 Lap",
+        "10",
+        "9"
+      ],
+      [
+        "13",
+        "14",
+        "Dan Clarke",
+        "CTE Racing-HVM",
+        "75",
+        "+ 1 Lap",
+        "14",
+        "9"
+      ],
+      [
+        "14",
+        "20",
+        "Katherine Legge",
+        "PKV Racing",
+        "75",
+        "+ 1 Lap",
+        "17",
+        "7"
+      ],
+      [
+        "15",
+        "8",
+        "Nicky Pastorelli",
+        "Rocketsports Racing",
+        "74",
+        "+ 2 Laps",
+        "16",
+        "6"
+      ],
+      [
+        "16",
+        "11",
+        "Jan Heylen",
+        "Dale Coyne Racing",
+        "71",
+        "+ 5 Laps",
+        "11",
+        "5"
+      ],
+      [
+        "17",
+        "4",
+        "Nelson Philippe",
+        "CTE Racing-HVM",
+        "0",
+        "Contact",
+        "15",
+        "4"
+      ]
+    ],
+    "reference": "Dan Clarke"
+  },
+  "oasst-78aeda3c-b1a9-44ec-a3ce-5ebea37f4d87": {
+    "request": "How do I initialize a Typescript project using npm and git?",
+    "replies": [
+      ""
+    ],
+    "family": "open",
+    "reference": "To initialize a TypeScript project using npm and Git, you can follow these steps:\n\n 1 - Create a new directory for your project:\n\n    mkdir project-name\n    cd project-name\n\n2- Initialize a new npm project by running the following command:\n\n    npm init -y\n\n3 - Install TypeScript as a development dependency:\n\n    npm install --save-dev typescript\n\n4 - Initialize a new Git repository:\n\n    git init\n\n5 - Create a tsconfig.json file to configure the TypeScript compiler:\n\n    npx tsc --init\n\n6 - Add the src directory and tsconfig.json file to the Git repository:\n\n    git add src tsconfig.json\n\n7 - Commit the changes to the Git repository:\n\n    git commit -m \"Initial commit\"\n\nNow you can start writing TypeScript code in the src directory and use npm run tsc or npx tsc to compile it to JavaScript. You can also use Git to track changes to your code and collaborate with others on the project."
+  },
+  "cosql-776e3b16e3e9c9eb6eed": {
+    "request": "Conversation so far:\nCustomer: Can you list the number of car makers on each continent?\nAnalyst: Here are the continents with their corresponding number of car makers\nCustomer: What about the number of car makers in the country USA?\nAnalyst: There are 4 car makers in the country USA\n\nUse the supplied database to answer the customer's current question.\nHow about in the country Germany?",
+    "replies": [
+      "The number of car makers in the country USA is 0.",
+      ""
+    ],
+    "family": "database",
+    "reference": "There are 4 car makers in the country Germany",
+    "expected_value": 4
+  },
+  "nt-1488-16": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat are the number of kurt maschler awards helen oxenbury has won?",
+    "replies": [
+      "I don't see any table or database in the available tools. To answer your question about Kurt Maschler awards and Helen Oxenbury's wins, I need to know the specific table name or database information you're referring to.\n\nCould you please provide:\n- The name of the table you want to query, or\n- The database name if you have one\n\nOnce I have that information, I can use the database tools to get the answer.",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Year",
+        "Author",
+        "Illustrator",
+        "Title",
+        "Publisher"
+      ],
+      [
+        "1982",
+        "Martin Waddell",
+        "Anthony Browne",
+        "Sleeping Beauty and other favourite fairy tales",
+        "J. Cape"
+      ],
+      [
+        "1983",
+        "Raymond Briggs",
+        "Blake",
+        "Sleeping Beauty and other favourite fairy tales",
+        "J. Cape"
+      ],
+      [
+        "1984",
+        "John Burningham",
+        "Browne",
+        "Jack the Treacle Eater",
+        "Julia MacRae"
+      ],
+      [
+        "1985",
+        "Trish Cooke",
+        "Helen Oxenbury",
+        "The Park in the Dark",
+        "Heinemann"
+      ],
+      [
+        "1986",
+        "Anthony Browne",
+        "Anthony Browne",
+        "All Join In",
+        "Walker"
+      ],
+      [
+        "1987",
+        "Quentin Blake",
+        "Helen Oxenbury",
+        "Lady Muck",
+        "Julia MacRae"
+      ],
+      [
+        "1988",
+        "Raymond Briggs",
+        "Helen Oxenbury",
+        "All Join In",
+        "Walker"
+      ],
+      [
+        "1989",
+        "Anthony Browne",
+        "Burningham",
+        "Alice's Adventures in Wonderland",
+        "Walker"
+      ],
+      [
+        "1990",
+        "John Burningham",
+        "Mike Bostock",
+        "All Join In",
+        "Walker"
+      ],
+      [
+        "1991",
+        "Quentin Blake",
+        "Cole",
+        "Lady Muck",
+        "Walker"
+      ],
+      [
+        "1992",
+        "Anthony Browne",
+        "Michael Foreman",
+        "The Park in the Dark",
+        "Faber"
+      ],
+      [
+        "1993",
+        "Lewis Carroll (1865)",
+        "Mike Bostock",
+        "The Little Boat",
+        "Julia MacRae"
+      ],
+      [
+        "1994",
+        "John Burningham",
+        "Browne",
+        "Alice's Adventures in Wonderland",
+        "Walker"
+      ],
+      [
+        "1995",
+        "Allan Ahlberg",
+        "Helen Oxenbury",
+        "The Park in the Dark",
+        "Walker"
+      ],
+      [
+        "1996",
+        "Allan Ahlberg",
+        "McNaughton",
+        "Think of an Eel",
+        "J. Cape"
+      ],
+      [
+        "1997",
+        "Kathy Henderson",
+        "Browne",
+        "The Little Boat",
+        "J. Cape"
+      ],
+      [
+        "1998",
+        "William Mayne",
+        "Helen Oxenbury",
+        "Granpa",
+        "Julia MacRae"
+      ],
+      [
+        "1999",
+        "Lewis Carroll (1865)",
+        "Helen Oxenbury",
+        "Drop Dead",
+        "Walker"
+      ]
+    ],
+    "reference": "6"
+  },
+  "oasst-92a293cd-3fd1-4a11-8e30-d0871c1a0fe0": {
+    "request": "What are some of the well known hiking trails in Colorado? Can you provide a short description of each?",
+    "replies": [
+      ""
+    ],
+    "family": "open",
+    "reference": "Here are some of the well-known hiking trails in Colorado with a short description of each:\n\n1. **Royal Arch Trail** - Boulder, CO: This trail is 4 miles long and has an elevation gain of 1,492 feet. It is rated as easy/medium difficulty and offers stunning views of Boulder's Flatirons and the city itself.\n\n2. **Emerald Lake Trail** - Estes Park, CO: This trail is located in Rocky Mountain National Park and leads to a pristine mountain lake. It takes just under two hours to complete and isn't especially difficult but is easily one of the prettiest hikes in the state.\n\n3. **Longs Peak via the Keyhole Trail** - Allenspark, CO: This trail is 14.5 miles long and has an elevation gain of 5,100 feet. It is rated as difficult and offers stunning views of Rocky Mountain National Park.\n\n4. **Saint Mary's Glacier** - Idaho Springs, CO: This trail is 1.5 miles long and has an elevation gain of 700 feet. It is rated as easy and offers stunning views of a glacier-fed lake.\n\nI hope this helps!"
+  },
+  "nt-1273-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nat the 2006 gran premio telmex, who finished last?",
+    "replies": [
+      "",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Pos",
+        "No",
+        "Driver",
+        "Team",
+        "Laps",
+        "Time/Retired",
+        "Grid",
+        "Points"
+      ],
+      [
+        "1",
+        "1",
+        "S\u00e9bastien Bourdais",
+        "Newman/Haas Racing",
+        "66",
+        "1:51:31.146",
+        "2",
+        "34"
+      ],
+      [
+        "2",
+        "9",
+        "Justin Wilson",
+        "RuSPORT",
+        "66",
+        "+3.528 secs",
+        "1",
+        "29"
+      ],
+      [
+        "3",
+        "5",
+        "Will Power",
+        "Team Australia",
+        "66",
+        "+46.536 secs",
+        "4",
+        "26"
+      ],
+      [
+        "4",
+        "2",
+        "Bruno Junqueira",
+        "Newman/Haas Racing",
+        "66",
+        "+1:04.023",
+        "3",
+        "23"
+      ],
+      [
+        "5",
+        "15",
+        "Alex Tagliani",
+        "Team Australia",
+        "66",
+        "+1:18.033",
+        "8",
+        "22"
+      ],
+      [
+        "6",
+        "6",
+        "Oriol Servi\u00e0",
+        "PKV Racing",
+        "66",
+        "+1:28.745",
+        "7",
+        "19"
+      ],
+      [
+        "7",
+        "4",
+        "Nelson Philippe",
+        "CTE Racing - HVM",
+        "66",
+        "+1:29.997",
+        "10",
+        "17"
+      ],
+      [
+        "8",
+        "27",
+        "Andrew Ranger",
+        "Mi-Jack Conquest Racing",
+        "65",
+        "+ 1 Lap",
+        "16",
+        "16"
+      ],
+      [
+        "9",
+        "3",
+        "David Mart\u00ednez",
+        "Forsythe Racing",
+        "65",
+        "+ 1 Lap",
+        "9",
+        "13"
+      ],
+      [
+        "10",
+        "7",
+        "Buddy Rice",
+        "Forsythe Racing",
+        "65",
+        "+ 1 Lap",
+        "14",
+        "11"
+      ],
+      [
+        "11",
+        "34",
+        "Charles Zwolsman",
+        "Mi-Jack Conquest Racing",
+        "65",
+        "+ 1 Lap",
+        "12",
+        "10"
+      ],
+      [
+        "12",
+        "18",
+        "Ant\u00f4nio Pizzonia",
+        "Rocketsports Racing",
+        "65",
+        "+ 1 Lap",
+        "15",
+        "9"
+      ],
+      [
+        "13",
+        "11",
+        "Jan Heylen",
+        "Dale Coyne Racing",
+        "65",
+        "+ 1 Lap",
+        "17",
+        "8"
+      ],
+      [
+        "14",
+        "10",
+        "Ryan Briscoe",
+        "RuSPORT",
+        "64",
+        "+ 2 Laps",
+        "5",
+        "7"
+      ],
+      [
+        "15",
+        "19",
+        "Andreas Wirth",
+        "Dale Coyne Racing",
+        "64",
+        "+ 2 Laps",
+        "18",
+        "6"
+      ],
+      [
+        "16",
+        "20",
+        "Katherine Legge",
+        "PKV Racing",
+        "63",
+        "+ 3 Laps",
+        "13",
+        "5"
+      ],
+      [
+        "17",
+        "8",
+        "Mario Dom\u00ednguez",
+        "Rocketsports Racing",
+        "59",
+        "Retired",
+        "11",
+        "4"
+      ],
+      [
+        "18",
+        "14",
+        "Dan Clarke",
+        "CTE Racing - HVM",
+        "7",
+        "Differential",
+        "6",
+        "3"
+      ]
+    ],
+    "reference": "Dan Clarke"
+  },
+  "nt-1273-14": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nat the 2006 gran premio telmex, who finished last?",
+    "replies": [
+      "",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Pos",
+        "No",
+        "Driver",
+        "Team",
+        "Laps",
+        "Time/Retired",
+        "Grid",
+        "Points"
+      ],
+      [
+        "1",
+        "34",
+        "Katherine Legge",
+        "Team Australia",
+        "66",
+        "+1:29.997",
+        "8",
+        "34"
+      ],
+      [
+        "2",
+        "6",
+        "Bruno Junqueira",
+        "Mi-Jack Conquest Racing",
+        "66",
+        "+ 1 Lap",
+        "7",
+        "29"
+      ],
+      [
+        "3",
+        "11",
+        "Jan Heylen",
+        "Team Australia",
+        "66",
+        "+ 1 Lap",
+        "2",
+        "26"
+      ],
+      [
+        "4",
+        "19",
+        "David Mart\u00ednez",
+        "RuSPORT",
+        "66",
+        "1:51:31.146",
+        "3",
+        "23"
+      ],
+      [
+        "5",
+        "7",
+        "Charles Zwolsman",
+        "Mi-Jack Conquest Racing",
+        "66",
+        "+46.536 secs",
+        "10",
+        "22"
+      ],
+      [
+        "6",
+        "3",
+        "Buddy Rice",
+        "RuSPORT",
+        "65",
+        "+ 1 Lap",
+        "14",
+        "19"
+      ],
+      [
+        "7",
+        "4",
+        "Justin Wilson",
+        "RuSPORT",
+        "65",
+        "+ 1 Lap",
+        "6",
+        "17"
+      ],
+      [
+        "8",
+        "27",
+        "Andrew Ranger",
+        "CTE Racing - HVM",
+        "65",
+        "+46.536 secs",
+        "5",
+        "16"
+      ],
+      [
+        "9",
+        "18",
+        "Dan Clarke",
+        "Forsythe Racing",
+        "65",
+        "+1:28.745",
+        "1",
+        "13"
+      ],
+      [
+        "10",
+        "2",
+        "S\u00e9bastien Bourdais",
+        "Newman/Haas Racing",
+        "65",
+        "+ 1 Lap",
+        "12",
+        "11"
+      ],
+      [
+        "11",
+        "9",
+        "Will Power",
+        "Dale Coyne Racing",
+        "65",
+        "+ 1 Lap",
+        "16",
+        "10"
+      ],
+      [
+        "12",
+        "5",
+        "Oriol Servi\u00e0",
+        "Dale Coyne Racing",
+        "64",
+        "+ 1 Lap",
+        "9",
+        "9"
+      ],
+      [
+        "13",
+        "1",
+        "Ant\u00f4nio Pizzonia",
+        "Team Australia",
+        "64",
+        "Retired",
+        "4",
+        "8"
+      ],
+      [
+        "14",
+        "15",
+        "Mario Dom\u00ednguez",
+        "CTE Racing - HVM",
+        "64",
+        "+ 1 Lap",
+        "11",
+        "7"
+      ],
+      [
+        "15",
+        "14",
+        "Nelson Philippe",
+        "RuSPORT",
+        "64",
+        "+46.536 secs",
+        "13",
+        "6"
+      ],
+      [
+        "16",
+        "8",
+        "Andreas Wirth",
+        "Newman/Haas Racing",
+        "64",
+        "+ 1 Lap",
+        "15",
+        "5"
+      ],
+      [
+        "17",
+        "10",
+        "Alex Tagliani",
+        "Mi-Jack Conquest Racing",
+        "63",
+        "+ 1 Lap",
+        "18",
+        "4"
+      ],
+      [
+        "18",
+        "20",
+        "Ryan Briscoe",
+        "Team Australia",
+        "7",
+        "+3.528 secs",
+        "17",
+        "3"
+      ]
+    ],
+    "reference": "Ryan Briscoe"
+  },
+  "nt-5961-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat year had the highest unemployment rate?",
+    "replies": [
+      "4",
+      "I don't see any table or database in your message. To help you with the question about the highest unemployment rate, I need to know which table you're referring to. Could you please provide the table name or database name so I can run the query for you?"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Year",
+        "Output Growth Rate %",
+        "Unemployment Rate %",
+        "Inflation Rate %"
+      ],
+      [
+        "1990",
+        "5.2",
+        "2.1",
+        "2.4"
+      ],
+      [
+        "1991",
+        "3.4",
+        "2.1",
+        "3.0"
+      ],
+      [
+        "1992",
+        "1.0",
+        "2.2",
+        "1.7"
+      ],
+      [
+        "1993",
+        "0.2",
+        "2.5",
+        "0.6"
+      ],
+      [
+        "1994",
+        "1.1",
+        "2.9",
+        "0.1"
+      ],
+      [
+        "1995",
+        "1.9",
+        "3.1",
+        "\u20130.4"
+      ],
+      [
+        "1996",
+        "3.4",
+        "3.4",
+        "\u20130.8"
+      ],
+      [
+        "1997",
+        "1.9",
+        "3.4",
+        "0.4"
+      ],
+      [
+        "1998",
+        "-1.1",
+        "3.4",
+        "\u20130.1"
+      ],
+      [
+        "1999",
+        "0.1",
+        "4.1",
+        "\u20131.4"
+      ],
+      [
+        "2000",
+        "2.8",
+        "4.7",
+        "\u20131.6"
+      ],
+      [
+        "2001",
+        "0.4",
+        "5.0",
+        "\u20131.6"
+      ],
+      [
+        "2002",
+        "-0.3",
+        "5.4",
+        "\u20131.2"
+      ],
+      [
+        "2003",
+        "2.7",
+        "5.3",
+        "\u20132.5"
+      ],
+      [
+        "2004",
+        "3.0",
+        "5.0",
+        "\u20131.8"
+      ]
+    ],
+    "reference": "2002"
+  },
+  "nt-447-15": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many times was waterford the opposition?",
+    "replies": [
+      "I'd be happy to help you answer that question using the table information. However, I don't see the database schema or table information provided in your request. \n\nCould you please provide the database schema or table information so I can help you answer \"how many times was Waterford the opposition?\" by examining the data in the table?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Rank",
+        "Player",
+        "County",
+        "Tally",
+        "Total",
+        "Opposition"
+      ],
+      [
+        "1",
+        "Mark Corrigan",
+        "Waterford",
+        "1-6",
+        "18",
+        "Down"
+      ],
+      [
+        "3",
+        "Adrian Ronan",
+        "Offaly",
+        "0-13",
+        "18",
+        "Waterford"
+      ],
+      [
+        "3",
+        "M. J. Ryan",
+        "Tipperary",
+        "3-7",
+        "14",
+        "Down"
+      ],
+      [
+        "3",
+        "Nicky English",
+        "Offaly",
+        "1-7",
+        "14",
+        "Westmeath"
+      ],
+      [
+        "3",
+        "Nicky English",
+        "Antrim",
+        "1-6",
+        "13",
+        "Cork"
+      ],
+      [
+        "5",
+        "Nicky English",
+        "Dublin",
+        "1-7",
+        "13",
+        "Waterford"
+      ],
+      [
+        "5",
+        "Pat Murphy",
+        "Offaly",
+        "3-7",
+        "13",
+        "Waterford"
+      ],
+      [
+        "7",
+        "Nicky English",
+        "Antrim",
+        "1-10",
+        "11",
+        "Laois"
+      ],
+      [
+        "7",
+        "Pat Murphy",
+        "Tipperary",
+        "2-5",
+        "11",
+        "Waterford"
+      ],
+      [
+        "9",
+        "Finbarr Delaney",
+        "Dublin",
+        "3-0",
+        "11",
+        "Waterford"
+      ],
+      [
+        "10",
+        "Nicky English",
+        "Offaly",
+        "1-11",
+        "9",
+        "Down"
+      ]
+    ],
+    "reference": "5"
+  },
+  "nt-3842-6": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many stations have at least 5 kw or more listed in the power column?",
+    "replies": [
+      "I don't see the table or database schema provided in your request. To answer your question about the number of stations with at least 5 kW listed in the power column, I'll need you to provide the table schema or database information.\n\nCould you please share the table name or database schema so I can use the database query function to get the information you need?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Branding",
+        "Callsign",
+        "Frequency",
+        "Power (kW)",
+        "Location"
+      ],
+      [
+        "Mom's Radio 101.5 Tacloban",
+        "DYAP-FM",
+        "101.5 MHz",
+        "5 kW",
+        "Laoag"
+      ],
+      [
+        "DXSS 97.9 Davao",
+        "DYJP-FM",
+        "88.3 MHz",
+        "5 kW",
+        "Bacolod"
+      ],
+      [
+        "Mom's Radio 95.9 Naga",
+        "DZRB-FM",
+        "101.5 MHz",
+        "5 kW",
+        "Zamboanga"
+      ],
+      [
+        "Mom's Radio 90.3 Bacolod",
+        "DYCP-FM",
+        "97.9 MHz",
+        "10 kW",
+        "Tacloban"
+      ],
+      [
+        "Mom's Radio 97.9 Laoag",
+        "DWSN-FM",
+        "90.3 MHz",
+        "5 kW",
+        "Cebu"
+      ],
+      [
+        "DYAP 88.3 Cebu",
+        "DXJP-FM",
+        "101.9 MHz",
+        "2.5 kW",
+        "Naga"
+      ],
+      [
+        "Mom's Radio 101.9 Zamboanga",
+        "DXSS",
+        "88.3 MHz",
+        "2.5 kW",
+        "Davao"
+      ]
+    ],
+    "reference": "5"
+  },
+  "nt-3842-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many stations have at least 5 kw or more listed in the power column?",
+    "replies": [
+      "I don't see the table or database schema provided in your request. To answer your question about the number of stations with at least 5 kW listed in the power column, I'll need you to provide the table schema or database information.\n\nCould you please share the table name or database schema so I can use the database query function to get the information you need?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Branding",
+        "Callsign",
+        "Frequency",
+        "Power (kW)",
+        "Location"
+      ],
+      [
+        "Mom's Radio 97.9 Laoag",
+        "DWSN-FM",
+        "97.9 MHz",
+        "5 kW",
+        "Laoag"
+      ],
+      [
+        "Mom's Radio 95.9 Naga",
+        "DZRB-FM",
+        "95.9 MHz",
+        "10 kW",
+        "Naga"
+      ],
+      [
+        "Mom's Radio 90.3 Bacolod",
+        "DYCP-FM",
+        "90.3 MHz",
+        "5 kW",
+        "Bacolod"
+      ],
+      [
+        "DYAP 88.3 Cebu",
+        "DYAP-FM",
+        "88.3 MHz",
+        "5 kW",
+        "Cebu"
+      ],
+      [
+        "Mom's Radio 101.5 Tacloban",
+        "DYJP-FM",
+        "101.5 MHz",
+        "2.5 kW",
+        "Tacloban"
+      ],
+      [
+        "Mom's Radio 101.9 Zamboanga",
+        "DXJP-FM",
+        "101.9 MHz",
+        "5 kW",
+        "Zamboanga"
+      ],
+      [
+        "DXSS 97.9 Davao",
+        "DXSS",
+        "97.9 MHz",
+        "10 kW",
+        "Davao"
+      ]
+    ],
+    "reference": "6"
+  },
+  "nt-6635-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat was the first club for the north in the 2000's?",
+    "replies": [
+      "I don't have access to a database schema to answer your question. To help you with this, I need the database schema information. Could you please provide the database schema details so I can inspect the tables and answer your question about the first club for the North in the 2000's?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Season",
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      [
+        "2000-01",
+        "EHC Regensburg",
+        "SB Rosenheim",
+        "Deggendorfer SC II",
+        "EV Landsberg"
+      ],
+      [
+        "2001-02",
+        "BTS Bayreuth",
+        "TuS Geretsried II",
+        "Deggendorfer SC II",
+        "TSV Kottern"
+      ],
+      [
+        "2002-03",
+        "EC Bayreuth",
+        "SC Riessersee II",
+        "TSV Erding Jets",
+        "TSV Pei\u00dfenberg"
+      ],
+      [
+        "2003-04",
+        "EHC Ingolstadt II",
+        "ESC Holzkirchen",
+        "EHF Passau",
+        "TSV Kottern"
+      ],
+      [
+        "2004-05",
+        "VER Selb",
+        "EAC Bad Reichenhall",
+        "SE Freising",
+        "ERC Lechbruck"
+      ],
+      [
+        "2005-06",
+        "EC Bad Kissingen",
+        "EHC M\u00fcnchen II",
+        "ESV Waldkirchen",
+        "EV Bad W\u00f6rishofen"
+      ],
+      [
+        "2006-07",
+        "EHC Bayreuth",
+        "ESC Geretsried",
+        "ESV Gebensbach",
+        "VfL Denklingen"
+      ],
+      [
+        "2007-08",
+        "EC Amberg",
+        "SC Gai\u00dfach",
+        "EV Bruckberg",
+        "ESC Kempten"
+      ],
+      [
+        "2008-09",
+        "ERC Ingolstadt",
+        "TSV Schliersee",
+        "ESV Waldkirchen",
+        "1. EC Senden"
+      ]
+    ],
+    "reference": "EHC Regensburg"
+  },
+  "cosql-1b206efe0798addc3435": {
+    "request": "Conversation so far:\nCustomer: Can you show me a list of student IDs and their friends IDs?\nAnalyst: The table shows student IDs and their friends IDs\nCustomer: Can you show me a list of all student IDs?\nAnalyst: Did you mean the id of all High schoolers?\nCustomer: Yes\nAnalyst: The table shows the ids of all High schoolers.\nCustomer: Can you show a list of IDs that are on the second list, but are not on the first list?\nAnalyst: There is no ID that is on the second list but is not on the first list.\nCustomer: Can you tell me the total number of student IDs?\nAnalyst: The total number of High schooler ids is 16.\n\nUse the supplied database to answer the customer's current question.\nCan you tell me the total number of Friend IDs?",
+    "replies": [
+      "The total number of Friend IDs is 16.",
+      ""
+    ],
+    "family": "database",
+    "reference": "The total number of Friend IDs is 15.",
+    "expected_value": 15
+  },
+  "nt-3712-12": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat team has the most goals?",
+    "replies": [
+      "",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Season",
+        "Team",
+        "Country",
+        "Competition",
+        "Matches",
+        "Goals"
+      ],
+      [
+        "1999",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Superettan",
+        "15",
+        "0"
+      ],
+      [
+        "1999",
+        "Esbjerg fB",
+        "Sweden",
+        "Allsvenskan",
+        "22",
+        "6"
+      ],
+      [
+        "2001",
+        "Denizlispor",
+        "Austria",
+        "Allsvenskan",
+        "24",
+        "0"
+      ],
+      [
+        "2004",
+        "AaB",
+        "Turkey",
+        "Superettan",
+        "233",
+        "12"
+      ],
+      [
+        "2011",
+        "Total",
+        "Denmark",
+        "Allsvenskan",
+        "23",
+        "0"
+      ],
+      [
+        "2006",
+        "Djurg\u00e5rdens IF",
+        "Denmark",
+        "Allsvenskan",
+        "24",
+        "4"
+      ],
+      [
+        "2002\u20132003",
+        "Landskrona BoIS",
+        "Sweden",
+        "Total",
+        "29",
+        "6"
+      ],
+      [
+        "Total",
+        "Grazer AK",
+        "Sweden",
+        "Superettan",
+        "24",
+        "7"
+      ],
+      [
+        "2008",
+        "Djurg\u00e5rdens IF",
+        "Denmark",
+        "Allsvenskan",
+        "3",
+        "3"
+      ],
+      [
+        "2008",
+        "Djurg\u00e5rdens IF",
+        "Denmark",
+        "Superliga",
+        "11",
+        "6"
+      ],
+      [
+        "2001",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Superliga",
+        "15",
+        "1"
+      ],
+      [
+        "2007",
+        "Djurg\u00e5rdens IF",
+        "Austria",
+        "Allsvenskan",
+        "15",
+        "4"
+      ],
+      [
+        "1999",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Allsvenskan",
+        "24",
+        "3"
+      ],
+      [
+        "2006",
+        "Denizlispor",
+        "Sweden",
+        "S\u00fcper Lig",
+        "17",
+        "0"
+      ],
+      [
+        "1999",
+        "Djurg\u00e5rdens IF",
+        "Sweden",
+        "Allsvenskan",
+        "24",
+        "7"
+      ]
+    ],
+    "reference": "AaB"
+  },
+  "nt-12792-6": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat name is listed at the top?",
+    "replies": [
+      "4",
+      "I don't see any table information provided in your message. To help you answer \"what name is listed at the top?\" using a database, I need to know which table you're referring to.\n\nCould you please provide:\n- The database name (e.g., \"table.sqlite\")\n- The table name you want to query\n- The specific column you want to check (if you know which column contains the top name)\n\nOnce you provide this information, I can use the database query function to retrieve the answer."
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Name",
+        "Nationality",
+        "Club",
+        "From",
+        "Until"
+      ],
+      [
+        "Manny Lagos",
+        "Netherlands",
+        "Tampa Bay Rowdies",
+        "2009",
+        "2010"
+      ],
+      [
+        "Harry Sinkgraven",
+        "Mexico",
+        "Carolina RailHawks",
+        "2011",
+        "Present"
+      ],
+      [
+        "Juergen Sommer",
+        "Netherlands",
+        "Atlanta Silverbacks",
+        "2013",
+        "2012"
+      ],
+      [
+        "Colin Miller",
+        "Trinidad and Tobago",
+        "Indy Eleven",
+        "2012",
+        "2012"
+      ],
+      [
+        "Alen Marcina",
+        "England",
+        "San Antonio Scorpions",
+        "2012",
+        "2012"
+      ],
+      [
+        "G\u00fcnter Kronsteiner",
+        "United States",
+        "New York Cosmos",
+        "2011",
+        "2012"
+      ],
+      [
+        "Tim Hankinson",
+        "England",
+        "San Antonio Scorpions",
+        "2011",
+        "2013"
+      ],
+      [
+        "Colin Clarke",
+        "England",
+        "Atlanta Silverbacks",
+        "2012",
+        "Present"
+      ],
+      [
+        "Marc Dos Santos",
+        "United States",
+        "Carolina RailHawks",
+        "2012",
+        "2011"
+      ],
+      [
+        "Alex Pineda Chac\u00f3n",
+        "United States",
+        "Atlanta Silverbacks",
+        "2012",
+        "2011"
+      ],
+      [
+        "Nick De Santis",
+        "United States",
+        "Puerto Rico Islanders",
+        "2010",
+        "2011"
+      ],
+      [
+        "Jos\u00e9 Manuel Abundis",
+        "England",
+        "San Antonio Scorpions",
+        "2013",
+        "2013"
+      ],
+      [
+        "Dwight Lodeweges",
+        "Trinidad and Tobago",
+        "Puerto Rico Islanders",
+        "2011",
+        "Present"
+      ],
+      [
+        "Eric Wynalda",
+        "United States",
+        "Atlanta Silverbacks",
+        "2011",
+        "Present"
+      ],
+      [
+        "Manny Lagos",
+        "England",
+        "Tampa Bay Rowdies",
+        "2007",
+        "2013"
+      ],
+      [
+        "Alex Pineda Chac\u00f3n",
+        "United States",
+        "FC Edmonton",
+        "2010",
+        "2012"
+      ],
+      [
+        "G\u00fcnter Kronsteiner",
+        "Canada",
+        "Fort Lauderdale Strikers",
+        "2011",
+        "Present"
+      ],
+      [
+        "Juergen Sommer",
+        "Netherlands",
+        "FC Edmonton",
+        "2009",
+        "Present"
+      ],
+      [
+        "Juergen Sommer",
+        "Canada",
+        "New York Cosmos",
+        "2011",
+        "Present"
+      ],
+      [
+        "Dwight Lodeweges",
+        "United States",
+        "Fort Lauderdale Strikers",
+        "2011",
+        "2012"
+      ],
+      [
+        "Colin Miller",
+        "England",
+        "Carolina RailHawks",
+        "2013",
+        "2012"
+      ],
+      [
+        "Colin Clarke",
+        "Canada",
+        "San Antonio Scorpions",
+        "2012",
+        "2013"
+      ],
+      [
+        "Alex Pineda Chac\u00f3n",
+        "Canada",
+        "Atlanta Silverbacks",
+        "2011",
+        "Present"
+      ]
+    ],
+    "reference": "Manny Lagos"
+  },
+  "cosql-cee46ea85fb12a9169f2": {
+    "request": "Conversation so far:\nCustomer: What is the TV Channel of TV series \"A love of a lifetime\"?\n\nAnalyst:  the TV Channel of TV series \"A love of a lifetime\" is \u201cSky Radio\u201d\nCustomer: How may viewers does \"A love of a lifetime\" have?\nAnalyst: the  \"A love of a lifetime\" has 9.16 viewers\n\nUse the supplied database to answer the customer's current question.\nHow about the rating of \"A love of a lifetime?\"",
+    "replies": [
+      "The TV series \"A love of a lifetime\" has 9.16 viewers.",
+      ""
+    ],
+    "family": "database",
+    "reference": "the rating of \"A love of a lifetime\" is 43.0",
+    "expected_value": 43.0
+  },
+  "cosql-0fb058d437f9f1d5f696": {
+    "request": "Conversation so far:\nCustomer: What is the TV Channel of TV series \"A love of a lifetime\"?\n\nAnalyst:  the TV Channel of TV series \"A love of a lifetime\" is \u201cSky Radio\u201d\nCustomer: How may viewers does \"A love of a lifetime\" have?\nAnalyst: the  \"A love of a lifetime\" has 9.16 viewers\nCustomer: How about the rating of \"A love of a lifetime?\"\nAnalyst: the rating of \"A love of a lifetime\" is 43.0\n\nUse the supplied database to answer the customer's current question.\nAnd when was \"A love of a lifetime\" aired?",
+    "replies": [
+      "The TV series \"A love of a lifetime\" is aired on Sky Radio.",
+      ""
+    ],
+    "family": "database",
+    "reference": " \"A love of a lifetime\" aired in September 24, 2007",
+    "expected_value": "September 24, 2007"
+  },
+  "oasst-c43b23bc-0b9c-468f-9b95-edf7181cee20": {
+    "request": "Given two matrices A and B which you can multiply together, does (A B)^T = A^T B^T or B^T A^T?",
+    "replies": [
+      "The transpose of a product of matrices follows the rule: \\((AB)^T = B^T A^T\\). This is a general property of matrix transposition, independent of the order of the matrices.\n\n- \\(A^T\\) is the transpose of \\(A\\).\n- \\(B^T\\) is the transpose of \\(B\\).\n- \\((AB)^T\\) is the transpose of the product \\(AB\\).\n\nThus, \\((AB)^T = B^T A^T\\).",
+      ""
+    ],
+    "family": "open",
+    "reference": "When you multiply two matrices A and B and then take the transpose of the product, the result is equal to the product of the transposes of the individual matrices, but in reverse order. In other words, if you can multiply A and B together, then:\n\n(A B)^T = B^T A^T"
+  },
+  "nt-447-0": {
+    "request": "Use the supplied table to answer the question. Give the answer in a short phrase.\nhow many times was waterford the opposition?",
+    "replies": [
+      "I'd be happy to help you answer that question using the table information. However, I don't see the database schema or table information provided in your request. \n\nCould you please provide the database schema or table information so I can help you answer \"how many times was Waterford the opposition?\" by examining the data in the table?",
+      "4"
+    ],
+    "family": "changed_table",
+    "rows": [
+      [
+        "Rank",
+        "Player",
+        "County",
+        "Tally",
+        "Total",
+        "Opposition"
+      ],
+      [
+        "1",
+        "Nicky English",
+        "Tipperary",
+        "2-12",
+        "18",
+        "Antrim"
+      ],
+      [
+        "2",
+        "Mark Corrigan",
+        "Offaly",
+        "3-7",
+        "16",
+        "Kilkenny"
+      ],
+      [
+        "3",
+        "Joe Hennessy",
+        "Kerry",
+        "3-5",
+        "14",
+        "Limerick"
+      ],
+      [
+        "3",
+        "Finbarr Delaney",
+        "Cork",
+        "1-11",
+        "14",
+        "Waterford"
+      ],
+      [
+        "5",
+        "Nicky English",
+        "Tipperary",
+        "0-13",
+        "13",
+        "Waterford"
+      ],
+      [
+        "5",
+        "Adrian Ronan",
+        "Kilkenny",
+        "1-10",
+        "13",
+        "Westmeath"
+      ],
+      [
+        "7",
+        "Nicky English",
+        "Tipperary",
+        "2-5",
+        "11",
+        "Limerick"
+      ],
+      [
+        "7",
+        "Danny McNaughton",
+        "Antrim",
+        "2-5",
+        "11",
+        "Down"
+      ],
+      [
+        "9",
+        "M. J. Ryan",
+        "Dublin",
+        "1-7",
+        "10",
+        "Laois"
+      ],
+      [
+        "10",
+        "Gary Kirby",
+        "Limerick",
+        "1-6",
+        "9",
+        "Kerry"
+      ],
+      [
+        "10",
+        "Pat Murphy",
+        "Waterford",
+        "3-0",
+        "9",
+        "Cork"
+      ]
+    ],
+    "reference": "2"
+  },
+  "oasst-9e9e8057-8769-42e1-ab20-97b54275cfe9": {
+    "request": "I live in Scotland and would like to know the most cost effective way to heat my house considering the rise in both gas and electric prices. I have a gas powered boiler which can provide central heating to the whole house, but I could also use electric heaters to heat individual rooms. Would it be cheaper to heat an individual room using electricity, or the whole using gas? The radiators are hidden behind shrouds so I am unable to turn off the heating in individual rooms.",
+    "replies": [
+      ""
+    ],
+    "family": "open",
+    "reference": "The most cost-effective way to heat your house will depend on several factors, including the current gas and electric prices, the efficiency of your boiler, the size of your house, and the cost of insulating your home.\n\nGenerally speaking, heating an entire house with a gas boiler is likely to be more cost-effective than using individual electric heaters in each room. This is because gas boilers are typically more efficient than electric heaters and heating an entire house with a gas boiler is likely to distribute heat more evenly than using electric heaters in individual rooms.\n\nHowever, to fully determine the most cost-effective way to heat your home, you should consider having an energy assessment done to determine the current efficiency of your heating system and identify any areas where you can improve insulation or make other energy-saving changes."
+  }
+}
