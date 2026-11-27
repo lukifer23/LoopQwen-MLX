@@ -4,6 +4,7 @@ import csv
 
 import matplotlib.pyplot as plt
 from paper_native_functions import write_requests
+from paper_passage_actions import make as passage_actions
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read
@@ -73,6 +74,7 @@ def make(paper, results, result, finish):
     summary = result(name)
     spec = read(root / "registration.json")
     overlap(paper, spec)
+    passage_actions(paper, root, spec)
     rows = read(spec["material"])["rows"]
     write_requests(
         paper / "question-contrast-requests.csv", root, rows, json_answers=True
