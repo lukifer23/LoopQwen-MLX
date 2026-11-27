@@ -425,9 +425,8 @@ def build():
         digest(previous)
         == "303a0fd3cc50564e565b35d66edb98bfb96537e7c231a14bae54f91a8c8babce"
     )
-    from scripts.table_policy_answer_concentration import run as concentration
-
     from scripts import table_policy_latency
+    from scripts.table_policy_answer_concentration import run as concentration
     from scripts.table_reasoning_reading import run as source_reading
 
     concentration()
