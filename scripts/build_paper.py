@@ -255,6 +255,12 @@ def main(verify):
             [sys.executable, "-m", "scripts.paper_locked_context"], cwd=ROOT, check=True
         )
 
+    followup = ROOT / "research/results/followup-protected-01/decision.json"
+    if followup.is_file() and "arms" in read(followup):
+        subprocess.run(
+            [sys.executable, "-m", "scripts.paper_followup"], cwd=ROOT, check=True
+        )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
