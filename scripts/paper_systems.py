@@ -7,6 +7,15 @@ def write(paper, results, result):
     # Each row names exactly one candidate, denominator and semantic endpoint.
     rows = [
         (
+            "book-conversation-field-01",
+            "Books and live files",
+            "operational",
+            6,
+            "candidate",
+            "control",
+            "success",
+        ),
+        (
             "question-contrast-01",
             "Question contrasts",
             "strict dialogues",
@@ -290,6 +299,11 @@ def write(paper, results, result):
                         "first": row["first_s"],
                         "tokens": row.get("output_tokens", ""),
                     }
+            elif study == "book-conversation-field-01":
+                arms = {
+                    side: {**m, "seconds": m["wall"], "tokens": m["output_tokens"]}
+                    for side, m in d["metrics"].items()
+                }
             elif study == "release-mixed-field-01":
                 arms = d["by_family"]["all"]
             elif "groups" in d:
