@@ -70,7 +70,9 @@ def verify(root):
     if study == "proof-curriculum-01":
         from loopqwen.research.proof_curriculum import verify as verify_proofs
         from scripts.proof_curriculum_material import build
+        from scripts.reasoned_evidence_material import build as rebuild_human_sources
 
+        rebuild_human_sources()
         build()
         return verify_proofs(root, decision)
     if study == "reasoned-evidence-01":

@@ -59,7 +59,14 @@ The per-request CSV includes actual tool arguments, observations, reasoning, fin
 
 ## Reconstruct the sources and repeat training
 
-Set up the project’s locked native environment in the restored checkout. Place the two FOLIO v0.0 JSONL files in `data/research_external/folio/` and the original e-SNLI `esnli_train_1.csv` under `data/research_external/`. Place the original ProofWriter ZIP at `data/research_external/proofwriter-V2020.12.3.zip`. Their URLs and SHA-256 values are in the two experiment registrations. The existing wheel inventories can be rebuilt with the field wheelhouse helper from the pinned lockfile. See the source license and provenance record. [FOLIO data](https://github.com/Yale-LILY/FOLIO/tree/5d7bb84c7edab3fb358e057d2807f19cf5cf5e2d/data/v0.0) · [Human e-SNLI training data](https://github.com/OanaMariaCamburu/e-SNLI/tree/7b585a3f077fdea899780eb0473940522ae44a2e/dataset) · [Original ProofWriter release](https://aristo-data-public.s3.amazonaws.com/proofwriter/proofwriter-dataset-V2020.12.3.zip)
+Set up the project’s locked native environment in the restored checkout. Place the two FOLIO v0.0 JSONL files in `data/research_external/folio/` and the original e-SNLI `esnli_train_1.csv` under `data/research_external/`. Place the original ProofWriter ZIP at `data/research_external/proofwriter-V2020.12.3.zip`. Their URLs and SHA-256 values are in the two experiment registrations. The original kit contains the 44 held distribution wheels under `dependencies/` and the paper wheels under `paper-tools/`. The previous update contains the figure wheels additional to that kit. The training selector ignores packages present among the 44 held wheels. To restore the required inventories without downloading any packages, create these local links from the restored checkout.
+
+```sh
+ln -s "$kit/dependencies" exports/field-dependencies-01
+ln -s "$kit/paper-tools" exports/field-paper-dependencies-01
+ln -s "$previous/figure-tools" exports/field-figure-dependencies-04
+```
+ See the source license and provenance record. [FOLIO data](https://github.com/Yale-LILY/FOLIO/tree/5d7bb84c7edab3fb358e057d2807f19cf5cf5e2d/data/v0.0) · [Human e-SNLI training data](https://github.com/OanaMariaCamburu/e-SNLI/tree/7b585a3f077fdea899780eb0473940522ae44a2e/dataset) · [Original ProofWriter release](https://aristo-data-public.s3.amazonaws.com/proofwriter/proofwriter-dataset-V2020.12.3.zip)
 
 Within a fresh output directory run:
 
