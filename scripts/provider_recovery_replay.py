@@ -33,8 +33,8 @@ def session(messages, providers):
         f = event["function"]
         try:
             observed = providers[f["name"]].callback(**f["arguments"])
-        except sqlite3.OperationalError:
-            observed = {"error": "OperationalError"}
+        except (sqlite3.OperationalError, ValueError) as exc:
+            observed = {"error": type(exc).__name__}
         actions["error" if "error" in observed else f["name"]] += 1
     assert observed is None
     return actions
