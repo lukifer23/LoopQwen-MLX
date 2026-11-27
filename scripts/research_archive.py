@@ -70,6 +70,18 @@ def verify(root):
     if study == "learner-prefix-fit-01":
         from loopqwen.research.learner_prefix_fit import verify as verify_prefix_fit
 
+        if (root / "frozen-teacher-correction.json").is_file():
+            correction = read(root / "frozen-teacher-correction.json")
+            require(
+                correction == read(Path("research/diagnostics/learner-prefix-frozen-teacher.json"))
+                and correction["first_environment"] == sha(root / "initial-environment.json")
+                and correction["feature_index"] == sha(root / "feature-index.json.gz")
+                and correction["registration"] == sha(root / "registration.json"),
+                "Frozen teacher correction changed the inputs or extracted source features",
+            )
+            for file, key in (("initial-environment.json", "prior_code"), ("environment.json", "corrected_code")):
+                require(read(root / file)["execution_sources"][correction["source"]] == correction[key],
+                        "Frozen teacher implementation digest")
         return verify_prefix_fit(root, decision)
     if study == "learner-prefix-transfer-01":
         from loopqwen.research.shared_query_transfer import verify as verify_prefix_pair

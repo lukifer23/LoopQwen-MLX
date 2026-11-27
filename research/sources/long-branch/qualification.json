@@ -1,0 +1,1037 @@
+{
+  "scope": "Training-source preparation for the unresolved full-context capability. Natural upstream edits in complete original documents. File questions were generated from schema paths or package identities. No manually inserted evidence, model generation, optimizer update or accuracy estimate. Original English and Italian held files and held unit questions are excluded.",
+  "sources": {
+    "fr": {
+      "changed_fields": 10,
+      "selected": 10,
+      "documents": [
+        {
+          "url": "https://raw.githubusercontent.com/unicode-org/cldr/e1d37acce5dae468c414172be53b666d58d45be8/common/main/fr.xml",
+          "sha256": "8f8a56993bc40ec9a32e8bf9bf2a585b16c42719e0c73f56614535152ddc58ea",
+          "bytes": 599377,
+          "common_prompt_tokens": 205317,
+          "common_ids": "e9347d517967361019f878ecac3f20f5a0aa6936f3cdaffc0b0dfebe18399422",
+          "questions": [
+            {
+              "key": "ldml/localeDisplayNames/territories/territory[@type='ZZ']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/localeDisplayNames/territories/territory[@type='ZZ']? Preserve the characters and spacing from the file.",
+              "answer": "r\u00e9gion ind\u00e9termin\u00e9e",
+              "source_bytes": [
+                56733,
+                56755
+              ],
+              "source_tokens": [
+                19978,
+                19983
+              ],
+              "input_tokens": 205370,
+              "input_sha256": "d1b4b784ffa6daf5eccddf1b3881df229ef58197c11654354b2f832a5b8466c8"
+            },
+            {
+              "key": "ldml/localeDisplayNames/types/type[@key='numbers'][@type='knda']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/localeDisplayNames/types/type[@key='numbers'][@type='knda']? Preserve the characters and spacing from the file.",
+              "answer": "chiffres en kannada",
+              "source_bytes": [
+                74034,
+                74053
+              ],
+              "source_tokens": [
+                25784,
+                25790
+              ],
+              "input_tokens": 205372,
+              "input_sha256": "c1373188a7b739101f7b37889d6c634dbe28f234b8f99fea948f4d3290c7bcaa"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/zone[@type='Etc/Unknown']/exemplarCity",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/zone[@type='Etc/Unknown']/exemplarCity? Preserve the characters and spacing from the file.",
+              "answer": "ville inconnue",
+              "source_bytes": [
+                272532,
+                272546
+              ],
+              "source_tokens": [
+                92510,
+                92514
+              ],
+              "input_tokens": 205375,
+              "input_sha256": "6ba044d89522a6dc69099fac4063fffe5ee3e9ead0a8812c5d42d75c711522fa"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Africa_Western']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Africa_Western']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "heure normale d\u2019Afrique de l\u2019Ouest",
+              "source_bytes": [
+                310379,
+                310417
+              ],
+              "source_tokens": [
+                108246,
+                108255
+              ],
+              "input_tokens": 205374,
+              "input_sha256": "299cbf64d0006c5688b1c645c5fcbb511b174f75e43498d36450b07f25ef1c9f"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Apia']/long/generic",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Apia']/long/generic? Preserve the characters and spacing from the file.",
+              "answer": "heure d\u2019Apia",
+              "source_bytes": [
+                313348,
+                313362
+              ],
+              "source_tokens": [
+                109282,
+                109287
+              ],
+              "input_tokens": 205373,
+              "input_sha256": "61a270b50e60f8aeb42dca1baec22d116c23e38821a7b88cbb5dcae7303f1ac3"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Apia']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Apia']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "heure normale d\u2019Apia",
+              "source_bytes": [
+                313388,
+                313410
+              ],
+              "source_tokens": [
+                109296,
+                109302
+              ],
+              "input_tokens": 205373,
+              "input_sha256": "9233eb83c94f4e457ceffe483ad7d46457e450f6aaaf277d337dfe06a428ece0"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Apia']/long/daylight",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Apia']/long/daylight? Preserve the characters and spacing from the file.",
+              "answer": "heure d\u2019\u00e9t\u00e9 d\u2019Apia",
+              "source_bytes": [
+                313437,
+                313461
+              ],
+              "source_tokens": [
+                109312,
+                109320
+              ],
+              "input_tokens": 205373,
+              "input_sha256": "23fe4183f30316128587a84704b7179ad91db95803ae6581ced74d49d3d55136"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/generic",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/generic? Preserve the characters and spacing from the file.",
+              "answer": "heure de Petropavlovsk-Kamchatski",
+              "source_bytes": [
+                326927,
+                326960
+              ],
+              "source_tokens": [
+                114253,
+                114265
+              ],
+              "input_tokens": 205375,
+              "input_sha256": "dfd77c7dc2be3b3145602713038990f299fd2cfa538d58e7f234233661d4a1c7"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "heure normale de Petropavlovsk-Kamchatski",
+              "source_bytes": [
+                326986,
+                327027
+              ],
+              "source_tokens": [
+                114274,
+                114287
+              ],
+              "input_tokens": 205375,
+              "input_sha256": "6ec50c25c8fed86d7b6b0739cf0c83191855e0098d2076b9966e5eb888b395d1"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/daylight",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/daylight? Preserve the characters and spacing from the file.",
+              "answer": "heure d\u2019\u00e9t\u00e9 de Petropavlovsk-Kamchatski",
+              "source_bytes": [
+                327054,
+                327097
+              ],
+              "source_tokens": [
+                114297,
+                114312
+              ],
+              "input_tokens": 205375,
+              "input_sha256": "8eaf92e479fbef93c46db5a58898e196ca0557b664bbd5fe573b940d12426369"
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/unicode-org/cldr/96e54b273d2da4ec6fbad350ba19ff23fa24a588/common/main/fr.xml",
+          "sha256": "7aa6b2f783d3223fb7e8fd1b4e0f3782d9731f2f91f829e93747e20ac7b3c268",
+          "bytes": 587773,
+          "common_prompt_tokens": 199602,
+          "common_ids": "c724f36f8cc8c820e8fa338548b1b8d137c37e0cc0a6b8c96c54aff74003c0fc",
+          "questions": [
+            {
+              "key": "ldml/localeDisplayNames/territories/territory[@type='ZZ']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/localeDisplayNames/territories/territory[@type='ZZ']? Preserve the characters and spacing from the file.",
+              "answer": "r\u00e9gion inconnue",
+              "source_bytes": [
+                57271,
+                57287
+              ],
+              "source_tokens": [
+                20164,
+                20169
+              ],
+              "input_tokens": 199655,
+              "input_sha256": "1e04f26b9c53f55892754fea3d0273da2425687101b0131466c8a1510b172e8f"
+            },
+            {
+              "key": "ldml/localeDisplayNames/types/type[@key='numbers'][@type='knda']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/localeDisplayNames/types/type[@key='numbers'][@type='knda']? Preserve the characters and spacing from the file.",
+              "answer": "chiffres kannadas",
+              "source_bytes": [
+                81744,
+                81761
+              ],
+              "source_tokens": [
+                28463,
+                28468
+              ],
+              "input_tokens": 199657,
+              "input_sha256": "deff487fdb3e619dbd867d8e9c690bb7dcf6e8212ee0f0099380b1dc0f6b57ae"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/zone[@type='Etc/Unknown']/exemplarCity",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/zone[@type='Etc/Unknown']/exemplarCity? Preserve the characters and spacing from the file.",
+              "answer": "lieu inconnu",
+              "source_bytes": [
+                252041,
+                252053
+              ],
+              "source_tokens": [
+                83672,
+                83677
+              ],
+              "input_tokens": 199660,
+              "input_sha256": "9e65e23311917f1b119a048d27737ac06d495db5964e8bde67fe3e6e549c8a7e"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Africa_Western']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Africa_Western']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "heure d\u2019Afrique de l\u2019Ouest",
+              "source_bytes": [
+                289436,
+                289466
+              ],
+              "source_tokens": [
+                99256,
+                99264
+              ],
+              "input_tokens": 199659,
+              "input_sha256": "a7bf03cb78deaa76afb22c0eaefe0e5cda4ea2dc990fb8e5878c0175cf7813f7"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Apia']/long/generic",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Apia']/long/generic? Preserve the characters and spacing from the file.",
+              "answer": "heure des Samoa occidentales",
+              "source_bytes": [
+                291250,
+                291278
+              ],
+              "source_tokens": [
+                99895,
+                99900
+              ],
+              "input_tokens": 199658,
+              "input_sha256": "6882ab6d69afbaf613ce2dd763e090c392d0f828b853bf1236a81d793385088f"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Apia']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Apia']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "heure normale des Samoa occidentales",
+              "source_bytes": [
+                291304,
+                291340
+              ],
+              "source_tokens": [
+                99909,
+                99915
+              ],
+              "input_tokens": 199658,
+              "input_sha256": "b1aba3f95f47c0bca23683ea85d61f7f8bb4af13c3836e8452ad5d8db8be4d6f"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Apia']/long/daylight",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Apia']/long/daylight? Preserve the characters and spacing from the file.",
+              "answer": "heure d\u2019\u00e9t\u00e9 des Samoa occidentales",
+              "source_bytes": [
+                291367,
+                291405
+              ],
+              "source_tokens": [
+                99925,
+                99933
+              ],
+              "input_tokens": 199658,
+              "input_sha256": "96b039015eed4db0fb43370fa32ac3e3a0ab8269402be536a76c1a07b4f309a5"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/generic",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/generic? Preserve the characters and spacing from the file.",
+              "answer": "heure du Kamtchatka",
+              "source_bytes": [
+                303772,
+                303791
+              ],
+              "source_tokens": [
+                104481,
+                104487
+              ],
+              "input_tokens": 199660,
+              "input_sha256": "ba2b99efe08f4482ea64b6d0728b9ed9fcac5a482bdf9992086f4ee3f6cef9a4"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "heure normale du Kamtchatka",
+              "source_bytes": [
+                303817,
+                303844
+              ],
+              "source_tokens": [
+                104496,
+                104503
+              ],
+              "input_tokens": 199660,
+              "input_sha256": "1993c51757941d993be811f5d69c0c22ccbbb35446d048cbcd0c5a43d9f598bb"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/daylight",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Kamchatka']/long/daylight? Preserve the characters and spacing from the file.",
+              "answer": "heure d\u2019\u00e9t\u00e9 du Kamtchatka",
+              "source_bytes": [
+                303871,
+                303900
+              ],
+              "source_tokens": [
+                104513,
+                104522
+              ],
+              "input_tokens": 199660,
+              "input_sha256": "ebb079549d0609fac9afe869b12ba1a4da3c55178b9269fd8157804add0d5086"
+            }
+          ]
+        }
+      ]
+    },
+    "es": {
+      "changed_fields": 10,
+      "selected": 10,
+      "documents": [
+        {
+          "url": "https://raw.githubusercontent.com/unicode-org/cldr/e1d37acce5dae468c414172be53b666d58d45be8/common/main/es.xml",
+          "sha256": "05e5b29fc098457a59b49eb2edc8c010b5b7cfacc549bb50405ae18973b045e5",
+          "bytes": 469261,
+          "common_prompt_tokens": 160210,
+          "common_ids": "e4a0524d5cbde4afbafe8042edaafb7057902de018394c758af062d03734c491",
+          "questions": [
+            {
+              "key": "ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='GyMd']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='GyMd']? Preserve the characters and spacing from the file.",
+              "answer": "d/M/y GGGGG",
+              "source_bytes": [
+                106197,
+                106208
+              ],
+              "source_tokens": [
+                36561,
+                36567
+              ],
+              "input_tokens": 160275,
+              "input_sha256": "30bcded28bb820e8a6de91908c4c3cc33c63108a17b79ad9c350157cc98f8e03"
+            },
+            {
+              "key": "ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMEd']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMEd']? Preserve the characters and spacing from the file.",
+              "answer": "EEE, d/M/y",
+              "source_bytes": [
+                108297,
+                108307
+              ],
+              "source_tokens": [
+                37266,
+                37271
+              ],
+              "input_tokens": 160275,
+              "input_sha256": "127f5a6e76ae39726175e1a6a999384402701c323bc778b14cba7089b93e832a"
+            },
+            {
+              "key": "ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMEd']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMEd']? Preserve the characters and spacing from the file.",
+              "answer": "EEE, d MMM y",
+              "source_bytes": [
+                108524,
+                108536
+              ],
+              "source_tokens": [
+                37340,
+                37345
+              ],
+              "input_tokens": 160275,
+              "input_sha256": "8b07990b4d26b1b1b4823a38c97bdbfe8a6a52c2f097a93ee6fbc22524f9b67b"
+            },
+            {
+              "key": "ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMMEd']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMMEd']? Preserve the characters and spacing from the file.",
+              "answer": "EEE, d 'de' MMMM 'de' y",
+              "source_bytes": [
+                108721,
+                108744
+              ],
+              "source_tokens": [
+                37407,
+                37419
+              ],
+              "input_tokens": 160275,
+              "input_sha256": "9bdc94ec33303d6305cd0c86d55ab7c965d5a3094a6a0e25eaafe826afa4ea45"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/zone[@type='Pacific/Enderbury']/exemplarCity",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/zone[@type='Pacific/Enderbury']/exemplarCity? Preserve the characters and spacing from the file.",
+              "answer": "Enderbury",
+              "source_bytes": [
+                187510,
+                187519
+              ],
+              "source_tokens": [
+                64536,
+                64539
+              ],
+              "input_tokens": 160268,
+              "input_sha256": "dba189608e73e99fe71097ec349fd37ad799b108494bb6d4a18e611f4389164a"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Acre']/long/generic",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Acre']/long/generic? Preserve the characters and spacing from the file.",
+              "answer": "Hora de Acre",
+              "source_bytes": [
+                206495,
+                206507
+              ],
+              "source_tokens": [
+                72487,
+                72492
+              ],
+              "input_tokens": 160266,
+              "input_sha256": "8ce51b2293a2a555783185015ce6e2fbd37fa2a906fbcddd403ff9a2585fc4bf"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Acre']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Acre']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "Hora est\u00e1ndar de Acre",
+              "source_bytes": [
+                206533,
+                206555
+              ],
+              "source_tokens": [
+                72500,
+                72506
+              ],
+              "input_tokens": 160266,
+              "input_sha256": "9e8e6497f592d0adafdc548ed416778eca02952db6cfe9ee09bac909b8b6e1eb"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Acre']/long/daylight",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Acre']/long/daylight? Preserve the characters and spacing from the file.",
+              "answer": "Hora de verano de Acre",
+              "source_bytes": [
+                206582,
+                206604
+              ],
+              "source_tokens": [
+                72515,
+                72522
+              ],
+              "input_tokens": 160266,
+              "input_sha256": "e04deb3c1cda32cd9b1f6da27e06a236a45f3f1992bcf20e636db6a3fb41c5f8"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Africa_Western']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Africa_Western']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "hora est\u00e1ndar de \u00c1frica occidental",
+              "source_bytes": [
+                207242,
+                207278
+              ],
+              "source_tokens": [
+                72759,
+                72764
+              ],
+              "input_tokens": 160267,
+              "input_sha256": "b9f956aea405886b6d5eaf217f696a1c04dba79c7f85e79bd263383f9fb30785"
+            },
+            {
+              "key": "ldml/numbers/minimalPairs/ordinalMinimalPairs[@ordinal='other']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/numbers/minimalPairs/ordinalMinimalPairs[@ordinal='other']? Preserve the characters and spacing from the file.",
+              "answer": "Toma\u00a0la\u00a0{0}.\u00aa\u00a0a\u00a0la\u00a0derecha.",
+              "source_bytes": [
+                310689,
+                310722
+              ],
+              "source_tokens": [
+                107445,
+                107462
+              ],
+              "input_tokens": 160263,
+              "input_sha256": "15167d3e4b801b31edd3f16caad0cb6f7e4b47c4967a6123ae30daccde83cb77"
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/unicode-org/cldr/96e54b273d2da4ec6fbad350ba19ff23fa24a588/common/main/es.xml",
+          "sha256": "85eb95dea0f020b13f7f615b09c86ebe568d71fd71f59c3720e23a65b9cddf50",
+          "bytes": 499185,
+          "common_prompt_tokens": 169951,
+          "common_ids": "8a7111a072f56ccc8373707ab3cddba31b312851af65e98b1db4d369017778a3",
+          "questions": [
+            {
+              "key": "ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='GyMd']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='GyMd']? Preserve the characters and spacing from the file.",
+              "answer": "d/M/y G",
+              "source_bytes": [
+                118182,
+                118189
+              ],
+              "source_tokens": [
+                40545,
+                40549
+              ],
+              "input_tokens": 170016,
+              "input_sha256": "08bbe971e53cec8a493ddc21a6b6f7cf34a6f9b74cff446522868ea51a722922"
+            },
+            {
+              "key": "ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMEd']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMEd']? Preserve the characters and spacing from the file.",
+              "answer": "E, d/M/y",
+              "source_bytes": [
+                120451,
+                120459
+              ],
+              "source_tokens": [
+                41304,
+                41309
+              ],
+              "input_tokens": 170016,
+              "input_sha256": "3cb959d05965101bcae6d10ac09157ce8b3de134b5640b7d23d643399e134ff8"
+            },
+            {
+              "key": "ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMEd']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMEd']? Preserve the characters and spacing from the file.",
+              "answer": "E, d MMM y",
+              "source_bytes": [
+                120676,
+                120686
+              ],
+              "source_tokens": [
+                41378,
+                41383
+              ],
+              "input_tokens": 170016,
+              "input_sha256": "a62bd3698f8b7628d68a3ebc17e18f346504da924f0b6614a65c7ceaf86e5235"
+            },
+            {
+              "key": "ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMMEd']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/calendars/calendar[@type='gregorian']/dateTimeFormats/availableFormats/dateFormatItem[@id='yMMMMEd']? Preserve the characters and spacing from the file.",
+              "answer": "E, d 'de' MMMM 'de' y",
+              "source_bytes": [
+                120871,
+                120892
+              ],
+              "source_tokens": [
+                41445,
+                41457
+              ],
+              "input_tokens": 170016,
+              "input_sha256": "eba72f2ea850346c9ece946292c5893282fe967de6abe0330009bbf9fd68b51e"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/zone[@type='Pacific/Enderbury']/exemplarCity",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/zone[@type='Pacific/Enderbury']/exemplarCity? Preserve the characters and spacing from the file.",
+              "answer": "Isla Kanton",
+              "source_bytes": [
+                206930,
+                206941
+              ],
+              "source_tokens": [
+                70718,
+                70722
+              ],
+              "input_tokens": 170009,
+              "input_sha256": "b8b6a44382011c21fe74990ef8900d51a62f182dfc2ee9103ecbe0b3cade2a51"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Acre']/long/generic",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Acre']/long/generic? Preserve the characters and spacing from the file.",
+              "answer": "hora de Acre",
+              "source_bytes": [
+                225743,
+                225755
+              ],
+              "source_tokens": [
+                78601,
+                78605
+              ],
+              "input_tokens": 170007,
+              "input_sha256": "00bb81fc1fa6eb12146cbede4f573d099a4bee5c522ee30c3b2a78e9d33ee3fb"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Acre']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Acre']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "hora est\u00e1ndar de Acre",
+              "source_bytes": [
+                225781,
+                225803
+              ],
+              "source_tokens": [
+                78614,
+                78619
+              ],
+              "input_tokens": 170007,
+              "input_sha256": "01d226be96e2af62fa73341fad1ab7a9487ee99b823edc25b72fd0ae37165e5f"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Acre']/long/daylight",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Acre']/long/daylight? Preserve the characters and spacing from the file.",
+              "answer": "hora de verano de Acre",
+              "source_bytes": [
+                225830,
+                225852
+              ],
+              "source_tokens": [
+                78629,
+                78635
+              ],
+              "input_tokens": 170007,
+              "input_sha256": "b22dcb6e1596d664d50e62480b682dc105e0d3c1e0d4b2c226485ba2458eca34"
+            },
+            {
+              "key": "ldml/dates/timeZoneNames/metazone[@type='Africa_Western']/long/standard",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/dates/timeZoneNames/metazone[@type='Africa_Western']/long/standard? Preserve the characters and spacing from the file.",
+              "answer": "hora de \u00c1frica occidental",
+              "source_bytes": [
+                226439,
+                226465
+              ],
+              "source_tokens": [
+                78859,
+                78863
+              ],
+              "input_tokens": 170008,
+              "input_sha256": "3bdd1062ea69602cf1eec188be8cee734d961ec5651ed40dde2897ee88a4b8fb"
+            },
+            {
+              "key": "ldml/numbers/minimalPairs/ordinalMinimalPairs[@ordinal='other']",
+              "question": "We are reviewing the locale data. What is the exact text value at ldml/numbers/minimalPairs/ordinalMinimalPairs[@ordinal='other']? Preserve the characters and spacing from the file.",
+              "answer": "El {0}.\u00ba equipo clasificado gan\u00f3.",
+              "source_bytes": [
+                330585,
+                330620
+              ],
+              "source_tokens": [
+                113811,
+                113821
+              ],
+              "input_tokens": 170004,
+              "input_sha256": "03226adc0e51085d1f9632c4d3b5efbd1c10e6db037b7613e2ea48ec07416676"
+            }
+          ]
+        }
+      ]
+    },
+    "deno": {
+      "changed_fields": 116,
+      "selected": 12,
+      "documents": [
+        {
+          "url": "https://raw.githubusercontent.com/denoland/deno/fb4db333c37ec1242a6f80738510d214018fea53/Cargo.lock",
+          "sha256": "5c34db249c90bfc351d35a541e817b1f5d28a0e7779777a1503bdbec52b5efdc",
+          "bytes": 273432,
+          "common_prompt_tokens": 134271,
+          "common_ids": "2d50e3b9739a823b81856d74f0887275c48890bbfde47ad597f3b455538bf417",
+          "questions": [
+            {
+              "key": "aws-lc-rs",
+              "question": "We need to reproduce this build. What version of the crate aws-lc-rs is locked in this file? Give the exact version.",
+              "answer": "1.13.1",
+              "source_bytes": [
+                9942,
+                9948
+              ],
+              "source_tokens": [
+                4944,
+                4950
+              ],
+              "input_tokens": 134312,
+              "input_sha256": "bb86cdc9e33401919cd549cad26bd6ab1dbea9fe6c20b2514f90222098cf8b67"
+            },
+            {
+              "key": "deno_cache_dir",
+              "question": "We need to reproduce this build. What version of the crate deno_cache_dir is locked in this file? Give the exact version.",
+              "answer": "0.27.0",
+              "source_bytes": [
+                44682,
+                44688
+              ],
+              "source_tokens": [
+                21860,
+                21866
+              ],
+              "input_tokens": 134311,
+              "input_sha256": "64bcc6fc14c412a1f20cae124d57d06ecaf5a4eba9f30af2afcc41435da93455"
+            },
+            {
+              "key": "deno_fs",
+              "question": "We need to reproduce this build. What version of the crate deno_fs is locked in this file? Give the exact version.",
+              "answer": "0.143.0",
+              "source_bytes": [
+                49468,
+                49475
+              ],
+              "source_tokens": [
+                24018,
+                24025
+              ],
+              "input_tokens": 134310,
+              "input_sha256": "a2f3030b87a4f914921926c33a9241804af88e3ae62180118b21e892ced3327e"
+            },
+            {
+              "key": "deno_maybe_sync",
+              "question": "We need to reproduce this build. What version of the crate deno_maybe_sync is locked in this file? Give the exact version.",
+              "answer": "0.20.0",
+              "source_bytes": [
+                53412,
+                53418
+              ],
+              "source_tokens": [
+                25758,
+                25764
+              ],
+              "input_tokens": 134312,
+              "input_sha256": "f58985345147b97674b837335877e3c35ff8d6b3b98ae5603094435528b3c765"
+            },
+            {
+              "key": "deno_package_json",
+              "question": "We need to reproduce this build. What version of the crate deno_package_json is locked in this file? Give the exact version.",
+              "answer": "0.35.0",
+              "source_bytes": [
+                58492,
+                58498
+              ],
+              "source_tokens": [
+                28017,
+                28023
+              ],
+              "input_tokens": 134311,
+              "input_sha256": "0c5a9e49056e4c0ce1fb4e5a941b880df2fd882c557484a5c6b7d6046d84df22"
+            },
+            {
+              "key": "deno_telemetry",
+              "question": "We need to reproduce this build. What version of the crate deno_telemetry is locked in this file? Give the exact version.",
+              "answer": "0.55.0",
+              "source_bytes": [
+                63077,
+                63083
+              ],
+              "source_tokens": [
+                30005,
+                30011
+              ],
+              "input_tokens": 134312,
+              "input_sha256": "c82b9ddbd8fffd6640b0c70761ec1868ce1add03d725aeb713171c6804594984"
+            },
+            {
+              "key": "diplomat-runtime",
+              "question": "We need to reproduce this build. What version of the crate diplomat-runtime is locked in this file? Give the exact version.",
+              "answer": "0.14.0",
+              "source_bytes": [
+                73273,
+                73279
+              ],
+              "source_tokens": [
+                34781,
+                34787
+              ],
+              "input_tokens": 134309,
+              "input_sha256": "a50c3d61da5abcc8c813df9008f8145d7cef2b1b68624bfac42029353fc57830"
+            },
+            {
+              "key": "icu_calendar_data",
+              "question": "We need to reproduce this build. What version of the crate icu_calendar_data is locked in this file? Give the exact version.",
+              "answer": "2.1.1",
+              "source_bytes": [
+                113015,
+                113020
+              ],
+              "source_tokens": [
+                54569,
+                54574
+              ],
+              "input_tokens": 134311,
+              "input_sha256": "199eaf8407f83b2de8d35238f2d60acaa235711f6fe7f05b8ea07f824fc4fbd1"
+            },
+            {
+              "key": "monch",
+              "question": "We need to reproduce this build. What version of the crate monch is locked in this file? Give the exact version.",
+              "answer": "0.5.0",
+              "source_bytes": [
+                141751,
+                141756
+              ],
+              "source_tokens": [
+                68777,
+                68782
+              ],
+              "input_tokens": 134309,
+              "input_sha256": "883d115a2c1d72a53e27488990a787e383b182afbf720d3186d690bf5b12f5fc"
+            },
+            {
+              "key": "raffia_macro",
+              "question": "We need to reproduce this build. What version of the crate raffia_macro is locked in this file? Give the exact version.",
+              "answer": "0.1.1",
+              "source_bytes": [
+                171869,
+                171874
+              ],
+              "source_tokens": [
+                83829,
+                83834
+              ],
+              "input_tokens": 134310,
+              "input_sha256": "4b605a8a6f1c3d5c952d1c4e91ce33c515e92d7088055ef586b5857cd58e989a"
+            },
+            {
+              "key": "temporal_capi",
+              "question": "We need to reproduce this build. What version of the crate temporal_capi is locked in this file? Give the exact version.",
+              "answer": "0.1.2",
+              "source_bytes": [
+                215870,
+                215875
+              ],
+              "source_tokens": [
+                105604,
+                105609
+              ],
+              "input_tokens": 134310,
+              "input_sha256": "fde5161b53ee01d6e9b4af777a65ce5e7a4456dbf1ffd04bf92ceecc1938c4ad"
+            },
+            {
+              "key": "zoneinfo64",
+              "question": "We need to reproduce this build. What version of the crate zoneinfo64 is locked in this file? Give the exact version.",
+              "answer": "0.2.1",
+              "source_bytes": [
+                272064,
+                272069
+              ],
+              "source_tokens": [
+                133582,
+                133587
+              ],
+              "input_tokens": 134311,
+              "input_sha256": "f99529a7583977b500c05187cc05d0d06657235df5dc69c5d455d27101712690"
+            }
+          ]
+        },
+        {
+          "url": "https://raw.githubusercontent.com/denoland/deno/fbb5be31ac23ef40f51025d6aeaaa91d9f082e4a/Cargo.lock",
+          "sha256": "a702a7652db509c72a73b1e3e70868354e2f2b1900b37e6848692150186723b2",
+          "bytes": 298552,
+          "common_prompt_tokens": 147432,
+          "common_ids": "ed1cd517e3deeae69e8cc8eae67dac6646e5d0c83d73117424c7ff18e7299271",
+          "questions": [
+            {
+              "key": "aws-lc-rs",
+              "question": "We need to reproduce this build. What version of the crate aws-lc-rs is locked in this file? Give the exact version.",
+              "answer": "1.16.3",
+              "source_bytes": [
+                10371,
+                10377
+              ],
+              "source_tokens": [
+                5173,
+                5179
+              ],
+              "input_tokens": 147473,
+              "input_sha256": "5e211f08aa73f0adf7d5751fecea90e1bd9582f5a5012a78f838c741ed2bed42"
+            },
+            {
+              "key": "deno_cache_dir",
+              "question": "We need to reproduce this build. What version of the crate deno_cache_dir is locked in this file? Give the exact version.",
+              "answer": "0.40.0",
+              "source_bytes": [
+                49054,
+                49060
+              ],
+              "source_tokens": [
+                24067,
+                24073
+              ],
+              "input_tokens": 147472,
+              "input_sha256": "08b940ea5cfebdeddc6f50a5fb2d95b1cae7b697b166b278ebb0f9f36a36a2c4"
+            },
+            {
+              "key": "deno_fs",
+              "question": "We need to reproduce this build. What version of the crate deno_fs is locked in this file? Give the exact version.",
+              "answer": "0.158.0",
+              "source_bytes": [
+                54255,
+                54262
+              ],
+              "source_tokens": [
+                26382,
+                26389
+              ],
+              "input_tokens": 147471,
+              "input_sha256": "12ecd7402cdd87e33c69056f8d7d7faf0e0aea751a16fcafce012db2dab95e22"
+            },
+            {
+              "key": "deno_maybe_sync",
+              "question": "We need to reproduce this build. What version of the crate deno_maybe_sync is locked in this file? Give the exact version.",
+              "answer": "0.35.0",
+              "source_bytes": [
+                58164,
+                58170
+              ],
+              "source_tokens": [
+                28108,
+                28114
+              ],
+              "input_tokens": 147473,
+              "input_sha256": "cb0fc72e02afb6513ac88b18e6cbbe87feea1324c2dedb1068c0612fb66ed81f"
+            },
+            {
+              "key": "deno_package_json",
+              "question": "We need to reproduce this build. What version of the crate deno_package_json is locked in this file? Give the exact version.",
+              "answer": "0.50.0",
+              "source_bytes": [
+                63503,
+                63509
+              ],
+              "source_tokens": [
+                30500,
+                30506
+              ],
+              "input_tokens": 147472,
+              "input_sha256": "76cb82a3ff3d61b6c9aab55c9557ebb2aff903fab4dff3f6fae73447bb067f3a"
+            },
+            {
+              "key": "deno_telemetry",
+              "question": "We need to reproduce this build. What version of the crate deno_telemetry is locked in this file? Give the exact version.",
+              "answer": "0.70.0",
+              "source_bytes": [
+                68047,
+                68053
+              ],
+              "source_tokens": [
+                32469,
+                32475
+              ],
+              "input_tokens": 147473,
+              "input_sha256": "6653d901a9feacb6a045ab22745e909cae652de5b1f7ded648ea55d640018258"
+            },
+            {
+              "key": "diplomat-runtime",
+              "question": "We need to reproduce this build. What version of the crate diplomat-runtime is locked in this file? Give the exact version.",
+              "answer": "0.15.1",
+              "source_bytes": [
+                79003,
+                79009
+              ],
+              "source_tokens": [
+                37663,
+                37669
+              ],
+              "input_tokens": 147470,
+              "input_sha256": "1e016e82c9dabce20e60fe0e842c7b2de3f83408af744b8d89a3222fbdc71422"
+            },
+            {
+              "key": "icu_calendar_data",
+              "question": "We need to reproduce this build. What version of the crate icu_calendar_data is locked in this file? Give the exact version.",
+              "answer": "2.2.0",
+              "source_bytes": [
+                124120,
+                124125
+              ],
+              "source_tokens": [
+                60368,
+                60373
+              ],
+              "input_tokens": 147472,
+              "input_sha256": "1f7c0a81b1069bc7ecf5989bbeac3b0f99fbee8d30ab431fda3b74edaa2f10c1"
+            },
+            {
+              "key": "monch",
+              "question": "We need to reproduce this build. What version of the crate monch is locked in this file? Give the exact version.",
+              "answer": "0.6.0",
+              "source_bytes": [
+                154234,
+                154239
+              ],
+              "source_tokens": [
+                75290,
+                75295
+              ],
+              "input_tokens": 147470,
+              "input_sha256": "17e276bd3aa902161e7085a1cb9df18a07db47d6e165506716341c3a05aeb6af"
+            },
+            {
+              "key": "raffia_macro",
+              "question": "We need to reproduce this build. What version of the crate raffia_macro is locked in this file? Give the exact version.",
+              "answer": "0.2.0",
+              "source_bytes": [
+                186600,
+                186605
+              ],
+              "source_tokens": [
+                91630,
+                91635
+              ],
+              "input_tokens": 147471,
+              "input_sha256": "39b91c1fe8fa830b8d2e97fb8af12ecb2f3a9c43a76b861836ff167678a2ba0d"
+            },
+            {
+              "key": "temporal_capi",
+              "question": "We need to reproduce this build. What version of the crate temporal_capi is locked in this file? Give the exact version.",
+              "answer": "0.2.3",
+              "source_bytes": [
+                235333,
+                235338
+              ],
+              "source_tokens": [
+                115899,
+                115904
+              ],
+              "input_tokens": 147471,
+              "input_sha256": "afaf27ef0c0364f622b8707ec85fd70877c25e401a4835fcbdff385176c829dc"
+            },
+            {
+              "key": "zoneinfo64",
+              "question": "We need to reproduce this build. What version of the crate zoneinfo64 is locked in this file? Give the exact version.",
+              "answer": "0.3.0",
+              "source_bytes": [
+                297184,
+                297189
+              ],
+              "source_tokens": [
+                146741,
+                146746
+              ],
+              "input_tokens": 147472,
+              "input_sha256": "8760a10a5fb49bbbe8d96118c81757ec35a923ca4ab5628b85694a9840cd8a3a"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
