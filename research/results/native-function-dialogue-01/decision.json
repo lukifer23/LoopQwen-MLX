@@ -1,0 +1,166 @@
+{
+  "passed": false,
+  "gates": {
+    "strict": false,
+    "field": true,
+    "public": true,
+    "fresh": false,
+    "wall": true,
+    "first": false,
+    "peak": true
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 58,
+        "strict": 35,
+        "requests": 70,
+        "answers": 47,
+        "grounded": 46,
+        "completed": 70,
+        "wall_s": 55.4353035481181,
+        "first_s": 12.210254375007935,
+        "peak": 1191567906,
+        "output_tokens": 4009
+      },
+      "files": {
+        "dialogues": 6,
+        "strict": 4,
+        "requests": 12,
+        "answers": 9,
+        "grounded": 9,
+        "completed": 12,
+        "wall_s": 8.699640707927756,
+        "first_s": 2.155158748908434,
+        "peak": 1172786162,
+        "output_tokens": 595
+      },
+      "packages": {
+        "dialogues": 6,
+        "strict": 4,
+        "requests": 12,
+        "answers": 10,
+        "grounded": 10,
+        "completed": 12,
+        "wall_s": 8.180456001020502,
+        "first_s": 1.8765148748643696,
+        "peak": 1160481834,
+        "output_tokens": 557
+      },
+      "public": {
+        "dialogues": 22,
+        "strict": 21,
+        "requests": 22,
+        "answers": 21,
+        "grounded": 21,
+        "completed": 22,
+        "wall_s": 21.96104604616994,
+        "first_s": 3.5397063370328397,
+        "peak": 1191567906,
+        "output_tokens": 1741
+      },
+      "ASDiv": {
+        "dialogues": 12,
+        "strict": 4,
+        "requests": 12,
+        "answers": 4,
+        "grounded": 4,
+        "completed": 12,
+        "wall_s": 8.710824167006649,
+        "first_s": 2.755145749077201,
+        "peak": 1161344802,
+        "output_tokens": 556
+      },
+      "SVAMP": {
+        "dialogues": 12,
+        "strict": 2,
+        "requests": 12,
+        "answers": 3,
+        "grounded": 2,
+        "completed": 12,
+        "wall_s": 7.883336625993252,
+        "first_s": 1.8837286651250906,
+        "peak": 1160363050,
+        "output_tokens": 560
+      }
+    },
+    "control": {
+      "all": {
+        "dialogues": 58,
+        "strict": 30,
+        "requests": 70,
+        "answers": 44,
+        "grounded": 36,
+        "completed": 60,
+        "wall_s": 286.34822241490474,
+        "first_s": 11.558285993756726,
+        "peak": 1815562146,
+        "output_tokens": 18840
+      },
+      "files": {
+        "dialogues": 6,
+        "strict": 0,
+        "requests": 12,
+        "answers": 1,
+        "grounded": 1,
+        "completed": 12,
+        "wall_s": 34.941744957875926,
+        "first_s": 2.0849586669937707,
+        "peak": 1808316754,
+        "output_tokens": 2252
+      },
+      "packages": {
+        "dialogues": 6,
+        "strict": 2,
+        "requests": 12,
+        "answers": 8,
+        "grounded": 7,
+        "completed": 12,
+        "wall_s": 31.762979625957087,
+        "first_s": 1.819434164906852,
+        "peak": 1807922578,
+        "output_tokens": 2034
+      },
+      "public": {
+        "dialogues": 22,
+        "strict": 20,
+        "requests": 22,
+        "answers": 20,
+        "grounded": 20,
+        "completed": 21,
+        "wall_s": 96.86333162500523,
+        "first_s": 3.3060074980021454,
+        "peak": 1815544802,
+        "output_tokens": 6395
+      },
+      "ASDiv": {
+        "dialogues": 12,
+        "strict": 4,
+        "requests": 12,
+        "answers": 8,
+        "grounded": 4,
+        "completed": 8,
+        "wall_s": 57.00954525003908,
+        "first_s": 2.5935649579041637,
+        "peak": 1815562146,
+        "output_tokens": 3749
+      },
+      "SVAMP": {
+        "dialogues": 12,
+        "strict": 4,
+        "requests": 12,
+        "answers": 7,
+        "grounded": 4,
+        "completed": 7,
+        "wall_s": 65.77062095602741,
+        "first_s": 1.7543207059497945,
+        "peak": 1808364466,
+        "output_tokens": 4410
+      }
+    }
+  },
+  "wins": 12,
+  "losses": 7,
+  "p_exact": 0.359283447265625,
+  "previous_public_lost": []
+}
