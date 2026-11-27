@@ -160,6 +160,12 @@ def open_assistant(args):
         from .io import read
 
         policy = read(args.session_policy / "registration.json")
+        if policy.get("middle_depth"):
+            from .middle_depth import MiddleAssistant
+
+            if getattr(args, "tool_format", "compact") != "qwen":
+                raise ValueError("The middle-span model uses --tool-format qwen")
+            return MiddleAssistant(args.checkpoint, args.session_policy)
         if policy.get("shared_query"):
             from .shared_query_assistant import SharedQueryAssistant
 
