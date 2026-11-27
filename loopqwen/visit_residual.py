@@ -47,6 +47,7 @@ class VisitResidualModel(LoopedModel):
         if (
             donor.span.passes != 2
             or donor.span.length != 1
+            or donor.span.mode != "stabilized"
             or donor.span.start != len(donor.text.layers) - 1
         ):
             raise ValueError(
