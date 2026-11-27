@@ -1,8 +1,10 @@
 # Where shared decoder depth earns its cost
 
-The [127-page paper](loopqwen-followup-study.pdf) opens with a [five-page study](followup.pdf) of human follow-up questions and actual Python metadata, including a semantic check on the software scorer.
+The current manuscript follows the trained loop from source selection and optimization through verification against the pinned Qwen Base. The standalone study includes the physical one- and two-read measurements, the frozen evaluation design and the conditions for a release. [Complete manuscript](loopqwen-repair-query-study.pdf) · [Standalone study](repair-query.pdf) · [Optimization measurements](repair-query-updates.csv) · [Per-example depth measurements](repair-query-depth-probes.csv)
 
-The [four-page overview](evidence-overview.pdf) gives matched-depth reasoning, public tool use, whole-request time and the two full-context outcomes. The [archive index](research-scope.csv) includes every registration and recovered execution. The [122-page lockfile edition](loopqwen-lockfile-study.pdf) includes the complete technical history through the real package-lock study.
+The evidence overview summarizes reasoning accuracy, tool execution, whole-request time and full-context results. The archive index identifies the registered studies and their recovered measurements. [Evidence overview](evidence-overview.pdf) · [Archive index](research-scope.csv)
+
+The earlier follow-up study examines human questions and actual Python metadata, including a semantic check on the software scorer. The lockfile edition reports the earlier release's answers on two complete upstream files. [Follow-up study](followup.pdf) · [127-page follow-up edition](loopqwen-followup-study.pdf) · [122-page lockfile edition](loopqwen-lockfile-study.pdf)
 
 The [field-selection edition](loopqwen-field-study.pdf) adds the cross-domain human evidence study, real Python package checks and request-level cost and accuracy. Rebuild its [six-page report](field-selection.pdf) with `python -m scripts.paper_field_selection` after reproducing the [analysis](../docs/FIELD_SELECTION.md).
 
