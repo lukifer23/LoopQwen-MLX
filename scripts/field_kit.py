@@ -113,6 +113,9 @@ def main():
         with zipfile.ZipFile(target) as archive:
             assert set(archive.namelist()) == set(hashes) | {"SHA256SUMS"}
             archive.extractall(work)
+        assert (work / "SHA256SUMS").read_text() == "".join(
+            f"{h}  {name}\n" for name, h in hashes.items()
+        )
         assert all(digest(work / k) == v for k, v in hashes.items())
         site = tmp / "site"
         wheel = next((work / "runtime").glob("*.whl"))
