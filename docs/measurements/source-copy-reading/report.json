@@ -1,0 +1,107 @@
+{
+  "plan": "c590a38e4d7b662f031c257bffed11710fe898a3e7c8a1ad7d3d44b182282dd9",
+  "mask": "d00483750ad5cc28c18da270183f7d4c101b98eb4a49bf9c2a2c0acbca06aa1d",
+  "grades": "223ab4f64a1e490fa1850e4f655665a0c2a0b8a987bc8bf981149ca76b11ed0d",
+  "families": {
+    "reading": {
+      "n": 24,
+      "usable": {
+        "candidate": 3,
+        "control": 4
+      },
+      "gains": 2,
+      "losses": 3,
+      "p": 1.0
+    },
+    "report": {
+      "n": 24,
+      "usable": {
+        "candidate": 0,
+        "control": 0
+      },
+      "gains": 0,
+      "losses": 0,
+      "p": 1.0
+    }
+  },
+  "positions": {
+    "reading/first/control": {
+      "correct": 14,
+      "supported": 14,
+      "unsupported": 4,
+      "usable": 14
+    },
+    "reading/live/control": {
+      "correct": 19,
+      "supported": 14,
+      "unsupported": 8,
+      "usable": 14
+    },
+    "reading/matched/control": {
+      "correct": 17,
+      "supported": 12,
+      "unsupported": 11,
+      "usable": 12
+    },
+    "reading/first/candidate": {
+      "correct": 14,
+      "supported": 13,
+      "unsupported": 11,
+      "usable": 12
+    },
+    "reading/live/candidate": {
+      "correct": 13,
+      "supported": 12,
+      "unsupported": 12,
+      "usable": 12
+    },
+    "reading/matched/candidate": {
+      "correct": 8,
+      "supported": 7,
+      "unsupported": 16,
+      "usable": 7
+    },
+    "report/first/candidate": {
+      "correct": 2,
+      "supported": 2,
+      "unsupported": 19,
+      "usable": 2
+    },
+    "report/live/candidate": {
+      "correct": 1,
+      "supported": 1,
+      "unsupported": 15,
+      "usable": 1
+    },
+    "report/matched/candidate": {
+      "correct": 0,
+      "supported": 0,
+      "unsupported": 20,
+      "usable": 0
+    },
+    "report/first/control": {
+      "correct": 10,
+      "supported": 8,
+      "unsupported": 3,
+      "usable": 0
+    },
+    "report/live/control": {
+      "correct": 8,
+      "supported": 8,
+      "unsupported": 4,
+      "usable": 0
+    },
+    "report/matched/control": {
+      "correct": 10,
+      "supported": 10,
+      "unsupported": 9,
+      "usable": 0
+    }
+  },
+  "gates": {
+    "reading": false,
+    "report": false
+  },
+  "passed": false,
+  "joint": false
+}

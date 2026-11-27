@@ -1,0 +1,170 @@
+{
+  "plan": "8545ecd95997049c2a85ed67982cc3a26dc258e3ae8cbd0108b37687b8a7ed93",
+  "archive": "f661135b9b94a14a6765a6c5e90e68e7ef8580c741ba60283da61737b26758d3",
+  "requests": 144,
+  "source_clusters": 48,
+  "both_faster_and_correct": 3,
+  "all_costs": 63,
+  "differences": [
+    {
+      "family": "reading",
+      "metric": "live_pair",
+      "n": 24,
+      "difference": 0.0,
+      "lower": 0.0,
+      "upper": 0.0
+    },
+    {
+      "family": "reading",
+      "metric": "live_completed",
+      "n": 24,
+      "difference": 0.3333333333333333,
+      "lower": 0.16666666666666666,
+      "upper": 0.5416666666666666
+    },
+    {
+      "family": "reading",
+      "metric": "matched_correct",
+      "n": 24,
+      "difference": 0.08333333333333333,
+      "lower": 0.0,
+      "upper": 0.20833333333333334
+    },
+    {
+      "family": "reading",
+      "metric": "all_three",
+      "n": 24,
+      "difference": 0.0,
+      "lower": 0.0,
+      "upper": 0.0
+    },
+    {
+      "family": "reading",
+      "metric": "wall",
+      "n": 24,
+      "difference": -9.892697991517101,
+      "lower": -10.558983307044825,
+      "upper": -9.185907060252672
+    },
+    {
+      "family": "report",
+      "metric": "live_pair",
+      "n": 24,
+      "difference": 0.041666666666666664,
+      "lower": 0.0,
+      "upper": 0.125
+    },
+    {
+      "family": "report",
+      "metric": "live_completed",
+      "n": 24,
+      "difference": 0.3333333333333333,
+      "lower": 0.041666666666666664,
+      "upper": 0.625
+    },
+    {
+      "family": "report",
+      "metric": "matched_correct",
+      "n": 24,
+      "difference": 0.0,
+      "lower": 0.0,
+      "upper": 0.0
+    },
+    {
+      "family": "report",
+      "metric": "all_three",
+      "n": 24,
+      "difference": 0.0,
+      "lower": 0.0,
+      "upper": 0.0
+    },
+    {
+      "family": "report",
+      "metric": "wall",
+      "n": 24,
+      "difference": -13.067147564322417,
+      "lower": -14.209124690647695,
+      "upper": -11.864870790940405
+    }
+  ],
+  "conditional": [
+    {
+      "family": "reading",
+      "arm": "candidate",
+      "first_correct": false,
+      "live_correct": false,
+      "matched_correct": false,
+      "sources": 20
+    },
+    {
+      "family": "reading",
+      "arm": "candidate",
+      "first_correct": false,
+      "live_correct": false,
+      "matched_correct": true,
+      "sources": 1
+    },
+    {
+      "family": "reading",
+      "arm": "candidate",
+      "first_correct": false,
+      "live_correct": true,
+      "matched_correct": true,
+      "sources": 1
+    },
+    {
+      "family": "reading",
+      "arm": "candidate",
+      "first_correct": true,
+      "live_correct": false,
+      "matched_correct": false,
+      "sources": 2
+    },
+    {
+      "family": "reading",
+      "arm": "control",
+      "first_correct": false,
+      "live_correct": false,
+      "matched_correct": false,
+      "sources": 24
+    },
+    {
+      "family": "report",
+      "arm": "candidate",
+      "first_correct": false,
+      "live_correct": false,
+      "matched_correct": false,
+      "sources": 22
+    },
+    {
+      "family": "report",
+      "arm": "candidate",
+      "first_correct": true,
+      "live_correct": false,
+      "matched_correct": false,
+      "sources": 1
+    },
+    {
+      "family": "report",
+      "arm": "candidate",
+      "first_correct": true,
+      "live_correct": true,
+      "matched_correct": false,
+      "sources": 1
+    },
+    {
+      "family": "report",
+      "arm": "control",
+      "first_correct": false,
+      "live_correct": false,
+      "matched_correct": false,
+      "sources": 24
+    }
+  ],
+  "files": {
+    "requests": "3dfebb550cfba2341e40f31a60f4a91b7bac6c3103cd0e9d8d1f7f2b3bebd2d6",
+    "conversations": "e3a6e975676f58a55eff46e1f205a2ca852a5ca500596cfb73cacbbfa1df22dc",
+    "intervals": "1725b7e2933c1e680ea465187683bf05f45ac88221a7b6453829ad224376d801",
+    "history-transitions": "e72a9a2fd867d29de2984e5f0fa70a8e9b2145b7bc5746cf3b65583e535393a6"
+  }
+}
