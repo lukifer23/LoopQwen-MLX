@@ -1,0 +1,46 @@
+{
+  "id": "conversation-document-prefill-01",
+  "question": "Can a caller retain an exact private native prefix while reading a whole source file and checking real file metadata across user messages?",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "revision": "7848bccf62d245dba6dcbfe0f5da09d8339ae1f1",
+  "documents": [
+    {
+      "source": "docs/PROJECT_REVIEW.md",
+      "sha256": "b1d08b745f7d00e93460ae1d0bd69cdf48e4addd62114ba7a04904dc44795d16",
+      "file": "outputs/research/prefix-sources/PROJECT_REVIEW.md",
+      "question": "How many GiB of unified memory does the M3 Pro in this project review have? Give the number.",
+      "evidence": "What fits on the 18 GiB M3 Pro",
+      "answer": 18
+    },
+    {
+      "source": "scripts/paper_deployment.py",
+      "sha256": "5838faddb623f1e825d2b3958c65693229811b2d2922c84c66c584712daa6f49",
+      "file": "outputs/research/prefix-sources/paper_deployment.py",
+      "question": "How many side-by-side subplots does the repository_trees function create? Give the number.",
+      "evidence": "plt.subplots(1, 3, figsize=(7.1, 2.25))",
+      "answer": 3
+    }
+  ],
+  "order": [
+    [
+      "stock",
+      "retain"
+    ],
+    [
+      "retain",
+      "stock"
+    ]
+  ],
+  "format": "compact",
+  "max_tokens": 160,
+  "max_turns": 3,
+  "protocol": "Engineering crossover on the qualified released two-pass assistant. No refit. Run one cold assistant per document and policy, alternating order between the two complete original project files. The caller presents the entire text, asks an actual content question, then asks for the byte size and line count using real shared file callbacks. Freeze initial and subsequent user text, real bytes, default function template, ordinary per-request prefix reuse, reasoning, greedy limits and grading. Hold intact each callback argument, observation, generated token, prompt ID, native KV history, final text and stop. No cross-caller cache.",
+  "gate": "Advance only with all six request trajectories exactly identical across policies, at least one correctly grounded follow-up on each document, over 4096 reused input tokens on every retained user follow-up and zero on stock opening turns, at least 30 percent lower summed follow-up first-token time, strictly lower total wall and at most 25 percent higher peak allocation. A miss closes expansion of the retained policy. A pass earns a separate direct paired field comparison with unmodified ordinary Base on genuinely new complete documents with the same cache policy and function format on both arms. This crossover alone cannot establish a model quality gain.",
+  "limits": {
+    "wall_seconds": 540,
+    "peak_gib": 6,
+    "available_gib": 1.4
+  }
+}
