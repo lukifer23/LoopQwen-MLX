@@ -125,6 +125,43 @@ def main():
     ]
     question = f"What version of the Python distribution {package} is installed in this environment? Use the available tool."
     trajectory = assistant.respond(question, tools, max_tokens=256, progress=check)
+    if "unicode" in material:
+        from runtime.tool_session import prompt
+
+        labels = [w["text"] for w in material["unicode"]["rows"]]
+        ids = assistant.tokenizer._tokenizer(labels, add_special_tokens=False)[
+            "input_ids"
+        ]
+        q = material["unicode"]["question"]["question"]
+        assistant._load_language()
+        text = prompt(assistant.tokenizer, [{"role": "user", "content": q}])
+        res = generate(
+            assistant.language,
+            assistant.tokenizer,
+            text,
+            384,
+            stop_ids=[assistant.tokenizer.convert_tokens_to_ids("<|im_end|>")],
+            progress=check,
+        )
+        raw = assistant.tokenizer.decode(res["token_ids"][:-1])
+        done = res["token_ids"][-1] in (
+            set(assistant.tokenizer.eos_token_ids)
+            | {assistant.tokenizer.convert_tokens_to_ids("<|im_end|>")}
+        )
+        extra["unicode"] = {
+            "source": fingerprint(labels),
+            "label_ids": ids,
+            "question": {
+                "initial_ids": assistant.tokenizer.encode(
+                    text, add_special_tokens=False
+                ),
+                "token_ids": res["token_ids"],
+                "text": res["text"],
+                "answer": raw.partition("</think>")[2].strip().lower()
+                if done
+                else None,
+            },
+        }
     if any(k == "loopqwen" or k.startswith("loopqwen.") for k in sys.modules):
         raise RuntimeError("Isolated process imported checkout inference code")
     Path(result).write_text(

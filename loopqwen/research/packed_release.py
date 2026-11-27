@@ -27,6 +27,10 @@ REGISTER = SITES | {(11, 1), (15, 1)}
 
 
 def outcome(data, mat, spec):
+    if "unicode_data" in spec:
+        from .unicode_release import outcome as unicode_outcome
+
+        return unicode_outcome(data, mat, spec)
     from scripts.tool_release import field_score, tokens
 
     tok = load_tokenizer(local_snapshot())
@@ -192,6 +196,13 @@ def verify(root, decision):
     changed = {
         k for k in inventory.keys() | parent.keys() if inventory.get(k) != parent.get(k)
     }
+    if "unicode_data" in spec:
+        from scripts.locale_tokenizer_material import build
+
+        assert build() == mat["unicode"]
+        assert changed == {"README.md", "tokenizer_config.json"}
+        assert outcome(data, mat, spec) == decision
+        return
     additional = set()
     if spec.get("compact"):
         from scripts.export_packed_register import COMPACT_RUNTIME
@@ -252,14 +263,19 @@ def run(name):
     destination.parent.mkdir(parents=True, exist_ok=True)
     budget = Budget(name, spec["limits"])
     try:
-        inventory = build(
-            baseline,
-            parent,
-            staged,
-            full,
-            compact=spec.get("compact", False),
-            packed_reader=spec.get("packed_reader", False),
-        )
+        if "unicode_data" in spec:
+            from .unicode_release import build as build_tokenizer
+
+            inventory = build_tokenizer(baseline, parent, staged)
+        else:
+            inventory = build(
+                baseline,
+                parent,
+                staged,
+                full,
+                compact=spec.get("compact", False),
+                packed_reader=spec.get("packed_reader", False),
+            )
         save(out / "export-files.json", inventory)
         runs = {s: [] for s in SIDES}
         for i in range(2):

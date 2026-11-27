@@ -15,6 +15,10 @@ def material(spec):
         if spec.get("packed_reader"):
             mat["medium_register"] = mat["register"]
         mat["register"] = read(source)[0]
+    if "unicode_data" in spec:
+        source = Path(spec["unicode_data"])
+        assert digest(source) == spec["unicode_sha256"]
+        mat["unicode"] = read(source)
     return mat
 
 
