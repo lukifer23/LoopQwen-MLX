@@ -12,6 +12,14 @@ from scripts.middle_depth_budget import ROOT, recover_charge
 from scripts.middle_depth_recover import fit_directory
 
 
+class NativeResourceStop(RuntimeError):
+    """A leased worker reached its registered memory or time limit."""
+
+    def __init__(self, command, charge, record):
+        super().__init__(f"Stopped {command}, {record['reason']}")
+        self.charge = charge
+
+
 def dispatch(module, *args):
     cmd = [
         sys.executable,
@@ -63,20 +71,18 @@ def dispatch(module, *args):
             return
         ended = time.time()
         charges = [
-            recover_charge(p, ended)
+            (p, recover_charge(p, ended))
             for p in (ROOT / "charges").glob("*.json")
             if (r := read(p))["dispatch"] >= begin
         ]
         if len(charges) != 1:
             raise RuntimeError(f"Inspect worker failure for {cmd}")
-        r = charges[0]
+        path, r = charges[0]
         last = r.get("last", {})
-        if (
-            "Native development limit" not in r.get("reason", "")
-            or last.get("pressure", 1) == 1
-            or failures >= 4
-        ):
+        if "Native development limit" not in r.get("reason", ""):
             raise RuntimeError(f"Stopped {cmd}, {r.get('reason')}")
+        if last.get("pressure", 1) == 1 or failures >= 4:
+            raise NativeResourceStop(cmd, path, r)
         failures += 1
         time.sleep(15)
 

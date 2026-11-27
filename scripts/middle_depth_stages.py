@@ -5,10 +5,11 @@ from pathlib import Path
 from statistics import fmean
 
 from loopqwen.evaluation.mechanism import unpack
+from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
-from scripts.middle_depth_budget import ROOT
+from scripts.middle_depth_budget import BUDGET, ROOT
 from scripts.middle_depth_recover import fit_directory
-from scripts.middle_depth_wave import dispatch, fit, generate
+from scripts.middle_depth_wave import NativeResourceStop, dispatch, fit, generate
 
 ARMS = ("ordinary", "loop")
 RUN = Path("checkpoints/middle-depth")
@@ -73,23 +74,113 @@ def selected():
     return paths
 
 
+def document_files(stage, arm, cap, book, world, followups):
+    folder = ROOT / "documents" / stage / book / arm / str(cap)
+    kinds = ["first"]
+    if followups and book == "anne" and world != "irrelevant":
+        kinds.extend(("own", "shared", "unanswerable"))
+    return {kind: folder / f"{world}-{kind}.json.gz" for kind in kinds}
+
+
 def documents(
     stage, policies, arms, caps, followups=False, worlds=("original", "edited")
 ):
+    # One unavailable operating point should not discard the other model's
+    # registered trials or the independent book. Keep the original order and
+    # require complete paired data before advancing any selection decision.
+    coverage = {}
+    manifest = ROOT / "document-panels" / (stage + ".json")
     for i, book in enumerate(("anne", "book")):
         for cap in caps:
             for j, world in enumerate(worlds):
                 for arm in arms if (i + j) % 2 == 0 else reversed(arms):
-                    document_request(stage, policies, arm, cap, book, world, followups)
+                    key = f"{book}/{arm}/{cap}/{world}"
+                    expected = document_files(
+                        stage, arm, cap, book, world, followups
+                    ).values()
+                    spent = sum(
+                        r["seconds"]
+                        for f in (ROOT / "charges").glob("*.json")
+                        if (r := read(f))["stage"] == "long"
+                    )
+                    if spent >= BUDGET["long"] and not all(
+                        p.is_file() for p in expected
+                    ):
+                        item = {"status": "budget_exhausted", "spent": spent}
+                    else:
+                        try:
+                            document_request(
+                                stage, policies, arm, cap, book, world, followups
+                            )
+                        except NativeResourceStop as error:
+                            item = {
+                                "status": "resource_stop",
+                                "charge": str(error.charge.relative_to(ROOT)),
+                                "charge_sha": digest(error.charge),
+                            }
+                        else:
+                            item = {"status": "complete"}
+                    item["outputs"] = {
+                        str(p.relative_to(ROOT)): digest(p)
+                        for p in expected
+                        if p.is_file()
+                    }
+                    if item["status"] == "complete" and len(item["outputs"]) != len(
+                        expected
+                    ):
+                        raise ValueError(f"Missing long-document output for {key}")
+                    coverage[key] = item
+                    save(manifest, coverage)
+    incomplete = [k for k, v in coverage.items() if v["status"] != "complete"]
+    if incomplete:
+        raise RuntimeError(f"Document panel {stage} is incomplete: {incomplete}")
 
 
 def document_request(stage, policies, arm, cap, book, world, followups=False):
-    ref = ROOT / "documents" / stage / book / arm / str(cap)
-    expected = ["first"]
-    extra = followups and book == "anne" and world != "irrelevant"
-    if extra:
-        expected.extend(("own", "shared", "unanswerable"))
-    if all((ref / f"{world}-{k}.json.gz").is_file() for k in expected):
+    from scripts.middle_depth_documents import EXTRA, FROZEN, STABLE
+
+    files = document_files(stage, arm, cap, book, world, followups)
+    extra = "own" in files
+    if all(p.is_file() for p in files.values()):
+        spec = read(FROZEN)[book]
+        weights = (
+            read(policies[arm] / "registration.json")["weights"]
+            if arm in policies
+            else "base-dc7cdfe"
+        )
+        first_history = None
+        for kind, path in files.items():
+            raw = unpack(path)
+            if (
+                raw["weights"] != weights
+                or raw["frozen"] != digest(FROZEN)
+                or raw["source"] != spec["source"]
+            ):
+                raise ValueError(f"Wrong checkpoint or source in {path}")
+            turns = raw["trace"]["turns"]
+            if not 1 <= len(turns) <= 3 or any(
+                len(t["token_ids"]) > cap for t in turns
+            ):
+                raise ValueError(f"Saved generation policy differs in {path}")
+            if kind == "own":
+                if (
+                    not first_history
+                    or raw["history"][: len(first_history)] != first_history
+                ):
+                    raise ValueError(f"Saved own-history follow-up changed in {path}")
+                continue
+            if kind == "first":
+                first_history = raw["history"]
+                opening = (
+                    read(STABLE)["rows"][book]
+                    if world == "irrelevant"
+                    else spec["worlds"][world]
+                )
+            else:
+                opening = read(EXTRA)["rows"][world + "/" + kind]
+            ids = raw["trace"]["turns"][0]["prompt_ids"]
+            if len(ids) != opening["length"] or fingerprint(ids) != opening["input"]:
+                raise ValueError(f"Saved physical opening changed in {path}")
         return
     args = [
         "run",
