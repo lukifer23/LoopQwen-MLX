@@ -1,0 +1,11 @@
+{
+  "fit": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+  "implementation": "36875392e7688201bf99e33ea30fc8c5a92e9875cd23f7243cf8fef8f2cf1a7b",
+  "verifier": "73085704f30040f73abd8712ef1674a2fe3c2f580b114fb4ed842fe0954ea676",
+  "cases": {
+    "strategyqa/66101dcd75caa3fe265d": "8d68478dce499c9cf89a5b051a4878a5166a9d1d0faa6abf38c50e2bccf8924a",
+    "finqa/HWM/2015/page_72.pdf-1/action": "3075a46a45e0c5c655ee9aadf5d109d2f225126b7eb941ff9092e2f85825c736",
+    "sql-error/cosql-9d4ef0336c14ce297fda/repair_known_schema": "3172b963fde63943db4b8a1cc2aef87c3ca9baba291ddaa9e65e1e3e01b073a8"
+  },
+  "protocol": "Training engineering only. On actual trained two-read weights use three original training prompts and six subsequent target positions each. Stage the first 128 input positions then compute each question and successive targets with the original causal layers. Compare every full-vocabulary logit and top-1 token and every final key/value against independent single-sequence native extraction. Re-evaluate the original continuation after a distinct intervening continuation on the same immutable prefix. Require all 18 greedy tokens equal, max absolute logit difference <=0.20, mean absolute target NLL difference <=0.01 and exact repeatability of branch states. Stop after 120 native seconds or 3 GiB. Full-length training-source extraction requires a pass; no model success credit."
+}
