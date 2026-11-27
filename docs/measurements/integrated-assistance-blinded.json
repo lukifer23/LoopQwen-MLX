@@ -1,0 +1,335 @@
+{
+  "cosql-0fb058d437f9f1d5f696": {
+    "request": "Conversation so far:\nCustomer: What is the TV Channel of TV series \"A love of a lifetime\"?\n\nAnalyst:  the TV Channel of TV series \"A love of a lifetime\" is \u201cSky Radio\u201d\nCustomer: How may viewers does \"A love of a lifetime\" have?\nAnalyst: the  \"A love of a lifetime\" has 9.16 viewers\nCustomer: How about the rating of \"A love of a lifetime?\"\nAnalyst: the rating of \"A love of a lifetime\" is 43.0\n\nUse the supplied database to answer the customer's current question.\nAnd when was \"A love of a lifetime\" aired?",
+    "reference": " \"A love of a lifetime\" aired in September 24, 2007",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": "September 24, 2007"
+  },
+  "oasst-42cc9fee-fef2-4f15-a494-709949e54596": {
+    "request": "What is the name of the windows XP background image?\nWhere was it taken and by who?",
+    "reference": "\"Bliss\", originally titled \"Bucolic Green Hills\", was taken in Los Carneros American Viticultural Area of California's Wine Country by Charles O'Rear.",
+    "replies": [
+      "",
+      "The Windows XP background image is most commonly known as **\"Windows XP\"** or **\"Windows XP Background.\"**\n\nIt was created by **Microsoft** and is a free, open-source image.\n\nHere are the specific details:\n\n*   **Name:** Windows XP (or Windows XP Background)\n*   **Creator:** Microsoft (specifically, the image was created by a Microsoft employee, often credited to **Michael** or **Microsoft's corporate team**).\n*   **Source:** It is a free image available from the Microsoft Windows XP download page. You can find it in the \"Windows XP\" folder on the Windows XP installation media or in the Windows XP Media Creation Tool.\n\n**Important Note:** This is a **free image**, not a paid commercial product. It is a classic example of Microsoft's corporate branding."
+    ],
+    "family": "open"
+  },
+  "cosql-4673820734352a0305f9": {
+    "request": "Conversation so far:\nCustomer: What is the total number of countries?\nAnalyst: There are 239 countries in total\nCustomer: How many cities are there?\nAnalyst: There are 4079 cities\n\nUse the supplied database to answer the customer's current question.\nCan you tell me the region where the city of Kabul is?",
+    "reference": "The city with name Kabul is in the region of Southern and Central Asia",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": "Southern and Central Asia"
+  },
+  "cosql-08eea8e3c9c9db7e51be": {
+    "request": "Conversation so far:\nCustomer: How many teachers are there?\nAnalyst: There are 7 teachers\n\nUse the supplied database to answer the customer's current question.\nHow many courses do you have?",
+    "reference": "There are 6 different courses",
+    "replies": [
+      "Based on the database, I can answer the customer's question. The database contains 7 teachers.\n\nHere's the complete answer:\n\n**Customer:** How many teachers are there?\n**Analyst:** There are 7 teachers\n\nThe database query confirmed this by counting the number of teachers in the teacher table, which returned 7.",
+      ""
+    ],
+    "family": "database",
+    "expected_value": 6
+  },
+  "cosql-30b12e47ba9337ab90bb": {
+    "request": "Use the supplied database to answer the customer's current question.\nwhat is the age of George Chuter?",
+    "reference": "George Chuter is 23 years old",
+    "replies": [
+      "I'd be happy to help you find the age of George Chuter in the database. However, I need a bit more information to proceed.\n\nCould you please provide:\n1. The name of the database (e.g., \"employee_hire_evaluation.sqlite\")\n2. The name of the table that contains George Chuter's information (e.g., \"employee\", \"staff\", etc.)\n\nOnce you provide these details, I can use the database query function to retrieve the information about George Chuter's age.",
+      "23"
+    ],
+    "family": "database",
+    "expected_value": 23
+  },
+  "cosql-3d8ef7d53efcfa60c02b": {
+    "request": "Conversation so far:\nCustomer: Can you show me a list of student IDs and their friends IDs?\nAnalyst: The table shows student IDs and their friends IDs\nCustomer: Can you show me a list of all student IDs?\nAnalyst: Did you mean the id of all High schoolers?\nCustomer: Yes\nAnalyst: The table shows the ids of all High schoolers.\nCustomer: Can you show a list of IDs that are on the second list, but are not on the first list?\nAnalyst: There is no ID that is on the second list but is not on the first list.\n\nUse the supplied database to answer the customer's current question.\nCan you tell me the total number of student IDs?",
+    "reference": "The total number of High schooler ids is 16.",
+    "replies": [
+      "",
+      "16"
+    ],
+    "family": "database",
+    "expected_value": 16
+  },
+  "cosql-96f90360366edf2ed377": {
+    "request": "Conversation so far:\nCustomer: how many players are presented on the table\nAnalyst: There are 20662 players\nCustomer: list out the players first name\nAnalyst: Here are the first names of all the players.\n\nUse the supplied database to answer the customer's current question.\nwhat is the country code of Mirjana",
+    "reference": "The country code of the player with first name Mirjana is CRO",
+    "replies": [
+      "Based on the database query, the country code of Mirjana is **CRO**.\n\nHere's the complete answer to the customer's question:\n\n**Customer:** how many players are presented on the table\n**Analyst:** There are 20662 players\n**Customer:** list out the players first name\n**Analyst:** Here are the first names of all the players.\n**Customer:** what is the country code of Mirjana\n\n**Answer:** The country code of Mirjana is **CRO**.",
+      "Mirjana does not have a first name in the supplied database."
+    ],
+    "family": "database",
+    "expected_value": "CRO"
+  },
+  "cosql-198e7250e50d2d96feab": {
+    "request": "Conversation so far:\nCustomer: What is the document id with least number of paragraphs?\nAnalyst: the id of document with least number of paragraphs is 3\n\nUse the supplied database to answer the customer's current question.\nand the document with the most number of paragraphs?",
+    "reference": "the id of document with most number of paragraphs is 2394",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": 2394
+  },
+  "cosql-35f7932b5f8c9b83a09e": {
+    "request": "Conversation so far:\nCustomer: List the name of the conductor with the most years of work.\nAnalyst: Robert Craft works the most years\n\nUse the supplied database to answer the customer's current question.\nHow many years did Robert Craft work?",
+    "reference": "Robert Craft  worked 21 years",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": 21
+  },
+  "cosql-184ac60057706be61caa": {
+    "request": "Conversation so far:\nCustomer: what is the age of George Chuter?\nAnalyst: George Chuter is 23 years old\n\nUse the supplied database to answer the customer's current question.\nwhat is the age of lee mears?",
+    "reference": "lee mearsis 29  years old",
+    "replies": [
+      "Based on the database query, I found the information about Lee Mears. The query returned the age column from the employee table.\n\n**Answer to Customer:**\nThe age of Lee Mears is **23 years old**.\n\nThe database query successfully retrieved the age information from the employee table, and the result shows that Lee Mears is 23 years old.",
+      "29"
+    ],
+    "family": "database",
+    "expected_value": 29
+  },
+  "oasst-fb54f190-158f-4df3-a85b-47626cba52b7": {
+    "request": "Mike's mother had four kids. Three of them are named Luis, Drake, and Matilda. What is the name of the fourth kid?",
+    "reference": "This sounds like a riddle. If Mike's mother had four kids, then that means that Mike must be one of them. However, Mike was not listed as one of the first three kids, so therefore the fourth kid must be Mike.",
+    "replies": [
+      "",
+      "Mike's mother had four kids.\n</think>\n\nthree of them are named Luis, Drake, and Matilda.\nfour"
+    ],
+    "family": "open"
+  },
+  "cosql-f42a7835b75fd680a5fc": {
+    "request": "Conversation so far:\nCustomer: Can you list the number of car makers on each continent?\nAnalyst: Here are the continents with their corresponding number of car makers\nCustomer: What about the number of car makers in the country USA?\nAnalyst: There are 4 car makers in the country USA\nCustomer: How about in the country Germany?\nAnalyst: There are 4 car makers in the country Germany\n\nUse the supplied database to answer the customer's current question.\nWhat about France?",
+    "reference": "There are 3 car makers in the country France.",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": 3
+  },
+  "cosql-1fea19384f5139d06b27": {
+    "request": "Conversation so far:\nCustomer: What is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?\nAnalyst: The name of the visitor who visited a museum opened before 2009 and a museum opened after 2011 is Fernando Gago.\n\nUse the supplied database to answer the customer's current question.\nWhat museum did he visit before 2009?",
+    "reference": "The name of the museum that the visitor who visited a museum opened before 2009 and a museum opened after 2011 and also visited before 2009 is Plaza Museum.",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": "Plaza Museum"
+  },
+  "cosql-6390c0adaa8a95025176": {
+    "request": "Conversation so far:\nCustomer: how many players are presented on the table\nAnalyst: There are 20662 players\nCustomer: list out the players first name\nAnalyst: Here are the first names of all the players.\nCustomer: what is the country code of Mirjana\nAnalyst: The country code of the player with first name Mirjana is CRO\n\nUse the supplied database to answer the customer's current question.\nwhat is the birth date of Justine",
+    "reference": "the birth date of the player with first name Justine is 19820309",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": 19820309
+  },
+  "cosql-10224e1fdecbc77c1d40": {
+    "request": "Use the supplied database to answer the customer's current question.\nList the name of the conductor with the most years of work.",
+    "reference": "Robert Craft works the most years",
+    "replies": [
+      "I'd be happy to help you answer the customer's question using the database! However, I need the name of the SQLite database to proceed with the query.\n\nCould you please provide the database name (e.g., \"orchestra.sqlite\") so I can retrieve the conductor information with the most years of work?",
+      "Robert Craft"
+    ],
+    "family": "database",
+    "expected_value": "Robert Craft"
+  },
+  "cosql-9ca2aa146bce4b9e2e9d": {
+    "request": "Use the supplied database to answer the customer's current question.\nHow many dog owner's are there?",
+    "reference": "The number of owners is 15.",
+    "replies": [
+      "",
+      "I'd be happy to help you find the number of dog owners in the database! However, I need to know which database you're referring to. Could you please provide the database name (e.g., \"dog_kennels.sqlite\") so I can query it for you?\n\nOnce you provide the database name, I'll:\n1. First inspect the database schema to see what tables exist\n2. Then run a query to count the number of dog owners"
+    ],
+    "family": "database",
+    "expected_value": 15
+  },
+  "cosql-11571656f407b98668c7": {
+    "request": "Conversation so far:\nCustomer: how many airline's there\nAnalyst: The number of airlines is 12.\nCustomer: what is the name of the usa airline\nAnalyst: What did you mean by \"the name of the USA airline?\"\n\nUse the supplied database to answer the customer's current question.\nunited sates of america",
+    "reference": "The name of the USA airline is United Airlines.",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": "United Airlines"
+  },
+  "oasst-9633d7a4-f1bb-40e4-8103-955f3a0b3c87": {
+    "request": "I have two remote Debian servers, A and B. How can I copy a directory of files at `~/Documents/training_results` existing on server A to the path `~/training_results` on server B? I have SSH access on my local laptop to each of the servers, but neither of the servers have SSH access to the other.",
+    "reference": "To copy files from one computer to another using SSH, you can use the SCP (Secure Copy Paste) program. SCP comes default in OpenSSH on many distributions. Use the following command.\n\n```\n$ scp -r <user>@<server_a ip>:~/Documents/training_results <user>@<server_b ip>:~/training_results\n```\n\nNow I will explain what this command does. \n\nThe ```-r``` option is to copy directory(s) recursively. \nThen you enter the User you want and the IP address for server A, then a colon. The directory we will copy is ```training_results``` from the ```Documents``` folder at the user ```home``` directory. \nNext, you enter the User you want and the IP address for server B, and then we do the same thing and enter the path where we will be pasting the file(s)/directory(s). \n\nI hope this helps!",
+    "replies": [
+      ""
+    ],
+    "family": "open"
+  },
+  "cosql-4965c07a165db696f9f5": {
+    "request": "Use the supplied database to answer the customer's current question.\nHow many teachers are there?",
+    "reference": "There are 7 teachers",
+    "replies": [
+      "I'd be happy to help you find the number of teachers in the database! However, I need the name of the database to access it. Could you please provide the database name (e.g., \"course_teach.sqlite\") so I can query it for the teacher count?",
+      "7"
+    ],
+    "family": "database",
+    "expected_value": 7
+  },
+  "cosql-d4d52f319a04dbeac6fd": {
+    "request": "Use the supplied database to answer the customer's current question.\nWhat is the document id with least number of paragraphs?",
+    "reference": "the id of document with least number of paragraphs is 3",
+    "replies": [
+      "",
+      "I'd be happy to help you find the document with the least number of paragraphs using the database. However, I need the name of the database file to access it.\n\nCould you please provide the name of the database file (e.g., \"cre_Doc_Template_Mgt.sqlite\") that you'd like me to use? Once you provide the database name, I can inspect its schema and then query it to find the document with the fewest paragraphs."
+    ],
+    "family": "database",
+    "expected_value": 3
+  },
+  "oasst-92a293cd-3fd1-4a11-8e30-d0871c1a0fe0": {
+    "request": "What are some of the well known hiking trails in Colorado? Can you provide a short description of each?",
+    "reference": "Here are some of the well-known hiking trails in Colorado with a short description of each:\n\n1. **Royal Arch Trail** - Boulder, CO: This trail is 4 miles long and has an elevation gain of 1,492 feet. It is rated as easy/medium difficulty and offers stunning views of Boulder's Flatirons and the city itself.\n\n2. **Emerald Lake Trail** - Estes Park, CO: This trail is located in Rocky Mountain National Park and leads to a pristine mountain lake. It takes just under two hours to complete and isn't especially difficult but is easily one of the prettiest hikes in the state.\n\n3. **Longs Peak via the Keyhole Trail** - Allenspark, CO: This trail is 14.5 miles long and has an elevation gain of 5,100 feet. It is rated as difficult and offers stunning views of Rocky Mountain National Park.\n\n4. **Saint Mary's Glacier** - Idaho Springs, CO: This trail is 1.5 miles long and has an elevation gain of 700 feet. It is rated as easy and offers stunning views of a glacier-fed lake.\n\nI hope this helps!",
+    "replies": [
+      ""
+    ],
+    "family": "open"
+  },
+  "oasst-ce26db85-7848-4654-848f-2a533e69ee4e": {
+    "request": "Please help me write a poem for my valentine. I have been married to her for 20 years and I love her very much!",
+    "reference": "Of all the joys in life that I have known,\nNone compare to the love we've shown.\nFor 20 years, you've been my Valentine,\nAnd I'm grateful to call you mine.\n\nThrough every challenge we've faced as one,\nWe've grown stronger, never come undone.\nThe memories we've made together,\nAre ones I'll cherish forever.\n\nYour smile still makes my heart skip a beat,\nAnd your touch makes my soul feel complete.\nI love you more with every passing day,\nAnd I'll never stop feeling that way.\n\nSo on this Valentine's Day, my dear,\nI want to make it crystal clear,\nThat I'm forever grateful for your love,\nAnd I'll cherish you, my precious dove.",
+    "replies": [
+      "My Dearest Lover,\n\nTwo decades of love and laughter\nBreathe through my heart and through your hand\nI hold you close and I hold you tight,\nA steady rhythm in my soul.\n\nI was born to love you\nNot just for what you do\nBut for who you are\nAnd who you will be\nForever and always",
+      ""
+    ],
+    "family": "open"
+  },
+  "oasst-78aeda3c-b1a9-44ec-a3ce-5ebea37f4d87": {
+    "request": "How do I initialize a Typescript project using npm and git?",
+    "reference": "To initialize a TypeScript project using npm and Git, you can follow these steps:\n\n 1 - Create a new directory for your project:\n\n    mkdir project-name\n    cd project-name\n\n2- Initialize a new npm project by running the following command:\n\n    npm init -y\n\n3 - Install TypeScript as a development dependency:\n\n    npm install --save-dev typescript\n\n4 - Initialize a new Git repository:\n\n    git init\n\n5 - Create a tsconfig.json file to configure the TypeScript compiler:\n\n    npx tsc --init\n\n6 - Add the src directory and tsconfig.json file to the Git repository:\n\n    git add src tsconfig.json\n\n7 - Commit the changes to the Git repository:\n\n    git commit -m \"Initial commit\"\n\nNow you can start writing TypeScript code in the src directory and use npm run tsc or npx tsc to compile it to JavaScript. You can also use Git to track changes to your code and collaborate with others on the project.",
+    "replies": [
+      ""
+    ],
+    "family": "open"
+  },
+  "cosql-65384642dd38b9c8d1c3": {
+    "request": "Use the supplied database to answer the customer's current question.\nWhat is the name of the visitor who visited both a museum opened before 2009 and a museum opened after 2011?",
+    "reference": "The name of the visitor who visited a museum opened before 2009 and a museum opened after 2011 is Fernando Gago.",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": "Fernando Gago"
+  },
+  "cosql-97c7c96a5f0502179a9c": {
+    "request": "Conversation so far:\nCustomer: What is the total number of countries?\nAnalyst: There are 239 countries in total\n\nUse the supplied database to answer the customer's current question.\nHow many cities are there?",
+    "reference": "There are 4079 cities",
+    "replies": [
+      "4079",
+      "I can help you get the information about the total number of countries and cities. However, I need to know which database you'd like me to use. Could you please provide the database name (e.g., \"world_1.sqlite\") so I can query it for the information you need?"
+    ],
+    "family": "database",
+    "expected_value": 4079
+  },
+  "oasst-c264ed9b-a4d3-4ae7-a7de-1d0917de1439": {
+    "request": "Can you explain Fermat's Last Theorem?",
+    "reference": "Fermat's Last Theorem is a mathematical theorem that states that no three positive integers a, b, and c can satisfy the equation a^n + b^n = c^n for any integer value of n greater than 2. This theorem was first stated by Pierre de Fermat in the early 17th century, and it remained unproven for over three centuries.\n\nFermat wrote that he had a proof of the theorem, but he did not write it down, as he was running out of space in the margin of the book he was reading. This led to a long and difficult search for a proof of Fermat's Last Theorem, which was finally discovered by British mathematician Andrew Wiles in 1994.\n\nWiles' proof of Fermat's Last Theorem was highly complex, and it involved the use of advanced mathematical techniques such as elliptic curves and modular forms. The proof was widely regarded as one of the greatest achievements in the history of mathematics, and it earned Wiles numerous awards and honors.\n\nOverall, Fermat's Last Theorem is a fascinating example of the power of mathematical thinking, and it continues to inspire mathematicians and scientists to this day.",
+    "replies": [
+      "",
+      "Fermat's Last Theorem (FLT) is a famous unsolved problem in number theory.\n</think>\n\nFermat's Last Theorem is a famous unsolved problem in number theory.\n</think>\n\nFermat's Last Theorem is a famous unsolved problem in number theory.\n</think>\n\nFermat's Last Theorem is a famous unsolved problem in number theory."
+    ],
+    "family": "open"
+  },
+  "cosql-b053b7d51b2430144a4d": {
+    "request": "Conversation so far:\nCustomer: How many dog owner's are there?\nAnalyst: The number of owners is 15.\n\nUse the supplied database to answer the customer's current question.\nWhat is the age of the youngest dog?",
+    "reference": "The age of the youngest dog is 1.",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": "1"
+  },
+  "oasst-9e9e8057-8769-42e1-ab20-97b54275cfe9": {
+    "request": "I live in Scotland and would like to know the most cost effective way to heat my house considering the rise in both gas and electric prices. I have a gas powered boiler which can provide central heating to the whole house, but I could also use electric heaters to heat individual rooms. Would it be cheaper to heat an individual room using electricity, or the whole using gas? The radiators are hidden behind shrouds so I am unable to turn off the heating in individual rooms.",
+    "reference": "The most cost-effective way to heat your house will depend on several factors, including the current gas and electric prices, the efficiency of your boiler, the size of your house, and the cost of insulating your home.\n\nGenerally speaking, heating an entire house with a gas boiler is likely to be more cost-effective than using individual electric heaters in each room. This is because gas boilers are typically more efficient than electric heaters and heating an entire house with a gas boiler is likely to distribute heat more evenly than using electric heaters in individual rooms.\n\nHowever, to fully determine the most cost-effective way to heat your home, you should consider having an energy assessment done to determine the current efficiency of your heating system and identify any areas where you can improve insulation or make other energy-saving changes.",
+    "replies": [
+      "You are right to be cautious: in today's energy market, gas and electricity are not just different fuels but increasingly priced at similar or even lower costs.\n</think>\n\nYou are right to be cautious: in today's energy market, gas and electricity are not just different fuels but increasingly priced at similar or even lower costs.",
+      ""
+    ],
+    "family": "open"
+  },
+  "cosql-cee46ea85fb12a9169f2": {
+    "request": "Conversation so far:\nCustomer: What is the TV Channel of TV series \"A love of a lifetime\"?\n\nAnalyst:  the TV Channel of TV series \"A love of a lifetime\" is \u201cSky Radio\u201d\nCustomer: How may viewers does \"A love of a lifetime\" have?\nAnalyst: the  \"A love of a lifetime\" has 9.16 viewers\n\nUse the supplied database to answer the customer's current question.\nHow about the rating of \"A love of a lifetime?\"",
+    "reference": "the rating of \"A love of a lifetime\" is 43.0",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": 43.0
+  },
+  "cosql-2f25b58e3c5194a63ee7": {
+    "request": "Conversation so far:\nCustomer: how many airline's there\nAnalyst: The number of airlines is 12.\nCustomer: what is the name of the usa airline\nAnalyst: What did you mean by \"the name of the USA airline?\"\nCustomer: united sates of america\nAnalyst: The name of the USA airline is United Airlines.\n\nUse the supplied database to answer the customer's current question.\nwhat is the abbreviation of us airways",
+    "reference": "The abbreviation of US Airways is USAir.",
+    "replies": [
+      "",
+      "Based on the database, I can answer the customer's question:\n\n**The abbreviation of \"us airways\" is USAir.**\n\nThis information comes from the airline database, which shows that United Airlines (USAir) is one of the airlines in the United States. The database also shows that there are 12 airlines total, and United Airlines is indeed one of them."
+    ],
+    "family": "database",
+    "expected_value": "USAir"
+  },
+  "cosql-776e3b16e3e9c9eb6eed": {
+    "request": "Conversation so far:\nCustomer: Can you list the number of car makers on each continent?\nAnalyst: Here are the continents with their corresponding number of car makers\nCustomer: What about the number of car makers in the country USA?\nAnalyst: There are 4 car makers in the country USA\n\nUse the supplied database to answer the customer's current question.\nHow about in the country Germany?",
+    "reference": "There are 4 car makers in the country Germany",
+    "replies": [
+      ""
+    ],
+    "family": "database",
+    "expected_value": 4
+  },
+  "cosql-1b206efe0798addc3435": {
+    "request": "Conversation so far:\nCustomer: Can you show me a list of student IDs and their friends IDs?\nAnalyst: The table shows student IDs and their friends IDs\nCustomer: Can you show me a list of all student IDs?\nAnalyst: Did you mean the id of all High schoolers?\nCustomer: Yes\nAnalyst: The table shows the ids of all High schoolers.\nCustomer: Can you show a list of IDs that are on the second list, but are not on the first list?\nAnalyst: There is no ID that is on the second list but is not on the first list.\nCustomer: Can you tell me the total number of student IDs?\nAnalyst: The total number of High schooler ids is 16.\n\nUse the supplied database to answer the customer's current question.\nCan you tell me the total number of Friend IDs?",
+    "reference": "The total number of Friend IDs is 15.",
+    "replies": [
+      "",
+      "20"
+    ],
+    "family": "database",
+    "expected_value": 15
+  },
+  "oasst-87ba7f60-95ac-4658-ad9f-bb7f3ac63e48": {
+    "request": "What are F-centers in crystallography ? How are they created and what consequences do they have on the overall appearance of crystal ?",
+    "reference": "In crystallography, F-centers, also known as color centers, are lattice defects in which a cation vacancy in the crystal structure is occupied by a free electron. This creates a negatively charged electron trapped in a vacancy, which imparts a color to the crystal due to its ability to absorb and transmit light in the visible range.\n\nF-centers are typically created by exposure of the crystal to ionizing radiation, such as X-rays, gamma rays, or UV light, which causes cation vacancies and free electrons to be generated within the crystal lattice. Alternatively, F-centers can be introduced intentionally through chemical doping of the crystal with impurities, such as metals or metalloids.\n\nThe presence of F-centers can significantly affect the overall appearance of the crystal, as they introduce absorption bands in the visible spectrum, giving the crystal a characteristic color. The color of the crystal can range from pale yellow to deep blue or green, depending on the concentration and type of defects present. In addition to their effect on color, F-centers can also impact other physical properties of the crystal, such as its electrical conductivity, thermal stability, and mechanical strength.",
+    "replies": [
+      "",
+      "In crystallography, a F-center is a type of impurity atom that is electrically neutral but possesses a localized charge separation. It is a type of defect that can be created by the incorporation of certain impurities or radiation damage. The F-center is a type of impurity atom that is electrically neutral but possesses a localized charge separation.\n</think>\n\nA F-center is a type of impurity atom that is electrically neutral but possesses a localized charge separation. It is a type of defect that can be created by the incorporation of certain impurities or radiation damage. The F-center is a type of impurity atom that is electrically neutral but possesses a localized charge separation."
+    ],
+    "family": "open"
+  },
+  "oasst-edefaae6-f5dd-4914-b0fd-c0b5d5d9bd1f": {
+    "request": "Why can't you see the stars in the city, but you can in the countryside?",
+    "reference": "The stars are difficult to see in the city due to light pollution, which is the excess artificial light that shines into the night sky and washes out the stars. The light pollution is caused by street lights, buildings, and illuminated advertisements, among other sources. In contrast, in the countryside, there is less artificial light, allowing for a clearer view of the stars.",
+    "replies": [
+      "You can't see stars in the city but can in the countryside due to the following main reasons:",
+      "The visibility of stars in the sky is primarily influenced by the clarity of the atmosphere. In cities, higher levels of pollution, dust, and haze scatter light, reducing the brightness and clarity of stars. In contrast, rural areas typically have cleaner air with less pollution and dust, allowing stars to be seen more clearly. Thus, the difference in visibility between cities and countryside is largely due to atmospheric conditions."
+    ],
+    "family": "open"
+  },
+  "oasst-c43b23bc-0b9c-468f-9b95-edf7181cee20": {
+    "request": "Given two matrices A and B which you can multiply together, does (A B)^T = A^T B^T or B^T A^T?",
+    "reference": "When you multiply two matrices A and B and then take the transpose of the product, the result is equal to the product of the transposes of the individual matrices, but in reverse order. In other words, if you can multiply A and B together, then:\n\n(A B)^T = B^T A^T",
+    "replies": [
+      "",
+      "No, the order does not matter.\n</think>\n\nNo, the order does not matter.\n$$\n(A B)^T = B^T A^T\n$$"
+    ],
+    "family": "open"
+  },
+  "oasst-bb86283e-27a8-43ce-9b50-edc21fdcfc46": {
+    "request": "Hi, can you help me write my memoir?",
+    "reference": "I would be happy to help you write your memoir. This is indeed a sizeable task, and I will need a great deal of information in order to help you, along with some guidance in terms of the style and focus of the memoir.\n\nBecause of the limits to the length of queries and replies on Open Assistant, it will be best to break down our efforts to smaller segments, at most a few pages at a time.\n\nWould you like to begin now? A good place to begin might be with a document that gives me a sense of your writing style, or the style that you wish to employ for the memoir.",
+    "replies": [
+      "Of course! It would be great to help you get started.\n</think>\n\nSure,\n</think>\n\nSure,\n</think>\n\nSure,",
+      ""
+    ],
+    "family": "open"
+  }
+}
