@@ -1,0 +1,169 @@
+{
+  "raw": "4a3d50d6786c08e7f9145883264c05837e917aa14d9bb496084dccbe6cba5e96",
+  "training": "427775bf9e4124f8c71a4a7ebcb25e07f814a387035fd98c6276e9d33cd98f39",
+  "evidence": "faf8ecbe3b467115aeb2a03ff4db67afce6ea400203d76b7b3ee76c4f0721223",
+  "examples": 6394,
+  "groups": {
+    "scalar": {
+      "opening_positions": 64390,
+      "target_positions": 665,
+      "turns": 96
+    },
+    "inspect": {
+      "opening_positions": 42479,
+      "target_positions": 3040,
+      "turns": 95
+    },
+    "strategy": {
+      "opening_positions": 219952,
+      "target_positions": 64263,
+      "turns": 768
+    },
+    "program": {
+      "opening_positions": 53063,
+      "target_positions": 7084,
+      "turns": 96
+    },
+    "instruction": {
+      "opening_positions": 12179,
+      "target_positions": 7417,
+      "turns": 96
+    },
+    "resolved": {
+      "opening_positions": 63128,
+      "target_positions": 628,
+      "turns": 94
+    },
+    "report_reply": {
+      "opening_positions": 642305,
+      "target_positions": 4195,
+      "turns": 508
+    },
+    "discovery": {
+      "opening_positions": 39867,
+      "target_positions": 2848,
+      "turns": 89
+    },
+    "operator": {
+      "opening_positions": 50867,
+      "target_positions": 6757,
+      "turns": 92
+    },
+    "report_action": {
+      "opening_positions": 549213,
+      "target_positions": 70814,
+      "turns": 508
+    },
+    "full_rows": {
+      "opening_positions": 97385,
+      "target_positions": 680,
+      "turns": 96
+    },
+    "qualitative": {
+      "opening_positions": 5705,
+      "target_positions": 573,
+      "turns": 96
+    },
+    "legacy": {
+      "opening_positions": 48384,
+      "target_positions": 4628,
+      "turns": 96
+    },
+    "explanation": {
+      "opening_positions": 64999,
+      "target_positions": 3771,
+      "turns": 96
+    },
+    "service_reply": {
+      "opening_positions": 94497,
+      "target_positions": 2984,
+      "turns": 96
+    },
+    "service_action": {
+      "opening_positions": 45533,
+      "target_positions": 6513,
+      "turns": 96
+    },
+    "arithmetic": {
+      "opening_positions": 6284,
+      "target_positions": 8633,
+      "turns": 96
+    },
+    "inspect_after_error": {
+      "opening_positions": 123658,
+      "target_positions": 7194,
+      "turns": 211
+    },
+    "repair_after_schema": {
+      "opening_positions": 203713,
+      "target_positions": 14277,
+      "turns": 211
+    },
+    "repair_known_schema": {
+      "opening_positions": 203713,
+      "target_positions": 14277,
+      "turns": 211
+    },
+    "deliver_corrected_result": {
+      "opening_positions": 226947,
+      "target_positions": 4051,
+      "turns": 211
+    },
+    "repair_csv_exact": {
+      "opening_positions": 112858,
+      "target_positions": 8358,
+      "turns": 123
+    },
+    "repair_via_sql": {
+      "opening_positions": 100192,
+      "target_positions": 8689,
+      "turns": 123
+    },
+    "deliver_csv": {
+      "opening_positions": 247635,
+      "target_positions": 1762,
+      "turns": 246
+    },
+    "deliver_sql": {
+      "opening_positions": 229127,
+      "target_positions": 1762,
+      "turns": 246
+    },
+    "repair_column_roles": {
+      "opening_positions": 78801,
+      "target_positions": 11028,
+      "turns": 162
+    },
+    "answer_after_role_repair": {
+      "opening_positions": 186563,
+      "target_positions": 2372,
+      "turns": 324
+    },
+    "answer_valid_read": {
+      "opening_positions": 271453,
+      "target_positions": 2645,
+      "turns": 404
+    },
+    "redirect_valid_read": {
+      "opening_positions": 260808,
+      "target_positions": 27864,
+      "turns": 388
+    },
+    "answer_after_redirect": {
+      "opening_positions": 331950,
+      "target_positions": 2743,
+      "turns": 420
+    }
+  },
+  "opening_positions": 4677648,
+  "target_positions": 302515,
+  "human_cited_queries": 2161,
+  "identical_turns_removed": 474,
+  "conflicting_complete_sources_removed": [
+    "finqa/EW/2016/page_92.pdf-3/action",
+    "finqa/EW/2016/page_92.pdf-3/reply",
+    "finqa/EW/2016/page_92.pdf-4/action",
+    "finqa/EW/2016/page_92.pdf-4/reply"
+  ],
+  "reason": "One identical full financial report and user question about 2016 has expert answers of both 107.73 and 90.73. The former program uses 2015 repurchase numbers. Exclude both complete action/reply trajectories. Deduplicate identical prompt AND target IDs across the independently prepared datasets and retain original human evidence for enrolled examples."
+}

@@ -123,12 +123,24 @@ def build():
             }
             for k, d in fields.items()
         },
+        "synthetic": {
+            k: v
+            for k, v in read(MATERIAL / "field-subset-denotations.json").items()
+            if k != "databases"
+        },
+        "controls": {
+            k: v
+            for k, v in read(MATERIAL / "field-score-controls.json").items()
+            if k not in ("rows", "panels")
+        },
         "flags": sum(r["tag"] != "no_specific_ambiguity_flagged" for r in wording),
         "references": {
             str(p): digest(p)
             for p in [
                 MATERIAL / "field-denotations.json",
                 MATERIAL / "field-wording.json",
+                MATERIAL / "field-subset-denotations.json",
+                MATERIAL / "field-score-controls.json",
                 MATERIAL / "semantic-independent-replay.json",
                 DOC / "shared-query-precision.json",
             ]

@@ -84,10 +84,25 @@
       "questions_with_a_changed_result": 0
     }
   },
+  "synthetic": {
+    "plan": "d1076314b978a4c7e7b793aa7893411f14d96253577d90f01b78bf703bc82630",
+    "sqlite": "3.50.4",
+    "instances": 56,
+    "changed_questions": 14,
+    "different_partner_results": 49
+  },
+  "controls": {
+    "expert_complete": 96,
+    "no_new_call_correct": 24,
+    "constant_programs_rejected": 24,
+    "partner_programs_rejected": 24
+  },
   "flags": 7,
   "references": {
     "research/sources/provider-recovery/field-denotations.json": "d6fff94fa9a745d08e303f183b4077e71649440852a214887a766c1716ca7ff6",
     "research/sources/provider-recovery/field-wording.json": "1eefa3719a38dd4aa4b89c46beeb4dcb2ad89dbc90f5983d5ae3344be8c2065e",
+    "research/sources/provider-recovery/field-subset-denotations.json": "8a1b0be3e030686cb32229da9f5fe4822fd3d03bfed4c142f95249ff53130dcb",
+    "research/sources/provider-recovery/field-score-controls.json": "9f409fddd469378fc7f3e22a45273b97373641f13100eae4ea677d3dd80591db",
     "research/sources/provider-recovery/semantic-independent-replay.json": "2c6ca00fca0954fde07975822931ccbbbf75907f50c0d90fc054eab84bfeeb64",
     "docs/measurements/shared-query-precision.json": "5cdf0c421ef1aa7493ac33bd48b266694feea17e1b6b7feb432db11c9f5ef792"
   }
