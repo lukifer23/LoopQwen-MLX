@@ -2,7 +2,10 @@
 
 The manuscript covers the original shared-span experiments, the matched reasoning controls, the standalone 128K language model, and the addition of executable tool sessions. The paper's numerical results come from native Apple Silicon MLX runs.
 
-- [Read the paper](loopqwen.pdf)
+- [Read the complete 72-page research paper](loopqwen-complete.pdf)
+- [Current field study with 96 paired requests](role-binding.pdf) · [All item-level outcomes](role-binding-requests.csv) · [Blinded reading of table responses](role-binding-reading.csv)
+- [Original Winograd and package analysis](instruction-interpolation.pdf) · [All 56 paired requests](instruction-interpolation-requests.csv)
+- [Original 64-page paper preserved in field kit 01](loopqwen.pdf)
 - [Independent clean rebuilds, payload identity and outside-checkout replay](../docs/measurements/reproducible-runtime-wheel.json)
 - [Verified isolated wheel replay, including both Hindi failures](../docs/measurements/native-function-wheel.json)
 - [Native function conversations, actual actions and both final answers](native-function-requests.csv)

@@ -1,0 +1,52 @@
+{
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "prefix_bits": 8,
+  "start_layer": 23,
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "id": "role-binding-01",
+  "question": "Can a single recurrent decoder learn which entity or argument a changed human request refers to, while retaining grounded work across actual package inventory follow-ups?",
+  "role_binding": true,
+  "material": "research/data/role-binding-panel.json",
+  "training": "research/data/role-binding-training.json",
+  "retention_material": "research/data/instruction-interpolation-panel.json",
+  "retention_sha256": "0038020a044ef31b2906d85da4fab982d6c2a8b2e4f71338c525039fcae311bc",
+  "instruction_interpolation": {
+    "trained_fraction": 1.0,
+    "second_pass_fraction": 0.35,
+    "metadata_sha256": "f26b5d0a07ddee323188edf0c47e3193fe634aef61c11b22dff6e96872477e51",
+    "projections": [
+      "self_attn.q_proj",
+      "self_attn.k_proj",
+      "self_attn.v_proj",
+      "self_attn.o_proj",
+      "mlp.gate_proj",
+      "mlp.up_proj",
+      "mlp.down_proj"
+    ]
+  },
+  "fit_seed": 219701,
+  "updates": 1000,
+  "batch": 6,
+  "pairs_per_batch": 2,
+  "lr": 0.00011,
+  "ranking_weight": 0.7,
+  "individual_margins": true,
+  "max_tokens": 768,
+  "max_turns": 4,
+  "limits": {
+    "wall_seconds": 2640,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "protocol": "Fit a new rank-32 LoRA on seven projections of the final native instruction-sibling layer, repeated twice, from the intact donor in qualified release 05. No initialization from any intervening experimental adapter. Train 1000 AdamW steps on original paired WinoGrande sentences, independently human-paraphrased WikiSQL questions in different argument roles on the same table, real CSV returns and native rehearsal. At the first different target token enforce each context's own positive margin versus the sibling target, equally in both directions. Only immutable frozen-prefix features are cached during optimization. Fuse the full trained update once for service and retain the original recurrent residual 0.35 on all tokens and both types of user request. The 24 complete WinoGrande development pairs use the publisher's pair ID and opposite gold on the same choices. The 16 complete test-table pairs use distinct original human questions with different column roles and answers from the same real published table. Choose by fixed hash order, require the literal exact key to appear in the question, unique match and no unaddressable duplicate headers. Exclude previously enrolled WikiSQL tables, hold out whole table and pair identities and reject training pairs sharing any eight consecutive original question words with main test questions. Complete package CSVs and two-message follow-ups from the previous field study are explicit retention only. No expected call, labeled entity or hint supplied to generation. Compare only to the certified ordinary BF16 Base at original depth. Identical Qwen thinking-enabled wire format, exact opening prompt tokens, greedy 768 tokens per turn, four turns, ordered prompts, checked callbacks, same within-request prefix reuse. Both models' own real histories govern follow-ups. Include setup, full stream wall and first wait, native peak, opening and decode rates. A human table answer must include the actual target as a bounded phrase and the exact call and observation. Separately report exact grounded finals. Trained-domain held-out performance cannot establish broad generalization or causal superiority of depth.",
+  "gate": "Require more complete paired meanings, more complete paired tables, >=5 extra whole pairs across those 40 independent units with two-sided exact McNemar p<=.05. Require at least Base's exact grounded table outputs and at least Base's complete inventory conversations and grounded inventory requests with an absolute floor of two grounded requests. No family loss in completed or final correct answers. Require strictly lower whole-stream wall, first-token sum, peak allocation, and strictly higher opening and post-first throughput. Stop after one pair or on 2640 seconds or memory guard. Failure closes this fitted model's depth, 128K and promotion descendants. Success licenses independent-domain replication and matched native one-pass training; no change to released default before actual long-context retention."
+}

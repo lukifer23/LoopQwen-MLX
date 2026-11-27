@@ -1,0 +1,154 @@
+{
+  "passed": false,
+  "gates": {
+    "reasoning": false,
+    "tables": true,
+    "primary": false,
+    "field": true,
+    "retention": false,
+    "wall": true,
+    "first": false,
+    "peak": true,
+    "rates": false
+  },
+  "pairs": {
+    "meaning": {
+      "loop": 1,
+      "base": 1,
+      "wins": 1,
+      "losses": 1,
+      "p": 1.0
+    },
+    "table": {
+      "loop": 1,
+      "base": 0,
+      "wins": 1,
+      "losses": 0,
+      "p": 1.0
+    },
+    "inventory": {
+      "loop": 0,
+      "base": 0,
+      "wins": 0,
+      "losses": 0,
+      "p": 1.0
+    },
+    "primary": {
+      "loop": 2,
+      "base": 1,
+      "wins": 2,
+      "losses": 1,
+      "p": 1.0
+    }
+  },
+  "groups": {
+    "candidate": {
+      "all": {
+        "dialogues": 88,
+        "strict": 30,
+        "requests": 96,
+        "answers": 32,
+        "grounded": 32,
+        "completed": 67,
+        "wall_s": 134.93331387196667,
+        "first_s": 11.951258578919806,
+        "peak": 1221177332,
+        "output_tokens": 12134
+      },
+      "meaning": {
+        "dialogues": 48,
+        "strict": 23,
+        "requests": 48,
+        "answers": 23,
+        "grounded": 23,
+        "completed": 48,
+        "wall_s": 3.7735240787733346,
+        "first_s": 1.313845787779428,
+        "peak": 1085289160,
+        "output_tokens": 307
+      },
+      "table": {
+        "dialogues": 32,
+        "strict": 7,
+        "requests": 32,
+        "answers": 7,
+        "grounded": 7,
+        "completed": 14,
+        "wall_s": 72.10528225125745,
+        "first_s": 6.0387617071392015,
+        "peak": 1215439340,
+        "output_tokens": 6515
+      },
+      "inventory": {
+        "dialogues": 8,
+        "strict": 0,
+        "requests": 16,
+        "answers": 2,
+        "grounded": 2,
+        "completed": 5,
+        "wall_s": 59.05450754193589,
+        "first_s": 4.598651084001176,
+        "peak": 1221177332,
+        "output_tokens": 5312
+      },
+      "opening_rate": 2377.7412071163153,
+      "decode_rate": 105.96807860502754
+    },
+    "control": {
+      "all": {
+        "dialogues": 88,
+        "strict": 13,
+        "requests": 96,
+        "answers": 15,
+        "grounded": 14,
+        "completed": 54,
+        "wall_s": 824.894320414809,
+        "first_s": 11.691376292088535,
+        "peak": 1859760050,
+        "output_tokens": 55992
+      },
+      "meaning": {
+        "dialogues": 48,
+        "strict": 11,
+        "requests": 48,
+        "answers": 11,
+        "grounded": 11,
+        "completed": 35,
+        "wall_s": 284.12234325206373,
+        "first_s": 1.3691298340563662,
+        "peak": 1653544094,
+        "output_tokens": 20028
+      },
+      "table": {
+        "dialogues": 32,
+        "strict": 2,
+        "requests": 32,
+        "answers": 2,
+        "grounded": 2,
+        "completed": 16,
+        "wall_s": 376.76983316388214,
+        "first_s": 6.1210445400793105,
+        "peak": 1831526722,
+        "output_tokens": 25166
+      },
+      "inventory": {
+        "dialogues": 8,
+        "strict": 0,
+        "requests": 16,
+        "answers": 2,
+        "grounded": 1,
+        "completed": 3,
+        "wall_s": 164.00214399886318,
+        "first_s": 4.201201917952858,
+        "peak": 1859760050,
+        "output_tokens": 10798
+      },
+      "opening_rate": 2391.8484275391106,
+      "decode_rate": 70.32721778029561
+    }
+  },
+  "exact_grounded_table_responses": {
+    "candidate": 7,
+    "control": 0
+  }
+}

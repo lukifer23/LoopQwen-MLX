@@ -1,0 +1,37 @@
+{
+  "fit_sha256": "d83c1101871ac9749b3b4e6ead2bfcea1fc9531bc13e5b78747ba2811079af5d",
+  "training_sha256": "7b16d19f6c75695f741513fe5e22377dccdf48c4f9da8ca0a29587f9450cfe9d",
+  "optimizer_updates": 1000,
+  "target_tokens": 163358,
+  "by_training_source": {
+    "meaning": {
+      "available": 768,
+      "unique_seen": 734,
+      "draws": 2596,
+      "target_tokens": 14423
+    },
+    "rehearsal": {
+      "available": 160,
+      "unique_seen": 156,
+      "draws": 585,
+      "target_tokens": 18032
+    },
+    "table call": {
+      "available": 384,
+      "unique_seen": 374,
+      "draws": 1404,
+      "target_tokens": 118351
+    },
+    "table return": {
+      "available": 384,
+      "unique_seen": 371,
+      "draws": 1415,
+      "target_tokens": 12552
+    }
+  },
+  "first_different_table_parameter": {
+    "key_column": 139,
+    "key": 48,
+    "value_column": 5
+  }
+}

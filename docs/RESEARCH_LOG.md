@@ -2,6 +2,8 @@
 
 ## November 26 meaning and file argument studies
 
+One fresh two-pass fit used 1,000 native updates over 163,358 response tokens. The loop copied the correct table key on 25/32 human questions versus 9/32 for Base, yet chose the correct return column on only 12/32 versus 11/32. It gave seven exact grounded cell values and Base gave zero. In ordinary prose Base gave two grounded answers under the registered scorer and one under a blinded no-conflict reading. Each system solved one complete meaning pair. The first-token sum and opening rate also missed their thresholds. The direct study consumed 1,459.71 native seconds. [Whole paired stream](../research/results/role-binding-01) · [Actual training exposure](measurements/role-binding-training-exposure.json) · [Paired cost chart](../paper/role-binding-times.svg)
+
 The fixed half-strength interpolation lost one complete Winograd pair and gained zero. Each system grounded one file request. A fresh native intervention on a separate prompt confirmed seven shared projections, distinct final-layer KV states and a 0.3284 RMS vocabulary-logit change. Restoring the trained residual reproduced all 248,320 logits exactly. The full comparison ran for 485.08 native seconds. [Registration and both streams](../research/results/instruction-interpolation-01) · [Mechanism receipt](measurements/instruction-interpolation-activation.json)
 
 ## November 26 offline tool and language qualification

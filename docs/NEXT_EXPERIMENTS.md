@@ -5,6 +5,7 @@
 
 | Named question | Decision |
 |---|---|
+| Does paired-margin training help a single recurrent decoder bind entities and function arguments? | The loop grounded seven table answers versus two. Both models solved one of 24 meaning pairs. Across the 40 primary units the loop won two and lost one. The fit’s depth, further long-context and promotion jobs closed. [Trained model and paired comparison](../research/results/role-binding-01) |
 | Does interpolation alone restore meaning-sensitive answers and file use? | No complete Winograd pairs for the loop versus one for Base. Neither completed an inventory pair. The independent second-pass intervention changed logits and recovered the original logits exactly when restored. This policy's downstream jobs closed. [Field study](../research/results/instruction-interpolation-01) |
 | Can the model learn which quantity a changed human question requests? | Zero complete DROP passage pairs versus two for Base. Grounded ASDiv answers favored the loop 12 to 9, final answers favored Base 15 to 12. The fit and its depth follow-up closed. [Frozen answers](../research/results/question-contrast-01) |
 | Can complete source documents stay available across real tool follow-ups? | Six identical token and callback trajectories. Four follow-up first-token waits fell from 13.63 to 0.47 s in total. The registered exact and cost gates passed. [Measured crossover](../research/results/conversation-document-prefill-01) |

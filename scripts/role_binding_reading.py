@@ -99,6 +99,8 @@ def main(blind):
                 for t in tables
             ),
         }
+    for row in rows:
+        row["visible_json"] = json.dumps(row.pop("visible"), ensure_ascii=False)
     f = io.StringIO(newline="")
     writer = csv.DictWriter(f, fieldnames=list(rows[0]))
     writer.writeheader()

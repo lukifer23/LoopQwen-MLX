@@ -132,7 +132,7 @@ def main():
                 assert r["id"] == w["id"]
                 events = executions(tr)
                 ev = {
-                    "answer": tr["answer"],
+                    "answer_json": json.dumps(tr["answer"], ensure_ascii=False),
                     "status": tr["status"],
                     **q["score"],
                     "calls_and_returns": json.dumps(events, ensure_ascii=False),
