@@ -224,9 +224,10 @@ def fit(net, tok, s, root, guard):
                 len(data[-1]) >= 2
             )  # Both genuinely contrasting questions have a different answer.
             losses, g = grad(net.refinement, *data)
-            mx.eval(losses, g)
+            g, grad_norm = optim.clip_grad_norm(g, s["max_gradient_norm"])
+            mx.eval(losses, g, grad_norm)
             vals = [l.item() for l in losses]
-            if not all(math.isfinite(v) for v in vals):
+            if not all(math.isfinite(v) for v in [*vals, grad_norm.item()]):
                 raise InterruptedError("Nonfinite residual objective")
             opt.update(net.refinement, g)
             mx.eval(net.refinement.parameters(), opt.state)
@@ -237,6 +238,7 @@ def fit(net, tok, s, root, guard):
                     "sampled": len(data[2]),
                     "contrasts": len(data[-1]),
                     "losses": vals,
+                    "gradient_norm": grad_norm.item(),
                 }
             )
             state["sampled_targets"] += len(data[2])
