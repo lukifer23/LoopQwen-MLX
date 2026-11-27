@@ -1,0 +1,320 @@
+{
+  "historical_depth": [
+    [
+      "Induction, original panel",
+      "62/64",
+      "33/64",
+      "2.9802e-08"
+    ],
+    [
+      "Induction, fresh panel",
+      "62/64",
+      "25/64",
+      "1.4552e-11"
+    ],
+    [
+      "Typed public tool calls",
+      "17/22",
+      "18/22",
+      "1"
+    ],
+    [
+      "Four tool panels",
+      "112/132",
+      "108/132",
+      "0.3877"
+    ]
+  ],
+  "engine": "On the same release 05 weights, retaining every physical cache state while omitting unused intermediate hidden outputs reduced summed first-token time from 11.217 to 10.877 s (3.03%). All four counterbalanced pairs favored this path. Every generated token, 248,320-way first-logit vector and all 25 physical cache histories agreed bit for bit. Median round maximum fell by 15.8 MiB. Decoding measured 101.63 and 101.75 tokens/s. A prior numeric probe retained extra allocation in the last stock timing round, so its peak exaggerates the typical memory difference. All 64 timed runs were preserved. A serialization error required a separate untimed replay of the state fingerprints. This crossover uses the release backbone and does not amend timings of the preference-trained pair.",
+  "batch_errors": "On 10/16 package requests the loop proposed a batch that failed validation before any callback ran. 10 openings requested the nonexistent column \u201cPython\u201d. 3 openings included the correct call, which still earned no credit without the real observation. On 6/8 weekday openings it tried a calendar operation before receiving the date. 6/8 weekday conversations used every turn without a final answer.",
+  "dependent_success": "The registered ordered scorer counted 9 versus 0 correct schedule requests. Requiring the model to see the lookup return in its conversation before generating the calendar call gave 9 versus 0. Parallel calls written in one message cannot meet this additional requirement.",
+  "time_uncertainty": "Resampling whole sources within each of the four task strata 20,000 times gave a 95% interval of 3.82\u20135.69 for Base/loop total time and 0.971\u20131.025 for Base/loop first-token wait. This interval describes the measured source mix; it does not remove machine-order effects.",
+  "initial_choices": "With both full responses provided, the starting model preferred the correct calendar operation on 64/64 pairs. When the source-specific rationale was supplied, its package and schedule verdict margins favored the target on 140/140 and 128/128 pairs. The corresponding human-table verdict count was 163/384. These are conditional training measurements. The direct evaluation requires the model to generate its own reasoning and select every action.",
+  "deadlines": [
+    [
+      "0.5 s",
+      "11",
+      "0"
+    ],
+    [
+      "1 s",
+      "13",
+      "0"
+    ],
+    [
+      "2 s",
+      "37",
+      "0"
+    ],
+    [
+      "4 s",
+      "38",
+      "0"
+    ],
+    [
+      "8 s",
+      "38",
+      "12"
+    ],
+    [
+      "16 s",
+      "38",
+      "13"
+    ]
+  ],
+  "ballot_sensitivity": "Sixteen of the 36 file claims had at least one dissenting field-selection ballot. Requiring the majority field gave 12 versus 2 grounded answers. Accepting any fully satisfied individual in-table ballot gave 12 versus 2. Requiring three satisfied ballots gave 12 versus 2. All of a voter's selected fields must be retrieved, and the final verdict must still be correct.",
+  "abstract": "The loop grounded 25/72 human judgments versus 13/72 for Base. Across all 112 requests it grounded 38 versus 13 in 197.98 versus 918.79 seconds. The registered joint decision was fail.",
+  "humans": "The paired difference was +12 of 72 judgments. A two-sided exact sign-flip test over 12 whole tables gave p = 0.04688. The 95% table bootstrap interval was +4.2 to +29.2 percentage points.",
+  "families": [
+    [
+      "Inline human",
+      "13 / 31 / 36",
+      "11 / 20 / 36"
+    ],
+    [
+      "File human",
+      "12 / 20 / 36",
+      "2 / 17 / 36"
+    ],
+    [
+      "Python",
+      "0 / 0 / 16",
+      "0 / 0 / 16"
+    ],
+    [
+      "Schedule",
+      "9 / 10 / 16",
+      "0 / 3 / 16"
+    ],
+    [
+      "Retained",
+      "4 / 5 / 8",
+      "0 / 2 / 8"
+    ]
+  ],
+  "milestones": [
+    [
+      "Package compatibility",
+      "Trained loop",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "Package compatibility",
+      "Untouched Base",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "Calendar-dependent weekday",
+      "Trained loop",
+      "0",
+      "8",
+      "8",
+      "1"
+    ],
+    [
+      "Calendar-dependent weekday",
+      "Untouched Base",
+      "0",
+      "0",
+      "0",
+      "0"
+    ]
+  ],
+  "bylabel": [
+    [
+      "True",
+      "14",
+      "8"
+    ],
+    [
+      "False",
+      "8",
+      "3"
+    ],
+    [
+      "Uncertain",
+      "3",
+      "2"
+    ]
+  ],
+  "reviews": [
+    [
+      "Supported",
+      "8",
+      "1"
+    ],
+    [
+      "Partial",
+      "0",
+      "1"
+    ],
+    [
+      "Incorrect",
+      "4",
+      "1"
+    ],
+    [
+      "Absent",
+      "15",
+      "25"
+    ],
+    [
+      "Ambiguous",
+      "1",
+      "0"
+    ]
+  ],
+  "costs": [
+    [
+      "Completed requests",
+      "66",
+      "42"
+    ],
+    [
+      "Generated tokens",
+      "18331",
+      "62221"
+    ],
+    [
+      "Total wall time (s)",
+      "197.98",
+      "918.79"
+    ],
+    [
+      "Sum of first-token waits (s)",
+      "17.69",
+      "17.55"
+    ],
+    [
+      "Peak MLX allocation (GiB)",
+      "1.157",
+      "1.739"
+    ],
+    [
+      "Opening throughput (tokens/s)",
+      "2540.0",
+      "2560.4"
+    ],
+    [
+      "Decode throughput (tokens/s)",
+      "105.9",
+      "70.1"
+    ]
+  ],
+  "references": [
+    [
+      "field",
+      "460",
+      "6.39",
+      "386/460"
+    ],
+    [
+      "operation",
+      "64",
+      "4.38",
+      "64/64"
+    ],
+    [
+      "verdict",
+      "748",
+      "1.44",
+      "507/748"
+    ]
+  ],
+  "complete": [
+    [
+      "Human tables (of 12)",
+      "0",
+      "0"
+    ],
+    [
+      "Package pairs (of 8)",
+      "0",
+      "0"
+    ],
+    [
+      "Agenda pairs (of 8)",
+      "1",
+      "0"
+    ]
+  ],
+  "gates": "whole stories, user wheels, first s, opening tps, absolute accuracy, complete tables, practical calendar",
+  "fit": "The 800 updates used 3,200 preferred trajectories, 165,570 preferred tokens and 73,575 rejected tokens. Of the preferred tokens 16,170 were nonblank tokens preceding the reasoning close on verdict examples. Prefix and reference preparation took 591.8 s, optimization 380.4 s, and the training peak was 2.02 GiB.",
+  "source": "All 228 sampled human source claims and their ballots are preserved. Masking titles and numbers produced 0 exact held/training text matches. The maximum five-word shingle Jaccard similarity was 0.00.",
+  "sensitivity": [
+    [
+      "success",
+      "25",
+      "13"
+    ],
+    [
+      "bare",
+      "25",
+      "1"
+    ],
+    [
+      "final_sentence",
+      "25",
+      "13"
+    ]
+  ],
+  "trade": "The loop newly grounded 30 requests and lost 5 Base successes. On 7 newly correct requests it also reduced first-token wait, end-to-end time and peak allocation together.",
+  "costwins": [
+    [
+      "First token",
+      "21"
+    ],
+    [
+      "End to end",
+      "111"
+    ],
+    [
+      "Peak allocation",
+      "112"
+    ]
+  ],
+  "wheel": {
+    "question": "Consult the published interpreter constraint for \"tomlkit\" in the release manifest.",
+    "claim": "Claim: Python 3.7.17 is permitted by tomlkit 0.13.3.\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain.",
+    "expected": "Distribution \u2192 Requires-Python = >=3.8",
+    "actual": "No executed call",
+    "answer": "No completed answer",
+    "gold": "false"
+  },
+  "agenda": {
+    "question": "Use the agenda file and calendar service to check the scheduled weekday for \"Kernel support for Mobile Linux: The missing 20%\".",
+    "claim": "Claim: This session was scheduled on Saturday.\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain.",
+    "expected": "Session \u2192 Date = 2025-02-01, weekday_number(2025-02-01) = 6",
+    "actual": "Session \u2192 Date = 2025-02-01, weekday_number(2024-06-19) = 3, Session \u2192 Date = 2025-02-01, weekday_number(2025-02-01) = 6",
+    "answer": "No completed answer",
+    "gold": "true"
+  },
+  "projects": "zipp 3.21.0, tabulate 0.9.0, beautifulsoup4 4.13.4, pandas 2.2.3, Flask 3.1.1, anytree 2.12.1, tomlkit 0.13.3, SQLAlchemy 2.0.41",
+  "grounding": [
+    [
+      "file",
+      "8 / 3",
+      "6 / 0"
+    ],
+    [
+      "wheel",
+      "0 / 0",
+      "0 / 0"
+    ],
+    [
+      "agenda",
+      "0 / 0",
+      "0 / 0"
+    ]
+  ],
+  "dates": {
+    "2025-02-01": 6,
+    "2025-02-02": 2
+  }
+}

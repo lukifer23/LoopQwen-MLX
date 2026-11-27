@@ -75,7 +75,7 @@ def historical_evidence(current):
         xlim=(0, 100),
         ylim=(-0.75, len(panels) - 0.35),
     )
-    ax.legend(frameon=False, ncols=2, loc="upper right")
+    ax.legend(frameon=False, ncols=2, loc="lower center", bbox_to_anchor=(0.55, 1.005))
     figure(fig, "trajectory")
     depth = []
     for title, n, denom in (
@@ -327,6 +327,36 @@ def build():
         time_ci["base_over_loop_first"],
     )
     time_text = f"Resampling whole sources within each of the four task strata 20,000 times gave a 95% interval of {wall_range[0]:.2f}–{wall_range[1]:.2f} for Base/loop total time and {first_range[0]:.3f}–{first_range[1]:.3f} for Base/loop first-token wait. This interval describes the measured source mix; it does not remove machine-order effects."
+    batch = read("docs/measurements/valid-return-batches.json")["candidate"]["totals"]
+    package, weekday = batch["wheel"], batch["weekday"]
+    batch_text = (
+        f"On {package['batch_rejected']}/16 package requests the loop proposed a batch that failed validation before any callback ran. "
+        f"{package['proposed_nonexistent_python_column']} openings requested the nonexistent column “Python”. "
+        f"{package['contains_expected_first_call']} openings included the correct call, which still earned no credit without the real observation. "
+        f"On {weekday['guessed_calendar_before_date_return']}/8 weekday openings it tried a calendar operation before receiving the date. "
+        f"{weekday['all_turns_used_without_answer']}/8 weekday conversations used every turn without a final answer."
+    )
+    eng_root = Path("research/results/cache-state-prefill-01")
+    eng = read(eng_root / "decision.json")
+    timings = eng["totals"]
+    stock, lean = timings["stock"], timings["state"]
+    blocks = unpack(eng_root / "rounds.json.gz")
+    med = {
+        mode: np.median(
+            [
+                max(q["peak_bytes"] for q in b["items"])
+                for b in blocks
+                if b["mode"] == mode
+            ]
+        )
+        for mode in ("stock", "state")
+    }
+    engine_text = (
+        f"On the same release 05 weights, retaining every physical cache state while omitting unused intermediate hidden outputs reduced summed first-token time from {stock['first_s']:.3f} to {lean['first_s']:.3f} s ({100 * (1 - lean['first_s'] / stock['first_s']):.2f}%). All four counterbalanced pairs favored this path. "
+        f"Every generated token, 248,320-way first-logit vector and all 25 physical cache histories agreed bit for bit. Median round maximum fell by {(med['stock'] - med['state']) / 2**20:.1f} MiB. "
+        f"Decoding measured {stock['decode_tps']:.2f} and {lean['decode_tps']:.2f} tokens/s. A prior numeric probe retained extra allocation in the last stock timing round, so its peak exaggerates the typical memory difference. "
+        "All 64 timed runs were preserved. A serialization error required a separate untimed replay of the state fingerprints. This crossover uses the release backbone and does not amend timings of the preference-trained pair."
+    )
     depth = historical_evidence(decision)
     ballots = read("docs/measurements/valid-return-ballot-sensitivity.json")
     bt = [ballots[arm]["totals"] for arm in ARMS]
@@ -341,6 +371,8 @@ def build():
         P / "valid-return-paper.json",
         {
             "historical_depth": depth,
+            "engine": engine_text,
+            "batch_errors": batch_text,
             "dependent_success": (
                 f"The registered ordered scorer counted {analyses[0]['agenda']['success']} versus {analyses[1]['agenda']['success']} correct schedule requests. "
                 f"Requiring the model to see the lookup return in its conversation before generating the calendar call gave {analyses[0]['agenda']['turn_dependent_success']} versus {analyses[1]['agenda']['turn_dependent_success']}. "

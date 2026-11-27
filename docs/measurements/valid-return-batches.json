@@ -1,0 +1,1370 @@
+{
+  "candidate": {
+    "totals": {
+      "wheel": {
+        "first_batch": 12,
+        "batch_rejected": 10,
+        "contains_expected_first_call": 3,
+        "proposed_nonexistent_python_column": 10,
+        "guessed_calendar_before_date_return": 0,
+        "all_turns_used_without_answer": 2
+      },
+      "weekday": {
+        "first_batch": 6,
+        "batch_rejected": 0,
+        "contains_expected_first_call": 8,
+        "proposed_nonexistent_python_column": 0,
+        "guessed_calendar_before_date_return": 6,
+        "all_turns_used_without_answer": 6
+      }
+    },
+    "cases": [
+      {
+        "id": "2025-4836-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-0.csv",
+              "key_column": "Session",
+              "key": "Kernel support for Mobile Linux: The missing 20%",
+              "value_column": "Date"
+            }
+          },
+          {
+            "name": "weekday_number",
+            "arguments": {
+              "date": "2024-06-19"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "value": "2025-02-01"
+          },
+          {
+            "value": 3
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": true,
+        "batch_rejected": false,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": true,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "tomlkit-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "tomlkit",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "tomlkit",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-5859-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-1.csv",
+              "key_column": "Session",
+              "key": "Living the SBOM life - the good, the bad and the evil parts",
+              "value_column": "Date"
+            }
+          },
+          {
+            "name": "weekday_number",
+            "arguments": {
+              "date": "2023-06-19"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "value": "2025-02-01"
+          },
+          {
+            "value": 1
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": true,
+        "batch_rejected": false,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": true,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "tabulate-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [],
+        "opening_observations": [],
+        "status": "token_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "anytree-3.6.15",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "Python 3.6.15",
+              "value_column": "Distribution"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "Python 3.6.15",
+              "value_column": "Distribution"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          },
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": true,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "beautifulsoup4-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "beautifulsoup4",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "beautifulsoup4",
+              "value_column": "Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "tomlkit-3.8.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "tomlkit",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "tomlkit",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "tabulate-3.6.15",
+        "family": "wheel",
+        "proposed_opening": [],
+        "opening_observations": [],
+        "status": "token_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-4927-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-1.csv",
+              "key_column": "Session",
+              "key": "Tracking bulk builds in pkgsrc - from Cloud to NetBSD Native",
+              "value_column": "Date"
+            }
+          },
+          {
+            "name": "weekday_number",
+            "arguments": {
+              "date": "2023-06-19"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "value": "2025-02-01"
+          },
+          {
+            "value": 1
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": true,
+        "batch_rejected": false,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": true,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "2025-4899-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-0.csv",
+              "key_column": "Session",
+              "key": "The Small Device C Compiler targeting Z80, MOS 6502 and their derivatives",
+              "value_column": "Date"
+            }
+          },
+          {
+            "name": "weekday_number",
+            "arguments": {
+              "date": "2024-01-11"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "value": "2025-02-02"
+          },
+          {
+            "value": 4
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": true,
+        "batch_rejected": false,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": true,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "Flask-3.8.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "Flask",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "Flask",
+              "value_column": "Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-6311-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-0.csv",
+              "key_column": "Session",
+              "key": "Zephyr: Open Source Project Best Practices Over Time",
+              "value_column": "Date"
+            }
+          },
+          {
+            "name": "weekday_number",
+            "arguments": {
+              "date": "2023-06-19"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "value": "2025-02-01"
+          },
+          {
+            "value": 1
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": true,
+        "batch_rejected": false,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": true,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "SQLAlchemy-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "SQLAlchemy",
+              "value_column": "Python 3.7.17 is permitted by SQLAlchemy 2.0.41."
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "pandas-3.9.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "pandas",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "pandas",
+              "value_column": "Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "SQLAlchemy-3.6.15",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "SQLAlchemy",
+              "value_column": "Python 3.6.15 is permitted by SQLAlchemy 2.0.41."
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "anytree-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "Python 3.7.17",
+              "value_column": "Distribution"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "Python 3.7.17",
+              "value_column": "Distribution"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          },
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": true,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "zipp-3.8.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "zipp",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "zipp",
+              "value_column": "Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-6330-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-1.csv",
+              "key_column": "Session",
+              "key": "My Nix-Powered Homelab",
+              "value_column": "Date"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "value": "2025-02-01"
+          }
+        ],
+        "status": "answered",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-5559-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-0.csv",
+              "key_column": "Session",
+              "key": "Unleashing SuperNIC's Superpowers",
+              "value_column": "Date"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "value": "2025-02-02"
+          }
+        ],
+        "status": "answered",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "pandas-3.8.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "pandas",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "pandas",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "Flask-3.9.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "Flask",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "Flask",
+              "value_column": "Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "zipp-3.9.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "zipp",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "zipp",
+              "value_column": "Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-5180-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-1.csv",
+              "key_column": "Session",
+              "key": "wolfBoot: resilient, quantum-resistant secure boot for all architectures",
+              "value_column": "Date"
+            }
+          },
+          {
+            "name": "weekday_number",
+            "arguments": {
+              "date": "2024-10-17"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "value": "2025-02-01"
+          },
+          {
+            "value": 4
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": true,
+        "batch_rejected": false,
+        "contains_expected_first_call": true,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": true,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "beautifulsoup4-3.6.15",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "beautifulsoup4",
+              "value_column": "Python"
+            }
+          },
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Distribution",
+              "key": "beautifulsoup4",
+              "value_column": "Python"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": true,
+        "batch_rejected": true,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": true,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      }
+    ]
+  },
+  "control": {
+    "totals": {
+      "wheel": {
+        "first_batch": 0,
+        "batch_rejected": 0,
+        "contains_expected_first_call": 0,
+        "proposed_nonexistent_python_column": 0,
+        "guessed_calendar_before_date_return": 0,
+        "all_turns_used_without_answer": 6
+      },
+      "weekday": {
+        "first_batch": 0,
+        "batch_rejected": 0,
+        "contains_expected_first_call": 0,
+        "proposed_nonexistent_python_column": 0,
+        "guessed_calendar_before_date_return": 0,
+        "all_turns_used_without_answer": 2
+      }
+    },
+    "cases": [
+      {
+        "id": "2025-4836-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-0.csv",
+              "key_column": "Start",
+              "key": "Session",
+              "value_column": "Start"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "tomlkit-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "tomlkit",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "2025-5859-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "brussels-program-1.csv",
+              "key_column": "Start",
+              "key": "Session",
+              "value_column": "Start"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "tabulate-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "anytree-3.6.15",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "beautifulsoup4-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Requires-Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "tomlkit-3.8.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "tomlkit",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "tabulate-3.6.15",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-4927-weekday",
+        "family": "weekday",
+        "proposed_opening": [],
+        "opening_observations": [],
+        "status": "token_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-4899-weekday",
+        "family": "weekday",
+        "proposed_opening": [],
+        "opening_observations": [],
+        "status": "answered",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "Flask-3.8.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "token_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-6311-weekday",
+        "family": "weekday",
+        "proposed_opening": [],
+        "opening_observations": [],
+        "status": "token_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "SQLAlchemy-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "pandas-3.9.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Requires-Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "token_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "SQLAlchemy-3.6.15",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "anytree-3.7.17",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "token_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "zipp-3.8.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "token_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-6330-weekday",
+        "family": "weekday",
+        "proposed_opening": [],
+        "opening_observations": [],
+        "status": "answered",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "2025-5559-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "agenda",
+              "key_column": "Start",
+              "key": "Unleashing SuperNIC's Superpowers",
+              "value_column": "Start"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "pandas-3.8.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Requires-Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "Flask-3.9.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "zipp-3.9.20",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "turn_limit",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": true
+      },
+      {
+        "id": "2025-5180-weekday",
+        "family": "weekday",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "agenda",
+              "key_column": "Start",
+              "key": "wolfBoot: resilient, quantum-resistant secure boot for all architectures",
+              "value_column": "Start"
+            }
+          }
+        ],
+        "opening_observations": [],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      },
+      {
+        "id": "beautifulsoup4-3.6.15",
+        "family": "wheel",
+        "proposed_opening": [
+          {
+            "name": "csv_lookup",
+            "arguments": {
+              "document": "release-manifest.csv",
+              "key_column": "Requires-Python",
+              "key": "Requires-Python",
+              "value_column": "Requires-Python"
+            }
+          }
+        ],
+        "opening_observations": [
+          {
+            "error": "ValueError"
+          }
+        ],
+        "status": "invalid_call",
+        "first_batch": false,
+        "batch_rejected": false,
+        "contains_expected_first_call": false,
+        "proposed_nonexistent_python_column": false,
+        "guessed_calendar_before_date_return": false,
+        "all_turns_used_without_answer": false
+      }
+    ]
+  }
+}

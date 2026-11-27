@@ -221,6 +221,7 @@ def main(verify):
             ["scripts.valid_return_exposure"],
             ["scripts.valid_return_analysis", "report"],
             ["scripts.valid_return_ballots"],
+            ["scripts.valid_return_batches"],
             ["scripts.paper_valid_return"],
         ):
             subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)

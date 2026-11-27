@@ -1,0 +1,69 @@
+{
+  "weights": "78455d9df6b6bdd2f442f504c2d15452150dcad993987996577b173e920cc017",
+  "training": "485c5c528571b170eb10996471f84746a5f605b0f45803462948365446740ea7",
+  "views": "ce589595e8f6e7700155fefe38e54ab85b5f3dad1dd6f648649396b9f8630cd7",
+  "reference": "ddf4046997f03df417da4edff91f886de2caf5ea25e27b1003794fd81e10b363",
+  "reference_pairs": 1272,
+  "passes": 2,
+  "trainable": 802816,
+  "turns": 3132,
+  "targets": 165570,
+  "explanation_targets": 16170,
+  "rejected_tokens": 73575,
+  "updates": 800,
+  "draws": {
+    "field.human": 243,
+    "verdict.human": 213,
+    "repair.human": 267,
+    "rehearsal.retention": 800,
+    "field.package": 207,
+    "verdict.rationale": 194,
+    "repair.package": 264,
+    "verdict.agenda": 195,
+    "repair.agenda": 269,
+    "operation.agenda": 127,
+    "verdict.package": 198,
+    "field.agenda": 223
+  },
+  "loss": [
+    {
+      "step": 1,
+      "loss": 0.6380679589509964
+    },
+    {
+      "step": 100,
+      "loss": 0.24260485214181243
+    },
+    {
+      "step": 200,
+      "loss": 0.07149531343020497
+    },
+    {
+      "step": 300,
+      "loss": 0.6848579263780266
+    },
+    {
+      "step": 400,
+      "loss": 0.03227236139937304
+    },
+    {
+      "step": 500,
+      "loss": 0.2677710334584117
+    },
+    {
+      "step": 600,
+      "loss": 0.023579253200441595
+    },
+    {
+      "step": 700,
+      "loss": 0.018129543866962198
+    },
+    {
+      "step": 800,
+      "loss": 0.2206115582026541
+    }
+  ],
+  "prepare_seconds": 591.8262697500177,
+  "optimizer_seconds": 380.3820646670065,
+  "peak": 2164986488
+}

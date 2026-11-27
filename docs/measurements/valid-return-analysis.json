@@ -1,0 +1,304 @@
+{
+  "human_net": 12,
+  "timing_intervals": {
+    "unit_counts": {
+      "agenda": 8,
+      "human": 12,
+      "wheel": 8,
+      "retention": 8
+    },
+    "base_over_loop_wall": [
+      3.8207938241546087,
+      5.685015862418297
+    ],
+    "base_over_loop_first": [
+      0.9708635752501654,
+      1.0245913225426915
+    ]
+  },
+  "human_cluster_interval": [
+    0.041666666666666664,
+    0.2916666666666667
+  ],
+  "lost": [
+    "8eac8554cc1c6a22-inline",
+    "ad3d90c00d76b62b-inline",
+    "7f34d055edc79482-inline",
+    "38f6a9dcd06c2b04-inline",
+    "d94093593f016ce9-inline"
+  ],
+  "gained": [
+    "a36cc3db67ecddcd-file",
+    "ad3d90c00d76b62b-file",
+    "2025-6311-room",
+    "659985205f88b70f-inline",
+    "0e0662d755cc6799-inline",
+    "659985205f88b70f-file",
+    "d94093593f016ce9-file",
+    "2025-4927-room",
+    "2025-5180-room",
+    "151c75d01e42218c-inline",
+    "2c79e617eaf82d09-file",
+    "2025-6330-weekday",
+    "2025-5559-room",
+    "wiki-test-3024",
+    "2025-4836-room",
+    "wiki-test-2848",
+    "2025-5859-room",
+    "7c911e5d43a427c6-file",
+    "2025-4899-room",
+    "2025-6330-room",
+    "86e6ae7c022ee50c-file",
+    "8aee60adaf6fa2b3-file",
+    "wiki-test-14571",
+    "b2001f608ba1e69f-inline",
+    "4fe64cce147e519b-inline",
+    "5e0614aa59664f26-inline",
+    "6bb8a27dd1f1e7a7-inline",
+    "dbfce3efecefb41a-file",
+    "wiki-test-6941",
+    "15759e9d4ca44b0c-file"
+  ],
+  "arms": {
+    "candidate": {
+      "inline": {
+        "success": 13,
+        "complete": 31,
+        "first_exact": 0,
+        "first_valid_wrong": 0,
+        "recovered": 0,
+        "grounded_sequence": 0,
+        "turn_dependent_grounding": 0,
+        "turn_dependent_success": 13,
+        "first_milestone": 0,
+        "last_milestone": 0,
+        "bare": 13,
+        "final_sentence": 13,
+        "opening": {
+          "n/a": 36
+        }
+      },
+      "file": {
+        "success": 12,
+        "complete": 20,
+        "first_exact": 19,
+        "first_valid_wrong": 8,
+        "recovered": 3,
+        "grounded_sequence": 23,
+        "turn_dependent_grounding": 23,
+        "turn_dependent_success": 12,
+        "first_milestone": 23,
+        "last_milestone": 23,
+        "bare": 12,
+        "final_sentence": 12,
+        "opening": {
+          "exact": 19,
+          "other return field": 8,
+          "other": 4,
+          "none": 4,
+          "swapped": 1
+        }
+      },
+      "wheel": {
+        "success": 0,
+        "complete": 0,
+        "first_exact": 0,
+        "first_valid_wrong": 0,
+        "recovered": 0,
+        "grounded_sequence": 0,
+        "turn_dependent_grounding": 0,
+        "turn_dependent_success": 0,
+        "first_milestone": 0,
+        "last_milestone": 0,
+        "bare": 0,
+        "final_sentence": 0,
+        "opening": {
+          "none": 14,
+          "other": 2
+        }
+      },
+      "agenda": {
+        "success": 9,
+        "complete": 10,
+        "first_exact": 16,
+        "first_valid_wrong": 0,
+        "recovered": 0,
+        "grounded_sequence": 16,
+        "turn_dependent_grounding": 16,
+        "turn_dependent_success": 9,
+        "first_milestone": 16,
+        "last_milestone": 16,
+        "bare": 9,
+        "final_sentence": 9,
+        "opening": {
+          "exact": 16
+        }
+      },
+      "retention": {
+        "success": 4,
+        "complete": 5,
+        "first_exact": 0,
+        "first_valid_wrong": 0,
+        "recovered": 0,
+        "grounded_sequence": 0,
+        "turn_dependent_grounding": 0,
+        "turn_dependent_success": 4,
+        "first_milestone": 0,
+        "last_milestone": 0,
+        "bare": 0,
+        "final_sentence": 0,
+        "opening": {
+          "n/a": 8
+        }
+      },
+      "rating": {
+        "ambiguous": 1,
+        "absent": 15,
+        "supported": 8,
+        "incorrect": 4
+      },
+      "human_confusion": {
+        "true": {
+          "true": 14,
+          "false": 1,
+          "none": 7,
+          "uncertain": 2
+        },
+        "false": {
+          "false": 9,
+          "true": 10,
+          "none": 4,
+          "uncertain": 1
+        },
+        "uncertain": {
+          "true": 11,
+          "none": 10,
+          "uncertain": 3
+        }
+      }
+    },
+    "control": {
+      "inline": {
+        "success": 11,
+        "complete": 20,
+        "first_exact": 0,
+        "first_valid_wrong": 0,
+        "recovered": 0,
+        "grounded_sequence": 0,
+        "turn_dependent_grounding": 0,
+        "turn_dependent_success": 11,
+        "first_milestone": 0,
+        "last_milestone": 0,
+        "bare": 1,
+        "final_sentence": 11,
+        "opening": {
+          "n/a": 36
+        }
+      },
+      "file": {
+        "success": 2,
+        "complete": 17,
+        "first_exact": 3,
+        "first_valid_wrong": 6,
+        "recovered": 0,
+        "grounded_sequence": 4,
+        "turn_dependent_grounding": 4,
+        "turn_dependent_success": 2,
+        "first_milestone": 4,
+        "last_milestone": 4,
+        "bare": 0,
+        "final_sentence": 2,
+        "opening": {
+          "exact": 3,
+          "none": 12,
+          "other return field": 6,
+          "other": 14,
+          "swapped": 1
+        }
+      },
+      "wheel": {
+        "success": 0,
+        "complete": 0,
+        "first_exact": 0,
+        "first_valid_wrong": 0,
+        "recovered": 0,
+        "grounded_sequence": 0,
+        "turn_dependent_grounding": 0,
+        "turn_dependent_success": 0,
+        "first_milestone": 0,
+        "last_milestone": 0,
+        "bare": 0,
+        "final_sentence": 0,
+        "opening": {
+          "other": 16
+        }
+      },
+      "agenda": {
+        "success": 0,
+        "complete": 3,
+        "first_exact": 0,
+        "first_valid_wrong": 0,
+        "recovered": 0,
+        "grounded_sequence": 0,
+        "turn_dependent_grounding": 0,
+        "turn_dependent_success": 0,
+        "first_milestone": 0,
+        "last_milestone": 0,
+        "bare": 0,
+        "final_sentence": 0,
+        "opening": {
+          "other": 6,
+          "none": 10
+        }
+      },
+      "retention": {
+        "success": 0,
+        "complete": 2,
+        "first_exact": 0,
+        "first_valid_wrong": 0,
+        "recovered": 0,
+        "grounded_sequence": 0,
+        "turn_dependent_grounding": 0,
+        "turn_dependent_success": 0,
+        "first_milestone": 0,
+        "last_milestone": 0,
+        "bare": 0,
+        "final_sentence": 0,
+        "opening": {
+          "n/a": 8
+        }
+      },
+      "rating": {
+        "incorrect": 1,
+        "absent": 25,
+        "partial": 1,
+        "supported": 1
+      },
+      "human_confusion": {
+        "true": {
+          "true": 9,
+          "none": 15
+        },
+        "false": {
+          "none": 20,
+          "false": 3,
+          "uncertain": 1
+        },
+        "uncertain": {
+          "none": 21,
+          "uncertain": 2,
+          "true": 1
+        }
+      }
+    }
+  },
+  "jointly_faster_gains": [
+    "2c79e617eaf82d09-file",
+    "2025-6330-weekday",
+    "wiki-test-2848",
+    "7c911e5d43a427c6-file",
+    "b2001f608ba1e69f-inline",
+    "4fe64cce147e519b-inline",
+    "15759e9d4ca44b0c-file"
+  ]
+}

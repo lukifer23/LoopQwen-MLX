@@ -1,0 +1,229 @@
+{
+  "passed": false,
+  "gates": {
+    "story_accuracy": true,
+    "whole_stories": false,
+    "inline": true,
+    "file": true,
+    "each_label": true,
+    "user_wheels": false,
+    "table_retention": true,
+    "reasoning": true,
+    "completion": true,
+    "wall_s": true,
+    "first_s": false,
+    "peak": true,
+    "opening_tps": false,
+    "decode_tps": true,
+    "absolute_accuracy": false,
+    "complete_tables": false,
+    "practical_calendar": false,
+    "schedule_completion": true
+  },
+  "arms": {
+    "candidate": {
+      "groups": {
+        "all": {
+          "dialogues": 112,
+          "strict": 38,
+          "requests": 112,
+          "answers": 39,
+          "grounded": 38,
+          "completed": 66,
+          "wall_s": 197.97888121311553,
+          "first_s": 17.690365041897167,
+          "peak": 1242669540,
+          "output_tokens": 18331
+        },
+        "inline": {
+          "dialogues": 36,
+          "strict": 13,
+          "requests": 36,
+          "answers": 13,
+          "grounded": 13,
+          "completed": 31,
+          "wall_s": 35.029860711074434,
+          "first_s": 2.883682377054356,
+          "peak": 1184627692,
+          "output_tokens": 3458
+        },
+        "file": {
+          "dialogues": 36,
+          "strict": 12,
+          "requests": 36,
+          "answers": 13,
+          "grounded": 12,
+          "completed": 20,
+          "wall_s": 85.20465199917089,
+          "first_s": 6.579069245955907,
+          "peak": 1242669540,
+          "output_tokens": 7847
+        },
+        "wheel": {
+          "dialogues": 16,
+          "strict": 0,
+          "requests": 16,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 32.428082251921296,
+          "first_s": 2.6202349169761874,
+          "peak": 1215685092,
+          "output_tokens": 3128
+        },
+        "retention": {
+          "dialogues": 8,
+          "strict": 4,
+          "requests": 8,
+          "answers": 4,
+          "grounded": 4,
+          "completed": 5,
+          "wall_s": 14.308855206996668,
+          "first_s": 1.292225291079376,
+          "peak": 1211349996,
+          "output_tokens": 1300
+        },
+        "agenda": {
+          "dialogues": 16,
+          "strict": 9,
+          "requests": 16,
+          "answers": 9,
+          "grounded": 9,
+          "completed": 10,
+          "wall_s": 31.007431043952238,
+          "first_s": 4.31515321083134,
+          "peak": 1210610952,
+          "output_tokens": 2598
+        }
+      },
+      "whole_stories": 0,
+      "wheel_pairs": 0,
+      "by_label": {
+        "false": 8,
+        "true": 14,
+        "uncertain": 3
+      },
+      "reasoning": {
+        "completed": 51,
+        "nontrivial": 50
+      },
+      "opening_tps": 2539.970198104021,
+      "decode_tps": 105.86177368514161,
+      "agenda_pairs": 1,
+      "agenda_kinds": {
+        "weekday": 1,
+        "room": 8
+      }
+    },
+    "control": {
+      "groups": {
+        "all": {
+          "dialogues": 112,
+          "strict": 13,
+          "requests": 112,
+          "answers": 14,
+          "grounded": 13,
+          "completed": 42,
+          "wall_s": 918.7862185402191,
+          "first_s": 17.549264997476712,
+          "peak": 1867387866,
+          "output_tokens": 62221
+        },
+        "inline": {
+          "dialogues": 36,
+          "strict": 11,
+          "requests": 36,
+          "answers": 11,
+          "grounded": 11,
+          "completed": 20,
+          "wall_s": 222.7003169551026,
+          "first_s": 2.8735010811360553,
+          "peak": 1804651482,
+          "output_tokens": 15510
+        },
+        "file": {
+          "dialogues": 36,
+          "strict": 2,
+          "requests": 36,
+          "answers": 3,
+          "grounded": 2,
+          "completed": 17,
+          "wall_s": 294.1027284609736,
+          "first_s": 6.406885712174699,
+          "peak": 1852035034,
+          "output_tokens": 19747
+        },
+        "wheel": {
+          "dialogues": 16,
+          "strict": 0,
+          "requests": 16,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 192.75747125112684,
+          "first_s": 2.507073081098497,
+          "peak": 1852264410,
+          "output_tokens": 12957
+        },
+        "retention": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 2,
+          "wall_s": 78.54588924907148,
+          "first_s": 1.2482690410106443,
+          "peak": 1867387866,
+          "output_tokens": 5310
+        },
+        "agenda": {
+          "dialogues": 16,
+          "strict": 0,
+          "requests": 16,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 3,
+          "wall_s": 130.6798126239446,
+          "first_s": 4.513536082056817,
+          "peak": 1846685658,
+          "output_tokens": 8697
+        }
+      },
+      "whole_stories": 0,
+      "wheel_pairs": 0,
+      "by_label": {
+        "false": 3,
+        "true": 8,
+        "uncertain": 2
+      },
+      "reasoning": {
+        "completed": 37,
+        "nontrivial": 37
+      },
+      "opening_tps": 2560.3921307508094,
+      "decode_tps": 70.10045755637829,
+      "agenda_pairs": 0,
+      "agenda_kinds": {
+        "weekday": 0,
+        "room": 0
+      }
+    }
+  },
+  "paired_story_differences": [
+    0,
+    1,
+    3,
+    2,
+    1,
+    1,
+    -1,
+    3,
+    -1,
+    0,
+    2,
+    1
+  ],
+  "net": 12,
+  "exact_story_p": 0.046875
+}

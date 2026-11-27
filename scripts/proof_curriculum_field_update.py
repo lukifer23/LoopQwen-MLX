@@ -83,6 +83,7 @@ VALID = Edition(
         ("valid_return_exposure", ()),
         ("valid_return_analysis", ("report",)),
         ("valid_return_ballots", ()),
+        ("valid_return_batches", ()),
         ("paper_valid_return", ()),
     ),
 )

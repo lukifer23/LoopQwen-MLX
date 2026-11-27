@@ -80,6 +80,8 @@ The gates require at least 30 grounded human judgments, 12 net gains, exact pair
 
 #m.dependent_success
 
+#m.batch_errors
+
 #grid(("Family","Loop · valid wrong / recovered","Base · valid wrong / recovered"),m.grounding,(.85fr,1.6fr,1.6fr))
 #cap[Recovery requires that the full expected sequence eventually appears after a successful irrelevant first return. A later correct final label can still be lost if the sequence is incomplete.]
 
@@ -118,6 +120,9 @@ The archived registration binds the data, starting policy, decision thresholds a
 = A correct response within the user’s time budget
 #grid(("Deadline per request","Loop · correct by deadline","Base · correct by deadline"),m.deadlines,(1.05fr,1.55fr,1.55fr))
 #cap[All 112 requests remain in each denominator. Success requires the registered final answer and actual ordered evidence. A fast invalid call earns zero. The measured clock starts before constructing the actor on its first item and before each user conversation thereafter. Breakpoints are descriptive; the original registered decision uses the complete streams.]
+
+= Same-weight opening-time improvement
+#m.engine
 
 = Relation to recurrent language models
 Geiping and colleagues trained a recurrent-depth model to refine latent states over varying numbers of iterations. Chen and colleagues reused a frozen middle block with damped updates and found task-dependent improvements across pretrained architectures. Our study trains a small shared update at the final layer and tests a fixed two-visit execution schedule. The matched induction and tool experiments above illustrate why results from other architectures, depths and languages do not establish a causal gain for this particular retrofit. [7–8]

@@ -2,6 +2,12 @@
 
 | Measured capability | Trained loop | Untouched Base | Weights |
 | --- | ---: | ---: | --- |
+| Human ordinary-domain table judgments | 25/72 | 13/72 | Valid-return preferences, K=2 |
+| Grounded conference room / weekday decisions | 8/8 / 1/8 | 0/8 / 0/8 | Valid-return preferences, K=2 |
+| Correct ordered date and calendar returns | 8/8 | 0/8 | Valid-return preferences, K=2 |
+| Grounded Python compatibility | 0/16 | 0/16 | Valid-return preferences, K=2 |
+| Complete time, same 112 requests | 197.98 s | 918.79 s | Valid-return preferences, K=2 |
+| Summed first-token wait | 17.69 s | 17.55 s | Valid-return preferences, K=2 |
 | Human cross-domain table judgments | 25/72 | 4/72 | Field selection, K=2 |
 | Complete six-judgment tables | 0/12 | 0/12 | Field selection, K=2 |
 | Grounded Python compatibility | 0/16 | 0/16 | Field selection, K=2 |
