@@ -26,6 +26,7 @@ from scripts.register_repair_query import (
 from scripts.table_policy_reading import committed
 
 P = Path("paper")
+STAGED = "staged-query-transfer-01"
 
 
 def category(group):
@@ -61,6 +62,8 @@ def stage(name):
     committed(root / "checksums.json")
     if name == PRIMARY and (root / "control.json.gz").is_file():
         committed(DOC / "repair-query-reading.json")
+    if name == STAGED and (root / "control.json.gz").is_file():
+        committed(DOC / "staged-query-reading.json")
     jobs = [
         r
         for path in Path("research/sessions").glob("window-*.json")
@@ -168,7 +171,7 @@ def depth_effects(probes, expected):
 
 
 def collect():
-    stages = [r for n in (FEATURES, FIT, PRIMARY) if (r := stage(n))]
+    stages = [r for n in (FEATURES, FIT, PRIMARY, STAGED) if (r := stage(n))]
     if not stages:
         raise ValueError("At least one closed native stage is required for this paper")
     inv = read(ROOT / "verified-inventory.json")
@@ -232,8 +235,12 @@ def collect():
             read(fitroot / "probes.json"),
             stages[1]["decision"]["mean_second_visit_gain"],
         )
-    primary = RESULT / PRIMARY
-    if len(stages) == 3 and (primary / "control.json.gz").exists():
+    proof = DOC / "staged-query-memory.json"
+    if proof.is_file():
+        committed(proof)
+        out["staging_proof"] = read(proof)
+    primary = RESULT / (STAGED if len(stages) == 4 else PRIMARY)
+    if len(stages) >= 3 and (primary / "control.json.gz").exists():
         panel = unpack(PANEL)["rows"]
         runs = [
             unpack(primary / (name + ".json.gz")) for name in ("candidate", "control")
@@ -269,7 +276,8 @@ def collect():
                 )
             rows.append(row)
         write_csv(P / "repair-query-requests.csv", rows)
-        out["reading"] = read(DOC / "repair-query-reading.json")
+        prefix = "staged-query" if primary.name == STAGED else "repair-query"
+        out["reading"] = read(DOC / (prefix + "-reading.json"))
     return out
 
 

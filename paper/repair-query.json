@@ -155,6 +155,21 @@
         "native_seconds": 21.9671189590008,
         "peak_bytes": 1612587884
       }
+    },
+    {
+      "stage": "repair-query-transfer-01",
+      "decision": {
+        "passed": false,
+        "status": "interrupted",
+        "reason": "System memory pressure level 2, 3.65 GiB available (floor 1.5 GiB)",
+        "durable": {
+          "candidate": 5
+        }
+      },
+      "seconds": 102.27671575546265,
+      "peak": 2.18419629894197,
+      "budget": 4380,
+      "sha256": "7ff0da160260918e1a1a8bbcf81a46d0e71388f339212c5b7926db5f7867da96"
     }
   ],
   "groups": {
@@ -194,7 +209,7 @@
   "positions": 302515,
   "citations": 2161,
   "opening": 4677648,
-  "stages_done": 2,
+  "stages_done": 3,
   "panel": "132f4ee00f1a8605399499517cf0f9ebed672aa5d74b8dbd51c1b51afcb92ad9",
   "panel_check": "c3fbcb6492904a94bdf7bdad25b9e0ab33ed6f8f018e2d2ee0bfd2c8437cbe01",
   "precision": "f514acb737510497fab74ca856ae636ccb929538ea766bc30b94453d80bc66c1",

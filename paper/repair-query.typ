@@ -96,10 +96,32 @@ The two visits share all parameters. Query and content corrections have rank 160
   An independent process rebuilt the input features, loaded the archived weights and repeated the one-read and two-read paths, along with the original initialization. It reproduced all eight training decisions. The largest absolute difference across the restored response losses, teacher KL and citation losses was #fmt(calc.max(..c.max_errors_by_state.values().map(x=>calc.max(..x.values()))),n:8). It also independently counted all 6,394 distinct complete examples in each epoch.
  ]
 ]
+#if d.stages_done >= 3 and d.stages.at(2).decision.at("status", default: "") == "interrupted" [
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Running the complete documents on 18 GiB of unified memory])
+
+ The first paired attempt completed five short loop requests. During the sixth request, a 152,185-token opening, macOS reported system memory pressure level 2 with 3.65 GiB available. The native worker stopped after #fmt(d.stages.at(2).seconds) seconds at a peak MLX allocation of #fmt(d.stages.at(2).peak) GiB. The untouched Base arm had yet to run. The archive preserves the unfinished comparison and its cost. It yields no paired task score.
+
+ *Storage change.* A separate implementation processes consecutive layers with one full attention memory resident per group. It retains every activation using its original 16-bit representation. An immutable copy of each completed layer’s keys and values moves to a request-local file. On each generated token the decoder restores that prefix, appends the new keys and values and executes the ordinary Qwen block. At the final layer the loop executes both learned reads against the complete evidence. Earlier long-context experiments with another model had measured a memory saving and a latency cost from staging. We record both quantities again with the trained two-read model.
+
+ #if "staging_proof" in d [
+  #let e=d.staging_proof
+  *Independent qualification.* The engineering run lasted #fmt(e.native_seconds) seconds with a peak of #fmt(e.peak_bytes/1073741824) GiB. It recorded #e.short.len() ordinary or recurrent prompt comparisons, each with four successive full-vocabulary outputs under both storage paths.
+
+  #if e.passed [
+   Every greedy token decision matched. The maximum absolute logit difference was #fmt(calc.max(..e.short.map(x=>calc.max(..x.errors))),n:6). The original #(e.long.prompt)-token lockfile then produced four output positions with #e.long.read_only_visits physical recurrent reads. All six attention histories retained every preceding token. Time to first output was #fmt(e.long.first_s) seconds. Temporary files occupied #fmt(e.long.scratch_bytes/1073741824) GiB at peak. This trial measures full-context execution and numerical fidelity. The source-answer test uses the four original full-length documents.
+  ] else [
+   The registered engineering prerequisite stopped with “#e.reason.”
+  ]
+ ]
+ #if d.stages_done == 4 and d.stages.last().decision.at("status",default:"") == "interrupted" [
+  The second attempt also stopped. Its recorded reason was “#d.stages.last().decision.reason.” The archive records the completed prefixes for each arm without extrapolating to the remaining questions.
+ ]
+]
 #if "reading" in d [
  #pagebreak()
  #text(size:19pt,weight:"bold")[Held product comparison]
- #let r=d.stages.at(2).decision
+ #let r=d.stages.last().decision
  #let t=r.costs
  #tbl((1fr,1fr,1fr,1fr,1fr),("Family","Requests","Loop / Base","Gains / losses","Paired p"),r.counts.pairs().map(pair=>{
    let val=pair.at(1)
