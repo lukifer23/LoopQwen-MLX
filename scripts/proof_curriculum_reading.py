@@ -130,6 +130,10 @@ def extract(root=STUDY):
             fields = {k: score[k] for k in ("success", "correct_answer", "completed")}
             fields.update(
                 verdict=score.get("verdict"),
+                status=tr["status"],
+                capped=any(
+                    len(t["token_ids"]) == spec["max_tokens"] for t in tr["turns"]
+                ),
                 observed=observed,
                 reasoning=raw_thought,
                 answer=answer,
@@ -226,6 +230,29 @@ def report(records):
                     get(r, "grounded_supported") for r in decisive
                 ),
             }
+            clean = [
+                r for r in judged if r["candidate_completed"] and r["control_completed"]
+            ]
+            info[arm]["jointly_completed"] = len(clean)
+            info[arm]["grounded_when_both_complete"] = sum(
+                get(r, "success") for r in clean
+            )
+            info[arm]["confusion"] = {
+                gold: dict(
+                    Counter(
+                        get(r, "verdict") or "no verdict"
+                        for r in judged
+                        if r["gold"] == gold
+                    )
+                )
+                for gold in LABELS
+            }
+            info[arm]["capped"] = sum(get(r, "capped") for r in judged)
+            info[arm]["three_different_verdicts"] = sum(
+                {get(r, "verdict") for r in rs if r["family"] == family} == set(LABELS)
+                for rs in groups.values()
+                for family in ("inline", "file")
+            )
         outcomes[cohort] = info
     return outcomes
 

@@ -127,6 +127,41 @@ def build():
     fig.savefig(P / "proof-curriculum-costs.svg", metadata={"Date": None})
     plt.close(fig)
 
+    from matplotlib.colors import Normalize
+
+    predictions = ("true", "false", "uncertain", "no verdict")
+    fig, axes = plt.subplots(1, 2, figsize=(7.65, 2.85), layout="constrained")
+    for ax, arm, name in zip(axes, ARMS, NAMES, strict=True):
+        counts = by["all"][arm]["confusion"]
+        nums = np.array(
+            [[counts[g].get(p, 0) for p in predictions] for g in predictions[:3]]
+        )
+        assert np.all(nums.sum(axis=1) == 24)
+        ax.imshow(nums, norm=Normalize(0, 24), cmap="GnBu", aspect="auto")
+        for y, x in np.ndindex(nums.shape):
+            ax.text(
+                x,
+                y,
+                str(nums[y, x]),
+                ha="center",
+                va="center",
+                color="white" if nums[y, x] >= 15 else "#112e35",
+            )
+        ax.set(
+            xticks=range(4),
+            xticklabels=["True", "False", "Uncertain", "None"],
+            yticks=range(3),
+            yticklabels=["True", "False", "Uncertain"],
+            title=name,
+            xlabel="Emitted verdict",
+            ylabel="Published verdict",
+        )
+        ax.tick_params(axis="both", which="both", length=0)
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+    fig.savefig(P / "proof-curriculum-confusion.svg", metadata={"Date": None})
+    plt.close(fig)
+
     def pair(field):
         return [arms[k]["groups"]["all"][field] for k in ARMS]
 
@@ -198,6 +233,7 @@ def build():
         ],
         "example": f"The first enrolled practical request asked whether {chosen['questions'][0].split('Claim: ')[1].split(chr(10))[0]} The published field was {chosen['observation']['value']}. The reference verdict was {chosen['gold']}. The loop’s completed verdict was {example['candidate_verdict'] or 'unavailable'} and Base’s was {example['control_verdict'] or 'unavailable'}.",
         "training": fit["weights"],
+        "completion_analysis": f"Both arms completed {get('candidate', 'jointly_completed')}/72 logical judgments. On that selected subset the loop grounded {get('candidate', 'grounded_when_both_complete')} and Base {get('control', 'grounded_when_both_complete')}. At least one turn reached the allowance on {get('candidate', 'capped')} loop requests and {get('control', 'capped')} Base requests. Among 24 story/view groups, the loop emitted all three distinct verdicts in {get('candidate', 'three_different_verdicts')} groups and Base in {get('control', 'three_different_verdicts')}.",
         "context": "Release 05 separately retrieved both changed keys with 131,084 actual prompt tokens. The physical long-context result belongs to that qualified release. The present proof-supervised checkpoint has its own acceptance and verification record.",
     }
     save(P / "proof-curriculum-paper.json", data)

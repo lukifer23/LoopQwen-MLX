@@ -49,8 +49,18 @@ Each of 12 held FOLIO stories contains three human conclusions with different ve
 #matrix(m.ratings)
 
 #pagebreak()
-= Practical performance
+= Which judgments did the models actually make?
+#figure(image("proof-curriculum-confusion.svg",width:100%),caption:[All 72 human logic requests per arm. Rows preserve the 24 enrolled instances of each published verdict, counting both delivery modes. A missing or unrecognized final verdict stays in the “None” column. This display describes the verdict content even if a file lookup failed. The primary endpoint also requires the correct observation.])
+
+#m.completion_analysis Both arms receive exactly the same output allowance. An incomplete or unsupported reply is a failure for the primary intention-to-evaluate analysis. Restricting to requests both completed changes the population and gives a descriptive check on the role of truncation.
+
+The three conclusions for a single story share the same premises. A model can recognize a topic and repeatedly return a plausible label. The 24 story/view groups expose that shortcut. Emitting all three different labels is necessary to answer the triplet correctly. The order of those labels still has to match the actual three conclusions. The raw CSV preserves the question, source record and model text for each cell.
+
+= Practical behavior
 #m.evidence #m.example
+
+#pagebreak()
+= Practical performance
 
 #figure(image("proof-curriculum-costs.svg",width:100%),caption:[Left, actual elapsed time accumulated in deployment order. Right, first-token wait for each of the 96 user requests, including cold initialization on the first item. All tool calls, returned observations and subsequent generation count toward request wall time.])
 

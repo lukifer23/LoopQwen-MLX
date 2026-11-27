@@ -1,0 +1,7 @@
+{
+  "claim": "Does the learned repeated visit move conditional support toward the correct verdict at a real generated answer boundary?",
+  "population": "The 88 enrolled logic and practical requests on the trained model. Analyze every completed final turn containing a closed reasoning field and a subsequent nonblank answer token. Record exclusions with their reason. Published gold enters only the computation of a post-hoc contrast. No parameters, decisions or prompts change.",
+  "measurement": "Use the exact archived conversational prompt and generated prefix up to the first nonblank visible answer token. Perform one ordinary unmodified two-visit forward on that prompt and record both visit exits with native observers. Project both through the same final normalization and vocabulary matrix. Compute gold leading-token logit minus logsumexp of the other two canonical leading tokens. Compare this quantity between visits and report the fraction reaching the 0.25-nat training margin. Disclose actual emitted vs replay argmax agreement, since single-block prefill may differ in rounding from cached incremental decoding. No answer generation, extra benchmark arm or matched K1 fit.",
+  "limits": {"wall_seconds": 180, "peak_gib": 4},
+  "status": "Descriptive mechanism diagnostic, frozen during the blind primary stream. No promotion decision depends on this readout."
+}
