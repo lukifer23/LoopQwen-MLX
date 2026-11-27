@@ -1,0 +1,658 @@
+{
+  "registration_sha256": "e8271423f9bd4aa507fd33473bd296287432f5f525405812c657dbe2b03487c6",
+  "source_sha256": {
+    "quoref": "aacde0863c04ba6e9ab46995ea844a5b0c6cea58a77ab6fd86a128e33a3ad8fb",
+    "squad": "3527663986b8295af4f7fcdff1ba1ff3f72d07d61a20f487cb238a6ef92fd955"
+  },
+  "training_articles": 192,
+  "test_articles": 20,
+  "source_questions": 40,
+  "questions_containing_their_answer": 0,
+  "max_passage_five_word_jaccard": 0.00267379679144385,
+  "caller_headers": {
+    "title / passage": 10,
+    "entry / text": 10
+  },
+  "articles": [
+    {
+      "page": "Saving Silverman",
+      "url": "https://en.wikipedia.org/wiki/Saving_Silverman",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "416d577258b541b1d4ffa9c66cb0e806a9d83780",
+          "question": "What is the first name of the person who suggests non-penetrative sex as alternative?",
+          "gold": "Judith",
+          "reference_in_question": false,
+          "relative_answer_start": 0.23812249570692615,
+          "occurrences_in_passage": 9,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "5c721577aa507ac2680d9bc253a9cafd2e5b553e",
+          "question": "What are the first names of the people who visit someone in jail?",
+          "gold": "Wayne and J.D",
+          "reference_in_question": false,
+          "relative_answer_start": 0.6639954207212364,
+          "occurrences_in_passage": 2,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Park Row (film)",
+      "url": "https://en.wikipedia.org/wiki/Park_Row_(film)",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "505bda0d39060678fce4d20b8e81c196a9c57772",
+          "question": "What is the last name of the person who had always dreamed of going into journalism?",
+          "gold": "Leach",
+          "reference_in_question": false,
+          "relative_answer_start": 0.3928790669122161,
+          "occurrences_in_passage": 3,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "3b2491d53548089adf512cc706318ba9987d769c",
+          "question": "What is the last name of the person whose friends stand up for him?",
+          "gold": "Mitchell",
+          "reference_in_question": false,
+          "relative_answer_start": 0.43953345610804173,
+          "occurrences_in_passage": 8,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "I. M. Pei",
+      "url": "https://en.wikipedia.org/wiki/I._M._Pei",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "1c10104c57d68dec989f525199b4215880d4f3a0",
+          "question": "What is the name of the town that the architect went to for inspiration for his project?",
+          "gold": "Katonah",
+          "reference_in_question": false,
+          "relative_answer_start": 0.4919385076865392,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "b872d15d452a5ea74114d43e77728046735de139",
+          "question": "At what location did major event occur that disturbed the architect while he was designing the tower?",
+          "gold": "Tiananmen Square",
+          "reference_in_question": false,
+          "relative_answer_start": 0.8736407949006374,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Dragnet (1987 film)",
+      "url": "https://en.wikipedia.org/wiki/Dragnet_(1987_film)",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "ee99e0c4ec13602ddd6d72a29aad74676b230498",
+          "question": "What is the last name of the person that owns the business that the Reverend is trying to bring down?",
+          "gold": "Caesar",
+          "reference_in_question": false,
+          "relative_answer_start": 0.3391243919388464,
+          "occurrences_in_passage": 3,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "7a266aa91270f42d260d9216a462fc296f9cadee",
+          "question": "What is the last name of the person that visits the cult site with the person that removes Friday and Streebek from the case?",
+          "gold": "Gannon",
+          "reference_in_question": false,
+          "relative_answer_start": 0.8561501042390549,
+          "occurrences_in_passage": 2,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Exelon Pavilions 2",
+      "url": "https://en.wikipedia.org/wiki/Exelon_Pavilions",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "3cebbbc131eb4782db81a9e652158dd4f90e65e8",
+          "question": "What is the name of the pavilions that were finished first?",
+          "gold": "The South Pavilions",
+          "reference_in_question": false,
+          "relative_answer_start": 0.8413111342351717,
+          "occurrences_in_passage": 2,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "aa6e6886e013ac2aaf0f735c269e2026889a9692",
+          "question": "What company does the man that designed the South Pavilions work for?",
+          "gold": "Renzo Piano Building Workshop",
+          "reference_in_question": false,
+          "relative_answer_start": 0.4927159209157128,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Non-Stop New York",
+      "url": "https://en.wikipedia.org/wiki/Non-Stop_New_York",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "ef942c2a57635f385ba58b14538872da3f20b9c6",
+          "question": "What is the full name of the person who is made to leave by Hugo and his men? ",
+          "gold": "Jennie Carr",
+          "reference_in_question": false,
+          "relative_answer_start": 0.04955527318932656,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "b59e8aa2d2f216c3b587a1763c03f42bda323b4e",
+          "question": "What is the last name of the person who works for Hugo? ",
+          "gold": "Cooper",
+          "reference_in_question": false,
+          "relative_answer_start": 0.023506988564167726,
+          "occurrences_in_passage": 2,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Spirit of the Wind",
+      "url": "https://en.wikipedia.org/wiki/Spirit_of_the_Wind",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "a02aeb0218059da5aa67bbcc3b0e52c7a0f97dcd",
+          "question": "What is the full name of the character who won dog sled races while Attla was a child?",
+          "gold": "Jimmy Huntington",
+          "reference_in_question": false,
+          "relative_answer_start": 0.14058679706601468,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "c8144772bc65ad304484c75144316f32a572d756",
+          "question": "What is the full name of the character who won the Open North American Championship race 8 times?",
+          "gold": "George Attla, Jr.",
+          "reference_in_question": false,
+          "relative_answer_start": 0.0715158924205379,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Convention of 1833",
+      "url": "https://en.wikipedia.org/wiki/Convention_of_1833",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "36bb36dcb4f354650779cdafe9c8e0c8990617ba",
+          "question": "What state did the former governor of Tennessee help create a constitution??",
+          "gold": "Texas",
+          "reference_in_question": false,
+          "relative_answer_start": 0.052443384982121574,
+          "occurrences_in_passage": 2,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "f957d8c0d17cf0be0f8d1aa118b349deb5b63981",
+          "question": "Where were the petitions created that the man who traveled to Mexico City presented?",
+          "gold": "The Convention of 1833",
+          "reference_in_question": false,
+          "relative_answer_start": 0.0,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Lion 24",
+      "url": "https://en.wikipedia.org/wiki/Lion",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "b1c1b3ed6edd0106aa6e9e304ee5f1ff3a8ec23d",
+          "question": "What means \"lion people\"?",
+          "gold": "Sinhalese",
+          "reference_in_question": false,
+          "relative_answer_start": 0.809322033898305,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "3a3999be69a880b5859ccefaa9ec967bf10e619b",
+          "question": "Whose father is an evil demon king?",
+          "gold": "Prahlada",
+          "reference_in_question": false,
+          "relative_answer_start": 0.14576271186440679,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Exile (1990 film)",
+      "url": "https://en.wikipedia.org/wiki/Exile_(1990_film)",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "0914768c71abe5358075b0be56694d7520ee7979",
+          "question": "What is the position of the person that gets freaked out by a snake?",
+          "gold": "The leader",
+          "reference_in_question": false,
+          "relative_answer_start": 0.8852880658436214,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "f194cdc7e57a2cef52d7e4579a3e76ae782df60a",
+          "question": "Who mentions that he has to fly the plane to the airport for repairs?",
+          "gold": "the pilot",
+          "reference_in_question": false,
+          "relative_answer_start": 0.44290123456790126,
+          "occurrences_in_passage": 5,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Symphony No. 3 (G\u00f3recki)",
+      "url": "https://en.wikipedia.org/wiki/Symphony_No._3_(G%C3%B3recki)",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "212249ee44c0d238a714ab406e011fecdb86a183",
+          "question": "What is the alternative name of the symphony that premiered on 4 April?",
+          "gold": "Symphony of Sorrowful Songs",
+          "reference_in_question": false,
+          "relative_answer_start": 0.02619589977220957,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "82f4a6e868b9dc7e34a5a26475c665b7aec5c03b",
+          "question": "In what year did the London Sinfonietta perform Henry Gorecki's symphony?",
+          "gold": "1992",
+          "reference_in_question": false,
+          "relative_answer_start": 0.6697038724373576,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Nukie",
+      "url": "https://en.wikipedia.org/wiki/Nukie",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "95b8461693aa7caf2ae732490fc65362cbf2b6d3",
+          "question": "Who is the alien friend of the creature that crashes in the African savanna?",
+          "gold": "Miko",
+          "reference_in_question": false,
+          "relative_answer_start": 0.18002136752136752,
+          "occurrences_in_passage": 9,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "44e35873d328751b6c733058e30ea323ea8e22db",
+          "question": "Which alien's crash site does Dr. Eric Harvey go to investigate?",
+          "gold": "Nukie",
+          "reference_in_question": false,
+          "relative_answer_start": 0.2799145299145299,
+          "occurrences_in_passage": 11,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Ratanakiri Province",
+      "url": "https://en.wikipedia.org/wiki/Ratanakiri_Province",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "1fa09b27ffc5e5313aa1ff494b6ac7f680847e38",
+          "question": "What is the population of Lomphat?",
+          "gold": "3,000",
+          "reference_in_question": false,
+          "relative_answer_start": 0.43837029396596183,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "2cbb1055792f0e1f4cf095391e20301f217a14e1",
+          "question": "What is the largest demographic bracket in Ratanakiri Province?",
+          "gold": "15 to 49",
+          "reference_in_question": false,
+          "relative_answer_start": 0.48375451263537905,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "House of Dust",
+      "url": "https://en.wikipedia.org/wiki/House_of_Dust",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "22eb5e2063d31494b5d03dced390baf8b077183b",
+          "question": "Whose orderlies place the bodies of three men inside a crematorium?",
+          "gold": "the psychiatrist",
+          "reference_in_question": false,
+          "relative_answer_start": 0.1153184165232358,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "2bfc0f4fff83f99a7c61d6981d1ce98a2eb56bdc",
+          "question": "Who inhaled the dust of the sociopath?",
+          "gold": "Kolt",
+          "reference_in_question": false,
+          "relative_answer_start": 0.6557659208261618,
+          "occurrences_in_passage": 5,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "They Call It Sin",
+      "url": "https://en.wikipedia.org/wiki/They_Call_It_Sin",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "e133f04361478530058e387d71e1d9f2a599e1fd",
+          "question": "What is the full name of the person who is suspected of attempted murder?",
+          "gold": "Jimmy Decker",
+          "reference_in_question": false,
+          "relative_answer_start": 0.043815862451469775,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "10a7b80aa0b85330d7cac008d3a1216cdf1a9f2d",
+          "question": "What is the full name of the person that has her song used by Humphries?",
+          "gold": "Marion Cullen",
+          "reference_in_question": false,
+          "relative_answer_start": 0.014975041597337771,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Brothers of the Wind",
+      "url": "https://en.wikipedia.org/wiki/Brothers_of_the_Wind",
+      "nearest_training_title": "Wood",
+      "passage_five_word_jaccard": 0.00267379679144385,
+      "questions": [
+        {
+          "id": "8b079b2127c923f8a32934701c0b4c2dab2bcd14",
+          "question": "Who helps the boy raise the eaglet?",
+          "gold": "Danzer",
+          "reference_in_question": false,
+          "relative_answer_start": 0.26337448559670784,
+          "occurrences_in_passage": 2,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "088cb6718fd18c192bc93e12b44138146f242f0a",
+          "question": "Who was married to the father of the boy that the forester meets?",
+          "gold": "Maria",
+          "reference_in_question": false,
+          "relative_answer_start": 0.3374485596707819,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Radiocarbon dating",
+      "url": "https://en.wikipedia.org/wiki/Radiocarbon_dating",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "346aa651432c3b1422a581c5a8dd789daaa2da2d",
+          "question": "What effect is not uniform?",
+          "gold": "Upwelling",
+          "reference_in_question": false,
+          "relative_answer_start": 0.45564516129032256,
+          "occurrences_in_passage": 2,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "9dd27123e675c7baf55e994c286465a3a9ad8bb1",
+          "question": "What does the northern and southern hemispheres have that are sufficiently independent of each other that there is a noticeable time lag in mixing between the two?",
+          "gold": "atmospheric circulation systems",
+          "reference_in_question": false,
+          "relative_answer_start": 0.7331378299120235,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Der 100. Psalm",
+      "url": "https://en.wikipedia.org/wiki/Der_100._Psalm",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "6342a84ac0c6e54343dd0bce6df9942633da90ab",
+          "question": "What is the first name of the person who \"sought to moderate Reger's 'uncontrolled invention'?\"",
+          "gold": "Paul",
+          "reference_in_question": false,
+          "relative_answer_start": 0.005303476723629935,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "74ca1871c225de37a0e95c6f0f2099549d5375f4",
+          "question": "What is the last name of the person who assigned one theme to a voice, and a simultaneous theme to the orchestra in the double fugue?",
+          "gold": "Reger",
+          "reference_in_question": false,
+          "relative_answer_start": 0.1785503830288745,
+          "occurrences_in_passage": 9,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Becket (1964 film)",
+      "url": "https://en.wikipedia.org/wiki/Becket_(1964_film)",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "13f6b6ca9a16d8ca48ff0085f8845b7883d261bf",
+          "question": "What is the first name of the person who becomes a major thorn in Henry's side?",
+          "gold": "Thomas",
+          "reference_in_question": false,
+          "relative_answer_start": 0.11554015020219527,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        },
+        {
+          "id": "fa3b74bf74299681c78dcf1946fc20891c5e6478",
+          "question": "What is the full name of the person who Thomas is a thorn in the side of?",
+          "gold": "King Henry II",
+          "reference_in_question": false,
+          "relative_answer_start": 0.1536683997689197,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "title",
+            "passage"
+          ]
+        }
+      ]
+    },
+    {
+      "page": "Broadway Gondolier",
+      "url": "https://en.wikipedia.org/wiki/Broadway_Gondolier",
+      "nearest_training_title": "Utrecht",
+      "passage_five_word_jaccard": 0.0,
+      "questions": [
+        {
+          "id": "938f5bbc8e2091bd539fb2c65d4a52192e876cab",
+          "question": "In order to be with the radio producer's secretary, who must he stop pretending to be?",
+          "gold": "Ricardo Purcelli",
+          "reference_in_question": false,
+          "relative_answer_start": 0.8433889602053916,
+          "occurrences_in_passage": 2,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        },
+        {
+          "id": "61f5e40e5c25fc69da50889bfef70f995f3056ab",
+          "question": "What's the first name of the person the radio producer's secretary falls in love with?",
+          "gold": "Richard",
+          "reference_in_question": false,
+          "relative_answer_start": 0.0,
+          "occurrences_in_passage": 1,
+          "schema": [
+            "entry",
+            "text"
+          ]
+        }
+      ]
+    }
+  ]
+}
