@@ -1,0 +1,51 @@
+{
+  "id": "selective-raw-return-01",
+  "question": "Does returning a learned, initially zero projection of the second native pass, trained on diverse real sources with a cap per work, improve ordinary language beyond untouched Base on distinct books, manuals, and encyclopedia articles?",
+  "training": "research/data/source-balanced-training.json",
+  "material": "research/data/source-balanced-panel.json",
+  "historical_panel": "research/data/raw-distillation-test.json",
+  "historical_sha256": "e006e8bfe3066a544b99d54553740c37131c7bace1c2ce646b626d43ea48b983",
+  "retention_sha256": "eadb63b1466be8806b6d7f13a731be6fc5aea63b9f43bab6d6472a5b9d26252d",
+  "teacher": {
+    "repo": "Qwen/Qwen3.5-2B-Base",
+    "revision": "b1485b2fa6dfa1287294f269f5fb618e03d52d7c",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "928acbf11878c32185bbd863514d191769285065ab9ea14fbfe431303f5fdf2d",
+    "license": "Apache-2.0"
+  },
+  "rank": 32,
+  "initial_gate": 0.25,
+  "fit_seed": 819761,
+  "updates": 2100,
+  "batch": 9,
+  "per_document": 12,
+  "lr": 0.00018,
+  "top": 32,
+  "gold_weight": 0.3,
+  "temperature": 0.5,
+  "live_indices": [
+    0,
+    16,
+    32,
+    48,
+    64,
+    80
+  ],
+  "protocol": "Start from pinned original Base. No weights, hidden features or target distributions from prior closed raw fits. Preserve the eight-bit frozen ordinary prefix and the original BF16 final layer. Reapply that same final native layer with rank-32 Q/K/V/O deltas. Normalize the two hidden states, project their difference through a learned 64-channel SiLU bottleneck, multiply by ordinary residual RMS and a learned sigmoid gate, and return this update to the ordinary state. The output projection starts at exactly zero. Verify initial equality and original weight sharing and measure nonzero learned change on the same 32-token training prefix. No category, work metadata or future label at inference. Train both real frozen teachers (2B and pinned Base inference only) on 32 observed positions per window; top-32 with remaining mass, gold log-probability difference gating and 30 percent observed-token loss. Each optimizer batch samples three passages from each domain. The frozen corpus contains 3072 nonoverlapping 129-token windows from 64 PG-19 training books (16 each), 128 CPython manuals and 128 Wikipedia articles (eight each). Use 96 genuinely unseen primary windows across 24 additional works (eight PG-19 test books, eight different CPython manuals, eight SQuAD development articles). Require disjoint works and no shared contiguous 24-token sequence between any selected windows or the previous raw panels. The PG-19 candidate pool comes from the first page of the publisher object listing in each split and the named immutable object generations. Repeat 128 previously measured passages from separate books, Git manuals and articles, 52 WikiText passages and all 120 ordinary retention passages. Both arms receive the entire same token input, scoring all 128 successors for full new windows. Time and peak are recorded jointly with full-vocabulary NLL and exact argmax per token. Six free eight-token continuations must replay full-prefix computation at all seven physical attention sites. Exact work- and passage-level two-sided sign tests. Evaluation order candidate then Base. Stop after this pair or a resource limit.",
+  "gate": "Fresh NLL gain greater than .015 nats/token, positive top-one gain, passage and work sign tests p<=.05 in favor of the candidate. WikiText gain greater than .04 nats/token. Strict NLL improvement and no decrease in exact top-one count on every enrolled domain and suite including each earlier source family. No greater actual warmed total time or peak on each new, previous-work, WikiText and retention suite. All six live decisions and full versus cached continuations must match. A miss closes this fit. Only a pass licenses an equal-exposure one-application comparison, followed by shared assistant integration and new independent field retention before promotion.",
+  "limits": {
+    "wall_seconds": 2000,
+    "peak_gib": 8.0,
+    "available_gib": 1.4
+  },
+  "training_sha256": "653afccc2be748ea943fc6ade796489c198c66cc101f2b19de42e117a7e908ea",
+  "panel_sha256": "e2d49e26f3eca5b02c1eca5113d5dc48a6779ec3ba920fc449d826a5ddf9635b",
+  "prior_works": "research/data/future-token-panel.json",
+  "prior_sha256": "9b415fd803d4cc367d5eede5a91ed97a6059d53754e0d54b64b62ca085e2c6a9",
+  "training_domains": [
+    "books",
+    "manuals",
+    "encyclopedia"
+  ],
+  "return_width": 64
+}
