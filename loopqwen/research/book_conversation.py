@@ -3,7 +3,6 @@
 import argparse
 import csv
 import gc
-import re
 from pathlib import Path
 from time import perf_counter
 
@@ -12,7 +11,7 @@ from mlx_lm.utils import load_tokenizer
 
 from .. import file_tools
 from ..evaluation.mechanism import packed, unpack
-from ..evaluation.service_answers import visible_reference
+from ..evaluation.service_answers import visible_reference, years
 from ..io import digest, read, save
 from ..model_loader import local_snapshot
 from ..tool_compare import DenseAssistant
@@ -25,11 +24,11 @@ from .registered import registered
 def grade(item, index, tr):
     completed = tr["status"] == "answered"
     value = [item["reference"], item["size"], item["lines"]][index]
-    text = tr["answer"] or ""
-    if not index:
-        for word, number in (("twenty-five", 25), ("twenty five", 25), ("thirty", 30)):
-            text = re.sub(r"\b" + word + r"\b", str(number), text, flags=re.IGNORECASE)
-    meaning = visible_reference(text, item["file"], str(value), file=bool(index))
+    meaning = (
+        visible_reference(tr["answer"], item["file"], str(value), file=True)
+        if index
+        else years(tr["answer"], value)
+    )
     events = executions(tr)
     if not index:
         correct = []

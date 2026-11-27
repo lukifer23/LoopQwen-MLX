@@ -1,4 +1,4 @@
-from loopqwen.evaluation.service_answers import visible_reference
+from loopqwen.evaluation.service_answers import visible_reference, years
 
 
 def test_echoed_file_and_punctuation_do_not_change_the_quantity():
@@ -26,3 +26,12 @@ def test_version_claim_requires_actual_version_or_observed_absence():
         "requests",
         "package is not installed",
     )
+
+
+def test_years_accepts_words_and_rejects_ambiguous_or_wrong_durations():
+    assert years("He was twenty-five years old.", 25)
+    assert years("Thirty.", 30)
+    assert years("It lasted one hundred and thirteen years.", 113)
+    assert not years("Twenty-five or thirty years.", 25)
+    assert not years("Twenty-five months.", 25)
+    assert not years("-25 years.", 25)
