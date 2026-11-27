@@ -1,0 +1,423 @@
+{
+  "panel_sha256": "e53ba3e46e2eea4fe5a567aee134258374bb759ffe64c42d5d2dd85467625d81",
+  "publisher_db_sha256": "eda9ce5862600af2b29fafbf5446f90df6383c3847f7ccef7493b86b63e5dad5",
+  "agree": 32,
+  "questions": [
+    {
+      "id": "wiki-test-14572",
+      "question": "What was the speed of the Superbike race?",
+      "sql": "SELECT col3 FROM \"table_2_13063768_1\" WHERE col0 = ? COLLATE NOCASE",
+      "literal": "superbike",
+      "official_sqlite_values": [
+        "126.948"
+      ],
+      "original_table_text": [
+        "126.948"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-3024",
+      "question": "What date did the episode that had 1.023 million u.s. viewers originally air?",
+      "sql": "SELECT col4 FROM \"table_1_24223834_3\" WHERE col5 = ? COLLATE NOCASE",
+      "literal": "1.023",
+      "official_sqlite_values": [
+        "october30,2012"
+      ],
+      "original_table_text": [
+        "October30,2012"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-4646",
+      "question": "Which driver drove car Wolf WR3?",
+      "sql": "SELECT col4 FROM \"table_2_10649958_1\" WHERE col5 = ? COLLATE NOCASE",
+      "literal": "wolf wr3",
+      "official_sqlite_values": [
+        "dave kennedy"
+      ],
+      "original_table_text": [
+        "Dave Kennedy"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-3524",
+      "question": "where is Fisk University located? ",
+      "sql": "SELECT col1 FROM \"table_1_262481_2\" WHERE col0 = ? COLLATE NOCASE",
+      "literal": "Fisk University",
+      "official_sqlite_values": [
+        "nashville, tennessee"
+      ],
+      "original_table_text": [
+        "Nashville, Tennessee"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-10492",
+      "question": "Which box score has an Attendance of 54,773?",
+      "sql": "SELECT col6 FROM \"table_2_11494669_4\" WHERE col4 = ? COLLATE NOCASE",
+      "literal": "54,773",
+      "official_sqlite_values": [
+        "w4"
+      ],
+      "original_table_text": [
+        "W4"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-407",
+      "question": "Which home town was the high school Catholic University located in?",
+      "sql": "SELECT col6 FROM \"table_1_12032893_1\" WHERE col7 = ? COLLATE NOCASE",
+      "literal": "Catholic University",
+      "official_sqlite_values": [
+        "baton rouge, la"
+      ],
+      "original_table_text": [
+        "Baton Rouge, LA"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-4649",
+      "question": "What date did the International Gold Cup take place?",
+      "sql": "SELECT col3 FROM \"table_2_10649958_1\" WHERE col1 = ? COLLATE NOCASE",
+      "literal": "international gold cup",
+      "official_sqlite_values": [
+        "march 24"
+      ],
+      "original_table_text": [
+        "March 24"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-404",
+      "question": "In which year was the Weight 170?",
+      "sql": "SELECT col5 FROM \"table_1_12032893_1\" WHERE col4 = ? COLLATE NOCASE",
+      "literal": 170,
+      "official_sqlite_values": [
+        "junior"
+      ],
+      "original_table_text": [
+        "Junior"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-13342",
+      "question": "What is the international alphabet sanskrit transliteration of \u092e\u0947\u0937?",
+      "sql": "SELECT col2 FROM \"table_2_186462_1\" WHERE col1 = ? COLLATE NOCASE",
+      "literal": "\u092e\u0947\u0937",
+      "official_sqlite_values": [
+        "me\u1e63a"
+      ],
+      "original_table_text": [
+        "Me\u1e63a"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-11110",
+      "question": "Which audition city held callbacks at Amelia Island Plantation?",
+      "sql": "SELECT col1 FROM \"table_2_11954383_1\" WHERE col5 = ? COLLATE NOCASE",
+      "literal": "amelia island plantation",
+      "official_sqlite_values": [
+        "jacksonville, florida"
+      ],
+      "original_table_text": [
+        "Jacksonville, Florida"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-11109",
+      "question": "What was the date when the first audition venue was Kemper Arena?",
+      "sql": "SELECT col2 FROM \"table_2_11954383_1\" WHERE col3 = ? COLLATE NOCASE",
+      "literal": "kemper arena",
+      "official_sqlite_values": [
+        "august 8, 2008"
+      ],
+      "original_table_text": [
+        "August 8, 2008"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-2009",
+      "question": "Where is the University that plays in the American Athletic Conference?",
+      "sql": "SELECT col1 FROM \"table_1_19210115_1\" WHERE col7 = ? COLLATE NOCASE",
+      "literal": "American Athletic Conference",
+      "official_sqlite_values": [
+        "north philadelphia"
+      ],
+      "original_table_text": [
+        "North Philadelphia"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-3026",
+      "question": "How many million U.S. viewers watched the episode that Daniel H. Forer directed?",
+      "sql": "SELECT col5 FROM \"table_1_24223834_3\" WHERE col3 = ? COLLATE NOCASE",
+      "literal": "Daniel H. Forer",
+      "official_sqlite_values": [
+        "0.699"
+      ],
+      "original_table_text": [
+        "0.699"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-7788",
+      "question": "What tournament is on October 27, 2003?",
+      "sql": "SELECT col1 FROM \"table_2_1723598_3\" WHERE col0 = ? COLLATE NOCASE",
+      "literal": "october 27, 2003",
+      "official_sqlite_values": [
+        "paris , france"
+      ],
+      "original_table_text": [
+        "Paris , France"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-815",
+      "question": "What were all the points for Tonyrefail RFC?",
+      "sql": "SELECT col5 FROM \"table_1_13564637_5\" WHERE col0 = ? COLLATE NOCASE",
+      "literal": "Tonyrefail RFC",
+      "official_sqlite_values": [
+        "330"
+      ],
+      "original_table_text": [
+        "330"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-14571",
+      "question": "Which race ended with a time of 01:46:59.69?",
+      "sql": "SELECT col0 FROM \"table_2_13063768_1\" WHERE col2 = ? COLLATE NOCASE",
+      "literal": "01:46:59.69",
+      "official_sqlite_values": [
+        "superbike"
+      ],
+      "original_table_text": [
+        "Superbike"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-10804",
+      "question": "Where was the game played where the away team scored 8.12 (60)?",
+      "sql": "SELECT col4 FROM \"table_2_10887680_9\" WHERE col3 = ? COLLATE NOCASE",
+      "literal": "8.12 (60)",
+      "official_sqlite_values": [
+        "vfl park"
+      ],
+      "original_table_text": [
+        "VFL Park"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-2850",
+      "question": "Who had the most rebounds when the team record was 15-27?",
+      "sql": "SELECT col5 FROM \"table_1_23285805_6\" WHERE col8 = ? COLLATE NOCASE",
+      "literal": "15-27",
+      "official_sqlite_values": [
+        "jason thompson (10)"
+      ],
+      "original_table_text": [
+        "Jason Thompson (10)"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-10490",
+      "question": "Which opponent has a Score of 2\u20135?",
+      "sql": "SELECT col1 FROM \"table_2_11494669_4\" WHERE col2 = ? COLLATE NOCASE",
+      "literal": "2\u20135",
+      "official_sqlite_values": [
+        "@ royals"
+      ],
+      "original_table_text": [
+        "@ Royals"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-7789",
+      "question": "Who is the opponent in the final of the tournament on May 22, 2006?",
+      "sql": "SELECT col3 FROM \"table_2_1723598_3\" WHERE col0 = ? COLLATE NOCASE",
+      "literal": "may 22, 2006",
+      "official_sqlite_values": [
+        "nikolay davydenko"
+      ],
+      "original_table_text": [
+        "Nikolay Davydenko"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-6941",
+      "question": "Who was on the Socialist Labor ticket that had Arthur Levitt as the Liberal Ticket?",
+      "sql": "SELECT col6 FROM \"table_2_15558943_2\" WHERE col4 = ? COLLATE NOCASE",
+      "literal": "arthur levitt",
+      "official_sqlite_values": [
+        "(none)"
+      ],
+      "original_table_text": [
+        "(none)"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-810",
+      "question": "Who is the club that has 30 points?",
+      "sql": "SELECT col0 FROM \"table_1_13564637_5\" WHERE col11 = ? COLLATE NOCASE",
+      "literal": "30",
+      "official_sqlite_values": [
+        "tonyrefail rfc"
+      ],
+      "original_table_text": [
+        "Tonyrefail RFC"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-975",
+      "question": "How many million of windows phones were shipped during the quarter that shipped 216.2 million total?",
+      "sql": "SELECT col6 FROM \"table_1_14260687_3\" WHERE col8 = ? COLLATE NOCASE",
+      "literal": "216.2",
+      "official_sqlite_values": [
+        "7.0"
+      ],
+      "original_table_text": [
+        "7.0"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-2848",
+      "question": "What was the score with the team record was 15-25?",
+      "sql": "SELECT col3 FROM \"table_1_23285805_6\" WHERE col8 = ? COLLATE NOCASE",
+      "literal": "15-25",
+      "official_sqlite_values": [
+        "l 103\u2013105 (ot)"
+      ],
+      "original_table_text": [
+        "L 103\u2013105 (OT)"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-13343",
+      "question": "What is the quality of the international alphabet of the sanskrit transliteration for the word Dhanus?",
+      "sql": "SELECT col8 FROM \"table_2_186462_1\" WHERE col2 = ? COLLATE NOCASE",
+      "literal": "dhanus",
+      "official_sqlite_values": [
+        "dvisvabhava (dual)"
+      ],
+      "original_table_text": [
+        "Dvisvabhava (Dual)"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-3525",
+      "question": "What is the nickname of the institution that was founded in 1857? ",
+      "sql": "SELECT col5 FROM \"table_1_262481_2\" WHERE col2 = ? COLLATE NOCASE",
+      "literal": 1857,
+      "official_sqlite_values": [
+        "tigers"
+      ],
+      "original_table_text": [
+        "Tigers"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-10594",
+      "question": "Which date did 64,443 people attend a game?",
+      "sql": "SELECT col1 FROM \"table_2_11396779_2\" WHERE col6 = ? COLLATE NOCASE",
+      "literal": "64,443",
+      "official_sqlite_values": [
+        "september 9, 1978"
+      ],
+      "original_table_text": [
+        "September 9, 1978"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-977",
+      "question": "How many millions of Blackberry OS smartphones were shipped when 10.4 million Symbian smartphones were shipped?",
+      "sql": "SELECT col4 FROM \"table_1_14260687_3\" WHERE col3 = ? COLLATE NOCASE",
+      "literal": "10.4",
+      "official_sqlite_values": [
+        "9.7"
+      ],
+      "original_table_text": [
+        "9.7"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-10803",
+      "question": "When was the away team score 13.19 (97)?",
+      "sql": "SELECT col6 FROM \"table_2_10887680_9\" WHERE col3 = ? COLLATE NOCASE",
+      "literal": "13.19 (97)",
+      "official_sqlite_values": [
+        "27 may 1978"
+      ],
+      "original_table_text": [
+        "27 May 1978"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-10592",
+      "question": "When the record was 4-4, how many people attended?",
+      "sql": "SELECT col6 FROM \"table_2_11396779_2\" WHERE col7 = ? COLLATE NOCASE",
+      "literal": "4-4",
+      "official_sqlite_values": [
+        "68,146"
+      ],
+      "original_table_text": [
+        "68,146"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-2006",
+      "question": "Where is the University that is also called Hawks?",
+      "sql": "SELECT col1 FROM \"table_1_19210115_1\" WHERE col6 = ? COLLATE NOCASE",
+      "literal": "Hawks",
+      "official_sqlite_values": [
+        "west philadelphia / lower merion township"
+      ],
+      "original_table_text": [
+        "West Philadelphia / Lower Merion Township"
+      ],
+      "canonical_agreement": true
+    },
+    {
+      "id": "wiki-test-6945",
+      "question": "Leland W. Schubert, Free Libertarian ticket, had who listed on the Democratic ticket?",
+      "sql": "SELECT col1 FROM \"table_2_15558943_2\" WHERE col5 = ? COLLATE NOCASE",
+      "literal": "leland w. schubert",
+      "official_sqlite_values": [
+        "robert abrams"
+      ],
+      "original_table_text": [
+        "Robert Abrams"
+      ],
+      "canonical_agreement": true
+    }
+  ]
+}

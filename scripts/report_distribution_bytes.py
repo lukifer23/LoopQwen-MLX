@@ -1,7 +1,9 @@
 """Independently verify each enrolled release file against downloaded archive bytes and metadata."""
 
 import argparse
+import csv
 import hashlib
+import io
 import shutil
 import subprocess
 import tempfile
@@ -20,28 +22,51 @@ PANEL = Path("research/data/report-action-panel.json")
 RECEIPT = Path("docs/measurements/report-distribution-bytes.json")
 
 
-def verify(fetch=False):
-    panel = read(PANEL)
+def targets(panel):
+    for row in panel["rows"]:
+        if row["family"] == "inventory":
+            small, large = row["keys"]
+            records = {
+                r["filename"]: r
+                for r in csv.DictReader(
+                    io.StringIO(panel["documents"][row["document"]])
+                )
+            }
+            yield (
+                row["cluster"],
+                {small, large},
+                row["questions"][0],
+                *row["gold"],
+                records,
+            )
+        elif row["family"] == "distribution" and not row["expression"]:
+            (other,) = [
+                r
+                for r in panel["rows"]
+                if r["cluster"] == row["cluster"] and r["expression"]
+            ]
+            yield (
+                row["cluster"],
+                other["questions"][0].rsplit("\n\n", 1)[1],
+                row["questions"][0].rsplit("\n\n", 1)[1],
+                row["gold"],
+                other["gold"],
+                {},
+            )
+
+
+def verify(fetch=False, *, panel_path=PANEL, receipt=RECEIPT):
+    panel = read(panel_path)
     lock = subprocess.check_output(["git", "show", panel["lock_revision"] + ":uv.lock"])
     assert hashlib.sha256(lock).hexdigest() == panel["lock_sha256"]
     packages = {p["name"]: p for p in tomllib.loads(lock.decode())["package"]}
-    prior = read(RECEIPT) if RECEIPT.is_file() else None
+    prior = read(receipt) if receipt.is_file() else None
     if not fetch and prior is None:
-        raise FileNotFoundError(RECEIPT)
+        raise FileNotFoundError(receipt)
     saved = {} if prior is None else {r["filename"]: r for r in prior["files"]}
     evidence = []
-    for group in dict.fromkeys(
-        w["cluster"] for w in panel["rows"] if w["family"] == "distribution"
-    ):
+    for group, change, lookup, first_answer, difference, records in targets(panel):
         pkg = packages[group]
-        direct, derived = [
-            w
-            for w in panel["rows"]
-            if w["family"] == "distribution" and w["cluster"] == group
-        ]
-        lookup, change = [
-            w["questions"][0].rsplit("\n\n", 1)[1] for w in (direct, derived)
-        ]
         selected = []
         for w in pkg["wheels"]:
             name = unquote(urlsplit(w["url"]).path.rsplit("/", 1)[1])
@@ -78,16 +103,20 @@ def verify(fetch=False):
                 and r["version"] == pkg["version"]
             )
             assert r["bytes"] == w["size"] and "sha256:" + r["sha256"] == w["hash"]
+            if records:
+                assert records[name]["sha256"] == r["sha256"] and records[name][
+                    "bytes"
+                ] == str(r["bytes"])
             selected.append(r)
         assert len(selected) == 2
         small, large = sorted(selected, key=lambda r: r["bytes"])
         assert small["filename"] in lookup and large["filename"] not in lookup
-        assert str(small["bytes"]) == direct["gold"]
-        assert str(large["bytes"] - small["bytes"]) == derived["gold"]
+        assert str(small["bytes"]) == first_answer
+        assert str(large["bytes"] - small["bytes"]) == difference
         evidence.extend([small, large])
     assert len(evidence) == 16
     report = {
-        "panel_sha256": digest(PANEL),
+        "panel_sha256": digest(panel_path),
         "lock_sha256": panel["lock_sha256"],
         "total_bytes": sum(r["bytes"] for r in evidence),
         "files": evidence,
@@ -95,7 +124,7 @@ def verify(fetch=False):
     if prior:
         assert prior == report
     else:
-        save(RECEIPT, report)
+        save(receipt, report)
     print(len(evidence), "original wheels,", report["total_bytes"], "physical bytes")
 
 
@@ -106,4 +135,13 @@ if __name__ == "__main__":
         action="store_true",
         help="Download and independently measure the locked originals.",
     )
-    verify(parser.parse_args().fetch)
+    parser.add_argument("--keyed-inventories", action="store_true")
+    args = parser.parse_args()
+    if args.keyed_inventories:
+        verify(
+            args.fetch,
+            panel_path=Path("research/data/instruction-interpolation-panel.json"),
+            receipt=Path("docs/measurements/keyed-inventory-bytes.json"),
+        )
+    else:
+        verify(args.fetch)
