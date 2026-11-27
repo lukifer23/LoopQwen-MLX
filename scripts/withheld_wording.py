@@ -45,6 +45,18 @@ def query_fields(withheld):
                 yield k, f, f"human_step/{i}", step
 
 
+def repair_fields(rows):
+    yield from query_fields(r for r in rows if r["family"] in ("strategy", "report"))
+    for r in rows:
+        if r["family"] == "field" and r["condition"] == "unassisted":
+            for field, key in (
+                ("question", "question"),
+                ("human_reply", "human"),
+                ("expert_sql", "expert_sql"),
+            ):
+                yield r["id"], r["family"], field, r[key]
+
+
 def fit_fields(row):
     yield from training_fields(row)
     # A service transcript spans messages. Index the conversation as a contiguous
@@ -151,6 +163,10 @@ def build(study):
             SOURCES / study / "training.json.gz",
         ]
         fields = contrastive_fields(unpack(held))
+    elif study == "repair-query":
+        held = SOURCES / study / "transfer-panel.json.gz"
+        training = [SOURCES / study / "verified-training.json.gz"]
+        fields = repair_fields(unpack(held)["rows"])
     else:
         held = SOURCES / study / "held.json.gz"
         training = [SOURCES / study / "training.json.gz"]
@@ -165,5 +181,7 @@ def build(study):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("study", choices=("contrastive-worlds", "shared-query"))
+    p.add_argument(
+        "study", choices=("contrastive-worlds", "shared-query", "repair-query")
+    )
     build(p.parse_args().study)

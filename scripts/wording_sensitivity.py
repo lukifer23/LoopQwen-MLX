@@ -17,6 +17,7 @@ STUDIES = {
         ("contrastive-services", "contrastive-qualitative"),
     ),
     "shared-query": ("shared-query-transfer-01", ("shared-query",)),
+    "repair-query": ("repair-query-transfer-01", ("repair-query",)),
 }
 
 
