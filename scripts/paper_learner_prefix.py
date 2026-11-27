@@ -1,5 +1,6 @@
 """Summarize the frozen training intervention and its independent source checks."""
 
+import json
 from collections import Counter
 from pathlib import Path
 
@@ -163,7 +164,7 @@ def collect():
                         "first_s": q["first_s"],
                         "peak": q["peak"],
                         "status": t["status"],
-                        "answer": t["answer"],
+                        "answer_json": json.dumps(t["answer"], ensure_ascii=False),
                         "archive": digest(root / "checksums.json"),
                     }
                 )
@@ -205,6 +206,10 @@ def collect():
                 ylabel="Loop request time (seconds)",
                 title=title,
             )
+            ticks = [v for v in (0.25, 0.5, 1, 2, 5, 10, 20, 50) if low <= v <= high]
+            ax.minorticks_off()
+            ax.set_xticks(ticks, [str(v) for v in ticks])
+            ax.set_yticks(ticks, [str(v) for v in ticks])
             ax.spines[["top", "right"]].set_visible(False)
         figure.savefig(P / "learner-prefix-transfer.svg", metadata={"Date": None})
         plt.close(figure)

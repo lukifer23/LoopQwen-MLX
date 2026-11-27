@@ -1719,6 +1719,128 @@
       "seconds": 6.171916832972784,
       "peak_bytes": 1646483032,
       "passed": true
+    },
+    "primary": {
+      "passed": false,
+      "gates": {
+        "report": false,
+        "report_completion": true,
+        "strategy": false,
+        "strategy_completion": true,
+        "peak": true,
+        "wall_s": true,
+        "first_s": true,
+        "opening_tps": false,
+        "decode_tps": true
+      },
+      "counts": {
+        "report": {
+          "total": [
+            1,
+            1
+          ],
+          "completed": [
+            20,
+            11
+          ],
+          "gains": 1,
+          "losses": 1,
+          "p": 1.0,
+          "n": 24
+        },
+        "strategy": {
+          "total": [
+            9,
+            6
+          ],
+          "completed": [
+            17,
+            9
+          ],
+          "gains": 6,
+          "losses": 3,
+          "p": 0.5078125,
+          "n": 24
+        }
+      },
+      "costs": {
+        "candidate": {
+          "first_s": 10.405055581999477,
+          "wall_s": 57.92569700203603,
+          "peak": 794202146,
+          "output": 6977,
+          "opening_tps": 2872.357603695837,
+          "decode_tps": 150.61858125799685
+        },
+        "control": {
+          "first_s": 11.027764753205702,
+          "wall_s": 271.0041016252362,
+          "peak": 1811927324,
+          "output": 17860,
+          "opening_tps": 2874.400985123642,
+          "decode_tps": 68.67063508680053
+        }
+      }
+    },
+    "reading": {
+      "passed": false,
+      "families": {
+        "report": {
+          "passed": false,
+          "gains": 0,
+          "losses": 1,
+          "p": 1.0,
+          "arms": {
+            "candidate": {
+              "wrong": 19,
+              "grounded_usable": 0,
+              "unsupported": 0,
+              "preferred": 1,
+              "tie": 14,
+              "absent": 4,
+              "partial": 1
+            },
+            "control": {
+              "absent": 13,
+              "grounded_usable": 1,
+              "unsupported": 1,
+              "preferred": 9,
+              "tie": 14,
+              "fully usable": 1,
+              "partial": 8,
+              "wrong": 2
+            }
+          }
+        },
+        "strategy": {
+          "passed": false,
+          "gains": 0,
+          "losses": 0,
+          "p": 1.0,
+          "arms": {
+            "candidate": {
+              "partial": 9,
+              "grounded_usable": 0,
+              "unsupported": 7,
+              "preferred": 8,
+              "tie": 12,
+              "wrong": 8,
+              "absent": 7
+            },
+            "control": {
+              "partial": 6,
+              "grounded_usable": 0,
+              "unsupported": 8,
+              "preferred": 4,
+              "tie": 12,
+              "absent": 15,
+              "wrong": 3
+            }
+          }
+        }
+      },
+      "plan": "a8ac41bda811c9799a1eee9b15767a59e9b247e1eee85f4592aea3f7381c1dee",
+      "ratings": "3f26bca90b94919b810d2d4ffae6a8f4ac7ba946b471e3c3ba022e8383a1fb75"
     }
   }
 }
