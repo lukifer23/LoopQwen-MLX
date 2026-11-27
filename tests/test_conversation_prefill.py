@@ -30,3 +30,27 @@ def test_retained_states_are_owned_by_one_conversation():
     b = Conversation(object(), [tool], retain_prefix=True)
     assert a._prefix is not b._prefix
     assert Conversation(object(), [tool])._prefix is None
+
+
+def test_extended_prefix_advances_only_along_actual_shared_tokens():
+    graph = SimpleNamespace(_generation=object(), span=1, alpha_override=None)
+    cache = SimpleNamespace(slots={0: SimpleNamespace(state=(0,))})
+    saved = ToolPrefix(max_tokens=8, extend=True)
+    original = list(range(5))
+
+    def consume(ids):
+        offset = saved.begin(graph, ids, 2, cache)
+        if offset:
+            assert cache.slots[0].state == tuple(ids[:offset])
+        for j in range(offset + 2, len(ids), 2):
+            cache.slots[0].state = tuple(ids[:j])
+            saved.capture(graph, ids, j, cache)
+        return offset
+
+    assert consume(original) == 0 and len(saved.tokens) == 4
+    assert consume(list(range(7))) == 4 and len(saved.tokens) == 6
+    assert consume([90] + list(range(11))) == 0 and saved.tokens == tuple(range(6))
+    assert consume(list(range(13))) == 6 and len(saved.tokens) == 8
+    assert consume(list(range(17))) == 8 and len(saved.tokens) == 8
+    graph._generation = object()
+    assert consume(list(range(17))) == 0

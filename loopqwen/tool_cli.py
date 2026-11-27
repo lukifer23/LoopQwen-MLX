@@ -118,6 +118,11 @@ def add_arguments(p, checkpoint=None):
         action="store_true",
         help="Retain the first complete native prefill blocks for later calls and user messages in this tool conversation.",
     )
+    p.add_argument(
+        "--extend-tool-prefix",
+        action="store_true",
+        help="On a matching tool turn, extend the saved aligned prefill state through the most recent prompt (up to 4,096 tokens).",
+    )
     p.add_argument("--max-tokens", type=int, default=160)
     p.add_argument("--max-turns", type=int, default=4)
     p.add_argument(
@@ -262,6 +267,12 @@ def respond(args, parser):
             "max_turns": args.max_turns,
             "reuse_prefix": args.reuse_prefix,
         }
+        if getattr(args, "extend_tool_prefix", False):
+            if not supplied or args.reuse_prefix is False:
+                parser.error(
+                    "--extend-tool-prefix requires a supplied tool and enabled prefix reuse"
+                )
+            options.update(reuse_prefix=True, extend_tool_prefix=True)
         if args.trace:
             options["record_kv_history"] = True
         if getattr(args, "cache_state_prefill", False):

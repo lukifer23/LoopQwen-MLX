@@ -72,6 +72,7 @@ class Conversation:
         reuse_prefix=None,
         record_kv_history=False,
         prefill_cache_state=False,
+        extend_tool_prefix=False,
     ):
         if not isinstance(question, str) or not question.strip():
             raise ValueError("The next user message must contain text")
@@ -93,6 +94,7 @@ class Conversation:
                 ),
                 **({"record_kv_history": True} if record_kv_history else {}),
                 **({"prefill_cache_state": True} if prefill_cache_state else {}),
+                **({"extend_tool_prefix": True} if extend_tool_prefix else {}),
             )
         finally:
             self._active.release()
@@ -163,6 +165,7 @@ def run(
     tool_format="compact",
     record_kv_history=False,
     prefill_cache_state=False,
+    extend_tool_prefix=False,
     _messages=None,
     _conversation_prefix=None,
 ):
@@ -209,7 +212,11 @@ def run(
         messages.append(dict(role="user", content=question))
     from .tool_prefill import ConversationPrefill, ToolPrefix
 
-    tool_prefix = ToolPrefix() if reuse_prefix else None
+    tool_prefix = (
+        ToolPrefix(extend=extend_tool_prefix)
+        if reuse_prefix or extend_tool_prefix
+        else None
+    )
     if _conversation_prefix is not None:
         tool_prefix = ConversationPrefill(_conversation_prefix, tool_prefix)
     turns = []
@@ -345,7 +352,7 @@ def run(
                 ):
                     recovery_model = recover_callback(model, tool)
                     if recovery_model is not None and tool_prefix is not None:
-                        tool_prefix = ToolPrefix()
+                        tool_prefix = ToolPrefix(extend=extend_tool_prefix)
             observations.append(json.loads(payload))
             tool_messages.append(dict(role="tool", content=payload))
         messages.extend([assistant_turn, *tool_messages])

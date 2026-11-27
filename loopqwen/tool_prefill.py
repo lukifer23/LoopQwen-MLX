@@ -10,7 +10,8 @@ def copy_state(value):
 
 
 class ToolPrefix:
-    def __init__(self, max_tokens=4096):
+    def __init__(self, max_tokens=4096, *, extend=False):
+        self.extend = extend
         self.max_tokens = max_tokens
         self.tokens = ()
         self.snapshot = None
@@ -29,11 +30,17 @@ class ToolPrefix:
     def prepare(self, model, ids, block):
         if self.owner is None or (self.boundary == 0 and self.snapshot is None):
             self.owner = self.identity(model)
-            # Keep aligned blocks only, leaving the last input token to produce the first output.
-            limit = len(ids) - 1
-            if self.max_tokens is not None:
-                limit = min(limit, self.max_tokens)
-            self.boundary = (limit // block) * block
+        elif not self.extend or self.owner != self.identity(model):
+            return
+        elif tuple(ids[: len(self.tokens)]) != self.tokens:
+            # A rerendered turn may diverge before the previous block boundary.
+            self.boundary = len(self.tokens)
+            return
+        # Leave at least one new token for first-output logits.
+        limit = len(ids) - 1
+        if self.max_tokens is not None:
+            limit = min(limit, self.max_tokens)
+        self.boundary = max(len(self.tokens), limit // block * block)
 
     def begin(self, model, ids, block, cache):
         self.prepare(model, ids, block)
@@ -52,7 +59,7 @@ class ToolPrefix:
 
     def capture(self, model, ids, offset, cache):
         if (
-            self.snapshot is None
+            (self.snapshot is None or (self.extend and offset > len(self.tokens)))
             and self.owner == self.identity(model)
             and offset == self.boundary
         ):

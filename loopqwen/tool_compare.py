@@ -103,6 +103,7 @@ def compare(args, tools, options):
             else {}
         ),
         "reuse_prefix": reuse,
+        **({"extend_tool_prefix": True} if options.get("extend_tool_prefix") else {}),
         **({"prefill_cache_state": True} if options.get("prefill_cache_state") else {}),
         "max_tokens_per_turn": options["max_tokens"],
         "max_turns": options["max_turns"],

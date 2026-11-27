@@ -230,6 +230,7 @@ class Assistant:
         reuse_prefix=None,
         record_kv_history=False,
         prefill_cache_state=False,
+        extend_tool_prefix=False,
         _messages=None,
         _conversation_prefix=None,
     ):
@@ -265,6 +266,7 @@ class Assistant:
                     else {}
                 ),
                 record_kv_history=record_kv_history,
+                **({"extend_tool_prefix": True} if extend_tool_prefix else {}),
                 **({"prefill_cache_state": True} if prefill_cache_state else {}),
                 recover_callback=getattr(self, "_recover_callback", None),
                 tool_format=getattr(self, "tool_format", "compact"),
@@ -272,8 +274,14 @@ class Assistant:
                 if reuse_prefix is None
                 else reuse_prefix,
             )
+        if extend_tool_prefix:
+            raise ValueError(
+                "Extending a tool prefix requires a fixed resident tool decoder"
+            )
         if prefill_cache_state:
-            raise ValueError("Cache-state prefill requires a fixed resident tool decoder")
+            raise ValueError(
+                "Cache-state prefill requires a fixed resident tool decoder"
+            )
         from .evaluation.generation_eval import generate
         from .tool_session import prompt
 
