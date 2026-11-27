@@ -251,13 +251,19 @@ def run(
             progress=progress,
             stop_ids=stop_ids,
             tool_prefix=prefix,
+            **({"return_prompt_ids": True} if decoder is generate else {}),
             **({"record_kv_history": True} if record_kv_history else {}),
             **({"prefill_cache_state": True} if prefill_cache_state else {}),
             **({"tool_grammar": grammar} if grammar is not None else {}),
         )
         ids = out["token_ids"]
+        # Use the input actually consumed by the native decoder. Custom first-turn
+        # decoders can omit it and retain the original reconstruction behavior.
+        prompt_ids = out.get("prompt_ids") if decoder is generate else None
+        if prompt_ids is None:
+            prompt_ids = tokenizer.encode(request, add_special_tokens=False)
         row = dict(
-            prompt_ids=tokenizer.encode(request, add_special_tokens=False),
+            prompt_ids=prompt_ids,
             token_ids=ids,
             seconds=out["elapsed_s"],
             ttft_s=out["ttft_s"],

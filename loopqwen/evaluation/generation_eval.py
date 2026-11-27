@@ -40,6 +40,7 @@ def generate(
     record_kv_history=False,
     tool_grammar=None,
     prefill_cache_state=False,
+    return_prompt_ids=False,
 ):
     if type(prefill_block) is not int or prefill_block < 1:
         raise ValueError("Prefill block must be a positive integer")
@@ -99,6 +100,7 @@ def generate(
             prompt=prompt,
             text=tokenizer.decode(tokens),
             prompt_tokens=len(ids),
+            **({"prompt_ids": ids} if return_prompt_ids else {}),
             greedy=True,
             seed=0,
             max_tokens=max_tokens,
@@ -205,6 +207,8 @@ def generate(
         "peak_bytes": mx.get_peak_memory(),
         "active_bytes": mx.get_active_memory(),
     }
+    if return_prompt_ids:
+        result["prompt_ids"] = ids
     precision = getattr(model, "weight_precision_receipt", None)
     if precision is not None:
         inputs_used = model.text.model.embed_tokens

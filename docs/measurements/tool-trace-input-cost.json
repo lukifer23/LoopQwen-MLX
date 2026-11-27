@@ -1,0 +1,134 @@
+{
+  "scope": "CPU-only cost of recording the ordinary prompt ID sequence after native generation. The references are previously computed, complete IDs from the same tokenizer; no decoder latency or model-quality claim.",
+  "inputs": "research/data/locked-context.json",
+  "rounds": [
+    {
+      "git": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "round": 1,
+      "mode": "reuse",
+      "postdecode_s": 5.792011506855488e-06,
+      "cpu_s": 5.999999999950489e-06,
+      "ids": 148741
+    },
+    {
+      "git": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "round": 1,
+      "mode": "encode",
+      "postdecode_s": 0.08677520795026794,
+      "cpu_s": 0.08677800000000002,
+      "ids": 148741
+    },
+    {
+      "git": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "round": 2,
+      "mode": "encode",
+      "postdecode_s": 0.08862020797096193,
+      "cpu_s": 0.08862100000000006,
+      "ids": 148741
+    },
+    {
+      "git": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "round": 2,
+      "mode": "reuse",
+      "postdecode_s": 0.00030037498800083995,
+      "cpu_s": 0.00029999999999996696,
+      "ids": 148741
+    },
+    {
+      "git": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "round": 3,
+      "mode": "reuse",
+      "postdecode_s": 5.00003807246685e-07,
+      "cpu_s": 0.0,
+      "ids": 148741
+    },
+    {
+      "git": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "round": 3,
+      "mode": "encode",
+      "postdecode_s": 0.0869547079782933,
+      "cpu_s": 0.08695300000000006,
+      "ids": 148741
+    },
+    {
+      "git": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "round": 4,
+      "mode": "encode",
+      "postdecode_s": 0.08828329195966944,
+      "cpu_s": 0.08828300000000011,
+      "ids": 148741
+    },
+    {
+      "git": "648f1ccd472451e31f56a0a6f5596d71313a9ffa",
+      "round": 4,
+      "mode": "reuse",
+      "postdecode_s": 0.0003190419520251453,
+      "cpu_s": 0.0003189999999999582,
+      "ids": 148741
+    },
+    {
+      "git": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "round": 1,
+      "mode": "reuse",
+      "postdecode_s": 0.0003147089737467468,
+      "cpu_s": 0.0003149999999998432,
+      "ids": 137017
+    },
+    {
+      "git": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "round": 1,
+      "mode": "encode",
+      "postdecode_s": 0.0722584169707261,
+      "cpu_s": 0.07225799999999993,
+      "ids": 137017
+    },
+    {
+      "git": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "round": 2,
+      "mode": "encode",
+      "postdecode_s": 0.07074458303395659,
+      "cpu_s": 0.07074500000000006,
+      "ids": 137017
+    },
+    {
+      "git": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "round": 2,
+      "mode": "reuse",
+      "postdecode_s": 0.00028375000692903996,
+      "cpu_s": 0.0002830000000000332,
+      "ids": 137017
+    },
+    {
+      "git": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "round": 3,
+      "mode": "reuse",
+      "postdecode_s": 4.5797787606716156e-07,
+      "cpu_s": 1.9999999998354667e-06,
+      "ids": 137017
+    },
+    {
+      "git": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "round": 3,
+      "mode": "encode",
+      "postdecode_s": 0.0737902499968186,
+      "cpu_s": 0.0737899999999998,
+      "ids": 137017
+    },
+    {
+      "git": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "round": 4,
+      "mode": "encode",
+      "postdecode_s": 0.07406870898557827,
+      "cpu_s": 0.07406899999999972,
+      "ids": 137017
+    },
+    {
+      "git": "4ba8468a0130d890328bb821786bb74bdca32298",
+      "round": 4,
+      "mode": "reuse",
+      "postdecode_s": 0.00027783302357420325,
+      "cpu_s": 0.0002780000000002225,
+      "ids": 137017
+    }
+  ]
+}
