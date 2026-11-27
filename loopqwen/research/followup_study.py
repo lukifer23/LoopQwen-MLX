@@ -33,8 +33,11 @@ def refs(labels):
 
 
 def agreement(text, labels):
+    # Convert the exact user-facing abstention to the publisher’s special label.
+    if text == "Cannot answer":
+        text = "CANNOTANSWER"
     if labels == ["CANNOTANSWER"]:
-        return float(normalized(text) in ("cannot answer", "cannotanswer"))
+        return float(text == "CANNOTANSWER")
     f = [extract(text, [r])[1] for r in labels]
     return (
         f[0]

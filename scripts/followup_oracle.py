@@ -46,6 +46,18 @@ def audit():
             ]
             if w["previous_answer"]:
                 guesses.append(w["previous_answer"])
+            # The published abstention branch tests the special label literally.
+            # A caveat or a string containing the two words still goes through its ordinary scoring path.
+            for visible in (
+                "Cannot answer",
+                "CANNOTANSWER",
+                "Cannot answer.",
+                "the cannot answer",
+                "cannotanswer",
+            ):
+                sent = "CANNOTANSWER" if visible == "Cannot answer" else visible
+                wanted = scorer["leave_one_out_max"](sent, target, w["passage"])
+                assert math.isclose(agreement(visible, target), wanted, abs_tol=1e-12)
             for guess in guesses:
                 official = (
                     "CANNOTANSWER"
