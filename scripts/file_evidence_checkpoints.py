@@ -37,6 +37,7 @@ def verify(root):
         "proof-curriculum-01",
         "field-selection-01",
         "valid-return-01",
+        "linked-rollin-01",
     )
     interval = 100 if proof_fit else 80 if cross_view else s["checkpoint_interval"]
     steps = list(range(interval, s["updates"], interval)) + [s["updates"]]
@@ -106,11 +107,13 @@ def record(root):
             "proof-curriculum-01",
             "field-selection-01",
             "valid-return-01",
+            "linked-rollin-01",
         ):
             proof_fit = spec["id"] in (
                 "proof-curriculum-01",
                 "field-selection-01",
                 "valid-return-01",
+                "linked-rollin-01",
             )
             key = "explanation_targets" if proof_fit else "teacher_positions"
             progress = {
@@ -124,6 +127,8 @@ def record(root):
             progress = {k: state[k] for k in ("step", "targets", "optimizer_seconds")}
         if spec["id"] == "valid-return-01":
             progress["rejected_tokens"] = state["rejected_tokens"]
+        if spec["id"] == "linked-rollin-01":
+            progress["contrast_draws"] = state["contrast"]
         assert state["loss"] == [l for l in fit["loss"] if l["step"] <= state["step"]]
         history.append(
             {
@@ -160,10 +165,13 @@ if __name__ == "__main__":
     study.add_argument("--proof-curriculum", action="store_true")
     study.add_argument("--field-selection", action="store_true")
     study.add_argument("--valid-return", action="store_true")
+    study.add_argument("--linked-rollin", action="store_true")
     args = p.parse_args()
     base = "outputs/research" if args.record else "research/results"
     name = (
-        "valid-return-01"
+        "linked-rollin-01"
+        if args.linked_rollin
+        else "valid-return-01"
         if args.valid_return
         else "field-selection-01"
         if args.field_selection

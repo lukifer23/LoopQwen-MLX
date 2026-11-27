@@ -67,6 +67,12 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "linked-rollin-01":
+        from loopqwen.research.linked_rollin import verify as verify_links
+        from scripts.linked_rollin_material import build
+
+        build()
+        return verify_links(root, decision)
     if study == "cache-state-prefill-01":
         from loopqwen.research.cache_state import verify as verify_cache_states
 
