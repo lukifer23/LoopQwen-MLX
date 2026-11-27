@@ -1,0 +1,241 @@
+id,question,ended,output_tokens,actual_visible_response,statement,original_gold,original_read,original_correct,altered_gold,altered_read,altered_correct,correct_both
+nt-13221,who was the opening act at the viper room?,True,70,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Opening act"" COLLATE NOCASE) FROM records WHERE (""Venue"" COLLATE NOCASE) = 'viper room'
+</parameter>
+</function>
+</tool_call>","SELECT (""Opening act"" COLLATE NOCASE) FROM records WHERE (""Venue"" COLLATE NOCASE) = 'viper room'",The Darling Buds,True,True,Doughboys,True,True,True
+nt-9301,how many players are below tiger woods,True,104,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT COUNT ( (""Player"" COLLATE NOCASE) ) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (""Player"" COLLATE NOCASE) = 'tiger woods' ) - ( SELECT rowid FROM records WHERE (""Player"" COLLATE NOCASE) = 'tiger woods' )
+</parameter>
+</function>
+</tool_call>","SELECT COUNT ( (""Player"" COLLATE NOCASE) ) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (""Player"" COLLATE NOCASE) = 'tiger woods' ) - ( SELECT rowid FROM records WHERE (""Player"" COLLATE NOCASE) = 'tiger woods' )",9,True,False,0,True,True,False
+nt-10580,"of the locomotives at the museum, what is the name of the first one produced?",True,68,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Name"" COLLATE NOCASE) FROM records ORDER BY CAST(""Date"" AS NUMERIC) ASC LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Name"" COLLATE NOCASE) FROM records ORDER BY CAST(""Date"" AS NUMERIC) ASC LIMIT 1",George Henry,True,True,Jubilee 1897,True,True,True
+nt-2100,in what season were a number of 6 goals scored?,True,68,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Season"" COLLATE NOCASE) FROM records ORDER BY CAST(""Season"" AS NUMERIC) DESC LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Season"" COLLATE NOCASE) FROM records ORDER BY CAST(""Season"" AS NUMERIC) DESC LIMIT 1",03/04,True,False,06/07,True,False,False
+nt-8448,what is the name of the last race?,True,63,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Race Name"" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Race Name"" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",Dome 2 Dome Cycling Spectacular,True,True,Boucle du Coton,True,True,True
+nt-9216,how many times total was the team promoted?,True,64,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT COUNT ( * ) FROM records WHERE (""Notes"" COLLATE NOCASE) = 'promoted'
+</parameter>
+</function>
+</tool_call>","SELECT COUNT ( * ) FROM records WHERE (""Notes"" COLLATE NOCASE) = 'promoted'",2,True,True,1,True,True,True
+nt-10935,which team finished last in the 1998 marlboro grand prix of miami?,True,68,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Team"" COLLATE NOCASE) FROM records ORDER BY CAST(""Pos"" AS NUMERIC) DESC LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Team"" COLLATE NOCASE) FROM records ORDER BY CAST(""Pos"" AS NUMERIC) DESC LIMIT 1",Tasman Motorsports Group,True,True,Patrick Racing,True,True,True
+nt-12182,which locality has the least amount of area according to this chart?,True,74,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Name"" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(""Area (km²)"", ',', '') AS NUMERIC) LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Name"" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(""Area (km²)"", ',', '') AS NUMERIC) LIMIT 1",Cristian,True,True,Ghimbav,True,True,True
+nt-4533,"how many total fights took place in mexico city, mexico?",True,68,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT COUNT ( * ) FROM records WHERE (""Location"" COLLATE NOCASE) = 'mexico city, mexico'
+</parameter>
+</function>
+</tool_call>","SELECT COUNT ( * ) FROM records WHERE (""Location"" COLLATE NOCASE) = 'mexico city, mexico'",9,True,True,11,True,True,True
+nt-8868,what was the number of times usl a-league did not qualify for the playoffs?,True,66,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT COUNT ( * ) FROM records WHERE (""League"" COLLATE NOCASE) = 'usl a-league'
+</parameter>
+</function>
+</tool_call>","SELECT COUNT ( * ) FROM records WHERE (""League"" COLLATE NOCASE) = 'usl a-league'",1,True,False,3,True,False,False
+nt-1070,what is the location after tainan?,True,94,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Location"" COLLATE NOCASE) FROM records WHERE CAST(""Year"" AS NUMERIC) = ( SELECT CAST(""Year"" AS NUMERIC) FROM records WHERE (""Location"" COLLATE NOCASE) = 'tainan' ) - 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Location"" COLLATE NOCASE) FROM records WHERE CAST(""Year"" AS NUMERIC) = ( SELECT CAST(""Year"" AS NUMERIC) FROM records WHERE (""Location"" COLLATE NOCASE) = 'tainan' ) - 1",Shenzhen,True,False,Legnica,True,False,False
+nt-7318,was big bang 2 recorded in japanese or korean?,True,70,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Language"" COLLATE NOCASE) FROM records WHERE (""Title"" COLLATE NOCASE) = 'big bang 2'
+</parameter>
+</function>
+</tool_call>","SELECT (""Language"" COLLATE NOCASE) FROM records WHERE (""Title"" COLLATE NOCASE) = 'big bang 2'",Japanese,True,True,Korean,True,True,True
+nt-3407,what position did this racer finish at his only world race walking cup competition?,True,71,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Position"" COLLATE NOCASE) FROM records WHERE (""Competition"" COLLATE NOCASE) = 'world race walking cup'
+</parameter>
+</function>
+</tool_call>","SELECT (""Position"" COLLATE NOCASE) FROM records WHERE (""Competition"" COLLATE NOCASE) = 'world race walking cup'",12th,True,True,2nd,True,True,True
+nt-7656,who came in first place during the 2007 worlds qualification tournament?,True,73,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Nation"" COLLATE NOCASE) FROM records WHERE CAST(NULLIF(TRIM(""Place in QT""), '') AS NUMERIC) = 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Nation"" COLLATE NOCASE) FROM records WHERE CAST(NULLIF(TRIM(""Place in QT""), '') AS NUMERIC) = 1",Brazil,True,True,Poland,True,True,True
+nt-10676,where did he win his last championship?,True,63,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Championship"" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Championship"" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1","Bordeaux, France",True,True,"Murcia, Spain",True,True,True
+nt-7688,what is the total number of tournaments in the year 2006?,True,65,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT COUNT ( * ) FROM records WHERE CAST(""Year"" AS NUMERIC) = 2006
+</parameter>
+</function>
+</tool_call>","SELECT COUNT ( * ) FROM records WHERE CAST(""Year"" AS NUMERIC) = 2006",4,True,True,8,True,True,True
+nt-7535,which rider is on top in points,True,74,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Rider"" COLLATE NOCASE) FROM records ORDER BY CAST(NULLIF(TRIM(""Points""), '') AS NUMERIC) DESC LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Rider"" COLLATE NOCASE) FROM records ORDER BY CAST(NULLIF(TRIM(""Points""), '') AS NUMERIC) DESC LIMIT 1",Manuel Poggiali,True,True,Jorge Lorenzo,True,True,True
+nt-13666,how many athletes were from a country other than cyprus?,True,72,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT COUNT ( (""Name"" COLLATE NOCASE) ) FROM records WHERE (""Nationality"" COLLATE NOCASE) != 'cyprus'
+</parameter>
+</function>
+</tool_call>","SELECT COUNT ( (""Name"" COLLATE NOCASE) ) FROM records WHERE (""Nationality"" COLLATE NOCASE) != 'cyprus'",13,True,True,12,True,True,True
+nt-6938,how many teams had more pyramids than the atlas perp squad?,True,98,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT COUNT ( (""Team"" COLLATE NOCASE) ) FROM records WHERE CAST(""Pyramids"" AS NUMERIC) > ( SELECT CAST(""Pyramids"" AS NUMERIC) FROM records WHERE (""Team"" COLLATE NOCASE) = 'altas perp squad' )
+</parameter>
+</function>
+</tool_call>","SELECT COUNT ( (""Team"" COLLATE NOCASE) ) FROM records WHERE CAST(""Pyramids"" AS NUMERIC) > ( SELECT CAST(""Pyramids"" AS NUMERIC) FROM records WHERE (""Team"" COLLATE NOCASE) = 'altas perp squad' )",2,True,True,3,True,True,True
+nt-11728,how many countries scored no gold medals at this event?,True,69,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT COUNT ( (""Nation"" COLLATE NOCASE) ) FROM records WHERE CAST(""Gold"" AS NUMERIC) = 0
+</parameter>
+</function>
+</tool_call>","SELECT COUNT ( (""Nation"" COLLATE NOCASE) ) FROM records WHERE CAST(""Gold"" AS NUMERIC) = 0",4,True,True,3,True,True,True
+nt-4776,what is the last frequency on the chart?,True,62,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Frequency"" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Frequency"" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",88.7,True,True,91.9,True,True,True
+nt-12470,top gold medal earner?,True,68,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Nation"" COLLATE NOCASE) FROM records ORDER BY CAST(""Gold"" AS NUMERIC) DESC LIMIT 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Nation"" COLLATE NOCASE) FROM records ORDER BY CAST(""Gold"" AS NUMERIC) DESC LIMIT 1",Japan,True,True,Singapore,True,True,True
+nt-5903,how many medals overall did puerto rico win?,True,69,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT CAST(""Total"" AS NUMERIC) FROM records WHERE (""Nation"" COLLATE NOCASE) = 'puerto rico'
+</parameter>
+</function>
+</tool_call>","SELECT CAST(""Total"" AS NUMERIC) FROM records WHERE (""Nation"" COLLATE NOCASE) = 'puerto rico'",1,True,True,9,True,True,True
+nt-3450,what was galina chistyakova's last competition?,True,83,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT (""Notes"" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (""Notes"" COLLATE NOCASE) = 'last_competition' ) - 1
+</parameter>
+</function>
+</tool_call>","SELECT (""Notes"" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (""Notes"" COLLATE NOCASE) = 'last_competition' ) - 1",European Indoor Championships,True,False,European Championships,True,False,False

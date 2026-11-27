@@ -1,0 +1,207 @@
+{
+  "decision": {
+    "passed": true,
+    "gates": {
+      "full_exposure": true,
+      "mean_likelihood": true,
+      "broad_likelihood": true,
+      "free_sql": true,
+      "gradients": true
+    },
+    "updates": 1851,
+    "all_response_positions": 1175348,
+    "preference_presentations": 2064,
+    "group_mean_nll_gain": {
+      "arithmetic": 0.6095443516969681,
+      "discovery": 1.0353179143858142,
+      "explanation": 1.1296290457248688,
+      "instruction": 0.7092484179884195,
+      "legacy": 1.4442243140365463,
+      "program": 1.1559765995771158,
+      "scalar": 2.3114468196145026
+    },
+    "training_sql_both_correct": 19,
+    "distinct_correct_programs": 19
+  },
+  "ablated_mean_gain": 0.10351488113571707,
+  "ablated_improved": 55,
+  "fit": {
+    "registration": "b105a0a8d8c56fd962f15cff077ccfd636fab522905e40234ee529c946f22650",
+    "weights": "e0b2402f923fe892bbba083b8101e7528b6714e5ed34ba944bcecc91ed5ad83d",
+    "backbone": {
+      "sha256": "85d3eb409cec6f6a49abdc921570c09cad2f57480fe3bb111dfcfe763c440f84",
+      "bytes": 424020958,
+      "donor": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+      "tensors": 694
+    },
+    "feature_archive": "6cf92efded6410f16b710d47c94a57a92be3536b201f5fde88b24f3923061898",
+    "trainable": 1377280,
+    "updates": 1851
+  },
+  "group_probes": [
+    {
+      "label": "Human instructions",
+      "group": "instruction",
+      "before": 2.5334354490041733,
+      "after": 1.8241870310157537,
+      "gain": 0.7092484179884195,
+      "state_information_gain": 0.11693287454545498,
+      "improved": 8,
+      "positions": 1135
+    },
+    {
+      "label": "Worked arithmetic",
+      "group": "arithmetic",
+      "before": 1.5243971794843674,
+      "after": 0.9148528277873993,
+      "gain": 0.6095443516969681,
+      "state_information_gain": 0.11909359693527222,
+      "improved": 8,
+      "positions": 810
+    },
+    {
+      "label": "Earlier assistance",
+      "group": "legacy",
+      "before": 1.7654170617461205,
+      "after": 0.3211927477095742,
+      "gain": 1.4442243140365463,
+      "state_information_gain": 0.27351133377305814,
+      "improved": 8,
+      "positions": 407
+    },
+    {
+      "label": "Natural table explanations",
+      "group": "explanation",
+      "before": 1.729934960603714,
+      "after": 0.6003059148788452,
+      "gain": 1.1296290457248688,
+      "state_information_gain": 0.11078028008341789,
+      "improved": 8,
+      "positions": 263
+    },
+    {
+      "label": "Targeted SQL",
+      "group": "program",
+      "before": 1.1696986630558968,
+      "after": 0.01372206347878091,
+      "gain": 1.1559765995771158,
+      "state_information_gain": 0.05806650698650628,
+      "improved": 8,
+      "positions": 558
+    },
+    {
+      "label": "Schema calls",
+      "group": "discovery",
+      "before": 1.0362404584884644,
+      "after": 0.0009225441026501358,
+      "gain": 1.0353179143858142,
+      "state_information_gain": 0.020326264202594757,
+      "improved": 8,
+      "positions": 256
+    },
+    {
+      "label": "Answers after scalar reads",
+      "group": "scalar",
+      "before": 2.321802467107773,
+      "after": 0.010355647493270226,
+      "gain": 2.3114468196145026,
+      "state_information_gain": 0.025893311423715204,
+      "improved": 8,
+      "positions": 61
+    }
+  ],
+  "balanced_gain": 1.1993410661463193,
+  "sql_margins": [
+    {
+      "edit": "column",
+      "pairs": 95,
+      "improved": 93,
+      "ordinary_ranked": 79,
+      "ordinary_above_one": 64,
+      "ordinary_median": 2.499950408935547,
+      "ordinary_mean": 2.6008973880818016,
+      "trained_ranked": 95,
+      "trained_above_one": 95,
+      "trained_median": 8.071054458618164,
+      "trained_mean": 8.873849537855897
+    },
+    {
+      "edit": "predicate",
+      "pairs": 49,
+      "improved": 49,
+      "ordinary_ranked": 47,
+      "ordinary_above_one": 45,
+      "ordinary_median": 5.1251068115234375,
+      "ordinary_mean": 4.932887524974589,
+      "trained_ranked": 49,
+      "trained_above_one": 48,
+      "trained_median": 10.312498092651367,
+      "trained_mean": 10.283111377638214
+    },
+    {
+      "edit": "direction",
+      "pairs": 32,
+      "improved": 32,
+      "ordinary_ranked": 18,
+      "ordinary_above_one": 18,
+      "ordinary_median": 2.6250228881835938,
+      "ordinary_mean": 0.8171975016593933,
+      "trained_ranked": 32,
+      "trained_above_one": 32,
+      "trained_median": 9.531246185302734,
+      "trained_mean": 9.79935410618782
+    },
+    {
+      "edit": "all",
+      "pairs": 176,
+      "improved": 174,
+      "ordinary_ranked": 144,
+      "ordinary_above_one": 127,
+      "ordinary_median": 3.5447559356689453,
+      "ordinary_mean": 2.9258355718444693,
+      "trained_ranked": 176,
+      "trained_above_one": 175,
+      "trained_median": 9.217555046081543,
+      "trained_mean": 9.434474403401095
+    }
+  ],
+  "source_turns_seen": 18460,
+  "smallest_norm": 0.26764926314353943,
+  "largest_norm": 5.4738969802856445,
+  "cold_error": 4.76837158203125e-07,
+  "cold_positions": 3490,
+  "seconds": 568.8217508792877,
+  "peak_gib": 1.5366193242371082,
+  "closed_responses": 24,
+  "submitted_queries": 24,
+  "both_read": 24,
+  "original_correct": 19,
+  "altered_correct": 20,
+  "query_histogram": {
+    "SELECT (\"Opening act\" COLLATE NOCASE) FROM records WHERE (\"Venue\" COLLATE NOCASE) = 'viper room'": 1,
+    "SELECT COUNT ( (\"Player\" COLLATE NOCASE) ) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Player\" COLLATE NOCASE) = 'tiger woods' ) - ( SELECT rowid FROM records WHERE (\"Player\" COLLATE NOCASE) = 'tiger woods' )": 1,
+    "SELECT (\"Name\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Date\" AS NUMERIC) ASC LIMIT 1": 1,
+    "SELECT (\"Season\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Season\" AS NUMERIC) DESC LIMIT 1": 1,
+    "SELECT (\"Race Name\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1": 1,
+    "SELECT COUNT ( * ) FROM records WHERE (\"Notes\" COLLATE NOCASE) = 'promoted'": 1,
+    "SELECT (\"Team\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Pos\" AS NUMERIC) DESC LIMIT 1": 1,
+    "SELECT (\"Name\" COLLATE NOCASE) FROM records ORDER BY CAST(REPLACE(\"Area (km\u00b2)\", ',', '') AS NUMERIC) LIMIT 1": 1,
+    "SELECT COUNT ( * ) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'mexico city, mexico'": 1,
+    "SELECT COUNT ( * ) FROM records WHERE (\"League\" COLLATE NOCASE) = 'usl a-league'": 1,
+    "SELECT (\"Location\" COLLATE NOCASE) FROM records WHERE CAST(\"Year\" AS NUMERIC) = ( SELECT CAST(\"Year\" AS NUMERIC) FROM records WHERE (\"Location\" COLLATE NOCASE) = 'tainan' ) - 1": 1,
+    "SELECT (\"Language\" COLLATE NOCASE) FROM records WHERE (\"Title\" COLLATE NOCASE) = 'big bang 2'": 1,
+    "SELECT (\"Position\" COLLATE NOCASE) FROM records WHERE (\"Competition\" COLLATE NOCASE) = 'world race walking cup'": 1,
+    "SELECT (\"Nation\" COLLATE NOCASE) FROM records WHERE CAST(NULLIF(TRIM(\"Place in QT\"), '') AS NUMERIC) = 1": 1,
+    "SELECT (\"Championship\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1": 1,
+    "SELECT COUNT ( * ) FROM records WHERE CAST(\"Year\" AS NUMERIC) = 2006": 1,
+    "SELECT (\"Rider\" COLLATE NOCASE) FROM records ORDER BY CAST(NULLIF(TRIM(\"Points\"), '') AS NUMERIC) DESC LIMIT 1": 1,
+    "SELECT COUNT ( (\"Name\" COLLATE NOCASE) ) FROM records WHERE (\"Nationality\" COLLATE NOCASE) != 'cyprus'": 1,
+    "SELECT COUNT ( (\"Team\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Pyramids\" AS NUMERIC) > ( SELECT CAST(\"Pyramids\" AS NUMERIC) FROM records WHERE (\"Team\" COLLATE NOCASE) = 'altas perp squad' )": 1,
+    "SELECT COUNT ( (\"Nation\" COLLATE NOCASE) ) FROM records WHERE CAST(\"Gold\" AS NUMERIC) = 0": 1,
+    "SELECT (\"Frequency\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1": 1,
+    "SELECT (\"Nation\" COLLATE NOCASE) FROM records ORDER BY CAST(\"Gold\" AS NUMERIC) DESC LIMIT 1": 1,
+    "SELECT CAST(\"Total\" AS NUMERIC) FROM records WHERE (\"Nation\" COLLATE NOCASE) = 'puerto rico'": 1,
+    "SELECT (\"Notes\" COLLATE NOCASE) FROM records WHERE rowid = ( SELECT rowid FROM records WHERE (\"Notes\" COLLATE NOCASE) = 'last_competition' ) - 1": 1
+  },
+  "primary_eligible": true
+}
