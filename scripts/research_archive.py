@@ -67,6 +67,9 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "source-copy-transfer-01":
+        from loopqwen.research.source_copy_transfer import verify as verify_copy_transfer
+        return verify_copy_transfer(root, decision)
     if study == "source-copy-fit-01":
         from loopqwen.research.source_copy_fit import verify as verify_copy_fit
         return verify_copy_fit(root, decision)
