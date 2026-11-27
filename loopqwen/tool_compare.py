@@ -49,7 +49,11 @@ def compare(args, tools, options):
                         reuse, getattr(args, "tool_format", "compact"), args.checkpoint
                     )
                     base_source = assistant.language.base_source
-                chat = assistant.conversation(tools)
+                chat = (
+                    assistant.conversation(tools, retain_prefix=True)
+                    if getattr(args, "retain_conversation_prefix", False)
+                    else assistant.conversation(tools)
+                )
             observed_at = {}
 
             def observe(consumed, times=observed_at, at=start):

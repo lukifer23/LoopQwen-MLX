@@ -10,7 +10,8 @@ def copy_state(value):
 
 
 class ToolPrefix:
-    def __init__(self):
+    def __init__(self, max_tokens=4096):
+        self.max_tokens = max_tokens
         self.tokens = ()
         self.snapshot = None
         self.boundary = None
@@ -25,12 +26,18 @@ class ToolPrefix:
             model.alpha_override,
         )
 
-    def begin(self, model, ids, block, cache):
-        self.reused = 0
-        if self.owner is None:
+    def prepare(self, model, ids, block):
+        if self.owner is None or (self.boundary == 0 and self.snapshot is None):
             self.owner = self.identity(model)
             # Keep aligned blocks only, leaving the last input token to produce the first output.
-            self.boundary = min(4096 // block, max(0, (len(ids) - 1) // block)) * block
+            limit = len(ids) - 1
+            if self.max_tokens is not None:
+                limit = min(limit, self.max_tokens)
+            self.boundary = (limit // block) * block
+
+    def begin(self, model, ids, block, cache):
+        self.prepare(model, ids, block)
+        self.reused = 0
         if (
             self.snapshot is None
             or self.owner != self.identity(model)
@@ -54,3 +61,26 @@ class ToolPrefix:
                 for site, slot in cache.slots.items()
             }
             self.tokens = tuple(ids[:offset])
+
+
+class ConversationPrefill:
+    """Restore the longest exact saved state and retain one private conversation prefix."""
+
+    def __init__(self, conversation, within_request):
+        self.prefixes = (
+            (conversation, within_request) if within_request else (conversation,)
+        )
+        self.reused = 0
+
+    def begin(self, model, ids, block, cache):
+        for prefix in self.prefixes:
+            prefix.prepare(model, ids, block)
+        for prefix in sorted(self.prefixes, key=lambda p: len(p.tokens), reverse=True):
+            self.reused = prefix.begin(model, ids, block, cache)
+            if self.reused:
+                break
+        return self.reused
+
+    def capture(self, model, ids, offset, cache):
+        for prefix in self.prefixes:
+            prefix.capture(model, ids, offset, cache)

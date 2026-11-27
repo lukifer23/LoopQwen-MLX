@@ -97,6 +97,11 @@ def add_arguments(p, checkpoint=None):
         metavar="TEXT",
         help="Send another user message in the same live conversation. Can be repeated.",
     )
+    p.add_argument(
+        "--retain-conversation-prefix",
+        action="store_true",
+        help="Retain the first complete native prefill blocks for later calls and user messages in this tool conversation.",
+    )
     p.add_argument("--max-tokens", type=int, default=160)
     p.add_argument("--max-turns", type=int, default=4)
     p.add_argument(
@@ -200,6 +205,9 @@ def respond(args, parser):
             parser.error(
                 "Select a file, document, CSV, resource, catalog, calculator, packages or a database table"
             )
+        retain = getattr(args, "retain_conversation_prefix", False)
+        if retain and not supplied:
+            parser.error("--retain-conversation-prefix requires at least one tool")
         options = {
             "max_tokens": args.max_tokens,
             "max_turns": args.max_turns,
@@ -215,8 +223,14 @@ def respond(args, parser):
 
             return compare(args, supplied, options)
         assistant = open_assistant(args)
-        if args.follow_up:
-            chat = assistant.conversation(supplied)
+        if args.follow_up or retain:
+            chat = (
+                assistant.conversation(supplied, retain_prefix=True)
+                if retain
+                else assistant.conversation(supplied)
+            )
+            if not args.follow_up:
+                return present(chat.respond(args.prompt, **options), args.trace)
             return {
                 "exchanges": [
                     {

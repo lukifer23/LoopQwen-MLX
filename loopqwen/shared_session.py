@@ -101,6 +101,7 @@ class SharedAssistant(Assistant):
         reuse_prefix=None,
         record_kv_history=False,
         _messages=None,
+        _conversation_prefix=None,
     ):
         options = {
             "max_tokens": max_tokens,
@@ -109,6 +110,7 @@ class SharedAssistant(Assistant):
             "record_kv_history": record_kv_history,
             "reuse_prefix": reuse_prefix,
             "_messages": _messages,
+            "_conversation_prefix": _conversation_prefix,
         }
         if not tools:
             msgs = list(_messages or ()) + [{"role": "user", "content": question}]

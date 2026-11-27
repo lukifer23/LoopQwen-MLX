@@ -199,11 +199,11 @@ class Assistant:
             return tokenizer
         return load_export_tokenizer(directory, eos_token_ids=eos_token_ids)
 
-    def conversation(self, tools=()):
+    def conversation(self, tools=(), *, retain_prefix=False):
         """Keep user turns, visible answers and real tool observations across requests."""
         from .tool_session import Conversation
 
-        return Conversation(self, tools)
+        return Conversation(self, tools, retain_prefix=retain_prefix)
 
     def _load_language(self):
         if self.language is None:
@@ -230,6 +230,7 @@ class Assistant:
         reuse_prefix=None,
         record_kv_history=False,
         _messages=None,
+        _conversation_prefix=None,
     ):
         if tools:
             from .tool_session import run
@@ -257,6 +258,7 @@ class Assistant:
                 max_turns=max_turns,
                 progress=progress,
                 _messages=_messages,
+                _conversation_prefix=_conversation_prefix,
                 record_kv_history=record_kv_history,
                 recover_callback=getattr(self, "_recover_callback", None),
                 tool_format=getattr(self, "tool_format", "compact"),

@@ -40,11 +40,16 @@ class Tool:
 class Conversation:
     """Caller-owned conversation with a fixed tool catalog and ordered observations."""
 
-    def __init__(self, assistant, tools):
+    def __init__(self, assistant, tools, *, retain_prefix=False):
+        from .tool_prefill import ToolPrefix
+
         self._assistant = assistant
         self._tools = tuple(
             Tool(t.name, t.description, deepcopy(t.parameters), t.callback)
             for t in tools
+        )
+        self._prefix = (
+            ToolPrefix(max_tokens=None) if retain_prefix and self._tools else None
         )
         self._messages = (
             [system_message(self._tools)]
@@ -80,6 +85,11 @@ class Conversation:
                 progress=progress,
                 reuse_prefix=reuse_prefix,
                 _messages=self._messages,
+                **(
+                    {"_conversation_prefix": self._prefix}
+                    if self._prefix is not None
+                    else {}
+                ),
                 **({"record_kv_history": True} if record_kv_history else {}),
             )
         finally:
@@ -151,6 +161,7 @@ def run(
     tool_format="compact",
     record_kv_history=False,
     _messages=None,
+    _conversation_prefix=None,
 ):
     """Return a visible answer and replayable trace. Only supplied callbacks may execute."""
     if tool_format not in ("compact", "qwen"):
@@ -193,9 +204,11 @@ def run(
     else:
         messages = _messages
         messages.append(dict(role="user", content=question))
-    from .tool_prefill import ToolPrefix
+    from .tool_prefill import ConversationPrefill, ToolPrefix
 
     tool_prefix = ToolPrefix() if reuse_prefix else None
+    if _conversation_prefix is not None:
+        tool_prefix = ConversationPrefill(_conversation_prefix, tool_prefix)
     turns = []
     answer = None
     status = "turn_limit"
@@ -224,7 +237,9 @@ def run(
         )
         if recovery_model is not None:
             active_model = recovery_model
-        prefix = tool_prefix if turns or observation_model is None else None
+        prefix = tool_prefix
+        if not turns and observation_model is not None:
+            prefix = _conversation_prefix
         out = decoder(
             active_model,
             tokenizer,
