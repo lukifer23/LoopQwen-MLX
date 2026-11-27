@@ -55,7 +55,7 @@ def test_qwen_export_preserves_multilingual_graphemes_and_every_frozen_prompt():
     if not (root / "tokenizer.json").is_file():
         pytest.skip("Requires the installed release and pinned Base tokenizer")
     base = load_tokenizer(local_snapshot())
-    candidate = load_export_tokenizer(root, eos_token_ids=base.eos_token_ids)
+    candidate = load_export_tokenizer(str(root), eos_token_ids=base.eos_token_ids)
     for text in ("समझौता एक्सप्रेस", "ਸਮਝੌਤਾ ਐਕਸਪ੍ਰੈਸ", "கணிதம்", "مَرْحَبًا", "naïve café"):
         assert candidate.encode(text, add_special_tokens=False) == base.encode(
             text, add_special_tokens=False
