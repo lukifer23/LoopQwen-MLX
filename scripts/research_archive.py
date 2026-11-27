@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "contrastive-world-transfer-01":
+        from loopqwen.research.contrastive_transfer import verify as verify_transfer
+
+        return verify_transfer(root, decision)
     if study in ("contrastive-table-features-01", "contrastive-language-features-01"):
         from loopqwen.research.contrastive_features import verify as verify_world_features
 
