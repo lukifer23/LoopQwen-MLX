@@ -2,10 +2,14 @@
 
 import argparse
 import hashlib
+import os
+import shutil
 import subprocess
 import tomllib
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 from urllib.parse import urlsplit
+from urllib.request import urlopen
 from zipfile import ZipFile
 
 from mlx_lm.utils import load_tokenizer
@@ -16,9 +20,37 @@ from loopqwen.model_loader import local_snapshot
 from loopqwen.tool_session import prompt
 
 ROOT = Path("research/data")
-REVISIONS = ("5bd60c2c678b3f527805e8050f5104a7bc9c78e0", "4c4ecf2")
+REVISIONS = (
+    "5bd60c2c678b3f527805e8050f5104a7bc9c78e0",
+    "4c4ecf26a04afd71fcccc702b2a1ec20fa8519e7",
+)
 SQUAD = ROOT / "passage-copy-train.json"
 ZIP = Path("data/research_external/source-balanced/cpython.zip")
+
+
+CPYTHON = "4a5632fbf9bf59477c540e3f53fa7cdbeea3e3f5"
+ZIP_SHA = "a9a7cb0389b99be7076f473f5d19e3b835276eb63f1d6294426d3ec93238b5e3"
+
+
+def check_source():
+    if not ZIP.exists():
+        ZIP.parent.mkdir(parents=True, exist_ok=True)
+        with NamedTemporaryFile(dir=ZIP.parent, delete_on_close=False) as tmp:
+            with urlopen(
+                "https://codeload.github.com/python/cpython/zip/" + CPYTHON, timeout=90
+            ) as response:
+                shutil.copyfileobj(response, tmp)
+            tmp.close()
+            target = Path(tmp.name)
+            if digest(target) != ZIP_SHA:
+                raise ValueError("CPython source archive checksum differs")
+            # Publish a verified copy atomically; the temporary file is owned by its context.
+            try:
+                os.link(target, ZIP)
+            except FileExistsError:
+                pass
+    if digest(ZIP) != ZIP_SHA:
+        raise ValueError("CPython source archive checksum differs")
 
 
 def key(text):
@@ -122,6 +154,7 @@ def panel():
 
 
 def training():
+    check_source()
     human = {
         w["id"]: w
         for w in read(SQUAD)["rows"]

@@ -209,11 +209,12 @@ def outcome(spec, panel, data):
 
 def verify(root, decision):
     from scripts.document_frequency_material import panel as rebuild
+    from scripts.document_frequency_material import training as rebuild_training
 
     spec = read(root / "registration.json")
     assert spec == registered(spec["id"])
     material = read(spec["material"])
-    assert material == rebuild()
+    assert material == rebuild() and read(spec["training"]) == rebuild_training()
     panel = material["panel"]
     fit = read(root / "fit.json")
     assert fit["weights"] == digest(root / "span-ranker.safetensors") and fit[
@@ -257,6 +258,9 @@ def run(name):
         digest(directory / k) == v
         for k, v in read(release / "export-files.json").items()
     )
+    from scripts.document_frequency_material import check_source
+
+    check_source()
     train = read(spec["training"])
     assert all(digest(Path(k)) == v for k, v in train["sources"].items())
     panel = read(spec["material"])["panel"]
