@@ -1,0 +1,24 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "id": "document-frequency-reader-01",
+  "question": "Can a question-conditioned reader trained on human paragraphs and independent archive metadata guide an already trained native recurrent decoder to the correct value in complete, previously unqueried repository and dependency documents?",
+  "document_frequency_reader": true,
+  "release_inventory": "e296d289a70a1dbe4de592fda55d6c650e7de46fcb2b38aa110b6199d7d15a3f",
+  "training": "research/data/document-frequency-training.json",
+  "material": "research/data/document-frequency-panel.json",
+  "updates": 300,
+  "batch": 32,
+  "lr": 0.035,
+  "seed": 917203,
+  "min_train": 630,
+  "max_tokens": 160,
+  "limits": {
+    "wall_seconds": 2100,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "protocol": "Fit seven passage-ranking coefficients with native MLX on source-located answers in 384 human SQuAD training questions and 256 uncompressed file sizes in the independently published, pinned CPython source ZIP. Only host text segmentation and token n-gram membership are lexical preprocessing. Compute per-document inverse frequencies and rank all physical lines with learned unigram, bigram, trigram coverage and rarity plus width; split long lines into overlapping 192-token windows. At a final question paragraph in a long user message, a winner with a rare two- or three-token match receives the released register decoder and its full-history packed KV with bias 5+log(N/2048) over that original interval. Fall back to the release router otherwise. No extra prompt, hidden retrieved tokens, filename/quantity parser, output rewriting or gold at inference. Primary includes two entire original git ls-tree outputs at different immutable revisions, asking for a previously unenrolled changed asset size, and one complete original uv.lock asking for one wheel size. Selection by fixed SHA ordering before inference. Alternate which arm is first. Both receive identical source IDs and a single free greedy thinking-enabled 160-token generation with no external tools. Cold timing includes fresh loading, conversion, question processing, prefill and decoding per document. No claim that training the small selector isolates depth. Prior failed Git study provides the diagnostic only; no earlier test prompt or adapter is fit.",
+  "gate": "Prerequisites: qualified release 05, frozen data, at least 630 training answers fully in one proposed original span. Require all three byte counts exactly in completed replies and more than untouched ordinary BF16 Base; all three actual answer spans enclosed in the selected interval. Every global site retains full offsets on both arms, with recurrent sites and real packed reader bias verified. Require strictly lower cold total, summed cold first, and maximum MLX allocation; higher pooled native prefill and post-first throughput. Fixed panel of three observations from two source formats cannot establish population significance. Any miss closes promotion and replication of this reader. Stop after the complete committed pair or budget."
+}
