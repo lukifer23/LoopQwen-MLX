@@ -26,6 +26,8 @@ The corrected open-answer experiment keeps the same held file bytes and question
 
 The corrected fit gained one grounded exact open answer against Base on 48 presentations (paired p = 1). It completed two entire software pairs, with 12 versus 3 grounded successes across the whole stream. On 36 identical older requests it lost two net successes against the previous trained policy. Its dependent equal-training fit and long-context release qualification closed. [Sealed comparison](../research/results/linked-rollin-02/decision.json) · [One-to-one policy transitions](../paper/linked-rollin-retention.csv)
 
+On two complete lockfile revisions, release 05 and Base each returned zero of two grounded answers. All version occurrences were beyond 131,072 tokens. Both models retained their full native attention histories. On the second revision Base generated the correct version during deliberation but did not complete the answer. The loop repeated its plan on both requests. [Physical histories and tokens](../research/results/locked-context-01) · [Results and figure](../paper/locked-context.pdf)
+
 ## Current execution order
 
 1. Complete the 84-request comparison on the corrected linked tables. Fit on the learner’s actual calls and observations. Grade its ability to select the correct row, obtain the linked article and answer the human question. Seal a masked review of one response from each model on each of 24 original questions before examining aggregate results. [Registered criteria](../research/experiments/linked-rollin-02.json) · [Masked review protocol](../research/diagnostics/linked-rollin-source-review.json)

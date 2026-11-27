@@ -1,5 +1,18 @@
 # Capability scoreboard
 
+## Full upstream lockfiles beyond 131,072 tokens
+
+| Same two revisions, release 05 | Trained loop | Untouched Base |
+| --- | ---: | ---: |
+| Grounded final answers | 0/2 | 0/2 |
+| Summed first-token wait | 450.97 s | 387.87 s |
+| Full request time | 469.75 s | 413.24 s |
+| Initial prompt tokens/s | 636.16 | 741.41 |
+| Post-first output tokens/s | 27.44 | 26.88 |
+| Peak MLX allocation | 5.429 GiB | 5.491 GiB |
+
+Both 148,741- and 137,017-token inputs contained every byte of their original lockfile. The second version was present in Base’s unfinished generation. The two earlier successes on changed registers and the two misses here belong to the same qualified release and different source tasks. [Verified full-document study](../paper/locked-context.pdf) · [Both complete changes and output traces](../research/results/locked-context-01)
+
 ## Learning from actual tool mistakes
 
 | Same 84 requests | New trained loop | Untouched Base |

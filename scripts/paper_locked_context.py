@@ -12,6 +12,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 from loopqwen.io import read, save
+from loopqwen.evaluation.mechanism import unpack
+from loopqwen.research.cross_view_study import tokenizer
 from scripts.assemble_evidence_paper import edition
 from scripts.locked_context_material import MATERIAL, SOURCE
 from scripts.locked_context_study import NAME, verify
@@ -33,13 +35,31 @@ def run():
         r["revision"]: r["version_start_tokens"]
         for r in read(SOURCE / "answer-locations.json")
     }
+    tok = tokenizer(read(R / "registration.json"))
+    raw_pairs = unpack(R / "requests.json.gz")
+    raw = {
+        (ref, side): pair["runs"][side][0]
+        for ref, pair in zip(source, raw_pairs, strict=True)
+        for side in ("recurrent", "base")
+    }
     records = []
     for r in d["rows"]:
         w = source[r["revision"]]
+        turns = raw[r["revision"], r["side"]]["turns"]
+        generated = [tok.decode(t["token_ids"]) for t in turns]
+        thoughts = [t.partition("</think>")[0] for t in generated]
         records.append(
             {
                 **r,
                 "file_bytes": w["bytes"],
+                "thinking_contains_version": any(w["version"] in t for t in thoughts),
+                "thinking_boundaries": sum("</think>" in t for t in generated),
+                "pinned_version_repetitions": sum(
+                    t.count("I need its pinned version.") for t in thoughts
+                ),
+                "byte_count_repetitions": sum(
+                    t.count("I need its byte count.") for t in thoughts
+                ),
                 "pinned_version": w["version"],
                 "version_offsets": json.dumps(loc[r["revision"]]),
                 "calls": json.dumps(
@@ -148,6 +168,7 @@ def run():
     save(
         P / "locked-context-paper.json",
         {
+            "diagnostic": f"The recurrent model generated 256 tokens on each file without reaching a thinking boundary. It repeated the same pinned-version sentence {records[0]['pinned_version_repetitions']} and {records[2]['pinned_version_repetitions']} times. Base called file_lines on the first revision and received 1,386 lines. On the later file its unfinished deliberation contained the correct version, 2026.11.2. Neither system delivered a version or byte count in a completed response.",
             "metrics": table,
             "responses": examples,
             "missing": ", ".join(missing) if missing else "none",

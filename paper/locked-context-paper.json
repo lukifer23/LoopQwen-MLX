@@ -1,0 +1,97 @@
+{
+  "diagnostic": "The recurrent model generated 256 tokens on each file without reaching a thinking boundary. It repeated the same pinned-version sentence 10 and 10 times. Base called file_lines on the first revision and received 1,386 lines. On the later file its unfinished deliberation contained the correct version, 2026.11.2. Neither system delivered a version or byte count in a completed response.",
+  "metrics": [
+    [
+      "Correct version",
+      "0",
+      "0"
+    ],
+    [
+      "Correct byte count",
+      "0",
+      "0"
+    ],
+    [
+      "Executed size check",
+      "0",
+      "0"
+    ],
+    [
+      "Completed responses",
+      "0",
+      "0"
+    ],
+    [
+      "Both correct and grounded",
+      "0",
+      "0"
+    ],
+    [
+      "Total user wait (s)",
+      "469.75",
+      "413.24"
+    ],
+    [
+      "Summed first-token waits (s)",
+      "450.97",
+      "387.87"
+    ],
+    [
+      "Peak MLX allocation (GiB)",
+      "5.429",
+      "5.491"
+    ],
+    [
+      "Initial prompt rate (tokens/s)",
+      "636.16",
+      "741.41"
+    ],
+    [
+      "Decode rate (tokens/s)",
+      "27.44",
+      "26.88"
+    ],
+    [
+      "Generated tokens",
+      "512",
+      "661"
+    ],
+    [
+      "Reused initial tokens",
+      "0",
+      "148,736"
+    ]
+  ],
+  "responses": [
+    [
+      "Earlier",
+      "Loop",
+      "0",
+      "token_limit",
+      "No completed answer"
+    ],
+    [
+      "Earlier",
+      "Base",
+      "1",
+      "token_limit",
+      "No completed answer"
+    ],
+    [
+      "Later",
+      "Loop",
+      "0",
+      "token_limit",
+      "No completed answer"
+    ],
+    [
+      "Later",
+      "Base",
+      "0",
+      "token_limit",
+      "No completed answer"
+    ]
+  ],
+  "missing": "accuracy, wall_s, first_s, prefill_tps",
+  "summary": "Release 05 gave 0/2 grounded answers and untouched Base gave 0/2. The complete registered gate was missed."
+}

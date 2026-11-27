@@ -28,6 +28,8 @@ Both arms ran through the same offline installed CLI, Qwen thinking template, li
 #grid(("Revision","Model","Calls","Termination","User-visible answer"),d.responses,(.65fr,.55fr,.44fr,.95fr,2.7fr))
 #text(size:9pt)[Long visible answers are abbreviated to 240 characters in this table. The request CSV preserves the final responses and callbacks. Raw traces retain all prompt and generated tokens, including unfinished model output.]
 
+#d.diagnostic
+
 = Quality and measured cost
 #grid(("Metric on two complete revisions","Loop","Untouched Base"),d.metrics,(2.4fr,.95fr,1.1fr))
 The primary score requires a completed visible answer giving both exact values and a preceding real file_bytes call returning the correct length. Partial measures separate retrieval, actual measurement and final use. First-token wait includes the request and loading costs recorded by the installed comparison. Decode rate excludes the first token of every generation turn. The prompt rate uses the two original openings and their native first-token times. The resource totals use complete requests in a controlled order on one M3 Pro. Criteria that missed the registered threshold were #d.missing.
