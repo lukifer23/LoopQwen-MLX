@@ -1,6 +1,7 @@
 """Publish the frozen 340-pair comparison, masked readings and source-level uncertainty."""
 
 from collections import Counter, defaultdict
+from math import isclose
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -175,6 +176,7 @@ def build():
                     "first_s": q["first_s"],
                     "peak_bytes": q["peak"],
                     "calls": len(ev),
+                    "turns": len(turns),
                     "output_tokens": sum(len(t["token_ids"]) for t in turns),
                     "opening_work_tokens": sum(
                         len(t["prompt_ids"]) - t.get("reused_prompt_tokens", 0)
@@ -286,8 +288,32 @@ def build():
     def results(rr):
         return [sum(r[a + "_grounded"] for r in rr) for a in ARMS]
 
+    decode = []
+    for arm in ARMS:
+        count = sum(r[arm + "_output_tokens"] - r[arm + "_turns"] for r in rows)
+        seconds = sum(r[arm + "_decode_s"] for r in rows)
+        assert isclose(count / seconds, dec["cost"][arm]["decode_tps"])
+        decode.append((count, seconds / count))
+    (nc, tc), (nb, tb) = decode
+    length_s = (nb - nc) * (tc + tb) / 2
+    rate_s = (tb - tc) * (nb + nc) / 2
+    assert isclose(length_s + rate_s, nb * tb - nc * tc, abs_tol=1e-6)
+    overlap = read(DOC / "conditional-source-overlap.json")
+    assert not any(rec["whole_field"] for rec in overlap["fields"])
     summary = {
         "environment": read(ROOT / "environment.json"),
+        "decode_savings": {
+            "length": length_s,
+            "rate": rate_s,
+            "total": length_s + rate_s,
+        },
+        "warm_wall": [sum(r[a + "_wall_s"] for r in rows[1:]) for a in ARMS],
+        "warm_first": [sum(r[a + "_first_s"] for r in rows[1:]) for a in ARMS],
+        "overlap": {
+            "fields": overlap["field_count"],
+            "occurrences": overlap["training_word_occurrences"],
+            "maximum_run": max(rec["matched_words"] for rec in overlap["fields"]),
+        },
         "automatic": dec["passed"],
         "masked": reading["passed"],
         "eligible": dec["passed"] and reading["passed"],
