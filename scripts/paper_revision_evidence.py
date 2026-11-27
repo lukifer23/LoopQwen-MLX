@@ -1,17 +1,15 @@
 """Produce article-paired tables, figures and the consolidated publication from native records."""
 
 import csv
-import hashlib
-import io
 import json
 from pathlib import Path
 
 import matplotlib
 
+from scripts.assemble_evidence_paper import edition
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import typst
-from pypdf import PdfReader, PdfWriter
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read
@@ -20,7 +18,6 @@ from scripts.revision_material import NAME, PANEL
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "paper"
 OUT = ROOT / "research/results" / NAME
-FIELD_SHA = "72e493ab69b2f6bd352327c7db2a1ce3fa23ef7b1eab29f4ee529e0d16a6d3f7"
 
 
 def main():
@@ -183,33 +180,7 @@ def main():
     (P / "revision-evidence-conversion.typ").write_text(
         f"The conversion fused {len(cert['fused'])} low-rank projections. The learned gate was {cert['learned_gate']:.5f}. The last-position relative RMS logit difference on an independent prose sentence was {cert['relative_logit_rms']:.4f}, below the registered 0.06 limit. Building and writing the checkpoint took {cert['seconds']:.2f} s to its manifest and peaked at {cert['peak_bytes'] / 2**30:.2f} GiB. The raw eight-bit tensor file contains {read(ROOT / 'docs/measurements/compact-revision-runtime.json')['weight_bytes']:,} bytes. These are one-time conversion costs. Serving measurements include the production loads and their weight checks.\n"
     )
-    raw = typst.compile(str(P / "revision-evidence.typ"), timestamp=0)
-    (P / "revision-evidence.pdf").write_bytes(raw)
-    original = (P / "loopqwen-complete.pdf").read_bytes()
-    assert hashlib.sha256(original).hexdigest() == FIELD_SHA
-    w = PdfWriter()
-    w.add_metadata(
-        {
-            "/Title": "LoopQwen-MLX: recurrent depth, edited evidence and executable tools",
-            "/Author": "LoopQwen-MLX project",
-        }
-    )
-    sections = [
-        (raw, "Current study · Did the answer change with the article?"),
-        (original, "Field update and original technical paper"),
-    ]
-    pages = []
-    for src, heading in sections:
-        r = PdfReader(io.BytesIO(src))
-        text = [p.extract_text() for p in r.pages]
-        assert all(len(t) > 200 for t in text)
-        pages.extend(text)
-        w.append(r, outline_item=heading)
-    dest = P / "loopqwen-research.pdf"
-    with dest.open("wb") as f:
-        w.write(f)
-    assert [p.extract_text() for p in PdfReader(dest).pages] == pages
-    print(len(pages), "pages", hashlib.sha256(dest.read_bytes()).hexdigest())
+    edition(P, "revision-evidence")
 
 
 if __name__ == "__main__":

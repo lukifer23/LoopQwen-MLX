@@ -129,6 +129,18 @@ def main(verify):
         ):
             subprocess.run([sys.executable, "-m", module], cwd=ROOT, check=True)
 
+    field = ROOT / "research/results/file-evidence-01/decision.json"
+    if field.is_file() and read(field).get("status") != "interrupted":
+        for args in (
+            ["scripts.revision_source_check", "--file-evidence"],
+            ["scripts.file_evidence_audit", "--sources"],
+            ["scripts.file_evidence_exposure"],
+            ["scripts.file_evidence_overlap"],
+            ["scripts.file_evidence_audit"],
+            ["scripts.paper_file_evidence"],
+        ):
+            subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

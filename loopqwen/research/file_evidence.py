@@ -166,10 +166,9 @@ def run():
     root = Path("outputs/research") / NAME
     root.mkdir(parents=True, exist_ok=True)
     if (root / "registration.json").is_file():
-        if (
-            set(p.name for p in root.iterdir()) != {"registration.json"}
-            or read(root / "registration.json") != s
-        ):
+        if {p.name for p in root.iterdir()} != {"registration.json"} or read(
+            root / "registration.json"
+        ) != s:
             raise FileExistsError(
                 "A measured run or different registration already exists"
             )
