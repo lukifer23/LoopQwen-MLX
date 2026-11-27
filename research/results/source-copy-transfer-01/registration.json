@@ -1,0 +1,27 @@
+{
+  "id": "source-copy-transfer-01",
+  "checkpoint": "exports/tool-language-packed-05",
+  "fit_stage": "source-copy-fit-01",
+  "material": "research/sources/source-copy/conversation-panel.json.gz",
+  "sources": {
+    "research/sources/source-copy/training.json.gz": "788d4d872149d43e1af89443bf2610103592df84281e9c889886ad0e049c7d1a",
+    "research/sources/source-copy/conversation-panel.json.gz": "a8952c3df0cba51029b4d2d7a3cf2cd75d7a4bfea262011929f6def2c6c06bd0",
+    "research/sources/source-copy/inventory.json": "8118cac2c96639ce480c19c38755f08bca08bb1c9a481eafada64373375ac783",
+    "research/sources/source-copy/teacher-review.json": "6379d01e4210247c9d3a602e2eb83e68645aa9e255b4c58c1dffc2d45c554add",
+    "research/results/bounded-read-fit-01/checksums.json": "09228e43be1616f15bbf5c86b3a64afd2fdcb7231b38e0abffac07951f79022a",
+    "docs/measurements/bounded-read-source-address/summary.json": "f321f7d21f1febb563844f4a227447a4673dff34b9b5610be4614d34e6245d12",
+    "research/diagnostics/source-copy-conversation.json": "60e578d074fc4e40146efe44564b424d3712bb688a9d67644ec77c815c1d42a5",
+    "research/experiments/source-copy-fit-01.json": "b80b797ee840d3f1fa32d743d3cc1e1d1488f11e11216884c66e917709081e93"
+  },
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "seconds_per_arm": 2100,
+  "limits": {
+    "wall_seconds": 4200,
+    "peak_gib": 3,
+    "available_gib": 1.5
+  },
+  "question": "Does a learned probability mixture between causal source tokens and the vocabulary improve live, source-dependent reading and executable finance conversations?",
+  "protocol": "Primary unit is one original source. Require correct delivered answers on both consecutive turns under live histories and on the separate matched second-turn condition. Reading uses independent published open references, case/punctuation/article normalization and full delivered answer, with corroborating masked source review for paraphrases. Financial success requires visible correct numerical quantity, relevant executed operation, correct numeric return and source-appropriate units in masked review on all three presentations. Rounding at displayed precision is accepted within .5 percentage points for percents and max(.01,.1% relative) for other values; source review checks direction and display meaning. Freeze joint two-sided exact paired p <= .05, >=5 net new source successes per family, no lost strict success, no worse completion and all five aggregate costs better. Mask all source judgments before revealing identity. Archive even if gates fail. Preregistered follow-ups require all primary gates and verified native weights: matched-donor ordinary depth, second seed, broad retention, then independent full-context semantic comparison. No other arm in the primary. Both pinned products use official Qwen reasoning-enabled templating, unrestricted greedy, up to 384 tokens per turn, at most three turns per user question, sequential requests, actual callback responses. Report actual wall, first wait, peak native allocation, opening throughput and decoding throughput. Max 4200 native seconds, max 2100 per arm, 3 GiB peak and 1.5 GiB system available. Stop at failed fit or resource limit."
+}

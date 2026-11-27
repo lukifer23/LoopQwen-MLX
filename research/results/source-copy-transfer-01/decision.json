@@ -1,0 +1,150 @@
+{
+  "passed": false,
+  "gates": {
+    "wall_s": true,
+    "first_s": true,
+    "peak": true,
+    "opening_tps": false,
+    "decode_tps": true,
+    "reading": false,
+    "reading_completion": true,
+    "report": false,
+    "report_completion": true
+  },
+  "counts": {
+    "reading": {
+      "first": {
+        "n": 24,
+        "total": [
+          2,
+          0
+        ],
+        "completed": [
+          24,
+          18
+        ],
+        "gains": 2,
+        "losses": 0,
+        "p": 0.5
+      },
+      "live": {
+        "n": 24,
+        "total": [
+          1,
+          0
+        ],
+        "completed": [
+          24,
+          22
+        ],
+        "gains": 1,
+        "losses": 0,
+        "p": 1.0
+      },
+      "matched": {
+        "n": 24,
+        "total": [
+          2,
+          0
+        ],
+        "completed": [
+          23,
+          23
+        ],
+        "gains": 2,
+        "losses": 0,
+        "p": 0.5
+      },
+      "all": {
+        "n": 24,
+        "total": [
+          0,
+          0
+        ],
+        "completed": [
+          23,
+          15
+        ],
+        "gains": 0,
+        "losses": 0,
+        "p": 1.0
+      }
+    },
+    "report": {
+      "first": {
+        "n": 24,
+        "total": [
+          2,
+          0
+        ],
+        "completed": [
+          22,
+          11
+        ],
+        "gains": 2,
+        "losses": 0,
+        "p": 0.5
+      },
+      "live": {
+        "n": 24,
+        "total": [
+          1,
+          0
+        ],
+        "completed": [
+          16,
+          12
+        ],
+        "gains": 1,
+        "losses": 0,
+        "p": 1.0
+      },
+      "matched": {
+        "n": 24,
+        "total": [
+          0,
+          0
+        ],
+        "completed": [
+          21,
+          19
+        ],
+        "gains": 0,
+        "losses": 0,
+        "p": 1.0
+      },
+      "all": {
+        "n": 24,
+        "total": [
+          0,
+          0
+        ],
+        "completed": [
+          14,
+          7
+        ],
+        "gains": 0,
+        "losses": 0,
+        "p": 1.0
+      }
+    }
+  },
+  "costs": {
+    "candidate": {
+      "first_s": 48.6554907473037,
+      "wall_s": 109.95845036878018,
+      "peak": 833547010,
+      "output": 8063,
+      "opening_tps": 2889.207576649507,
+      "decode_tps": 138.38897292719454
+    },
+    "control": {
+      "first_s": 49.45983033900848,
+      "wall_s": 660.9947437089286,
+      "peak": 1876671402,
+      "output": 40688,
+      "opening_tps": 2905.50437172972,
+      "decode_tps": 66.35409823871642
+    }
+  }
+}
