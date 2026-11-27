@@ -162,10 +162,13 @@ def collect(args):
             )
             return history
 
+        subset = set(read(args.items)["items"]) if args.items else None
         for i, r in enumerate(read(SOURCE)):
             if i % 2 != args.block:
                 continue
             for world in WORLDS:
+                if subset is not None and r["id"] + "/" + world not in subset:
+                    continue
                 q, t = instance(r, world, Path(tmp))
                 history = take(r, world, q, t, [])
                 if world == "original" and "followup" in r:
@@ -188,12 +191,13 @@ if __name__ == "__main__":
     p.add_argument("--arm", choices=("loop", "ordinary", "instruction", "base"))
     p.add_argument(
         "--stage",
-        choices=("initial", "early", "terminal", "corrected", "depth"),
+        choices=("initial", "early", "terminal", "simple", "corrected", "deployed", "depth"),
         default="initial",
     )
     p.add_argument("--block", choices=(0, 1), type=int, default=0)
     p.add_argument("--depth", type=int, choices=(1, 2, 3))
     p.add_argument("--policy", type=Path)
-    p.add_argument("--tokens", type=int, choices=(128, 512), default=128)
+    p.add_argument("--tokens", type=int, choices=(128, 512, 4096), default=128)
+    p.add_argument("--items", type=Path, help="Frozen source/world keys for the supplemental headroom comparison")
     a = p.parse_args()
     freeze() if a.action == "freeze" else collect(a)

@@ -189,7 +189,7 @@ if __name__ == "__main__":
     p.add_argument("--arm", choices=("base", "loop", "ordinary"), default="base")
     p.add_argument("--stage", default="initial")
     p.add_argument("--world", choices=("original", "edited"), default="original")
-    p.add_argument("--tokens", choices=(128, 512), type=int, default=128)
+    p.add_argument("--tokens", choices=(128, 512, 4096), type=int, default=128)
     p.add_argument("--followups", action="store_true")
     p.add_argument("--policy", type=Path)
     a = p.parse_args()
