@@ -19,7 +19,15 @@ def audit(root, destination):
     examples = read(s["training"])["examples"]
     teacher = unpack(root / "teacher.json.gz")
     ts = read(root / "teacher-summary.json")
-    assert digest(root / "teacher.json.gz") == ts["targets_sha256"]
+    assert (
+        digest(root / "teacher.json.gz") == ts["targets_sha256"]
+        and ts["teacher_weights"] == s["teacher"]["weights_sha256"]
+        and ts["training_sha256"] == digest(Path(s["training"]))
+    )
+    assert set(teacher) == {
+        r["source_question"] for r in examples if r["kind"] == "inline"
+    }
+    assert len(teacher) == ts["examples"] == 2 * s["train_articles"]
     article = defaultdict(dict)
     reh = []
     first = Counter()
@@ -56,6 +64,7 @@ def audit(root, destination):
     assert (
         seen_positions == ts["answer_positions"]
         and first[s["top_k"]] == ts["first_gold_top_k"]
+        and first[s["top_k"]] / len(teacher) == ts["first_gold_top_k_rate"]
     )
     result = {
         "teacher_sha256": ts["targets_sha256"],
