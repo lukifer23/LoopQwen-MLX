@@ -17,7 +17,8 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.research.native_function_study import executions
-from loopqwen.research.table_worlds import SOURCE, prepare_tables, query_results
+from loopqwen.research.table_policy_primary import mounted, providers
+from loopqwen.research.table_worlds import SOURCE, query_results
 from scripts.assistance_deliberation import write_csv
 from scripts.assistance_uncertainty import (
     completed_pairs,
@@ -61,11 +62,12 @@ def build():
     changed = defaultdict(Counter)
     with TemporaryDirectory() as tmp:
         folder = Path(tmp)
-        prepare_tables(folder, tables.values())
+        mounted(read(s["material"]), folder)
         for w, *pair in zip(panel, *evaluations, strict=True):
             rec = {
                 "id": w["id"],
                 "family": w["family"],
+                "tools_available": bool(providers(w, folder)),
                 "cluster": w["cluster"],
                 "opening_tokens": len(w["initial_ids"]),
                 "initial_ids": fingerprint(w["initial_ids"]),
@@ -102,7 +104,7 @@ def build():
                         "id": w["id"],
                         "arm": side,
                         "family": w["family"],
-                        "tools_available": bool(w["tools"]),
+                        "tools_available": rec["tools_available"],
                         "opening_s": opening,
                         "decode_s": decode,
                         "other_s": q["wall_s"] - opening - decode,
@@ -292,7 +294,7 @@ def build():
     }
     practical = []
     for z, label in ((True, "Tools supplied"), (False, "Plain questions")):
-        eligible = {w["id"] for w in panel if bool(w["tools"]) == z}
+        eligible = {r["id"] for r in rows if r["tools_available"] == z}
         rr = [r for r in obj if r["id"] in eligible]
         practical.append(
             [
@@ -423,8 +425,15 @@ def build():
         digest(previous)
         == "303a0fd3cc50564e565b35d66edb98bfb96537e7c231a14bae54f91a8c8babce"
     )
+    from scripts.table_policy_answer_concentration import run as concentration
+
+    concentration()
     for title, raw in (
         ("Four-layer direct comparison", new),
+        (
+            "Changed evidence and identical answers",
+            (P / "table-answer-concentration.pdf").read_bytes(),
+        ),
         (
             "Native execution-learning methods",
             (P / "table-policy-learning.pdf").read_bytes(),

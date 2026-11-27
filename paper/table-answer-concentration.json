@@ -1,0 +1,62 @@
+{
+  "populations": [
+    [
+      "Human training labels",
+      512,
+      30,
+      325
+    ],
+    [
+      "Human held labels",
+      48,
+      1,
+      36
+    ],
+    [
+      "Human labels, sampled contexts",
+      1024,
+      64,
+      171
+    ],
+    [
+      "Policy draws after a known read",
+      1024,
+      279,
+      532
+    ],
+    [
+      "Held loop answers",
+      48,
+      45,
+      3
+    ],
+    [
+      "Held Base answers",
+      48,
+      0,
+      21
+    ]
+  ],
+  "paired": {
+    "candidate": {
+      "both_read": 23,
+      "unchanged_after_two_reads": 22,
+      "both_four_after_two_reads": 22,
+      "identical_nonempty_all": 22,
+      "queries": {
+        "SELECT * FROM records ORDER BY rowid": 46
+      }
+    },
+    "control": {
+      "both_read": 0,
+      "unchanged_after_two_reads": 0,
+      "both_four_after_two_reads": 0,
+      "identical_nonempty_all": 20,
+      "queries": {
+        "SELECT * FROM records WHERE Pos = '2006' AND No = '1'": 2
+      }
+    }
+  },
+  "native_primary": "6b020e4a19ad16c7714c079b827d504d2626de4470db72db2f5cb0f5649210bd",
+  "training": "147bf81d20be0a0daac6bd9ea1dc065444074a6d5c46997ca2867602cc9329b5"
+}

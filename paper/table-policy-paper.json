@@ -1,0 +1,550 @@
+{
+  "archive": "6b020e4a19ad16c7714c079b827d504d2626de4470db72db2f5cb0f5649210bd",
+  "policy": "60d6fefcf3c7006399b4db3c78520de7a379aa9dc723439a10f249ff454c3f90",
+  "passed": false,
+  "totals": [
+    64,
+    42
+  ],
+  "previous": {
+    "identical": 220,
+    "new": 37,
+    "lost": 30,
+    "scores": [
+      63,
+      56
+    ]
+  },
+  "wins": 43,
+  "losses": 21,
+  "family": [
+    [
+      "Changed source tables",
+      48,
+      1,
+      0,
+      46,
+      40
+    ],
+    [
+      "Declared dependencies",
+      20,
+      11,
+      12,
+      19,
+      17
+    ],
+    [
+      "Earlier lookups",
+      8,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      "Earlier manifests",
+      8,
+      1,
+      0,
+      2,
+      0
+    ],
+    [
+      "File judgments",
+      6,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "First human questions",
+      24,
+      5,
+      5,
+      23,
+      23
+    ],
+    [
+      "Fixed-version changes",
+      8,
+      5,
+      2,
+      8,
+      5
+    ],
+    [
+      "Human causal questions",
+      48,
+      13,
+      6,
+      47,
+      43
+    ],
+    [
+      "Human follow-ups",
+      24,
+      4,
+      5,
+      24,
+      22
+    ],
+    [
+      "Inline judgments",
+      6,
+      3,
+      2,
+      6,
+      2
+    ],
+    [
+      "New database questions",
+      24,
+      3,
+      1,
+      17,
+      10
+    ],
+    [
+      "New open assistance",
+      12,
+      "\u2014",
+      "\u2014",
+      8,
+      2
+    ],
+    [
+      "Python compatibility",
+      24,
+      18,
+      9,
+      20,
+      15
+    ],
+    [
+      "Schedules",
+      8,
+      0,
+      0,
+      0,
+      2
+    ]
+  ],
+  "whole": [
+    0,
+    0
+  ],
+  "p": 1.0,
+  "semantic_whole": [
+    0,
+    0
+  ],
+  "semantic_p": 1.0,
+  "versions": [
+    [
+      "Altered",
+      0,
+      0
+    ],
+    [
+      "Original",
+      1,
+      0
+    ]
+  ],
+  "masked": [
+    [
+      "Changed source tables",
+      "Loop",
+      1,
+      0,
+      45,
+      2,
+      45,
+      2
+    ],
+    [
+      "Changed source tables",
+      "Base",
+      0,
+      2,
+      38,
+      8,
+      14,
+      37
+    ],
+    [
+      "New database questions",
+      "Loop",
+      4,
+      0,
+      13,
+      7,
+      8,
+      4
+    ],
+    [
+      "New database questions",
+      "Base",
+      1,
+      7,
+      2,
+      14,
+      2,
+      6
+    ],
+    [
+      "New open assistance",
+      "Loop",
+      2,
+      0,
+      6,
+      4,
+      5,
+      2
+    ],
+    [
+      "New open assistance",
+      "Base",
+      0,
+      1,
+      1,
+      10,
+      2,
+      1
+    ]
+  ],
+  "lost_semantic": 0,
+  "cost": [
+    [
+      "All requests (s)",
+      "301.33",
+      "1,305.66"
+    ],
+    [
+      "Summed first-token time (s)",
+      "51.13",
+      "44.76"
+    ],
+    [
+      "Opening rate (tokens/s)",
+      "2,379.31",
+      "2,781.56"
+    ],
+    [
+      "Post-first decode rate (tokens/s)",
+      "114.07",
+      "70.23"
+    ],
+    [
+      "Maximum MLX allocation (GiB)",
+      "0.91",
+      "1.72"
+    ],
+    [
+      "Emitted tokens",
+      "25,336.00",
+      "87,451.00"
+    ]
+  ],
+  "prior_lost": 24,
+  "prior_n": 42,
+  "toolplain": [
+    [
+      "Tools supplied",
+      154,
+      39,
+      24,
+      217.25,
+      941.94
+    ],
+    [
+      "Plain questions",
+      102,
+      25,
+      18,
+      59.13,
+      299.03
+    ]
+  ],
+  "gates": [
+    [
+      "semantic sql",
+      "Miss"
+    ],
+    [
+      "prior skills",
+      "Miss"
+    ],
+    [
+      "prior base",
+      "Miss"
+    ],
+    [
+      "human reasoning",
+      "Miss"
+    ],
+    [
+      "all families",
+      "Miss"
+    ],
+    [
+      "completion",
+      "Miss"
+    ],
+    [
+      "first s",
+      "Miss"
+    ],
+    [
+      "wall s",
+      "Pass"
+    ],
+    [
+      "peak",
+      "Pass"
+    ],
+    [
+      "opening tps",
+      "Miss"
+    ],
+    [
+      "decode tps",
+      "Pass"
+    ],
+    [
+      "whole tables",
+      "Miss"
+    ],
+    [
+      "both versions",
+      "Miss"
+    ],
+    [
+      "masked open",
+      "Miss"
+    ],
+    [
+      "masked database",
+      "Pass"
+    ],
+    [
+      "masked changed table",
+      "Miss"
+    ]
+  ],
+  "f1": [
+    [
+      "First human questions",
+      0.298,
+      0.277
+    ],
+    [
+      "Human follow-ups",
+      0.227,
+      0.265
+    ],
+    [
+      "Human causal questions",
+      0.384,
+      0.263
+    ]
+  ],
+  "execution": [
+    [
+      "Received a callback",
+      46,
+      6
+    ],
+    [
+      "Read the relevant table",
+      46,
+      0
+    ],
+    [
+      "Query returned the exact scalar",
+      0,
+      0
+    ],
+    [
+      "Delivered a complete answer",
+      46,
+      40
+    ],
+    [
+      "Delivered a grounded correct answer",
+      1,
+      0
+    ]
+  ],
+  "examples": [
+    {
+      "id": "nt-1488-0",
+      "question": "Use the supplied table to answer the question. Give the answer in a short phrase.\nwhat are the number of kurt maschler awards helen oxenbury has won?",
+      "reason": "Helen Oxenbury occurs twice in the Illustrator column. The second reply recognizes the awards count but says no table tool is available. Four is not the count.",
+      "reference": "2",
+      "replies": [
+        "4",
+        "I don't see any table or database in the available tools. To answer your question about Kurt Maschler awards and Helen Oxenbury's wins, I need to know the specific table name or database information you're refe\u2026"
+      ],
+      "slots": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "cosql-3d8ef7d53efcfa60c02b",
+      "question": "Conversation so far:\nCustomer: Can you show me a list of student IDs and their friends IDs?\nAnalyst: The table shows student IDs and their friends IDs\nCustomer: Can you show me a list of all student IDs?\nAnalyst: Did you mean the id of all High schoolers?\nCustomer: Yes\nAnalyst: The table shows the ids of all High schoolers.\nCustomer: Can you show a\u2026",
+      "reason": "There are 16 student IDs. The reported 1501 confuses an identifier-sized number with the requested count.",
+      "reference": "The total number of High schooler ids is 16.",
+      "replies": [
+        "The total number of student IDs is 1501.",
+        ""
+      ],
+      "slots": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": "oasst-c43b23bc-0b9c-468f-9b95-edf7181cee20",
+      "question": "Given two matrices A and B which you can multiply together, does (A B)^T = A^T B^T or B^T A^T?",
+      "reason": "The first reply gives the requested reverse-order identity explicitly. Its displayed formula is unambiguous.",
+      "reference": "When you multiply two matrices A and B and then take the transpose of the product, the result is equal to the product of the transposes of the individual matrices, but in reverse order. In other words, if you can multiply A and B together, then:\n\n(A B)^T = B^T A^T",
+      "replies": [
+        "The transpose of a product of matrices follows the rule: \\((AB)^T = B^T A^T\\). This is a general property of matrix transposition, independent of the order of the matrices.\n\n- \\(A^T\\) is the transpose of \\(A\\).\u2026",
+        ""
+      ],
+      "slots": [
+        1,
+        2
+      ]
+    }
+  ],
+  "intervals": [
+    [
+      "Schedules",
+      4,
+      0,
+      0,
+      "+0.0",
+      "0.0 to 0.0",
+      "1.000"
+    ],
+    [
+      "Python compatibility",
+      12,
+      9,
+      0,
+      "+37.5",
+      "16.7 to 62.5",
+      "0.406"
+    ],
+    [
+      "Changed source tables",
+      24,
+      1,
+      0,
+      "+2.1",
+      "0.0 to 6.2",
+      "1.000"
+    ],
+    [
+      "New database questions",
+      12,
+      3,
+      1,
+      "+8.3",
+      "-8.3 to 29.2",
+      "1.000"
+    ],
+    [
+      "Declared dependencies",
+      10,
+      4,
+      5,
+      "-5.0",
+      "-35.0 to 20.0",
+      "1.000"
+    ],
+    [
+      "Human causal questions",
+      24,
+      13,
+      6,
+      "+14.6",
+      "-6.2 to 35.4",
+      "1.000"
+    ],
+    [
+      "File judgments",
+      2,
+      0,
+      0,
+      "+0.0",
+      "0.0 to 0.0",
+      "1.000"
+    ],
+    [
+      "First human questions",
+      24,
+      4,
+      4,
+      "+0.0",
+      "-20.8 to 20.8",
+      "1.000"
+    ],
+    [
+      "Human follow-ups",
+      24,
+      2,
+      3,
+      "-4.2",
+      "-25.0 to 12.5",
+      "1.000"
+    ],
+    [
+      "Inline judgments",
+      2,
+      2,
+      1,
+      "+16.7",
+      "0.0 to 33.3",
+      "1.000"
+    ],
+    [
+      "Earlier lookups",
+      8,
+      0,
+      0,
+      "+0.0",
+      "0.0 to 0.0",
+      "1.000"
+    ],
+    [
+      "Fixed-version changes",
+      4,
+      4,
+      1,
+      "+37.5",
+      "-25.0 to 87.5",
+      "1.000"
+    ],
+    [
+      "Earlier manifests",
+      4,
+      1,
+      0,
+      "+12.5",
+      "0.0 to 37.5",
+      "1.000"
+    ]
+  ],
+  "joint": {
+    "individual_gains": 43,
+    "additional_correct_and_all_three_costs_lower": 0,
+    "both_correct": 21,
+    "neither_correct": 171
+  }
+}
