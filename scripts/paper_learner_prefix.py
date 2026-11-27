@@ -148,69 +148,73 @@ def collect():
         committed(root / "checksums.json")
         report["primary"] = read(root / "decision.json")
         report["reading"] = read(reading)
-        records = []
-        for arm in ("candidate", "control"):
-            for r in unpack(root / (arm + ".json.gz")):
-                q = r["requests"][0]
-                t = q["trajectory"]
-                records.append(
-                    {
-                        "id": r["id"],
-                        "family": r["family"],
-                        "arm": arm,
-                        "success": q["score"]["success"],
-                        "completed": q["score"]["completed"],
-                        "wall_s": q["wall_s"],
-                        "first_s": q["first_s"],
-                        "peak": q["peak"],
-                        "status": t["status"],
-                        "answer_json": json.dumps(t["answer"], ensure_ascii=False),
-                        "archive": digest(root / "checksums.json"),
-                    }
-                )
-        write_csv(P / "learner-prefix-requests.csv", records)
-        figure, axes = plt.subplots(1, 2, figsize=(7.8, 2.9), layout="constrained")
-        by_arm = {
-            arm: {r["id"]: r for r in records if r["arm"] == arm}
-            for arm in ("candidate", "control")
-        }
-        for ax, family, title in zip(
-            axes,
-            ("strategy", "report"),
-            ("Reasoning", "Financial calculations"),
-            strict=True,
-        ):
-            xs, ys = [], []
-            for key, loop in by_arm["candidate"].items():
-                if loop["family"] != family:
-                    continue
-                base = by_arm["control"][key]
-                xs.append(base["wall_s"])
-                ys.append(loop["wall_s"])
-                color = (
-                    "#287265"
-                    if loop["success"] and not base["success"]
-                    else "#b44c34"
-                    if base["success"] and not loop["success"]
-                    else "#667287"
-                )
-                ax.scatter(xs[-1], ys[-1], color=color, alpha=0.75, s=22)
-            low, high = min(xs + ys) * 0.8, max(xs + ys) * 1.18
-            ax.plot([low, high], [low, high], color="#999999", lw=0.7, ls="--")
-            ax.set(
-                xscale="log",
-                yscale="log",
-                xlim=(low, high),
-                ylim=(low, high),
-                xlabel="Base request time (seconds)",
-                ylabel="Loop request time (seconds)",
-                title=title,
-            )
-            ticks = [v for v in (0.25, 0.5, 1, 2, 5, 10, 20, 50) if low <= v <= high]
-            ax.minorticks_off()
-            ax.set_xticks(ticks, [str(v) for v in ticks])
-            ax.set_yticks(ticks, [str(v) for v in ticks])
-            ax.spines[["top", "right"]].set_visible(False)
-        figure.savefig(P / "learner-prefix-transfer.svg", metadata={"Date": None})
-        plt.close(figure)
+        paired_requests(root, "learner-prefix")
     return report
+
+
+def paired_requests(root, stem):
+    records = []
+    for arm in ("candidate", "control"):
+        for r in unpack(root / (arm + ".json.gz")):
+            q = r["requests"][0]
+            t = q["trajectory"]
+            records.append(
+                {
+                    "id": r["id"],
+                    "family": r["family"],
+                    "arm": arm,
+                    "success": q["score"]["success"],
+                    "completed": q["score"]["completed"],
+                    "wall_s": q["wall_s"],
+                    "first_s": q["first_s"],
+                    "peak": q["peak"],
+                    "status": t["status"],
+                    "answer_json": json.dumps(t["answer"], ensure_ascii=False),
+                    "archive": digest(root / "checksums.json"),
+                }
+            )
+    write_csv(P / (stem + "-requests.csv"), records)
+    figure, axes = plt.subplots(1, 2, figsize=(7.8, 2.9), layout="constrained")
+    by_arm = {
+        arm: {r["id"]: r for r in records if r["arm"] == arm}
+        for arm in ("candidate", "control")
+    }
+    for ax, family, title in zip(
+        axes,
+        ("strategy", "report"),
+        ("Reasoning", "Financial calculations"),
+        strict=True,
+    ):
+        xs, ys = [], []
+        for key, loop in by_arm["candidate"].items():
+            if loop["family"] != family:
+                continue
+            base = by_arm["control"][key]
+            xs.append(base["wall_s"])
+            ys.append(loop["wall_s"])
+            color = (
+                "#287265"
+                if loop["success"] and not base["success"]
+                else "#b44c34"
+                if base["success"] and not loop["success"]
+                else "#667287"
+            )
+            ax.scatter(xs[-1], ys[-1], color=color, alpha=0.75, s=22)
+        low, high = min(xs + ys) * 0.8, max(xs + ys) * 1.18
+        ax.plot([low, high], [low, high], color="#999999", lw=0.7, ls="--")
+        ax.set(
+            xscale="log",
+            yscale="log",
+            xlim=(low, high),
+            ylim=(low, high),
+            xlabel="Base request time (seconds)",
+            ylabel="Loop request time (seconds)",
+            title=title,
+        )
+        ticks = [v for v in (0.25, 0.5, 1, 2, 5, 10, 20, 50) if low <= v <= high]
+        ax.minorticks_off()
+        ax.set_xticks(ticks, [str(v) for v in ticks])
+        ax.set_yticks(ticks, [str(v) for v in ticks])
+        ax.spines[["top", "right"]].set_visible(False)
+    figure.savefig(P / (stem + "-transfer.svg"), metadata={"Date": None})
+    plt.close(figure)

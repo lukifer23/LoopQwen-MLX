@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read
 from scripts.assistance_deliberation import write_csv
-from scripts.register_content_read import FIT, RESULT, DIR, PLAN
+from scripts.register_content_read import FIT, PRIMARY, RESULT, DIR, PLAN
 from scripts.table_policy_reading import committed
 
 P = Path("paper")
@@ -103,4 +103,23 @@ def collect():
                     for i, r in enumerate(hist)
                 ],
             )
+    replay = DOC / (FIT + "-cold.json")
+    if replay.exists():
+        committed(replay)
+        out["replay"] = read(replay)
+    reading = DOC / "content-read-reading.json"
+    if reading.exists():
+        from scripts.paper_learner_prefix import paired_requests
+
+        root = RESULT / PRIMARY
+        for p in (reading, root / "checksums.json"):
+            committed(p)
+        out["primary"] = read(root / "decision.json")
+        out["reading"] = read(reading)
+        paired_requests(root, "content-read")
+    for name in ("full-document-adjoint", "document-generation-parity"):
+        p = DOC / (name + ".json")
+        if p.exists():
+            committed(p)
+            out[name.replace("-", "_")] = read(p)
     return out
