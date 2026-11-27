@@ -37,6 +37,8 @@ def build():
     replay = read(D / "table-reentry-fit-native-replay.json")
     cache = read(D / "table-reentry-feature-cache.json")
     backbone = read(D / "table-reentry-backbone.json")
+    exposure = read(D / "reentry-target-exposure.json")
+    assert exposure["rows"] == digest(P / "reentry-target-exposure.csv")
     assert replay["weights"] == index["reentry.safetensors"] == fit["weights"]
     assert (
         replay["backbone"]
@@ -66,6 +68,9 @@ def build():
     assert len(draws) == 4 * s["warm_updates"] and {r["group"] for r in draws} == set(
         GROUPS
     )
+    assert exposure["registration"] == digest(R / "registration.json")
+    assert exposure["selected_positions"] == sum(r["target_positions"] for r in draws)
+    assert exposure["causal_input_tokens"] == sum(r["sequence_tokens"] for r in draws)
     write_csv(P / "reentry-training-draws.csv", draws)
     write_csv(P / "reentry-training-gradients.csv", steps)
     probs = read(R / "training-probes.json")
