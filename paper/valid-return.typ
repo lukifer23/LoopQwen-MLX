@@ -117,6 +117,9 @@ The archived registration binds the data, starting policy, decision thresholds a
 #grid(("Deadline per request","Loop · correct by deadline","Base · correct by deadline"),m.deadlines,(1.05fr,1.55fr,1.55fr))
 #cap[All 112 requests remain in each denominator. Success requires the registered final answer and actual ordered evidence. A fast invalid call earns zero. The measured clock starts before constructing the actor on its first item and before each user conversation thereafter. Breakpoints are descriptive; the original registered decision uses the complete streams.]
 
+= Relation to recurrent language models
+Geiping and colleagues trained a recurrent-depth model to refine latent states over varying numbers of iterations. Chen and colleagues reused a frozen middle block with damped updates and found task-dependent improvements across pretrained architectures. Our study trains a small shared update at the final layer and tests a fixed two-visit execution schedule. The matched induction and tool experiments above illustrate why results from other architectures, depths and languages do not establish a causal gain for this particular retrofit. [7–8]
+
 = Using and inspecting the model
 The installed runtime exposes the ordinary Base comparison through the same command as the trained loop. The release 05 backbone supplies the frozen instruction prefix. The policy directory supplies the trained second-visit model. For file work, provide a keyed CSV. For a dependent calendar request, expose that file and the calendar service together. The trace records the exact user prompt tokens, every generated argument and actual return, final response and retained physical histories.
 
@@ -129,4 +132,6 @@ The source verifier reconstructs all 224 model trajectories from the enrolled do
 3. #link("https://zenodo.org/records/6578593")[Published table evidence annotations]. Anonymous field-selection and justification records. \
 4. Camburu et al. (2018). #link("https://arxiv.org/abs/1812.01193")[e-SNLI: Natural Language Inference with Natural Language Explanations]. NeurIPS. \
 5. FOSDEM. #link("https://archive.fosdem.org/2025/schedule/")[Official conference schedule and machine-readable exports]. PyPA. #link("https://packaging.python.org/en/latest/specifications/core-metadata/")[Core metadata specifications]. \
-6. Lu et al. (2025). #link("https://aclanthology.org/2025.findings-naacl.65/")[ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities]. Findings of NAACL.]
+6. Lu et al. (2025). #link("https://aclanthology.org/2025.findings-naacl.65/")[ToolSandbox: A Stateful, Conversational, Interactive Evaluation Benchmark for LLM Tool Use Capabilities]. Findings of NAACL. \
+7. Geiping et al. (2025). #link("https://arxiv.org/abs/2502.05171")[Scaling up Test-Time Compute with Latent Reasoning: A Recurrent Depth Approach]. \
+8. Chen et al. (2026). #link("https://arxiv.org/abs/2605.23872")[Training-Free Looped Transformers].]
