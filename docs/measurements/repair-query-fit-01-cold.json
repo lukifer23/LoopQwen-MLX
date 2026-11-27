@@ -1,0 +1,69 @@
+{
+  "features": "e0221b817ddb7dde99c9d7bd860df9cd097933443ae93fbcfd08230036bd8ab7",
+  "checked_files": 6394,
+  "independent_regenerations": [
+    "finqa/AAPL/2011/page_24.pdf-3/action",
+    "rehearsal/full_rows/nt-2543/0",
+    "strategyqa/30cca3728fe936ff1bae",
+    "sql-error/cosql-7747db5a033c482b7d1f/repair_after_schema",
+    "wrong-scalar/nt-8542/0/redirect_valid_read"
+  ],
+  "fit": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+  "probe_cases": 120,
+  "trained_positions": 5415,
+  "max_errors": {
+    "ce": 0.0,
+    "ordinary_ce": 0.0,
+    "kl": 0.0,
+    "citation_nll": 0.0
+  },
+  "max_errors_by_state": {
+    "before": {
+      "ce": 0.0,
+      "ordinary_ce": 0.0,
+      "kl": 0.0,
+      "citation_nll": 0.0
+    },
+    "after": {
+      "ce": 0.0,
+      "ordinary_ce": 0.0,
+      "kl": 0.0,
+      "citation_nll": 0.0
+    },
+    "first_visit": {
+      "ce": 0.0,
+      "ordinary_ce": 0.0,
+      "kl": 0.0,
+      "citation_nll": 0.0
+    }
+  },
+  "reproduced_gates": {
+    "all_tokens": true,
+    "all_citations": true,
+    "finite_updates": true,
+    "source_fit": true,
+    "repeated_read": true,
+    "source_attention": true,
+    "repair_likelihood": true,
+    "protected_likelihood": true
+  },
+  "reproduced_pass": true,
+  "independently_counted_epochs": [
+    {
+      "epoch": 1,
+      "unique_turns": 6394,
+      "updates": 543,
+      "positions": 302515,
+      "citations": 2161
+    },
+    {
+      "epoch": 2,
+      "unique_turns": 6394,
+      "updates": 543,
+      "positions": 302515,
+      "citations": 2161
+    }
+  ],
+  "native_seconds": 21.9671189590008,
+  "peak_bytes": 1612587884
+}
