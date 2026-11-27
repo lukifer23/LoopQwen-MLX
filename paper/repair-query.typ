@@ -246,6 +246,8 @@ The two visits share all parameters. Query and content corrections have rank 160
 
  #if "fit" in a and "second_read_gain" in a.fit [
   *Training results.* The fit completed #a.fit.updates optimizer updates on #a.fit.positions supervised positions. Across #a.probes training probes, removing the second physical read increased mean target loss by #fmt(a.fit.second_read_gain,n:3) nats/token. Mean protected-group gain was #fmt(a.fit.protected_gain,n:3) nats/token.
+  #if "fit_cost" in a [The complete feature and fitting window used #fmt(a.fit_cost.seconds) native seconds with a #fmt(a.fit_cost.peak/1073741824) GiB MLX peak.]
+  #if "teacher_fix" in a [This includes #fmt(a.teacher_fix.native_seconds) seconds for the initial attempt. MLX traced a frozen teacher attention kernel without a supported backward pass. We preserved the original features and evaluated the same fixed teacher distribution before differentiation.]
   #image("learner-prefix-fit.svg",width:95%)
   #text(size:9pt)[Fig. 5. Per-example probe improvement at left and position-weighted optimization measurements at right. The two read counts share the fitted weights.]
   #if a.fit.passed [The fit passed its registered training criteria.] else [The missed training criteria were #a.fit.gates.pairs().filter(x=>not x.at(1)).map(x=>x.at(0)).join(", "). The registered direct test closed at this prerequisite.]

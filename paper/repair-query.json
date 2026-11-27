@@ -1651,6 +1651,74 @@
       ]
     },
     "lr": 0.00012,
-    "kl": 0.12
+    "kl": 0.12,
+    "fit": {
+      "passed": true,
+      "gates": {
+        "exposure": true,
+        "finite": true,
+        "clean_reasoning": true,
+        "learner_reasoning": true,
+        "clean_action": true,
+        "learner_action": true,
+        "protected": true,
+        "second_read": true
+      },
+      "gains": {
+        "answer_valid_read/clean": 0.024548040117536273,
+        "strategy/learner": 0.620818355723153,
+        "strategy/clean": 0.6091873116459225,
+        "report_action/learner": 0.9796833685084956,
+        "redirect_valid_read/clean": 0.0736032019888945,
+        "repair_known_schema/clean": 0.06991355627358539,
+        "report_action/clean": 0.5682911921331607,
+        "repair_after_schema/clean": 0.11156484026043488,
+        "report_reply/clean": 0.13753789379483175,
+        "instruction/retain": 0.33027812898694936,
+        "explanation/retain": 0.37921961304483615,
+        "arithmetic/retain": 0.3017040969197391,
+        "legacy/retain": 0.36885982666108097,
+        "qualitative/retain": 0.3504774502345494,
+        "service_action/retain": 0.03197780524960154,
+        "program/retain": 0.07315509388089526,
+        "full_rows/retain": 0.4794222937689887
+      },
+      "protected_gain": 0.28938678859333006,
+      "second_read_gain": 0.27685459687354097,
+      "updates": 738,
+      "positions": 219507
+    },
+    "fit_cost": {
+      "seconds": 573.3594019412994,
+      "peak": 1705229802
+    },
+    "teacher_fix": {
+      "registration": "0ae22ad5f323ebe4d2aa93ebb3e370566e3b35a1a3a5f255b354e5da84d10044",
+      "original_revision": "ca005eacda69395c36c9cd6a7afdf5dee0306590",
+      "first_environment": "e57f08fb68c8e37760a1e60764ea1c3f37f7651f08669fc3b6d49b133b2bd98d",
+      "source": "loopqwen/research/learner_prefix_fit.py",
+      "prior_code": "3f15c8cccb1db35ebdcaf459b494b9652f501f83c9e4bc0de6854cb6aef9ec5a",
+      "corrected_code": "ee00a7d401a5665f470d67b696d6dfb9750d4c7d9c325f598a121f0ccd208fd6",
+      "feature_index": "087f4d65cd6ac9da94dc47786c7d64301a981cbd6756045538beed2bc489bf60",
+      "native_seconds": 293.3050489425659,
+      "peak_bytes": 1705229802,
+      "reason": "The native one-token fused attention kernel was traced by MLX differentiation when computing the frozen parent KL target. It does not provide the log-sum-exp required by the backward pass. Materialize the identical original parent forward distribution before entering the differentiated student loss. Preserve all 1,134 previously extracted native arrays and their hash index, unchanged source material, labels, schedules, model and cost accounting. No completed optimizer checkpoint or held predictions existed before the fix."
+    },
+    "replay": {
+      "fit": "b146ad085c1c901cad4767aa5f5c7d9e10242cc502f29bd6168045dcdfa3229d",
+      "cases": 68,
+      "paths": 3,
+      "feature_hashes": 1134,
+      "regenerated": [
+        "strategyqa/cc072feedd07aee23d2a/learner",
+        "finqa/L/2016/page_62.pdf-1/action/learner",
+        "sql-error/cosql-531ce3497857f2f70c67/repair_known_schema/clean",
+        "rehearsal/dolly-12448/retain"
+      ],
+      "max_abs_nll_error": 0,
+      "seconds": 6.171916832972784,
+      "peak_bytes": 1646483032,
+      "passed": true
+    }
   }
 }

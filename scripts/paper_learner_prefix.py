@@ -38,6 +38,20 @@ def collect():
     if (root / "checksums.json").is_file():
         committed(root / "checksums.json")
         report["fit"] = read(root / "decision.json")
+        jobs = [
+            job
+            for window in Path("research/sessions").glob("window-*.json")
+            for job in read(window)["jobs"]
+            if job["job"] == FIT
+        ]
+        if jobs:
+            report["fit_cost"] = {
+                "seconds": sum(job["seconds"] for job in jobs),
+                "peak": max(job["peak_bytes"] for job in jobs),
+            }
+        fix = root / "frozen-teacher-correction.json"
+        if fix.is_file():
+            report["teacher_fix"] = read(fix)
         replay = DOC / (FIT + "-cold.json")
         if replay.is_file():
             committed(replay)
