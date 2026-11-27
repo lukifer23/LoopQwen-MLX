@@ -167,6 +167,37 @@ def rows_and_blind(root):
     return records, dict(sorted(hidden.items()))
 
 
+def timing_intervals(rows):
+    # Preserve the fixed mixture and keep every repeated question from one entity together.
+    by_family = defaultdict(lambda: defaultdict(list))
+    for row in rows:
+        source = "human" if row["family"] in ("file", "inline") else row["family"]
+        by_family[source][row["cluster"]].append(row)
+    rng = np.random.default_rng(427723)
+    total = np.zeros((20000, 2, 2))
+    for group in by_family.values():
+        costs = np.array(
+            [
+                [
+                    [
+                        sum(row[a + "_" + metric] for row in unit)
+                        for metric in ("wall_s", "first_s")
+                    ]
+                    for a in ARMS
+                ]
+                for unit in group.values()
+            ]
+        )
+        sampled = rng.integers(0, len(costs), size=(20000, len(costs)))
+        total += costs[sampled].sum(axis=1)
+    ratios = total[:, 1, :] / total[:, 0, :]
+    return {
+        "unit_counts": {k: len(v) for k, v in by_family.items()},
+        "base_over_loop_wall": np.quantile(ratios[:, 0], [0.025, 0.975]).tolist(),
+        "base_over_loop_first": np.quantile(ratios[:, 1], [0.025, 0.975]).tolist(),
+    }
+
+
 def report(rows, ratings):
     logical = [r for r in rows if r["family"] in ("file", "inline")]
     groups = defaultdict(list)
@@ -183,6 +214,7 @@ def report(rows, ratings):
     ).tolist()
     results = {
         "human_net": sum(delta),
+        "timing_intervals": timing_intervals(rows),
         "human_cluster_interval": ci,
         "lost": [
             r["id"] for r in rows if r["control_success"] and not r["candidate_success"]

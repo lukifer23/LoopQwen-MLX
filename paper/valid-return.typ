@@ -120,6 +120,8 @@ The archived registration binds the data, starting policy, decision thresholds a
 = Relation to recurrent language models
 Geiping and colleagues trained a recurrent-depth model to refine latent states over varying numbers of iterations. Chen and colleagues reused a frozen middle block with damped updates and found task-dependent improvements across pretrained architectures. Our study trains a small shared update at the final layer and tests a fixed two-visit execution schedule. The matched induction and tool experiments above illustrate why results from other architectures, depths and languages do not establish a causal gain for this particular retrofit. [7–8]
 
+#m.time_uncertainty
+
 = Using and inspecting the model
 The installed runtime exposes the ordinary Base comparison through the same command as the trained loop. The release 05 backbone supplies the frozen instruction prefix. The policy directory supplies the trained second-visit model. For file work, provide a keyed CSV. For a dependent calendar request, expose that file and the calendar service together. The trace records the exact user prompt tokens, every generated argument and actual return, final response and retained physical histories.
 

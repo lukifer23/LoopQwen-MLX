@@ -321,6 +321,12 @@ def build():
         f"When the source-specific rationale was supplied, its package and schedule verdict margins favored the target on {preferred_at_start('verdict', 'package')} and {preferred_at_start('verdict', 'agenda')} pairs. "
         f"The corresponding human-table verdict count was {preferred_at_start('verdict', 'human')}. These are conditional training measurements. The direct evaluation requires the model to generate its own reasoning and select every action."
     )
+    time_ci = data["timing_intervals"]
+    wall_range, first_range = (
+        time_ci["base_over_loop_wall"],
+        time_ci["base_over_loop_first"],
+    )
+    time_text = f"Resampling whole sources within each of the four task strata 20,000 times gave a 95% interval of {wall_range[0]:.2f}–{wall_range[1]:.2f} for Base/loop total time and {first_range[0]:.3f}–{first_range[1]:.3f} for Base/loop first-token wait. This interval describes the measured source mix; it does not remove machine-order effects."
     depth = historical_evidence(decision)
     ballots = read("docs/measurements/valid-return-ballot-sensitivity.json")
     bt = [ballots[arm]["totals"] for arm in ARMS]
@@ -335,6 +341,7 @@ def build():
         P / "valid-return-paper.json",
         {
             "historical_depth": depth,
+            "time_uncertainty": time_text,
             "initial_choices": initial_choices,
             "deadlines": [
                 [
