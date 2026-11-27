@@ -21,6 +21,8 @@ The folded model and untouched Base each supplied 39 correct final answers acros
 
 ## One deployed assistant
 
+The release 05 portable file restores all 66 files and the actual package output in 7.51 seconds at 1,544,038,920 bytes. [Portable release 05 receipt](../research/results/transport-lossless-04)
+
 Release 05 matched Base on all 5,587 localized names in 19 languages, fixing 2,150 input mismatches and retaining every registered release 04 output. A Hindi package follow-up used the current tool but repeated the previous version string. [Installed release qualification](../research/results/packed-release-retention-04) · [Live conversation](measurements/unicode-package-installed-cli.json)
 
 Release 04 qualified the packed long-context runtime. On the historical 131,084-token pair it restored two correct outputs against zero for shipped release 03, with lower peak MLX allocation on both requests. It also retained the original two 24K outputs. [Isolated release comparison](../research/results/packed-release-retention-03). Its parent reproduced 22 public tool sessions and all 200 shorter language outputs. In the mixed field comparison, candidate/Base correct counts were 8/8 versus 1/8 on files, 3/12 versus 0/12 on SQLite, 0/10 versus 0/10 on strict one-call package versions, 2/10 versus 3/10 on human arithmetic and 8/10 versus 8/10 on ten-document reading. The candidate supplied nine correct version strings. The complete stream took 83.97 versus 234.20 s, with summed first-token times of 20.33 versus 9.15 s and peak allocations of 1,810,571,734 versus 1,805,158,874 bytes. [Single-installation results](../research/results/release-mixed-field-01) · [All five families](../paper/mixed-deployment.csv)

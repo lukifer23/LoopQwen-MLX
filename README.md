@@ -127,11 +127,11 @@ The installed runtime caches the tokenizer for the qualified packed-03 export. A
 
 ### Restore the offline assistant
 
-Release 04 is available locally as `exports/tool-language-packed-04.lqzip`, **1,544,038,893 bytes**. It is 22.68% smaller than ordinary ZIP of the same payload. Restoration and verification took 7.60 s. All 66 files matched their original SHA-256 and the restored assistant reproduced the live package callback and output tokens outside the checkout. The archive SHA-256 is `6e55c93c4280f63e90f5e5d2379b92e026f13626d6306c7851297ec5cd5c80e3`. From the repository root, restore into an unused directory. [Release 04 receipt](research/results/transport-lossless-03) · [Release 03 receipt](research/results/transport-lossless-02)
+The qualified release 05 archive is `exports/tool-language-packed-05.lqzip`, **1,544,038,920 bytes**. It restores all 66 files of the 2,370,317,770-byte assistant. The same files occupied 1,996,857,675 bytes in ordinary ZIP. Restoration and verification took 7.51 s, and the restored assistant reproduced its live package callback and generated tokens outside the checkout. Its SHA-256 is `8c1fbb6850ca72b38e8fa90ebc7c15803f005880a1e43687e224d8016a99a2b3`. From the repository root, restore into an unused directory. [Release 05 verification](research/results/transport-lossless-04) · [Earlier release 04](research/results/transport-lossless-03)
 
 ```sh
-.venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-packed-04.lqzip exports/restored-tool-language-packed-04
-.venv/bin/python -m loopqwen tools --checkpoint exports/restored-tool-language-packed-04 --packages --prompt "What version of mlx is installed? Use the tool."
+.venv/bin/python -m loopqwen.weight_transport unpack exports/tool-language-packed-05.lqzip exports/restored-tool-language-packed-05
+.venv/bin/python -m loopqwen tools --checkpoint exports/restored-tool-language-packed-05 --packages --prompt "What version of mlx is installed? Use the tool."
 ```
 
 ### Experimental raw-language checkpoint
