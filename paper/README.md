@@ -191,3 +191,5 @@ The question-contrast supplement includes [independent passage pairs](question-c
 The [installed 173,129-token replay](../docs/measurements/document-reader-installed-02.json) reproduces both output streams and all native offsets. The [two-request arithmetic example](../docs/measurements/contrast-reader-installed-02.json) includes the model's reversed subtraction and the incorrect repeated follow-up. Both were run outside checkout from the [same deterministic wheel](../docs/measurements/portable-base-wheel-02.json) without a model cache or network connection.
 
 The complete-book follow-up figure and CSV identify cold opening time, reported answers, real calls and retained histories for each book on each arm. [Per-request data](book-conversation-requests.csv) · [Figure](book-conversation.svg)
+
+The field kit includes every tracked study and historical revision in a standalone Git bundle. The six latest field studies are also directly accessible beside the installed model for replay. [Field kit instructions](../docs/FIELD_KIT.md)

@@ -20,8 +20,6 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from loopqwen.research.native_function_study import executions
 
-SOURCE_REVISION = "22d49272762904e5c38a4b9e22587651172e0a27"
-
 STUDIES = (
     "observation-review-01",
     "document-frequency-reader-01",
@@ -32,7 +30,38 @@ STUDIES = (
 )
 
 
-def entries():
+def full_history(revision, staging):
+    # Expose only the requested commit and its ancestors, independent of other local refs.
+    bare = staging / "source.git"
+    subprocess.run(["git", "init", "--quiet", "--bare", str(bare)], check=True)
+    objects = subprocess.check_output(
+        ["git", "rev-parse", "--path-format=absolute", "--git-path", "objects"],
+        cwd=ROOT,
+        text=True,
+    ).strip()
+    (bare / "objects/info/alternates").write_text(objects + "\n")
+    subprocess.run(
+        ["git", "-C", str(bare), "update-ref", "refs/heads/main", revision], check=True
+    )
+    bundle = staging / "loopqwen-research.bundle"
+    subprocess.run(
+        [
+            "git",
+            "-C",
+            str(bare),
+            "-c",
+            "pack.threads=1",
+            "bundle",
+            "create",
+            str(bundle),
+            "refs/heads/main",
+        ],
+        check=True,
+    )
+    return bundle
+
+
+def entries(revision, staging):
     docs = ROOT / "docs/measurements"
     wheel = read(docs / "portable-base-wheel-02.json")
     runtime = ROOT / "exports/portable-base-runtime-02" / wheel["wheel"]
@@ -111,14 +140,15 @@ def entries():
     records["research/data/conversation-document-prefill-tokens.json"] = (
         ROOT / "research/data/conversation-document-prefill-tokens.json"
     )
-    records["sources/REVISION.txt"] = (SOURCE_REVISION + "\n").encode()
+    records["sources/REVISION.txt"] = (revision + "\n").encode()
+    records["sources/loopqwen-research.bundle"] = full_history(revision, staging)
     code = subprocess.check_output(
         [
             "git",
             "archive",
             "--format=tar",
             "--prefix=source/",
-            SOURCE_REVISION,
+            revision,
             "loopqwen",
             "scripts",
             "tests",
@@ -137,10 +167,10 @@ def entries():
         "complete-tree-next-revision.txt",
         "complete-lockfile.txt",
     ]
-    for name, r, (revision, _, source, question, _, _) in zip(
+    for name, r, (document_revision, _, source, question, _, _) in zip(
         names, panel, documents(), strict=True
     ):
-        assert revision == r["id"] and question == r["question"]
+        assert document_revision == r["id"] and question == r["question"]
         assert hashlib.sha256(source.encode()).hexdigest() == r["source_sha256"]
         records["examples/" + name] = (source + "\n\n" + question).encode()
     for book in read(ROOT / "research/data/book-conversation-panel.json")["items"]:
@@ -158,7 +188,7 @@ def write_archive(path, files):
             entry = zipfile.ZipInfo(name, (1980, 1, 1, 0, 0, 0))
             entry.compress_type = (
                 zipfile.ZIP_STORED
-                if name.endswith((".lqzip", ".whl", ".gz", ".pdf"))
+                if name.endswith((".lqzip", ".whl", ".gz", ".pdf", ".bundle"))
                 else zipfile.ZIP_DEFLATED
             )
             entry.external_attr = (stat.S_IFREG | 0o644) << 16
@@ -192,7 +222,30 @@ def main():
     ):
         tmp = Path(tmp)
         building = Path(staging) / target.name
-        hashes = write_archive(building, entries())
+        receipt = ROOT / "docs/measurements/field-kit-01.json"
+        revision = (
+            read(receipt)["source_revision"]
+            if receipt.exists()
+            else subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
+            ).strip()
+        )
+        subprocess.run(
+            [
+                "git",
+                "diff",
+                "--quiet",
+                revision,
+                "--",
+                "paper",
+                "research",
+                "docs/FIELD_KIT.md",
+                "docs/sources/tatqa",
+            ],
+            cwd=ROOT,
+            check=True,
+        )
+        hashes = write_archive(building, entries(revision, Path(staging)))
         if target.exists():
             assert digest(target) == digest(building)
         work = tmp / "field"
@@ -204,6 +257,44 @@ def main():
         )
         assert all(digest(work / k) == v for k, v in hashes.items())
         assert not work.resolve().is_relative_to(ROOT)
+        checkout = tmp / "restored-project"
+        subprocess.run(
+            [
+                "git",
+                "clone",
+                "--quiet",
+                "--branch",
+                "main",
+                str(work / "sources/loopqwen-research.bundle"),
+                str(checkout),
+            ],
+            check=True,
+        )
+        assert (
+            subprocess.check_output(
+                ["git", "rev-parse", "HEAD"], cwd=checkout, text=True
+            ).strip()
+            == revision
+        )
+        subprocess.run(
+            ["git", "fsck", "--full", "--no-reflogs"],
+            cwd=checkout,
+            check=True,
+            stdout=subprocess.DEVNULL,
+        )
+        assert digest(checkout / "paper/loopqwen.pdf") == hashes["paper/loopqwen.pdf"]
+        registry = read(checkout / "research/registry.json")
+        for name, entry in registry["experiments"].items():
+            if entry["archive"]:
+                assert (
+                    digest(checkout / "research/results" / name / "checksums.json")
+                    == entry["archive"]
+                )
+        for name, entry in registry["session_results"].items():
+            assert (
+                digest(checkout / "research/sessions" / name / "checksums.json")
+                == entry["archive"]
+            )
         venv = tmp / "venv"
         subprocess.run(
             [
@@ -378,7 +469,13 @@ def main():
             "model_sha256": hashes["model/tool-language-packed-05.lqzip"],
             "wheel_sha256": digest(wheel),
             "pdf_sha256": hashes["paper/loopqwen.pdf"],
-            "source_revision": SOURCE_REVISION,
+            "source_revision": revision,
+            "verified_git_history": True,
+            "registrations": len(registry["experiments"]),
+            "study_archives": sum(
+                bool(e["archive"]) for e in registry["experiments"].values()
+            )
+            + len(registry["session_results"]),
             "empty_cache": True,
             "outside_checkout": True,
             "fresh_venv": True,
@@ -389,7 +486,6 @@ def main():
             "initial_prompt_identical": True,
             "verified_examples": examples,
         }
-        receipt = ROOT / "docs/measurements/field-kit-01.json"
         if receipt.exists():
             assert read(receipt) == record
         if not target.exists():

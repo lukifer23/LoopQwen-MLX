@@ -50,3 +50,13 @@ The file provider reads the chosen file on disk. Supply a different text file to
 Read `paper/loopqwen.pdf` for methods, figures, results and limits. The CSV supplements accompany the paper. Each included study contains its registration, full model outputs, decision and checksums. Frozen training and evaluation manifests are in `research/data/`. The source snapshot with the training and verification programs, tests and dependency lock is in `sources/loopqwen-source.tar.gz`. The registrations identify additional upstream corpora and the adapter parents.
 
 The paired financial questions keep the original tables, paragraphs and questions from Fengbin Zhu and colleagues’ TAT-QA. The kit supplies their unmodified training and development JSON, original notices, and the complete independent software package lock used for the transfer test. The training examples translate verified published arithmetic derivations into native Qwen calculator calls. [TAT-QA paper](https://aclanthology.org/2021.acl-long.254/) · [Dataset license, CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+
+## Inspect the complete research history
+
+The Git bundle contains the paper revision of `main`, its ancestors, all tracked study archives and matched controls. Clone it locally to follow the paper’s repository links, inspect original source revisions, or rerun the archive verifier. Dependencies for paper generation and the external training corpora are specified in the restored project.
+
+```sh
+git clone --branch main sources/loopqwen-research.bundle research-project
+git -C research-project fsck --full
+```
