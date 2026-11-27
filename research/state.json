@@ -1,6 +1,6 @@
 {
-  "session_start_utc": "2026-11-27T00:14:29.875023+00:00",
-  "starting_revision": "5edf763",
+  "session_start_utc": "2026-11-27T01:28:07.895973+00:00",
+  "starting_revision": "23e2ceb",
   "limits": {
     "wall_seconds": 7200,
     "native_seconds": 4500,
@@ -776,7 +776,7 @@
     {
       "id": "session-tokenizer-01",
       "promoted": true,
-      "scope": "How much of the qualified assistant’s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
+      "scope": "How much of the qualified assistant\u2019s mixed-mode first-token delay comes from repeatedly rebuilding the identical tokenizer?",
       "decision": "research/results/session-tokenizer-01/decision.json"
     },
     {
@@ -887,6 +887,36 @@
       "promoted": false,
       "scope": "Can the native Qwen3.5 tokenizer restore byte-for-byte prompt parity across the same 144 complete requests, preserve every previously valid trajectory and let the finished joint decoder beat untouched Base on the prespecified semantic and resource outcomes?",
       "decision": "research/results/shared-session-tokenizer-replay-01/decision.json"
+    },
+    {
+      "id": "session-tokenizer-02",
+      "promoted": true,
+      "scope": "Can release 04 carry over the measured tokenizer reuse improvement while giving exactly the same actual 50 mixed field responses and meeting time and memory thresholds?",
+      "decision": "research/results/session-tokenizer-02/decision.json"
+    },
+    {
+      "id": "repository-tree-field-01",
+      "promoted": false,
+      "scope": "Will the actual installed packed-04 system follow the changed size of its own paper in two complete, original Git object listings larger than 169K input tokens?",
+      "decision": "research/results/repository-tree-field-01/decision.json"
+    },
+    {
+      "id": "packed-release-retention-04",
+      "promoted": true,
+      "scope": "Does explicitly identifying the original Qwen3.5 tokenizer in the offline bundle recover the true Base segmentation of real localized text, with complete historical long, book, language and actual tool behavior retained?",
+      "decision": "research/results/packed-release-retention-04/decision.json"
+    },
+    {
+      "id": "selective-raw-return-01",
+      "promoted": false,
+      "scope": "Does returning a learned, initially zero projection of the second native pass, trained on diverse real sources with a cap per work, improve ordinary language beyond untouched Base on distinct books, manuals, and encyclopedia articles?",
+      "decision": "research/results/selective-raw-return-01/decision.json"
+    },
+    {
+      "id": "callback-recovery-01",
+      "promoted": false,
+      "scope": "Can a trained two-pass decoder correct its own genuine failed calculator calls, improve fresh human word-problem answers against untouched Base and preserve all unaffected behavior of the qualified installation?",
+      "decision": "research/results/callback-recovery-01/decision.json"
     }
   ],
   "status": "The qualified 131K offline assistant is release 05. Active research compares field clarification, free language modeling, combined reasoning and tool use, trained document search and complete Git-tree retrieval under their registered stop rules.",
@@ -942,9 +972,9 @@
       "reason": "Common prefix of 14 paired questions: 9 correct candidate versus 10 Base, with 4 recurrent switches. Total finished turns: 14 candidate and 16 Base. The worker reached its registered stop. Even two correct remaining answers could only tie the completed Base score of 11/16. Full-panel candidate accuracy and latency are unavailable."
     }
   ],
-  "closed_session_start": 1795734219.342032,
+  "closed_session_start": 1795738469.8750231,
   "native_window": {
-    "start_utc": "2026-11-27T00:14:29.875023+00:00",
+    "start_utc": "2026-11-27T01:28:07.895973+00:00",
     "status": "open"
   },
   "kinship_transfer": {
