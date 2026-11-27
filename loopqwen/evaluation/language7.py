@@ -10,9 +10,7 @@ from .. import REVISION
 from ..data import graphs, pointer5, reasoning
 from ..identity import fingerprint
 from ..io import digest, read, save
-from ..model_loader import load_base
-from ..looped_model import LoopedModel
-from ..recurrence import Span
+from ..model_loader import ordinary as base
 from ..training.exposure import ARM, OUT, PARENT, S
 from .answers import numeric
 from .mechanism import load, packed, unpack
@@ -224,11 +222,6 @@ def stats(rows):
         tokens=sum(len(r["token_ids"]) for r in rows),
         seconds=sum(r["seconds"] for r in rows),
     )
-
-
-def base():
-    b, t, _ = load_base()
-    return LoopedModel(b, Span(passes=1)), t, REVISION
 
 
 def compare(cohort, p, arm, step, folder, *, floor=True):

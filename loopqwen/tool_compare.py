@@ -6,7 +6,7 @@ from time import perf_counter
 import mlx.core as mx
 
 from . import REVISION
-from .evaluation.language7 import base
+from .model_loader import ordinary as base
 from .identity import fingerprint
 from .tool_cli import open_assistant, present
 from .tool_model import Assistant

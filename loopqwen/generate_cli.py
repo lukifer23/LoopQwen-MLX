@@ -78,7 +78,7 @@ def run(args, parser):
             stop_ids=stops,
         )
 
-    from .evaluation.language7 import base
+    from .model_loader import ordinary as base
 
     runs = {}
     policy = None

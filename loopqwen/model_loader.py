@@ -90,3 +90,12 @@ def load_base():
         ],
     )
     return model, tokenizer, info
+
+
+def ordinary():
+    """Construct the pinned ordinary-depth decoder for user and research comparisons."""
+    from .looped_model import LoopedModel
+    from .recurrence import Span
+
+    text, tokenizer, _ = load_base()
+    return LoopedModel(text, Span(passes=1)), tokenizer, REVISION
