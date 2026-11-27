@@ -1,5 +1,6 @@
 """Freeze long, complete Git and uv documents and source-located training examples."""
 
+import argparse
 import hashlib
 import subprocess
 import tomllib
@@ -173,6 +174,18 @@ def training_documents(frozen):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--show-request",
+        type=int,
+        choices=(1, 2, 3),
+        help="Print one exact user message for the installed generator",
+    )
+    args = parser.parse_args()
+    if args.show_request:
+        _, _, source, question, _, _ = list(documents())[args.show_request - 1]
+        print(source + "\n\n" + question, end="")
+        raise SystemExit(0)
     for name, data in [("panel", panel()), ("training", training())]:
         path = ROOT / f"document-frequency-{name}.json"
         if path.exists():
