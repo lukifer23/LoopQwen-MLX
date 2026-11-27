@@ -263,6 +263,7 @@ class Assistant:
                 limit = min(len(common), len(ids) - 1)
                 first = next((i for i in range(limit) if common[i] != ids[i]), limit)
                 common = common[:first]
+        self._tool_model.eval()
         return DocumentPrefix(self._tool_model, common, directory, progress)
 
     def respond(
