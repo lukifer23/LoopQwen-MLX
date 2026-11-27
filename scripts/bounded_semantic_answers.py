@@ -5,7 +5,6 @@ from collections import Counter
 from pathlib import Path
 
 from loopqwen.evaluation.mechanism import unpack
-from loopqwen.identity import fingerprint
 from loopqwen.io import read, digest
 from loopqwen.research.native_function_study import executions
 from scripts.register_bounded_read import PANEL, PRIMARY
@@ -21,7 +20,7 @@ def run(freeze):
     spec = dict(
         panel=digest(PANEL),
         primary=PRIMARY,
-        protocol="Before either arm's results or identities are inspected, read each distinct anonymous reply against the original question and source. Separately label its delivered conclusion as correct, incorrect or unclear. For reasoning accept an unambiguously expressed yes/no relation anywhere in the reply; the separate funded explanation rubric still requires the supporting reasoning. For finance require the correct sign, result and requested display scale/units, regardless of whether a real calculator was used. Contextually implicit units are acceptable if uniquely determined by the question and delivered numerical value. A reply with a wrong explicit unit is incorrect. Absent or internally unresolved replies are unclear. Unsupported extra claims remain separately recorded. Replay every arm's mapping only after the combined grades and the primary reading are committed. Publish counts alongside, leaving all registered source and product acceptance thresholds fixed.",
+        protocol="Before either arm's results or identities are inspected, read each distinct anonymous reply against the original question and source. Separately label its delivered conclusion as correct, incorrect or unclear. For reasoning accept an unambiguously expressed yes/no relation anywhere in the reply; the separate frozen explanation rubric still requires the supporting reasoning. For finance require the correct sign, result and requested display scale/units, regardless of whether a real calculator was used. Contextually implicit units are acceptable if uniquely determined by the question and delivered numerical value. A reply with a wrong explicit unit is incorrect. Absent or internally unresolved replies are unclear. Unsupported extra claims remain separately recorded. Replay every arm's mapping only after the combined grades and the primary reading are committed. Publish counts alongside, leaving all registered source and product acceptance thresholds fixed.",
     )
     if freeze:
         persist(PLAN, spec)
