@@ -177,29 +177,29 @@ def build():
     previous = read("docs/measurements/file-evidence-long-replay.json")["requests"]
     assert all(r["actual_initial_tokens"] == 131084 for r in previous)
     decisions = {k: v for k, v in d["gates"].items() if not v}
-    data = dict(
-        abstract=f"On 72 held human judgments the loop grounded {get('candidate', 'grounded')} versus {get('control', 'grounded')} for ordinary Base. The paired difference was {d['net']:+d} judgments across 12 stories (two-sided exact p = {d['exact_story_p']:.4g}). It solved every judgment on {a['whole_stories']} versus {b['whole_stories']} whole stories and both practical checks on {a['wheel_pairs']} versus {b['wheel_pairs']} package pairs. All 96 requests took {a['groups']['all']['wall_s']:.2f} versus {b['groups']['all']['wall_s']:.2f} seconds.",
-        decision=(
+    data = {
+        "abstract": f"On 72 held human judgments the loop grounded {get('candidate', 'grounded')} versus {get('control', 'grounded')} for ordinary Base. The paired difference was {d['net']:+d} judgments across 12 stories (two-sided exact p = {d['exact_story_p']:.4g}). It solved every judgment on {a['whole_stories']} versus {b['whole_stories']} whole stories and both practical checks on {a['wheel_pairs']} versus {b['wheel_pairs']} package pairs. All 96 requests took {a['groups']['all']['wall_s']:.2f} versus {b['groups']['all']['wall_s']:.2f} seconds.",
+        "decision": (
             "The model met every registered direct-comparison criterion. Matched-depth attribution and independent field qualification are required before promotion."
             if d["passed"]
             else "The direct comparison missed the registered promotion threshold. The gates that missed were "
             + ", ".join(decisions)
             + ". This closes replication, matched-depth training and 128K qualification for these weights."
         ),
-        cost=cost,
-        exposure=f"Native AdamW updated {fit['trainable']:,} parameters over {fit['updates']} steps. The independently reconstructed draws comprise {exposure['sampled_turns']:,} example-turn exposures, {fit['targets']:,} response tokens and {fit['explanation_targets']:,} nonblank explanation-token exposures. The source preparation stage took {fit['prepare_seconds']:.2f} s and optimization {fit['optimizer_seconds']:.2f} s at {fit['peak'] / 2**30:.2f} GiB peak. All {len(hist)} optimizer snapshots were verified.",
-        uncertainty=f"The difference in mean accuracy across whole stories was {worth(100 * (d['net'] / 72))} percentage points. The descriptive 95% paired story-bootstrap interval was [{worth(100 * interval[0])}, {worth(100 * interval[1])}] points. On the seven stories without previously flagged annotation issues, the loop grounded {get('candidate', 'grounded', 'unflagged')}/42 and Base {get('control', 'grounded', 'unflagged')}/42 (paired p = {by['unflagged']['paired_p']:.4g}).",
-        evidence=f"The loop retrieved the correct record on {file[0]}/36 logical file requests versus {file[1]}/36 for Base. It retrieved the declared constraint on {wheel[0]}/16 practical tasks versus {wheel[1]}/16. Each of the eight paired practical cases fixes the interpreter version and changes the distribution so the answer reverses.",
-        reasoning=f"Of completed logical judgments, {logic[0]['nontrivial']}/{logic[0]['completed']} loop replies and {logic[1]['nontrivial']}/{logic[1]['completed']} Base replies contained at least four reasoning words. Across the 48 decisive true/false requests, the loop explicitly numbered premises on {get('candidate', 'numbered_citations')} and Base on {get('control', 'numbered_citations')}. The entire cited set contained a formally sufficient support and the grounded answer was correct on {get('candidate', 'grounded_with_support')} versus {get('control', 'grounded_with_support')}.",
-        blind=f"The blind sample covered 20 preselected items on both models and {blind['distinct']} distinct prompt/evidence/reply combinations. The reader marked {review[0].get('supported', 0)} loop explanations and {review[1].get('supported', 0)} Base explanations fully supported. A reader could sometimes infer model identity from writing style.",
-        ratings=[
+        "cost": cost,
+        "exposure": f"Native AdamW updated {fit['trainable']:,} parameters over {fit['updates']} steps. The independently reconstructed draws comprise {exposure['sampled_turns']:,} example-turn exposures, {fit['targets']:,} response tokens and {fit['explanation_targets']:,} nonblank explanation-token exposures. The source preparation stage took {fit['prepare_seconds']:.2f} s and optimization {fit['optimizer_seconds']:.2f} s at {fit['peak'] / 2**30:.2f} GiB peak. All {len(hist)} optimizer snapshots were verified.",
+        "uncertainty": f"The difference in mean accuracy across whole stories was {worth(100 * (d['net'] / 72))} percentage points. The descriptive 95% paired story-bootstrap interval was [{worth(100 * interval[0])}, {worth(100 * interval[1])}] points. On the seven stories without previously flagged annotation issues, the loop grounded {get('candidate', 'grounded', 'unflagged')}/42 and Base {get('control', 'grounded', 'unflagged')}/42 (paired p = {by['unflagged']['paired_p']:.4g}).",
+        "evidence": f"The loop retrieved the correct record on {file[0]}/36 logical file requests versus {file[1]}/36 for Base. It retrieved the declared constraint on {wheel[0]}/16 practical tasks versus {wheel[1]}/16. Each of the eight paired practical cases fixes the interpreter version and changes the distribution so the answer reverses.",
+        "reasoning": f"Of completed logical judgments, {logic[0]['nontrivial']}/{logic[0]['completed']} loop replies and {logic[1]['nontrivial']}/{logic[1]['completed']} Base replies contained at least four reasoning words. Across the 48 decisive true/false requests, the loop explicitly numbered premises on {get('candidate', 'numbered_citations')} and Base on {get('control', 'numbered_citations')}. The entire cited set contained a formally sufficient support and the grounded answer was correct on {get('candidate', 'grounded_with_support')} versus {get('control', 'grounded_with_support')}.",
+        "blind": f"The blind sample covered 20 preselected items on both models and {blind['distinct']} distinct prompt/evidence/reply combinations. The reader marked {review[0].get('supported', 0)} loop explanations and {review[1].get('supported', 0)} Base explanations fully supported. A reader could sometimes infer model identity from writing style.",
+        "ratings": [
             textrow(t.capitalize(), [v.get(t, 0) for v in review])
             for t in ("supported", "partial", "incorrect", "absent", "ambiguous")
         ],
-        example=f"The first enrolled practical request asked whether {chosen['questions'][0].split('Claim: ')[1].split(chr(10))[0]} The published field was {chosen['observation']['value']}. The reference verdict was {chosen['gold']}. The loop’s completed verdict was {example['candidate_verdict'] or 'unavailable'} and Base’s was {example['control_verdict'] or 'unavailable'}.",
-        training=fit["weights"],
-        context="Release 05 separately retrieved both changed keys with 131,084 actual prompt tokens. The physical long-context result belongs to that qualified release. The present proof-supervised checkpoint has its own acceptance and verification record.",
-    )
+        "example": f"The first enrolled practical request asked whether {chosen['questions'][0].split('Claim: ')[1].split(chr(10))[0]} The published field was {chosen['observation']['value']}. The reference verdict was {chosen['gold']}. The loop’s completed verdict was {example['candidate_verdict'] or 'unavailable'} and Base’s was {example['control_verdict'] or 'unavailable'}.",
+        "training": fit["weights"],
+        "context": "Release 05 separately retrieved both changed keys with 131,084 actual prompt tokens. The physical long-context result belongs to that qualified release. The present proof-supervised checkpoint has its own acceptance and verification record.",
+    }
     save(P / "proof-curriculum-paper.json", data)
     edition(P, "proof-curriculum")
 

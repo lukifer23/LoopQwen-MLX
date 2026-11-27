@@ -52,13 +52,13 @@ def prespec():
             )
         )
     assert len(set(items)) == 20
-    artifact = dict(
-        material=digest(Path(plan["material"])),
-        sample=items,
-        unit="One preselected claim for each of 12 stories and one practical request from each of eight distinct package pairs, with both arms for every item.",
-        reading="One project-agent reader, blinded to arm names and raw aggregate results where feasible. For each final-turn explanation, assign supported only when it states enough correct English premises and inferences to justify its visible verdict. For uncertainty a correct explanation must identify the particular missing link or give two compatible possibilities. For packages it must use the actual constraint and correctly compare the requested version. Assign partial when a relevant true observation is given without sufficient reasoning; incorrect when an essential inference contradicts the source; absent for empty reasoning or no final verdict; ambiguous for source ambiguity that prevents judgment. Grounded tool execution is scored separately. Identical text, evidence and claim share one review.",
-        secondary="Machine citation analysis on the 48 decisive FOLIO judgments in both modes. Give formal-support credit only for a completed, grounded, correct judgment whose explicit in-range premise numbers cover an inclusion-minimal sufficient subset. Record any out-of-range citation as invalid. Denominator includes replies without explicit numbered citations. Repeat separately for the seven unflagged stories. Uncertain claims are excluded from this measure. Report source-wise grounded success, completion and physical costs for the full primary stream. Resample whole stories, not individual views, for the descriptive 95% interval (20,000 draws, seed 79128). None of these analyses changes the registered decision.",
-    )
+    artifact = {
+        "material": digest(Path(plan["material"])),
+        "sample": items,
+        "unit": "One preselected claim for each of 12 stories and one practical request from each of eight distinct package pairs, with both arms for every item.",
+        "reading": "One project-agent reader, blinded to arm names and raw aggregate results where feasible. For each final-turn explanation, assign supported only when it states enough correct English premises and inferences to justify its visible verdict. For uncertainty a correct explanation must identify the particular missing link or give two compatible possibilities. For packages it must use the actual constraint and correctly compare the requested version. Assign partial when a relevant true observation is given without sufficient reasoning; incorrect when an essential inference contradicts the source; absent for empty reasoning or no final verdict; ambiguous for source ambiguity that prevents judgment. Grounded tool execution is scored separately. Identical text, evidence and claim share one review.",
+        "secondary": "Machine citation analysis on the 48 decisive FOLIO judgments in both modes. Give formal-support credit only for a completed, grounded, correct judgment whose explicit in-range premise numbers cover an inclusion-minimal sufficient subset. Record any out-of-range citation as invalid. Denominator includes replies without explicit numbered citations. Repeat separately for the seven unflagged stories. Uncertain claims are excluded from this measure. Report source-wise grounded success, completion and physical costs for the full primary stream. Resample whole stories, not individual views, for the descriptive 95% interval (20,000 draws, seed 79128). None of these analyses changes the registered decision.",
+    }
     if PLAN.exists():
         assert read(PLAN) == artifact
     else:
@@ -73,7 +73,7 @@ def references(text):
     for seq in re.findall(
         r"\b(?:premises?|statements?|rules?|facts?)\s+(\d+(?:(?:\s*,\s*(?:and\s+)?|\s+and\s+)\d+)*)",
         text,
-        re.I,
+        re.IGNORECASE,
     ):
         hits.update(map(int, re.findall(r"\d+", seq)))
     return sorted(hits)
@@ -155,12 +155,12 @@ def extract(root=STUDY):
                     ),
                 )
             if w["id"] in plan["sample"]:
-                body = dict(
-                    claim=w["questions"][0],
-                    evidence=actual_evidence,
-                    reasoning=raw_thought,
-                    answer=answer,
-                )
+                body = {
+                    "claim": w["questions"][0],
+                    "evidence": actual_evidence,
+                    "reasoning": raw_thought,
+                    "answer": answer,
+                }
                 token = fingerprint(body)[:16]
                 samples[token] = body
                 mapping[arm, w["id"]] = token
@@ -199,31 +199,33 @@ def report(records):
         interval = np.percentile(
             delta[rng.integers(n, size=(20000, n))].mean(axis=1) / 6, [2.5, 97.5]
         )
-        info = dict(
-            stories=n,
-            claims=len(judged),
-            net=int(delta.sum()),
-            paired_p=float(p),
-            difference_95_interval=interval.tolist(),
-        )
+        info = {
+            "stories": n,
+            "claims": len(judged),
+            "net": int(delta.sum()),
+            "paired_p": float(p),
+            "difference_95_interval": interval.tolist(),
+        }
         decisive = [r for r in judged if r["gold"] != "uncertain"]
         info["decisive"] = len(decisive)
         for arm in ("candidate", "control"):
-            get = lambda r, k: r[arm + "_" + k]
-            info[arm] = dict(
-                grounded=sum(get(r, "success") for r in judged),
-                fully_correct=sum(
+            get = lambda r, k, side=arm: r[side + "_" + k]
+            info[arm] = {
+                "grounded": sum(get(r, "success") for r in judged),
+                "fully_correct": sum(
                     all(get(r, "success") for r in rs) for rs in groups.values()
                 ),
-                decisive_grounded=sum(get(r, "success") for r in decisive),
-                numbered_citations=sum(
+                "decisive_grounded": sum(get(r, "success") for r in decisive),
+                "numbered_citations": sum(
                     bool(json.loads(get(r, "cites"))) for r in decisive
                 ),
-                sufficient_numbered_support=sum(get(r, "sufficient") for r in decisive),
-                grounded_with_support=sum(
+                "sufficient_numbered_support": sum(
+                    get(r, "sufficient") for r in decisive
+                ),
+                "grounded_with_support": sum(
                     get(r, "grounded_supported") for r in decisive
                 ),
-            )
+            }
         outcomes[cohort] = info
     return outcomes
 
@@ -263,7 +265,11 @@ def run(mode):
             breakdown[arm][vote["judgment"]] += 1
         save(
             "docs/measurements/proof-curriculum-blind-reading.json",
-            dict(distinct=len(samples), ratings=breakdown, items=prespec()["sample"]),
+            {
+                "distinct": len(samples),
+                "ratings": breakdown,
+                "items": prespec()["sample"],
+            },
         )
     print(out)
 

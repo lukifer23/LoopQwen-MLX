@@ -263,23 +263,23 @@ def main():
                 actual = [trace(q) for q in got["runs"][side]]
                 assert actual == orig
                 streams[side] = fingerprint(actual)
-            results.append(dict(example=key, id=r["id"], traces=streams))
+            results.append({"example": key, "id": r["id"], "traces": streams})
         assert not any(p.is_file() for p in cache.rglob("*"))
-        receipt = dict(
-            name=DEST.name,
-            bytes=archive.stat().st_size,
-            sha256=digest(archive),
-            payloads=len(hashes),
-            requires={v["name"]: v["sha256"] for v in (base, update)},
-            source_revision=revision,
-            history_restored=True,
-            network_blocked=True,
-            empty_model_cache=True,
-            isolated_installed_cli=True,
-            policy_weights=hashes["policy/cross-view.safetensors"],
-            actual_comparisons=results,
-            regenerated={n: hashes[n] for n in generated},
-        )
+        receipt = {
+            "name": DEST.name,
+            "bytes": archive.stat().st_size,
+            "sha256": digest(archive),
+            "payloads": len(hashes),
+            "requires": {v["name"]: v["sha256"] for v in (base, update)},
+            "source_revision": revision,
+            "history_restored": True,
+            "network_blocked": True,
+            "empty_model_cache": True,
+            "isolated_installed_cli": True,
+            "policy_weights": hashes["policy/cross-view.safetensors"],
+            "actual_comparisons": results,
+            "regenerated": {n: hashes[n] for n in generated},
+        }
         if DEST.exists():
             assert digest(DEST) == receipt["sha256"]
         else:

@@ -38,21 +38,21 @@ def run():
                     minimal.append(combo)
         assert minimal
         rows.append(
-            dict(
-                id=r["id"].removesuffix("-inline"),
-                verdict=r["formal"],
-                premises=len(facts),
-                minimal=[list(v) for v in minimal],
-                calls=checked,
-            )
+            {
+                "id": r["id"].removesuffix("-inline"),
+                "verdict": r["formal"],
+                "premises": len(facts),
+                "minimal": [list(v) for v in minimal],
+                "calls": checked,
+            }
         )
-    out = dict(
-        version=z3.get_version_string(),
-        source=hashlib.sha256(source.read_bytes()).hexdigest(),
-        claims=len(rows),
-        method="All inclusion-minimal supports among numbered premises, by satisfiability of the opposite. Enumeration prunes supersets of proven supports. Uncertain conclusions have no decisive support.",
-        rows=rows,
-    )
+    out = {
+        "version": z3.get_version_string(),
+        "source": hashlib.sha256(source.read_bytes()).hexdigest(),
+        "claims": len(rows),
+        "method": "All inclusion-minimal supports among numbered premises, by satisfiability of the opposite. Enumeration prunes supersets of proven supports. Uncertain conclusions have no decisive support.",
+        "rows": rows,
+    }
     path = Path("docs/measurements/proof-curriculum-minimal-support.json")
     if path.exists():
         assert json.loads(path.read_text()) == out

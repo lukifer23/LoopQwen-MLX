@@ -72,11 +72,11 @@ def run(root):
             proofs[key] += proof
         if step % 100 == 0:
             progress.append(
-                dict(
-                    step=step,
-                    targets=sum(tokens.values()),
-                    explanation_targets=sum(proofs.values()),
-                )
+                {
+                    "step": step,
+                    "targets": sum(tokens.values()),
+                    "explanation_targets": sum(proofs.values()),
+                }
             )
     assert (
         sum(tokens.values()) == fit["targets"]
@@ -87,17 +87,17 @@ def run(root):
     assert progress == [
         {k: r[k] for k in ("step", "targets", "explanation_targets")} for r in snapshots
     ]
-    result = dict(
-        views=digest(root / "training-views.json.gz"),
-        fit=digest(root / "fit.json"),
-        sampled_turns=sum(samples.values()),
-        unique_turns=len(visited),
-        unique_sources={k: len(v) for k, v in seen.items()},
-        source_draws=dict(samples),
-        target_tokens=dict(tokens),
-        reasoning_targets=dict(proofs),
-        progress=progress,
-    )
+    result = {
+        "views": digest(root / "training-views.json.gz"),
+        "fit": digest(root / "fit.json"),
+        "sampled_turns": sum(samples.values()),
+        "unique_turns": len(visited),
+        "unique_sources": {k: len(v) for k, v in seen.items()},
+        "source_draws": dict(samples),
+        "target_tokens": dict(tokens),
+        "reasoning_targets": dict(proofs),
+        "progress": progress,
+    }
     path = Path("docs/measurements/proof-curriculum-training-exposure.json")
     if path.exists():
         assert read(path) == result

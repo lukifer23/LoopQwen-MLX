@@ -1,5 +1,6 @@
 """Protect the source-qualification and real-view boundaries exercised by the native fit."""
 
+import json
 from collections import Counter
 from pathlib import Path
 
@@ -31,7 +32,6 @@ def test_qualification_is_the_source_inventory_and_turns_are_examples():
         assert case["inline"]["target"] == case["file"]["target"]
         assert case["file"]["target"]["reasoning_content"] == row["reason"]
         assert case["file"]["messages"][-1]["role"] == "tool"
-        import json
 
         assert json.loads(case["file"]["messages"][-1]["content"]) == {
             "value": row["evidence"]

@@ -98,23 +98,23 @@ def run():
                 for i, v in enumerate([*w["triples"].values(), *w["rules"].values()], 1)
             ]
             trace.append(
-                dict(
-                    id=row["id"],
-                    oracle=label,
-                    query=support,
-                    opposite=opposite,
-                    world_sha256=hashlib.sha256(line).hexdigest(),
-                )
+                {
+                    "id": row["id"],
+                    "oracle": label,
+                    "query": support,
+                    "opposite": opposite,
+                    "world_sha256": hashlib.sha256(line).hexdigest(),
+                }
             )
     assert len(trace) == len(selected) == 192
-    report = dict(
-        version=z3.get_version_string(),
-        source=material["source_archive"],
-        training=hashlib.sha256(corpus.read_bytes()).hexdigest(),
-        worlds=len(trace),
-        labels=Counter(r["oracle"] for r in trace),
-        results=trace,
-    )
+    report = {
+        "version": z3.get_version_string(),
+        "source": material["source_archive"],
+        "training": hashlib.sha256(corpus.read_bytes()).hexdigest(),
+        "worlds": len(trace),
+        "labels": Counter(r["oracle"] for r in trace),
+        "results": trace,
+    }
     out = Path("docs/measurements/proof-curriculum-source-oracle.json")
     if out.exists():
         assert json.loads(out.read_bytes()) == report

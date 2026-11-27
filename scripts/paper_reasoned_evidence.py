@@ -105,15 +105,15 @@ def build():
     formal = read("docs/measurements/reasoned-evidence-source-oracle.json")
     review = read("research/diagnostics/reasoned-evidence-language-review.json")
     accepted = summary["stops"]["Accepted"]
-    report = dict(
-        headline=f"The teacher qualified {accepted} of {len(rows)} candidate explanations ({100 * accepted / len(rows):.1f}%). The registered minimum was {registration['teacher_min_total']}.",
-        counts=", ".join(
+    report = {
+        "headline": f"The teacher qualified {accepted} of {len(rows)} candidate explanations ({100 * accepted / len(rows):.1f}%). The registered minimum was {registration['teacher_min_total']}.",
+        "counts": ", ".join(
             f"{summary['by_label'][label]['Accepted']} {label}" for label in labels
         ),
-        resource=f"{summary['tokens']:,} tokens in {summary['seconds']:.2f} seconds, with {summary['peak_bytes'] / 2**30:.2f} GiB peak allocation",
-        terminal=f"{summary['terminal_verdict']} generations ended with a recognizable verdict and {summary['terminal_correct']} matched the publisher.",
-        oracle=f"{formal['agreements']}/{formal['answers']} formal labels agreed. Prior English review flagged {len(review['flagged'])} of the {formal['worlds']} stories.",
-    )
+        "resource": f"{summary['tokens']:,} tokens in {summary['seconds']:.2f} seconds, with {summary['peak_bytes'] / 2**30:.2f} GiB peak allocation",
+        "terminal": f"{summary['terminal_verdict']} generations ended with a recognizable verdict and {summary['terminal_correct']} matched the publisher.",
+        "oracle": f"{formal['agreements']}/{formal['answers']} formal labels agreed. Prior English review flagged {len(review['flagged'])} of the {formal['worlds']} stories.",
+    }
     save(P / "reasoned-evidence-paper.json", report)
     edition(P, "reasoned-evidence")
 
