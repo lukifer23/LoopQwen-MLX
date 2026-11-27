@@ -11,7 +11,7 @@ from .model_loader import load_base
 CERTIFIED_INVENTORY = "e296d289a70a1dbe4de592fda55d6c650e7de46fcb2b38aa110b6199d7d15a3f"
 
 
-def ordinary(directory=None, *, require_release=False):
+def ordinary(directory=None, *, require_release=False, lazy=False):
     """Load pinned ordinary-depth weights from a certified text export or its original snapshot."""
     from .looped_model import LoopedModel
     from .recurrence import Span
@@ -21,7 +21,7 @@ def ordinary(directory=None, *, require_release=False):
         from .io import digest
 
         if digest(inventory) == CERTIFIED_INVENTORY:
-            return _ordinary_from_release(inventory.parent)
+            return _ordinary_from_release(inventory.parent, lazy=lazy)
     if require_release:
         raise ValueError(
             "The explicit Base checkpoint must contain the certified release 05 inventory"
@@ -32,7 +32,7 @@ def ordinary(directory=None, *, require_release=False):
     return model, tokenizer, REVISION
 
 
-def _ordinary_from_release(directory):
+def _ordinary_from_release(directory, *, lazy=False):
     """All 320 exported text tensors were compared exactly with the official native load."""
     import mlx.core as mx
     from mlx_lm.models.qwen3_5 import TextModel, TextModelArgs
@@ -74,7 +74,8 @@ def _ordinary_from_release(directory):
     config = read(directory / "config.json")["text_config"]
     text = TextModel(TextModelArgs.from_dict(config))
     text.load_weights(str(directory / "model.safetensors"), strict=True)
-    mx.eval(text.parameters())
+    if not lazy:
+        mx.eval(text.parameters())
     text.eval()
     model = LoopedModel(text, Span(passes=1))
     object.__setattr__(model, "base_source", "certified_release_text")

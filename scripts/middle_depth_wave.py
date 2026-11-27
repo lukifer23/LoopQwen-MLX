@@ -61,7 +61,12 @@ def fit(arm, step):
     )
     state = read(folder / pointer["path"] / "state.json") if pointer else {"step": 0}
     if state["step"] < step:
-        dispatch("fit", arm, "--until", step)
+        module = (
+            "bounded_fit"
+            if (ROOT / "bounded-fit-operating-point.json").is_file()
+            else "fit"
+        )
+        dispatch(module, arm, "--until", step)
     expected = folder / f"step-{step:04d}"
     if not expected.is_dir():
         raise RuntimeError(f"Fit exited before its requested checkpoint {expected}")

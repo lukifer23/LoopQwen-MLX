@@ -158,7 +158,17 @@ def fit(arm, condition):
         from scripts.middle_depth_recover import reconcile
 
         reconcile(dest)
-        text, _ = donor(BASE, ident["donor"])
+        recovered = (ROOT / "bounded-fit-operating-point.json").is_file()
+        if recovered:
+            from loopqwen.ordinary_model import ordinary
+            from scripts.middle_depth_bounded_fit import gradient
+
+            assert ident["donor"] == "base"
+            native, tok, _ = ordinary(BASE, require_release=True, lazy=True)
+            text = native.text
+            del native, tok
+        else:
+            text, _ = donor(BASE, ident["donor"])
         model = architecture(text, depth, seed)
         if (
             digest(parent / "adapters.safetensors")
@@ -170,7 +180,7 @@ def fit(arm, condition):
         opt = optimizer(
             dict(learning_rate=0.00012, weight_decay=0.01, warmup=4, steps=32)
         )
-        grad = nn.value_and_grad(model, loss)
+        grad = gradient(guard) if recovered else nn.value_and_grad(model, loss)
         step, log = (
             restore(dest, model, opt, identity)
             if (dest / "latest.json").exists()
@@ -190,6 +200,10 @@ def fit(arm, condition):
                     dict(spec, two_exit_warmup=0),
                     guard,
                 )
+                if recovered:
+                    rec["adjoint_qualification"] = digest(
+                        ROOT / "adjoint-recovery.json"
+                    )
                 step += 1
                 log.append(rec)
                 if step % 8 == 0:
