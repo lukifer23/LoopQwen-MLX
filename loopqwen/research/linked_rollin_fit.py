@@ -131,6 +131,7 @@ def fit(net, tok, s, root, guard, *, prepare):
         "contrast": 0,
         "loss": [],
         "seconds": 0,
+        "optimization_seconds": 0.0,
         "draws": {},
         "registration": bind,
     }
@@ -245,6 +246,7 @@ def fit(net, tok, s, root, guard, *, prepare):
                 if step <= state["step"]:
                     continue
                 guard.check()
+                step_started = perf_counter()
                 grads = None
                 objective = 0.0
                 for key, kind, weight in selected:
@@ -276,6 +278,7 @@ def fit(net, tok, s, root, guard, *, prepare):
                     raise InterruptedError("Nonfinite observed-history training loss")
                 adam.update(net, grads)
                 mx.eval(net.trainable_parameters(), adam.state)
+                state["optimization_seconds"] += perf_counter() - step_started
                 if step == 1 or step % 100 == 0:
                     rec = {"step": step, "loss": objective}
                     state["loss"].append(rec)
@@ -309,6 +312,7 @@ def fit(net, tok, s, root, guard, *, prepare):
             "prepare_seconds": prepare_time,
             "rollin_seconds": roll_time,
             "entire_fit_seconds": state["seconds"],
+            "optimizer_seconds": state["optimization_seconds"],
             "peak": max(peak, mx.get_peak_memory()),
         },
     )

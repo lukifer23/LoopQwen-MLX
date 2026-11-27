@@ -129,6 +129,7 @@ def record(root):
             progress["rejected_tokens"] = state["rejected_tokens"]
         if spec["id"] == "linked-rollin-01":
             progress["contrast_draws"] = state["contrast"]
+            progress["optimizer_seconds"] = state["optimization_seconds"]
         assert state["loss"] == [l for l in fit["loss"] if l["step"] <= state["step"]]
         history.append(
             {
