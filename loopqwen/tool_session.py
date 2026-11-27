@@ -147,6 +147,26 @@ def decode_action(visible):
     return obj
 
 
+def completed_tool_group(messages):
+    """Locate the assistant call and all externally supplied returns at a resumption point."""
+    end = len(messages)
+    start = end
+    while start and messages[start - 1].get("role") == "tool":
+        start -= 1
+    if not 0 < start < end or messages[start - 1].get("role") != "assistant":
+        raise ValueError(
+            "A resumed history must end with the results of an assistant tool call"
+        )
+    calls = messages[start - 1].get("tool_calls", [])
+    if len(calls) != end - start or not any(
+        m.get("role") == "user" for m in messages[: start - 1]
+    ):
+        raise ValueError(
+            "A resumed history requires a user request and one result per call"
+        )
+    return zip(calls, messages[start:], strict=True)
+
+
 def run(
     model,
     tokenizer,
@@ -201,7 +221,16 @@ def run(
     stop_ids = set(tokenizer.eos_token_ids)
     if stop_at_turn_end:
         stop_ids.add(tokenizer.convert_tokens_to_ids("<|im_end|>"))
-    if _messages is None:
+    resumed = question is None
+    external_returns = []
+    if resumed:
+        if not native or _messages is None:
+            raise ValueError(
+                "Continuing from a tool result requires a native Qwen message history"
+            )
+        messages = _messages
+        external_returns = list(completed_tool_group(messages))
+    elif _messages is None:
         messages = (
             [{"role": "user", "content": question}]
             if native
@@ -229,6 +258,17 @@ def run(
 
         grammar = ToolGrammar(tokenizer, model.args.vocab_size, tools, stop_ids)
     recovery_model = None
+    if recover_callback is not None:
+        for action, result in external_returns:
+            try:
+                value = json.loads(result["content"])
+            except (ValueError, TypeError):
+                continue
+            tool = catalog.get(action["function"]["name"])
+            if tool is not None and isinstance(value, dict) and "error" in value:
+                recovery_model = recover_callback(model, tool)
+                if recovery_model is not None:
+                    break
     for turn_number in range(max_turns):
         if grammar is not None:
             grammar.begin_turn()
@@ -239,16 +279,18 @@ def run(
         )
         decoder = (
             first_turn_decoder
-            if not turns and first_turn_decoder is not None
+            if not turns and not resumed and first_turn_decoder is not None
             else generate
         )
         active_model = (
-            observation_model if turns and observation_model is not None else model
+            observation_model
+            if (turns or resumed) and observation_model is not None
+            else model
         )
         if recovery_model is not None:
             active_model = recovery_model
         prefix = tool_prefix
-        if not turns and observation_model is not None:
+        if not turns and not resumed and observation_model is not None:
             prefix = _conversation_prefix
         out = decoder(
             active_model,

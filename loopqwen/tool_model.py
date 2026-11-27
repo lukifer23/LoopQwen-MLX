@@ -205,6 +205,19 @@ class Assistant:
 
         return Conversation(self, tools, retain_prefix=retain_prefix)
 
+    def continue_after_tool(self, messages, tools, **options):
+        """Generate from a completed Qwen tool exchange without repeating its callback."""
+        if getattr(self, "tool_format", None) != "qwen":
+            raise ValueError(
+                "External tool history requires the native Qwen tool format"
+            )
+        tools = tuple(tools)
+        if not tools and not getattr(self, "native_plain", False):
+            raise ValueError(
+                "This assistant requires a tool catalog to resume in native format"
+            )
+        return self.respond(None, tools, _messages=deepcopy(list(messages)), **options)
+
     def _load_language(self):
         if self.language is None:
             from .export_runtime import load_export

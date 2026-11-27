@@ -148,3 +148,65 @@ def test_recovery_follows_a_real_callback_exception_and_discards_prior_cache(
             assert result["turns"][0]["observation"] == {"error": "ValueError"}
         else:
             assert not callbacks and caches[0] is caches[1]
+
+
+def test_resume_uses_existing_qwen_observation_without_repeating_call_or_adding_user(
+    monkeypatch,
+):
+    from copy import deepcopy
+
+    from loopqwen import qwen_tools, tool_session
+    from loopqwen.calculator_tool import tool
+    from loopqwen.tool_model import Assistant
+
+    class Tokenizer:
+        eos_token_ids = {0}
+
+        def convert_tokens_to_ids(self, key):
+            return 0
+
+        def apply_chat_template(self, messages, **options):
+            return json.dumps(messages)
+
+        def encode(self, text, **options):
+            return list(text.encode())
+
+        def decode(self, ids):
+            return bytes(ids).decode()
+
+    assistant = object.__new__(Assistant)
+    assistant.tool_format = "qwen"
+    assistant.tokenizer = Tokenizer()
+    assistant._tool_model = object()
+    assistant.reuse_prefix = False
+    operation = tool()
+    event = {"name": operation.name, "arguments": {"steps": ["4+5"]}}
+    output = operation.callback(**event["arguments"])
+    messages = [
+        {"role": "user", "content": "What is 4+5?"},
+        qwen_tools.assistant_message([event]),
+        {"role": "tool", "content": tool_session.compact(output)},
+    ]
+    before = deepcopy(messages)
+
+    def decode(model, tokenizer, text, **options):
+        assert model is assistant._tool_model
+        assert json.loads(text) == before
+        return {
+            "token_ids": [*b"</think>9", 0],
+            "prompt_ids": tokenizer.encode(text),
+            "elapsed_s": 0.1,
+            "ttft_s": 0.05,
+            "peak_bytes": 1,
+        }
+
+    monkeypatch.setattr(tool_session, "generate", decode)
+    answer = assistant.continue_after_tool(messages, [operation], max_turns=1)
+    assert (
+        answer["answer"] == "9"
+        and "call" not in answer["turns"][0]
+        and messages == before
+    )
+    for bad in (messages[:-1], messages + messages[-1:], messages[1:]):
+        with pytest.raises(ValueError):
+            assistant.continue_after_tool(bad, [operation], max_turns=1)

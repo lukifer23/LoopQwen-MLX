@@ -1,0 +1,52 @@
+{
+  "source": "0d6fc424ea914fcbb6728055b847685acc854e16c034b7831c4937bfe18d53bf",
+  "panel": "3228570deb69cea78014babc952896a0de5d1fe2b8d791e7f704ae305dbbe535",
+  "databases": {
+    "theme_gallery": {
+      "first_human_scalar_questions": 7,
+      "same_type_distinct_pairs": 11
+    },
+    "architecture": {
+      "first_human_scalar_questions": 5,
+      "same_type_distinct_pairs": 4
+    },
+    "customers_and_invoices": {
+      "first_human_scalar_questions": 6,
+      "same_type_distinct_pairs": 11
+    },
+    "music_2": {
+      "first_human_scalar_questions": 0,
+      "same_type_distinct_pairs": 0
+    },
+    "company_office": {
+      "first_human_scalar_questions": 4,
+      "same_type_distinct_pairs": 1
+    },
+    "chinook_1": {
+      "first_human_scalar_questions": 12,
+      "same_type_distinct_pairs": 29
+    },
+    "party_people": {
+      "first_human_scalar_questions": 2,
+      "same_type_distinct_pairs": 0
+    },
+    "tracking_software_problems": {
+      "first_human_scalar_questions": 4,
+      "same_type_distinct_pairs": 5
+    },
+    "news_report": {
+      "first_human_scalar_questions": 5,
+      "same_type_distinct_pairs": 7
+    }
+  },
+  "distinct_questions": 14,
+  "mounted_databases": 7,
+  "counts": {
+    "unassisted": 14,
+    "provider_error": 14,
+    "valid_other": 14,
+    "valid_current": 14
+  },
+  "total_opening_tokens": 46775,
+  "source_exclusion": "Seven hash-selected databases from the official CoSQL training split absent from all databases in the project's earlier original CoSQL cohort. Only the original first independently executable human SQL question from a dialogue, with a verified nonempty scalar explicitly stated in the human response, is eligible. Two same-type different-answer questions per enrolled database. Prior successful or failing calls in three conditions are controlled interventions. No model outcomes are used in enrollment."
+}
