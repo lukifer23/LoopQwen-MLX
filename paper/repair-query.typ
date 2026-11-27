@@ -9,6 +9,12 @@
 #v(.35em)
 *Source-grounded reasoning and tool use in Qwen3.5-0.8B on Apple Silicon* LoopQwen-MLX research study · November 2026
 
+#if "reading" in d [
+ #let r=d.stages.last().decision
+ #let pair(k)=r.counts.at(k).total.map(str).join(" / ")
+ *Held result.* The loop and untouched Base respectively delivered #pair("field") grounded database answers out of 96, #pair("strategy") correct reasoning conclusions out of 48, #pair("report") grounded financial answers out of 32 and #pair("locale") exact full-document answers out of four. The combined objective and masked source-review gate #if r.passed and d.reading.passed [passed.] else [failed.] Both arms covered every enrolled request.
+]
+
 *Research question.* Does learning to revisit source evidence improve one model’s ability to reason and to correct a tool call that succeeded but answered a different question? In our earlier direct comparison, the loop repeated a plausible wrong scalar in 19 of 27 final answers after receiving one. The preceding training intervention mastered 14 of 24 SQL questions on all 87 relevant table versions but failed its registered qualitative-pair gate. Ten of those 14 generated programs reproduced the expert string exactly. Four differed from every positive SQL target in either training corpus. Those 24 questions had all been enrolled in fitting.
 
 *Architecture.* The new model reads each prompt token through the original 24 Qwen layers once. The last attention layer retains its ordinary causal key/value memory. When predicting a token, the model performs two further attention reads against the same stored memory. A tied nonlinear controller updates the state after observing each result. The second query depends on the first update. Neither extra read appends a copy of the prefix. At deployment we count the actual output positions and recurrent reads. At fit time the model differentiates through the repeated attention computation. Temporarily removing one read at the learned weights supplies a within-model depth intervention.
@@ -139,6 +145,10 @@ The two visits share all parameters. Query and content corrections have rank 160
  #text(size:19pt,weight:"bold")[Held product comparison]
  #let r=d.stages.last().decision
  #let t=r.costs
+ #let misses=r.gates.pairs().filter(z=>not z.at(1)).map(z=>z.at(0).replace("_"," "))
+ #let review_misses=d.reading.families.pairs().filter(z=>not z.at(1).passed).map(z=>z.at(0))
+ #if misses.len() > 0 [The registered objective or cost criteria that missed their thresholds were #misses.join(", ").] else [All registered objective and cost criteria passed.]
+ #if review_misses.len() > 0 [Masked source review missed its joint criterion for #review_misses.join(", ").] else [All three masked source-review criteria passed.]
  #tbl((1fr,1fr,1fr,1fr,1fr),("Family","Requests","Loop / Base","Gains / losses","Paired p"),r.counts.pairs().map(pair=>{
    let val=pair.at(1)
    (pair.at(0),str(val.n),str(val.total.at(0))+" / "+str(val.total.at(1)),str(val.gains)+" / "+str(val.losses),if val.p==none {"—"} else {fmt(val.p,n:4)})
