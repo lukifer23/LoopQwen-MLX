@@ -289,10 +289,11 @@ class Assistant:
             stop_ids=[self.tokenizer.convert_tokens_to_ids("<|im_end|>")],
             progress=progress,
             record_kv_history=record_kv_history,
+            return_prompt_ids=True,
         )
         ids = out["token_ids"]
         turn = dict(
-            prompt_ids=self.tokenizer.encode(text, add_special_tokens=False),
+            prompt_ids=out["prompt_ids"],
             token_ids=ids,
             seconds=out["elapsed_s"],
             ttft_s=out["ttft_s"],
