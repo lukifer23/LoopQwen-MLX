@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "interrupted": false,
+  "steps": 192,
+  "draws": 1280,
+  "tokens": 23765,
+  "varied": 42,
+  "positive_pg": 42,
+  "correct_groups": 33,
+  "drift": "0.00021",
+  "pair_count": 512,
+  "query_count": 256,
+  "categories": [
+    [
+      "Query",
+      256,
+      13150,
+      255,
+      255,
+      255
+    ],
+    [
+      "Original",
+      512,
+      5135,
+      508,
+      508,
+      508
+    ],
+    [
+      "Altered",
+      512,
+      5480,
+      504,
+      504,
+      503
+    ]
+  ],
+  "counts": {
+    "query_updates": 64,
+    "answer_updates": 128,
+    "valid_sql": 253,
+    "any_gold_sql": 0,
+    "both_sql": 0,
+    "original_correct": 25,
+    "altered_correct": 24,
+    "original_opposite": 26,
+    "altered_opposite": 17,
+    "both_answers": 1,
+    "identical_nonempty": 51
+  },
+  "seconds": 897.8,
+  "peak_gib": 4.528,
+  "reason": null,
+  "conditions": [
+    [
+      "varied",
+      "Pass"
+    ],
+    [
+      "correct",
+      "Pass"
+    ],
+    [
+      "policy_gradient",
+      "Pass"
+    ],
+    [
+      "changed",
+      "Pass"
+    ],
+    [
+      "independent",
+      "Pass"
+    ]
+  ],
+  "examples": [
+    {
+      "question": "what number of silver medals was won by the nation with the most gold medals?",
+      "source": "nt-10805",
+      "sql": "SELECT * FROM records ORDER BY rowid",
+      "gold": [
+        "27",
+        "31"
+      ],
+      "obtained": [
+        "[['1', 'Soviet Union', '50', '27', '22', '99'], ['2', 'United States', '33', '31', '30', '94'], ['3', 'East Germany (GDR)', '20', '23', '23', '66'], ['4', 'West Germany (FRG)', '13', '11', '16', '40'], ['5', 'Japan', '13",
+        "[['1', 'Soviet Union', '50', '31', '16', '29'], ['2', 'Italy', '20', '10', '5', '99'], ['3', 'United States', '13', '23', '30', '21'], ['4', 'Hungary', '13', '3', '2', '99'], ['5', 'Japan', '8', '8', '22', '99'], ['6', '"
+      ],
+      "correct_worlds": 0
+    }
+  ],
+  "paired_example": {
+    "source": "nt-4678",
+    "question": "tell me the total number of goals scored in the 2010 match.",
+    "gold": [
+      "2",
+      "4"
+    ],
+    "visible": [
+      "2",
+      "4"
+    ],
+    "step": 14,
+    "draw": 1
+  },
+  "repeat_tokens": 388,
+  "repeat_matched": 388,
+  "max_err": "0.00000191",
+  "archive": "147bf81d20be0a0daac6bd9ea1dc065444074a6d5c46997ca2867602cc9329b5"
+}

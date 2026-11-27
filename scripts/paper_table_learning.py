@@ -38,6 +38,7 @@ def measure():
     draws, steps, pairs = [], [], []
     totals = Counter()
     examples = {}
+    paired_example = None
     for group in log:
         step = group["step"]
         w = questions[group["question"]]
@@ -82,7 +83,7 @@ def measure():
                     totals["valid_sql"] += used_both
                     totals["any_gold_sql"] += bool(right)
                     totals["both_sql"] += right == 2
-                    if right and right not in examples:
+                    if used_both and right not in examples:
                         examples[right] = {
                             "question": w["question"],
                             "source": w["id"],
@@ -103,6 +104,15 @@ def measure():
             for i, (a, b) in enumerate(zip(*group["details"], strict=True)):
                 both = a["correct"] and b["correct"]
                 same = bool(a["visible"]) and a["visible"] == b["visible"]
+                if both and paired_example is None:
+                    paired_example = {
+                        "source": w["id"],
+                        "question": w["question"],
+                        "gold": [v["answer"] for v in w["versions"]],
+                        "visible": [a["visible"], b["visible"]],
+                        "step": step,
+                        "draw": i,
+                    }
                 totals["both_answers"] += both
                 totals["identical_nonempty"] += same
                 pairs.append(
@@ -215,6 +225,7 @@ def measure():
             {**v, "correct_worlds": k}
             for k, v in sorted(examples.items(), reverse=True)
         ],
+        "paired_example": paired_example,
         "repeat_tokens": verification["sampled_tokens"],
         "repeat_matched": verification["matching_tokens"],
         "max_err": f"{verification['max_abs_logp_error']:.8f}",

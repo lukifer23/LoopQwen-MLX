@@ -2,6 +2,10 @@
 
 [Four-page evidence overview](paper/evidence-overview.pdf) · [Every registration and archive](paper/research-scope.csv) · [Release target and verification plan](docs/RELEASE_EVIDENCE.md)
 
+The four-layer loop completed 192 further updates on its own sampled tool calls and answers. Of 256 sampled SQL calls, 253 read both tables and zero returned the target scalar. After a full read, the model answered 25/512 original and 24/512 changed cases correctly, with one paired draw correct in both worlds. An independent native replay regenerated all 388 checked token IDs. [Execution-learning paper and figures](paper/table-policy-learning.pdf) · [All sampled answers and actions](paper/table-policy-learning-draws.csv) · [Sealed training archive](research/results/table-execution-learning-01)
+
+The supervised four-layer model also runs from a standalone 485 MB archive. A network-blocked clean install with an empty model cache reproduced the same recurrent database trajectory on its own and with the optional untouched Base archive. Both installed models also ran an ordinary text request. [Download the recurrent model](exports/loopqwen-reentry-model-01.zip) · [Optional Base reference](exports/loopqwen-reentry-reference-01.zip) · [Run instructions](docs/REENTRY_MODEL.md) · [Offline verification](docs/measurements/reentry-installed.json)
+
 A new Base-rooted model reuses its complete final four hybrid layers. It learned from 3,101 full source turns on native MLX, with 1,024 updates in 1,337 seconds. The trained second visit reduced full-vocabulary loss on all 32 predetermined training probes, with mean improvement of 1.277 nats. An independent reload reproduced all 725 measured target positions to within 0.000001 on the turn means. This milestone qualifies the weights for training on their own executed actions. The model has no held-out score yet. [Three-page methods and results](paper/reentry-fit.pdf) · [Archive and fitted weights](research/results/table-reentry-fit-01) · [Native likelihood replay](docs/measurements/table-reentry-fit-native-replay.json)
 
 

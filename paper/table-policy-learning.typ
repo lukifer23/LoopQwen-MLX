@@ -41,12 +41,18 @@ The median across contributing updates of their mean absolute per-token log-prob
 
 #pagebreak()
 = Worked executions
-The examples below use the earliest sampled SQL statement to achieve each listed number of correct worlds. They come from training. The complete draw table contains unsuccessful and repeated attempts.
-#if d.examples.len()==0 [No sampled SQL achieved either source denotation.]
+The examples below use the first query that read both tables for each observed number of correct worlds. They come from training. The complete draw table contains unsuccessful and repeated attempts.
+#if d.examples.len()==0 [No sampled statement read both tables.]
 #for e in d.examples [
   #block(above:8pt,below:5pt)[*#e.source · #e.correct_worlds of two denotations correct* #linebreak() #e.question]
   #raw(e.sql,block:true)
   #tbl(("World","Human gold","Result from the actual query"),(("Original",e.gold.at(0),e.obtained.at(0)),("Altered",e.gold.at(1),e.obtained.at(1))),(0.7fr,1.15fr,2.4fr))
+]
+#if d.paired_example!=none [
+  #let e=d.paired_example
+  *A changed answer after a full read* #linebreak()
+  The first paired draw to answer both versions correctly occurred at update #e.step, draw #e.draw (zero indexed). #e.question
+  #tbl(("World","Source answer","Model’s visible answer"),(("Original",e.gold.at(0),e.visible.at(0)),("Altered",e.gold.at(1),e.visible.at(1))),(0.7fr,1.15fr,2.4fr))
 ]
 = Sources and reproducibility
 1. Pasupat and Liang. _Inferring Logical Forms From Denotations._ ACL 2016. The source archive preserves the original WikiTableQuestions tables, changed tables, original questions and independent annotator responses. #link("https://aclanthology.org/P16-1003/")[Publication and source context]

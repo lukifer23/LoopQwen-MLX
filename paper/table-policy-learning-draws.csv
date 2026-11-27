@@ -1,0 +1,3665 @@
+update,question,kind,draw,input_tokens,emitted_tokens,natural_stop,thinking_closed,extra_closing_markers,visible,statement,read_both,correct_sql_worlds,correct_answer,opposite,local_reward,joint_reward,advantage
+1,nt-14007,original,0,837,9,True,True,0,41.52,,,,False,False,0.0,0.0,0.0
+1,nt-14007,original,1,837,15,True,True,0,Singapore men's national election - 2021,,,,False,False,0.0,0.0,0.0
+1,nt-14007,original,2,837,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+1,nt-14007,original,3,837,6,True,True,0,47,,,,False,False,0.0,0.0,0.0
+1,nt-14007,altered,0,837,128,False,False,0,,,,,False,False,0.0,0.0,0.0
+1,nt-14007,altered,1,837,6,True,True,0,40,,,,False,False,0.0,0.0,0.0
+1,nt-14007,altered,2,837,7,True,True,0,428,,,,False,False,0.0,0.0,0.0
+1,nt-14007,altered,3,837,8,True,True,0,God bless the party,,,,False,False,0.0,0.0,0.0
+2,nt-1351,original,0,843,5,True,True,0,4,,,,True,False,1.0,0.5,0.20833333333333331
+2,nt-1351,original,1,843,9,True,True,0,66.67,,,,False,False,0.0,-0.125,-0.625
+2,nt-1351,original,2,843,5,True,True,0,4,,,,True,False,1.0,0.5,0.20833333333333331
+2,nt-1351,original,3,843,5,True,True,0,4,,,,True,False,1.0,0.5,0.20833333333333331
+2,nt-1351,altered,0,846,7,True,True,0,Billy Mathews,,,,False,False,0.0,0.5,0.20833333333333331
+2,nt-1351,altered,1,846,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.625
+2,nt-1351,altered,2,846,5,True,True,0,6,,,,False,False,0.0,0.5,0.20833333333333331
+2,nt-1351,altered,3,846,5,True,True,0,Russia,,,,False,False,0.0,0.5,0.20833333333333331
+3,nt-10805,query,0,554,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+3,nt-10805,query,1,554,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+3,nt-10805,query,2,554,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+3,nt-10805,query,3,554,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+4,nt-11834,original,0,767,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+4,nt-11834,original,1,767,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+4,nt-11834,original,2,767,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+4,nt-11834,original,3,767,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+4,nt-11834,altered,0,765,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+4,nt-11834,altered,1,765,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+4,nt-11834,altered,2,765,7,True,True,0,Miss you!,,,,False,False,0.0,0.0,0.0
+4,nt-11834,altered,3,765,16,True,True,0,Tasmania has finished 9th 15 times,,,,False,False,0.0,0.0,0.0
+5,nt-623,original,0,1141,6,True,True,0,86,,,,False,False,0.0,0.0,0.0
+5,nt-623,original,1,1141,8,True,True,0,Friso Pirardi,,,,False,False,0.0,0.0,0.0
+5,nt-623,original,2,1141,14,True,True,0,February 18th 2008,,,,False,False,0.0,0.0,0.0
+5,nt-623,original,3,1141,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+5,nt-623,altered,0,1167,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+5,nt-623,altered,1,1167,59,True,True,0,Azírbajorizko tainoautzatik 6 igapenetan 1n gaieriko tainoautzatik jankorratu garaia ikertutako tainoautzarekiko taurraa nabari.,,,,False,False,0.0,0.0,0.0
+5,nt-623,altered,2,1167,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+5,nt-623,altered,3,1167,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+6,nt-8448,query,0,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+6,nt-8448,query,1,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records order by rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records order by rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+6,nt-8448,query,2,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+6,nt-8448,query,3,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+7,nt-10914,original,0,1375,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+7,nt-10914,original,1,1375,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+7,nt-10914,original,2,1375,6,True,True,0,43,,,,False,False,0.0,0.0,0.0
+7,nt-10914,original,3,1375,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+7,nt-10914,altered,0,1283,17,True,True,0,Pontificate i record della lista delle nazioni in ordine crescente.,,,,False,False,0.0,0.0,0.0
+7,nt-10914,altered,1,1283,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+7,nt-10914,altered,2,1283,6,True,True,0,41,,,,False,False,0.0,0.0,0.0
+7,nt-10914,altered,3,1283,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+8,nt-187,original,0,810,7,True,True,0,John Kiley,,,,False,False,0.0,0.0,0.0
+8,nt-187,original,1,810,6,True,True,0,Kiley,,,,False,False,0.0,0.0,0.0
+8,nt-187,original,2,810,13,True,True,0,British jockey Jockeypal wrote,,,,False,False,0.0,0.0,0.0
+8,nt-187,original,3,810,6,True,True,0,1st,,,,False,False,0.0,0.0,0.0
+8,nt-187,altered,0,805,5,True,True,0,8,,,,False,False,0.0,0.0,0.0
+8,nt-187,altered,1,805,8,True,True,0,"Tony Karrer,",,,,False,False,0.0,0.0,0.0
+8,nt-187,altered,2,805,6,True,True,0,6th,,,,False,False,0.0,0.0,0.0
+8,nt-187,altered,3,805,9,True,True,0,Linero Ali Loti,,,,False,False,0.0,0.0,0.0
+9,nt-10587,query,0,557,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+9,nt-10587,query,1,557,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+9,nt-10587,query,2,557,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+9,nt-10587,query,3,557,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+10,nt-11938,original,0,1035,5,True,True,0,4,,,,False,False,0.0,0.0,-0.125
+10,nt-11938,original,1,1035,5,True,True,0,1,,,,False,False,0.0,-0.125,-0.29166666666666663
+10,nt-11938,original,2,1035,5,True,True,0,6,,,,True,False,1.0,0.5,0.5416666666666666
+10,nt-11938,original,3,1035,5,True,True,0,1,,,,False,False,0.0,0.0,-0.125
+10,nt-11938,altered,0,1035,128,False,False,0,,,,,False,False,0.0,0.0,-0.125
+10,nt-11938,altered,1,1035,5,True,True,0,6,,,,False,True,-0.25,-0.125,-0.29166666666666663
+10,nt-11938,altered,2,1035,18,True,True,0,"Bob, how many times did Leonardo Maia have the fastest lap?",,,,False,False,0.0,0.5,0.5416666666666666
+10,nt-11938,altered,3,1035,5,True,True,0,4,,,,False,False,0.0,0.0,-0.125
+11,nt-6246,original,0,1237,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+11,nt-6246,original,1,1237,68,True,True,0,"842,44 total people in Bečej, with 477 men 477 women 440 children 44 elderly 44 serbs 44 jews 44 romani 44 rusyns 44 hangarians 44 russians",,,,False,False,0.0,0.0,0.0
+11,nt-6246,original,2,1237,35,True,True,0,Residents aged 0-14 (children) were 131 (111+72) and elderly were 102.,,,,False,False,0.0,0.0,0.0
+11,nt-6246,original,3,1237,36,True,True,0,"John Wiley, an adult male, and 217 children, including 94 elderly vermin, were victims of the genocide in Bečej.",,,,False,False,0.0,0.0,0.0
+11,nt-6246,altered,0,1237,6,True,True,0,69,,,,False,False,0.0,0.0,0.0
+11,nt-6246,altered,1,1237,7,True,True,0,49 people,,,,False,False,0.0,0.0,0.0
+11,nt-6246,altered,2,1237,6,True,True,0,68,,,,False,False,0.0,0.0,0.0
+11,nt-6246,altered,3,1237,6,True,True,0,47,,,,False,False,0.0,0.0,0.0
+12,nt-8348,query,0,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+12,nt-8348,query,1,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+12,nt-8348,query,2,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+12,nt-8348,query,3,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+13,nt-2166,original,0,2020,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+13,nt-2166,original,1,2020,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+13,nt-2166,original,2,2020,19,True,True,0,Rocky Dembiagabwe (Frank Dembiagabwe),,,,False,False,0.0,0.0,0.0
+13,nt-2166,original,3,2020,34,True,True,0,"Dickson Manrique, born 14 October 1953, joined the 1999-2000 football season",,,,False,False,0.0,0.0,0.0
+13,nt-2166,altered,0,2024,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+13,nt-2166,altered,1,2024,21,True,True,0,Double-check the number of people appointed after 2011 is 30,,,,False,False,0.0,0.0,0.0
+13,nt-2166,altered,2,2024,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+13,nt-2166,altered,3,2024,3,True,True,0,,,,,False,False,0.0,0.0,0.0
+14,nt-4678,original,0,977,5,True,True,0,6,,,,False,False,0.0,0.0,-0.4583333333333333
+14,nt-4678,original,1,977,5,True,True,0,2,,,,True,False,1.0,1.5,1.5416666666666667
+14,nt-4678,original,2,977,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.625
+14,nt-4678,original,3,977,5,True,True,0,Brown,,,,False,False,0.0,0.0,-0.4583333333333333
+14,nt-4678,altered,0,969,7,True,True,0,Paul Masson,,,,False,False,0.0,0.0,-0.4583333333333333
+14,nt-4678,altered,1,969,5,True,True,0,4,,,,True,False,1.0,1.5,1.5416666666666667
+14,nt-4678,altered,2,969,24,True,True,0,"Australia
+San Juan Jabloteh
+2
+Defence Force
+Manny Ramjohn Stadium",,,,False,False,0.0,-0.125,-0.625
+14,nt-4678,altered,3,969,5,True,True,0,8,,,,False,False,0.0,0.0,-0.4583333333333333
+15,nt-2022,query,0,564,128,False,False,0,,,False,0,,,0.0,0.0,-0.10000000000000002
+15,nt-2022,query,1,564,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+15,nt-2022,query,2,564,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+15,nt-2022,query,3,564,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+16,nt-331,original,0,867,17,True,True,0,2. Who else did CBS play-by-play during that era?,,,,False,False,0.0,0.0,0.0
+16,nt-331,original,1,867,6,True,True,0,Fred Pulitzer,,,,False,False,0.0,0.0,0.0
+16,nt-331,original,2,867,17,True,True,0,Chi plays-by-play for CBS in 1965?,,,,False,False,0.0,0.0,0.0
+16,nt-331,original,3,867,17,True,True,0,"Sam Silver
+Sam Silver is one of the
+mainstays",,,,False,False,0.0,0.0,0.0
+16,nt-331,altered,0,789,5,True,True,0,Jam,,,,False,False,0.0,0.0,0.0
+16,nt-331,altered,1,789,10,True,True,0,Fordham quarterback Frank Frizzo,,,,False,False,0.0,0.0,0.0
+16,nt-331,altered,2,789,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+16,nt-331,altered,3,789,6,True,True,0,Fred Jones,,,,False,False,0.0,0.0,0.0
+17,nt-6467,original,0,1026,5,True,True,0,3,,,,False,False,0.0,0.0,0.0
+17,nt-6467,original,1,1026,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+17,nt-6467,original,2,1026,16,True,True,0,61211 is 18.9%,,,,False,False,0.0,0.0,0.0
+17,nt-6467,original,3,1026,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+17,nt-6467,altered,0,1026,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+17,nt-6467,altered,1,1026,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+17,nt-6467,altered,2,1026,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+17,nt-6467,altered,3,1026,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+18,nt-8577,query,0,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+18,nt-8577,query,1,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+18,nt-8577,query,2,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+18,nt-8577,query,3,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+19,nt-6710,original,0,892,6,True,True,0,40,,,,False,False,0.0,0.0,0.0
+19,nt-6710,original,1,892,17,True,True,0,Dragon man competed in the Olympics in 2000.,,,,False,False,0.0,0.0,0.0
+19,nt-6710,original,2,892,13,True,True,0,Bronze medalist WU Yuchun,,,,False,False,0.0,0.0,0.0
+19,nt-6710,original,3,892,24,True,True,0,"Sam Wu competed in the finals of the 2004 Olympics held in Athens, Greece,",,,,False,False,0.0,0.0,0.0
+19,nt-6710,altered,0,886,6,True,True,0,43,,,,False,False,0.0,0.0,0.0
+19,nt-6710,altered,1,886,10,True,True,0,Singapore 2024,,,,False,False,0.0,0.0,0.0
+19,nt-6710,altered,2,886,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+19,nt-6710,altered,3,886,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+20,nt-10044,original,0,854,5,True,True,0,6,,,,False,True,-0.25,-0.125,-0.20833333333333331
+20,nt-10044,original,1,854,5,True,True,0,4,,,,True,False,1.0,0.5,0.625
+20,nt-10044,original,2,854,10,True,True,0,"Frankly, 10",,,,False,False,0.0,-0.125,-0.20833333333333331
+20,nt-10044,original,3,854,128,False,False,0,,,,,False,False,0.0,-0.125,-0.20833333333333331
+20,nt-10044,altered,0,851,12,True,True,0,Samela (2006),,,,False,False,0.0,-0.125,-0.20833333333333331
+20,nt-10044,altered,1,851,5,True,True,0,8,,,,False,False,0.0,0.5,0.625
+20,nt-10044,altered,2,851,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.20833333333333331
+20,nt-10044,altered,3,851,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.20833333333333331
+21,nt-9698,query,0,573,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+21,nt-9698,query,1,573,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+21,nt-9698,query,2,573,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+21,nt-9698,query,3,573,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+22,nt-1915,original,0,812,7,True,True,0,Royce Wales,,,,False,False,0.0,0.0,0.0
+22,nt-1915,original,1,812,17,True,True,0,"April 4th, 1984. He was",,,,False,False,0.0,0.0,0.0
+22,nt-1915,original,2,812,22,True,True,0,Cheapest way to get that information is to run this SQL on the SQLite database table.,,,,False,False,0.0,0.0,0.0
+22,nt-1915,original,3,812,6,True,True,0,Sam Smith,,,,False,False,0.0,0.0,0.0
+22,nt-1915,altered,0,814,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+22,nt-1915,altered,1,814,5,True,True,0,Lake,,,,False,False,0.0,0.0,0.0
+22,nt-1915,altered,2,814,11,True,True,0,"London Marathon
+
+Swoop!",,,,False,False,0.0,0.0,0.0
+22,nt-1915,altered,3,814,8,True,True,0,Richard Winkler,,,,False,False,0.0,0.0,0.0
+23,nt-2783,original,0,847,14,True,True,0,"November 25, 1969",,,,False,False,0.0,0.5,0.33333333333333337
+23,nt-2783,original,1,847,14,True,True,0,London Sting emerges as the player from the last round,,,,False,False,0.0,0.0,-0.3333333333333333
+23,nt-2783,original,2,847,24,True,True,0,RÉPETITION: use the supplied table to find which player was picked in the last round,,,,False,False,0.0,0.0,-0.3333333333333333
+23,nt-2783,original,3,847,56,True,True,0,"Apres avoir examiné le tableau qui comprend les couches de joueurs au premier tour de la franchise baseball nationale 2024, je vois que la dernière ronde correspond bien au numéro 128, où 11 joueurs ont été sélectionnés.",,,,False,False,0.0,0.5,0.33333333333333337
+23,nt-2783,altered,0,847,6,True,True,0,Tom Anderson,,,,True,False,1.0,0.5,0.33333333333333337
+23,nt-2783,altered,1,847,5,True,True,0,6,,,,False,False,0.0,0.0,-0.3333333333333333
+23,nt-2783,altered,2,847,6,True,True,0,London Rangers,,,,False,False,0.0,0.0,-0.3333333333333333
+23,nt-2783,altered,3,847,6,True,True,0,Tom Anderson,,,,True,False,1.0,0.5,0.33333333333333337
+24,nt-7656,query,0,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+24,nt-7656,query,1,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+select * from records order by rowid
+</parameter>
+</function>
+</tool_call>",select * from records order by rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+24,nt-7656,query,2,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+24,nt-7656,query,3,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+25,nt-2100,original,0,831,6,True,True,0,6 goals,,,,False,False,0.0,0.0,0.0
+25,nt-2100,original,1,831,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+25,nt-2100,original,2,831,5,True,True,0,November,,,,False,False,0.0,0.0,0.0
+25,nt-2100,original,3,831,6,True,True,0,Feb.,,,,False,False,0.0,0.0,0.0
+25,nt-2100,altered,0,827,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+25,nt-2100,altered,1,827,7,True,True,0,Aleem.,,,,False,False,0.0,0.0,0.0
+25,nt-2100,altered,2,827,28,True,True,0,"Ti sei chiesto di ottenere la stagione in cui sono stati segnati 6 gol.
+Attendo tu ai voti.",,,,False,False,0.0,0.0,0.0
+25,nt-2100,altered,3,827,6,True,True,0,Samir,,,,False,False,0.0,0.0,0.0
+26,nt-4275,original,0,1177,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+26,nt-4275,original,1,1177,9,True,True,0,"Richard
+
+Kent, Maine",,,,False,False,0.0,0.0,0.0
+26,nt-4275,original,2,1177,9,True,True,0,Jhonah Reses,,,,False,False,0.0,0.0,0.0
+26,nt-4275,original,3,1177,10,True,True,0,"Hanat, 11",,,,False,False,0.0,0.0,0.0
+26,nt-4275,altered,0,1170,8,True,True,0,Ralph Sheehan,,,,False,False,0.0,0.0,0.0
+26,nt-4275,altered,1,1170,7,True,True,0,Ronald Reagan,,,,False,False,0.0,0.0,0.0
+26,nt-4275,altered,2,1170,5,True,True,0,Ross,,,,False,False,0.0,0.0,0.0
+26,nt-4275,altered,3,1170,7,True,True,0,Samuel Johnson,,,,False,False,0.0,0.0,0.0
+27,nt-5865,query,0,561,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+27,nt-5865,query,1,561,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+27,nt-5865,query,2,561,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+27,nt-5865,query,3,561,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+28,nt-4404,original,0,1144,7,True,True,0,Tony Gage,,,,False,False,0.0,0.0,0.0
+28,nt-4404,original,1,1144,9,True,True,0,Nhìn tiếp đây...,,,,False,False,0.0,0.0,0.0
+28,nt-4404,original,2,1144,8,True,True,0,Norio Hirate,,,,False,False,0.0,0.0,0.0
+28,nt-4404,original,3,1144,16,True,True,0,High performance ultra-marathonist Yevgeny Kulikov,,,,False,False,0.0,0.0,0.0
+28,nt-4404,altered,0,1149,12,True,True,0,Batman was the only competitor who defeated them,,,,False,False,0.0,0.0,0.0
+28,nt-4404,altered,1,1149,6,True,True,0,Sean is,,,,False,False,0.0,0.0,0.0
+28,nt-4404,altered,2,1149,9,True,True,0,London Derby - DNF,,,,False,False,0.0,0.0,0.0
+28,nt-4404,altered,3,1149,6,True,True,0,Worse,,,,False,False,0.0,0.0,0.0
+29,nt-11553,original,0,2248,30,True,True,0,Soluto traduttore: Quante persone hanno assistito alla partita dell'11/12/2013?,,,,False,False,0.0,0.0,0.0
+29,nt-11553,original,1,2248,12,True,True,0,"Sanchez DB
+Sphenix DB",,,,False,False,0.0,0.0,0.0
+29,nt-11553,original,2,2248,8,True,True,0,Northwest Conference champions,,,,False,False,0.0,0.0,0.0
+29,nt-11553,original,3,2248,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+29,nt-11553,altered,0,2222,10,True,True,0,WEEKS AND RECORDS,,,,False,False,0.0,0.0,0.0
+29,nt-11553,altered,1,2222,7,True,True,0,401,,,,False,False,0.0,0.0,0.0
+29,nt-11553,altered,2,2222,5,True,True,0,8,,,,False,False,0.0,0.0,0.0
+29,nt-11553,altered,3,2222,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+30,nt-13466,query,0,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+30,nt-13466,query,1,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+30,nt-13466,query,2,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+30,nt-13466,query,3,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+31,nt-10572,original,0,826,6,True,True,0,Sophia,,,,False,False,0.0,0.0,0.0
+31,nt-10572,original,1,826,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+31,nt-10572,original,2,826,25,True,True,0,"British
+British
+British
+British
+British
+British
+British
+British
+**116**",,,,False,False,0.0,0.0,0.0
+31,nt-10572,original,3,826,119,True,True,0,"Legends | Teams | Matchups | Total Goals | Total Goals for | Total Goals against | Points |
+|---|---|---|---|---|---|---|---|
+|Hungary|18|17|14|14|4|1|
+|Portugal|18|17|14|7|1|
+|Sweden|19|18|15|15|4|
+|Denmark|19|18|15|15|4|",,,,False,False,0.0,0.0,0.0
+31,nt-10572,altered,0,826,8,True,True,0,Fredholm tables are,,,,False,False,0.0,0.0,0.0
+31,nt-10572,altered,1,826,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+31,nt-10572,altered,2,826,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+31,nt-10572,altered,3,826,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+32,nt-391,original,0,874,18,True,True,0,"Filipina 'Distant Plastic Trees', 1966",,,,False,False,0.0,0.0,0.0
+32,nt-391,original,1,874,6,True,True,0,John Williams,,,,False,False,0.0,0.0,0.0
+32,nt-391,original,2,874,12,True,True,0,"American singer Sir.L. Brittney,",,,,False,False,0.0,0.0,0.0
+32,nt-391,original,3,874,6,True,True,0,Louis Armstrong,,,,False,False,0.0,0.0,0.0
+32,nt-391,altered,0,792,7,True,True,0,William's album,,,,False,False,0.0,0.0,0.0
+32,nt-391,altered,1,792,5,True,True,0,Colorado,,,,False,False,0.0,0.0,0.0
+32,nt-391,altered,2,792,38,True,True,0,Twitter.com has 100 posts of 200 likes each and 150 of 300 likes each. Use your social media to count,,,,False,False,0.0,0.0,0.0
+32,nt-391,altered,3,792,27,True,True,0,"Bruhat crackera i sailea, neni sait i Billboard 200 e sause?",,,,False,False,0.0,0.0,0.0
+33,nt-13763,query,0,546,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+33,nt-13763,query,1,546,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+33,nt-13763,query,2,546,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+33,nt-13763,query,3,546,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+34,nt-6173,original,0,1074,6,True,True,0,Bahman,,,,False,False,0.0,0.0,0.0
+34,nt-6173,original,1,1074,5,True,True,0,Stan,,,,False,False,0.0,0.0,0.0
+34,nt-6173,original,2,1074,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+34,nt-6173,original,3,1074,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+34,nt-6173,altered,0,1081,6,True,True,0,N/A,,,,False,False,0.0,0.0,0.0
+34,nt-6173,altered,1,1081,7,True,True,0,London London is,,,,False,False,0.0,0.0,0.0
+34,nt-6173,altered,2,1081,5,True,True,0,Canada,,,,False,False,0.0,0.0,0.0
+34,nt-6173,altered,3,1081,27,True,True,0,Ku aha afa e ia e kelelo a fafata he 2 ka linthanerae.,,,,False,False,0.0,0.0,0.0
+35,nt-12694,original,0,1134,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+35,nt-12694,original,1,1134,11,True,True,0,Asian Games 1999,,,,False,False,0.0,0.0,0.0
+35,nt-12694,original,2,1134,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+35,nt-12694,original,3,1134,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+35,nt-12694,altered,0,1123,36,True,True,0,"Johnson, B. (1904-2001)
+
+Johna, P. (1908-1964)",,,,False,False,0.0,0.0,0.0
+35,nt-12694,altered,1,1123,17,True,True,0,"United Nations
+1999 CONCACAF Gold Cup qualification",,,,False,False,0.0,0.0,0.0
+35,nt-12694,altered,2,1123,24,True,True,0,Solid opposiit 1999.12 181424,,,,False,False,0.0,0.0,0.0
+35,nt-12694,altered,3,1123,128,False,False,0,,,,,False,False,0.0,0.0,0.0
+36,nt-4904,query,0,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+36,nt-4904,query,1,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+36,nt-4904,query,2,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+36,nt-4904,query,3,549,56,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+select team from league_table where winners = 'Team 1'
+</parameter>
+</function>
+</tool_call>",select team from league_table where winners = 'Team 1',False,0,,,0.0,0.0,-0.10000000000000002
+37,nt-6460,original,0,898,7,True,True,0,Hanford Johnson,,,,False,False,0.0,0.0,0.0
+37,nt-6460,original,1,898,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+37,nt-6460,original,2,898,9,True,True,0,North Carolina quarterback Julius Johnson,,,,False,False,0.0,0.0,0.0
+37,nt-6460,original,3,898,10,True,True,0,Seems to have multiple players,,,,False,False,0.0,0.0,0.0
+37,nt-6460,altered,0,907,6,True,True,0,Sharer,,,,False,False,0.0,0.0,0.0
+37,nt-6460,altered,1,907,8,True,True,0,Rocky Malek,,,,False,False,0.0,0.0,0.0
+37,nt-6460,altered,2,907,6,True,True,0,Sam Simmons,,,,False,False,0.0,0.0,0.0
+37,nt-6460,altered,3,907,6,True,True,0,London Broncos,,,,False,False,0.0,0.0,0.0
+38,nt-6279,original,0,877,25,True,True,0,Mu da matchi ya kisi cha makasoza kufikia kwanza kabarijiza,,,,False,False,0.0,0.5,0.4166666666666667
+38,nt-6279,original,1,877,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.4166666666666667
+38,nt-6279,original,2,877,5,True,True,0,4,,,,False,True,-0.25,0.375,0.25
+38,nt-6279,original,3,877,18,True,True,0,Trading in a manager's record is a bit of a nuance.,,,,False,False,0.0,0.0,-0.25
+38,nt-6279,altered,0,834,5,True,True,0,4,,,,True,False,1.0,0.5,0.4166666666666667
+38,nt-6279,altered,1,834,9,True,True,0,Jonah Delpin,,,,False,False,0.0,-0.125,-0.4166666666666667
+38,nt-6279,altered,2,834,5,True,True,0,4,,,,True,False,1.0,0.375,0.25
+38,nt-6279,altered,3,834,5,True,True,0,6,,,,False,False,0.0,0.0,-0.25
+39,nt-628,query,0,550,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+39,nt-628,query,1,550,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+39,nt-628,query,2,550,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+39,nt-628,query,3,550,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+40,nt-10147,original,0,1308,5,True,True,0,Singapore,,,,False,False,0.0,0.0,0.0
+40,nt-10147,original,1,1308,8,True,True,0,British marathon record holder,,,,False,False,0.0,0.0,0.0
+40,nt-10147,original,2,1308,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+40,nt-10147,original,3,1308,13,True,True,0,"Roskutov regularly ran marathons,",,,,False,False,0.0,0.0,0.0
+40,nt-10147,altered,0,1300,9,True,True,0,"Jackson, Prince of Wales",,,,False,False,0.0,0.0,0.0
+40,nt-10147,altered,1,1300,8,True,True,0,Tyler Loskutov,,,,False,False,0.0,0.0,0.0
+40,nt-10147,altered,2,1300,13,True,True,0,"April 9, 1998",,,,False,False,0.0,0.0,0.0
+40,nt-10147,altered,3,1300,8,True,True,0,"Hanover, Germany",,,,False,False,0.0,0.0,0.0
+41,nt-4765,original,0,947,6,True,True,0,European football,,,,False,False,0.0,0.0,-0.125
+41,nt-4765,original,1,947,14,True,True,0,"Johnson Tazemere, 312",,,,False,False,0.0,0.5,0.5416666666666666
+41,nt-4765,original,2,947,5,True,True,0,6,,,,False,True,-0.25,-0.125,-0.29166666666666663
+41,nt-4765,original,3,947,11,True,True,0,Georgia has 85 Olympic medals,,,,False,False,0.0,0.0,-0.125
+41,nt-4765,altered,0,946,5,True,True,0,Italy,,,,False,False,0.0,0.0,-0.125
+41,nt-4765,altered,1,946,5,True,True,0,6,,,,True,False,1.0,0.5,0.5416666666666666
+41,nt-4765,altered,2,946,5,True,True,0,Russia,,,,False,False,0.0,-0.125,-0.29166666666666663
+41,nt-4765,altered,3,946,14,True,True,0,"Samir Ghaner, 111",,,,False,False,0.0,0.0,-0.125
+42,nt-14066,query,0,545,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+42,nt-14066,query,1,545,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+42,nt-14066,query,2,545,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,0.033333333333333326
+42,nt-14066,query,3,545,53,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+select name from records where record = ""Pick #""
+</parameter>
+</function>
+</tool_call>","select name from records where record = ""Pick #""",False,0,,,0.0,0.0,-0.10000000000000002
+43,nt-10575,original,0,835,17,True,True,0,Vin Jiang was in Let's Go Dream Team! Season 2,,,,False,False,0.0,0.0,0.0
+43,nt-10575,original,1,835,6,True,True,0,42,,,,False,False,0.0,0.0,0.0
+43,nt-10575,original,2,835,13,True,True,0,Mu Kimi (Lee Ku-kwon),,,,False,False,0.0,0.0,0.0
+43,nt-10575,original,3,835,13,True,True,0,Sam Han won Pretty Boys: A Wrong Situation,,,,False,False,0.0,0.0,0.0
+43,nt-10575,altered,0,845,6,True,True,0,Daniel Kim,,,,False,False,0.0,0.0,0.0
+43,nt-10575,altered,1,845,5,True,True,0,October,,,,False,False,0.0,0.0,0.0
+43,nt-10575,altered,2,845,17,True,True,0,Sam Chow was in Tears of the Antarctic before running Man.,,,,False,False,0.0,0.0,0.0
+43,nt-10575,altered,3,845,5,True,True,0,Singapore,,,,False,False,0.0,0.0,0.0
+44,nt-591,original,0,1044,6,True,True,0,12,,,,True,False,1.0,0.5,0.5
+44,nt-591,original,1,1044,5,True,True,0,R,,,,False,False,0.0,0.0,-0.16666666666666666
+44,nt-591,original,2,1044,12,True,True,0,W 112–11,,,,False,False,0.0,0.0,-0.16666666666666666
+44,nt-591,original,3,1044,5,True,True,0,6,,,,False,False,0.0,0.0,-0.16666666666666666
+44,nt-591,altered,0,942,5,True,True,0,3,,,,False,False,0.0,0.5,0.5
+44,nt-591,altered,1,942,45,True,True,0,"July 1a • Calgary, AB          • Calgary, AB          • Calgary, AB  • 3,500 • 3,500         • 3,500",,,,False,False,0.0,0.0,-0.16666666666666666
+44,nt-591,altered,2,942,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+44,nt-591,altered,3,942,6,True,True,0,11,,,,False,False,0.0,0.0,-0.16666666666666666
+45,nt-7418,query,0,562,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+45,nt-7418,query,1,562,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+45,nt-7418,query,2,562,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+45,nt-7418,query,3,562,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+46,nt-245,original,0,1113,34,True,True,0,"Risaprika Turner apa di film ""Octane""
+
+Ted essesi masa filipino yang berperan sebagai mischa Barton pada film ini.",,,,False,False,0.0,0.0,0.0
+46,nt-245,original,1,1113,5,True,True,0,Russia,,,,False,False,0.0,0.0,0.0
+46,nt-245,original,2,1113,8,True,True,0,Victor Gilmore,,,,False,False,0.0,0.0,0.0
+46,nt-245,original,3,1113,6,True,True,0,International Spy,,,,False,False,0.0,0.0,0.0
+46,nt-245,altered,0,1110,12,True,True,0,Keith Martin (Anthony Deeney),,,,False,False,0.0,0.0,0.0
+46,nt-245,altered,1,1110,10,True,True,0,Radha Koothupulu,,,,False,False,0.0,0.0,0.0
+46,nt-245,altered,2,1110,7,True,True,0,Murdo Barton,,,,False,False,0.0,0.0,0.0
+46,nt-245,altered,3,1110,8,True,True,0,Sam Walczak,,,,False,False,0.0,0.0,0.0
+47,nt-8977,original,0,849,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+47,nt-8977,original,1,849,10,True,True,0,British men's international basketball team,,,,False,False,0.0,0.0,0.0
+47,nt-8977,original,2,849,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+47,nt-8977,original,3,849,7,True,True,0,Cambridge Knights,,,,False,False,0.0,0.0,0.0
+47,nt-8977,altered,0,848,15,True,True,0,London 2012 - 127,,,,False,False,0.0,0.0,0.0
+47,nt-8977,altered,1,848,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+47,nt-8977,altered,2,848,5,True,True,0,7,,,,False,False,0.0,0.0,0.0
+47,nt-8977,altered,3,848,6,True,True,0,Jake ______,,,,False,False,0.0,0.0,0.0
+48,nt-11121,query,0,554,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+48,nt-11121,query,1,554,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+48,nt-11121,query,2,554,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+48,nt-11121,query,3,554,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+49,nt-11,original,0,878,70,True,True,0,"John's role is an adobe artist and designer who began as an intern at the Victorian Electric Company, where he designed the first electric locomotives. He eventually became the president of the Victorian Electric Company, where he also served as the director of engineering services, and later served as the president of the American Rail Transportation Association.",,,,False,False,0.0,0.0,0.0
+49,nt-11,original,1,878,7,True,True,0,"Singapore, Thailand",,,,False,False,0.0,0.0,0.0
+49,nt-11,original,2,878,8,True,True,0,культураны,,,,False,False,0.0,0.0,0.0
+49,nt-11,original,3,878,8,True,True,0,"Athens, Greece",,,,False,False,0.0,0.0,0.0
+49,nt-11,altered,0,857,14,True,True,0,Might that be the venue for the Asian Games,,,,False,False,0.0,0.0,0.0
+49,nt-11,altered,1,857,12,True,True,0,Northericulture is your email address.,,,,False,False,0.0,0.0,0.0
+49,nt-11,altered,2,857,12,True,True,0,"United Nations stadium at Lausanne, Switzerland",,,,False,False,0.0,0.0,0.0
+49,nt-11,altered,3,857,12,True,True,0,"Tony Stark, 1957",,,,False,False,0.0,0.0,0.0
+50,nt-10524,original,0,1100,8,True,True,0,Sam McAllister,,,,False,False,0.0,0.0,0.041666666666666664
+50,nt-10524,original,1,1100,7,True,True,0,Monday Coaches,,,,False,False,0.0,0.0,0.041666666666666664
+50,nt-10524,original,2,1100,6,True,True,0,Tom Slater,,,,False,True,-0.25,-0.125,-0.125
+50,nt-10524,original,3,1100,9,True,True,1,"Leonardo Trent
+</think>",,,,False,False,0.0,0.0,0.041666666666666664
+50,nt-10524,altered,0,1089,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+50,nt-10524,altered,1,1089,8,True,True,0,Sam McAllister,,,,False,False,0.0,0.0,0.041666666666666664
+50,nt-10524,altered,2,1089,8,True,True,0,Sam McAllister,,,,False,False,0.0,-0.125,-0.125
+50,nt-10524,altered,3,1089,13,True,True,0,"Ho, the coach who coached before Porter Grant",,,,False,False,0.0,0.0,0.041666666666666664
+51,nt-12353,query,0,562,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+51,nt-12353,query,1,562,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+51,nt-12353,query,2,562,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+51,nt-12353,query,3,562,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+52,nt-5979,original,0,949,6,True,True,0,Sam has,,,,False,False,0.0,0.0,0.0
+52,nt-5979,original,1,949,10,True,True,0,Dodome Rodríguez Serrano,,,,False,False,0.0,0.0,0.0
+52,nt-5979,original,2,949,7,True,True,0,Kadis,,,,False,False,0.0,0.0,0.0
+52,nt-5979,original,3,949,7,True,True,0,Raní,,,,False,False,0.0,0.0,0.0
+52,nt-5979,altered,0,949,6,True,True,0,47,,,,False,False,0.0,0.0,0.0
+52,nt-5979,altered,1,949,6,True,True,0,Kentucky,,,,False,False,0.0,0.0,0.0
+52,nt-5979,altered,2,949,5,True,True,0,Britain,,,,False,False,0.0,0.0,0.0
+52,nt-5979,altered,3,949,5,True,True,0,5,,,,False,False,0.0,0.0,0.0
+53,nt-4717,original,0,1063,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+53,nt-4717,original,1,1063,51,True,True,0,"Collaborate on this summary and create a GitHub repository containing the code for this project.
+
+Use this code editor in the code editor in the code editor and commit the code to the git repository and push it to your GitHub account.",,,,False,False,0.0,0.0,-0.16666666666666666
+53,nt-4717,original,2,1063,5,True,True,0,4,,,,False,False,0.0,0.5,0.5
+53,nt-4717,original,3,1063,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+53,nt-4717,altered,0,1073,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+53,nt-4717,altered,1,1073,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+53,nt-4717,altered,2,1073,5,True,True,0,6,,,,True,False,1.0,0.5,0.5
+53,nt-4717,altered,3,1073,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+54,nt-10987,query,0,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+54,nt-10987,query,1,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+54,nt-10987,query,2,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+54,nt-10987,query,3,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+55,nt-11028,original,0,898,9,True,True,0,"Chipra, Robert,",,,,False,False,0.0,0.0,0.0
+55,nt-11028,original,1,898,8,True,True,0,George Beichmann,,,,False,False,0.0,0.0,0.0
+55,nt-11028,original,2,898,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+55,nt-11028,original,3,898,6,True,True,0,62,,,,False,False,0.0,0.0,0.0
+55,nt-11028,altered,0,892,5,True,True,0,Russia,,,,False,False,0.0,0.0,0.0
+55,nt-11028,altered,1,892,20,True,True,0,6 January 1958 − 3 December 1967,,,,False,False,0.0,0.0,0.0
+55,nt-11028,altered,2,892,11,True,True,1,"Asian<|file_sep|></think>
+
+Stated query",,,,False,False,0.0,0.0,0.0
+55,nt-11028,altered,3,892,6,True,True,0,Richard Nixon,,,,False,False,0.0,0.0,0.0
+56,nt-13221,original,0,928,6,True,True,0,Charlie Brown,,,,False,False,0.0,0.0,0.0
+56,nt-13221,original,1,928,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+56,nt-13221,original,2,928,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+56,nt-13221,original,3,928,13,True,True,0,"April 3, 1993",,,,False,False,0.0,0.0,0.0
+56,nt-13221,altered,0,940,7,True,True,0,Rhys Williams,,,,False,False,0.0,0.0,0.0
+56,nt-13221,altered,1,940,11,True,True,1,"Worse
+
+
+</think>
+
+Worse",,,,False,False,0.0,0.0,0.0
+56,nt-13221,altered,2,940,13,True,True,0,"February 1, 1994",,,,False,False,0.0,0.0,0.0
+56,nt-13221,altered,3,940,19,True,True,0,"Foi donc, l'action qui s'est tenue aux Derbatches ?",,,,False,False,0.0,0.0,0.0
+57,nt-431,query,0,553,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+57,nt-431,query,1,553,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+57,nt-431,query,2,553,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+57,nt-431,query,3,553,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+58,nt-3290,original,0,979,7,True,True,0,Jim Mahoney,,,,False,False,0.0,0.0,0.0
+58,nt-3290,original,1,979,14,True,True,0,Liverpool's total goals conceded is 614,,,,False,False,0.0,0.0,0.0
+58,nt-3290,original,2,979,12,True,True,1,"Nordmark Islanders draft 4
+</think>",,,,False,False,0.0,0.0,0.0
+58,nt-3290,original,3,979,11,True,True,0,Kareem Abdul-Rahman,,,,False,False,0.0,0.0,0.0
+58,nt-3290,altered,0,981,6,True,True,0,James Harden,,,,False,False,0.0,0.0,0.0
+58,nt-3290,altered,1,981,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+58,nt-3290,altered,2,981,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+58,nt-3290,altered,3,981,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+59,nt-13666,original,0,908,32,True,True,0,"Kilopete gymnafon kai katagathon
+
+ρ 15050 ρ 15050",,,,False,False,0.0,0.0,0.0
+59,nt-13666,original,1,908,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+59,nt-13666,original,2,908,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+59,nt-13666,original,3,908,11,True,True,0,Mindaugas Pukštas,,,,False,False,0.0,0.0,0.0
+59,nt-13666,altered,0,910,6,True,True,0,Her history,,,,False,False,0.0,0.0,0.0
+59,nt-13666,altered,1,910,128,False,False,0,,,,,False,False,0.0,0.0,0.0
+59,nt-13666,altered,2,910,7,True,True,0,Samuel Thompson,,,,False,False,0.0,0.0,0.0
+59,nt-13666,altered,3,910,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+60,nt-13658,query,0,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+60,nt-13658,query,1,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+60,nt-13658,query,2,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+60,nt-13658,query,3,552,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+61,nt-6007,original,0,1010,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+61,nt-6007,original,1,1010,18,True,True,0,Sam has a team record of 44-16-4,,,,False,False,0.0,0.0,0.0
+61,nt-6007,original,2,1010,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+61,nt-6007,original,3,1010,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+61,nt-6007,altered,0,1010,6,True,True,0,British qualifier,,,,False,False,0.0,0.0,0.0
+61,nt-6007,altered,1,1010,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+61,nt-6007,altered,2,1010,7,True,True,0,Cereals,,,,False,False,0.0,0.0,0.0
+61,nt-6007,altered,3,1010,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+62,nt-8868,original,0,977,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+62,nt-8868,original,1,977,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+62,nt-8868,original,2,977,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+62,nt-8868,original,3,977,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+62,nt-8868,altered,0,982,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+62,nt-8868,altered,1,982,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+62,nt-8868,altered,2,982,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+62,nt-8868,altered,3,982,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+63,nt-10245,query,0,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+63,nt-10245,query,1,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+63,nt-10245,query,2,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+63,nt-10245,query,3,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+64,nt-13993,original,0,908,6,True,True,0,48,,,,False,False,0.0,0.0,0.0
+64,nt-13993,original,1,908,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+64,nt-13993,original,2,908,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+64,nt-13993,original,3,908,5,True,True,0,A,,,,False,False,0.0,0.0,0.0
+64,nt-13993,altered,0,911,5,True,True,0,R,,,,False,False,0.0,0.0,0.0
+64,nt-13993,altered,1,911,5,True,True,0,California,,,,False,False,0.0,0.0,0.0
+64,nt-13993,altered,2,911,8,True,True,0,4211,,,,False,False,0.0,0.0,0.0
+64,nt-13993,altered,3,911,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+65,nt-4051,original,0,981,18,True,True,0,"Tyred answer is -thancotdekorde,11",,,,False,False,0.0,0.0,0.0
+65,nt-4051,original,1,981,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+65,nt-4051,original,2,981,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+65,nt-4051,original,3,981,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+65,nt-4051,altered,0,982,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+65,nt-4051,altered,1,982,5,True,True,0,Singapore,,,,False,False,0.0,0.0,0.0
+65,nt-4051,altered,2,982,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+65,nt-4051,altered,3,982,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+66,nt-9286,query,0,535,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+66,nt-9286,query,1,535,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+66,nt-9286,query,2,535,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+66,nt-9286,query,3,535,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+67,nt-12182,original,0,1196,7,True,True,0,415,,,,False,False,0.0,0.0,0.0
+67,nt-12182,original,1,1196,8,True,True,0,SPOT on LOCATION,,,,False,False,0.0,0.0,0.0
+67,nt-12182,original,2,1196,7,True,True,0,săcele,,,,False,False,0.0,0.0,0.0
+67,nt-12182,original,3,1196,7,True,True,0,294,,,,False,False,0.0,0.0,0.0
+67,nt-12182,altered,0,1196,6,True,True,0,Richard County,,,,False,False,0.0,0.0,0.0
+67,nt-12182,altered,1,1196,21,True,True,0,Support this chart. What locality has the least amount of area according to this chart?,,,,False,False,0.0,0.0,0.0
+67,nt-12182,altered,2,1196,8,True,True,0,4437,,,,False,False,0.0,0.0,0.0
+67,nt-12182,altered,3,1196,8,True,True,0,4437,,,,False,False,0.0,0.0,0.0
+68,nt-5652,original,0,935,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+68,nt-5652,original,1,935,6,True,True,0,15,,,,False,False,0.0,0.0,0.0
+68,nt-5652,original,2,935,9,True,True,0,Mention the top player,,,,False,False,0.0,0.0,0.0
+68,nt-5652,original,3,935,5,True,True,0,Russia,,,,False,False,0.0,0.0,0.0
+68,nt-5652,altered,0,940,123,True,True,0,"Nele
+
+Sì ajudashu pennaqinam kislawnin datin nighi tavinqat yon qasirqaqqaq qawqashin qaqtinnaqtaq nighi tashinqat talawkalinnaqqaq specippiqonqaq qawqashinqaqtinnaqqaq nighi tabaqqonam pennaqin qaqtinnaqqaq nighi simqashin qaqtinnaqqaq nighi",,,,False,False,0.0,0.0,0.0
+68,nt-5652,altered,1,940,11,True,True,0,Georgie Feghali,,,,False,False,0.0,0.0,0.0
+68,nt-5652,altered,2,940,7,True,True,1,"Brun
+</think>",,,,False,False,0.0,0.0,0.0
+68,nt-5652,altered,3,940,128,False,False,0,,,,,False,False,0.0,0.0,0.0
+69,nt-5418,query,0,571,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+69,nt-5418,query,1,571,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+69,nt-5418,query,2,571,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+69,nt-5418,query,3,571,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+70,nt-10970,original,0,890,6,True,True,0,Kentucky,,,,False,False,0.0,0.0,0.0
+70,nt-10970,original,1,890,10,True,True,0,Collapsible Magnificent Breaker,,,,False,False,0.0,0.0,0.0
+70,nt-10970,original,2,890,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+70,nt-10970,original,3,890,5,True,True,0,3,,,,False,False,0.0,0.0,0.0
+70,nt-10970,altered,0,890,15,True,True,0,Tyco has a win percentage above the Atlantic Coast Conference,,,,False,False,0.0,0.0,0.0
+70,nt-10970,altered,1,890,8,True,True,0,NUTS are,,,,False,False,0.0,0.0,0.0
+70,nt-10970,altered,2,890,9,True,True,0,Brotherton Cup is,,,,False,False,0.0,0.0,0.0
+70,nt-10970,altered,3,890,5,True,True,0,Alice,,,,False,False,0.0,0.0,0.0
+71,nt-10035,original,0,1030,5,True,True,0,4,,,,False,True,-0.25,0.375,0.25
+71,nt-10035,original,1,1030,26,True,True,0,May I assist you with the refined search for the number times Bournemouth and Wolverhampton faced each other?,,,,False,False,0.0,0.0,-0.25
+71,nt-10035,original,2,1030,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.4166666666666667
+71,nt-10035,original,3,1030,6,True,True,0,68,,,,False,False,0.0,0.5,0.4166666666666667
+71,nt-10035,altered,0,1055,5,True,True,0,4,,,,True,False,1.0,0.375,0.25
+71,nt-10035,altered,1,1055,5,True,True,0,3,,,,False,False,0.0,0.0,-0.25
+71,nt-10035,altered,2,1055,6,True,True,0,Southampton,,,,False,False,0.0,-0.125,-0.4166666666666667
+71,nt-10035,altered,3,1055,5,True,True,0,4,,,,True,False,1.0,0.5,0.4166666666666667
+72,nt-1886,query,0,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+72,nt-1886,query,1,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+72,nt-1886,query,2,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+72,nt-1886,query,3,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+73,nt-12826,original,0,1392,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+73,nt-12826,original,1,1392,15,True,True,0,We can see 11 games that have losing results,,,,False,False,0.0,0.0,0.041666666666666664
+73,nt-12826,original,2,1392,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+73,nt-12826,original,3,1392,5,True,True,0,1,,,,False,False,0.0,-0.125,-0.125
+73,nt-12826,altered,0,1378,5,True,True,0,2,,,,False,False,0.0,0.0,0.041666666666666664
+73,nt-12826,altered,1,1378,7,True,True,0,Salta.,,,,False,False,0.0,0.0,0.041666666666666664
+73,nt-12826,altered,2,1378,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+73,nt-12826,altered,3,1378,5,True,True,0,9,,,,False,True,-0.25,-0.125,-0.125
+74,nt-4100,original,0,789,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+74,nt-4100,original,1,789,11,True,True,0,"Aleakhzie, 29",,,,False,False,0.0,0.0,0.0
+74,nt-4100,original,2,789,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+74,nt-4100,original,3,789,20,True,True,0,"Morgan, look at the records list. Which one has 2 new council",,,,False,False,0.0,0.0,0.0
+74,nt-4100,altered,0,791,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+74,nt-4100,altered,1,791,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+74,nt-4100,altered,2,791,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+74,nt-4100,altered,3,791,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+75,nt-2522,query,0,603,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+75,nt-2522,query,1,603,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+75,nt-2522,query,2,603,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+75,nt-2522,query,3,603,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+76,nt-7592,original,0,1633,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+76,nt-7592,original,1,1633,8,True,True,0,1111,,,,False,False,0.0,0.0,0.0
+76,nt-7592,original,2,1633,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+76,nt-7592,original,3,1633,7,True,True,0,Johnson Bah?,,,,False,False,0.0,0.0,0.0
+76,nt-7592,altered,0,1673,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+76,nt-7592,altered,1,1673,8,True,True,0,1969,,,,False,False,0.0,0.0,0.0
+76,nt-7592,altered,2,1673,7,True,True,0,116,,,,False,False,0.0,0.0,0.0
+76,nt-7592,altered,3,1673,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+77,nt-6791,original,0,1000,6,True,True,0,Legumes,,,,False,False,0.0,0.0,0.0
+77,nt-6791,original,1,1000,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+77,nt-6791,original,2,1000,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+77,nt-6791,original,3,1000,7,True,True,0,Samuel Lowe,,,,False,False,0.0,0.0,0.0
+77,nt-6791,altered,0,999,6,True,True,0,Rosebud,,,,False,False,0.0,0.0,0.0
+77,nt-6791,altered,1,999,22,True,True,0,Nos voy á analizar el dado para responder al problema y proporcionar brevemente la respuesta.,,,,False,False,0.0,0.0,0.0
+77,nt-6791,altered,2,999,6,True,True,0,SAY,,,,False,False,0.0,0.0,0.0
+77,nt-6791,altered,3,999,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+78,nt-11126,query,0,559,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+78,nt-11126,query,1,559,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+78,nt-11126,query,2,559,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+78,nt-11126,query,3,559,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+select * from records order by rowid
+</parameter>
+</function>
+</tool_call>",select * from records order by rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+79,nt-9216,original,0,854,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+79,nt-9216,original,1,854,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+79,nt-9216,original,2,854,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+79,nt-9216,original,3,854,5,True,True,0,4,,,,False,False,0.0,0.5,0.5
+79,nt-9216,altered,0,855,5,True,True,0,8,,,,False,False,0.0,0.0,-0.16666666666666666
+79,nt-9216,altered,1,855,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+79,nt-9216,altered,2,855,5,True,True,0,6,,,,False,False,0.0,0.0,-0.16666666666666666
+79,nt-9216,altered,3,855,5,True,True,0,1,,,,True,False,1.0,0.5,0.5
+80,nt-6019,original,0,1492,5,True,True,0,6,,,,False,True,-0.25,-0.125,-0.5
+80,nt-6019,original,1,1492,5,True,True,0,4,,,,True,False,1.0,0.375,0.16666666666666666
+80,nt-6019,original,2,1492,5,True,True,0,4,,,,True,False,1.0,0.375,0.16666666666666666
+80,nt-6019,original,3,1492,5,True,True,0,4,,,,True,False,1.0,0.375,0.16666666666666666
+80,nt-6019,altered,0,1518,5,True,True,0,2,,,,False,False,0.0,-0.125,-0.5
+80,nt-6019,altered,1,1518,5,True,True,0,4,,,,False,True,-0.25,0.375,0.16666666666666666
+80,nt-6019,altered,2,1518,5,True,True,0,4,,,,False,True,-0.25,0.375,0.16666666666666666
+80,nt-6019,altered,3,1518,5,True,True,0,4,,,,False,True,-0.25,0.375,0.16666666666666666
+81,nt-8524,query,0,546,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+81,nt-8524,query,1,546,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+81,nt-8524,query,2,546,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+81,nt-8524,query,3,546,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+82,nt-7654,original,0,1201,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+82,nt-7654,original,1,1201,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+82,nt-7654,original,2,1201,6,True,True,0,Vincent,,,,False,False,0.0,0.0,0.0
+82,nt-7654,original,3,1201,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+82,nt-7654,altered,0,1199,6,True,True,0,N/A,,,,False,False,0.0,0.0,0.0
+82,nt-7654,altered,1,1199,8,True,True,0,Muray Makoto,,,,False,False,0.0,0.0,0.0
+82,nt-7654,altered,2,1199,6,True,True,0,European racing,,,,False,False,0.0,0.0,0.0
+82,nt-7654,altered,3,1199,7,True,True,0,Mark Twain,,,,False,False,0.0,0.0,0.0
+83,nt-1622,original,0,1233,11,True,True,0,Ti sei 495 anni,,,,False,False,0.0,0.0,0.0
+83,nt-1622,original,1,1233,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+83,nt-1622,original,2,1233,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+83,nt-1622,original,3,1233,5,True,True,0,5,,,,False,False,0.0,0.0,0.0
+83,nt-1622,altered,0,1240,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+83,nt-1622,altered,1,1240,5,True,True,0,9,,,,False,False,0.0,0.0,0.0
+83,nt-1622,altered,2,1240,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+83,nt-1622,altered,3,1240,11,True,True,0,As of 2024,,,,False,False,0.0,0.0,0.0
+84,nt-10935,query,0,575,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+84,nt-10935,query,1,575,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+84,nt-10935,query,2,575,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+84,nt-10935,query,3,575,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+85,nt-13458,original,0,828,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.29166666666666663
+85,nt-13458,original,1,828,15,True,True,0,Le numero di aziende di origine canadese è 6,,,,False,False,0.0,0.5,0.5416666666666666
+85,nt-13458,original,2,828,6,True,True,0,South Korea,,,,False,False,0.0,0.0,-0.125
+85,nt-13458,original,3,828,7,True,True,0,Loucré,,,,False,False,0.0,0.0,-0.125
+85,nt-13458,altered,0,824,5,True,True,0,2,,,,False,False,0.0,-0.125,-0.29166666666666663
+85,nt-13458,altered,1,824,5,True,True,0,4,,,,True,False,1.0,0.5,0.5416666666666666
+85,nt-13458,altered,2,824,7,True,True,0,185,,,,False,False,0.0,0.0,-0.125
+85,nt-13458,altered,3,824,6,True,True,0,13,,,,False,False,0.0,0.0,-0.125
+86,nt-12564,original,0,1059,5,True,True,0,4,,,,False,True,-0.25,-0.25,-0.5416666666666667
+86,nt-12564,original,1,1059,5,True,True,0,R,,,,False,False,0.0,0.5,0.4583333333333333
+86,nt-12564,original,2,1059,5,True,True,0,1,,,,False,False,0.0,0.0,-0.20833333333333334
+86,nt-12564,original,3,1059,5,True,True,0,4,,,,False,True,-0.25,0.375,0.2916666666666667
+86,nt-12564,altered,0,1060,5,True,True,0,6,,,,False,True,-0.25,-0.25,-0.5416666666666667
+86,nt-12564,altered,1,1060,5,True,True,0,4,,,,True,False,1.0,0.5,0.4583333333333333
+86,nt-12564,altered,2,1060,6,True,True,0,13,,,,False,False,0.0,0.0,-0.20833333333333334
+86,nt-12564,altered,3,1060,5,True,True,0,4,,,,True,False,1.0,0.375,0.2916666666666667
+87,nt-6758,query,0,551,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+87,nt-6758,query,1,551,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+87,nt-6758,query,2,551,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+87,nt-6758,query,3,551,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+88,nt-9836,original,0,1027,7,True,True,0,Jeremy Frazier,,,,False,False,0.0,0.0,0.0
+88,nt-9836,original,1,1027,9,True,True,0,Samuel Wilkerson,,,,False,False,0.0,0.0,0.0
+88,nt-9836,original,2,1027,7,True,True,0,Colombín,,,,False,False,0.0,0.0,0.0
+88,nt-9836,original,3,1027,6,True,True,0,Hunter Cat,,,,False,False,0.0,0.0,0.0
+88,nt-9836,altered,0,1036,9,True,True,0,Robby Albarado,,,,False,False,0.0,0.0,0.0
+88,nt-9836,altered,1,1036,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+88,nt-9836,altered,2,1036,9,True,True,0,Kuulavintaja,,,,False,False,0.0,0.0,0.0
+88,nt-9836,altered,3,1036,7,True,True,0,Walt Boyd,,,,False,False,0.0,0.0,0.0
+89,nt-6136,original,0,955,6,True,True,0,11,,,,False,True,-0.25,-0.125,-0.125
+89,nt-6136,original,1,955,5,True,True,0,R,,,,False,False,0.0,0.0,0.041666666666666664
+89,nt-6136,original,2,955,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+89,nt-6136,original,3,955,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+89,nt-6136,altered,0,953,5,True,True,0,4,,,,False,False,0.0,-0.125,-0.125
+89,nt-6136,altered,1,953,128,False,False,0,,,,,False,False,0.0,0.0,0.041666666666666664
+89,nt-6136,altered,2,953,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+89,nt-6136,altered,3,953,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+90,nt-3870,query,0,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+90,nt-3870,query,1,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+select * from records order by rowid
+</parameter>
+</function>
+</tool_call>",select * from records order by rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+90,nt-3870,query,2,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+90,nt-3870,query,3,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+91,nt-5073,original,0,865,21,True,True,0,"Tiirankin, minun 30 vuotta 3. sijain?",,,,False,False,0.0,0.0,0.0
+91,nt-5073,original,1,865,9,True,True,0,MÃ˜o,,,,False,False,0.0,0.0,0.0
+91,nt-5073,original,2,865,11,True,True,0,Dependence on the complete records,,,,False,False,0.0,0.0,0.0
+91,nt-5073,original,3,865,8,True,True,0,1997,,,,False,False,0.0,0.0,0.0
+91,nt-5073,altered,0,866,6,True,True,0,4th,,,,False,False,0.0,0.0,0.0
+91,nt-5073,altered,1,866,8,True,True,0,Redaction task complete,,,,False,False,0.0,0.0,0.0
+91,nt-5073,altered,2,866,5,True,True,0,8,,,,False,False,0.0,0.0,0.0
+91,nt-5073,altered,3,866,7,True,True,0,18th,,,,False,False,0.0,0.0,0.0
+92,nt-11282,original,0,1643,6,True,True,0,Hm,,,,False,False,0.0,0.0,0.0
+92,nt-11282,original,1,1643,5,True,True,0,GP,,,,False,False,0.0,0.0,0.0
+92,nt-11282,original,2,1643,7,True,True,0,Charles Tuberville,,,,False,False,0.0,0.0,0.0
+92,nt-11282,original,3,1643,6,True,True,0,N/A,,,,False,False,0.0,0.0,0.0
+92,nt-11282,altered,0,1634,17,True,True,0,"Holy cow, that's not Ben Van Iderstine.",,,,False,False,0.0,0.0,0.0
+92,nt-11282,altered,1,1634,7,True,True,0,Ralph Hanson,,,,False,False,0.0,0.0,0.0
+92,nt-11282,altered,2,1634,10,True,True,0,John Van Iderstine,,,,False,False,0.0,0.0,0.0
+92,nt-11282,altered,3,1634,13,True,True,0,"Palantir, O'Neill, and Rogers",,,,False,False,0.0,0.0,0.0
+93,nt-1715,query,0,544,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+93,nt-1715,query,1,544,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+93,nt-1715,query,2,544,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+93,nt-1715,query,3,544,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+94,nt-5744,original,0,1029,12,True,True,0,Longer than 30 characters?,,,,False,False,0.0,0.0,0.0
+94,nt-5744,original,1,1029,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+94,nt-5744,original,2,1029,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+94,nt-5744,original,3,1029,5,True,True,0,9,,,,False,False,0.0,0.0,0.0
+94,nt-5744,altered,0,1009,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+94,nt-5744,altered,1,1009,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+94,nt-5744,altered,2,1009,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+94,nt-5744,altered,3,1009,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+95,nt-2657,original,0,1340,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+95,nt-2657,original,1,1340,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+95,nt-2657,original,2,1340,6,True,True,0,Legends,,,,False,False,0.0,0.0,0.0
+95,nt-2657,original,3,1340,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+95,nt-2657,altered,0,1356,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+95,nt-2657,altered,1,1356,15,True,True,0,Minji ima 8 okupitavce:,,,,False,False,0.0,0.0,0.0
+95,nt-2657,altered,2,1356,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+95,nt-2657,altered,3,1356,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+96,nt-1309,query,0,542,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+96,nt-1309,query,1,542,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+96,nt-1309,query,2,542,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+96,nt-1309,query,3,542,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+97,nt-11281,original,0,1167,8,True,True,0,6-21,,,,False,False,0.0,0.0,0.0
+97,nt-11281,original,1,1167,8,True,True,0,Samuel Bethuva,,,,False,False,0.0,0.0,0.0
+97,nt-11281,original,2,1167,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+97,nt-11281,original,3,1167,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+97,nt-11281,altered,0,1170,7,True,True,0,"Bruno,",,,,False,False,0.0,0.0,0.0
+97,nt-11281,altered,1,1170,5,True,True,0,5,,,,False,False,0.0,0.0,0.0
+97,nt-11281,altered,2,1170,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+97,nt-11281,altered,3,1170,6,True,True,0,44,,,,False,False,0.0,0.0,0.0
+98,nt-9076,original,0,1047,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+98,nt-9076,original,1,1047,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+98,nt-9076,original,2,1047,9,True,True,0,Felt misspelled,,,,False,False,0.0,0.0,0.0
+98,nt-9076,original,3,1047,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+98,nt-9076,altered,0,1046,6,True,True,0,40,,,,False,False,0.0,0.0,0.0
+98,nt-9076,altered,1,1046,6,True,True,0,61,,,,False,False,0.0,0.0,0.0
+98,nt-9076,altered,2,1046,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+98,nt-9076,altered,3,1046,6,True,True,0,40,,,,False,False,0.0,0.0,0.0
+99,nt-7544,query,0,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+99,nt-7544,query,1,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+99,nt-7544,query,2,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+99,nt-7544,query,3,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+100,nt-750,original,0,1204,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+100,nt-750,original,1,1204,54,True,True,0,"Dan Stevenson's 19th-century formulae were followed by two men – the poet and the architect – who were probably lucky enough to have commented on the art of the invention, and not on the something was then going to be all right.",,,,False,False,0.0,0.0,0.0
+100,nt-750,original,2,1204,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+100,nt-750,original,3,1204,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+100,nt-750,altered,0,1204,8,True,True,0,Hungry Little Days,,,,False,False,0.0,0.0,0.0
+100,nt-750,altered,1,1204,6,True,True,0,TBC,,,,False,False,0.0,0.0,0.0
+100,nt-750,altered,2,1204,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+100,nt-750,altered,3,1204,7,True,True,0,Huge ride,,,,False,False,0.0,0.0,0.0
+101,nt-13061,original,0,923,6,True,True,0,Nike retired,,,,False,False,0.0,0.0,0.0
+101,nt-13061,original,1,923,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+101,nt-13061,original,2,923,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+101,nt-13061,original,3,923,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+101,nt-13061,altered,0,912,7,True,True,0,T20,,,,False,False,0.0,0.0,0.0
+101,nt-13061,altered,1,912,9,True,True,0,Sam Rikramdas,,,,False,False,0.0,0.0,0.0
+101,nt-13061,altered,2,912,10,True,True,0,Rerun one write.,,,,False,False,0.0,0.0,0.0
+101,nt-13061,altered,3,912,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+102,nt-5928,query,0,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+102,nt-5928,query,1,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+102,nt-5928,query,2,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+102,nt-5928,query,3,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+103,nt-484,original,0,798,9,True,True,0,Nicholas Borgarelli,,,,False,False,0.0,0.0,0.041666666666666664
+103,nt-484,original,1,798,6,True,True,0,44,,,,False,False,0.0,0.0,0.041666666666666664
+103,nt-484,original,2,798,9,True,True,0,Ms. Borgarelli,,,,False,False,0.0,-0.125,-0.125
+103,nt-484,original,3,798,14,True,True,0,"November 17, 1869",,,,False,False,0.0,0.0,0.041666666666666664
+103,nt-484,altered,0,798,20,True,True,0,Korbanen 1862 vuonna 1903:,,,,False,False,0.0,0.0,0.041666666666666664
+103,nt-484,altered,1,798,9,True,True,0,Filip Valcoscu,,,,False,False,0.0,0.0,0.041666666666666664
+103,nt-484,altered,2,798,8,True,True,0,Michel Deuzet,,,,False,True,-0.25,-0.125,-0.125
+103,nt-484,altered,3,798,128,False,False,0,,,,,False,False,0.0,0.0,0.041666666666666664
+104,nt-1781,original,0,803,7,True,True,0,SEPARATE,,,,False,False,0.0,0.0,0.0
+104,nt-1781,original,1,803,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+104,nt-1781,original,2,803,14,True,True,0,Determine the most recent finished time of Marvin Holland,,,,False,False,0.0,0.0,0.0
+104,nt-1781,original,3,803,22,True,True,0,Controlling individual performances is about understanding individual performance and studying what a player does on the field,,,,False,False,0.0,0.0,0.0
+104,nt-1781,altered,0,807,9,True,True,0,"Jules Krebl,",,,,False,False,0.0,0.0,0.0
+104,nt-1781,altered,1,807,6,True,True,0,28,,,,False,False,0.0,0.0,0.0
+104,nt-1781,altered,2,807,6,True,True,0,Tom Baker,,,,False,False,0.0,0.0,0.0
+104,nt-1781,altered,3,807,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+105,nt-8604,query,0,555,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+105,nt-8604,query,1,555,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+105,nt-8604,query,2,555,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+105,nt-8604,query,3,555,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+106,nt-12470,original,0,828,6,True,True,0,Hanafi,,,,False,False,0.0,0.0,-0.16666666666666666
+106,nt-12470,original,1,828,12,True,True,0,"Ripkey, about 18",,,,False,False,0.0,0.5,0.5
+106,nt-12470,original,2,828,12,True,True,0,"Karen, who scored 8 gold medals",,,,False,False,0.0,0.0,-0.16666666666666666
+106,nt-12470,original,3,828,10,True,True,0,Wendie Mahmoud Abdel Hadi,,,,False,False,0.0,0.0,-0.16666666666666666
+106,nt-12470,altered,0,829,11,True,True,0,Sumber (Sumber Daya): 5,,,,False,False,0.0,0.0,-0.16666666666666666
+106,nt-12470,altered,1,829,5,True,True,0,Singapore,,,,True,False,1.0,0.5,0.5
+106,nt-12470,altered,2,829,56,True,True,0,"Lemma flag, number 119, 1192, 1199,  114444,  444410, 44444. Let me name them",,,,False,False,0.0,0.0,-0.16666666666666666
+106,nt-12470,altered,3,829,5,True,True,0,David,,,,False,False,0.0,0.0,-0.16666666666666666
+107,nt-1200,original,0,1377,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+107,nt-1200,original,1,1377,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+107,nt-1200,original,2,1377,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+107,nt-1200,original,3,1377,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+107,nt-1200,altered,0,1381,6,True,True,0,42,,,,False,False,0.0,0.0,0.0
+107,nt-1200,altered,1,1381,15,True,True,0,"Finamente, devi dare una risposta breve nella frase.",,,,False,False,0.0,0.0,0.0
+107,nt-1200,altered,2,1381,60,True,True,0,"Typosquatting error
+
+<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid LIMIT 1
+</parameter>
+</function>
+</tool_call>",,,,False,False,0.0,0.0,0.0
+107,nt-1200,altered,3,1381,5,True,True,0,8,,,,False,False,0.0,0.0,0.0
+108,nt-6995,query,0,585,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+108,nt-6995,query,1,585,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+108,nt-6995,query,2,585,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+108,nt-6995,query,3,585,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+109,nt-7155,original,0,1009,6,True,True,0,Famous,,,,False,False,0.0,0.0,0.0
+109,nt-7155,original,1,1009,14,True,True,0,Scopri di capire le relazioni tra record.,,,,False,False,0.0,0.0,0.0
+109,nt-7155,original,2,1009,9,True,True,0,"Richard Duvigne,",,,,False,False,0.0,0.0,0.0
+109,nt-7155,original,3,1009,14,True,True,0,"Wilson Frendt, 1992",,,,False,False,0.0,0.0,0.0
+109,nt-7155,altered,0,1028,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+109,nt-7155,altered,1,1028,22,True,True,1,"Arkansas Skaters
+</think>
+
+Ada Ahon, Tom Dowd, and Jeff Davis",,,,False,False,0.0,0.0,0.0
+109,nt-7155,altered,2,1028,9,True,True,0,Silver Award for Best Documentary,,,,False,False,0.0,0.0,0.0
+109,nt-7155,altered,3,1028,8,True,True,1,"Singapore Malay
+</think>",,,,False,False,0.0,0.0,0.0
+110,nt-12324,original,0,795,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+110,nt-12324,original,1,795,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+110,nt-12324,original,2,795,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+110,nt-12324,original,3,795,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+110,nt-12324,altered,0,803,15,True,True,0,"Samuel, Cooper, and Jones were team leaders.",,,,False,False,0.0,0.0,0.0
+110,nt-12324,altered,1,803,25,True,True,0,Very short - the team last placed 5th or better in 2008/09,,,,False,False,0.0,0.0,0.0
+110,nt-12324,altered,2,803,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+110,nt-12324,altered,3,803,11,True,True,0,2006/07,,,,False,False,0.0,0.0,0.0
+111,nt-5076,query,0,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+111,nt-5076,query,1,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+111,nt-5076,query,2,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+111,nt-5076,query,3,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+112,nt-10580,original,0,1139,31,True,True,0,"Galway's first boxy loco produced, the earliest known boiler was a 6ft-5in (1994).",,,,False,False,0.0,0.5,0.5
+112,nt-10580,original,1,1139,14,True,True,0,"Harmon Stark, No. 774",,,,False,False,0.0,0.0,-0.16666666666666666
+112,nt-10580,original,2,1139,24,True,True,0,"Swapping the locomotives to the Museum, what is the name of the first one produced?",,,,False,False,0.0,0.0,-0.16666666666666666
+112,nt-10580,original,3,1139,25,True,True,0,"Greek question of the locomotives at the museum, what is the name of the first one produced?",,,,False,False,0.0,0.0,-0.16666666666666666
+112,nt-10580,altered,0,1135,12,True,True,0,Jubilee 1897,,,,True,False,1.0,0.5,0.5
+112,nt-10580,altered,1,1135,6,True,True,0,Yields,,,,False,False,0.0,0.0,-0.16666666666666666
+112,nt-10580,altered,2,1135,39,True,True,0,"Nghĩa vụ vấn đề hỏi tôi thực thụ
+
+Rồi cuốn tàu vũ trụ thứ 1 được sản xuất tại nhà máy là: Kirk Stuart (1877)",,,,False,False,0.0,0.0,-0.16666666666666666
+112,nt-10580,altered,3,1135,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+113,nt-13773,original,0,841,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+113,nt-13773,original,1,841,25,True,True,0,TIP: Generate a SQL query that can be run to fetch the total number of records from records.,,,,False,False,0.0,0.0,-0.16666666666666666
+113,nt-13773,original,2,841,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+113,nt-13773,original,3,841,5,True,True,0,4,,,,False,False,0.0,0.5,0.5
+113,nt-13773,altered,0,838,5,True,True,0,5,,,,False,False,0.0,0.0,-0.16666666666666666
+113,nt-13773,altered,1,838,24,True,True,0,Determine the number of total times the city/jersey mentioned in the chart is in New Jersey,,,,False,False,0.0,0.0,-0.16666666666666666
+113,nt-13773,altered,2,838,14,True,True,0,Victor's Great Veil is 0%,,,,False,False,0.0,0.0,-0.16666666666666666
+113,nt-13773,altered,3,838,5,True,True,0,6,,,,True,False,1.0,0.5,0.5
+114,nt-13019,query,0,575,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+114,nt-13019,query,1,575,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+114,nt-13019,query,2,575,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+114,nt-13019,query,3,575,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+115,nt-7332,original,0,1034,5,True,True,0,Russia,,,,False,False,0.0,0.0,0.0
+115,nt-7332,original,1,1034,7,True,True,0,Russia is Russia,,,,False,False,0.0,0.0,0.0
+115,nt-7332,original,2,1034,12,True,True,0,Controlling your browser to follow the links,,,,False,False,0.0,0.0,0.0
+115,nt-7332,original,3,1034,8,True,True,0,1111,,,,False,False,0.0,0.0,0.0
+115,nt-7332,altered,0,1024,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+115,nt-7332,altered,1,1024,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+115,nt-7332,altered,2,1024,12,True,True,0,Lake Keogh 2005,,,,False,False,0.0,0.0,0.0
+115,nt-7332,altered,3,1024,8,True,True,0,Tiffany Brien,,,,False,False,0.0,0.0,0.0
+116,nt-10183,original,0,1050,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+116,nt-10183,original,1,1050,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+116,nt-10183,original,2,1050,6,True,True,0,15,,,,False,False,0.0,0.0,0.0
+116,nt-10183,original,3,1050,24,True,True,0,"Zap, let me tell you which is the only team with n/a in the Points column.",,,,False,False,0.0,0.0,0.0
+116,nt-10183,altered,0,1053,7,True,True,0,416,,,,False,False,0.0,0.0,0.0
+116,nt-10183,altered,1,1053,6,True,True,0,N/A,,,,False,False,0.0,0.0,0.0
+116,nt-10183,altered,2,1053,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+116,nt-10183,altered,3,1053,19,True,True,0,Row 145 is the only team with n/a in the rows,,,,False,False,0.0,0.0,0.0
+117,nt-10151,query,0,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+117,nt-10151,query,1,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+117,nt-10151,query,2,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+117,nt-10151,query,3,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+118,nt-1554,original,0,809,20,True,True,0,Double-check the chart. Which country came in first with 7 gold medals?,,,,False,False,0.0,0.0,-0.3333333333333333
+118,nt-1554,original,1,809,6,True,True,0,South Korea,,,,True,False,1.0,0.5,0.33333333333333337
+118,nt-1554,original,2,809,6,True,True,0,South Korea,,,,True,False,1.0,0.5,0.33333333333333337
+118,nt-1554,original,3,809,5,True,True,0,4,,,,False,False,0.0,0.0,-0.3333333333333333
+118,nt-1554,altered,0,807,6,True,True,0,Kuwait,,,,False,False,0.0,0.0,-0.3333333333333333
+118,nt-1554,altered,1,807,7,True,True,0,443,,,,False,False,0.0,0.5,0.33333333333333337
+118,nt-1554,altered,2,807,5,True,True,0,3,,,,False,False,0.0,0.5,0.33333333333333337
+118,nt-1554,altered,3,807,5,True,True,0,6,,,,False,False,0.0,0.0,-0.3333333333333333
+119,nt-6658,original,0,1085,5,True,True,0,5,,,,False,False,0.0,0.0,0.0
+119,nt-6658,original,1,1085,27,True,True,0,"Tiše ni manithi ditus titali e ti fetai, tshwatho:",,,,False,False,0.0,0.0,0.0
+119,nt-6658,original,2,1085,7,True,True,0,641,,,,False,False,0.0,0.0,0.0
+119,nt-6658,original,3,1085,8,True,True,0,1991,,,,False,False,0.0,0.0,0.0
+119,nt-6658,altered,0,1109,7,True,True,0,Charlie Chaplin,,,,False,False,0.0,0.0,0.0
+119,nt-6658,altered,1,1109,12,True,True,0,Wolf Keith's next film after Parva,,,,False,False,0.0,0.0,0.0
+119,nt-6658,altered,2,1109,8,True,True,0,"Sommerfilm,",,,,False,False,0.0,0.0,0.0
+119,nt-6658,altered,3,1109,15,True,True,0,Tu mora näm nuçulirirr😍,,,,False,False,0.0,0.0,0.0
+120,nt-6938,query,0,580,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+120,nt-6938,query,1,580,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+120,nt-6938,query,2,580,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+120,nt-6938,query,3,580,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+121,nt-13012,original,0,886,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+121,nt-13012,original,1,886,12,True,True,0,Georgia finished immediately after Karl Hähnel,,,,False,False,0.0,0.0,0.0
+121,nt-13012,original,2,886,9,True,True,0,Narazhanar,,,,False,False,0.0,0.0,0.0
+121,nt-13012,original,3,886,7,True,True,0,"William King,",,,,False,False,0.0,0.0,0.0
+121,nt-13012,altered,0,906,12,True,True,0,Mr Jānis Daliņš,,,,False,False,0.0,0.0,0.0
+121,nt-13012,altered,1,906,6,True,True,0,Dragon named,,,,False,False,0.0,0.0,0.0
+121,nt-13012,altered,2,906,6,True,True,0,Samir,,,,False,False,0.0,0.0,0.0
+121,nt-13012,altered,3,906,16,True,True,0,Budget to summarize the time spent by the weakest team finishing second,,,,False,False,0.0,0.0,0.0
+122,nt-8387,original,0,932,5,True,True,0,4,,,,True,False,1.0,0.5,0.33333333333333337
+122,nt-8387,original,1,932,13,True,True,0,Longest running Champions in the month of October,,,,False,False,0.0,0.0,-0.3333333333333333
+122,nt-8387,original,2,932,5,True,True,0,4,,,,True,False,1.0,0.5,0.33333333333333337
+122,nt-8387,original,3,932,128,False,False,0,,,,,False,False,0.0,0.0,-0.3333333333333333
+122,nt-8387,altered,0,930,9,True,True,0,Sacks 11,,,,False,False,0.0,0.5,0.33333333333333337
+122,nt-8387,altered,1,930,7,True,True,0,Romania.,,,,False,False,0.0,0.0,-0.3333333333333333
+122,nt-8387,altered,2,930,14,True,True,0,Spend time maybe some or book out a ticket,,,,False,False,0.0,0.5,0.33333333333333337
+122,nt-8387,altered,3,930,5,True,True,0,3,,,,False,False,0.0,0.0,-0.3333333333333333
+123,nt-13787,query,0,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+123,nt-13787,query,1,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+123,nt-13787,query,2,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+123,nt-13787,query,3,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+124,nt-13068,original,0,906,15,True,True,0,British bands  achieve the highest UK Albums Chart spot.,,,,False,False,0.0,0.0,0.0
+124,nt-13068,original,1,906,6,True,True,0,Dan Winston,,,,False,False,0.0,0.0,0.0
+124,nt-13068,original,2,906,5,True,True,0,Greater,,,,False,False,0.0,0.0,0.0
+124,nt-13068,original,3,906,8,True,True,0,Longer phrase.,,,,False,False,0.0,0.0,0.0
+124,nt-13068,altered,0,909,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+124,nt-13068,altered,1,909,7,True,True,0,Hmmm...,,,,False,False,0.0,0.0,0.0
+124,nt-13068,altered,2,909,7,True,True,0,211,,,,False,False,0.0,0.0,0.0
+124,nt-13068,altered,3,909,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+125,nt-10009,original,0,1055,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+125,nt-10009,original,1,1055,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+125,nt-10009,original,2,1055,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+125,nt-10009,original,3,1055,5,True,True,0,5,,,,False,False,0.0,0.0,0.0
+125,nt-10009,altered,0,1056,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+125,nt-10009,altered,1,1056,17,True,True,0,Sommerweltmeister der Vereinigten Staaten (11 Länder),,,,False,False,0.0,0.0,0.0
+125,nt-10009,altered,2,1056,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+125,nt-10009,altered,3,1056,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+126,nt-14046,query,0,543,52,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+select * from records where rowid=1
+</parameter>
+</function>
+</tool_call>",select * from records where rowid=1,True,0,,,0.1,0.1,-1.3877787807814457e-17
+126,nt-14046,query,1,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+126,nt-14046,query,2,543,60,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+select * from records where rowid in (1, 2, 3)
+</parameter>
+</function>
+</tool_call>","select * from records where rowid in (1, 2, 3)",True,0,,,0.1,0.1,-1.3877787807814457e-17
+126,nt-14046,query,3,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+127,nt-2336,original,0,907,5,True,True,0,4,,,,True,False,1.0,0.375,0.041666666666666685
+127,nt-2336,original,1,907,5,True,True,0,4,,,,True,False,1.0,0.5,0.20833333333333331
+127,nt-2336,original,2,907,5,True,True,0,4,,,,True,False,1.0,0.5,0.20833333333333331
+127,nt-2336,original,3,907,7,True,True,0,Belumarda,,,,False,False,0.0,0.0,-0.4583333333333333
+127,nt-2336,altered,0,907,5,True,True,0,4,,,,False,True,-0.25,0.375,0.041666666666666685
+127,nt-2336,altered,1,907,6,True,True,0,11,,,,False,False,0.0,0.5,0.20833333333333331
+127,nt-2336,altered,2,907,67,True,True,0,"Boxwell, Edward, 14th Baron Devon, 1st Marquess of Devon (15 April 1569 – 22 May 1607) was a British knight of the Order of the Garter, 1st Marquess of Devon's father.",,,,False,False,0.0,0.5,0.20833333333333331
+127,nt-2336,altered,3,907,14,True,True,0,Memebergade has 14 silver medals,,,,False,False,0.0,0.0,-0.4583333333333333
+128,nt-9091,original,0,921,5,True,True,0,1,,,,True,False,1.0,0.5,0.33333333333333337
+128,nt-9091,original,1,921,5,True,True,0,6,,,,False,False,0.0,0.0,-0.3333333333333333
+128,nt-9091,original,2,921,10,True,True,0,February 2024,,,,False,False,0.0,0.0,-0.3333333333333333
+128,nt-9091,original,3,921,5,True,True,0,4,,,,False,False,0.0,0.5,0.33333333333333337
+128,nt-9091,altered,0,917,5,True,True,0,6,,,,False,False,0.0,0.5,0.33333333333333337
+128,nt-9091,altered,1,917,6,True,True,0,19,,,,False,False,0.0,0.0,-0.3333333333333333
+128,nt-9091,altered,2,917,6,True,True,0,11,,,,False,False,0.0,0.0,-0.3333333333333333
+128,nt-9091,altered,3,917,5,True,True,0,2,,,,True,False,1.0,0.5,0.33333333333333337
+129,nt-12369,query,0,556,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+129,nt-12369,query,1,556,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+129,nt-12369,query,2,556,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+129,nt-12369,query,3,556,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+130,nt-11728,original,0,798,21,True,True,0,Shall I be able to search a table and store a value in a field?,,,,False,False,0.0,0.0,-0.08333333333333333
+130,nt-11728,original,1,798,5,True,True,0,Russian,,,,False,False,0.0,-0.125,-0.25
+130,nt-11728,original,2,798,6,True,True,0,Kyem,,,,False,False,0.0,0.0,-0.08333333333333333
+130,nt-11728,original,3,798,5,True,True,0,4,,,,True,False,1.0,0.375,0.4166666666666667
+130,nt-11728,altered,0,796,5,True,True,0,2,,,,False,False,0.0,0.0,-0.08333333333333333
+130,nt-11728,altered,1,796,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.25
+130,nt-11728,altered,2,796,5,True,True,0,1,,,,False,False,0.0,0.0,-0.08333333333333333
+130,nt-11728,altered,3,796,5,True,True,0,4,,,,False,True,-0.25,0.375,0.4166666666666667
+131,nt-4610,original,0,947,13,True,True,0,"Jourdan Craven, Australian cricketer",,,,False,False,0.0,0.0,0.0
+131,nt-4610,original,1,947,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+131,nt-4610,original,2,947,5,True,True,0,Brazil,,,,False,False,0.0,0.0,0.0
+131,nt-4610,original,3,947,9,True,True,0,Kathleen Whyte,,,,False,False,0.0,0.0,0.0
+131,nt-4610,altered,0,947,7,True,True,0,Cloésson,,,,False,False,0.0,0.0,0.0
+131,nt-4610,altered,1,947,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+131,nt-4610,altered,2,947,8,True,True,0,Bob O'Connell,,,,False,False,0.0,0.0,0.0
+131,nt-4610,altered,3,947,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+132,nt-4070,query,0,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+132,nt-4070,query,1,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+132,nt-4070,query,2,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+132,nt-4070,query,3,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+133,nt-6765,original,0,1114,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+133,nt-6765,original,1,1114,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+133,nt-6765,original,2,1114,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+133,nt-6765,original,3,1114,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+133,nt-6765,altered,0,1115,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+133,nt-6765,altered,1,1115,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+133,nt-6765,altered,2,1115,5,True,True,0,Australia,,,,False,False,0.0,0.0,0.0
+133,nt-6765,altered,3,1115,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+134,nt-2950,original,0,1307,11,True,True,0,"Tillamook County, Oregon",,,,False,False,0.0,0.0,0.0
+134,nt-2950,original,1,1307,8,True,True,0,180 feet,,,,False,False,0.0,0.0,0.0
+134,nt-2950,original,2,1307,16,True,True,0,"Widener, who was the shortest bridge McDowell designed",,,,False,False,0.0,0.0,0.0
+134,nt-2950,original,3,1307,7,True,True,0,619,,,,False,False,0.0,0.0,0.0
+134,nt-2950,altered,0,1286,22,True,True,0,Samuel Montgomery McCullough's shortest bridge was designed on the Siuslaw River.,,,,False,False,0.0,0.0,0.0
+134,nt-2950,altered,1,1286,9,True,True,0,414 vinyl made,,,,False,False,0.0,0.0,0.0
+134,nt-2950,altered,2,1286,9,True,True,0,Siuslaw River Bridge,,,,False,False,0.0,0.0,0.0
+134,nt-2950,altered,3,1286,15,True,True,0,Senator McCullough designed the Siuslaw River Bridge,,,,False,False,0.0,0.0,0.0
+135,nt-12536,query,0,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+135,nt-12536,query,1,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+135,nt-12536,query,2,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+135,nt-12536,query,3,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+136,nt-504,original,0,867,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+136,nt-504,original,1,867,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+136,nt-504,original,2,867,8,True,True,0,Joshua NED,,,,False,False,0.0,0.0,0.0
+136,nt-504,original,3,867,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+136,nt-504,altered,0,864,11,True,True,0,Mindstat: 66,,,,False,False,0.0,0.0,0.0
+136,nt-504,altered,1,864,12,True,True,0,"Bro sorry, I can't do that",,,,False,False,0.0,0.0,0.0
+136,nt-504,altered,2,864,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+136,nt-504,altered,3,864,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+137,nt-7067,original,0,1190,9,True,True,0,51139,,,,False,False,0.0,0.0,0.0
+137,nt-7067,original,1,1190,6,True,True,0,South Korea,,,,False,False,0.0,0.0,0.0
+137,nt-7067,original,2,1190,14,True,True,1,"Megapacks
+</think>
+
+Mebaikos",,,,False,False,0.0,0.0,0.0
+137,nt-7067,original,3,1190,5,True,True,0,Russia,,,,False,False,0.0,0.0,0.0
+137,nt-7067,altered,0,1179,128,False,False,0,,,,,False,False,0.0,0.0,0.0
+137,nt-7067,altered,1,1179,7,True,True,0,North China Stadium,,,,False,False,0.0,0.0,0.0
+137,nt-7067,altered,2,1179,7,True,True,0,North China stadiums,,,,False,False,0.0,0.0,0.0
+137,nt-7067,altered,3,1179,7,True,True,0,411,,,,False,False,0.0,0.0,0.0
+138,nt-10166,query,0,576,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+138,nt-10166,query,1,576,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+138,nt-10166,query,2,576,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+138,nt-10166,query,3,576,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+139,nt-10818,original,0,1189,13,True,True,0,Nikolay Budivelnyk,,,,False,False,0.0,0.0,0.0
+139,nt-10818,original,1,1189,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+139,nt-10818,original,2,1189,5,True,True,0,Day,,,,False,False,0.0,0.0,0.0
+139,nt-10818,original,3,1189,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+139,nt-10818,altered,0,1184,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+139,nt-10818,altered,1,1184,5,True,True,0,7,,,,False,False,0.0,0.0,0.0
+139,nt-10818,altered,2,1184,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+139,nt-10818,altered,3,1184,16,True,True,0,Hemosloka的是2005年的冠军。,,,,False,False,0.0,0.0,0.0
+140,nt-4952,original,0,1173,7,True,True,0,Day 0,,,,False,False,0.0,0.0,0.041666666666666664
+140,nt-4952,original,1,1173,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+140,nt-4952,original,2,1173,7,True,True,0,Samuel Woods,,,,False,False,0.0,0.0,0.041666666666666664
+140,nt-4952,original,3,1173,5,True,True,0,5,,,,False,True,-0.25,-0.125,-0.125
+140,nt-4952,altered,0,1174,5,True,True,0,7,,,,False,False,0.0,0.0,0.041666666666666664
+140,nt-4952,altered,1,1174,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+140,nt-4952,altered,2,1174,11,True,True,1,"Sam Smith
+</think>
+
+Sam Smith",,,,False,False,0.0,0.0,0.041666666666666664
+140,nt-4952,altered,3,1174,5,True,True,0,4,,,,False,False,0.0,-0.125,-0.125
+141,nt-11713,query,0,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+141,nt-11713,query,1,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+141,nt-11713,query,2,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+141,nt-11713,query,3,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+142,nt-2891,original,0,871,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+142,nt-2891,original,1,871,6,True,True,0,48,,,,False,False,0.0,0.0,0.0
+142,nt-2891,original,2,871,10,True,True,0,"Skytown, Karachi,",,,,False,False,0.0,0.0,0.0
+142,nt-2891,original,3,871,7,True,True,0,Triple check summary,,,,False,False,0.0,0.0,0.0
+142,nt-2891,altered,0,871,6,True,True,0,65,,,,False,False,0.0,0.0,0.0
+142,nt-2891,altered,1,871,5,True,True,0,Fs,,,,False,False,0.0,0.0,0.0
+142,nt-2891,altered,2,871,6,True,True,0,Georgia Dome,,,,False,False,0.0,0.0,0.0
+142,nt-2891,altered,3,871,5,True,True,0,Russia,,,,False,False,0.0,0.0,0.0
+143,nt-10676,original,0,1703,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+143,nt-10676,original,1,1703,6,True,True,0,Northern star,,,,False,False,0.0,0.0,0.0
+143,nt-10676,original,2,1703,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+143,nt-10676,original,3,1703,7,True,True,0,Jasper won,,,,False,False,0.0,0.0,0.0
+143,nt-10676,altered,0,1715,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+143,nt-10676,altered,1,1715,8,True,True,0,June 6th,,,,False,False,0.0,0.0,0.0
+143,nt-10676,altered,2,1715,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+143,nt-10676,altered,3,1715,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+144,nt-4268,query,0,561,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+144,nt-4268,query,1,561,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+144,nt-4268,query,2,561,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+144,nt-4268,query,3,561,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+145,nt-5452,original,0,1944,11,True,True,0,"MOUNT WILSON, California",,,,True,False,1.0,0.5,0.5
+145,nt-5452,original,1,1944,6,True,True,0,South Africa,,,,False,False,0.0,0.0,-0.16666666666666666
+145,nt-5452,original,2,1944,8,True,True,0,Northern solar observatories,,,,False,False,0.0,0.0,-0.16666666666666666
+145,nt-5452,original,3,1944,14,True,True,0,Mark Twain would be the first station to open,,,,False,False,0.0,0.0,-0.16666666666666666
+145,nt-5452,altered,0,1879,14,True,True,0,"November 12, 1926",,,,False,False,0.0,0.5,0.5
+145,nt-5452,altered,1,1879,6,True,True,0,41,,,,False,False,0.0,0.0,-0.16666666666666666
+145,nt-5452,altered,2,1879,52,True,True,0,"Samantar mujhko ek bheji statement ki ho ek bajaye: ""khiye ke rowid (ASI 4) ka lehta baate se rowid 1 ga being ni hoti hcaza logi?",,,,False,False,0.0,0.0,-0.16666666666666666
+145,nt-5452,altered,3,1879,9,True,True,0,Russia's space flight program,,,,False,False,0.0,0.0,-0.16666666666666666
+146,nt-3604,original,0,1026,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+146,nt-3604,original,1,1026,6,True,True,0,Charles Burns,,,,False,False,0.0,0.0,0.0
+146,nt-3604,original,2,1026,25,True,True,0,"Samuel Coad, 5th Baron Coad, 02 March 2004",,,,False,False,0.0,0.0,0.0
+146,nt-3604,original,3,1026,17,True,True,0,Kilburn to 30 May 1963,,,,False,False,0.0,0.0,0.0
+146,nt-3604,altered,0,1027,8,True,True,0,George Gilfillry,,,,False,False,0.0,0.0,0.0
+146,nt-3604,altered,1,1027,11,True,True,0,"Lewis, County Borough, Labour Party",,,,False,False,0.0,0.0,0.0
+146,nt-3604,altered,2,1027,6,True,True,0,South London,,,,False,False,0.0,0.0,0.0
+146,nt-3604,altered,3,1027,5,True,True,0,Asian,,,,False,False,0.0,0.0,0.0
+147,nt-12478,query,0,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+147,nt-12478,query,1,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+147,nt-12478,query,2,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+147,nt-12478,query,3,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+148,nt-8568,original,0,999,9,True,True,0,41:51,,,,False,False,0.0,0.0,0.0
+148,nt-8568,original,1,999,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+148,nt-8568,original,2,999,6,True,True,0,40,,,,False,False,0.0,0.0,0.0
+148,nt-8568,original,3,999,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+148,nt-8568,altered,0,991,9,True,True,0,41 4th,,,,False,False,0.0,0.0,0.0
+148,nt-8568,altered,1,991,9,True,True,0,SnapShot - India selected,,,,False,False,0.0,0.0,0.0
+148,nt-8568,altered,2,991,7,True,True,0,Samuel Smith,,,,False,False,0.0,0.0,0.0
+148,nt-8568,altered,3,991,26,True,True,0,"double click on attack scanners, giving the text of the TRUSTEELS file for the most recent incident.",,,,False,False,0.0,0.0,0.0
+149,nt-4533,original,0,993,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+149,nt-4533,original,1,993,6,True,True,0,12,,,,False,False,0.0,0.0,-0.16666666666666666
+149,nt-4533,original,2,993,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+149,nt-4533,original,3,993,5,True,True,0,4,,,,False,False,0.0,0.5,0.5
+149,nt-4533,altered,0,983,9,True,True,0,Kato Kung Lee,,,,False,False,0.0,0.0,-0.16666666666666666
+149,nt-4533,altered,1,983,9,True,True,0,Mr. Terceros,,,,False,False,0.0,0.0,-0.16666666666666666
+149,nt-4533,altered,2,983,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+149,nt-4533,altered,3,983,6,True,True,0,11,,,,True,False,1.0,0.5,0.5
+150,nt-3447,query,0,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+150,nt-3447,query,1,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+150,nt-3447,query,2,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+150,nt-3447,query,3,548,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+151,nt-5909,original,0,1015,6,True,True,0,42,,,,False,False,0.0,0.0,0.0
+151,nt-5909,original,1,1015,5,True,True,0,8,,,,False,False,0.0,0.0,0.0
+151,nt-5909,original,2,1015,5,True,True,0,3,,,,False,False,0.0,0.0,0.0
+151,nt-5909,original,3,1015,8,True,True,0,1956,,,,False,False,0.0,0.0,0.0
+151,nt-5909,altered,0,1015,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+151,nt-5909,altered,1,1015,13,True,True,0,"December 9, 1956",,,,False,False,0.0,0.0,0.0
+151,nt-5909,altered,2,1015,11,True,True,0,4 dec 1956,,,,False,False,0.0,0.0,0.0
+151,nt-5909,altered,3,1015,6,True,True,0,41,,,,False,False,0.0,0.0,0.0
+152,nt-5112,original,0,754,10,True,True,0,"Frankly, George Halas",,,,False,False,0.0,0.0,0.0
+152,nt-5112,original,1,754,10,True,True,0,Honoring their total scoring record,,,,False,False,0.0,0.0,0.0
+152,nt-5112,original,2,754,7,True,True,0,HM Hing,,,,False,False,0.0,0.0,0.0
+152,nt-5112,original,3,754,8,True,True,0,Kathy Boger,,,,False,False,0.0,0.0,0.0
+152,nt-5112,altered,0,751,7,True,True,0,Charlie Conley,,,,False,False,0.0,0.0,0.0
+152,nt-5112,altered,1,751,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+152,nt-5112,altered,2,751,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+152,nt-5112,altered,3,751,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+153,nt-2414,query,0,534,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+153,nt-2414,query,1,534,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+153,nt-2414,query,2,534,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+153,nt-2414,query,3,534,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+154,nt-8937,original,0,984,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+154,nt-8937,original,1,984,58,True,True,0,"British Columbia (28900), Ontario (16935), Manitoba (18599),
+Quebec (14900),
+New Brunswick (7866),
+Nova Scotia (11263)",,,,False,False,0.0,0.0,0.0
+154,nt-8937,original,2,984,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+154,nt-8937,original,3,984,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+154,nt-8937,altered,0,985,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+154,nt-8937,altered,1,985,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+154,nt-8937,altered,2,985,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+154,nt-8937,altered,3,985,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+155,nt-6663,original,0,1043,6,True,True,0,11,,,,True,False,1.0,0.375,0.375
+155,nt-6663,original,1,1043,5,True,True,0,4,,,,False,False,0.0,0.0,-0.125
+155,nt-6663,original,2,1043,128,False,False,0,,,,,False,False,0.0,0.0,-0.125
+155,nt-6663,original,3,1043,5,True,True,0,6,,,,False,False,0.0,0.0,-0.125
+155,nt-6663,altered,0,1044,6,True,True,0,11,,,,False,True,-0.25,0.375,0.375
+155,nt-6663,altered,1,1044,5,True,True,0,4,,,,False,False,0.0,0.0,-0.125
+155,nt-6663,altered,2,1044,5,True,True,0,2,,,,False,False,0.0,0.0,-0.125
+155,nt-6663,altered,3,1044,5,True,True,0,4,,,,False,False,0.0,0.0,-0.125
+156,nt-14043,query,0,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+156,nt-14043,query,1,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+156,nt-14043,query,2,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+156,nt-14043,query,3,549,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+157,nt-41,original,0,926,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+157,nt-41,original,1,926,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+157,nt-41,original,2,926,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+157,nt-41,original,3,926,6,True,True,0,65,,,,False,False,0.0,0.0,0.0
+157,nt-41,altered,0,825,6,True,True,0,46,,,,False,False,0.0,0.0,0.0
+157,nt-41,altered,1,825,5,True,True,0,3,,,,False,False,0.0,0.0,0.0
+157,nt-41,altered,2,825,26,True,True,0,Temperatur nee ni ipaak pakeo pe waas täpsetähk hee.,,,,False,False,0.0,0.0,0.0
+157,nt-41,altered,3,825,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+158,nt-9419,original,0,905,7,True,True,0,Samuel Johnson,,,,False,False,0.0,0.0,0.0
+158,nt-9419,original,1,905,6,True,True,0,61,,,,False,False,0.0,0.0,0.0
+158,nt-9419,original,2,905,6,True,True,0,11,,,,False,False,0.0,0.0,0.0
+158,nt-9419,original,3,905,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+158,nt-9419,altered,0,905,29,True,True,0,"China University of Mining and Information Technology is the most recent public research institution to establish its seat in Pehwan, Iran.",,,,False,False,0.0,0.0,0.0
+158,nt-9419,altered,1,905,8,True,True,0,Norberto Flores Carrera,,,,False,False,0.0,0.0,0.0
+158,nt-9419,altered,2,905,6,True,True,0,Howard?,,,,False,False,0.0,0.0,0.0
+158,nt-9419,altered,3,905,5,True,True,0,3,,,,False,False,0.0,0.0,0.0
+159,nt-9562,query,0,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+159,nt-9562,query,1,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+159,nt-9562,query,2,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+159,nt-9562,query,3,543,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+160,nt-11583,original,0,905,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.375
+160,nt-11583,original,1,905,5,True,True,0,4,,,,False,True,-0.25,0.375,0.2916666666666667
+160,nt-11583,original,2,905,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.375
+160,nt-11583,original,3,905,5,True,True,0,Canada,,,,False,False,0.0,0.5,0.4583333333333333
+160,nt-11583,altered,0,903,5,True,True,0,6,,,,False,False,0.0,-0.125,-0.375
+160,nt-11583,altered,1,903,5,True,True,0,4,,,,True,False,1.0,0.375,0.2916666666666667
+160,nt-11583,altered,2,903,5,True,True,0,6,,,,False,False,0.0,-0.125,-0.375
+160,nt-11583,altered,3,903,5,True,True,0,4,,,,True,False,1.0,0.5,0.4583333333333333
+161,nt-12735,original,0,979,5,True,True,0,4,,,,True,False,1.0,0.375,0.25
+161,nt-12735,original,1,979,5,True,True,0,4,,,,True,False,1.0,0.5,0.4166666666666667
+161,nt-12735,original,2,979,5,True,True,0,1,,,,False,False,0.0,-0.125,-0.4166666666666667
+161,nt-12735,original,3,979,9,True,True,0,Shall I summarize?,,,,False,False,0.0,0.0,-0.25
+161,nt-12735,altered,0,1024,5,True,True,0,4,,,,False,True,-0.25,0.375,0.25
+161,nt-12735,altered,1,1024,5,True,True,0,2,,,,False,False,0.0,0.5,0.4166666666666667
+161,nt-12735,altered,2,1024,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.4166666666666667
+161,nt-12735,altered,3,1024,6,True,True,0,B4,,,,False,False,0.0,0.0,-0.25
+162,nt-5453,query,0,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+162,nt-5453,query,1,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+162,nt-5453,query,2,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+162,nt-5453,query,3,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+163,nt-13646,original,0,974,5,True,True,0,Russia,,,,False,False,0.0,0.0,-0.16666666666666666
+163,nt-13646,original,1,974,13,True,True,0,January 18 1988,,,,False,False,0.0,0.0,-0.16666666666666666
+163,nt-13646,original,2,974,5,True,True,0,1,,,,True,False,1.0,0.5,0.5
+163,nt-13646,original,3,974,7,True,True,0,111,,,,False,False,0.0,0.0,-0.16666666666666666
+163,nt-13646,altered,0,976,7,True,True,0,South Sea Islands,,,,False,False,0.0,0.0,-0.16666666666666666
+163,nt-13646,altered,1,976,5,True,True,0,4,,,,False,False,0.0,0.0,-0.16666666666666666
+163,nt-13646,altered,2,976,5,True,True,0,4,,,,False,False,0.0,0.5,0.5
+163,nt-13646,altered,3,976,52,True,True,1,"Cadere debracchinat s, ara s avex primar detestat
+
+Hwos
+</think>
+
+Cadredecrit tot s, ara s avex preferat s, glosîs
+
+Hwos",,,,False,False,0.0,0.0,-0.16666666666666666
+164,nt-1070,original,0,1016,11,True,True,0,Thân phận sau tianan,,,,False,False,0.0,0.0,0.0
+164,nt-1070,original,1,1016,5,True,True,0,China,,,,False,False,0.0,0.0,0.0
+164,nt-1070,original,2,1016,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+164,nt-1070,original,3,1016,7,True,True,0,Joe Jonsson,,,,False,False,0.0,0.0,0.0
+164,nt-1070,altered,0,1024,6,True,True,0,21,,,,False,False,0.0,0.0,0.0
+164,nt-1070,altered,1,1024,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+164,nt-1070,altered,2,1024,6,True,True,0,47,,,,False,False,0.0,0.0,0.0
+164,nt-1070,altered,3,1024,8,True,True,0,Benjam Ali Ibrahim,,,,False,False,0.0,0.0,0.0
+165,nt-13125,query,0,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+165,nt-13125,query,1,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+165,nt-13125,query,2,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+165,nt-13125,query,3,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+166,nt-5572,original,0,745,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+166,nt-5572,original,1,745,5,True,True,0,Gary,,,,False,False,0.0,0.0,0.0
+166,nt-5572,original,2,745,5,True,True,0,3,,,,False,False,0.0,0.0,0.0
+166,nt-5572,original,3,745,5,True,True,0,Rs,,,,False,False,0.0,0.0,0.0
+166,nt-5572,altered,0,731,5,True,True,0,Singapore,,,,False,False,0.0,0.0,0.0
+166,nt-5572,altered,1,731,5,True,True,0,2,,,,False,False,0.0,0.0,0.0
+166,nt-5572,altered,2,731,5,True,True,0,1,,,,False,False,0.0,0.0,0.0
+166,nt-5572,altered,3,731,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+167,nt-11133,original,0,2071,11,True,True,0,727-200,,,,False,False,0.0,0.0,0.0
+167,nt-11133,original,1,2071,24,True,True,0,12/15/2005-4/24/2006,,,,False,False,0.0,0.0,0.0
+167,nt-11133,original,2,2071,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+167,nt-11133,original,3,2071,10,True,True,0,Chinese Aviation (Prime Airways),,,,False,False,0.0,0.0,0.0
+167,nt-11133,altered,0,2125,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+167,nt-11133,altered,1,2125,6,True,True,0,Howard Hughes,,,,False,False,0.0,0.0,0.0
+167,nt-11133,altered,2,2125,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+167,nt-11133,altered,3,2125,7,True,True,0,Southwest Airlines,,,,False,False,0.0,0.0,0.0
+168,nt-4787,query,0,570,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+168,nt-4787,query,1,570,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+168,nt-4787,query,2,570,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+168,nt-4787,query,3,570,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+select * from records order by rowid
+</parameter>
+</function>
+</tool_call>",select * from records order by rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+169,nt-12096,original,0,1207,6,True,True,0,11,,,,False,False,0.0,0.0,-0.125
+169,nt-12096,original,1,1207,10,True,True,0,Bid as a short phrase.,,,,False,False,0.0,0.0,-0.125
+169,nt-12096,original,2,1207,7,True,True,0,WOW!,,,,False,False,0.0,0.5,0.5416666666666666
+169,nt-12096,original,3,1207,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.29166666666666663
+169,nt-12096,altered,0,1206,15,True,True,0,Determine how many total wins did they have in July,,,,False,False,0.0,0.0,-0.125
+169,nt-12096,altered,1,1206,7,True,True,0,Colleges!,,,,False,False,0.0,0.0,-0.125
+169,nt-12096,altered,2,1206,5,True,True,0,4,,,,True,False,1.0,0.5,0.5416666666666666
+169,nt-12096,altered,3,1206,5,True,True,0,6,,,,False,False,0.0,-0.125,-0.29166666666666663
+170,nt-11380,original,0,840,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+170,nt-11380,original,1,840,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+170,nt-11380,original,2,840,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+170,nt-11380,original,3,840,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+170,nt-11380,altered,0,841,5,True,True,0,1,,,,False,False,0.0,0.0,0.0
+170,nt-11380,altered,1,841,8,True,True,0,1995,,,,False,False,0.0,0.0,0.0
+170,nt-11380,altered,2,841,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+170,nt-11380,altered,3,841,13,True,True,0,"July 5, 1982",,,,False,False,0.0,0.0,0.0
+171,nt-9891,query,0,568,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+171,nt-9891,query,1,568,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+171,nt-9891,query,2,568,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+171,nt-9891,query,3,568,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+172,nt-5105,original,0,1077,8,True,True,0,Connor Carson was arrested,,,,False,False,0.0,0.0,-0.08333333333333333
+172,nt-5105,original,1,1077,5,True,True,0,6,,,,False,True,-0.25,0.375,0.4166666666666667
+172,nt-5105,original,2,1077,5,True,True,0,1,,,,False,False,0.0,0.0,-0.08333333333333333
+172,nt-5105,original,3,1077,5,True,True,0,6,,,,False,True,-0.25,-0.125,-0.25
+172,nt-5105,altered,0,1086,5,True,True,0,4,,,,False,False,0.0,0.0,-0.08333333333333333
+172,nt-5105,altered,1,1086,5,True,True,0,6,,,,True,False,1.0,0.375,0.4166666666666667
+172,nt-5105,altered,2,1086,14,True,True,0,"November 14, 1955",,,,False,False,0.0,0.0,-0.08333333333333333
+172,nt-5105,altered,3,1086,5,True,True,0,5,,,,False,False,0.0,-0.125,-0.25
+173,nt-3895,original,0,787,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+173,nt-3895,original,1,787,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+173,nt-3895,original,2,787,8,True,True,0,4) Pakistan captain,,,,False,False,0.0,0.0,0.0
+173,nt-3895,original,3,787,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+173,nt-3895,altered,0,786,8,True,True,0,1111,,,,False,False,0.0,0.0,0.0
+173,nt-3895,altered,1,786,6,True,True,0,41,,,,False,False,0.0,0.0,0.0
+173,nt-3895,altered,2,786,6,True,True,0,25,,,,False,False,0.0,0.0,0.0
+173,nt-3895,altered,3,786,6,True,True,0,Discard,,,,False,False,0.0,0.0,0.0
+174,nt-1201,query,0,587,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+174,nt-1201,query,1,587,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+174,nt-1201,query,2,587,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+174,nt-1201,query,3,587,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+175,nt-7728,original,0,1322,38,True,True,0,117°42′21″W﻿ / ﻿33.7027°N 117.6225°W,,,,False,False,0.0,0.0,0.0
+175,nt-7728,original,1,1322,7,True,True,0,Salvo Creek,,,,False,False,0.0,0.0,0.0
+175,nt-7728,original,2,1322,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+175,nt-7728,original,3,1322,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+175,nt-7728,altered,0,1465,18,True,True,0,"Kyle, Saguato, Redong, Redong, Redong",,,,False,False,0.0,0.0,0.0
+175,nt-7728,altered,1,1465,5,True,True,0,3,,,,False,False,0.0,0.0,0.0
+175,nt-7728,altered,2,1465,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+175,nt-7728,altered,3,1465,7,True,True,0,East Virginia Canal,,,,False,False,0.0,0.0,0.0
+176,nt-3411,original,0,1722,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.16666666666666666
+176,nt-3411,original,1,1722,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.16666666666666666
+176,nt-3411,original,2,1722,5,True,True,0,4,,,,False,True,-0.25,0.375,0.5
+176,nt-3411,original,3,1722,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.16666666666666666
+176,nt-3411,altered,0,1719,5,True,True,0,2,,,,False,False,0.0,-0.125,-0.16666666666666666
+176,nt-3411,altered,1,1719,6,True,True,0,11,,,,False,False,0.0,-0.125,-0.16666666666666666
+176,nt-3411,altered,2,1719,5,True,True,0,4,,,,True,False,1.0,0.375,0.5
+176,nt-3411,altered,3,1719,6,True,True,0,45,,,,False,False,0.0,-0.125,-0.16666666666666666
+177,nt-10756,query,0,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+177,nt-10756,query,1,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+177,nt-10756,query,2,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+177,nt-10756,query,3,539,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+178,nt-6277,original,0,973,5,True,True,0,0,,,,False,True,-0.25,-0.125,-0.125
+178,nt-6277,original,1,973,29,True,True,0,"Brothers, who sell more than 1195500tons of lumber which used to be considered trash",,,,False,False,0.0,0.0,0.041666666666666664
+178,nt-6277,original,2,973,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+178,nt-6277,original,3,973,5,True,True,0,4,,,,False,False,0.0,0.0,0.041666666666666664
+178,nt-6277,altered,0,969,6,True,True,0,11,,,,False,False,0.0,-0.125,-0.125
+178,nt-6277,altered,1,969,5,True,True,0,7,,,,False,False,0.0,0.0,0.041666666666666664
+178,nt-6277,altered,2,969,18,True,True,0,Sommerwertige Argentinier haben 412 kg gemacht,,,,False,False,0.0,0.0,0.041666666666666664
+178,nt-6277,altered,3,969,8,True,True,0,1129,,,,False,False,0.0,0.0,0.041666666666666664
+179,nt-13638,original,0,1265,7,True,True,0,Saraika,,,,False,False,0.0,0.0,0.0
+179,nt-13638,original,1,1265,10,True,True,0,Mika Häkkinen,,,,False,False,0.0,0.0,0.0
+179,nt-13638,original,2,1265,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+179,nt-13638,original,3,1265,6,True,True,0,12,,,,False,False,0.0,0.0,0.0
+179,nt-13638,altered,0,1248,5,True,True,0,9,,,,False,False,0.0,0.0,0.0
+179,nt-13638,altered,1,1248,6,True,True,0,Dubé,,,,False,False,0.0,0.0,0.0
+179,nt-13638,altered,2,1248,35,True,True,0,"Seffenijk, het tijdvestingsproces van Michael Schumacher bleef meer dan 1 jaar lang gedurende vier seizoenen besmette zijn",,,,False,False,0.0,0.0,0.0
+179,nt-13638,altered,3,1248,16,True,True,0,"Sweden, it took 42 3.7 minutes",,,,False,False,0.0,0.0,0.0
+180,nt-10124,query,0,577,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+180,nt-10124,query,1,577,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+180,nt-10124,query,2,577,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+180,nt-10124,query,3,577,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+181,nt-8620,original,0,758,5,True,True,0,1,,,,False,False,0.0,0.0,0.0
+181,nt-8620,original,1,758,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+181,nt-8620,original,2,758,5,True,True,0,5,,,,False,False,0.0,0.0,0.0
+181,nt-8620,original,3,758,7,True,True,0,British Columbia School,,,,False,False,0.0,0.0,0.0
+181,nt-8620,altered,0,758,7,True,True,0,Saskatchewan,,,,False,False,0.0,0.0,0.0
+181,nt-8620,altered,1,758,7,True,True,0,Whitehorse University,,,,False,False,0.0,0.0,0.0
+181,nt-8620,altered,2,758,8,True,True,0,Keith Krieger,,,,False,False,0.0,0.0,0.0
+181,nt-8620,altered,3,758,5,True,True,0,5,,,,False,False,0.0,0.0,0.0
+182,nt-9044,original,0,1458,22,True,True,0,"Samara 1st 1940, SS Leopold Meyer, United Kingdom",,,,False,False,0.0,0.0,0.0
+182,nt-9044,original,1,1458,7,True,True,0,411,,,,False,False,0.0,0.0,0.0
+182,nt-9044,original,2,1458,6,True,True,0,Brazil?,,,,False,False,0.0,0.0,0.0
+182,nt-9044,original,3,1458,10,True,True,0,Singapore Station SS Stancor,,,,False,False,0.0,0.0,0.0
+182,nt-9044,altered,0,1460,17,True,True,0,"Samuel Traithewes, SS Frances Massey, Belgium",,,,False,False,0.0,0.0,0.0
+182,nt-9044,altered,1,1460,22,True,True,0,Samtime of the last recorded ship sank: 25 August 1940,,,,False,False,0.0,0.0,0.0
+182,nt-9044,altered,2,1460,6,True,True,0,London Bridge,,,,False,False,0.0,0.0,0.0
+182,nt-9044,altered,3,1460,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+183,nt-12977,query,0,550,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+183,nt-12977,query,1,550,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+183,nt-12977,query,2,550,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+183,nt-12977,query,3,550,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+184,nt-8688,original,0,1088,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+184,nt-8688,original,1,1088,128,False,False,0,,,,,False,False,0.0,0.0,0.0
+184,nt-8688,original,2,1088,26,True,True,0,Rely on your trained Washington Monument to remember the end of the at&t strike of 2012,,,,False,False,0.0,0.0,0.0
+184,nt-8688,original,3,1088,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+184,nt-8688,altered,0,1084,5,True,True,0,5,,,,False,False,0.0,0.0,0.0
+184,nt-8688,altered,1,1084,7,True,True,0,45 minutes,,,,False,False,0.0,0.0,0.0
+184,nt-8688,altered,2,1084,5,True,True,0,6,,,,False,False,0.0,0.0,0.0
+184,nt-8688,altered,3,1084,6,True,True,0,41,,,,False,False,0.0,0.0,0.0
+185,nt-7318,original,0,968,6,True,True,0,Korean,,,,False,True,-0.25,0.375,0.375
+185,nt-7318,original,1,968,8,True,True,0,Finisiya?,,,,False,False,0.0,0.0,-0.125
+185,nt-7318,original,2,968,18,True,True,0,"Những nhà sáng tác được trích khai bảng ngay khớp
+
+8 Việt Nam",,,,False,False,0.0,0.0,-0.125
+185,nt-7318,original,3,968,5,True,True,0,8,,,,False,False,0.0,0.0,-0.125
+185,nt-7318,altered,0,967,6,True,True,0,Korean,,,,True,False,1.0,0.375,0.375
+185,nt-7318,altered,1,967,6,True,True,0,62,,,,False,False,0.0,0.0,-0.125
+185,nt-7318,altered,2,967,11,True,True,0,Harun is a Japanese rock band,,,,False,False,0.0,0.0,-0.125
+185,nt-7318,altered,3,967,5,True,True,0,Russian,,,,False,False,0.0,0.0,-0.125
+186,nt-6619,query,0,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+186,nt-6619,query,1,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+186,nt-6619,query,2,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+186,nt-6619,query,3,563,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+187,nt-13287,original,0,887,21,True,True,0,"Spariske oznaka naleže prije ""former md 453"").",,,,False,False,0.0,0.0,0.0
+187,nt-13287,original,1,887,53,True,True,0,"Bip, what you're asking is asking about the location associated with the MD 453. The note that comes before MD 453 is ""Western terminus; I-68 Exit 77, Woodmont.""",,,,False,False,0.0,0.0,0.0
+187,nt-13287,original,2,887,6,True,True,0,4.,,,,False,False,0.0,0.0,0.0
+187,nt-13287,original,3,887,6,True,True,0,Hancock,,,,False,False,0.0,0.0,0.0
+187,nt-13287,altered,0,887,20,True,True,0,"Karavanid Progress Update
+
+Provide any localized progress updates in your current area.",,,,False,False,0.0,0.0,0.0
+187,nt-13287,altered,1,887,6,True,True,0,Westward,,,,False,False,0.0,0.0,0.0
+187,nt-13287,altered,2,887,8,True,True,0,Hotel Accommodation Data,,,,False,False,0.0,0.0,0.0
+187,nt-13287,altered,3,887,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+188,nt-7688,original,0,886,5,True,True,0,6,,,,False,False,0.0,0.0,-0.125
+188,nt-7688,original,1,886,5,True,True,0,6,,,,False,False,0.0,-0.125,-0.29166666666666663
+188,nt-7688,original,2,886,5,True,True,0,4,,,,True,False,1.0,0.5,0.5416666666666666
+188,nt-7688,original,3,886,14,True,True,1,"Legume fix
+</think>
+
+Nurture me",,,,False,False,0.0,0.0,-0.125
+188,nt-7688,altered,0,886,8,True,True,0,2006,,,,False,False,0.0,0.0,-0.125
+188,nt-7688,altered,1,886,5,True,True,0,4,,,,False,True,-0.25,-0.125,-0.29166666666666663
+188,nt-7688,altered,2,886,5,True,True,0,6,,,,False,False,0.0,0.5,0.5416666666666666
+188,nt-7688,altered,3,886,25,True,True,1,"Broody, you're asking for the total number of tournaments in 2006.
+</think>",,,,False,False,0.0,0.0,-0.125
+189,nt-9365,query,0,553,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+189,nt-9365,query,1,553,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+189,nt-9365,query,2,553,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+189,nt-9365,query,3,553,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+190,nt-12790,original,0,1289,6,True,True,0,South Africa,,,,False,False,0.0,0.0,0.0
+190,nt-12790,original,1,1289,9,True,True,0,Georgio di Milan,,,,False,False,0.0,0.0,0.0
+190,nt-12790,original,2,1289,7,True,True,0,Bob Sagan,,,,False,False,0.0,0.0,0.0
+190,nt-12790,original,3,1289,5,True,True,0,Spain,,,,False,False,0.0,0.0,0.0
+190,nt-12790,altered,0,1296,12,True,True,0,Who placed first in round 8?,,,,False,False,0.0,0.0,0.0
+190,nt-12790,altered,1,1296,10,True,True,0,Apakah yang paling berhasil.,,,,False,False,0.0,0.0,0.0
+190,nt-12790,altered,2,1296,8,True,True,0,Rd.1,,,,False,False,0.0,0.0,0.0
+190,nt-12790,altered,3,1296,5,True,True,0,Red,,,,False,False,0.0,0.0,0.0
+191,nt-1819,original,0,1019,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+191,nt-1819,original,1,1019,11,True,True,0,Miloš Pavlović,,,,False,False,0.0,0.0,0.0
+191,nt-1819,original,2,1019,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+191,nt-1819,original,3,1019,8,True,True,0,Abrazi Racing,,,,False,False,0.0,0.0,0.0
+191,nt-1819,altered,0,1014,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+191,nt-1819,altered,1,1014,24,True,True,0,"Giudice, è Azeta Racing o Target Racing che ha vinto il Circuito di Misano?",,,,False,False,0.0,0.0,0.0
+191,nt-1819,altered,2,1014,5,True,True,0,4,,,,False,False,0.0,0.0,0.0
+191,nt-1819,altered,3,1014,31,True,True,0,"Sztywny
+
+Widok naznaczony ""Azeta Racing"" zdarzonego w sezonie mistrzy świata.",,,,False,False,0.0,0.0,0.0
+192,nt-5070,query,0,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+192,nt-5070,query,1,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+192,nt-5070,query,2,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17
+192,nt-5070,query,3,547,51,True,True,0,"<tool_call>
+<function=database_query>
+<parameter=database_name>
+table.sqlite
+</parameter>
+<parameter=statement>
+SELECT * FROM records ORDER BY rowid
+</parameter>
+</function>
+</tool_call>",SELECT * FROM records ORDER BY rowid,True,0,,,0.1,0.1,-1.3877787807814457e-17

@@ -1,5 +1,8 @@
 # Evidence required for a stronger recurrent release
 
+The original-Base four-layer policy completed its 192 online training updates. A nonzero execution-reward gradient occurred on 42 updates. No sampled SQL returned a gold scalar. One pair of visible short answers was correct in both worlds. All twelve independently sampled trajectories matched the original token IDs. The portable supervised parent also ran offline through the installed CLI, including a fresh database and plain-text request for both decoders. [Training report](../paper/table-policy-learning.pdf) · [Sampling replay](measurements/table-policy-native-sampling.json) · [Offline installation receipt](measurements/reentry-installed.json)
+
+
 The release target is one runnable recurrent checkpoint that improves verified tool execution and reasoning on fresh work, preserves established capabilities, and processes at least 131,072 actual input tokens. The comparison must also report response quality and measured efficiency for the same requests. The repository currently contains several individually verified gains on different weights. [Capability scoreboard](CAPABILITY_SCOREBOARD.md)
 
 ## Current qualification sequence
