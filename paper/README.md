@@ -19,6 +19,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Machine-readable paired scores and timings for the frozen tool model](typed-transfer.csv)
 - [Selective refinement scores on all 300 passages by source suite and domain](selective-domains.csv)
 - [Fresh source-level loss and accuracy changes](selective-sources.csv)
+- [NLL and exact predictions by unseen work in the source-balanced comparison](source-balanced-works.csv)
 - [Shared-session lexical overlap for each of the 48 fresh human requests](shared-training-overlap.csv)
 - [Overlap between folded-model training contexts and every fresh human prompt](folded-training-overlap.csv)
 - [Semantic-judgment input lengths, original post references and lexical overlap](meaning-input-audit.csv)
