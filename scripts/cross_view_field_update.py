@@ -11,6 +11,7 @@ from zipfile import ZipFile
 
 from field_binding_update import history_update
 from field_kit import write_archive
+from field_wheelhouse import wheelhouse
 from portable_base_wheel import NETWORK_GUARD
 from verify_runtime_wheel import CODE, ROOT, build, trace
 
@@ -39,6 +40,13 @@ def contents(tmp, revision, kit):
         "README.md": ROOT / "docs/CROSS_VIEW_UPDATE.md",
         "sources/update.bundle": history_update(tmp, revision, kit["source_revision"]),
     }
+    with ZipFile(ROOT / "exports" / kit["name"]) as parent:
+        available = set(parent.namelist())
+    for dep in wheelhouse(
+        ROOT / "exports/field-figure-dependencies-04", only_group="figures"
+    ):
+        if "dependencies/" + dep.name not in available:
+            files["figure-tools/" + dep.name] = dep
     for path in source.iterdir():
         files["policy/" + path.name] = path
     for p in (ROOT / "paper").iterdir():
@@ -205,6 +213,7 @@ def main():
             work / "dependencies",
             work / "runtime" / wheel,
             *sorted((work / "paper-tools").glob("*.whl")),
+            *sorted((work / "figure-tools").glob("*.whl")),
         )
         command("uv", "pip", "check", "--python", python)
         cache = tmp / "empty"
@@ -216,6 +225,7 @@ def main():
             HUGGINGFACE_HUB_CACHE=str(cache / "hub"),
             HF_HUB_OFFLINE="1",
             TRANSFORMERS_OFFLINE="1",
+            MPLCONFIGDIR=str(tmp / "matplotlib"),
         )
         site = subprocess.check_output(
             [
@@ -241,6 +251,43 @@ def main():
         )
         paper_code = "from pathlib import Path;import runpy; e=runpy.run_path('scripts/assemble_evidence_paper.py');e['edition'](Path('paper'),'cross-view',verify=True)"
         command(python, "-I", "-c", NETWORK_GUARD + paper_code, cwd=work, env=env)
+        analysis = tmp / "analysis"
+        command("git", "clone", "--quiet", "--local", "--branch", "main", git, analysis)
+        (analysis / "exports").mkdir(exist_ok=True)
+        (analysis / "exports/tool-language-packed-05").symlink_to(work / "release-05")
+        external = analysis / "data/research_external"
+        external.mkdir(parents=True, exist_ok=True)
+        for rel in ("squad-train-v1.1.json", "quoref/train-dev.zip"):
+            (external / rel).parent.mkdir(parents=True, exist_ok=True)
+            (external / rel).symlink_to(work / "sources" / rel)
+        generated = [
+            name
+            for name in hashes
+            if name.startswith("paper/cross-view")
+            and (
+                name.endswith(
+                    (".csv", ".svg", ".json", ".pdf", "-metrics.typ", "-intervals.typ")
+                )
+            )
+        ] + ["paper/loopqwen-study.pdf"]
+        for name in generated:
+            (analysis / name).unlink()
+        modules = (
+            "cross_view_material",
+            "cross_view_source_check",
+            "cross_view_exposure",
+            "cross_view_reading",
+            "paper_cross_view",
+        )
+        for module in modules:
+            code = (
+                "import runpy,sys;from pathlib import Path;sys.path.append(str(Path.cwd()));"
+                "import loopqwen;assert Path(loopqwen.__file__).is_relative_to(sys.prefix);"
+                f"runpy.run_module('scripts.{module}',run_name='__main__')"
+            )
+            command(python, "-I", "-c", NETWORK_GUARD + code, cwd=analysis, env=env)
+        for name in generated:
+            assert digest(analysis / name) == hashes[name], name
         results = []
         for key, i, ident in cases:
             args = read(work / "examples" / (key + ".json"))
@@ -283,6 +330,7 @@ def main():
             "compiled_layer": digest(work / "policy/cross-view.safetensors"),
             "verified_cases": results,
             "paper_sha256": digest(work / "paper/loopqwen-study.pdf"),
+            "regenerated_from_original_traces": sorted(generated),
         }
         if ZIP.exists():
             assert digest(ZIP) == receipt["sha256"]
