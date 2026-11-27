@@ -1,0 +1,16 @@
+{
+  "material": "0e1fe2d9eaa5bb380466db057498c9bf4eaee8248c22a8df13c51abfa18902cf",
+  "bank": "e58afd3a608914f2c407f5b114feeb9ddd23d97ac351127491baed3ba17635c1",
+  "parent": "347e7ddfa7b0f8f5c715e2b3e86331225781ab813ef9a1f393ab6888a0af896a",
+  "implementation": "3dc59842bcfa801ccc6f61aef0d57fa1e3ff9a08483000f36813e3f523373872",
+  "seed": 215791,
+  "epochs": 2,
+  "batch": 4,
+  "chunk": 16,
+  "learning_rate": 0.00012,
+  "seconds": 2800,
+  "peak_bytes": 3221225472,
+  "minimum_available": 1610612736.0,
+  "method": "Run two shared recurrent reads on the actual full causal prefix for each output token. Cache the unchanged native trunk only. Optimize every shared step and source-mixture tensor, with a frozen donor. Minimize whole-turn normalized target NLL plus 0.65 times mean softplus(1 - correct_vs_plausible_wrong_log_probability_margin) at each first divergent action, value or program token. On nonfinancial rehearsal examples add 0.20 times squared target log-probability change from the unmodified parent. Weight complete rows equally. No tuning or early stopping on the pilot.",
+  "decision": "Reserve all 16 previously identified pilot reports from this intervention. Parent training may have seen the reports. Require all finite updates, lower pilot NLL separately on open, deliver, repair and recovered histories, at least .10 nat improvement in mean contrastive loss for repair and deliver separately, positive two-versus-one-read pilot answer-NLL gain on average, and <=.05 nat average rehearsal pilot NLL increase. A failed gate closes downstream free-generation and product tests for these weights. A successful gate opens free generation on both correct and crossed pilot histories before any fresh direct Base comparison. Archive full or partial results."
+}
