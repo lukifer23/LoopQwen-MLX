@@ -93,3 +93,48 @@ def test_fitted_increment_readout_requires_actual_physical_differences(passes):
                 readout(states[i, j]), measured[i, j], rtol=0.02, atol=0.02
             ).item()
     assert readout.up.weight.shape == (64, 32) and readout.down.shape == (4, 8, 64)
+
+
+def test_increment_objective_matches_full_vocabulary_kl_and_changed_token_odds():
+    from loopqwen.research.contrastive_fit import objective
+
+    acquire()
+    mx.random.seed(51419)
+    text = TextModel(replace(tiny_text_decoder().args, num_hidden_layers=24))
+    spec = {
+        "passes": 2,
+        "rank": 8,
+        "gate_rank": 4,
+        "increment_readout": True,
+        "margin": 1.0,
+        "teacher_kl": 0.18,
+        "preference_weight": 12.0,
+    }
+    model = ConditionalReentry(text, spec)
+    model.eval()
+    ids = mx.array([[3, 15, 7, 6, 11, 29]])
+    features = model.features(ids)[0, :-1]
+    labels = ids[0, 1:]
+    mask = mx.array([1.0, 1.0, 1.0, 0.0, 1.0])
+    contrast = mx.array([[0.0, -1.0, 0.0, 1.0, 0.0]])
+    model.readout.up.weight = mx.random.normal(model.readout.up.weight.shape) * 0.04
+    (loss, ce, kl, preference), grad = nn.value_and_grad(
+        model.readout, objective(model, spec)
+    )(model.readout, features, labels, mask, contrast)
+
+    def logits(h):
+        return model.project(model.text.model.norm(h)).astype(mx.float32)
+
+    initial, trained = (logits(h) for h in (features[:, 0], model.readout(features)))
+    nll = nn.losses.cross_entropy(trained, labels, reduction="none")
+    p, q = mx.softmax(initial, axis=-1), mx.softmax(trained, axis=-1)
+    expected_kl = mx.sum((p * (mx.log(p) - mx.log(q))).sum(axis=-1) * mask)
+    assert mx.allclose(ce, (nll * mask).sum(), atol=1e-5).item()
+    assert mx.allclose(kl, expected_kl, atol=1e-5).item() and kl.item() > 0
+    assert mx.allclose(preference, nn.softplus(1 + nll[1] - nll[3]), atol=1e-5).item()
+    assert mx.allclose(loss, ce + 0.18 * kl + 12 * preference, atol=1e-5).item()
+    assert all(
+        mx.abs(g).sum().item() > 0
+        for k, g in tree_flatten(grad)
+        if k != "context.down.weight"
+    )
