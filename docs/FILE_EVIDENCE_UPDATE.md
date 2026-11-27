@@ -2,6 +2,8 @@
 
 This update supplies the newly trained two-layer adapter, the compact six-layer reader's reconstruction inputs, the source sentences and real edit records, the field measurements and the consolidated paper. Both experimental models use the original Qwen Base weights. The update includes the first attempt’s memory-limit decision, the second fit’s native gradient comparison and the exact inputs used for its successful optimizer steps. The held-out test was reserved across both registrations. Kit 01 supplies those weights and the locked native dependencies. The ordinary comparator uses its certified BF16 text tensors. Use an Apple Silicon Mac with Python 3.12 and uv.
 
+The released archive is 62,941,568 bytes. Its SHA-256 is `b32e08b8e0494b768ecc1b4f733df184f92644f3d2d0144ec7899d48fbbfa399`. A fresh installation verified 114 payloads. [Installed verification](measurements/field-evidence-update-03.json)
+
 Extract kit 01 and update 03 into separate directories. From the update directory run the commands below, replacing the kit path with its extracted location.
 
 ```sh
