@@ -55,7 +55,7 @@ The accompanying CSV includes every request, source, caller-visible reply, first
 
 #pagebreak()
 = How much varies between articles?
-Each article contributes two questions in two settings to both models. Counting those eight replies as independent would understate uncertainty. For this descriptive analysis we resampled 20 whole articles with replacement 20,000 times, preserving all questions, settings and arms within an article. The table gives the difference on the original sample and percentile bounds. The eight table-retention requests have a different sampling unit and are excluded. The exact paired article test on page one governs the decision.
+Each article contributes two questions in two settings to both models. Counting those eight replies as independent would understate uncertainty. For this descriptive analysis we resampled 20 whole articles with replacement 20,000 times, preserving all questions, settings and arms within an article. The table gives the difference on the original sample and percentile bounds. The eight table-retention requests have a different sampling unit and are excluded. The primary requires at least five net additional complete articles and two-sided exact paired p ≤ 0.05. With zero discordant losses, six wins are needed to meet both conditions. A sparse 20-article sample limits the precision of secondary intervals.
 
 #include "cross-view-intervals.typ"
 
