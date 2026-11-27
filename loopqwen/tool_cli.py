@@ -114,13 +114,19 @@ def add_arguments(p, checkpoint=None):
 
 def open_assistant(args):
     if getattr(args, "session_policy", None) is not None:
+        from .io import read
+
+        policy = read(args.session_policy / "registration.json")
+        if policy.get("observation_review"):
+            from .observation_review import ObservationAssistant
+
+            if getattr(args, "tool_format", "compact") != "qwen":
+                raise ValueError("Observation review requires --tool-format qwen")
+            return ObservationAssistant(args.checkpoint, args.session_policy)
         if getattr(args, "tool_format", "compact") != "compact":
             raise ValueError(
                 "This session policy was fitted with the compact tool template"
             )
-        from .io import read
-
-        policy = read(args.session_policy / "registration.json")
         if policy.get("callback_recovery"):
             from .callback_recovery import RecoveryAssistant
 

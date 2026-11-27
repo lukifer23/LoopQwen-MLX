@@ -179,6 +179,7 @@ def export(
             "document_tools.py",
             "file_tools.py",
             "shared_session.py",
+            "observation_review.py",
             "unified_session.py",
             "callback_recovery.py",
             "tool_cli.py",

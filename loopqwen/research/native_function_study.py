@@ -28,6 +28,10 @@ from .tool_fit import build, fit
 
 def optimize(spec, root, budget):
     model, tok = build(spec, 2)
+    fit_messages(model, tok, spec, root, budget)
+
+
+def fit_messages(model, tok, spec, root, budget):
     with TemporaryDirectory(dir=root.parent) as directory:
 
         def prepare(net, tokenizer, material, budget):
@@ -191,7 +195,7 @@ def outcome(spec, data):
     )
 
 
-def replay(tok, w, tools, history, request, spec, side):
+def replay(tok, w, tools, history, request, spec, side, *, after_callback=False):
     tr = request["trajectory"]
     decl = qwen_tools.declarations(tools)
     funcs = {t.name: t for t in tools}
@@ -218,7 +222,9 @@ def replay(tok, w, tools, history, request, spec, side):
         histories = t["kv_history"]
         sites = {(v["layer"], v["turn"]) for v in histories}
         assert sites == {(i, 0) for i in (3, 7, 11, 15, 19, 23)} | (
-            {(23, 1)} if side == "candidate" else set()
+            {(23, 1)}
+            if side == "candidate" and (not after_callback or j > 0)
+            else set()
         )
         assert all(v["retained"] == v["offset"] == length for v in histories)
         if ids[-1] not in stops:

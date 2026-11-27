@@ -1,0 +1,29 @@
+{
+  "prefix_bits": 8,
+  "rank": 32,
+  "start_layer": 23,
+  "max_tokens": 384,
+  "max_turns": 3,
+  "id": "observation-review-01",
+  "question": "Can a recurrent Base decoder distinguish an executable but incorrect calculation from a correct one after reading the real return, and improve freely generated human answers and service use?",
+  "release": "research/results/packed-release-retention-04",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "training": "research/data/observation-review-training.json",
+  "material": "research/data/observation-review-panel.json",
+  "fit_seed": 924702,
+  "updates": 900,
+  "batch": 6,
+  "lr": 8e-05,
+  "limits": {
+    "wall_seconds": 1800,
+    "peak_gib": 7.0,
+    "available_gib": 1.4
+  },
+  "protocol": "Pinned unmerged Base text from release 05. Quantize embeddings and projections outside the last layer to affine 8-bit MLX groups of 64. Share these arrays between a K1 opening and a stabilized K2 review after each real callback. Fit only rank-32 adapters at layer 23 from scratch. 900 AdamW updates, six random teacher-forced turns per update on 1,241 examples. They include both valid but wrong and correct worked calculations from 160 GSM8K and 160 MAWPS questions, installed package substitutions and 128 independent typed responses. Ordinary BF16 pinned Base is control. Candidate then control, identical official native Qwen function schemas, thinking enabled, greedy 384 tokens/turn and three turns/request. Charge cold quantization, tokenizer and loading on first request. Same 82 ordered dialogues and 94 requests with self-generated follow-up history. Primary human arithmetic is 24 new ASDiv and 24 new SVAMP. Retention is 22 reused public tools, six two-request file and six two-request package dialogues. After free evaluation compare two native next-token logits under matched forced empty-thought prefixes on 24 other unseen SVAMP items, each with a real correct and real incorrect numerical return. Success requires a positive answer-over-recall margin on the correct receipt and a negative one on the incorrect receipt. Do not use this probe to alter any emitted token.",
+  "gate": "Fresh final numeric answers: at least four net wins over Base plus two-sided exact paired p<=.05, zero source-level decline in either final answers or grounded successes, at least four grounded repairs of an initially wrong numeric callback. No strict dialogue decline in public, file, or package family. Across all 82 dialogues strict wins exceed losses at p<=.05. Require wall, summed TTFT and max MLX peak at most Base. Mechanism requires 16/24 doubly correct receipt pairs plus improvement over Base at exact paired p<=.05. Stop at any prerequisite failure or budget limit. Any missed gate closes promotion, independent replication and equally trained K1 attribution for this policy.",
+  "observation_review": true,
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467"
+}
