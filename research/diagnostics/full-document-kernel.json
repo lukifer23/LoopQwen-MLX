@@ -1,0 +1,8 @@
+{
+  "source": "938bb78f31b2141a81645e39e29060e1646a3291606a8419408727fd919b3d57",
+  "script": "a2184ddc5b8e0362dbdaf05ac96d942bd6724c7be282caf164870d451e7a27ae",
+  "prior": "1850719427d3ac691fb39d6291a59001f6f66f4e5d29ea13abd13e061d4702e3",
+  "features": "360c5e9c815ed829ab3e8c6684a2a2dc2ce3fd50fd9f676ba0a66479b6d262be",
+  "index": 1,
+  "protocol": "Engineering only. Use the first and only completed update of the closed full-document run as a reference before optimization. Same source version, whole document, initialization, supervised labels, marked span, two native visits and trainable matrices. Compute one full gradient with the Metal per-partition softmax moments, after passing dense nested two-visit forward/derivative tests in FP32 and FP16 for single and causal multi-query suffixes. Compare the gradient norm, unmodified target likelihood and evidence likelihood. This task does not fit weights and does not evaluate held names. Stop if more than 120 seconds or 3 GiB, check system availability before and after the operation. A qualifying implementation must achieve under 3 GiB peak, absolute NLL differences below .003, finite positive gradients in aggregate and relative norm error under 1%. Separate training on new documents requires a new registration."
+}
