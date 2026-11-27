@@ -427,9 +427,11 @@ def build():
     )
     from scripts.table_policy_answer_concentration import run as concentration
 
+    from scripts import table_policy_latency
     from scripts.table_reasoning_reading import run as source_reading
 
     concentration()
+    latency = table_policy_latency.render(table_policy_latency.build())
     source_reading("report")
     reasoning = typst.compile(
         str(P / "table-reasoning-reading.typ"), root=str(P.resolve().parent), timestamp=0
@@ -438,6 +440,7 @@ def build():
     for title, raw in (
         ("Four-layer direct comparison", new),
         ("Masked source reading of causal and conversational reasoning", reasoning),
+        ("First-token latency and sources of the time saving", latency),
         (
             "Changed evidence and identical answers",
             (P / "table-answer-concentration.pdf").read_bytes(),
