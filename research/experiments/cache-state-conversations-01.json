@@ -1,0 +1,87 @@
+{
+  "id": "cache-state-conversations-01",
+  "requires": "research/results/cache-state-prefill-01",
+  "prerequisite_sha256": "ac0d969ed25e9e4bc320a549867d5ab4f90ac1003d2933182db33d9f1b6ea44d",
+  "checkpoint": "exports/tool-language-packed-05",
+  "wheel_revision": "80fee067f4a89a83a2107833400fcb99015f68d5",
+  "material": "research/data/valid-return-panel.json",
+  "file_sha256": "5b6a3f87f7e9b6a9b81d3fb56a62d1eb27431ba02c902054cf34b96283a1c3a1",
+  "cases": [
+    {
+      "id": "packages",
+      "format": "compact",
+      "prompts": [
+        "इस वातावरण में स्थापित numpy का संस्करण क्या है? उपलब्ध टूल का उपयोग करें।",
+        "और mlx का संस्करण क्या है?"
+      ],
+      "flags": [
+        "--packages"
+      ]
+    },
+    {
+      "id": "file",
+      "format": "compact",
+      "prompts": [
+        "How many bytes are in research/experiments/native-function-dialogue-01.json? Please check it.",
+        "Now read the same file and tell me the number of lines."
+      ],
+      "flags": [
+        "--file",
+        "research/experiments/native-function-dialogue-01.json"
+      ]
+    },
+    {
+      "id": "agenda",
+      "format": "qwen",
+      "prompts": [
+        "Use the agenda file and calendar service to check the scheduled weekday for \"Kernel support for Mobile Linux: The missing 20%\".\n\nClaim: This session was scheduled on Saturday.\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain.",
+        "Check the venue entry for \"Kernel support for Mobile Linux: The missing 20%\" in the agenda.\n\nClaim: The listed room was UA2.114 (Baudoux).\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain."
+      ],
+      "flags": [
+        "--keyed-csv",
+        "brussels-program-0.csv",
+        "--resource",
+        "calendar"
+      ],
+      "ids": [
+        "2025-4836-weekday",
+        "2025-4836-room"
+      ]
+    },
+    {
+      "id": "wheel",
+      "format": "qwen",
+      "prompts": [
+        "Consult the published interpreter constraint for \"tomlkit\" in the release manifest.\n\nClaim: Python 3.7.17 is permitted by tomlkit 0.13.3.\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain.",
+        "Consult the published interpreter constraint for \"tomlkit\" in the release manifest.\n\nClaim: Python 3.8.20 is permitted by tomlkit 0.13.3.\nDoes the evidence establish the claim, rule it out, or leave it uncertain? Check your reasoning and give one final verdict: true, false, or uncertain."
+      ],
+      "flags": [
+        "--keyed-csv",
+        "release-manifest.csv"
+      ],
+      "ids": [
+        "tomlkit-3.7.17",
+        "tomlkit-3.8.20"
+      ]
+    }
+  ],
+  "order": [
+    "stock",
+    "state",
+    "state",
+    "stock",
+    "stock",
+    "state",
+    "state",
+    "stock"
+  ],
+  "max_tokens": 256,
+  "max_turns": 3,
+  "limits": {
+    "wall_seconds": 1000,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "question": "Does the resident prefill gain survive a clean installed CLI, real callback results, conversation prefix reuse, and process startup?",
+  "protocol": "Build the same pinned wheel twice and install it outside the checkout with an empty model cache and blocked networking. Four input-selected two-exchange workloads (installed package versions, real source file, real conference schedule, wheel compatibility). Two compact and two Qwen tool conversations. Run the four workloads for eight rounds in AB, BA, AB, BA order. Each launched CLI uses the qualified two-visit release 05, unchanged tools, a retained prefix, 3 turns and 256 unrestricted greedy tokens per turn. Compare stock vs --cache-state-prefill in the exact same wheel. Preserve every input/output token, observation, status, physical attention history and reused prefix length. Require one or more state-evaluated blocks on each workload and zero on stock. Require successful callbacks on at least two domains, reused prompt blocks in both arms, no greater cold peak, faster pooled cold first token and full CLI duration, at least 1% lower pooled native turn opening with >=3 of 4 paired block wins, and no lower decode throughput. Measure full process startup, first actual token from parent launch, native turn openings, output lengths, native decodes and peak bytes. If any condition fails, retain the opt-in setting and archive without general deployment promotion. Separate engineering comparison on the original release weights, no claim about task quality or 128K performance."
+}
