@@ -318,6 +318,31 @@ print(reply["status"], reply["answer"])
 
 The external-history continuation was also checked on the trained conditional model. After a real callback, resuming from its supplied history reproduced the uninterrupted model's 542-token opening and all 70 generated token IDs. [Uninterrupted and resumed traces](measurements/external-tool-native.json)
 
+### Reproducing the source-reasoning and tool comparisons
+
+The registered staged pair ran 180 identical user requests through each model. It includes complete answers, actual provider observations, waiting time, peak native memory and full-history traces. The reports below rebuild from the immutable local archives and the separately committed source judgments. They also recount every financial calculator intervention and all four database histories per question.
+
+```sh
+.venv/bin/python -m scripts.research_archive staged-query-transfer-01 --verify
+.venv/bin/python -m scripts.shared_query_reading report --staged
+.venv/bin/python -m scripts.staged_query_distribution report
+.venv/bin/python -m scripts.staged_tool_consistency report
+.venv/bin/python -m scripts.shared_query_calculation_replay --report --staged
+.venv/bin/python -m scripts.staged_completion_audit
+.venv/bin/python -m scripts.paper_repair_query
+.venv/bin/python -m scripts.paper_overview
+```
+
+The corrective fit starts from the exact preceding two-read weights. It learns from 672 original training turns and the 270 continuations on which that parent remained inside its thought channel at the assigned prefix length. It also rehearses 192 complete language and tool turns. The corrected continuation is a training target. Evaluated assistants start with the original published user prompt and generate freely. The registered fresh study compares one model against untouched Base on 24 new StrategyQA topics and 24 separate TAT-QA tables. [Native training-prefix receipt](../research/sources/learner-prefix/qualification.json) · [Corrective fit](../research/experiments/learner-prefix-fit-01.json) · [Fresh study](../research/experiments/learner-prefix-transfer-01.json)
+
+```sh
+.venv/bin/python -m scripts.learner_prefix_panel
+.venv/bin/python -m scripts.verify_learner_prefix_panel
+.venv/bin/python -m scripts.long_branch_sources --download
+```
+
+The last command reconstructs the six separate long-context training sources from pinned upstream commits. Each question asks for a value that changed between two actual files. The source receipt records the deciding token offsets and the exact complete user prompt. [All changed source values and hashes](../research/sources/long-branch/qualification.json)
+
 ### Running the trained two-read model with a full context
 
 The shared-query decoder uses the packed instruction backbone from the conditional study and the trained controller under `research/results/repair-query-fit-01`. On a long document the `--staged-context-dir` option moves completed attention prefixes into private temporary files. Each generated position still reads the complete prefix twice at the final Qwen layer. Use an existing scratch directory with several GiB free. A complete 148,364-token lockfile occupied 1.98 GiB of temporary space during the native qualification. [Exact logits and physical histories](measurements/staged-query-memory.json)
