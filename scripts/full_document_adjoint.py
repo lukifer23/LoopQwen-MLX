@@ -15,7 +15,6 @@ from loopqwen.content_read import ContentRead
 from loopqwen.frozen_memory_attention import frozen_attention
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read
-from loopqwen.research.native_function_data import token_pair
 from loopqwen.research.shared_query_fit import cited_loss
 from loopqwen.research.table_reentry_fit import apply
 from loopqwen.shared_query_assistant import SharedQueryAssistant
@@ -46,7 +45,7 @@ def spec():
         implementation={
             str(p): digest(p)
             for p in (
-                Path(__file__),
+                Path("scripts/full_document_adjoint.py"),
                 Path("loopqwen/frozen_memory_attention.py"),
                 Path("loopqwen/content_read.py"),
                 Path("loopqwen/shared_query.py"),
