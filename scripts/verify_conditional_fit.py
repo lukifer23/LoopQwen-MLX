@@ -15,13 +15,14 @@ from scripts.verify_conditional_features import physical
 OUT = Path("docs/measurements/conditional-trained-native-replay.json")
 
 
+def hidden_cost(net, hidden, labels):
+    logits = net.project(net.text.model.norm(hidden)).astype(mx.float32)
+    selected = mx.take_along_axis(logits, labels[:, None], axis=1)[:, 0]
+    return mx.logsumexp(logits, axis=1) - selected
+
+
 def token_costs(net, state, labels):
-    values = []
-    for hidden in (state[:, 0], net.readout(state)):
-        logits = net.project(net.text.model.norm(hidden)).astype(mx.float32)
-        selected = mx.take_along_axis(logits, labels[:, None], axis=1)[:, 0]
-        values.append(mx.logsumexp(logits, axis=1) - selected)
-    return values
+    return [hidden_cost(net, h, labels) for h in (state[:, 0], net.readout(state))]
 
 
 def program_margins(net, tok, source, spec):
@@ -81,13 +82,20 @@ def run():
     for q in probes:
         p, y = token_pair(actor.tokenizer, source[q["id"]])
         state = physical(net, p + y[:-1])[len(p) - 1 :]
-        nll = [mx.mean(v).item() for v in token_costs(net, state, mx.array(y))]
+        labels = mx.array(y)
+        nll = [mx.mean(v).item() for v in token_costs(net, state, labels)]
+        # Hold the learned weights and ordinary exit fixed and remove all new visit information.
+        identical = mx.broadcast_to(state[:, :1], state.shape)
+        collapsed_nll = mx.mean(hidden_cost(net, net.readout(identical), labels)).item()
         rec = {
             "id": q["id"],
             "group": q["group"],
             "positions": len(y),
             "ordinary": nll[0],
             "trained": nll[1],
+            "trained_with_ordinary_state_at_every_site": collapsed_nll,
+            "gain_from_actual_states_over_repeated_ordinary_state": collapsed_nll
+            - nll[1],
             "ordinary_abs_error": abs(nll[0] - q["ordinary"]),
             "trained_abs_error": abs(nll[1] - q["trained"]),
         }
