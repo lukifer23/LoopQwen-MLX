@@ -118,7 +118,7 @@ def rows_and_blind(root):
             observed_steps = progress(
                 [executions({"turns": [t]}) for t in tr["turns"]],
                 len(expected),
-                lambda pos, e: e == expected[pos],
+                lambda pos, e, target=expected: e == target[pos],
             )
             fields = {
                 "turn_dependent_grounding": bool(
