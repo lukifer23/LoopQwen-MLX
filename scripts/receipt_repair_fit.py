@@ -18,7 +18,7 @@ import psutil
 
 from loopqwen.evaluation.mechanism import packed, unpack
 from loopqwen.io import read, digest
-from loopqwen.research.shared_query_features import arrays
+from loopqwen.evaluation.generation_eval import advance_cache
 from loopqwen.research.table_reentry_fit import apply, accumulate
 from loopqwen.shared_query_assistant import SharedQueryAssistant
 from scripts.receipt_repair_material import MATERIAL, ROOT, SEED
@@ -26,8 +26,9 @@ from scripts.register_source_copy import FIT, RESULT
 from scripts.table_policy_material import persist
 from scripts.table_policy_reading import committed
 
-PLAN = Path("research/diagnostics/receipt-repair-fit.json")
-OUT = Path("docs/measurements/receipt-repair-fit")
+ORIGINAL = Path("research/diagnostics/receipt-repair-fit.json")
+PLAN = Path("research/diagnostics/receipt-repair-fit-streamed.json")
+OUT = Path("docs/measurements/receipt-repair-fit-streamed")
 PARENT = RESULT / FIT
 FINANCE = ("open", "deliver", "repair", "recovered")
 CHUNK = 16
@@ -37,6 +38,9 @@ BATCH = 4
 
 def plan():
     return dict(
+        predecessor=digest(ORIGINAL),
+        interrupted=digest(Path("docs/measurements/receipt-repair-fit/receipt.json")),
+        recovery="Bound the live trunk activation graph with native 128-token cache-state blocks, materialize each retained target-probability slice immediately, and cap the allocator cache at 64 MiB. Recheck chunked native scores against a one-shot forward in the causal gradient regression before launching. Preserve all prompts, target tokens, loss, order, fit and selection gates. Charge the original 69 seconds against the shared maximum.",
         material=digest(MATERIAL),
         bank=digest(ROOT / "inventory.json"),
         parent=digest(PARENT / "checksums.json"),
@@ -46,12 +50,30 @@ def plan():
         batch=BATCH,
         chunk=CHUNK,
         learning_rate=0.00012,
-        seconds=2800,
+        seconds=2731,
         peak_bytes=3 * 2**30,
         minimum_available=1.5 * 2**30,
         method="Run two shared recurrent reads on the actual full causal prefix for each output token. Cache the unchanged native trunk only. Optimize every shared step and source-mixture tensor, with a frozen donor. Minimize whole-turn normalized target NLL plus 0.65 times mean softplus(1 - correct_vs_plausible_wrong_log_probability_margin) at each first divergent action, value or program token. On nonfinancial rehearsal examples add 0.20 times squared target log-probability change from the unmodified parent. Weight complete rows equally. No tuning or early stopping on the pilot.",
         decision="Reserve all 16 previously identified pilot reports from this intervention. Parent training may have seen the reports. Require all finite updates, lower pilot NLL separately on open, deliver, repair and recovered histories, at least .10 nat improvement in mean contrastive loss for repair and deliver separately, positive two-versus-one-read pilot answer-NLL gain on average, and <=.05 nat average rehearsal pilot NLL increase. A failed gate closes downstream free-generation and product tests for these weights. A successful gate opens free generation on both correct and crossed pilot histories before any fresh direct Base comparison. Archive full or partial results.",
     )
+
+
+def streamed_arrays(net, row, block=128):
+    p, y = row["p"], row["y"]
+    cache = net.make_cache()
+    for i in range(0, len(p) - 1, block):
+        advance_cache(net, mx.array([p[i : min(i + block, len(p) - 1)]]), cache)
+    pre, ordinary, keys, values, offset, _ = net.encode(
+        mx.array([p[-1:] + y[:-1]]), cache
+    )
+    assert (
+        offset == len(p) - 1
+        and keys.shape == values.shape
+        and keys.shape[2] == len(p) + len(y) - 1
+    )
+    data = dict(pre=pre, ordinary=ordinary, keys=keys, values=values)
+    mx.eval(data)
+    return data
 
 
 def targets(row):
@@ -128,6 +150,7 @@ def measure():
         read(PARENT / "registration.json")["checkpoint"], PARENT
     )._tool_model
     net.step.unfreeze()
+    mx.set_cache_limit(64 * 2**20)
     rows = unpack(MATERIAL)
     training = [i for i, r in enumerate(rows) if r["split"] == "train"]
     pilot = [i for i, r in enumerate(rows) if r["split"] == "pilot"]
@@ -151,7 +174,9 @@ def measure():
                 ).strip()
                 != "1"
             ):
-                raise InterruptedError("system memory pressure")
+                raise InterruptedError(
+                    f"System memory pressure at {psutil.virtual_memory().available / 2**30:.2f} GiB available, {mx.get_active_memory()/2**30:.2f} GiB active"
+                )
 
     OUT.mkdir(parents=True, exist_ok=True)
     try:
@@ -162,15 +187,16 @@ def measure():
 
             for i, r in enumerate(rows):
                 guard()
-                z = arrays(net, r["p"], r["y"])
+                z = streamed_arrays(net, r)
                 z.update(targets(r))
                 if r["group"] not in FINANCE:
-                    values = [
-                        probabilities(
+                    values = []
+                    for j in range(0, len(r["y"]), CHUNK):
+                        result_slice = probabilities(
                             net, net.step, z, j, j + CHUNK, len(r["p"]) - 1, 2, False
                         )[0]
-                        for j in range(0, len(r["y"]), CHUNK)
-                    ]
+                        mx.eval(result_slice)
+                        values.append(result_slice)
                     z["reference"] = mx.concatenate(values, axis=1)
                 mx.save_safetensors(path(i), z)
                 if (i + 1) % 200 == 0:

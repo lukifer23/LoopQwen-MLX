@@ -23,8 +23,8 @@ from scripts.receipt_repair_fit import OUT as FIT, PLAN as TRAIN, PARENT
 from scripts.table_policy_material import persist
 from scripts.table_policy_reading import committed
 
-PLAN = Path("research/diagnostics/receipt-repair-pilot.json")
-OUT = Path("docs/measurements/receipt-repair-pilot")
+PLAN = Path("research/diagnostics/receipt-repair-pilot-streamed.json")
+OUT = Path("docs/measurements/receipt-repair-pilot-streamed")
 
 
 def reference(r):

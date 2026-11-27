@@ -5,7 +5,7 @@ from mlx.utils import tree_flatten
 from test_shared_query import model
 from loopqwen.research.shared_query_features import arrays
 from loopqwen.source_copy import SourceCopyRead
-from scripts.receipt_repair_fit import probabilities, targets, terms
+from scripts.receipt_repair_fit import probabilities, targets, terms, streamed_arrays
 
 
 def test_report_contrast_uses_only_observed_tokens_and_trains_both_paths():
@@ -16,6 +16,10 @@ def test_report_contrast_uses_only_observed_tokens_and_trains_both_paths():
         group="repair", p=[3, 4, 5], y=[6, 7, 8, 9, 10], negatives=[[1, 12], [3, 13]]
     )
     data = arrays(net, row["p"], row["y"])
+    segmented = streamed_arrays(net, row, block=1)
+    for field in ("pre", "ordinary", "keys", "values"):
+        assert mx.allclose(segmented[field], data[field], atol=2e-4).item()
+    data = segmented
     data.update(targets(row))
     whole = net(mx.array([row["p"] + row["y"][:-1]]))[:, 2:]
     labels = data["labels"]
