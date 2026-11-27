@@ -1,0 +1,90 @@
+{
+  "seed": 792571,
+  "withheld": "27b8310ea812ecdf1a11c892b45c8cb42e51f339dc970cfd79bb11b2a2cb77da",
+  "training": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
+  "limits": {
+    "complete_with_target": 2048,
+    "supervised_target": 384
+  },
+  "table_questions_enrolled": 942,
+  "qualitative_pairs_enrolled": 1201,
+  "service_pairs_enrolled": 900,
+  "withheld_groups_per_source": 24,
+  "withheld_service_dialogues": 48,
+  "service_methods": {
+    "FindBus": 120,
+    "GetEvents": 10,
+    "FindEvents": 119,
+    "GetEventDates": 59,
+    "SearchOnewayFlight": 118,
+    "SearchRoundtripFlights": 90,
+    "FindApartment": 59,
+    "SearchHotel": 27,
+    "GetTimesForMovie": 3,
+    "GetCarsAvailable": 118,
+    "FindRestaurants": 59,
+    "FindAttractions": 59,
+    "GetWeather": 59
+  },
+  "complete_turn_length_exclusions": {
+    "full_rows": 12
+  },
+  "groups": {
+    "operator": {
+      "turns": 942,
+      "response_positions": 68358,
+      "opening_positions": 521049
+    },
+    "inspect": {
+      "turns": 942,
+      "response_positions": 30144,
+      "opening_positions": 421893
+    },
+    "resolved": {
+      "turns": 1884,
+      "response_positions": 12512,
+      "opening_positions": 1266658,
+      "rejected_positions": 4448,
+      "preferred_positions": 4448,
+      "preferences": 1884
+    },
+    "full_rows": {
+      "turns": 1872,
+      "response_positions": 12431,
+      "opening_positions": 1957224,
+      "rejected_positions": 4417,
+      "preferred_positions": 4417,
+      "preferences": 1872
+    },
+    "qualitative": {
+      "turns": 2402,
+      "response_positions": 14369,
+      "opening_positions": 142662,
+      "rejected_positions": 3665,
+      "preferred_positions": 3665,
+      "preferences": 2402
+    },
+    "service_action": {
+      "turns": 1800,
+      "response_positions": 123870,
+      "opening_positions": 903466
+    },
+    "service_reply": {
+      "turns": 1800,
+      "response_positions": 57094,
+      "opening_positions": 1714343,
+      "rejected_positions": 47658,
+      "preferred_positions": 47658,
+      "preferences": 1800
+    }
+  },
+  "sources": {
+    "research/sources/multiworld-programs/training.json.gz": "2921a169fd481b7b722f84707eb7430374dceade079a11c6095dc84efda16612",
+    "research/sources/grounded-service-turns/training.json.gz": "b2b75a8c4d912aedd8c50b321bb4aef38f7e375bfbc79125a05c4f3b48720c58",
+    "research/sources/grounded-service-turns/paired-replies.json": "4bff2b1b1c5600f302ed4ff31a4d477106dd8e08e638c0eb0688e7747abf2da7",
+    "research/sources/qualitative-pairs/training.json.gz": "5b770b83ddd2913862b6caea2702c25a6fccfc55e9818135e1690380fa2f9846",
+    "research/sources/program-language/training.json.gz": "ee61a192f6156b9a58801d30b26292d3c2419554d35571031fb2c9aef5ff32e2",
+    "research/sources/changed-tables/originals.json": "eff96bfe351c7ec73fb3692145ae37e3bbf612c920eace39377c76c9f12cb552",
+    "research/data/dialogue-state-training.json": "65ea3a83965d652eef7c4785c13e11ea7abac844a60d20a55ae9408cbb49642b"
+  }
+}
