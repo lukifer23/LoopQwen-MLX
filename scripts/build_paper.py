@@ -121,6 +121,13 @@ def main(verify):
             ["scripts/paper_role_binding.py"],
         ):
             subprocess.run([sys.executable, *args], cwd=ROOT, check=True)
+    if (ROOT / "research/results/revision-evidence-01/decision.json").is_file():
+        for module in (
+            "scripts.revision_source_check",
+            "scripts.revision_answer_reading",
+            "scripts.paper_revision_evidence",
+        ):
+            subprocess.run([sys.executable, "-m", module], cwd=ROOT, check=True)
 
 
 if __name__ == "__main__":

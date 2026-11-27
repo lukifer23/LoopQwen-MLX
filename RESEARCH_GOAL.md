@@ -6,6 +6,8 @@ Each active session reads the [research state](research/state.json), registers a
 
 The [current research decision](docs/NEXT_EXPERIMENTS.md) records study decisions and the reasons for advancing or closing each branch. The [chronological ledger](docs/RESEARCH_LOG.md) records completed and interrupted comparisons.
 
+The compact Base-derived reader cut time and memory on real Wikipedia edits and lost six net complete article pairs. That branch is closed for promotion. The separate instruction-derived loop produced more grounded WikiSQL answers and still tied Base on complete meaning pairs. The qualified 128K runtime and the two experimental models are distinct. [75-page consolidation](paper/loopqwen-research.pdf) · [Measured native decisions](docs/CAPABILITY_SCOREBOARD.md)
+
 ## End-to-end decision plan
 
 | Question | Comparison and evidence | Decision |

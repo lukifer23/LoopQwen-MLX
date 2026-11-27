@@ -1,0 +1,226 @@
+{
+  "wheel_source": "79896bbee8df16c0d99592771e91af5f2404149b",
+  "wheel": "exports/compact-revision-runtime-01/loopqwen-0.1.0-py3-none-any.whl",
+  "wheel_sha256": "060d6e377d1eeddaff8ea843025c8288f45ee86fd0b1ddccdf9a9f6a91d9b3dd",
+  "weight_bytes": 799972100,
+  "weight_sha256": "e6a958d364ff9f77f605052ec8ea0cddf4d3ea9fdb06397b39727b7ed6968f24",
+  "empty_model_cache": true,
+  "fresh_venv": true,
+  "network_blocked": true,
+  "examples": [
+    {
+      "source_id": "5ec284fcc9e77c0008415d36_2",
+      "label": "REFUTES",
+      "initial_ids_sha256": "f42f10e55c7b61af71b0f8b4b9cde17f044fad85370828819bff06d28cefc292",
+      "runs": {
+        "recurrent": {
+          "tokens": 11,
+          "token_sha256": "8df86f587519fde3410781dd82abc0e53c44a6a04ce59a7620e8975f157c3311",
+          "attention_histories": [
+            {
+              "layer": 3,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 7,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 11,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 15,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 11,
+              "turn": 1,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 15,
+              "turn": 1,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 19,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 23,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            }
+          ],
+          "visible": "\n\nNo.",
+          "correct": true
+        },
+        "base": {
+          "tokens": 148,
+          "token_sha256": "e960ffdfb18d9933ba2d278309926e9a416e2cded52827b2bef0923f32ef4e51",
+          "attention_histories": [
+            {
+              "layer": 3,
+              "turn": 0,
+              "offset": 228,
+              "retained": 228
+            },
+            {
+              "layer": 7,
+              "turn": 0,
+              "offset": 228,
+              "retained": 228
+            },
+            {
+              "layer": 11,
+              "turn": 0,
+              "offset": 228,
+              "retained": 228
+            },
+            {
+              "layer": 15,
+              "turn": 0,
+              "offset": 228,
+              "retained": 228
+            },
+            {
+              "layer": 19,
+              "turn": 0,
+              "offset": 228,
+              "retained": 228
+            },
+            {
+              "layer": 23,
+              "turn": 0,
+              "offset": 228,
+              "retained": 228
+            }
+          ],
+          "visible": "\n\nNo",
+          "correct": true
+        }
+      }
+    },
+    {
+      "source_id": "5ec284fcc9e77c0008415d36_1",
+      "label": "SUPPORTS",
+      "initial_ids_sha256": "f672b0372b80a57ff33c9448b6a922c2c1634a83858318d8df9e7d59fabbab85",
+      "runs": {
+        "recurrent": {
+          "tokens": 11,
+          "token_sha256": "8df86f587519fde3410781dd82abc0e53c44a6a04ce59a7620e8975f157c3311",
+          "attention_histories": [
+            {
+              "layer": 3,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 7,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 11,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 15,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 11,
+              "turn": 1,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 15,
+              "turn": 1,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 19,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            },
+            {
+              "layer": 23,
+              "turn": 0,
+              "offset": 91,
+              "retained": 91
+            }
+          ],
+          "visible": "\n\nNo.",
+          "correct": false
+        },
+        "base": {
+          "tokens": 136,
+          "token_sha256": "d33e166dcb638dc015b584f0f8f6d2455db706d4d5dc25b734f38105193db7ee",
+          "attention_histories": [
+            {
+              "layer": 3,
+              "turn": 0,
+              "offset": 216,
+              "retained": 216
+            },
+            {
+              "layer": 7,
+              "turn": 0,
+              "offset": 216,
+              "retained": 216
+            },
+            {
+              "layer": 11,
+              "turn": 0,
+              "offset": 216,
+              "retained": 216
+            },
+            {
+              "layer": 15,
+              "turn": 0,
+              "offset": 216,
+              "retained": 216
+            },
+            {
+              "layer": 19,
+              "turn": 0,
+              "offset": 216,
+              "retained": 216
+            },
+            {
+              "layer": 23,
+              "turn": 0,
+              "offset": 216,
+              "retained": 216
+            }
+          ],
+          "visible": "\n\nYes",
+          "correct": true
+        }
+      }
+    }
+  ]
+}

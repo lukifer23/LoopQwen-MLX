@@ -1,5 +1,9 @@
 # Research ledger
 
+## November 26 changed-evidence transfer
+
+The compact reader fused 46 trained maps from the confirmed Base-derived entailment model and kept all six repeated layers active. The frozen source study checked 24 real Wikipedia edit IDs with their actual parents. The primary closed for missed accuracy and prefill targets. All 48 candidate and 44 Base answers completed. The blinded reading credited 10 versus 15 complete article pairs. A separate production installation reproduced full token and KV streams on both variants of the first registered article on both arms. The research worker consumed 240.50 native seconds. [Paired results and costs](../research/results/revision-evidence-01) · [Publisher-label sensitivity](measurements/revision-answer-reading.json) · [Physical Wikipedia evidence](measurements/revision-wikipedia-sources.json)
+
 ## November 26 meaning and file argument studies
 
 One fresh two-pass fit used 1,000 native updates over 163,358 response tokens. The loop copied the correct table key on 25/32 human questions versus 9/32 for Base, yet chose the correct return column on only 12/32 versus 11/32. It gave seven exact grounded cell values and Base gave zero. In ordinary prose Base gave two grounded answers under the registered scorer and one under a blinded no-conflict reading. Each system solved one complete meaning pair. The first-token sum and opening rate also missed their thresholds. The direct study consumed 1,459.71 native seconds. [Whole paired stream](../research/results/role-binding-01) · [Actual training exposure](measurements/role-binding-training-exposure.json) · [Paired cost chart](../paper/role-binding-times.svg)

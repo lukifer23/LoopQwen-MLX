@@ -1,0 +1,11 @@
+#table(columns:(2.7fr,1fr,1fr),align:(left,right,right),stroke:none,fill:(x,y)=>if y==0 {rgb("#d8ebe6")} else if calc.odd(y) {rgb("#f1f6f5")}, [Measure],[Compact K2],[Base],
+[Complete opposite pairs],[10],[16],
+[Both correct on direct-source subset],[7],[13],
+[Correct individual judgments],[33],[40],
+[Completed thinking turns],[48],[44],
+[Same parsed label across both edits],[13],[4],
+[Cold stream, seconds],[9.03],[228.95],
+[Cumulative time to first token, seconds],[3.97],[4.27],
+[Peak MLX allocation, GiB],[1.04],[1.63],
+[Native input tokens/s],[1991.30],[2223.49],
+[Native output tokens/s],[95.19],[70.50],)

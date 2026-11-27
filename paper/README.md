@@ -2,7 +2,9 @@
 
 The manuscript covers the original shared-span experiments, the matched reasoning controls, the standalone 128K language model, and the addition of executable tool sessions. The paper's numerical results come from native Apple Silicon MLX runs.
 
-- [Read the complete 72-page research paper](loopqwen-complete.pdf)
+- [Read the 75-page consolidated research paper](loopqwen-research.pdf)
+- [The compact six-layer reader on changed Wikipedia evidence](revision-evidence.pdf) · [Every claim with actual source links, output and timing](revision-evidence-requests.csv)
+- [72-page edition shipped in offline field update 02](loopqwen-complete.pdf)
 - [Current field study with 96 paired requests](role-binding.pdf) · [All item-level outcomes](role-binding-requests.csv) · [Blinded reading of table responses](role-binding-reading.csv)
 - [Original Winograd and package analysis](instruction-interpolation.pdf) · [All 56 paired requests](instruction-interpolation-requests.csv)
 - [Original 64-page paper preserved in field kit 01](loopqwen.pdf)

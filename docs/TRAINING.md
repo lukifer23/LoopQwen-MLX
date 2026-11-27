@@ -449,3 +449,30 @@ The interpolation study ran the trained final instruction layer twice on every t
 ```
 
 The first two commands reconstruct the training and test data from pinned sources. The archive verifiers replay each model’s history and execute every recorded tool call. The source checks compare the held-out labels with the publisher's original SQLite database and the recorded wheel hashes. Adding `--fetch` to the distribution check downloads and measures all 16 original files. The activation check uses native MLX and an independent prompt. The paper build puts both supplements and the historical 64-page publication in one bookmarked PDF.
+
+### Compact recurrent reader on Wikipedia revisions
+
+The qualified six-layer entailment adapter descends from the original Qwen Base. The compact reader fuses its 46 trained maps, packs all dense and embedding weights at eight bits, and reuses that same block on every token. The 48-question study freezes the original excerpt, claim, prompt IDs, output limit and direct source revision. The registered unit is a whole article with two opposite human judgments. Its [registration](../research/experiments/revision-evidence-01.json), [source-only reading](../research/diagnostics/revision-source-reading.json) and [upstream edit check](measurements/revision-wikipedia-sources.json) are public in the checkout.
+
+Run these commands from a research checkout with the original field release and dependencies installed. The first command rebuilds the selection against the pinned publisher distribution. The second reproduces the independent source check from the saved actual Wikipedia diffs. Add `--fetch` to revisit Wikimedia directly. The third independently grades both saved token streams and verifies each full-attention cache length.
+
+```sh
+.venv/bin/python -m scripts.revision_material
+.venv/bin/python -m scripts.revision_source_check
+.venv/bin/python scripts/research_archive.py revision-evidence-01 --verify
+```
+
+The following command performs a two-model comparison on a caller-supplied passage using the separately saved compact model. The explicit Base path uses the certified original weights from kit 01. The first token and wall measurements for both arms include loading. The input file is UTF-8 text containing the excerpt and the question.
+
+```sh
+.venv/bin/loopqwen generate --checkpoint exports/compact-revision-reader-01 \
+  --compare-base --base-checkpoint exports/tool-language-packed-05 \
+  --thinking --trace --max-tokens 768 --prompt-file question.txt
+```
+
+To reproduce the compact model in a new directory, run the native conversion below. The standalone loader verifies each saved file against the export manifest. The project paper build includes an item-level CSV and an article-paired figure. The production wheel can be built and exercised outside the checkout with `scripts/verify_compact_reader.py`. The script creates an empty Python environment, installs locked local wheels, blocks network access, and compares both versions of the first registered article with the archived output IDs.
+
+```sh
+.venv/bin/python -m loopqwen.compact_entailment exports/tool-language-packed-05 \
+  research/results/entailment-triplets-01/model /tmp/my-compact-reader
+```

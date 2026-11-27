@@ -1,0 +1,1 @@
+The loop correctly answered both snapshots for *10/24* distinct Wikipedia articles, compared with *16/24* for ordinary Base. It won 3 article pairs and lost 9 (two-sided exact paired p = 0.146). Across all 48 individual requests it gave 33 correct judgments and Base gave 40. The two cold half-streams took 9.03 and 228.95 seconds in total, respectively.
