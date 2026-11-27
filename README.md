@@ -1,6 +1,6 @@
 # LoopQwen-MLX
 
-[Five-page evidence overview](paper/evidence-overview.pdf) · [Every registration and archive](paper/research-scope.csv) · [Release target and verification plan](docs/RELEASE_EVIDENCE.md) · [Complete 182-page research paper](paper/loopqwen-repair-query-study.pdf)
+[Six-page evidence overview](paper/evidence-overview.pdf) · [Every registration and archive](paper/research-scope.csv) · [Release target and verification plan](docs/RELEASE_EVIDENCE.md) · [Complete 182-page research paper](paper/loopqwen-repair-query-study.pdf)
 
 The source-conditioned loop completed all 3,392 optimizer updates and passed seven of eight training checks. It generated 14 distinct SQL programs that worked on all tested variants of 14/24 enrolled questions, and grounded both responses for 9/12 service sources. It correctly delivered both qualitative choices on 0/12 sources under the registered scorer. Reading all the prose credited three complete pairs for the right direction and one with no unsupported explanatory additions. These are training results. The missed prerequisite closed the 148-request Base comparison for these weights. [Closed fit](research/results/elastic-world-fit-01/decision.json) · [Independent native reload](docs/measurements/elastic-world-fit-01-cold.json) · [All 24 source judgments](paper/elastic-world-qualitative-training-reading.csv) · [Methods, costs and figures](paper/pressure-continuation.pdf)
 

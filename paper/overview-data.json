@@ -154,6 +154,361 @@
       "1256.00"
     ]
   ],
+  "repair_query": {
+    "fit": {
+      "stage": "repair-query-fit-01",
+      "decision": {
+        "passed": true,
+        "gates": {
+          "all_tokens": true,
+          "all_citations": true,
+          "finite_updates": true,
+          "source_fit": true,
+          "repeated_read": true,
+          "source_attention": true,
+          "repair_likelihood": true,
+          "protected_likelihood": true
+        },
+        "groups": {
+          "scalar": 2.185004472732544,
+          "inspect": 0.9594291299581528,
+          "strategy": 0.8364191648574943,
+          "program": 0.9799542507089598,
+          "instruction": 0.7440202010704502,
+          "resolved": 2.5716027823361483,
+          "report_reply": 2.684770500849164,
+          "discovery": 0.8808409869670868,
+          "operator": 1.0930691050659767,
+          "report_action": 0.6128464481605796,
+          "full_rows": 2.5704365928967796,
+          "qualitative": 5.630288128625779,
+          "legacy": 1.344250128482107,
+          "explanation": 0.8153216661055387,
+          "service_reply": 1.1112699041080218,
+          "service_action": 0.47418244542327254,
+          "arithmetic": 0.47210559856018963,
+          "inspect_after_error": 0.49730390919538925,
+          "repair_after_schema": 0.484879073588907,
+          "repair_known_schema": 0.40487281071825887,
+          "deliver_corrected_result": 1.305410061915493,
+          "repair_csv_exact": 0.232734971343686,
+          "repair_via_sql": 0.7973854922060247,
+          "deliver_csv": 2.594993143611484,
+          "deliver_sql": 3.270647590500968,
+          "repair_column_roles": 0.2994273464637244,
+          "answer_after_role_repair": 2.84672130478753,
+          "answer_valid_read": 2.569349601533678,
+          "redirect_valid_read": 0.41405127001465275,
+          "answer_after_redirect": 2.838620798928397
+        },
+        "mean_second_visit_gain": 0.42734557436884407,
+        "mean_citation_nll_gain": 1.178333290417989,
+        "updates": 1086,
+        "positions": 605030,
+        "citations": 4322
+      },
+      "seconds": 789.8352389335632,
+      "peak": 0.8989358730614185,
+      "budget": 4380,
+      "sha256": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+      "cold": {
+        "features": "e0221b817ddb7dde99c9d7bd860df9cd097933443ae93fbcfd08230036bd8ab7",
+        "checked_files": 6394,
+        "independent_regenerations": [
+          "finqa/AAPL/2011/page_24.pdf-3/action",
+          "rehearsal/full_rows/nt-2543/0",
+          "strategyqa/30cca3728fe936ff1bae",
+          "sql-error/cosql-7747db5a033c482b7d1f/repair_after_schema",
+          "wrong-scalar/nt-8542/0/redirect_valid_read"
+        ],
+        "fit": "c65a2eea6fec60d89fbec55ec7edcd58a4e954823ba00f0670fdcff5120f5ec0",
+        "probe_cases": 120,
+        "trained_positions": 5415,
+        "max_errors": {
+          "ce": 0.0,
+          "ordinary_ce": 0.0,
+          "kl": 0.0,
+          "citation_nll": 0.0
+        },
+        "max_errors_by_state": {
+          "before": {
+            "ce": 0.0,
+            "ordinary_ce": 0.0,
+            "kl": 0.0,
+            "citation_nll": 0.0
+          },
+          "after": {
+            "ce": 0.0,
+            "ordinary_ce": 0.0,
+            "kl": 0.0,
+            "citation_nll": 0.0
+          },
+          "first_visit": {
+            "ce": 0.0,
+            "ordinary_ce": 0.0,
+            "kl": 0.0,
+            "citation_nll": 0.0
+          }
+        },
+        "reproduced_gates": {
+          "all_tokens": true,
+          "all_citations": true,
+          "finite_updates": true,
+          "source_fit": true,
+          "repeated_read": true,
+          "source_attention": true,
+          "repair_likelihood": true,
+          "protected_likelihood": true
+        },
+        "reproduced_pass": true,
+        "independently_counted_epochs": [
+          {
+            "epoch": 1,
+            "unique_turns": 6394,
+            "updates": 543,
+            "positions": 302515,
+            "citations": 2161
+          },
+          {
+            "epoch": 2,
+            "unique_turns": 6394,
+            "updates": 543,
+            "positions": 302515,
+            "citations": 2161
+          }
+        ],
+        "native_seconds": 21.9671189590008,
+        "peak_bytes": 1612587884
+      }
+    },
+    "depth": {
+      "n": 120,
+      "positions": 5415,
+      "positive": 120,
+      "negative": 0,
+      "tied": 0,
+      "groups_positive": 30,
+      "groups": 30,
+      "families": {
+        "Earlier assistance": {
+          "n": 56,
+          "positive": 56,
+          "median": 0.28978811105092367
+        },
+        "Human multi-step reasoning": {
+          "n": 4,
+          "positive": 4,
+          "median": 0.22257088656518975
+        },
+        "Expert financial reports": {
+          "n": 8,
+          "positive": 8,
+          "median": 0.47762283171066133
+        },
+        "Database error repair": {
+          "n": 16,
+          "positive": 16,
+          "median": 0.1436636193385571
+        },
+        "CSV key and column repair": {
+          "n": 24,
+          "positive": 24,
+          "median": 0.38421624728611536
+        },
+        "Misleading successful SQL": {
+          "n": 12,
+          "positive": 12,
+          "median": 0.716990311940511
+        }
+      }
+    },
+    "context": {
+      "plan": "e130f7727727a0ca75d6f29dd32d18015e7ef52d54c0205167f9b8352b563361",
+      "short": [
+        {
+          "arm": "base",
+          "id": "strategyqa/01254b50648f4fb08b51",
+          "errors": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "staged_tokens": [
+            77264,
+            11,
+            411,
+            369
+          ],
+          "resident_tokens": [
+            77264,
+            11,
+            411,
+            369
+          ],
+          "attention_sites": 6
+        },
+        {
+          "arm": "base",
+          "id": "finqa/SWKS/2012/page_116.pdf-1/action",
+          "errors": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "staged_tokens": [
+            760,
+            1156,
+            369,
+            9859
+          ],
+          "resident_tokens": [
+            760,
+            1156,
+            369,
+            9859
+          ],
+          "attention_sites": 6
+        },
+        {
+          "arm": "base",
+          "id": "wrong-scalar/nt-6744/5/redirect_valid_read",
+          "errors": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "staged_tokens": [
+            760,
+            3134,
+            5743,
+            279
+          ],
+          "resident_tokens": [
+            760,
+            3134,
+            5743,
+            279
+          ],
+          "attention_sites": 6
+        },
+        {
+          "arm": "loop",
+          "id": "strategyqa/01254b50648f4fb08b51",
+          "errors": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "staged_tokens": [
+            16,
+            13,
+            220,
+            2972
+          ],
+          "resident_tokens": [
+            16,
+            13,
+            220,
+            2972
+          ],
+          "attention_sites": 6
+        },
+        {
+          "arm": "loop",
+          "id": "finqa/SWKS/2012/page_116.pdf-1/action",
+          "errors": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "staged_tokens": [
+            1719,
+            7915,
+            10517,
+            314
+          ],
+          "resident_tokens": [
+            1719,
+            7915,
+            10517,
+            314
+          ],
+          "attention_sites": 6
+        },
+        {
+          "arm": "loop",
+          "id": "wrong-scalar/nt-6744/5/redirect_valid_read",
+          "errors": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "staged_tokens": [
+            198,
+            248069,
+            271,
+            248058
+          ],
+          "resident_tokens": [
+            198,
+            248069,
+            271,
+            248058
+          ],
+          "attention_sites": 6
+        }
+      ],
+      "long": {
+        "prompt": 148364,
+        "output": [
+          760,
+          1156,
+          369,
+          9859
+        ],
+        "read_only_visits": 8,
+        "histories": [
+          [
+            148367,
+            148367
+          ],
+          [
+            148367,
+            148367
+          ],
+          [
+            148367,
+            148367
+          ],
+          [
+            148367,
+            148367
+          ],
+          [
+            148367,
+            148367
+          ],
+          [
+            148367,
+            148367
+          ]
+        ],
+        "scratch_bytes": 2126947414,
+        "first_s": 223.70697591704084,
+        "wall_s": 224.25965883402387
+      },
+      "passed": true,
+      "native_seconds": 231.60718108300352,
+      "peak_bytes": 1784355486
+    },
+    "paper": "b77c26bdc98bb516e504103b7985cbfc9c10a43b7c82aed84ee176aca54503c0"
+  },
   "conditional": {
     "environment": {
       "execution_revision": "90f2dbb2b45062e730c4cf47a86c172520cc1722",
@@ -1987,11 +2342,11 @@
     "registrations": 204,
     "recovered": 4,
     "closed_worker_windows": {
-      "windows": 58,
-      "jobs": 180,
-      "study_names": 162,
-      "worker_hours": 26.86,
-      "index": "3a7322bd0829ab806f07649fffc46fdf3902f11eb216ef6174117e0f0424dcc5"
+      "windows": 59,
+      "jobs": 182,
+      "study_names": 163,
+      "worker_hours": 27.297,
+      "index": "c12880e0a0f7d1e5ddfb307052169d9bb9b1f1f793a78322518ad704f40f4b54"
     },
     "totals": {
       "payloads": 1416,
@@ -2005,7 +2360,7 @@
       "recovered execution/passed": 1,
       "recovered execution/missed": 1
     },
-    "index": "d5a6a7616f400e2503e4c16f70832f31d849fa3baa553e2a0441a1c94343e155"
+    "index": "cc245fe7489b31717e4ac39a5e04b4b0b702aa0437469856d22fa3c0f53b43ad"
   },
   "four_layer": {
     "totals": [

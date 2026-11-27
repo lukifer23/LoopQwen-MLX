@@ -311,10 +311,26 @@ def build():
                 f"{b['seconds']:.2f}",
             ]
         )
+    repair = {}
+    if (P / "repair-query.json").is_file():
+        study = read(P / "repair-query.json")
+        if "depth_effects" in study and "staging_proof" in study:
+            fit = study["stages"][1]
+            assert fit["sha256"] == digest(R / fit["stage"] / "checksums.json")
+            repair = {
+                "fit": fit,
+                "depth": study["depth_effects"],
+                "context": study["staging_proof"],
+                "paper": digest(P / "repair-query.json"),
+            }
+            if "reading" in study:
+                repair["primary"] = study["stages"][-1]["decision"]
+                repair["reading"] = study["reading"]
     save(
         P / "overview-data.json",
         {
             "rows": summary,
+            **({"repair_query": repair} if repair else {}),
             **({"conditional": conditional} if conditional else {}),
             "scope": scope,
             **(
@@ -342,7 +358,7 @@ def build():
     doc = typst.compile(str(P / "overview.typ"), timestamp=0)
     (P / "evidence-overview.pdf").write_bytes(doc)
     pages = PdfReader(P / "evidence-overview.pdf").pages
-    assert len(pages) == (5 if conditional else 4) and all(len(p.extract_text()) > 550 for p in pages)
+    assert len(pages) == (5 if conditional else 4) + bool(repair) and all(len(p.extract_text()) > 550 for p in pages)
     print(len(rows) // 2, "direct comparisons;", len(pages), "pages")
 
 

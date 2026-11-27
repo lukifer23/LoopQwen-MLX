@@ -83,3 +83,29 @@ Whole questions test whether an answer follows its source. Both natural-table pr
 
 The broad automatic criterion #if c.automatic [passed] else [failed] and the masked source criterion #if c.masked [passed] else [failed]. Quantization, instruction initialization and training differ alongside recurrence. The independent same-foundation depth control is needed to identify the loop's contribution. Historical 128K results belong to their measured checkpoints. The paired study provides complete per-request outputs, measured costs and source-level decisions.
 ]
+
+#if "repair_query" in d [
+#pagebreak()
+= Two learned reads of the same source
+
+#let r=d.repair_query
+A later controller spends additional computation on each predicted output while retaining one key and value per original token at the final attention layer. It learns from human evidence, real report calculations and database histories containing both failed calls and plausible results to a different question. Its 721,920 trainable parameters are shared across two reads.
+
+#image("repair-query-depth-probes.svg",width:100%)
+#note[Figure 4. Each point is a complete training response. Positive values are lower reference-token loss when the learned controller makes its second read. Diamonds are within-family medians.]
+
+The fit completed #r.fit.decision.updates updates over #r.fit.decision.positions supervised token positions. The extra read improved the reference likelihood of #r.depth.positive of #r.depth.n fixed training probes across #r.depth.groups groups. Mean group-balanced improvement was #calc.round(r.fit.decision.mean_second_visit_gain,digits:3) nats per token. Independent restoration reproduced all recorded probe losses at both trained depths. This comparison holds the weights fixed and measures local prediction under teacher forcing.
+
+The same weights then processed #r.context.long.prompt tokens from a complete project lockfile and retained every row at the six attention sites through generation. Full-precision disk staging took #calc.round(r.context.long.first_s,digits:1) seconds to produce the first output. The four emitted positions consumed #r.context.long.read_only_visits recurrent reads. This test establishes capacity. The registered user workload contains four different full documents, 48 human reasoning topics, 32 financial issuers and 96 controlled tool histories.
+
+#if "reading" in r [
+  *Held user outcomes.* The full paired study contains 180 requests. The table shows exact registered successes, deliveries judged fully usable with their source, and individual gains and losses in exact success.
+  #table(columns:(1fr,1fr,1fr,1fr),inset:4pt,[*Family*],[*Exact loop / Base*],[*Usable loop / Base*],[*Gains / losses*],..r.primary.counts.pairs().map(p=>{
+     let k=p.at(0); let v=p.at(1); let a=r.reading.families.at(k,default:none)
+     (k,str(v.total.at(0))+" / "+str(v.total.at(1)),if a==none {"—"} else {str(a.arms.candidate.grounded_usable)+" / "+str(a.arms.control.grounded_usable)},str(v.gains)+" / "+str(v.losses))
+  }).flatten())
+  Total measured wall time was #calc.round(r.primary.costs.candidate.wall_s,digits:2) seconds for the loop and #calc.round(r.primary.costs.control.wall_s,digits:2) seconds for untouched Base.
+] else [
+  The initial in-memory pair stopped on the first 152,185-token document before the two arms could be compared. The full staged comparison uses the same weights, prompt IDs, ordered requests and output budgets. The research paper records the incomplete attempt and its cost.
+]
+]
