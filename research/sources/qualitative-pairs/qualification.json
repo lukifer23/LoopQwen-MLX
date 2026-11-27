@@ -1,0 +1,23 @@
+{
+  "upstream": "https://huggingface.co/datasets/allenai/quartz/resolve/28c1dbb56caf81799296cb17892fa73402e23464/data/train-00000-of-00001.parquet",
+  "train_sha256": "edeb1fa716d945ee198c9f5ce5ab6cad4d847e714ff7463834dee422c8450035",
+  "held_panel": "25794fbb082244e5518bb3bd35702df10aa8011003f5c93c85c28d7f8b70fbf2",
+  "source_rows": 2696,
+  "source_backgrounds": 283,
+  "exclusions": {
+    "shared eight-word passage or entire field with held question": 10,
+    "outside domain": 11
+  },
+  "eligible_rows": 2675,
+  "unpaired_eligible_rows": 47,
+  "pairs": 1314,
+  "questions": 2628,
+  "used_backgrounds": 281,
+  "distinct_choice_sets": 442,
+  "different_scenario_shared_opening_words": 1304,
+  "source_answer_positions": {
+    "A": 1314,
+    "B": 1314
+  },
+  "training_sha256": "5b770b83ddd2913862b6caea2702c25a6fccfc55e9818135e1690380fa2f9846"
+}
