@@ -1,6 +1,6 @@
 # Run the changed-file assistant offline
 
-This update supplies the newly trained two-layer adapter, the compact six-layer reader's reconstruction inputs, the source sentences and real edit records, the field measurements and the consolidated paper. Both experimental models use the original Qwen Base weights. Kit 01 supplies those weights and the locked native dependencies. The ordinary comparator uses its certified BF16 text tensors. Use an Apple Silicon Mac with Python 3.12 and uv.
+This update supplies the newly trained two-layer adapter, the compact six-layer reader's reconstruction inputs, the source sentences and real edit records, the field measurements and the consolidated paper. Both experimental models use the original Qwen Base weights. The update includes the first attempt’s memory-limit decision, the second fit’s native gradient comparison and the exact inputs used for its successful optimizer steps. The held-out test was reserved across both registrations. Kit 01 supplies those weights and the locked native dependencies. The ordinary comparator uses its certified BF16 text tensors. Use an Apple Silicon Mac with Python 3.12 and uv.
 
 Extract kit 01 and update 03 into separate directories. From the update directory run the commands below, replacing the kit path with its extracted location.
 
@@ -54,5 +54,7 @@ git clone --bare "$kit/sources/loopqwen-research.bundle" loopqwen-source.git
 git -C loopqwen-source.git fetch ../sources/field-update.bundle refs/heads/main:refs/heads/main
 git clone loopqwen-source.git research-checkout
 ```
+
+To verify training exposure from the restored checkout, place the supplied publisher files under `data/research_external/vitaminc/` and unpack release 05 under `exports/tool-language-packed-05/`. Run `.venv/bin/python -m scripts.file_evidence_exposure` using the installed native environment. This independently replays the registered sample order and teacher tokenization and checks the published total.
 
 The two original VitaminC distributions in `sources/vitaminc` include the project training split and untouched publisher test split. Their original licenses and the sampled Wikipedia edit provenance accompany them. The study uses different articles and claims for training and testing. The earlier field update retains its original instructions and receipts.

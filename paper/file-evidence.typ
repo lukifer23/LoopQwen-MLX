@@ -53,7 +53,7 @@ At fitting time the correct opening call demonstrates how to request the source.
 
 #include "file-evidence-reading.typ"
 
-Some historical edits are corrections or contain inaccurate assertions. Each judgment concerns what the supplied passage supports. The independent source check retrieved all 28 historical Wikipedia edit IDs and their immediate parents. The actual archived changed lines have at least 50% three-word-sequence overlap with both supplied excerpts on opposite sides of 27 edits. A reviewer read all 28 source pairs before inference. Every pair remains in the registered primary. For example, the stated building heights of 925 and 927 feet give opposite answers to a threshold of 926 feet. A description of a city as the most populous also supports calling it one of the most populous, so that publisher contrast warrants qualification.
+Some historical edits are corrections or contain inaccurate assertions. Each judgment concerns what the supplied passage supports. The independent source check retrieved all 28 historical Wikipedia edit IDs and their immediate parents. The actual archived changed lines have at least 50% three-word-sequence overlap with both supplied excerpts on opposite sides of 27 edits. The project’s AI coding agent read all 28 source pairs before model evaluation. For the secondary answer reading it received the claim, passage and visible reply for each noncanonical completion, with the arm, publisher label, timing and score withheld. This single-reader judgment has no inter-rater agreement estimate. Every pair remains in the registered primary. For example, the stated building heights of 925 and 927 feet give opposite answers to a threshold of 926 feet. A description of a city as the most populous also supports calling it one of the most populous, so that publisher contrast warrants qualification.
 
 = Relation to earlier results
 Schuster, Fisch and Barzilay introduced contrastive evidence built from Wikipedia edits. API-Bank evaluates the execution of model-selected APIs. Toolformer learns to place and use tool calls in language generation. Here we intervene on the caller's file while holding the entire opening prompt fixed, then grade the actual returned evidence and its subsequent use. The earlier chapters examine the complementary settings of semantic reasoning with an inline source, genuine WikiSQL lookups, full-length project documents, and equally trained one-pass controls for induction.
@@ -81,7 +81,7 @@ A positive first pair would license independent evidence and a matched one-pass 
 
 #pagebreak()
 = Which file questions changed the answer?
-#figure(image("file-evidence-articles.svg",width:100%),caption:[Each row is one article. Across the two versions of the same file, the human-annotated conclusion switches from yes to no. Every adjacent pair within an arm shares the same prompt, system, tool declarations and input token IDs.])
+#figure(image("file-evidence-articles.svg",width:100%),caption:[Each row is one article. Across the two versions of the same file, the human-annotated conclusion switches from yes to no. Both requests for an article within an arm shares the same prompt, system, tool declarations and input token IDs.])
 
 The colors distinguish retrieving the right excerpt from reaching a correct conclusion about it. A response can be correct with no matching lookup, or it can return the right cell and still give the wrong answer. Both possibilities matter for a person deciding whether to rely on a claimed use of their file.
 
