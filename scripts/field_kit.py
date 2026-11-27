@@ -1,5 +1,6 @@
 """Assemble and verify the qualified model, installed runtime, paper and recent field evidence."""
 
+import gzip
 import hashlib
 import json
 import os
@@ -16,6 +17,8 @@ from verify_runtime_wheel import CODE, ROOT, trace
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
+
+SOURCE_REVISION = "4c83f4fa4e715f6135454e62f09f6f2315a0413b"
 
 STUDIES = (
     "observation-review-01",
@@ -45,6 +48,11 @@ def entries():
     for name in STUDIES:
         folder = ROOT / "research/results" / name
         index = read(folder / "checksums.json")
+        protocol = read(folder / "registration.json")
+        for field in ("material", "training"):
+            relative = protocol.get(field, "")
+            if isinstance(relative, str) and relative.startswith("research/data/"):
+                records[relative] = ROOT / relative
         for p in sorted(folder.rglob("*")):
             if p.is_file():
                 relative = p.relative_to(folder).as_posix()
@@ -60,6 +68,29 @@ def entries():
         "observation-review-base-identity.json",
     ):
         records["verification/" + name] = docs / name
+    records["research/data/conversation-document-prefill-tokens.json"] = (
+        ROOT / "research/data/conversation-document-prefill-tokens.json"
+    )
+    records["sources/REVISION.txt"] = (SOURCE_REVISION + "\n").encode()
+    code = subprocess.check_output(
+        [
+            "git",
+            "archive",
+            "--format=tar",
+            "--prefix=source/",
+            SOURCE_REVISION,
+            "loopqwen",
+            "scripts",
+            "tests",
+            "pyproject.toml",
+            "uv.lock",
+            "LICENSE",
+            "AGENTS.md",
+            "RESEARCH_GOAL.md",
+        ],
+        cwd=ROOT,
+    )
+    records["sources/loopqwen-source.tar.gz"] = gzip.compress(code, mtime=0)
     _, _, source, question, _, _ = next(documents())
     records["examples/complete-tree.txt"] = (source + "\n\n" + question).encode()
     return records
@@ -171,7 +202,7 @@ def main():
             for i, r in enumerate(candidate)
             if r["family"] == "ASDiv" and r["requests"][0]["score"]["success"]
         )
-        original_request = read(ROOT / read(trial / "registration.json")["material"])[
+        original_request = read(work / read(trial / "registration.json")["material"])[
             "rows"
         ][idx]
         assert original_request["id"] == candidate[idx]["id"] == control[idx]["id"]
@@ -239,6 +270,7 @@ def main():
             "model_sha256": hashes["model/tool-language-packed-05.lqzip"],
             "wheel_sha256": digest(wheel),
             "pdf_sha256": hashes["paper/loopqwen.pdf"],
+            "source_revision": SOURCE_REVISION,
             "empty_cache": True,
             "network_blocked": True,
             "initial_prompt_identical": True,
