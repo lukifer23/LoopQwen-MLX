@@ -51,6 +51,7 @@ def get_outputs(record):
 
 
 def render_charts(intervals, reads, costs):
+    plt.rcParams.update({"svg.hashsalt": "conditional-primary-01", "font.size": 9})
     fig, (ax, bx) = plt.subplots(
         1,
         2,
@@ -286,6 +287,7 @@ def build():
         return [sum(r[a + "_grounded"] for r in rr) for a in ARMS]
 
     summary = {
+        "environment": read(ROOT / "environment.json"),
         "automatic": dec["passed"],
         "masked": reading["passed"],
         "eligible": dec["passed"] and reading["passed"],
