@@ -149,24 +149,40 @@ def snapshot():
             for t in raw["trace"]["turns"]
             if "call" in t or "calls" in t
         ]
-    # Closed charges through the matched longer-output read
-    # delimit a reproducible engineering cost cut during a longer running fit.
-    charges = [(f, read(f)) for f in (ROOT / "charges").glob("*.json")]
-    cutoff = max(
-        r["dispatch"]
-        for f, r in charges
-        if "short/headroom-early/" in r["job"] and r["status"] == "finished"
+    exits = use(ROOT / "fit-exits-0144.json")
+    recovery = use(ROOT / "bounded-fit-operating-point.json")
+    completed = use(ROOT / recovery["charge"])
+    adjoints = [
+        r
+        for arm in ("loop", "ordinary")
+        for r in use(ROOT / f"adjoint-{arm}.json")["rows"]
+    ]
+    assert all(r["loss"][0] == r["loss"][1] for r in adjoints)
+    prefix = use(ROOT / "prefix-audits/epoch-one-anne.json")
+    stopped_book = use(ROOT / "epoch-one-allocator-recovery.json")
+    head = use(ROOT / "file-backed-head.json")
+    assert (
+        prefix["passed"] and head["passed"] and stopped_book["saved_presentations"] == 1
     )
+    # Fix the accounting boundary to the last book attempt before the matched
+    # replay continued. Later in-flight and completed jobs belong to a later cut.
+    charges = sorted((f, read(f)) for f in (ROOT / "charges").glob("*.json"))
+    cutoff = use(ROOT / "charges/c09ffb015dc742e6b98a100f20f2951b.json")["dispatch"]
     costs = {}
     for f, r in charges:
         if r["status"] == "running" or r["dispatch"] > cutoff:
             continue
         use(f)
-        cost = costs.setdefault(r["stage"], {"seconds": 0, "stopped": 0})
+        cost = costs.setdefault(
+            r["stage"], {"seconds": 0, "stopped": 0, "stopped_seconds": 0}
+        )
         cost["seconds"] += r["seconds"]
         cost["stopped"] += int(r["status"] != "finished")
+        if r["status"] != "finished":
+            cost["stopped_seconds"] += r["seconds"]
     for v in costs.values():
         v["seconds"] = round(v["seconds"], 1)
+        v["stopped_seconds"] = round(v["stopped_seconds"], 1)
     save(
         SNAPSHOT,
         dict(
@@ -176,6 +192,15 @@ def snapshot():
             excerpts=excerpts,
             audit=audit,
             fit_epoch=fit_epoch,
+            exit_objectives=exits["source_weighted"],
+            recovery={
+                "checks": len(adjoints),
+                "relative": max(r["relative"] for r in adjoints),
+                "peak_gib": completed["final"]["peak"] / 2**30,
+                "prefix_positions": prefix["actual_prefix_tokens"],
+                "duplicate_bytes": prefix["avoided_bytes"],
+                "saved_presentations": stopped_book["saved_presentations"],
+            },
             crate_examples=[v for v in examples if v[0] == "transfer"],
             hardware=hardware,
             historical=historical,
@@ -240,6 +265,23 @@ def figures(d, tmp):
         fig.tight_layout()
         fig.savefig(tmp / name, metadata={"Date": None}, bbox_inches="tight")
         plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(7.0, 2.25))
+    groups = ["reasoning", "tools", "chat", "documents"]
+    x = np.arange(len(groups))
+    for offset, key, label, color in (
+        (-0.18, "loop2_minus_loop1", "Second minus first visit", TEAL),
+        (0.18, "loop3_minus_loop2", "Third minus second visit", AMBER),
+    ):
+        vals = [d["exit_objectives"][g][key]["mean_source_delta"] for g in groups]
+        bars = ax.bar(x + offset, vals, width=0.32, color=color, label=label)
+        ax.bar_label(bars, labels=[f"{v:+.3f}" for v in vals], padding=2, fontsize=8)
+    ax.axhline(0, linewidth=0.8, color=INK)
+    ax.set_xticks(x, ["Reasoning", "Tools", "Chat", "Documents"])
+    ax.set_ylim(-0.061, 0.027)
+    ax.set_ylabel("Change in training objective")
+    ax.legend(loc="lower right", frameon=False, fontsize=8)
+    savefig(fig, "exits.svg")
 
     hist = d["historical"]
     fig, ax = plt.subplots(figsize=(7.0, 2.7))
@@ -422,7 +464,7 @@ def render():
         check.write_bytes(pdf)
         reader = PdfReader(check)
         pages = [p.extract_text() for p in reader.pages]
-        assert 5 <= len(pages) <= 9 and all(len(s) > 700 for s in pages)
+        assert 5 <= len(pages) <= 10 and all(len(s) > 700 for s in pages)
         assert all(author in pages[0] for author in AUTHORS)
         (P / "paper-draft.pdf").write_bytes(pdf)
         print(len(pages), "pages", len(pdf), "bytes", digest(P / "paper-draft.pdf"))
