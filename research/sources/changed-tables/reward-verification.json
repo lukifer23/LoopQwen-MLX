@@ -1,0 +1,263 @@
+{
+  "materials": "eff96bfe351c7ec73fb3692145ae37e3bbf612c920eace39377c76c9f12cb552",
+  "examples": [
+    {
+      "id": "nt-5572",
+      "sql": "SELECT \"Name\" FROM records ORDER BY rowid LIMIT 1",
+      "versions": [
+        "Janelle Atkinson",
+        "Julia Stowers"
+      ],
+      "returned": [
+        [
+          [
+            "Janelle Atkinson"
+          ]
+        ],
+        [
+          [
+            "-"
+          ]
+        ]
+      ],
+      "correct": [
+        true,
+        false
+      ],
+      "constant": [
+        false,
+        false
+      ],
+      "constant_with_read": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "nt-9419",
+      "sql": "SELECT \"Name\" FROM records ORDER BY CAST(\"Years until mandatory retirement\" AS INTEGER) DESC, rowid LIMIT 1",
+      "versions": [
+        "Luis Estrella Mart\u00ednez",
+        "Roberto Feliberti Cintr\u00f3n"
+      ],
+      "returned": [
+        [
+          [
+            "Luis Estrella Mart\u00ednez"
+          ]
+        ],
+        [
+          [
+            "Roberto Feliberti Cintr\u00f3n"
+          ]
+        ]
+      ],
+      "correct": [
+        true,
+        true
+      ],
+      "constant": [
+        false,
+        false
+      ],
+      "constant_with_read": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "nt-5453",
+      "sql": "SELECT \"Area\" FROM records ORDER BY rowid LIMIT 1",
+      "versions": [
+        "South West",
+        "London"
+      ],
+      "returned": [
+        [
+          [
+            "South West"
+          ]
+        ],
+        [
+          [
+            "London"
+          ]
+        ]
+      ],
+      "correct": [
+        true,
+        true
+      ],
+      "constant": [
+        false,
+        false
+      ],
+      "constant_with_read": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "nt-11884",
+      "sql": "SELECT \"Act\" FROM records ORDER BY CAST(\"# Albums released under Bad Boy\" AS INTEGER) DESC, rowid LIMIT 1",
+      "versions": [
+        "Diddy",
+        "Machine Gun Kelly"
+      ],
+      "returned": [
+        [
+          [
+            "Diddy"
+          ]
+        ],
+        [
+          [
+            "Machine Gun Kelly"
+          ]
+        ]
+      ],
+      "correct": [
+        true,
+        true
+      ],
+      "constant": [
+        false,
+        false
+      ],
+      "constant_with_read": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "nt-6758",
+      "sql": "SELECT \"Nation\" FROM records WHERE \"Gold\" = '6'",
+      "versions": [
+        "Belgium",
+        "Georgia"
+      ],
+      "returned": [
+        [
+          [
+            "Belgium"
+          ]
+        ],
+        [
+          [
+            "Georgia"
+          ]
+        ]
+      ],
+      "correct": [
+        true,
+        true
+      ],
+      "constant": [
+        false,
+        false
+      ],
+      "constant_with_read": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "nt-484",
+      "sql": "SELECT \"Name\" FROM records WHERE lower(\"Position\") = 'farmer'",
+      "versions": [
+        "Michel Deuzet",
+        "Maurice Lecoq"
+      ],
+      "returned": [
+        [
+          [
+            "Michel Deuzet"
+          ]
+        ],
+        [
+          [
+            "Maurice Lecoq"
+          ]
+        ]
+      ],
+      "correct": [
+        true,
+        true
+      ],
+      "constant": [
+        false,
+        false
+      ],
+      "constant_with_read": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "nt-9466",
+      "sql": "SELECT \"Club\" FROM records WHERE CAST(\"Wins\" AS INTEGER) = 4",
+      "versions": [
+        "CD Villarrobledo",
+        "CD M\u00e1laga"
+      ],
+      "returned": [
+        [
+          [
+            "CD Villarrobledo"
+          ]
+        ],
+        [
+          [
+            "CD M\u00e1laga"
+          ]
+        ]
+      ],
+      "correct": [
+        true,
+        true
+      ],
+      "constant": [
+        false,
+        false
+      ],
+      "constant_with_read": [
+        true,
+        false
+      ]
+    },
+    {
+      "id": "nt-12470",
+      "sql": "SELECT \"Nation\" FROM records ORDER BY CAST(\"Gold\" AS INTEGER) DESC, rowid LIMIT 1",
+      "versions": [
+        "Japan",
+        "Singapore"
+      ],
+      "returned": [
+        [
+          [
+            "Japan"
+          ]
+        ],
+        [
+          [
+            "Singapore"
+          ]
+        ]
+      ],
+      "correct": [
+        true,
+        true
+      ],
+      "constant": [
+        false,
+        false
+      ],
+      "constant_with_read": [
+        true,
+        false
+      ]
+    }
+  ],
+  "both": 7,
+  "both_constant": 0
+}

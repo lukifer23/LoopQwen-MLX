@@ -156,6 +156,12 @@ def open_assistant(args):
         from .io import read
 
         policy = read(args.session_policy / "registration.json")
+        if policy.get("reentry_block"):
+            from .reentry import ReentryAssistant
+
+            if getattr(args, "tool_format", "compact") != "qwen":
+                raise ValueError("The recurrent block uses --tool-format qwen")
+            return ReentryAssistant(args.checkpoint, args.session_policy)
         if policy.get("visit_residual"):
             from .visit_residual import VisitResidualAssistant
 

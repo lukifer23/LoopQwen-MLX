@@ -1,0 +1,52 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "start_layer": 20,
+  "prefix_bits": 4,
+  "reentry_block": [
+    20,
+    21,
+    22,
+    23
+  ],
+  "rank": 128,
+  "fit_seed": 932487,
+  "material": "research/data/table-policy-panel.json",
+  "training": "research/data/table-policy-training.json",
+  "sources": {
+    "research/sources/changed-tables/originals.json": "eff96bfe351c7ec73fb3692145ae37e3bbf612c920eace39377c76c9f12cb552",
+    "research/sources/changed-tables/qualification.json": "4617e22521e0eb3333847eee1199b64de5dbaa3ba911d20088fb0d79dacc1ada",
+    "research/sources/changed-tables/reward-verification.json": "cca898690d233fbd912c68ffbe2052791f8097184ff7e06b152b56cab35e8478",
+    "research/experiments/integrated-assistance-01.json": "7cb074a4f050109336c12b76fabc03a36777f58d773da3836916fa258a0076d2"
+  },
+  "limits": {
+    "wall_seconds": 4350,
+    "peak_gib": 8.25,
+    "available_gib": 1.5
+  },
+  "max_turns": 3,
+  "max_tokens": 384,
+  "related": [
+    "https://aclanthology.org/P15-1142/",
+    "https://aclanthology.org/P16-1003/",
+    "https://aclanthology.org/2024.acl-long.662/",
+    "https://openreview.net/forum?id=WwpYSOkkCt"
+  ],
+  "warm_updates": 1024,
+  "warm_lr": 0.00045,
+  "gate_multiplier": 12.0,
+  "warm_train_limit": 1536,
+  "warm_targets": 24,
+  "reward_updates": 192,
+  "group_size": 4,
+  "temperature": 0.8,
+  "rollout_cap": 128,
+  "policy_lr": 4.5e-05,
+  "anchor_weight": 0.35,
+  "id": "table-execution-learning-01",
+  "question": "Does the Base-rooted four-layer loop receive an authentic learning signal from its own sampled actions and answers on two independently labeled versions of a table?",
+  "protocol": "Requires passed and archived table-reentry-fit-01. Initialize only from those registered weights. Draw 192 distinct changed-table training questions by fixed hash. Every third update samples four actual native completions from the same schema-conditioned template, temperature .8 and cap 128. Execute each emitted read-only SELECT on both real mounted versions. Reward .1 for an untruncated referenced read on both, .2 per correct single denotation and .5 for both. Other updates sample four independent complete responses in each world after the same actual full-table read. Grant +1 for a completed short correct answer, -.25 for copying the opposite gold, and zero otherwise in each world. The paired reward is their mean plus .5 for solving both. Average each joint trajectory against the rewards of the other three leave-one-out. Train native full-vocabulary log probabilities of the sampled tokens, including natural terminal tokens, with that detached advantage. Sum token log probabilities and divide by the fixed cap and group size, without length-dependent scaling. Couple the two answer paths through the same joint reward and average their two token losses. Every update additionally rehearses one independently drawn complete earlier supervised turn with weight .35. Keep the actual sampled token IDs, behavior log probabilities, observations, human labels, advantages, and native learning gradients. No sampling constraints, no oracle query injection during sampled SQL and no policy-selected output at test. The fixed schema/full-table observation is a training context. The 268 held requests must produce their own calls. Graduate only with at least 16 groups having unequal returns, at least eight observed groups with a solved human denotation or correct sampled visible answer, finite nonzero policy gradient in at least 16 groups, changed fitted weights and verified independent histories. Stop on any failed prerequisite or resource cap."
+}
