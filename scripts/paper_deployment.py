@@ -98,7 +98,7 @@ def repository_trees(paper, results, result, finish):
     ):
         ax.set(xlabel=label, ylim=(1.45, -0.45))
         ax.set_yticks([0, 1], [w["id"][:7] for w in material] if i == 0 else ["", ""])
-        ax.set_xlim(left=0)
+        ax.set_xlim(0, ax.dataLim.xmax * 1.12)
         ax.spines[["top", "right"]].set_visible(False)
     axes[0].legend(loc="lower left", bbox_to_anchor=(0, 1.02), ncol=2, frameon=False)
     finish(fig, "repository-tree")
@@ -357,6 +357,7 @@ def packed_delivery(paper, results, result):
         "transport-lossless-01",
         "transport-lossless-02",
         "transport-lossless-03",
+        "transport-lossless-04",
     ]
     with (paper / "release-transport.csv").open("w") as output:
         w = csv.writer(output)
@@ -614,6 +615,7 @@ def compact_streams(paper, results, result, finish, name="packed-release-retenti
 
 
 def localized_inputs(paper, results, result, finish):
+    import unicodedata
     from collections import defaultdict
 
     name = "packed-release-retention-04"
@@ -631,6 +633,7 @@ def localized_inputs(paper, results, result, finish):
                 "locale",
                 "territory",
                 "localized_name",
+                "has_unicode_mark",
                 "pinned_ids",
                 "release04_ids",
                 "release05_ids",
@@ -646,6 +649,9 @@ def localized_inputs(paper, results, result, finish):
                     r["locale"],
                     r["territory"],
                     r["text"],
+                    int(
+                        any(unicodedata.category(c).startswith("M") for c in r["text"])
+                    ),
                     json.dumps(r["ids"]),
                     json.dumps(b),
                     json.dumps(a),

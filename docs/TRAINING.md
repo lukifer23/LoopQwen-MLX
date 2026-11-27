@@ -317,6 +317,13 @@ PYCODE
 
 The native qualification runner is `python -m loopqwen.research.packed_release packed-release-retention-01`. It alternates isolated offline processes and records actual model outputs, package callbacks, and all per-token target losses on the two books. [Frozen protocol](../research/experiments/packed-release-retention-01.json) · [Archival checks and output traces](../research/results/packed-release-retention-01)
 
+To rebuild qualified release 05 after reconstructing release 04, run the following from the checkout. The builder verifies the parent inventory, copies its payloads and updates the tokenizer class and release note.
+
+```sh
+.venv/bin/python -c 'from pathlib import Path; from loopqwen.research.unicode_release import build; build(Path("exports/tool-language-packed-04"), Path("research/results/packed-release-retention-03"), Path("exports/tool-language-packed-05"))'
+.venv/bin/python scripts/research_archive.py packed-release-retention-04 --verify
+```
+
 To reconstruct corrected release 04 from qualified release 03, use the following build. It pins the packed evidence-mask implementation and its operator instrumentation. The archival check verifies the four original outside-checkout workload streams.
 
 ```sh
