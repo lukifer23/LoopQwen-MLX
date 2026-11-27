@@ -11,7 +11,24 @@ from .looped_model import LoopedModel
 from .recurrence import Span
 
 
-def load_export(directory, *, _load_tokenizer=load_tokenizer, _manage_register=True):
+def load_export_tokenizer(directory, *, eos_token_ids):
+    config = Path(directory) / "config.json"
+    looped = (
+        config.is_file()
+        and json.loads(config.read_bytes()).get("model_type") == "qwen3_5_looped"
+    )
+    # Transformers cannot infer the Qwen3.5 pretokenizer from our custom model type.
+    # The Qwen2 fallback splits combining marks differently despite identical BPE files.
+    return load_tokenizer(
+        directory,
+        eos_token_ids=eos_token_ids,
+        tokenizer_config_extra={"tokenizer_type": "qwen3_5"} if looped else None,
+    )
+
+
+def load_export(
+    directory, *, _load_tokenizer=load_export_tokenizer, _manage_register=True
+):
     from .worker import acquire
 
     acquire()

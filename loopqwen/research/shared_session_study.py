@@ -188,10 +188,11 @@ def verify(root, d):
         from .unified_session_fit import verify_sampling
 
         verify_sampling(spec, training["examples"], meta, tok)
+    failed_input = d.get("status") == "unequal_initial_ids"
     data = {}
-    for side in ("candidate", "control"):
+    for side in ("candidate",) if failed_input else ("candidate", "control"):
         arm = unpack(root / (side + ".json.gz"))
-        for w, r in zip(panel, arm, strict=True):
+        for w, r in zip(panel[: len(arm)] if failed_input else panel, arm, strict=True):
             tr = r["trajectory"]
             tools = tools_for(w, field, True)
             user = w.get("user_request", w["question"])
@@ -240,11 +241,44 @@ def verify(root, d):
                     tr["short_policy_route"] == "reasoning"
                 ) == (tr["external_probability"] < spec["plain_cutoff"])
         data[side] = arm
+    if failed_input:
+        from .tokenizer_parity import audit, stopped
+
+        report = read(root / "tokenizer-parity.json")
+        assert (
+            audit(spec, field, panel) == report
+            and not (root / "control.json.gz").exists()
+        )
+        assert d == stopped(panel, data["candidate"], report)
+        return
     receipt = read(root / "native.json")
     assert receipt["ids"] == panel[0]["initial_ids"][-32:] and all(
         v["calls"] == 25 and v["layers"] == 24 for v in receipt["views"].values()
     )
-    assert d == decision(spec, data, panel, receipt, router)
+    expected = decision(spec, data, panel, receipt, router)
+    assert d == qualified_replay(spec, root, data, expected)
+
+
+def qualified_replay(spec, root, data, outcome):
+    if "frozen_fit" not in spec:
+        return outcome
+    from scripts.field_cli_replay import identical
+
+    fitted = Path(spec["frozen_fit"])
+    assert digest(fitted / "checksums.json") == spec["frozen_inventory"]
+    assert digest(root / "fit.json") == digest(fitted / "fit.json")
+    assert digest(root / "tool-adapters.safetensors") == spec["frozen_weights"]
+    prior = unpack(fitted / "candidate.json.gz")
+    matches = sum(
+        a["id"] == b["id"] and identical(a["trajectory"], b["trajectory"])
+        for a, b in zip(prior, data["candidate"][: len(prior)], strict=True)
+    )
+    return {
+        **outcome,
+        "passed": outcome["passed"] and matches == len(prior),
+        "earlier_identical": matches,
+        "earlier_enrolled": len(prior),
+    }
 
 
 def run(name):
@@ -279,7 +313,18 @@ def run(name):
     data = {}
     try:
         if spec.get("unified"):
-            if not (root / "fit.json").is_file():
+            if "frozen_fit" in spec:
+                from shutil import copyfile
+
+                fitted = Path(spec["frozen_fit"])
+                assert digest(fitted / "checksums.json") == spec["frozen_inventory"]
+                assert (
+                    digest(fitted / "tool-adapters.safetensors")
+                    == spec["frozen_weights"]
+                )
+                for key in ("fit.json", "tool-adapters.safetensors"):
+                    copyfile(fitted / key, root / key)
+            elif not (root / "fit.json").is_file():
                 from .unified_session_fit import train
 
                 train(spec, root, budget)
@@ -360,16 +405,14 @@ def run(name):
                 save(root / "native.json", native_receipt(actor, panel[0]))
             data[side] = arm
             del actor
-        save(
-            root / "decision.json",
-            decision(
-                spec,
-                data,
-                panel,
-                read(root / "native.json"),
-                None if spec.get("unified") else read(root / "router.json"),
-            ),
+        outcome = decision(
+            spec,
+            data,
+            panel,
+            read(root / "native.json"),
+            None if spec.get("unified") else read(root / "router.json"),
         )
+        save(root / "decision.json", qualified_replay(spec, root, data, outcome))
     finally:
         budget.close()
 

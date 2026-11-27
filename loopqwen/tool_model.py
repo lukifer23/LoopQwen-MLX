@@ -160,7 +160,7 @@ class Assistant:
         self._cached_tokenizer = None
 
     def _tokenizer(self, directory, *, eos_token_ids):
-        from mlx_lm.tokenizer_utils import load as load_tokenizer
+        from .export_runtime import load_export_tokenizer
 
         if self._reuse_tokenizer:
             # Recheck actual bytes that define the certified Qwen tokenizer. A mode
@@ -183,10 +183,10 @@ class Assistant:
             )
             if self._cached_tokenizer is not None and key == self._cached_tokenizer[0]:
                 return self._cached_tokenizer[1]
-            tokenizer = load_tokenizer(directory, eos_token_ids=eos_token_ids)
+            tokenizer = load_export_tokenizer(directory, eos_token_ids=eos_token_ids)
             self._cached_tokenizer = key, tokenizer
             return tokenizer
-        return load_tokenizer(directory, eos_token_ids=eos_token_ids)
+        return load_export_tokenizer(directory, eos_token_ids=eos_token_ids)
 
     def conversation(self, tools=()):
         """Keep user turns, visible answers and real tool observations across requests."""
