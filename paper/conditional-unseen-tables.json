@@ -1,0 +1,98 @@
+{
+  "ledger_sha256": "24a719f6d21df2b538e350112cc8c745114912c5a280c7cda0761da14b6977fc",
+  "upstream": {
+    "original.zip": "7a9a29a784a8b616d27e08b552efa3673fca1b89dffc3d407332ee9049b6c5d0",
+    "turk.tar.gz": "9b7f96c9f5e3446286f37d91bd8013109ad84c135d81aad486096d7d86740357",
+    "altered.tar.gz": "5c249ad91ba2219cad89ee977afe218d435f8ccd5dc6013123566479873d52a6"
+  },
+  "candidate_sources": 24,
+  "labeled_versions": 132,
+  "extra_versions": 84,
+  "sources_with_extra": 20,
+  "excluded_rated_files": {
+    "source shape or column names": 4
+  },
+  "arms": {
+    "candidate": {
+      "original_calls": 58,
+      "distinct_programs_within_source": 27,
+      "reexecutions": 145,
+      "on_extra": 91,
+      "full_sources_with_passing_query_on_both": 4,
+      "full_sources_with_passing_query_on_all": 4,
+      "all_passing_sources_with_extra": [
+        "nt-2231",
+        "nt-3842",
+        "nt-447",
+        "nt-5486"
+      ],
+      "surviving_on_extras_among_paired_wins": 4,
+      "tested_on_extras_among_paired_wins": 4
+    },
+    "control": {
+      "original_calls": 8,
+      "distinct_programs_within_source": 4,
+      "reexecutions": 22,
+      "on_extra": 14,
+      "full_sources_with_passing_query_on_both": 0,
+      "full_sources_with_passing_query_on_all": 0,
+      "all_passing_sources_with_extra": [],
+      "surviving_on_extras_among_paired_wins": 0,
+      "tested_on_extras_among_paired_wins": 0
+    }
+  },
+  "validated_queries": [
+    {
+      "id": "nt-2231",
+      "question": "what is the number of kingdoms that have more than 300 villages?",
+      "sql": "SELECT COUNT ( (\"Name of Kingdom\" COLLATE NOCASE) ) FROM records WHERE CAST(\"No. of villages\" AS NUMERIC) > 300",
+      "extra": 6,
+      "all": 8,
+      "distinct_answers": [
+        "3",
+        "6",
+        "1"
+      ]
+    },
+    {
+      "id": "nt-3842",
+      "question": "how many stations have at least 5 kw or more listed in the power column?",
+      "sql": "SELECT COUNT ( * ) FROM records WHERE CAST(\"Power (kW)\" AS NUMERIC) >= 5",
+      "extra": 5,
+      "all": 7,
+      "distinct_answers": [
+        "6",
+        "5",
+        "4"
+      ]
+    },
+    {
+      "id": "nt-447",
+      "question": "how many times was waterford the opposition?",
+      "sql": "SELECT COUNT ( (\"Opposition\" COLLATE NOCASE) ) FROM records WHERE (\"Opposition\" COLLATE NOCASE) = 'waterford'",
+      "extra": 5,
+      "all": 7,
+      "distinct_answers": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "1"
+      ]
+    },
+    {
+      "id": "nt-5486",
+      "question": "what opponent is listed last on the table?",
+      "sql": "SELECT (\"Opponent\" COLLATE NOCASE) FROM records ORDER BY rowid DESC LIMIT 1",
+      "extra": 6,
+      "all": 8,
+      "distinct_answers": [
+        "Germany",
+        "Malta",
+        "Belarus",
+        "Lithuania",
+        "Finland"
+      ]
+    }
+  ]
+}

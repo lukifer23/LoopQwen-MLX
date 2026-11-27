@@ -31,6 +31,7 @@ from scripts.conditional_reading import MASK, RATINGS, ROOT, SCORES
 from scripts.conditional_reading import run as read_primary
 from scripts.conditional_tool_recovery import build as tool_recovery
 from scripts.conditional_tool_transfer import build as tool_transfer
+from scripts.conditional_unseen_tables import run as replay_extra_worlds
 from scripts.paper_conditional_stability import build as repeat_review
 from scripts.paper_integrated_assistance import COLORS, LABELS
 from scripts.table_policy_reading import committed
@@ -359,6 +360,13 @@ def build():
     pdf.write_bytes(
         typst.compile(str(P / "conditional-primary.typ"), root=".", timestamp=0)
     )
+    replay_extra_worlds()
+    typst.compile(
+        str(P / "conditional-unseen-tables.typ"),
+        output=str(P / "conditional-unseen-tables.pdf"),
+        root=".",
+        timestamp=0,
+    )
     repeat_review()
     writer = PdfWriter()
     writer.add_metadata(
@@ -370,6 +378,10 @@ def build():
     for title, path in (
         ("Direct paired evaluation and masked source readings", pdf),
         ("Item stability and repeat grading", P / "conditional-stability.pdf"),
+        (
+            "Replaying model-generated SQL on extra table versions",
+            P / "conditional-unseen-tables.pdf",
+        ),
         (
             "Training, architecture and earlier comparisons",
             P / "loopqwen-conditional-study.pdf",
