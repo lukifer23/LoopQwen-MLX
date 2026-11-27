@@ -73,6 +73,7 @@ def packed_rows(indices, bank, seed, step, limit):
     anchors = []
     differences = []
     foils = []
+    positions = []
     for slot, i in enumerate(indices):
         path, labels, start, visible, bad = bank[i]
         mandatory = {0, visible, len(labels) - 1}
@@ -83,6 +84,7 @@ def packed_rows(indices, bank, seed, step, limit):
             mandatory
             | set(rng.sample(remaining, min(len(remaining), limit - len(mandatory))))
         )
+        positions.append(selected)
         if bad:
             differences.append(len(target) + selected.index(bad[0]))
             foils.append(bad[1])
@@ -93,7 +95,7 @@ def packed_rows(indices, bank, seed, step, limit):
         anchors.extend([slot >= 4] * len(selected))
         body.extend(j >= start for j in selected)
         target.extend(labels[j] for j in selected)
-    return (
+    tensors = (
         mx.concatenate(one),
         mx.concatenate(two),
         mx.array(target),
@@ -102,6 +104,7 @@ def packed_rows(indices, bank, seed, step, limit):
         mx.array(differences, dtype=mx.int32),
         mx.array(foils, dtype=mx.int32),
     )
+    return tensors, positions
 
 
 def gradient_function(net):
@@ -178,6 +181,7 @@ def fit(net, tok, s, root, guard):
                     "id": v["id"],
                     "prompt": fingerprint(prefix),
                     "targets": len(y),
+                    "target_ids_sha256": fingerprint(y),
                     "values": digest(path),
                     "body": body,
                     "first_visible": visible,
@@ -217,7 +221,7 @@ def fit(net, tok, s, root, guard):
             guard.check()
             tick = perf_counter()
             batch = next(draw)
-            data = packed_rows(
+            data, positions = packed_rows(
                 batch, bank, s["fit_seed"], step, s["positions_per_view"]
             )
             assert (
@@ -236,6 +240,7 @@ def fit(net, tok, s, root, guard):
                     "step": step,
                     "views": batch,
                     "sampled": len(data[2]),
+                    "positions": positions,
                     "contrasts": len(data[-1]),
                     "losses": vals,
                     "gradient_norm": grad_norm.item(),

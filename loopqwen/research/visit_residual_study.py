@@ -1,6 +1,8 @@
 """Direct native comparison of a readout tied to a real second visit and untouched ordinary Base."""
 
 import gc
+import math
+import random
 import re
 import shutil
 from collections import defaultdict
@@ -8,11 +10,14 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import mlx.core as mx
+import numpy as np
 from packaging.specifiers import SpecifierSet
+from safetensors import safe_open
 
 from .. import checkpoint
 from ..evaluation.extractive import score as extract
 from ..evaluation.mechanism import packed, unpack
+from ..identity import fingerprint
 from ..io import digest, read, save
 from ..tool_compare import DenseAssistant
 from ..visit_residual import VisitResidualAssistant, from_release
@@ -25,8 +30,9 @@ from .linked_rollin import exact_sign_flip
 from .linked_rollin_data import providers as retained_tools
 from .linked_rollin_data import score as retained_score
 from .native_function_study import evaluate, executions, replay, summarize
+from .native_function_data import token_pair
 from .registered import registered
-from .visit_residual_fit import fit, stream
+from .visit_residual_fit import annotations, fit, stream
 
 NAME = "visit-residual-01"
 NEW = ("effects", "dependency", "same_version")
@@ -177,6 +183,13 @@ def verify(root, d):
     ] == s["updates"]
     draw = stream(views, s["fit_seed"])
     assert sum(z["sampled"] for z in steps) == f["targets"]
+    for v, feat in zip(views, features, strict=True):
+        prefix, y = token_pair(tok, v)
+        body, visible, bad = annotations(tok, v, y)
+        assert feat["prompt"] == fingerprint(prefix)
+        assert feat["target_ids_sha256"] == fingerprint(y) and feat["targets"] == len(y)
+        assert feat["body"] == body and feat["first_visible"] == visible
+        assert feat["contrast"] == (list(bad) if bad is not None else None)
     for step, record in enumerate(steps, 1):
         indices = next(draw)
         assert record["views"] == indices and record["step"] == step
@@ -186,13 +199,65 @@ def verify(root, d):
         assert record["contrasts"] == sum(
             features[i]["contrast"] is not None for i in indices
         )
+        rng = random.Random(f"{s['fit_seed']}/{step}")
+        for i, logged in zip(indices, record["positions"], strict=True):
+            feat = features[i]
+            n = feat["targets"]
+            fixed = {0, feat["first_visible"], n - 1}
+            if feat["contrast"] is not None:
+                fixed.add(feat["contrast"][0])
+            rest = sorted(set(range(n)) - fixed)
+            take = min(len(rest), s["positions_per_view"] - len(fixed))
+            assert logged == sorted(fixed.union(rng.sample(rest, take)))
+        values = record["losses"]
+        assert len(values) == 5 and all(math.isfinite(v) for v in values)
+        assert math.isclose(
+            values[0],
+            sum(
+                w * v for w, v in zip((0.45, 0.15, 0.20, 0.20), values[1:], strict=True)
+            ),
+            rel_tol=2e-6,
+            abs_tol=1e-6,
+        )
+        assert math.isfinite(record["gradient_norm"]) and record["gradient_norm"] >= 0
     parity = read(root / "native-parity.json")
     assert (
         parity["all_logits_exact"]
         and parity["vocabulary"] == 248320
         and parity["different_visits"]
     )
-    assert read(root / "optimizer-state.json")["step"] == s["updates"]
+    state = read(root / "optimizer-state.json")
+    assert state["step"] == s["updates"] and state["rows"] == steps
+    assert state["sampled_targets"] == f["targets"] and state["training_identity"] == {
+        "training": f["training"],
+        "features": f["feature_sha256"],
+        "spec": digest(root / "registration.json"),
+    }
+    rank = s["residual_rank"]
+    shapes = {
+        "context.weight": (rank, 1024),
+        "change.weight": (rank, 1024),
+        "output.weight": (1024, rank),
+    }
+    with safe_open(root / "visit-residual.safetensors", framework="np") as weights:
+        assert set(weights.keys()) == set(shapes)
+        for key, shape in shapes.items():
+            tensor = weights.get_tensor(key)
+            assert tensor.shape == shape and np.isfinite(tensor).all() and tensor.any()
+    with safe_open(root / "optimizer.safetensors", framework="np") as opt:
+        assert set(opt.keys()) == {"step", "learning_rate"} | {
+            f"{k}.{suffix}" for k in shapes for suffix in ("m", "v")
+        }
+        assert int(opt.get_tensor("step").item()) == state["step"]
+        assert np.isclose(opt.get_tensor("learning_rate").item(), s["lr"])
+        for key, shape in shapes.items():
+            for suffix in ("m", "v"):
+                tensor = opt.get_tensor(f"{key}.{suffix}")
+                assert (
+                    tensor.shape == shape and np.isfinite(tensor).all() and tensor.any()
+                )
+                if suffix == "v":
+                    assert (tensor >= 0).all()
     runs = {a: unpack(root / (a + ".json.gz")) for a in ARMS}
     with TemporaryDirectory() as tmp:
         folder = Path(tmp)
