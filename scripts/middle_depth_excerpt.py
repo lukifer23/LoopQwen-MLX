@@ -127,12 +127,58 @@ def evaluate(arm, policy, stage, block):
             )
 
 
+def review(stage, aggregate):
+    dest = ROOT / "excerpt-review" / stage
+    items = {}
+    rows = []
+    for path in sorted((ROOT / "excerpts" / stage).glob("*/*/*/*.json.gz")):
+        arm, book, length, _ = path.relative_to(ROOT / "excerpts" / stage).parts
+        raw = unpack(path)
+        world = raw["world"]
+        tr = raw["trace"]
+        ref = read(SPECS / f"{book}-dev.json")["rubric_" + world]
+        item = dict(source=book, edition=world, reference=ref, answer=tr["answer"])
+        key = fingerprint(item)
+        if tr["status"] == "answered":
+            items[key] = item
+        rows.append(
+            dict(
+                arm=arm,
+                book=book,
+                length=length,
+                world=world,
+                positions=raw["meta"]["positions"],
+                status=tr["status"],
+                seconds=tr["seconds"],
+                key=key,
+                file=str(path.relative_to(ROOT)),
+                sha=digest(path),
+            )
+        )
+    save(dest / "blinded.json", {k: items[k] for k in sorted(items)})
+    if aggregate:
+        rates = read(dest / "grades.json") if items else {}
+        assert set(rates) == set(items)
+        for r in rows:
+            r["grade"] = (
+                rates[r["key"]]
+                if r["status"] == "answered"
+                else dict(correct=False, first_error=r["status"], unsupported=None)
+            )
+        save(dest / "scored.json", rows)
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("action", choices=("freeze", "run"))
+    p.add_argument("action", choices=("freeze", "run", "blind", "aggregate"))
     p.add_argument("--arm", choices=("base", "loop", "ordinary"))
     p.add_argument("--policy", type=Path)
     p.add_argument("--stage", default="terminal")
     p.add_argument("--block", type=int, choices=(0, 1), default=0)
     a = p.parse_args()
-    freeze() if a.action == "freeze" else evaluate(a.arm, a.policy, a.stage, a.block)
+    if a.action in ("blind", "aggregate"):
+        review(a.stage, a.action == "aggregate")
+    elif a.action == "freeze":
+        freeze()
+    else:
+        evaluate(a.arm, a.policy, a.stage, a.block)

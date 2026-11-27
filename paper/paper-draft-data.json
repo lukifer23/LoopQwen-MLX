@@ -4,6 +4,1094 @@
     "lukifer23",
     "GPT 6.2 Astra"
   ],
+  "headroom": [
+    {
+      "file": "short/headroom-early/4096/base/archive-original.json.gz",
+      "sha": "17950c6a808f387ce27c370f66a0d3056fa263b21461bcbe87c9d20976bba92c",
+      "arm": "base",
+      "cap": 4096,
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "grade": {
+        "correct": false,
+        "first_error": "Invents a preservation hold on Cedar and asks about payment instead of shipping.",
+        "unsupported": true
+      },
+      "status": "answered",
+      "seconds": 5.078476708033122,
+      "time_to_correct": null,
+      "first_token": 0.08318958303425461,
+      "first_visible": 2.5638689170009457,
+      "token_count": 330,
+      "input_tokens": 67,
+      "decode_tps": 65.92023191096439,
+      "opening_tps": 805.3892994320179,
+      "peak": 1653271918,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/base/tiles-original.json.gz",
+      "sha": "0df5396487fda4f41e30ed82b7c049add9f26b64d3e7cd6cfff221d102d3f4c2",
+      "arm": "base",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "first_error": "Repeats equations with unsupported equals signs and delivers a manual answer without successful execution.",
+        "unsupported": true
+      },
+      "status": "answered",
+      "seconds": 11.75509970902931,
+      "time_to_correct": null,
+      "first_token": 0.15362866601208225,
+      "first_visible": 3.154910374956671,
+      "token_count": 724,
+      "input_tokens": 400,
+      "decode_tps": 65.5944714989245,
+      "opening_tps": 2603.6807477618904,
+      "peak": 1774738812,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "11 * 18 = 198",
+                "198 - 14 = 184"
+              ]
+            }
+          },
+          "observation": {
+            "error": "ValueError"
+          }
+        },
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "11 * 18 = 198",
+                "198 - 14 = 184"
+              ]
+            }
+          },
+          "observation": {
+            "error": "ValueError"
+          }
+        }
+      ]
+    },
+    {
+      "file": "short/headroom-early/4096/base/tiles-own.json.gz",
+      "sha": "a41bd53034ac472ca2bfa5dfff3e2c043eadcddd26467a48b438230d775093cc",
+      "arm": "base",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "first_error": "Repeats an equality assertion in the calculator and attributes the resulting syntax error to the provider.",
+        "unsupported": true
+      },
+      "status": "answered",
+      "seconds": 6.741820750001352,
+      "time_to_correct": null,
+      "first_token": 0.28714329202193767,
+      "first_visible": 4.143485915963538,
+      "token_count": 402,
+      "input_tokens": 854,
+      "decode_tps": 65.50361272964587,
+      "opening_tps": 2974.124848909076,
+      "peak": 1774738844,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "184 - 9 = 175"
+              ]
+            }
+          },
+          "observation": {
+            "error": "ValueError"
+          }
+        }
+      ]
+    },
+    {
+      "file": "short/headroom-early/4096/base/tiles-shared.json.gz",
+      "sha": "659241bdd8bdef2c7c82e206bd6085cdcf61a74648d6b285c3dffe4d82671999",
+      "arm": "base",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "first_error": "Submits quantities with unit text and equality signs; provider rejects the program.",
+        "unsupported": false
+      },
+      "status": "answered",
+      "seconds": 8.666636583977379,
+      "time_to_correct": null,
+      "first_token": 0.1547037500422448,
+      "first_visible": 3.0998546249466017,
+      "token_count": 533,
+      "input_tokens": 443,
+      "decode_tps": 64.32697745645018,
+      "opening_tps": 2863.5375669887153,
+      "peak": 1768073114,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "11 cartons \u00d7 18 tiles/carton = 198 tiles",
+                "198 tiles - 14 chipped tiles = 184 intact tiles",
+                "184 intact tiles - 9 tiles given to neighbor = 175 intact tiles"
+              ]
+            }
+          },
+          "observation": {
+            "error": "ValueError"
+          }
+        }
+      ]
+    },
+    {
+      "file": "short/headroom-early/4096/base/volunteer-original.json.gz",
+      "sha": "9fc9864a017b3125556a7069abd209c83bd05cef5fdee5d09fbe3b77816e5ad5",
+      "arm": "base",
+      "cap": 4096,
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "grade": {
+        "correct": false,
+        "first_error": "Supplies multiple multi-sentence alternatives when one sentence was requested.",
+        "unsupported": false
+      },
+      "status": "answered",
+      "seconds": 4.168252874980681,
+      "time_to_correct": null,
+      "first_token": 0.06248412502463907,
+      "first_visible": 2.049343749997206,
+      "token_count": 280,
+      "input_tokens": 51,
+      "decode_tps": 68.00617089051671,
+      "opening_tps": 816.2073163365801,
+      "peak": 1633005637,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/instruction/archive-original.json.gz",
+      "sha": "f4504f763e77fbf5895208f62a2acc605aa72da857c9da10b71b4e17049419c3",
+      "arm": "instruction",
+      "cap": 4096,
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "grade": {
+        "correct": false,
+        "first_error": "token_limit",
+        "unsupported": null
+      },
+      "status": "token_limit",
+      "seconds": 66.87360612500925,
+      "time_to_correct": null,
+      "first_token": 0.16913637501420453,
+      "first_visible": null,
+      "token_count": 4096,
+      "input_tokens": 67,
+      "decode_tps": 61.39619421032389,
+      "opening_tps": 396.13004591338296,
+      "peak": 1653271918,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/instruction/tiles-original.json.gz",
+      "sha": "c44f8c8ba4893381119c723aed0a13716cc8d18e08163ad932d4c0ba4c19bcd7",
+      "arm": "instruction",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "grade": {
+        "correct": true,
+        "first_error": null,
+        "unsupported": false
+      },
+      "status": "answered",
+      "seconds": 9.337789083016105,
+      "time_to_correct": 9.337789083016105,
+      "first_token": 0.15813799999887124,
+      "first_visible": 7.40111054101726,
+      "token_count": 532,
+      "input_tokens": 400,
+      "decode_tps": 59.53706477167118,
+      "opening_tps": 2529.436315135231,
+      "peak": 1768325018,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "11 * 18",
+                "198 - 14"
+              ]
+            }
+          },
+          "observation": {
+            "results": [
+              "198",
+              "184"
+            ],
+            "value": "184"
+          }
+        }
+      ]
+    },
+    {
+      "file": "short/headroom-early/4096/instruction/tiles-own.json.gz",
+      "sha": "1cf43455447fd919a06aa0eea13c3b75ca6cfa3d04bd011b60dd5509156ea23a",
+      "arm": "instruction",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "grade": {
+        "correct": true,
+        "first_error": null,
+        "unsupported": false
+      },
+      "status": "answered",
+      "seconds": 3.770193584030494,
+      "time_to_correct": 3.770193584030494,
+      "first_token": 0.20932374999392778,
+      "first_visible": 2.847271125006955,
+      "token_count": 198,
+      "input_tokens": 625,
+      "decode_tps": 59.783495296993074,
+      "opening_tps": 2985.805480831155,
+      "peak": 1773516698,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "184 - 9"
+              ]
+            }
+          },
+          "observation": {
+            "results": [
+              "175"
+            ],
+            "value": "175"
+          }
+        }
+      ]
+    },
+    {
+      "file": "short/headroom-early/4096/instruction/tiles-shared.json.gz",
+      "sha": "098fbc34b8d446eae5a3e6b5db58b61848e5126351cc7aecad74c63eef115059",
+      "arm": "instruction",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "grade": {
+        "correct": true,
+        "first_error": null,
+        "unsupported": false
+      },
+      "status": "answered",
+      "seconds": 4.123977500014007,
+      "time_to_correct": 4.123977500014007,
+      "first_token": 0.1564151250058785,
+      "first_visible": 3.946488916990347,
+      "token_count": 220,
+      "input_tokens": 443,
+      "decode_tps": 58.15908617689104,
+      "opening_tps": 2832.2069236165676,
+      "peak": 1768065946,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "11 * 18 - 14",
+                "184 - 9"
+              ]
+            }
+          },
+          "observation": {
+            "results": [
+              "184",
+              "175"
+            ],
+            "value": "175"
+          }
+        }
+      ]
+    },
+    {
+      "file": "short/headroom-early/4096/instruction/volunteer-original.json.gz",
+      "sha": "e4080bfcd0da558ae4c1b05c9c6ba7e8ac142fb26e17bc5703db9d08e8d425e6",
+      "arm": "instruction",
+      "cap": 4096,
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "grade": {
+        "correct": false,
+        "first_error": "token_limit",
+        "unsupported": null
+      },
+      "status": "token_limit",
+      "seconds": 69.61950900004013,
+      "time_to_correct": null,
+      "first_token": 0.07421049999538809,
+      "first_visible": null,
+      "token_count": 4096,
+      "input_tokens": 51,
+      "decode_tps": 58.88662388016486,
+      "opening_tps": 687.2342862960021,
+      "peak": 1639936550,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/loop/archive-original.json.gz",
+      "sha": "fdf5bb700237950cccb749af7bdd68b68952e99c32af90e8b9785e5b6eacf418",
+      "arm": "loop",
+      "cap": 4096,
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "grade": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "Treats the dated correction as an unresolved discrepancy."
+      },
+      "status": "answered",
+      "seconds": 1.5094762920052744,
+      "time_to_correct": null,
+      "first_token": 0.07007595902541652,
+      "first_visible": 0.12422850000439212,
+      "token_count": 82,
+      "input_tokens": 67,
+      "decode_tps": 56.406290825478784,
+      "opening_tps": 956.1053595527551,
+      "peak": 1663093040,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/loop/tiles-original.json.gz",
+      "sha": "b274cef4df015b4d14197e5c45f7f5ba96419493f6fa91a6cd6f5a3d52e20bc7",
+      "arm": "loop",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "first_error": "token_limit",
+        "unsupported": null
+      },
+      "status": "token_limit",
+      "seconds": 76.17815291701118,
+      "time_to_correct": null,
+      "first_token": 0.17772750003496185,
+      "first_visible": null,
+      "token_count": 4096,
+      "input_tokens": 400,
+      "decode_tps": 53.88312356739009,
+      "opening_tps": 2250.6365076947213,
+      "peak": 1773697458,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/loop/tiles-own.json.gz",
+      "sha": "10e441be5a9d023ac8144674a02dcbcd88106163511ad6094809362d2bee3589",
+      "arm": "loop",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "first_error": "token_limit",
+        "unsupported": null
+      },
+      "status": "token_limit",
+      "seconds": 75.97201066702837,
+      "time_to_correct": null,
+      "first_token": 0.17603570804931223,
+      "first_visible": null,
+      "token_count": 4096,
+      "input_tokens": 429,
+      "decode_tps": 54.02878080501232,
+      "opening_tps": 2437.005564120126,
+      "peak": 1773476786,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/loop/tiles-shared.json.gz",
+      "sha": "269661ae564a949faa74c5f19db64469825b94f3b564cd42ebc7ea583e34b5a9",
+      "arm": "loop",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "Treats the amount given away as the remainder and omits the calculator."
+      },
+      "status": "answered",
+      "seconds": 0.3282115419860929,
+      "time_to_correct": null,
+      "first_token": 0.18420654203509912,
+      "first_visible": 0.24005449999822304,
+      "token_count": 9,
+      "input_tokens": 443,
+      "decode_tps": 56.351719270548436,
+      "opening_tps": 2404.9091585226643,
+      "peak": 1773480882,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/loop/volunteer-original.json.gz",
+      "sha": "402ffdc85469667473920444aea75d1cf174c4e9d6c37fa4940fbcecfdb9b65b",
+      "arm": "loop",
+      "cap": 4096,
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "grade": {
+        "correct": false,
+        "unsupported": false,
+        "first_error": "Uses two sentences and gives an ambiguous arrival instruction."
+      },
+      "status": "answered",
+      "seconds": 0.6663016669917852,
+      "time_to_correct": null,
+      "first_token": 0.05926229199394584,
+      "first_visible": 0.11287316703237593,
+      "token_count": 35,
+      "input_tokens": 51,
+      "decode_tps": 56.26262674163768,
+      "opening_tps": 860.5809577059574,
+      "peak": 1640691596,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/ordinary/archive-original.json.gz",
+      "sha": "57294a822d597f5a0b1293cf77f9aebe29457990cea70c24f5c6e4e5c5dd31aa",
+      "arm": "ordinary",
+      "cap": 4096,
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "grade": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "Falsely applies the Ash-only hold to Cedar."
+      },
+      "status": "answered",
+      "seconds": 0.9179167500115,
+      "time_to_correct": null,
+      "first_token": 0.0732785000000149,
+      "first_visible": 0.12251575000118464,
+      "token_count": 55,
+      "input_tokens": 67,
+      "decode_tps": 64.09242602667086,
+      "opening_tps": 914.3200256553611,
+      "peak": 1665565203,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/ordinary/tiles-original.json.gz",
+      "sha": "c421eb65f06afed8df69c4ab7653a31255ef3db4af4d942251fcc0f8f35795bb",
+      "arm": "ordinary",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "first_error": "token_limit",
+        "unsupported": null
+      },
+      "status": "token_limit",
+      "seconds": 69.77978379098931,
+      "time_to_correct": null,
+      "first_token": 0.15309862501453608,
+      "first_visible": null,
+      "token_count": 4096,
+      "input_tokens": 400,
+      "decode_tps": 58.816768419393405,
+      "opening_tps": 2612.694921081242,
+      "peak": 1769077154,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/ordinary/tiles-own.json.gz",
+      "sha": "3f692acffe37e4627e7066294e0cd38c709056be2582a03ce3edd70878973207",
+      "arm": "ordinary",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "first_error": "token_limit",
+        "unsupported": null
+      },
+      "status": "token_limit",
+      "seconds": 73.341930375027,
+      "time_to_correct": null,
+      "first_token": 0.1571746250265278,
+      "first_visible": null,
+      "token_count": 4096,
+      "input_tokens": 429,
+      "decode_tps": 55.95817147384611,
+      "opening_tps": 2729.4482167690476,
+      "peak": 1769019810,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/ordinary/tiles-shared.json.gz",
+      "sha": "c2e48448c75f677772b4a04ee4125673835210c8fc9a2997785112f075b76256",
+      "arm": "ordinary",
+      "cap": 4096,
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "grade": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "Reports the number given away as the remainder without execution."
+      },
+      "status": "answered",
+      "seconds": 0.273674292024225,
+      "time_to_correct": null,
+      "first_token": 0.16918320796685293,
+      "first_visible": 0.22422291699331254,
+      "token_count": 7,
+      "input_tokens": 443,
+      "decode_tps": 58.97057018562455,
+      "opening_tps": 2618.4631756527183,
+      "peak": 1769019810,
+      "calls": []
+    },
+    {
+      "file": "short/headroom-early/4096/ordinary/volunteer-original.json.gz",
+      "sha": "4655a015c7b3d27a2c465df5c2bc6214c0bf38656835283d1a85f80db4676f9a",
+      "arm": "ordinary",
+      "cap": 4096,
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives two sentences instead of the requested single sentence.",
+        "unsupported": false
+      },
+      "status": "answered",
+      "seconds": 0.5475877079879865,
+      "time_to_correct": null,
+      "first_token": 0.08820095896953717,
+      "first_visible": 0.13953187502920628,
+      "token_count": 30,
+      "input_tokens": 51,
+      "decode_tps": 63.52227742869058,
+      "opening_tps": 578.2250056670514,
+      "peak": 1642754081,
+      "calls": []
+    }
+  ],
+  "excerpts": [
+    {
+      "arm": "base",
+      "book": "anne",
+      "length": "medium",
+      "world": "edited",
+      "positions": 18536,
+      "status": "answered",
+      "seconds": 14.19392887497088,
+      "key": "3e1c96b920bcfa56c9c48fb0a1fa255b5ef33f93becaf597845b5fb19b1b288f",
+      "file": "excerpts/early/base/anne/medium/edited.json.gz",
+      "sha": "a8b20c05edc618cf886b45bada6af9ed7c7795e929e3ca26c6224786c9c2c812",
+      "grade": {
+        "correct": false,
+        "first_error": "Drops three quarters of a year despite quoting both ages.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "base",
+      "book": "anne",
+      "length": "medium",
+      "world": "original",
+      "positions": 18536,
+      "status": "answered",
+      "seconds": 14.344763208995573,
+      "key": "eb1c6151b3f6c77eeefa0ae8acbd3fff00ba0f3550524d309b8de0fe0c645934",
+      "file": "excerpts/early/base/anne/medium/original.json.gz",
+      "sha": "a6969f375a06bc0254f0f44998e37161f98d84dd4eb80d529e1673ecf403ce2e",
+      "grade": {
+        "correct": true,
+        "first_error": null,
+        "unsupported": false
+      }
+    },
+    {
+      "arm": "base",
+      "book": "anne",
+      "length": "short",
+      "world": "edited",
+      "positions": 1726,
+      "status": "answered",
+      "seconds": 6.2039782499778084,
+      "key": "465b89bbe66b9ad26d9044a9910265951e66b194268ec0f0c63fe04b71e750af",
+      "file": "excerpts/early/base/anne/short/edited.json.gz",
+      "sha": "9fa466310f706097ca47be6f5c668b1c4061bc450c0b4aba80afa1fe6513e8ad",
+      "grade": {
+        "correct": false,
+        "first_error": "Correct arithmetic and quotations, then claims that Anne was eleven at birth.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "base",
+      "book": "anne",
+      "length": "short",
+      "world": "original",
+      "positions": 1726,
+      "status": "answered",
+      "seconds": 7.085611707996577,
+      "key": "72779b42aaa626ba91e6fbdbd871593a788fce58a08ee1ddc210bdd2538f19d1",
+      "file": "excerpts/early/base/anne/short/original.json.gz",
+      "sha": "6dc6fc7e6ed58599321140a43e44860c81a4d6f6c592712b590c1e7f650148f2",
+      "grade": {
+        "correct": false,
+        "first_error": "Drops the half year after identifying both stated ages.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "base",
+      "book": "book",
+      "length": "medium",
+      "world": "edited",
+      "positions": 13553,
+      "status": "answered",
+      "seconds": 11.560953875014093,
+      "key": "5add4bd5ab998083bc4923870e7f34f12af90715b81aa1d2ddf8126b3a6ba9f8",
+      "file": "excerpts/early/base/book/medium/edited.json.gz",
+      "sha": "b89136a4f522ada4e139bf99971eb67987425678c36a8cfe12c1694f0309b766",
+      "grade": {
+        "correct": false,
+        "first_error": "Invents quoted evidence about the bird and owner and fails to identify the closing restraint.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "base",
+      "book": "book",
+      "length": "medium",
+      "world": "original",
+      "positions": 13550,
+      "status": "token_limit",
+      "seconds": 15.148533458006568,
+      "key": "c1be08f6724253bae2662b9a6f9ef385a59d3af8376663cc8fb2f5522c821f59",
+      "file": "excerpts/early/base/book/medium/original.json.gz",
+      "sha": "4ed6169416f333cce0732afedbd67e721727b9c0fd21cd3f8a1c09d756b443cb",
+      "grade": {
+        "correct": false,
+        "first_error": "token_limit",
+        "unsupported": null
+      }
+    },
+    {
+      "arm": "base",
+      "book": "book",
+      "length": "short",
+      "world": "edited",
+      "positions": 1322,
+      "status": "answered",
+      "seconds": 5.175111749966163,
+      "key": "22e403d90ee7379e68a4fa2171e3b55e4f9b594d42981495fac2fd2344bb2e44",
+      "file": "excerpts/early/base/book/short/edited.json.gz",
+      "sha": "a25d994ba13b50a5e2e04d46b002bab4bfd24c6f36789d14635ea6a3a6f9f7e9",
+      "grade": {
+        "correct": false,
+        "first_error": "Describes the escaped bird as trapped in a broken cage.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "base",
+      "book": "book",
+      "length": "short",
+      "world": "original",
+      "positions": 1319,
+      "status": "answered",
+      "seconds": 4.792150707973633,
+      "key": "e2183a37764bcf825aaa6274505d6e9d134c954309f6f949450949a68a88f5ba",
+      "file": "excerpts/early/base/book/short/original.json.gz",
+      "sha": "3b42a564e251d99b2aa7a9cc217328b455fe469656afd913c313c706bff0fb41",
+      "grade": {
+        "correct": false,
+        "first_error": "Invents a freed bird and restraint to a dead mule.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "loop",
+      "book": "anne",
+      "length": "medium",
+      "world": "edited",
+      "positions": 18536,
+      "status": "answered",
+      "seconds": 10.185643834003713,
+      "key": "a125337ec7d340c7bd5435a32874243ba8ef796554c4e786e8f6dd234ff077d1",
+      "file": "excerpts/early/loop/anne/medium/edited.json.gz",
+      "sha": "3ca7b2ed509b83f037bbdd318fa1f56d19d0bdae98f39a5030407e047ffc63b7",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives the wrong age difference and omits both requested statements.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "loop",
+      "book": "anne",
+      "length": "medium",
+      "world": "original",
+      "positions": 18536,
+      "status": "answered",
+      "seconds": 10.434108667017426,
+      "key": "828d464c0aac72c745af9f0b56053c6df94e22d12420ff47106daf70458fa6c3",
+      "file": "excerpts/early/loop/anne/medium/original.json.gz",
+      "sha": "17617c7565e3f6ac485c59a327e65c16b7bc784551c7973328e6287a64b7bfed",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives the wrong age difference and omits both requested statements.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "loop",
+      "book": "anne",
+      "length": "short",
+      "world": "edited",
+      "positions": 1726,
+      "status": "answered",
+      "seconds": 0.9885186669998802,
+      "key": "7c1e6cd8060160b47f60049d3e4c330ee66a85cacb4747dcebc7864f2fbfddc1",
+      "file": "excerpts/early/loop/anne/short/edited.json.gz",
+      "sha": "7cfde32e7af71fbc58d4ac0e6301ab0dc12f27492dd89385a60afd0b72cd2230",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives the wrong age difference and omits both requested statements.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "loop",
+      "book": "anne",
+      "length": "short",
+      "world": "original",
+      "positions": 1726,
+      "status": "answered",
+      "seconds": 1.0069932500482537,
+      "key": "b4df1f7c1b4d413a67979c8687e088ba481b2bfb8092ac1a936b2495e763bb02",
+      "file": "excerpts/early/loop/anne/short/original.json.gz",
+      "sha": "7950791fab88c0ef6fcd7bc7d5fd7f7aab846aa26bc06b62be1bf01925e6a1a3",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives the wrong age difference and omits both requested statements.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "loop",
+      "book": "book",
+      "length": "medium",
+      "world": "edited",
+      "positions": 13553,
+      "status": "answered",
+      "seconds": 6.737159750016872,
+      "key": "d35332d05a4d17a4c9b1bcb97e328be2c8dc1bfc8ba260d3218c3ef0b35cc2cf",
+      "file": "excerpts/early/loop/book/medium/edited.json.gz",
+      "sha": "2b7c7aa591c2d804cfaac3299c6f39e92bcd92d18e73f1549c65627fa9d57428",
+      "grade": {
+        "correct": false,
+        "first_error": "Denies the escape and omits the requested evidence.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "loop",
+      "book": "book",
+      "length": "medium",
+      "world": "original",
+      "positions": 13550,
+      "status": "answered",
+      "seconds": 6.807733875000849,
+      "key": "817c613a6159aed3d53c5ea41deef1257b255d4fce35f7dfe3aed10445c67aed",
+      "file": "excerpts/early/loop/book/medium/original.json.gz",
+      "sha": "e2de2a0479105c31a680526c5e740436f0ee35ae7ba7ff441decd58e5e63e36b",
+      "grade": {
+        "correct": false,
+        "first_error": "Omits both requested supporting details.",
+        "unsupported": false
+      }
+    },
+    {
+      "arm": "loop",
+      "book": "book",
+      "length": "short",
+      "world": "edited",
+      "positions": 1322,
+      "status": "answered",
+      "seconds": 0.6658373749814928,
+      "key": "b3746c51a205deaa4fe495e97154372393607e476a5de320693ced54b25d4206",
+      "file": "excerpts/early/loop/book/short/edited.json.gz",
+      "sha": "ab805825133801c647e09a14e998bd3bed849ee0b4ff00b38d17a280cd5b3d4e",
+      "grade": {
+        "correct": false,
+        "first_error": "Denies the escape and omits the requested evidence.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "loop",
+      "book": "book",
+      "length": "short",
+      "world": "original",
+      "positions": 1319,
+      "status": "answered",
+      "seconds": 0.6125542499939911,
+      "key": "817c613a6159aed3d53c5ea41deef1257b255d4fce35f7dfe3aed10445c67aed",
+      "file": "excerpts/early/loop/book/short/original.json.gz",
+      "sha": "09b8c12ce56c8b4aea65b42712b1667ba48db54c07423e5b00dd308336311126",
+      "grade": {
+        "correct": false,
+        "first_error": "Omits both requested supporting details.",
+        "unsupported": false
+      }
+    },
+    {
+      "arm": "ordinary",
+      "book": "anne",
+      "length": "medium",
+      "world": "edited",
+      "positions": 18536,
+      "status": "answered",
+      "seconds": 9.155674707959406,
+      "key": "51e518fda217d830e9e8d391c7a8f5c3cac7cc1efec7150d074a11884dfda44b",
+      "file": "excerpts/early/ordinary/anne/medium/edited.json.gz",
+      "sha": "fe70e44f9dc3d173c55fd03f7140e61e7d2b2ff9bbce66973db2dbd118790e43",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives the wrong age difference and omits both requested statements.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "ordinary",
+      "book": "anne",
+      "length": "medium",
+      "world": "original",
+      "positions": 18536,
+      "status": "answered",
+      "seconds": 8.809051165997516,
+      "key": "35526776cd49ae0dd1adc488d4b8e048681632c81b61ed3f3fe4a064f1ce8689",
+      "file": "excerpts/early/ordinary/anne/medium/original.json.gz",
+      "sha": "6b97c11d22577da75b1ba768f4d7980a4ac0b1a81dade6e30a4101f9c6d2be78",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives the wrong age difference and omits both requested statements.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "ordinary",
+      "book": "anne",
+      "length": "short",
+      "world": "edited",
+      "positions": 1726,
+      "status": "answered",
+      "seconds": 0.8265229999669828,
+      "key": "91cdaf8a34d9b49daa63bdeb5822c43be82e9c3dd155c70691d6fecf08a4ebb4",
+      "file": "excerpts/early/ordinary/anne/short/edited.json.gz",
+      "sha": "34ce30dcf371d6992d74ccb5fe512533ad73ceb8592812f3d32a7cd3816173e0",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives the wrong age difference and omits both requested statements.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "ordinary",
+      "book": "anne",
+      "length": "short",
+      "world": "original",
+      "positions": 1726,
+      "status": "answered",
+      "seconds": 0.8649114579893649,
+      "key": "0efce024bd981a25c9c04b4a8a9ecd50b0d6b79869540ea7d530fd18f5dcdd9a",
+      "file": "excerpts/early/ordinary/anne/short/original.json.gz",
+      "sha": "10ca96b9b68622c98c6fb9b66294afd7ec7d3ccbb56137574f1579ddcff6bff5",
+      "grade": {
+        "correct": false,
+        "first_error": "Gives the wrong age difference and omits both requested statements.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "ordinary",
+      "book": "book",
+      "length": "medium",
+      "world": "edited",
+      "positions": 13553,
+      "status": "answered",
+      "seconds": 5.682915665965993,
+      "key": "b3746c51a205deaa4fe495e97154372393607e476a5de320693ced54b25d4206",
+      "file": "excerpts/early/ordinary/book/medium/edited.json.gz",
+      "sha": "2e8bfa498bfb134562fd733d92207f294c8456f6d48a06d1393e8538b9b23be4",
+      "grade": {
+        "correct": false,
+        "first_error": "Denies the escape and omits the requested evidence.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "ordinary",
+      "book": "book",
+      "length": "medium",
+      "world": "original",
+      "positions": 13550,
+      "status": "answered",
+      "seconds": 5.9143928330158815,
+      "key": "817c613a6159aed3d53c5ea41deef1257b255d4fce35f7dfe3aed10445c67aed",
+      "file": "excerpts/early/ordinary/book/medium/original.json.gz",
+      "sha": "64e1421fdb143ee594a151c626c2b010592c9d5f778459a2da438a51b0d07147",
+      "grade": {
+        "correct": false,
+        "first_error": "Omits both requested supporting details.",
+        "unsupported": false
+      }
+    },
+    {
+      "arm": "ordinary",
+      "book": "book",
+      "length": "short",
+      "world": "edited",
+      "positions": 1322,
+      "status": "answered",
+      "seconds": 0.5486604580073617,
+      "key": "b3746c51a205deaa4fe495e97154372393607e476a5de320693ced54b25d4206",
+      "file": "excerpts/early/ordinary/book/short/edited.json.gz",
+      "sha": "fa8319babd6bc6a451f48708fc4c79ba097ac1a7b1913ac24a6b206f7fe36ebc",
+      "grade": {
+        "correct": false,
+        "first_error": "Denies the escape and omits the requested evidence.",
+        "unsupported": true
+      }
+    },
+    {
+      "arm": "ordinary",
+      "book": "book",
+      "length": "short",
+      "world": "original",
+      "positions": 1319,
+      "status": "answered",
+      "seconds": 0.5940402920241468,
+      "key": "817c613a6159aed3d53c5ea41deef1257b255d4fce35f7dfe3aed10445c67aed",
+      "file": "excerpts/early/ordinary/book/short/original.json.gz",
+      "sha": "4e7b08ac895cc41516a69984d36e6136a11dcf2a44c43426bfcbc6d4addfd07a",
+      "grade": {
+        "correct": false,
+        "first_error": "Omits both requested supporting details.",
+        "unsupported": false
+      }
+    }
+  ],
+  "audit": {
+    "training": "1dc6bfa524162758dea23e3000a3041c388f6cf678f7c2109f7bcb03b2435349",
+    "inventory": "c29564af32757cd1e0cf4d170f654481f0e6cbdfedf147842627640807e7e6da",
+    "families": {
+      "chat": 72,
+      "documents": 72,
+      "reasoning": 72,
+      "tools": 72
+    },
+    "source_groups": {
+      "chat": 68,
+      "documents": 56,
+      "reasoning": 48,
+      "tools": 67
+    },
+    "train_prompts": 288,
+    "unique_short_dev_prompts": 25,
+    "short_worlds": 27,
+    "shared_exact_openings": 0,
+    "whole_held_question_text_hits": [],
+    "whole_training_and_dev_document_overlap": 0,
+    "matched_order": "95fac676895743bdf521f86a8cc0f69c91bba0426843291240151b03cc29026f",
+    "fit_rows": 1152
+  },
+  "fit_epoch": [
+    {
+      "arm": "ordinary",
+      "steps": 144,
+      "positions": 140168,
+      "suffix_and_middle_forward_layer_token_visits": 1682016,
+      "optimizer_seconds": 148.80282087618252,
+      "feature_seconds": 17.73879145696992,
+      "features_created": 224,
+      "peak": 5285639240,
+      "last_saved_state": "f977689a0d9291d3d8ac23d7294dbc15c76fb307f2cbf1da3c0bfa3d4368f6cb"
+    },
+    {
+      "arm": "loop",
+      "steps": 144,
+      "positions": 140168,
+      "suffix_and_middle_forward_layer_token_visits": 5931384,
+      "optimizer_seconds": 470.39852458570385,
+      "feature_seconds": 7.181661334587261,
+      "features_created": 62,
+      "peak": 5425981632,
+      "last_saved_state": "35105569cea54a07f82d46787376f6e48189cfcdd73a07ce0a67c09ad8a9477e"
+    }
+  ],
+  "crate_examples": [
+    [
+      "transfer",
+      "The printed note says a crate holds 24 loose bottles. The new packing slip instead lists 24 pairs. We have three crates from the new slip. How many bottles should I expect, and why?",
+      "Expect 144 bottles. The new slip specifies 24 pairs per crate, so each crate has 48 bottles and three crates have 144.",
+      "Expect 72 bottles."
+    ],
+    [
+      "transfer",
+      "The printed note says a crate holds 24 pairs. The new packing slip instead lists 24 loose bottles. We have three crates from the new slip. How many bottles should I expect, and why?",
+      "Expect 72 bottles. The new slip counts individual bottles, so the three crates hold 3 \u00d7 24 bottles.",
+      "Expect 144 bottles."
+    ]
+  ],
   "hardware": {
     "machine": "arm64",
     "chip": "Apple M3 Pro",
@@ -122,11 +1210,11 @@
   ],
   "costs": {
     "short": {
-      "seconds": 212.4,
+      "seconds": 714.3,
       "stopped": 0
     },
     "fit": {
-      "seconds": 329.5,
+      "seconds": 708.9,
       "stopped": 8
     },
     "long": {
@@ -444,7 +1532,58 @@
     "docs/measurements/middle-depth/release-regression.json": "65a485bc0540f697179e76d19038ab406b0cfa5da72b8d8944ec55978b4a1cea",
     "docs/measurements/middle-depth/donor-decision.json": "d584898f5e8c0865e769b68d23617d379301d16fb29bab3b8a1a7fca65e6c6dd",
     "docs/measurements/middle-depth/sparse-parity.json": "9133db3be28b2d6052d9a4c746c8bbc4f2dbcacaf150ba8539a5af778a522269",
+    "docs/measurements/middle-depth/review/headroom-early/scored.json": "b938fd5bdf6abc4669945608db363a322aa37f68e9e322c8594e6abc69e1e76d",
+    "docs/measurements/middle-depth/review/headroom-early/reviewer-note.json": "697201c34d82edb254b0e3f49c23232dd9cdab371165d32d730831e71a54f92c",
+    "docs/measurements/middle-depth/excerpt-review/early/scored.json": "1682e39efdfa15e45c1fbbba9da9658f0dbd9253f49f19f77f6a13c0c6bddd35",
+    "docs/measurements/middle-depth/excerpts/early/base/anne/medium/edited.json.gz": "a8b20c05edc618cf886b45bada6af9ed7c7795e929e3ca26c6224786c9c2c812",
+    "docs/measurements/middle-depth/excerpts/early/base/anne/medium/original.json.gz": "a6969f375a06bc0254f0f44998e37161f98d84dd4eb80d529e1673ecf403ce2e",
+    "docs/measurements/middle-depth/excerpts/early/base/anne/short/edited.json.gz": "9fa466310f706097ca47be6f5c668b1c4061bc450c0b4aba80afa1fe6513e8ad",
+    "docs/measurements/middle-depth/excerpts/early/base/anne/short/original.json.gz": "6dc6fc7e6ed58599321140a43e44860c81a4d6f6c592712b590c1e7f650148f2",
+    "docs/measurements/middle-depth/excerpts/early/base/book/medium/edited.json.gz": "b89136a4f522ada4e139bf99971eb67987425678c36a8cfe12c1694f0309b766",
+    "docs/measurements/middle-depth/excerpts/early/base/book/medium/original.json.gz": "4ed6169416f333cce0732afedbd67e721727b9c0fd21cd3f8a1c09d756b443cb",
+    "docs/measurements/middle-depth/excerpts/early/base/book/short/edited.json.gz": "a25d994ba13b50a5e2e04d46b002bab4bfd24c6f36789d14635ea6a3a6f9f7e9",
+    "docs/measurements/middle-depth/excerpts/early/base/book/short/original.json.gz": "3b42a564e251d99b2aa7a9cc217328b455fe469656afd913c313c706bff0fb41",
+    "docs/measurements/middle-depth/excerpts/early/loop/anne/medium/edited.json.gz": "3ca7b2ed509b83f037bbdd318fa1f56d19d0bdae98f39a5030407e047ffc63b7",
+    "docs/measurements/middle-depth/excerpts/early/loop/anne/medium/original.json.gz": "17617c7565e3f6ac485c59a327e65c16b7bc784551c7973328e6287a64b7bfed",
+    "docs/measurements/middle-depth/excerpts/early/loop/anne/short/edited.json.gz": "7cfde32e7af71fbc58d4ac0e6301ab0dc12f27492dd89385a60afd0b72cd2230",
+    "docs/measurements/middle-depth/excerpts/early/loop/anne/short/original.json.gz": "7950791fab88c0ef6fcd7bc7d5fd7f7aab846aa26bc06b62be1bf01925e6a1a3",
+    "docs/measurements/middle-depth/excerpts/early/loop/book/medium/edited.json.gz": "2b7c7aa591c2d804cfaac3299c6f39e92bcd92d18e73f1549c65627fa9d57428",
+    "docs/measurements/middle-depth/excerpts/early/loop/book/medium/original.json.gz": "e2de2a0479105c31a680526c5e740436f0ee35ae7ba7ff441decd58e5e63e36b",
+    "docs/measurements/middle-depth/excerpts/early/loop/book/short/edited.json.gz": "ab805825133801c647e09a14e998bd3bed849ee0b4ff00b38d17a280cd5b3d4e",
+    "docs/measurements/middle-depth/excerpts/early/loop/book/short/original.json.gz": "09b8c12ce56c8b4aea65b42712b1667ba48db54c07423e5b00dd308336311126",
+    "docs/measurements/middle-depth/excerpts/early/ordinary/anne/medium/edited.json.gz": "fe70e44f9dc3d173c55fd03f7140e61e7d2b2ff9bbce66973db2dbd118790e43",
+    "docs/measurements/middle-depth/excerpts/early/ordinary/anne/medium/original.json.gz": "6b97c11d22577da75b1ba768f4d7980a4ac0b1a81dade6e30a4101f9c6d2be78",
+    "docs/measurements/middle-depth/excerpts/early/ordinary/anne/short/edited.json.gz": "34ce30dcf371d6992d74ccb5fe512533ad73ceb8592812f3d32a7cd3816173e0",
+    "docs/measurements/middle-depth/excerpts/early/ordinary/anne/short/original.json.gz": "10ca96b9b68622c98c6fb9b66294afd7ec7d3ccbb56137574f1579ddcff6bff5",
+    "docs/measurements/middle-depth/excerpts/early/ordinary/book/medium/edited.json.gz": "2e8bfa498bfb134562fd733d92207f294c8456f6d48a06d1393e8538b9b23be4",
+    "docs/measurements/middle-depth/excerpts/early/ordinary/book/medium/original.json.gz": "64e1421fdb143ee594a151c626c2b010592c9d5f778459a2da438a51b0d07147",
+    "docs/measurements/middle-depth/excerpts/early/ordinary/book/short/edited.json.gz": "fa8319babd6bc6a451f48708fc4c79ba097ac1a7b1913ac24a6b206f7fe36ebc",
+    "docs/measurements/middle-depth/excerpts/early/ordinary/book/short/original.json.gz": "4e7b08ac895cc41516a69984d36e6136a11dcf2a44c43426bfcbc6d4addfd07a",
+    "docs/measurements/middle-depth/data-audit.json": "4b836a5fde225199670321ac31efd7d229b3ee9ac6f71f589cd627ec1c474eb4",
+    "docs/measurements/middle-depth/fit-work.json": "b43d8ab440256da2717571f73edd458e34508724674683b9f6e5ea7821b3d552",
+    "research/sources/middle-depth/conversation-edits.json": "69b171947d032c0a538ca6cd010503e58aa301f3d9af0823eec0a0394f0c771f",
+    "docs/measurements/middle-depth/short/headroom-early/4096/base/archive-original.json.gz": "17950c6a808f387ce27c370f66a0d3056fa263b21461bcbe87c9d20976bba92c",
+    "docs/measurements/middle-depth/short/headroom-early/4096/base/tiles-original.json.gz": "0df5396487fda4f41e30ed82b7c049add9f26b64d3e7cd6cfff221d102d3f4c2",
+    "docs/measurements/middle-depth/short/headroom-early/4096/base/tiles-own.json.gz": "a41bd53034ac472ca2bfa5dfff3e2c043eadcddd26467a48b438230d775093cc",
+    "docs/measurements/middle-depth/short/headroom-early/4096/base/tiles-shared.json.gz": "659241bdd8bdef2c7c82e206bd6085cdcf61a74648d6b285c3dffe4d82671999",
+    "docs/measurements/middle-depth/short/headroom-early/4096/base/volunteer-original.json.gz": "9fc9864a017b3125556a7069abd209c83bd05cef5fdee5d09fbe3b77816e5ad5",
+    "docs/measurements/middle-depth/short/headroom-early/4096/instruction/archive-original.json.gz": "f4504f763e77fbf5895208f62a2acc605aa72da857c9da10b71b4e17049419c3",
+    "docs/measurements/middle-depth/short/headroom-early/4096/instruction/tiles-original.json.gz": "c44f8c8ba4893381119c723aed0a13716cc8d18e08163ad932d4c0ba4c19bcd7",
+    "docs/measurements/middle-depth/short/headroom-early/4096/instruction/tiles-own.json.gz": "1cf43455447fd919a06aa0eea13c3b75ca6cfa3d04bd011b60dd5509156ea23a",
+    "docs/measurements/middle-depth/short/headroom-early/4096/instruction/tiles-shared.json.gz": "098fbc34b8d446eae5a3e6b5db58b61848e5126351cc7aecad74c63eef115059",
+    "docs/measurements/middle-depth/short/headroom-early/4096/instruction/volunteer-original.json.gz": "e4080bfcd0da558ae4c1b05c9c6ba7e8ac142fb26e17bc5703db9d08e8d425e6",
+    "docs/measurements/middle-depth/short/headroom-early/4096/loop/archive-original.json.gz": "fdf5bb700237950cccb749af7bdd68b68952e99c32af90e8b9785e5b6eacf418",
+    "docs/measurements/middle-depth/short/headroom-early/4096/loop/tiles-original.json.gz": "b274cef4df015b4d14197e5c45f7f5ba96419493f6fa91a6cd6f5a3d52e20bc7",
+    "docs/measurements/middle-depth/short/headroom-early/4096/loop/tiles-own.json.gz": "10e441be5a9d023ac8144674a02dcbcd88106163511ad6094809362d2bee3589",
+    "docs/measurements/middle-depth/short/headroom-early/4096/loop/tiles-shared.json.gz": "269661ae564a949faa74c5f19db64469825b94f3b564cd42ebc7ea583e34b5a9",
+    "docs/measurements/middle-depth/short/headroom-early/4096/loop/volunteer-original.json.gz": "402ffdc85469667473920444aea75d1cf174c4e9d6c37fa4940fbcecfdb9b65b",
+    "docs/measurements/middle-depth/short/headroom-early/4096/ordinary/archive-original.json.gz": "57294a822d597f5a0b1293cf77f9aebe29457990cea70c24f5c6e4e5c5dd31aa",
+    "docs/measurements/middle-depth/short/headroom-early/4096/ordinary/tiles-original.json.gz": "c421eb65f06afed8df69c4ab7653a31255ef3db4af4d942251fcc0f8f35795bb",
+    "docs/measurements/middle-depth/short/headroom-early/4096/ordinary/tiles-own.json.gz": "3f692acffe37e4627e7066294e0cd38c709056be2582a03ce3edd70878973207",
+    "docs/measurements/middle-depth/short/headroom-early/4096/ordinary/tiles-shared.json.gz": "c2e48448c75f677772b4a04ee4125673835210c8fc9a2997785112f075b76256",
+    "docs/measurements/middle-depth/short/headroom-early/4096/ordinary/volunteer-original.json.gz": "4655a015c7b3d27a2c465df5c2bc6214c0bf38656835283d1a85f80db4676f9a",
     "docs/measurements/middle-depth/charges/1f5a458aaade4efba5104dff72b9ae3d.json": "29a7d983a59ff7104b470f9f32b10368865008c17ea63ddebbd8226233e78d5b",
+    "docs/measurements/middle-depth/charges/33885304d28043c4a1ca67711a35b693.json": "205a73729c5d644fbb367dd2178b7c49ec3866da6f587a6dada7c53b1977960d",
     "docs/measurements/middle-depth/charges/643480313eef44edbed68f1ee35cc589.json": "e4fc5f96a592e70fc657d5d58f072f2f9a39e25efa3d31fd321780da2f43c085",
     "docs/measurements/middle-depth/charges/8f77dd5044b24dd7ab987e418af9ce58.json": "c802febf3b602e8dcc51d565dd4caca0ff1cbb9e197ff9c10cd14caa72874977",
     "docs/measurements/middle-depth/charges/93172cd4844e45efa4ea904fb74224e3.json": "f3884fc61b8b89863169e8ec97c928610d29c3a00846f3a1f2f5546b5c836d80",
@@ -452,8 +1591,12 @@
     "docs/measurements/middle-depth/charges/c33c5fa5953a40a683c2e445ef2a0978.json": "62bbf8aef21b7750e9793f3aa2da77b668235b290c17a2f04b6de0e5fd9bbde4",
     "docs/measurements/middle-depth/charges/317558b3abd542d6b5633f62dbde5d9f.json": "3782859fba03313031a39eb905805dd2fd48cdfec8636b1f6b730a74851f7341",
     "docs/measurements/middle-depth/charges/ae3b66cb686049baa35c75e778f51d80.json": "ff118283ba655ca820dbfa967a362da10089e98c8c91817a37264a4260bfd9c9",
+    "docs/measurements/middle-depth/charges/3a3aef39185244c48d2cc9d80efc6d77.json": "a49de42d8101934de70a660430d84ea99cae3e17136c676fc78fb71c9ec80943",
+    "docs/measurements/middle-depth/charges/cdc2598d189644d882257f6f6ce301b1.json": "13305bb3b9016ad736c0c7f7a7ddb87b51aa4e25b17b400594a6786c02b46065",
     "docs/measurements/middle-depth/charges/bb37337e83a745be8a932e396dfd81af.json": "0170154b67f6d5926f96359cbf6517f0d80a6f2cdf085a25d6964dea3e0755f5",
     "docs/measurements/middle-depth/charges/a7ad57369d17407887a57a562c0033a3.json": "c07bedf1a444a06ac88ed910f47e37a68e16fe42a475c281eb9c7f836de8e364",
+    "docs/measurements/middle-depth/charges/9aa8c4e4208a4a07a83afcced4fdb972.json": "92cdd6c558e16c540904a271deb5f21212f6726a904a867144c6c35d7cd33518",
+    "docs/measurements/middle-depth/charges/3302ac7c313d4db2a8a6000caa628bef.json": "c09cfc19ccf6ac99fc4e2492485cfe89e82ef7da0782867f17571c32dddcc1e8",
     "docs/measurements/middle-depth/charges/c187434ffda447218986a1a040ce3712.json": "7d8363fdbb71e5afbc4b40d48c02e39039404f9efed5d28d6f650e776327f545",
     "docs/measurements/middle-depth/charges/64648cfa187446f58c4a9c3d7ef3994e.json": "e8929ceaf6363aeb70120172d432716fe4f88917c8f7f7bf8196038110c0bd03",
     "docs/measurements/middle-depth/charges/a8ddf3b19b884c8daf5d9555176de709.json": "576f6fc835f80ef8b4b4e65141dcf0fbc660e2a208dfa7643922c7f2577b74e6",
@@ -472,8 +1615,10 @@
     "docs/measurements/middle-depth/charges/4141119c007e424584e412258656999b.json": "26855a5f5a54e41f79e5c92c2b1276e181cf05432e6ce1668670461b107e4876",
     "docs/measurements/middle-depth/charges/468b42f73322492fb4110ceff209ce68.json": "fc68730f3bd369b1bd36f7dbc40460142db32201b55f3590f1fc8f3cd91c3887",
     "docs/measurements/middle-depth/charges/0762e7c7381b4042b81ac4738f3bb872.json": "e94903418acdda46c19cd338982e2dd0e9c2f0adf390a04c31d68f071679687d",
+    "docs/measurements/middle-depth/charges/44d93faff5364cf1b7d4428feef32895.json": "aa010b5f3cb386aebf5554f3bfa88fbe404f030075a42d31cf52045cab94ab0e",
     "docs/measurements/middle-depth/charges/b7b75afd04ca4b6194733d75eafed5dd.json": "2464eff1a430031251022d91403e5b2ce57c9b5cbba87ca0b8dec366f4be8e8d",
     "docs/measurements/middle-depth/charges/d0e43e7c485743f6a73d4ba13938a37b.json": "9cecb7c89af78c6f95af015d69ca43b82084cc76f148199ec46971e7feef2e80",
+    "docs/measurements/middle-depth/charges/6f0f31cda6c441ab8dbf0ae1dc8f1a2c.json": "5f6fb959a6ce0711d5ecdf2d5e06315a837b748f33b2a6d67e03410b6288ddb6",
     "docs/measurements/middle-depth/charges/609b6294d71e43dca303f24c9df90dd5.json": "77f6cd050c85cbd320a8c55f1db37b78fcc35d022903107f324089831cd6bf0a",
     "docs/measurements/middle-depth/charges/8645789d4db640ed91c8c7fcd55470f0.json": "283f020ac674b4b352e26c781596aa138353781f93bd0112892e36496046a7fd",
     "docs/measurements/middle-depth/charges/de70ec0bdd484f49b5270d98b811212b.json": "50e6799ebded92baee22b31f6b0953c8cb18603e2ff163bb28b75d7d25d22635",
@@ -483,6 +1628,7 @@
     "docs/measurements/middle-depth/charges/34712d6f50314c92b181558750736e31.json": "b4b01c8e6244c181cb00b356b528fb8fc5f244a6f90a20ff128234cdc3535260",
     "docs/measurements/middle-depth/charges/adb2fb21dd924323b49c2de1373fb52f.json": "12f5d43152f60566956a3cd5a86848f871600125631d82cdb3ac78320ea26f0b",
     "docs/measurements/middle-depth/charges/f5fad8e319d7402e8ced8e9e828351d7.json": "98755dd7e0020e730f6287eb1b1030dd72445dbbf72262bcb399e4fce00a83ba",
+    "docs/measurements/middle-depth/charges/ff6a3171dd1543f0920bb34e123c7120.json": "3fd7fc37f45678a7f4110b58d097ec20045410d7cf10e22d513ec7b78cf2e421",
     "docs/measurements/middle-depth/charges/ccffa4f92146443f9b828163177cac07.json": "cf2920ab99cb16ef431262bcaf9a8fedc6fc155059238a0d4000ecf61c0c3892",
     "docs/measurements/middle-depth/charges/54f1a063d8794f72a525dffe0e1be0d5.json": "0f7162ceff9fc5a5478700fc07d9043bbbe0e6a520e2192352569275668e234e",
     "docs/measurements/middle-depth/charges/257fd5c0c5604099bc478487f50da1bf.json": "f6c8451a20698dccd8b37b5152877fd7f3e407789f20d975b699e1b0c7496b1a",
@@ -490,6 +1636,7 @@
     "docs/measurements/middle-depth/charges/952d804c92124ccfa2b56ce3d19ef78f.json": "3d8902b6a58d61170c6307daecb4cb7c8357a07127190228f0cbf940a4eec8d8",
     "docs/measurements/middle-depth/charges/04d35c71ac074c69a123bc8e11c25d83.json": "1799549d3a813d439d8b876b40020bbedf7921a714d2fbeb06beb2301b024b50",
     "docs/measurements/middle-depth/charges/6e5f5a699dba4b7384e1fe25a6198916.json": "1aa103f611bbc164a94cd3f3c3da4db1d4db4f42fd235a4f18a61de07e62ded6",
-    "docs/measurements/middle-depth/charges/5b2b89221dfe4ac7bd1237dfca2103c4.json": "ef12e070bb432d21612f3631339dcb91c2b7210741b696186f3a147b0bb66011"
+    "docs/measurements/middle-depth/charges/5b2b89221dfe4ac7bd1237dfca2103c4.json": "ef12e070bb432d21612f3631339dcb91c2b7210741b696186f3a147b0bb66011",
+    "docs/measurements/middle-depth/charges/357ece9743454f87828f40c007a3b1e2.json": "277f4f87f67b0d39aba0e01f6dfa2836ffb5e78720e00d68e8945246312184b0"
   }
 }

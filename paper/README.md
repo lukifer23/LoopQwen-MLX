@@ -1,5 +1,7 @@
 # Where shared decoder depth earns its cost
 
+The nine-page working paper explains the training sources, model and control, and how the update-32 results change across output allowances. It includes the native one-epoch compute comparison, full-book runtime and the progression from rule induction to grounded decisions. [Read the paper draft](paper-draft.pdf) · [Frozen evidence snapshot](paper-draft-data.json) · [Rebuild script](../scripts/paper_draft.py)
+
 The latest additions trace correct calculator outputs through delivery and show answer loss, source location and two-version preferences on 24 held names in complete long documents. [Financial program figure](source-copy-program-audit.svg) · [Long-context figure](long-copy-held.svg) · [Paired quality by source](source-copy-supported-delivery.csv) · [Resume handoff](../RESEARCH_GOAL.md)
 
 The current manuscript follows the trained loop from source selection and optimization through verification against the pinned Qwen Base. The standalone study includes the physical one- and two-read measurements, the frozen evaluation design and the conditions for a release. [Complete manuscript](loopqwen-repair-query-study.pdf) · [Standalone study](repair-query.pdf) · [Optimization measurements](repair-query-updates.csv) · [Per-example depth measurements](repair-query-depth-probes.csv)

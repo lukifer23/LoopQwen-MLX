@@ -98,7 +98,19 @@ def snapshot():
                 length=len(turn["prompt_ids"]),
                 output=len(turn["token_ids"]),
                 status=tr["status"],
-                first=round(build + (next(t for pos,t in row["timing"] if pos==len(turn["prompt_ids"])) if "timing" in row else turn["ttft_s"]), 1),
+                first=round(
+                    build
+                    + (
+                        next(
+                            t
+                            for pos, t in row["timing"]
+                            if pos == len(turn["prompt_ids"])
+                        )
+                        if "timing" in row
+                        else turn["ttft_s"]
+                    ),
+                    1,
+                ),
                 total=round(build + tr["seconds"], 1),
                 sites=len(turn["kv_history"]),
                 peak=round(turn["peak_bytes"] / 2**30, 2),
@@ -115,14 +127,35 @@ def snapshot():
     use(ROOT / "release-regression.json")
     use(ROOT / "donor-decision.json")
     use(ROOT / "sparse-parity.json")
-    # Closed charges up to and including exact resident/callback qualification
+    headroom = use(ROOT / "review/headroom-early/scored.json")
+    use(ROOT / "review/headroom-early/reviewer-note.json")
+    excerpts = use(ROOT / "excerpt-review/early/scored.json")
+    for row in excerpts:
+        assert digest(ROOT / row["file"]) == row["sha"]
+        inputs[str(ROOT / row["file"])] = row["sha"]
+    audit = use(ROOT / "data-audit.json")
+    fit_epoch = use(ROOT / "fit-work.json")
+    assert [r["steps"] for r in fit_epoch] == [144, 144]
+    examples = use("research/sources/middle-depth/conversation-edits.json")
+    for r in headroom:
+        raw = use(ROOT / r["file"])
+        assert digest(ROOT / r["file"]) == r["sha"]
+        r["calls"] = [
+            {
+                k: t[k]
+                for k in ("call", "observation", "calls", "observations")
+                if k in t
+            }
+            for t in raw["trace"]["turns"]
+            if "call" in t or "calls" in t
+        ]
+    # Closed charges through the matched longer-output read
     # delimit a reproducible engineering cost cut during a longer running fit.
     charges = [(f, read(f)) for f in (ROOT / "charges").glob("*.json")]
     cutoff = max(
         r["dispatch"]
         for f, r in charges
-        if r["job"] == "full-prefix resident-vs-staged output parity"
-        and r["status"] == "finished"
+        if "short/headroom-early/" in r["job"] and r["status"] == "finished"
     )
     costs = {}
     for f, r in charges:
@@ -139,6 +172,11 @@ def snapshot():
         dict(
             title=TITLE,
             authors=AUTHORS,
+            headroom=headroom,
+            excerpts=excerpts,
+            audit=audit,
+            fit_epoch=fit_epoch,
+            crate_examples=[v for v in examples if v[0] == "transfer"],
             hardware=hardware,
             historical=historical,
             source_copy=src["scores"],
@@ -271,6 +309,105 @@ def figures(d, tmp):
     for ax in (a, b):
         ax.grid(axis="x", alpha=0.15)
     savefig(fig, "time.svg")
+
+    from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+
+    fig, ax = plt.subplots(figsize=(7.2, 1.95))
+    ax.set(xlim=(0, 10), ylim=(0, 3))
+    ax.axis("off")
+
+    def box(x, width, title, sub, face):
+        ax.add_patch(
+            FancyBboxPatch(
+                (x, 1.0),
+                width,
+                1.0,
+                boxstyle="round,pad=0.07,rounding_size=.12",
+                facecolor=face,
+                edgecolor="#648078",
+                lw=0.85,
+            )
+        )
+        ax.text(
+            x + width / 2,
+            1.62,
+            title,
+            fontsize=10.3,
+            ha="center",
+            va="center",
+            weight="bold",
+        )
+        ax.text(x + width / 2, 1.26, sub, fontsize=8, ha="center", va="center")
+
+    def arrow(a, b, **kwargs):
+        ax.add_patch(
+            FancyArrowPatch(
+                a, b, arrowstyle="-|>", mutation_scale=11, color=TEAL, lw=1.5, **kwargs
+            )
+        )
+
+    box(0.13, 1.95, "Prefix", "layers 0–11", "#edf1ef")
+    box(3.58, 2.6, "Shared block", "layers 12–15", "#d8eee6")
+    box(7.55, 2.16, "Suffix + head", "layers 16–23", "#edf1ef")
+    arrow((2.16, 1.50), (3.48, 1.50))
+    arrow((6.26, 1.50), (7.44, 1.50))
+    ax.text(2.82, 1.82, "anchor", ha="center", fontsize=8)
+    ax.text(6.88, 1.82, "chosen exit", ha="center", fontsize=8)
+    ax.plot([5.67, 5.67, 4.08], [0.93, 0.43, 0.43], color=TEAL, lw=1.5)
+    arrow((4.08, 0.43), (4.08, 0.94))
+    ax.text(
+        4.9,
+        0.07,
+        "Mix with the fixed anchor before each revisit",
+        fontsize=8.5,
+        ha="center",
+        color=TEAL,
+    )
+    savefig(fig, "architecture.svg")
+    fig, ax = plt.subplots(figsize=(7.2, 2.4))
+    display = ("Untouched Base", "Instruction", "Trained ordinary", "Trained loop")
+    arms = ("base", "instruction", "ordinary", "loop")
+    for i, (arm, name) in enumerate(zip(arms, display, strict=True)):
+        row = next(
+            r
+            for r in d["headroom"]
+            if r["arm"] == arm and r["source"] == "tiles" and r["world"] == "original"
+        )
+        t = row["seconds"]
+        ax.hlines(i, 0, t, color="#bdc9c5", linewidth=1.3)
+        mark = (
+            "o"
+            if row["grade"]["correct"]
+            else ">"
+            if row["status"] == "token_limit"
+            else "X"
+        )
+        ax.scatter(
+            t,
+            i,
+            marker=mark,
+            s=60,
+            color=TEAL if row["grade"]["correct"] else AMBER,
+            zorder=2,
+        )
+        desc = (
+            "correct + executed"
+            if row["grade"]["correct"]
+            else "token limit"
+            if row["status"] == "token_limit"
+            else "tool error"
+        )
+        ax.text(t + 2, i, f"{t:.1f} s · {desc}", va="center", fontsize=8.3)
+    ax.axvline(8, color="#536875", ls="--", lw=1)
+    ax.text(8.6, 3.58, "8 s deadline", fontsize=8, color="#536875")
+    ax.set_yticks(range(4), display)
+    ax.set_xlim(0, 106)
+    ax.set_ylim(3.9, -0.45)
+    ax.set_xticks([0, 20, 40, 60, 80, 100])
+    ax.set_xlabel("Elapsed seconds on the same invoice request")
+    ax.spines["left"].set_visible(False)
+    ax.tick_params(axis="y", length=0)
+    savefig(fig, "headroom.svg")
 
 
 def render():
