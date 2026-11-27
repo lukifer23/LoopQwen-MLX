@@ -175,6 +175,16 @@ def main(verify):
                 [sys.executable, "-m", "scripts." + module], cwd=ROOT, check=True
             )
 
+    proof = ROOT / "research/results/proof-curriculum-01/decision.json"
+    if proof.is_file() and "arms" in read(proof):
+        for args in (
+            ["scripts.file_evidence_checkpoints", "--proof-curriculum"],
+            ["scripts.proof_curriculum_exposure"],
+            ["scripts.proof_curriculum_reading", "report"],
+            ["scripts.paper_proof_curriculum"],
+        ):
+            subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)

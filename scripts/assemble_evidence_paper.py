@@ -41,6 +41,14 @@ EDITIONS = {
         "Current study · Qualifying explanations before recurrent training",
         "Cross-view reading, tools, full context and earlier technical evidence",
     ),
+    "proof-curriculum": (
+        "loopqwen-findings.pdf",
+        "1622e82a046cd1da9270b22159a8198d03600c3eb485d151cc6721681707c9ef",
+        "loopqwen-proof-study.pdf",
+        "LoopQwen-MLX: second-visit learning, human reasoning, tool calls and full context",
+        "Current study · Training the repeated visit to improve a verdict",
+        "Explanation supervision, cross-view reading and full technical report",
+    ),
 }
 
 
@@ -82,7 +90,7 @@ if __name__ == "__main__":
     args = p.parse_args()
     for name in EDITIONS:
         if (
-            name in {"cross-view", "reasoned-evidence"}
+            name in {"cross-view", "reasoned-evidence", "proof-curriculum"}
             and not (args.folder / (name + "-paper.json")).is_file()
         ):
             continue

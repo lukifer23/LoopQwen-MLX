@@ -33,7 +33,8 @@ def verify(root):
         assert hashlib.sha256(source).hexdigest() == expected
     history = read(root / "optimizer-steps.json")
     cross_view = s["id"] == "cross-view-reading-01"
-    interval = 80 if cross_view else s["checkpoint_interval"]
+    proof_fit = s["id"] == "proof-curriculum-01"
+    interval = 100 if proof_fit else 80 if cross_view else s["checkpoint_interval"]
     steps = list(range(interval, s["updates"], interval)) + [s["updates"]]
     assert [h["step"] for h in history] == steps
     assert all(
@@ -42,12 +43,10 @@ def verify(root):
         for a, b in zip(history, history[1:])
     )
     assert history[-1]["targets"] == fit["targets"]
-    if cross_view:
-        assert history[-1]["teacher_positions"] == fit["teacher_positions"]
-        assert all(
-            0 < a["teacher_positions"] < b["teacher_positions"]
-            for a, b in zip(history, history[1:])
-        )
+    if cross_view or proof_fit:
+        key = "explanation_targets" if proof_fit else "teacher_positions"
+        assert history[-1][key] == fit[key]
+        assert all(0 < a[key] < b[key] for a, b in zip(history, history[1:]))
     optimizer = root / "optimizer.safetensors"
     assert digest(optimizer) == history[-1]["optimizer_sha256"]
     weights = root / "tool-adapters.safetensors"
@@ -92,11 +91,13 @@ def record(root):
     for directory in sorted(checkpoints.glob("step-*")):
         state = read(directory / "state.json")
         assert state["registration"] == digest(root / "registration.json")
-        if spec["id"] == "cross-view-reading-01":
+        if spec["id"] in ("cross-view-reading-01", "proof-curriculum-01"):
+            proof_fit = spec["id"] == "proof-curriculum-01"
+            key = "explanation_targets" if proof_fit else "teacher_positions"
             progress = {
                 "step": state["step"],
                 "targets": state["tokens"],
-                "teacher_positions": state["positions"],
+                key: state["proof_tokens" if proof_fit else "positions"],
                 "optimizer_seconds": state["seconds"],
             }
         else:
@@ -133,9 +134,16 @@ def record(root):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--record", action="store_true")
-    p.add_argument("--cross-view", action="store_true")
+    study = p.add_mutually_exclusive_group()
+    study.add_argument("--cross-view", action="store_true")
+    study.add_argument("--proof-curriculum", action="store_true")
     args = p.parse_args()
     base = "outputs/research" if args.record else "research/results"
-    (record if args.record else verify)(
-        Path(base) / ("cross-view-reading-01" if args.cross_view else NAME)
+    name = (
+        "proof-curriculum-01"
+        if args.proof_curriculum
+        else "cross-view-reading-01"
+        if args.cross_view
+        else NAME
     )
+    (record if args.record else verify)(Path(base) / name)
