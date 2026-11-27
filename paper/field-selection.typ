@@ -64,6 +64,8 @@ Both models receive the same ordered initial token IDs and tools, with thinking 
 
 #m.scope
 
+#m.formatting
+
 #pagebreak()
 = Accuracy, time and inference cost
 #grid(("Measurement","Trained loop","Untouched Base"),m.summary,(2.2fr,1fr,1fr))

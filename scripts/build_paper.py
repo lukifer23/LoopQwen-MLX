@@ -202,6 +202,7 @@ def main(verify):
             ["scripts.file_evidence_checkpoints", "--field-selection"],
             ["scripts.field_selection_exposure"],
             ["scripts.field_selection_analysis", "report"],
+            ["scripts.field_selection_scoring_audit"],
             ["scripts.paper_field_selection"],
         ):
             subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)

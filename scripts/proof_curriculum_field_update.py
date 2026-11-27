@@ -58,6 +58,7 @@ FIELD = Edition(
         ("field_selection_oracle", ()),
         ("field_selection_exposure", ()),
         ("field_selection_analysis", ("report",)),
+        ("field_selection_scoring_audit", ()),
         ("paper_field_selection", ()),
     ),
 )

@@ -228,6 +228,17 @@ def build():
             w["package"] + " " + w["version"] for w in panel["wheels"]
         ),
     }
+    formats = read("docs/measurements/field-selection-scorer-sensitivity.json")
+
+    def logic_counts(kind):
+        return " versus ".join(
+            str(sum(formats[arm]["families"][f][kind] for f in ("file", "inline")))
+            for arm in ARMS
+        )
+
+    m["formatting"] = (
+        f"With the stricter bare-word scorer the loop and Base grounded {logic_counts('bare')} of 72 human judgments. A short final-sentence scorer gave {logic_counts('final_sentence')}. The original score was {logic_counts('registered')}. Each scoring view uses the same executed evidence and completed replies. The supplement preserves the full visible answers for all scoring disagreements."
+    )
     trade = a["request_tradeoffs"]
     m["per_request"] = (
         f"Across all requests the loop finished sooner on {trade['lower_wall']}/96, emitted a first token sooner on {trade['lower_first']}/96, and used less peak memory on {trade['lower_peak']}/96. It gained {trade['loop_only_successes']} correct answers over Base. On {trade['loop_only_successes_with_lower_wall_first_and_peak']} of those gains it simultaneously reduced complete time, first latency and peak memory. Of {trade['both_successful']} requests that both grounded correctly, {trade['both_successful_with_lower_wall_first_and_peak']} improved on all three resource measures."
