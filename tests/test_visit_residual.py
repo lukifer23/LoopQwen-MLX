@@ -34,3 +34,53 @@ def test_zero_initial_logits_and_two_independent_native_histories():
     assert mx.array_equal(net.refinement(x, x), x).item()
     assert mx.array_equal(net.refinement.apply_change(x, y, mx.zeros_like(y)), y).item()
     assert not mx.array_equal(net.refinement(x, y), y).item()
+
+
+def test_rehearsal_only_projection_matches_full_vocabulary_loss_and_gradients():
+    from mlx import nn
+    from loopqwen.research.visit_residual_fit import gradient_function
+
+    acquire()
+    mx.random.seed(114)
+    base = LoopedModel(tiny_text_decoder(), Span(3, 1, 2, "stabilized"), alpha=0.35)
+    net = VisitResidualModel(base, 8)
+    net.eval()
+    net.refinement.output.weight = (
+        mx.random.normal(net.refinement.output.weight.shape) * 0.1
+    )
+    ids = mx.array([[4, 13, 61, 27, 45, 11, 8, 16]])
+    x, y = (z[0] for z in net.visits(ids))
+    targets = mx.array([13, 61, 27, 45, 11, 8, 16, 32])
+    visible = mx.array([False, True, False, True, True, True, False, True])
+    anchor = mx.arange(8) >= 5
+    positions, foils = mx.array([1, 3]), mx.array([23, 17])
+
+    def full(head):
+        z = net.project(net.text.model.norm(head(x, y))).astype(mx.float32)
+        donor = net.project(net.text.model.norm(y)).astype(mx.float32)
+        log_d = nn.log_softmax(donor, axis=-1)
+        divergence = (mx.exp(log_d) * (log_d - nn.log_softmax(z, axis=-1))).sum(-1)
+        ce = nn.losses.cross_entropy(z, targets)
+        active_visible = visible * (~anchor)
+        primary = (
+            0.35 * ce[:5].mean()
+            + 0.65 * (ce * active_visible).sum() / active_visible.sum()
+        )
+        margins = z[positions, targets[positions]] - z[positions, foils]
+        ranking = mx.logaddexp(mx.zeros_like(margins), 1.0 - margins).mean()
+        return (
+            0.45 * primary
+            + 0.15 * ranking
+            + 0.2 * ce[5:].mean()
+            + 0.2 * (divergence * anchor).sum() / anchor.sum()
+        )
+
+    expected, expected_grad = nn.value_and_grad(net.refinement, full)(net.refinement)
+    parts, received_grad = gradient_function(net)(
+        net.refinement, x, y, targets, visible, anchor, y[5:], positions, foils
+    )
+    assert mx.allclose(parts[0], expected, atol=2e-6).item()
+    a, b = dict(tree_flatten(expected_grad)), dict(tree_flatten(received_grad))
+    assert a.keys() == b.keys()
+    for key in a:
+        assert mx.allclose(a[key], b[key], atol=2e-6, rtol=2e-5).item()

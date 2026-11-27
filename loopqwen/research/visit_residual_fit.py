@@ -96,12 +96,16 @@ def packed_rows(indices, bank, seed, step, limit):
         anchors.extend([slot >= 4] * len(selected))
         body.extend(j >= start for j in selected)
         target.extend(labels[j] for j in selected)
+    # Rehearsal views occupy the last three slots. Their donor logits are the
+    # only reference distributions the registered KL objective consumes.
+    reference = mx.concatenate(two[4:])
     tensors = (
         mx.concatenate(one),
         mx.concatenate(two),
         mx.array(target),
         mx.array(body),
         mx.array(anchors),
+        reference,
         mx.array(differences, dtype=mx.int32),
         mx.array(foils, dtype=mx.int32),
     )
@@ -109,18 +113,20 @@ def packed_rows(indices, bank, seed, step, limit):
 
 
 def gradient_function(net):
-    def loss(head, first, second, targets, visible, anchor, js, foils):
+    def loss(head, first, second, targets, visible, anchor, reference, js, foils):
         def project(x):
             return net.project(net.text.model.norm(x)).astype(mx.float32)
 
         logits = project(head(first, second))
-        ce = nn.losses.cross_entropy(logits, targets)
+        log_z = mx.logsumexp(logits, axis=-1)
+        ce = log_z - logits[mx.arange(targets.size), targets]
         # Keep the reference distribution over the full vocabulary on every sampled rehearsal token.
-        base = mx.stop_gradient(project(second))
+        base = mx.stop_gradient(project(reference))
         log_base = base - mx.logsumexp(base, axis=-1, keepdims=True)
-        log_candidate = logits - mx.logsumexp(logits, axis=-1, keepdims=True)
+        n_ref = reference.shape[0]
+        log_candidate = logits[-n_ref:] - log_z[-n_ref:, None]
         kl = mx.sum(mx.exp(log_base) * (log_base - log_candidate), axis=-1)
-        anchored = (kl * anchor).sum() / anchor.sum()
+        anchored = kl.mean()
         active = 1 - anchor.astype(mx.float32)
         semantic = active * visible
         primary = 0.35 * (ce * active).sum() / active.sum() + 0.65 * (
