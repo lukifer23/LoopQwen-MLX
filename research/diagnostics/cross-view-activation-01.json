@@ -1,0 +1,12 @@
+{
+  "model_study": "cross-view-reading-01",
+  "compiled_reader": true,
+  "prompt": "In the attached measurement table, what was the total first-token wait for the loop?",
+  "document": "paper/instruction-interpolation-costs.csv",
+  "document_sha256": "fb43ce6d1e27c2519d6f838ad43167c9ad4e70e3270bab4f89c792412a2682ef",
+  "call": {"name": "csv_lookup", "arguments": {"document": "instruction-interpolation-costs.csv", "key_column": "Measurement", "key": "Sum of first-token waits (s)", "value_column": "Loop"}},
+  "expected_return": {"value": "6.93"},
+  "question": "Does the actual fitted and compiled second pass affect the next-token distribution after receiving a real observation?",
+  "protocol": "Open the published project measurements using the registered call and append its actual result to the native conversation. Compare the entire last-position logit vector at fixed weights from fresh physical caches with second-pass residual coefficients 0.35, zero and 0.35. Require seven shared native projection objects, independent complete caches for both visits, a finite positive RMS change and a bitwise identical restored vector. One intervention on one prefix tests physical implementation, without generating or scoring answers.",
+  "max_native_seconds": 60
+}

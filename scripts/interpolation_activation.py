@@ -20,7 +20,11 @@ def measure(source):
     start = perf_counter()
     mx.reset_peak_memory()
     file_evidence = spec.get("file_evidence", False)
-    if file_evidence:
+    if protocol.get("compiled_reader"):
+        from loopqwen.cross_view import CrossViewAssistant
+
+        actor = CrossViewAssistant(spec["checkpoint"], policy)
+    elif file_evidence:
         from loopqwen.file_evidence import FileEvidenceAssistant
 
         actor = FileEvidenceAssistant(spec["checkpoint"], policy)
@@ -28,15 +32,29 @@ def measure(source):
         actor = InterpolatedAssistant(spec["checkpoint"], policy)
     net = actor._tool_model
     definitions = []
+    history = [{"role": "user", "content": protocol["prompt"]}]
+    observation = None
     if "document" in protocol:
         from loopqwen.csv_tools import tools
 
         document = Path(protocol["document"])
         assert digest(document) == protocol["document_sha256"]
-        definitions = qwen_tools.declarations(tools([document], keyed=True))
-    prompt = qwen_tools.render(
-        actor.tokenizer, [{"role": "user", "content": protocol["prompt"]}], definitions
-    )
+        catalog = tools([document], keyed=True)
+        definitions = qwen_tools.declarations(catalog)
+        if "call" in protocol:
+            from loopqwen.tool_session import compact
+
+            call = protocol["call"]
+            provider = next(t for t in catalog if t.name == call["name"])
+            observation = provider.callback(**call["arguments"])
+            assert observation == protocol["expected_return"]
+            history.extend(
+                [
+                    qwen_tools.assistant_message([call]),
+                    {"role": "tool", "content": compact(observation)},
+                ]
+            )
+    prompt = qwen_tools.render(actor.tokenizer, history, definitions)
     tokens = actor.tokenizer.encode(prompt, add_special_tokens=False)
     inputs = mx.array([tokens])
     layer = net.span.start + net.span.length - 1
@@ -121,6 +139,14 @@ def measure(source):
     )
     effective = float(net.effective_alpha().item()) if strength is None else strength
     return {
+        **(
+            {
+                "actual_observation": observation,
+                "compiled_weights": read(policy / "compiled.json")["weights"],
+            }
+            if observation is not None
+            else {}
+        ),
         **({"physical_gated_delta_states": gdn_states} if file_evidence else {}),
         "protocol_sha256": digest(source),
         "policy_sha256": digest(policy / "registration.json"),
@@ -143,9 +169,12 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--role-binding", action="store_true")
     group.add_argument("--file-evidence", action="store_true")
+    group.add_argument("--cross-view", action="store_true")
     args = parser.parse_args()
     stem = (
-        "file-evidence"
+        "cross-view"
+        if args.cross_view
+        else "file-evidence"
         if args.file_evidence
         else "role-binding"
         if args.role_binding
