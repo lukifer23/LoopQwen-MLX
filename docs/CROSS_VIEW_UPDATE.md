@@ -40,7 +40,7 @@ Set `py` below to the interpreter installed above. From the restored source root
 ```sh
 study=cross-view-reading-01
 mkdir -p "outputs/research/$study"
-cp "$update"/policy/teacher{,-summary}.json* "outputs/research/$study/"
+cp "$update/policy/teacher.json.gz" "$update/policy/teacher-summary.json" "outputs/research/$study/"
 "$py" -m scripts.cross_view_material
 "$py" -m scripts.cross_view_source_check
 "$py" -m scripts.research_session
