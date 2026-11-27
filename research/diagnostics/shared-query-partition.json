@@ -1,0 +1,13 @@
+{
+  "archive": "7e1a0eb9bea35202e39cc4edc869ed093d48389c44cd474dbfc71a306a6f5007",
+  "question": "Is the full-versus-halved vocabulary-logit difference specific to the tied decoder or also present on the exact same ordinary packed donor? Compare two architectures, feed the three original training openings only, preserve both physical cache partitions, and report maximum differences and every top token.",
+  "groups": [
+    "strategy",
+    "report_action",
+    "instruction"
+  ],
+  "threshold": "Call the partition failure present in the original backbone only if ordinary full-vs-split also exceeds 0.55 on the same cases. Quantify differences between architectures at each identical partition. No fit or promotion is unlocked.",
+  "wall_seconds": 120,
+  "peak_bytes": 2147483648,
+  "stop": "Stop after all 3 prompts or the resource cap. No held data."
+}
