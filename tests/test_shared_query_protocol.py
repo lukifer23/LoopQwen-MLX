@@ -74,3 +74,37 @@ def test_successor_reads_both_reviews_of_a_completed_pair_and_accepts_an_archive
     save(service, {"passed": True})
     with pytest.raises(ValueError, match="Replicate"):
         features.predecessor()
+
+
+def test_staged_context_scoring_requires_every_actual_prefix_and_decode_row():
+    from copy import deepcopy
+    import pytest
+    from loopqwen.identity import fingerprint
+
+    ids = [7] * 131073
+    item = {
+        "family": "locale",
+        "initial_ids": ids,
+        "initial_sha256": fingerprint(ids),
+        "gold": "2 tbsp",
+    }
+    turn = {
+        "prompt_ids": ids,
+        "token_ids": [5, 6],
+        "cache_state_blocks": 0,
+        "scratch_bytes": 2048,
+        "kv_history": [
+            {"layer": i, "turn": 0, "offset": len(ids) + 1, "retained": len(ids) + 1}
+            for i in (3, 7, 11, 15, 19, 23)
+        ],
+    }
+    answer = {"status": "answered", "answer": "2 tbsp", "turns": [turn]}
+    assert score(item, answer)["success"]
+    assert not score(item, {**answer, "answer": "2 tablespoons"})["success"]
+    broken = deepcopy(answer)
+    broken["turns"][0]["kv_history"][-1]["retained"] -= 1
+    with pytest.raises(AssertionError):
+        score(item, broken)
+    ordinary = {**turn, "cache_state_blocks": (len(ids) - 1) // 128}
+    ordinary.pop("scratch_bytes")
+    assert score(item, {**answer, "turns": [ordinary]})["success"]

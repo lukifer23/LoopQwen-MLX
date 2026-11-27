@@ -62,7 +62,18 @@ def score(w, tr):
             and t["prompt_ids"] == w["initial_ids"]
             and not t.get("reused_prompt_tokens", 0)
         )
-        assert t["cache_state_blocks"] == (n - 1) // 128
+        if "scratch_bytes" in t:
+            # Staging advances layers in groups. Its completed file prefixes and
+            # decoded tail provide the physical row counts for the entire prompt.
+            expected = n + len(t["token_ids"]) - 1
+            histories = t["kv_history"]
+            assert t["scratch_bytes"] > 0 and t["cache_state_blocks"] == 0
+            assert len(histories) == 6 and {(x["layer"], x["turn"]) for x in histories} == {
+                (i, 0) for i in (3, 7, 11, 15, 19, 23)
+            }
+            assert all(x["offset"] == x["retained"] == expected for x in histories)
+        else:
+            assert t["cache_state_blocks"] == (n - 1) // 128
         assert fingerprint(t["prompt_ids"]) == w["initial_sha256"]
         return {
             "completed": completed,
