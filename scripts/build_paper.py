@@ -249,6 +249,12 @@ def main(verify):
         ):
             subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)
 
+    full_context = ROOT / "research/results/locked-context-01/decision.json"
+    if full_context.is_file() and "rows" in read(full_context):
+        subprocess.run(
+            [sys.executable, "-m", "scripts.paper_locked_context"], cwd=ROOT, check=True
+        )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
