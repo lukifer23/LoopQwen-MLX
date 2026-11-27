@@ -1,0 +1,193 @@
+{
+  "passed": false,
+  "gates": {
+    "story_accuracy": true,
+    "whole_stories": false,
+    "inline": true,
+    "file": true,
+    "each_label": true,
+    "user_wheels": false,
+    "table_retention": true,
+    "reasoning": true,
+    "completion": true,
+    "wall_s": true,
+    "first_s": false,
+    "peak": true,
+    "opening_tps": false,
+    "decode_tps": true,
+    "absolute_accuracy": false,
+    "complete_tables": false
+  },
+  "arms": {
+    "candidate": {
+      "groups": {
+        "all": {
+          "dialogues": 96,
+          "strict": 28,
+          "requests": 96,
+          "answers": 40,
+          "grounded": 28,
+          "completed": 84,
+          "wall_s": 99.2065982123604,
+          "first_s": 14.17002516897628,
+          "peak": 1190863408,
+          "output_tokens": 8619
+        },
+        "inline": {
+          "dialogues": 36,
+          "strict": 17,
+          "requests": 36,
+          "answers": 17,
+          "grounded": 17,
+          "completed": 34,
+          "wall_s": 20.388541415159125,
+          "first_s": 2.930260836146772,
+          "peak": 1184431084,
+          "output_tokens": 1891
+        },
+        "file": {
+          "dialogues": 36,
+          "strict": 8,
+          "requests": 36,
+          "answers": 16,
+          "grounded": 8,
+          "completed": 35,
+          "wall_s": 44.52270795905497,
+          "first_s": 7.331085040932521,
+          "peak": 1188504036,
+          "output_tokens": 3672
+        },
+        "wheel": {
+          "dialogues": 16,
+          "strict": 0,
+          "requests": 16,
+          "answers": 4,
+          "grounded": 0,
+          "completed": 11,
+          "wall_s": 19.460419252107386,
+          "first_s": 2.596890666987747,
+          "peak": 1185112520,
+          "output_tokens": 1701
+        },
+        "retention": {
+          "dialogues": 8,
+          "strict": 3,
+          "requests": 8,
+          "answers": 3,
+          "grounded": 3,
+          "completed": 4,
+          "wall_s": 14.834929586038925,
+          "first_s": 1.3117886249092408,
+          "peak": 1190863408,
+          "output_tokens": 1355
+        }
+      },
+      "whole_stories": 0,
+      "wheel_pairs": 0,
+      "by_label": {
+        "true": 8,
+        "uncertain": 10,
+        "false": 7
+      },
+      "reasoning": {
+        "completed": 69,
+        "nontrivial": 65
+      },
+      "opening_tps": 2507.052709954115,
+      "decode_tps": 105.94360287692531
+    },
+    "control": {
+      "groups": {
+        "all": {
+          "dialogues": 96,
+          "strict": 4,
+          "requests": 96,
+          "answers": 7,
+          "grounded": 4,
+          "completed": 36,
+          "wall_s": 736.8185917865485,
+          "first_s": 14.092696288833395,
+          "peak": 1841526346,
+          "output_tokens": 50046
+        },
+        "inline": {
+          "dialogues": 36,
+          "strict": 4,
+          "requests": 36,
+          "answers": 4,
+          "grounded": 4,
+          "completed": 11,
+          "wall_s": 243.56022795377066,
+          "first_s": 2.918293119757436,
+          "peak": 1804504026,
+          "output_tokens": 16974
+        },
+        "file": {
+          "dialogues": 36,
+          "strict": 0,
+          "requests": 36,
+          "answers": 3,
+          "grounded": 0,
+          "completed": 23,
+          "wall_s": 240.70839950081427,
+          "first_s": 7.425191336078569,
+          "peak": 1841513434,
+          "output_tokens": 16078
+        },
+        "wheel": {
+          "dialogues": 16,
+          "strict": 0,
+          "requests": 16,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 174.04516566597158,
+          "first_s": 2.5020469178562053,
+          "peak": 1841435610,
+          "output_tokens": 11684
+        },
+        "retention": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 2,
+          "wall_s": 78.50479866599198,
+          "first_s": 1.2471649151411839,
+          "peak": 1841526346,
+          "output_tokens": 5310
+        }
+      },
+      "whole_stories": 0,
+      "wheel_pairs": 0,
+      "by_label": {
+        "true": 1,
+        "uncertain": 2,
+        "false": 1
+      },
+      "reasoning": {
+        "completed": 34,
+        "nontrivial": 34
+      },
+      "opening_tps": 2520.809309439875,
+      "decode_tps": 70.21052409201033
+    }
+  },
+  "paired_story_differences": [
+    4,
+    3,
+    1,
+    1,
+    3,
+    1,
+    0,
+    2,
+    3,
+    0,
+    0,
+    3
+  ],
+  "net": 21,
+  "exact_story_p": 0.00390625
+}

@@ -50,6 +50,7 @@ HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 .venv/bin/python -u -m loopqwen.research
 .venv/bin/python -m scripts.file_evidence_checkpoints --record --field-selection
 .venv/bin/python -m scripts.field_selection_exposure --root outputs/research/field-selection-01
 .venv/bin/python scripts/research_archive.py field-selection-01
+.venv/bin/python scripts/research_registry.py --update
 .venv/bin/python scripts/research_session.py --close
 ```
 

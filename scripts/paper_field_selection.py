@@ -239,6 +239,11 @@ def build():
     m["formatting"] = (
         f"With the stricter bare-word scorer the loop and Base grounded {logic_counts('bare')} of 72 human judgments. A short final-sentence scorer gave {logic_counts('final_sentence')}. The original score was {logic_counts('registered')}. Each scoring view uses the same executed evidence and completed replies. The supplement preserves the full visible answers for all scoring disagreements."
     )
+    layout = read("research/results/paired-projection-01/decision.json")
+    stock, joined = (layout["totals"][k] for k in ("stock", "paired"))
+    m["layout"] = (
+        f"A separate same-weight release 05 crossover joined the two quantized input projections in each of 23 frozen SwiGLU layers. All generated IDs and cache histories agreed on eight ordered prompts in four matched crossovers. Pooled first-token time changed from {stock['first_s']:.4f} to {joined['first_s']:.4f} seconds, missing the 5% target. Warmed peak increased by {(joined['peak_bytes'] - stock['peak_bytes']) / 2**20:.1f} MiB. Subsequent decoding changed from {stock['decode_tps']:.2f} to {joined['decode_tps']:.2f} tokens per second. The production runtime retains its original operator layout."
+    )
     trade = a["request_tradeoffs"]
     m["per_request"] = (
         f"Across all requests the loop finished sooner on {trade['lower_wall']}/96, emitted a first token sooner on {trade['lower_first']}/96, and used less peak memory on {trade['lower_peak']}/96. It gained {trade['loop_only_successes']} correct answers over Base. On {trade['loop_only_successes_with_lower_wall_first_and_peak']} of those gains it simultaneously reduced complete time, first latency and peak memory. Of {trade['both_successful']} requests that both grounded correctly, {trade['both_successful_with_lower_wall_first_and_peak']} improved on all three resource measures."

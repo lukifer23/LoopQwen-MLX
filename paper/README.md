@@ -1,5 +1,7 @@
 # Where shared decoder depth earns its cost
 
+The [field-selection edition](loopqwen-field-study.pdf) adds the cross-domain human evidence study, real Python package checks and request-level cost and accuracy. Rebuild its [six-page report](field-selection.pdf) with `python -m scripts.paper_field_selection` after reproducing the [analysis](../docs/FIELD_SELECTION.md).
+
 The manuscript covers the original shared-span experiments, the matched reasoning controls, the standalone 128K language model, and the addition of executable tool sessions. The paper's numerical results come from native Apple Silicon MLX runs.
 
 - [Read the 75-page consolidated research paper](loopqwen-research.pdf)

@@ -1,0 +1,187 @@
+{
+  "net": 21,
+  "interval": [
+    0.16666666666666666,
+    0.4166666666666667
+  ],
+  "constant_gold_ceiling": 24,
+  "joint_completions": 33,
+  "lost_base_successes": [
+    "fdbc1bd3cc2243d2-inline"
+  ],
+  "arms": {
+    "candidate": {
+      "confusion": {
+        "true": {
+          "true": 8,
+          "uncertain": 11,
+          "false": 4,
+          "none": 1
+        },
+        "false": {
+          "false": 7,
+          "uncertain": 17
+        },
+        "uncertain": {
+          "uncertain": 18,
+          "true": 2,
+          "false": 2,
+          "none": 2
+        }
+      },
+      "joint_correct": 9,
+      "families": {
+        "file": {
+          "grounded": 8,
+          "observed": 18,
+          "correct_after_grounding": 8,
+          "first_calls": {
+            "exact": 18,
+            "other return field": 11,
+            "other": 6,
+            "swapped": 1
+          },
+          "repair": 0,
+          "median_seconds": 1.151681228511734,
+          "p90_seconds": 1.3168149794801138
+        },
+        "inline": {
+          "grounded": 17,
+          "observed": 0,
+          "correct_after_grounding": 0,
+          "first_calls": {
+            "n/a": 36
+          },
+          "repair": 0,
+          "median_seconds": 0.23214060402824543,
+          "p90_seconds": 0.5410567704821005
+        },
+        "wheel": {
+          "grounded": 0,
+          "observed": 0,
+          "correct_after_grounding": 0,
+          "first_calls": {
+            "none": 3,
+            "other return field": 12,
+            "other": 1
+          },
+          "repair": 0,
+          "median_seconds": 1.0857782494858839,
+          "p90_seconds": 1.7856876670266502
+        },
+        "retention": {
+          "grounded": 3,
+          "observed": 3,
+          "correct_after_grounding": 3,
+          "first_calls": {
+            "n/a": 8
+          },
+          "repair": 0,
+          "median_seconds": 1.84459891699953,
+          "p90_seconds": 2.6897974293853624
+        }
+      }
+    },
+    "control": {
+      "confusion": {
+        "true": {
+          "true": 2,
+          "none": 21,
+          "uncertain": 1
+        },
+        "false": {
+          "none": 21,
+          "false": 2,
+          "uncertain": 1
+        },
+        "uncertain": {
+          "none": 19,
+          "uncertain": 3,
+          "true": 2
+        }
+      },
+      "joint_correct": 4,
+      "families": {
+        "file": {
+          "grounded": 0,
+          "observed": 0,
+          "correct_after_grounding": 0,
+          "first_calls": {
+            "none": 21,
+            "other": 9,
+            "other return field": 4,
+            "swapped": 2
+          },
+          "repair": 0,
+          "median_seconds": 5.711999062477844,
+          "p90_seconds": 9.931053291482385
+        },
+        "inline": {
+          "grounded": 4,
+          "observed": 0,
+          "correct_after_grounding": 0,
+          "first_calls": {
+            "n/a": 36
+          },
+          "repair": 0,
+          "median_seconds": 7.321702812507283,
+          "p90_seconds": 7.351028270990355
+        },
+        "wheel": {
+          "grounded": 0,
+          "observed": 2,
+          "correct_after_grounding": 0,
+          "first_calls": {
+            "other": 14,
+            "exact": 1,
+            "none": 1
+          },
+          "repair": 1,
+          "median_seconds": 11.211713750002673,
+          "p90_seconds": 12.67464718746487
+        },
+        "retention": {
+          "grounded": 0,
+          "observed": 0,
+          "correct_after_grounding": 0,
+          "first_calls": {
+            "n/a": 8
+          },
+          "repair": 0,
+          "median_seconds": 9.479478916502558,
+          "p90_seconds": 12.689268758200342
+        }
+      }
+    }
+  },
+  "request_tradeoffs": {
+    "all_with_lower_wall_first_and_peak": 20,
+    "loop_only_successes": 25,
+    "loop_only_successes_with_lower_wall_first_and_peak": 7,
+    "both_successful": 3,
+    "both_successful_with_lower_wall_first_and_peak": 0,
+    "lower_wall": 96,
+    "lower_first": 20,
+    "lower_peak": 96,
+    "first_request_seconds": {
+      "candidate": 0.9907154160318896,
+      "control": 1.2973595000221394
+    },
+    "remaining_95_first_sum": {
+      "candidate": 13.179309752944391,
+      "control": 12.795336788811255
+    }
+  },
+  "reading": {
+    "candidate": {
+      "partial": 4,
+      "incorrect": 10,
+      "absent": 5,
+      "supported": 1
+    },
+    "control": {
+      "absent": 19,
+      "incorrect": 1
+    }
+  }
+}

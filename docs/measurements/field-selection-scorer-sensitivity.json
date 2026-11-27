@@ -1,0 +1,107 @@
+{
+  "candidate": {
+    "families": {
+      "file": {
+        "bare": 8,
+        "registered": 8,
+        "final_sentence": 8
+      },
+      "inline": {
+        "bare": 17,
+        "registered": 17,
+        "final_sentence": 17
+      },
+      "wheel": {
+        "bare": 0,
+        "registered": 0,
+        "final_sentence": 0
+      }
+    },
+    "format_disagreements": []
+  },
+  "control": {
+    "families": {
+      "file": {
+        "bare": 0,
+        "registered": 0,
+        "final_sentence": 0
+      },
+      "inline": {
+        "bare": 0,
+        "registered": 4,
+        "final_sentence": 4
+      },
+      "wheel": {
+        "bare": 0,
+        "registered": 0,
+        "final_sentence": 0
+      }
+    },
+    "format_disagreements": [
+      {
+        "id": "2acd11bdd0077ce7-inline",
+        "gold": "true",
+        "bare": null,
+        "registered": "uncertain",
+        "final_sentence": "uncertain",
+        "actual_answer": "The evidence does not establish the claim. It only confirms the year (1986) and the season (Summer), but it does not specify the exact date or month. Therefore, the claim is left **uncertain**.\n\n**Verdict: uncertain**"
+      },
+      {
+        "id": "4bc4c2993092b48e-inline",
+        "gold": "false",
+        "bare": null,
+        "registered": "false",
+        "final_sentence": "false",
+        "actual_answer": "The evidence directly contradicts the claim by stating the festival began in 2019, not 1976. Therefore, the evidence rules out the claim.\n\nfalse"
+      },
+      {
+        "id": "fdbc1bd3cc2243d2-inline",
+        "gold": "uncertain",
+        "bare": null,
+        "registered": "uncertain",
+        "final_sentence": "uncertain",
+        "actual_answer": "The evidence confirms that the Ledbury Restaurant has an official website, which is a form of online presence. However, it does not provide any information about the quality, popularity, or reach of that online presence. Therefore, the claim cannot be definitively established or ruled out based solely on the given evidence.\n\nuncertain"
+      },
+      {
+        "id": "2f76957b962356ad-inline",
+        "gold": "true",
+        "bare": null,
+        "registered": "true",
+        "final_sentence": "true",
+        "actual_answer": "The restaurant was established in 2005, which falls within the 1st decade of the 21st century (2001\u20132010). The evidence directly supports the claim, so the verdict is true.\n\ntrue"
+      },
+      {
+        "id": "f9bb7ae572b80a19-inline",
+        "gold": "false",
+        "bare": null,
+        "registered": "uncertain",
+        "final_sentence": "uncertain",
+        "actual_answer": "The evidence provided does not address the claim that there is only one test to diagnose jaundice. It offers general information about jaundice, including its causes, symptoms, and diagnostic methods, but it does not mention any specific test or alternative diagnostic approaches. Therefore, the claim is left uncertain.\n\nuncertain"
+      },
+      {
+        "id": "987ef667ff3d9e6b-inline",
+        "gold": "uncertain",
+        "bare": null,
+        "registered": "uncertain",
+        "final_sentence": "uncertain",
+        "actual_answer": "The evidence provided does not address the specific issue of whether a teaching certificate from one country permits teaching in other countries. It only outlines general qualifications and job fields for teachers, which are related but do not establish the claim. Therefore, the evidence leaves the claim uncertain.\n\nuncertain"
+      },
+      {
+        "id": "d7eb0b622bd5edea-inline",
+        "gold": "uncertain",
+        "bare": null,
+        "registered": "true",
+        "final_sentence": "true",
+        "actual_answer": "The evidence directly states that Larry Harvey is in charge of the event, which is exactly the claim. Therefore, the evidence establishes the claim.\n\ntrue"
+      },
+      {
+        "id": "728f3661d600eb31-inline",
+        "gold": "uncertain",
+        "bare": null,
+        "registered": "true",
+        "final_sentence": "true",
+        "actual_answer": "The evidence directly states that the cooling system for the Nissan BD engine is water-cooled, which explicitly confirms the claim. There is no ambiguity or uncertainty in the evidence.\n\ntrue"
+      }
+    ]
+  }
+}

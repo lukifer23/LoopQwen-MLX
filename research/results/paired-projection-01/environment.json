@@ -1,0 +1,25 @@
+{
+  "execution_revision": "15a94f48ba0b00d3dfa59485cc97e5a3573cbf25",
+  "registration_sha256": "594ccfb66fb75fbfa5009c5f5f610be1b50e7f75b131417574b1d6af9d444e6d",
+  "architecture": "arm64",
+  "chip": "Apple M3 Pro",
+  "physical_memory_bytes": 19327352832,
+  "macos_build": "26C5047e",
+  "macos": "27.3",
+  "python": "3.12.12",
+  "libraries": {
+    "mlx": "0.32.4",
+    "mlx-lm": "0.32.2",
+    "transformers": "5.24.0",
+    "safetensors": "0.8.0",
+    "numpy": "2.5.5",
+    "huggingface-hub": "2.4.0"
+  },
+  "execution_sources": {
+    "loopqwen/research/paired_projection.py": "2fccb779c8dda29b35241b4e51e0e88747b64a9514c302ea2ef1de8016e2c07d",
+    "loopqwen/kernels/paired_projection.py": "ca3ba5dc3dd1f7554a488122287f35e47d784d886b68a0f92728e9398ffac7bc",
+    "loopqwen/evaluation/generation_eval.py": "d53af344111e021d468831179a1fcd99d63fea0acff7ff399896020617fc342f",
+    "loopqwen/tool_model.py": "5024273e6bec2398a3f2b38115a5248b69f5f231787c504cc16345cc873ff511",
+    "loopqwen/looped_model.py": "54e5369d40d4d37ae0f50fc9645ba018746fd1e124203286d6a262c9afa94e6c"
+  }
+}

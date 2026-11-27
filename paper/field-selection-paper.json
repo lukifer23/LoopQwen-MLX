@@ -1,0 +1,120 @@
+{
+  "abstract": "The loop grounded 25/72 human table judgments and Base grounded 4/72. The difference was +29.2 percentage points (exact paired p = 0.0039, whole-table bootstrap 95% interval +16.7 to +41.7). On 16 checks against published package constraints the systems grounded 0 and 0. Across all 96 requests they took 99.21 and 736.82 seconds. The trained system missed its joint promotion rule.",
+  "scope": "The whole-table comparison comprises 12 independent entities. A constant-label responder with perfect evidence access can obtain 24/72 here. On the 33 table judgments where both models completed, the loop grounded 9 and Base grounded 4. Across all four families, 1 individually successful Base outcomes were lost.",
+  "fit": "MLX applied 800 AdamW updates to 802,816 shared parameters. Independent reconstruction found 4,800 response draws and 208,658 target tokens, including 58,471 nonblank tokens identifying human-selected field values on the table triplets. There were 398 tool-return triplet updates and 402 inline triplet updates. Prefix preparation took 278.2 seconds and optimization 339.0 seconds. Training peak was 2.299 GiB.",
+  "reading": [
+    [
+      "supported",
+      "1",
+      "0"
+    ],
+    [
+      "partial",
+      "4",
+      "0"
+    ],
+    [
+      "incorrect",
+      "10",
+      "1"
+    ],
+    [
+      "absent",
+      "5",
+      "19"
+    ],
+    [
+      "ambiguous",
+      "0",
+      "0"
+    ]
+  ],
+  "summary": [
+    [
+      "Grounded requests / 96",
+      "28",
+      "4"
+    ],
+    [
+      "Completed requests / 96",
+      "84",
+      "36"
+    ],
+    [
+      "Whole tables / 12",
+      "0",
+      "0"
+    ],
+    [
+      "Whole package pairs / 8",
+      "0",
+      "0"
+    ],
+    [
+      "Total measured seconds",
+      "99.21",
+      "736.82"
+    ],
+    [
+      "First-token seconds, summed",
+      "14.170",
+      "14.093"
+    ],
+    [
+      "Peak MLX GiB",
+      "1.109",
+      "1.715"
+    ],
+    [
+      "Opening input tokens / second",
+      "2,507.1",
+      "2,520.8"
+    ],
+    [
+      "Subsequent tokens / second",
+      "105.94",
+      "70.21"
+    ],
+    [
+      "Generated tokens",
+      "8,619",
+      "50,046"
+    ]
+  ],
+  "lookups": [
+    [
+      "file",
+      "Trained loop",
+      "18",
+      "8",
+      "0"
+    ],
+    [
+      "file",
+      "Untouched Base",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "wheel",
+      "Trained loop",
+      "0",
+      "0",
+      "0"
+    ],
+    [
+      "wheel",
+      "Untouched Base",
+      "2",
+      "0",
+      "1"
+    ]
+  ],
+  "decision": "The following registered gates failed: whole stories, user wheels, first s, opening tps, absolute accuracy, complete tables.",
+  "integrity": "An independent SQLite interpreter checked 52 held lookup cells and 192 opposite-direction training queries. Every intentionally swapped search missed in the original table. All eight original wheels were downloaded in full (6,353,356 bytes). Each embedded METADATA member matched its separately published sidecar byte for byte. The verifier examined 8 optimizer snapshots and compared the final trainable tensors and AdamW state.",
+  "packages": "tenacity 9.1.2, wheel 0.45.1, openpyxl 3.1.5, nltk 3.9.1, more-itertools 10.7.0, tornado 6.5.1, mypy 1.16.0, networkx 3.4.2",
+  "formatting": "With the stricter bare-word scorer the loop and Base grounded 25 versus 0 of 72 human judgments. A short final-sentence scorer gave 25 versus 4. The original score was 25 versus 4. Each scoring view uses the same executed evidence and completed replies. The supplement preserves the full visible answers for all scoring disagreements.",
+  "layout": "A separate same-weight release 05 crossover joined the two quantized input projections in each of 23 frozen SwiGLU layers. All generated IDs and cache histories agreed on eight ordered prompts in four matched crossovers. Pooled first-token time changed from 3.9643 to 3.9630 seconds, missing the 5% target. Warmed peak increased by 19.5 MiB. Subsequent decoding changed from 102.74 to 103.23 tokens per second. The production runtime retains its original operator layout.",
+  "per_request": "Across all requests the loop finished sooner on 96/96, emitted a first token sooner on 20/96, and used less peak memory on 96/96. It gained 25 correct answers over Base. On 7 of those gains it simultaneously reduced complete time, first latency and peak memory. Of 3 requests that both grounded correctly, 0 improved on all three resource measures."
+}

@@ -1,9 +1,10 @@
 #set document(title:"Can a recurrent language model choose and interpret the right field?",author:"LoopQwen-MLX project")
 #set page(paper:"us-letter",margin:(x:.83in,y:.73in),footer:context [#set text(size:8pt,fill:rgb("#54645f"))
 LoopQwen-MLX · Human evidence fields and executable tools #h(1fr) #counter(page).display()])
-#set text(font:"Libertinus Serif",size:11pt)
-#set par(leading:.53em,spacing:.55em)
-#show heading.where(level:1): h => block(above:8pt,below:3pt)[#set text(size:16pt,fill:rgb("#185c52")) #h]
+#set text(font:"Libertinus Serif",size:10.5pt)
+#set par(leading:.49em,spacing:.42em)
+#show heading.where(level:1): h => block(above:8pt,below:3pt)[#set text(size:16pt,fill:rgb("#185c52"))
+#h]
 #let m=json("field-selection-paper.json")
 #let grid(headers,data,widths) = table(columns:widths,align:(x,y)=>if x==0 {left} else {right},inset:(x:5pt,y:3pt),stroke:none,fill:(x,y)=>if y==0 {rgb("#dcece7")} else if calc.odd(y) {rgb("#f3f6f5")},..headers.map(v=>text(weight:"bold",v)),..data.flatten().map(v=>[#v]))
 #let caption(body)=text(size:9pt,fill:rgb("#43524d"),body)
@@ -36,6 +37,9 @@ The triplet receives 60% of the update. Another 20% trains an evidence opening, 
 = Previous work and design choices
 Geiping and colleagues trained a dedicated depth-recurrent transformer at much larger scale. Our smaller retrofit poses a different empirical question about how much capability can be recovered from an existing model. InfoTabS and its subsequent human evidence annotations provide reference claims and a way to identify which part of a real table is relevant. ToolSandbox motivates inspecting the actual state after calls, and ToolACE studies verification of tool-training trajectories. Our runtime executes local lookups; evidence here is specific to the tool and task families measured. [1–5]
 
+= Same-weight performance check
+#m.layout
+
 #pagebreak()
 = Data and checks against shortcuts
 The original InfoTabS train partition supplies 128 tables. Each contributes one entailed, contradicted and neutral hypothesis. The primary uses 12 cross-domain α3 test tables with no shared entity ID, normalized title or identical claim across our train and test sets. Each enrolled item requires one relevant infobox field, no outside-evidence marker and at least three identical evidence-selection ballots. At least four independent validators agreed with the original author’s verdict on every held claim. These rules select comparatively well-agreed, single-field instances. None of the 36 held claims exactly matched a training claim after masking full titles, numbers, punctuation and case. The largest five-word shingle Jaccard similarity across 13,824 pairs was 0.20. Claims, factual values and original labels are preserved. Seven of the 12 selected tables concern medical topics. This is an evaluation of judgments against supplied tables, with no clinical decision task.
@@ -53,13 +57,14 @@ Both models receive the same ordered initial token IDs and tools, with thinking 
 
 #pagebreak()
 = What the model did with the tool
-#image("field-selection-arguments.svg",width:100%)
+On 12 of the 16 package requests the loop first found the correct project with the correct search column and requested Release, the distribution’s release number. All 16 ultimately missed a grounded decision. A callback can execute successfully and supply a true fact about the release while leaving the compatibility question unanswered. That kind of mistake never produces the error message used during repair training.
+#align(center)[#image("field-selection-arguments.svg",width:90%)]
 #caption[Figure 2. First executable call per request. A swapped call reverses both columns, preserves the key text, and uses the correct document. “None” includes trajectories that never executed a call.]
 
 #grid(("Input","System","Read field","Correct after read","Later repair"),m.lookups,(1fr,1.5fr,1fr,1.3fr,1fr))
 #caption[Table 1. The third column counts all trajectories that at any point obtained the requested observation. The fourth requires a correct final answer on those trajectories. The last counts correct retrieval after an earlier unsuccessful execution.]
 
-#image("field-selection-confusion.svg",width:100%)
+#align(center)[#image("field-selection-confusion.svg",width:90%)]
 #caption[Figure 3. The 24 instances of each label span both reading modes. No verdict includes capped replies and text from which the registered parser could not identify a final judgment. A correct class alone does not imply a successful file read.]
 
 #m.scope
@@ -71,7 +76,7 @@ Both models receive the same ordered initial token IDs and tools, with thinking 
 #grid(("Measurement","Trained loop","Untouched Base"),m.summary,(2.2fr,1fr,1fr))
 #caption[Table 2. Each of 96 requests starts a fresh conversation, retaining the model in memory across requests within an arm. Synchronized wall time includes construction on the first request, input processing, calls, and output generation. Peak is the maximum of the per-request MLX peaks.]
 
-#image("field-selection-timing.svg",width:100%)
+#align(center)[#image("field-selection-timing.svg",width:88%)]
 #caption[Figure 4. Empirical time distributions over all 96 requests, including failures. Left shows completion or termination. Right shows first emitted token. Log horizontal axes make short and capped generations visible together.]
 
 The opening rate divides all initial prompt tokens by the summed first-token latency. The subsequent rate divides tokens after the first in each turn by the summed remaining turn time. The loop always ran before Base under the registered stream. Relative temperature and operating-system activity can affect small timing differences. A shorter total stream can reflect fewer generated tokens, including premature completion. Reported peak measures MLX allocations on this device. It does not measure wall-outlet energy or total system RAM.
