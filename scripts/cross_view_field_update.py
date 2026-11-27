@@ -51,6 +51,7 @@ def contents(tmp, revision, kit):
         files["policy/" + path.name] = path
     for p in (ROOT / "paper").iterdir():
         if p.name.startswith("cross-view") or p.name in (
+            "system-comparisons.csv",
             "loopqwen-report.pdf",
             "loopqwen-study.pdf",
         ):

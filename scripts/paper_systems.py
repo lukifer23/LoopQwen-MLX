@@ -1,6 +1,10 @@
 """Pair quality and service cost for selected, separately identified systems versus ordinary Base."""
 
 import csv
+import gzip
+import json
+
+from loopqwen.io import digest
 
 
 def write(paper, results, result):
@@ -321,6 +325,29 @@ def write(paper, results, result):
             else:
                 arms = d["metrics"]
             a, b = (arms[s] for s in (first, second))
+            if study == "conversation-followup-modules-01":
+                # In this archive "first" counts correct first answers. Read the
+                # actual model timer on the first generation of each user request.
+                timed = []
+                for side in (first, second):
+                    path = results / study / (side + ".json.gz")
+                    assert (
+                        digest(path)
+                        == json.loads((path.parent / "checksums.json").read_bytes())[
+                            path.name
+                        ]
+                    )
+                    with gzip.open(path, "rt") as stream:
+                        records = json.load(stream)
+                    assert len(records) == n and all(
+                        len(r["exchanges"]) == 2 for r in records
+                    )
+                    seconds = sum(
+                        x["turns"][0]["ttft_s"] for r in records for x in r["exchanges"]
+                    )
+                    assert 0 < seconds <= arms[side]["seconds"]
+                    timed.append({**arms[side], "first": seconds})
+                a, b = timed
             if "tree_read_evidence" in d:
                 a, b = (
                     {
