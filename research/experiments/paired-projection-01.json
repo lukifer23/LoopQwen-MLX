@@ -1,0 +1,36 @@
+{
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "material": "research/data/reasoned-evidence-panel.json",
+  "id": "paired-projection-01",
+  "question": "Does joining the unchanged quantized SwiGLU input rows accelerate initial inference on the qualified 05 recurrent backbone without changing output tokens, resource use or the physical execution history?",
+  "order": [
+    "stock",
+    "paired",
+    "paired",
+    "stock",
+    "stock",
+    "paired",
+    "paired",
+    "stock"
+  ],
+  "ids": [
+    "229d581139c9a2d5-inline",
+    "7b60a5895b8224ef-inline",
+    "c98d3c40637a571f-inline",
+    "9f0a7ec13c8b0522-file",
+    "4f408382fbd2da92-file",
+    "wiki-test-2009",
+    "e86be6b8be991a06-file",
+    "wheel-httpx2"
+  ],
+  "tokens": 24,
+  "warmup": "A train arrives in the afternoon.",
+  "limits": {
+    "wall_seconds": 480,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "protocol": "Engineering study of two graph layouts of the same published recurrent release, independent of any failed student. Duplicate neither backbone nor learned parameters. Concatenate stored quantized gate and up weights, bias and scales along the output axis of each frozen prefix MLP, keep the tied recurrent layer and all remaining operators fixed. Compare ordinary MLX with the joined input projection on eight previously sealed real Qwen opening streams chosen by length octile. Four consecutive crossovers with reversed order in alternating pairs and 24 unrestricted greedy output tokens. One identical two-token warmup per resident model. Measure startup including materialization and peak separately. After timing store full-vocabulary last-prompt logits from each layout. Maximum 480 seconds and 6.5 GiB. Require identical generated tokens and complete physical cache histories in every round. Full logits must retain argmax, max absolute error <=0.125 and RMS <=0.02 for each input. Require at least 5% lower pooled first-token seconds and faster first-token sum in at least three of four matched crossovers, no lower pooled decoding rate, no higher maximum warmed request peak, no higher construction peak and at most 5% longer load. Otherwise stop without enabling the backend or testing it at 128K. This microbenchmark measures computational layout only, not answer quality or a K2 vs Base difference."
+}

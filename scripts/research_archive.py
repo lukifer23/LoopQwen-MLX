@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "paired-projection-01":
+        from loopqwen.research.paired_projection import verify as verify_projections
+
+        return verify_projections(root, decision)
     if study == "field-selection-01":
         from loopqwen.research.field_selection import verify as verify_fields
         from scripts.field_selection_material import build
