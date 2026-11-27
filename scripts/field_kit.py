@@ -140,6 +140,7 @@ def entries(revision, staging):
         "document-reader-installed-02.json",
         "observation-review-base-identity.json",
         "report-distribution-bytes.json",
+        "field-release-verification.txt",
     ):
         records["verification/" + name] = docs / name
     records["research/data/conversation-document-prefill-tokens.json"] = (
