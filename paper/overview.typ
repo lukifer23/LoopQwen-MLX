@@ -108,4 +108,6 @@ The same weights then processed #r.context.long.prompt tokens from a complete pr
 ] else [
   The initial in-memory pair stopped on the first 152,185-token document before the two arms could be compared. The full staged comparison uses the same weights, prompt IDs, ordered requests and output budgets. The research paper records the incomplete attempt and its cost.
 ]
+#if "fresh" in r [*Fresh correction fit.* After training on its own unfinished deliberation, the loop completed 37/48 versus 20/48 and took 57.93 versus 271.00 seconds. Correct reasoning choices were 9/24 versus 6/24, with six gains and three losses. Neither earned a fully usable explanation. Each had one strict calculation, and only Base delivered a fully usable financial answer with source units.]
+
 ]

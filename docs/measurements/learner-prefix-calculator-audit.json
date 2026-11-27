@@ -1,0 +1,25 @@
+{
+  "archive": "7296739f5392d2476f31e8bbdc47f8b64359eb589e5b020852425e06486ef4e8",
+  "reading": "94fcecdd4bac36a76a904ab2a230e1825e62dac802b86d8b916729ebc6ed195b",
+  "totals": {
+    "candidate": {
+      "requests": 24,
+      "attempted": 21,
+      "successful_call": 20,
+      "all_magnitudes": 8,
+      "correct_last_value": 1,
+      "delivered_strict": 1,
+      "completed": 20
+    },
+    "control": {
+      "requests": 24,
+      "attempted": 3,
+      "successful_call": 1,
+      "all_magnitudes": 1,
+      "correct_last_value": 1,
+      "delivered_strict": 1,
+      "completed": 11
+    }
+  },
+  "method": "Descriptive analysis after unmasking. Replay every observed call including errors. Count presence of all reference numerical magnitudes in the last successful call, allowing literal decimal or rational spellings. This is permissive: matching the digits does not establish the correct row, role, sign or operation. Check the last returned value separately using the registered tolerance."
+}

@@ -269,6 +269,10 @@ The two visits share all parameters. Query and content corrections have rank 160
    let div=if k=="peak"{1073741824}else{1};(label.at(k),fmt(a.primary.costs.candidate.at(k)/div),fmt(a.primary.costs.control.at(k)/div))}))
   #tbl((1.15fr,.9fr,.9fr,1fr),("Masked source review","Usable loop","Usable Base","Gains / losses"),a.reading.families.pairs().map(x=>{
    let c=x.at(1);(x.at(0),str(c.arms.candidate.grounded_usable),str(c.arms.control.grounded_usable),str(c.gains)+" / "+str(c.losses))}))
+  *Completion and transfer.* The loop completed 17 reasoning replies and 20 financial replies, compared with 9 and 11 for Base. Strict reasoning gains came with three individual losses. The opening-rate difference was 2.04 tokens/s in favor of Base. Both source-quality criteria failed. Confirmation, matched training and promotion closed for this checkpoint.
+
+  *Where the calculations failed.* We replayed every call after unmasking. The loop attempted the provider on 21 reports and got a valid calculation on 20. Eight last successful programs contained every required operand magnitude and just one returned the requested value. Base attempted three and returned one correct value. The loop subtracted the right accrued-expense cells and delivered −181 without the thousands scale. On payroll it used a ratio for a requested arithmetic mean; Base executed the mean and delivered 111.4 in the source units. Matching digits alone cannot establish a correct row, operation or direction.
+
   One project reviewer saw the original sources, complete replies and executed calculations before model identity was revealed. Each of the 48 paired judgments was committed before unmasking.
  ]
 ]

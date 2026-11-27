@@ -323,6 +323,8 @@ def build():
                 "context": study["staging_proof"],
                 "paper": digest(P / "repair-query.json"),
             }
+            if "primary" in study.get("learner_prefix", {}):
+                repair["fresh"] = study["learner_prefix"]["primary"]
             if "reading" in study:
                 repair["primary"] = study["stages"][-1]["decision"]
                 repair["reading"] = study["reading"]
