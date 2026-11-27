@@ -1,0 +1,1395 @@
+{
+  "source": "d6fff94fa9a745d08e303f183b4077e71649440852a214887a766c1716ca7ff6",
+  "procedure": "One project reviewer read all 24 original requests and expert SQL before either model answered. Keep all in the primary source-reproduction score. Disclose alternate entity or identifier readings and show the unflagged subset separately. These alternatives are project interpretations, not human annotations by the CoSQL authors.",
+  "items": [
+    {
+      "id": "cosql-dev/battle_death/amiT9Yxb3zu6kymAt/unassisted",
+      "question": "How many death events are there?",
+      "reference": "SELECT count(*) FROM death",
+      "reference_answer": 13,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-dev/battle_death/jzjcGNdDwsPw8FNiy/unassisted",
+      "question": "how many ships are there?",
+      "reference": "SELECT   count(*)  from ship",
+      "reference_answer": 7,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-dev/concert_singer/7jYRyWxAejk4C7hxS/unassisted",
+      "question": "how many concert are presented on the table",
+      "reference": "SELECT  count(*) FROM concert",
+      "reference_answer": 6,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-dev/concert_singer/Ffqc6qiHktCcGCPeD/unassisted",
+      "question": "When was the Auditions concert?",
+      "reference": "SELECT year from concert where concert_name = \"Auditions\"",
+      "reference_answer": "2014",
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-dev/pets_1/HfXidMkosnLy3K4DN/unassisted",
+      "question": "How many students are there?",
+      "reference": "SELECT count(StuID) FROM student",
+      "reference_answer": 34,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-dev/pets_1/nsDpem9mPwcJpdaWv/unassisted",
+      "question": "How many students in the \"Student\" table are over the age of 20?",
+      "reference": "SELECT count(*) FROM student WHERE age  >  20",
+      "reference_answer": 7,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-dev/poker_player/BkKRTmfQm2w7mjGR8/unassisted",
+      "question": "What is the birth date of the poker player with the lowest earnings?",
+      "reference": "SELECT T1.Birth_Date FROM people AS T1 JOIN poker_player AS T2 ON T1.People_ID  =  T2.People_ID ORDER BY T2.Earnings ASC LIMIT 1",
+      "reference_answer": "August 8, 1986",
+      "tag": "extremum_ties",
+      "reason": "The reference takes the first row at the minimum. A tied minimum would have more than one valid player.",
+      "alternate_sql": "SELECT DISTINCT Birth_Date FROM people JOIN poker_player USING(People_ID) WHERE Earnings=(SELECT MIN(Earnings) FROM poker_player) ORDER BY Birth_Date",
+      "executions": [
+        {
+          "member": "cosql_dataset/database/poker_player/poker_player.sqlite",
+          "reference": [
+            [
+              "August 8, 1986"
+            ]
+          ],
+          "alternate": [
+            [
+              "August 8, 1986"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv5080.sqlite",
+          "reference": [
+            [
+              "August 16, 1982"
+            ]
+          ],
+          "alternate": [
+            [
+              "August 16, 1982"
+            ],
+            [
+              "Russia"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv5081.sqlite",
+          "reference": [
+            [
+              "August 8, 1986"
+            ]
+          ],
+          "alternate": [
+            [
+              "August 8, 1986"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv508137.sqlite",
+          "reference": [
+            [
+              "RA9XCm"
+            ]
+          ],
+          "alternate": [
+            [
+              "RA9XCm"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv50814.sqlite",
+          "reference": [
+            [
+              "300001"
+            ]
+          ],
+          "alternate": [
+            [
+              "300001"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv5082.sqlite",
+          "reference": [
+            [
+              "(eadT300000"
+            ]
+          ],
+          "alternate": [
+            [
+              "(eadT300000"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv5083735.sqlite",
+          "reference": [
+            [
+              ""
+            ]
+          ],
+          "alternate": [
+            [
+              ""
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv5084.sqlite",
+          "reference": [
+            [
+              "7fb29199"
+            ]
+          ],
+          "alternate": [
+            [
+              "7fb29199"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv508451.sqlite",
+          "reference": [
+            [
+              "Yc89lvH7"
+            ]
+          ],
+          "alternate": [
+            [
+              "Yc89lvH7"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv50854.sqlite",
+          "reference": [
+            [
+              "August 8, 1986"
+            ]
+          ],
+          "alternate": [
+            [
+              "August 8, 1986"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch0.sqlite",
+          "reference": [
+            [
+              "2"
+            ]
+          ],
+          "alternate": [
+            [
+              "2"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch1.sqlite",
+          "reference": [
+            [
+              "200000"
+            ]
+          ],
+          "alternate": [
+            [
+              "200000"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch2.sqlite",
+          "reference": [
+            [
+              "uly 14, 1983"
+            ]
+          ],
+          "alternate": [
+            [
+              "uly 14, 1983"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch3.sqlite",
+          "reference": [
+            [
+              "WMc1JsBI1mDjv5"
+            ]
+          ],
+          "alternate": [
+            [
+              "00001"
+            ],
+            [
+              "April 17, 1987"
+            ],
+            [
+              "GU"
+            ],
+            [
+              "I6zJM300000"
+            ],
+            [
+              "WMc1JsBI1mDjv5"
+            ],
+            [
+              "oeckM"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch350.sqlite",
+          "reference": [
+            [
+              "AQm7ZMay 26, 1986"
+            ]
+          ],
+          "alternate": [
+            [
+              "AQm7ZMay 26, 1986"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch4.sqlite",
+          "reference": [
+            [
+              "299999"
+            ]
+          ],
+          "alternate": [
+            [
+              "299999"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch5.sqlite",
+          "reference": [
+            [
+              "2"
+            ]
+          ],
+          "alternate": [
+            [
+              "2"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch6.sqlite",
+          "reference": [
+            [
+              "July 14, 1983"
+            ]
+          ],
+          "alternate": [
+            [
+              "July 14, 1983"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch7.sqlite",
+          "reference": [
+            [
+              "2"
+            ]
+          ],
+          "alternate": [
+            [
+              "2"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch8.sqlite",
+          "reference": [
+            [
+              "RH5kURMfR"
+            ]
+          ],
+          "alternate": [
+            [
+              "RH5kURMfR"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515nightpatch9.sqlite",
+          "reference": [
+            [
+              "1"
+            ]
+          ],
+          "alternate": [
+            [
+              "1"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch0.sqlite",
+          "reference": [
+            [
+              "200OIGzt"
+            ]
+          ],
+          "alternate": [
+            [
+              "200OIGzt"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch1.sqlite",
+          "reference": [
+            [
+              "199999"
+            ]
+          ],
+          "alternate": [
+            [
+              "199999"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch2.sqlite",
+          "reference": [
+            [
+              "z0L2(GwsRz"
+            ]
+          ],
+          "alternate": [
+            [
+              "z0L2(GwsRz"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch3.sqlite",
+          "reference": [
+            [
+              "qlZyd3Hi"
+            ]
+          ],
+          "alternate": [
+            [
+              "qlZyd3Hi"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch4.sqlite",
+          "reference": [
+            [
+              "January 22, 1987"
+            ]
+          ],
+          "alternate": [
+            [
+              "January 22, 1987"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch5.sqlite",
+          "reference": [
+            [
+              "201"
+            ]
+          ],
+          "alternate": [
+            [
+              "201"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch6.sqlite",
+          "reference": [
+            [
+              "00000"
+            ]
+          ],
+          "alternate": [
+            [
+              "00000"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch7.sqlite",
+          "reference": [
+            [
+              "0"
+            ]
+          ],
+          "alternate": [
+            [
+              "0"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch8.sqlite",
+          "reference": [
+            [
+              "7s iLZ26U"
+            ]
+          ],
+          "alternate": [
+            [
+              "7s iLZ26U"
+            ]
+          ]
+        },
+        {
+          "member": "database/poker_player/poker_playerv515patch9.sqlite",
+          "reference": [
+            [
+              "p)3300000kUt"
+            ]
+          ],
+          "alternate": [
+            [
+              "2"
+            ],
+            [
+              "p)3300000kUt"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cosql-dev/poker_player/uaER4KRd9qD45Eh74/unassisted",
+      "question": "To which nationality does the people_id 1 belongs to ?",
+      "reference": "SELECT Nationality FROM people where People_ID=1",
+      "reference_answer": "Russia",
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-dev/student_transcripts_tracking/G4eKk9TY7K3nDD2Gk/unassisted",
+      "question": "How many graduates of the school are there?",
+      "reference": "SELECT count(*)  from students",
+      "reference_answer": 15,
+      "tag": "unsupported_premise",
+      "reason": "The reference counts all students. The schema records dates of departure and transcripts but supplies no explicit graduation indicator.",
+      "alternate_sql": null,
+      "executions": []
+    },
+    {
+      "id": "cosql-dev/student_transcripts_tracking/K3LTGni7ZCeddaY4D/unassisted",
+      "question": "how many students are enrolled in a bachelor degree program?",
+      "reference": "SELECT count(*) FROM Students AS T1 JOIN Student_Enrolment AS T2 ON T1.student_id  =  T2.student_id JOIN Degree_Programs AS T3 ON T2.degree_program_id  =  T3.degree_program_id WHERE T3.degree_summary_name  =  'Bachelor'",
+      "reference_answer": 8,
+      "tag": "entity_count",
+      "reason": "The reference counts enrollment records. The request names students, who may have several enrollments.",
+      "alternate_sql": "SELECT COUNT(DISTINCT e.student_id) FROM Student_Enrolment e JOIN Degree_Programs d ON e.degree_program_id=d.degree_program_id WHERE d.degree_summary_name='Bachelor'",
+      "executions": [
+        {
+          "member": "cosql_dataset/database/student_transcripts_tracking/student_transcripts_tracking.sqlite",
+          "reference": [
+            [
+              8
+            ]
+          ],
+          "alternate": [
+            [
+              5
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5080.sqlite",
+          "reference": [
+            [
+              1
+            ]
+          ],
+          "alternate": [
+            [
+              1
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5081.sqlite",
+          "reference": [
+            [
+              15
+            ]
+          ],
+          "alternate": [
+            [
+              13
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50810.sqlite",
+          "reference": [
+            [
+              2
+            ]
+          ],
+          "alternate": [
+            [
+              2
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50812.sqlite",
+          "reference": [
+            [
+              29
+            ]
+          ],
+          "alternate": [
+            [
+              24
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5081467.sqlite",
+          "reference": [
+            [
+              14
+            ]
+          ],
+          "alternate": [
+            [
+              1
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50817.sqlite",
+          "reference": [
+            [
+              5
+            ]
+          ],
+          "alternate": [
+            [
+              5
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv508178.sqlite",
+          "reference": [
+            [
+              31
+            ]
+          ],
+          "alternate": [
+            [
+              18
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5082.sqlite",
+          "reference": [
+            [
+              1
+            ]
+          ],
+          "alternate": [
+            [
+              1
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50820.sqlite",
+          "reference": [
+            [
+              36
+            ]
+          ],
+          "alternate": [
+            [
+              29
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50821.sqlite",
+          "reference": [
+            [
+              2
+            ]
+          ],
+          "alternate": [
+            [
+              2
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv508216.sqlite",
+          "reference": [
+            [
+              7
+            ]
+          ],
+          "alternate": [
+            [
+              7
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50824.sqlite",
+          "reference": [
+            [
+              15
+            ]
+          ],
+          "alternate": [
+            [
+              15
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5082452.sqlite",
+          "reference": [
+            [
+              0
+            ]
+          ],
+          "alternate": [
+            [
+              0
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50827.sqlite",
+          "reference": [
+            [
+              2
+            ]
+          ],
+          "alternate": [
+            [
+              2
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5083.sqlite",
+          "reference": [
+            [
+              39
+            ]
+          ],
+          "alternate": [
+            [
+              22
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv508362.sqlite",
+          "reference": [
+            [
+              11
+            ]
+          ],
+          "alternate": [
+            [
+              9
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50837.sqlite",
+          "reference": [
+            [
+              17
+            ]
+          ],
+          "alternate": [
+            [
+              14
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5083735.sqlite",
+          "reference": [
+            [
+              5
+            ]
+          ],
+          "alternate": [
+            [
+              5
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5084.sqlite",
+          "reference": [
+            [
+              19
+            ]
+          ],
+          "alternate": [
+            [
+              17
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv508463.sqlite",
+          "reference": [
+            [
+              0
+            ]
+          ],
+          "alternate": [
+            [
+              0
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv508487.sqlite",
+          "reference": [
+            [
+              9
+            ]
+          ],
+          "alternate": [
+            [
+              9
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50849.sqlite",
+          "reference": [
+            [
+              7
+            ]
+          ],
+          "alternate": [
+            [
+              7
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5085.sqlite",
+          "reference": [
+            [
+              38
+            ]
+          ],
+          "alternate": [
+            [
+              33
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv508525.sqlite",
+          "reference": [
+            [
+              26
+            ]
+          ],
+          "alternate": [
+            [
+              25
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5086.sqlite",
+          "reference": [
+            [
+              5
+            ]
+          ],
+          "alternate": [
+            [
+              5
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50867.sqlite",
+          "reference": [
+            [
+              6
+            ]
+          ],
+          "alternate": [
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5087.sqlite",
+          "reference": [
+            [
+              7
+            ]
+          ],
+          "alternate": [
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv50874.sqlite",
+          "reference": [
+            [
+              75
+            ]
+          ],
+          "alternate": [
+            [
+              52
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5088.sqlite",
+          "reference": [
+            [
+              0
+            ]
+          ],
+          "alternate": [
+            [
+              0
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv508862.sqlite",
+          "reference": [
+            [
+              27
+            ]
+          ],
+          "alternate": [
+            [
+              26
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv5089.sqlite",
+          "reference": [
+            [
+              1
+            ]
+          ],
+          "alternate": [
+            [
+              1
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch0.sqlite",
+          "reference": [
+            [
+              12
+            ]
+          ],
+          "alternate": [
+            [
+              11
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch1.sqlite",
+          "reference": [
+            [
+              3
+            ]
+          ],
+          "alternate": [
+            [
+              3
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch2.sqlite",
+          "reference": [
+            [
+              5
+            ]
+          ],
+          "alternate": [
+            [
+              5
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch3.sqlite",
+          "reference": [
+            [
+              6
+            ]
+          ],
+          "alternate": [
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch350.sqlite",
+          "reference": [
+            [
+              6
+            ]
+          ],
+          "alternate": [
+            [
+              6
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch351.sqlite",
+          "reference": [
+            [
+              16
+            ]
+          ],
+          "alternate": [
+            [
+              15
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch354.sqlite",
+          "reference": [
+            [
+              44
+            ]
+          ],
+          "alternate": [
+            [
+              37
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch4.sqlite",
+          "reference": [
+            [
+              41
+            ]
+          ],
+          "alternate": [
+            [
+              35
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch5.sqlite",
+          "reference": [
+            [
+              28
+            ]
+          ],
+          "alternate": [
+            [
+              22
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch6.sqlite",
+          "reference": [
+            [
+              22
+            ]
+          ],
+          "alternate": [
+            [
+              21
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch7.sqlite",
+          "reference": [
+            [
+              17
+            ]
+          ],
+          "alternate": [
+            [
+              15
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch8.sqlite",
+          "reference": [
+            [
+              16
+            ]
+          ],
+          "alternate": [
+            [
+              15
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515nightpatch9.sqlite",
+          "reference": [
+            [
+              23
+            ]
+          ],
+          "alternate": [
+            [
+              22
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch0.sqlite",
+          "reference": [
+            [
+              13
+            ]
+          ],
+          "alternate": [
+            [
+              13
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch1.sqlite",
+          "reference": [
+            [
+              21
+            ]
+          ],
+          "alternate": [
+            [
+              21
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch2.sqlite",
+          "reference": [
+            [
+              40
+            ]
+          ],
+          "alternate": [
+            [
+              36
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch3.sqlite",
+          "reference": [
+            [
+              21
+            ]
+          ],
+          "alternate": [
+            [
+              16
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch4.sqlite",
+          "reference": [
+            [
+              8
+            ]
+          ],
+          "alternate": [
+            [
+              8
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch5.sqlite",
+          "reference": [
+            [
+              9
+            ]
+          ],
+          "alternate": [
+            [
+              8
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch6.sqlite",
+          "reference": [
+            [
+              38
+            ]
+          ],
+          "alternate": [
+            [
+              34
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch7.sqlite",
+          "reference": [
+            [
+              5
+            ]
+          ],
+          "alternate": [
+            [
+              5
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch8.sqlite",
+          "reference": [
+            [
+              42
+            ]
+          ],
+          "alternate": [
+            [
+              21
+            ]
+          ]
+        },
+        {
+          "member": "database/student_transcripts_tracking/student_transcripts_trackingv515patch9.sqlite",
+          "reference": [
+            [
+              65
+            ]
+          ],
+          "alternate": [
+            [
+              49
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cosql-train/architecture/dArc8sq548AB5fr35/unassisted",
+      "question": "What is the nationality of Zaha Hadid?",
+      "reference": "SELECT nationality FROM architect WHERE name = 'Zaha Hadid'",
+      "reference_answer": "Iraqi, British",
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/architecture/nrYK7gegBmWQ2AkFX/unassisted",
+      "question": "Hi there!  Can you show me the name of the architect who built the most mills?",
+      "reference": "SELECT T1.name  FROM architect AS T1 JOIN mill AS T2 ON T1.id  =  T2.architect_id GROUP BY T1.id ORDER BY count(*) DESC LIMIT 1",
+      "reference_answer": "Frank Lloyd Wright",
+      "tag": "extremum_ties",
+      "reason": "The reference takes one architect. A tied count of mills can have several legitimate names.",
+      "alternate_sql": "WITH counts AS (SELECT architect.id AS id, architect.name AS name, count(*) AS n FROM architect JOIN mill ON architect.id=mill.architect_id GROUP BY architect.id) SELECT name FROM counts WHERE n=(SELECT MAX(n) FROM counts) ORDER BY name",
+      "executions": [
+        {
+          "member": "cosql_dataset/database/architecture/architecture.sqlite",
+          "reference": [
+            [
+              "Frank Lloyd Wright"
+            ]
+          ],
+          "alternate": [
+            [
+              "Frank Lloyd Wright"
+            ],
+            [
+              "Mies Van Der Rohe"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cosql-train/chinook_1/PvPa33ccQpokZd6PH/unassisted",
+      "question": "How many customers are there?",
+      "reference": "SELECT COUNT(*) FROM CUSTOMER",
+      "reference_answer": 59,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/chinook_1/oLmTKK4fJiJkppX8z/unassisted",
+      "question": "how many customers live in germany and have invoice",
+      "reference": "SELECT count(*) FROM CUSTOMER AS T1 JOIN INVOICE AS T2 ON T1.CustomerId  =  T2.CustomerId WHERE T1.country  =  \"Germany\"",
+      "reference_answer": 28,
+      "tag": "entity_count",
+      "reason": "The reference counts invoices belonging to customers. The request counts the customers who have at least one invoice.",
+      "alternate_sql": "SELECT COUNT(DISTINCT Customer.CustomerId) FROM Customer JOIN Invoice ON Customer.CustomerId=Invoice.CustomerId WHERE Country='Germany'",
+      "executions": [
+        {
+          "member": "cosql_dataset/database/chinook_1/chinook_1.sqlite",
+          "reference": [
+            [
+              28
+            ]
+          ],
+          "alternate": [
+            [
+              4
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cosql-train/company_office/Bb5oNAwLNCChpCKED/unassisted",
+      "question": "How many companies have an industry of banking?",
+      "reference": "SELECT count(*) FROM Companies WHERE Industry = \"Banking\"",
+      "reference_answer": 8,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/company_office/xCwKGFpTrCbdTkT92/unassisted",
+      "question": "what is the highest profits of companies",
+      "reference": "SELECT max(Profits_billion)  FROM Companies",
+      "reference_answer": 30.5,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/customers_and_invoices/98PFzGZBCm5TYqese/unassisted",
+      "question": "How many orders have more than two invoices?",
+      "reference": "SELECT COUNT(*) FROM (SELECT * FROM Invoices AS T1 JOIN Orders AS T2 ON T1.order_id  =  T2.order_id GROUP BY T2.order_id HAVING count(*)  >  2)",
+      "reference_answer": 2,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/customers_and_invoices/HTtNg5ibApHJn66kW/unassisted",
+      "question": "how many Invoices there",
+      "reference": "SELECT count(*) from invoices",
+      "reference_answer": 15,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/news_report/MQHgAGtvLBi32E3r7/unassisted",
+      "question": "how many journalist there",
+      "reference": "SELECT count(*) FROM journalist",
+      "reference_answer": 11,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/news_report/cqfi3gcM7zwqosxLt/unassisted",
+      "question": "Hi, what journalist had worked the most amount of years?",
+      "reference": "SELECT journalist_ID FROM journalist ORDER BY Years_working DESC LIMIT 1",
+      "reference_answer": 4,
+      "tag": "identification",
+      "reason": "The expert identifies one journalist by ID. A reader can identify the same journalist by name and may identify several tied journalists.",
+      "alternate_sql": "SELECT Name FROM journalist WHERE Years_working=(SELECT MAX(Years_working) FROM journalist) ORDER BY Name",
+      "executions": [
+        {
+          "member": "cosql_dataset/database/news_report/news_report.sqlite",
+          "reference": [
+            [
+              4
+            ]
+          ],
+          "alternate": [
+            [
+              "Jackie Waring"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cosql-train/theme_gallery/BFMztTPdyqSj6uEiL/unassisted",
+      "question": "How many exhibitions have an attendance of more than 100?",
+      "reference": "SELECT count(*) FROM exhibition_record AS T1 JOIN exhibition AS T2 ON T1.exhibition_id  =  T2.exhibition_id WHERE T1.attendance  >  100",
+      "reference_answer": 13,
+      "tag": "entity_count",
+      "reason": "The reference counts dated attendance rows. An exhibition can appear on multiple dates.",
+      "alternate_sql": "SELECT COUNT(DISTINCT exhibition.Exhibition_ID) FROM exhibition JOIN exhibition_record USING(Exhibition_ID) WHERE Attendance>100",
+      "executions": [
+        {
+          "member": "cosql_dataset/database/theme_gallery/theme_gallery.sqlite",
+          "reference": [
+            [
+              13
+            ]
+          ],
+          "alternate": [
+            [
+              5
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cosql-train/theme_gallery/Y486F57WM7ujWGcda/unassisted",
+      "question": "how many exhibition are presented on the table",
+      "reference": "SELECT count(*) FROM exhibition",
+      "reference_answer": 6,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/tracking_software_problems/J5sLd7iDZpwTfbscz/unassisted",
+      "question": "What is the staff id of Bosco?",
+      "reference": "SELECT staff_id FROM staff where staff_last_name = \"Bosco\"",
+      "reference_answer": 1,
+      "tag": "no_specific_ambiguity_flagged"
+    },
+    {
+      "id": "cosql-train/tracking_software_problems/n4PdTTizJH3vRfZou/unassisted",
+      "question": "What is the staff ID of the staff with the first name Christop?",
+      "reference": "SELECT staff_id from staff where staff_first_name = \"Christop\"",
+      "reference_answer": 10,
+      "tag": "no_specific_ambiguity_flagged"
+    }
+  ]
+}

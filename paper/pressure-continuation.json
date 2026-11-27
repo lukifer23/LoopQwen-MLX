@@ -1,0 +1,94 @@
+{
+  "stages": [
+    {
+      "name": "contrastive-world-fit-01",
+      "updates": 1152,
+      "seconds": 790.592857837677,
+      "peak": 3.7727829329669476,
+      "targets": 666113,
+      "preferences": 9642,
+      "archive": "c3ac432959ea3ee2a1585da33311a692a084c4f161af4a2a9c185acb75917996",
+      "decision": {
+        "passed": false,
+        "status": "interrupted",
+        "reason": "System memory pressure level 2, 3.62 GiB available (floor 1.5 GiB)",
+        "durable_updates": 1152
+      }
+    },
+    {
+      "name": "streamed-world-fit-01",
+      "updates": 1920,
+      "seconds": 661.4635381698608,
+      "peak": 1.6617014333605766,
+      "targets": 1104636,
+      "preferences": 15983,
+      "archive": "b0acadca4737025332ca6fdc3233fe8f6331a98f4e86d11ccc0462e39954f51a",
+      "decision": {
+        "passed": false,
+        "status": "interrupted",
+        "reason": "System memory pressure level 2, 3.87 GiB available (floor 1.5 GiB)",
+        "durable_updates": 1920
+      }
+    }
+  ],
+  "latest": {
+    "name": "streamed-world-fit-01",
+    "updates": 1920,
+    "seconds": 661.4635381698608,
+    "peak": 1.6617014333605766,
+    "targets": 1104636,
+    "preferences": 15983,
+    "archive": "b0acadca4737025332ca6fdc3233fe8f6331a98f4e86d11ccc0462e39954f51a",
+    "decision": {
+      "passed": false,
+      "status": "interrupted",
+      "reason": "System memory pressure level 2, 3.87 GiB available (floor 1.5 GiB)",
+      "durable_updates": 1920
+    }
+  },
+  "target": 1953806,
+  "gradient_relative": 9.105971548706293e-05,
+  "objective_relative": 6.878253198817628e-08,
+  "cosine": 0.9999999403953552,
+  "training": [
+    {
+      "turns": 844,
+      "labels": 39799
+    },
+    {
+      "turns": 984,
+      "labels": 37618
+    },
+    {
+      "turns": 648,
+      "labels": 24428
+    },
+    {
+      "turns": 1260,
+      "labels": 35608
+    }
+  ],
+  "fields": {
+    "dev": {
+      "panel_sha256": "2bbcc8598945e06da4761d0adf65916723d583c55599d5c65a3a91fca75baf63",
+      "sources": 10,
+      "alternate_instances": 168,
+      "distinct_partner_results": 167,
+      "questions_with_a_changed_result": 10
+    },
+    "train": {
+      "panel_sha256": "3228570deb69cea78014babc952896a0de5d1fe2b8d791e7f704ae305dbbe535",
+      "sources": 14,
+      "alternate_instances": 0,
+      "distinct_partner_results": 0,
+      "questions_with_a_changed_result": 0
+    }
+  },
+  "flags": 7,
+  "references": {
+    "research/sources/provider-recovery/field-denotations.json": "d6fff94fa9a745d08e303f183b4077e71649440852a214887a766c1716ca7ff6",
+    "research/sources/provider-recovery/field-wording.json": "1eefa3719a38dd4aa4b89c46beeb4dcb2ad89dbc90f5983d5ae3344be8c2065e",
+    "research/sources/provider-recovery/semantic-independent-replay.json": "2c6ca00fca0954fde07975822931ccbbbf75907f50c0d90fc054eab84bfeeb64",
+    "docs/measurements/shared-query-precision.json": "5cdf0c421ef1aa7493ac33bd48b266694feea17e1b6b7feb432db11c9f5ef792"
+  }
+}

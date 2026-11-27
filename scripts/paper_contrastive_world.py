@@ -116,8 +116,9 @@ def overview():
     return seen, exposure
 
 
-def held(out):
-    root = RESULT / STAGES[-1]
+def held(out, *, variant="contrastive"):
+    prefix = variant + "-world"
+    root = RESULT / (prefix + "-transfer-01")
     panel = unpack(SOURCE / "transfer-panel.json.gz")["rows"]
     runs = [unpack(root / (arm + ".json.gz")) for arm in ("candidate", "control")]
     rows = []
@@ -148,20 +149,28 @@ def held(out):
                 }
             )
         rows.append(r)
-    write_csv(P / "contrastive-world-requests.csv", rows)
+    write_csv(P / (prefix + "-requests.csv"), rows)
     base_features = read("research/experiments/conditional-features-01.json")
     out["generation_channels"] = channel_account(
         root,
         runs,
-        destination=P / "contrastive-world-generation-channels.csv",
+        destination=P / (prefix + "-generation-channels.csv"),
         additional_training=(Path(base_features["training"]),),
         reasoning_families=("qualitative",),
     )
-    sensitivity("contrastive-worlds", "report")
-    out["sensitivity"] = read(DOC / "contrastive-worlds-wording-sensitivity.json")[
-        "cells"
-    ]
-    services = read(DOC / "contrastive-services-reading.json")
+    sensitivity(
+        "contrastive-worlds",
+        "report",
+        variant=None if variant == "contrastive" else variant,
+    )
+    out["sensitivity"] = read(
+        DOC
+        / (
+            ("contrastive-worlds" if variant == "contrastive" else prefix)
+            + "-wording-sensitivity.json"
+        )
+    )["cells"]
+    services = read(DOC / (variant + "-services-reading.json"))
     out["service"] = services["source_pairs"]
     offered = {w["id"] for w in panel if w["family"] in ("service", "tables")}
     grounded = {
@@ -170,8 +179,8 @@ def held(out):
     recovery, repairs = recovery_summary(root, runs, offered, grounded)
     assert len(repairs) == 192
     out["tool_recovery"] = recovery
-    write_csv(P / "contrastive-world-tool-recovery.csv", repairs)
-    out["qualitative"] = read(DOC / "contrastive-qualitative-reading.json")
+    write_csv(P / (prefix + "-tool-recovery.csv"), repairs)
+    out["qualitative"] = read(DOC / (variant + "-qualitative-reading.json"))
 
 
 def plot(rows):
@@ -191,7 +200,7 @@ def plot(rows):
     plt.close(fig)
 
 
-def optimizer_plot(log):
+def optimizer_plot(log, *, prefix="contrastive-world"):
     totals = []
     positions = 0
     for step in range(0, len(log), 64):
@@ -233,9 +242,9 @@ def optimizer_plot(log):
         ax.set_xlabel("Cumulative label exposures (M)")
         ax.spines[["top", "right"]].set_visible(False)
         ax.grid(axis="y", alpha=0.2)
-    fig.savefig(P / "contrastive-world-optimization.svg", metadata={"Date": None})
+    fig.savefig(P / (prefix + "-optimization.svg"), metadata={"Date": None})
     plt.close(fig)
-    write_csv(P / "contrastive-world-optimization.csv", totals)
+    write_csv(P / (prefix + "-optimization.csv"), totals)
 
 
 def build():
