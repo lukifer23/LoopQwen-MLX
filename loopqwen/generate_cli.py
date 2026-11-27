@@ -88,7 +88,13 @@ def run(args, parser):
         mx.synchronize()
         mx.reset_peak_memory()
         start = perf_counter()
-        model, tok = candidate(args, parser) if side == "recurrent" else base()[:2]
+        model, tok = (
+            candidate(args, parser)
+            if side == "recurrent"
+            else base(args.checkpoint)[:2]
+        )
+        if side == "base":
+            base_source = model.base_source
         loaded = perf_counter() - start
         text, stops = render(tok, source, args.thinking)
         ids = tok.encode(text, add_special_tokens=False)
@@ -131,6 +137,7 @@ def run(args, parser):
     return {
         "recurrent_checkpoint": str(args.checkpoint),
         "base_revision": REVISION,
+        "base_source": base_source,
         "order": list(runs),
         "initial_prompt_identical": True,
         "prompt": text,
