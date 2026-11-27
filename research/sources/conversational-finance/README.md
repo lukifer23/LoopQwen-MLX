@@ -1,0 +1,5 @@
+# Conversational report arithmetic
+
+The compressed records contain 96 original ConvFinQA training conversations from 51 issuers. They preserve 398 questions in order, the original contextual text and table, authored reasoning programs, and every return from the public calculator. The 255 arithmetic turns include follow-ups that depend on previously computed quantities. A lookup turn stores the verified numeric annotation separately. The collection contains no learner responses. [Authors' release](https://github.com/czyssrs/ConvFinQA/tree/cf3eed2d5984960bf06bb8145bcea5e80b0222a6) · [Chen et al., EMNLP 2022](https://aclanthology.org/2022.emnlp-main.421/)
+
+Run `.venv/bin/python -m scripts.conversational_finance_sources --download` with the earlier FinQA source files available to reproduce the archive. The inventory records the original zip digest, uncompressed training split digest, overlap checks, every deterministic selection rule and the number eligible. The published rounded execution value and the exact calculated fraction are distinct fields. Reported percentages sometimes require converting that fraction to the requested display scale.
