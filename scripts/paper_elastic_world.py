@@ -1,6 +1,7 @@
 """Rebuild the resource continuation and real-provider evaluation supplement from sealed receipts."""
 
 from pathlib import Path
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -12,7 +13,7 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from scripts.assistance_deliberation import write_csv
 from scripts.contrastive_fit_specificity import run as specificity
-from scripts.paper_contrastive_world import DOC, P, RESULT, held, optimizer_plot
+from scripts.paper_contrastive_world import DOC, RESULT, P, held, optimizer_plot
 from scripts.table_policy_reading import committed
 
 ATTEMPTS = ["contrastive-world-fit-01", "streamed-world-fit-01", "elastic-world-fit-01"]

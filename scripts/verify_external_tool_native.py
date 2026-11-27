@@ -36,6 +36,7 @@ def study(measure):
         persist(PLAN, plan)
         return
     import subprocess
+
     import psutil
 
     committed(PLAN)

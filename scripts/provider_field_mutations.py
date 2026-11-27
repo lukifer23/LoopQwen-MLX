@@ -8,13 +8,13 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile
 
+from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read
 from scripts.dialogue_database_sources import CACHE, SHA
-from scripts.provider_recovery_field import PANEL
 from scripts.provider_field_denotations import outcomes
+from scripts.provider_recovery_field import PANEL
 from scripts.table_policy_material import persist
-from loopqwen.evaluation.mechanism import unpack
 
 LOCAL = PANEL.with_name("withheld-training-split-requests.json.gz")
 PLAN = PANEL.with_name("field-subset-plan.json")
