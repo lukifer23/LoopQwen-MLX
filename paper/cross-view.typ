@@ -43,7 +43,7 @@ The teaching articles are selected from SQuAD v1.1 train. The external evaluatio
 
 Each case earns content credit if the completed visible answer contains its human reference as a bounded phrase and omits the other question’s different reference. Exact scoring uses SQuAD case, article, punctuation and whitespace normalization. Token F1 gives graded credit for partial overlap. A real file outcome also requires the matching executed call and exact returned passage. The archived primary fixes these choices for both models. A separate review examines complete nonexact replies with the model identity and publisher answer hidden.
 
-The whole-stream timings include model construction on the first request, generation, real callbacks and final answers. The reported first-token sum includes user-visible setup. Decode throughput pools tokens after the first output over their actual decode seconds. Each arm ran once in a fixed order on the same 18 GiB Apple M3 Pro. Timing variability across hosts and repeated runs is outside this comparison.
+The whole-stream timings include model construction on the first request, generation, real callbacks and final answers. The reported first-token sum includes user-visible setup. Opening throughput uses the two arms’ identical opening-token total divided by that sum, so the two measures carry the same directional information. Decode throughput pools tokens after the first output over their actual decode seconds. Each arm ran once in a fixed order on the same 18 GiB Apple M3 Pro. Timing variability across hosts and repeated runs is outside this comparison.
 
 #pagebreak()
 = Where both modalities succeeded
