@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "groups": [
+    [
+      "Changed tables",
+      988,
+      16078,
+      "1.551",
+      "0.110",
+      8
+    ],
+    [
+      "Database dialogue",
+      625,
+      22612,
+      "1.362",
+      "0.259",
+      8
+    ],
+    [
+      "Open and reading",
+      888,
+      22998,
+      "2.685",
+      "1.135",
+      8
+    ],
+    [
+      "Earlier tools",
+      600,
+      23357,
+      "1.051",
+      "0.036",
+      8
+    ]
+  ],
+  "views": 3101,
+  "targets": 85045,
+  "tokens": 2610909,
+  "steps": 1024,
+  "qualified_gates": [
+    [
+      "exact_initial",
+      "Pass"
+    ],
+    [
+      "independent_histories",
+      "Pass"
+    ],
+    [
+      "ordinary_unchanged",
+      "Pass"
+    ],
+    [
+      "cached_top",
+      "Pass"
+    ],
+    [
+      "trained_change",
+      "Pass"
+    ],
+    [
+      "probe_gain",
+      "Pass"
+    ]
+  ],
+  "mean_gain": "1.2774",
+  "probe_targets": 725,
+  "probe_wins": 32,
+  "max_replay_error": "0.00000036",
+  "positive_gradient_steps": 1024,
+  "clipped_steps": 69,
+  "grad_median": "0.5465",
+  "gate_rms": "0.2459",
+  "up_norms": [
+    "10.226",
+    "10.000",
+    "9.288",
+    "9.594"
+  ],
+  "trained": 1049600,
+  "weights": "381734537b153de2a6e321bac61178b5bb4a5cea869c02e97f30d4bb310e4a4b",
+  "cold_exact": 248320,
+  "cache_seconds": 629.63,
+  "cache_tokens": 1965349,
+  "cache_bytes": 4025347341,
+  "window_native_s": 1337.04,
+  "mlx_peak_gib": 4.544,
+  "parity": [
+    [
+      "Initial",
+      760,
+      760,
+      "0.4551",
+      490,
+      28
+    ],
+    [
+      "Trained",
+      198,
+      198,
+      "0.3750",
+      490,
+      28
+    ]
+  ],
+  "opt_digest": "ebd01f525ebb7073c4ce4ecdf2f974171dda7c1b31b1b1342a267a896acfebc8",
+  "archive": "0d985476f82dc2c42ee2d3e45bd428a7cc67ab924f8226ff3bdca32243595ea3"
+}
