@@ -1,5 +1,7 @@
 # LoopQwen-MLX
 
+[Release target, current evidence and verification plan](docs/RELEASE_EVIDENCE.md)
+
 **On a fresh cross-domain test, the trained loop grounded 25/72 human table judgments versus 4/72 for untouched Base** (12 paired tables, exact p = 0.0039). Across all 96 requests it grounded 28 versus 4 and finished every request sooner, taking 99.21 versus 736.82 seconds altogether. The loop retrieved the human-selected field on 18/36 file questions versus 0/36. It missed the registered 30/72 minimum and both models solved zero whole tables and zero of 16 Python compatibility requests. On 12 package requests the loop selected the correct project but fetched the release number instead of the Python requirement. Seven of its 25 newly correct requests also improved first latency, total time and peak memory together. One of Base’s four successes was lost. [Complete field study](paper/loopqwen-field-study.pdf) · [Methods, figures and tables](paper/field-selection.pdf) · [All 192 model trajectories in paired rows](paper/field-selection-requests.csv) · [Reproduction](docs/FIELD_SELECTION.md)
 
 A clean offline installation reproduced every output token and tool interaction on five paired requests and rebuilt all eight field-study paper artifacts. The add-on contains 49 files in 128,841,688 bytes. [Verified policy ZIP](exports/loopqwen-field-selection-06.zip) · [Clean-install receipt](docs/measurements/field-selection-update-06.json) · [Archive verification and 186 passing tests](docs/measurements/field-selection-verification.txt)
