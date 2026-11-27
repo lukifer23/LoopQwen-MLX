@@ -163,6 +163,14 @@ The two visits share all parameters. Query and content corrections have rank 160
 
  *Reasoning and tool use.* The loop improved the strict database count by ten and preserved every Base success under that scorer. In the masked review, its ten net gains after a correct supplied result were accompanied by three losses and zero gains following a provider error, and three losses and zero gains following a successful but irrelevant result. On financial questions the loop once selected a program that tracked changes to the actual operands but gave the user the wrong percentage. Among the reasoning requests, one loop response spent its entire 384-token budget repeatedly asking for the main idea of the passage.
 
+ #if "completion" in d [
+  *Where the output budget went.* On capped reasoning turns, the loop produced a repeated four-token sequence on #fmt(100*d.completion.strategy.candidate.repeated_fourgrams/d.completion.strategy.candidate.total_fourgrams,n:1)% of positions with four tokens available, versus #fmt(100*d.completion.strategy.control.repeated_fourgrams/d.completion.strategy.control.total_fourgrams,n:1)% for Base. The table counts last turns reaching 384 tokens before or after the model actually emitted its thought-closing token. Both kinds of unfinished response receive the registered score.
+  #tbl((1.1fr,1.2fr,1.2fr,1.2fr,1.2fr),("Family","Loop in thought","Base in thought","Loop after close","Base after close"), d.completion.pairs().map(pair=>{
+   let m=pair.at(1)
+   (pair.at(0),str(m.candidate.at_limit_inside_thought),str(m.control.at_limit_inside_thought),str(m.candidate.at_limit_after_close),str(m.control.at_limit_after_close))
+  }))
+ ]
+
  *Long-context evidence.* In the two source-edited locale pairs, the recurrent model repeated the same visible answer on both versions. Base exhausted the output budget on all four documents. Both models processed the full input and neither recovered a correct changed value. This checkpoint therefore qualifies for neither the matched-depth confirmation nor a release.
 
  The public request ledger contains both delivered responses, costs and decisions. Raw archives preserve prompt IDs, emitted tokens, causal history offsets, actual read-only visits and every provider observation. A project assistant performed the masked adjudication. These findings apply to the enrolled sources and conditions.

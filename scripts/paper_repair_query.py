@@ -287,6 +287,10 @@ def collect():
         write_csv(P / "repair-query-requests.csv", rows)
         prefix = "staged-query" if primary.name == STAGED else "repair-query"
         out["reading"] = read(DOC / (prefix + "-reading.json"))
+        completion = DOC / "staged-query-completion.json"
+        if primary.name == STAGED and completion.exists():
+            committed(completion)
+            out["completion"] = read(completion)["groups"]
         consistency = DOC / "staged-tool-consistency.json"
         if prefix == "staged-query" and consistency.exists():
             committed(consistency)
