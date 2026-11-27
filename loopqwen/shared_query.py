@@ -27,14 +27,18 @@ class QueryStep(nn.Module):
         return (h + gain * d + scale * self.content(d / scale)).astype(previous.dtype)
 
 
-def memory(layer, hidden, slot, window_size):
+def memory(layer, hidden, slot, window_size, *, mask_needed=True):
     """Append one key/value per physical token using the stock projections and RoPE."""
     a = layer.self_attn
     x = layer.input_layernorm(hidden)
     shape = (x.shape[0], x.shape[1], a.num_key_value_heads, a.head_dim)
     k = a.k_norm(a.k_proj(x).reshape(shape)).transpose(0, 2, 1, 3)
     v = a.v_proj(x).reshape(shape).transpose(0, 2, 1, 3)
-    mask = create_attention_mask(hidden, slot, window_size=window_size)
+    mask = (
+        create_attention_mask(hidden, slot, window_size=window_size)
+        if mask_needed
+        else None
+    )
     offset = slot.offset if slot is not None else 0
     k = a.rope(k, offset=offset)
     if slot is not None:
@@ -118,7 +122,7 @@ class SharedQuery(LoopedModel):
         self.output_revisits = 0
         self.step = QueryStep(text.args.hidden_size, rank, gate_rank)
 
-    def encode(self, ids, cache=None, *, start=0, window_size=None, observer=None):
+    def _write_memory(self, ids, cache, window_size, observer, *, mask_needed):
         if cache is not None:
             cache.validate(self, window_size)
         h = self._execute(
@@ -130,7 +134,17 @@ class SharedQuery(LoopedModel):
         )
         slot = cache.slots[self.sites[-1]] if cache is not None else None
         layer = self.text.layers[-1]
-        k, v, offset, mask = memory(layer, h, slot, window_size)
+        return h, *memory(layer, h, slot, window_size, mask_needed=mask_needed)
+
+    def populate_cache(self, ids, cache):
+        """Update causal slots without constructing any final output reads or MLP."""
+        self._write_memory(ids, cache, None, None, mask_needed=False)
+
+    def encode(self, ids, cache=None, *, start=0, window_size=None, observer=None):
+        h, k, v, offset, mask = self._write_memory(
+            ids, cache, window_size, observer, mask_needed=True
+        )
+        layer = self.text.layers[-1]
         if not 0 <= start < h.shape[1]:
             raise ValueError(
                 "The first required output must fall inside the supplied token block"

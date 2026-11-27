@@ -29,6 +29,7 @@ def from_backbone(directory, folder, spec, identity):
 
 class SharedQueryAssistant(Assistant):
     native_plain = True
+    default_cache_state_prefill = True
 
     def __init__(self, directory, policy):
         super().__init__(directory, tool_format="qwen")
@@ -70,5 +71,5 @@ class SharedQueryAssistant(Assistant):
         self.reuse_prefix = True
 
     def respond(self, question, tools=(), **options):
-        options.setdefault("prefill_cache_state", True)
+        options.setdefault("prefill_cache_state", self.default_cache_state_prefill)
         return super().respond(question, tools, **options)

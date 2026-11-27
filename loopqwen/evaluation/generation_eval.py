@@ -21,7 +21,8 @@ def resident_cache(model, route, length, max_tokens, block, *, reserve_full_kv=F
 
 def advance_cache(model, chunk, cache):
     """Materialize the physical histories of an intermediate resident prefill block."""
-    model.hidden(chunk, cache)
+    populate = getattr(model, "populate_cache", model.hidden)
+    populate(chunk, cache)
     mx.eval([slot.state for slot in cache.slots.values()])
 
 

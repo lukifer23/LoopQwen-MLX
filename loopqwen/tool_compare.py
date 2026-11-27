@@ -44,6 +44,8 @@ def compare(args, tools, options):
                 if side == "recurrent":
                     assistant = open_assistant(args)
                     native_plain = getattr(assistant, "native_plain", False)
+                    if getattr(assistant, "default_cache_state_prefill", False):
+                        options = {"prefill_cache_state": True, **options}
                     if reuse is None:
                         reuse = assistant.reuse_prefix
                 else:

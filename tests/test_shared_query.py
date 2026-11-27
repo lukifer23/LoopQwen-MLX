@@ -30,7 +30,10 @@ def test_shared_query_preserves_stock_at_start_and_writes_history_once():
     out = net.project(net.last_hidden(ids[:, 7:], cache))
     assert mx.allclose(out, whole[:, -1:], rtol=1e-4, atol=1e-4).item()
     slot = cache.slots[(3, 0)]
-    assert slot.offset == ids.shape[1] and slot.state[0].shape[2] == ids.shape[1]
+    assert (
+        slot.offset == ids.shape[1]
+        and slot.keys_and_values()[0].shape[2] == ids.shape[1]
+    )
     assert len(cache.slots) == len(net.text.layers)
 
 
@@ -127,3 +130,38 @@ def test_cited_probability_uses_only_causal_keys_and_trains_the_actual_query():
     assert (
         vals[4].item() > 0 and mx.linalg.norm(grad["query"]["up"]["weight"]).item() > 0
     )
+
+
+def test_intermediate_prefill_writes_identical_states_without_building_output_queries(
+    monkeypatch,
+):
+    from loopqwen import shared_query
+    from loopqwen.evaluation.generation_eval import advance_cache
+
+    net = model()
+    net.step.bias = mx.full(net.step.bias.shape, 0.22)
+    ids = mx.array([[3, 8, 13, 2, 34, 9, 17, 11, 28]])
+    full = net.make_cache()
+    net.hidden(ids[:, :6], full)
+    expected = net.last_hidden(ids[:, 6:], full)
+
+    stored = net.make_cache()
+    with monkeypatch.context() as patch:
+
+        def unused(*args, **kwargs):
+            raise AssertionError("An intermediate prefix requested an output read")
+
+        patch.setattr(shared_query, "attend", unused)
+        advance_cache(net, ids[:, :6], stored)
+    actual = net.last_hidden(ids[:, 6:], stored)
+    assert mx.allclose(actual, expected, rtol=1e-5, atol=1e-5).item()
+    for key, slot in stored.slots.items():
+        actual_state = dict(tree_flatten(slot.state))
+        expected_state = dict(tree_flatten(full.slots[key].state))
+        assert actual_state.keys() == expected_state.keys()
+        for name, a in actual_state.items():
+            b = expected_state[name]
+            if isinstance(a, mx.array):
+                assert mx.array_equal(a, b).item()
+            else:
+                assert a == b
