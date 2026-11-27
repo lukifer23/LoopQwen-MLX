@@ -76,7 +76,7 @@ def turns(s, root):
         return views
 
 
-def loss_fn(model, h, rows, cols, y, semantic, j, bad):
+def loss_fn(model, h, rows, cols, y, semantic, j, bad, *, return_margins=False):
     first = model._execute(h, model.sites[model.span.start :][:1])
     second = model._execute(first, model.sites[model.span.start :][1:])
     project = lambda h: model.project(model.text.model.norm(h)).astype(mx.float32)
@@ -90,6 +90,8 @@ def loss_fn(model, h, rows, cols, y, semantic, j, bad):
         absolute = mx.logaddexp(mx.array(0.0), 1.0 - delta)
         refinement = mx.logaddexp(mx.array(0.0), 0.35 + before - delta)
         loss = 0.4 * loss + 0.3 * ce[j] + 0.15 * absolute + 0.15 * refinement
+    if return_margins:
+        return loss, mx.stack([before, delta]) if j >= 0 else mx.array([])
     return loss
 
 

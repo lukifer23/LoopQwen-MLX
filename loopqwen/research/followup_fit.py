@@ -169,10 +169,15 @@ def fit(net, tok, s, root, guard, *, prepare):
             raise InterruptedError("Nonfinite protected objective")
         grad = None
         loss = 0.0
+        margins = []
         for i, weight in zip(active, (0.4, 0.27, 0.33), strict=True):
             places, bad, n = meta[i]
-            local, g = main_gradient(
-                net, *pack([bank[i]]), mx.array(places), *(bad if bad else (-1, 0))
+            (local, gaps), g = main_gradient(
+                net,
+                *pack([bank[i]]),
+                mx.array(places),
+                *(bad if bad else (-1, 0)),
+                return_margins=True,
             )
             grad = (
                 tree_map(lambda z, scale=weight: z.astype(mx.float32) * scale, g)
@@ -181,7 +186,22 @@ def fit(net, tok, s, root, guard, *, prepare):
                     lambda a, b, scale=weight: a + scale * b.astype(mx.float32), grad, g
                 )
             )
-            mx.eval(local, grad)
+            mx.eval(local, gaps, grad)
+            if bad:
+                j, foil = bad
+                first, second = gaps.tolist()
+                if not math.isfinite(first) or not math.isfinite(second):
+                    raise InterruptedError("Nonfinite training token margin")
+                margins.append(
+                    {
+                        "view": i,
+                        "position": j,
+                        "target": bank[i][2][j],
+                        "foil": foil,
+                        "first": first,
+                        "second": second,
+                    }
+                )
             loss += weight * local.item()
             state["targets"] += len(bank[i][2])
             state["explanation_targets"] += n
@@ -197,7 +217,12 @@ def fit(net, tok, s, root, guard, *, prepare):
         state["protected_targets"] += len(ref_args[-1])
         state["steps"].append(
             dict(
-                step=step, active=active, protected=protected, main_loss=loss, **measure
+                step=step,
+                active=active,
+                protected=protected,
+                main_loss=loss,
+                margins=margins,
+                **measure,
             )
         )
         if step == 1 or step % 100 == 0:

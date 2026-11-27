@@ -220,6 +220,18 @@ def verify(root, d):
     views = unpack(root / "training-views.json.gz")
     records = read(root / "optimizer-directions.json")
     fitlog = read(root / "fit.json")
+    from .cross_view_study import tokenizer
+    from .followup_fit import semantic
+    from .native_function_data import token_pair
+
+    tok = tokenizer(s)
+    contrasts = {}
+    for i, w in enumerate(views):
+        if w["alternative"] is not None:
+            _, bad, _ = semantic(tok, w)
+            if bad:
+                j, foil = bad
+                contrasts[i] = (j, token_pair(tok, w)[1][j], foil)
     draw = batches(views, s["fit_seed"])
     assert len(records) == fitlog["updates"] == s["updates"]
     for i, r in enumerate(records, 1):
@@ -229,6 +241,11 @@ def verify(root, d):
             r["factor"] in (1, 0.5, 0.25, 0.125, 0.0625, 0)
             and r["after"] <= r["before"] + s["reference_tolerance"]
         )
+        expected = [i for i in active if i in contrasts]
+        assert [m["view"] for m in r["margins"]] == expected
+        for m in r["margins"]:
+            assert (m["position"], m["target"], m["foil"]) == contrasts[m["view"]]
+            assert math.isfinite(m["first"]) and math.isfinite(m["second"])
         assert r["projected"] == (r["raw_directional"] > 0)
         assert all(
             math.isfinite(r[k]) and r[k] >= 0
