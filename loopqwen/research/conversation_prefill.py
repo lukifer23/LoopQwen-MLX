@@ -12,6 +12,7 @@ import mlx.core as mx
 from .. import file_tools
 from ..evaluation import program_questions
 from ..evaluation.mechanism import packed, unpack
+from ..identity import fingerprint
 from ..io import digest, read, save
 from ..tool_model import Assistant
 from .core import Budget
@@ -84,6 +85,12 @@ def timed(spec, item, side, budget):
             progress=observe,
         )
         mx.synchronize()
+        if i == 0:
+            initial = tr["turns"][0]["prompt_ids"]
+            assert (
+                len(initial) == item["prompt_tokens"]
+                and fingerprint(initial) == item["initial_sha256"]
+            )
         rows.append(
             dict(
                 trajectory=tr,
@@ -163,6 +170,11 @@ def verify(root, d):
         available = file_tools.tools([file])
         for side in ("retain", "stock"):
             rows = unpack(root / f"{i}-{side}.json.gz")
+            initial = rows[0]["trajectory"]["turns"][0]["prompt_ids"]
+            assert (
+                len(initial) == item["prompt_tokens"]
+                and fingerprint(initial) == item["initial_sha256"]
+            )
             history = [system_message(available)]
             for question, row in zip(questions, rows, strict=True):
                 history.append({"role": "user", "content": question})
