@@ -220,4 +220,7 @@ def collect():
         ax.legend(frameon=False, loc="lower right")
         fig.savefig(P / "source-copy-program-audit.svg", metadata={"Date": None})
         plt.close(fig)
+    if (D / "long-copy-fit/receipt.json").exists():
+        from scripts.paper_long_copy import collect as long_copy_results
+        out["long_copy"] = long_copy_results()
     return out

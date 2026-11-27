@@ -1,5 +1,7 @@
 # Run the two-read source-copy research model
 
+The measured conversational weights are tracked under [source-copy-fit-01](../research/results/source-copy-fit-01). The 401,800,172-byte ZIP is a local build under `exports/`. A network-blocked clean installation reproduced all 167 generated tokens across three requests, the real calculator callback, and the attention histories. This verifies reproducible execution. See the [archive manifest](measurements/source-copy-installation/archive.json) and [offline replay](measurements/source-copy-installation/offline.json).
+
 The archive contains the source-copy checkpoint, its quantized instruction backbone, the certified Qwen tokenizer, the matching runtime wheel, and two original training-source examples. It is a research checkpoint. The paper reports its training results and its independently registered comparison with untouched Qwen Base.
 
 On an Apple Silicon Mac with Metal and the dependencies in the included uv lockfile, extract the archive and run these commands from its root.

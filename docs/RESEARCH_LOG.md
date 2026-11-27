@@ -1,5 +1,7 @@
 # Research ledger
 
+The November 27 pause handoff records the latest conversational comparison, the completed long-context pointer fit, and the remaining budget for financial repair. [Current goal and next steps](../RESEARCH_GOAL.md) · [Measured results and figure](../paper/repair-query.pdf)
+
 ## November 27 explanation qualification and proof training
 
 The trained proof curriculum gained 20/72 correct grounded human judgments over ordinary Base (paired sign-flip p = 0.00244) and 25 correct answers across the full 96 requests. The seven unflagged stories yielded 13/42 versus 2/42 (p = 0.0625). Its eight verified optimizer states account for 190,009 target tokens, including 77,452 explanation tokens. Blind assessment found one fully supported loop explanation and zero for Base on 20 enrolled items each. The loop identified the correct logical record on 33/36 requests but swapped the selector and return field on every practical package task. A single unmodified native forward through both visits raised gold odds in 26/68 completed answer contexts, with the greatest positive median on genuinely uncertain claims. The closed scientific result does not qualify these weights at 128K. [Study and 35-system inventory](../paper/proof-curriculum.pdf) · [Blind ratings](../research/diagnostics/proof-curriculum-blind-ratings.json) · [Native readout](measurements/proof-curriculum-visit-readout.json)

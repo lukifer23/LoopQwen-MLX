@@ -1,5 +1,17 @@
 # Training and reproduction
 
+## Resume the paused receipt-repair fit
+
+Use the project's locked environment on the training Mac. The tracked source-copy parent is under `research/results/source-copy-fit-01`. Native assets on this host live under `exports/tool-language-packed-05` and `exports/conditional-reentry-backbone`. Those ignored directories are outside Git. The two attempts used 106 charged seconds of the original 2,800-second budget, leaving 2,694 seconds on resumption. The resume check verifies the original source inventory, parent and donor hashes without running inference. The local offline kit and its inventory are described in [the model guide](SOURCE_COPY_MODEL.md).
+
+```sh
+.venv/bin/python -m scripts.resume_receipt_repair check
+# Once the owner resumes the research
+.venv/bin/python -m scripts.resume_receipt_repair fit
+```
+
+Inspect `docs/measurements/receipt-repair-fit-streamed/receipt.json`. Archive the complete result directory locally on main. Run `.venv/bin/python -m scripts.verify_receipt_repair` if the result includes final measurements. Commit its verification receipt. Only if both pass, run `.venv/bin/python -m scripts.receipt_repair_pilot measure` and commit the actual trajectories and terminal decision under `docs/measurements/receipt-repair-pilot-streamed/`. A failed fit or pilot closes its downstream product study. No job restarts automatically. For the current evidence and full goal, see the [handoff](../RESEARCH_GOAL.md).
+
 ## Reproduce the gated refinement study
 
 Use the locked arm64 environment and the official Base weights. The Phase 3 training cohort uses the V2 mixed answer/trace corpus. Seed 73, rank-eight block LoRA, four examples per optimizer update and a 256-position ceiling are fixed across paired arms. All arms cross each token budget at the first complete update. The schedule digest includes tokens, loss boundaries, problem IDs and batch boundaries.

@@ -24,6 +24,7 @@ from scripts.register_source_copy import RESULT, FIT
 from scripts.table_policy_material import persist
 
 REV = "7cfd019"
+GUIDE_REV = "334553039bee273e8637a8272ecf1866b6cec6cb"
 MODEL = ROOT / "exports/loopqwen-source-copy-01.zip"
 OUT = Path("docs/measurements/source-copy-installation")
 DONOR = Path("exports/conditional-reentry-backbone") / PACKED
@@ -64,8 +65,12 @@ def assemble():
         work = Path(tmp)
         wheel = build(work / "one", rev)
         assert digest(wheel) == digest(build(work / "two", rev))
+        guide = work / "README.md"
+        guide.write_bytes(subprocess.check_output(
+            ["git", "show", f"{GUIDE_REV}:docs/SOURCE_COPY_MODEL.md"], cwd=ROOT
+        ))
         files = {
-            "README.md": ROOT / "docs/SOURCE_COPY_MODEL.md",
+            "README.md": guide,
             "runtime/" + wheel.name: wheel,
             "runtime/uv.lock": ROOT / "uv.lock",
             "runtime/pyproject.toml": ROOT / "pyproject.toml",
