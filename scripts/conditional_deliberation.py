@@ -10,18 +10,26 @@ from loopqwen.research.cross_view_study import tokenizer
 from scripts.assistance_deliberation import WORDS, write_csv
 
 
-def account(root, streams):
+def account(
+    root,
+    streams,
+    *,
+    destination=Path("paper/conditional-primary-generation-channels.csv"),
+    additional_training=(),
+    reasoning_families=("effects", "human_first", "human_followup"),
+):
     spec = read(root / "registration.json")
     tok = tokenizer(spec)
     opening = tok.convert_tokens_to_ids("<think>")
     closing = tok.convert_tokens_to_ids("</think>")
     training = defaultdict(Counter)
-    for row in unpack(Path(spec["training"])):
-        group = training[row["group"]]
-        group["turns"] += 1
-        group["with_reasoning"] += bool(
-            WORDS.search(row["target"].get("reasoning_content", ""))
-        )
+    for path in (*additional_training, Path(spec["training"])):
+        for row in unpack(path):
+            group = training[row["group"]]
+            group["turns"] += 1
+            group["with_reasoning"] += bool(
+                WORDS.search(row["target"].get("reasoning_content", ""))
+            )
     records = []
     result = {}
     for arm, stream in zip(("candidate", "control"), streams, strict=True):
@@ -56,7 +64,7 @@ def account(root, streams):
             records.append(record)
             groups["all"].append(record)
             groups[r["family"]].append(record)
-            if r["family"] in ("effects", "human_first", "human_followup"):
+            if r["family"] in reasoning_families:
                 groups["reasoning"].append(record)
         result[arm] = {}
         for family, rows in groups.items():
@@ -66,5 +74,5 @@ def account(root, streams):
                 requests_with_words=sum(r["reasoning_words"] > 0 for r in rows),
                 **{k: sum(r[k] for r in rows) for k in counts},
             )
-    write_csv(Path("paper/conditional-primary-generation-channels.csv"), records)
-    return dict(training={k: dict(v) for k, v in training.items()}, streams=result)
+    write_csv(destination, records)
+    return {"training": {k: dict(v) for k, v in training.items()}, "streams": result}

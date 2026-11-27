@@ -53,6 +53,12 @@ LoopQwen-MLX research report · November 2026
   #let fit=d.stages.at(2).decision
   #if "free_whole" in fit [
     The optimizer completed #fit.updates steps, #fit.supervised_positions supervised positions and #fit.preferences preference comparisons. On the training diagnostics, the loop generated SQL that returned a correct scalar in all versions of #fit.free_whole.operator of 24 source tables, using #fit.free_distinct_sql distinct successful statements. It freely answered both contexts correctly on #fit.free_whole.qualitative/12 qualitative pairs and #fit.free_whole.service_reply/12 service pairs.
+    #if "specificity" in d [
+      #let measured=d.specificity.at("freely generated loop")
+      On the 24 individual service probes, #measured.service_reply.current_only replies mentioned two compatible fields specific to the actual source and #measured.service_reply.both matched either source. Both members had source-specific details on #measured.service_reply.both_members_current_only/12 pairs. Human replies met the same source-specific condition on 11/12 service pairs. On qualitative questions, #measured.qualitative.current_only of 24 generated answers selected the actual source’s choice.
+    ]
+    #image("contrastive-world-optimization.svg",width:100%)
+    *Figure.* Each point summarizes up to 64 consecutive optimizer updates. Token losses are weighted by positive target counts. Preference loss is weighted by the number of presentations. These are training diagnostics.
     #tbl((2fr,1fr),("Training probe group","Mean NLL reduction, nats"),fit.mean_nll_gain.pairs().map(v=>(v.at(0).replace("_"," "),rnd(v.at(1),digits:4))))
     #tbl((2fr,1fr),("Preregistered fit gate","Observed"),fit.gates.pairs().map(v=>(v.at(0).replace("_"," "),if v.at(1) {"pass"} else {"miss"})))
   ] else [
@@ -65,6 +71,8 @@ LoopQwen-MLX research report · November 2026
   #let primary=d.stages.at(3).decision
   #tbl((1.2fr,1fr,1fr,.85fr,.7fr),("Source family","Individual loop / Base","Whole pairs loop / Base","Paired p","Losses"),primary.counts.pairs().map(x=>(x.at(0),paired(x.at(1).individual),paired(x.at(1).whole),rnd(x.at(1).p,digits:4),str(x.at(1).losses))))
   The masked service review credited #paired(d.service.individual) individual grounded answers and #paired(d.service.whole) complete source pairs (loop / Base). The separate qualitative reading credited #paired(d.qualitative.source_pairs.individual) individual answers and #paired(d.qualitative.source_pairs.whole) complete sources. Both reviews used a source-specific rationale sealed before model attribution. The reviewer was the project assistant.
+  #let ch=d.generation_channels.streams
+  Actual generated tokens before the first thinking-channel close totaled #paired((ch.candidate.all.before_close_tokens,ch.control.all.before_close_tokens)) across the held requests. After that close the totals were #paired((ch.candidate.all.after_close_tokens,ch.control.all.after_close_tokens)). On the 48 qualitative questions, #paired((ch.candidate.qualitative.requests_with_words,ch.control.qualitative.requests_with_words)) had a nonempty deliberation. Scientific correctness and these length measurements are reported separately.
   #let c=primary.costs.candidate
   #let b=primary.costs.control
   #tbl((2.6fr,1fr,1fr),("Measured product metric","Loop","Base"),(("All requests, seconds",rnd(c.wall_s),rnd(b.wall_s)),("First token, summed seconds",rnd(c.first_s),rnd(b.first_s)),("Peak MLX allocation, GiB",rnd(c.peak/1073741824),rnd(b.peak/1073741824)),("Opening tokens per second",rnd(c.opening_tps),rnd(b.opening_tps)),("Post-first tokens per second",rnd(c.decode_tps),rnd(b.decode_tps))))

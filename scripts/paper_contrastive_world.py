@@ -13,6 +13,8 @@ from pypdf import PdfReader
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import digest, read, save
 from scripts.assistance_deliberation import write_csv
+from scripts.conditional_deliberation import account as channel_account
+from scripts.contrastive_fit_specificity import run as source_specificity
 from scripts.table_policy_reading import committed
 from scripts.wording_sensitivity import run as sensitivity
 
@@ -146,6 +148,14 @@ def held(out):
             )
         rows.append(r)
     write_csv(P / "contrastive-world-requests.csv", rows)
+    base_features = read("research/experiments/conditional-features-01.json")
+    out["generation_channels"] = channel_account(
+        root,
+        runs,
+        destination=P / "contrastive-world-generation-channels.csv",
+        additional_training=(Path(base_features["training"]),),
+        reasoning_families=("qualitative",),
+    )
     sensitivity("contrastive-worlds", "report")
     out["sensitivity"] = read(DOC / "contrastive-worlds-wording-sensitivity.json")[
         "cells"
@@ -169,6 +179,53 @@ def plot(rows):
         ax.grid(axis="x", alpha=0.2)
     fig.savefig(P / "contrastive-world-exposure.svg", metadata={"Date": None})
     plt.close(fig)
+
+
+def optimizer_plot(log):
+    totals = []
+    positions = 0
+    for step in range(0, len(log), 64):
+        block = log[step : step + 64]
+        n = sum(r["targets"] for r in block)
+        pairs = sum(r["preferences"] for r in block)
+        positions += n
+        assert n > 0
+        totals.append(
+            {
+                "through_update": block[-1]["step"],
+                "positions": positions,
+                "mean_nll": sum(r["nll_sum"] for r in block) / n,
+                "mean_teacher_kl": sum(r["teacher_kl_sum"] for r in block) / n,
+                "mean_preference_loss": sum(r["preference_loss_sum"] for r in block)
+                / pairs
+                if pairs
+                else None,
+            }
+        )
+    plt.rcParams.update({"svg.hashsalt": "contrastive-optimizer", "font.size": 8.5})
+    fig, axes = plt.subplots(1, 3, figsize=(9.2, 2.4), layout="constrained")
+    for ax, (key, label) in zip(
+        axes,
+        (
+            ("mean_nll", "Response NLL per token"),
+            ("mean_teacher_kl", "Teacher KL per token"),
+            ("mean_preference_loss", "Softplus loss per preference"),
+        ),
+        strict=True,
+    ):
+        ax.plot(
+            [r["positions"] / 1e6 for r in totals],
+            [r[key] for r in totals],
+            color="#306f77",
+            lw=1.6,
+        )
+        ax.set_title(label, fontsize=9)
+        ax.set_xlabel("Cumulative label exposures (M)")
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.grid(axis="y", alpha=0.2)
+    fig.savefig(P / "contrastive-world-optimization.svg", metadata={"Date": None})
+    plt.close(fig)
+    write_csv(P / "contrastive-world-optimization.csv", totals)
 
 
 def build():
@@ -199,6 +256,9 @@ def build():
                 # Logged scheduled updates contain sums/counts or normalized diagnostics
                 # according to the original objective. Preserve the original units.
                 write_csv(P / "contrastive-world-optimizer.csv", log)
+                optimizer_plot(log)
+        if (root / "training-free-generation.json.gz").is_file():
+            out["specificity"] = source_specificity(True)
     if len(seen) == 4 and (RESULT / STAGES[-1] / "control.json.gz").is_file():
         held(out)
     if exposure:
