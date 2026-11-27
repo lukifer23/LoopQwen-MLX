@@ -105,7 +105,7 @@ def human_programs(tmp):
         msgs, defs = state(w, tmp)
         provider = tools([tmp / key / "0" / FILENAME])[1]
 
-        def action(statement):
+        def action(statement, provider=provider):
             return call(provider, database_name=FILENAME, statement=statement)
 
         target = action(r["statement"])
@@ -177,9 +177,11 @@ def dolly_candidates(tok, forbidden):
         q, ctx, a = (r[k].strip() for k in ("instruction", "context", "response"))
         if not unicodedata.is_normalized("NFC", q + ctx + a):
             continue
-        if not q or not a or OUT_OF_SCOPE.search(" ".join([q, ctx, a])):
+        if not q or not a or OUT_OF_SCOPE.search(f"{q} {ctx} {a}"):
             continue
-        if re.search(r"<[|/]?(?:think|tool_call|im_start|im_end)", q + ctx + a, re.I):
+        if re.search(
+            r"<[|/]?(?:think|tool_call|im_start|im_end)", q + ctx + a, re.IGNORECASE
+        ):
             continue
         text = q + "\n\n" + ctx if ctx else q
         identity = norm(text)
