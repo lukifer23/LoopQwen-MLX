@@ -105,9 +105,9 @@ def feature(name):
     print(name, len(tests), out["positive_positions"], flush=True)
 
 
-def fitted():
-    root = Path("research/results") / FIT
-    s = registered(FIT)
+def fitted(name=FIT):
+    root = Path("research/results") / name
+    s = registered(name)
     tok = tokenizer(s)
     actor = ConditionalAssistant(s["checkpoint"], root)
     net = actor._tool_model
@@ -152,15 +152,15 @@ def fitted():
         "max_mean_error": max(r["maximum_mean_error"] for r in checks),
         "checks": checks,
     }
-    persist(DOC / (FIT + "-cold.json"), out)
+    persist(DOC / (name + "-cold.json"), out)
     print(len(checks), out["positions"], out["max_mean_error"], flush=True)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("name", choices=(*FEATURES, FIT))
+    parser.add_argument("name", choices=(*FEATURES, FIT, "streamed-world-fit-01"))
     args = parser.parse_args()
-    if args.name == FIT:
-        fitted()
+    if args.name not in FEATURES:
+        fitted(args.name)
     else:
         feature(args.name)

@@ -1,0 +1,50 @@
+{
+  "checkpoint": "exports/tool-language-packed-05",
+  "base_text_sha256": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "config_sha256": "d3c02fa74b94de9c10a2d89dc1cc4c71d421c4a1a6a9d9c2c2206527150d7467",
+  "donor": {
+    "repo": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "shard": "model.safetensors-00001-of-00001.safetensors",
+    "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "license": "Apache-2.0"
+  },
+  "conditional_reentry": true,
+  "passes": 2,
+  "rank": 160,
+  "gate_rank": 32,
+  "fit_seed": 781345,
+  "increment_readout": true,
+  "training": "research/sources/contrastive-worlds/training.json.gz",
+  "sources": {
+    "research/sources/contrastive-worlds/qualification.json": "2aa2d6681e45a49acd51ee6285a4927ccaed5ee54a018c6c7b75d6da78f9aa36",
+    "research/sources/contrastive-worlds/training.json.gz": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
+    "research/sources/contrastive-worlds/withheld.json.gz": "27b8310ea812ecdf1a11c892b45c8cb42e51f339dc970cfd79bb11b2a2cb77da",
+    "research/sources/contrastive-worlds/independent-replay.json": "5787374ddb216aca776813c5a5736e522551b6e6195a6d146e720c4a7989120d",
+    "research/results/conditional-features-01/checksums.json": "6cf92efded6410f16b710d47c94a57a92be3536b201f5fde88b24f3923061898",
+    "research/results/conditional-features-01/backbone.json": "13a4f541b6b894bb5483e9b1d1b0328fe8248e0c40e972b4005c891aaf6316e1",
+    "research/experiments/conditional-program-fit-01.json": "b105a0a8d8c56fd962f15cff077ccfd636fab522905e40234ee529c946f22650",
+    "research/experiments/conditional-program-primary-01.json": "a6bc5eb3ba59399a7e34cb8027666ff32639f6713b3a789f5763f35d2260ba2f",
+    "research/sources/contrastive-worlds/transfer-panel.json.gz": "a6afd37431b009f43a8bb13c3177c235fe47bda07d0b9f25494d2df1856fb4a7",
+    "research/diagnostics/contrastive-world-transfer.json": "6a61483578e1f38fa9ee49b3dd3f744ebfc0f3524b1551cd36c63e795b0f2a82",
+    "research/experiments/contrastive-table-features-01.json": "c5035e4cb2c6cb98fcc57fdee648e9a791dd4b24d8492d5e1b4389f14c881773",
+    "research/experiments/contrastive-language-features-01.json": "d2049d8048e3bb230ec6b61c91dc3d2e4fa3c385327de815e685213537bdb3cc",
+    "research/experiments/contrastive-world-fit-01.json": "652a0e35bc98f7781a19829fdcfe7c33289765b3331a378208462cdbadfa0bb4",
+    "research/experiments/streamed-world-fit-01.json": "8ec1aa6e0807211a9e9148cbaa5c3b52fe78f12fc86400adf190c2b5dcafe10b",
+    "research/results/contrastive-world-fit-01/checksums.json": "c3ac432959ea3ee2a1585da33311a692a084c4f161af4a2a9c185acb75917996"
+  },
+  "limits": {
+    "wall_seconds": 4380,
+    "available_gib": 1.5,
+    "peak_gib": 8.25
+  },
+  "id": "streamed-world-transfer-01",
+  "material": "research/sources/contrastive-worlds/transfer-panel.json.gz",
+  "max_tokens": 384,
+  "max_turns": 3,
+  "context_turns": 1,
+  "prefill_cache_state": true,
+  "feature_stage": "streamed-world-fit-01",
+  "question": "Does changing an entirely unseen source change the model\u2019s answer correctly, including after 131072 raw tokens, while retaining latency and grounded tool use?",
+  "protocol": "Compare exactly two deployed native models, the newly fitted recurrent checkpoint and untouched BF16 Qwen Base. Freeze 148 shared original user openings, physical inputs, order, tokenizer, thinking-enabled greedy policy, callbacks and scorer. Require all 148 per arm even after a quality miss. Four complete CLDR documents from 152185 to 164271 raw tokens appear in this first comparison; native cached prefill actually consumes every prompt ID and the sought literal occurs beyond 131072. No truncation, retrieval proxy, externally inserted answer, evaluator-guided correction or reranking. One locale turn of 384. Elsewhere up to three turns of 384 each. 48 novel questions with genuine SQL on changed tables, 48 paired qualitative reasoning questions, and 48 held customer conversations with actual SQLite queries over their published search results. Original service logs are simulator-backed. Both arms choose and execute their own database calls. Review the 48 complete customer responses blind to arm and aggregate, accepting all source-supported options. Freeze individual reasons before unmasking. Report quality, completion, first-token wait, wall, opening and post-first throughput and actual peak together. Require each of the three 24-pair families to achieve at least six whole successes, net at least five versus Base and source-level exact paired two-sided p<=0.05, no individually correct Base request lost in each family. Require all four raw locale inputs consumed fully, both outputs correct on both languages, at least one additional exact response against Base, noninferior completion for each family, no increase in unsupported service replies, strictly shorter overall and first-token wall times, smaller peak and higher opening and post-first rates across 148. Stop if hardware budget or scientific prerequisite fails, without a release claim. This is a fresh transfer gate. A joint pass requires the unchanged 340-request retention comparison, independent seed, equally trained matched K1 on the same donor, and a cold actual installed long-context replay before overall superiority can be claimed. This new pair requires the streamed continuation to qualify and its fitted checkpoint to reload independently. The original held run never started. Keep its 148 prompts, order, actual clocks, unobstructed reasoning, metric thresholds, blind service and qualitative readings, complete 128K-plus histories, maximum budget and all stop rules. No result of the closed attempts counts towards qualification."
+}

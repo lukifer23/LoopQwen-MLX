@@ -19,7 +19,7 @@ from ..relational_tools import tools
 from ..tool_compare import DenseAssistant
 from .conditional_features import CACHE
 from .conditional_primary import ARMS, costs
-from .contrastive_features import FIT, SOURCES
+from .contrastive_features import SOURCES
 from .contrastive_grading import attested, selected_choice
 from .core import Budget
 from .cross_view_study import tokenizer
@@ -105,7 +105,7 @@ def keep(w, s, arm, actor, folder, guard):
     if actor is None:
         if arm == "candidate":
             actor = ConditionalAssistant(
-                s["checkpoint"], Path("research/results") / FIT
+                s["checkpoint"], Path("research/results") / s["feature_stage"]
             )
         else:
             actor = DenseAssistant(True, "qwen", s["checkpoint"])
@@ -198,9 +198,9 @@ def outcome(panel, runs):
 
 
 def verify(root, d):
-    s = registered(PRIMARY)
+    s = registered(read(root / "registration.json")["id"])
     assert s == read(root / "registration.json")
-    parent = Path("research/results") / FIT
+    parent = Path("research/results") / s["feature_stage"]
     assert read(root / "weights.json") == {
         "readout": digest(parent / "readout.safetensors"),
         "fit_archive": digest(parent / "checksums.json"),
@@ -240,11 +240,16 @@ def verify(root, d):
     assert outcome(panel, streams) == d
 
 
-def run():
-    s = registered(PRIMARY)
-    parent = Path("research/results") / FIT
+def run(name=PRIMARY):
+    s = registered(name)
+    parent = Path("research/results") / s["feature_stage"]
     if not read(parent / "decision.json")["passed"]:
         raise ValueError("The contrastive fit did not qualify for held comparison")
+    if name == "streamed-world-transfer-01":
+        receipt = read(Path("docs/measurements") / (s["feature_stage"] + "-cold.json"))
+        assert receipt["archive"] == digest(parent / "checksums.json") and receipt[
+            "weights"
+        ] == digest(parent / "readout.safetensors")
     root = root_for(s)
     capture(
         root,
@@ -265,7 +270,7 @@ def run():
         "base": s["base_text_sha256"],
     }
     save(root / "weights.json", physical)
-    guard = Budget(PRIMARY, s["limits"])
+    guard = Budget(name, s["limits"])
     panel = unpack(Path(s["material"]))["rows"]
     streams = {}
     try:
@@ -276,7 +281,7 @@ def run():
                 actor = None
                 gc.collect()
                 mx.clear_cache()
-                partial = CACHE / PRIMARY / fingerprint([s, physical]) / a
+                partial = CACHE / name / fingerprint([s, physical]) / a
                 partial.mkdir(exist_ok=True, parents=True)
                 for i, w in enumerate(panel):
                     path = partial / f"{i:04}.json.gz"

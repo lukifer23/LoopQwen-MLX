@@ -25,6 +25,34 @@ from .table_worlds import prepare_tables
 def verify(root, d):
     s = read(root / "registration.json")
     assert s == registered(s["id"])
+    if "resume_archive" in s and (root / "continuation.json").exists():
+        old = Path(s["resume_archive"])
+        lineage = read(root / "continuation.json")
+        assert lineage["step"] == s["resume_step"] and lineage["archive"] == digest(
+            old / "checksums.json"
+        )
+        for key, name in (
+            ("history", "partial-state.json"),
+            ("optimizer", "partial-optimizer.safetensors"),
+            ("weights", "partial-adapters.safetensors"),
+        ):
+            assert lineage[key] == digest(old / name)
+        if d.get("status") != "interrupted" or "durable_updates" in d:
+            parity = read(root / "gradient-parity.json")
+            assert len(parity) == 3 and all(
+                r["objective_relative"] <= s["objective_tolerance"]
+                and r["gradient_relative"] <= s["gradient_tolerance"]
+                and r["gradient_cosine"] >= s["gradient_cosine"]
+                for r in parity
+            )
+            history = (
+                read(root / "partial-state.json")["log"]
+                if d.get("status") == "interrupted"
+                else unpack(root / "training-log.json.gz")
+            )
+            assert (
+                history[: s["resume_step"]] == read(old / "partial-state.json")["log"]
+            )
     if d.get("status") == "interrupted":
         assert not d["passed"] and d["reason"]
         if "durable_updates" in d:

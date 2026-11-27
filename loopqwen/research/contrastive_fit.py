@@ -87,6 +87,14 @@ def optimize(net, root, s, idx, guard):
     if (where / "latest.json").exists():
         state = checkpoint.restore(where, net.readout, opt)
         assert state["registration"] == registration
+    if "resume_archive" in s:
+        from .streamed_contrastive import evaluator, preflight, start
+
+        if not state["step"]:
+            state = start(net, opt, root, s)
+        if not (root / "gradient-parity.json").is_file():
+            preflight(net, s, root, idx)
+        grad = evaluator(net, s)
     for step, micros in enumerate(steps, 1):
         if step <= state["step"]:
             continue
@@ -307,8 +315,8 @@ def summarize(s, log, likelihood, free):
     }
 
 
-def run():
-    s = registered(FIT)
+def run(name=FIT):
+    s = registered(name)
     idx, parents = index(s)
     root = root_for(s)
     capture(
@@ -318,9 +326,14 @@ def run():
             "loopqwen/research/contrastive_fit.py",
             "loopqwen/research/contrastive_grading.py",
             "loopqwen/research/conditional_fit.py",
+            *(
+                ("loopqwen/research/streamed_contrastive.py",)
+                if "resume_archive" in s
+                else ()
+            ),
         ),
     )
-    guard = Budget(FIT, s["limits"])
+    guard = Budget(name, s["limits"])
     tok = tokenizer(s)
     try:
         for r in idx:
@@ -353,7 +366,7 @@ def run():
         d = summarize(s, log, probe, free)
     except (TimeoutError, MemoryError, InterruptedError) as e:
         d = {"passed": False, "status": "interrupted", "reason": str(e)}
-        where = CACHE / FIT
+        where = CACHE / name
         if (where / "latest.json").exists():
             step = checkpoint_location(where)
             for fn in ("adapters.safetensors", "optimizer.safetensors", "state.json"):
