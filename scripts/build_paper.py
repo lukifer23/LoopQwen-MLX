@@ -142,6 +142,18 @@ def main(verify):
         ):
             subprocess.run([sys.executable, "-m", *args], cwd=ROOT, check=True)
 
+    cross = ROOT / "research/results/cross-view-reading-01/decision.json"
+    if cross.is_file() and read(cross).get("status") != "interrupted":
+        for command in (
+            "cross_view_source_check",
+            "cross_view_exposure",
+            "cross_view_reading",
+            "paper_cross_view",
+        ):
+            subprocess.run(
+                [sys.executable, "-m", "scripts." + command], cwd=ROOT, check=True
+            )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
