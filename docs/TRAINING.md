@@ -316,6 +316,22 @@ reply = assistant.continue_after_tool(history, [calculator], max_turns=2)
 print(reply["status"], reply["answer"])
 ```
 
+The external-history continuation was also checked on the trained conditional model. After a real callback, resuming from its supplied history reproduced the uninterrupted model's 542-token opening and all 70 generated token IDs. [Uninterrupted and resumed traces](measurements/external-tool-native.json)
+
+### Running the trained two-read model with a full context
+
+The shared-query decoder uses the packed instruction backbone from the conditional study and the trained controller under `research/results/repair-query-fit-01`. On a long document the `--staged-context-dir` option moves completed attention prefixes into private temporary files. Each generated position still reads the complete prefix twice at the final Qwen layer. Use an existing scratch directory with several GiB free. A complete 148,364-token lockfile occupied 1.98 GiB of temporary space during the native qualification. [Exact logits and physical histories](measurements/staged-query-memory.json)
+
+```sh
+.venv/bin/python -m loopqwen ask \
+  --checkpoint exports/tool-language-packed-05 \
+  --session-policy research/results/repair-query-fit-01 \
+  --tool-format qwen --staged-context-dir /tmp --trace \
+  --prompt-file request.txt
+```
+
+Place the full document and question in `request.txt`. The trace records the complete opening, emitted tokens, temporary byte count and retained length at each attention layer. Requests that fit in memory can omit the staging option. Generation and all model arithmetic use native MLX in either storage mode.
+
 The linked document reader runs with `python -m loopqwen.research.linked_reading linked-reading-01`. Its material builder excludes earlier human questions and support titles before enrolling the new fit and evaluation. The reader exposes its two document scores per item. The archive verifier reconstructs the selected indices, the full input IDs and the attention window, then regrades the complete unforced answer. [Training and evaluation registration](../research/experiments/linked-reading-01.json)
 
 ### Rebuild the field and packed-register releases

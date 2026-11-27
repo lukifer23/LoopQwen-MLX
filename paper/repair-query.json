@@ -254,5 +254,190 @@
         "median": 0.716990311940511
       }
     }
+  },
+  "staging_proof": {
+    "plan": "e130f7727727a0ca75d6f29dd32d18015e7ef52d54c0205167f9b8352b563361",
+    "short": [
+      {
+        "arm": "base",
+        "id": "strategyqa/01254b50648f4fb08b51",
+        "errors": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "staged_tokens": [
+          77264,
+          11,
+          411,
+          369
+        ],
+        "resident_tokens": [
+          77264,
+          11,
+          411,
+          369
+        ],
+        "attention_sites": 6
+      },
+      {
+        "arm": "base",
+        "id": "finqa/SWKS/2012/page_116.pdf-1/action",
+        "errors": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "staged_tokens": [
+          760,
+          1156,
+          369,
+          9859
+        ],
+        "resident_tokens": [
+          760,
+          1156,
+          369,
+          9859
+        ],
+        "attention_sites": 6
+      },
+      {
+        "arm": "base",
+        "id": "wrong-scalar/nt-6744/5/redirect_valid_read",
+        "errors": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "staged_tokens": [
+          760,
+          3134,
+          5743,
+          279
+        ],
+        "resident_tokens": [
+          760,
+          3134,
+          5743,
+          279
+        ],
+        "attention_sites": 6
+      },
+      {
+        "arm": "loop",
+        "id": "strategyqa/01254b50648f4fb08b51",
+        "errors": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "staged_tokens": [
+          16,
+          13,
+          220,
+          2972
+        ],
+        "resident_tokens": [
+          16,
+          13,
+          220,
+          2972
+        ],
+        "attention_sites": 6
+      },
+      {
+        "arm": "loop",
+        "id": "finqa/SWKS/2012/page_116.pdf-1/action",
+        "errors": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "staged_tokens": [
+          1719,
+          7915,
+          10517,
+          314
+        ],
+        "resident_tokens": [
+          1719,
+          7915,
+          10517,
+          314
+        ],
+        "attention_sites": 6
+      },
+      {
+        "arm": "loop",
+        "id": "wrong-scalar/nt-6744/5/redirect_valid_read",
+        "errors": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "staged_tokens": [
+          198,
+          248069,
+          271,
+          248058
+        ],
+        "resident_tokens": [
+          198,
+          248069,
+          271,
+          248058
+        ],
+        "attention_sites": 6
+      }
+    ],
+    "long": {
+      "prompt": 148364,
+      "output": [
+        760,
+        1156,
+        369,
+        9859
+      ],
+      "read_only_visits": 8,
+      "histories": [
+        [
+          148367,
+          148367
+        ],
+        [
+          148367,
+          148367
+        ],
+        [
+          148367,
+          148367
+        ],
+        [
+          148367,
+          148367
+        ],
+        [
+          148367,
+          148367
+        ],
+        [
+          148367,
+          148367
+        ]
+      ],
+      "scratch_bytes": 2126947414,
+      "first_s": 223.70697591704084,
+      "wall_s": 224.25965883402387
+    },
+    "passed": true,
+    "native_seconds": 231.60718108300352,
+    "peak_bytes": 1784355486
   }
 }
