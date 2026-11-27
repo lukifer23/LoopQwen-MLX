@@ -170,3 +170,21 @@ The two visits share all parameters. Query and content corrections have rank 160
  #let l=d.distribution.families.all
  Of #l.both_correct requests answered correctly by both models, the loop finished first on #l.faster_on_both_correct. The loop gained correctness and also finished faster on #l.loop_gained_and_faster requests. It lost correctness and finished slower on #l.loop_lost_and_slower.
 ]
+
+#if "tool_consistency" in d [
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Can one assistant handle the same question in four histories?])
+
+ The 96 database presentations share 24 human questions and 12 schemas. For the same question we tested an empty history, a correct earlier answer, a successful query that answered the other question, and a real provider error. Each individual success requires the correct final scalar and a query that agrees with the expert on every enrolled alternate database. An earlier result can supply the evidence when it already answers the current question.
+
+ #let meanings=(all_four:"All four presentations",both_repairs:"Both kinds of repair",selective_reuse:"Reuse right evidence and repair wrong evidence",crossed:"Two questions with identical supplied evidence")
+ #let t=d.tool_consistency
+ #tbl((2.1fr,.55fr,.55fr,.82fr,.67fr),("24 questions or contrasts","Loop","Base","Gains / losses","Schema p"), t.endpoints.pairs().map(p=>{
+  let e=p.at(1)
+  (meanings.at(p.at(0)),str(e.candidate),str(e.control),str(e.gains)+" / "+str(e.losses),fmt(e.schema_sign_flip_p,n:4))
+ }))
+
+ *Both kinds of repair* requires a fresh, successful correction following an erroneous lookup and following a successful but irrelevant lookup. *Selective reuse* additionally tests whether the assistant can leave a genuinely useful result alone. It must deliver the right result directly in that condition and make a successful new query when the previous result is misleading.
+
+ For the crossed test, the previous assistant call and provider response are byte-identical for two different original user questions. The same evidence is relevant for one and misleading for the other. Both answers must succeed. There are two such contrasts per database. The sign-flip probability treats the schema as the independent unit. The 96 requests consumed #fmt(t.field_wall_s.candidate) seconds for the loop and #fmt(t.field_wall_s.control) for Base. The supplement records every question, ambiguity flag, constituent result and elapsed time.
+]
