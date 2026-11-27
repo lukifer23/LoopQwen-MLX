@@ -19,6 +19,12 @@ def resident_cache(model, route, length, max_tokens, block, *, reserve_full_kv=F
     return cache, page_slots
 
 
+def advance_cache(model, chunk, cache):
+    """Materialize the physical histories of an intermediate resident prefill block."""
+    model.hidden(chunk, cache)
+    mx.eval([slot.state for slot in cache.slots.values()])
+
+
 def generate(
     model,
     tokenizer,
@@ -33,6 +39,7 @@ def generate(
     reserve_full_kv=False,
     record_kv_history=False,
     tool_grammar=None,
+    prefill_cache_state=False,
 ):
     if type(prefill_block) is not int or prefill_block < 1:
         raise ValueError("Prefill block must be a positive integer")
@@ -144,7 +151,9 @@ def generate(
             inputs = inputs[:, offset:]
         while disk is None and inputs.shape[1] > prefill_block:
             chunk = inputs[:, :prefill_block]
-            if hasattr(model, "hidden"):
+            if prefill_cache_state:
+                advance_cache(model, chunk, cache)
+            elif hasattr(model, "hidden"):
                 mx.eval(model.hidden(chunk, cache))
             else:
                 mx.eval(model(chunk, cache=cache)[:, -1])

@@ -67,6 +67,10 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "cache-state-prefill-01":
+        from loopqwen.research.cache_state import verify as verify_cache_states
+
+        return verify_cache_states(root, decision)
     if study == "valid-return-01":
         from loopqwen.research.valid_return import verify as verify_valid_return
         from scripts.valid_return_material import build

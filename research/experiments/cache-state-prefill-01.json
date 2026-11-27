@@ -1,0 +1,36 @@
+{
+  "requires": "research/results/packed-release-retention-04",
+  "prerequisite_sha256": "29afdee24569dea42c2e599232dcb2768fb9bbec53b3c95c6b1813a7b41ecd3b",
+  "checkpoint": "exports/tool-language-packed-05",
+  "material": "research/data/cache-state-prompts.json",
+  "id": "cache-state-prefill-01",
+  "question": "Does materializing only the necessary physical histories on intermediate 128-token prefill blocks reduce request-opening latency on the qualified recurrent model while preserving every logit, KV and delta-state bit?",
+  "order": [
+    "stock",
+    "state",
+    "state",
+    "stock",
+    "stock",
+    "state",
+    "state",
+    "stock"
+  ],
+  "ids": [
+    "402b59cd0911f4f7-file",
+    "7e04d7c804fca272-file",
+    "22efc6ad38d17483-file",
+    "930c041aa871e467-file",
+    "efb8595337b16278-inline",
+    "c0c21282f1d1b344-inline",
+    "943e09ebae79b746-inline",
+    "3665ecfd40878704-inline"
+  ],
+  "tokens": 24,
+  "warmup": "A train arrives in the afternoon.",
+  "limits": {
+    "wall_seconds": 480,
+    "peak_gib": 6.5,
+    "available_gib": 1.5
+  },
+  "protocol": "Independent same-weight engineering comparison using the sealed recurrent release 05. Compare ordinary MLX hidden-output evaluation for intermediate blocks with evaluation of all 25 physical cache states after advancing those exact same input tokens. Keep the last block, all inputs, both visits, weights, ordinary greedy generation and cache shapes identical. Eight original HybridQA training requests selected by SHA rank, four through each input mode, four paired crossovers (AB, BA, AB, BA). One two-token warmup per loaded actor, then 24 unrestricted tokens per request. Outside timed generation independently replay the same 128-token blocks and hash every initial full-vocabulary logit and every physical cache tensor for all eight requests. Require bit-identical states, logits, outputs and histories, >=2.5% pooled first-latency reduction with wins on >=3/4 crossovers, no lower decode throughput, no larger warmed or construction peak and <=5% longer loading time. Otherwise archive and leave the deployed path unchanged. Limits 480 seconds or 6.5 GiB. No claims about task quality or the trained preference policy follow from this timing study."
+}
