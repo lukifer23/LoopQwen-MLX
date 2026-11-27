@@ -143,32 +143,593 @@
       "0",
       "469.75",
       "413.24"
+    ],
+    [
+      "Instruction-initialized loop, objective",
+      "Untouched Base",
+      "256",
+      "66",
+      "42",
+      "265.26",
+      "1256.00"
     ]
   ],
+  "conditional": {
+    "environment": {
+      "execution_revision": "90f2dbb2b45062e730c4cf47a86c172520cc1722",
+      "registration_sha256": "a6bc5eb3ba59399a7e34cb8027666ff32639f6713b3a789f5763f35d2260ba2f",
+      "architecture": "arm64",
+      "chip": "Apple M3 Pro",
+      "physical_memory_bytes": 19327352832,
+      "macos_build": "26C5047e",
+      "macos": "27.3",
+      "python": "3.12.12",
+      "libraries": {
+        "mlx": "0.32.4",
+        "mlx-lm": "0.32.2",
+        "transformers": "5.24.0",
+        "safetensors": "0.8.0",
+        "numpy": "2.5.5",
+        "huggingface-hub": "2.4.0"
+      },
+      "execution_sources": {
+        "loopqwen/conditional_reentry.py": "35dec7ceed4b155be8e05cabc546e699f02e4ebc69639042a644b906487e5f24",
+        "loopqwen/research/conditional_features.py": "5a56452e22d01474ba04914b9551341830db3fb8fabbc67d981ac2dc2272ba20",
+        "loopqwen/research/native_function_data.py": "ca4ac9c6041b2d1df2f144e5ea1e5e2d426ecd1404024f29873e13e16611bbb3",
+        "loopqwen/looped_model.py": "54e5369d40d4d37ae0f50fc9645ba018746fd1e124203286d6a262c9afa94e6c",
+        "loopqwen/tool_model.py": "d6bd532a850c2aca9117cfc8c53446f8ba7a88b75030a42893954aab33b39d66",
+        "loopqwen/research/projected_distillation.py": "0ec50ebdd9c6dd4666c494c63fa2f644d7be712ef571b0cffc339fad7ecaac78",
+        "scripts/program_language_material.py": "a42cc446b02f8db8a5401fe3759604e4acfe384fec20f4435634eab0ec92efe3",
+        "uv.lock": "954f6f542c9c53c8f248a51390853fe882b335db02964f8ff0e4e6d6301862bb",
+        "loopqwen/research/conditional_fit.py": "bede3f4bff2e5f4ad475956b9d2d6eb0fe81522a04e9857f9bc84c293086be71",
+        "loopqwen/research/conditional_primary.py": "0c89bd9b500e558fe3a95a186a0de6bdc421f99200a1dd0553e3259da824bca2",
+        "loopqwen/research/native_function_study.py": "b19fcf770cd2d0e5c891abe46422d62eeb92240513b1275c79b6de5fdfe9e5c4",
+        "loopqwen/evaluation/generation_eval.py": "e97a3bb935f3f458037fc54e13706d3e055f7494451abb8f2d97e7c61a63d172",
+        "scripts/conditional_panel.py": "d9c64f1c68c8edf47c936642802408bafdcfc8a1faaa05bc712eab892e65b0c3"
+      }
+    },
+    "tool_diagnostics": {
+      "comparison": "5befb8d8da533815e45659669df3ee77a867b5bebf24972243f6fdab15ba445c",
+      "summary": {
+        "candidate": {
+          "cases": 48,
+          "any_tool": 48,
+          "valid_read": 44,
+          "correct_scalar": 12,
+          "correct_statement_both": 8,
+          "correct_final": 10,
+          "distinct_nonempty_replies": 19,
+          "top_reply_count": 12,
+          "top_reply": "0",
+          "identical_nonempty_pairs": 7,
+          "identical_after_two_reads": 7,
+          "whole_sources_with_general_query": 4
+        },
+        "control": {
+          "cases": 48,
+          "any_tool": 6,
+          "valid_read": 2,
+          "correct_scalar": 0,
+          "correct_statement_both": 0,
+          "correct_final": 0,
+          "distinct_nonempty_replies": 20,
+          "top_reply_count": 2,
+          "top_reply": "i don't have access to a database schema to answer your question. to help you with this, i need the database schema information. could you please provide the database schema details so i can inspect the tables and answer your question about the first club for the north in the 2000's?",
+          "identical_nonempty_pairs": 20,
+          "identical_after_two_reads": 0,
+          "whole_sources_with_general_query": 0
+        }
+      },
+      "caps": [
+        {
+          "arm": "candidate",
+          "per_turn_cap": 32,
+          "completion": 64,
+          "objective": 9,
+          "masked_grounded": 6
+        },
+        {
+          "arm": "candidate",
+          "per_turn_cap": 64,
+          "completion": 182,
+          "objective": 50,
+          "masked_grounded": 19
+        },
+        {
+          "arm": "candidate",
+          "per_turn_cap": 128,
+          "completion": 256,
+          "objective": 66,
+          "masked_grounded": 27
+        },
+        {
+          "arm": "candidate",
+          "per_turn_cap": 256,
+          "completion": 261,
+          "objective": 66,
+          "masked_grounded": 27
+        },
+        {
+          "arm": "candidate",
+          "per_turn_cap": 384,
+          "completion": 263,
+          "objective": 66,
+          "masked_grounded": 27
+        },
+        {
+          "arm": "control",
+          "per_turn_cap": 32,
+          "completion": 0,
+          "objective": 0,
+          "masked_grounded": 0
+        },
+        {
+          "arm": "control",
+          "per_turn_cap": 64,
+          "completion": 0,
+          "objective": 0,
+          "masked_grounded": 0
+        },
+        {
+          "arm": "control",
+          "per_turn_cap": 128,
+          "completion": 17,
+          "objective": 1,
+          "masked_grounded": 0
+        },
+        {
+          "arm": "control",
+          "per_turn_cap": 256,
+          "completion": 157,
+          "objective": 36,
+          "masked_grounded": 6
+        },
+        {
+          "arm": "control",
+          "per_turn_cap": 384,
+          "completion": 205,
+          "objective": 42,
+          "masked_grounded": 9
+        }
+      ]
+    },
+    "decode_savings": {
+      "length": 821.0874068595142,
+      "rate": 565.488193348269,
+      "total": 1386.5756002077833
+    },
+    "warm_wall": [
+      350.22376928763697,
+      1719.6354594938457
+    ],
+    "warm_first": [
+      59.25501595513197,
+      51.55665686179418
+    ],
+    "overlap": {
+      "fields": 105,
+      "occurrences": 1339970,
+      "maximum_run": 9
+    },
+    "automatic": false,
+    "masked": false,
+    "eligible": false,
+    "gates": {
+      "product/retained_268": false,
+      "product/fresh_completion": true,
+      "product/mounted_read": true,
+      "product/first_s": false,
+      "product/wall_s": true,
+      "product/peak": true,
+      "product/opening_tps": false,
+      "product/decode_tps": true,
+      "retention/semantic_sql": false,
+      "retention/prior_skills": false,
+      "retention/prior_base": false,
+      "retention/human_reasoning": false,
+      "retention/all_families": false,
+      "retention/completion": false,
+      "retention/first_s": false,
+      "retention/wall_s": true,
+      "retention/peak": true,
+      "retention/opening_tps": false,
+      "retention/decode_tps": true,
+      "retention/whole_tables": false,
+      "retention/both_versions": true,
+      "masked/natural": false,
+      "masked/instructions": false,
+      "masked/changed_table": false,
+      "masked/open": false,
+      "masked/database": true
+    },
+    "objective": [
+      66,
+      42
+    ],
+    "gains_losses": [
+      49,
+      25
+    ],
+    "families": [
+      [
+        "Schedules",
+        8,
+        4,
+        0
+      ],
+      [
+        "Python compatibility",
+        24,
+        18,
+        9
+      ],
+      [
+        "Changed tables",
+        48,
+        10,
+        0
+      ],
+      [
+        "New database questions",
+        24,
+        4,
+        1
+      ],
+      [
+        "Declared dependencies",
+        20,
+        3,
+        12
+      ],
+      [
+        "Human causal questions",
+        48,
+        9,
+        6
+      ],
+      [
+        "File judgments",
+        6,
+        1,
+        0
+      ],
+      [
+        "First human questions",
+        24,
+        8,
+        5
+      ],
+      [
+        "Human follow-ups",
+        24,
+        3,
+        5
+      ],
+      [
+        "Inline judgments",
+        6,
+        4,
+        2
+      ],
+      [
+        "Earlier lookups",
+        8,
+        1,
+        0
+      ],
+      [
+        "Fixed-version changes",
+        8,
+        1,
+        2
+      ],
+      [
+        "Earlier manifests",
+        8,
+        0,
+        0
+      ]
+    ],
+    "joint": {
+      "individual_gains": 49,
+      "additional_correct_and_all_three_costs_lower": 0,
+      "both_correct": 17,
+      "neither_correct": 165
+    },
+    "tools": [
+      42,
+      24
+    ],
+    "ordinary": [
+      24,
+      18
+    ],
+    "both_finished": {
+      "family": "all",
+      "completion": "Both completed",
+      "requests": 160,
+      "loop_correct": 51,
+      "base_correct": 39,
+      "gains": 34,
+      "losses": 22
+    },
+    "reading": [
+      {
+        "family": "changed_table",
+        "items": 48,
+        "candidate_grounded_usable": 12,
+        "candidate_unsupported": 20,
+        "candidate_preferred": 12,
+        "control_grounded_usable": 0,
+        "control_unsupported": 0,
+        "control_preferred": 18
+      },
+      {
+        "family": "database",
+        "items": 24,
+        "candidate_grounded_usable": 5,
+        "candidate_unsupported": 7,
+        "candidate_preferred": 5,
+        "control_grounded_usable": 1,
+        "control_unsupported": 2,
+        "control_preferred": 3
+      },
+      {
+        "family": "instruction",
+        "items": 24,
+        "candidate_grounded_usable": 4,
+        "candidate_unsupported": 11,
+        "candidate_preferred": 8,
+        "control_grounded_usable": 1,
+        "control_unsupported": 6,
+        "control_preferred": 5
+      },
+      {
+        "family": "natural_inline",
+        "items": 24,
+        "candidate_grounded_usable": 4,
+        "candidate_unsupported": 10,
+        "candidate_preferred": 12,
+        "control_grounded_usable": 6,
+        "control_unsupported": 9,
+        "control_preferred": 9
+      },
+      {
+        "family": "natural_mounted",
+        "items": 24,
+        "candidate_grounded_usable": 0,
+        "candidate_unsupported": 15,
+        "candidate_preferred": 4,
+        "control_grounded_usable": 1,
+        "control_unsupported": 0,
+        "control_preferred": 1
+      },
+      {
+        "family": "open",
+        "items": 12,
+        "candidate_grounded_usable": 2,
+        "candidate_unsupported": 5,
+        "candidate_preferred": 2,
+        "control_grounded_usable": 0,
+        "control_unsupported": 2,
+        "control_preferred": 0
+      }
+    ],
+    "whole": {
+      "changed": {
+        "scores": [
+          4,
+          0
+        ],
+        "net": 4,
+        "p": 0.125
+      },
+      "natural": {
+        "scores": [
+          0,
+          0
+        ],
+        "net": 0,
+        "p": 1.0
+      }
+    },
+    "reasoning": {
+      "counts": {
+        "candidate": {
+          "effects": {
+            "wrong": 15,
+            "unsupported": 1,
+            "automatic_exact": 7,
+            "f1_sum": 9.38956043956044,
+            "fully usable": 9
+          },
+          "human_first": {
+            "wrong": 5,
+            "unsupported": 0,
+            "automatic_exact": 4,
+            "f1_sum": 5.236331461331461,
+            "fully usable": 5,
+            "partial": 2
+          },
+          "human_followup": {
+            "fully usable": 3,
+            "unsupported": 0,
+            "automatic_exact": 1,
+            "f1_sum": 1.9429437879746227,
+            "absent": 1,
+            "wrong": 7,
+            "partial": 1
+          }
+        },
+        "control": {
+          "effects": {
+            "fully usable": 14,
+            "unsupported": 1,
+            "automatic_exact": 3,
+            "f1_sum": 6.388383838383839,
+            "wrong": 6,
+            "partial": 1,
+            "absent": 3
+          },
+          "human_first": {
+            "partial": 4,
+            "unsupported": 2,
+            "automatic_exact": 3,
+            "f1_sum": 3.6648191142114896,
+            "fully usable": 6,
+            "absent": 1,
+            "wrong": 1
+          },
+          "human_followup": {
+            "fully usable": 8,
+            "unsupported": 2,
+            "automatic_exact": 3,
+            "f1_sum": 3.7898473041388856,
+            "wrong": 1,
+            "partial": 3
+          }
+        }
+      },
+      "sources": {
+        "causal": {
+          "whole": [
+            2,
+            5
+          ],
+          "whole_exact_p": 0.453125,
+          "individual_gains": 5,
+          "individual_losses": 10
+        },
+        "conversation": {
+          "whole": [
+            2,
+            4
+          ],
+          "whole_exact_p": 0.625,
+          "individual_gains": 2,
+          "individual_losses": 8
+        }
+      },
+      "ratings": "ab50ed24093e90cd5729fc5cd11ad29a39d7a3dab6f4d1351dc4e184c541e6cb",
+      "plan": "767771e76359809a7ddebf70324834b3bd06bf25e40860521b7a895bf4ea0edf"
+    },
+    "f1": {
+      "candidate": {
+        "human_first": 0.3781665062380322,
+        "human_followup": 0.18471913218710986,
+        "effects": 0.32010373885373883
+      },
+      "control": {
+        "human_first": 0.2767414946935119,
+        "human_followup": 0.2645020247318008,
+        "effects": 0.2632736385800111
+      }
+    },
+    "whole_tables": [
+      4,
+      0
+    ],
+    "fresh": {
+      "candidate": {
+        "instruction": {
+          "completed": 17
+        },
+        "natural_inline": {
+          "completed": 23,
+          "attested_mentions": 35,
+          "attested_total": 91,
+          "all_attested": 4,
+          "observed_attested": 0,
+          "supported_read": 0,
+          "read": 0
+        },
+        "natural_mounted": {
+          "completed": 18,
+          "attested_mentions": 5,
+          "attested_total": 91,
+          "all_attested": 0,
+          "observed_attested": 6,
+          "supported_read": 1,
+          "read": 6
+        }
+      },
+      "control": {
+        "instruction": {
+          "completed": 7
+        },
+        "natural_inline": {
+          "completed": 15,
+          "attested_mentions": 37,
+          "attested_total": 91,
+          "all_attested": 7,
+          "observed_attested": 0,
+          "supported_read": 0,
+          "read": 0
+        },
+        "natural_mounted": {
+          "completed": 1,
+          "attested_mentions": 2,
+          "attested_total": 91,
+          "all_attested": 1,
+          "observed_attested": 12,
+          "supported_read": 4,
+          "read": 4
+        }
+      }
+    },
+    "costs": {
+      "candidate": {
+        "first_s": 60.11964049714152,
+        "wall_s": 354.30159895459656,
+        "peak": 843301498,
+        "output": 38251,
+        "opening_tps": 2361.854193161567,
+        "decode_tps": 143.50133856306275
+      },
+      "control": {
+        "first_s": 52.82178715383634,
+        "wall_s": 1727.8422875358956,
+        "peak": 1848558066,
+        "output": 114945,
+        "opening_tps": 2776.644576948122,
+        "decode_tps": 69.42032674587855
+      }
+    },
+    "prior_base_identical": 268,
+    "reading_losses": {
+      "open": 0,
+      "instruction": 1,
+      "changed_table": 0,
+      "database": 1,
+      "natural_inline": 3,
+      "natural_mounted": 1
+    },
+    "source_sha256": "5befb8d8da533815e45659669df3ee77a867b5bebf24972243f6fdab15ba445c"
+  },
   "scope": {
-    "registry": "3b352ac6bd8a5329943487ea9ab40a0678bd41c5cf8871c9d360acb024a3ffd4",
-    "registrations": 189,
+    "registry": "d616ad89184a19a458db4e945a61b206ab83ac9eea7e63609169cd6293d12f09",
+    "registrations": 193,
     "recovered": 4,
     "closed_worker_windows": {
-      "windows": 46,
-      "jobs": 165,
-      "study_names": 150,
-      "worker_hours": 23.18,
-      "index": "85217c85853ab543aba4887f34ac4b10182f1ac6002434c976a8e0ed31e80330"
+      "windows": 49,
+      "jobs": 168,
+      "study_names": 153,
+      "worker_hours": 24.244,
+      "index": "3a9aca3a134969fdcb9fd2b56884eed4338ec8ec60781510232a7c330f5d58be"
     },
     "totals": {
-      "payloads": 1330,
-      "bytes": 1127178873,
-      "primary/missed": 117,
-      "primary/passed": 61,
-      "primary/registered, no archive": 3,
+      "payloads": 1351,
+      "bytes": 1145493636,
+      "primary/missed": 118,
+      "primary/passed": 63,
       "primary/archived without boolean gate": 7,
+      "primary/registered, no archive": 4,
       "primary/superseded": 1,
       "recovered execution/archived without boolean gate": 2,
       "recovered execution/passed": 1,
       "recovered execution/missed": 1
     },
-    "index": "2136aa9d6d1e88bd280588991c5429d08b897b1bf1d65464da05b5852f665528"
+    "index": "492fcac04109d9ae4be3d61d71ac50a138662f0fd40b3c251d01aa64c61a7329"
   },
   "four_layer": {
     "totals": [

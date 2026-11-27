@@ -25,6 +25,7 @@ from scripts.assistance_uncertainty import (
     joint,
     paired_sources,
 )
+from scripts.conditional_deliberation import account as channel_account
 from scripts.conditional_reading import MASK, RATINGS, ROOT, SCORES
 from scripts.conditional_reading import run as read_primary
 from scripts.conditional_tool_transfer import build as tool_transfer
@@ -304,6 +305,7 @@ def build():
     assert not any(rec["whole_field"] for rec in overlap["fields"])
     summary = {
         "environment": read(ROOT / "environment.json"),
+        "generation_channels": channel_account(ROOT, streams),
         "tool_diagnostics": diagnostics,
         "decode_savings": {
             "length": length_s,
@@ -315,7 +317,9 @@ def build():
         "overlap": {
             "fields": overlap["field_count"],
             "occurrences": overlap["training_word_occurrences"],
-            "maximum_run": max(rec["matched_words"] for rec in overlap["fields"]),
+            "maximum_run": max(
+                rec.get("matched_words", 0) for rec in overlap["fields"]
+            ),
         },
         "automatic": dec["passed"],
         "masked": reading["passed"],

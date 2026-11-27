@@ -34,3 +34,8 @@ The recurrent policy loads the packed `instruction-all-q4.safetensors` under `ex
 
 
 To reconstruct a missing local instruction backbone from the pinned public donor, run `.venv/bin/python -m scripts.restore_conditional_features conditional-features-01 --restore --backbone-only`. The helper fetches the pinned source if necessary, packs its actual weights with native MLX and checks the sealed SHA-256 before installing the file. To reconstruct missing training features as well, omit `--backbone-only`. The trained readout needs only the packed backbone for inference.
+
+
+## Held comparison and context status
+
+Across 340 token-matched requests, the fitted loop solved 42/154 objective tool requests and 24/102 ordinary objective questions. Base solved 24 and 18 respectively. The loop generated a statement that retrieved the answer on both table versions for four of 24 independent sources. The earlier Base-rooted loop achieved zero. On the masked reasoning sample the fitted loop delivered 17/48 fully usable answers against 28/48 for Base. In 24 new human instructions the scores were 4/24 and 1/24, with 11 and six materially unsupported responses. End-to-end time fell by 79.5% and cumulative first-token wait rose by 13.8%. This checkpoint missed its release prerequisites before long-context qualification. All 7,591 cached training-feature files were checked against their registered SHA-256 values, and three were independently regenerated from the original token sequences. [Paired results](../paper/conditional-primary.pdf) · [Every runtime call](../paper/conditional-primary-real-calls.csv) · [Rebuild the native features](../scripts/restore_conditional_features.py)

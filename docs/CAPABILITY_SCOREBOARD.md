@@ -1,5 +1,20 @@
 # Capability scoreboard
 
+| Instruction-initialized four-layer loop | Loop | Untouched Base |
+| --- | ---: | ---: |
+| Retained objective requests | 66/256 | 42/256 |
+| Tool-enabled objective requests | 42/154 | 24/154 |
+| Complete changed-table questions correct in both worlds | 4/24 | 0/24 |
+| Source-reviewed reasoning answers fully usable | 17/48 | 28/48 |
+| Fresh instructions fully usable | 4/24 | 1/24 |
+| Fresh Wikipedia answers usable in both presentations | 0/24 | 0/24 |
+| Wall time, all 340 requests | 354.30 s | 1,727.84 s |
+| Summed time to first token | 60.12 s | 52.82 s |
+| Opening / subsequent decode tokens per second | 2,362 / 143.50 | 2,777 / 69.42 |
+| Peak native allocation | 0.785 GiB | 1.722 GiB |
+
+The model gained 49 objective answers and lost 25 on the retained panel. The fixed-seed run and independent token replay establish these measured outcomes. The automatic and masked release requirements both failed. [Paper](../paper/conditional-primary.pdf) · [Request-level data](../paper/conditional-primary-requests.csv) · [Sealed decision](../research/results/conditional-program-primary-01/decision.json)
+
 | Consolidated assistant | Learned loop | Untouched Base |
 | --- | ---: | ---: |
 | Objective answers | 56/208 | 42/208 |

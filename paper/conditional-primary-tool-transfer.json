@@ -1,0 +1,105 @@
+{
+  "comparison": "5befb8d8da533815e45659669df3ee77a867b5bebf24972243f6fdab15ba445c",
+  "summary": {
+    "candidate": {
+      "cases": 48,
+      "any_tool": 48,
+      "valid_read": 44,
+      "correct_scalar": 12,
+      "correct_statement_both": 8,
+      "correct_final": 10,
+      "distinct_nonempty_replies": 19,
+      "top_reply_count": 12,
+      "top_reply": "0",
+      "identical_nonempty_pairs": 7,
+      "identical_after_two_reads": 7,
+      "whole_sources_with_general_query": 4
+    },
+    "control": {
+      "cases": 48,
+      "any_tool": 6,
+      "valid_read": 2,
+      "correct_scalar": 0,
+      "correct_statement_both": 0,
+      "correct_final": 0,
+      "distinct_nonempty_replies": 20,
+      "top_reply_count": 2,
+      "top_reply": "i don't have access to a database schema to answer your question. to help you with this, i need the database schema information. could you please provide the database schema details so i can inspect the tables and answer your question about the first club for the north in the 2000's?",
+      "identical_nonempty_pairs": 20,
+      "identical_after_two_reads": 0,
+      "whole_sources_with_general_query": 0
+    }
+  },
+  "caps": [
+    {
+      "arm": "candidate",
+      "per_turn_cap": 32,
+      "completion": 64,
+      "objective": 9,
+      "masked_grounded": 6
+    },
+    {
+      "arm": "candidate",
+      "per_turn_cap": 64,
+      "completion": 182,
+      "objective": 50,
+      "masked_grounded": 19
+    },
+    {
+      "arm": "candidate",
+      "per_turn_cap": 128,
+      "completion": 256,
+      "objective": 66,
+      "masked_grounded": 27
+    },
+    {
+      "arm": "candidate",
+      "per_turn_cap": 256,
+      "completion": 261,
+      "objective": 66,
+      "masked_grounded": 27
+    },
+    {
+      "arm": "candidate",
+      "per_turn_cap": 384,
+      "completion": 263,
+      "objective": 66,
+      "masked_grounded": 27
+    },
+    {
+      "arm": "control",
+      "per_turn_cap": 32,
+      "completion": 0,
+      "objective": 0,
+      "masked_grounded": 0
+    },
+    {
+      "arm": "control",
+      "per_turn_cap": 64,
+      "completion": 0,
+      "objective": 0,
+      "masked_grounded": 0
+    },
+    {
+      "arm": "control",
+      "per_turn_cap": 128,
+      "completion": 17,
+      "objective": 1,
+      "masked_grounded": 0
+    },
+    {
+      "arm": "control",
+      "per_turn_cap": 256,
+      "completion": 157,
+      "objective": 36,
+      "masked_grounded": 6
+    },
+    {
+      "arm": "control",
+      "per_turn_cap": 384,
+      "completion": 205,
+      "objective": 42,
+      "masked_grounded": 9
+    }
+  ]
+}

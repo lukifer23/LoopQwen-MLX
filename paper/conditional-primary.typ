@@ -70,6 +70,10 @@ Throughputs are work divided by measured time across all turns. Opening throughp
 
 The first request includes model construction. Across the other 339 requests wall times were #r(d.warm_wall.at(0),2) / #r(d.warm_wall.at(1),2) seconds, and first-token waits summed to #r(d.warm_first.at(0),2) / #r(d.warm_first.at(1),2) seconds. The registered full-stream totals include the cold first request.
 
+#let lc=d.generation_channels.streams.candidate
+#let bc=d.generation_channels.streams.control
+*Where the tokens went.* The loop emitted #lc.all.before_close_tokens tokens before the first reasoning-close marker per turn, versus #bc.all.before_close_tokens for Base. After that marker it emitted #lc.all.after_close_tokens versus #bc.all.after_close_tokens. Across the 96 retained reasoning requests, both produced reasoning-channel words for every request, with medians of #lc.reasoning.median_words and #bc.reasoning.median_words words per request. On changed tables the loop closed the channel without writing a word on all #lc.changed_table.turns turns. Of 7,591 unique training targets, 1,838 included reasoning words, all in arithmetic or earlier assistance. The distribution helps explain the difference in generated length. It does not identify the cause of a correct answer or directly measure internal computation.
+
 #pagebreak()
 #text(size:20pt,weight:"bold")[Where tool use succeeds or fails]
 #let tools=d.tool_diagnostics.summary
