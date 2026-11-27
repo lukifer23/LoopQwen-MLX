@@ -346,6 +346,43 @@ def run(name):
     save(root / "decision.json", d)
 
 
+def audit_tensors(root, spec, updates):
+    import numpy as np
+    from safetensors import safe_open
+
+    width = 1024
+    shapes = {"bias": (width,)}
+    for group, rank in [(f"corrections.{i}", spec["rank"]) for i in range(4)] + [
+        ("context", spec["gate_rank"])
+    ]:
+        shapes[group + ".down.weight"] = (rank, width)
+        shapes[group + ".up.weight"] = (width, rank)
+    with (
+        safe_open(root / "readout.safetensors", framework="np") as params,
+        safe_open(root / "optimizer.safetensors", framework="np") as moments,
+    ):
+        assert set(params.keys()) == set(shapes)
+        assert set(moments.keys()) == {"learning_rate", "step"} | {
+            k + "." + m for k in shapes for m in ("m", "v")
+        }
+        assert moments.get_tensor("step").item() == updates and np.isclose(
+            moments.get_tensor("learning_rate").item(), spec["lr"]
+        )
+        for k, shape in shapes.items():
+            for array in (
+                params.get_tensor(k),
+                moments.get_tensor(k + ".m"),
+                moments.get_tensor(k + ".v"),
+            ):
+                assert (
+                    array.shape == shape
+                    and array.dtype == np.float32
+                    and np.all(np.isfinite(array))
+                    and np.any(array != 0)
+                )
+            assert np.all(moments.get_tensor(k + ".v") >= 0)
+
+
 def verify(root, d):
     s = read(root / "registration.json")
     assert s == registered(s["id"])
@@ -395,7 +432,25 @@ def verify(root, d):
                 and reward(ans, closed, w["tools"], worlds[r["id"]], folder)
                 == r["result"]
             )
-    assert decision(s, log, read(root / "training-probes.json"), actions) == d
+    audit_tensors(root, s, len(steps))
+    prob = read(root / "training-probes.json")
+    expected = []
+    for group in sorted({r["group"] for r in idx}):
+        pool = [r for r in idx if r["group"] == group]
+        expected.extend(
+            sorted(pool, key=lambda r: fingerprint([s["fit_seed"], "probe", r["id"]]))[
+                :8
+            ]
+        )
+    assert len(prob) == 56
+    for r, w in zip(prob, expected, strict=True):
+        assert (r["id"], r["group"], r["positions"]) == (
+            w["id"],
+            w["group"],
+            w["positions"],
+        )
+        assert all(math.isfinite(r[k]) and r[k] >= 0 for k in ("ordinary", "trained"))
+    assert decision(s, log, prob, actions) == d
 
 
 if __name__ == "__main__":
