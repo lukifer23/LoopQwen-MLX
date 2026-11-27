@@ -105,6 +105,11 @@ Across the entire 84-request workload, including time spent on failures, the loo
 #image("linked-rollin-cost.svg",width:100%)
 #cap[Figure 4. Empirical distributions across 84 matched requests. First and full response time include the cost of the text the model actually generated. Throughput and peak memory use the original native trace.]
 
+= Relationship to prior research
+Geiping et al. pretrained a 3.5B model with depth recurrence on 800B tokens and studied extra recurrent computation at inference. Our smaller adaptation asks whether two fixed visits to an existing final layer justify their measured cost. The matched studies above show why depth comparisons need the same fitting history. #link("https://proceedings.neurips.cc/paper_files/paper/2025/file/3b01972cf31e6fa0fe29e4b8b5c2a0a1-Paper-Conference.pdf")[Geiping et al., NeurIPS 2025.] Yang et al. tested shared iteration on in-context data fitting. That result motivates our explicit algorithmic controls; the natural-language tool tests require a separate comparison. #link("https://proceedings.iclr.cc/paper_files/paper/2024/file/b8402301e7f06bdc97a31bfaa653dc32-Paper-Conference.pdf")[Yang et al., ICLR 2024.]
+
+Toolformer trained models to select and call APIs and use the returned information for subsequent prediction. We can observe both the original source and the return in this task, so we score the executed operation and the user's final answer separately. #link("https://proceedings.neurips.cc/paper_files/paper/2023/hash/d842425e4bf79ba039352da0f658a906-Abstract-Conference.html")[Schick et al., NeurIPS 2023.]
+
 #pagebreak()
 = What changed in the installed runtime
 An independent same-weight crossover on the qualified release 05 changed how intermediate prefill blocks are materialized. Evaluating only the physical cache state advances every recurrent site and preserves its history. A separate numerical probe compared every first-token logit and each retained convolution, delta and full-attention state. Sixty-four fixed-prompt runs preserved generated tokens and histories. In a second test, 32 separate installed commands exercised four real two-message conversations in counterbalanced blocks. Both settings generated 5,824 tokens and reused 28,672 prompt tokens. All tool responses and histories matched. #m.runtime
