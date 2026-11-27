@@ -1,8 +1,10 @@
 #set document(title:"Learning on the learner’s own tool histories",author:"LoopQwen-MLX project")
-#set page(paper:"us-letter",margin:(x:.85in,y:.72in),footer:context [#set text(size:8pt,fill:rgb("#52635f")) LoopQwen-MLX · Grounded generation #h(1fr) #counter(page).display()])
+#set page(paper:"us-letter",margin:(x:.85in,y:.72in),footer:context [#set text(size:8pt,fill:rgb("#52635f"))
+LoopQwen-MLX · Grounded generation #h(1fr) #counter(page).display()])
 #set text(font:"Libertinus Serif",size:10.6pt)
 #set par(leading:.48em,spacing:.45em)
-#show heading.where(level:1): it => block(above:8pt,below:3pt)[#set text(size:16pt,fill:rgb("#165f56"))#it]
+#show heading.where(level:1): it => block(above:8pt,below:3pt)[#set text(size:16pt,fill:rgb("#165f56"))
+#it]
 #let m=json("linked-rollin-paper.json")
 #let grid(headers,rows,widths)=table(columns:widths,align:(x,y)=>if x==0 {left} else {right},inset:(x:4pt,y:3.1pt),stroke:none,fill:(x,y)=>if y==0 {rgb("#deece8")} else if calc.odd(y) {rgb("#f2f5f4")},..headers.map(v=>text(weight:"bold",v)),..rows.flatten().map(v=>[#v]))
 #let cap(body)=text(size:9pt,fill:rgb("#43554f"),body)
@@ -22,6 +24,8 @@ A tool-using model can recover the wrong field, guess a valid page, or correctly
 = What improvement would look like
 For a user asking about Valley Fields, the table connects the venue to Milwaukee. The assistant must find the city's linked article and identify the Catholic missionaries described in it. Supplying a city, repeating a cell, or issuing a plausible lookup leaves part of the task incomplete. A useful assistant should also keep answering earlier practical questions and should incur a tolerable cost. We compare both outcomes and actual wait on the same requests.
 
+On a question about Jaime King’s 2003 film, the loop used the table to identify _Bulletproof Monk_, fetched the linked article and answered “Paul Hunter.” Base identified the film but did not name the director. On the anytree compatibility check, the loop first fetched the version number. It then requested the interpreter constraint from the correct row and correctly ruled out Python 3.6.15.
+
 #m.lifecycle
 
 #pagebreak()
@@ -36,6 +40,12 @@ The historical depth controls fit both models with matched data, initialization 
 
 #grid(("Matched depth study","Loop","One visit","Loop / one visit, s"),m.history,(1.85fr,.7fr,.85fr,1.35fr))
 #cap[The two independent induction tests favor recurrence at nearly identical elapsed time. The smaller typed-tool panel favors one visit by one request. The four-panel tool difference is four requests (paired p = 0.388), with slower execution for the loop. Each row measures a different population.]
+
+= Did the new policy improve on the previous loop?
+We matched all 36 retained request records and their file contents to the previous preference study. The untouched Base reproduced its complete token streams, calls, observations and cache lengths on all 36. The table counts actual grounded decisions. Gains and losses compare the new loop to the previous trained loop.
+
+#grid(("Family","N","Prior loop","New loop","Base","Gained","Lost"),m.retention,(1.35fr,.45fr,.9fr,.9fr,.6fr,.65fr,.65fr))
+The new loop gained five software decisions. It lost four lookup answers and three scheduling decisions. These shared requests measure retention. The 48 linked-article requests remained the transfer test.
 
 Release 05 separately answered the changed 131,084-token inputs and reproduced all 512 registered book next-token decisions in its installation checks. On two complete published books, the loop and Base each missed both natural-language questions. Across those book requests and four real follow-ups the loop achieved 2/6 versus 3/6 in 353.20 versus 319.32 seconds. This result specifies where successful long-context register retrieval has yet to transfer.
 

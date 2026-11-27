@@ -24,6 +24,8 @@ A passing direct comparison unlocks the registered ordinary-depth and long-conte
 
 The corrected open-answer experiment keeps the same held file bytes and question order. One entire training table and its source bundle were replaced. None of the 24 target articles or their answer-bearing quotations occurs in the corrected training passages after Unicode, case, and punctuation normalization. The largest fraction of any held target’s five-word sequences found in one training passage is 3.61%. [Text-disjoint protocol](../research/experiments/linked-rollin-02.json) · [Bidirectional source check](measurements/linked-text-repair.json) · [Per-question overlap](measurements/linked-text-source-overlap.json)
 
+The corrected fit gained one grounded exact open answer against Base on 48 presentations (paired p = 1). It completed two entire software pairs, with 12 versus 3 grounded successes across the whole stream. On 36 identical older requests it lost two net successes against the previous trained policy. Its dependent equal-training fit and long-context release qualification closed. [Sealed comparison](../research/results/linked-rollin-02/decision.json) · [One-to-one policy transitions](../paper/linked-rollin-retention.csv)
+
 ## Current execution order
 
 1. Complete the 84-request comparison on the corrected linked tables. Fit on the learner’s actual calls and observations. Grade its ability to select the correct row, obtain the linked article and answer the human question. Seal a masked review of one response from each model on each of 24 original questions before examining aggregate results. [Registered criteria](../research/experiments/linked-rollin-02.json) · [Masked review protocol](../research/diagnostics/linked-rollin-source-review.json)

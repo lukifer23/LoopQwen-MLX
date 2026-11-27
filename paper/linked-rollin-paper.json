@@ -1,0 +1,378 @@
+{
+  "retention": [
+    [
+      "agenda",
+      "8",
+      "5",
+      "2",
+      "0",
+      "0",
+      "3"
+    ],
+    [
+      "file",
+      "6",
+      "2",
+      "0",
+      "0",
+      "0",
+      "2"
+    ],
+    [
+      "inline",
+      "6",
+      "2",
+      "4",
+      "3",
+      "3",
+      "1"
+    ],
+    [
+      "retention",
+      "8",
+      "4",
+      "0",
+      "0",
+      "0",
+      "4"
+    ],
+    [
+      "wheel",
+      "8",
+      "0",
+      "5",
+      "0",
+      "5",
+      "0"
+    ],
+    [
+      "All retained",
+      "36",
+      "13",
+      "11",
+      "3",
+      "8",
+      "10"
+    ]
+  ],
+  "deadlines": [
+    [
+      "0.5 s",
+      "4",
+      "0"
+    ],
+    [
+      "1 s",
+      "4",
+      "0"
+    ],
+    [
+      "2 s",
+      "12",
+      "0"
+    ],
+    [
+      "5 s",
+      "12",
+      "2"
+    ],
+    [
+      "10 s",
+      "12",
+      "3"
+    ],
+    [
+      "30 s",
+      "12",
+      "3"
+    ]
+  ],
+  "delivery": "3.61 and 0.27",
+  "common": "On the 2 requests both models solved, summed wait was 0.67 s versus 11.45 s.",
+  "history": [
+    [
+      "Three-fact induction, original",
+      "62/64",
+      "33/64",
+      "15.88 / 16.04"
+    ],
+    [
+      "Three-fact induction, replication",
+      "62/64",
+      "25/64",
+      "16.07 / 16.04"
+    ],
+    [
+      "Typed public function calls",
+      "17/22",
+      "18/22",
+      "14.98 / 14.37"
+    ],
+    [
+      "Four tool panels",
+      "112/132",
+      "108/132",
+      "69.33 / 60.21"
+    ]
+  ],
+  "systems": [
+    [
+      "FOLIO",
+      "22/72",
+      "2/72",
+      "0.002441",
+      "159.4 / 702.6"
+    ],
+    [
+      "InfoTabS cross-domain",
+      "25/72",
+      "4/72",
+      "0.003906",
+      "99.2 / 736.8"
+    ],
+    [
+      "InfoTabS ordinary",
+      "25/72",
+      "13/72",
+      "0.04688",
+      "198.0 / 918.8"
+    ],
+    [
+      "HybridQA, present study",
+      "1/48",
+      "0/48",
+      "1",
+      "199.5 / 671.9"
+    ]
+  ],
+  "abstract": "The trained loop gave 1 grounded exact answers on 48 open requests. Base gave 0. The net change was +1 requests (whole-source paired p = 1). Across all 84 requests the trained model completed 26 and Base completed 30. The full registered comparison missed its promotion gate.",
+  "unmatched": "human open answers, both presentations, whole questions, earlier requests, practical tools, completion, first s",
+  "phases": [
+    [
+      "0",
+      "64",
+      "2",
+      "0",
+      "138",
+      "123"
+    ],
+    [
+      "400",
+      "64",
+      "23",
+      "6",
+      "120",
+      "115"
+    ]
+  ],
+  "fit": "802,816 trainable parameters; 213,121 positive token targets, 53,151 nonblank explanation tokens and 727 draws with an observed competing token. Prefix preparation took 368.5 s, free training conversations 324.7 s and optimization 444.6 s.",
+  "diversity": "The sampler visited 1108 distinct training views over 3,200 draws.",
+  "scores": [
+    [
+      "All 24 questions",
+      "Primary",
+      "1/48",
+      "0/48",
+      "1"
+    ],
+    [
+      "All 24 questions",
+      "Variant aliases",
+      "1/48",
+      "0/48",
+      "1"
+    ],
+    [
+      "All 24 questions",
+      "Ordered reads",
+      "9/48",
+      "0/48",
+      "0.007812"
+    ],
+    [
+      "20 directly supported",
+      "Primary",
+      "1/40",
+      "0/40",
+      "1"
+    ],
+    [
+      "20 directly supported",
+      "Variant aliases",
+      "1/40",
+      "0/40",
+      "1"
+    ],
+    [
+      "20 directly supported",
+      "Ordered reads",
+      "8/40",
+      "0/40",
+      "0.01562"
+    ]
+  ],
+  "whole": [
+    [
+      "Linked",
+      "0",
+      "0"
+    ],
+    [
+      "Software",
+      "2",
+      "0"
+    ],
+    [
+      "Schedule",
+      "0",
+      "0"
+    ]
+  ],
+  "costs": [
+    [
+      "Grounded answers",
+      "12",
+      "3"
+    ],
+    [
+      "Completed responses",
+      "26",
+      "30"
+    ],
+    [
+      "Output tokens",
+      "17,348",
+      "44,649"
+    ],
+    [
+      "Summed first-token latency (s)",
+      "22.865",
+      "22.226"
+    ],
+    [
+      "Total user wait (s)",
+      "199.5",
+      "671.9"
+    ],
+    [
+      "Peak MLX allocation (GiB)",
+      "1.175",
+      "1.736"
+    ],
+    [
+      "Prompt rate (tokens/s)",
+      "5,088.94",
+      "3,839.08"
+    ],
+    [
+      "Decode rate (tokens/s)",
+      "105.55",
+      "69.91"
+    ],
+    [
+      "All rendered prompt tokens",
+      "181,274",
+      "129,275"
+    ],
+    [
+      "Previously cached prompt tokens",
+      "87,040",
+      "34,176"
+    ],
+    [
+      "Uncached prompt rate (tokens/s)",
+      "2,645.45",
+      "2,824.16"
+    ]
+  ],
+  "reviews": [
+    [
+      "Equivalent",
+      "0",
+      "0"
+    ],
+    [
+      "Appropriately qualified",
+      "0",
+      "0"
+    ],
+    [
+      "Incomplete",
+      "1",
+      "6"
+    ],
+    [
+      "Contradicted",
+      "3",
+      "5"
+    ],
+    [
+      "Absent",
+      "20",
+      "13"
+    ],
+    [
+      "Invented claims",
+      "0",
+      "4"
+    ],
+    [
+      "Source observed and supported",
+      "0",
+      "0"
+    ]
+  ],
+  "examples": [
+    [
+      "What society of Catholicism first traversed the region of the city which contains Valley Fields ?",
+      "Jesuit",
+      "turn_limit \u00b7 3 calls \u00b7 no final text",
+      "answered \u00b7 0 calls \u00b7 I don't have the capability to search for historical information about Catholic society or religious history. The evidence provided is about soccer teams and their locations, not about Catholic history.\n\nThe question ask\u2026"
+    ],
+    [
+      "What has the school of the tournament runner up of the 1990 America East Conference tournament won national championships in ?",
+      "skiing",
+      "turn_limit \u00b7 3 calls \u00b7 no final text",
+      "turn_limit \u00b7 3 calls \u00b7 no final text"
+    ]
+  ],
+  "f1": "0.021 and 0.008",
+  "lost": "1",
+  "lifecycle": "10 individual requests gained grounded success and 1 lost it. On 3 of the gains, the loop also reduced first-token wait, total wait and peak allocation on that same request.",
+  "intervals": "first-token ratio 0.994\u20131.050; wall-time ratio 0.267\u20130.330",
+  "practical": [
+    [
+      "wheel",
+      "5",
+      "0",
+      "8"
+    ],
+    [
+      "agenda",
+      "2",
+      "0",
+      "8"
+    ],
+    [
+      "file",
+      "0",
+      "0",
+      "6"
+    ],
+    [
+      "inline",
+      "4",
+      "3",
+      "6"
+    ],
+    [
+      "retention",
+      "0",
+      "0",
+      "8"
+    ]
+  ],
+  "runtime": "Cold first-token time totaled 26.174 s with the original implementation and 25.713 s with the cache-state implementation. Complete process time totaled 89.847 and 89.174 s. Peak allocation fell 15.7 MiB.",
+  "sha": "c9beed889326cfc807f1c01c50457ad564d781f01d902ae8ce0e97b31423ec76",
+  "panel": "83d7daa8efe919d40d15a1c222a8514e776573d67155b471d060c47586441c57"
+}

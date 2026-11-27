@@ -15,6 +15,7 @@ from loopqwen.io import read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.linked_rollin_analysis import ARMS, DOC, PLAN, ROOT
 from scripts.paper_valid_return import COLORS, NAMES
+from scripts.linked_rollin_retention import compare as retention
 
 P = Path("paper")
 GROUPS = {
@@ -367,6 +368,7 @@ def build():
     save(
         P / "linked-rollin-paper.json",
         dict(
+            retention=retention(),
             deadlines=deadline_table,
             delivery=" and ".join(delivery),
             common=common_text,

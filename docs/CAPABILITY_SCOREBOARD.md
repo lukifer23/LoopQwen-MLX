@@ -1,5 +1,23 @@
 # Capability scoreboard
 
+## Learning from actual tool mistakes
+
+| Same 84 requests | New trained loop | Untouched Base |
+| --- | ---: | ---: |
+| Grounded, all requests | 12 | 3 |
+| Grounded new linked questions, 48 presentations | 1 | 0 |
+| Required article observed in order | 9 | 0 |
+| Both presentations correct, 24 questions | 0 | 0 |
+| Grounded software decisions, 8 requests | 5 | 0 |
+| Complete software pairs, 4 packages | 2 | 0 |
+| Completed visible responses | 26 | 30 |
+| Total wait / summed first-token wait, seconds | 199.53 / 22.87 | 671.88 / 22.23 |
+| Peak native allocation, GiB | 1.175 | 1.736 |
+| Uncached prompt / generated tokens per second | 2,645 / 105.55 | 2,824 / 69.91 |
+
+The registered test on new source questions gave a net gain of one and paired p = 1. The loop lost one previously successful Base request. Against the previous trained policy on 36 identical requests, software improved from zero to five, scheduling fell from five to two and lookup fell from four to zero. Release 05 retains its separate long-context measurements. [Native study, weights and decision](../research/results/linked-rollin-02) · [Full paper](../paper/loopqwen-grounding-study.pdf) · [Matched historical requests](../paper/linked-rollin-retention.csv)
+
+
 | Measured capability | Trained loop | Untouched Base | Weights |
 | --- | ---: | ---: | --- |
 | Human ordinary-domain table judgments | 25/72 | 13/72 | Valid-return preferences, K=2 |
