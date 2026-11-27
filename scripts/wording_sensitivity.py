@@ -62,7 +62,11 @@ def build(study):
     }
 
 
-def run(study, mode):
+def run(study, mode, *, streamed=False):
+    if streamed and (study != "contrastive-worlds" or mode != "report"):
+        raise ValueError(
+            "The streamed comparison inherits the frozen contrastive wording strata"
+        )
     plan = Path("research/diagnostics") / (study + "-wording-strata.json")
     expected = build(study)
     if mode == "freeze":
@@ -72,6 +76,9 @@ def run(study, mode):
     committed(plan)
     assert expected == read(plan)
     stage, reviews = STUDIES[study]
+    if streamed:
+        stage = "streamed-world-transfer-01"
+        reviews = ("streamed-services", "streamed-qualitative")
     root = Path("research/results") / stage
     committed(root / "checksums.json")
     for prefix in reviews:
@@ -110,7 +117,7 @@ def run(study, mode):
             }
         )
     save(
-        DOC / (study + "-wording-sensitivity.json"),
+        DOC / (("streamed-world" if streamed else study) + "-wording-sensitivity.json"),
         {
             "registration": digest(plan),
             "primary": digest(root / "checksums.json"),
@@ -124,5 +131,6 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser()
     p.add_argument("study", choices=STUDIES)
     p.add_argument("mode", choices=("freeze", "report"))
+    p.add_argument("--streamed", action="store_true")
     a = p.parse_args()
-    run(a.study, a.mode)
+    run(a.study, a.mode, streamed=a.streamed)

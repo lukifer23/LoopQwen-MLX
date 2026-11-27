@@ -19,7 +19,16 @@ RATINGS = DOC / "contrastive-qualitative-blinded-ratings.json"
 REPORT = DOC / "contrastive-qualitative-reading.json"
 
 
-def run(mode):
+def run(mode, *, streamed=False):
+    root = ROOT.parent / "streamed-world-transfer-01" if streamed else ROOT
+    prefix = ("streamed" if streamed else "contrastive") + "-qualitative"
+    mask_file = DOC / (prefix + "-blinded.json")
+    rating_file = DOC / (prefix + "-blinded-ratings.json")
+    report_file = DOC / (prefix + "-reading.json")
+    if mode == "report":
+        for group in ("services", "qualitative"):
+            prefix = ("streamed" if streamed else "contrastive") + "-" + group
+            committed(DOC / (prefix + "-blinded-ratings.json"))
     items = [w for w in unpack(PANEL)["rows"] if w["family"] == "qualitative"]
     assert len(items) == 48
     plan = {
@@ -34,7 +43,7 @@ def run(mode):
     committed(PLAN)
     assert read(PLAN) == plan
     data = [
-        {r["id"]: r["requests"][0] for r in unpack(ROOT / (a + ".json.gz"))}
+        {r["id"]: r["requests"][0] for r in unpack(root / (a + ".json.gz"))}
         for a in ARMS
     ]
     mask = {}
@@ -51,12 +60,12 @@ def run(mode):
         }
         mapping[k] = [options.index(x) for x in answers]
     if mode == "blind":
-        persist(MASK, mask)
+        persist(mask_file, mask)
         return
-    committed(MASK)
-    committed(RATINGS)
-    assert read(MASK) == mask
-    ratings = read(RATINGS)
+    committed(mask_file)
+    committed(rating_file)
+    assert read(mask_file) == mask
+    ratings = read(rating_file)
     assert ratings.keys() == mask.keys()
     counts = {a: Counter() for a in ARMS}
     groups = defaultdict(list)
@@ -82,10 +91,11 @@ def run(mode):
         groups[w["cluster"]].append(success)
     assert len(groups) == 24
     save(
-        REPORT,
+        report_file,
         {
+            "generation_archive": digest(root / "checksums.json"),
             "plan": digest(PLAN),
-            "ratings": digest(RATINGS),
+            "ratings": digest(rating_file),
             "source_pairs": paired(groups),
             "arms": counts,
         },
@@ -95,4 +105,6 @@ def run(mode):
 if __name__ == "__main__":
     args = argparse.ArgumentParser()
     args.add_argument("mode", choices=("plan", "blind", "report"))
-    run(args.parse_args().mode)
+    args.add_argument("--streamed", action="store_true")
+    options = args.parse_args()
+    run(options.mode, streamed=options.streamed)

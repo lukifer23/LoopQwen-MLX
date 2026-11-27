@@ -21,12 +21,21 @@ RATINGS = DOC / "contrastive-services-blinded-ratings.json"
 REPORT = DOC / "contrastive-services-reading.json"
 
 
-def run(mode):
+def run(mode, *, streamed=False):
+    root = ROOT.parent / "streamed-world-transfer-01" if streamed else ROOT
+    prefix = ("streamed" if streamed else "contrastive") + "-services"
+    mask_file = DOC / (prefix + "-blinded.json")
+    rating_file = DOC / (prefix + "-blinded-ratings.json")
+    report_file = DOC / (prefix + "-reading.json")
+    if mode == "report":
+        for group in ("services", "qualitative"):
+            prefix = ("streamed" if streamed else "contrastive") + "-" + group
+            committed(DOC / (prefix + "-blinded-ratings.json"))
     plan = read(PLAN)
     assert digest(PANEL) == plan["material"]
     panel = {r["id"]: r for r in unpack(PANEL)["rows"]}
     runs = {
-        a: {r["id"]: r["requests"][0] for r in unpack(ROOT / (a + ".json.gz"))}
+        a: {r["id"]: r["requests"][0] for r in unpack(root / (a + ".json.gz"))}
         for a in ARMS
     }
     masked = {}
@@ -45,12 +54,12 @@ def run(mode):
         mapping[k] = [options.index(t) for t in answers]
     assert len(masked) == 48
     if mode == "blind":
-        persist(MASK, masked)
+        persist(mask_file, masked)
         return
-    committed(MASK)
-    committed(RATINGS)
-    assert read(MASK) == masked
-    grades = read(RATINGS)
+    committed(mask_file)
+    committed(rating_file)
+    assert read(mask_file) == masked
+    grades = read(rating_file)
     assert grades.keys() == masked.keys()
     groups = defaultdict(list)
     counts = {a: Counter() for a in ARMS}
@@ -124,12 +133,13 @@ def run(mode):
         and counts["candidate"]["unsupported"] <= counts["control"]["unsupported"]
     )
     save(
-        REPORT,
+        report_file,
         {
+            "generation_archive": digest(root / "checksums.json"),
             "passed": good,
             "source_pairs": result,
             "arms": counts,
-            "ratings_sha256": digest(RATINGS),
+            "ratings_sha256": digest(rating_file),
             "source_decisions": grades_audit,
         },
     )
@@ -138,4 +148,6 @@ def run(mode):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=("blind", "report"))
-    run(parser.parse_args().mode)
+    parser.add_argument("--streamed", action="store_true")
+    args = parser.parse_args()
+    run(args.mode, streamed=args.streamed)

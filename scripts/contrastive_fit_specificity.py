@@ -97,16 +97,20 @@ def analyze(rows, free):
     return result, records
 
 
-def run(generated=False):
-    spec = read("research/experiments/" + FIT + ".json")
+def run(generated=False, *, name=FIT):
+    spec = read("research/experiments/" + name + ".json")
     rows = selection(unpack(Path(spec["training"])), spec)
     free = None
     if generated:
-        free = {r["id"]: r for r in unpack(ROOT / "training-free-generation.json.gz")}
+        free = {
+            r["id"]: r
+            for r in unpack(ROOT.parent / name / "training-free-generation.json.gz")
+        }
         assert {r["id"] for r in rows} == free.keys()
     result, records = analyze(rows, free)
     if generated:
-        write_csv(PAPER / "contrastive-world-specificity.csv", records)
+        output = name.removesuffix("-fit-01") + "-specificity.csv"
+        write_csv(PAPER / output, records)
     else:
         save(
             "research/diagnostics/contrastive-fit-specificity.json",
