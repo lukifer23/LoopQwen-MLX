@@ -151,11 +151,12 @@ class Assistant:
         self.tokenizer = None
         self._tool_model = None
         if reuse_tokenizer is None:
-            # The complete packed-03 field crossover qualified this tokenizer only.
+            # Each inventory passed its own four-process mixed-request crossover.
             inventory = self.directory / "tool-export-files.json"
-            reuse_tokenizer = inventory.is_file() and digest(inventory) == (
-                "b92ee035e76e64cb05a43166b2a7a9a0d1eea5b87decca964ee9931adc840176"
-            )
+            reuse_tokenizer = inventory.is_file() and digest(inventory) in {
+                "b92ee035e76e64cb05a43166b2a7a9a0d1eea5b87decca964ee9931adc840176",
+                "ee20a851c685c52a97403c82cac49017f66cd9832fac886ad1598d584fe80d78",
+            }
         self._reuse_tokenizer = reuse_tokenizer
         self._cached_tokenizer = None
 

@@ -146,6 +146,10 @@ Four fresh processes each served the same 50 requests, with policies in ABBA ord
 
 #figure(image("tokenizer-streams.svg",width:94%),caption:[Each point measures one entire 50-request stream in a fresh process. Switch latency includes all work from the incoming request to its first emitted token.])
 
+A second crossover on the corrected installed loader and release 04 reproduced all 200 trajectories. Across 30 mode switches per policy, tokenizer reuse cut cumulative wait for the first token from 29.58 to 16.31 s (44.9%). Across all requests it fell from 39.57 to 26.34 s. Total wall time fell from 164.66 to 151.60 s, maximum process RSS from 2.52 to 1.79 GiB, and both policies peaked at 1,810,571,734 native bytes. The installed assistant enables this optimization for both tested inventories. These timings compare two implementations of the same release.
+
+#figure(image("corrected-tokenizer-streams.svg",width:94%),caption:[Complete release 04 streams in execution order. Each process handled 50 interleaved user requests.])
+
 == Tokenization of user text across writing systems
 Transformers uses the custom export model type and tokenizer metadata to choose a tokenizer class. For the offline bundle, the original tokenizer configuration inherited the name Qwen2Tokenizer even though pinned Base uses Qwen3.5Tokenizer. Their word-splitting expressions differ in the treatment of Unicode combining marks. We test whether explicitly naming the Qwen3.5 class in the delivered configuration alone corrects the mismatch. Every learned weight, vocabulary entry, BPE merge and line of bundled runtime code is held fixed.
 
