@@ -291,6 +291,15 @@ def collect():
         if prefix == "staged-query" and consistency.exists():
             committed(consistency)
             out["tool_consistency"] = read(consistency)
+        if prefix == "staged-query":
+            for key, suffix in (
+                ("calculation", "calculation-perturbations"),
+                ("wording", "wording-sensitivity"),
+            ):
+                evidence = DOC / (prefix + "-" + suffix + ".json")
+                if evidence.exists():
+                    committed(evidence)
+                    out[key] = read(evidence)
         distribution = DOC / "staged-query-distribution.json"
         if prefix == "staged-query" and distribution.exists():
             committed(distribution)

@@ -188,3 +188,21 @@ The two visits share all parameters. Query and content corrections have rank 160
 
  For the crossed test, the previous assistant call and provider response are byte-identical for two different original user questions. The same evidence is relevant for one and misleading for the other. Both answers must succeed. There are two such contrasts per database. The sign-flip probability treats the schema as the independent unit. The 96 requests consumed #fmt(t.field_wall_s.candidate) seconds for the loop and #fmt(t.field_wall_s.control) for Base. The supplement records every question, ambiguity flag, constituent result and elapsed time.
 ]
+
+#if "calculation" in d and "wording" in d [
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Do calculations track the source operands?])
+
+ For each financial question we separately replayed the final successful calculator call after changing one source number at a time. The expert program defines the expected change. An unrelated computation followed by a literal copy of the original answer can pass an original-value check. The changed-operand test detects that construction on all 32 expert controls. It tests a self-contained last call and exact quantity equivalence. Rounding, unit conversions and dependencies on earlier calls can reduce coverage.
+
+ #tbl((1.4fr,1fr,1fr,1.2fr),("Financial reports","Originally grounded","Program follows changes","Both conditions"),
+   d.calculation.results.pairs().map(p=>{
+     let x=p.at(1)
+     (p.at(0),str(x.at("registered_grounded",default:0)),str(x.at("program_matches",default:0)),str(x.at("grounded_and_matches",default:0)))
+   }))
+
+ #block(text(size:16pt,weight:"bold")[Performance by wording overlap])
+ Before generation we marked sources containing a complete repeated field of eight or more normalized words, or any twelve consecutive repeated words. Whole associated sources stay together. The table uses the entire frozen panel, including overlapping material. The four locale documents were outside this audit.
+
+ #tbl((.78fr,1.7fr,.66fr,.85fr,.85fr),("Family","Wording stratum","Requests","Loop / Base","Gains / losses"),d.wording.cells.map(x=>(x.family,x.stratum,str(x.items),str(x.candidate_correct)+" / "+str(x.base_correct),str(x.paired_gains)+" / "+str(x.paired_losses))))
+]
