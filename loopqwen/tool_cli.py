@@ -48,6 +48,14 @@ def add_arguments(p, checkpoint=None):
         help="Expose installed versions and dependencies",
     )
     p.add_argument(
+        "--wheel",
+        type=Path,
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="Read the embedded metadata of a local Python wheel. Can be repeated.",
+    )
+    p.add_argument(
         "--database", type=Path, help="Open an existing SQLite database read-only"
     )
     p.add_argument(
@@ -223,6 +231,10 @@ def respond(args, parser):
             from .package_tools import tools as packages
 
             supplied.extend(packages())
+        if getattr(args, "wheel", None):
+            from .wheel_tools import tools as wheel_tools
+
+            supplied.extend(wheel_tools(args.wheel))
         if args.resource:
             from .resource_tools import tools as local_tools
 
@@ -240,7 +252,7 @@ def respond(args, parser):
             supplied.append(database_tool(db, args.table))
         if not supplied and not getattr(args, "allow_plain", False):
             parser.error(
-                "Select a file, document, CSV, resource, catalog, calculator, packages or a database table"
+                "Select a file, document, CSV, resource, catalog, calculator, package environment, wheel or database table"
             )
         retain = getattr(args, "retain_conversation_prefix", False)
         if retain and not supplied:
