@@ -73,6 +73,7 @@ class Conversation:
         record_kv_history=False,
         prefill_cache_state=False,
         staged_context_dir=None,
+        document_prefix=None,
         extend_tool_prefix=False,
     ):
         if not isinstance(question, str) or not question.strip():
@@ -94,6 +95,11 @@ class Conversation:
                     else {}
                 ),
                 **({"record_kv_history": True} if record_kv_history else {}),
+                **(
+                    {"document_prefix": document_prefix}
+                    if document_prefix is not None
+                    else {}
+                ),
                 **(
                     {"staged_context_dir": staged_context_dir}
                     if staged_context_dir is not None
@@ -192,6 +198,7 @@ def run(
     record_kv_history=False,
     prefill_cache_state=False,
     staged_context_dir=None,
+    document_prefix=None,
     extend_tool_prefix=False,
     _messages=None,
     _conversation_prefix=None,
@@ -253,7 +260,11 @@ def run(
         if reuse_prefix or extend_tool_prefix
         else None
     )
-    if _conversation_prefix is not None:
+    if document_prefix is not None:
+        if not native or extend_tool_prefix or staged_context_dir is not None:
+            raise ValueError("A fixed native document requires one cache owner")
+        tool_prefix = None
+    elif _conversation_prefix is not None:
         tool_prefix = ConversationPrefill(_conversation_prefix, tool_prefix)
     turns = []
     answer = None
@@ -308,6 +319,11 @@ def run(
             stop_ids=stop_ids,
             tool_prefix=prefix,
             **({"return_prompt_ids": True} if decoder is generate else {}),
+            **(
+                {"document_prefix": document_prefix}
+                if document_prefix is not None
+                else {}
+            ),
             **({"record_kv_history": True} if record_kv_history else {}),
             **(
                 {"staged_context_dir": staged_context_dir}
@@ -347,6 +363,9 @@ def run(
             )
         if prefill_cache_state:
             row["cache_state_blocks"] = out["cache_state_blocks"]
+        if document_prefix is not None:
+            row["new_prompt_tokens"] = out["new_prompt_tokens"]
+            row["reused_prompt_tokens"] = out["reused_prompt_tokens"]
         if tool_prefix is not None:
             row["reused_prompt_tokens"] = out.get("reused_prompt_tokens", 0)
         if grammar is not None:

@@ -543,3 +543,30 @@ To reproduce the compact model in a new directory, run the native conversion bel
 .venv/bin/python -m loopqwen.compact_entailment exports/tool-language-packed-05 \
   research/results/entailment-triplets-01/model /tmp/my-compact-reader
 ```
+
+### Independent requests about the same full document
+
+A loaded fixed Qwen assistant can stage the shared tokens of several complete requests once. Each request still supplies the complete document to the tokenizer. The runtime checks the exact prefix, gives each request private recurrent and attention tails, and preserves the original disk-backed keys and values. The same API works with the ordinary-depth control and a trained shared-query assistant.
+
+```python
+from tempfile import TemporaryDirectory
+from loopqwen.shared_query_assistant import SharedQueryAssistant
+
+assistant = SharedQueryAssistant(
+    "exports/tool-language-packed-05", "research/results/learner-prefix-fit-01"
+)
+with open("Cargo.lock", encoding="utf-8") as source:
+    lock = source.read()
+requests = [
+    f"Here is the complete Cargo.lock file.\n\n{lock}\n\nWhich version of {name} is locked?"
+    for name in ("serde", "tokio")
+]
+with TemporaryDirectory() as scratch:
+    document = assistant.prepare_document(requests, scratch)
+    replies = [
+        assistant.respond(q, max_tokens=384, document_prefix=document)
+        for q in requests
+    ]
+```
+
+The first staging time belongs in end-to-end measurements. A branch reports both the logical prompt length and the newly processed and reused token counts. Report the cost of a cold request separately when users might never ask a second question. [Full document source and branch measurements](measurements/full-document-features.json)

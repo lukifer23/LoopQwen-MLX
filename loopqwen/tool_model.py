@@ -232,6 +232,39 @@ class Assistant:
             else:
                 self.language, self.tokenizer = load_export(self.directory)
 
+    def prepare_document(self, questions, directory, tools=(), *, progress=None):
+        """Stage the exact shared token prefix of independent, complete user requests."""
+        from . import qwen_tools
+        from .offloaded_prefill import DocumentPrefix
+
+        if getattr(self, "tool_format", None) != "qwen" or self._tool_model is None:
+            raise ValueError(
+                "Document preparation requires a loaded fixed native Qwen decoder"
+            )
+        if isinstance(questions, str):
+            raise ValueError("Supply multiple complete requests for the same document")
+        questions = list(questions)
+        if len(questions) < 2 or any(
+            not isinstance(q, str) or not q.strip() for q in questions
+        ):
+            raise ValueError("Supply at least two nonempty complete user requests")
+        defs = qwen_tools.declarations(tools)
+        common = None
+        for question in questions:
+            rendered = qwen_tools.render(
+                self.tokenizer, [{"role": "user", "content": question}], defs
+            )
+            ids = self.tokenizer.encode(rendered, add_special_tokens=False)
+            if len(ids) >= self._tool_model.args.max_position_embeddings:
+                raise ValueError("The request leaves no position for an output")
+            if common is None:
+                common = ids[:-1]
+            else:
+                limit = min(len(common), len(ids) - 1)
+                first = next((i for i in range(limit) if common[i] != ids[i]), limit)
+                common = common[:first]
+        return DocumentPrefix(self._tool_model, common, directory, progress)
+
     def respond(
         self,
         question,
@@ -244,11 +277,12 @@ class Assistant:
         record_kv_history=False,
         prefill_cache_state=False,
         staged_context_dir=None,
+        document_prefix=None,
         extend_tool_prefix=False,
         _messages=None,
         _conversation_prefix=None,
     ):
-        if tools or getattr(self, "native_plain", False):
+        if tools or getattr(self, "native_plain", False) or document_prefix is not None:
             from .tool_session import run
 
             if self._tool_model is None:
@@ -280,6 +314,11 @@ class Assistant:
                     else {}
                 ),
                 record_kv_history=record_kv_history,
+                **(
+                    {"document_prefix": document_prefix}
+                    if document_prefix is not None
+                    else {}
+                ),
                 **({"extend_tool_prefix": True} if extend_tool_prefix else {}),
                 **(
                     {"staged_context_dir": staged_context_dir}
