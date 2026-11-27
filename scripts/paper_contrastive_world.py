@@ -267,6 +267,19 @@ def build():
                 # according to the original objective. Preserve the original units.
                 write_csv(P / "contrastive-world-optimizer.csv", log)
                 optimizer_plot(log)
+        elif (root / "partial-state.json").is_file():
+            state = read(root / "partial-state.json")
+            log = state["log"]
+            assert state["step"] == len(log) == seen[2]["decision"]["durable_updates"]
+            optimizer_plot(log)
+            write_csv(P / "contrastive-world-optimizer.csv", log)
+            out["partial_fit"] = {
+                "updates": len(log),
+                "targets": sum(r["targets"] for r in log),
+                "preferences": sum(r["preferences"] for r in log),
+                "weights": digest(root / "partial-adapters.safetensors"),
+                "optimizer": digest(root / "partial-optimizer.safetensors"),
+            }
         if (root / "training-free-generation.json.gz").is_file():
             out["specificity"] = source_specificity(True)
     if len(seen) == 4 and (RESULT / STAGES[-1] / "control.json.gz").is_file():
@@ -274,6 +287,12 @@ def build():
     if exposure:
         plot(exposure)
         write_csv(P / "contrastive-world-exposure.csv", exposure)
+    partition = DOC / "shared-query-partition.json"
+    separate = RESULT / "shared-query-features-01"
+    if partition.exists() and (separate / "checksums.json").exists():
+        committed(partition)
+        out["query_partition"] = read(partition)
+        out["query_decision"] = read(separate / "decision.json")
     save(P / "contrastive-world.json", out)
     pdf = P / "contrastive-world.pdf"
     typst.compile(

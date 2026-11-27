@@ -49,7 +49,8 @@ LoopQwen-MLX research report · November 2026
 
 #if d.stage_count >= 3 [
   #pagebreak()
-  #text(size:19pt,weight:"bold")[Fitting outcomes and free generation]
+  #block(text(size:19pt,weight:"bold")[Native fitting and numerical verification])
+  #v(.4em)
   #let fit=d.stages.at(2).decision
   #if "free_whole" in fit [
     The optimizer completed #fit.updates steps, #fit.supervised_positions supervised positions and #fit.preferences preference comparisons. On the training diagnostics, the loop generated SQL that returned a correct scalar in all versions of #fit.free_whole.operator of 24 source tables, using #fit.free_distinct_sql distinct successful statements. It freely answered both contexts correctly on #fit.free_whole.qualitative/12 qualitative pairs and #fit.free_whole.service_reply/12 service pairs.
@@ -62,12 +63,20 @@ LoopQwen-MLX research report · November 2026
     #tbl((2fr,1fr),("Training probe group","Mean NLL reduction, nats"),fit.mean_nll_gain.pairs().map(v=>(v.at(0).replace("_"," "),rnd(v.at(1),digits:4))))
     #tbl((2fr,1fr),("Preregistered fit gate","Observed"),fit.gates.pairs().map(v=>(v.at(0).replace("_"," "),if v.at(1) {"pass"} else {"miss"})))
   ] else [
-    The archived fit was interrupted. The registered reason was #fit.reason. The decision includes its retained evidence. The training measurements on the previous pages remain available.
+    The registered fit stopped on “#(fit.reason)”. Its complete checkpoint contains the weights, AdamW moments and history through #d.partial_fit.updates of 3,392 updates. The durable record covers #d.partial_fit.targets of #d.fit_target positive labels and #d.partial_fit.preferences of #d.preference_target preference presentations. The native process used #rnd(d.stages.at(2).elapsed) seconds and peaked at #rnd(d.stages.at(2).peak_gib) GiB. The interrupted weights have no free-generation or held quality measurement.
+    #image("contrastive-world-optimization.svg",width:100%)
+    *Figure.* Each point summarizes 64 completed updates. The left and middle series divide summed loss by positive positions. The right series divides by preference presentations. These values describe changing shuffled training batches.
+    #parbreak()
+    #if "query_partition" in d [
+      *Independent repeated-query prerequisite.* A second architecture writes the original 24 temporal states and makes two extra read-only visits to the last attention memory. Its first full-size test used three real training openings. It reproduced the top token and all six attention offsets in every case. Its full-versus-halved cache logit differences exceeded its 0.55 maximum. The stage closed before extraction or fitting.
+      #tbl((.85fr,1.2fr,1.2fr,1.2fr,1.2fr),("Input tokens","Ordinary full / split","Loop full / split","Same full partition","Same split partition"),d.query_partition.measurements.map(r=>(str(r.tokens),rnd(r.ordinary_partition,digits:3),rnd(r.loop_partition,digits:3),rnd(r.same_full_partition,digits:3),rnd(r.same_split_partition,digits:3))))
+      *Matched numerical check.* We then ran the unmodified packed donor on the same two partitions. Its logit deviations also exceeded 0.55 on all three openings. The right two columns compare architectures given an identical partition. The largest such difference was 0.125. All four routes agreed on the top token on each prompt. The evidence identifies partition-dependent numerical drift in the donor itself. The original stopping decision stands.
+    ]
   ]
 ]
 #if "service" in d [
   #pagebreak()
-  #text(size:19pt,weight:"bold")[Held product comparison]
+  #block(text(size:19pt,weight:"bold")[Held product comparison])
   #let primary=d.stages.at(3).decision
   #tbl((1.2fr,1fr,1fr,.85fr,.7fr),("Source family","Individual loop / Base","Whole pairs loop / Base","Paired p","Losses"),primary.counts.pairs().map(x=>(x.at(0),paired(x.at(1).individual),paired(x.at(1).whole),rnd(x.at(1).p,digits:4),str(x.at(1).losses))))
   The masked service review credited #paired(d.service.individual) individual grounded answers and #paired(d.service.whole) complete source pairs (loop / Base). The separate qualitative reading credited #paired(d.qualitative.source_pairs.individual) individual answers and #paired(d.qualitative.source_pairs.whole) complete sources. Both reviews used a source-specific rationale sealed before model attribution. The reviewer was the project assistant.

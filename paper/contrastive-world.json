@@ -49,6 +49,22 @@
       "checked_bytes": 2528378567,
       "rebuilt": 3,
       "native_cases": 7
+    },
+    {
+      "id": "contrastive-world-fit-01",
+      "name": "Recurrent fit",
+      "passed": false,
+      "elapsed": 790.592857837677,
+      "peak_gib": 3.7727829329669476,
+      "max_seconds": 4380,
+      "archive": "c3ac432959ea3ee2a1585da33311a692a084c4f161af4a2a9c185acb75917996",
+      "window": "a087b0e106d13c4c8f25342a9298cddc2deea91fbf8559a9a4beeb8de91d1153",
+      "decision": {
+        "passed": false,
+        "status": "interrupted",
+        "reason": "System memory pressure level 2, 3.62 GiB available (floor 1.5 GiB)",
+        "durable_updates": 1152
+      }
     }
   ],
   "exposures": [
@@ -109,7 +125,7 @@
       "feature_bytes": 1073662468
     }
   ],
-  "stage_count": 2,
+  "stage_count": 3,
   "limits": {
     "wall_seconds": 4380,
     "available_gib": 1.5,
@@ -118,29 +134,20 @@
   "fit_target": 1953806,
   "preference_target": 28322,
   "latest": {
-    "id": "contrastive-language-features-01",
-    "name": "Reasoning and service extraction",
-    "passed": true,
-    "elapsed": 1874.003399848938,
-    "peak_gib": 1.5219561289995909,
+    "id": "contrastive-world-fit-01",
+    "name": "Recurrent fit",
+    "passed": false,
+    "elapsed": 790.592857837677,
+    "peak_gib": 3.7727829329669476,
     "max_seconds": 4380,
-    "archive": "a9dd6d4051d039d06c41c12f400aea9b0c5074c502a8f63c16a9738c78f5fbb7",
-    "window": "fd8dc25353cf699264e2f4ab5c13a465186cde7d75b0c384fb8e95900ad33770",
+    "archive": "c3ac432959ea3ee2a1585da33311a692a084c4f161af4a2a9c185acb75917996",
+    "window": "a087b0e106d13c4c8f25342a9298cddc2deea91fbf8559a9a4beeb8de91d1153",
     "decision": {
-      "examples": 6002,
-      "positions": 195333,
-      "alternatives": 4202,
-      "negative_positions": 51323,
-      "same_causal_prefix_reuses": 1415,
-      "feature_bytes": 2528378567,
-      "parity_passed": true,
-      "passed": true
-    },
-    "cold": "b7f97694b4f505303e944799306a2d478583c1107617416edac2ac789af3d214",
-    "checked_files": 6002,
-    "checked_bytes": 2528378567,
-    "rebuilt": 3,
-    "native_cases": 7
+      "passed": false,
+      "status": "interrupted",
+      "reason": "System memory pressure level 2, 3.62 GiB available (floor 1.5 GiB)",
+      "durable_updates": 1152
+    }
   },
   "enrollment": {
     "training": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
@@ -199,7 +206,7 @@
     ]
   },
   "corpus": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
-  "total_native_s": 4165.241750955582,
+  "total_native_s": 4955.834608793259,
   "source_words": {
     "locale": {
       "unassessed": 4
@@ -215,5 +222,70 @@
     "tables": {
       "below wording threshold": 48
     }
+  },
+  "partial_fit": {
+    "updates": 1152,
+    "targets": 666113,
+    "preferences": 9642,
+    "weights": "5f462e30bc1448a306426064ffdc6a11d309bc5e5e0cf2ca253be6921663474f",
+    "optimizer": "447cee40c1b0e5266de0f259e2b499a0aec540f454d6aa6f310b5c493c7520a6"
+  },
+  "query_partition": {
+    "plan": "f480046303fc8045c0fb7e547965254fdca406bf9d97ee32f7ac7a2b98ae6603",
+    "measurements": [
+      {
+        "id": "strategyqa/096acbba9f3e51c0f722",
+        "tokens": 513,
+        "prompt": "cdb372185a3873821aa6a8d82e23f1c046392cc43ff2e3f78082620e1f3d4281",
+        "ordinary_partition": 0.625,
+        "loop_partition": 0.578125,
+        "same_full_partition": 0.078125,
+        "same_split_partition": 0.125,
+        "top": [
+          8160,
+          8160,
+          8160,
+          8160
+        ]
+      },
+      {
+        "id": "finqa/AAPL/2012/page_24.pdf-2/action",
+        "tokens": 940,
+        "prompt": "b0076963e727e3bfbb62e6fef220a3ae238d87466a929c68e95f88804c416cf7",
+        "ordinary_partition": 0.921875,
+        "loop_partition": 0.953125,
+        "same_full_partition": 0.125,
+        "same_split_partition": 0.125,
+        "top": [
+          760,
+          760,
+          760,
+          760
+        ]
+      },
+      {
+        "id": "rehearsal/dolly-8767",
+        "tokens": 21,
+        "prompt": "68a93b2f5cad146506db9dfd007d0b7a65cf3f31d3955da2aa6d3143971aa932",
+        "ordinary_partition": 0.57421875,
+        "loop_partition": 0.578125,
+        "same_full_partition": 0.0703125,
+        "same_split_partition": 0.125,
+        "top": [
+          8160,
+          8160,
+          8160,
+          8160
+        ]
+      }
+    ],
+    "seconds": 2.2503792089992203,
+    "peak_bytes": 1688294076
+  },
+  "query_decision": {
+    "passed": false,
+    "status": "interrupted",
+    "reason": "Stock or cached Qwen parity failed",
+    "durable": 0
   }
 }

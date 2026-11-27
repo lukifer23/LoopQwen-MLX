@@ -2,6 +2,9 @@
 
 ## Source-conditioned recurrence
 
+The first source-conditioned optimizer stopped on system pressure after 790.59 native seconds, leaving 1,152 durable updates. The first tied-query extraction closed after its registered split-cache tolerance failed, with all three top tokens preserved. The ordinary packed donor showed the same partition sensitivity. The next study restores the first optimizer and compares native tiled and untiled gradients before allowing a further 3,500 seconds and 2.25 GiB peak. Both original decisions remain archived. [Three-page measured report](../paper/contrastive-world.pdf) · [New continuation](../research/experiments/streamed-world-fit-01.json) · [Frozen direct comparison](../research/experiments/streamed-world-transfer-01.json)
+
+
 The most recent direct comparison gained 49 objective answers over untouched Base and lost 25. The trained loop also lost eleven net fully usable answers in the 48-question source-based reasoning review. Its first-token wait increased. These outcomes closed the instruction-initialized conditional weights for release. [Complete study](../paper/loopqwen-conditional-primary-study.pdf)
 
 The next candidate trains a correction from four physical layer updates. The correction becomes zero if the repeated layer states contain no change. Source pairs teach the model to change its answer when an observed table, a qualitative situation or a service result changes. Both native extraction stages passed. Independent processes checked all 5,640 table files and 6,002 reasoning and service files, rebuilding six complete files from the original tokens. The optimizer and held comparison each have a separate maximum of 4,380 native seconds. [Live study paper built from closed stages](../paper/contrastive-world.pdf) · [Table verification](measurements/contrastive-table-features-01-cold.json) · [Language verification](measurements/contrastive-language-features-01-cold.json)
