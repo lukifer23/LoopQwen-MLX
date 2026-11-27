@@ -32,8 +32,11 @@ curl --fail --location https://zenodo.org/api/records/6578593/files/annotation.z
 curl --fail --location https://raw.githubusercontent.com/salesforce/WikiSQL/cffb423077756d04c1bac5bcd45167c86903fbcb/data.tar.bz2 -o data/research_external/wikisql/source.tar.bz2
 .venv/bin/python -m scripts.field_selection_packages
 .venv/bin/python -m scripts.field_selection_material
+.venv/bin/python -m scripts.field_selection_provenance
 .venv/bin/python -m scripts.field_selection_oracle --acquire
 ```
+
+A compact source snapshot retains all 140 original tables with 420 anonymous evidence ballots and the published held verdict votes. Run `.venv/bin/python -m scripts.field_selection_provenance --compact` to check this material offline. The policy add-on carries the eight original held wheels under `source-wheels/`.
 
 The independent oracle opens each original wheel as a ZIP and checks the name, version, declared Python constraint and the complete embedded distribution metadata. It also executes the registered queries in an in-memory SQLite database. Subsequent runs of the oracle can use the local wheel cache.
 

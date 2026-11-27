@@ -54,6 +54,8 @@ FIELD = Edition(
     "field-selection-update-06.json",
     "field-selection.bundle",
     (
+        ("field_selection_provenance", ("--compact",)),
+        ("field_selection_oracle", ()),
         ("field_selection_exposure", ()),
         ("field_selection_analysis", ("report",)),
         ("paper_field_selection", ()),
@@ -100,6 +102,13 @@ def make(tmp, revision, update, edition):
     files["sources/REASONED-EVIDENCE-SOURCES.md"] = (
         ROOT / "research/licenses/REASONED-EVIDENCE-SOURCES.md"
     )
+    if edition == FIELD:
+        for wheel in panel["wheels"]:
+            source = (
+                ROOT / "data/research_external/field_selection/wheels" / wheel["wheel"]
+            )
+            assert digest(source) == wheel["wheel_sha256"]
+            files["source-wheels/" + wheel["wheel"]] = source.read_bytes()
     rows = panel["rows"]
     # Select by enrollment order alone: the first story through both channels, a whole
     # practical contrast, and first retained table. No success or latency is consulted.
@@ -283,6 +292,10 @@ def main(edition=PROOF):
         ]
         for n in generated:
             (checkout / n).unlink()
+        if edition == FIELD:
+            wheel_cache = checkout / "data/research_external/field_selection/wheels"
+            wheel_cache.parent.mkdir(parents=True, exist_ok=True)
+            wheel_cache.symlink_to(work / "source-wheels")
         for module, args in edition.modules:
             code = (
                 NETWORK_GUARD
