@@ -1,6 +1,6 @@
 # LoopQwen-MLX
 
-[Release target, current evidence and verification plan](docs/RELEASE_EVIDENCE.md)
+[Four-page evidence overview](paper/evidence-overview.pdf) · [Every registration and archive](paper/research-scope.csv) · [Release target and verification plan](docs/RELEASE_EVIDENCE.md)
 
 **The full-context release processed two complete upstream lockfiles of 148,741 and 137,017 tokens. Neither model delivered the changed version and byte count.** The loop repeated its request during deliberation. Base called the line counter on the first file and generated the correct version internally on the second, then reached the shared output limit. Across both requests the loop took 469.75 seconds versus 413.24 for Base. Its post-first decode rate was higher and its peak allocation was lower. These measurements concern release 05, a different policy from the open-answer fit below. [Complete 122-page paper](paper/loopqwen-lockfile-study.pdf) · [Two-page full-context study](paper/locked-context.pdf) · [Four original request records](paper/locked-context-requests.csv)
 
