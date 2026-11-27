@@ -28,6 +28,9 @@ def main(verify):
             cwd=ROOT,
             check=True,
         )
+        subprocess.run(
+            [sys.executable, "scripts/verify_user_sessions.py"], cwd=ROOT, check=True
+        )
         tracked = read(ROOT / "paper/figure-sources.json")
         tracked.update(
             {

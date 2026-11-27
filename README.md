@@ -80,6 +80,8 @@ To use the opt-in native function adapter with the installed runtime and qualifi
   --max-tokens 384 --max-turns 3 --trace
 ```
 
+A local runtime wheel is available at `exports/wheels/loopqwen-0.1.0-py3-none-any.whl` (592,066 bytes). In an MLX environment with the pinned dependencies, install it with `uv pip install --offline --no-deps exports/wheels/loopqwen-0.1.0-py3-none-any.whl`. Pass the restored release 05 directory and the native adapter directory to `loopqwen ask` as above. An isolated wheel installation reproduced both turns of the Hindi package conversation and both turns of a real file conversation down to the generated IDs, observations and physical attention histories. It read the actual experiment file as 3,301 bytes and 35 lines. The native-format loop gave no package version on the Hindi requests. [Wheel hash and outside-checkout parity](docs/measurements/native-function-wheel.json) · [Both models and actual files](docs/measurements/native-function-installed-cli.json)
+
 Use `ask --compare-base` to try your own questions on the installed assistant and untouched ordinary Base. It runs them sequentially with the same opening prompt IDs and thinking budget. You get both replies, executed calls and observations, output counts, measured first-token and full-request time, and peak MLX bytes. The first request includes model loading. Follow-ups preserve each model’s own conversation and report whether the resulting prompt IDs still match. A single run uses recurrent-first order and the OS file cache can persist.
 
 ```sh
@@ -99,6 +101,8 @@ Add one or more `--follow-up "…"` arguments to keep a conversation open across
 The CLI also accepts `--catalog definitions.json` for keyed lookups, `--database data.sqlite --table records` for a read-only table, and `--calculator` for exact arithmetic. With `--trace` the response includes every token, submitted argument, callback result and turn time. For custom tools, create a `Tool(name, description, parameters, callback)` and pass it to `Assistant(directory).respond(question, tools)`. The [package example](examples/local_packages.py) uses the Python environment of the running process.
 
 With `--trace`, resident attention runs report each native layer, pass number, consumed offset and retained history. The tool model exposes separate entries for the two applications of layer 23, so a caller can inspect the actual states behind a generated answer.
+
+For model-written equations, `--checked-calculator` independently evaluates every side using exact rational arithmetic. A false claim raises an error. Both models answered 117 on a live pencil-count request; the loop executed and verified both equations. On 24 fresh human math questions the loop produced **9 grounded answers versus 0** for Base, and **9 correct final numbers versus 10** when tool use was optional for scoring. [Frozen comparison](research/results/checked-equations-field-01) · [Actual CLI calls](docs/measurements/checked-calculator-installed-cli.json)
 
 The installed assistant can inspect the CSV files you supply. It reads quoted UTF-8 records, counts data rows and looks up a named column at a one-based data row. Multiple files can be exposed in one conversation. To compare both models on a project measurement, run:
 

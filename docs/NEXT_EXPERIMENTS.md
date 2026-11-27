@@ -1,13 +1,14 @@
 # Research decisions
 
 
-## Current decisions for reasoning and usable functions
+## Completed decisions for reasoning and usable functions
 
-| Named question | Frozen comparison and decision |
+| Named question | Decision |
 |---|---|
-| Does a learned second pass improve ordinary prose across authors? | Compare the two-pass source-balanced return against untouched Base across 396 passages. Check per-source losses, top-one decisions, generation and runtime. The registered gate controls any matched-depth successor. [Registration](../research/experiments/selective-raw-return-01.json) |
-| Can the tool model recover from a real execution error? | Collect 256 free openings. At least 64 actual calculator exceptions are required before fitting or evaluating. Freeze the opening model and measure both fresh human final numbers and post-error completions, with field and public retention. [Registration](../research/experiments/callback-recovery-01.json) |
-| Will the loop sustain tool use on Qwen's public message format? | Fit the native function interface, then run 58 complete dialogues through the shipped loader and untouched Base. Compare fresh human arithmetic, real follow-ups, preserved public calls, first-token time, end-to-end time and peak allocation. A pass licenses independent confirmation and matched K1. A miss closes those jobs. [Registration](../research/experiments/native-function-dialogue-01.json) |
+| Does a learned second pass improve ordinary prose across authors? | Six unseen works had lower loss and eighteen had higher loss. The learned gate nearly closed on the fixed probe. Keep Base for ordinary prose. [396-passage result](../research/results/selective-raw-return-01) |
+| Can the tool model recover from an execution error? | On 38 affected fresh questions the repair obtained a numerical return on 37, with five grounded successes. Fresh final answers favored Base 26 to 10. Keep recovery opt-in. [120-item result](../research/results/callback-recovery-01) |
+| Will the loop sustain real tool use on the published Qwen interface? | Eight complete service conversations versus two for Base. Fresh arithmetic and first-token latency missed their gates. Keep the adapter opt-in. [58-dialogue result](../research/results/native-function-dialogue-01) |
+| Can the qualified model use an exact equation-checking calculator? | Nine correctly grounded answers versus zero, nine versus ten correct final quantities. The provider is usable with either model. [24 fresh questions](../research/results/checked-equations-field-01) |
 
 ## Deployment objective and decision sequence
 
