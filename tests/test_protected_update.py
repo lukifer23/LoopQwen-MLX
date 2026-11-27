@@ -24,7 +24,7 @@ def test_nonlinear_protection(monkeypatch, speed, expected):
     monkeypatch.setattr(
         followup_fit, "reference_loss", lambda model: mx.sum(model.point**2)
     )
-    adam = optim.AdamW(speed, weight_decay=0)
+    adam = optim.AdamW(speed, weight_decay=0, bias_correction=True)
     measured = followup_fit.protected_update(
         net,
         adam,
