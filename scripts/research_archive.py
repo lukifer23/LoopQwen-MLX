@@ -67,6 +67,18 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "table-reentry-fit-01":
+        from loopqwen.research.table_reentry_fit import verify as verify_warmup
+
+        return verify_warmup(root, decision)
+    if study == "table-execution-learning-01":
+        from loopqwen.research.table_policy_learning import verify as verify_policy
+
+        return verify_policy(root, decision)
+    if study == "table-policy-gradient-01":
+        from loopqwen.research.table_policy_primary import verify as verify_tables
+
+        return verify_tables(root, decision)
     if study == "integrated-assistance-01":
         from loopqwen.research.integrated_assistance import verify as verify_integrated
         return verify_integrated(root, decision)

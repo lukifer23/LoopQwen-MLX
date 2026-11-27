@@ -13,3 +13,5 @@ Run these commands from the checkout to reconstruct the receipts.
 .venv/bin/python -m scripts.table_policy_material
 .venv/bin/python -m scripts.table_policy_rewards
 ```
+
+The missed query asked for the first name listed and returned the first row. In the altered table the first two Name fields contain a dash. The first actual name appears in the third row. All three annotators chose that name. The diagnostic preserves this miss, which illustrates why even a plausible executable query needs to be tested on the changed source.

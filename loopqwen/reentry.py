@@ -48,7 +48,7 @@ class ReentryModel(LoopedModel):
         self.residuals = [
             ReentryResidual(self.args.hidden_size, rank) for _ in range(4)
         ]
-        self.step = mx.zeros((self.args.hidden_size,), dtype=mx.float32)
+        self.mixing = mx.zeros((self.args.hidden_size,), dtype=mx.float32)
 
     def first_visit(self, ids, cache=None, window_size=None, observer=None):
         return self._execute(
@@ -66,7 +66,7 @@ class ReentryModel(LoopedModel):
             state = residual(state)
         original = first.astype(mx.float32)
         return (
-            original + mx.tanh(self.step) * (state.astype(mx.float32) - original)
+            original + mx.tanh(self.mixing) * (state.astype(mx.float32) - original)
         ).astype(first.dtype)
 
     def hidden(self, ids, cache=None, window_size=None, observer=None):
