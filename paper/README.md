@@ -6,6 +6,7 @@ The manuscript covers the original shared-span experiments, the matched reasonin
 - [Current field study with 96 paired requests](role-binding.pdf) · [All item-level outcomes](role-binding-requests.csv) · [Blinded reading of table responses](role-binding-reading.csv)
 - [Original Winograd and package analysis](instruction-interpolation.pdf) · [All 56 paired requests](instruction-interpolation-requests.csv)
 - [Original 64-page paper preserved in field kit 01](loopqwen.pdf)
+- [Update 02 outside-checkout reconstruction of the complete edition and four two-model CLI replays](../docs/measurements/field-binding-update-02.json) · [Both full-context installed replays](../docs/measurements/field-binding-long-replay.json)
 - [Independent clean rebuilds, payload identity and outside-checkout replay](../docs/measurements/reproducible-runtime-wheel.json)
 - [Verified isolated wheel replay, including both Hindi failures](../docs/measurements/native-function-wheel.json)
 - [Native function conversations, actual actions and both final answers](native-function-requests.csv)

@@ -1,0 +1,61 @@
+{
+  "archive": "loopqwen-field-update-02.zip",
+  "source_revision": "ac5c68b657563a00f0ae396f463a55a8c192f692",
+  "incremental_history_verified": true,
+  "sha256": "371092df707a0de3828be4f3adb1c812ac5caca56e91fe26942ac8fee3b8c253",
+  "bytes": 38990468,
+  "verified_payloads": 101,
+  "qualified_context_inputs": [
+    131084,
+    131084
+  ],
+  "rebuilt_pdf_sha256": "72e493ab69b2f6bd352327c7db2a1ce3fa23ef7b1eab29f4ee529e0d16a6d3f7",
+  "required_kit_sha256": "ba5a1326e0205f2a5727a6f8229290a81e2b03f04cceab44ceb32e6700418e5c",
+  "wheel_sha256": "e6f679c7482a0e7ff3f9ca4b8236d314752dc2351d1ab19d800bd0d47f860125",
+  "wheel_source_revision": "1f1503f794bccf9fc982feff8e3b957275a8068a",
+  "empty_cache": true,
+  "fresh_venv": true,
+  "network_blocked": true,
+  "examples": [
+    {
+      "family": "reference",
+      "id": "wsc-235",
+      "study": "instruction-interpolation-01",
+      "requests_per_arm": 1,
+      "trace_sha256": {
+        "recurrent": "64d5a37846a7417d18108d527964c36bc5fc2ce4dd42aa7f45c3178cf2ee8e4d",
+        "base": "7a4e04b04faa471cc690e04abbe1d94328179c4d83f37750c6274bcebb09032a"
+      }
+    },
+    {
+      "family": "inventory",
+      "id": "safetensors",
+      "study": "instruction-interpolation-01",
+      "requests_per_arm": 2,
+      "trace_sha256": {
+        "recurrent": "2e38baf98971f8cf1a22186ceefe87f3841d3db5d36ca2ddfba0d36757a2d909",
+        "base": "8e820141f89cb80d7f457743e19373498c5098247a061a470258b96a55888ce0"
+      }
+    },
+    {
+      "family": "meaning",
+      "id": "3N2YPY1GI8C0VLIIEWAQGNOFZ2XVER-1",
+      "study": "role-binding-01",
+      "requests_per_arm": 1,
+      "trace_sha256": {
+        "recurrent": "7ee52f35fd33ef170d6ae33fa03b4abc904d8963d306b6c7fade8b0af6b245cb",
+        "base": "1f76cb2f900093447376dc791f5ff130904a5e159cd8da79d618a3cd403240cc"
+      }
+    },
+    {
+      "family": "table",
+      "id": "wiki-test-14572",
+      "study": "role-binding-01",
+      "requests_per_arm": 1,
+      "trace_sha256": {
+        "recurrent": "da38437063527b1a00ec1097d983f938615789536b63657fb2b29a6b63de3dee",
+        "base": "07d5b544e19587aaf655294b39d8eff9cd45afd09547c0164d05b85a6e6835c6"
+      }
+    }
+  ]
+}

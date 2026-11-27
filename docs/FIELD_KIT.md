@@ -2,6 +2,8 @@
 
 The kit contains the qualified release 05 weights, the untouched ordinary Base text weights, the installed Python runtime, six field-study archives and the technical paper. Use an Apple Silicon Mac with Python 3.12 and uv. The kit supplies the locked native MLX runtime and its Python dependencies. The model and tokenizer are local. The kit includes the original software licenses with the restored release.
 
+The [38.99 MB update](../exports/loopqwen-field-update-02.zip) supplies two experimental recurrent policies and the 72-page publication. It uses the original kit. Its SHA-256 is `371092df707a0de3828be4f3adb1c812ac5caca56e91fe26942ac8fee3b8c253`. A clean installation reproduced both complete 131,084-token default requests in 83.20 and 81.29 native seconds. [Installation commands](INSTRUCTION_UPDATE.md) · [Verified token streams and physical histories](measurements/field-binding-long-replay.json)
+
 From the extracted directory, verify the files, create an empty environment, install the supplied wheels and restore the model.
 
 ```sh
