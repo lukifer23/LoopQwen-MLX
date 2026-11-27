@@ -7,13 +7,6 @@ from mlx_lm.models.base import create_attention_mask, create_ssm_mask
 from .recurrence import Span
 
 
-def project_output(model, hidden, cache):
-    contextual = getattr(model, "project_cached", None)
-    return (
-        contextual(hidden, cache) if contextual is not None else model.project(hidden)
-    )
-
-
 class LoopedModel(nn.Module):
     def __init__(self, text, span=Span(), alpha=0.1):
         super().__init__()

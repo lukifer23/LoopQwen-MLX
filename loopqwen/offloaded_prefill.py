@@ -7,7 +7,7 @@ import numpy as np
 from mlx_lm.models.cache import KVCache
 
 
-from .looped_model import project_output
+from .output_projection import project_output
 
 
 class PrefixOnDisk(KVCache):

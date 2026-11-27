@@ -5,7 +5,7 @@ from time import perf_counter
 import mlx.core as mx
 
 
-from ..looped_model import project_output
+from ..output_projection import project_output
 
 
 def resident_cache(model, route, length, max_tokens, block, *, reserve_full_kv=False):
