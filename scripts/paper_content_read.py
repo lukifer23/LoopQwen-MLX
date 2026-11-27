@@ -204,4 +204,19 @@ def collect():
         if p.exists():
             committed(p)
             out[name.replace("-", "_")] = read(p)
+    delivery = {}
+    for stage in (
+        "staged-query-transfer-01",
+        "learner-prefix-transfer-01",
+        "bounded-read-transfer-01",
+    ):
+        p = DOC / (stage + "-joint-delivery.json")
+        if p.is_file():
+            committed(p)
+            receipt = read(p)
+            delivery[stage] = dict(
+                weights=receipt["source"]["policy"],
+                all=next(r for r in receipt["groups"] if r["family"] == "all"),
+            )
+    out["delivery"] = delivery
     return out

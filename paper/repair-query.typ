@@ -328,3 +328,21 @@ The two visits share all parameters. Query and content corrections have rank 160
   *User-facing prefix verification.* On a real financial report, the independently forked public serving path reproduced all 48 greedy output tokens of fresh prefill across both real models, including repeated questions after a different branch. All six physical attention histories had the expected lengths. The engineering test used #fmt(a.document_generation_parity.seconds) seconds.
  ]
 ]
+
+#if "content_read" in d and "delivery" in d.content_read [
+ #let a=d.content_read
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[What one checkpoint delivers on one request])
+ A user experiences cold load, opening, output generation and answer quality together. We matched each request by source identity and counted how often one recurrent checkpoint beat Base simultaneously on all five recorded costs. Faster total delivery can accompany a longer first wait, a slower opening or a wrong answer. The five costs are elapsed wall time, first-output latency, peak native allocation, throughput on newly processed opening tokens, and throughput after the first generated token. Each row uses only the paired requests belonging to its own weight digest.
+ #let pretty=(staged-query-transfer-01:"Source repair",learner-prefix-transfer-01:"Learner prefix",bounded-read-transfer-01:"Bounded write")
+ #tbl((1.1fr,.65fr,1fr,1fr,1fr),("Checkpoint","Requests","All five costs better","All five better and correct","No individual regression"),a.delivery.pairs().map(x=>{
+    let r=x.at(1).all; (pretty.at(x.at(0)),str(r.n),str(r.wins_every_cost),str(r.all_costs_and_delivered),str(r.no_item_regression))}))
+ #parbreak()
+ *Interpretation.* “No individual regression” allows ties and requires all five delivery costs, objective correctness and completion to be at least as good as Base for that request. A lower wall time on an unanswered request contributes no credit to the “and correct” column. The original source-masked reading remains a separate requirement for usable explanations and financially meaningful units.
+ #tbl((1.1fr,.8fr,.8fr,.8fr,.8fr),("Checkpoint","Slower first wait","Slower opening rate","Lost correct answer","Lost completion"),a.delivery.pairs().map(x=>{
+    let r=x.at(1).all;(pretty.at(x.at(0)),str(r.first_s_losses),str(r.opening_tps_losses),str(r.success_losses),str(r.completed_losses))}))
+ #parbreak()
+ *Reproducibility.* The accompanying source-delivery-requests.csv contains both raw measurements, both outcome indicators and the exact weight identity for each matched request. source-delivery-summary.csv retains every family. Timings reflect a single fixed arm order on this host. The observed strict inequalities include small hardware-dependent differences. They are descriptive. The precommitted statistical decisions use paired outcome differences across independent source units.
+ #parbreak()
+ *Release conclusion.* Establishing deployable superiority still requires the same learned weights to clear fresh reasoning and tool-use comparisons, maintain useful answers under complete document changes beyond 128K, preserve older abilities, and replicate with a second training seed. A matched, equally trained ordinary-depth control is required to attribute an improvement to recurrence. Results from different weight identities do not supply that evidence.
+]
