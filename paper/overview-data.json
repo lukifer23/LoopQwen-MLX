@@ -507,7 +507,7 @@
       "native_seconds": 231.60718108300352,
       "peak_bytes": 1784355486
     },
-    "paper": "5bb084c29dce8a85fd7d287cb08041735bed59c42eed36b4bc437770f5d6013d",
+    "paper": "82d8311e9d5417274c23cb2db40b4c90b5a5a609651f5561f99b58ca01204655",
     "fresh": {
       "passed": false,
       "gates": {
@@ -567,6 +567,68 @@
           "output": 17860,
           "opening_tps": 2874.400985123642,
           "decode_tps": 68.67063508680053
+        }
+      }
+    },
+    "bounded": {
+      "passed": false,
+      "gates": {
+        "strategy": false,
+        "strategy_completion": true,
+        "report": false,
+        "report_completion": true,
+        "peak": true,
+        "wall_s": true,
+        "first_s": true,
+        "opening_tps": false,
+        "decode_tps": true
+      },
+      "counts": {
+        "strategy": {
+          "total": [
+            13,
+            15
+          ],
+          "completed": [
+            19,
+            17
+          ],
+          "gains": 5,
+          "losses": 7,
+          "p": 0.7744140625,
+          "n": 24
+        },
+        "report": {
+          "total": [
+            1,
+            0
+          ],
+          "completed": [
+            19,
+            11
+          ],
+          "gains": 1,
+          "losses": 0,
+          "p": 1.0,
+          "n": 24
+        }
+      },
+      "costs": {
+        "candidate": {
+          "first_s": 17.788873998913914,
+          "wall_s": 68.23648241686169,
+          "peak": 806289430,
+          "output": 7101,
+          "opening_tps": 2931.190506027318,
+          "decode_tps": 143.92725903885727
+        },
+        "control": {
+          "first_s": 18.27113566803746,
+          "wall_s": 265.77842137700645,
+          "peak": 1811526694,
+          "output": 16920,
+          "opening_tps": 2957.9253544739836,
+          "decode_tps": 68.4934785080298
         }
       }
     },
@@ -2678,29 +2740,29 @@
     "source_sha256": "5befb8d8da533815e45659669df3ee77a867b5bebf24972243f6fdab15ba445c"
   },
   "scope": {
-    "registry": "ae64d7c961c2567ede382b2e476e37039bb05e794f2fac1e937d093d77ce7bc9",
+    "registry": "cf535afd0643615415a60deb264a8ea2a71cec928dabe7c71053bba225f9d5d7",
     "registrations": 210,
     "recovered": 4,
     "closed_worker_windows": {
-      "windows": 64,
-      "jobs": 189,
-      "study_names": 167,
-      "worker_hours": 28.725,
-      "index": "69c9f6c2a650b2f8c33aa7f793bd0524f0f408004320523cf80be8186ed4a731"
+      "windows": 65,
+      "jobs": 190,
+      "study_names": 168,
+      "worker_hours": 28.818,
+      "index": "4beea7dfcf9b1e570cb4d20820060084ac20e49b11718f6a90d8d21435d4e38a"
     },
     "totals": {
-      "payloads": 1459,
-      "bytes": 1227243230,
-      "primary/missed": 126,
+      "payloads": 1465,
+      "bytes": 1227426704,
+      "primary/missed": 127,
       "primary/passed": 69,
-      "primary/registered, no archive": 7,
+      "primary/registered, no archive": 6,
       "primary/archived without boolean gate": 7,
       "primary/superseded": 1,
       "recovered execution/archived without boolean gate": 2,
       "recovered execution/passed": 1,
       "recovered execution/missed": 1
     },
-    "index": "cc339284e8eba5e2210853657e4d38616ddf3e24063d0678ab580212593adda3"
+    "index": "ff33f22aab696a69bd19d70acc9e771e9a1b58e83456e1bd1c7781887c1f1e2e"
   },
   "four_layer": {
     "totals": [

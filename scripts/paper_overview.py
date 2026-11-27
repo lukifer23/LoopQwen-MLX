@@ -325,6 +325,8 @@ def build():
             }
             if "primary" in study.get("learner_prefix", {}):
                 repair["fresh"] = study["learner_prefix"]["primary"]
+            if "bounded_primary" in study.get("content_read", {}):
+                repair["bounded"] = study["content_read"]["bounded_primary"]
             if "reading" in study:
                 repair["primary"] = study["stages"][-1]["decision"]
                 repair["reading"] = study["reading"]

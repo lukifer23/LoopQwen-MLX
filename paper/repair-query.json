@@ -2309,6 +2309,322 @@
       0.015962056815624237,
       0.018852708861231804
     ],
+    "bounded_primary": {
+      "passed": false,
+      "gates": {
+        "strategy": false,
+        "strategy_completion": true,
+        "report": false,
+        "report_completion": true,
+        "peak": true,
+        "wall_s": true,
+        "first_s": true,
+        "opening_tps": false,
+        "decode_tps": true
+      },
+      "counts": {
+        "strategy": {
+          "total": [
+            13,
+            15
+          ],
+          "completed": [
+            19,
+            17
+          ],
+          "gains": 5,
+          "losses": 7,
+          "p": 0.7744140625,
+          "n": 24
+        },
+        "report": {
+          "total": [
+            1,
+            0
+          ],
+          "completed": [
+            19,
+            11
+          ],
+          "gains": 1,
+          "losses": 0,
+          "p": 1.0,
+          "n": 24
+        }
+      },
+      "costs": {
+        "candidate": {
+          "first_s": 17.788873998913914,
+          "wall_s": 68.23648241686169,
+          "peak": 806289430,
+          "output": 7101,
+          "opening_tps": 2931.190506027318,
+          "decode_tps": 143.92725903885727
+        },
+        "control": {
+          "first_s": 18.27113566803746,
+          "wall_s": 265.77842137700645,
+          "peak": 1811526694,
+          "output": 16920,
+          "opening_tps": 2957.9253544739836,
+          "decode_tps": 68.4934785080298
+        }
+      }
+    },
+    "bounded_reading": {
+      "passed": false,
+      "families": {
+        "strategy": {
+          "passed": false,
+          "gains": 4,
+          "losses": 4,
+          "p": 1.0,
+          "arms": {
+            "candidate": {
+              "partial": 7,
+              "grounded_usable": 7,
+              "unsupported": 6,
+              "preferred": 9,
+              "tie": 4,
+              "fully usable": 7,
+              "absent": 5,
+              "wrong": 5
+            },
+            "control": {
+              "absent": 7,
+              "grounded_usable": 7,
+              "unsupported": 9,
+              "preferred": 11,
+              "tie": 4,
+              "partial": 9,
+              "fully usable": 7,
+              "wrong": 1
+            }
+          }
+        },
+        "report": {
+          "passed": false,
+          "gains": 1,
+          "losses": 0,
+          "p": 1.0,
+          "arms": {
+            "candidate": {
+              "partial": 4,
+              "grounded_usable": 1,
+              "unsupported": 0,
+              "preferred": 3,
+              "tie": 11,
+              "wrong": 14,
+              "absent": 5,
+              "fully usable": 1
+            },
+            "control": {
+              "partial": 10,
+              "grounded_usable": 0,
+              "unsupported": 2,
+              "preferred": 10,
+              "tie": 11,
+              "absent": 13,
+              "wrong": 1
+            }
+          }
+        }
+      },
+      "plan": "b06ff43cd56a8cbc2793f85071be83178aef77661c5502499a82879d654c58ed",
+      "ratings": "7e9905d69c1829a93c02e997d14a6be46f830c6d779d14a12b7191821bc7168d"
+    },
+    "bounded_distribution": {
+      "plan": "afaecbd109ff23eaeec89191443b49aef8862d16c84cb3db7ca1ff5bb293a401",
+      "archive": "8b2c8a3627e637f441a076cbb022499bfe67b03a305e6119e260667cafab03ac",
+      "families": {
+        "strategy": {
+          "n": 24,
+          "latency": {
+            "loop": {
+              "wall_s": {
+                "p50": 1.0153515624988358,
+                "p95": 3.0584102044726023
+              },
+              "first_s": {
+                "p50": 0.41381237548193894,
+                "p95": 0.5148525250406237
+              }
+            },
+            "base": {
+              "wall_s": {
+                "p50": 4.849796583992429,
+                "p95": 6.098318534810096
+              },
+              "first_s": {
+                "p50": 0.41448495851363987,
+                "p95": 0.5270597188238753
+              }
+            }
+          },
+          "loop_gained_and_faster": 5,
+          "loop_lost_and_slower": 0,
+          "both_correct": 8,
+          "faster_on_both_correct": 8
+        },
+        "report": {
+          "n": 24,
+          "latency": {
+            "loop": {
+              "wall_s": {
+                "p50": 0.8851117710000835,
+                "p95": 3.617273566892254
+              },
+              "first_s": {
+                "p50": 0.2881804165081121,
+                "p95": 0.4953337919374462
+              }
+            },
+            "base": {
+              "wall_s": {
+                "p50": 5.800354375009192,
+                "p95": 8.568943841999861
+              },
+              "first_s": {
+                "p50": 0.2877908340014983,
+                "p95": 0.49038118929020125
+              }
+            }
+          },
+          "loop_gained_and_faster": 1,
+          "loop_lost_and_slower": 0,
+          "both_correct": 0,
+          "faster_on_both_correct": 0
+        },
+        "all": {
+          "n": 48,
+          "latency": {
+            "loop": {
+              "wall_s": {
+                "p50": 0.945363291510148,
+                "p95": 3.460569083338487
+              },
+              "first_s": {
+                "p50": 0.3623551874770783,
+                "p95": 0.5145240584533894
+              }
+            },
+            "base": {
+              "wall_s": {
+                "p50": 5.731136687012622,
+                "p95": 7.951227042000391
+              },
+              "first_s": {
+                "p50": 0.3740941455180291,
+                "p95": 0.5036370416230056
+              }
+            }
+          },
+          "loop_gained_and_faster": 6,
+          "loop_lost_and_slower": 0,
+          "both_correct": 8,
+          "faster_on_both_correct": 8
+        }
+      },
+      "intervals": [
+        {
+          "family": "strategy",
+          "metric": "correct",
+          "source_clusters": 24,
+          "n": 24,
+          "loop_minus_base": -0.08333333333333333,
+          "lower": -0.375,
+          "upper": 0.20833333333333334
+        },
+        {
+          "family": "strategy",
+          "metric": "completed",
+          "source_clusters": 24,
+          "n": 24,
+          "loop_minus_base": 0.08333333333333333,
+          "lower": -0.16666666666666666,
+          "upper": 0.3333333333333333
+        },
+        {
+          "family": "strategy",
+          "metric": "wall_s",
+          "source_clusters": 24,
+          "n": 24,
+          "loop_minus_base": -3.578532520793184,
+          "lower": -4.033916129882224,
+          "upper": -3.1137059154216935
+        },
+        {
+          "family": "strategy",
+          "metric": "first_s",
+          "source_clusters": 24,
+          "n": 24,
+          "loop_minus_base": -0.0200757169999027,
+          "lower": -0.06672885169076229,
+          "upper": 0.005507860875877667
+        },
+        {
+          "family": "report",
+          "metric": "correct",
+          "source_clusters": 24,
+          "n": 24,
+          "loop_minus_base": 0.041666666666666664,
+          "lower": 0.0,
+          "upper": 0.125
+        },
+        {
+          "family": "report",
+          "metric": "completed",
+          "source_clusters": 24,
+          "n": 24,
+          "loop_minus_base": 0.3333333333333333,
+          "lower": 0.041666666666666664,
+          "upper": 0.625
+        },
+        {
+          "family": "report",
+          "metric": "wall_s",
+          "source_clusters": 24,
+          "n": 24,
+          "loop_minus_base": -4.652381602546181,
+          "lower": -5.500967076842244,
+          "upper": -3.808314196953082
+        },
+        {
+          "family": "report",
+          "metric": "first_s",
+          "source_clusters": 24,
+          "n": 24,
+          "loop_minus_base": -1.8519213578353327e-05,
+          "lower": -0.0044233802985521225,
+          "upper": 0.003938515281394453
+        }
+      ]
+    },
+    "bounded_calculator_audit": {
+      "archive": "8b2c8a3627e637f441a076cbb022499bfe67b03a305e6119e260667cafab03ac",
+      "reading": "f6d97c0e9fbefd0f671f80dd49e8b4abf1a15ae6510dfae86136e65458359cfd",
+      "totals": {
+        "candidate": {
+          "requests": 24,
+          "attempted": 23,
+          "successful_call": 23,
+          "all_magnitudes": 5,
+          "correct_last_value": 2,
+          "delivered_strict": 1,
+          "completed": 19
+        },
+        "control": {
+          "requests": 24,
+          "attempted": 4,
+          "successful_call": 1,
+          "all_magnitudes": 1,
+          "correct_last_value": 0,
+          "delivered_strict": 0,
+          "completed": 11
+        }
+      },
+      "method": "Descriptive analysis after unmasking. Replay every observed call including errors. Count presence of all reference numerical magnitudes in the last successful call, allowing literal decimal or rational spellings. This is permissive: matching the digits does not establish the correct row, role, sign or operation. Check the last returned value separately using the registered tolerance."
+    },
     "full_document_adjoint": {
       "passed": false,
       "reason": "Full-document update resource limit",
@@ -2565,6 +2881,36 @@
       "seconds": 4.802498749981169,
       "peak_bytes": 1612981508
     },
+    "full_document_kernel": {
+      "passed": true,
+      "gates": {
+        "norm": true,
+        "nll": true,
+        "address": true,
+        "peak": true,
+        "time": true,
+        "system": true
+      },
+      "plan": "670d7e0d48b62f5a93520d44aba85769f9f7554c78d8a4723972482e927a87c4",
+      "initial": "28255fc81f91412769e7e4998db50144aba8b02547096d64a39b9def1253f174",
+      "index": 1,
+      "positions": 7,
+      "context": 147481,
+      "seconds": 1.0841403750237077,
+      "peak_bytes": 1534346467,
+      "gradient": 182.09326171875,
+      "nll": 1.1078083515167236,
+      "address": 10.092508316040039,
+      "prior_peak": 9554017866,
+      "reference": {
+        "epoch": 0,
+        "index": 1,
+        "gradient": 182.09466552734375,
+        "loss": 11.200315475463867,
+        "nll": 1.1078072786331177,
+        "address": 10.092508316040039
+      }
+    },
     "delivery": {
       "staged-query-transfer-01": {
         "weights": "7b8e5773e537065e27bb05a36ad622fa0cded4f0ea065a963ab81edba400dc58",
@@ -2614,6 +2960,31 @@
           "success_losses": 4,
           "completed_gains": 20,
           "completed_losses": 3
+        }
+      },
+      "bounded-read-transfer-01": {
+        "weights": "b9c85b867ca9b625e12bbd1c52b894c90b345def46058f9735040abf7555b99f",
+        "all": {
+          "study": "bounded-read-transfer-01",
+          "family": "all",
+          "n": 48,
+          "wins_every_cost": 12,
+          "all_costs_and_delivered": 5,
+          "no_item_regression": 9,
+          "wall_s_gains": 48,
+          "wall_s_losses": 0,
+          "first_s_gains": 18,
+          "first_s_losses": 30,
+          "peak_gains": 48,
+          "peak_losses": 0,
+          "opening_tps_gains": 13,
+          "opening_tps_losses": 35,
+          "decode_tps_gains": 48,
+          "decode_tps_losses": 0,
+          "success_gains": 6,
+          "success_losses": 7,
+          "completed_gains": 18,
+          "completed_losses": 8
         }
       }
     }

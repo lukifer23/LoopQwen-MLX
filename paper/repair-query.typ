@@ -323,6 +323,10 @@ The two visits share all parameters. Query and content corrections have rank 160
   #parbreak()
   *Native full-context differentiation.* The first differentiated training example processed 147,432 common document tokens and all seven supervised suffix positions. The complete gradient norm was #fmt(a.full_document_adjoint.history.first().gradient). MLX peak allocation was #fmt(a.full_document_adjoint.peak_bytes/1073741824) GiB, above the 3 GiB limit. The fit stopped after this update. None of the four held packages were scored. This closed the Foundry and Agave release comparison for these weights.
  ]
+ #if "full_document_kernel" in a [
+  #parbreak()
+  *Reducing native peak allocation.* A separate kernel computed per-partition softmax moments over the same complete keys and values. It needs the softmax-weighted key, incoming value gradient, and their product to recover the query derivative. On the original 147,481-position example its gradient norm was #fmt(a.full_document_kernel.gradient,n:4) versus #fmt(a.full_document_kernel.reference.gradient,n:4), and its peak allocation was #fmt(a.full_document_kernel.peak_bytes/1073741824) GiB. The target NLL differed by #fmt(calc.abs(a.full_document_kernel.nll - a.full_document_kernel.reference.nll),n:7) nats/token. This single-example equivalence check used no held questions.
+ ]
  #if "document_generation_parity" in a [
   #parbreak()
   *User-facing prefix verification.* On a real financial report, the independently forked public serving path reproduced all 48 greedy output tokens of fresh prefill across both real models, including repeated questions after a different branch. All six physical attention histories had the expected lengths. The engineering test used #fmt(a.document_generation_parity.seconds) seconds.
@@ -364,4 +368,19 @@ The two visits share all parameters. Query and content corrections have rank 160
   let label=(wall_s:"Wall seconds",first_s:"Summed first-token seconds",peak:"Peak MLX GiB",opening_tps:"New opening tokens/s",decode_tps:"Post-first tokens/s",output:"Total emitted tokens")
   let div=if k=="peak"{1073741824}else{1};(label.at(k),fmt(r.costs.candidate.at(k)/div),fmt(r.costs.control.at(k)/div))}))
  *Decision.* #if r.passed and a.bounded_reading.passed [The registered product comparison and source-quality assessment both passed.] else [The complete product and masked quality requirement failed. Preregistered confirmation and release evaluation of this checkpoint closed.]
+]
+
+
+#if "content_read" in d and "bounded_primary" in d.content_read [
+ #pagebreak()
+ #block(text(size:19pt,weight:"bold")[Where a valid tool call lost the answer])
+ All 24 financial requests used complete reports. Both decoders could select their own expression, inspect the real calculator return and answer in the source units. We replayed every executed expression. Among final successful calls, the loop used all required operand magnitudes on five reports and Base on one. Two loop calls and zero Base calls returned the right amount. The project reviewer identified one correct delivered loop conclusion and two Base conclusions when a supporting call was optional. Requiring a correct executed call and its delivered quantity credited one loop answer and zero Base answers.
+ #parbreak()
+ *A successful delivery.* The loop subtracted 9,778 from 4,518 and reported the decrease of 5,260 awarded shares. On another report it chose the correct expression, 598 divided by 1,690 times 100. The calculator returned the exact fraction 460/13, approximately 35.38%. The model delivered 46.0%. On an appliances question it subtracted the two calendar years and returned one. The requested source values were 680 and 774 million. One failure occurred after a correct calculation, the other before execution.
+ #parbreak()
+ *What the reasoning score measures.* The registered choice scorer credited 13 loop and 15 Base answers. Reading the entire response for the actual conclusion credited 13 and 16. One Base answer opened affirmatively about one film and subsequently drew the correct comparison across both films. Requiring a complete supported explanation reduced each score to seven. The 24 original topics are paired, with five loop gains and seven losses under the frozen choice rule. A 10,000-draw topic bootstrap gives a 95% percentile interval from −37.5 to +20.8 percentage points for the loop’s accuracy difference. The corresponding financial interval spans 0 to +12.5 points. With one discordant financial success, the exact paired two-sided test gives p = 1.
+ #parbreak()
+ *Delivery.* Median reasoning wall time was 1.02 versus 4.85 seconds and median financial wall time was 0.89 versus 5.80 seconds. The loop finished 19 reasoning and 19 financial requests. Base finished 17 and 11 respectively. Across the 48 requests the loop emitted 7,101 tokens versus 16,920. Both the shorter emissions and the faster post-first token rate contributed to lower total time. All eight reasoning questions both systems answered correctly were faster on the loop. The source-level intervals and all 96 individual request records accompany this paper.
+ #parbreak()
+ *Limitations.* One project reviewer assessed the anonymous responses. Donor training and weight precision differ between the deployed candidates. A source-level accuracy difference at these sample sizes is imprecise, and a single paired runtime per request does not establish performance under concurrent use. The failed comparison closed the independent seed, equal-training depth control, broad retention and long-context confirmation for these weights.
 ]
