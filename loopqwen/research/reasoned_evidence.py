@@ -241,6 +241,8 @@ def run(
     name=NAME,
     qualify=teach,
     trainer=fit,
+    compiler=compile_layer,
+    after_compile=None,
     extra_sources=(),
     decision_rule=outcome,
     score_fn=score,
@@ -295,7 +297,9 @@ def run(
         guard.check()
         mx.reset_peak_memory()
         if not (root / "compiled.json").exists():
-            compile_layer(s["checkpoint"], root)
+            compiler(s["checkpoint"], root)
+        if after_compile is not None:
+            after_compile(s["checkpoint"], root)
         gc.collect()
         mx.clear_cache()
         guard.check()

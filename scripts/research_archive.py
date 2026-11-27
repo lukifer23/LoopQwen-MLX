@@ -67,6 +67,9 @@ def verify(root):
     require(index == checksums(root), "Archive integrity")
     decision = read(root / "decision.json")
     study = read(root / "registration.json")["id"]
+    if study == "integrated-assistance-01":
+        from loopqwen.research.integrated_assistance import verify as verify_integrated
+        return verify_integrated(root, decision)
     if study == "visit-residual-01":
         from loopqwen.research.visit_residual_study import verify as verify_visit_residual
 

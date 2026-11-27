@@ -14,7 +14,8 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.paper_extended_prefix import build as prefix
-from scripts.visit_residual_reading import DOC, PANEL, ROOT, build as reading
+from scripts.visit_residual_reading import DOC, PANEL, ROOT
+from scripts.visit_residual_reading import build as reading
 
 P = Path("paper")
 ARMS = ("candidate", "control")

@@ -7,7 +7,8 @@ from loopqwen import qwen_tools
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.research.cross_view_study import tokenizer
-from scripts.dialogue_database_material import TRAIN as DB_TRAIN, PANEL as DB_PANEL
+from scripts.dialogue_database_material import PANEL as DB_PANEL
+from scripts.dialogue_database_material import TRAIN as DB_TRAIN
 from scripts.human_assistance_sources import DEST as HUMAN
 
 TRAIN = Path("research/data/integrated-assistance-training.json")

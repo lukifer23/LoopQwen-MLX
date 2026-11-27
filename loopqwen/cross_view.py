@@ -66,6 +66,17 @@ class CrossViewAssistant(Assistant):
             or digest(folder / "tool-model.json") != recipe["metadata_sha256"]
         ):
             raise ValueError("Cross-view recurrent checkpoint identity changed")
+        if spec.get("merged_task_updates"):
+            manifest = policy / "task-merge.json"
+            receipt = read(manifest)
+            if (
+                digest(manifest) != compiled.get("merge")
+                or receipt["compiled"] != compiled["weights"]
+                or receipt["new_expert"] != fit["weights"]
+                or receipt["parents"] != spec["merged_task_updates"]["parents"]
+                or receipt["density"] != spec["merged_task_updates"]["density"]
+            ):
+                raise ValueError("Merged recurrent projections differ from their sources")
         if (policy / "checksums.json").exists():
             inventory = read(policy / "checksums.json")
             if any(
