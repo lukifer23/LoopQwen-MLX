@@ -167,6 +167,14 @@ def build():
     if (elastic / "training-free-generation.json.gz").exists():
         out["specificity"] = specificity(True, name=ATTEMPTS[-1])
         fit_plot(stages[-1]["decision"]["mean_nll_gain"])
+        for tag, filename in (
+            ("channel_audit", "elastic-training-channels.json"),
+            ("sql_reproduction", "elastic-sql-reproduction.json"),
+        ):
+            source = DOC / filename
+            if source.is_file():
+                committed(source)
+                out[tag] = read(source)
         reading = DOC / "elastic-qualitative-training-reading.json"
         if reading.is_file():
             committed(reading)

@@ -233,6 +233,92 @@
       }
     }
   },
+  "channel_audit": {
+    "fit": "0c92ef72714baf3c2e43ff42e2e2d29446043d571fd432f1f34edda409267837",
+    "training": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
+    "emissions": "39a3af30b74b3d86f9272bf1248c1588d072cee309e9ace051f510dcab79b068",
+    "training_fields": {
+      "operator": {
+        "turns": 942,
+        "with_reasoning_words": 0
+      },
+      "inspect": {
+        "turns": 942,
+        "with_reasoning_words": 0
+      },
+      "resolved": {
+        "turns": 1884,
+        "with_reasoning_words": 0
+      },
+      "full_rows": {
+        "turns": 1872,
+        "with_reasoning_words": 0
+      },
+      "qualitative": {
+        "turns": 2402,
+        "with_reasoning_words": 0
+      },
+      "service_action": {
+        "turns": 1800,
+        "with_reasoning_words": 0
+      },
+      "service_reply": {
+        "turns": 1800,
+        "with_reasoning_words": 0
+      }
+    },
+    "generation": {
+      "operator": {
+        "turns": 24,
+        "with_thinking_words": 0,
+        "thought_tokens": 24,
+        "delivered_visible_words": 612,
+        "emitted": 1664,
+        "completed": 24,
+        "correct": 14
+      },
+      "qualitative": {
+        "turns": 24,
+        "with_thinking_words": 0,
+        "thought_tokens": 24,
+        "delivered_visible_words": 699,
+        "emitted": 1219,
+        "completed": 23,
+        "correct": 5
+      },
+      "service_reply": {
+        "turns": 24,
+        "with_thinking_words": 0,
+        "thought_tokens": 24,
+        "delivered_visible_words": 537,
+        "emitted": 843,
+        "completed": 24,
+        "correct": 21
+      }
+    },
+    "scope": "The new contrastive corpus is counted once before optimizer resampling. For the free training probes, all emitted tokens before the first thinking close are counted, including whitespace. A word requires the same Unicode word matcher as the previous product study. Natural-language reasoning may also appear after that boundary. These counts measure channel use and do not determine correctness."
+  },
+  "sql_reproduction": {
+    "archive": "0c92ef72714baf3c2e43ff42e2e2d29446043d571fd432f1f34edda409267837",
+    "streams": "39a3af30b74b3d86f9272bf1248c1588d072cee309e9ace051f510dcab79b068",
+    "training": {
+      "research/sources/contrastive-worlds/training.json.gz": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
+      "research/sources/program-language/training.json.gz": "ee61a192f6156b9a58801d30b26292d3c2419554d35571031fb2c9aef5ff32e2"
+    },
+    "counts": {
+      "sources": 24,
+      "statements": 24,
+      "instances": 150,
+      "individual_correct": 87,
+      "partial_sources": 0,
+      "whole_sources": 14,
+      "whole_instances": 87,
+      "whole_distinct_values": 14,
+      "whole_exact_expert": 10,
+      "whole_exact_any_training_target": 10
+    },
+    "interpretation": "Exact string equality against positive expert statements in both training corpora. Surface differences alone do not establish novel algorithms. The model saw all 24 questions during fitting; this distinguishes empirical recovery of enrolled programs from ability on unseen requests. All worlds were actually queried in the archived fit."
+  },
   "training_reading": {
     "registered": {
       "individual": 5,
