@@ -1,0 +1,5 @@
+{
+  "study": "file-evidence-01",
+  "timing": "Registered during training before evaluation or inspection of generated model answers.",
+  "rule": "For sensitivity only, remove an entire article if either excerpt or the claim is identical to an enrolled training text after numeric normalization, or if the nearest training text in the same field has five-word shingle Jaccard >=0.60. Measure the blinded grounded full-pair score for both models in both file and inline modes. Preserve every article in the registered primary. Number-normalized wording matches affect two film articles. All selected training and held-out page titles differ."
+}

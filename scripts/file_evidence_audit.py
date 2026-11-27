@@ -138,6 +138,16 @@ def review(root, blind):
         r["case"]: r["rating"]
         for r in read("research/diagnostics/file-evidence-source-reading.json")
     }
+    overlap = read("docs/measurements/file-evidence-source-overlap.json")["fields"]
+    near = {
+        row["id"]
+        for source in overlap.values()
+        for row in source["items"]
+        if row["normalized_exact"] or row["five_word_jaccard"] >= 0.6
+    }
+    template_cases = {
+        w["cluster"] for w in rows if w["id"] in near or w["cluster"] in near
+    }
     out = {}
     for arm, records in arms.items():
         bins = {}
@@ -168,6 +178,13 @@ def review(root, blind):
             totals["direct_pairs"] = sum(notes[c] == "direct" for c in pairs)
             totals["correct_direct_pairs"] = sum(
                 notes[c] == "direct" and all(s[0] for s in p) for c, p in pairs.items()
+            )
+            totals["distinct_wording_pairs"] = sum(
+                c not in template_cases for c in pairs
+            )
+            totals["correct_distinct_wording_pairs"] = sum(
+                c not in template_cases and all(s[0] for s in p)
+                for c, p in pairs.items()
             )
             totals["two_returned"] = (
                 sum(all(s[2] for s in p) for p in pairs.values())
