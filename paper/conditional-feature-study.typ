@@ -1,0 +1,59 @@
+#set document(title:"Training a readout on the second visit to four shared Qwen layers",author:"LoopQwen-MLX project")
+#set page(paper:"us-letter",margin:(x:.76in,y:.7in),numbering:"1")
+#set text(font:"Libertinus Serif",size:11pt)
+#set par(leading:.48em,spacing:.58em)
+#let d=json("conditional-feature-study.json")
+#let p=d.parity
+#let rd(x,n)=str(calc.round(x,digits:n))
+#let note(body)=text(size:9.5pt,body)
+#text(size:24pt,weight:"bold")[Training a readout on the second visit to four shared Qwen layers]
+#linebreak()
+#text(size:13pt)[Native architecture, human supervision and causal verification on Apple Silicon]
+#linebreak()
+LoopQwen-MLX project · November 2026
+
+*Question.* Can a loop recover useful information from another visit to the same physical layers while retaining the language ability it had before the visit? The preceding Base-rooted model took 301 seconds for 268 requests versus 1,306 for untouched Base, but it returned the same literal in 45 of 48 table questions. On 48 masked source-reading questions its fully usable answers trailed Base 22 to 29. This study changes both the initialization and the training signal. It records the computation required before fitting or making a held-out quality claim.
+
+*Physical model.* We start with the published Qwen3.5-0.8B instruction sibling and preserve the original BF16 Qwen3.5-0.8B-Base as the product comparator. The 24-layer instruction decoder uses an affine four-bit representation for its linear and embedding matrices, with 64 values per quantization group. The exported text pack contains #d.backbone.tensors tensors and #d.backbone.bytes bytes. Three gated-delta layers and one attention layer at indices 20–23 execute twice. Every one of the 28 execution sites keeps separate state, although both visits reference exactly the same four physical layers. The base and instruction candidates have distinct upstream weights.
+
+Let $h_0$ be the exit of the ordinary 24 layers, and $h_1, dots, h_4$ the four successive hidden states on the second visit. For each token we compute a channel gate $g = tanh(b + G(N(h_0)))$. The recurrent output before the final model normalization is
+
+$ z = h_0 + g dot (h_4 - h_0) + sum_(i=1)^4 r_i C_i(h_i / r_i). $
+
+Here the gate multiplication is elementwise, $N$ is RMS normalization, and $r_i$ is the channel RMS, including the numerical stabilizer. Each $C_i$ has a rank-160 down-projection, SiLU activation and up-projection. $G$ uses rank 32. The width is 1,024. Four corrections, one gate and its channel bias give 1,377,280 trainable parameters. Zero up-projections and a zero bias give the ordinary instruction exit at initialization. At inference the readout can act on the last prompt position while the recurrent layers process the full prefix.
+
+*Initialization check.* On a registered #(d.initial_test_tokens)-token prefix the initialized loop exactly reproduced every one of #p.vocab ordinary instruction logits within each of the cached and uncached execution paths. Splitting the cached prefix into two pieces preserved the top token (#p.top_chunk) and gave maximum logit difference #p.max_chunk_logit_difference. All 28 history slots were distinct. The three pairs of repeated gated-delta layers held different convolution buffers and recurrent states. These checks establish the execution path on this opening. They cannot establish an improvement from more depth.
+
+#image("conditional-feature-study.svg",width:100%)
+#note[Figure 1. Left, measured target positions and scheduled supervised positions including repetitions. Right, actual state changes after each repeated layer at the final token of the initialization probe.]
+
+#pagebreak()
+#text(size:20pt,weight:"bold")[What the model sees during fitting]
+
+The development sources contribute 7,591 complete assistant turns, including 7,587 distinct full token sequences. Each turn uses the published Qwen thinking-enabled template. Input and output are tokenized at the real generation boundary. All retained targets include their natural termination. The source builder admits complete sequences up to 1,792 tokens and replies up to 384. The published arithmetic solutions contain human reasoning, and the natural instructions and table descriptions contain complete human answers.
+
+#table(columns:(1.7fr,.75fr,.95fr,1.05fr,.85fr),stroke:none,inset:4pt,fill:(x,y)=>if y==0 {rgb("#dcece6")} else if calc.odd(y){rgb("#f1f5f3")},[*Supervision source*],[*Turns*],[*Positions*],[*Fit labels*],[*Negative positions*],..d.groups.map(r=>([#r.source],[#r.examples],[#r.positions],[#r.supervised],[#r.alternate_positions])).flatten())
+#note[Table 1. “Positions” counts every correct next-token target once per source turn. “Fit labels” counts planned use over two deterministic shuffled epochs. Alternate positions are separate, independently conditioned evaluations of changed fragments in 176 executable incorrect SQL programs.]
+
+*Data and leakage checks.* The broad instructions include 384 human answers in each of eight Dolly categories. The 1,024 GSM8K worked solutions end in a verified numerical operation. FeTaQA gives prose supported by multiple facts on the same table. The program data originate in human SQUALL annotations. A program earns inclusion only after the read-only SQLite tool returns the correct singleton on both independently human-labeled tables. Each wrong alternative returns a different scalar on both. The training corpus also retains prior conversations with real tools. Original and altered table versions from a source stay together in one split.
+
+We reserved 24 fresh Dolly requests and 24 fresh FeTaQA source questions, the latter presented both inline and with a mounted table. Against 1,339,970 word occurrences across every training role, none of the 105 fresh human question, context or reference fields appeared in full. The longest contiguous overlap was nine words. Shared phrasing and upstream model pretraining remain possible. The older 268 requests test retention on repeatedly evaluated material.
+
+*Native construction.* Each projected label uses the hidden state ending at its preceding token. We keep the five actual BF16 physical states at that position while the frozen network runs under MLX on Apple Silicon. Positive and rejected SQL suffixes pass through the decoder separately. In all, #d.positive_positions correct positions and #d.negative_positions alternate positions occupied #d.feature_bytes bytes. The measured construction consumed #rd(d.worker_seconds,2) worker-seconds and peaked at #rd(d.peak_gib,3) GiB of MLX allocation. The subsequent learned readout and vocabulary normalization use these states directly.
+
+An independent cold-loaded model constructed the sequence of 24 physical layers and four repeats explicitly. Across #d.replay_turns selected turns or alternatives it reproduced all five recorded states at each of #d.replay_positions positions, channel for channel. On #d.left_checks separately truncated prefixes, #d.left_top_matches ordinary-output argmaxes matched. Median relative state RMS difference was #rd(d.relative_rms_median,5) and maximum was #rd(d.relative_rms_max,5). Maximum absolute discrepancy in the single-label negative log probability was #rd(d.left_nll_max,4) nats. Sequence-length changes affect BF16 kernels, so both the bitwise full-sequence results and shorter-prefix discrepancies are reported.
+
+#pagebreak()
+#text(size:20pt,weight:"bold")[Optimization and decision rules]
+
+*Registered fit.* The intended optimizer is AdamW with learning rate 0.00032, weight decay 0.01, global gradient norm clipping at one and four accumulated microbatches. The two shuffled epochs schedule #d.planned_updates updates and 1,175,348 correct labels. Of these, 606,970 are nonwhite visible prose tokens, 189,696 nonwhite deliberation tokens, and 218,712 nonwhite tool-action tokens. The other 159,970 are whitespace, closing delimiters and termination. Programs are repeated eight times per epoch and answers after scalar reads three times. Every retained correct target position contributes full-vocabulary cross entropy.
+
+A second loss compares the mean conditional log probability across the changed SQL span on each side of a verified correct/incorrect pair. Both sides are conditioned on their own causal tokens. When an edit is an insertion, one common continuation is included on each side. The schedule cycles through all alternatives in 2,064 presentations. For mean chosen-minus-rejected log odds $s$, the extra term is $48 log(1 + exp(1 - s))$. The summed objective is divided by the number of correct next-token labels in the update. It supplies supervision when different SQL statements are syntactically valid and produce different, well-typed results.
+
+*Prerequisite.* A maximum of 4,350 native seconds is registered per stage. The fit must finish all exposures with finite nonzero gradients, improve mean likelihood by at least 0.08 nats across seven equally weighted training groups, and keep each of four broad training-group losses within 0.02 nats of initialization. An independent practical test within the training set requires six of 24 preselected questions to yield freely decoded programs correct on both worlds, using at least four different correct statements. A fitting failure closes the registered held comparison.
+
+*Transfer and attribution.* The registered direct comparison uses 340 ordered openings against untouched ordinary-depth Base on the same machine. Both models use identical initial token IDs, tool declarations, thinking-enabled greedy generation, up to three turns and 384 tokens per turn. There is no candidate SQL list for decoding. Metrics include exact and source-grounded task success, completion, fully usable responses, unsupported assertions, source-paired direction, first-token time, wall time, prefill and decode rates, and peak memory. A further 156 masked comparisons cover database responses, changed tables, multi-fact explanations and open questions. A qualified candidate must then retain its gains under an independent training seed, beat an equally trained ordinary-depth instruction sibling, and run from the installed artifact on fresh changed-source queries longer than 131,072 tokens. At exactly 131,072 tokens, seven full-history sites with two KV heads of width 256 require 1.75 GiB of BF16 keys and values for one request. Base has six sites and needs 1.50 GiB. This shape calculation omits temporaries, GDN states and model weights. The measured long-context runs on older weights cannot qualify this one.
+
+*Relation to previous work.* Recurrent-depth language modeling learns how repeated computation affects a state. Here a pretrained hybrid suffix is physically revisited and the supervised readout learns how to use that state. GKD trains on teacher distributions at student-generated prefixes. The registered fit here conditions correct and rejected continuations on their own recorded prefixes. Distilled SQL test suites use multiple database contents to expose spurious query equivalence. The paired human labels in this study address a related problem with only two worlds per selected program. Attribution is limited by the simultaneous change in donor, optimization and data. #link("https://arxiv.org/abs/2502.05171")[Geiping et al.] · #link("https://proceedings.iclr.cc/paper_files/paper/2024/hash/5be69a584901a26c521c2b51e40a4c20-Abstract-Conference.html")[Agarwal et al.] · #link("https://aclanthology.org/2020.emnlp-main.29/")[Zhong et al.]
+
+*Reproduction.* From the repository root run #raw(".venv/bin/python -m scripts.paper_conditional_features") after the feature archive and cold-replay receipt have been verified. The source table, individual prefix checks, machine-readable measurements and figure accompany this supplement. Training and held comparison require their own archived results.

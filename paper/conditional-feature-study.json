@@ -1,0 +1,144 @@
+{
+  "archive": "6cf92efded6410f16b710d47c94a57a92be3536b201f5fde88b24f3923061898",
+  "backbone": {
+    "sha256": "85d3eb409cec6f6a49abdc921570c09cad2f57480fe3bb111dfcfe763c440f84",
+    "bytes": 424020958,
+    "donor": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696",
+    "tensors": 694
+  },
+  "groups": [
+    {
+      "group": "instruction",
+      "source": "Human instructions",
+      "examples": 3072,
+      "initial_tokens": 356065,
+      "positions": 244727,
+      "presentations": 6144,
+      "supervised": 489454,
+      "alternate_positions": 0
+    },
+    {
+      "group": "arithmetic",
+      "source": "Worked arithmetic",
+      "examples": 1024,
+      "initial_tokens": 70445,
+      "positions": 93913,
+      "presentations": 2048,
+      "supervised": 187826,
+      "alternate_positions": 0
+    },
+    {
+      "group": "legacy",
+      "source": "Earlier assistance",
+      "examples": 2138,
+      "initial_tokens": 1131409,
+      "positions": 119748,
+      "presentations": 4276,
+      "supervised": 239496,
+      "alternate_positions": 0
+    },
+    {
+      "group": "explanation",
+      "source": "Natural table explanations",
+      "examples": 761,
+      "initial_tokens": 510486,
+      "positions": 29554,
+      "presentations": 1522,
+      "supervised": 59108,
+      "alternate_positions": 0
+    },
+    {
+      "group": "program",
+      "source": "Targeted SQL",
+      "examples": 149,
+      "initial_tokens": 82200,
+      "positions": 11095,
+      "presentations": 2384,
+      "supervised": 177520,
+      "alternate_positions": 250
+    },
+    {
+      "group": "discovery",
+      "source": "Schema calls",
+      "examples": 149,
+      "initial_tokens": 66717,
+      "positions": 4768,
+      "presentations": 298,
+      "supervised": 9536,
+      "alternate_positions": 0
+    },
+    {
+      "group": "scalar",
+      "source": "Answers after scalar reads",
+      "examples": 298,
+      "initial_tokens": 200339,
+      "positions": 2068,
+      "presentations": 1788,
+      "supervised": 12408,
+      "alternate_positions": 0
+    }
+  ],
+  "parity": {
+    "vocab": 248320,
+    "same_ordinary": true,
+    "cached_same_ordinary": true,
+    "uncached_top": 90700,
+    "cached_vs_uncached_max": 0.0,
+    "same_initialized_state": true,
+    "top_full": 90700,
+    "top_chunk": 90700,
+    "max_chunk_logit_difference": 0.53125,
+    "sites": 28,
+    "independent_slots": 28,
+    "separate_gdn_states": [
+      [
+        23.9375,
+        4.349522113800049
+      ],
+      [
+        28.84375,
+        4.14530086517334
+      ],
+      [
+        17.34375,
+        3.6474413871765137
+      ]
+    ],
+    "suffix_state_changes": [
+      0.13694024085998535,
+      0.12844663858413696,
+      0.13676607608795166,
+      0.12675344944000244
+    ]
+  },
+  "initial_test_tokens": 332,
+  "feature_bytes": 5186010742,
+  "positive_positions": 505873,
+  "negative_positions": 250,
+  "worker_seconds": 1180.339908838272,
+  "peak_gib": 1.795340247452259,
+  "replay_turns": 10,
+  "replay_positions": 279,
+  "left_checks": 24,
+  "left_top_matches": 24,
+  "relative_rms_median": 0.015491397585719824,
+  "relative_rms_max": 0.0578177236020565,
+  "left_nll_max": 0.4214134216308594,
+  "planned_channels": {
+    "whitespace": 123050,
+    "closing_or_stop": 36920,
+    "nonwhite_tool_action": 218712,
+    "nonwhite_visible_prose": 606970,
+    "nonwhite_deliberation": 189696
+  },
+  "planned_updates": 1851,
+  "trace_group_counts": {
+    "arithmetic": 1,
+    "discovery": 1,
+    "explanation": 1,
+    "instruction": 1,
+    "legacy": 1,
+    "program": 4,
+    "scalar": 1
+  }
+}
