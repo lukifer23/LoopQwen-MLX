@@ -55,6 +55,7 @@ def material(acquire=False):
         blob((SOURCE / "COPYING").read_bytes())
         == "af9cfbdb134f42e5205ecbad597421d778826481"
     )
+    locations = []
     for ref, expected in VERSIONS:
         path = SOURCE / (ref + ".lock.gz")
         if acquire:
@@ -76,6 +77,20 @@ def material(acquire=False):
         location = re.search(r'(?m)^name = "virtue"\nversion = "', source)
         assert location and source[location.end() :].startswith(version + '"')
         at = chat.index(source) + location.end()
+        offsets = []
+        for match in re.finditer(re.escape(version), chat):
+            prefix = tok.encode(chat[: match.start()], add_special_tokens=False)
+            assert ids[: len(prefix)] == prefix and len(prefix) > 131072
+            offsets.append(len(prefix))
+        assert offsets and str(len(raw)) not in source
+        locations.append(
+            {
+                "revision": ref,
+                "version": version,
+                "version_start_tokens": offsets,
+                "file_size_decimal_occurrences_in_file": 0,
+            }
+        )
         assert len(ids) >= 131072
         rows.append(
             {
@@ -93,6 +108,7 @@ def material(acquire=False):
                 "prompt_sha256": fingerprint(ids),
             }
         )
+    assert locations == read(SOURCE / "answer-locations.json")
     assert {n for n in pins[0].keys() & pins[1].keys() if pins[0][n] != pins[1][n]} == {
         "virtue"
     }
