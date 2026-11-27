@@ -1,0 +1,272 @@
+{
+  "passed": false,
+  "gates": {
+    "human_open_answers": false,
+    "both_presentations": false,
+    "whole_questions": false,
+    "f1": true,
+    "earlier_requests": false,
+    "practical_tools": false,
+    "completion": false,
+    "first_s": false,
+    "wall_s": true,
+    "peak": true,
+    "opening_tps": true,
+    "decode_tps": true
+  },
+  "arms": {
+    "candidate": {
+      "families": {
+        "agenda": {
+          "dialogues": 8,
+          "strict": 2,
+          "requests": 8,
+          "answers": 2,
+          "grounded": 2,
+          "completed": 3,
+          "wall_s": 14.387746040942147,
+          "first_s": 1.7601698738872074,
+          "peak": 1217254380,
+          "output_tokens": 1228
+        },
+        "file": {
+          "dialogues": 6,
+          "strict": 0,
+          "requests": 6,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 11.148503665986937,
+          "first_s": 1.1762563320226036,
+          "peak": 1199792580,
+          "output_tokens": 1002
+        },
+        "inline": {
+          "dialogues": 6,
+          "strict": 4,
+          "requests": 6,
+          "answers": 4,
+          "grounded": 4,
+          "completed": 6,
+          "wall_s": 1.397236334043555,
+          "first_s": 0.5334770019981079,
+          "peak": 1157250028,
+          "output_tokens": 98
+        },
+        "linked_file": {
+          "dialogues": 24,
+          "strict": 0,
+          "requests": 24,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 2,
+          "wall_s": 62.919973790994845,
+          "first_s": 4.785928500001319,
+          "peak": 1223193580,
+          "output_tokens": 5837
+        },
+        "linked_inline": {
+          "dialogues": 24,
+          "strict": 1,
+          "requests": 24,
+          "answers": 1,
+          "grounded": 1,
+          "completed": 9,
+          "wall_s": 73.72655857983045,
+          "first_s": 12.014935374085326,
+          "peak": 1261401068,
+          "output_tokens": 5862
+        },
+        "retention": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 19.69333887594985,
+          "first_s": 1.2981399589916691,
+          "peak": 1211497452,
+          "output_tokens": 1855
+        },
+        "wheel": {
+          "dialogues": 8,
+          "strict": 5,
+          "requests": 8,
+          "answers": 5,
+          "grounded": 5,
+          "completed": 6,
+          "wall_s": 16.25198512413772,
+          "first_s": 1.2965156260761432,
+          "peak": 1178501816,
+          "output_tokens": 1466
+        }
+      },
+      "all": {
+        "dialogues": 84,
+        "strict": 12,
+        "requests": 84,
+        "answers": 12,
+        "grounded": 12,
+        "completed": 26,
+        "wall_s": 199.5253424118855,
+        "first_s": 22.865422667062376,
+        "peak": 1261401068,
+        "output_tokens": 17348
+      },
+      "mean_open_f1": 0.020833333333333332,
+      "complete": {
+        "linked": 0,
+        "agenda": 0,
+        "wheel": 2,
+        "inline": 0,
+        "retention": 0,
+        "file": 0
+      },
+      "opening_tps": 5088.93809293501,
+      "decode_tps": 105.54520034234575
+    },
+    "control": {
+      "families": {
+        "agenda": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 2,
+          "wall_s": 68.73363637598231,
+          "first_s": 1.7070469169993885,
+          "peak": 1826095066,
+          "output_tokens": 4587
+        },
+        "file": {
+          "dialogues": 6,
+          "strict": 0,
+          "requests": 6,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 1,
+          "wall_s": 53.23026641597971,
+          "first_s": 1.127295333018992,
+          "peak": 1846890458,
+          "output_tokens": 3571
+        },
+        "inline": {
+          "dialogues": 6,
+          "strict": 3,
+          "requests": 6,
+          "answers": 3,
+          "grounded": 3,
+          "completed": 3,
+          "wall_s": 37.89251950092148,
+          "first_s": 0.5200052088475786,
+          "peak": 1804700634,
+          "output_tokens": 2634
+        },
+        "linked_file": {
+          "dialogues": 24,
+          "strict": 0,
+          "requests": 24,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 10,
+          "wall_s": 183.07925616309512,
+          "first_s": 4.59472037415253,
+          "peak": 1823060138,
+          "output_tokens": 12211
+        },
+        "linked_inline": {
+          "dialogues": 24,
+          "strict": 0,
+          "requests": 24,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 12,
+          "wall_s": 157.02000825305004,
+          "first_s": 11.77722229307983,
+          "peak": 1863770074,
+          "output_tokens": 10062
+        },
+        "retention": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 2,
+          "wall_s": 78.61820833297679,
+          "first_s": 1.2516552488668822,
+          "peak": 1847070682,
+          "output_tokens": 5310
+        },
+        "wheel": {
+          "dialogues": 8,
+          "strict": 0,
+          "requests": 8,
+          "answers": 0,
+          "grounded": 0,
+          "completed": 0,
+          "wall_s": 93.30198795802426,
+          "first_s": 1.2482996670878492,
+          "peak": 1846776154,
+          "output_tokens": 6274
+        }
+      },
+      "all": {
+        "dialogues": 84,
+        "strict": 3,
+        "requests": 84,
+        "answers": 3,
+        "grounded": 3,
+        "completed": 30,
+        "wall_s": 671.8758830000297,
+        "first_s": 22.22624504205305,
+        "peak": 1863770074,
+        "output_tokens": 44649
+      },
+      "mean_open_f1": 0.007740462778678722,
+      "complete": {
+        "linked": 0,
+        "agenda": 0,
+        "wheel": 0,
+        "inline": 0,
+        "retention": 0,
+        "file": 0
+      },
+      "opening_tps": 3839.0848655195955,
+      "decode_tps": 69.91320271109055
+    }
+  },
+  "paired_source_differences": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "net": 1,
+  "exact_p": 1.0,
+  "earlier_base_successes_lost": [
+    "8aee60adaf6fa2b3-inline"
+  ]
+}

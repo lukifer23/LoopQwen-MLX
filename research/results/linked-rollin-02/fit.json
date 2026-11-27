@@ -1,0 +1,77 @@
+{
+  "weights": "c9beed889326cfc807f1c01c50457ad564d781f01d902ae8ce0e97b31423ec76",
+  "training": "6799200546ab4a4ef85831a79108922e0e3fb317b39b88c27207073519e080a9",
+  "views": "13b1d69a04ceb4bed338252e017acc164e42ad4602bf3e341f06edd5d6784b54",
+  "passes": 2,
+  "trainable": 802816,
+  "turns": 1218,
+  "targets": 213121,
+  "explanation_targets": 53151,
+  "contrast_draws": 727,
+  "updates": 800,
+  "draws": {
+    "correction": 800,
+    "action": 800,
+    "answer": 800,
+    "retained": 800
+  },
+  "loss": [
+    {
+      "step": 1,
+      "loss": 3.8151472106575968
+    },
+    {
+      "step": 100,
+      "loss": 0.2503961998969317
+    },
+    {
+      "step": 200,
+      "loss": 0.11623682118952273
+    },
+    {
+      "step": 300,
+      "loss": 0.08735707998275757
+    },
+    {
+      "step": 400,
+      "loss": 0.07198450900614263
+    },
+    {
+      "step": 500,
+      "loss": 1.0819925741758196
+    },
+    {
+      "step": 600,
+      "loss": 0.12806891624350103
+    },
+    {
+      "step": 700,
+      "loss": 0.10382473529316485
+    },
+    {
+      "step": 800,
+      "loss": 0.08988377982750535
+    }
+  ],
+  "phases": [
+    {
+      "phase": 0,
+      "corrections": 138,
+      "with_generated_reasoning": 123,
+      "with_real_alternative_token": 123,
+      "wrong_actions_with_successful_callback": 8
+    },
+    {
+      "phase": 1,
+      "corrections": 120,
+      "with_generated_reasoning": 115,
+      "with_real_alternative_token": 115,
+      "wrong_actions_with_successful_callback": 31
+    }
+  ],
+  "prepare_seconds": 368.5227011659881,
+  "rollin_seconds": 324.749804373947,
+  "entire_fit_seconds": 1142.8218121250393,
+  "optimizer_seconds": 444.56458550988464,
+  "peak": 2924855460
+}
