@@ -26,7 +26,8 @@ from scripts.register_source_copy import FIT, RESULT
 from scripts.table_policy_material import persist
 from scripts.table_policy_reading import committed
 
-PLAN = Path("research/diagnostics/long-copy-fit.json")
+ORIGINAL = Path("research/diagnostics/long-copy-fit.json")
+PLAN = Path("research/diagnostics/long-copy-fit-runtime-02.json")
 OUT = Path("docs/measurements/long-copy-fit")
 SEED = 993407
 
@@ -38,6 +39,8 @@ def spec():
     data = read(SOURCES)
     assert read(FEATURES)["passed"]
     return dict(
+        supersedes=digest(ORIGINAL),
+        repair="The installed MLX ArrayAt lacks set. Use a position mask to replace one label. The first invocation stopped in the initial training-source assessment, before any optimizer update or reserved-name access. Charge 30 seconds against the original limit.",
         seed=SEED,
         features=digest(FEATURES),
         extraction=digest(EXTRACT_PLAN),
@@ -48,14 +51,14 @@ def spec():
         lr=0.00015,
         train=data["training"],
         held=data["reserved"],
-        limits=dict(seconds=2200, peak_gib=3, available_gib=1.5),
+        limits=dict(seconds=2170, peak_gib=3, available_gib=1.5),
         protocol="Train only the shared source address and scalar gate in the previously fitted two-read pointer generator. Preserve all original backbone, recurrent, language-correction and remaining head tensors exactly. For each of 80 previously unused package names use both real release versions, with no truncated prefix. Optimize the mean whole visible version and turn terminator likelihood, 0.5 times the two binary likelihood losses contrasting the first real divergent token with that of the other release and a nearby crate, and 0.25 times the sum of true-span NLL and relative true-vs-nearby span loss averaged over visible version decisions. Rehearse a seeded 16-token slice of a previously supervised short conversation in the same update, with NLL plus .25 squared target-log-probability deviation from the frozen parent. Train exactly 640 single-long and single-short paired updates in seeded order. Reserve the parent's original 72 short probes from rehearsal. Stop at 2200 native seconds, 3 GiB allocation or memory pressure. Require complete finite gradients, mean training NLL gain >.03, training address gain >.2, at least eight training packages correct on both source versions against the alternative, and mean short probe loss increase <=.03. Seal weights before scoring reserved packages. Hold fixed all 24 fresh names and both versions. Require positive held NLL gain >=.10, mean held source-location gain >=.10, at least four new net dual-version successes with <=2 lost pairs against initialization, and a positive held second-visit NLL advantage. Report elapsed time, actual memory and losses. Only a passing result can motivate a prospective free-generation comparison on fresh independent documents; this is teacher-forced two-release discrimination, not release accuracy. Previous closed held names and causal-release panels never enter the run.",
     )
 
 
 def check_guard(start):
     return (
-        monotonic() - start < 2200
+        monotonic() - start < 2170
         and mx.get_peak_memory() < 3 * 2**30
         and psutil.virtual_memory().available > 1.5 * 2**30
         and subprocess.check_output(
@@ -77,7 +80,7 @@ def terms(head, project, h, values, ids, pos, labels, span, foil, alternatives):
     ce = -original.mean()
     margins = []
     for j, y in alternatives:
-        marked = labels.at[0, j].set(y)
+        marked = mx.where(mx.arange(labels.shape[1])[None, :] == j, y, labels)
         margins.append(original[0, j] - selected(marked)[0, j])
     a, b = span
     c, d = foil
