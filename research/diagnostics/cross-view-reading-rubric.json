@@ -1,0 +1,10 @@
+{
+  "study": "cross-view-reading-01",
+  "unit": "One distinct completed nonexact reply, deduplicated by the SHA-256 of the question, original passage and reply. Exact replies retain their registered score. Unfinished requests retain their registered failure.",
+  "visible_to_reviewer": ["question", "passage", "reply"],
+  "reviewer": "One project agent, before examining either arm's evaluation scores or aggregate decision. The reviewer previously had access to the public study material.",
+  "correct": "The reply commits to an answer supported by the passage for the relation the question asks about. Accept a clear paraphrase, nickname or full sentence identifying the same entity. Additional detail must not contradict the answer.",
+  "incorrect": "The reply commits to a different entity, role, relation or quantity, contradicts the passage, or conflates a correct and an incompatible answer as its conclusion.",
+  "unresolved": "There is no intelligible single conclusion, the requested distinction cannot be settled from the passage as presented, or the reply declines to answer.",
+  "analysis": "Register the complete label file before joining labels to model identity. For file credit independently require the registered real lookup and exact returned passage. Retain original content, exact, token-F1 and primary scores regardless of this sensitivity analysis."
+}

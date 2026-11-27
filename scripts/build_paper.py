@@ -41,6 +41,16 @@ def main(verify):
             [sys.executable, "scripts/folded_overlap.py"], cwd=ROOT, check=True
         )
     if verify:
+        from tempfile import TemporaryDirectory
+
+        from paper_figures import RESULTS, result
+        from paper_systems import write as write_system_comparisons
+
+        with TemporaryDirectory() as tmp:
+            write_system_comparisons(Path(tmp), RESULTS, result)
+            name = "system-comparisons.csv"
+            if (Path(tmp) / name).read_bytes() != (ROOT / "paper" / name).read_bytes():
+                raise ValueError("System comparison table differs from the sealed runs")
         subprocess.run(
             [sys.executable, "scripts/report_distribution_bytes.py"],
             cwd=ROOT,

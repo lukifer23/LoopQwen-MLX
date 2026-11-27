@@ -73,6 +73,9 @@ def review(root, blind):
         }
     result = {
         "distinct_reviewed": len(entries),
+        "rubric_sha256": digest(
+            Path("research/diagnostics/cross-view-reading-rubric.json")
+        ),
         "labels_sha256": digest(Path("research/diagnostics/cross-view-answers.json")),
         "arms": results,
     }
