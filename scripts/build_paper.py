@@ -59,6 +59,7 @@ def main(verify):
                         "document-evidence-",
                         "callback-recovery-",
                         "native-function-dialogue-",
+                        "checked-equations-field-",
                         "cache-language-",
                         "tool-",
                         "schema-calls-",

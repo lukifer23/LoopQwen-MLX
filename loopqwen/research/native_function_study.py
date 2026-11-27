@@ -82,11 +82,11 @@ def grade(row, i, tr):
     )
 
 
-def evaluate(spec, root, panel, side, budget):
+def evaluate(spec, panel, side, budget, factory, tool_catalog):
     actor = None
     rows = []
     for w in panel["rows"]:
-        tools = catalog(w)
+        tools = tool_catalog(w)
         chat = None
         requests = []
         for i, text in enumerate(w["questions"]):
@@ -94,11 +94,7 @@ def evaluate(spec, root, panel, side, budget):
             mx.reset_peak_memory()
             start = perf_counter()
             if actor is None:
-                actor = (
-                    Assistant(spec["checkpoint"], tool_adapter=root, tool_format="qwen")
-                    if side == "candidate"
-                    else DenseAssistant(True, "qwen")
-                )
+                actor = factory()
             if chat is None:
                 chat = actor.conversation(tools)
             stamps = {}
@@ -350,7 +346,16 @@ def run(name):
             mx.clear_cache()
             dest = root / (side + ".json.gz")
             if not dest.exists():
-                packed(dest, evaluate(spec, root, panel, side, budget))
+                factory = (
+                    (
+                        lambda: Assistant(
+                            spec["checkpoint"], tool_adapter=root, tool_format="qwen"
+                        )
+                    )
+                    if side == "candidate"
+                    else (lambda: DenseAssistant(True, "qwen"))
+                )
+                packed(dest, evaluate(spec, panel, side, budget, factory, catalog))
             data[side] = unpack(dest)
         save(root / "decision.json", outcome(spec, data))
     finally:
