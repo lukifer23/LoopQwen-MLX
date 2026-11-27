@@ -33,7 +33,7 @@ def verify(root):
         assert hashlib.sha256(source).hexdigest() == expected
     history = read(root / "optimizer-steps.json")
     cross_view = s["id"] == "cross-view-reading-01"
-    proof_fit = s["id"] == "proof-curriculum-01"
+    proof_fit = s["id"] in ("proof-curriculum-01", "field-selection-01")
     interval = 100 if proof_fit else 80 if cross_view else s["checkpoint_interval"]
     steps = list(range(interval, s["updates"], interval)) + [s["updates"]]
     assert [h["step"] for h in history] == steps
@@ -91,8 +91,12 @@ def record(root):
     for directory in sorted(checkpoints.glob("step-*")):
         state = read(directory / "state.json")
         assert state["registration"] == digest(root / "registration.json")
-        if spec["id"] in ("cross-view-reading-01", "proof-curriculum-01"):
-            proof_fit = spec["id"] == "proof-curriculum-01"
+        if spec["id"] in (
+            "cross-view-reading-01",
+            "proof-curriculum-01",
+            "field-selection-01",
+        ):
+            proof_fit = spec["id"] in ("proof-curriculum-01", "field-selection-01")
             key = "explanation_targets" if proof_fit else "teacher_positions"
             progress = {
                 "step": state["step"],
@@ -137,10 +141,13 @@ if __name__ == "__main__":
     study = p.add_mutually_exclusive_group()
     study.add_argument("--cross-view", action="store_true")
     study.add_argument("--proof-curriculum", action="store_true")
+    study.add_argument("--field-selection", action="store_true")
     args = p.parse_args()
     base = "outputs/research" if args.record else "research/results"
     name = (
-        "proof-curriculum-01"
+        "field-selection-01"
+        if args.field_selection
+        else "proof-curriculum-01"
         if args.proof_curriculum
         else "cross-view-reading-01"
         if args.cross_view
