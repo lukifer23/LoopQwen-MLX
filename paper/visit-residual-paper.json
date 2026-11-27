@@ -1,0 +1,275 @@
+{
+  "quality": [
+    [
+      "Human causal questions",
+      48,
+      13,
+      6,
+      48,
+      43
+    ],
+    [
+      "New project releases",
+      20,
+      15,
+      12,
+      20,
+      17
+    ],
+    [
+      "Fixed-version swaps",
+      8,
+      7,
+      2,
+      8,
+      5
+    ],
+    [
+      "Earlier manifests",
+      8,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "Earlier schedules",
+      8,
+      0,
+      0,
+      5,
+      2
+    ],
+    [
+      "Earlier file judgments",
+      6,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      "Earlier inline judgments",
+      6,
+      3,
+      2,
+      6,
+      2
+    ],
+    [
+      "Earlier lookups",
+      8,
+      0,
+      0,
+      4,
+      1
+    ]
+  ],
+  "masked": [
+    [
+      "Human",
+      "supported",
+      8,
+      16
+    ],
+    [
+      "Human",
+      "partial",
+      1,
+      1
+    ],
+    [
+      "Human",
+      "wrong",
+      15,
+      5
+    ],
+    [
+      "Human",
+      "absent",
+      0,
+      2
+    ],
+    [
+      "Human",
+      "unsupported claim",
+      0,
+      3
+    ],
+    [
+      "Human",
+      "both supported",
+      0,
+      6
+    ],
+    [
+      "Wheel",
+      "supported",
+      7,
+      2
+    ],
+    [
+      "Wheel",
+      "partial",
+      1,
+      1
+    ],
+    [
+      "Wheel",
+      "wrong",
+      0,
+      2
+    ],
+    [
+      "Wheel",
+      "absent",
+      0,
+      3
+    ],
+    [
+      "Wheel",
+      "unsupported claim",
+      0,
+      3
+    ],
+    [
+      "Wheel",
+      "both supported",
+      3,
+      0
+    ]
+  ],
+  "cost": [
+    [
+      "Correct or grounded",
+      "38",
+      "22"
+    ],
+    [
+      "Completed answers",
+      "91",
+      "70"
+    ],
+    [
+      "Total response time (s)",
+      "127.32",
+      "587.18"
+    ],
+    [
+      "Summed first-token time (s)",
+      "16.49",
+      "16.07"
+    ],
+    [
+      "Peak MLX allocation (GiB)",
+      "1.124",
+      "1.708"
+    ],
+    [
+      "Generated tokens",
+      "10,622",
+      "39,424"
+    ],
+    [
+      "Physical uncached opening (tokens/s)",
+      "2,544.62",
+      "2,744.48"
+    ],
+    [
+      "Post-first decode (tokens/s)",
+      "100.79",
+      "69.94"
+    ],
+    [
+      "Mean human-question token F1",
+      "0.395",
+      "0.263"
+    ]
+  ],
+  "probe": [
+    [
+      "Frozen donor",
+      "0.664",
+      "1.746",
+      56,
+      50
+    ],
+    [
+      "Learned correction",
+      "1.608",
+      "0.582",
+      71,
+      73
+    ],
+    [
+      "Other question\u2019s change",
+      "1.007",
+      "0.779",
+      63,
+      65
+    ]
+  ],
+  "whole": [
+    [
+      "Human causal questions",
+      1,
+      2
+    ],
+    [
+      "New project releases",
+      7,
+      4
+    ],
+    [
+      "Fixed-version swaps",
+      3,
+      0
+    ],
+    [
+      "Earlier manifests",
+      0,
+      0
+    ],
+    [
+      "Earlier schedules",
+      0,
+      0
+    ],
+    [
+      "Earlier file judgments",
+      0,
+      0
+    ],
+    [
+      "Earlier inline judgments",
+      0,
+      0
+    ],
+    [
+      "Earlier lookups",
+      0,
+      0
+    ]
+  ],
+  "human_p": "0.23352",
+  "gates": "human_questions, whole_situations, prior_base, prior_pairs, first_s, opening_tps",
+  "prior_lost": 1,
+  "fit": {
+    "weights": "930214102927c451a4d36ff4f993c99eb26b2f1447fcf7087a8c7e9303a993b8",
+    "passes": 2,
+    "trainable": 786432,
+    "updates": 1600,
+    "views": 2072,
+    "targets": 232243,
+    "training": "6e731a05585cc4ad1ca72215c864cb11b5320b018b17c2ac9c3c5d1fb6c94a6c",
+    "feature_sha256": "9faccc9069fee12f8fa0e761647a6f008c8d527116ae7f1e3878307d909f3fcb",
+    "extraction_seconds": 360.69349687499925,
+    "optimizer_seconds": 173.28936058835825,
+    "peak": 2532133006,
+    "zero_without_change": true
+  },
+  "decision": "did not qualify",
+  "net_correct": 16,
+  "mean_learned_swap": "0.601",
+  "learned_gt_swap": 74
+}

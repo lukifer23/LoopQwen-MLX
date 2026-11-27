@@ -14,6 +14,7 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read, save
 from scripts.assemble_evidence_paper import edition
 from scripts.paper_extended_prefix import build as prefix
+from scripts.visit_residual_pairs import build as source_pairs
 from scripts.visit_residual_reading import DOC, PANEL, ROOT
 from scripts.visit_residual_reading import build as reading
 
@@ -41,6 +42,7 @@ def csv_file(stem, rows):
 
 def build():
     reading("report")
+    source_pairs()
     prefix()
     plt.rcParams["svg.hashsalt"] = "visit-residual-01"
     d = read(ROOT / "decision.json")

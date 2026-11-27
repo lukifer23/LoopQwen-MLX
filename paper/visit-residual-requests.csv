@@ -1,0 +1,203 @@
+id,source,family,candidate_success,candidate_status,candidate_f1,candidate_observed,candidate_wall_s,candidate_first_s,candidate_peak_bytes,candidate_tokens,candidate_answer,control_success,control_status,control_f1,control_observed,control_wall_s,control_first_s,control_peak_bytes,control_tokens,control_answer
+16e268543f1cca69-file,T203,file,0,turn_limit,,False,3.8986571250134148,1.0224772499641404,1202336826,272,,0,invalid_call,,False,5.423896124993917,1.3354284170200117,1783635262,288,
+effects-1433353372,e77d725ec8932091ab86,effects,1,answered,1.0,,0.22692012501647696,0.09322099998826161,1139288680,15,more,0,answered,0.2857142857142857,,2.173337583022658,0.09118000004673377,1774755806,148,Locusts eat more food than mayflies.
+same_version-55a07f7955cce840,swap-0,same_version,1,answered,,True,1.1941035420168191,0.17429366701981053,1163492410,95,>=6.0 | no,1,answered,,True,6.103070416022092,0.1694658329943195,1807889322,408,"The sphinxext_opengraph-0.13.0-py3-none-any.whl wheel declares a direct dependency on sphinx with the constraint: **Sphinx>=6.0**
+
+**Answer: No** - sphinx 1.8.6 is not allowed because the constraint requires sphinx to be 6.0 or higher."
+2025-4836-room,2025-4836,agenda,0,invalid_call,,False,1.9307947920169681,0.22524962504394352,1169331258,166,,0,token_limit,,False,5.674359582946636,0.21839854097925127,1783718874,384,
+8eac8554cc1c6a22-inline,T203,inline,1,answered,,False,0.29642070800764486,0.12039358302718028,1190607930,19,false,1,answered,,False,4.281517624971457,0.11206324998056516,1778338778,295,"Based on the provided evidence, the claim is **false**.
+
+**Reasoning:**
+The data shows the following percentages for major religions in Japan:
+*   Buddhism: 34.9%
+*   Shinto: 51.8%
+*   Christianity: 2.3%
+*   Judaism: 7%
+
+While Buddhism is the largest religion, it is significantly larger than Judaism. The claim that Judaism is the most popular religion is directly contradicted by the evidence.
+
+**Verdict:** false"
+a3a9df8dddde2b61-inline,T68,inline,1,answered,,False,0.3734802089747973,0.06618895899737254,1157180484,32,verdict: uncertain,0,token_limit,,False,5.518402667017654,0.06797958398237824,1748967390,384,
+2025-5859-room,2025-5859,agenda,0,answered,,False,1.0557086660410278,0.22425554104847834,1196430714,78,true,0,token_limit,,False,5.672269416972995,0.21193724998738617,1783965698,384,
+wiki-test-815,1-13564637-5,retention,0,turn_limit,0.0,False,3.3550307920086198,0.17656545800855383,1194664498,301,,0,turn_limit,0.0,False,10.82467970898142,0.16782337496988475,1820659674,721,
+same_version-0b5278a4aba694ea,swap-3,same_version,1,answered,,True,1.1814481249894015,0.17433091695420444,1163476026,93,>=4.0 | yes,0,turn_limit,,False,7.480321915994864,0.1732430830015801,1815544794,496,
+dependency-5328f2041492e55e,sphinx_basic_ng-1.0.0b2-py3-none-any.whl,dependency,1,answered,,True,1.1823653749888763,0.17475937498966232,1163476026,94,>=4.0 | no,1,answered,,True,5.6082612919854,0.16854958300245926,1808004010,374,"No, sphinx 3.5.4 is not allowed. The published sphinx-basic-ng wheel declares a direct dependency on sphinx with the constraint ""sphinx (>=4.0)"", which means sphinx 3.5.4 is below the minimum version requirement of 4.0."
+same_version-ca1fb7be8a3c7da7,swap-2,same_version,1,answered,,True,1.1889485419960693,0.17578833299921826,1163476026,95,>=6.0 | no,1,answered,,True,5.958104749966878,0.16747674997895956,1808036778,397,"The sphinxext_opengraph-0.13.0-py3-none-any.whl wheel declares sphinx as a direct dependency with the constraint: **Sphinx>=6.0**
+
+**Answer: No** - sphinx 5.2.2 is not allowed because the constraint requires sphinx to be 6.0 or higher."
+dependency-70461434d80d5b48,sphinx_json_schema_spec-2025.1.1-py3-none-any.whl,dependency,1,answered,,True,1.2106625830056146,0.1755947910132818,1163476026,99,>=5.1.1 | yes,0,invalid_call,,False,3.2506632499862462,0.16821454098680988,1778519002,217,
+effects-2050513369,62505d0790775fca8bfb,effects,1,answered,1.0,,0.27177604200551286,0.09313816699432209,1130228200,19,Sample A,0,answered,0.18181818181818182,,1.786561583983712,0.08846070896834135,1758279570,121,Sample A will most likely not show many signs of corrosion.
+effects-1429475461,2cfd563a4f0ee73cb519,effects,0,answered,0.5,,0.30676683399360627,0.08296837500529364,1129917508,24,Bill should pay for the Stillman edition.,0,answered,0.11764705882352941,,2.0310963750234805,0.08315779198892415,1748885470,138,"Bill should pay for the **Stillman** collection first, as it is the only one available in stock."
+effects-2335934912,93eda14452b916838042,effects,0,answered,0.125,,0.5837542500230484,0.12441920803394169,1163459642,48,"Will Heaven's Valley be better or worse than Mount Smith for flying a kite?
+Heaven's Valley",0,answered,0.0,,2.317977708997205,0.11126662499736995,1778830298,157,Heaven's Valley is better for flying a kite than Mount Smith.
+dependency-42c9f801e61c36a7,sphinx_autoapi-3.9.0-py3-none-any.whl,dependency,1,answered,,True,1.1365960409748368,0.1750559579813853,1163476026,91,>=3.0 | yes,0,invalid_call,,False,3.4106676660012454,0.17496412503533065,1778895834,228,
+effects-2974597786,9f7de82d320eaf10d8e1,effects,0,answered,0.0,,0.7067172090173699,0.10663062502862886,1163492410,62,Detroit,0,answered,0.2,,2.3001610000501387,0.1003957079956308,1778379738,156,Calgary probably has a lower chance of contaminated ground water.
+dependency-63903e095a8f0c1e,sphinxcontrib_spelling-8.0.2-py3-none-any.whl,dependency,1,answered,,True,1.2275233329855837,0.17537954199360684,1163459642,99,>=2.32.3 | no,1,answered,,True,7.693320667021908,0.16845083399675786,1815491546,496,"No, requests 2.32.2 is not allowed.
+
+The sphinxcontrib_spelling-8.0.2-py3-none-any.whl wheel declares a direct dependency on requests with the constraint ""requests>=2.32.3"". This means requests must be version 2.32.3 or higher. Since requests 2.32.2 is less than 2.32.3, it does not meet the required version constraint."
+effects-2677049981,93eda14452b916838042,effects,0,answered,0.125,,0.5765763329691254,0.11949241696856916,1163557946,48,"Will Heaven's Valley be better or worse than Mount Smith for having a picnic?
+Heaven's Valley",0,answered,0.25,,2.2740832500276156,0.1121910410001874,1778548570,145,Heaven's Valley will be better for a picnic.
+effects-1885423447,805b7f01c57703b8a8b3,effects,0,answered,0.3333333333333333,,0.30284100002609193,0.08410400000866503,1130064964,23,Greg should avoid the Revlon brand.,0,answered,0.0,,2.043781750020571,0.0849046660005115,1749133406,135,Greg should avoid the **Sephora** brand because it explicitly states it does not contain CFCs.
+effects-4225008037,32f15c947af8d948b82b,effects,1,answered,1.0,,0.2803839580155909,0.09444733301643282,1162752488,20,Steve,0,answered,0.16666666666666666,,2.54442916699918,0.0947054999996908,1785046930,167,Steve has a less likely chance to get skin cancer in the future.
+effects-3311336672,45ebe545f66fb2f818c6,effects,0,answered,0.0,,0.3125148750259541,0.1204085000208579,1163508794,20,increase,0,answered,0.0,,2.081327332998626,0.11408616602420807,1778355162,135,Sugaring will have a **decreased** chance of fermentation compared to storing food in a jar.
+8eac8554cc1c6a22-file,T203,file,0,turn_limit,,False,2.8472163749975152,0.2227315420168452,1202435130,248,,0,token_limit,,False,6.039207708963659,0.21160699997562915,1783731162,384,
+effects-2076804038,5a88ca937cadd266142d,effects,0,answered,0.0,,0.3145162919536233,0.11841837497195229,1163426874,21,Monday,0,answered,0.25,,1.8845037499559112,0.11187491699820384,1778256858,123,Tuesday had a higher crash rate per cyclist.
+effects-491738459,b61c571c24e1689fe1b5,effects,0,answered,0.0,,0.2966988340485841,0.08502195903565735,1130048580,22,red,0,token_limit,0.0,,5.562267375004012,0.08331145899137482,1748967390,384,
+2025-6311-weekday,2025-6311,agenda,0,answered,,True,1.6313398340134881,0.22440883400849998,1206514726,126,The evidence establishes the claim.,0,token_limit,,False,5.728527625033166,0.21106695802882314,1784144858,384,
+beautifulsoup4-3.7.17,beautifulsoup4,wheel,0,invalid_call,,False,1.2017044580425136,0.16849125002045184,1163443258,105,,0,turn_limit,,False,10.896931583003607,0.15563525003381073,1820463066,722,
+effects-1604845254,0f9f5b964a2c6c9e5b69,effects,1,answered,1.0,,0.3881379169761203,0.11085366696352139,1163459642,28,wetlands area,0,answered,0.09090909090909091,,2.423295083048288,0.10101141704944894,1778376602,165,"The empty field area expansion will more likely damage local wildlife, as it is directly linked to habitat destruction and fragmentation."
+effects-4127460786,b650b2af0bdac19660c1,effects,0,answered,0.0,,0.24205062503460795,0.07557308400282636,1129901124,18,Monday,1,answered,1.0,,1.9041959589812905,0.07156474998919293,1748908318,130,Sunday
+effects-3731180308,5c814f5e48b534796301,effects,1,answered,1.0,,0.3814200419583358,0.0984724999871105,1129901124,30,Blue,0,answered,0.06060606060606061,,2.835649957996793,0.08789420803077519,1748705214,195,"The blue rock most likely has lower radioactivity because the Geiger counter clicks rapidly with the red rock, indicating higher radiation levels, while it clicks almost no times with the blue rock, indicating lower radiation levels."
+dependency-a76c86f970c4b8fb,roman_numerals_py-4.1.0-py3-none-any.whl,dependency,0,answered,,True,1.1873497909982689,0.1760579159599729,1163426874,96,>=4.1.0 | yes,1,answered,,True,5.162065708020236,0.16874866699799895,1808151466,345,"Yes, the wheel declares a direct dependency on ""roman-numerals==4.1.0"", so it does allow version 4.1.0."
+effects-3485991475,01f414f26b38b314908f,effects,0,answered,0.0,,0.43497062497772276,0.07491420797305182,1130196036,38,Thursday,0,answered,0.0,,1.582409374997951,0.07040041696745902,1748920638,108,Thursday.
+dbfce3efecefb41a-file,T68,file,0,turn_limit,,False,2.6227820830536075,0.16755166603252292,1178919474,234,,0,token_limit,,False,5.655655542039312,0.15512333303922787,1778453466,384,
+effects-2121676187,b846cac7297e82731b11,effects,0,answered,0.5454545454545454,,0.22135083400644362,0.08361395902466029,1129901124,15,Bill has the best advantage on **Thursday and Friday**.,0,answered,0.18181818181818182,,2.326672084047459,0.08403562504099682,1748885470,151,Bill has the best advantage on **Monday and Tuesday**.
+85b04fd0866c2425-inline,T203,inline,1,answered,,False,0.3130375420441851,0.11930462502641603,1163656250,20,true,0,token_limit,,False,5.5634210830321535,0.11793629103340209,1778682842,384,
+effects-2268222575,16b7424470a2209abc01,effects,0,answered,0.0,,0.3009998750058003,0.09669587499229237,1158951400,21,Kip,0,answered,0.2222222222222222,,1.6936677499907091,0.08969333296408877,1784190850,114,Quinn has a greater chance of developing a chronic infection.
+dependency-d1338e71989a873f,sphinx_copybutton-0.5.2-py3-none-any.whl,dependency,1,answered,,True,1.1671960829989985,0.17887145798886195,1163443258,91,>=1.8 | yes,1,answered,,True,6.164286834013183,0.16878054197877645,1815090138,412,"Yes, sphinx 8.2.3 is allowed as a direct dependency.
+
+The sphinx-copybutton wheel declares sphinx as a direct dependency with the constraint ""(>=1.8)"". Since sphinx 8.2.3 is greater than or equal to 1.8, it is explicitly allowed in the dependency chain."
+anytree-3.7.17,anytree,wheel,0,turn_limit,,True,3.0264680410036817,0.16848862502956763,1194762802,271,,0,token_limit,,False,13.503811832983047,0.1631186250015162,1815331882,911,
+effects-1902466473,b61c571c24e1689fe1b5,effects,0,answered,0.0,,0.28911870904266834,0.08417658403050154,1129999428,22,blue,0,token_limit,0.0,,5.53983550000703,0.08417258400004357,1748770846,384,
+dependency-550bafb592dcc972,sphinx_copybutton-0.5.2-py3-none-any.whl,dependency,1,answered,,True,1.1678509170305915,0.18134700000518933,1163508794,92,>=1.8 | no,1,answered,,True,6.288434833986685,0.16752162500051782,1815159770,420,"No, sphinx 1.7.9 is not allowed. The sphinx-copybutton wheel declares a direct dependency on sphinx with the constraint ""(>=1.8)"", meaning sphinx 1.8 or higher is required. Since 1.7.9 is less than 1.8, it's not supported by this wheel."
+effects-2479635727,e77d725ec8932091ab86,effects,0,answered,0.2,,0.3747493749833666,0.09416291699744761,1141649896,29,will the mayflies eat more or less food than the locusts?,0,answered,0.09090909090909091,,2.339970415981952,0.08882170799188316,1765963666,160,"Mayflies eat less food than locusts. Mayflies never eat and die after a few hours, while locusts eat their own weight daily."
+pandas-3.9.20,pandas,wheel,0,turn_limit,,False,2.8431175830191933,0.16984766599489376,1194762802,252,,0,token_limit,,False,13.84305858402513,0.16193425003439188,1820653018,935,
+effects-3456504565,2cfd563a4f0ee73cb519,effects,0,answered,0.2857142857142857,,0.29747000004863366,0.0829595840186812,1129933892,23,Bill should buy the Stillman edition.,0,answered,0.14814814814814814,,2.7998204579926096,0.08637274999637157,1748739038,192,"Bill should start with the **Grossman edition** because it is the only edition available through private sellers, which aligns with his goal of buying the most expensive editions."
+effects-3862755768,7267a4ca0ac995826dde,effects,0,answered,0.0,,0.3048290829756297,0.0746160420239903,1130032196,24,Mt. Pike,1,answered,1.0,,2.6751496249926277,0.07089808396995068,1748934622,184,Meramec Caverns.
+same_version-05b2a6999e214760,swap-1,same_version,1,answered,,True,1.1505693749641068,0.1757142919814214,1163557946,91,>=1.8 | yes,0,invalid_call,,False,2.91279749997193,0.16858424997190014,1778600922,193,
+effects-2250736779,5a88ca937cadd266142d,effects,0,answered,0.0,,0.33917904197005555,0.11851695901714265,1163623482,23,Wednesday,0,answered,0.0,,1.8621971660177223,0.11129825003445148,1778486234,121,Wednesday had a lower crash rate per cyclist.
+dependency-738072b70510e4e1,sphinx_autoapi-3.9.0-py3-none-any.whl,dependency,1,answered,,True,1.1523823749739677,0.1748433329630643,1163557946,93,>=3.0 | no,0,invalid_call,,False,2.8391829159809276,0.17427783302264288,1778797530,189,
+2025-6330-room,2025-6330,agenda,0,turn_limit,,False,3.3507275829906575,0.22993954201228917,1202353210,291,,0,answered,,False,14.31953183398582,0.21835270896553993,1826054106,947,"Based on my verification of the venue entry for ""My Nix-Powered Homelab"" in the agenda, I can confirm that the evidence establishes the claim.
+
+**Verdict: true**
+
+The venue entry for ""My Nix-Powered Homelab"" does list the room as K.3.601, which directly supports the claim that the listed room was K.3.601. The evidence is clear and unambiguous."
+same_version-452f8577399f602c,swap-2,same_version,1,answered,,True,1.229207750002388,0.17655520798871294,1163476026,99,>=5.1.1 | yes,0,answered,,False,5.437060249969363,0.16867549996823072,1807807402,363,"Based on the wheel metadata check, the sphinx-json-schema-spec wheel declares no direct dependencies on sphinx. This means sphinx 5.2.2 is allowed to be used with this package.
+
+**Answer: Yes, sphinx 5.2.2 is allowed.**
+
+The sphinx-json-schema-spec wheel has no direct dependency on sphinx, so it should work with sphinx 5.2.2 without any version constraints."
+2025-6311-room,2025-6311,agenda,0,turn_limit,,False,3.139308499987237,0.22278800001367927,1202353210,277,,0,token_limit,,False,5.68096016603522,0.21149379102280363,1783714778,384,
+effects-459624881,62505d0790775fca8bfb,effects,0,answered,0.6666666666666666,,0.27621520799584687,0.09231791697675362,1130097732,19,Sample A,0,token_limit,0.0,,5.517752291983925,0.08856058400124311,1752741778,384,
+wiki-test-4649,2-10649958-1,retention,0,turn_limit,0.0,False,3.2002772910054773,0.15904766600579023,1194894066,290,,0,turn_limit,0.0,False,16.427923667011783,0.15139483398525044,1822863626,1112,
+effects-132256641,a09621ed38fa1ad0b504,effects,1,answered,1.0,,0.6949001670000143,0.09435658302390948,1160983016,62,4 AM,0,token_limit,0.0,,5.5236210829461925,0.08891187497647479,1780311954,384,
+effects-131404672,a09621ed38fa1ad0b504,effects,1,answered,1.0,,0.48968308395706117,0.09375545900547877,1159311336,41,3 AM,0,token_limit,0.0,,5.527902083005756,0.08939283300423995,1779890034,384,
+2025-5859-weekday,2025-5859,agenda,0,answered,,True,1.670200249995105,0.22494716697838157,1202336826,129,The evidence establishes the claim.,0,turn_limit,,False,8.440959958010353,0.21077508298913017,1820475354,557,
+effects-2025208895,bfeab90558791bd2310c,effects,1,answered,1.0,,0.41291141702095047,0.07468587497714907,1129901124,35,Group A,0,answered,0.2857142857142857,,1.8084055000217631,0.07054874999448657,1748721630,124,Group A has a higher likelihood of survival.
+effects-4213604769,32f15c947af8d948b82b,effects,0,answered,0.0,,0.28100104100303724,0.09449804102769122,1161032168,20,Steve,0,answered,0.18181818181818182,,2.404642791952938,0.08907658397220075,1784248210,164,Bill has a higher chance of getting skin cancer in the future.
+dependency-70208fb283f9dc01,furo-2025.12.19-py3-none-any.whl,dependency,0,answered,,True,1.2633369999821298,0.17838387499796227,1163443258,101,>=7.0 | no,0,answered,,True,7.112394125026185,0.16725670802406967,1807954858,476,"Yes, sphinx 6.2.1 is allowed.
+
+The furo wheel declares sphinx as a direct dependency with the constraint: `sphinx<10.0,>=7.0`
+
+This means sphinx versions from 7.0.0 up to but not including 10.0.0 are allowed. Since 6.2.1 falls within this range (it's greater than 7.0 and less than 10.0), sphinx 6.2.1 is permitted."
+effects-2313565686,b846cac7297e82731b11,effects,0,answered,0.18181818181818182,,0.22136695799417794,0.08365545800188556,1130114116,15,Bill has the worst position on **Thursday and Friday**.,0,answered,0.5454545454545454,,1.7361402090173215,0.0830923339817673,1749442526,118,Bill has the worst position on Monday and Tuesday.
+same_version-6f03622a175a8035,swap-0,same_version,1,answered,,True,1.1589175409753807,0.18206266599008814,1163705402,91,>=1.8 | yes,0,answered,,True,6.043136833002791,0.16814454196719453,1815208898,404,"No, sphinx 1.8.6 is not allowed as a direct dependency.
+
+The sphinx-copybutton wheel declares sphinx as a direct dependency with the constraint ""(>=1.8)"", meaning sphinx must be at least version 1.8. Since sphinx 1.8.6 is greater than 1.8, it is not allowed as a direct dependency."
+effects-1048591345,bfeab90558791bd2310c,effects,0,answered,0.6666666666666666,,0.4125106250285171,0.07516125001711771,1129966660,35,Group A,0,answered,0.4444444444444444,,1.8833982090000063,0.07093654200434685,1748934622,129,Group B has a lower likelihood of survival.
+effects-1590166370,0f9f5b964a2c6c9e5b69,effects,0,answered,0.4,,0.3749001250253059,0.11102208303054795,1163459642,28,wetlands area,0,answered,0.35294117647058826,,2.5728183339815587,0.10847449995344505,1778273242,173,The empty field area expansion will more than likely do the least damage to local wildlife.
+dependency-a21d92a095a976c2,sphinxext_opengraph-0.13.0-py3-none-any.whl,dependency,0,answered,,True,1.1782179580186494,0.17590370803372934,1163426906,94,>=6.0 | yes,1,answered,,True,5.955765665974468,0.16821425000671297,1807778762,397,"No, sphinx 5.3.0 is not allowed. The sphinxext_opengraph wheel declares a direct dependency on sphinx with the constraint ""Sphinx>=6.0"", which means sphinx must be 6.0 or higher. Since 5.3.0 is less than 6.0, it's not compatible with this wheel."
+8aee60adaf6fa2b3-file,T68,file,0,turn_limit,,False,2.5496686669648625,0.16755204199580476,1174643154,227,,0,turn_limit,,False,7.529269749997184,0.165692999958992,1815135194,500,
+same_version-1408c4a18f560a3a,swap-1,same_version,1,answered,,True,1.2270345409633592,0.18255120801040903,1163459642,100,>=5.1.1 | no,0,invalid_call,,False,3.034879708022345,0.16773329104762524,1778469850,202,
+effects-1902625512,9f7de82d320eaf10d8e1,effects,1,answered,1.0,,0.7114440000150353,0.10727595799835399,1163443258,62,Detroit,0,answered,0.030303030303030304,,3.5305374169838615,0.1007837500073947,1778355162,243,"Based on the information provided, **Detroit** probably has a higher chance of contaminated ground water.
+
+**Reasoning:** The background states that biomedical waste is highly infectious and can contaminate ground water. The situation explicitly states that Detroit has a law allowing the disposal of medical waste in the sewage system, which directly enables this contamination. In contrast, Calgary has just installed a new waste management system, which would likely aim to prevent such contamination."
+same_version-0c53c2ca5cc43065,swap-3,same_version,0,answered,,True,1.248803082969971,0.17680354201002046,1163492410,101,>=7.0 | no,0,answered,,True,7.113618292030878,0.16811379202408716,1807889322,480,"Yes, sphinx 6.0.1 is allowed.
+
+The furo wheel declares sphinx as a direct dependency with the constraint: `sphinx<10.0,>=7.0`
+
+This means sphinx versions must satisfy both conditions:
+- Less than 10.0 (so 6.0.1 is valid)
+- Greater than or equal to 7.0 (so 6.0.1 is valid)
+
+Therefore, sphinx 6.0.1 is compatible with the furo wheel."
+dependency-2d8c00e5eecd32bb,sphinx_json_schema_spec-2025.1.1-py3-none-any.whl,dependency,1,answered,,True,1.2261632910231128,0.176602040999569,1163492410,100,>=5.1.1 | no,1,answered,,True,6.0887514999485575,0.16794779198244214,1808167850,405,"No, sphinx 5.1.0 is not allowed. The sphinx-json-schema-spec wheel declares a direct dependency on sphinx with the constraint ""sphinx>=5.1.1"", meaning it requires sphinx version 5.1.1 or higher, but not 5.1.0."
+effects-2304251844,c9e9cc2a32989935115d,effects,0,answered,0.5,,0.35689437499968335,0.11157041700789705,1163476026,26,Team 63,0,answered,0.5,,1.554593125008978,0.10963979101506993,1778912218,103,Team 63
+effects-2098920887,45ebe545f66fb2f818c6,effects,0,answered,0.0,,0.3622268330072984,0.1207299159723334,1163426874,25,will having food in a jar,0,answered,0.08333333333333333,,1.956592249975074,0.11279908299911767,1778600922,131,"**Decreased chance of fermentation.**  
+Sugaring creates a desiccated environment that inhibits microbial activity, while a jar allows moisture to attract yeast, increasing the risk of fermentation."
+beautifulsoup4-3.6.15,beautifulsoup4,wheel,0,turn_limit,,False,3.1344550420180894,0.16771295899525285,1194713650,282,,0,invalid_call,,False,9.26110487501137,0.15541558299446478,1815307226,627,
+effects-3876948090,8ff49cf8057cb61d8bbe,effects,0,answered,0.0,,0.16575762501452118,0.09510608401615173,1160376808,8,Arizona will be warmer,1,answered,1.0,,3.195834083016962,0.08936275000451133,1806591890,219,Colder
+wiki-test-2848,1-23285805-6,retention,0,answered,0.3076923076923077,True,1.9721009589848109,0.16822145896730945,1163447354,175,The team record of 15-25 had a score of L 103-105 (OT).,0,token_limit,0.0,False,5.6137449580128305,0.16259404097218066,1804356570,384,
+dependency-f8ffb9599ecd5a1b,virtue-2026.11.2-py3-none-any.whl,dependency,1,answered,,True,1.2396116249728948,0.17619216698221862,1163492410,100,>=22.2.0 | no,1,answered,,True,5.676488541997969,0.16854549996787682,1808307114,380,"No, attrs 22.1.0 is not allowed.
+
+The published virtue wheel declares a direct dependency on attrs with the constraint ""attrs>=22.2.0"". This means that attrs 22.1.0 is below the minimum version required (22.2.0), so it's not allowed."
+dependency-d789e2dc958ac51c,furo-2025.12.19-py3-none-any.whl,dependency,0,answered,,True,1.24759687500773,0.1771832089871168,1163508794,101,>=7.0 | no,0,answered,,False,5.056480375002138,0.16796262504067272,1808036778,337,"Based on the wheel metadata for furo-2025.12.19-py3-none-any.whl, sphinx is not declared as a direct dependency. The wheel metadata returned an empty list for the sphinx field, indicating that sphinx is not listed as a required or declared dependency in this published furo wheel.
+
+**Answer: No** - sphinx 8.2.3 is not allowed in this published furo wheel."
+effects-356328641,e5cee021430a169ef058,effects,0,answered,0.15384615384615385,,0.3787352090002969,0.07611483399523422,1130114116,32,will the flywheel go faster or slower if the crank is turned to the left?,0,answered,0.4,,1.6316253750119358,0.07122987497132272,1749131806,111,The flywheel will go faster.
+effects-2265273411,16b7424470a2209abc01,effects,1,answered,1.0,,0.29596829204820096,0.09401445899857208,1160737256,21,Kip,0,answered,0.2222222222222222,,1.900643167027738,0.0883177500218153,1785882706,129,Kip has a greater chance of developing a chronic infection.
+tomlkit-3.8.20,tomlkit,wheel,0,turn_limit,,False,3.1135318329907022,0.16773141600424424,1194746418,279,,0,invalid_call,,False,7.505069000006188,0.16140912502305582,1815069658,505,
+effects-2304120771,c9e9cc2a32989935115d,effects,1,answered,1.0,,0.35807554196799174,0.11359112500213087,1163492410,26,Team 65,0,answered,0.5,,1.5289838330354542,0.10791637504007667,1804323802,102,Team 63
+wiki-test-11110,2-11954383-1,retention,0,answered,0.0,False,2.5906122919986956,0.17249837500276044,1194795570,228,"It seems the value for the value column is missing.
+</think>
+
+I need the value for the value column.
+</think>
+
+The value for the value column is missing.",0,turn_limit,0.0,False,11.10367670794949,0.15762199996970594,1821122522,741,
+effects-318705291,b650b2af0bdac19660c1,effects,0,answered,0.0,,0.24230899999383837,0.07551304198568687,1129933892,18,Monday,1,answered,1.0,,3.324014416022692,0.07174066599691287,1749037022,229,Saturday
+dependency-eb9ca54444044f3b,sphinxcontrib_spelling-8.0.2-py3-none-any.whl,dependency,1,answered,,True,1.219807250017766,0.18225462501868606,1163459642,98,>=2.32.3 | yes,0,answered,,True,9.078356333018746,0.1784338330035098,1815315418,616,"No, requests 2.34.2 is not allowed by the declared dependency constraint.
+
+The sphinxcontrib_spelling-8.0.2-py3-none-any.whl wheel declares a direct dependency on requests with the constraint: `requests>=2.32.3`
+
+This means requests 2.34.2 is a newer version than what's specified in the declared dependency. The constraint "">=2.32.3"" indicates that requests 2.34.2 or any version greater than 2.32.3 would violate this dependency constraint.
+
+Therefore, requests 2.34.2 is not allowed by the declared dependency constraint."
+pandas-3.8.20,pandas,wheel,0,turn_limit,,False,2.8403030000044964,0.16785120801068842,1194779186,252,,0,invalid_call,,False,10.772223583015148,0.15553400001954287,1820938650,720,
+effects-3812329302,9d9d47e5a87b555bba3b,effects,1,answered,1.0,,0.3621134579880163,0.11093733296729624,1163426874,26,Judy,0,answered,0.1,,2.340266084007453,0.11485166702186689,1804651482,158,"Judy has a higher tolerance for coke than Nicole, as she used it 72 times compared to Nicole's 65 times."
+effects-985605428,e5cee021430a169ef058,effects,0,answered,0.15384615384615385,,0.3778184169786982,0.0751444170018658,1129950372,32,will the flywheel go faster or slower if the crank is turned to the right?,0,answered,0.4,,1.5301243750145659,0.07312687498051673,1775296574,104,The flywheel will go slower.
+dependency-98c07646496e56aa,sphinx_basic_ng-1.0.0b2-py3-none-any.whl,dependency,1,answered,,True,1.1707975000026636,0.17588079202687368,1163492410,93,>=4.0 | yes,1,answered,,True,5.758140166988596,0.16853600001195446,1807938602,381,"Yes, sphinx 8.2.3 is allowed. The published sphinx-basic-ng wheel declares a direct dependency on sphinx with the constraint ""sphinx (>=4.0)"", which means sphinx 8.2.3 is compatible with this version constraint."
+dependency-9ae7c270cacc2491,isoduration-20.11.0-py3-none-any.whl,dependency,1,answered,,True,1.197122749988921,0.1763699579751119,1163492410,97,>=0.15.0 | yes,1,answered,,True,6.1985631250427105,0.16806829202687368,1808282538,415,"The declared direct dependency on arrow from the isoduration-20.11.0-py3-none-any.whl wheel is: **arrow (>=0.15.0)**
+
+**Answer: Yes** - arrow 1.4.0 is allowed because it satisfies the constraint "">=0.15.0"" (1.4.0 is greater than 0.15.0)."
+wiki-test-2009,1-19210115-1,retention,0,turn_limit,0.0,False,3.3389072499703616,0.1668842500075698,1194713650,303,,0,answered,0.0,False,9.314293875009753,0.15440891700563952,1815282650,632,"I need to provide you with a document that contains information about the American Athletic Conference to search for the university. Could you please provide a CSV document that includes the American Athletic Conference information?
+
+Alternatively, if you have access to a database or document that contains the American Athletic Conference data, please share it with me. Once I have that information, I can help you find the university's location."
+effects-1659449439,85988e19e93a41e59e18,effects,0,answered,0.4,,0.3453322499990463,0.08503587503219023,1129966660,27,Bob will dissect a rat.,0,answered,0.0,,1.6683696249965578,0.08456558297621086,1748803550,113,Mammals.
+wiki-test-3024,1-24223834-3,retention,0,invalid_call,0.0,False,1.018095750012435,0.16788045899011195,1163508794,87,,0,token_limit,0.0,False,5.622198582976125,0.1546677919686772,1778404314,384,
+dependency-90776dc5655be247,roman_numerals_py-4.1.0-py3-none-any.whl,dependency,0,answered,,True,1.1996406250400469,0.17724866705248132,1190640698,97,>=4.1.0 | no,1,answered,,True,5.738633667002432,0.1682741250260733,1808118698,385,"No, it does not allow version 4.0.0.
+
+The wheel declares a direct dependency on ""roman-numerals==4.1.0"", which means it requires roman-numerals version 4.1.0. Since 4.0.0 is less than 4.1.0, this dependency does not allow version 4.0.0."
+anytree-3.6.15,anytree,wheel,0,turn_limit,,False,2.9241097499616444,0.16869812499498948,1194795570,259,,0,invalid_call,,False,11.772830542002339,0.15507587499450892,1820828026,789,
+dbfce3efecefb41a-inline,T68,inline,0,answered,,False,0.2831949159735814,0.06289825000567362,1129982788,23,Verdict: uncertain,0,token_limit,,False,5.477250792027917,0.057915667013730854,1775183966,384,
+dependency-05a696c4d2fdb577,sphinxext_opengraph-0.13.0-py3-none-any.whl,dependency,1,answered,,True,1.1738019589683972,0.1765381249715574,1163656250,94,>=6.0 | yes,0,answered,,True,7.149637249996886,0.16824154095957056,1834333898,482,"No, sphinx 8.2.3 is not allowed.
+
+The sphinxext_opengraph wheel declares a direct dependency on sphinx with the constraint: `sphinx~=8.1.0 ; extra == ""rtd""`
+
+This means sphinx must be version 8.1.0 or less (including 8.1.0). Since 8.2.3 is greater than 8.1.0, it's not allowed by this constraint."
+wiki-test-6941,2-15558943-2,retention,0,answered,0.0,False,1.2821303750388324,0.16745320800691843,1163525178,107,The Socialist Labor ticket that had Arthur Levitt as the Liberal ticket was the one in the table.,0,token_limit,0.0,False,5.644464000011794,0.1541079169837758,1804717018,384,
+effects-3484549679,01f414f26b38b314908f,effects,1,answered,1.0,,0.2689632090041414,0.07412000000476837,1129934628,21,Thursday,0,answered,0.0,,2.118897083972115,0.07133233401691541,1775099774,145,Wednesday will have more humidity.
+8aee60adaf6fa2b3-inline,T68,inline,0,answered,,False,0.29271850001532584,0.06207604199880734,1129933892,24,Verdict: uncertain,1,answered,,False,4.435414999956265,0.05808429099852219,1748836318,308,"The evidence directly states that the band Jet's origin is in Melbourne, Victoria, Australia. This information confirms that the band was formed in Australia, establishing the claim.
+
+Verdict: true"
+dependency-2cff923de53c4141,isoduration-20.11.0-py3-none-any.whl,dependency,1,answered,,True,1.21737170801498,0.17626387503696606,1163574330,99,>=0.15.0 | no,1,answered,,True,6.081612375041004,0.16749020799761638,1808053738,407,"No, arrow 0.14.7 is not allowed.
+
+The exact constraint on arrow from the isoduration wheel is: **arrow (>=0.15.0)**
+
+This means arrow must be 0.15.0 or higher. Since 0.14.7 is less than 0.15.0, it's not compatible with this wheel."
+16e268543f1cca69-inline,T203,inline,0,answered,,False,0.31649466598173603,0.11973083298653364,1163541562,21,false,0,token_limit,,False,5.559683417028282,0.1182441670098342,1778387930,384,
+effects-673860450,5c814f5e48b534796301,effects,0,answered,0.0,,0.38098491699201986,0.0924771249992773,1129999428,30,Blue,0,answered,0.1111111111111111,,2.620124750013929,0.08705037500476465,1748803550,179,"The red rock most likely has higher radioactivity because the Geiger counter clicks rapidly, indicating a high level of radiation."
+a3a9df8dddde2b61-file,T68,file,0,turn_limit,,False,2.5706532500335015,0.17635708302259445,1194697714,227,,0,token_limit,,False,13.677266000013333,0.16672954196110368,1820569562,922,
+tomlkit-3.7.17,tomlkit,wheel,0,turn_limit,,False,2.982621041999664,0.16752508404897526,1194697266,267,,0,turn_limit,,False,12.087443083000835,0.15517191600520164,1820565466,809,
+effects-4183507762,805b7f01c57703b8a8b3,effects,0,answered,0.3333333333333333,,0.3054303330136463,0.0840572920278646,1130032196,23,Greg should buy the Sephora brand.,0,answered,0.13333333333333333,,1.8820860830019228,0.08411283302120864,1748721630,127,"Greg should buy the **Sephora** brand, as it explicitly states it does not contain CFCs."
+85b04fd0866c2425-file,T203,file,0,turn_limit,,False,2.807476000045426,0.2233666250249371,1202467898,243,,0,turn_limit,,False,11.979208083008416,0.2097998330136761,1825984474,795,
+2025-4836-weekday,2025-4836,agenda,0,answered,,True,1.6419216660433449,0.22362004104070365,1198650414,127,The evidence establishes the claim.,0,turn_limit,,False,7.123470124963205,0.2117507079965435,1815491498,465,
+wiki-test-14571,2-13063768-1,retention,0,answered,0.0,False,2.6807711250148714,0.15846891602268443,1178149638,247,The race that ended with a time of 01:46:59.69 was the one in the CSV file.,0,turn_limit,0.0,False,9.796308332995977,0.15192591701634228,1815344714,648,
+effects-655110608,85988e19e93a41e59e18,effects,0,answered,0.4,,0.3388657500036061,0.08478720800485462,1129917956,27,Bob will dissect a fish.,1,answered,1.0,,2.180228541023098,0.08543141599511728,1748886142,146,The fish.
+effects-4088330372,7267a4ca0ac995826dde,effects,0,answered,0.0,,0.2962856669910252,0.08179158298298717,1129917444,23,Meramec Caverns,0,answered,0.0,,2.252523667004425,0.07166833302471787,1748967102,155,Meramec Caverns.
+2025-6330-weekday,2025-6330,agenda,0,answered,,True,1.6149886249913834,0.22403412498533726,1186247694,125,The evidence does not establish the claim.,0,answered,,False,4.86565608298406,0.21139783301623538,1783772122,327,"I'd be happy to help you check the scheduled weekday for ""My Nix-Powered Homelab""! However, I need some additional information to proceed:
+
+1. **Agenda file**: I need the actual agenda file content to analyze the scheduled events
+2. **Calendar service URL**: I need the URL of the calendar service where the events are stored
+
+Once you provide these, I can:
+- Extract the scheduled events from the agenda
+- Check the weekday for the specific date ""Sunday""
+- Determine if the claim is true, false, or uncertain based on the evidence
+
+Could you please share the agenda file and calendar service URL so I can perform this analysis for you?"
+effects-4087777312,9d9d47e5a87b555bba3b,effects,0,answered,0.0,,0.2925317090121098,0.10940179199678823,1163476026,19,Ashley,0,answered,0.1,,2.0353093749727122,0.10839199996553361,1778371546,137,"Nicole has a higher tolerance for coke than Ashley, as she used it 65 times compared to Ashley's 23 times."
+effects-3344467660,8ff49cf8057cb61d8bbe,effects,0,answered,0.0,,0.29013883403968066,0.09419166704174131,1160131048,21,Arizona,1,answered,1.0,,5.305108750006184,0.08959050005069003,1780803602,369,Warmer
+dependency-789a68873e6b38b8,virtue-2026.11.2-py3-none-any.whl,dependency,1,answered,,True,1.2208046660525724,0.17637958301929757,1163476026,99,>=22.2.0 | yes,0,answered,,True,5.640475791995414,0.16720441699726507,1808266154,378,"No, attrs 26.1.0 is not allowed.
+
+The published virtue wheel declares a direct dependency on attrs with the constraint ""attrs>=22.2.0"". This means that attrs 26.1.0 is not permitted because it's greater than the declared minimum version of 22.2.0."

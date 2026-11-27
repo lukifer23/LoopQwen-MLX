@@ -2,6 +2,8 @@
 
 The policy adds 786,432 trained parameters to the two physical visits of release 05. It reads the change in hidden state at the final repeated transformer layer. The same readout is active on ordinary questions, tool calls and answers after callbacks. This research policy was evaluated with three turns of up to 384 generated tokens each. The accompanying study reports its measured accuracy, retention, latency and memory.
 
+On 112 matched requests the loop delivered 38 successful answers in 127.32 s versus 22 in 587.18 s for Base. The masked reader credited 8/24 human replies for the loop and 16/24 for Base, and 7/8 versus 2/8 current software decisions. Only one of 24 human situations received both exact answers from the loop. This policy missed its release thresholds.
+
 ## Run the policy
 
 Restore the qualified `exports/tool-language-packed-05` checkpoint from the local field kit or use the existing export. In the policy add-on, install the supplied wheel in the project's pinned Apple Silicon MLX environment and place the restored checkpoint at `release-05`. The archive contains the three trained matrices, their provenance, three original example requests, the corresponding input wheels and the report. [Release and dependencies](FIELD_KIT.md)

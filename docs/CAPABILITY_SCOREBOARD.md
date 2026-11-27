@@ -1,5 +1,20 @@
 # Capability scoreboard
 
+| Second-visit readout on 112 requests | Loop | Untouched Base |
+| --- | ---: | ---: |
+| Grounded or source-scored responses | 38 | 22 |
+| Actual dependencies, grounded decisions | 22/28 | 14/28 |
+| Whole independent project pairs | 7/10 | 4/10 |
+| Fixed-version wheel swaps, whole | 3/4 | 0/4 |
+| Original human questions, exact | 13/48 | 6/48 |
+| Supported replies in masked human review | 8/24 | 16/24 |
+| Elapsed seconds including callbacks | 127.32 | 587.18 |
+| Summed first-token seconds | 16.49 | 16.07 |
+| Peak MLX allocation, GiB | 1.124 | 1.708 |
+
+Human token F1 was 0.395 versus 0.263. The 24 independent human situations gave paired p = 0.2335 and one whole exact situation versus two. On the controlled training readout, gold top-1 was 50/96 for the donor, 73/96 with the learned change and 65/96 when the other question supplied the change. This is a training diagnostic. The fixed-version success and lower overall cost qualify as observed improvements on this panel. First-token time, uncached opening rate, earlier retention and overall release qualification missed. [Evidence and weights](../research/results/visit-residual-01) · [Primary paper](../paper/visit-residual.pdf)
+
+
 ## Full upstream lockfiles beyond 131,072 tokens
 
 | Same two revisions, release 05 | Trained loop | Untouched Base |

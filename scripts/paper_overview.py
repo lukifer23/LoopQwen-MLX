@@ -79,7 +79,10 @@ def build():
         ("followup-protected-01", "Human and wheel follow-ups"),
         ("visit-residual-01", "Second-visit readout"),
     ):
-        if name == "visit-residual-01" and not (P / "visit-residual-paper.json").exists():
+        if (
+            name == "visit-residual-01"
+            and not (P / "visit-residual-paper.json").exists()
+        ):
             continue
         if name.startswith("followup") and not (P / "followup-paper.json").exists():
             continue
@@ -228,7 +231,12 @@ def build():
                 for sec, n in zip(times, quantities, strict=True)
             )
         axis.set(
-            title=domain,
+            title={
+                "valid-return-01": "Alternate tools",
+                "linked-rollin-02": "Tool histories",
+                "followup-protected-01": "Follow-ups",
+                "visit-residual-01": "Visit readout",
+            }[study],
             xlabel="Deadline (seconds)",
             xscale="symlog",
             xlim=(0, 30),

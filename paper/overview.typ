@@ -46,6 +46,8 @@ On 36 byte-identical retained requests at the same original 512-token budget, th
 
 A protected optimizer subsequently applied 735 of 800 proposed updates. Despite enforcing a loss tolerance on sampled older demonstrations, it retained none of the previous adapter’s eleven correct user requests and gained three different ones. Base answered eleven current-wheel questions correctly after checking the actual release, while the trained model answered twenty. A frozen exact-constraint scorer missed two correct Base answers, leading to a less conservative comparison. The detailed study reports both readings.
 
+A readout trained on the actual second-visit change subsequently solved 38/112 requests versus 22/112 for Base. On two questions per whole software project it won 7/10 versus 4/10, and on four fixed-version swaps it won 3/4 versus 0/4. Human exact matches favored the loop 13/48 to 6/48. Source-masked review credited the loop on 8/24 human answers and Base on 16/24. The loop repeated its answer on nine of 24 backgrounds.
+
 These cohorts differ in author, difficulty and scoring unit. Repeated prompts establish retention across versions. New upstream lock revisions examine recent evidence that could not have been in the pinned checkpoint. Human-written datasets may already have contributed to the donor’s pretraining. Small paired cohorts give limited power to detect modest changes. One machine and an ordered run capture operational costs on that installation. Hardware variation, concurrent service demand and different user populations require new observations.
 
 #pagebreak()
