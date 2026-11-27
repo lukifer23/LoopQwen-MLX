@@ -1,0 +1,30 @@
+{
+  "id": "packed-release-retention-04",
+  "question": "Does explicitly identifying the original Qwen3.5 tokenizer in the offline bundle recover the true Base segmentation of real localized text, with complete historical long, book, language and actual tool behavior retained?",
+  "full": "research/results/register-mixed-weight-full-01",
+  "parent": "research/results/packed-release-retention-03",
+  "material": "research/data/packed-release-retention-01.json",
+  "requirements": {
+    "packed-release-retention-03": "c07f79f4e308ace70c1556f4099d1ff5075857a9cfc163c0b39c301d350dde36",
+    "register-mixed-weight-full-01": "128f3a891312ee9cad2e418c5542646b8af3e07ba7da55a48297ee33b7afa51e"
+  },
+  "staging": "outputs/research-artifacts/unicode-offline-candidate",
+  "destination": "exports/tool-language-packed-05",
+  "packages": {
+    "mlx": "0.32.4",
+    "numpy": "2.5.5"
+  },
+  "protocol": "Package from fully verified packed-04. Change only the declared tokenizer_class in tokenizer_config.json, plus the README and inventory. All runtime Python, model weights, BPE data and vocabulary files must be byte-identical. Before native qualification freeze all 5587 main territory labels in 19 Unicode CLDR release-47 locales and the original real BoolQ passage that exposed the problem. Use pinned Qwen3.5 Base token IDs solely as the text-encoding reference. Compare corrected and original deliveries in ABBA order in four genuinely isolated offline processes. In each process run the full original stream, then tokenize all 5587 independent names and generate freely on the same original multilingual user request. Report exact IDs, per-locale mismatch and token counts, question text/outputs, actual cold-stream time, native and whole-process peak. The identical natural-language source can produce different ID sequences in this specific tokenizer comparison; this is its primary endpoint. Free question accuracy is descriptive. For the original full-length retention cases both arms must receive the exact archived IDs.",
+  "gate": "Require all 5587 inputs match pinned Base in both corrected processes and at least one mismatch in both original processes. Require correct input IDs on the diagnosed mixed-script question and discordance in original. Both versions must reproduce every archived 131084 and 24593 register token and selected interval, every physical cache offset, fused operator count, every book prediction and loss, twelve short responses and the two live version calls. Only measured resource fields may differ. Total cold workload wall (including the new text workload) within 10 percent of original, worst register native peak within 1 MiB and peak RSS within 128 MiB. Any miss prevents publication. Passing publishes this exact self-contained folder and licenses a separate lossless portable archive verification; it proves text encoding, not general multilingual reasoning.",
+  "limits": {
+    "wall_seconds": 1200,
+    "peak_gib": 7.8,
+    "available_gib": 1.4
+  },
+  "register_material": "research/data/register-fused-base-full-01.json",
+  "register_material_sha256": "13cf6d7ad5d3acb79dcc3043651cabe67e321584d15e2049249a0a45f6aab7f4",
+  "compact": true,
+  "packed_reader": true,
+  "unicode_data": "research/data/cldr-territory-tokenizer.json",
+  "unicode_sha256": "895a01a77d78a9ed136955e2fc8fab90d9594797a4de23ed4697b44a954ed012"
+}

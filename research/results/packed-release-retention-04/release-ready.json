@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "streams": {
+    "candidate": {
+      "mismatches": 0,
+      "by_locale": {
+        "ar": 0,
+        "bn": 0,
+        "de": 0,
+        "en": 0,
+        "gu": 0,
+        "he": 0,
+        "hi": 0,
+        "ja": 0,
+        "kn": 0,
+        "ml": 0,
+        "mr": 0,
+        "pa": 0,
+        "ru": 0,
+        "ta": 0,
+        "te": 0,
+        "th": 0,
+        "ur": 0,
+        "yo": 0,
+        "zh": 0
+      },
+      "total_label_tokens": 32152,
+      "question_matches": true,
+      "question_answer": "Hmm, the user is asking whether there's a train between India and Pakistan based on the passage. Let me scan the passage carefully. \n\nThe passage mentions the Samjhauta Express runs between Delhi and Attari in India and Lahore in Pakistan. Attari is in Pakistan, and Delhi is in India. So yes, there's a train connecting both countries. \n\nThe answer should be straightforward since the passage explicitly states the route. No need to overcomplicate it.\n</think>\n\nYes<|im_end|>",
+      "question_correct": true,
+      "reference_tokens": 32152,
+      "labels": 5587,
+      "retained": [
+        true,
+        true
+      ],
+      "stream_seconds": 286.3015966239618,
+      "register_peak": 2525708284,
+      "rss": 2325839872
+    },
+    "control": {
+      "mismatches": 2150,
+      "by_locale": {
+        "ar": 0,
+        "bn": 227,
+        "de": 0,
+        "en": 0,
+        "gu": 223,
+        "he": 0,
+        "hi": 264,
+        "ja": 0,
+        "kn": 200,
+        "ml": 212,
+        "mr": 256,
+        "pa": 15,
+        "ru": 0,
+        "ta": 245,
+        "te": 278,
+        "th": 230,
+        "ur": 0,
+        "yo": 0,
+        "zh": 0
+      },
+      "total_label_tokens": 36584,
+      "question_matches": false,
+      "question_answer": "Hmm, the user is asking whether there's a train between India and Pakistan based on the passage. Let me scan the passage carefully. \n\nThe passage mentions the Samjhauta Express, which runs between Delhi and Attari in India and Lahore in Pakistan. That clearly indicates a train connecting both countries. \n\nThe question is straightforward, and the answer is directly stated in the text. No need to overcomplicate it. \n\nYes, the answer is yes.\n</think>\n\nYes<|im_end|>",
+      "question_correct": true,
+      "reference_tokens": 32152,
+      "labels": 5587,
+      "retained": [
+        true,
+        true
+      ],
+      "stream_seconds": 286.58019170805346,
+      "register_peak": 2525694460,
+      "rss": 2325495808
+    }
+  }
+}
