@@ -73,7 +73,11 @@ def score(tok, w, i, tr):
         and e["observation"] == expected["observation"]
         for e in executions({"turns": tr["turns"][:-1]})
     )
-    correct_range = ranges(text) == {str(SpecifierSet(w["requirement"]))}
+    exact = {str(SpecifierSet(w["requirement"]))}
+    # Markdown bold delimiters are not PEP 440 wildcards. Preserve single
+    # wildcards such as ==1.* and keep the preceding study's literal score.
+    literal_range = ranges(text) == exact
+    correct_range = ranges(text.replace("**", "")) == exact
     verdict = set(re.findall(r"\b(?:yes|no)\b", text.casefold())) == {
         "yes" if w["allowed"] else "no"
     }
@@ -83,6 +87,7 @@ def score(tok, w, i, tr):
         "correct_answer": done and correct_range and verdict,
         "observed": observed,
         "range": correct_range,
+        "literal_range": literal_range,
         "verdict": verdict,
     }
 

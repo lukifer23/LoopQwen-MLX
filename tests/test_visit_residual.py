@@ -84,3 +84,33 @@ def test_rehearsal_only_projection_matches_full_vocabulary_loss_and_gradients():
     assert a.keys() == b.keys()
     for key in a:
         assert mx.allclose(a[key], b[key], atol=2e-6, rtol=2e-5).item()
+
+
+def test_dependency_verdict_preserves_wildcards_and_distinguishes_markdown_emphasis():
+    from loopqwen.research.visit_residual_study import score
+
+    event = {
+        "call": {
+            "name": "wheel_metadata",
+            "arguments": {"wheel": "demo.whl", "field": "Requires-Dist"},
+        },
+        "observation": {"values": ["library>=3.10"]},
+    }
+    row = {
+        "family": "dependency",
+        "current": event,
+        "requirement": ">=3.10",
+        "allowed": True,
+    }
+
+    def grade(text):
+        return score(
+            None, row, 0, {"status": "answered", "answer": text, "turns": [event, {}]}
+        )
+
+    v = grade("The requirement is **>=3.10**. Yes.")
+    assert v["success"] and not v["literal_range"]
+    assert not grade(">=3.10 or >=3.9. Yes.")["success"]
+    assert not grade(">=3.10. No.")["success"]
+    row["requirement"] = "==1.*"
+    assert grade("The allowed releases are **==1.***. Yes.")["success"]
