@@ -1,0 +1,23 @@
+{
+  "storage": "487f22727a23f616e1025e5545b78ad7f58ad707a77a1970b848f12fcc6fcd8a",
+  "failed": "7e1a0eb9bea35202e39cc4edc869ed093d48389c44cd474dbfc71a306a6f5007",
+  "matched_diagnostic": "a1afc274c9b04920f8df9deec67bcfb4cab588412d2058c80cd5cbfd35a8b93d",
+  "question": "Can FP16 arithmetic preserve the original cache tolerance on the deployed packed Qwen without widening its 16-bit weights or modifying the original 4-bit matrix codes?",
+  "ids": [
+    "strategyqa/096acbba9f3e51c0f722",
+    "strategyqa/abd771e9a20b107e7e56",
+    "strategyqa/4b1b787084fd4b19fb80",
+    "strategyqa/95e6f7de4cb6713fb167",
+    "finqa/AAPL/2012/page_24.pdf-2/action",
+    "finqa/C/2015/page_314.pdf-1/action",
+    "finqa/MO/2017/page_65.pdf-2/action",
+    "finqa/MA/2009/page_120.pdf-2/action",
+    "rehearsal/dolly-8767",
+    "rehearsal/dolly-14110",
+    "rehearsal/dolly-11",
+    "rehearsal/dolly-475"
+  ],
+  "max_seconds": 180,
+  "max_mlx_bytes": 2147483648,
+  "threshold": "All 12 hash-selected training prompts must reproduce the top token and maximum 0.55 logit error across both cache partitions and both architectures in FP16. Preserve the previous BF16 ordinary top token on all three earlier failed prompts and at least 11 of 12 overall. Stop at either resource bound or a macOS memory warning. Only a numerically successful method can be enrolled for source-repair fitting. No held prompts, new generation arms or task claims."
+}
