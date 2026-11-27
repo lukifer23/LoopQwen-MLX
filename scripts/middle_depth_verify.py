@@ -57,14 +57,19 @@ def run():
             errors.append(mx.max(mx.abs(actual - ref)).item())
             assert errors[-1] == 0
         x = mx.array([r["p"][:96]])
-        y = mx.array(r["p"][96:100])
+        y = mx.array(r["p"][93:97])
         target = model.text.layers[-1].mlp.down_proj
 
+        def prefix_cache():
+            cache = model.make_cache()
+            mx.eval(model.hidden(x[:, :-4], cache))
+            return cache
+
         def full(_):
-            logits = model(x, model.make_cache())[0, -4:].astype(mx.float32)
+            logits = model(x[:, -4:], prefix_cache())[0].astype(mx.float32)
             return nn.losses.cross_entropy(logits, y).mean()
 
-        z = residual(model, x, model.make_cache())[:, -4:]
+        z = residual(model, x[:, -4:], prefix_cache())
         mx.eval(z)
 
         def sparse(_):
@@ -83,7 +88,9 @@ def run():
         # four rows are presented. Bound the difference relative to the signal.
         norm = mx.linalg.norm(gb["lora_b"]).item()
         relative = mx.linalg.norm(ga["lora_b"] - gb["lora_b"]).item() / norm
-        assert norm > 0 and abs(a - b) < 0.01 and relative < 0.02
+        diagnostic = dict(full_loss=a, sparse_loss=b, norm=norm, relative=relative, maximum=errors_grad)
+        save(ROOT / "sparse-gradient-check.json", diagnostic)
+        assert norm > 0 and abs(a - b) < 0.01 and relative < 0.02, diagnostic
         prior = model.project(model.hidden(x)[:, :60])
         changed = model.project(
             model.hidden(mx.concatenate([x[:, :60], x[:, 60:][:, ::-1]], axis=1))[
