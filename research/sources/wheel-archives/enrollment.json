@@ -1,0 +1,4660 @@
+{
+  "source_locks": {
+    "train": [
+      "pydantic/pydantic",
+      "6449f80db0214a95178b6b80a3613451b924a4f1",
+      "87d563f01d750427776119145953e9184d6388ab"
+    ],
+    "held": [
+      "fastapi/fastapi",
+      "05e6df7e906c3decba377c37548019973f40bf15",
+      "c4f862e8673f45f06031236dd91c02b3dd1b7b0a"
+    ]
+  },
+  "ordering_seed": 740031,
+  "limits": {
+    "max_wheel_bytes": 1048576
+  },
+  "support_versions": [
+    "3.6.15",
+    "3.7.17",
+    "3.8.18",
+    "3.9.18",
+    "3.10.13",
+    "3.11.8",
+    "3.12.2",
+    "3.13.0",
+    "3.14.0"
+  ],
+  "cohorts": {
+    "held": [
+      {
+        "package": "pygithub",
+        "version": "2.10.0",
+        "file": "pygithub-2.10.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/91/71/f314841697a1d52af3e1ea7c5e1c3f09685b64ae4c58ff16b605a866255d/pygithub-2.10.0-py3-none-any.whl",
+        "sha256": "192ada2a76e4afc7d6b37e500c9bfeba1731e6506697445a5ba1c4af8bf0b924",
+        "bytes": 455554,
+        "metadata_member": "pygithub-2.10.0.dist-info/METADATA",
+        "metadata_sha256": "ae96ddbfe5f54e43f7e396f7a3245d862f31d6e7830e3d4fa6faeb390cccf1a4",
+        "headers": {
+          "Name": [
+            "PyGithub"
+          ],
+          "Version": [
+            "2.10.0"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "Use the full Github API v3"
+          ],
+          "Requires-Dist": [
+            "pynacl>=1.4.0",
+            "requests>=2.14.0",
+            "pyjwt[crypto]>=2.4.0",
+            "typing-extensions>=4.5.0",
+            "urllib3>=1.26.0"
+          ],
+          "Provides-Extra": [
+            "integrations"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "graphql-core",
+        "version": "3.3.1",
+        "file": "graphql_core-3.3.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/57/0e/e51b006267e7fa785abf5d1f86a7d60b84f7f893e3ba4fe23df9be2000cf/graphql_core-3.3.1-py3-none-any.whl",
+        "sha256": "43ebcd0d9a0662a71b1a2f6562ba863d253057ec11cbc45835b2e2683a0a3770",
+        "bytes": 349047,
+        "metadata_member": "graphql_core-3.3.1.dist-info/METADATA",
+        "metadata_sha256": "267dcb3ec863ea6d16615cd754057da5d534be3c2e96c4300e1bd14f89b4f193",
+        "headers": {
+          "Name": [
+            "graphql-core"
+          ],
+          "Version": [
+            "3.3.1"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "GraphQL-core is a Python port of GraphQL.js, the JavaScript reference implementation for GraphQL."
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "httpcore",
+        "version": "1.0.9",
+        "file": "httpcore-1.0.9-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/7e/f5/f66802a942d491edb555dd61e3a9961140fd64c90bce1eafd741609d334d/httpcore-1.0.9-py3-none-any.whl",
+        "sha256": "2d400746a40668fc9dec9810239072b40b4484b640a8c38fd654a024c7a1bf55",
+        "bytes": 78784,
+        "metadata_member": "httpcore-1.0.9.dist-info/METADATA",
+        "metadata_sha256": "fe2d4fda6199128978779e0cf27f3c045c531863fcdd987eacc74f3a18d41c21",
+        "headers": {
+          "Name": [
+            "httpcore"
+          ],
+          "Version": [
+            "1.0.9"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "A minimal low-level HTTP client."
+          ],
+          "Requires-Dist": [
+            "certifi",
+            "h11>=0.16",
+            "anyio<5.0,>=4.0; extra == 'asyncio'",
+            "h2<5,>=3; extra == 'http2'",
+            "socksio==1.*; extra == 'socks'",
+            "trio<1.0,>=0.22.0; extra == 'trio'"
+          ],
+          "Provides-Extra": [
+            "asyncio",
+            "http2",
+            "socks",
+            "trio"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "email-validator",
+        "version": "2.3.0",
+        "file": "email_validator-2.3.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/de/15/545e2b6cf2e3be84bc1ed85613edd75b8aea69807a71c26f4ca6a9258e82/email_validator-2.3.0-py3-none-any.whl",
+        "sha256": "80f13f623413e6b197ae73bb10bf4eb0908faf509ad8362c5edeb0be7fd450b4",
+        "bytes": 35604,
+        "metadata_member": "email_validator-2.3.0.dist-info/METADATA",
+        "metadata_sha256": "2a97b81eefcd856bc80b0346f47fa2d800b9a438bf8f9231ae00fe931d5c9fbc",
+        "headers": {
+          "Name": [
+            "email-validator"
+          ],
+          "Version": [
+            "2.3.0"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "A robust email address syntax and deliverability validation library."
+          ],
+          "Requires-Dist": [
+            "dnspython>=2.0.0",
+            "idna>=2.0.0"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "sniffio",
+        "version": "1.3.1",
+        "file": "sniffio-1.3.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/e9/44/75a9c9421471a6c4805dbf2356f7c181a29c1879239abab1ea2cc8f38b40/sniffio-1.3.1-py3-none-any.whl",
+        "sha256": "2f6da418d1f1e0fddd844478f41680e794e6051915791a034ff65e5f100525a2",
+        "bytes": 10235,
+        "metadata_member": "sniffio-1.3.1.dist-info/METADATA",
+        "metadata_sha256": "0b318b57098edeccf585e60a889a6b6a7b5c4086f3a9aa62eff76a1d3cee12d9",
+        "headers": {
+          "Name": [
+            "sniffio"
+          ],
+          "Version": [
+            "1.3.1"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "Sniff out which async library your code is running under"
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "sqlmodel",
+        "version": "0.0.47",
+        "file": "sqlmodel-0.0.47-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/f7/b3/988928029b0e68de7ac587c2e1ccd379aa18e7c0aa7cc426628145a032fe/sqlmodel-0.0.47-py3-none-any.whl",
+        "sha256": "165294386c3e4b25fa02f151ca1abb0cbf5fdb76f6093a38aca33fdc30dfd485",
+        "bytes": 31314,
+        "metadata_member": "sqlmodel-0.0.47.dist-info/METADATA",
+        "metadata_sha256": "7d34b089662a5acb96869e42153e3e1f562da3e32759b483705ae5667895efec",
+        "headers": {
+          "Name": [
+            "sqlmodel"
+          ],
+          "Version": [
+            "0.0.47"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "SQLModel, SQL databases in Python, designed for simplicity, compatibility, and robustness."
+          ],
+          "Requires-Dist": [
+            "SQLAlchemy<2.1.0,>=2.0.14",
+            "pydantic>=2.11.0",
+            "typing-extensions>=4.5.0"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "websockets",
+        "version": "15.0.1",
+        "file": "websockets-15.0.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/fa/a8/5b41e0da817d64113292ab1f8247140aac61cbf6cfd085d6a0fa77f4984f/websockets-15.0.1-py3-none-any.whl",
+        "sha256": "f7a866fbc1e97b5c617ee4116daaa09b722101d4a3c170c787450ba409f9736f",
+        "bytes": 169743,
+        "metadata_member": "websockets-15.0.1.dist-info/METADATA",
+        "metadata_sha256": "551e4ae9e806fcfa49dbe190e21c9df8293581e22544c2d0a6f841e6a7e71254",
+        "headers": {
+          "Name": [
+            "websockets"
+          ],
+          "Version": [
+            "15.0.1"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "python-multipart",
+        "version": "0.0.32",
+        "file": "python_multipart-0.0.32-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/e1/04/e8135ebd1ad02c56ec633277529b2602ff99ff634be76cdba5744cf554fd/python_multipart-0.0.32-py3-none-any.whl",
+        "sha256": "ff6d3f776f16878c894e52e107296ffc890e913c611b1a4ec6c44e2821fe2e23",
+        "bytes": 30042,
+        "metadata_member": "python_multipart-0.0.32.dist-info/METADATA",
+        "metadata_sha256": "e9d399d7dea5eddf0e4d24b5c24687a82e7e50bf2c2b30f8f8a06a64d887dd86",
+        "headers": {
+          "Name": [
+            "python-multipart"
+          ],
+          "Version": [
+            "0.0.32"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "A streaming multipart parser for Python"
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "pydantic-extra-types",
+        "version": "2.11.0",
+        "file": "pydantic_extra_types-2.11.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/fe/17/fabd56da47096d240dd45ba627bead0333b0cf0ee8ada9bec579287dadf3/pydantic_extra_types-2.11.0-py3-none-any.whl",
+        "sha256": "84b864d250a0fc62535b7ec591e36f2c5b4d1325fa0017eb8cda9aeb63b374a6",
+        "bytes": 74296,
+        "metadata_member": "pydantic_extra_types-2.11.0.dist-info/METADATA",
+        "metadata_sha256": "97c90af33d7e4f29f76404f78c8228bc56073c2055e134ed4062a13307f944d2",
+        "headers": {
+          "Name": [
+            "pydantic-extra-types"
+          ],
+          "Version": [
+            "2.11.0"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Extra Pydantic types."
+          ],
+          "Requires-Dist": [
+            "pydantic>=2.5.2",
+            "typing-extensions",
+            "cron-converter>=1.2.2; extra == 'all'",
+            "pendulum<4.0.0,>=3.0.0; extra == 'all'",
+            "phonenumbers<10,>=8; extra == 'all'",
+            "pycountry>=23; extra == 'all'",
+            "pymongo<5.0.0,>=4.0.0; extra == 'all'",
+            "python-ulid<2,>=1; (python_version < '3.9') and extra == 'all'",
+            "python-ulid<4,>=1; (python_version >= '3.9') and extra == 'all'",
+            "pytz>=2024.1; extra == 'all'",
+            "semver>=3.0.2; extra == 'all'",
+            "semver~=3.0.2; extra == 'all'",
+            "tzdata>=2024.1; extra == 'all'",
+            "cron-converter>=1.2.2; extra == 'cron'",
+            "pendulum<4.0.0,>=3.0.0; extra == 'pendulum'",
+            "phonenumbers<10,>=8; extra == 'phonenumbers'",
+            "pycountry>=23; extra == 'pycountry'",
+            "python-ulid<2,>=1; (python_version < '3.9') and extra == 'python-ulid'",
+            "python-ulid<4,>=1; (python_version >= '3.9') and extra == 'python-ulid'",
+            "semver>=3.0.2; extra == 'semver'"
+          ],
+          "Provides-Extra": [
+            "all",
+            "cron",
+            "pendulum",
+            "phonenumbers",
+            "pycountry",
+            "python-ulid",
+            "semver"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "opentelemetry-exporter-otlp-proto-http",
+        "version": "1.45.1",
+        "file": "opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/aa/1f/517eaa0187ba106a9da97160ce2add3a371812681dc440930b267f714e42/opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl",
+        "sha256": "24a97cf3753c7fb52fad44a696e452ff371686339e2acf3309e2eda3d0230700",
+        "bytes": 22180,
+        "metadata_member": "opentelemetry_exporter_otlp_proto_http-1.45.1.dist-info/METADATA",
+        "metadata_sha256": "93be2171f402c500e2b39ea70f4a6c7a9902c43e61e5987b3f23a576613947ce",
+        "headers": {
+          "Name": [
+            "opentelemetry-exporter-otlp-proto-http"
+          ],
+          "Version": [
+            "1.45.1"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "OpenTelemetry Collector Protobuf over HTTP Exporter"
+          ],
+          "Requires-Dist": [
+            "googleapis-common-protos~=1.52",
+            "opentelemetry-api~=1.15",
+            "opentelemetry-exporter-http-transport[requests]==0.66b1",
+            "opentelemetry-exporter-otlp-common==0.66b1",
+            "opentelemetry-exporter-otlp-proto-common==1.45.1",
+            "opentelemetry-proto==1.45.1",
+            "opentelemetry-sdk~=1.45.1",
+            "requests~=2.7",
+            "typing-extensions>=4.5.0",
+            "opentelemetry-exporter-credential-provider-gcp>=0.59b0; extra == 'gcp-auth'",
+            "opentelemetry-exporter-http-transport[requests]==0.66b1; extra == 'requests'",
+            "requests~=2.7; extra == 'requests'"
+          ],
+          "Provides-Extra": [
+            "gcp-auth",
+            "requests"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "mkdocs-autorefs",
+        "version": "1.4.3",
+        "file": "mkdocs_autorefs-1.4.3-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/9f/4d/7123b6fa2278000688ebd338e2a06d16870aaf9eceae6ba047ea05f92df1/mkdocs_autorefs-1.4.3-py3-none-any.whl",
+        "sha256": "469d85eb3114801d08e9cc55d102b3ba65917a869b893403b8987b601cf55dc9",
+        "bytes": 25034,
+        "metadata_member": "mkdocs_autorefs-1.4.3.dist-info/METADATA",
+        "metadata_sha256": "354aa8183814de2b1cc34570ec2daf73868e67e23ca8286c1b7085644d2bd852",
+        "headers": {
+          "Name": [
+            "mkdocs-autorefs"
+          ],
+          "Version": [
+            "1.4.3"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Automatically link across pages in MkDocs."
+          ],
+          "Requires-Dist": [
+            "Markdown>=3.3",
+            "markupsafe>=2.0.1",
+            "mkdocs>=1.1"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "mkdocstrings",
+        "version": "1.0.4",
+        "file": "mkdocstrings-1.0.4-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/6e/94/be70f8ee9c45f2f62b39a1f0e9303bc20e138a8f3b8e50ffd89498e177e1/mkdocstrings-1.0.4-py3-none-any.whl",
+        "sha256": "63464b4b29053514f32a1dbbf604e52876d5e638111b0c295ab7ed3cac73ca9b",
+        "bytes": 35560,
+        "metadata_member": "mkdocstrings-1.0.4.dist-info/METADATA",
+        "metadata_sha256": "03510b7125df915943e67dd8e878c8cb2d96638183cdfdfe8714fc3841d3ac86",
+        "headers": {
+          "Name": [
+            "mkdocstrings"
+          ],
+          "Version": [
+            "1.0.4"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "Automatic documentation from sources, for MkDocs."
+          ],
+          "Requires-Dist": [
+            "Jinja2>=3.1",
+            "Markdown>=3.6",
+            "MarkupSafe>=1.1",
+            "mkdocs>=1.6",
+            "mkdocs-autorefs>=1.4",
+            "pymdown-extensions>=6.3",
+            "mkdocstrings-crystal>=0.3.4; extra == \"crystal\"",
+            "mkdocstrings-python-legacy>=0.2.1; extra == \"python-legacy\"",
+            "mkdocstrings-python>=1.16.2; extra == \"python\""
+          ],
+          "Provides-Extra": [
+            "crystal",
+            "python-legacy",
+            "python"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      }
+    ],
+    "train": [
+      {
+        "package": "pymdown-extensions",
+        "version": "11.0.1",
+        "file": "pymdown_extensions-11.0.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/d6/54/da572c98c0b77626a91b5d3b89f0231d8bff5125c225420908632f8b342d/pymdown_extensions-11.0.1-py3-none-any.whl",
+        "sha256": "db3943a62bab7e03af1364f0c4083e64b91fb097675a4b6cceccfbe9a77e5eb2",
+        "bytes": 269455,
+        "metadata_member": "pymdown_extensions-11.0.1.dist-info/METADATA",
+        "metadata_sha256": "206c1357beb90b271c597c1ce7be12135def13345e52f45105dde5975b1ae455",
+        "headers": {
+          "Name": [
+            "pymdown-extensions"
+          ],
+          "Version": [
+            "11.0.1"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "Extension pack for Python Markdown."
+          ],
+          "Requires-Dist": [
+            "markdown>=3.6",
+            "pyyaml",
+            "pygments>=2.19.1; extra == 'extra'"
+          ],
+          "Provides-Extra": [
+            "extra"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "pytokens",
+        "version": "0.4.1",
+        "file": "pytokens-0.4.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/c6/78/397db326746f0a342855b81216ae1f0a32965deccfd7c830a2dbc66d2483/pytokens-0.4.1-py3-none-any.whl",
+        "sha256": "26cef14744a8385f35d0e095dc8b3a7583f6c953c2e3d269c7f82484bf5ad2de",
+        "bytes": 13729,
+        "metadata_member": "pytokens-0.4.1.dist-info/METADATA",
+        "metadata_sha256": "ca4c99dc536bed59d45a090394acaab74c95df01ee1987c64b347cf8da7cd0c4",
+        "headers": {
+          "Name": [
+            "pytokens"
+          ],
+          "Version": [
+            "0.4.1"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "A Fast, spec compliant Python 3.14+ tokenizer that runs on older Pythons."
+          ],
+          "Requires-Dist": [
+            "black; extra == \"dev\"",
+            "build; extra == \"dev\"",
+            "mypy; extra == \"dev\"",
+            "pytest; extra == \"dev\"",
+            "pytest-cov; extra == \"dev\"",
+            "setuptools; extra == \"dev\"",
+            "tox; extra == \"dev\"",
+            "twine; extra == \"dev\"",
+            "wheel; extra == \"dev\""
+          ],
+          "Provides-Extra": [
+            "dev"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "importlib-resources",
+        "version": "6.5.2",
+        "file": "importlib_resources-6.5.2-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/a4/ed/1f1afb2e9e7f38a545d628f864d562a5ae64fe6f7a10e28ffb9b185b4e89/importlib_resources-6.5.2-py3-none-any.whl",
+        "sha256": "789cfdc3ed28c78b67a06acb8126751ced69a3d5f79c095a98298cd8a760ccec",
+        "bytes": 37461,
+        "metadata_member": "importlib_resources-6.5.2.dist-info/METADATA",
+        "metadata_sha256": "ca0953ffb4bf3ecad241a55381929061fa26694943fa957be1fffd2ddd118e86",
+        "headers": {
+          "Name": [
+            "importlib_resources"
+          ],
+          "Version": [
+            "6.5.2"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Read resources from Python packages"
+          ],
+          "Requires-Dist": [
+            "zipp>=3.1.0; python_version < \"3.10\"",
+            "pytest!=8.1.*,>=6; extra == \"test\"",
+            "zipp>=3.17; extra == \"test\"",
+            "jaraco.test>=5.4; extra == \"test\"",
+            "sphinx>=3.5; extra == \"doc\"",
+            "jaraco.packaging>=9.3; extra == \"doc\"",
+            "rst.linker>=1.9; extra == \"doc\"",
+            "furo; extra == \"doc\"",
+            "sphinx-lint; extra == \"doc\"",
+            "jaraco.tidelift>=1.4; extra == \"doc\"",
+            "pytest-checkdocs>=2.4; extra == \"check\"",
+            "pytest-ruff>=0.2.1; sys_platform != \"cygwin\" and extra == \"check\"",
+            "pytest-cov; extra == \"cover\"",
+            "pytest-enabler>=2.2; extra == \"enabler\"",
+            "pytest-mypy; extra == \"type\""
+          ],
+          "Provides-Extra": [
+            "test",
+            "doc",
+            "check",
+            "cover",
+            "enabler",
+            "type"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "certifi",
+        "version": "2026.10.19",
+        "file": "certifi-2026.10.19-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/c4/51/29046e48f693c54e5b7412216d447a1d8362c9653148d98c02cdf65fa733/certifi-2026.10.19-py3-none-any.whl",
+        "sha256": "42d35340cc5b9ba78e818ddbff0c5b1c2b779de448a340fd1b989f5fa8670e1b",
+        "bytes": 136464,
+        "metadata_member": "certifi-2026.10.19.dist-info/METADATA",
+        "metadata_sha256": "a5c0be3a42daeef0edfaf58e6ea5b7550f3e4e8eb35420f72e902df9bcf00f5c",
+        "headers": {
+          "Name": [
+            "certifi"
+          ],
+          "Version": [
+            "2026.10.19"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "Python package for providing Mozilla's CA Bundle."
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "colorama",
+        "version": "0.4.6",
+        "file": "colorama-0.4.6-py2.py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl",
+        "sha256": "4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6",
+        "bytes": 25335,
+        "metadata_member": "colorama-0.4.6.dist-info/METADATA",
+        "metadata_sha256": "7baed29eb50c3b29bdb33ff84e3177bf1bc05784f7685ecdcaa4471c7dd810cc",
+        "headers": {
+          "Name": [
+            "colorama"
+          ],
+          "Version": [
+            "0.4.6"
+          ],
+          "Requires-Python": [
+            "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,!=3.6.*,>=2.7"
+          ],
+          "Summary": [
+            "Cross-platform colored terminal text."
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "backports-tarfile",
+        "version": "1.2.0",
+        "file": "backports.tarfile-1.2.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/b9/fa/123043af240e49752f1c4bd24da5053b6bd00cad78c2be53c0d1e8b975bc/backports.tarfile-1.2.0-py3-none-any.whl",
+        "sha256": "77e284d754527b01fb1e6fa8a1afe577858ebe4e9dad8919e34c862cb399bc34",
+        "bytes": 30181,
+        "metadata_member": "backports.tarfile-1.2.0.dist-info/METADATA",
+        "metadata_sha256": "8215c54ead77d9dc5a108a25c6bdc72b5999aa6f62c9499a440359412afa5a51",
+        "headers": {
+          "Name": [
+            "backports.tarfile"
+          ],
+          "Version": [
+            "1.2.0"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "Backport of CPython tarfile module"
+          ],
+          "Requires-Dist": [
+            "sphinx >=3.5 ; extra == 'docs'",
+            "jaraco.packaging >=9.3 ; extra == 'docs'",
+            "rst.linker >=1.9 ; extra == 'docs'",
+            "furo ; extra == 'docs'",
+            "sphinx-lint ; extra == 'docs'",
+            "pytest !=8.1.*,>=6 ; extra == 'testing'",
+            "pytest-checkdocs >=2.4 ; extra == 'testing'",
+            "pytest-cov ; extra == 'testing'",
+            "pytest-enabler >=2.2 ; extra == 'testing'",
+            "jaraco.test ; extra == 'testing'",
+            "pytest !=8.0.* ; extra == 'testing'"
+          ],
+          "Provides-Extra": [
+            "docs",
+            "testing"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "backrefs",
+        "version": "6.1",
+        "file": "backrefs-6.1-py310-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/3b/ee/c216d52f58ea75b5e1841022bbae24438b19834a29b163cb32aa3a2a7c6e/backrefs-6.1-py310-none-any.whl",
+        "sha256": "2a2ccb96302337ce61ee4717ceacfbf26ba4efb1d55af86564b8bbaeda39cac1",
+        "bytes": 381059,
+        "metadata_member": "backrefs-6.1.dist-info/METADATA",
+        "metadata_sha256": "9aa119efb444b73bb6a3acc5a1fa11ebd9a45770faaff1529417d6cb349dde92",
+        "headers": {
+          "Name": [
+            "backrefs"
+          ],
+          "Version": [
+            "6.1"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "A wrapper around re and regex that adds additional back references."
+          ],
+          "Requires-Dist": [
+            "regex; extra == 'extras'"
+          ],
+          "Provides-Extra": [
+            "extras"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "id",
+        "version": "1.6.1",
+        "file": "id-1.6.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/42/77/de194443bf38daed9452139e960c632b0ef9f9a5dd9ce605fdf18ca9f1b1/id-1.6.1-py3-none-any.whl",
+        "sha256": "f5ec41ed2629a508f5d0988eda142e190c9c6da971100612c4de9ad9f9b237ca",
+        "bytes": 14689,
+        "metadata_member": "id-1.6.1.dist-info/METADATA",
+        "metadata_sha256": "5df85d87132487ef5ec3f6e7484595df23c6b088b97eb7eff35447d56c7cba24",
+        "headers": {
+          "Name": [
+            "id"
+          ],
+          "Version": [
+            "1.6.1"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "A tool for generating OIDC identities"
+          ],
+          "Requires-Dist": [
+            "urllib3 >= 2, < 3",
+            "build ; extra == \"dev\"",
+            "bump >= 1.3.2 ; extra == \"dev\"",
+            "id[test, lint] ; extra == \"dev\"",
+            "bandit ; extra == \"lint\"",
+            "interrogate ; extra == \"lint\"",
+            "mypy ; extra == \"lint\"",
+            "ruff < 0.14.15 ; extra == \"lint\"",
+            "pytest ; extra == \"test\"",
+            "pytest-cov ; extra == \"test\"",
+            "pretend ; extra == \"test\"",
+            "coverage[toml] ; extra == \"test\""
+          ],
+          "Provides-Extra": [
+            "dev",
+            "lint",
+            "test"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "propcache",
+        "version": "0.2.1",
+        "file": "propcache-0.2.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/41/b6/c5319caea262f4821995dca2107483b94a3345d4607ad797c76cb9c36bcc/propcache-0.2.1-py3-none-any.whl",
+        "sha256": "52277518d6aae65536e9cea52d4e7fd2f7a66f4aa2d30ed3f2fcea620ace3c54",
+        "bytes": 11818,
+        "metadata_member": "propcache-0.2.1.dist-info/METADATA",
+        "metadata_sha256": "e936f36d52e131eb8bcdf91ed20d20ee0b29e1ff755ca40b3ad15c9903c163ad",
+        "headers": {
+          "Name": [
+            "propcache"
+          ],
+          "Version": [
+            "0.2.1"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Accelerated property cache"
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "inline-snapshot",
+        "version": "0.32.2",
+        "file": "inline_snapshot-0.32.2-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/68/3c/2cdb9e4d004951816d5b3dc720dcebfa3cc9909cfe8e38de4bb72f628755/inline_snapshot-0.32.2-py3-none-any.whl",
+        "sha256": "e2866e4f268435a9b8886f63a275cdb7489d13baddb2a0aab6625bf2975c06ce",
+        "bytes": 84285,
+        "metadata_member": "inline_snapshot-0.32.2.dist-info/METADATA",
+        "metadata_sha256": "3374a6507c3293c67d1d0d3c93e09c29d980462304ae5d7514f40f20c7a55364",
+        "headers": {
+          "Name": [
+            "inline-snapshot"
+          ],
+          "Version": [
+            "0.32.2"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "golden master/snapshot/approval testing library which puts the values right into your source code"
+          ],
+          "Requires-Dist": [
+            "asttokens>=2.0.5",
+            "executing>=2.2.0",
+            "pytest>=8.3.4",
+            "rich>=13.7.1",
+            "tomli>=2.0.0; python_version < '3.11'",
+            "typing-extensions",
+            "black>=23.3.0; extra == 'black'",
+            "dirty-equals>=0.9.0; extra == 'dirty-equals'"
+          ],
+          "Provides-Extra": [
+            "black",
+            "dirty-equals"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "rfc3986",
+        "version": "2.0.0",
+        "file": "rfc3986-2.0.0-py2.py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/ff/9a/9afaade874b2fa6c752c36f1548f718b5b83af81ed9b76628329dab81c1b/rfc3986-2.0.0-py2.py3-none-any.whl",
+        "sha256": "50b1502b60e289cb37883f3dfd34532b8873c7de9f49bb546641ce9cbd256ebd",
+        "bytes": 31326,
+        "metadata_member": "rfc3986-2.0.0.dist-info/METADATA",
+        "metadata_sha256": "f22029d298cf2eaea524e697d06a55f38d099cc40fb0f175ed79037effe3a8ce",
+        "headers": {
+          "Name": [
+            "rfc3986"
+          ],
+          "Version": [
+            "2.0.0"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "Validating URI References per RFC 3986"
+          ],
+          "Requires-Dist": [
+            "idna ; extra == 'idna2008'"
+          ],
+          "Provides-Extra": [
+            "idna2008"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "urllib3",
+        "version": "2.8.0",
+        "file": "urllib3-2.8.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl",
+        "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3",
+        "bytes": 135717,
+        "metadata_member": "urllib3-2.8.0.dist-info/METADATA",
+        "metadata_sha256": "10898c620e8007c030e07fa5622b68358a43010025dfbd78a1cb797699de2bb4",
+        "headers": {
+          "Name": [
+            "urllib3"
+          ],
+          "Version": [
+            "2.8.0"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "HTTP library with thread-safe connection pooling, file post, and more."
+          ],
+          "Requires-Dist": [
+            "brotli>=1.2.0; (platform_python_implementation == 'CPython') and extra == 'brotli'",
+            "brotlicffi>=1.2.0.0; (platform_python_implementation != 'CPython') and extra == 'brotli'",
+            "h2<5,>=4; extra == 'h2'",
+            "pysocks!=1.5.7,<2.0,>=1.5.6; extra == 'socks'",
+            "backports-zstd>=1.0.0; (python_version < '3.14') and extra == 'zstd'"
+          ],
+          "Provides-Extra": [
+            "brotli",
+            "h2",
+            "socks",
+            "zstd"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "tomli",
+        "version": "2.2.1",
+        "file": "tomli-2.2.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/6e/c2/61d3e0f47e2b74ef40a68b9e6ad5984f6241a942f7cd3bbfbdbd03861ea9/tomli-2.2.1-py3-none-any.whl",
+        "sha256": "cb55c73c5f4408779d0cf3eef9f762b9c9f147a77de7b258bef0a5628adc85cc",
+        "bytes": 14257,
+        "metadata_member": "tomli-2.2.1.dist-info/METADATA",
+        "metadata_sha256": "fd2375d1117fc88f3719f758e61cb4621318507ceb3985e9afa4dee8fa3cb675",
+        "headers": {
+          "Name": [
+            "tomli"
+          ],
+          "Version": [
+            "2.2.1"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "A lil' TOML parser"
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "platformdirs",
+        "version": "4.13.5",
+        "file": "platformdirs-4.13.5-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/6c/8a/1d8cb3842909dc193a73835adedf412e32e18f8ffd59f43983949622fe6f/platformdirs-4.13.5-py3-none-any.whl",
+        "sha256": "53d3ec4280b815c1e0b02edad7f9ee8fda1ba9c0865dd9c2e6e63849ce82fc1e",
+        "bytes": 32779,
+        "metadata_member": "platformdirs-4.13.5.dist-info/METADATA",
+        "metadata_sha256": "b42a0ee84bde8921b95c6c1e84e7675d34e67c5a61170ebcf7b44e394b64a768",
+        "headers": {
+          "Name": [
+            "platformdirs"
+          ],
+          "Version": [
+            "4.13.5"
+          ],
+          "Requires-Python": [
+            ">=3.11"
+          ],
+          "Summary": [
+            "A small Python package for determining appropriate platform-specific dirs, e.g. a `user data dir`."
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            false
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.10.13",
+          "3.11.8"
+        ]
+      },
+      {
+        "package": "pyupgrade",
+        "version": "3.19.1",
+        "file": "pyupgrade-3.19.1-py2.py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/dd/43/c6c1ff945c7900613f6e6ef2a8688639a247d62eb0ffa9935c599f69c08e/pyupgrade-3.19.1-py2.py3-none-any.whl",
+        "sha256": "8c5b0bfacae5ff30fa136a53eb7f22c34ba007450d4099e9da8089dabb9e67c9",
+        "bytes": 62412,
+        "metadata_member": "pyupgrade-3.19.1.dist-info/METADATA",
+        "metadata_sha256": "6e012401fefe8b0512a8b6b069077d08f17dff6a22aaa29590c1c20bc970d2f7",
+        "headers": {
+          "Name": [
+            "pyupgrade"
+          ],
+          "Version": [
+            "3.19.1"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "A tool to automatically upgrade syntax for newer versions."
+          ],
+          "Requires-Dist": [
+            "tokenize-rt>=6.1.0"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "pyodide-cli",
+        "version": "0.5.0",
+        "file": "pyodide_cli-0.5.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/4a/07/76977bbd73c686df55fbc3685c6c336158dc11b2ba155abe3e3a802447b2/pyodide_cli-0.5.0-py3-none-any.whl",
+        "sha256": "24c02736f1d6c99396f5e9330fd30bd98db88cf49ef059b62b025fa1f5f6e29c",
+        "bytes": 12684,
+        "metadata_member": "pyodide_cli-0.5.0.dist-info/METADATA",
+        "metadata_sha256": "4518f82dc6c08bf54be5722204a37325514a66ef19f17464e4121c66eabcb15d",
+        "headers": {
+          "Name": [
+            "pyodide-cli"
+          ],
+          "Version": [
+            "0.5.0"
+          ],
+          "Requires-Python": [
+            ">=3.12"
+          ],
+          "Summary": [
+            "\"The command line interface for the Pyodide project\""
+          ],
+          "Requires-Dist": [
+            "click",
+            "rich",
+            "pytest; extra == 'test'",
+            "typer; extra == 'test'"
+          ],
+          "Provides-Extra": [
+            "test"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            false
+          ],
+          [
+            "3.11.8",
+            false
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.11.8",
+          "3.12.2"
+        ]
+      },
+      {
+        "package": "mkdocs-material-extensions",
+        "version": "1.3.1",
+        "file": "mkdocs_material_extensions-1.3.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/5b/54/662a4743aa81d9582ee9339d4ffa3c8fd40a4965e033d77b9da9774d3960/mkdocs_material_extensions-1.3.1-py3-none-any.whl",
+        "sha256": "adff8b62700b25cb77b53358dad940f3ef973dd6db797907c49e3c2ef3ab4e31",
+        "bytes": 8728,
+        "metadata_member": "mkdocs_material_extensions-1.3.1.dist-info/METADATA",
+        "metadata_sha256": "0a6bc0e97cbf305579882982c9dfa71628427707a0cf2d5774212b06f412e720",
+        "headers": {
+          "Name": [
+            "mkdocs-material-extensions"
+          ],
+          "Version": [
+            "1.3.1"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "Extension pack for Python Markdown and MkDocs Material."
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "griffe",
+        "version": "1.5.5",
+        "file": "griffe-1.5.5-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/1f/88/52c9422bc853cd7c2b6122090e887d17b5fad29b67f930e4277c9c557357/griffe-1.5.5-py3-none-any.whl",
+        "sha256": "2761b1e8876c6f1f9ab1af274df93ea6bbadd65090de5f38f4cb5cc84897c7dd",
+        "bytes": 128221,
+        "metadata_member": "griffe-1.5.5.dist-info/METADATA",
+        "metadata_sha256": "be60073281832d48207249ecf1105eec44a332b1533ffd3f82844ab204d1b13d",
+        "headers": {
+          "Name": [
+            "griffe"
+          ],
+          "Version": [
+            "1.5.5"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Signatures for entire Python programs. Extract the structure, the frame, the skeleton of your project, to generate API documentation or find breaking changes in your API."
+          ],
+          "Requires-Dist": [
+            "astunparse>=1.6; python_version < \"3.9\"",
+            "colorama>=0.4"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "requests",
+        "version": "2.33.0",
+        "file": "requests-2.33.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl",
+        "sha256": "3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b",
+        "bytes": 65017,
+        "metadata_member": "requests-2.33.0.dist-info/METADATA",
+        "metadata_sha256": "0cc0fa6e89be83cfa1777957519e3fffe78d1a79b30561934d1e4384fb177711",
+        "headers": {
+          "Name": [
+            "requests"
+          ],
+          "Version": [
+            "2.33.0"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "Python HTTP for Humans."
+          ],
+          "Requires-Dist": [
+            "charset_normalizer<4,>=2",
+            "idna<4,>=2.5",
+            "urllib3<3,>=1.26",
+            "certifi>=2023.5.7",
+            "PySocks!=1.5.7,>=1.5.6; extra == \"socks\"",
+            "chardet<8,>=3.0.2; extra == \"use-chardet-on-py3\"",
+            "pytest-httpbin==2.1.0; extra == \"test\"",
+            "pytest-cov; extra == \"test\"",
+            "pytest-mock; extra == \"test\"",
+            "pytest-xdist; extra == \"test\"",
+            "PySocks!=1.5.7,>=1.5.6; extra == \"test\"",
+            "pytest>=3; extra == \"test\""
+          ],
+          "Provides-Extra": [
+            "security",
+            "socks",
+            "use-chardet-on-py3",
+            "test"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "algoliasearch",
+        "version": "4.13.2",
+        "file": "algoliasearch-4.13.2-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/a8/97/81f20288b4e5e4bbd708a4112623b098cbd0dae6c287277627feeed20a08/algoliasearch-4.13.2-py3-none-any.whl",
+        "sha256": "4f5d8ad4d1dc09b48c6380d933e5687e9752cebd1736c93190de3d188b7c363b",
+        "bytes": 901880,
+        "metadata_member": "algoliasearch-4.13.2.dist-info/METADATA",
+        "metadata_sha256": "fc577830ecefb37c9a3e2a822a9e09e83e78cac31bdc1430c406389aaca6be51",
+        "headers": {
+          "Name": [
+            "algoliasearch"
+          ],
+          "Version": [
+            "4.13.2"
+          ],
+          "Requires-Python": [
+            ">=3.8.1"
+          ],
+          "Summary": [
+            "A fully-featured and blazing-fast Python API client to interact with Algolia."
+          ],
+          "Requires-Dist": [
+            "aiohttp (>=3.10.11)",
+            "async-timeout (>=4.0.3)",
+            "pydantic (>=2)",
+            "python-dateutil (>=2.8.2)",
+            "requests (>=2.32.3)",
+            "urllib3 (>=1.25.3)"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "idna",
+        "version": "3.15",
+        "file": "idna-3.15-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/d2/23/408243171aa9aaba178d3e2559159c24c1171a641aa83b67bdd3394ead8e/idna-3.15-py3-none-any.whl",
+        "sha256": "048adeaf8c2d788c40fee287673ccaa74c24ffd8dcf09ffa555a2fbb59f10ac8",
+        "bytes": 72340,
+        "metadata_member": "idna-3.15.dist-info/METADATA",
+        "metadata_sha256": "cb8ac245bf249c9e2346427bc54bbf79971c96b7bf6b46862e4335fa76001827",
+        "headers": {
+          "Name": [
+            "idna"
+          ],
+          "Version": [
+            "3.15"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "Internationalized Domain Names in Applications (IDNA)"
+          ],
+          "Requires-Dist": [
+            "ruff >= 0.6.2 ; extra == \"all\"",
+            "mypy >= 1.11.2 ; extra == \"all\"",
+            "pytest >= 8.3.2 ; extra == \"all\""
+          ],
+          "Provides-Extra": [
+            "all"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "black",
+        "version": "26.10.1",
+        "file": "black-26.10.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/b1/28/9dd29175c1db777e6189e2a0bb5f37101adf19c3e509b236c8920f778d0b/black-26.10.1-py3-none-any.whl",
+        "sha256": "28842f9a8207cc1df6eb983a35a14c5a0dfcd603d214fe82d84bef552afd2e3a",
+        "bytes": 239267,
+        "metadata_member": "black-26.10.1.dist-info/METADATA",
+        "metadata_sha256": "089d3059ed0304369f3460397d2aa2e62f7caf8ab4845ce91f89188985b1b587",
+        "headers": {
+          "Name": [
+            "black"
+          ],
+          "Version": [
+            "26.10.1"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "The uncompromising code formatter."
+          ],
+          "Requires-Dist": [
+            "click>=8.0.0",
+            "mypy-extensions>=0.4.3",
+            "packaging>=22.0",
+            "pathspec>=1.0.0",
+            "platformdirs>=2",
+            "pytokens~=0.4.0",
+            "tomli>=1.1.0; python_version < '3.11'",
+            "typing-extensions>=4.0.1; python_version < '3.11'",
+            "colorama>=0.4.3; extra == 'colorama'",
+            "aiohttp>=3.10; extra == 'd'",
+            "ipython>=7.8.0; extra == 'jupyter'",
+            "tokenize-rt>=3.2.0; extra == 'jupyter'",
+            "uvloop>=0.15.2; (sys_platform != 'win32') and extra == 'uvloop'",
+            "winloop>=0.5.0; (sys_platform == 'win32') and extra == 'uvloop'"
+          ],
+          "Provides-Extra": [
+            "colorama",
+            "d",
+            "jupyter",
+            "uvloop"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "identify",
+        "version": "2.6.15",
+        "file": "identify-2.6.15-py2.py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/0f/1c/e5fd8f973d4f375adb21565739498e2e9a1e54c858a97b9a8ccfdc81da9b/identify-2.6.15-py2.py3-none-any.whl",
+        "sha256": "1181ef7608e00704db228516541eb83a88a9f94433a8c80bb9b5bd54b1d81757",
+        "bytes": 99183,
+        "metadata_member": "identify-2.6.15.dist-info/METADATA",
+        "metadata_sha256": "276c374d9982c612b25bad1a9976e1c8ebcf10634bd84ceea48d2e4ca56d0b0b",
+        "headers": {
+          "Name": [
+            "identify"
+          ],
+          "Version": [
+            "2.6.15"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "File identification library for Python"
+          ],
+          "Requires-Dist": [
+            "ukkonen; extra == \"license\""
+          ],
+          "Provides-Extra": [
+            "license"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "pytest-timeout",
+        "version": "2.4.0",
+        "file": "pytest_timeout-2.4.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/fa/b6/3127540ecdf1464a00e5a01ee60a1b09175f6913f0644ac748494d9c4b21/pytest_timeout-2.4.0-py3-none-any.whl",
+        "sha256": "c42667e5cdadb151aeb5b26d114aff6bdf5a907f176a007a30b940d3d865b5c2",
+        "bytes": 14382,
+        "metadata_member": "pytest_timeout-2.4.0.dist-info/METADATA",
+        "metadata_sha256": "8b79be0dfb1db4a0166b9d997ad95553e7a7e61445bcfc0ddbfbd409bae421ff",
+        "headers": {
+          "Name": [
+            "pytest-timeout"
+          ],
+          "Version": [
+            "2.4.0"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "pytest plugin to abort hanging tests"
+          ],
+          "Requires-Dist": [
+            "pytest>=7.0.0"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "python-discovery",
+        "version": "1.6.1",
+        "file": "python_discovery-1.6.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/16/7d/e9ffbadfbf89c93848412d04594135c4ae8c1d37d9e053b9c3ed718fabc4/python_discovery-1.6.1-py3-none-any.whl",
+        "sha256": "d43fcdef879fe795352bd13ccf8d185ba5a9f86f36cfcd00529f596e737442b3",
+        "bytes": 38664,
+        "metadata_member": "python_discovery-1.6.1.dist-info/METADATA",
+        "metadata_sha256": "fd4e94258896c927fd6e5354988c7b307a0f16b6a25abd5d0b646fcf5cc9fea8",
+        "headers": {
+          "Name": [
+            "python-discovery"
+          ],
+          "Version": [
+            "1.6.1"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "Python interpreter discovery"
+          ],
+          "Requires-Dist": [
+            "filelock>=3.15.4"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "markdown-it-py",
+        "version": "3.0.0",
+        "file": "markdown_it_py-3.0.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/42/d7/1ec15b46af6af88f19b8e5ffea08fa375d433c998b8a7639e76935c14f1f/markdown_it_py-3.0.0-py3-none-any.whl",
+        "sha256": "355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1",
+        "bytes": 87528,
+        "metadata_member": "markdown_it_py-3.0.0.dist-info/METADATA",
+        "metadata_sha256": "d3e90c1382903520863f37d210581073c32151de5c986f8b3b4d3b045937fdfc",
+        "headers": {
+          "Name": [
+            "markdown-it-py"
+          ],
+          "Version": [
+            "3.0.0"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "Python port of markdown-it. Markdown parsing, done right!"
+          ],
+          "Requires-Dist": [
+            "mdurl~=0.1",
+            "psutil ; extra == \"benchmarking\"",
+            "pytest ; extra == \"benchmarking\"",
+            "pytest-benchmark ; extra == \"benchmarking\"",
+            "pre-commit~=3.0 ; extra == \"code_style\"",
+            "commonmark~=0.9 ; extra == \"compare\"",
+            "markdown~=3.4 ; extra == \"compare\"",
+            "mistletoe~=1.0 ; extra == \"compare\"",
+            "mistune~=2.0 ; extra == \"compare\"",
+            "panflute~=2.3 ; extra == \"compare\"",
+            "linkify-it-py>=1,<3 ; extra == \"linkify\"",
+            "mdit-py-plugins ; extra == \"plugins\"",
+            "gprof2dot ; extra == \"profiling\"",
+            "mdit-py-plugins ; extra == \"rtd\"",
+            "myst-parser ; extra == \"rtd\"",
+            "pyyaml ; extra == \"rtd\"",
+            "sphinx ; extra == \"rtd\"",
+            "sphinx-copybutton ; extra == \"rtd\"",
+            "sphinx-design ; extra == \"rtd\"",
+            "sphinx_book_theme ; extra == \"rtd\"",
+            "jupyter_sphinx ; extra == \"rtd\"",
+            "coverage ; extra == \"testing\"",
+            "pytest ; extra == \"testing\"",
+            "pytest-cov ; extra == \"testing\"",
+            "pytest-regressions ; extra == \"testing\""
+          ],
+          "Provides-Extra": [
+            "benchmarking",
+            "code_style",
+            "compare",
+            "linkify",
+            "plugins",
+            "profiling",
+            "rtd",
+            "testing"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "dnspython",
+        "version": "2.9.2",
+        "file": "dnspython-2.9.2-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/1e/0c/5346358b3a20275d256978c35203ddc2c8617f78c1b23795b79ba22ced6d/dnspython-2.9.2-py3-none-any.whl",
+        "sha256": "af15f7d385a6ae2fb35a796fde2138004c8c42c7389090e2addc83e3b3340fd8",
+        "bytes": 360455,
+        "metadata_member": "dnspython-2.9.2.dist-info/METADATA",
+        "metadata_sha256": "dffafe5b3b88a9637d04b3f399b5b8efec3be6c771e65bc80cde97d90c6e8f7d",
+        "headers": {
+          "Name": [
+            "dnspython"
+          ],
+          "Version": [
+            "2.9.2"
+          ],
+          "Requires-Python": [
+            ">=3.11"
+          ],
+          "Summary": [
+            "DNS toolkit"
+          ],
+          "Requires-Dist": [
+            "black>=26.5 ; extra == 'dev'",
+            "coverage>=7.15 ; extra == 'dev'",
+            "hypercorn>=0.18.0 ; extra == 'dev'",
+            "pyright>=1.1.411 ; extra == 'dev'",
+            "pytest>=9.1 ; extra == 'dev'",
+            "pytest-cov>=7.1 ; extra == 'dev'",
+            "quart-trio>=0.12.0 ; extra == 'dev'",
+            "ruff>=0.16.0 ; extra == 'dev'",
+            "sphinx>=9.1.0 ; python_full_version >= '3.12' and extra == 'dev'",
+            "sphinx-rtd-theme>=3.1.0 ; python_full_version >= '3.12' and extra == 'dev'",
+            "trustme>=1.2.1 ; extra == 'dev'",
+            "ty>=0.0.85 ; extra == 'dev'",
+            "cryptography>=50 ; extra == 'dnssec'",
+            "httpcore2>=2.13 ; extra == 'doh'",
+            "httpx2>=2.13 ; extra == 'doh'",
+            "h2>=4.4 ; extra == 'doh'",
+            "aioquic>=1.3.0 ; extra == 'doq'",
+            "idna>=3.20 ; extra == 'idna'",
+            "trio>=0.34 ; extra == 'trio'",
+            "wmi>=1.5.1 ; sys_platform == 'win32' and extra == 'wmi'"
+          ],
+          "Provides-Extra": [
+            "dev",
+            "dnssec",
+            "doh",
+            "doq",
+            "idna",
+            "trio",
+            "wmi"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            false
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.10.13",
+          "3.11.8"
+        ]
+      },
+      {
+        "package": "readme-renderer",
+        "version": "44.0",
+        "file": "readme_renderer-44.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/e1/67/921ec3024056483db83953ae8e48079ad62b92db7880013ca77632921dd0/readme_renderer-44.0-py3-none-any.whl",
+        "sha256": "2fbca89b81a08526aadf1357a8c2ae889ec05fb03f5da67f9769c9a592166151",
+        "bytes": 13310,
+        "metadata_member": "readme_renderer-44.0.dist-info/METADATA",
+        "metadata_sha256": "f77eb35dc494f2ca3e6c4aaf3feac8c6d7f1faaebd056a04ff1256fedb5f0a93",
+        "headers": {
+          "Name": [
+            "readme_renderer"
+          ],
+          "Version": [
+            "44.0"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "readme_renderer is a library for rendering readme descriptions for Warehouse"
+          ],
+          "Requires-Dist": [
+            "nh3 >=0.2.14",
+            "docutils >=0.21.2",
+            "Pygments >=2.5.1",
+            "cmarkgfm >=0.8.0 ; extra == 'md'"
+          ],
+          "Provides-Extra": [
+            "md"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "mdformat",
+        "version": "0.7.22",
+        "file": "mdformat-0.7.22-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/f2/6f/94a7344f6d634fe3563bea8b33bccedee37f2726f7807e9a58440dc91627/mdformat-0.7.22-py3-none-any.whl",
+        "sha256": "61122637c9e1d9be1329054f3fa216559f0d1f722b7919b060a8c2a4ae1850e5",
+        "bytes": 34447,
+        "metadata_member": "mdformat-0.7.22.dist-info/METADATA",
+        "metadata_sha256": "c1711fe04b30dfc3bd6130ac3289a1b7784f357e5c18463887aee9dfb941ef3e",
+        "headers": {
+          "Name": [
+            "mdformat"
+          ],
+          "Version": [
+            "0.7.22"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "CommonMark compliant Markdown formatter"
+          ],
+          "Requires-Dist": [
+            "markdown-it-py<4.0.0,>=1.0.0",
+            "tomli>=1.1.0; python_version < \"3.11\"",
+            "importlib-metadata>=3.6.0; python_version < \"3.10\""
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "rich",
+        "version": "15.0.0",
+        "file": "rich-15.0.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/82/3b/64d4899d73f91ba49a8c18a8ff3f0ea8f1c1d75481760df8c68ef5235bf5/rich-15.0.0-py3-none-any.whl",
+        "sha256": "33bd4ef74232fb73fe9279a257718407f169c09b78a87ad3d296f548e27de0bb",
+        "bytes": 310654,
+        "metadata_member": "rich-15.0.0.dist-info/METADATA",
+        "metadata_sha256": "fad34fc603fac4481bf81f8dd629492fc302c0ec31909c86644751512afb2e3b",
+        "headers": {
+          "Name": [
+            "rich"
+          ],
+          "Version": [
+            "15.0.0"
+          ],
+          "Requires-Python": [
+            ">=3.9.0"
+          ],
+          "Summary": [
+            "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
+          ],
+          "Requires-Dist": [
+            "ipywidgets (>=7.5.1,<9) ; extra == \"jupyter\"",
+            "markdown-it-py (>=2.2.0)",
+            "pygments (>=2.13.0,<3.0.0)"
+          ],
+          "Provides-Extra": [
+            "jupyter"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "pytest-codspeed",
+        "version": "5.0.4",
+        "file": "pytest_codspeed-5.0.4-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/3a/13/0856162295ae7c46f7dd7998c51f1634a0fd5bf0e25ff82a93e23ff1feda/pytest_codspeed-5.0.4-py3-none-any.whl",
+        "sha256": "9ff6d29a5bf3cbaebea71163d899aa67bb1cd57fe168de0b5e984d05ec2463d8",
+        "bytes": 74574,
+        "metadata_member": "pytest_codspeed-5.0.4.dist-info/METADATA",
+        "metadata_sha256": "84392da4c5b507e009d9104b53edf3eb0fb74232bd23517892358140cfb3f41b",
+        "headers": {
+          "Name": [
+            "pytest-codspeed"
+          ],
+          "Version": [
+            "5.0.4"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Pytest plugin to create CodSpeed benchmarks"
+          ],
+          "Requires-Dist": [
+            "pytest>=3.8",
+            "rich>=13.8.1",
+            "importlib-metadata>=8.5.0; python_version < \"3.10\"",
+            "pytest-benchmark~=5.0.0; extra == \"compat\"",
+            "pytest-xdist~=3.6.1; extra == \"compat\""
+          ],
+          "Provides-Extra": [
+            "compat"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "pyparsing",
+        "version": "3.2.1",
+        "file": "pyparsing-3.2.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/1c/a7/c8a2d361bf89c0d9577c934ebb7421b25dc84bf3a8e3ac0a40aed9acc547/pyparsing-3.2.1-py3-none-any.whl",
+        "sha256": "506ff4f4386c4cec0590ec19e6302d3aedb992fdc02c761e90416f158dacf8e1",
+        "bytes": 107716,
+        "metadata_member": "pyparsing-3.2.1.dist-info/METADATA",
+        "metadata_sha256": "0a7e69cbfb5e2c00af44cb16f59ad081bec71a2cb7a21a559f4c6583460d1b49",
+        "headers": {
+          "Name": [
+            "pyparsing"
+          ],
+          "Version": [
+            "3.2.1"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "pyparsing module - Classes and methods to define and execute parsing grammars"
+          ],
+          "Requires-Dist": [
+            "railroad-diagrams ; extra == \"diagrams\"",
+            "jinja2 ; extra == \"diagrams\""
+          ],
+          "Provides-Extra": [
+            "diagrams"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "mdurl",
+        "version": "0.1.2",
+        "file": "mdurl-0.1.2-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/b3/38/89ba8ad64ae25be8de66a6d463314cf1eb366222074cfda9ee839c56a4b4/mdurl-0.1.2-py3-none-any.whl",
+        "sha256": "84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8",
+        "bytes": 9979,
+        "metadata_member": "mdurl-0.1.2.dist-info/METADATA",
+        "metadata_sha256": "b53b29d48f499367053fda3c81e7ce27d2558380ebbf83e66023b02eb7ddd25d",
+        "headers": {
+          "Name": [
+            "mdurl"
+          ],
+          "Version": [
+            "0.1.2"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "Markdown URL utilities"
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "beautifulsoup4",
+        "version": "4.14.2",
+        "file": "beautifulsoup4-4.14.2-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/94/fe/3aed5d0be4d404d12d36ab97e2f1791424d9ca39c2f754a6285d59a3b01d/beautifulsoup4-4.14.2-py3-none-any.whl",
+        "sha256": "5ef6fa3a8cbece8488d66985560f97ed091e22bbc4e9c2338508a9d5de6d4515",
+        "bytes": 106392,
+        "metadata_member": "beautifulsoup4-4.14.2.dist-info/METADATA",
+        "metadata_sha256": "f684e4e2662841f201e20d74731560f7bcc22328eaeb2f7c2461f4dcfb0d9717",
+        "headers": {
+          "Name": [
+            "beautifulsoup4"
+          ],
+          "Version": [
+            "4.14.2"
+          ],
+          "Requires-Python": [
+            ">=3.7.0"
+          ],
+          "Summary": [
+            "Screen-scraping library"
+          ],
+          "Requires-Dist": [
+            "soupsieve>1.2",
+            "typing-extensions>=4.0.0",
+            "cchardet; extra == 'cchardet'",
+            "chardet; extra == 'chardet'",
+            "charset-normalizer; extra == 'charset-normalizer'",
+            "html5lib; extra == 'html5lib'",
+            "lxml; extra == 'lxml'"
+          ],
+          "Provides-Extra": [
+            "cchardet",
+            "chardet",
+            "charset-normalizer",
+            "html5lib",
+            "lxml"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "pytest-pretty",
+        "version": "1.2.0",
+        "file": "pytest_pretty-1.2.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/bf/fe/d44d391312c1b8abee2af58ee70fabb1c00b6577ac4e0bdf25b70c1caffb/pytest_pretty-1.2.0-py3-none-any.whl",
+        "sha256": "6f79122bf53864ae2951b6c9e94d7a06a87ef753476acd4588aeac018f062036",
+        "bytes": 6180,
+        "metadata_member": "pytest_pretty-1.2.0.dist-info/METADATA",
+        "metadata_sha256": "d30c9782bad2d181ba0b96057b0af078377f5b5c197db64a7a8a60536dbd25bd",
+        "headers": {
+          "Name": [
+            "pytest-pretty"
+          ],
+          "Version": [
+            "1.2.0"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "pytest plugin for printing summary data as I want it"
+          ],
+          "Requires-Dist": [
+            "pytest>=7",
+            "rich>=12"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "ruamel-yaml",
+        "version": "0.18.16",
+        "file": "ruamel.yaml-0.18.16-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/0f/73/bb1bc2529f852e7bf64a2dec885e89ff9f5cc7bbf6c9340eed30ff2c69c5/ruamel.yaml-0.18.16-py3-none-any.whl",
+        "sha256": "048f26d64245bae57a4f9ef6feb5b552a386830ef7a826f235ffb804c59efbba",
+        "bytes": 119858,
+        "metadata_member": "ruamel.yaml-0.18.16.dist-info/METADATA",
+        "metadata_sha256": "39376f3b128778b05ed27fcf27958feef9436df63422463865b293c1b212c978",
+        "headers": {
+          "Name": [
+            "ruamel.yaml"
+          ],
+          "Version": [
+            "0.18.16"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "ruamel.yaml is a YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order"
+          ],
+          "Requires-Dist": [
+            "ruamel.yaml.clib>=0.2.7; platform_python_implementation == \"CPython\" and python_version < \"3.14\"",
+            "ruamel.yaml.jinja2>=0.2; extra == \"jinja2\"",
+            "ryd; extra == \"docs\"",
+            "mercurial>5.7; extra == \"docs\""
+          ],
+          "Provides-Extra": [
+            "jinja2",
+            "docs"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "wheel",
+        "version": "0.47.0",
+        "file": "wheel-0.47.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/87/1b/9e33c09813d65e248f7f773119148a612516a4bea93e9c6f545f78455b7c/wheel-0.47.0-py3-none-any.whl",
+        "sha256": "212281cab4dff978f6cedd499cd893e1f620791ca6ff7107cf270781e587eced",
+        "bytes": 32218,
+        "metadata_member": "wheel-0.47.0.dist-info/METADATA",
+        "metadata_sha256": "d6e8cbbfa21513ed46be4027e61784b131b12c5cafacbde6913ce5ad01767643",
+        "headers": {
+          "Name": [
+            "wheel"
+          ],
+          "Version": [
+            "0.47.0"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Command line tool for manipulating wheel files"
+          ],
+          "Requires-Dist": [
+            "packaging >= 24.0"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "aiohttp",
+        "version": "3.14.5",
+        "file": "aiohttp-3.14.5-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/68/30/173960c42b05a6c59f7558e4b12a4b0d9ba376cf6aa9bde7f9e08a30ca8d/aiohttp-3.14.5-py3-none-any.whl",
+        "sha256": "efc21a454892828368b11c2c780de0ff8bc991f73f6b99c6b66e56205470929b",
+        "bytes": 279517,
+        "metadata_member": "aiohttp-3.14.5.dist-info/METADATA",
+        "metadata_sha256": "50b29a2268649f7ce5b22c0a41b60896d246fee58e2a74b468f66848e469834c",
+        "headers": {
+          "Name": [
+            "aiohttp"
+          ],
+          "Version": [
+            "3.14.5"
+          ],
+          "Requires-Python": [
+            ">=3.10"
+          ],
+          "Summary": [
+            "Async http client/server framework (asyncio)"
+          ],
+          "Requires-Dist": [
+            "aiohappyeyeballs>=2.5.0",
+            "aiosignal>=1.4.0",
+            "async-timeout<6.0,>=4.0; python_version < \"3.11\"",
+            "attrs>=17.3.0",
+            "frozenlist>=1.1.1",
+            "multidict<8.0,>=4.5",
+            "propcache>=0.2.0",
+            "typing_extensions>=4.4; python_version < \"3.13\"",
+            "yarl<2.0,>=1.25.1",
+            "aiodns>=3.3.0; (sys_platform != \"android\" and sys_platform != \"ios\") and extra == \"speedups\"",
+            "Brotli>=1.2; (platform_python_implementation == \"CPython\" and sys_platform != \"android\" and sys_platform != \"ios\") and extra == \"speedups\"",
+            "brotlicffi>=1.2; platform_python_implementation != \"CPython\" and extra == \"speedups\"",
+            "backports.zstd; (platform_python_implementation == \"CPython\" and python_version < \"3.14\" and sys_platform != \"android\" and sys_platform != \"ios\") and extra == \"speedups\""
+          ],
+          "Provides-Extra": [
+            "speedups"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "frozenlist",
+        "version": "1.5.0",
+        "file": "frozenlist-1.5.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/c6/c8/a5be5b7550c10858fcf9b0ea054baccab474da77d37f1e828ce043a3a5d4/frozenlist-1.5.0-py3-none-any.whl",
+        "sha256": "d994863bba198a4a518b467bb971c56e1db3f180a25c6cf7bb1949c267f748c3",
+        "bytes": 11901,
+        "metadata_member": "frozenlist-1.5.0.dist-info/METADATA",
+        "metadata_sha256": "06942f07bcf635b5377f85d3403be1019f4bd3c591e178986a38a58fd218e989",
+        "headers": {
+          "Name": [
+            "frozenlist"
+          ],
+          "Version": [
+            "1.5.0"
+          ],
+          "Requires-Python": [
+            ">=3.8"
+          ],
+          "Summary": [
+            "A list-like structure which implements collections.abc.MutableSequence"
+          ],
+          "Requires-Dist": [],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.7.17",
+          "3.8.18"
+        ]
+      },
+      {
+        "package": "ansi2html",
+        "version": "1.9.2",
+        "file": "ansi2html-1.9.2-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/bd/71/aee71b836e9ee2741d5694b80d74bfc7c8cd5dbdf7a9f3035fcf80d792b1/ansi2html-1.9.2-py3-none-any.whl",
+        "sha256": "dccb75aa95fb018e5d299be2b45f802952377abfdce0504c17a6ee6ef0a420c5",
+        "bytes": 17614,
+        "metadata_member": "ansi2html-1.9.2.dist-info/METADATA",
+        "metadata_sha256": "bb4a29fe2fa3b31747a8e6408ef6ae7e13a214b994ae1266afe81d3b180571de",
+        "headers": {
+          "Name": [
+            "ansi2html"
+          ],
+          "Version": [
+            "1.9.2"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "Convert text with ANSI color codes to HTML or to LaTeX"
+          ],
+          "Requires-Dist": [
+            "importlib-metadata ; python_version < \"3.8\"",
+            "typing-extensions ; python_version < \"3.8\"",
+            "mkdocs ; extra == 'docs'",
+            "mkdocs-material ; extra == 'docs'",
+            "mkdocs-material-extensions ; extra == 'docs'",
+            "mkdocstrings ; extra == 'docs'",
+            "mkdocstrings-python ; extra == 'docs'",
+            "pymdown-extensions ; extra == 'docs'",
+            "pytest ; extra == 'test'",
+            "pytest-cov ; extra == 'test'"
+          ],
+          "Provides-Extra": [
+            "docs",
+            "test"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "pyodide-build",
+        "version": "0.39.2",
+        "file": "pyodide_build-0.39.2-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/40/d6/38142836b442dff823a618ed40cf476e3abecd6135be66c9abf8c783ee25/pyodide_build-0.39.2-py3-none-any.whl",
+        "sha256": "9041cbb02e561a253674a42aaf90a86c32a11867aee46a9d41d049173604f1d9",
+        "bytes": 138545,
+        "metadata_member": "pyodide_build-0.39.2.dist-info/METADATA",
+        "metadata_sha256": "b851b8bb670615283811204c93e4bd0621ba333054a7babfc1b72262c1fe9583",
+        "headers": {
+          "Name": [
+            "pyodide-build"
+          ],
+          "Version": [
+            "0.39.2"
+          ],
+          "Requires-Python": [
+            ">=3.12"
+          ],
+          "Summary": [
+            "\"Tools for building Pyodide\""
+          ],
+          "Requires-Dist": [
+            "attrs",
+            "auditwheel-emscripten~=0.3.0",
+            "build!=1.4.4,<1.7,>=1.4",
+            "cattrs",
+            "click",
+            "packaging",
+            "platformdirs",
+            "pyodide-cli>=0.4.1",
+            "pyodide-lock~=0.2.0",
+            "requests",
+            "rich",
+            "ruamel-yaml",
+            "virtualenv",
+            "wheel",
+            "resolvelib; extra == 'resolve'",
+            "unearth~=0.6; extra == 'resolve'",
+            "build[uv]!=1.4.4,<1.7,>=1.4; extra == 'uv'"
+          ],
+          "Provides-Extra": [
+            "resolve",
+            "uv"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            false
+          ],
+          [
+            "3.11.8",
+            false
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.11.8",
+          "3.12.2"
+        ]
+      },
+      {
+        "package": "linkify-it-py",
+        "version": "2.0.3",
+        "file": "linkify_it_py-2.0.3-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/04/1e/b832de447dee8b582cac175871d2f6c3d5077cc56d5575cadba1fd1cccfa/linkify_it_py-2.0.3-py3-none-any.whl",
+        "sha256": "6bcbc417b0ac14323382aef5c5192c0075bf8a9d6b41820a2b66371eac6b6d79",
+        "bytes": 19820,
+        "metadata_member": "linkify_it_py-2.0.3.dist-info/METADATA",
+        "metadata_sha256": "9b51c3dfb5f472ac2790ec6cdc17cdf599de55702cc39b4e6493ade20d3c7b6e",
+        "headers": {
+          "Name": [
+            "linkify-it-py"
+          ],
+          "Version": [
+            "2.0.3"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "Links recognition library with FULL unicode support."
+          ],
+          "Requires-Dist": [
+            "uc-micro-py",
+            "pytest ; extra == 'benchmark'",
+            "pytest-benchmark ; extra == 'benchmark'",
+            "pre-commit ; extra == 'dev'",
+            "isort ; extra == 'dev'",
+            "flake8 ; extra == 'dev'",
+            "black ; extra == 'dev'",
+            "pyproject-flake8 ; extra == 'dev'",
+            "sphinx ; extra == 'doc'",
+            "sphinx-book-theme ; extra == 'doc'",
+            "myst-parser ; extra == 'doc'",
+            "pytest ; extra == 'test'",
+            "coverage ; extra == 'test'",
+            "pytest-cov ; extra == 'test'"
+          ],
+          "Provides-Extra": [
+            "benchmark",
+            "dev",
+            "doc",
+            "test"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "jinja2",
+        "version": "3.1.6",
+        "file": "jinja2-3.1.6-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl",
+        "sha256": "85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67",
+        "bytes": 134899,
+        "metadata_member": "jinja2-3.1.6.dist-info/METADATA",
+        "metadata_sha256": "68c5548fb67c4132a13898d9b31ec50c6bea2abdd915d921f214355c3a6499c8",
+        "headers": {
+          "Name": [
+            "Jinja2"
+          ],
+          "Version": [
+            "3.1.6"
+          ],
+          "Requires-Python": [
+            ">=3.7"
+          ],
+          "Summary": [
+            "A very fast and expressive template engine."
+          ],
+          "Requires-Dist": [
+            "MarkupSafe>=2.0",
+            "Babel>=2.7 ; extra == \"i18n\""
+          ],
+          "Provides-Extra": [
+            "i18n"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            true
+          ],
+          [
+            "3.8.18",
+            true
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.6.15",
+          "3.7.17"
+        ]
+      },
+      {
+        "package": "aiosignal",
+        "version": "1.4.0",
+        "file": "aiosignal-1.4.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/fb/76/641ae371508676492379f16e2fa48f4e2c11741bd63c48be4b12a6b09cba/aiosignal-1.4.0-py3-none-any.whl",
+        "sha256": "053243f8b92b990551949e63930a839ff0cf0b0ebbe0597b0f3fb19e1a0fe82e",
+        "bytes": 7490,
+        "metadata_member": "aiosignal-1.4.0.dist-info/METADATA",
+        "metadata_sha256": "09247ef1da8bc696728d47130e702e4307f6f7d101d6c485bff9f3a71ce7008d",
+        "headers": {
+          "Name": [
+            "aiosignal"
+          ],
+          "Version": [
+            "1.4.0"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "aiosignal: a list of registered asynchronous callbacks"
+          ],
+          "Requires-Dist": [
+            "frozenlist>=1.1.0",
+            "typing-extensions>=4.2; python_version < \"3.13\""
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "keyring",
+        "version": "25.7.0",
+        "file": "keyring-25.7.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/81/db/e655086b7f3a705df045bf0933bdd9c2f79bb3c97bfef1384598bb79a217/keyring-25.7.0-py3-none-any.whl",
+        "sha256": "be4a0b195f149690c166e850609a477c532ddbfbaed96a404d4e43f8d5e2689f",
+        "bytes": 39160,
+        "metadata_member": "keyring-25.7.0.dist-info/METADATA",
+        "metadata_sha256": "bd54de98fede6dc3e1f3cd89b4e37c95d8842a523bdbb9e52ab40edff1837163",
+        "headers": {
+          "Name": [
+            "keyring"
+          ],
+          "Version": [
+            "25.7.0"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Store and access your passwords safely."
+          ],
+          "Requires-Dist": [
+            "pywin32-ctypes>=0.2.0; sys_platform == \"win32\"",
+            "SecretStorage>=3.2; sys_platform == \"linux\"",
+            "jeepney>=0.4.2; sys_platform == \"linux\"",
+            "importlib_metadata>=4.11.4; python_version < \"3.12\"",
+            "jaraco.classes",
+            "jaraco.functools",
+            "jaraco.context",
+            "pytest!=8.1.*,>=6; extra == \"test\"",
+            "pyfakefs; extra == \"test\"",
+            "sphinx>=3.5; extra == \"doc\"",
+            "jaraco.packaging>=9.3; extra == \"doc\"",
+            "rst.linker>=1.9; extra == \"doc\"",
+            "furo; extra == \"doc\"",
+            "sphinx-lint; extra == \"doc\"",
+            "jaraco.tidelift>=1.4; extra == \"doc\"",
+            "pytest-checkdocs>=2.4; extra == \"check\"",
+            "pytest-ruff>=0.2.1; sys_platform != \"cygwin\" and extra == \"check\"",
+            "pytest-cov; extra == \"cover\"",
+            "pytest-enabler>=3.4; extra == \"enabler\"",
+            "pytest-mypy>=1.0.1; extra == \"type\"",
+            "pygobject-stubs; extra == \"type\"",
+            "shtab; extra == \"type\"",
+            "types-pywin32; extra == \"type\"",
+            "shtab>=1.1.0; extra == \"completion\""
+          ],
+          "Provides-Extra": [
+            "test",
+            "doc",
+            "check",
+            "cover",
+            "enabler",
+            "type",
+            "completion"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "build",
+        "version": "1.6.1",
+        "file": "build-1.6.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/ad/9b/9fb3585dabcd73a1b2a6267f63f62649347c9e6d072c9fde365b105abb2c/build-1.6.1-py3-none-any.whl",
+        "sha256": "ecd351a4be9d35a9eaaba244a7687143c9c7d4aea6ac964e7e7ddab20cbcf4e7",
+        "bytes": 31179,
+        "metadata_member": "build-1.6.1.dist-info/METADATA",
+        "metadata_sha256": "f3623590844a25dcf308a71a988c73e293b7ef779a1f43acb83ad1be218d61a0",
+        "headers": {
+          "Name": [
+            "build"
+          ],
+          "Version": [
+            "1.6.1"
+          ],
+          "Requires-Python": [
+            ">= 3.10"
+          ],
+          "Summary": [
+            "A simple, correct Python build frontend"
+          ],
+          "Requires-Dist": [
+            "packaging >= 24.0",
+            "pyproject_hooks",
+            "colorama; os_name == \"nt\"",
+            "importlib-metadata >= 4.6; python_full_version < \"3.10.2\"",
+            "tomli >= 1.1.0; python_version < \"3.11\"",
+            "keyring ; extra == \"keyring\"",
+            "uv >= 0.1.18 ; extra == \"uv\"",
+            "virtualenv >= 20.36.1 ; extra == \"virtualenv\""
+          ],
+          "Provides-Extra": [
+            "keyring",
+            "uv",
+            "virtualenv"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            false
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.9.18",
+          "3.10.13"
+        ]
+      },
+      {
+        "package": "mkdocstrings-python",
+        "version": "1.13.0",
+        "file": "mkdocstrings_python-1.13.0-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/51/23/d02d86553327296c3bf369d444194ea83410cce8f0e690565264f37f3261/mkdocstrings_python-1.13.0-py3-none-any.whl",
+        "sha256": "b88bbb207bab4086434743849f8e796788b373bd32e7bfefbf8560ac45d88f97",
+        "bytes": 112254,
+        "metadata_member": "mkdocstrings_python-1.13.0.dist-info/METADATA",
+        "metadata_sha256": "506b736f2ac63a89584450a24ef628c60822f3ecee01dc631750e3f1e694ad24",
+        "headers": {
+          "Name": [
+            "mkdocstrings-python"
+          ],
+          "Version": [
+            "1.13.0"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "A Python handler for mkdocstrings."
+          ],
+          "Requires-Dist": [
+            "mkdocstrings>=0.26",
+            "mkdocs-autorefs>=1.2",
+            "griffe>=0.49"
+          ],
+          "Provides-Extra": []
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      },
+      {
+        "package": "importlib-metadata",
+        "version": "8.6.1",
+        "file": "importlib_metadata-8.6.1-py3-none-any.whl",
+        "url": "https://files.pythonhosted.org/packages/79/9d/0fb148dc4d6fa4a7dd1d8378168d9b4cd8d4560a6fbf6f0121c5fc34eb68/importlib_metadata-8.6.1-py3-none-any.whl",
+        "sha256": "02a89390c1e15fdfdc0d7c6b25cb3e62650d0494005c97d6f148bf5b9787525e",
+        "bytes": 26971,
+        "metadata_member": "importlib_metadata-8.6.1.dist-info/METADATA",
+        "metadata_sha256": "176e004db6a63a6d64a78d08406a1db4c2d632b1fe7d5124b1dc9295993f2806",
+        "headers": {
+          "Name": [
+            "importlib_metadata"
+          ],
+          "Version": [
+            "8.6.1"
+          ],
+          "Requires-Python": [
+            ">=3.9"
+          ],
+          "Summary": [
+            "Read metadata from Python packages"
+          ],
+          "Requires-Dist": [
+            "zipp>=3.20",
+            "typing-extensions>=3.6.4; python_version < \"3.8\"",
+            "pytest!=8.1.*,>=6; extra == \"test\"",
+            "importlib_resources>=1.3; python_version < \"3.9\" and extra == \"test\"",
+            "packaging; extra == \"test\"",
+            "pyfakefs; extra == \"test\"",
+            "flufl.flake8; extra == \"test\"",
+            "pytest-perf>=0.9.2; extra == \"test\"",
+            "jaraco.test>=5.4; extra == \"test\"",
+            "sphinx>=3.5; extra == \"doc\"",
+            "jaraco.packaging>=9.3; extra == \"doc\"",
+            "rst.linker>=1.9; extra == \"doc\"",
+            "furo; extra == \"doc\"",
+            "sphinx-lint; extra == \"doc\"",
+            "jaraco.tidelift>=1.4; extra == \"doc\"",
+            "ipython; extra == \"perf\"",
+            "pytest-checkdocs>=2.4; extra == \"check\"",
+            "pytest-ruff>=0.2.1; sys_platform != \"cygwin\" and extra == \"check\"",
+            "pytest-cov; extra == \"cover\"",
+            "pytest-enabler>=2.2; extra == \"enabler\"",
+            "pytest-mypy; extra == \"type\""
+          ],
+          "Provides-Extra": [
+            "test",
+            "doc",
+            "perf",
+            "check",
+            "cover",
+            "enabler",
+            "type"
+          ]
+        },
+        "interpreters": [
+          [
+            "3.6.15",
+            false
+          ],
+          [
+            "3.7.17",
+            false
+          ],
+          [
+            "3.8.18",
+            false
+          ],
+          [
+            "3.9.18",
+            true
+          ],
+          [
+            "3.10.13",
+            true
+          ],
+          [
+            "3.11.8",
+            true
+          ],
+          [
+            "3.12.2",
+            true
+          ],
+          [
+            "3.13.0",
+            true
+          ],
+          [
+            "3.14.0",
+            true
+          ]
+        ],
+        "boundary": [
+          "3.8.18",
+          "3.9.18"
+        ]
+      }
+    ]
+  }
+}
