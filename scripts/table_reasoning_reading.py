@@ -45,7 +45,15 @@ def selected():
     return sorted(rows, key=lambda r: fingerprint([804932, "presentation", r["id"]]))
 
 
-def run(mode):
+def run(mode, conditional=False):
+    root = (
+        Path("research/results/conditional-program-primary-01") if conditional else ROOT
+    )
+    prefix = "conditional-reasoning" if conditional else "table-reasoning"
+    plan_path = PLAN.with_name(prefix + "-reading.json")
+    mask_path = MASK.with_name(prefix + "-blinded.json")
+    ratings_path = RATINGS.with_name(prefix + "-blinded-ratings.json")
+    result_path = RESULT.with_name(prefix + "-source-reading.json")
     rows = selected()
     plan = {
         "question": "Do higher automatic causal and first-question token-overlap scores reflect correct human answers when the full source, question and previous turn are examined?",
@@ -53,18 +61,34 @@ def run(mode):
         "review": "Show original prompt, source annotations and hash-shuffled distinct visible answers. Check the comparison or requested fact from the actual passage and situation. Respect first-person references in dialogues. Credit equivalent wording and honest unanswerability when the source does not support the requested claim. Grade correct, partial, wrong or absent with one request-specific rationale identifying the deciding evidence. A correct short answer need not include hidden reasoning. A material extra factual error prevents full credit. Flag unsupported additions. The same project reviewer knows the earlier aggregate result. This is a descriptive sensitivity study and does not change any release gate.",
         "selection_seed": 804932,
         "ordered": [r["id"] for r in rows],
-        "primary": digest(ROOT / "checksums.json"),
+        "primary": digest(
+            Path("research/experiments/conditional-program-primary-01.json")
+            if conditional
+            else ROOT / "checksums.json"
+        ),
     }
+    if conditional:
+        plan["question"] = (
+            "How accurately do the new recurrent decoder and untouched Base answer the same 48 source-grounded reasoning questions in a fresh masked reading?"
+        )
+        plan["scope"] = (
+            "Prospectively locked before reviewing current aggregates or request-level results. Repeat the preceding source-based selection without new model calls. Both arms use identical input IDs. Grade before decoding attribution or inspecting the new primary scores. This descriptive diagnostic adds no release threshold."
+        )
+        plan["review"] = plan["review"].replace(
+            "earlier aggregate result",
+            "preceding model's results and may recognize a previously reviewed Base answer",
+        )
+        plan["mask_seed"] = 712689
     if mode == "plan":
-        if PLAN.exists():
-            assert read(PLAN) == plan
+        if plan_path.exists():
+            assert read(plan_path) == plan
         else:
-            save(PLAN, plan)
+            save(plan_path, plan)
         return
-    committed(PLAN)
-    assert read(PLAN) == plan
+    committed(plan_path)
+    assert read(plan_path) == plan
     data = {
-        a: {r["id"]: r["requests"][0] for r in unpack(ROOT / (a + ".json.gz"))}
+        a: {r["id"]: r["requests"][0] for r in unpack(root / (a + ".json.gz"))}
         for a in ARMS
     }
     mask = {}
@@ -72,7 +96,10 @@ def run(mode):
     for r in rows:
         k = r["id"]
         answers = [data[a][k]["trajectory"]["answer"] or "" for a in ARMS]
-        options = sorted(set(answers), key=lambda t: fingerprint([185083, k, t]))
+        options = sorted(
+            set(answers),
+            key=lambda t: fingerprint([plan.get("mask_seed", 185083), k, t]),
+        )
         mask[k] = {
             "family": r["family"],
             "request": r["questions"][0],
@@ -81,15 +108,15 @@ def run(mode):
         }
         mapping[k] = [options.index(x) for x in answers]
     if mode == "blind":
-        if MASK.exists():
-            assert read(MASK) == mask
+        if mask_path.exists():
+            assert read(mask_path) == mask
         else:
-            save(MASK, mask)
+            save(mask_path, mask)
         return
-    committed(RATINGS)
-    committed(MASK)
-    assert mask == read(MASK)
-    grades = read(RATINGS)
+    committed(ratings_path)
+    committed(mask_path)
+    assert mask == read(mask_path)
+    grades = read(ratings_path)
     assert grades.keys() == mask.keys()
     counts = {a: defaultdict(Counter) for a in ARMS}
     groups = defaultdict(lambda: defaultdict(list))
@@ -130,12 +157,12 @@ def run(mode):
             "individual_losses": sum(b and not a for v in sets.values() for a, b in v),
         }
     save(
-        RESULT,
+        result_path,
         {
             "counts": counts,
             "sources": result,
-            "ratings": digest(RATINGS),
-            "plan": digest(PLAN),
+            "ratings": digest(ratings_path),
+            "plan": digest(plan_path),
         },
     )
 
@@ -143,4 +170,6 @@ def run(mode):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=["plan", "blind", "report"])
-    run(parser.parse_args().mode)
+    parser.add_argument("--conditional", action="store_true")
+    args = parser.parse_args()
+    run(args.mode, args.conditional)
