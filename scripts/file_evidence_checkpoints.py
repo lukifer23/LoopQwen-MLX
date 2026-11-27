@@ -32,9 +32,9 @@ def verify(root):
             )
         assert hashlib.sha256(source).hexdigest() == expected
     history = read(root / "optimizer-steps.json")
-    steps = list(
-        range(s["checkpoint_interval"], s["updates"], s["checkpoint_interval"])
-    ) + [s["updates"]]
+    cross_view = s["id"] == "cross-view-reading-01"
+    interval = 80 if cross_view else s["checkpoint_interval"]
+    steps = list(range(interval, s["updates"], interval)) + [s["updates"]]
     assert [h["step"] for h in history] == steps
     assert all(
         0 < a["targets"] < b["targets"]
@@ -42,6 +42,12 @@ def verify(root):
         for a, b in zip(history, history[1:])
     )
     assert history[-1]["targets"] == fit["targets"]
+    if cross_view:
+        assert history[-1]["teacher_positions"] == fit["teacher_positions"]
+        assert all(
+            0 < a["teacher_positions"] < b["teacher_positions"]
+            for a, b in zip(history, history[1:])
+        )
     optimizer = root / "optimizer.safetensors"
     assert digest(optimizer) == history[-1]["optimizer_sha256"]
     weights = root / "tool-adapters.safetensors"
@@ -86,11 +92,20 @@ def record(root):
     for directory in sorted(checkpoints.glob("step-*")):
         state = read(directory / "state.json")
         assert state["registration"] == digest(root / "registration.json")
-        assert state["parity"] == read(root / "gradient-parity.json")
+        if spec["id"] == "cross-view-reading-01":
+            progress = {
+                "step": state["step"],
+                "targets": state["tokens"],
+                "teacher_positions": state["positions"],
+                "optimizer_seconds": state["seconds"],
+            }
+        else:
+            assert state["parity"] == read(root / "gradient-parity.json")
+            progress = {k: state[k] for k in ("step", "targets", "optimizer_seconds")}
         assert state["loss"] == [l for l in fit["loss"] if l["step"] <= state["step"]]
         history.append(
             {
-                **{k: state[k] for k in ("step", "targets", "optimizer_seconds")},
+                **progress,
                 "weight_sha256": digest(directory / "adapters.safetensors"),
                 "optimizer_sha256": digest(directory / "optimizer.safetensors"),
             }
@@ -118,6 +133,9 @@ def record(root):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--record", action="store_true")
+    p.add_argument("--cross-view", action="store_true")
     args = p.parse_args()
     base = "outputs/research" if args.record else "research/results"
-    (record if args.record else verify)(Path(base) / NAME)
+    (record if args.record else verify)(
+        Path(base) / ("cross-view-reading-01" if args.cross_view else NAME)
+    )

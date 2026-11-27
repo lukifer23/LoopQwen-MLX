@@ -144,6 +144,11 @@ def main(verify):
 
     cross = ROOT / "research/results/cross-view-reading-01/decision.json"
     if cross.is_file() and read(cross).get("status") != "interrupted":
+        subprocess.run(
+            [sys.executable, "-m", "scripts.file_evidence_checkpoints", "--cross-view"],
+            cwd=ROOT,
+            check=True,
+        )
         for command in (
             "cross_view_source_check",
             "cross_view_exposure",
