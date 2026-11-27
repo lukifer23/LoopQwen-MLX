@@ -225,7 +225,14 @@ def verify(root, decision):
         and len(fit["coefficients"]) == 7
         and fit["loss"][-1][0] == spec["updates"]
     )
+    from ..worker import acquire
+
+    acquire()
     tok = load_tokenizer(local_snapshot())
+    ranker = SpanRanker()
+    ranker.load_weights(str(root / "span-ranker.safetensors"), strict=True)
+    assert ranker.weight.tolist() == fit["coefficients"]
+    reader = DocumentReader(tok, ranker)
     data = {}
     for side in ("candidate", "control"):
         data[side] = unpack(root / (side + ".json.gz"))
@@ -235,6 +242,13 @@ def verify(root, decision):
                 and r["input_sha256"] == w["sha256"] == fingerprint(w["prompt_ids"])
                 and r["prompt_tokens"] == len(w["prompt_ids"])
             )
+            if side == "candidate":
+                selected = reader.select(w["prompt_ids"])
+                if selected is not None:
+                    assert (
+                        selected == r["attention_memory"]
+                        and r["context_route"] == "register"
+                    )
             assert r["grade"] == grade(
                 tok, r["token_ids"], w["gold"], "__no_alternate__"
             )
