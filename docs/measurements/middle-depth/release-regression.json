@@ -1,0 +1,194 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[False-direct]",
+      "status": "passed",
+      "seconds": 0.05914808402303606
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[False-stabilized]",
+      "status": "passed",
+      "seconds": 0.02820545801660046
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[False-input_anchor]",
+      "status": "passed",
+      "seconds": 0.027623832982499152
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[True-direct]",
+      "status": "passed",
+      "seconds": 0.03261979197850451
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[True-stabilized]",
+      "status": "passed",
+      "seconds": 0.03243695799028501
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[True-input_anchor]",
+      "status": "passed",
+      "seconds": 0.029858124966267496
+    },
+    {
+      "test": "tests/test_reserved_cache.py::test_fixed_allocation_keeps_values_and_only_exposes_consumed_history",
+      "status": "passed",
+      "seconds": 0.002904792025219649
+    },
+    {
+      "test": "tests/test_source_copy.py::test_mixture_is_causal_normalized_and_matches_selected_token_derivative",
+      "status": "passed",
+      "seconds": 0.012873250001575798
+    },
+    {
+      "test": "tests/test_source_copy.py::test_cache_reuses_real_token_identities_across_request_boundaries",
+      "status": "passed",
+      "seconds": 0.014851833053398877
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_qwen_parallel_calls_rebuild_published_template",
+      "status": "passed",
+      "seconds": 40.05985875002807
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_invalid_second_qwen_call_executes_neither[<tool_call>\\n<function=missing>\\n<parameter=k>\\nx\\n</parameter>\\n</function>\\n</tool_call>]",
+      "status": "passed",
+      "seconds": 0.4427327079465613
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_invalid_second_qwen_call_executes_neither[<tool_call>\\n<function=read>\\n<parameter=k>\\na\\n</parameter>\\n</function>\\n</tool_call>suffix]",
+      "status": "passed",
+      "seconds": 0.439340999990236
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_invalid_second_qwen_call_executes_neither[malformed2]",
+      "status": "passed",
+      "seconds": 0.43827754200901836
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_invalid_second_qwen_call_executes_neither[<tool_call><function=read><parameter=k>x</parameter>]",
+      "status": "passed",
+      "seconds": 0.4352431249571964
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_nested_nonfinite_numeric_data",
+      "status": "passed",
+      "seconds": 0.0001925000105984509
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_literal_string_selected_by_reference_enum_or_typed_union",
+      "status": "passed",
+      "seconds": 0.0004171669716015458
+    },
+    {
+      "test": "tests/test_tool_session.py::test_reject_ambiguous_actions[{\"name\":\"x\",\"name\":\"y\",\"arguments\":{}}]",
+      "status": "passed",
+      "seconds": 0.0001377920270897448
+    },
+    {
+      "test": "tests/test_tool_session.py::test_reject_ambiguous_actions[{\"name\":\"x\",\"arguments\":[]}]",
+      "status": "passed",
+      "seconds": 0.00011904200073331594
+    },
+    {
+      "test": "tests/test_tool_session.py::test_reject_ambiguous_actions[{\"name\":\"x\",\"arguments\":{},\"other\":1}]",
+      "status": "passed",
+      "seconds": 0.0001065409742295742
+    },
+    {
+      "test": "tests/test_tool_session.py::test_reject_ambiguous_actions[{\"name\":\"x\",\"arguments\":{}} trailing text]",
+      "status": "passed",
+      "seconds": 0.00011458300286903977
+    },
+    {
+      "test": "tests/test_tool_session.py::test_real_world_link_and_value_require_the_observation",
+      "status": "passed",
+      "seconds": 0.0007224160362966359
+    },
+    {
+      "test": "tests/test_tool_session.py::test_parse_object_and_concise_answer",
+      "status": "passed",
+      "seconds": 0.0001408749958500266
+    },
+    {
+      "test": "tests/test_tool_session.py::test_catalog_supports_arbitrary_json_field_names_and_values",
+      "status": "passed",
+      "seconds": 0.00011304201325401664
+    },
+    {
+      "test": "tests/test_tool_session.py::test_nonfinite_call_rejected",
+      "status": "passed",
+      "seconds": 0.000127042003441602
+    },
+    {
+      "test": "tests/test_tool_session.py::test_external_callbacks_compute_from_arguments",
+      "status": "passed",
+      "seconds": 0.00042287498945370317
+    },
+    {
+      "test": "tests/test_tool_session.py::test_recovery_follows_a_real_callback_exception_and_discards_prior_cache",
+      "status": "passed",
+      "seconds": 0.0015487499767914414
+    },
+    {
+      "test": "tests/test_tool_session.py::test_resume_uses_existing_qwen_observation_without_repeating_call_or_adding_user",
+      "status": "passed",
+      "seconds": 0.002233667008113116
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_real_tool_cli_matches_public_api",
+      "status": "passed",
+      "seconds": 15.448087042022962
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_small_adapter_overlay_reproduces_changed_public_execution",
+      "status": "passed",
+      "seconds": 2.4227787909912877
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_followup_reuses_real_observations_without_replaying_callbacks",
+      "status": "passed",
+      "seconds": 1.993246917030774
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_cli_followup_reuses_real_observation_and_prompt",
+      "status": "passed",
+      "seconds": 3.224312792008277
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_own_prompt_file_compares_two_real_decoders_on_the_identical_thinking_prompt",
+      "status": "passed",
+      "seconds": 3.1639163329964504
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_generate_compares_user_file_on_two_loaded_native_checkpoints[False]",
+      "status": "passed",
+      "seconds": 2.5417212909669615
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_generate_compares_user_file_on_two_loaded_native_checkpoints[True]",
+      "status": "passed",
+      "seconds": 2.4770450409851037
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_plain_four_layer_policy_and_base_cli_prefill_all_physical_sites",
+      "status": "passed",
+      "seconds": 3.83982495800592
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_staged_shared_query_cli_uses_trained_weights_and_complete_histories",
+      "status": "passed",
+      "seconds": 5.0152558329864405
+    }
+  ],
+  "seconds": 83.35682841698872,
+  "files": [
+    "tests/test_offloaded_prefill.py",
+    "tests/test_reserved_cache.py",
+    "tests/test_source_copy.py",
+    "tests/test_qwen_tools.py",
+    "tests/test_tool_session.py",
+    "tests/test_tool_cli_release.py"
+  ]
+}

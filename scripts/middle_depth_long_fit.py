@@ -16,7 +16,7 @@ from loopqwen.io import digest, read, save
 from loopqwen.middle_depth import MiddleAssistant
 from loopqwen.research.cross_view_study import tokenizer
 from loopqwen.research.native_function_data import token_pair
-from loopqwen.research.saved_document import SavedDocument
+from scripts.middle_depth_retention import saved
 from scripts.agenda_sources import events, source
 from scripts.middle_depth_budget import BASE, ROOT, worker
 from scripts.program_language_material import answer, user
@@ -161,6 +161,25 @@ def residual(model, ids, cache):
     )
 
 
+def adjoint_feature(model, ids, labels, cache):
+    """Capture the residual from the native training forward on the final chunk.
+
+    Metal can choose a different SDPA forward when recording a VJP. Only the
+    last pointwise MLP will change, so this residual remains immutable across
+    subsequent optimizer steps. The full document prefix is already frozen.
+    """
+    target = model.text.layers[-1].mlp.down_proj
+
+    def loss_and_feature(_):
+        z = residual(model, ids, cache)
+        scores = output(model, z)[0, -labels.size :].astype(mx.float32)
+        return nn.losses.cross_entropy(scores, labels).mean(), z
+
+    (value, state), gradient = nn.value_and_grad(target, loss_and_feature)(target)
+    mx.eval(value, state, gradient)
+    return state, value.item()
+
+
 def extract(model, tok, arm, weights, guard):
     spec = read(SPEC)
     rows = list(examples(tok))
@@ -177,18 +196,33 @@ def extract(model, tok, arm, weights, guard):
             ref = folder / (world + ".json")
             if not ref.exists():
                 if prefix is None:
-                    prefix = SavedDocument(
-                        model, a[:common], folder / "prefix", ident, guard
+                    import sys
+
+                    prefix = saved(
+                        model,
+                        a[:common],
+                        folder / "prefix",
+                        ident,
+                        guard,
+                        [
+                            ".venv/bin/python",
+                            "-m",
+                            "scripts.middle_depth_long_fit",
+                            *sys.argv[1:],
+                        ],
                     )
                 disk = prefix.branch(model, p)
                 # Advance to just before the first required output, honoring all
                 # physical hybrid states and each pass's offset.
-                for i in range(common, len(p) - 1, 128):
+                start = len(p) - 1 - max(0, 64 - len(y))
+                assert start >= common
+                for i in range(common, start, 128):
                     guard()
-                    end = min(i + 128, len(p) - 1)
+                    end = min(i + 128, start)
                     disk.decode_hidden(mx.array([p[i:end]]), emit=False)
-                z = residual(model, mx.array([p[-1:] + y[:-1]]), disk.cache)
-                mx.eval(z)
+                z, initial_loss = adjoint_feature(
+                    model, mx.array([p[start:] + y[:-1]]), mx.array(y), disk.cache
+                )
                 f = folder / (world + ".safetensors")
                 mx.save_safetensors(str(f), {"residual": z, "labels": mx.array(y)})
                 save(
@@ -196,6 +230,7 @@ def extract(model, tok, arm, weights, guard):
                     dict(
                         sha=digest(f),
                         input=meta["input"],
+                        initial_loss=initial_loss,
                         positions=len(y),
                         prefix=ident,
                         offsets=[
@@ -232,7 +267,8 @@ def run(arm, policy):
 
         def objective(_target, r):
             return nn.losses.cross_entropy(
-                output(model, r["residual"])[0].astype(mx.float32), r["labels"]
+                output(model, r["residual"])[0, -r["labels"].size :].astype(mx.float32),
+                r["labels"],
             ).mean()
 
         grad = nn.value_and_grad(target, objective)

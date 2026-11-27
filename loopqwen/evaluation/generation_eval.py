@@ -310,7 +310,9 @@ def generate(
     if disk is not None:
         result["scratch_bytes"] = disk.scratch_bytes
         if record_kv_history:
-            result["logical_kv_file_bytes"] = sum(
+            result["logical_kv_file_bytes"] = getattr(
+                disk, "materialized_kv_bytes", 0
+            ) + sum(
                 slot.prefix_fetches * slot.prefix_bytes
                 for slot in disk.cache.slots.values()
                 if isinstance(slot, PrefixOnDisk)

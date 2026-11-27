@@ -15,7 +15,7 @@ from loopqwen.middle_depth import MiddleAssistant, architecture, donor
 from loopqwen.qwen_tools import declarations, render
 from loopqwen.recurrence import Span
 from loopqwen.research.cross_view_study import tokenizer
-from loopqwen.research.saved_document import SavedDocument
+from scripts.middle_depth_retention import saved
 from loopqwen.tool_session import run
 from scripts.middle_depth_budget import BASE, ROOT, worker
 
@@ -100,7 +100,16 @@ def measure(args):
         )
         directory = Path("outputs/middle-depth/documents") / ident
         prep = monotonic()
-        prefix = SavedDocument(model, ids, directory, ident, guard)
+        import sys
+
+        prefix = saved(
+            model,
+            ids,
+            directory,
+            ident,
+            guard,
+            [".venv/bin/python", "-m", "scripts.middle_depth_documents", *sys.argv[1:]],
+        )
         prefill_seconds = monotonic() - prep
 
         def take(kind, question, history):

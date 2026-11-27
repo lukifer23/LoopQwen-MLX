@@ -4,7 +4,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import mlx.core as mx
-import mlx.nn as nn
+from mlx import nn
 from mlx.utils import tree_flatten
 
 from loopqwen.evaluation.mechanism import unpack
@@ -12,7 +12,7 @@ from loopqwen.io import save
 from loopqwen.middle_depth import architecture, donor
 from loopqwen.research.saved_document import SavedDocument
 from scripts.middle_depth_budget import BASE, ROOT, worker
-from scripts.middle_depth_long_fit import output, residual
+from scripts.middle_depth_long_fit import adjoint_feature, output, residual
 from scripts.middle_depth_material import ROWS
 
 
@@ -56,28 +56,36 @@ def run():
             ref = model(x, plain)
             errors.append(mx.max(mx.abs(actual - ref)).item())
             assert errors[-1] == 0
-        x = mx.array([r["p"][:96]])
-        y = mx.array(r["p"][93:97])
+        x = mx.array([r["p"][:160]])
+        y = mx.array(r["p"][141:161])
         target = model.text.layers[-1].mlp.down_proj
 
         def prefix_cache():
             cache = model.make_cache()
-            mx.eval(model.hidden(x[:, :-4], cache))
+            mx.eval(model.hidden(x[:, :-64], cache))
             return cache
 
-        def full(_):
-            logits = model(x[:, -4:], prefix_cache())[0].astype(mx.float32)
+        def full(_, cache):
+            logits = model(x[:, -64:], cache)[0, -y.size :].astype(mx.float32)
             return nn.losses.cross_entropy(logits, y).mean()
 
-        z = residual(model, x[:, -4:], prefix_cache())
+        z = residual(model, x[:, -64:], prefix_cache())
         mx.eval(z)
 
         def sparse(_):
             return nn.losses.cross_entropy(
-                output(model, z)[0].astype(mx.float32), y
+                output(model, z)[0, -y.size :].astype(mx.float32), y
             ).mean()
 
-        a, ga = nn.value_and_grad(target, full)(target)
+        normal_logits = model(x[:, -64:], prefix_cache())
+        sparse_logits = output(model, z)
+        plain_error = mx.max(mx.abs(normal_logits - sparse_logits)).item()
+        plain_full, plain_sparse = (
+            full(target, prefix_cache()).item(),
+            sparse(target).item(),
+        )
+        z, training_loss = adjoint_feature(model, x[:, -64:], y, prefix_cache())
+        a, ga = nn.value_and_grad(target, full)(target, prefix_cache())
         b, gb = nn.value_and_grad(target, sparse)(target)
         a, b = a.item(), b.item()
         errors_grad = {}
@@ -85,10 +93,20 @@ def run():
             assert k == l
             errors_grad[k] = mx.max(mx.abs(v - w)).item()
         # The linear algebra can choose a different reduction tile when only
-        # four rows are presented. Bound the difference relative to the signal.
+        # sparse output rows are presented. Bound the difference relative to the signal.
         norm = mx.linalg.norm(gb["lora_b"]).item()
         relative = mx.linalg.norm(ga["lora_b"] - gb["lora_b"]).item() / norm
-        diagnostic = dict(full_loss=a, sparse_loss=b, norm=norm, relative=relative, maximum=errors_grad)
+        diagnostic = dict(
+            feature_training_loss=training_loss,
+            normal_logit_max=plain_error,
+            normal_full_loss=plain_full,
+            normal_sparse_loss=plain_sparse,
+            full_loss=a,
+            sparse_loss=b,
+            norm=norm,
+            relative=relative,
+            maximum=errors_grad,
+        )
         save(ROOT / "sparse-gradient-check.json", diagnostic)
         assert norm > 0 and abs(a - b) < 0.01 and relative < 0.02, diagnostic
         prior = model.project(model.hidden(x)[:, :60])
@@ -105,6 +123,8 @@ def run():
                 passed=True,
                 model="Base initialization, two physical span visits",
                 chunks=len(ids) // 128,
+                full_chunk_positions=64,
+                supervised_positions=y.size,
                 interrupted_on_call=count,
                 completed_groups=len(reopened.receipt["groups"]),
                 reloaded_branch_max_logit_errors=errors,
