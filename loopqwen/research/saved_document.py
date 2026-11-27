@@ -54,9 +54,11 @@ class SavedDocument(DocumentPrefix):
                     disk.cache.slots[site] = PrefixOnDisk(path, length)
                 else:
                     arrays = mx.load(str(path))
-                    disk.cache.slots[site].state = [
-                        arrays[str(i)] for i in range(len(arrays))
-                    ]
+                    if set(arrays) != {"convolution", "delta"}:
+                        raise ValueError("Incomplete saved Qwen linear-attention history")
+                    disk.cache.slots[site].state = (
+                        [arrays["convolution"], arrays["delta"]], None, None
+                    )
         dtype = model.text.model.embed_tokens.weight.dtype
         if dtype not in (mx.bfloat16, mx.float16):
             raise ValueError("Exact 16-bit prefill storage requires a 16-bit model")
@@ -98,7 +100,10 @@ class SavedDocument(DocumentPrefix):
                 slot = disk.cache.slots[site]
                 path = directory / ("site-%d-%d.safetensors" % site)
                 if isinstance(slot, ArraysCache):
-                    values = {str(i): s for i, s in enumerate(slot.state)}
+                    pair, padding, lengths = slot.state
+                    if padding is not None or lengths is not None or len(pair) != 2:
+                        raise ValueError("Saved documents require single unpadded Qwen histories")
+                    values = {"convolution": pair[0], "delta": pair[1]}
                     kind = "hybrid"
                 else:
                     k, v = slot.keys_and_values()
