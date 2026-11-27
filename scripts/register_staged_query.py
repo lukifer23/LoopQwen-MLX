@@ -52,6 +52,7 @@ def register():
         scratch_gib=4,
         max_pressure_restarts=4,
         max_attempts_per_item=2,
+        intermediate_window_archive="research/sessions/staged-query-candidate",
         seconds_per_arm=4380,
         limits={**source["limits"], "wall_seconds": 8760},
         question="Can lossless 16-bit staging complete the entire original pair and preserve user-facing accuracy, physical depth and measured performance under host memory pressure?",
