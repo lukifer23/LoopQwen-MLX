@@ -49,7 +49,7 @@ The examples below use the earliest sampled SQL statement to achieve each listed
   #tbl(("World","Human gold","Result from the actual query"),(("Original",e.gold.at(0),e.obtained.at(0)),("Altered",e.gold.at(1),e.obtained.at(1))),(0.7fr,1.15fr,2.4fr))
 ]
 = Sources and reproducibility
-1. Pasupat and Liang. _Inferring Logical Forms From Denotations via Abstract Interpretation._ ACL 2016. The source archive preserves the original WikiTableQuestions tables, changed tables, original questions and independent annotator responses. #link("https://aclanthology.org/P16-1003/")[Publication and source context]
+1. Pasupat and Liang. _Inferring Logical Forms From Denotations._ ACL 2016. The source archive preserves the original WikiTableQuestions tables, changed tables, original questions and independent annotator responses. #link("https://aclanthology.org/P16-1003/")[Publication and source context]
 2. Ahmadian et al. _Back to Basics: Revisiting REINFORCE-Style Optimization for Learning from Human Feedback in LLMs._ ACL 2024. A leave-one-out baseline reuses the other independently generated samples for the same prompt. #link("https://aclanthology.org/2024.acl-long.662/")[Method and experiments]
 3. Pasupat and Liang. _Compositional Semantic Parsing on Semi-Structured Tables._ ACL-IJCNLP 2015. #link("https://aclanthology.org/P15-1142/")[Original question source]
 
