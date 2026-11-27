@@ -20,7 +20,7 @@ def inspect(stage, aggregate):
         raw = unpack(f)
         tr = raw["trace"]
         spec = read(SPECS / f"{book}-dev.json")
-        ref = spec["rubric_" + world]
+        ref = spec["rubric_" + ("original" if world == "irrelevant" else world)]
         if kind in ("shared", "own"):
             ref += (
                 " Require both ages, a successful relevant calculation and "

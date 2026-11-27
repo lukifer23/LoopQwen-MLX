@@ -1,6 +1,6 @@
 """Exercise the installed release and shared native-cache paths under the study lease."""
 
-from pathlib import Path
+import argparse
 from time import monotonic
 
 import pytest
@@ -9,7 +9,7 @@ from loopqwen.io import save
 from scripts.middle_depth_budget import ROOT, worker
 
 
-def run():
+def run(full=False):
     files = [
         "tests/test_offloaded_prefill.py",
         "tests/test_reserved_cache.py",
@@ -18,7 +18,11 @@ def run():
         "tests/test_tool_session.py",
         "tests/test_tool_cli_release.py",
     ]
-    with worker("profile", "release-and-cache-regression") as guard:
+    receipt = "release-regression"
+    if full:
+        files = ["tests"]
+        receipt = "full-regression"
+    with worker("profile", receipt) as guard:
         rows = []
 
         class Observe:
@@ -38,7 +42,7 @@ def run():
         start = monotonic()
         code = pytest.main(["-q", "--disable-warnings", *files], plugins=[Observe()])
         save(
-            ROOT / "release-regression.json",
+            ROOT / (receipt + ".json"),
             dict(
                 passed=code == 0, tests=rows, seconds=monotonic() - start, files=files
             ),
@@ -48,4 +52,6 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--full", action="store_true")
+    run(parser.parse_args().full)

@@ -61,6 +61,11 @@ def open_prefix(path, model, ids, identity, command):
             if f == path or not r.is_file():
                 continue
             receipt = read(r)
+            certified = set(receipt.get("states", {})) | {"prefix.json"}
+            if any(
+                not file.is_file() or file.name not in certified for file in f.iterdir()
+            ):
+                continue
             if receipt.get("complete") and not receipt.get("evicted"):
                 eligible.append((receipt["last_use"], f, r, receipt))
         if not eligible:

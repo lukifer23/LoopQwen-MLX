@@ -24,7 +24,12 @@ def panel(arm, short_stage, long_stage, cap):
             key = r["family"], r["source"], r["world"]
             out[key] = (r["grade"]["correct"], r["seconds"], r["file"], r["sha"])
     for r in read(ROOT / "document-review" / long_stage / "scored.json"):
-        if r["arm"] == arm and r["cap"] == cap and r["kind"] == "first":
+        if (
+            r["arm"] == arm
+            and r["cap"] == cap
+            and r["kind"] == "first"
+            and r["world"] in ("original", "edited")
+        ):
             key = "documents", r["source"], r["world"]
             out[key] = (r["grade"]["correct"], r["seconds_cold"], r["file"], r["sha"])
     if len(out) != 31:

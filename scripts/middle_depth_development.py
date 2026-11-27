@@ -150,6 +150,7 @@ def collect(args):
                 dict(
                     source=r["id"],
                     family=r["family"],
+                    physical_sites=model.sites,
                     world=world,
                     weights=weights,
                     protocol=digest(FROZEN),

@@ -62,7 +62,10 @@ def fit(arm, step):
     state = read(folder / pointer["path"] / "state.json") if pointer else {"step": 0}
     if state["step"] < step:
         dispatch("fit", arm, "--until", step)
-    return folder / f"step-{step:04d}"
+    expected = folder / f"step-{step:04d}"
+    if not expected.is_dir():
+        raise RuntimeError(f"Fit exited before its requested checkpoint {expected}")
+    return expected
 
 
 def generate(stage, arms, budgets, policies):
@@ -118,7 +121,12 @@ def short_terminal():
 
 
 def depths():
-    policy = fit("loop", 576)
+    decision = ROOT / "long-decision.json"
+    policy = (
+        Path(read(decision)["models"]["loop"]["path"])
+        if decision.exists()
+        else fit("loop", 576)
+    )
     for block in (0, 1):
         for depth in (1, 2, 3) if block == 0 else (3, 2, 1):
             dispatch(
@@ -170,6 +178,20 @@ def early_headroom():
 
 
 def early_excerpts():
+    if not (ROOT / "installed" / "early-loop-tiles-128.json.gz").exists():
+        dispatch(
+            "cold",
+            "--stage",
+            "early",
+            "--archive-stage",
+            "early",
+            "--arm",
+            "loop",
+            "--source",
+            "tiles",
+            "--cap",
+            128,
+        )
     for block in (0, 1):
         for arm in (
             ("loop", "ordinary", "base") if block == 0 else ("base", "ordinary", "loop")

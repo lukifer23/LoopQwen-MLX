@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 from statistics import fmean
 
+from loopqwen.evaluation.mechanism import unpack
 from loopqwen.io import read, save, digest
 from scripts.middle_depth_budget import ROOT
 from scripts.middle_depth_wave import dispatch, fit, generate
@@ -73,38 +74,100 @@ def selected():
 def documents(
     stage, policies, arms, caps, followups=False, worlds=("original", "edited")
 ):
-    for cap in caps:
-        for i, book in enumerate(("anne", "book")):
+    for i, book in enumerate(("anne", "book")):
+        for cap in caps:
             for j, world in enumerate(worlds):
                 for arm in arms if (i + j) % 2 == 0 else reversed(arms):
-                    ref = ROOT / "documents" / stage / book / arm / str(cap)
-                    expected = [world + "-first"]
-                    if followups and book == "anne":
-                        expected += [
-                            world + "-" + k for k in ("own", "shared", "unanswerable")
-                        ]
-                    if all((ref / (k + ".json.gz")).exists() for k in expected):
-                        continue
-                    args = [
-                        "run",
-                        "--book",
-                        book,
-                        "--world",
-                        world,
-                        "--arm",
-                        arm,
-                        "--stage",
-                        stage,
-                        "--tokens",
-                        cap,
-                        "--cache-mode",
-                        "resident",
-                    ]
-                    if arm in policies:
-                        args += ["--policy", policies[arm]]
-                    if followups and book == "anne":
-                        args += ["--followups"]
-                    dispatch("documents", *args)
+                    document_request(stage, policies, arm, cap, book, world, followups)
+
+
+def document_request(stage, policies, arm, cap, book, world, followups=False):
+    ref = ROOT / "documents" / stage / book / arm / str(cap)
+    expected = ["first"]
+    extra = followups and book == "anne" and world != "irrelevant"
+    if extra:
+        expected.extend(("own", "shared", "unanswerable"))
+    if all((ref / f"{world}-{k}.json.gz").is_file() for k in expected):
+        return
+    args = [
+        "run",
+        "--book",
+        book,
+        "--world",
+        world,
+        "--arm",
+        arm,
+        "--stage",
+        stage,
+        "--tokens",
+        cap,
+        "--cache-mode",
+        "resident",
+    ]
+    if arm in policies:
+        args += ["--policy", policies[arm]]
+    if extra:
+        args += ["--followups"]
+    dispatch("documents", *args)
+
+
+def final_books():
+    decision = read(ROOT / "long-decision.json")
+    models = {k: Path(v["path"]) for k, v in decision["models"].items()}
+    for arm, path in models.items():
+        if digest(path / "adapters.safetensors") != decision["models"][arm]["weights"]:
+            raise ValueError("A selected document checkpoint has changed")
+    arms = ("loop", "base", "ordinary")
+    stages = {a: decision["document_stage"] for a in models} | {"base": "parent"}
+    # Finish primary matched turns and stability checks before extra headroom.
+    for i, book in enumerate(("anne", "book")):
+        for cap in (128, 512):
+            for j, world in enumerate(("original", "edited", "irrelevant")):
+                for arm in arms if (i + j) % 2 == 0 else reversed(arms):
+                    document_request(stages[arm], models, arm, cap, book, world, True)
+    # Freeze the paired extended-output enrollment using only earlier stopping
+    # status and the mandatory originals. No answer text or scores enter selection.
+    reasons = {}
+    previous = {}
+    for book in ("anne", "book"):
+        for world in ("original", "edited", "irrelevant"):
+            key = book + "/" + world
+            stops = []
+            for arm in arms:
+                folder = ROOT / "documents" / stages[arm] / book / arm / "512"
+                kinds = ["first"]
+                if book == "anne" and world != "irrelevant":
+                    kinds += ["own", "shared", "unanswerable"]
+                for kind in kinds:
+                    path = folder / (world + "-" + kind + ".json.gz")
+                    previous[str(path.relative_to(ROOT))] = digest(path)
+                    if unpack(path)["trace"]["status"] == "token_limit":
+                        stops.append([arm, kind])
+            if world == "original" or stops:
+                reasons[key] = stops
+    enrollment = dict(
+        sources=previous,
+        reasons=reasons,
+        models=decision["models"],
+        registration=digest(
+            Path("research/diagnostics/middle-depth/output-headroom.md")
+        ),
+    )
+    log = ROOT / "headroom" / "complete-books.json"
+    if log.exists() and read(log) != enrollment:
+        raise ValueError("Full-document headroom enrollment changed")
+    save(log, enrollment)
+    for index, key in enumerate(reasons):
+        book, world = key.split("/")
+        for arm in arms if index % 2 == 0 else reversed(arms):
+            document_request(stages[arm], models, arm, 4096, book, world, True)
+
+
+def early_book():
+    paths = {arm: RUN / "4619" / arm / "step-0144" for arm in ARMS}
+    for world, arms in (("original", ARMS), ("edited", reversed(ARMS))):
+        for arm in arms:
+            document_request("epoch-one", paths, arm, 512, "anne", world)
 
 
 def short_parent_books():
@@ -137,7 +200,12 @@ def select_long():
     def books(stage, arm):
         scores = {}
         for r in read(ROOT / "document-review" / stage / "scored.json"):
-            if r["arm"] == arm and r["cap"] == 512 and r["kind"] == "first":
+            if (
+                r["arm"] == arm
+                and r["cap"] == 512
+                and r["kind"] == "first"
+                and r["world"] in ("original", "edited")
+            ):
                 scores.setdefault(r["source"], []).append(r["grade"]["correct"])
         assert set(scores) == {"anne", "book"} and all(
             len(v) == 2 for v in scores.values()
@@ -186,8 +254,10 @@ def select_long():
 if __name__ == "__main__":
     ops = {
         "forks": forks,
+        "early-book": early_book,
         "history": select_history,
         "parent-books": short_parent_books,
+        "final-books": final_books,
         "long-fit": long_fit,
         "children": long_children,
         "select": select_long,

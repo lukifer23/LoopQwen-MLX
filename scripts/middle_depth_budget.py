@@ -94,6 +94,13 @@ def worker(stage, job):
     ledger.mkdir(exist_ok=True, parents=True)
     past = [recover_charge(p) for p in ledger.glob("*.json")]
     credit = BUDGET[stage] - sum(r["seconds"] for r in past if r["stage"] == stage)
+    if stage == "long" and job.endswith("/epoch-one"):
+        prior_book = sum(
+            r["seconds"]
+            for r in past
+            if r["stage"] == "long" and r["job"].endswith("/epoch-one")
+        )
+        credit = min(credit, 1200 - prior_book)
     path = ledger / (uuid.uuid4().hex + ".json")
     mx.set_cache_limit(64 * 2**20)
     mx.reset_peak_memory()

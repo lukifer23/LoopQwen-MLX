@@ -11,7 +11,7 @@ from loopqwen.evaluation.mechanism import packed, unpack
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.looped_model import LoopedModel
-from loopqwen.middle_depth import MiddleAssistant, architecture, donor
+from loopqwen.middle_depth import MiddleAssistant, architecture, donor, INSTRUCTION_REV
 from loopqwen.qwen_tools import declarations, render
 from loopqwen.recurrence import Span
 from loopqwen.research.cross_view_study import tokenizer
@@ -72,6 +72,34 @@ def freeze():
 
 
 EXTRA = SPECS / "document-extra-openings.json"
+
+
+IRRELEVANT = SPECS / "document-irrelevant-edits.json"
+STABLE = SPECS / "document-irrelevant-openings.json"
+
+
+def irrelevant_opening(book, tok, original, tools, common):
+    before, after = read(IRRELEVANT)[book]
+    assert original.count(before) == 1
+    q = original.replace(before, after)
+    p = tok.encode(
+        render(tok, [dict(role="user", content=q)], declarations(tools)),
+        add_special_tokens=False,
+    )
+    assert p[: len(common)] == common
+    return q, p
+
+
+def freeze_irrelevant():
+    tok = tokenizer({"checkpoint": str(BASE)})
+    rows = {}
+    for name in ("book", "anne"):
+        spec, tools, w, common = worlds(name, tok)
+        q, p = irrelevant_opening(name, tok, w["original"][0], tools, common)
+        rows[name] = dict(
+            input=fingerprint(p), length=len(p), reference=spec["rubric_original"]
+        )
+    save(STABLE, dict(edits=digest(IRRELEVANT), original=digest(FROZEN), rows=rows))
 
 
 def extra_openings():
@@ -163,20 +191,32 @@ def measure(args):
             model, tok = assist._tool_model, assist.tokenizer
             weights = read(args.policy / "registration.json")["weights"]
         else:
-            text, tok = donor(BASE, "base")
+            which = "instruction" if args.arm == "instruction" else "base"
+            text, tok = donor(BASE, which)
             model = (
                 architecture(text, 2, 4619)
                 if args.arm == "loop"
                 else LoopedModel(text, Span(12, 4, 1))
             )
             model.eval()
-            weights = "base-dc7cdfe"
+            weights = (
+                "base-dc7cdfe" if which == "base" else "instruction-" + INSTRUCTION_REV
+            )
         spec, t, w, ids = worlds(args.book, tok)
         assert cfg["spec"] == digest(SPECS / f"{args.book}-dev.json") and cfg[
             "source"
         ] == digest(Path(spec["source"]))
         assert cfg["common_sha"] == fingerprint(ids)
-        q, full = w[args.world]
+        if args.world == "irrelevant":
+            assert not args.followups
+            q, full = irrelevant_opening(args.book, tok, w["original"][0], t, ids)
+            fixed = read(STABLE)
+            assert fixed["edits"] == digest(IRRELEVANT) and fixed["original"] == digest(
+                FROZEN
+            )
+            assert fixed["rows"][args.book]["input"] == fingerprint(full)
+        else:
+            q, full = w[args.world]
         out = ROOT / "documents" / args.stage / args.book / args.arm / str(args.tokens)
         ident = fingerprint(
             [weights, model.sites, cfg["common_sha"], "saved-prefix-v1"]
@@ -288,17 +328,23 @@ def measure(args):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("action", choices=("freeze", "extra", "run"))
+    p.add_argument("action", choices=("freeze", "extra", "irrelevant", "run"))
     p.add_argument("--book", choices=("book", "anne"), default="book")
-    p.add_argument("--arm", choices=("base", "loop", "ordinary"), default="base")
+    p.add_argument(
+        "--arm", choices=("base", "instruction", "loop", "ordinary"), default="base"
+    )
     p.add_argument("--stage", default="initial")
-    p.add_argument("--world", choices=("original", "edited"), default="original")
+    p.add_argument(
+        "--world", choices=("original", "edited", "irrelevant"), default="original"
+    )
     p.add_argument("--tokens", choices=(128, 512, 4096), type=int, default=128)
     p.add_argument("--cache-mode", choices=("resident", "staged"), default="staged")
     p.add_argument("--followups", action="store_true")
     p.add_argument("--policy", type=Path)
     a = p.parse_args()
-    if a.action == "extra":
+    if a.action == "irrelevant":
+        freeze_irrelevant()
+    elif a.action == "extra":
         extra_openings()
     elif a.action == "freeze":
         freeze()
