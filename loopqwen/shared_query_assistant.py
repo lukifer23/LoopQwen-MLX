@@ -28,6 +28,10 @@ def from_backbone(directory, folder, spec, identity):
             from .bounded_read import BoundedContentRead
 
             model_class = BoundedContentRead
+            if spec.get("source_copy"):
+                from .source_copy import SourceCopyRead
+
+                model_class = SourceCopyRead
     net = model_class(
         donor.text,
         revisits=spec["revisits"],

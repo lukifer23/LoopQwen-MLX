@@ -8,6 +8,7 @@ from loopqwen.evaluation.generation_eval import generate
 from loopqwen.looped_model import LoopedModel
 from loopqwen.offloaded_prefill import DocumentPrefix, PrefixOnDisk
 from loopqwen.recurrence import Span
+from loopqwen.source_copy import SourceCopyRead
 
 
 class NumericTokenizer:
@@ -22,14 +23,16 @@ class NumericTokenizer:
         return " ".join(map(str, tokens))
 
 
-@pytest.mark.parametrize("kind", ["base", "content", "bounded"])
+@pytest.mark.parametrize("kind", ["base", "content", "bounded", "source_copy"])
 def test_document_generation_matches_full_openings_and_leaves_shared_prefix_unchanged(
     tmp_path, kind
 ):
     parent = model()
     text = parent.text
     text.set_dtype(mx.float16)
-    reader = BoundedContentRead if kind == "bounded" else ContentRead
+    reader = {"bounded": BoundedContentRead, "source_copy": SourceCopyRead}.get(
+        kind, ContentRead
+    )
     net = (
         LoopedModel(text, Span(len(text.layers) - 1, 1, 1))
         if kind == "base"
@@ -37,6 +40,8 @@ def test_document_generation_matches_full_openings_and_leaves_shared_prefix_unch
     )
     if kind != "base":
         net.step.write.weight = mx.random.normal(net.step.write.weight.shape) * 0.01
+    if kind == "source_copy":
+        net.step.pointer.gate.bias = mx.array([2.0])
     net.eval()
     prefix = [(17 * i + 3) % 128 for i in range(129)]
     root = tmp_path / "source"

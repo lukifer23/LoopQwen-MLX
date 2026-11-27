@@ -7,6 +7,9 @@ import numpy as np
 from mlx_lm.models.cache import KVCache
 
 
+from .looped_model import project_output
+
+
 class PrefixOnDisk(KVCache):
     """RoPE uses the complete offset. Only new decode keys accumulate in memory."""
 
@@ -27,6 +30,14 @@ class PrefixOnDisk(KVCache):
         return mx.concatenate([prefix["k"], k], axis=2), mx.concatenate(
             [prefix["v"], v], axis=2
         )
+
+    def source_values(self):
+        values = mx.load(str(self.path))["v"]
+        if values.shape[2] != self.length:
+            raise ValueError("Incomplete source value history")
+        if self.tail.empty():
+            return values
+        return mx.concatenate([values, self.tail.keys_and_values()[1]], axis=2)
 
     def physical_length(self):
         return self.length + (
@@ -67,12 +78,14 @@ class OffloadedPrefill:
             from .content_read import ContentRead
             from .looped_model import LoopedModel
             from .shared_query import SharedQuery
+            from .source_copy import SourceCopyRead
 
             if type(model) not in (
                 LoopedModel,
                 SharedQuery,
                 ContentRead,
                 BoundedContentRead,
+                SourceCopyRead,
             ) or any(p for _, p in model.sites):
                 raise ValueError(
                     "Grouped staging requires an ordinary or shared-query decoder with one temporal state per layer"
@@ -84,12 +97,16 @@ class OffloadedPrefill:
                 self.groups[-1].append(site)
 
     def prefill(self, ids, progress=None):
-        return self.model.project(self.prefill_hidden(ids, progress))
+        return project_output(
+            self.model, self.prefill_hidden(ids, progress), self.cache
+        )
 
     def prefill_hidden(self, ids, progress=None):
         m = self.model
         self.cache.validate(m, None)
         length = len(ids)
+        if hasattr(m, "remember"):
+            m.remember(self.cache, mx.array([ids]))
         if self.group_attention:
             # Reserve each site's actual request length only when it becomes active.
             from .reserved_cache import reserve
@@ -178,15 +195,19 @@ class OffloadedPrefill:
                 raise ValueError(
                     "A document must have complete immutable prefix states before branching"
                 )
+        if hasattr(self.cache, "source_ids"):
+            child.cache.source_ids = self.cache.source_ids[...]
         child.scratch_bytes = self.scratch_bytes
         return child
 
     def decode(self, ids):
-        return self.model.project(self.decode_hidden(ids))
+        return project_output(self.model, self.decode_hidden(ids), self.cache)
 
     def decode_hidden(self, ids, *, emit=True):
         m = self.model
         self.cache.validate(m, None)
+        if hasattr(m, "remember"):
+            m.remember(self.cache, ids)
         h = m.text.model.embed_tokens(ids)
         for index, group in enumerate(self.groups):
             final = (
@@ -241,4 +262,4 @@ class DocumentPrefix:
             )
             if progress is not None:
                 progress(start)
-        return disk.model.project(hidden[:, -1:])
+        return project_output(disk.model, hidden[:, -1:], disk.cache)

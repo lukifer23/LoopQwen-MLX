@@ -54,6 +54,8 @@ class ToolPrefix:
             return 0
         for site, state in self.snapshot.items():
             cache.slots[site].state = tree_map(copy_state, state)
+        if hasattr(model, "remember"):
+            model.remember(cache, mx.array([self.tokens]))
         self.reused = len(self.tokens)
         return self.reused
 

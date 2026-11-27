@@ -5,6 +5,9 @@ from time import perf_counter
 import mlx.core as mx
 
 
+from ..looped_model import project_output
+
+
 def resident_cache(model, route, length, max_tokens, block, *, reserve_full_kv=False):
     cache = model.make_cache()
     page_slots = {}
@@ -205,9 +208,11 @@ def generate(
                 else:
                     logits = document_prefix.complete_opening(disk, ids, progress)
             elif hasattr(model, "last_hidden"):
-                logits = model.project(model.last_hidden(inputs, cache))
+                logits = project_output(model, model.last_hidden(inputs, cache), cache)
             elif hasattr(model, "hidden"):
-                logits = model.project(model.hidden(inputs, cache)[:, -1:])
+                logits = project_output(
+                    model, model.hidden(inputs, cache)[:, -1:], cache
+                )
             else:
                 logits = model(inputs, cache=cache)
             if disk is not None and step == 0 and section is not None:
