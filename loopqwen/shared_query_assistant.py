@@ -19,7 +19,12 @@ def from_backbone(directory, folder, spec, identity):
         donor.text.set_dtype(mx.float16, lambda dtype: dtype == mx.bfloat16)
         mx.eval(donor.text.parameters())
     mx.random.seed(spec["fit_seed"])
-    net = SharedQuery(
+    model_class = SharedQuery
+    if spec.get("content_read"):
+        from .content_read import ContentRead
+
+        model_class = ContentRead
+    net = model_class(
         donor.text,
         revisits=spec["revisits"],
         rank=spec["rank"],
