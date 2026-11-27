@@ -1,5 +1,6 @@
 """Compare one protected, two-visit decoder against the pinned Base on matched current evidence."""
 
+import math
 import re
 from collections import defaultdict
 from pathlib import Path
@@ -229,6 +230,12 @@ def verify(root, d):
             and r["after"] <= r["before"] + s["reference_tolerance"]
         )
         assert r["projected"] == (r["raw_directional"] > 0)
+        assert all(
+            math.isfinite(r[k]) and r[k] >= 0
+            for k in ("proposed_step_l2", "applied_step_l2")
+        )
+        if r["factor"] == 0:
+            assert r["applied_step_l2"] == 0 and r["after"] == r["before"]
     assert fitlog["applied"] == sum(r["factor"] > 0 for r in records)
     assert fitlog["projected"] == sum(r["projected"] for r in records)
 

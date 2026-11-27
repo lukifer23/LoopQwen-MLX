@@ -68,8 +68,9 @@ def protected_update(net, adam, main_grad, ref_grad, ref_args, before, tolerance
     direction = tree_map(
         lambda d, g: d - penalty * g.astype(mx.float32), delta, ref_grad
     )
-    mx.eval(direction, dot, g2)
-    if not math.isfinite(dot.item()) or not math.isfinite(g2.item()):
+    proposed_l2 = mx.sqrt(inner(delta, delta))
+    mx.eval(direction, dot, g2, proposed_l2)
+    if not all(math.isfinite(t.item()) for t in (dot, g2, proposed_l2)):
         raise InterruptedError("Nonfinite native update direction")
     for k in range(5):
         factor = 0.5**k
@@ -82,17 +83,27 @@ def protected_update(net, adam, main_grad, ref_grad, ref_args, before, tolerance
         )
         net.update(candidate)
         after = reference_loss(net, *ref_args).item()
-        if math.isfinite(after) and after <= before + tolerance:
+        if not math.isfinite(after):
+            net.update(original)
+            raise InterruptedError("Nonfinite protected objective on a proposed step")
+        if after <= before + tolerance:
             realized = tree_map(
                 lambda a, b: a.astype(mx.float32) - b.astype(mx.float32),
                 candidate,
                 original,
             )
-            signed = inner(realized, ref_grad).item()
+            signed = inner(realized, ref_grad)
+            step_l2 = mx.sqrt(inner(realized, realized))
+            mx.eval(signed, step_l2)
+            if not all(math.isfinite(t.item()) for t in (signed, step_l2)):
+                net.update(original)
+                raise InterruptedError("Nonfinite applied native update")
             return {
                 "projected": dot.item() > 0,
                 "raw_directional": dot.item(),
-                "actual_directional": signed,
+                "actual_directional": signed.item(),
+                "proposed_step_l2": proposed_l2.item(),
+                "applied_step_l2": step_l2.item(),
                 "factor": factor,
                 "before": before,
                 "after": after,
@@ -102,6 +113,8 @@ def protected_update(net, adam, main_grad, ref_grad, ref_args, before, tolerance
         "projected": dot.item() > 0,
         "raw_directional": dot.item(),
         "actual_directional": 0.0,
+        "proposed_step_l2": proposed_l2.item(),
+        "applied_step_l2": 0.0,
         "factor": 0.0,
         "before": before,
         "after": before,
