@@ -1,0 +1,96 @@
+{
+  "training": "3249ba7c83d279fb3546f6b7930f95f2ddde7222d4d536eb1c5ad3557b78585a",
+  "withheld": "27b8310ea812ecdf1a11c892b45c8cb42e51f339dc970cfd79bb11b2a2cb77da",
+  "train": {
+    "human_responses": 1800,
+    "actual_single_row_support_values": {
+      "2": 1084,
+      "3": 601,
+      "4": 92,
+      "5": 23
+    },
+    "supported_values_absent_from_prior_conversation": {
+      "1": 332,
+      "2": 888,
+      "3": 502,
+      "4": 69,
+      "5": 9
+    },
+    "at_least_two_new_values": 1468,
+    "new_supported_value_fields": {
+      "address": 118,
+      "airlines": 292,
+      "attraction_name": 118,
+      "car_name": 236,
+      "car_type": 103,
+      "category": 104,
+      "city": 23,
+      "departure_time": 30,
+      "event_location": 120,
+      "event_name": 258,
+      "event_time": 20,
+      "fare": 300,
+      "fare_type": 65,
+      "hotel_name": 54,
+      "inbound_departure_time": 32,
+      "leaving_time": 26,
+      "number_of_baths": 85,
+      "number_of_beds": 59,
+      "number_stops": 231,
+      "outbound_departure_time": 80,
+      "pickup_location": 236,
+      "precipitation": 118,
+      "price": 355,
+      "property_name": 118,
+      "rent": 36,
+      "restaurant_name": 118,
+      "show_time": 6,
+      "star_rating": 49,
+      "temperature": 118,
+      "theater_name": 6,
+      "transfers": 117,
+      "type": 99,
+      "venue": 236
+    }
+  },
+  "reserved": {
+    "human_responses": 48,
+    "actual_single_row_support_values": {
+      "2": 28,
+      "3": 19,
+      "4": 1
+    },
+    "supported_values_absent_from_prior_conversation": {
+      "1": 10,
+      "2": 20,
+      "3": 17,
+      "4": 1
+    },
+    "at_least_two_new_values": 38,
+    "new_supported_value_fields": {
+      "address": 2,
+      "airlines": 5,
+      "attraction_name": 6,
+      "car_name": 12,
+      "car_type": 10,
+      "category": 4,
+      "city": 2,
+      "event_name": 4,
+      "fare": 2,
+      "inbound_departure_time": 2,
+      "number_of_baths": 1,
+      "number_of_beds": 1,
+      "number_stops": 2,
+      "outbound_departure_time": 2,
+      "pickup_location": 12,
+      "precipitation": 8,
+      "price": 4,
+      "property_name": 2,
+      "restaurant_name": 8,
+      "temperature": 8,
+      "type": 2,
+      "venue": 6
+    }
+  },
+  "interpretation": "The source response names these original field values verbatim. A value absent from the dialogue cannot be copied directly from its text. Prior knowledge and correlations between a request and plausible results can still support a guess. The two service dialogues in a pair may have different histories. Only the table pairs repeat identical user openings with changed human answers."
+}
