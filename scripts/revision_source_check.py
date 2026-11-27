@@ -84,19 +84,24 @@ def overlap(text, raw):
     return len(triples.intersection(zip(other, other[1:], other[2:]))) / len(triples)
 
 
-def main(fetch=False):
-    rows = read(PANEL)
+def main(fetch=False, file_evidence=False):
+    if file_evidence:
+        rows = read("research/data/file-evidence-panel.json")["rows"]
+        diffs = DIFFS.with_name("file-evidence-wikipedia-diffs.json.gz")
+        receipt = RESULT.with_name("file-evidence-wikipedia-sources.json")
+    else:
+        rows, diffs, receipt = read(PANEL), DIFFS, RESULT
     ids = sorted({r["revision"] for r in rows})
     if fetch:
         docs = recover(ids)
         data = gzip.compress(
             json.dumps(docs, sort_keys=True, ensure_ascii=False).encode(), mtime=0
         )
-        if DIFFS.exists():
-            assert json.loads(gzip.decompress(DIFFS.read_bytes())) == docs
+        if diffs.exists():
+            assert json.loads(gzip.decompress(diffs.read_bytes())) == docs
         else:
-            DIFFS.write_bytes(data)
-    docs = json.loads(gzip.decompress(DIFFS.read_bytes()))
+            diffs.write_bytes(data)
+    docs = json.loads(gzip.decompress(diffs.read_bytes()))
     assert set(ids) == docs.keys()
     scores = []
     for key in ids:
@@ -129,13 +134,13 @@ def main(fetch=False):
         "edits": len(ids),
         "rows": len(rows),
         "years": dict(Counter(r["timestamp"][:4] for r in scores)),
-        "source_sha256": hashlib.sha256(DIFFS.read_bytes()).hexdigest(),
+        "source_sha256": hashlib.sha256(diffs.read_bytes()).hexdigest(),
         "articles": scores,
     }
-    if RESULT.exists():
-        assert read(RESULT) == result
+    if receipt.exists():
+        assert read(receipt) == result
     else:
-        save(RESULT, result)
+        save(receipt, result)
     print(
         len(ids),
         "distinct live Wikipedia edits; both excerpts >=50% trigram coverage in opposed changed lines:",
@@ -146,4 +151,6 @@ def main(fetch=False):
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--fetch", action="store_true")
-    main(p.parse_args().fetch)
+    p.add_argument("--file-evidence", action="store_true")
+    args = p.parse_args()
+    main(args.fetch, args.file_evidence)
