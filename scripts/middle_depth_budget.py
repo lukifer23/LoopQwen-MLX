@@ -116,6 +116,9 @@ def worker(stage, job):
     if "/short/depth/" in job:
         used = sum(r["seconds"] for r in past if "/short/depth/" in r["job"])
         credit = min(credit, 420 - used)
+    if stage == "long" and job.endswith("/recall-depth"):
+        used = sum(r["seconds"] for r in past if r["job"].endswith("/recall-depth"))
+        credit = min(credit, 480 - used)
     if job.startswith("standard-five/"):
         used = sum(r["seconds"] for r in past if r["job"].startswith("standard-five/"))
         credit = min(credit, 900 - used)

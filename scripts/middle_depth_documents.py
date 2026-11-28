@@ -1,6 +1,7 @@
 """Persistent exact-prefix measurements for natural long documents and tool follow-ups."""
 
 import argparse
+from dataclasses import replace
 from pathlib import Path
 from time import monotonic
 
@@ -190,8 +191,12 @@ def qualified_resident(model, prefix, full, ident, output_tokens, guard):
 
 def measure(args):
     cfg = read(FROZEN)[args.book]
+    depth = getattr(args, "depth", None)
+    label = args.arm if depth is None else f"{args.arm}-k{depth}"
+    if depth is not None and (args.arm != "loop" or args.policy is None):
+        raise ValueError("Pass interventions require trained loop weights")
     with worker(
-        "long", f"{args.book}/{args.arm}/{args.world}/{args.tokens}/{args.stage}"
+        "long", f"{args.book}/{label}/{args.world}/{args.tokens}/{args.stage}"
     ) as guard:
         if args.policy:
             if (args.policy / "standalone-middle.json").is_file():
@@ -216,6 +221,8 @@ def measure(args):
             weights = (
                 "base-dc7cdfe" if which == "base" else "instruction-" + INSTRUCTION_REV
             )
+        if depth is not None:
+            model.span = replace(model.span, passes=depth)
         spec, t, w, ids = worlds(args.book, tok)
         assert cfg["spec"] == digest(SPECS / f"{args.book}-dev.json") and cfg[
             "source"
@@ -231,7 +238,7 @@ def measure(args):
             assert fixed["rows"][args.book]["input"] == fingerprint(full)
         else:
             q, full = w[args.world]
-        out = ROOT / "documents" / args.stage / args.book / args.arm / str(args.tokens)
+        out = ROOT / "documents" / args.stage / args.book / label / str(args.tokens)
         ident = fingerprint(
             [weights, model.sites, cfg["common_sha"], "saved-prefix-v1"]
         )
@@ -418,6 +425,7 @@ if __name__ == "__main__":
     p.add_argument("--cache-mode", choices=("resident", "staged"), default="staged")
     p.add_argument("--followups", action="store_true")
     p.add_argument("--policy", type=Path)
+    p.add_argument("--depth", choices=(1, 2, 3), type=int)
     a = p.parse_args()
     if a.action == "irrelevant":
         freeze_irrelevant()
