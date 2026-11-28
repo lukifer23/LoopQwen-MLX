@@ -1,0 +1,2659 @@
+{
+  "rows": [
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "ink",
+      "world": "changed",
+      "status": "answered",
+      "target": "270",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "16 bottles \u00d7 30 mL/bottle = 480 mL",
+              "750 mL - 480 mL = 270 mL"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "16 bottles \u00d7 30 mL/bottle = 480 mL",
+              "750 mL - 480 mL = 270 mL"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/ink-changed.json.gz",
+      "sha": "b5a0d5bcca366a84a86aae98cb672565810fa25d07ae8815371396301ef17c25"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "ink",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "16 bottles \u00d7 35 mL/bottle = 560 mL used",
+              "750 mL total - 560 mL used = 190 mL remaining"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "16 bottles \u00d7 35 mL/bottle = 560 mL used",
+              "750 mL total - 560 mL used = 190 mL remaining"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/ink-irrelevant.json.gz",
+      "sha": "256a5927428d2e774655e52d7abd004ed7005f1e885f85dae1111fedefbb4092"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "ink",
+      "world": "original",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "16 bottles \u00d7 35 mL/bottle = 560 mL",
+              "750 mL - 560 mL = 190 mL"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "Total ink: 750 mL",
+              "Each bottle: 35 mL",
+              "Number of bottles: 16",
+              "Ink used: 16 \u00d7 35 = 560 mL",
+              "Remaining ink: 750 - 560 = 190 mL"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/ink-original.json.gz",
+      "sha": "74ccaadb4ae18b6c2b20e17daa8b6a9e6f5746f56872322e4dd61024a070012a"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "parcels",
+      "world": "changed",
+      "status": "turn_limit",
+      "target": "Annex",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/parcels-changed.json.gz",
+      "sha": "1545fe0b2fbac29598a5e5d57118aa9517b294295b01bb9f091e0487be96fb69"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "parcels",
+      "world": "irrelevant",
+      "status": "turn_limit",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/parcels-irrelevant.json.gz",
+      "sha": "90750eec040e65a0b5ab7afa380ecbd9a45d101f025812a8ea05ebd624abe1ff"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "parcels",
+      "world": "original",
+      "status": "turn_limit",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/parcels-original.json.gz",
+      "sha": "4314534b29278660c2626a308c84c754e1eedc0bd7ff2c3c5f65a05ad0dd7264"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "parcels",
+      "world": "own",
+      "status": "token_limit",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/parcels-own.json.gz",
+      "sha": "9b2f73e9472435233c2c3936472c673b5ff96a1b454169dc654e748e920dbb18"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "parcels",
+      "world": "shared",
+      "status": "turn_limit",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "label",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "value": "Friday"
+        }
+      ],
+      "target_observed": true,
+      "correct": false,
+      "file": "short/terminal/512/base/parcels-shared.json.gz",
+      "sha": "c69e40f614b499efff5ee574d9992dec3f827cb4df0f9707bfc0720c9ffb4137"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "tiles",
+      "world": "changed",
+      "status": "answered",
+      "target": "174",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/tiles-changed.json.gz",
+      "sha": "b82cfe2632fd4917c4735c79525357de480a57d57cd64d8b908534f04ae1bd7a"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "tiles",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11 cartons \u00d7 18 tiles/carton = 198 tiles",
+              "198 tiles - 14 chipped tiles = 184 intact tiles"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/tiles-irrelevant.json.gz",
+      "sha": "caa10dbf01eaba2d85ebbd8f04f9bff3c5012a53f12a20011e15bb6ddf870720"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "tiles",
+      "world": "original",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11 * 18 = 198",
+              "198 - 14 = 184"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11 * 18 = 198",
+              "198 - 14 = 184"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/tiles-original.json.gz",
+      "sha": "ee20716e10c7ff032720bad031ee85758a99bf288692a38d4be5898d2de7eed8"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "tiles",
+      "world": "own",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "184 - 9 = 175"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/tiles-own.json.gz",
+      "sha": "f4ef757840499d29891c25a2f8ae05d95bccfcd77b265db70f2da27af5894dd3"
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "tiles",
+      "world": "shared",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11 cartons \u00d7 18 tiles/carton = 198 tiles",
+              "198 tiles - 14 chipped tiles = 184 intact tiles",
+              "184 intact tiles - 9 tiles given to neighbor = 175 intact tiles"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/base/tiles-shared.json.gz",
+      "sha": "6fbd083cfbd59348d61b3f06cd1462827280ced9fccd223c22daf5ba36873f4e"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "ink",
+      "world": "changed",
+      "status": "answered",
+      "target": "270",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750 - (16 * 30)",
+              "750 - 480"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "270",
+            "270"
+          ],
+          "value": "270"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/terminal/512/instruction/ink-changed.json.gz",
+      "sha": "0d7c1863cf458cad733ea54b03950c11ae78ef3f99bd9683a2a025995435910e"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "ink",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750 - (16 * 35)",
+              "750 - 560"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "190",
+            "190"
+          ],
+          "value": "190"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/terminal/512/instruction/ink-irrelevant.json.gz",
+      "sha": "2cc80a6386b73330d01d6817ca6330bd297f58e48d311bb8aae29515b0443c8f"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "ink",
+      "world": "original",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750 - (16 * 35)",
+              "750 - 560"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "190",
+            "190"
+          ],
+          "value": "190"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/terminal/512/instruction/ink-original.json.gz",
+      "sha": "b8efaae119d2fe9c385e846f6a953e1817a840a9b2170c0dd2c1988ddbab1387"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "parcels",
+      "world": "changed",
+      "status": "invalid_call",
+      "target": "Annex",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/instruction/parcels-changed.json.gz",
+      "sha": "0abe82badf1e7c9d5ab57eee1250f85965a21ecb1050607ce28c2c7e7cea465b"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "parcels",
+      "world": "irrelevant",
+      "status": "invalid_call",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/instruction/parcels-irrelevant.json.gz",
+      "sha": "eac5a67a9fc7d05ea4a951ddaa17ab5af9cde0171165f348450cccb44c0f3f6b"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "parcels",
+      "world": "original",
+      "status": "invalid_call",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/instruction/parcels-original.json.gz",
+      "sha": "b55a77e3b0cfdae9c8014328111d8f87671910ac282dd12c19cdc647d2034532"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "parcels",
+      "world": "own",
+      "status": "invalid_call",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/instruction/parcels-own.json.gz",
+      "sha": "f389a15062caf3746106752cd6c47c3b98ad1d50f3ffa9c5c2b0adac047ab2a4"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "parcels",
+      "world": "shared",
+      "status": "turn_limit",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "label",
+            "key": "jade",
+            "value_column": "label"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "value": "jade"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/instruction/parcels-shared.json.gz",
+      "sha": "561f0ef6a213870dd006ebdbac8791d0c3ae75592e4ee1401f007ec224c35fe3"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "tiles",
+      "world": "changed",
+      "status": "answered",
+      "target": "174",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11 * 18",
+              "198 - 24"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "198",
+            "174"
+          ],
+          "value": "174"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/terminal/512/instruction/tiles-changed.json.gz",
+      "sha": "9227b4e5c0fc3ae538220546de7cff33bcbe4119b6a632d356db918051463939"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "tiles",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11 * 18",
+              "198 - 14"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "198",
+            "184"
+          ],
+          "value": "184"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/terminal/512/instruction/tiles-irrelevant.json.gz",
+      "sha": "ed5bb5164f5d53d2662ee6d4388805a2027be13d5c69641ba6bd87535fd7fd64"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "tiles",
+      "world": "original",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11 * 18",
+              "198 - 14"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "198",
+            "184"
+          ],
+          "value": "184"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/terminal/512/instruction/tiles-original.json.gz",
+      "sha": "45cf9387a23686aa292809d5b5c751cbe3eaabc0484560c5f64ce8e0ab18559a"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "tiles",
+      "world": "own",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "184 - 9"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "175"
+          ],
+          "value": "175"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/terminal/512/instruction/tiles-own.json.gz",
+      "sha": "a35c5da91893979e51c5fbd3e37c2573b80ae3a3d5bd22c8be50d0f6c44d6151"
+    },
+    {
+      "stage": "terminal",
+      "arm": "instruction",
+      "source": "tiles",
+      "world": "shared",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11 * 18 - 14",
+              "184 - 9"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "184",
+            "175"
+          ],
+          "value": "175"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/terminal/512/instruction/tiles-shared.json.gz",
+      "sha": "358259a2af739c797b475dfbbf86ec4d5e2f03797125c242e54fb843632a1ff0"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "ink",
+      "world": "changed",
+      "status": "answered",
+      "target": "270",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750-30*4"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "630"
+          ],
+          "value": "630"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/ink-changed.json.gz",
+      "sha": "e91cea3abb7d422d948970d3b63f990565a925cc507fa711b38463ebb84a9e9b"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "ink",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750-35*4"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "610"
+          ],
+          "value": "610"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/ink-irrelevant.json.gz",
+      "sha": "adfb3f219470356bc34f58ce5ba549e15f385370d62ecf70125ece25609f06ae"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "ink",
+      "world": "original",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750-35*4"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "610"
+          ],
+          "value": "610"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/ink-original.json.gz",
+      "sha": "8c82ae98073c1b640cc7d1f2d7d820f99b190ba7b1f962667de280e43c85ad22"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "changed",
+      "status": "answered",
+      "target": "Annex",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/parcels-changed.json.gz",
+      "sha": "112f0303601095cf9d7f5977d9699d035c78d98bf4d6f899e269da72fd36aff9"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/parcels-irrelevant.json.gz",
+      "sha": "3542fdfb8a5337104ff7bf06422d73a7634ecc2a12c2797a7d1853701acd3a30"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "original",
+      "status": "answered",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/parcels-original.json.gz",
+      "sha": "13bef1b8433fe483ea18905313708f5711b39e4b1861d6ea66a1c87f699f91ad"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "own",
+      "status": "invalid_call",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "day",
+            "value_column": "day",
+            "value": "due"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/parcels-own.json.gz",
+      "sha": "63e9d775e5a155cf8c09edac519f64462d708e7adb938fe144a39efd600c5177"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "shared",
+      "status": "answered",
+      "target": "Friday",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/parcels-shared.json.gz",
+      "sha": "0df997aaf8042bafd8142c5d722473abd080ae1eb07b1b270eacf058ffc84950"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "changed",
+      "status": "turn_limit",
+      "target": "174",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(18*24)/2",
+              "11*(18-24/2)",
+              "r1"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1",
+              "r1*11"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "18*24",
+              "11*r1"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "216",
+            "66",
+            "216"
+          ],
+          "value": "216"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "results": [
+            "432",
+            "4752"
+          ],
+          "value": "4752"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/tiles-changed.json.gz",
+      "sha": "ae9a97528da521bdf8216dff58cdd4fdfbdfc0f32f5d031ab11d230f4449f4f4"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "irrelevant",
+      "status": "turn_limit",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "18*14"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(3*18)/2",
+              "r1+r2",
+              "r1*14"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(3*18)/2",
+              "r1+r2",
+              "r1*14"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "252"
+          ],
+          "value": "252"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/tiles-irrelevant.json.gz",
+      "sha": "4e56ec7a3f41f5571e76ef95df99d3cad2e8d9ce3407d9b9e023ef436eaa6514"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "original",
+      "status": "turn_limit",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "18*14"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "252/14"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "11*2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "252"
+          ],
+          "value": "252"
+        },
+        {
+          "results": [
+            "18"
+          ],
+          "value": "18"
+        },
+        {
+          "results": [
+            "22"
+          ],
+          "value": "22"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/tiles-original.json.gz",
+      "sha": "b5482cd11bbd210bf7026c73205e9a8a3221bcd1a97598c09468bbb1344f33af"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "own",
+      "status": "turn_limit",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "252-9"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "243/18"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(243/2+18*9)/11"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "243"
+          ],
+          "value": "243"
+        },
+        {
+          "results": [
+            "27/2"
+          ],
+          "value": "27/2"
+        },
+        {
+          "results": [
+            "567/22"
+          ],
+          "value": "567/22"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/tiles-own.json.gz",
+      "sha": "fc9070d3e93102bd2be76bfeeba42ef9d6acc36ad8f1b94ab3a3fb25845ad392"
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "shared",
+      "status": "turn_limit",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1 = 184 - 9"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r2 = r1 - 14"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r3 = r2 - 184"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/loop/tiles-shared.json.gz",
+      "sha": "1010cd063d46bf2fda72911feff657b752881f7540ce02554bcb4daf6bdc6384"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "ink",
+      "world": "changed",
+      "status": "answered",
+      "target": "270",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(750-30*12)*/12"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(750-30*12)/12"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "SyntaxError"
+        },
+        {
+          "results": [
+            "65/2"
+          ],
+          "value": "65/2"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/ink-changed.json.gz",
+      "sha": "87676e05538739689b5bf1f4f16d80ab44c1010d92d6c10e960678f01779000e"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "ink",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(750-35*10)*/10"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(750-350)*/10"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "SyntaxError"
+        },
+        {
+          "error": "SyntaxError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/ink-irrelevant.json.gz",
+      "sha": "e023320014d2ddf0700adbecdc3e8968ca4b93551b7be571bfd3bc9f2da062e6"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "ink",
+      "world": "original",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(750/35)*12-16"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(750/35)*(12-16)/7"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "1688/7"
+          ],
+          "value": "1688/7"
+        },
+        {
+          "results": [
+            "-600/49"
+          ],
+          "value": "-600/49"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/ink-original.json.gz",
+      "sha": "91b3b8714b56bf0b5cab32e201918594739542ae8f6bbb998af8744468800628"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "changed",
+      "status": "answered",
+      "target": "Annex",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/parcels-changed.json.gz",
+      "sha": "7c62ac1074aef10399116289218e83b2e570f2527b5bc4c6444702f8243cc420"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/parcels-irrelevant.json.gz",
+      "sha": "e1e1a02102b64533b127f9bbe939e63e176c47b72d15ac14b79d12b943f581dc"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "original",
+      "status": "answered",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/parcels-original.json.gz",
+      "sha": "753885f8e19c6b02c287be1d050706b6c6112da21bb16eca3dfdb91ddde508b2"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "own",
+      "status": "turn_limit",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/parcels-own.json.gz",
+      "sha": "df6d1b81717e7e58abf9788f4adeacd31caddd31602090171e4f2abe61a4c79a"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "shared",
+      "status": "invalid_call",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "day",
+            "value_column": "label",
+            "value": "jade"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/parcels-shared.json.gz",
+      "sha": "9baca56cdbfd397d1504f6b54021f98a9e57637ce918b27a3885cf26a0cf23b6"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "changed",
+      "status": "turn_limit",
+      "target": "174",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(18*24)/2"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(11*11)/12",
+              "r1*11",
+              "r1*24/2",
+              "r1*2/2"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(24-24*2)/24",
+              "r1/2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "216"
+          ],
+          "value": "216"
+        },
+        {
+          "results": [
+            "121/12",
+            "1331/12",
+            "121",
+            "121/12"
+          ],
+          "value": "121/12"
+        },
+        {
+          "results": [
+            "-1",
+            "-1/2"
+          ],
+          "value": "-1/2"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/tiles-changed.json.gz",
+      "sha": "5f82c1057d44de8b83581b3d74e4a1d4bfd4fa377211c083b419a063e363ab16"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(18*14+3)/2"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(11*11+3*11)/2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "255/2"
+          ],
+          "value": "255/2"
+        },
+        {
+          "results": [
+            "77"
+          ],
+          "value": "77"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/tiles-irrelevant.json.gz",
+      "sha": "04360581058280514a6b02a3512e554063818ddc3f353a9aae243ab17d02a9ad"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "original",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(18*14)/11"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(11*2)/21"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "252/11"
+          ],
+          "value": "252/11"
+        },
+        {
+          "results": [
+            "22/21"
+          ],
+          "value": "22/21"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/tiles-original.json.gz",
+      "sha": "85ca00421e4e29ebf5abd9b9a0144634eb7b01c7ae3d3f1ee9cde017e5e54b5f"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "own",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(252-9)/11"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(243-22)/21"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "243/11"
+          ],
+          "value": "243/11"
+        },
+        {
+          "results": [
+            "221/21"
+          ],
+          "value": "221/21"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/tiles-own.json.gz",
+      "sha": "2d64f2d7137955a5d947662e4ba1feae8657cb1968b972365234d112fc012688"
+    },
+    {
+      "stage": "terminal",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "shared",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "184-9"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(184-9)/2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "175"
+          ],
+          "value": "175"
+        },
+        {
+          "results": [
+            "175/2"
+          ],
+          "value": "175/2"
+        }
+      ],
+      "target_observed": true,
+      "correct": false,
+      "file": "short/terminal/512/ordinary/tiles-shared.json.gz",
+      "sha": "42e4f4a727fe7e9e0c1ad9dacc348420a9b63834f508c575901320399fb7d470"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "ink",
+      "world": "changed",
+      "status": "turn_limit",
+      "target": "270",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1 = 750 - 30*12",
+              "r2 = 750 - 30*r1",
+              "r3 = r2 / 12"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1 = 750/12",
+              "r2 = 750 - r1",
+              "r3 = r2/12"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1 = 750/12",
+              "r2 = 750 - r1",
+              "r3 = r2/12"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/ink-changed.json.gz",
+      "sha": "07d0b8ceb2654861e16976247aebacce85d947dc2819c05bce88616db715e9d5"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "ink",
+      "world": "irrelevant",
+      "status": "turn_limit",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1=750-35*16"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "10*(750/10)",
+              "r2=1000-35*r2"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1=1000/10",
+              "r2=35*r2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/ink-irrelevant.json.gz",
+      "sha": "cb970bda686602e21868e49aea52dbfa80a457985a5b5ce10cb8a2fe300d7905"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "ink",
+      "world": "original",
+      "status": "turn_limit",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1=750-35*12",
+              "r2=35*r1"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1=750/12",
+              "r2=35*r1"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1=750/12",
+              "r2=35*r1"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/ink-original.json.gz",
+      "sha": "f934b099bb802174b92cb7851e011038ec34e584d78217a4a294ce72b8de7e7f"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "changed",
+      "status": "invalid_call",
+      "target": "Annex",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/parcels-changed.json.gz",
+      "sha": "de4acf9e90fce2be4bb93b4ec9802630b8b76ec04416a22f098f5bdd65aa024e"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "irrelevant",
+      "status": "invalid_call",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/parcels-irrelevant.json.gz",
+      "sha": "c802f566350b985021da00c920ee376aa1f3ffdfda918e843566f85e072bbaf3"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "original",
+      "status": "invalid_call",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/parcels-original.json.gz",
+      "sha": "b02527a5449d82077e1b69b4c567b58e5cdac7bc00436657515922383bb3b1d2"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "own",
+      "status": "invalid_call",
+      "target": "Friday",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/parcels-own.json.gz",
+      "sha": "2bf62c526e6b6c7c40dfee9ec218e0dc91bf946b1915833de6ae00df1e4b0abf"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "parcels",
+      "world": "shared",
+      "status": "invalid_call",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "key": "day",
+            "document": "rooms.csv",
+            "key_column": "day",
+            "value_column": "day",
+            "value": 12345
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/parcels-shared.json.gz",
+      "sha": "1e1a5d1870432291fade7114dd4b70ea83fff01dc933cc783c4875a31feda71d"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "changed",
+      "status": "invalid_call",
+      "target": "174",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              [
+                "r1=18*24"
+              ],
+              [
+                "r2=18*(r1-24)"
+              ],
+              [
+                "r3=2*(r2+24)"
+              ],
+              [
+                "r4=2*r3"
+              ]
+            ]
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/tiles-changed.json.gz",
+      "sha": "767a51a1199e8051091dc724dbfe7caeeb4ac6e9406a84d07b0fe2a42829ff87"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "irrelevant",
+      "status": "invalid_call",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              [
+                "18*14"
+              ],
+              [
+                "18*(14-14)"
+              ],
+              [
+                "3*11"
+              ]
+            ]
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/tiles-irrelevant.json.gz",
+      "sha": "c81256445844716c1ca9eef5398a08f0bcb46f554a43770349c60f451ae14076"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "original",
+      "status": "invalid_call",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              [
+                "18*14"
+              ],
+              [
+                "18*(14-14)"
+              ],
+              [
+                "2*18"
+              ]
+            ]
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/tiles-original.json.gz",
+      "sha": "f98dca69336fa34ced8abe7fb16183f21b58e2cf70a6465bf731ce9040c03fc5"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "own",
+      "status": "invalid_call",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              [
+                "9*18"
+              ],
+              [
+                "18-9*18"
+              ],
+              [
+                "2*(18-9*18)"
+              ]
+            ]
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/tiles-own.json.gz",
+      "sha": "483318c720ef920979772eea8308157b61bc472eba83e0b989415996964fe831"
+    },
+    {
+      "stage": "quantized",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "shared",
+      "status": "turn_limit",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1: 184-9"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1: 184-9",
+              "r2: r1-9"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1: 184-9-9",
+              "r2: r1-9"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/loop/tiles-shared.json.gz",
+      "sha": "8a271a6c63391306897364330a8df89885aab46dfbbb4a106707d56eae72fc42"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "ink",
+      "world": "changed",
+      "status": "invalid_call",
+      "target": "270",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/ink-changed.json.gz",
+      "sha": "6bed05dd193f13714ac92e8ab59c1225795a9e06aed85c0a3514e93b59be380f"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "ink",
+      "world": "irrelevant",
+      "status": "invalid_call",
+      "target": "190",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/ink-irrelevant.json.gz",
+      "sha": "89b5a4e17471bba6a086426872e044a0614847eec80007fb2530a26ad002567a"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "ink",
+      "world": "original",
+      "status": "invalid_call",
+      "target": "190",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/ink-original.json.gz",
+      "sha": "66784884e79a4cebb7de430efff884f4e24223b0148fdb8a1114c9b50c9dc95a"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "changed",
+      "status": "invalid_call",
+      "target": "Annex",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key": "jade",
+            "value_column": "label"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/parcels-changed.json.gz",
+      "sha": "d6a1d9477a9f1bdc64c05730e692d83e96d6b5a7126e0457fd5ef098301616fb"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "irrelevant",
+      "status": "invalid_call",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key": "jade",
+            "value_column": "label"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/parcels-irrelevant.json.gz",
+      "sha": "9ba4820caaa1409f15cd6e9e79a52521f2e20f7d4689798572fde4b283c465d2"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "original",
+      "status": "invalid_call",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key": "jade",
+            "value_column": "label"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/parcels-original.json.gz",
+      "sha": "f0600c08cd21b5857fda4aa293b1cac9e594ab5574cb62b3b1b0c32d27b837ed"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "own",
+      "status": "invalid_call",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/parcels-own.json.gz",
+      "sha": "d4848ea24a4aec985975c524d23e0d0b98a2a6f637383911edec06519801304b"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "parcels",
+      "world": "shared",
+      "status": "invalid_call",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key": "day",
+            "value_column": "day",
+            "key_column": "day"
+          }
+        },
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "key": "day",
+            "value_column": "day",
+            "key_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/parcels-shared.json.gz",
+      "sha": "432e00ebfff21e963d351f7757a5495946666671b252deae224d61bc87c34b86"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "changed",
+      "status": "invalid_call",
+      "target": "174",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/tiles-changed.json.gz",
+      "sha": "149b23ae54d39d8dff694b381dde49852e091b6d2abb6d0cb9d28d5e8c3f2a0f"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "irrelevant",
+      "status": "token_limit",
+      "target": "184",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/tiles-irrelevant.json.gz",
+      "sha": "46ca7946e5cc430dad2259ac4e049f4c6e218941247d391404babad7fc011dce"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "original",
+      "status": "token_limit",
+      "target": "184",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/tiles-original.json.gz",
+      "sha": "1daa65a0df85885278636943ddb6fe2fe1c39a5b8bf5dd68cf2eec9846a4f94d"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "own",
+      "status": "invalid_call",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              [
+                "9 intact tiles"
+              ]
+            ]
+          }
+        }
+      ],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/tiles-own.json.gz",
+      "sha": "2399e82e96b055bcbf4b2baea4c8380c818efac2ff61c0890824ccc1052bd52b"
+    },
+    {
+      "stage": "quantized",
+      "arm": "ordinary",
+      "source": "tiles",
+      "world": "shared",
+      "status": "answered",
+      "target": "175",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/quantized/512/ordinary/tiles-shared.json.gz",
+      "sha": "ea72a85fc756813dfeaebfdaada460a50f38fa8891079a2c3bdae8eddef4aba1"
+    }
+  ],
+  "presentations": 78,
+  "observations": 95,
+  "all_provider_results_reproduced": true,
+  "graded_success_without_target_observation": 0
+}

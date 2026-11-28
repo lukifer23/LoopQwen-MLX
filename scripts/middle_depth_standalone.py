@@ -46,6 +46,10 @@ def check(folder, arm):
 
 
 def prepare():
+    if all((MODELS / arm).is_dir() for arm in ("base", "loop")):
+        for arm in ("base", "loop"):
+            check(MODELS / arm, arm)
+        return
     verify(ARCHIVE, STAGE)
     registered = read(ARCHIVE / "manifests" / (STAGE + ".json"))
     MODELS.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,1814 @@
+{
+  "stage": "terminal",
+  "cap": 128,
+  "candidate": "loop",
+  "control": "instruction",
+  "trajectories": [
+    {
+      "family": "chat",
+      "source": "parcel",
+      "world": "changed",
+      "gain": 1,
+      "left": {
+        "file": "short/terminal/128/loop/parcel-changed.json.gz",
+        "sha": "7e4cfddbaaec8c4ac6d4cf57d56ce1673423cb4ce3d2e620a1f954f9be5a5f37",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcel",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "first_error": null,
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.2506115409778431,
+        "time_to_correct": 0.2506115409778431,
+        "first_token": 0.036234416998922825,
+        "first_visible": 0.09724874998209998,
+        "token_count": 12,
+        "input_tokens": 54,
+        "decode_tps": 51.77818843385659,
+        "opening_tps": 1490.2958146561407,
+        "peak": 1645914606
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/parcel-changed.json.gz",
+        "sha": "4079d87c7f744fdad1651662d6bf0c6b66f3ab233ef5cae2c19d5282328d4102",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "parcel",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9916494589997455,
+        "time_to_correct": null,
+        "first_token": 0.02785158302867785,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 54,
+        "decode_tps": 64.71455190352154,
+        "opening_tps": 1938.8485007978898,
+        "peak": 1637700470
+      }
+    },
+    {
+      "family": "chat",
+      "source": "parcel",
+      "world": "irrelevant",
+      "gain": 1,
+      "left": {
+        "file": "short/terminal/128/loop/parcel-irrelevant.json.gz",
+        "sha": "8126ff39e91351283079966b3d84978fd3926f94508de2ba5322f41129e1e5df",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcel",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "first_error": null,
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.457253500004299,
+        "time_to_correct": 0.457253500004299,
+        "first_token": 0.03509870800189674,
+        "first_visible": 0.09214595897356048,
+        "token_count": 23,
+        "input_tokens": 53,
+        "decode_tps": 52.35567306975315,
+        "opening_tps": 1510.0270926535493,
+        "peak": 1645079006
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/parcel-irrelevant.json.gz",
+        "sha": "45b1ff6ec28fd5bad4460120ed838b3f95d2403e7b6f211ca8e4d7ce3ce17235",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "parcel",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9385337499552406,
+        "time_to_correct": null,
+        "first_token": 0.03773833403829485,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 53,
+        "decode_tps": 66.8766934316048,
+        "opening_tps": 1404.4075169353905,
+        "peak": 1636946782
+      }
+    },
+    {
+      "family": "chat",
+      "source": "parcel",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/parcel-original.json.gz",
+        "sha": "e0fb222385fde3dbc623abdeaf96c60543322ca01ae5fb0766d3df4a64bdb478",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcel",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "Asks for a name instead of the two missing pickup details.",
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.37518824997823685,
+        "time_to_correct": null,
+        "first_token": 0.03341949998866767,
+        "first_visible": 0.08972179103875533,
+        "token_count": 18,
+        "input_tokens": 49,
+        "decode_tps": 50.186088244286466,
+        "opening_tps": 1466.2098480412806,
+        "peak": 1638279546
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/parcel-original.json.gz",
+        "sha": "ef8c1f50072149083cd9852760c6c66d1e218f9072b59522da628c0a5c355512",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "parcel",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9063367079943419,
+        "time_to_correct": null,
+        "first_token": 0.028630041982978582,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 49,
+        "decode_tps": 67.69633806049268,
+        "opening_tps": 1711.4889328186096,
+        "peak": 1630655210
+      }
+    },
+    {
+      "family": "chat",
+      "source": "studio",
+      "world": "changed",
+      "gain": 1,
+      "left": {
+        "file": "short/terminal/128/loop/studio-changed.json.gz",
+        "sha": "bda2621cd60a6a403ee22b1df07ccebfd358c5ebbe2dd6cda332ff216e4e8d35",
+        "arm": "loop",
+        "cap": 128,
+        "source": "studio",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "first_error": null,
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.8092501250212081,
+        "time_to_correct": 0.8092501250212081,
+        "first_token": 0.031643499969504774,
+        "first_visible": 0.08938899997156113,
+        "token_count": 43,
+        "input_tokens": 50,
+        "decode_tps": 54.120604843425404,
+        "opening_tps": 1580.1033402811197,
+        "peak": 1639295414
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/studio-changed.json.gz",
+        "sha": "03e3aa976351e1636856716da2622bcb9d931d499be35b9ab4ba1a50d9558a78",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "studio",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9108485409524292,
+        "time_to_correct": null,
+        "first_token": 0.028227874950971454,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 50,
+        "decode_tps": 67.50059875659734,
+        "opening_tps": 1771.298763610233,
+        "peak": 1631490850
+      }
+    },
+    {
+      "family": "chat",
+      "source": "studio",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/studio-irrelevant.json.gz",
+        "sha": "deb560c67fcd2d8243daa96c5a978529baf9975fb37a31a0249389313a19247d",
+        "arm": "loop",
+        "cap": 128,
+        "source": "studio",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "Adds an unsupported commitment to check in with the rehearsal space on both days.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 1.2032437500311062,
+        "time_to_correct": null,
+        "first_token": 0.032328666013199836,
+        "first_visible": 0.08871083299163729,
+        "token_count": 60,
+        "input_tokens": 50,
+        "decode_tps": 50.48482723093761,
+        "opening_tps": 1546.6150066193557,
+        "peak": 1639098806
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/studio-irrelevant.json.gz",
+        "sha": "af2f24e5c464a2a8c0d984a9b3f70e24a610754e3f17c8bec241ac1b29513334",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "studio",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9751709999982268,
+        "time_to_correct": null,
+        "first_token": 0.02754762500990182,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 50,
+        "decode_tps": 65.25807706694475,
+        "opening_tps": 1815.038500851809,
+        "peak": 1631113958
+      }
+    },
+    {
+      "family": "chat",
+      "source": "studio",
+      "world": "original",
+      "gain": 1,
+      "left": {
+        "file": "short/terminal/128/loop/studio-original.json.gz",
+        "sha": "061eeda29e0b6434ffdd624392db32a592ef1d09685367d0767c9664b08bf0eb",
+        "arm": "loop",
+        "cap": 128,
+        "source": "studio",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": true,
+          "first_error": null,
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.7436524999793619,
+        "time_to_correct": 0.7436524999793619,
+        "first_token": 0.032988584018312395,
+        "first_visible": 0.08669125003507361,
+        "token_count": 40,
+        "input_tokens": 50,
+        "decode_tps": 54.992489651528565,
+        "opening_tps": 1515.6758462941102,
+        "peak": 1639639722
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/studio-original.json.gz",
+        "sha": "c2e57448005f57aff1ec791b01a30ec448d1b827d445dc98111b40da02eb9b71",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "studio",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9925996669917367,
+        "time_to_correct": null,
+        "first_token": 0.027567791985347867,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 50,
+        "decode_tps": 64.67043380359664,
+        "opening_tps": 1813.7107254209816,
+        "peak": 1631622114
+      }
+    },
+    {
+      "family": "chat",
+      "source": "volunteer",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/volunteer-changed.json.gz",
+        "sha": "82f8c4d5dc72b177236421b1fd6c2b12f55f5ecbfaac10c7e44cbb7a0c404baf",
+        "arm": "loop",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "Repeats the prohibition and instructions without a welcome for the new volunteer.",
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.44712224998511374,
+        "time_to_correct": null,
+        "first_token": 0.03454508300637826,
+        "first_visible": 0.09175570803927258,
+        "token_count": 23,
+        "input_tokens": 51,
+        "decode_tps": 53.53091106390944,
+        "opening_tps": 1476.331667536696,
+        "peak": 1640917502
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/volunteer-changed.json.gz",
+        "sha": "baeae069b4e7d1eac323c3169358bc25e487865542513068a261209b032a9fec",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "changed",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9670939590432681,
+        "time_to_correct": null,
+        "first_token": 0.028051333036273718,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 51,
+        "decode_tps": 65.55306178326494,
+        "opening_tps": 1818.095415788295,
+        "peak": 1633031022
+      }
+    },
+    {
+      "family": "chat",
+      "source": "volunteer",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/volunteer-irrelevant.json.gz",
+        "sha": "f2558b5f0bb581e44faf60f2bce15a338bf1d551218facf827899c30181c6356",
+        "arm": "loop",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "Says the organizer provides a mug and omits the arrival time.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 0.41000949998851866,
+        "time_to_correct": null,
+        "first_token": 0.034974916954524815,
+        "first_visible": 0.09758479200536385,
+        "token_count": 20,
+        "input_tokens": 51,
+        "decode_tps": 51.015641947375514,
+        "opening_tps": 1458.187879797152,
+        "peak": 1640917502
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/volunteer-irrelevant.json.gz",
+        "sha": "9f2c02d9135e01be3c75ffa957d6720e330b67741d4e79cf3ea2c06f802572d1",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "irrelevant",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9422682090080343,
+        "time_to_correct": null,
+        "first_token": 0.028619042015634477,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 51,
+        "decode_tps": 66.42968036869142,
+        "opening_tps": 1782.030298992499,
+        "peak": 1633030922
+      }
+    },
+    {
+      "family": "chat",
+      "source": "volunteer",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/volunteer-original.json.gz",
+        "sha": "91e182d86eb0269a29a9a0ee38d50a0738a75405cef18d959ce2b740c21204ee",
+        "arm": "loop",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "Repeats the prohibition and instructions without a welcome for the new volunteer.",
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.5147274999762885,
+        "time_to_correct": null,
+        "first_token": 0.0363408750272356,
+        "first_visible": 0.10725945798913017,
+        "token_count": 23,
+        "input_tokens": 51,
+        "decode_tps": 46.15948297155451,
+        "opening_tps": 1403.3784261325065,
+        "peak": 1640966854
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/volunteer-original.json.gz",
+        "sha": "ade6edd21649d818a3102218ff6f949c39f61406cbc78c91f26d93519c02ba45",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "volunteer",
+        "world": "original",
+        "family": "chat",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9789237499935552,
+        "time_to_correct": null,
+        "first_token": 0.02888116700341925,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 51,
+        "decode_tps": 65.18249462470645,
+        "opening_tps": 1765.8566218588776,
+        "peak": 1633129726
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "archive",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/archive-changed.json.gz",
+        "sha": "20183eaf9b15fdbf2b6320425a2c0645e15d8d4a0fef0e8d5922007e1a422985",
+        "arm": "loop",
+        "cap": 128,
+        "source": "archive",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "Ships despite the hold.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 0.4303381670033559,
+        "time_to_correct": null,
+        "first_token": 0.04785820801043883,
+        "first_visible": 0.10391691699624062,
+        "token_count": 22,
+        "input_tokens": 68,
+        "decode_tps": 55.177928619013784,
+        "opening_tps": 1420.8638983132807,
+        "peak": 1663838070
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/archive-changed.json.gz",
+        "sha": "6c3b448226fe1e69c3388188c28749fb699aca1f1fee51a032594af614cf5b20",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "archive",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.1822784160031006,
+        "time_to_correct": null,
+        "first_token": 0.041014584014192224,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 68,
+        "decode_tps": 59.35385963943097,
+        "opening_tps": 1657.9468409693013,
+        "peak": 1653708142
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "archive",
+      "world": "irrelevant",
+      "gain": 1,
+      "left": {
+        "file": "short/terminal/128/loop/archive-irrelevant.json.gz",
+        "sha": "3dc1bcbbf5befbc47bdb0b85c7ca06a238328a5f0dd79b712849f77afecb2632",
+        "arm": "loop",
+        "cap": 128,
+        "source": "archive",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": true,
+          "first_error": null,
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 1.098211041011382,
+        "time_to_correct": 1.098211041011382,
+        "first_token": 0.04668258299352601,
+        "first_visible": 0.10193479096051306,
+        "token_count": 60,
+        "input_tokens": 67,
+        "decode_tps": 56.20429308064652,
+        "opening_tps": 1435.2247819982804,
+        "peak": 1663608686
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/archive-irrelevant.json.gz",
+        "sha": "89bf2521f60d123f6f135352bca0a7a35cc6b36f660cc5c48b0b33051a526e39",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "archive",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.0363006250117905,
+        "time_to_correct": null,
+        "first_token": 0.04001024999888614,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 67,
+        "decode_tps": 63.665389408794425,
+        "opening_tps": 1674.5708912557468,
+        "peak": 1653511518
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "archive",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/archive-original.json.gz",
+        "sha": "6da725b6bc8ecd864f17d8346fb4686f4dd0451901d1ec2457960480309f4021",
+        "arm": "loop",
+        "cap": 128,
+        "source": "archive",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "Omits the controlling payment correction and uses unpaid status to reason about holds.",
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 1.274123541021254,
+        "time_to_correct": null,
+        "first_token": 0.07633462501689792,
+        "first_visible": 0.13084225001512095,
+        "token_count": 69,
+        "input_tokens": 67,
+        "decode_tps": 56.92895101060365,
+        "opening_tps": 877.7144052933836,
+        "peak": 1663093040
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/archive-original.json.gz",
+        "sha": "95d0703247c73bc672a5019dcc75422d4f7918a64c0903cf64f65a4658f0d20a",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "archive",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.2572124579455703,
+        "time_to_correct": null,
+        "first_token": 0.07436258299276233,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 67,
+        "decode_tps": 58.268693721847576,
+        "opening_tps": 900.9907577648436,
+        "peak": 1653271918
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/bridge-changed.json.gz",
+        "sha": "fd7e862a7661032b1cccccb48952f4a03e3f7387c98c9fd4f503b16b718caaf3",
+        "arm": "loop",
+        "cap": 128,
+        "source": "bridge",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "Omits the requested explanation.",
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.133428749977611,
+        "time_to_correct": null,
+        "first_token": 0.03362499998183921,
+        "first_visible": 0.08988337503978983,
+        "token_count": 6,
+        "input_tokens": 64,
+        "decode_tps": 51.16140640189244,
+        "opening_tps": 1903.3457259350562,
+        "peak": 1664412478
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/bridge-changed.json.gz",
+        "sha": "371e43989e28b02a24b6f7c2c06833f1ec648777da14fffcee1dcb78d6180dbf",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "bridge",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9415290839970112,
+        "time_to_correct": null,
+        "first_token": 0.02911725000012666,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 64,
+        "decode_tps": 66.46824614706708,
+        "opening_tps": 2198.009770830748,
+        "peak": 1655690490
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/bridge-irrelevant.json.gz",
+        "sha": "0a8fae640e51f9b3eecc56699a868b5c3cc341a1c71f3d2d8d66005d70c9c31a",
+        "arm": "loop",
+        "cap": 128,
+        "source": "bridge",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "The red marker does not entail closure.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 0.14383150002686307,
+        "time_to_correct": null,
+        "first_token": 0.04654995899181813,
+        "first_visible": 0.10648354201111943,
+        "token_count": 6,
+        "input_tokens": 66,
+        "decode_tps": 52.145958462580715,
+        "opening_tps": 1417.831539048198,
+        "peak": 1661463494
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/bridge-irrelevant.json.gz",
+        "sha": "2c0c4845b9f9473d3b82d17921541e4655a62c740a61ad0a857e90f9a26b17cf",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "bridge",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.949620708997827,
+        "time_to_correct": null,
+        "first_token": 0.040303041983861476,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 66,
+        "decode_tps": 66.55823585846409,
+        "opening_tps": 1637.5935103466468,
+        "peak": 1651578150
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/bridge-original.json.gz",
+        "sha": "0ffc782eed35b085e9a9f82cb67f66d03d958132db9be47cae9e454ff6bd1b91",
+        "arm": "loop",
+        "cap": 128,
+        "source": "bridge",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "Gives the answer and explanation in two sentences.",
+          "unsupported": false
+        },
+        "status": "answered",
+        "seconds": 0.3245974159799516,
+        "time_to_correct": null,
+        "first_token": 0.04695799999171868,
+        "first_visible": 0.10107212502043694,
+        "token_count": 16,
+        "input_tokens": 65,
+        "decode_tps": 54.282635985136174,
+        "opening_tps": 1384.2156823430114,
+        "peak": 1660905286
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/bridge-original.json.gz",
+        "sha": "35e4d9d3584d7c40bc218569239c009c715694436cbeddfb0a10eb8b988407fb",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "bridge",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9973829590016976,
+        "time_to_correct": null,
+        "first_token": 0.04074450000189245,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 65,
+        "decode_tps": 64.96675856743083,
+        "opening_tps": 1595.3073420211554,
+        "peak": 1651234094
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/kiln-changed.json.gz",
+        "sha": "0d24cf6929c0f7b65291183167221ad0685b0d2ea967afc8d3ba667446760eaf",
+        "arm": "loop",
+        "cap": 128,
+        "source": "kiln",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "Miscounts elapsed cooling and reverses the firing decision.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 1.6467994580161758,
+        "time_to_correct": null,
+        "first_token": 0.04706420801812783,
+        "first_visible": 0.10926275001838803,
+        "token_count": 92,
+        "input_tokens": 76,
+        "decode_tps": 56.931826573359096,
+        "opening_tps": 1614.8152322190763,
+        "peak": 1677879382
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/kiln-changed.json.gz",
+        "sha": "302ac708570e8e55643eae74433a4ac5de388d3349e24bad17e8cef1e4ca18d8",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "kiln",
+        "world": "changed",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9821764590451494,
+        "time_to_correct": null,
+        "first_token": 0.04131420800695196,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 76,
+        "decode_tps": 65.48972098309346,
+        "opening_tps": 1839.5608597219496,
+        "peak": 1666897550
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/kiln-irrelevant.json.gz",
+        "sha": "061f36bad9ae4a3c150ee8b2609f64027c5822ae022696ca0c4be424b6f27548",
+        "arm": "loop",
+        "cap": 128,
+        "source": "kiln",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "Miscounts 80 minutes as 30.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 1.8096150000346825,
+        "time_to_correct": null,
+        "first_token": 0.04691041703335941,
+        "first_visible": 0.10217254102462903,
+        "token_count": 81,
+        "input_tokens": 76,
+        "decode_tps": 45.43179620554375,
+        "opening_tps": 1620.109238124106,
+        "peak": 1677879382
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/kiln-irrelevant.json.gz",
+        "sha": "79322272df16f2ae679035a2fd0cbe0887aec7102fab381c31b4ec49fa344988",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "kiln",
+        "world": "irrelevant",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 1.9655821669730358,
+        "time_to_correct": null,
+        "first_token": 0.040883665962610394,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 76,
+        "decode_tps": 66.04119786559806,
+        "opening_tps": 1858.9331022688812,
+        "peak": 1666897550
+      }
+    },
+    {
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/kiln-original.json.gz",
+        "sha": "6a83226f35508e6af659e8997869fc8219cedeb16bab5a5a41740e70f5eeeaa5",
+        "arm": "loop",
+        "cap": 128,
+        "source": "kiln",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "Miscounts 80 minutes as 30.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 1.4656467080349103,
+        "time_to_correct": null,
+        "first_token": 0.07632824999745935,
+        "first_visible": 0.12911795900436118,
+        "token_count": 81,
+        "input_tokens": 76,
+        "decode_tps": 57.67297131737303,
+        "opening_tps": 995.6994953052077,
+        "peak": 1677665846
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/kiln-original.json.gz",
+        "sha": "3a0a721aa4b742ff5e134d3e23d2dca32c971ea6aa3cf9a59986c46d24d433f2",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "kiln",
+        "world": "original",
+        "family": "reasoning",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.0225532499607652,
+        "time_to_correct": null,
+        "first_token": 0.06698870903346688,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 76,
+        "decode_tps": 65.00806246172988,
+        "opening_tps": 1134.519549586053,
+        "peak": 1666824398
+      }
+    },
+    {
+      "family": "tools",
+      "source": "ink",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/ink-changed.json.gz",
+        "sha": "b3a46e4a5ebd98fd4df6bd92978173c3ecd3c57b253d518bf32c0b18553b9934",
+        "arm": "loop",
+        "cap": 128,
+        "source": "ink",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "Incorrect operands produce 630 instead of 270.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 1.3508336250088178,
+        "time_to_correct": null,
+        "first_token": 0.17690983397187665,
+        "first_visible": 1.1847056249971502,
+        "token_count": 49,
+        "input_tokens": 403,
+        "decode_tps": 49.18208837274015,
+        "opening_tps": 2277.996598335313,
+        "peak": 1773574578
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/ink-changed.json.gz",
+        "sha": "7cf09f9a13d37df9412baa79da786f828ade58b0585d05cbebf06a9d96ec8619",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "ink",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.110378250014037,
+        "time_to_correct": null,
+        "first_token": 0.15529541700379923,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 403,
+        "decode_tps": 65.03155546319317,
+        "opening_tps": 2595.054044577122,
+        "peak": 1762712666
+      }
+    },
+    {
+      "family": "tools",
+      "source": "ink",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/ink-irrelevant.json.gz",
+        "sha": "7b4ad6b617d81e053f2028cbec2ac0ffee91004059b60047a7d21654d6f2e3f8",
+        "arm": "loop",
+        "cap": 128,
+        "source": "ink",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "Wrong calculation leaves 610 instead of 190.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 1.4033120420062914,
+        "time_to_correct": null,
+        "first_token": 0.20486429199809209,
+        "first_visible": 1.2594877920346335,
+        "token_count": 49,
+        "input_tokens": 403,
+        "decode_tps": 47.967822777410454,
+        "opening_tps": 1967.1558965666559,
+        "peak": 1773572530
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/ink-irrelevant.json.gz",
+        "sha": "22028b3b2fca2a114f4ee93fa6801f306415a03cbf163d7363a4d7b1bcb7c941",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "ink",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.0994737079599872,
+        "time_to_correct": null,
+        "first_token": 0.14487733301939443,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 403,
+        "decode_tps": 65.02562024186383,
+        "opening_tps": 2781.663574287713,
+        "peak": 1762790682
+      }
+    },
+    {
+      "family": "tools",
+      "source": "ink",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/ink-original.json.gz",
+        "sha": "6c6f80259e2a89ac1f454f53aff549dd34be782e8b558fe41978550bb2d3086c",
+        "arm": "loop",
+        "cap": 128,
+        "source": "ink",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "Computes 610 rather than the 190 mL remainder.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 1.3122129589901306,
+        "time_to_correct": null,
+        "first_token": 0.18227900000056252,
+        "first_visible": 1.1679842089652084,
+        "token_count": 49,
+        "input_tokens": 403,
+        "decode_tps": 51.20102717735555,
+        "opening_tps": 2210.896482857358,
+        "peak": 1773576626
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/ink-original.json.gz",
+        "sha": "b791efe8442b79a8c69f5dbbb29fdb3714ac02e36fb906bd75976fec894936d5",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "ink",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.06406441697618,
+        "time_to_correct": null,
+        "first_token": 0.15626708301715553,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 403,
+        "decode_tps": 66.65091070738018,
+        "opening_tps": 2578.9180435124476,
+        "peak": 1762716570
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/parcels-changed.json.gz",
+        "sha": "0a925dfcbfcbf8db4d657183b77e81219cce476ab9ccf330a4162d0e25cbdedf",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "Invents a room number after a failed lookup.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 2.1851506659877487,
+        "time_to_correct": null,
+        "first_token": 0.16231187502853572,
+        "first_visible": 1.674519040971063,
+        "token_count": 96,
+        "input_tokens": 381,
+        "decode_tps": 51.48859910270746,
+        "opening_tps": 2347.3328734143274,
+        "peak": 1773480882
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/parcels-changed.json.gz",
+        "sha": "67b1521076616b116e6e09b711a22affc078c1b1ce3faf0aea522eb00318e685",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "parcels",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.1098138339584693,
+        "time_to_correct": null,
+        "first_token": 0.136334250040818,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 381,
+        "decode_tps": 64.42261508349226,
+        "opening_tps": 2794.6022359453323,
+        "peak": 1762855322
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/parcels-irrelevant.json.gz",
+        "sha": "fca37465c17e1477a32ce2c0ca3f2f244b9c7570c816bb7c0f37e0120c2b6d5a",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "Invents room 12345 after the lookup error.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 2.2233244170201942,
+        "time_to_correct": null,
+        "first_token": 0.15912933298386633,
+        "first_visible": 1.7074467079946771,
+        "token_count": 96,
+        "input_tokens": 381,
+        "decode_tps": 50.667305937075135,
+        "opening_tps": 2394.278872762123,
+        "peak": 1773476786
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/parcels-irrelevant.json.gz",
+        "sha": "b0dc3bbc8aebd0458aec33ac649cee4158a22fee1653cc0cdc5e98c627e2628b",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "parcels",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.08412616699934,
+        "time_to_correct": null,
+        "first_token": 0.12773654097691178,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 381,
+        "decode_tps": 64.98541494280188,
+        "opening_tps": 2982.701716252558,
+        "peak": 1762720154
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/parcels-original.json.gz",
+        "sha": "75b84082ec6d96b9eae005820b5399366a2ecf10cb5a086e7068f455f5ab3e7d",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "Invents room 12345 after the lookup error.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 2.137319417030085,
+        "time_to_correct": null,
+        "first_token": 0.1571557080023922,
+        "first_visible": 1.6049705410259776,
+        "token_count": 96,
+        "input_tokens": 381,
+        "decode_tps": 53.019817003423995,
+        "opening_tps": 2424.34719580278,
+        "peak": 1773480882
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/parcels-original.json.gz",
+        "sha": "aa5806d9881ef433c01001e7f67c18b80195ed543c58997ec036bbf29e5374f7",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "parcels",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.0749172079958953,
+        "time_to_correct": null,
+        "first_token": 0.12583350000204518,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 381,
+        "decode_tps": 65.2128215386147,
+        "opening_tps": 3027.810559142101,
+        "peak": 1762847130
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "own",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/parcels-own.json.gz",
+        "sha": "9061fca34a8fabd42d92b7045df5905cc8ecf983d1aad6b709129ba1216ef9dd",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "own",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "invalid_call",
+          "unsupported": null
+        },
+        "status": "invalid_call",
+        "seconds": 1.545608833024744,
+        "time_to_correct": null,
+        "first_token": 0.2140488749719225,
+        "first_visible": null,
+        "token_count": 76,
+        "input_tokens": 516,
+        "decode_tps": 56.41576008144187,
+        "opening_tps": 2410.6643871297406,
+        "peak": 1778597998
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/parcels-own.json.gz",
+        "sha": "19d62c351fdfeb2651391c5fc0ec9e9c7ba66f0a2b943c6d0e0706ee6493190a",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "parcels",
+        "world": "own",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.076639458013233,
+        "time_to_correct": null,
+        "first_token": 0.14890850003575906,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 403,
+        "decode_tps": 65.95478913842803,
+        "opening_tps": 2706.3599452228927,
+        "peak": 1762712474
+      }
+    },
+    {
+      "family": "tools",
+      "source": "parcels",
+      "world": "shared",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/parcels-shared.json.gz",
+        "sha": "2580f89a819afcfd69e154789702ea6f1ab2820973b9d1724c7c773a3e1ed2ee",
+        "arm": "loop",
+        "cap": 128,
+        "source": "parcels",
+        "world": "shared",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "Invents a calendar date without the requested lookup.",
+          "unsupported": true
+        },
+        "status": "answered",
+        "seconds": 0.5389093750272878,
+        "time_to_correct": null,
+        "first_token": 0.17442291701445356,
+        "first_visible": 0.23624016699614003,
+        "token_count": 17,
+        "input_tokens": 416,
+        "decode_tps": 44.09850599510735,
+        "opening_tps": 2385.0076992206714,
+        "peak": 1773505458
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/parcels-shared.json.gz",
+        "sha": "44be3d1a15d5ca902fa89f5d44411a2b37571f93517eae8fd700bfd90a206734",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "parcels",
+        "world": "shared",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.108122874982655,
+        "time_to_correct": null,
+        "first_token": 0.15332450001733378,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 416,
+        "decode_tps": 65.02221751425722,
+        "opening_tps": 2713.199781854629,
+        "peak": 1762798874
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "changed",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/tiles-changed.json.gz",
+        "sha": "a4b539ecdcca8a727dae3a0a357a54028302698ba83a5f096c5554e3dab2103d",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 2.9716163749690168,
+        "time_to_correct": null,
+        "first_token": 0.17269816604675725,
+        "first_visible": null,
+        "token_count": 134,
+        "input_tokens": 400,
+        "decode_tps": 55.66823278127319,
+        "opening_tps": 2316.179778606924,
+        "peak": 1778586030
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/tiles-changed.json.gz",
+        "sha": "157d40b122cf98f24954b0765649ffb85771b479550a63a9913f3e3e848a60cd",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "tiles",
+        "world": "changed",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.348315083014313,
+        "time_to_correct": null,
+        "first_token": 0.1540425000130199,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 400,
+        "decode_tps": 57.919947592232,
+        "opening_tps": 2596.6859792991636,
+        "peak": 1762708378
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "irrelevant",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/tiles-irrelevant.json.gz",
+        "sha": "9e49b00a10f6f2295dbc37cf317e45751ff44d332c3ba063ca30a003deb72b22",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 3.4839464590186253,
+        "time_to_correct": null,
+        "first_token": 0.17598720802925527,
+        "first_visible": null,
+        "token_count": 135,
+        "input_tokens": 400,
+        "decode_tps": 46.75812749679414,
+        "opening_tps": 2272.892470306739,
+        "peak": 1778594222
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/tiles-irrelevant.json.gz",
+        "sha": "2a53f09d097f0b47cfa8edd109c4b1fd04ae75223535f0fe1145612ccc71cd7f",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "tiles",
+        "world": "irrelevant",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.0870255830232054,
+        "time_to_correct": null,
+        "first_token": 0.14715562504716218,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 400,
+        "decode_tps": 65.52680410746116,
+        "opening_tps": 2718.2107369106907,
+        "peak": 1762835354
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "original",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/tiles-original.json.gz",
+        "sha": "b090f7582e483ecb8c49951539b8992d8d831cbf60a48d6d39effe26f0cfbe57",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 2.45795300003374,
+        "time_to_correct": null,
+        "first_token": 0.17746733297826722,
+        "first_visible": null,
+        "token_count": 105,
+        "input_tokens": 400,
+        "decode_tps": 55.07561747472094,
+        "opening_tps": 2253.935940137131,
+        "peak": 1778588078
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/tiles-original.json.gz",
+        "sha": "a3b5fbf31f134254e97b487a52d6dd0cb40b28d37eeeec4fbf1e6ba6cb963146",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "tiles",
+        "world": "original",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.171201041957829,
+        "time_to_correct": null,
+        "first_token": 0.15325033402768895,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 400,
+        "decode_tps": 62.99647443952876,
+        "opening_tps": 2610.108503435489,
+        "peak": 1762757530
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "own",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/tiles-own.json.gz",
+        "sha": "d0d77ece0121f46ab0f45cfae170718bd5632f09642a73bf6e5c6611fc0a4ae9",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "own",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 2.8416924999910407,
+        "time_to_correct": null,
+        "first_token": 0.25117450003745034,
+        "first_visible": null,
+        "token_count": 115,
+        "input_tokens": 599,
+        "decode_tps": 55.63621794392802,
+        "opening_tps": 2384.7962269684563,
+        "peak": 1780444594
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/tiles-own.json.gz",
+        "sha": "abacf2a3d5378063b32b98224a68d5da919c094020d07e764c29fe97a9d57de3",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "tiles",
+        "world": "own",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.2596731659723446,
+        "time_to_correct": null,
+        "first_token": 0.1584296670043841,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 429,
+        "decode_tps": 60.505922424341435,
+        "opening_tps": 2707.8261799800957,
+        "peak": 1762847642
+      }
+    },
+    {
+      "family": "tools",
+      "source": "tiles",
+      "world": "shared",
+      "gain": 0,
+      "left": {
+        "file": "short/terminal/128/loop/tiles-shared.json.gz",
+        "sha": "254d541dba40653f64c04ffd1666301352231695d3a4e90fde945c5a5d93b0c0",
+        "arm": "loop",
+        "cap": 128,
+        "source": "tiles",
+        "world": "shared",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "turn_limit",
+          "unsupported": null
+        },
+        "status": "turn_limit",
+        "seconds": 2.6824321660096757,
+        "time_to_correct": null,
+        "first_token": 0.1788882499677129,
+        "first_visible": null,
+        "token_count": 119,
+        "input_tokens": 443,
+        "decode_tps": 56.1584815114942,
+        "opening_tps": 2476.4063602833385,
+        "peak": 1778569646
+      },
+      "right": {
+        "file": "short/terminal/128/instruction/tiles-shared.json.gz",
+        "sha": "9be4da65244c89cd1ff97f9e32e1f26e574922f16c6159c801b531dbf00e962d",
+        "arm": "instruction",
+        "cap": 128,
+        "source": "tiles",
+        "world": "shared",
+        "family": "tools",
+        "grade": {
+          "correct": false,
+          "first_error": "token_limit",
+          "unsupported": null
+        },
+        "status": "token_limit",
+        "seconds": 2.1769589579780586,
+        "time_to_correct": null,
+        "first_token": 0.14937091700267047,
+        "first_visible": null,
+        "token_count": 128,
+        "input_tokens": 443,
+        "decode_tps": 62.69139980519402,
+        "opening_tps": 2965.771442589992,
+        "peak": 1762679706
+      }
+    }
+  ],
+  "curves": [
+    {
+      "seconds": 2,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.0
+        },
+        "reasoning": {
+          "left": 0.1111111111111111,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.1851851851851852
+    },
+    {
+      "seconds": 4,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.0
+        },
+        "reasoning": {
+          "left": 0.1111111111111111,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.1851851851851852
+    },
+    {
+      "seconds": 8,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.0
+        },
+        "reasoning": {
+          "left": 0.1111111111111111,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.1851851851851852
+    },
+    {
+      "seconds": 16,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.0
+        },
+        "reasoning": {
+          "left": 0.1111111111111111,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.1851851851851852
+    },
+    {
+      "seconds": 32,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.0
+        },
+        "reasoning": {
+          "left": 0.1111111111111111,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.1851851851851852
+    },
+    {
+      "seconds": 64,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.0
+        },
+        "reasoning": {
+          "left": 0.1111111111111111,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.1851851851851852
+    },
+    {
+      "seconds": null,
+      "families": {
+        "chat": {
+          "left": 0.4444444444444444,
+          "right": 0.0
+        },
+        "reasoning": {
+          "left": 0.1111111111111111,
+          "right": 0.0
+        },
+        "tools": {
+          "left": 0.0,
+          "right": 0.0
+        }
+      },
+      "macro": 0.1851851851851852
+    }
+  ],
+  "mechanism_by_deadline": 0.2592592592592593,
+  "gains": 5,
+  "losses": 0,
+  "control_successes": 0
+}

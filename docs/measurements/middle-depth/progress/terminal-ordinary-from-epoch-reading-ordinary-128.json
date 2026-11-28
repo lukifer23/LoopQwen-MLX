@@ -1,0 +1,1179 @@
+{
+  "summary": {
+    "chat": {
+      "sources": {
+        "parcel": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "studio": {
+          "current": {
+            "changes_correctly": true,
+            "stays_correct": true
+          },
+          "baseline": {
+            "changes_correctly": true,
+            "stays_correct": true
+          }
+        },
+        "volunteer": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 4,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 3.721506875997875
+        },
+        "baseline": {
+          "success": 4,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 2.762574081076309
+        }
+      }
+    },
+    "reasoning": {
+      "sources": {
+        "archive": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "bridge": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "kiln": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 0,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 3.855156584060751
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 9,
+          "requests_with_successful_callbacks": 0,
+          "requests_with_any_callback": 0,
+          "stops": {
+            "answered": 9
+          },
+          "seconds": 5.702423915965483
+        }
+      }
+    },
+    "tools": {
+      "sources": {
+        "ink": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "parcels": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        },
+        "tiles": {
+          "current": {
+            "changes_correctly": false,
+            "stays_correct": false
+          },
+          "baseline": {
+            "changes_correctly": false,
+            "stays_correct": false
+          }
+        }
+      },
+      "presentations": 9,
+      "gains": 0,
+      "losses": 0,
+      "outcomes": {
+        "current": {
+          "success": 0,
+          "completed": 8,
+          "requests_with_successful_callbacks": 5,
+          "requests_with_any_callback": 9,
+          "stops": {
+            "answered": 8,
+            "turn_limit": 1
+          },
+          "seconds": 19.503731333941687
+        },
+        "baseline": {
+          "success": 0,
+          "completed": 6,
+          "requests_with_successful_callbacks": 3,
+          "requests_with_any_callback": 9,
+          "stops": {
+            "answered": 6,
+            "turn_limit": 3
+          },
+          "seconds": 20.261111957021058
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "source": "archive",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Ships despite acknowledging Cedar is held.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7601519169984385,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/archive-changed.json.gz",
+        "sha": "59270824265a62ce0c5a1eefbdc1772ff085a52c26b393a27e7c7d1a8c17aa0b"
+      },
+      "baseline": {
+        "initial": "d115011248c0fdfa87c0d2f1f5ad562148742c98f722983ea30a5d7ddde2407e",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Authorizes shipping despite Cedar\u2019s preservation hold.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7841128329746425,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/archive-changed.json.gz",
+        "sha": "82fc6f5ffd20f3213a977e823aad0c1398e4172e3b0e68abc65be0f13c7db7ca"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Omits the signed payment correction.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.682074417010881,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/archive-irrelevant.json.gz",
+        "sha": "ab76ca8472a1ece7f474cc985fc52402bc8b98ed6e3071cc38b59d15a69662f0"
+      },
+      "baseline": {
+        "initial": "dd9dedf21be5ece325485729ac3c4ec893997a0dc84fea0a93176f11c034dda4",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Offers the superseded unpaid entry as the reason to ship and omits the later payment correction.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7196286250255071,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/archive-irrelevant.json.gz",
+        "sha": "cd1d8542bd45ce83a9b882cbe99acbcad5c7cecf7efbaa5f71c43826ff90b1db"
+      },
+      "delta": 0
+    },
+    {
+      "source": "archive",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Omits the signed correction that makes the batch payable.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.660199708014261,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/archive-original.json.gz",
+        "sha": "82f2acdf4adc83a4c59662dbca9802112b78b779f2d79eb0a9e48d080fd0481b"
+      },
+      "baseline": {
+        "initial": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Omits the payment correction and Cedar\u2019s absence from the hold list.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9728374159894884,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/archive-original.json.gz",
+        "sha": "1e908fdb442b97a1303ee8e040de937185046849fec76bb4d17dc69373fcad4f"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Omits the requested explanation.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.11419504199875519,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/bridge-changed.json.gz",
+        "sha": "283ac6a07749e788838afca9c9038f960fa88737cd6bc8c7d6031ceddb5958f5"
+      },
+      "baseline": {
+        "initial": "20179210515ffdca18390a00ddce7adef0b1b909d3fa39306b35d4c402d5e74c",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Gives the decision without explaining that coverage of both markers includes blue.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.10954441694775596,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/bridge-changed.json.gz",
+        "sha": "69ae839d762f2b80dd1589c787c509738a44fa3de0392143840bc5c71e56a166"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Concludes closure from a red-only observation.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.12749683303991333,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/bridge-irrelevant.json.gz",
+        "sha": "f44916fd0bbc69427640949a1985e7803ef4c757291880483ad0766d4dd77131"
+      },
+      "baseline": {
+        "initial": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Concludes closure from a red-only observation.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.12237045902293175,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/bridge-irrelevant.json.gz",
+        "sha": "bc86ec16e58394d9a0826f1b4dc887a8dd451deb389b96d7705f35852ff94afc"
+      },
+      "delta": 0
+    },
+    {
+      "source": "bridge",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Concludes closure from a red-only observation.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1301499999826774,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/bridge-original.json.gz",
+        "sha": "5cc8de0e4058050819ab2a1eee016cb1b2490aebd888666bc7691f3ebd350fd0"
+      },
+      "baseline": {
+        "initial": "588c20657b44410baa14779e06872e0bce3c20655ae9a19e03cb691a0789c8cd",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Concludes closure from a red-only observation.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.13534362497739494,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/bridge-original.json.gz",
+        "sha": "8163033960dc8b3b89b3d588dbc18babd958554a87e38c85e2e304a91485485a"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Reports 65 instead of 270.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9649680419825017,
+        "callbacks": 2,
+        "successful_callbacks": 1,
+        "evidence": "short/terminal/128/ordinary/ink-changed.json.gz",
+        "sha": "7394b8169d013bb766454f33aaa0eeedabb88b2c893ac47b63f95f83217de592"
+      },
+      "baseline": {
+        "initial": "0034451a31dcff21060e091cc114392c016da8324d43af3d0c6bd9c20d34c3b2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.190799500036519,
+        "callbacks": 1,
+        "successful_callbacks": 1,
+        "evidence": "short/epoch-reading/128/ordinary/ink-changed.json.gz",
+        "sha": "94b3176019475113811dd16f9fb299043c856cbb4ba1d2146d0156f0369daf03"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Neither call succeeded and 400 is incorrect.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.181664041010663,
+        "callbacks": 2,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/ink-irrelevant.json.gz",
+        "sha": "dba39db407b49f896d63199420cb622d0790ff37f738ef09137f4a637c3444dc"
+      },
+      "baseline": {
+        "initial": "f3b133f1fbcdad6d9261baa3bf7b5638790cddc4e0c9cc8a94c04ab741990d7c",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.181061750045046,
+        "callbacks": 2,
+        "successful_callbacks": 2,
+        "evidence": "short/epoch-reading/128/ordinary/ink-irrelevant.json.gz",
+        "sha": "9cf68c7f08e3e9c3f5c25d505e292b83a1cd2d921820f21e0d6bdfabf858d249"
+      },
+      "delta": 0
+    },
+    {
+      "source": "ink",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Wrong operation gives a negative quantity of ink.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.439276334014721,
+        "callbacks": 2,
+        "successful_callbacks": 2,
+        "evidence": "short/terminal/128/ordinary/ink-original.json.gz",
+        "sha": "356bb9bc9baab4f8c21ce6fb6f7566e706b3d33c485c780d7f83c88f51ec661d"
+      },
+      "baseline": {
+        "initial": "90ae188f48354e140015ce2fc5a839c6412b012d581ce476ab7fc84325e9dd3e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Subtracts available ink from the amount consumed and reports a negative remainder.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.1924201250076294,
+        "callbacks": 1,
+        "successful_callbacks": 1,
+        "evidence": "short/epoch-reading/128/ordinary/ink-original.json.gz",
+        "sha": "f8154807a9a78eee16ad11a8372418dd99e89626d1ca2fdfe601dfb6c1d92fb1"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "changed",
+      "family": "reasoning",
+      "current": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscounts 100 minutes as 130.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.45544233301188797,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/kiln-changed.json.gz",
+        "sha": "83aedd947ca1d77f588b30b301514ab992e4979541d2c3d722517a181f6a6270"
+      },
+      "baseline": {
+        "initial": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Gives incompatible values for elapsed time, 1 hour 50 minutes and 100 minutes.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.9309890830190852,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/kiln-changed.json.gz",
+        "sha": "70ec4046108bc51105d1db9d4fb9fe4d3a39861cb389958fa7bf29024204b9f2"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "irrelevant",
+      "family": "reasoning",
+      "current": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscounts 80 minutes as 130.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.45199820899870247,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/kiln-irrelevant.json.gz",
+        "sha": "064c27d69fc53dab6f4e1f6f56616486be42b78c240afe2fb830c35f4810dc2b"
+      },
+      "baseline": {
+        "initial": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Says the kiln has cooled long enough although 80 minutes is 10 minutes short.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6606584999826737,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/kiln-irrelevant.json.gz",
+        "sha": "0724ed91c11de1ba07128b47a12ad844ec4fe8f009878bf529f70c43545fa3d7"
+      },
+      "delta": 0
+    },
+    {
+      "source": "kiln",
+      "world": "original",
+      "family": "reasoning",
+      "current": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Miscounts 80 minutes as 130.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.47344812500523403,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/kiln-original.json.gz",
+        "sha": "441e0d78c34cb2ea879a35686f637c9823b0c8efdd09f431a7bb22206b505d67"
+      },
+      "baseline": {
+        "initial": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991",
+        "family": "reasoning",
+        "correct": false,
+        "first_error": "Says the kiln has cooled long enough although 80 minutes is 10 minutes short.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.266938958026003,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/kiln-original.json.gz",
+        "sha": "14c073b4a4db76d55dda618d841cb045687424b6820438c03cccac9219298028"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.21580058400286362,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/parcel-changed.json.gz",
+        "sha": "646be15cd81229882dc3f61f9beeb1dc876cbc974c8d4a1d8bd89d064ab198f2"
+      },
+      "baseline": {
+        "initial": "4a4327b816fef2ac569207bd6b0e3ef97afea9ebdc90a398fe0b037cb607c67e",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.17146683303872123,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/parcel-changed.json.gz",
+        "sha": "a26fb9ac370f53e30b07b4e028ccf796d96feb27dfe987a32039aefa3b018969"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1819394999765791,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/parcel-irrelevant.json.gz",
+        "sha": "297719dc1dc007b02b33289617777fc3616c28ac76d04ccd0e1558e1a3bc7c8b"
+      },
+      "baseline": {
+        "initial": "f35c38c8219e9203ba6d56ba96aaa8664192404114e9b38f3aaf11661567a1cb",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1738497079932131,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/parcel-irrelevant.json.gz",
+        "sha": "d496b6e3a058356265fdaef0775be0d9ea13bd6bb8b08c945d35022c7ad55a84"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcel",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.1643786249915138,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/parcel-original.json.gz",
+        "sha": "dc7059fb6c0a1187b267731a9b474c1b0b63160f06c4f5fd9a5be44201f067d3"
+      },
+      "baseline": {
+        "initial": "cd37565298e07ab3d1a1a25da931585bb314706b79a18b6fef42170437c99b78",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the missing address.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.17780529096489772,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/parcel-original.json.gz",
+        "sha": "7144118e331c04f311b6ea391fe56aedef741cf20d7ee3bacd47c070bbb23444"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Invents a room after the lookup error.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.7335741669521667,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/parcels-changed.json.gz",
+        "sha": "6c2aa75360325815ac43acc36639cf92d8d3ea2c2d713e6e1d8ed8f6338447df"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5601504169753753,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/parcels-changed.json.gz",
+        "sha": "e5fc6915be12fb6c0ef081eac604383965edde3f59d55407db7990aa04a8b06a"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Treats the parcel label as the destination after a failed lookup.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.7294295830070041,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/parcels-irrelevant.json.gz",
+        "sha": "f8510bb280bfa47e2e5e04fcdf94b56a3bd91e0702674998d10c6b3490e7ce5b"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.5192495000083,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/parcels-irrelevant.json.gz",
+        "sha": "9b50b370d4a7a8a5c4e463252a9221d278f0bf77456bd516c8eada5760617b96"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Treats the label as a room after a failed lookup.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9347594999708235,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/parcels-original.json.gz",
+        "sha": "b8f0b225dc40a57cf8811dfb17a9e7aae9cff13c0a4c2a062f40b07a5b4b09a7"
+      },
+      "baseline": {
+        "initial": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Looks for jade in the day column and asserts a room after the provider returns an error.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.6175125409499742,
+        "callbacks": 1,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/parcels-original.json.gz",
+        "sha": "d1340875ce8415ce6d7d0770d71803b3e1bfe6733f798412a8d892eb24635715"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "1141acdee4ffae772ca78e8a95635a1c9d0896c69914644674e5530c39e19dc2",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 4.336290333012585,
+        "callbacks": 3,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/parcels-own.json.gz",
+        "sha": "99a125c6345f1469c7f796b6a17a89933288da7b95ec92d5f761c66135c39ec2"
+      },
+      "baseline": {
+        "initial": "b1d26c732c4c2da9477ca72a47bf1a2998e7c8b30be9b142973b5cb55093032a",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.6960373329930007,
+        "callbacks": 3,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/parcels-own.json.gz",
+        "sha": "0e3114fd857f6dc741e08fdcc8cdbfffdae835a4e7194b3887a1bd8da718091d"
+      },
+      "delta": 0
+    },
+    {
+      "source": "parcels",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "invalid_call",
+        "status": "invalid_call",
+        "completed": false,
+        "seconds": 1.4949488749844022,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/parcels-shared.json.gz",
+        "sha": "a9743475161445e65b54e731035f25d91f2f467d0fe9d29299391a1092eac155"
+      },
+      "baseline": {
+        "initial": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Invents the fifteenth without looking up jade.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.38806279096752405,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/parcels-shared.json.gz",
+        "sha": "6db7f12a9ebb9bf810a88257e4d8d9484bf7a4f964eeee5f63e103fafdca8e18"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.411744125012774,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/studio-changed.json.gz",
+        "sha": "8650e854025eb1e55b1a3b8a5e5b8736090c21797c2055fa1b451e1a5f835257"
+      },
+      "baseline": {
+        "initial": "77abd960aeb5b96cb9f0cbbddff4811d3bcfb9242b1ecddb2e53433b685489f5",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.42153716599568725,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/studio-changed.json.gz",
+        "sha": "c5ab62aa7e0d351d9c99bdf38a90aebdc170fe5ca6882b259bb6c7bfbbef914e"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4129334579920396,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/studio-irrelevant.json.gz",
+        "sha": "f0ce66eca62374b5f899d9186a94b945ce2545a21fb4e6e953b2f7137057e2fe"
+      },
+      "baseline": {
+        "initial": "808fdbd1eb6ab617d5e61cda23e2c2c9e0c6dadd89693aa41612d8e21e6b1566",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.35021312499884516,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/studio-irrelevant.json.gz",
+        "sha": "5bf1c08011bd5edf78a82072102c1c752456a3a5178cd8581202023e76d19f3c"
+      },
+      "delta": 0
+    },
+    {
+      "source": "studio",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.3934678340447135,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/studio-original.json.gz",
+        "sha": "b5cebec2014b491a9e1020fc8b4726ac744fc7c5d9c257c524c621e1fb1f9ba3"
+      },
+      "baseline": {
+        "initial": "ce320428ca4b9c75b55aa929d1b3b73c68b6c4bd636ec899620d9e6cd015b680",
+        "family": "chat",
+        "correct": true,
+        "first_error": null,
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.3705504170502536,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/studio-original.json.gz",
+        "sha": "dd095a33080f5a8dd5d0c999cd98741dbad152a43379350eeacb949ee6f623d9"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "changed",
+      "family": "tools",
+      "current": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.2348961250390857,
+        "callbacks": 3,
+        "successful_callbacks": 3,
+        "evidence": "short/terminal/128/ordinary/tiles-changed.json.gz",
+        "sha": "c5bda320b3609ca63e0484bc286ed3ffbab83156cb9d03e107d0b5148a9d5049"
+      },
+      "baseline": {
+        "initial": "07892cce3310cbf7cf4018d096a103f2174c7f6516c0b555a158506ff777827b",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.3825247079948895,
+        "callbacks": 3,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/tiles-changed.json.gz",
+        "sha": "bfe34f02376aab7075d89b7e3a67aa013b1e7c41553997d8b454109cefdbc433"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "irrelevant",
+      "family": "tools",
+      "current": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Computes 77 intact tiles instead of 184.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.157313374977093,
+        "callbacks": 2,
+        "successful_callbacks": 2,
+        "evidence": "short/terminal/128/ordinary/tiles-irrelevant.json.gz",
+        "sha": "23c2147529df468adc0ce0d64f79f894107275c3aca952fe70ca2f4b30770350"
+      },
+      "baseline": {
+        "initial": "f0ccadff6105350b720dd6035012d31be647dcd66f0e2a649398cfcaf36e97fe",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 4.119901333004236,
+        "callbacks": 3,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/tiles-irrelevant.json.gz",
+        "sha": "697fa83d5bdf03768edf1f08a16155f304f81073a0c1bfb968c644c191b131a4"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "original",
+      "family": "tools",
+      "current": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Reports kilograms instead of the intact tile count.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.1278501669876277,
+        "callbacks": 2,
+        "successful_callbacks": 2,
+        "evidence": "short/terminal/128/ordinary/tiles-original.json.gz",
+        "sha": "1b09b4f8fca91cd96086d79e0135a519d04bb11a987581f7fca3289f125e8f88"
+      },
+      "baseline": {
+        "initial": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.497492082999088,
+        "callbacks": 3,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/tiles-original.json.gz",
+        "sha": "f8d5abbf12bb5d6d2beff2c1d38b5be9f10027f186badc433a73765f1b59a733"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "own",
+      "family": "tools",
+      "current": {
+        "initial": "ad1759c28b77d2301a16471bfdaa8dedd5f2b03976ca69daeddfc49032f2d1db",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Gives 210 instead of 175.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 2.300847208010964,
+        "callbacks": 2,
+        "successful_callbacks": 2,
+        "evidence": "short/terminal/128/ordinary/tiles-own.json.gz",
+        "sha": "467a5187642276e9f8b76d6d8a24627249681ffbc90f5f7ecc90517ddc774f02"
+      },
+      "baseline": {
+        "initial": "3fc6ff7bfc516d90cf0d8d25fc2eed534ee6f332eb57fc23bc182dc8cf3f58c3",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.177593208034523,
+        "callbacks": 3,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/tiles-own.json.gz",
+        "sha": "6d3f627a5bf648ed4a3543bafd1381251907ead6238654d9cdd3d1169c97b529"
+      },
+      "delta": 0
+    },
+    {
+      "source": "tiles",
+      "world": "shared",
+      "family": "tools",
+      "current": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "Discards the correct observation and reports kilograms.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 1.9418462910107337,
+        "callbacks": 2,
+        "successful_callbacks": 2,
+        "evidence": "short/terminal/128/ordinary/tiles-shared.json.gz",
+        "sha": "c19034d944da90182795d65e39e14ace90936762fb8900cd57e7ae3b5a58fc44"
+      },
+      "baseline": {
+        "initial": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e",
+        "family": "tools",
+        "correct": false,
+        "first_error": "turn_limit",
+        "status": "turn_limit",
+        "completed": false,
+        "seconds": 3.01331933401525,
+        "callbacks": 3,
+        "successful_callbacks": 1,
+        "evidence": "short/epoch-reading/128/ordinary/tiles-shared.json.gz",
+        "sha": "23582fd22034b1f455b1329035c563df52e77bea8ada88fcfd1d83d065a8c2b5"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "changed",
+      "family": "chat",
+      "current": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Assigns responsibility for the notebook and gloves incorrectly.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.7954043339705095,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/volunteer-changed.json.gz",
+        "sha": "e73818e570ee18f73579e6da6290847e7101a8d609c987f3fbb200290fbe3888"
+      },
+      "baseline": {
+        "initial": "dbd43a8d32e7771d68f638c36a56b9bae38c6ce1e5d76e78869c7579c99dc475",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Reverses the arrival constraint by inviting the volunteer before eight.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.31548370799282566,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/volunteer-changed.json.gz",
+        "sha": "23bc9769ae0ab1a554af781317c23573adc947e0d68f5c8d2f3f98e9cbe3cdf8"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "irrelevant",
+      "family": "chat",
+      "current": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Says the organizer provides a mug and omits the arrival time.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.5102484159870073,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/volunteer-irrelevant.json.gz",
+        "sha": "c48030f8bbaddd963ae528f92100066088f6455da55289b09312f751085aa9f3"
+      },
+      "baseline": {
+        "initial": "90d75c6fa010ec59bb8ff5d5d338fba3246b2ba27b3b71f99e03373edbe5f045",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Preserves the three facts but uses two sentences.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.4589597080484964,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/volunteer-irrelevant.json.gz",
+        "sha": "2f73b1bfd06967c6d0fc497e133435c9e509c04fd7af3f9d3ddeba3aa2f022b8"
+      },
+      "delta": 0
+    },
+    {
+      "source": "volunteer",
+      "world": "original",
+      "family": "chat",
+      "current": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Omits the earliest arrival time.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.6355900000198744,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/terminal/128/ordinary/volunteer-original.json.gz",
+        "sha": "165fcd1f9113593bc008377c675c0231e15f4b6044e52d1fb6267c27965d9614"
+      },
+      "baseline": {
+        "initial": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79",
+        "family": "chat",
+        "correct": false,
+        "first_error": "Reverses the arrival constraint by inviting the volunteer before eight.",
+        "status": "answered",
+        "completed": true,
+        "seconds": 0.322708124993369,
+        "callbacks": 0,
+        "successful_callbacks": 0,
+        "evidence": "short/epoch-reading/128/ordinary/volunteer-original.json.gz",
+        "sha": "3bbb3d6dd2c228daf2b86fe720d954130efa515ba79d738f3a025b35590a16bd"
+      },
+      "delta": 0
+    }
+  ],
+  "macro_delta": 0.0,
+  "definition": "Opening score counts complete supported answers. A changed pair requires success in both source worlds. A stability pair requires success in original and irrelevant worlds. Own/shared are reported separately. A provider result without an error is not proof of relevant operands or successful delivery."
+}

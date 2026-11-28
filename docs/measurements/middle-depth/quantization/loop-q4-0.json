@@ -1,0 +1,56 @@
+{
+  "arm": "loop",
+  "physical_layer_visits": 28,
+  "precision": "q4",
+  "repeat": 0,
+  "backbone": "eda280c5ec8d3991533afd0dfceb60c881607a0b77ec4ae4b5fba1593db859e4",
+  "adapter": "e8678f0d74d1eb6779dfea16d6f5677fe12021ad4fa4771317813a336b2a264a",
+  "row": "2023-14385/2023-14664/revision",
+  "input": "e42a36e278c4793be633cf9133de661410a11ce07074302990b58cc8f06bd4da",
+  "load_seconds": 0.7353943330235779,
+  "loaded_bytes": 425712332,
+  "peak_inference": 779258304,
+  "positions": 160,
+  "generated_positions": 0,
+  "forced_decode_positions": 32,
+  "timings": [
+    {
+      "opening": 0.0840537499752827,
+      "decode": 0.245656292012427
+    },
+    {
+      "opening": 0.06524262501625344,
+      "decode": 0.24441066599683836
+    }
+  ],
+  "disposable_update": {
+    "source": "QRQA-10186-4",
+    "before": 3.348905563354492,
+    "after": 0.030864372849464417,
+    "gradient": 372.5916748046875,
+    "changed": [
+      "text.model.layers.12.mlp.down_proj.lora_a",
+      "text.model.layers.12.mlp.down_proj.lora_b",
+      "text.model.layers.13.mlp.down_proj.lora_a",
+      "text.model.layers.13.mlp.down_proj.lora_b",
+      "text.model.layers.14.mlp.down_proj.lora_a",
+      "text.model.layers.14.mlp.down_proj.lora_b",
+      "text.model.layers.15.mlp.down_proj.lora_a",
+      "text.model.layers.15.mlp.down_proj.lora_b",
+      "text.model.layers.19.mlp.down_proj.lora_a",
+      "text.model.layers.19.mlp.down_proj.lora_b",
+      "text.model.layers.23.mlp.down_proj.lora_a",
+      "text.model.layers.23.mlp.down_proj.lora_b",
+      "alpha_logit"
+    ],
+    "depths": [
+      1,
+      2,
+      3
+    ],
+    "input_positions": 75,
+    "target_positions": 7,
+    "seconds": 0.44364845799282193,
+    "peak_bytes": 1061156192
+  }
+}
