@@ -10,7 +10,7 @@ from scripts.middle_depth_budget import ROOT
 from scripts.middle_depth_development import SOURCE, instance
 
 
-def audit():
+def audit(stages=("terminal", "quantized"), arms=None, destination=None):
     cases = {r["id"]: r for r in read(SOURCE) if r.get("provider")}
     # Reference quantities from the enrolled invoices and CSV, independent of the model.
     targets = {
@@ -20,11 +20,15 @@ def audit():
     }
     output = []
     with TemporaryDirectory() as t:
-        for stage in ("terminal", "quantized"):
+        for stage in stages:
             for row in read(ROOT / "review" / stage / "scored.json"):
                 source = row["source"]
                 world = row["world"]
-                if row["cap"] != 512 or source not in cases:
+                if (
+                    (arms is not None and row["arm"] not in arms)
+                    or row["cap"] != 512
+                    or source not in cases
+                ):
                     continue
                 path = ROOT / row["file"]
                 assert digest(path) == row["sha"]
@@ -84,7 +88,7 @@ def audit():
                     }
                 )
     save(
-        ROOT / "quantization" / "callback-audit.json",
+        destination or ROOT / "quantization" / "callback-audit.json",
         {
             "rows": output,
             "presentations": len(output),
@@ -204,5 +208,16 @@ def audit_thinking():
 
 
 if __name__ == "__main__":
-    audit()
-    audit_thinking()
+    import argparse
+
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--direct", action="store_true")
+    if p.parse_args().direct:
+        audit(
+            ("terminal", "direct-full-fit"),
+            {"loop", "base"},
+            ROOT / "direct/callback-replay.json",
+        )
+    else:
+        audit()
+        audit_thinking()
