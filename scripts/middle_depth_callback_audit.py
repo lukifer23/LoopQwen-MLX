@@ -166,6 +166,79 @@ def first_calculations():
     )
 
 
+def training_openings():
+    import ast
+
+    from loopqwen.calculator_tool import tool
+    from loopqwen.identity import fingerprint
+    from loopqwen.qwen_tools import parse
+    from loopqwen.research.cross_view_study import tokenizer
+    from scripts.middle_depth_budget import BASE
+    from scripts.middle_depth_material import ROWS
+
+    tok = tokenizer({"checkpoint": str(BASE)})
+    provider = tool()
+    rows, calls_by_history = [], {"opening": Counter(), "after_provider": Counter()}
+    for row in unpack(ROWS):
+        if row["family"] != "tools":
+            continue
+        prompt, target = tok.decode(row["p"]), tok.decode(row["y"])
+        history = "after_provider" if "<tool_response>" in prompt else "opening"
+        visible = target.split("</think>", 1)[1].removesuffix("<|im_end|>").strip()
+        calls = parse(
+            visible, {"calculate": provider.definition(), "database_query": {}}
+        )
+        calls_by_history[history].update(a["name"] for a in calls)
+        if history != "opening":
+            continue
+        (call,) = calls
+        if call["name"] != provider.name:
+            raise ValueError(
+                "Expected calculator-only openings in this frozen training set"
+            )
+        steps = call["arguments"]["steps"]
+        products = [
+            ast.unparse(node)
+            for expression in steps
+            for node in ast.walk(ast.parse(expression.strip(), mode="eval"))
+            if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Mult)
+        ]
+        rows.append(
+            {
+                "id": row["id"],
+                "cluster": row["cluster"],
+                "prompt_ids": fingerprint(row["p"]),
+                "target_ids": fingerprint(row["y"]),
+                "steps": steps,
+                "value": provider.callback(**call["arguments"])["value"],
+                "multiplications": products,
+                "contrasts": [
+                    {
+                        "position": pos,
+                        "target_token": tok.decode([row["y"][pos]]),
+                        "foil_token": tok.decode([foil]),
+                    }
+                    for pos, foil in row["negatives"]
+                ],
+            }
+        )
+    save(
+        ROOT / "direct/training-first-actions.json",
+        {
+            "data": digest(ROWS),
+            "scope": "All 72 tool targets in the 288-row source-supervised training mixture. Parse the actual native targets, execute each initial calculator call and inspect every multiplication in its expression tree. Provider-history groups follow actual message markup.",
+            "calls_by_history": calls_by_history,
+            "opening_rows": len(rows),
+            "distinct_opening_clusters": len({r["cluster"] for r in rows}),
+            "source_corpora": dict(Counter(r["id"].split("/")[0] for r in rows)),
+            "opening_multiplications": dict(
+                Counter(p for r in rows for p in r["multiplications"])
+            ),
+            "rows": rows,
+        },
+    )
+
+
 def audit_thinking():
     import re
     from statistics import median
@@ -264,7 +337,11 @@ if __name__ == "__main__":
 
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--direct", action="store_true")
-    if p.parse_args().direct:
+    p.add_argument("--training-openings", action="store_true")
+    args = p.parse_args()
+    if args.training_openings:
+        training_openings()
+    elif args.direct:
         audit(
             ("terminal", "direct-full-fit"),
             {"loop", "base"},

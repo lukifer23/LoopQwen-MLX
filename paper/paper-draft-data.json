@@ -535,6 +535,27 @@
       "target_positions": 2452
     }
   },
+  "training_actions": {
+    "data": "1dc6bfa524162758dea23e3000a3041c388f6cf678f7c2109f7bcb03b2435349",
+    "scope": "All 72 tool targets in the 288-row source-supervised training mixture. Parse the actual native targets, execute each initial calculator call and inspect every multiplication in its expression tree. Provider-history groups follow actual message markup.",
+    "calls_by_history": {
+      "opening": {
+        "calculate": 12
+      },
+      "after_provider": {
+        "calculate": 12,
+        "database_query": 12
+      }
+    },
+    "opening_rows": 12,
+    "distinct_opening_clusters": 11,
+    "source_corpora": {
+      "tatqa": 12
+    },
+    "opening_multiplications": {
+      "r1 * 100": 5
+    }
+  },
   "recall": [
     {
       "arm": "base",
@@ -3400,6 +3421,7 @@
     "docs/measurements/middle-depth/terminal-fit-integrity.json": "e620d45970eba77c1b184b141c6d9ae626c23dc1a181a1f029f1c453dc18244c",
     "research/sources/middle-depth/inventory.json": "c29564af32757cd1e0cf4d170f654481f0e6cbdfedf147842627640807e7e6da",
     "docs/measurements/middle-depth/training-format-audit.json": "a650818fd0d30dc3bfc659b936633c524211bacc1182c6e0206519d59a84deb2",
+    "docs/measurements/middle-depth/direct/training-first-actions.json": "d0613cece27528afc7f198dae42ba92571a35e1fc70ef2ef2c530a15beb108ba",
     "docs/measurements/middle-depth/parent-evidence-recall.json": "362bdd400726812e1d99848ce883d4a3195e9d3dc5962e1d9b135b3e1912e169",
     "docs/measurements/middle-depth/document-review/parent/scored.json": "31cf4cd484dabfd31579b99ff20f16b4e91ccb5021ef094fcebdf1728d9ce388",
     "docs/measurements/middle-depth/direct/parent-128.json": "6fc005d2b36539f6fa74606b04ea4f5d8171a493aa9ba65db103570b65b9c204",

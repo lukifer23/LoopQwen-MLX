@@ -61,6 +61,10 @@ def snapshot():
     data["donor"] = trained["matched_identity"]["base_text"]
     data["train"] = use("research/sources/middle-depth/inventory.json")["quotas"]
     data["format"] = use(ROOT / "training-format-audit.json")["families"]
+    actions = use(ROOT / "direct/training-first-actions.json")
+    if actions["data"] != digest(Path("research/sources/middle-depth/training.json.gz")):
+        raise ValueError("Initial tool actions come from a different fitting mixture")
+    data["training_actions"] = {k: v for k, v in actions.items() if k != "rows"}
     data["recall"] = [
         r
         for r in use(ROOT / "parent-evidence-recall.json")["summary"]

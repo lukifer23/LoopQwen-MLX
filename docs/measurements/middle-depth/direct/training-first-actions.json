@@ -1,0 +1,254 @@
+{
+  "data": "1dc6bfa524162758dea23e3000a3041c388f6cf678f7c2109f7bcb03b2435349",
+  "scope": "All 72 tool targets in the 288-row source-supervised training mixture. Parse the actual native targets, execute each initial calculator call and inspect every multiplication in its expression tree. Provider-history groups follow actual message markup.",
+  "calls_by_history": {
+    "opening": {
+      "calculate": 12
+    },
+    "after_provider": {
+      "calculate": 12,
+      "database_query": 12
+    }
+  },
+  "opening_rows": 12,
+  "distinct_opening_clusters": 11,
+  "source_corpora": {
+    "tatqa": 12
+  },
+  "opening_multiplications": {
+    "r1 * 100": 5
+  },
+  "rows": [
+    {
+      "id": "tatqa/158ecf4b-d9b0-448e-946a-c7b09d5a3b98/reply/open",
+      "cluster": "8f49def6-7c9b-4919-be12-b3a461fe3f71",
+      "prompt_ids": "acbf62af897ca6a8f1db8d09b04a04cd788e0c02c378d714bf67725f8838391c",
+      "target_ids": "75a5d6a70df566b848aa039d131968a7e849119f4e95d68de83317359221a694",
+      "steps": [
+        "(149921 + 164236)/2"
+      ],
+      "value": "314157/2",
+      "multiplications": [],
+      "contrasts": [
+        {
+          "position": 20,
+          "target_token": "4",
+          "foil_token": "5"
+        }
+      ]
+    },
+    {
+      "id": "tatqa/0da57c95-2709-4b67-a1be-db6f325fb4e5/reply/open",
+      "cluster": "ad6fe95b-026d-439e-8c7c-a55a6e3bb392",
+      "prompt_ids": "490f0ce6460a7c7a116c93a3f9320967cd4aa2f4ca19517f430bc555657d89b3",
+      "target_ids": "8ec5837c017265468ac871ad6fedcae6947386bfbaf205996f83e3f5f9bc62c3",
+      "steps": [
+        "(759-756)/756",
+        "r1*100"
+      ],
+      "value": "25/63",
+      "multiplications": [
+        "r1 * 100"
+      ],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "(",
+          "foil_token": "5"
+        }
+      ]
+    },
+    {
+      "id": "tatqa/d27b69a5-b2e5-45e8-bf6e-46c37c41e448/reply/open",
+      "cluster": "f07a1c9f-0082-4b61-bb2e-4d061d9b8036",
+      "prompt_ids": "343f3595633d9f7de4e4601fa93b00307cb31cfb8c1065ff0a037da00426a4ad",
+      "target_ids": "85723930b90cf85e3605a4c08c1ac2f0bdf0a4e158a690bbb2b719ec5ae970b2",
+      "steps": [
+        "(-26.1-(-7.0))/-7.0",
+        "r1*100"
+      ],
+      "value": "1910/7",
+      "multiplications": [
+        "r1 * 100"
+      ],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "(-",
+          "foil_token": "3"
+        }
+      ]
+    },
+    {
+      "id": "tatqa/b2e1f480-9832-4503-bd56-e786f820e306/reply/open",
+      "cluster": "1ec06dfa-bc1e-4af2-8054-f63fa0262012",
+      "prompt_ids": "13ce8b9f764ac1eeac64692420d5bb429c2f20e0629e544c1d855a9659ee6460",
+      "target_ids": "bb9ec30d782d76572e64ff75184fa9cbab8876160d39937c51b636cf3bea481c",
+      "steps": [
+        "1210/33.6"
+      ],
+      "value": "3025/84",
+      "multiplications": [],
+      "contrasts": [
+        {
+          "position": 23,
+          "target_token": "3",
+          "foil_token": "1"
+        }
+      ]
+    },
+    {
+      "id": "tatqa/94bc4d77-55a8-4cb0-a095-f9d799b3c37b/reply/open",
+      "cluster": "31ca108c-7db6-4d94-81e4-d55a2a361064",
+      "prompt_ids": "3e3ed065e666d4741255e31b8b17ecfcbeeaaa01332b09b93c1744e1914c15f7",
+      "target_ids": "a2f78d978ba662b6794319970ac52414a3d915232a6305138282fe5319c493a1",
+      "steps": [
+        "123 - 113"
+      ],
+      "value": "10",
+      "multiplications": [],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "1",
+          "foil_token": "("
+        }
+      ]
+    },
+    {
+      "id": "tatqa/ee3856c8-56f7-424f-9fbf-4b7f2fe9731f/reply/open",
+      "cluster": "09ea040c-e548-48f9-ba67-bae8cafa8e83",
+      "prompt_ids": "64e86d6ccc7ad8adbd3a6ef4a7edabc8c2e36bcaab21ec89f9de2cb2ccd8927f",
+      "target_ids": "1546969354a4bb638182998e3d12bf9164a4a0979837b631313f27464220b55c",
+      "steps": [
+        "240-211"
+      ],
+      "value": "29",
+      "multiplications": [],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "2",
+          "foil_token": "("
+        }
+      ]
+    },
+    {
+      "id": "tatqa/83609f56-d841-443b-834f-a0b553583187/reply/open",
+      "cluster": "7005a9d6-50d9-43b0-9137-d5c1e25eef5d",
+      "prompt_ids": "fdb7c394e042116a3764848fd5ee5c57db785043c5d6d881083bb0afdcb59c16",
+      "target_ids": "de41625bff861a52cc8e30c9a054a0dbae073ecf4c303e8a8b3cf8dbf5dd4feb",
+      "steps": [
+        "855-59"
+      ],
+      "value": "796",
+      "multiplications": [],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "8",
+          "foil_token": "7"
+        }
+      ]
+    },
+    {
+      "id": "tatqa/9bdcebed-34bb-4910-9f60-b48b7342f709/reply/open",
+      "cluster": "32042523-919e-4f7c-a584-8a89b4fc2f8d",
+      "prompt_ids": "6a591d32d9cda4d36528d4101c9aa01dfca6f2a003fb8ae8cba25dd11caa9b5a",
+      "target_ids": "b3e5a4c51287f08705dfbf016e92be0c88187d00ba39c73dcfce1aae50e7badc",
+      "steps": [
+        "1923783/2003946",
+        "r1*100"
+      ],
+      "value": "32063050/333991",
+      "multiplications": [
+        "r1 * 100"
+      ],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "1",
+          "foil_token": "2"
+        }
+      ]
+    },
+    {
+      "id": "tatqa/2189131d-ea05-40c5-9034-68d130f2c97f/reply/open",
+      "cluster": "368b0237-f191-435d-9e94-7e7081282bd2",
+      "prompt_ids": "697c33a0d1a812ab2b4d462cc94c0e36f47de49c48e2f809f81fba80281d39aa",
+      "target_ids": "9506cdbb4d6ccb2a03efa1f548aedeb9bc05eaa1f1c9df8865d1bb73f6c084c6",
+      "steps": [
+        "(29002-27382)/27382",
+        "r1*100"
+      ],
+      "value": "81000/13691",
+      "multiplications": [
+        "r1 * 100"
+      ],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "(",
+          "foil_token": "1"
+        }
+      ]
+    },
+    {
+      "id": "tatqa/a606a416-c5c8-4b16-bf1b-0fb06636d050/reply/open",
+      "cluster": "19097d5e-d03a-4c8d-aa10-21cda17523a7",
+      "prompt_ids": "6487025967ba3030d4348c7cf72316a953e0305546a1177f9e4921d73e9446cf",
+      "target_ids": "a34492e18126d528b98957fe33701202e5ee28e54f8006d6fb86cb050fb3a3b8",
+      "steps": [
+        "919.3/(1563.6-919.3)",
+        "r1*100"
+      ],
+      "value": "919300/6443",
+      "multiplications": [
+        "r1 * 100"
+      ],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "9",
+          "foil_token": "("
+        }
+      ]
+    },
+    {
+      "id": "tatqa/6f2a9b75-8907-4c4a-87c8-c2be01797dd5/reply/open",
+      "cluster": "f07a1c9f-0082-4b61-bb2e-4d061d9b8036",
+      "prompt_ids": "3efc2ea6304a68498f59a00472db9edadfc0027df7d3f403d85a149448607149",
+      "target_ids": "33fe224c2ffd593bda721e0cd3043bf8c45a32b4ff5503076ee6dab91ef2650a",
+      "steps": [
+        "39.6+83.6"
+      ],
+      "value": "616/5",
+      "multiplications": [],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "3",
+          "foil_token": "(-"
+        }
+      ]
+    },
+    {
+      "id": "tatqa/8c873bd0-0621-4600-9795-47de28e971b7/reply/open",
+      "cluster": "b1164469-b658-4743-910a-9508c3b21b85",
+      "prompt_ids": "5f490a38b5fb62bed667fb94ed5b0bf52fd87ad7cad25a5ecdb1ab50c9c09846",
+      "target_ids": "53c4863faec184a811dedcf9047b2fedbb098db84f69db6dfebd3dd9bbf2801e",
+      "steps": [
+        "11-14"
+      ],
+      "value": "-3",
+      "multiplications": [],
+      "contrasts": [
+        {
+          "position": 18,
+          "target_token": "1",
+          "foil_token": "7"
+        }
+      ]
+    }
+  ]
+}
