@@ -1,0 +1,137 @@
+{
+  "arms": {
+    "base": {
+      "groups": {
+        "math": {
+          "correct": 0,
+          "n": 4,
+          "jobs": 0,
+          "statuses": {
+            "token_limit": 3,
+            "answered": 1
+          },
+          "seconds": 31.436974165961146,
+          "by_30s": 0,
+          "mean_capped_time_to_correct": 30.0,
+          "peak_bytes": 1704012198,
+          "executed_callbacks": 0,
+          "successful_python_processes": 0
+        },
+        "meeting": {
+          "correct": 0,
+          "n": 2,
+          "jobs": 0,
+          "statuses": {
+            "answered": 1,
+            "token_limit": 1
+          },
+          "seconds": 25.915044124994893,
+          "by_30s": 0,
+          "mean_capped_time_to_correct": 30.0,
+          "peak_bytes": 2223878510,
+          "executed_callbacks": 0,
+          "successful_python_processes": 0
+        },
+        "files": {
+          "correct": 0,
+          "n": 2,
+          "jobs": 0,
+          "statuses": {
+            "turn_limit": 1,
+            "token_limit": 1
+          },
+          "seconds": 15.338712415948976,
+          "by_30s": 0,
+          "mean_capped_time_to_correct": 30.0,
+          "peak_bytes": 1778790298,
+          "executed_callbacks": 3,
+          "successful_python_processes": 0
+        },
+        "supplied": {
+          "correct": 0,
+          "n": 2,
+          "jobs": 0,
+          "statuses": {
+            "answered": 2
+          },
+          "seconds": 13.80970120895654,
+          "by_30s": 0,
+          "mean_capped_time_to_correct": 30.0,
+          "peak_bytes": 1762765722,
+          "executed_callbacks": 0,
+          "successful_python_processes": 0
+        }
+      },
+      "correct_math_pairs": 0,
+      "total_math_pairs": 4
+    },
+    "loop": {
+      "groups": {
+        "math": {
+          "correct": 1,
+          "n": 4,
+          "jobs": 1,
+          "statuses": {
+            "answered": 4
+          },
+          "seconds": 1.9812277500750497,
+          "by_30s": 1,
+          "mean_capped_time_to_correct": 22.630647979254718,
+          "peak_bytes": 1716954814,
+          "executed_callbacks": 0,
+          "successful_python_processes": 0
+        },
+        "meeting": {
+          "correct": 0,
+          "n": 2,
+          "jobs": 0,
+          "statuses": {
+            "answered": 1,
+            "token_limit": 1
+          },
+          "seconds": 26.225752209022176,
+          "by_30s": 0,
+          "mean_capped_time_to_correct": 30.0,
+          "peak_bytes": 2294739374,
+          "executed_callbacks": 0,
+          "successful_python_processes": 0
+        },
+        "files": {
+          "correct": 0,
+          "n": 2,
+          "jobs": 0,
+          "statuses": {
+            "turn_limit": 2
+          },
+          "seconds": 38.51436279196059,
+          "by_30s": 0,
+          "mean_capped_time_to_correct": 30.0,
+          "peak_bytes": 1833667526,
+          "executed_callbacks": 6,
+          "successful_python_processes": 0
+        },
+        "supplied": {
+          "correct": 0,
+          "n": 2,
+          "jobs": 0,
+          "statuses": {
+            "answered": 2
+          },
+          "seconds": 1.2314506249967963,
+          "by_30s": 0,
+          "mean_capped_time_to_correct": 30.0,
+          "peak_bytes": 1765264378,
+          "executed_callbacks": 0,
+          "successful_python_processes": 0
+        }
+      },
+      "correct_math_pairs": 1,
+      "total_math_pairs": 4
+    }
+  },
+  "paper_summary": "On the four original and changed math pairs, LoopQwen solved both versions on 1/4 and Base on 0/4. On two complete QMSum transcripts, supported summaries were 0/2 for LoopQwen and 0/2 for Base. The local Python handoff and CSV follow-up yielded 0/1 complete jobs for LoopQwen and 0/1 for Base. With genuine stdout provided, the two models completed 0/1 and 0/1 jobs, respectively.",
+  "inputs": "700d51573c20908ac4b80ad3311b5382c71689aca4cba20dd1d5c74ac18fc6ea",
+  "locked_review": "0c4a2e6173097e3ae1300ae836c72af5a7074b1b01c7258779532e33df2479d2",
+  "worker_seconds": 162.36521370901028,
+  "scope": "Direct comparison of two frozen standalone models on small development sources. Private transcripts and signed-off review are retained locally."
+}

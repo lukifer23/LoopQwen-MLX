@@ -213,6 +213,7 @@ if __name__ == "__main__":
             "simple",
             "corrected",
             "deployed",
+            "direct-full-fit",
             "headroom-early",
             "epoch-reading",
             "quantized",

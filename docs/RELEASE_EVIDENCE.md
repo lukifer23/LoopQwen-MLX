@@ -1,5 +1,8 @@
 # Evidence required for a stronger recurrent release
 
+The active comparator throughout this project is untouched Qwen3.5-0.8B-Base. The new loop is the only trained arm. Historical controls and diagnostics remain available for reproducing earlier work. The direct comparison measures the combined effect of the learned weights and repeated computation. [Current scope and execution rules](../research/diagnostics/middle-depth/direct-pair.md)
+
+
 ## What would count as a genuinely better loop?
 
 Evaluate one deployable checkpoint making real shared-weight recurrent visits against the pinned ordinary-depth Base. The primary product outcome is the fraction of requests receiving a correct, source-supported final answer that satisfies the user's instructions. An explicitly requested action must execute successfully. Count an unfinished or unsupported answer as a failure. Record correct answers, successful actions, final delivery and actual resource costs separately.
@@ -18,7 +21,11 @@ Applied retrospectively to the *two* domains actually measured in the last conve
 
 A model can earn a narrower recommendation when it completes more of the intended user's jobs, or completes them with materially lower cost at comparable quality. Select independent jobs, an acceptable quality margin, the required advantage and a practical deadline before sampling responses. Count the entire job, including real tool execution and the user's follow-up. Charge failed requests the deadline when comparing time to a correct result. The two-job project pilot registered one additional successful job with none lost, or success on all jobs by both models and 20% less time to correct. The follow-on specialist target tightens the four-family paired lower-bound requirement to −2 percentage points versus Base. It also requires material improvements in changed-source recall, completed tool jobs and time to correct, with simultaneous uncertainty bounds and independent replication. [Specialist criteria](../research/diagnostics/middle-depth/specialist-transfer.md) In the pilot both models finished zero complete jobs. A general assistant claim and an attribution to recurrent depth have their own existing criteria. [Local protocol](../research/diagnostics/middle-depth/local-workflows.md) · [Aggregate scores](measurements/middle-depth/local-workflow-screen.json)
 
-## Current evidence
+## Current direct-pair evidence
+
+At 512 generated tokens the update-576 loop gained 2.08 macro points (95% paired interval −9.72 to +15.97). Across the two complete novels the loop supplied all required facts on two of four presentations, versus one for Base, but scored zero complete answers versus one. Neither model completed either of the initial operator jobs. On the subsequent interpreter workflow both missed the report handoff and the CSV follow-up. [Direct comparison](measurements/middle-depth/direct/parent-512.json) · [Book evidence audit](measurements/middle-depth/parent-evidence-recall.json) · [Local job and public diagnostics](measurements/middle-depth/specialist-result.json)
+
+## Evidence from archived studies
 
 The separate full-document pointer fit completed 640 updates and improved held source-location loss by 4.78 nats on two complete Deno lockfiles. Its two-read model and its parent both preferred the correct changing token on both source versions for the same 18/24 packages. A single trained read succeeded on 20/24. The gate for a new free-generation comparison closed. The financial receipt-repair fit stopped before optimization. [Long-context outcomes](measurements/long-copy-fit/receipt.json) · [Goal and resume handoff](../RESEARCH_GOAL.md)
 
@@ -70,7 +77,7 @@ The original-Base four-layer policy completed its 192 online training updates. A
 
 The release target is one runnable recurrent checkpoint that improves verified tool execution and reasoning on fresh work, preserves established capabilities, and processes at least 131,072 actual input tokens. The comparison must also report response quality and measured efficiency for the same requests. The repository currently contains several individually verified gains on different weights. [Capability scoreboard](CAPABILITY_SCOREBOARD.md)
 
-## Current qualification sequence
+## Archived qualification sequence
 
 1. **The direct comparison closed.** The shared two-visit policy solved 56/208 objective requests versus 42/208. On 24 new database requests it grounded three answers versus one, with zero complete database pairs in either arm. Twelve original open requests received three masked loop preferences, one Base preference and eight ties. The loop lost 27 individual Base successes and produced four materially unsupported open replies versus two for Base. Both the automatic and masked gates failed. [Complete results](../paper/integrated-assistance.pdf) · [Registration and stop rule](../research/experiments/integrated-assistance-01.json) · [Masked assessments](measurements/integrated-assistance-reading.json)
 2. **Follow a qualifying checkpoint.** Repeat training with an independent seed and fit an ordinary-depth control with the same exposure, starting weights and trainable budget. Run the installed qualifying weights on long inputs with full attention histories. Four complete Unicode locale files provide a fresh transfer test. Both releases must receive the right changed answer in each language. No score on a previous checkpoint transfers to this one. [Full-input source verification](../research/sources/locale-context) · [Earlier measured lockfiles](../paper/locked-context.pdf)
@@ -141,7 +148,7 @@ The 340-request comparison raised a specific question about the engineering cost
 
 Training commits to every one of 590,154 target positions over three epochs. In addition to next-token likelihood and full-vocabulary distillation, 6,495 supervised read positions identify evidence paragraphs or report rows cited by human annotators. The training test compares the same learned weights after one and two additional reads. The direct product comparison has 32 distinct report issuers, 48 additional multi-step topics, and four complete 152,185–164,271-token locale inputs. Ordinary-depth attribution and independent training replication follow only if the product and source-quality requirements pass. The incremental four-layer experiment has priority. A qualifying result from that experiment closes this alternative. [Exposure](../research/sources/shared-query/README.md) · [All independently replayed inputs and gold calculations](../research/sources/shared-query/panel-replay.json) · [Fit decision thresholds](../research/experiments/shared-query-fit-01.json) · [Evaluation thresholds](../research/experiments/shared-query-transfer-01.json)
 
-## Current research sequence
+## Archived research sequence
 
 The latest completed short test showed that a valid calculator program often used the wrong cells, year or operation. The new content-read model trains a shared query against the original contextual values at both recurrent visits. Each source citation is tied to a specific output decision. The donor and all previously trained parameters stay fixed for this intervention. The study has 320 original comparison questions, 160 financial reports each supplying two different calculations, 324 human database requests presented under two lookup histories, and 192 protected tasks. It completed all 921 updates and improved source-location likelihood, while worsening reasoning and protected language. The comparison closed before generation. An independent intervention starts from the same original parent, normalizes recalled values and bounds the write at each recurrent visit. [Short study registration](../research/experiments/content-read-fit-01.json) · [Source verification](measurements/content-read-sources.json)
 

@@ -58,20 +58,20 @@ def contrast(a, b):
     rows = []
     for key in sorted(a):
         f, s, w = key
-        l, r = a[key], b[key]
-        if l[4] != r[4]:
+        left, right = a[key], b[key]
+        if left[4] != right[4]:
             raise ValueError(f"Different actual opening tokens on {key}")
         deadline = 600 if f == "documents" else 8
         item = {
             "family": f,
             "source": s,
             "world": w,
-            "left": l,
-            "right": r,
+            "left": left,
+            "right": right,
             "deadline": deadline,
-            "delta": int(l[0]) - int(r[0]),
-            "deadline_delta": int(l[0] and l[1] <= deadline)
-            - int(r[0] and r[1] <= deadline),
+            "delta": int(left[0]) - int(right[0]),
+            "deadline_delta": int(left[0] and left[1] <= deadline)
+            - int(right[0] and right[1] <= deadline),
         }
         grouped[f][s].append(item)
         rows.append(item)
@@ -168,12 +168,7 @@ def contrast(a, b):
     }
 
 
-def measure(a):
-    candidate = panel("loop", a.candidate_short, a.candidate_long, a.cap)
-    ordinary = panel("ordinary", a.ordinary_short, a.ordinary_long, a.cap)
-    base = panel("base", a.base_short, a.base_long, a.cap)
-    product = contrast(candidate, base)
-    depth = contrast(candidate, ordinary)
+def product_gates(product):
     minimum = (
         product["macro_delta"] >= 0.05
         and product["paired_interval"][0] > 0
@@ -192,17 +187,22 @@ def measure(a):
         all(v["left"] >= 0.50 for v in product["book_bands"].values())
         and product["families"]["documents"]["delta"] > 0
     )
+    return {"minimum_product": minimum, "strong_product": strong, "long_context": books}
+
+
+def measure(a):
+    candidate = panel("loop", a.candidate_short, a.candidate_long, a.cap)
+    ordinary = panel("ordinary", a.ordinary_short, a.ordinary_long, a.cap)
+    base = panel("base", a.base_short, a.base_long, a.cap)
+    product = contrast(candidate, base)
+    depth = contrast(candidate, ordinary)
     save(
         ROOT / "four-families" / (a.name + ".json"),
         {
             "cap": a.cap,
             "product": product,
             "matched_depth": depth,
-            "development_thresholds": {
-                "minimum_product": minimum,
-                "strong_product": strong,
-                "long_context": books,
-            },
+            "development_thresholds": product_gates(product),
             "positive_development": product["macro_delta"] > 0,
         },
     )

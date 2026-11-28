@@ -13,14 +13,14 @@ from scripts.middle_depth_budget import ROOT
 from scripts.middle_depth_local_workflows import LOCAL, PLAN, frozen, providers
 
 
-def records():
-    cohort = frozen()
-    cohort_hash = digest(LOCAL / "cohort.json")
+def records(folder=LOCAL, plan=PLAN, catalog=providers):
+    cohort = frozen(folder, plan)
+    cohort_hash = digest(folder / "cohort.json")
     for case in cohort["cases"]:
         with ExitStack() as stack:
-            lookup = {t.name: t for t in providers(case["kind"], LOCAL, stack)}
+            lookup = {t.name: t for t in catalog(case["kind"], folder, stack)}
             for arm in ("base", "loop"):
-                path = LOCAL / "traces" / arm / (case["id"] + ".json.gz")
+                path = folder / "traces" / arm / (case["id"] + ".json.gz")
                 r = unpack(path)
                 if r["arm"] != arm or r["cohort"] != cohort_hash:
                     raise ValueError("Local trajectory identity differs")
@@ -80,12 +80,12 @@ def records():
                     history.extend(calls)
 
 
-def blind():
+def blind(folder=LOCAL, plan=PLAN, catalog=providers):
     deck = {}
-    for _, _, _, _, item in records():
+    for _, _, _, _, item in records(folder, plan, catalog):
         if item["status"] == "answered":
             deck[fingerprint(item)] = item
-    save(LOCAL / "review" / "blinded.json", {k: deck[k] for k in sorted(deck)})
+    save(folder / "review" / "blinded.json", {k: deck[k] for k in sorted(deck)})
 
 
 def verify_provider_access():

@@ -1,6 +1,8 @@
-# Where shared decoder depth earns its cost
+# LoopQwen versus Qwen Base
 
-The draft follows the four-epoch models through both complete development novels, shows how the four-family comparison changes with the output allowance, and reports real tool use and elapsed time on two project-local operator jobs. [Read the paper draft](paper-draft.pdf) · [Frozen evidence snapshot](paper-draft-data.json) · [Rebuild script](../scripts/paper_draft.py)
+The current working paper compares one trained LoopQwen checkpoint with untouched Qwen3.5-0.8B-Base throughout. It reports source-by-source gains and losses, native training and serving costs, both complete-document bands, executable local jobs and the two-point overall margin. [Read the current PDF](paper-draft.pdf) · [Frozen evidence](paper-draft-data.json) · [Rebuild the PDF](../scripts/paper_draft.py)
+
+## Historical publications and assets
 
 The latest additions trace correct calculator outputs through delivery and show answer loss, source location and two-version preferences on 24 held names in complete long documents. [Financial program figure](source-copy-program-audit.svg) · [Long-context figure](long-copy-held.svg) · [Paired quality by source](source-copy-supported-delivery.csv) · [Resume handoff](../RESEARCH_GOAL.md)
 

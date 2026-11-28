@@ -1,6 +1,16 @@
-# LoopQwen goal and handoff
+# LoopQwen versus untouched Qwen Base
 
-**Native matched-depth study in progress.** Build one genuinely looped checkpoint that improves correct, supported answers and real tool use over untouched Qwen3.5-0.8B-Base, retains ordinary language ability, and answers novel questions using at least 131,072 input tokens. Measure quality, elapsed time and memory together. The release target remains open. [Acceptance criteria and proposed margins](docs/RELEASE_EVIDENCE.md)
+The project evaluates one trained looped checkpoint against pinned, untouched Qwen3.5-0.8B-Base at ordinary depth. The current research question is whether it can stay within two percentage points of Base overall and deliver materially better recall, executed tool work and time to a correct answer. The general improvement targets remain +5 and +10 points. Results on the two models quantify the effect of the complete training and architecture recipe. [Standing scope](research/diagnostics/middle-depth/direct-pair.md) · [Specialist thresholds](research/diagnostics/middle-depth/specialist-transfer.md) · [Paper draft](paper/paper-draft.pdf)
+
+## Current execution point
+
+The update-576 direct comparison is complete on 27 short and four complete-book openings at each output allowance. At 512 generated tokens the four-family gain is +2.08 points (paired 95% interval −9.72 to +15.97). The loop returned the required facts on both Anne editions but supplied neither difference. Neither model recalled all the required facts on McTeague. The previous local tool jobs yielded zero complete jobs for either model. [Paired evidence](docs/measurements/middle-depth/direct/parent-512.json) · [Book recall and whole-answer grades](docs/measurements/middle-depth/parent-evidence-recall.json) · [Local operator jobs](docs/measurements/middle-depth/local-workflow-screen.json)
+
+The current specialist screen uses the standalone loop and Base on two public meeting transcripts, four changed arithmetic questions and actual local reports. Full-document fitting continues only for the loop from update 576. Its frozen training inputs contain 158,281–232,749 tokens. Use `.venv/bin/python -m loopqwen resources` before resuming an interrupted worker. The direct stages are `python -m scripts.middle_depth_direct fit`, then `children`. Lock complete source-masked short and book grades before `select` and `final-books`. Earlier multi-arm jobs are closed. [Scope-change receipt](docs/measurements/middle-depth/ordinary-full-fit-closure.json) · [Source identities](docs/measurements/middle-depth/specialist-inputs.json)
+
+## Historical handoff
+
+The following record preserves earlier decisions and restart instructions at their original research cuts.
 
 ## Where we stopped
 
@@ -10,7 +20,7 @@
 | Long-context pointer fit | 640 updates on two complete Deno releases. Held source-location loss improved by 4.78 nats. The parent and trained two-read model both solved 18/24 paired token decisions. One trained read solved 20/24. The gate failed. [Figure](paper/long-copy-held.svg) · [Weights and results](docs/measurements/long-copy-fit) |
 | Financial repair | 320 human questions on 160 reports have verified calculations. Both fits reached the registered macOS memory-pressure stop during feature extraction. The resumed fit took 29.82 seconds and completed **zero optimizer updates**. The streamed implementation passed its causal gradient test. [Pause receipt](docs/measurements/receipt-repair-streamed-pause.json) · [Training protocol](research/diagnostics/receipt-repair-fit-streamed.json) |
 
-## Current execution point
+## Archived execution point
 
 The short-fit and history-correction decisions are closed. Run `.venv/bin/python -m scripts.middle_depth_stages parent-books` on the idle native worker to resume the full-document comparison. The terminal loop finished the 145,891-token published Anne opening with 28 independently tracked layer histories. Both full-vocabulary cache probes matched staged execution exactly. The loop used 273.9 seconds to construct the reusable prefix and 27.1 seconds for the warm request. Across the published and edited editions, all three arms scored 0/2 at 128 tokens. At 512 tokens Base scored 1/2, the loop and ordinary depth 0/2 each. The loop gave both correct ages on each edition but omitted the requested difference. The registered 167,014/167,017-token book comparison continues. [Both editions at 512 tokens](docs/measurements/middle-depth/document-review/parent/books/anne-512.json) Saved requests are verified before reuse. The training guide gives the resource and budget checks. [Current training commands](docs/TRAINING.md) · [Selected parent identities](docs/measurements/middle-depth/history-decision.json)
 

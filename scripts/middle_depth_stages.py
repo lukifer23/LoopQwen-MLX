@@ -204,13 +204,16 @@ def document_request(stage, policies, arm, cap, book, world, followups=False):
     dispatch("documents", *args)
 
 
-def final_books():
-    decision = read(ROOT / "long-decision.json")
+def final_books(
+    arms=("loop", "base", "ordinary"),
+    decision_file="long-decision.json",
+    enrollment_file="complete-books.json",
+):
+    decision = read(ROOT / decision_file)
     models = {k: Path(v["path"]) for k, v in decision["models"].items()}
     for arm, path in models.items():
         if digest(path / "adapters.safetensors") != decision["models"][arm]["weights"]:
             raise ValueError("A selected document checkpoint has changed")
-    arms = ("loop", "base", "ordinary")
     stages = {a: decision["document_stage"] for a in models} | {"base": "parent"}
     # Finish primary matched turns and stability checks before extra headroom.
     for i, book in enumerate(("anne", "book")):
@@ -246,7 +249,7 @@ def final_books():
             Path("research/diagnostics/middle-depth/output-headroom.md")
         ),
     }
-    log = ROOT / "headroom" / "complete-books.json"
+    log = ROOT / "headroom" / enrollment_file
     if log.exists() and read(log) != enrollment:
         raise ValueError("Full-document headroom enrollment changed")
     save(log, enrollment)
