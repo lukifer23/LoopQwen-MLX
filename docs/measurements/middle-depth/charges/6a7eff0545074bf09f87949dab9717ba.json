@@ -1,0 +1,47 @@
+{
+  "job": "tar/loop/original/512/manual-recall",
+  "allocator": {
+    "cache_bytes": 0,
+    "memory_guideline_bytes": 3221225472
+  },
+  "stage": "long",
+  "dispatch": 1795839008.1640298,
+  "pid": 66993,
+  "process_start": 1795839007.421553,
+  "initial_process_disk_io": {
+    "read": 225280,
+    "written": 0
+  },
+  "initial": {
+    "pressure": 1,
+    "available": 9589211136,
+    "swap": 843972608,
+    "free": 100649205760,
+    "active": 8,
+    "peak": 0
+  },
+  "status": "stopped",
+  "seconds": 350.43508937500883,
+  "last": {
+    "pressure": 1,
+    "available": 5620563968,
+    "swap": 843972608,
+    "free": 101437677568,
+    "active": 3898264270,
+    "peak": 4242476856
+  },
+  "observed_seconds": 348.5361253339797,
+  "reason": "DevelopmentLimit(\"Native development limit: {'pressure': 1, 'available': 5620563968, 'swap': 843972608, 'free': 101437677568, 'active': 3898264270, 'peak': 4242476856}; remaining worker seconds -0.21\")",
+  "final": {
+    "pressure": 1,
+    "available": 5620514816,
+    "swap": 843972608,
+    "free": 101437677568,
+    "active": 3898264270,
+    "peak": 4242476856
+  },
+  "final_process_disk_io": {
+    "read": 4269387776,
+    "written": 2529542144
+  }
+}

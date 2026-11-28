@@ -430,6 +430,57 @@ def snapshot():
                 )
             ),
         )
+    manual = ROOT / "manual-recall"
+    regression = ROOT / "full-regression-isolated.json"
+    if regression.is_file():
+        suite = use(regression)
+        if not suite["passed"] or any(t["status"] != "passed" for t in suite["tests"]):
+            raise ValueError("The recorded native regression did not pass")
+        data["regression"] = {"tests": len(suite["tests"]), "modules": suite["files"]}
+    if (manual / "result.json").is_file():
+        report = use(manual / "result.json")
+        approved = Path("research/diagnostics/middle-depth/manual-openings.json")
+        opening = use(approved)
+        use(approved.with_name("manual-sources.json"))
+        if digest(approved) != report["registration"]:
+            raise ValueError("Manual transfer uses a different cohort")
+        for file in ("blinded", "grades"):
+            path = manual / (file + ".json")
+            if digest(path) != report[file]:
+                raise ValueError("Manual transfer judgments changed")
+            use(path)
+        for row in report["rows"]:
+            path = manual / row["source"] / row["arm"] / (row["world"] + ".json")
+            receipt = use(path)
+            archive = ROOT / receipt["archive"]
+            if (
+                digest(path) != row["receipt"]
+                or digest(archive) != receipt["archive_sha256"]
+            ):
+                raise ValueError("Manual transfer trajectory changed")
+            hashes[str(archive)] = receipt["archive_sha256"]
+        for name, witness in report["charges"].items():
+            path = ROOT / "charges" / name
+            charge = use(path)
+            if digest(path) != witness["sha256"]:
+                raise ValueError("Manual transfer charge changed")
+            cutoff = max(cutoff, charge["dispatch"] + charge["seconds"])
+        data["manual_transfer"] = {
+            "rows": {
+                "/".join([r["source"], r["world"], r["arm"]]): {
+                    "recall": r["by_600"]["recall"],
+                    "complete": r["by_600"]["complete"],
+                    "seconds": r["cold_seconds"],
+                    "status": r["status"],
+                }
+                for r in report["rows"]
+            },
+            "decisions": report["decisions"],
+            "measured": report["measured_requests"],
+            "worker_seconds": report["worker_seconds"],
+            "outcome": report["status"],
+            "nodes": {k: v["nodes"] for k, v in opening["manuals"].items()},
+        }
     for p in sorted((ROOT / "charges").glob("*.json")):
         r = read(p)
         if r["dispatch"] <= cutoff and r["status"] != "running":

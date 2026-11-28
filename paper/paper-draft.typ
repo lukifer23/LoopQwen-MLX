@@ -232,6 +232,35 @@ Base used the extra allowance to finish the bridge question after the irrelevant
 
 #strong[Repeated scoring.] Across eleven previously locked short-development reviews, #str(d.repeated_grades.shared) identical question, answer and tool-history records occurred in multiple reviews. Every repeated record received the same primary correctness grade. The secondary unsupported-assertion flag differed on #str(d.repeated_grades.unsupported) records. The archive preserves those differences. One reviewer assigned the grades. The agreement measures consistency across repeat presentations to that reviewer.
 ]
+#if d.at("manual_transfer",default:none)!=none [
+#pagebreak()
+= Does changed-fact recall transfer to manuals?
+#let m=d.manual_transfer
+The second pass recovered a changed age in one novel. We tested whether that observation predicted better recall on two independent technical documents. We reconstructed every Info node in the published GNU Make 4.2.1 and GNU Tar 1.35 distributions, preserving their order, examples and indexes. The #str(m.nodes.make) Make nodes yielded 145,642–145,645 input tokens. The #str(m.nodes.tar) Tar nodes yielded 160,728–160,732. Each complete manual had a published edition, an evidence edit and an irrelevant edit. The question stayed the same across editions and models.
+
+In Make, eight independent object compilations take eight slots with one available job, plus one final link. Changing the jobserver warning and its explanatory text to allow two jobs reduces the correct total from nine slots to five. In Tar, the original listing gives 35,793 bytes for *blues* and the separate generation example gives 100 bytes for *outfile*. The edited example makes *outfile* 40,000 bytes. The correct difference changes from 35,693 to 4,207 bytes and the larger file changes identity. Independent extraction code checked each reference against the complete edited source before inference.
+
+#let cell(source,world,arm) = {
+ let r=m.rows.at(source+"/"+world+"/"+arm,default:none)
+ if r==none { [Unmeasured] } else {
+  [#(if r.recall {"yes"} else {"no"}) / #(if r.complete {"yes"} else {"no"}) · #sec(r.seconds) s]
+ }
+}
+#tab((0.75fr,1fr,1.7fr,1.7fr),([Manual],[Edition],[Base, facts / final],[Loop, facts / final]),..{
+ let rows=()
+ for (source,title) in (("make","Make"),("tar","Tar")) {
+  for (world,edition) in (("original","Published"),("edited","Evidence edit"),("irrelevant","Neutral edit")) {
+   rows.push([#title]); rows.push([#edition]); rows.push(cell(source,world,"base")); rows.push(cell(source,world,"loop"))
+  }
+ }
+ rows
+})
+#cap([Manual transfer.],[A facts success requires both quantities with their correct roles and a supported answer within 600 seconds cold. A final success also requires the correct relationship, result and units. Elapsed times include building the qualifying prefix. Unmeasured cells have no score.])
+
+On Make, Base exhausted its 512-token allowance in all three editions. The loop executed the same calculator expression, `1+1`, and returned 2 each time. The provider correctly evaluated the submitted expression. None of the three expressions used the object count, and the evidence edit had no effect on the answer. On the published edition, the loop processed 29,290 new prompt tokens for the opening and 29,346 for the callback, reusing the same 116,352-token prefix both times.
+
+We enrolled six matched pairs and completed #str(m.measured) of the twelve individual requests. The worker charged #sec(m.worker_seconds) seconds against a 2,100-second ceiling, including prefix construction and stopped attempts. On the published Tar question, Base compared *blues* with *jazz* instead of *outfile* and gave 62,345 bytes. The time guard stopped the loop during its published Tar request. Five cells lack a completed measurement. Make was a tie at zero on both outcomes. Tar has no source-level comparison, leaving the registered transfer criterion unresolved. #link(repo+"/blob/main/docs/measurements/middle-depth/manual-recall/result.json")[Source judgments, live callbacks, cache traffic and worker receipts.]
+]
 #pagebreak()
 = Reproducibility and costs
 All qualifying runs use the 18 GiB M3 Pro with #str(d.hardware.gpu_cores) GPU cores and macOS #d.hardware.macos. One process owns the GPU lease. The packaged models each contain the tokenizer, runtime wheel and weights and can be moved independently. In the initial 20-request offline replay both models missed all ten supported answers. The expanded installed benchmark reproduced every prompt, output, callback, status and attention-history length across 116 requests. Four separate processes loaded the complete models outside the checkout with network access blocked. At 512 generated tokens, the installed loop solved 5/27 openings in 32.4 seconds of generation and Base solved 2/27 in 179.6 seconds. Both missed both own-history follow-ups. Mean deadline-capped time was 6.64 versus 7.58 seconds. The 56 observed callbacks across both caps are execution events, including provider errors.
@@ -243,7 +272,7 @@ All qualifying runs use the 18 GiB M3 Pro with #str(d.hardware.gpu_cores) GPU co
 [Complete-document work],[#sec(d.charges.long)])
 #cap([Table 7.],[Ledger totals include stopped invocations and archived work before the direct-pair scope was adopted. The sum includes earlier experimental costs and is not the price of running one checkpoint. Optimizer seconds on page 2 overlap the ledger. The original development envelope was 43,200 worker-seconds.])
 
-The native fitter saves adapter weights, optimizer moments, random state and order. Exact replay of a stored update and recomputation from scratch are recorded separately. Reusable immutable prefix files have hash-checked manifests. Staged attention retains the full KV histories on disk. Resident execution is used only after qualification against staged outputs. Long inputs are measured in actual prompt positions. #link(repo+"/blob/main/docs/STANDALONE_MIDDLE.md")[Standalone pair and offline restoration.] #link(repo+"/blob/main/RESEARCH_GOAL.md")[Current handoff.] #link(repo+"/tree/main/docs/measurements/middle-depth")[Native evidence and cost receipts.]
+#if d.at("regression",default:none)!=none [The native regression suite passed all #str(d.regression.tests) tests across #str(d.regression.modules) separately loaded modules.] The native fitter saves adapter weights, optimizer moments, random state and order. Exact replay of a stored update and recomputation from scratch are recorded separately. Reusable immutable prefix files have hash-checked manifests. Staged attention retains the full KV histories on disk. Resident execution is used only after qualification against staged outputs. Long inputs are measured in actual prompt positions. #link(repo+"/blob/main/docs/STANDALONE_MIDDLE.md")[Standalone pair and offline restoration.] #link(repo+"/blob/main/RESEARCH_GOAL.md")[Current handoff.] #link(repo+"/tree/main/docs/measurements/middle-depth")[Native evidence and cost receipts.]
 
 == Data, prior work and contributions
 #small[Qwen Team. #link("https://huggingface.co/Qwen/Qwen3.5-0.8B-Base")[Qwen3.5-0.8B-Base]. Huang et al. (2026), #link("https://arxiv.org/abs/2610.23036")[Towards Looped Models Done Right, Part I]. Marchenko et al. (2026), #link("https://arxiv.org/abs/2610.00673")[Closing the Loop]. Zhong et al. (2021), #link("https://aclanthology.org/2021.naacl-main.472/")[QMSum]. Cobbe et al. (2021), #link("https://github.com/openai/grade-school-math")[GSM8K]. Project Gutenberg, _Anne of Green Gables_ and _McTeague_; source editions, edits and rubrics are pinned in the #link(repo+"/tree/main/research/diagnostics/middle-depth")[source registrations].]

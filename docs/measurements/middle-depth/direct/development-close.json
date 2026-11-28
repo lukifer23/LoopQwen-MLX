@@ -1,0 +1,149 @@
+{
+  "status": "development-miss",
+  "scope": "Standalone trained BF16 loop versus untouched Qwen3.5-0.8B-Base; public product and independent within-checkpoint depth diagnostics.",
+  "selected": {
+    "path": "checkpoints/middle-depth/matched-4619/loop/step-0576",
+    "weights": "e8678f0d74d1eb6779dfea16d6f5677fe12021ad4fa4771317813a336b2a264a"
+  },
+  "standalone_paths": {
+    "base": "exports/standalone-middle-576/base",
+    "loop": "exports/standalone-middle-576/loop"
+  },
+  "overall_at_512": {
+    "macro_delta": 0.02083333333333333,
+    "paired_interval": [
+      -0.09722222222222222,
+      0.1597222222222222
+    ],
+    "deadline_macro_delta": 0.02083333333333333
+  },
+  "minimums": {
+    "minimum_product": false,
+    "strong_product": false,
+    "long_context": false
+  },
+  "two_point_development_lower_bound": false,
+  "historic_matched_depth": {
+    "macro_delta": 0.027777777777777776,
+    "paired_interval": [
+      -0.05555555555555555,
+      0.1111111111111111
+    ],
+    "deadline_macro_delta": 0.027777777777777776
+  },
+  "five_standard": {
+    "macro_delta": 0.008,
+    "paired95": [
+      -0.028000000000000004,
+      0.044
+    ],
+    "parity_lower_bound_passes": false
+  },
+  "manual_transfer": {
+    "status": "stopped-budget",
+    "measured_requests": 7,
+    "expected_requests": 12,
+    "worker_seconds": 2100.215024751029,
+    "unmeasured": [
+      [
+        "tar",
+        "original",
+        "loop"
+      ],
+      [
+        "tar",
+        "edited",
+        "base"
+      ],
+      [
+        "tar",
+        "edited",
+        "loop"
+      ],
+      [
+        "tar",
+        "irrelevant",
+        "base"
+      ],
+      [
+        "tar",
+        "irrelevant",
+        "loop"
+      ]
+    ],
+    "decisions": {
+      "recall": {
+        "gained": [],
+        "lost": [],
+        "tied": [
+          "make"
+        ],
+        "incomplete": [
+          "tar"
+        ],
+        "passed": null,
+        "two_sided_exact_sign_p": 1.0,
+        "loop_share_among_discordant_95": null
+      },
+      "complete": {
+        "gained": [],
+        "lost": [],
+        "tied": [
+          "make"
+        ],
+        "incomplete": [
+          "tar"
+        ],
+        "passed": null,
+        "two_sided_exact_sign_p": 1.0,
+        "loop_share_among_discordant_95": null
+      }
+    }
+  },
+  "conditions": {
+    "four_layer_recurrence": "One additional pass recovered the edited age on one novel, with zero complete subtractions at either depth. The second pass lost five short successes and had four fixes against seven losses on five standard benchmarks.",
+    "separate_reader": "The single 84-update attention-read alternative missed its complete changed-source and preservation gate.",
+    "sealed_confirmation": "Closed after development miss.",
+    "second_seed": "Closed after development miss.",
+    "adaptive_exit": "No registered matched-cost specialist effect supported this extension."
+  },
+  "attribution": "The measured limitation is transforming retrieved facts or valid tool syntax into a source-grounded final decision. The experiment does not identify a single cause among objective, adaptation capacity and recurrent placement.",
+  "settled_worker_seconds": 22343.615069080086,
+  "envelope_seconds": 43200,
+  "native_attempts": 370,
+  "repository_tests": 248,
+  "checkout_workers_at_close": [],
+  "gpu_lease_at_close": null,
+  "memory_pressure_at_close": "normal",
+  "evidence": {
+    "docs/measurements/middle-depth/direct/parent-512.json": "6768834e76ab1337b4c29032ffb822d81d373b200013df6fc75db969719de0d0",
+    "docs/measurements/middle-depth/four-families/terminal-parents-512.json": "9c5f2bd5c97eebeca8ef0f975b361be7b03823154be8ca87530aaf331910dff1",
+    "docs/measurements/middle-depth/direct-decision.json": "c586243c2f89940553a88469784f414e7aef60855b85d8d8ff9cf2c56c63e5ba",
+    "docs/measurements/middle-depth/direct/primary-books.json": "83bf19f3af97f69418c0c7a85abbf5599eee5a78d79c0bc3c9b262bb7519e063",
+    "docs/measurements/middle-depth/standard-five/result.json": "506c53b218514b7d89fefb69ae0b33846f5445e37e018b8bb94de71d3046050c",
+    "docs/measurements/middle-depth/standard-five/depth-result.json": "aab828c12460c84db677d90b13f9b1f8231c4a05a79ceebc96fcba2edcd63c08",
+    "docs/measurements/middle-depth/direct/short-depth-probe.json": "4261a3bdb1d414b9f0ce5c474fab0874669089d33d51c18b47dd7cb889ee1347",
+    "docs/measurements/middle-depth/direct/book-recall-depth.json": "4593610c8daf645083836d148294749c7a6dad428b6efffcd7cb8949b2b06d1c",
+    "docs/measurements/middle-depth/specialist-result.json": "e06fc031b998b46b4a7e7a1b496db159a565281c2350534437fbb6ca9a1114ec",
+    "docs/measurements/middle-depth/local-workflow-screen.json": "56d10d0477926717620ec8f941462c95687a1d980f48396a7ed81f1f9c41fb2c",
+    "docs/measurements/middle-depth/direct/first-calculations.json": "1eb72b7add8244f0e9918ba7ef2e97b02ea4c9eafa2e1ba3759fe979c3c5fcd0",
+    "docs/measurements/middle-depth/direct/training-first-actions.json": "d0613cece27528afc7f198dae42ba92571a35e1fc70ef2ef2c530a15beb108ba",
+    "docs/measurements/middle-depth/quantization/short-decision.json": "9f132a0140df4bfd7a760fe95b16d83cf7ef7d551af55ed13ddab94d56716b2f",
+    "docs/measurements/middle-depth/middle-read/early-decision.json": "8e2680ab9496b1ba5681cc349a0aef23f2cb10918ecc1d72c746d54e1ec5c516",
+    "docs/measurements/middle-depth/standalone/selected-benchmark/audit.json": "760048d89bd2ee17dea4afb2f8675e62a936605baff1e0ebdb601c95aa183423",
+    "docs/measurements/middle-depth/standalone/selected-benchmark/cold/pair.json": "45f0eb40b37328d7fbfe1040bd79343ea962c0bc02b133ca4bf3ec914efe34c1",
+    "docs/measurements/middle-depth/headroom/short-outcomes.json": "caf8674112780d24a738012e641640c4dee071666d3b004600d045dbd5a7ec8c",
+    "docs/measurements/middle-depth/headroom/document-outcomes.json": "723dfcfbab9b581baf7a003e3ed3e14cab197a63ba6bf23ed47d82155d7a0c69",
+    "docs/measurements/middle-depth/manual-recall/result.json": "7f3a7bd6738b7ca06f4e5ccdfe38d67296cb5edaa62fb381bd2defafd53f7315",
+    "docs/measurements/middle-depth/full-regression-isolated.json": "5855015eb7fec939af679747f2bd82035598acad05cbcd37e7702c1f004a0a54",
+    "docs/measurements/middle-depth/accounting/direct-development-close.json": "56180d034c49ef6a14495de977874ad5e348dce57a04717aee2a197b0d5d823c",
+    "docs/measurements/middle-depth/retention/full-fit-prefix-reclamation.json": "aac903be6d66f7d372731b6a178521431b02d86b934944fe992c81ef86a32af2",
+    "docs/measurements/receipt-repair-fit-streamed/closure.json": "563fcb1e5c00430b1f1e81e4655ec0441b68c47248e0bbd5f4e75685350b3c71",
+    "research/results/middle-depth-576/transport.json": "32251d566906a7e07bc34b9839f13664c083c315505970cb25cded3e5e226886",
+    "research/results/middle-depth-full-document/resume.json": "61be0029853b5bfd312dad15044fdc643a9e84e4593c31ec311caa97c5869c8e",
+    "research/results/middle-read-0084/decision.json": "020bcc8a3274338d1e184fcd566c5a239bb0aa09754d72d6f4f7794109857351",
+    "research/diagnostics/middle-depth/direct-pair.md": "f96d98e65f0f994c85fe365f82e7b56e78c1fb838bd5e3321ba7d78eb3449d13",
+    "research/diagnostics/middle-depth/manual-recall.md": "3c05afdd318c9f53e29bfa82c9c2a433eecb733223b3c32500180b13aefd9648"
+  },
+  "restoration_guide": "docs/STANDALONE_MIDDLE.md"
+}

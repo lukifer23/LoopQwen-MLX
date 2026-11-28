@@ -1,0 +1,466 @@
+{
+  "registration": "40cdca81fa54fbf0190ec51241d7fb36f64ea76657740f15acd590f4a956cb8a",
+  "blinded": "954dd37ad6bb173ec271f1ee9330dd2cab7dbcfd2bc9d5b33a3c63a0478b0611",
+  "grades": "55bb1af8635ccee490f1a4641c3fdfb11c1ccfec3f50bea2b34a037466570ed7",
+  "rows": [
+    {
+      "source": "make",
+      "world": "original",
+      "arm": "base",
+      "receipt": "4ac3def1b32caf17ec92e853b6c827908958538be35808d0ccbca7e2ea6ab879",
+      "status": "token_limit",
+      "review_key": "3ed4960b5238a419649873f3781a9051da91bdc507c5538d21b3cc5fef5113fe",
+      "input": "1bf02748c5768b328d8b6bc7656ffc47635d02287fee4a4864247870694d49ff",
+      "input_tokens": 145642,
+      "warm_seconds": 111.6865838340018,
+      "cold_seconds": 282.70971041801386,
+      "first_visible_cold": null,
+      "work": {
+        "model_turns": 1,
+        "generated_tokens": 512,
+        "new_prompt_tokens": 29290,
+        "reused_prompt_tokens": 116352,
+        "warm_layer_token_visits": 715224,
+        "logical_kv_file_bytes": 1429734498
+      },
+      "peak_bytes": 3688599280,
+      "scratch_bytes": 1449293980,
+      "replayed_observations": 0,
+      "calls": [],
+      "grade": {
+        "recall": false,
+        "complete": false,
+        "unsupported": null,
+        "reason": "token_limit"
+      },
+      "by_600": {
+        "recall": false,
+        "complete": false
+      },
+      "complete_capped_seconds": 600
+    },
+    {
+      "source": "make",
+      "world": "original",
+      "arm": "loop",
+      "receipt": "3f9827e2ea314ba26950d7bc7c1164a49fa438027e3938724345974d2ae6fa73",
+      "status": "answered",
+      "review_key": "c72eb0950091f3673924d5f9aedb57b5206435d4c3323c2e259e6a612eedf587",
+      "input": "1bf02748c5768b328d8b6bc7656ffc47635d02287fee4a4864247870694d49ff",
+      "input_tokens": 145642,
+      "warm_seconds": 220.3280628749635,
+      "cold_seconds": 414.2060411249404,
+      "first_visible_cold": 414.08812487497926,
+      "work": {
+        "model_turns": 2,
+        "generated_tokens": 39,
+        "new_prompt_tokens": 58636,
+        "reused_prompt_tokens": 232704,
+        "warm_layer_token_visits": 1642844,
+        "logical_kv_file_bytes": 3336047162
+      },
+      "peak_bytes": 4002467640,
+      "scratch_bytes": 1690842743,
+      "replayed_observations": 1,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "1+1"
+              ]
+            }
+          },
+          "observation": {
+            "results": [
+              "2"
+            ],
+            "value": "2"
+          }
+        }
+      ],
+      "grade": {
+        "recall": false,
+        "complete": false,
+        "unsupported": true,
+        "reason": "The calculator verified 1+1. The reply gives 2 as the total, supplies neither the eight-object count nor the effective job limit with its meaning, and omits the 8 compile slots and final link required for 9 slots."
+      },
+      "by_600": {
+        "recall": false,
+        "complete": false
+      },
+      "complete_capped_seconds": 600
+    },
+    {
+      "source": "make",
+      "world": "edited",
+      "arm": "base",
+      "receipt": "f893163bd49ea5b251ec0f09243367a007e5a09114094245cbd4b6ab29de7ed0",
+      "status": "token_limit",
+      "review_key": "f3039ce9d1a9f7705435723f88da6b69d63f94064edbdc3b95fea334920e167e",
+      "input": "5837ec747d444aada3fb85396fd359ce09d7f1342d7537a43dce559e8b766f85",
+      "input_tokens": 145645,
+      "warm_seconds": 123.28462041600142,
+      "cold_seconds": 294.3077470000135,
+      "first_visible_cold": null,
+      "work": {
+        "model_turns": 1,
+        "generated_tokens": 512,
+        "new_prompt_tokens": 29293,
+        "reused_prompt_tokens": 116352,
+        "warm_layer_token_visits": 715296,
+        "logical_kv_file_bytes": 1429734498
+      },
+      "peak_bytes": 3688599280,
+      "scratch_bytes": 1449293980,
+      "replayed_observations": 0,
+      "calls": [],
+      "grade": {
+        "recall": false,
+        "complete": false,
+        "unsupported": null,
+        "reason": "token_limit"
+      },
+      "by_600": {
+        "recall": false,
+        "complete": false
+      },
+      "complete_capped_seconds": 600
+    },
+    {
+      "source": "make",
+      "world": "edited",
+      "arm": "loop",
+      "receipt": "162cb3d99e0e309caf52651dffa24920e7ba16de5496ef96bf98a608e3c17c23",
+      "status": "answered",
+      "review_key": "190a946e1ea50b1731b5039099ba962510c02c7207fccd7538ec7acbe9e821c6",
+      "input": "5837ec747d444aada3fb85396fd359ce09d7f1342d7537a43dce559e8b766f85",
+      "input_tokens": 145645,
+      "warm_seconds": 216.49085045803804,
+      "cold_seconds": 410.3688287080149,
+      "first_visible_cold": 410.24931883299723,
+      "work": {
+        "model_turns": 2,
+        "generated_tokens": 39,
+        "new_prompt_tokens": 58642,
+        "reused_prompt_tokens": 232704,
+        "warm_layer_token_visits": 1643012,
+        "logical_kv_file_bytes": 3336047162
+      },
+      "peak_bytes": 4002467640,
+      "scratch_bytes": 1690842743,
+      "replayed_observations": 1,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "1+1"
+              ]
+            }
+          },
+          "observation": {
+            "results": [
+              "2"
+            ],
+            "value": "2"
+          }
+        }
+      ],
+      "grade": {
+        "recall": false,
+        "complete": false,
+        "unsupported": true,
+        "reason": "The calculator verified 1+1. The reply gives 2 as the total, supplies neither the eight-object count nor the effective job limit with its meaning, and omits the 4 compile slots and final link required for 5 slots."
+      },
+      "by_600": {
+        "recall": false,
+        "complete": false
+      },
+      "complete_capped_seconds": 600
+    },
+    {
+      "source": "make",
+      "world": "irrelevant",
+      "arm": "base",
+      "receipt": "67ae15ccae31c52017134336a8b07006e7d1ada9415a8ee9dc6a06e08d0a3031",
+      "status": "token_limit",
+      "review_key": "201232b21867e3d0d8811054c4df62e7eb0d2f94a871ff50a5b3c88ea0587043",
+      "input": "5ad71647efb3aa41e8a1e1d43b356f79fcfc04ed57d4c017e522ae16e57d6f69",
+      "input_tokens": 145642,
+      "warm_seconds": 131.13692137500038,
+      "cold_seconds": 302.16004795901245,
+      "first_visible_cold": null,
+      "work": {
+        "model_turns": 1,
+        "generated_tokens": 512,
+        "new_prompt_tokens": 29290,
+        "reused_prompt_tokens": 116352,
+        "warm_layer_token_visits": 715224,
+        "logical_kv_file_bytes": 1429734498
+      },
+      "peak_bytes": 3688599280,
+      "scratch_bytes": 1449293980,
+      "replayed_observations": 0,
+      "calls": [],
+      "grade": {
+        "recall": false,
+        "complete": false,
+        "unsupported": null,
+        "reason": "token_limit"
+      },
+      "by_600": {
+        "recall": false,
+        "complete": false
+      },
+      "complete_capped_seconds": 600
+    },
+    {
+      "source": "make",
+      "world": "irrelevant",
+      "arm": "loop",
+      "receipt": "a435e8faf2178c46f84097a12ee9ab6918dc63988e7891a7d26817e901596151",
+      "status": "answered",
+      "review_key": "999e3d311dbb8afb764847fe3ecebef24e495d3a01dc041dfaaf09c61564c535",
+      "input": "5ad71647efb3aa41e8a1e1d43b356f79fcfc04ed57d4c017e522ae16e57d6f69",
+      "input_tokens": 145642,
+      "warm_seconds": 228.19470441696467,
+      "cold_seconds": 422.07268266694155,
+      "first_visible_cold": 421.95383566693636,
+      "work": {
+        "model_turns": 2,
+        "generated_tokens": 39,
+        "new_prompt_tokens": 58636,
+        "reused_prompt_tokens": 232704,
+        "warm_layer_token_visits": 1642844,
+        "logical_kv_file_bytes": 3336047162
+      },
+      "peak_bytes": 4002467640,
+      "scratch_bytes": 1690842743,
+      "replayed_observations": 1,
+      "calls": [
+        {
+          "call": {
+            "name": "calculate",
+            "arguments": {
+              "steps": [
+                "1+1"
+              ]
+            }
+          },
+          "observation": {
+            "results": [
+              "2"
+            ],
+            "value": "2"
+          }
+        }
+      ],
+      "grade": {
+        "recall": false,
+        "complete": false,
+        "unsupported": true,
+        "reason": "The calculator verified 1+1. The reply gives 2 as the total, supplies neither the eight-object count nor the effective job limit with its meaning, and omits the 8 compile slots and final link required for 9 slots."
+      },
+      "by_600": {
+        "recall": false,
+        "complete": false
+      },
+      "complete_capped_seconds": 600
+    },
+    {
+      "source": "tar",
+      "world": "original",
+      "arm": "base",
+      "receipt": "0a84bdb587b4900bf50589bba20b9873a59ea228255c3a8bc96737e708e70a03",
+      "status": "answered",
+      "review_key": "625aa22fbc382e1c9c0f5847586475bce9720025822eeca3bafe6e2f8592021c",
+      "input": "f75b9ad8c78c451d55a2691225f55b06b7f035f090df720b4f69086755d4fe2f",
+      "input_tokens": 160728,
+      "warm_seconds": 111.58174458303256,
+      "cold_seconds": 333.83939241606276,
+      "first_visible_cold": 326.29552420804976,
+      "work": {
+        "model_turns": 1,
+        "generated_tokens": 389,
+        "new_prompt_tokens": 25176,
+        "reused_prompt_tokens": 135552,
+        "warm_layer_token_visits": 613536,
+        "logical_kv_file_bytes": 1665664098
+      },
+      "peak_bytes": 3906998000,
+      "scratch_bytes": 1685223574,
+      "replayed_observations": 0,
+      "calls": [],
+      "grade": {
+        "recall": false,
+        "complete": false,
+        "unsupported": true,
+        "reason": "The answer compares blues with jazz and assigns blues 62,373 bytes. The requested files are blues at 35,793 bytes and outfile at 100 bytes. The asserted difference of 62,345 bytes uses neither registered operand."
+      },
+      "by_600": {
+        "recall": false,
+        "complete": false
+      },
+      "complete_capped_seconds": 600
+    }
+  ],
+  "sources": {
+    "make": {
+      "base": {
+        "measured": 3,
+        "all_three_by_600": {
+          "recall": false,
+          "complete": false
+        },
+        "mean_complete_capped_seconds": 600
+      },
+      "loop": {
+        "measured": 3,
+        "all_three_by_600": {
+          "recall": false,
+          "complete": false
+        },
+        "mean_complete_capped_seconds": 600
+      }
+    },
+    "tar": {
+      "base": {
+        "measured": 1,
+        "all_three_by_600": {
+          "recall": null,
+          "complete": null
+        },
+        "mean_complete_capped_seconds": 600
+      },
+      "loop": {
+        "measured": 0,
+        "all_three_by_600": {
+          "recall": null,
+          "complete": null
+        },
+        "mean_complete_capped_seconds": null
+      }
+    }
+  },
+  "decisions": {
+    "recall": {
+      "gained": [],
+      "lost": [],
+      "tied": [
+        "make"
+      ],
+      "incomplete": [
+        "tar"
+      ],
+      "passed": null,
+      "two_sided_exact_sign_p": 1.0,
+      "loop_share_among_discordant_95": null
+    },
+    "complete": {
+      "gained": [],
+      "lost": [],
+      "tied": [
+        "make"
+      ],
+      "incomplete": [
+        "tar"
+      ],
+      "passed": null,
+      "two_sided_exact_sign_p": 1.0,
+      "loop_share_among_discordant_95": null
+    }
+  },
+  "expected_requests": 12,
+  "measured_requests": 7,
+  "unmeasured": [
+    [
+      "tar",
+      "original",
+      "loop"
+    ],
+    [
+      "tar",
+      "edited",
+      "base"
+    ],
+    [
+      "tar",
+      "edited",
+      "loop"
+    ],
+    [
+      "tar",
+      "irrelevant",
+      "base"
+    ],
+    [
+      "tar",
+      "irrelevant",
+      "loop"
+    ]
+  ],
+  "status": "stopped-budget",
+  "worker_seconds": 2100.215024751029,
+  "worker_ceiling": 2100,
+  "charges": {
+    "276cffd701cf42d2b03182d01ad373fe.json": {
+      "job": "make/loop/irrelevant/512/manual-recall",
+      "sha256": "b7182fa3ebf571efc3cb784be4ef2c8f4c4e6c7f77729ecf5da6c4359b8950ef",
+      "status": "finished",
+      "seconds": 230.6889457500074,
+      "reason": null
+    },
+    "3b725a515c614acc84beac50f4620bfc.json": {
+      "job": "make/loop/edited/512/manual-recall",
+      "sha256": "30e79bd6cb530d68a738fcc1c53f9c7db50b3037357ed3316b1f1b7a92f74cc9",
+      "status": "finished",
+      "seconds": 218.98931995901512,
+      "reason": null
+    },
+    "5fd3855e26624976806ac9d3aecf70c8.json": {
+      "job": "make/base/irrelevant/512/manual-recall",
+      "sha256": "fb4964adb32aac907092f5349b71114f857d8836015d20ccc5766b2522311c5f",
+      "status": "finished",
+      "seconds": 133.5264902500203,
+      "reason": null
+    },
+    "62fb5c1b4020408f8b89f8f368122e9f.json": {
+      "job": "make/base/edited/512/manual-recall",
+      "sha256": "45d45317505775a1d12f8bf16f27b0a726d24c0fdbc6b0e31d7a98c09f56aac6",
+      "status": "finished",
+      "seconds": 125.60597770800814,
+      "reason": null
+    },
+    "6a7eff0545074bf09f87949dab9717ba.json": {
+      "job": "tar/loop/original/512/manual-recall",
+      "sha256": "c5910925093e2566dff5b8d589bc1919223a10a3585208a91f1f79cb48fb8231",
+      "status": "stopped",
+      "seconds": 350.43508937500883,
+      "reason": "DevelopmentLimit(\"Native development limit: {'pressure': 1, 'available': 5620563968, 'swap': 843972608, 'free': 101437677568, 'active': 3898264270, 'peak': 4242476856}; remaining worker seconds -0.21\")"
+    },
+    "ab94818ddb1a4925bd36f01c1329c0c8.json": {
+      "job": "tar/base/original/512/manual-recall",
+      "sha256": "567f4e53768d63fe849ae8c39850670f15173fb515097226ddcd906ef710f58d",
+      "status": "finished",
+      "seconds": 338.08404733397765,
+      "reason": null
+    },
+    "b84120a22fcc4d738e3f868845d1c65f.json": {
+      "job": "make/base/original/512/manual-recall",
+      "sha256": "677037f7c3b9d63bf64298ea3318aa6451b13e8d1a3b116ad15a1547c1546c95",
+      "status": "finished",
+      "seconds": 285.61698691698257,
+      "reason": null
+    },
+    "dbd36ff1e0eb486881b6719481861217.json": {
+      "job": "make/loop/original/512/manual-recall",
+      "sha256": "fb533db1066aee0802d2145aac9cffeb7a69277f73c24f4af9718b979169b6da",
+      "status": "finished",
+      "seconds": 417.268167458009,
+      "reason": null
+    }
+  }
+}

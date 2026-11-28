@@ -683,7 +683,7 @@
     }
   ],
   "complete": true,
-  "evicted": false,
+  "evicted": true,
   "last_use": 1795827714.59479,
   "command": [
     ".venv/bin/python",
@@ -706,5 +706,10 @@
     "checkpoints/middle-depth/4619/ordinary/step-0576"
   ],
   "seconds": 320.6117227919749,
-  "avoided_duplicate_bytes": 1010411893
+  "avoided_duplicate_bytes": 1010411893,
+  "evicted_at": 1795838671.888641,
+  "former_bytes": 2018670744,
+  "exclusive_working_bytes": 1008258851,
+  "manifest_sha256": "90de73b0cc810e6c6315aa07328564a92669d8cc29b8bcf3d74b79f0b0a590f5",
+  "eviction_basis": "least recently used verified prefix"
 }
