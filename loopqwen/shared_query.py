@@ -72,7 +72,7 @@ def differentiable_attention(q, k, v, scale, mask):
     return output.reshape(batch, heads, length, dim).astype(q.dtype)
 
 
-def attend(
+def attention_update(
     layer,
     hidden,
     k,
@@ -84,7 +84,7 @@ def attend(
     observe_query=None,
     differentiate=False,
 ):
-    """Run the original gated query, output projection and MLP on selected positions."""
+    """Read the projected causal history without appending keys or values."""
     a = layer.self_attn
     batch, length, _ = hidden.shape
     source = layer.input_layernorm(hidden)
@@ -103,7 +103,33 @@ def attend(
     else:
         z = scaled_dot_product_attention(q, k, v, cache=None, scale=a.scale, mask=mask)
     z = z.transpose(0, 2, 1, 3).reshape(batch, length, -1)
-    h = hidden + a.o_proj(z * mx.sigmoid(gate.reshape(batch, length, -1)))
+    return a.o_proj(z * mx.sigmoid(gate.reshape(batch, length, -1)))
+
+
+def attend(
+    layer,
+    hidden,
+    k,
+    v,
+    offset,
+    mask,
+    *,
+    step=None,
+    observe_query=None,
+    differentiate=False,
+):
+    """Run the original gated query, output projection and MLP on selected positions."""
+    h = hidden + attention_update(
+        layer,
+        hidden,
+        k,
+        v,
+        offset,
+        mask,
+        step=step,
+        observe_query=observe_query,
+        differentiate=differentiate,
+    )
     return h + layer.mlp(layer.post_attention_layernorm(h))
 
 

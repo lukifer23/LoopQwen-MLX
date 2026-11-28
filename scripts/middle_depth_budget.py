@@ -103,6 +103,14 @@ def worker(stage, job):
     ledger.mkdir(exist_ok=True, parents=True)
     past = [recover_charge(p) for p in ledger.glob("*.json")]
     credit = BUDGET[stage] - sum(r["seconds"] for r in past if r["stage"] == stage)
+    if job.startswith("middle-read/"):
+        limits_by_stage = {"profile": 180, "fit": 1200, "short": 360}
+        used = sum(
+            r["seconds"]
+            for r in past
+            if r["stage"] == stage and r["job"].startswith("middle-read/")
+        )
+        credit = min(credit, limits_by_stage[stage] - used)
     if job.startswith("local-workflows/"):
         used = sum(
             r["seconds"] for r in past if r["job"].startswith("local-workflows/")
