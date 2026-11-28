@@ -54,7 +54,12 @@ def audit():
                     for call, witness in zip(calls, obs, strict=True):
                         try:
                             replay = lookup[call["name"]].callback(**call["arguments"])
-                        except (ValueError, SyntaxError, ArithmeticError, TypeError) as ex:
+                        except (
+                            ValueError,
+                            SyntaxError,
+                            ArithmeticError,
+                            TypeError,
+                        ) as ex:
                             replay = {"error": type(ex).__name__}
                         if replay != witness:
                             raise ValueError(f"Live provider differs from {path}")
@@ -105,5 +110,99 @@ def audit():
         )
 
 
+def audit_thinking():
+    import re
+    from statistics import median
+
+    from loopqwen.research.cross_view_study import tokenizer
+    from scripts.middle_depth_budget import BASE
+    from scripts.middle_depth_material import ROWS
+
+    tok = tokenizer({"checkpoint": str(BASE)})
+    details = []
+    for r in unpack(ROWS):
+        left, close, right = tok.decode(r["y"]).partition("</think>")
+        prompt = tok.decode(r["p"])
+        details.append(
+            {
+                "id": r["id"],
+                "family": r["family"],
+                "group": r["group"],
+                "open_thinking": prompt.endswith("<think>\n"),
+                "closing": bool(close),
+                "thought_text": bool(left.strip()),
+                "prior_provider_response": "<tool_response>" in prompt,
+                "action_targets": re.findall(r"<function=([^>]+)>", right),
+                "target_positions": len(r["y"]),
+            }
+        )
+    families = {}
+    for f in ("chat", "reasoning", "documents", "tools"):
+        z = [r for r in details if r["family"] == f]
+        families[f] = {
+            "rows": len(z),
+            "open_thinking": sum(r["open_thinking"] for r in z),
+            "closing": sum(r["closing"] for r in z),
+            "nonempty_thought_targets": sum(r["thought_text"] for r in z),
+            "prior_provider_response": sum(r["prior_provider_response"] for r in z),
+            "target_calls": dict(Counter(k for r in z for k in r["action_targets"])),
+            "target_positions": sum(r["target_positions"] for r in z),
+        }
+    save(
+        ROOT / "training-format-audit.json",
+        {
+            "weights_experiment": "source-supervised",
+            "training": digest(ROWS),
+            "definition": "Decode each stored target with the deployed tokenizer. Count non-whitespace text preceding the first closing think marker, and actual native function names in the subsequent target. Distinguish requests that already contain provider history.",
+            "families": families,
+            "rows": details,
+        },
+    )
+    close = tok.convert_tokens_to_ids("</think>")
+    scored = ROOT / "review/terminal/scored.json"
+    raw = []
+    for m in read(scored):
+        if m["cap"] != 512 or m["world"] in ("own", "shared"):
+            continue
+        path = ROOT / m["file"]
+        assert digest(path) == m["sha"]
+        t = unpack(path)["trace"]["turns"][0]["token_ids"]
+        n = t.index(close) if close in t else len(t)
+        raw.append(
+            {
+                "arm": m["arm"],
+                "family": m["family"],
+                "source": m["source"],
+                "world": m["world"],
+                "thought_positions": n,
+                "closed": close in t,
+                "empty": close in t and not tok.decode(t[:n]).strip(),
+                "grade": m["grade"]["correct"],
+                "trace": m["sha"],
+            }
+        )
+    by = {}
+    for arm in ("loop", "ordinary", "base", "instruction"):
+        by[arm] = {}
+        for f in ("tools", "reasoning", "chat"):
+            z = [r for r in raw if r["arm"] == arm and r["family"] == f]
+            by[arm][f] = {
+                "n": len(z),
+                "empty": sum(r["empty"] for r in z),
+                "unclosed": sum(not r["closed"] for r in z),
+                "median_thought_positions": median(r["thought_positions"] for r in z),
+            }
+    save(
+        ROOT / "generated-thought-audit.json",
+        {
+            "scope": "First actual assistant generation on all 27 terminal short openings per arm with 512-token allowance. Counts observed positions up to the closing think token or exhaustion.",
+            "cohort": digest(scored),
+            "arms": by,
+            "rows": raw,
+        },
+    )
+
+
 if __name__ == "__main__":
     audit()
+    audit_thinking()

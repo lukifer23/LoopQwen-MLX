@@ -1,0 +1,3288 @@
+{
+  "weights_experiment": "source-supervised",
+  "training": "1dc6bfa524162758dea23e3000a3041c388f6cf678f7c2109f7bcb03b2435349",
+  "definition": "Decode each stored target with the deployed tokenizer. Count non-whitespace text preceding the first closing think marker, and actual native function names in the subsequent target. Distinguish requests that already contain provider history.",
+  "families": {
+    "chat": {
+      "rows": 72,
+      "open_thinking": 72,
+      "closing": 72,
+      "nonempty_thought_targets": 0,
+      "prior_provider_response": 0,
+      "target_calls": {},
+      "target_positions": 9540
+    },
+    "reasoning": {
+      "rows": 72,
+      "open_thinking": 72,
+      "closing": 72,
+      "nonempty_thought_targets": 24,
+      "prior_provider_response": 0,
+      "target_calls": {},
+      "target_positions": 2484
+    },
+    "documents": {
+      "rows": 72,
+      "open_thinking": 72,
+      "closing": 72,
+      "nonempty_thought_targets": 0,
+      "prior_provider_response": 0,
+      "target_calls": {},
+      "target_positions": 2657
+    },
+    "tools": {
+      "rows": 72,
+      "open_thinking": 72,
+      "closing": 72,
+      "nonempty_thought_targets": 0,
+      "prior_provider_response": 60,
+      "target_calls": {
+        "calculate": 24,
+        "database_query": 12
+      },
+      "target_positions": 2452
+    }
+  },
+  "rows": [
+    {
+      "id": "dolly/640bb106769f3b9c824eae7b273677cf2c784b4f7febe36da64d8b667431fb0f",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 97
+    },
+    {
+      "id": "2023-14385/2023-14664/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 38
+    },
+    {
+      "id": "hotpotqa/5ae11e6155429901ffe4ada4/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 74
+    },
+    {
+      "id": "tatqa/3ba77e51-c495-4ab8-b916-3bfd7bb19ceb/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 8
+    },
+    {
+      "id": "dolly/a3b6deebe09a83df7bbdb02d50584d25b6859598ebb038ae07f832d6e6c91553",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 205
+    },
+    {
+      "id": "table/12935",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 45
+    },
+    {
+      "id": "hotpotqa/5abe49405542991f6610611d/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 115
+    },
+    {
+      "id": "tatqa/b29fe296-6ee7-4bbf-9345-1357ada085d6/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "dolly/9b01ee5351faf010c50eb16743268bb6c754801544ba38a52b250c2696a7419d",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 232
+    },
+    {
+      "id": "table/17518",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 36
+    },
+    {
+      "id": "hotpotqa/5ab3b16d554299753aec59a3/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 47
+    },
+    {
+      "id": "tatqa/25857431-8ff8-496c-ac3c-aa0780708d99/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 9
+    },
+    {
+      "id": "dolly/f8493f0739fa4770d7d662df26a60e785d0c269b76e77e57aad3812f815e0458",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 88
+    },
+    {
+      "id": "2023-14105/2023-14088/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 46
+    },
+    {
+      "id": "hotpotqa/5abd554b55429933744ab777/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 143
+    },
+    {
+      "id": "tatqa/158ecf4b-d9b0-448e-946a-c7b09d5a3b98/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 47
+    },
+    {
+      "id": "dolly/b682dcd6da409a197c9a1d83e9317fdb7d4de7ffce4502f05a188ee42204a685",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 55
+    },
+    {
+      "id": "table/12150",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 27
+    },
+    {
+      "id": "hotpotqa/5adf76b85542992d7e9f9385/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 93
+    },
+    {
+      "id": "tatqa/8e14050a-c4f5-40c0-8d57-d613830b1698/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 13
+    },
+    {
+      "id": "oasst/17108619-b167-4cba-90f2-dfe913c3154c",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 344
+    },
+    {
+      "id": "table/7899",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 28
+    },
+    {
+      "id": "QRQA-10186-4",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/2b691cd3-12af-4441-9d21-fa23e2cb7e55/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 9
+    },
+    {
+      "id": "oasst/54063d7f-e50a-4291-90e7-375ddca667ea",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 177
+    },
+    {
+      "id": "table/12302",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 38
+    },
+    {
+      "id": "QRQA-10349-3",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "tatqa/6b4729b4-3b9d-454e-afec-5f57fa7bf95b/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "oasst/b6ae1a4c-e49a-479f-8c5e-642f230e7a49",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 205
+    },
+    {
+      "id": "table/397",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 29
+    },
+    {
+      "id": "hotpotqa/5ac0f3ec5542996f0d89cc40/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 73
+    },
+    {
+      "id": "tatqa/0da57c95-2709-4b67-a1be-db6f325fb4e5/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 50
+    },
+    {
+      "id": "dolly/ebf15f6a14cd986c96d46376df83583c056f4cfb22339917d14904e693701d8a",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 48
+    },
+    {
+      "id": "table/10092",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 63
+    },
+    {
+      "id": "hotpotqa/5abab90a55429901930fa8a8/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 108
+    },
+    {
+      "id": "tatqa/7104cb54-95a0-4e0c-97bc-9959d2ae7699/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 42
+    },
+    {
+      "id": "dolly/e03cfb74123becf73641a220d4393f79040955a77d2d21a73db46e9ce582faf7",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 67
+    },
+    {
+      "id": "table/13034",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 48
+    },
+    {
+      "id": "hotpotqa/5a838b0c5542992ef85e22ec/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 56
+    },
+    {
+      "id": "tatqa/d27b69a5-b2e5-45e8-bf6e-46c37c41e448/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 53
+    },
+    {
+      "id": "oasst/f43db2d1-f022-4a5c-ba5c-96ab73b83915",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 125
+    },
+    {
+      "id": "table/13733",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 52
+    },
+    {
+      "id": "hotpotqa/5adf38f95542992d7e9f92dc/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 84
+    },
+    {
+      "id": "tatqa/d3417a2d-ce85-4ef8-95d3-45b562f4ede7/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 9
+    },
+    {
+      "id": "oasst/0c952b4b-0b26-4230-a2a0-963cb098f9a5",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 261
+    },
+    {
+      "id": "table/13540",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 29
+    },
+    {
+      "id": "hotpotqa/5a84ba3c5542991dd0999db9/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 90
+    },
+    {
+      "id": "tatqa/ff1633bf-03b3-4b23-a747-da16b198aa1f/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "dolly/a4ac0be8f5bfe6951497b1b940266bd491488a0ee668f618513241d7844f95f5",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 87
+    },
+    {
+      "id": "table/8348",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 36
+    },
+    {
+      "id": "hotpotqa/5abbe484554299660624173a/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 128
+    },
+    {
+      "id": "tatqa/b2e1f480-9832-4503-bd56-e786f820e306/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 39
+    },
+    {
+      "id": "oasst/117585d7-9150-462a-a809-1ff9c0ff3510",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 192
+    },
+    {
+      "id": "2023-13963/2023-15030/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 34
+    },
+    {
+      "id": "hotpotqa/5adfec4d55429942ec259b8c/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 58
+    },
+    {
+      "id": "tatqa/8968467b-de59-4fc8-87a7-e0d98f679a47/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 9
+    },
+    {
+      "id": "dolly/3c3d925b6150d2c9e2ef521cad7c5f190d92bd61ac133589315be7a0c2e8b951",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 25
+    },
+    {
+      "id": "2023-14278/2023-14628/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 49
+    },
+    {
+      "id": "QRQA-10349-3-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "tatqa/94bc4d77-55a8-4cb0-a095-f9d799b3c37b/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 38
+    },
+    {
+      "id": "dolly/97d1ba958d81b11454bb2b30e3fbfb2d4c0586ac0298997025b88c2e6e176ec3",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 74
+    },
+    {
+      "id": "table/19073",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 22
+    },
+    {
+      "id": "hotpotqa/5a846624554299123d8c2235/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 78
+    },
+    {
+      "id": "tatqa/ee3856c8-56f7-424f-9fbf-4b7f2fe9731f/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 37
+    },
+    {
+      "id": "oasst/4d3b5f80-6ec2-499f-a90b-b5d410d2930c",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 225
+    },
+    {
+      "id": "table/8402",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 37
+    },
+    {
+      "id": "QRQA-10171-1",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 8
+    },
+    {
+      "id": "tatqa/83609f56-d841-443b-834f-a0b553583187/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 36
+    },
+    {
+      "id": "oasst/16400e64-287d-48eb-a81f-1c67bfc436ba",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 351
+    },
+    {
+      "id": "table/13467",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 40
+    },
+    {
+      "id": "hotpotqa/5a890a9155429946c8d6e8f8/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 86
+    },
+    {
+      "id": "tatqa/3d61ce04-aca3-4c03-adcf-03a207c2afb6/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 53
+    },
+    {
+      "id": "oasst/cae3a478-462b-4ebc-97d0-52eb0436a589",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 219
+    },
+    {
+      "id": "table/10692",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 33
+    },
+    {
+      "id": "QRQA-10086-1",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/4c317c9d-56a0-49ba-aa02-36167af0e3a2/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 53
+    },
+    {
+      "id": "oasst/ed09cbc8-32b1-45a5-bc60-795f756b293d",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 248
+    },
+    {
+      "id": "2023-14304/2023-14490/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 36
+    },
+    {
+      "id": "QRQA-10274-1-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/604fc751-5861-4cd4-864f-bea629bf6535/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 46
+    },
+    {
+      "id": "oasst/b9168c38-ffee-422c-8cb3-5f1e4d46158d",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 56
+    },
+    {
+      "id": "table/17481",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 28
+    },
+    {
+      "id": "QRQA-10040-3-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/d468c666-38e5-428f-95c5-ee570535fdf4/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 8
+    },
+    {
+      "id": "oasst/0c681be5-a6c1-46d5-b71d-45fbb59aaf1c",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 227
+    },
+    {
+      "id": "2023-14921/2023-14919/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 37
+    },
+    {
+      "id": "QRQA-10138-1",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/3028d506-1188-4d47-86cf-283894aeeafb/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 60
+    },
+    {
+      "id": "dolly/d7c4c4f328198d96ff43fa1cdf2e894dd6cf43b0930b95bd40336df81f593899",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 288
+    },
+    {
+      "id": "table/240",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 39
+    },
+    {
+      "id": "QRQA-10284-1-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/eb0aa7ea-b2cc-42ce-9876-27fe66ad8cea/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 14
+    },
+    {
+      "id": "oasst/eb13a990-1a21-4505-8f3e-65fa01e1e8bc",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 162
+    },
+    {
+      "id": "table/12800",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 28
+    },
+    {
+      "id": "QRQA-10186-4-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/376c787f-b495-4479-b4d2-112e84a47a59/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "authored/5",
+      "family": "chat",
+      "group": "edited_reply",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 30
+    },
+    {
+      "id": "2023-13773/2023-14187/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 36
+    },
+    {
+      "id": "QRQA-10171-1-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/33cdd75e-c10c-4bec-8117-744b7b10bd45/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "oasst/6003ea85-ecc7-4f6f-9644-e83d80e87ebc",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 166
+    },
+    {
+      "id": "2023-14144/2023-14904/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 42
+    },
+    {
+      "id": "QRQA-10166-3",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/af03f83b-9c29-41af-9acb-975982aadef9/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 9
+    },
+    {
+      "id": "authored/3",
+      "family": "chat",
+      "group": "edited_reply",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 22
+    },
+    {
+      "id": "2023-13865/2023-14744/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 31
+    },
+    {
+      "id": "hotpotqa/5abd8f8c5542996e802b47d2/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 76
+    },
+    {
+      "id": "tatqa/76deeac3-33f1-4520-b74e-d51e0578d735/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "authored/1",
+      "family": "chat",
+      "group": "edited_reply",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 27
+    },
+    {
+      "id": "2023-14105/2023-14088/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 38
+    },
+    {
+      "id": "QRQA-10312-2-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 8
+    },
+    {
+      "id": "tatqa/0df8f7b2-8c8b-49a2-bfd8-9cf9cfa29f24/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 48
+    },
+    {
+      "id": "dolly/b69c3476685a881a3e995cf58d39b3c5d3a7bb98accf4d39687929ea68b445d8",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 143
+    },
+    {
+      "id": "2023-14304/2023-14490/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 41
+    },
+    {
+      "id": "QRQA-10194-2",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "tatqa/49e8bc8f-4766-4858-a6b2-9726d18cde70/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 9
+    },
+    {
+      "id": "dolly/bf80e63c17a6b6a943af789ebb04885dc0f2a7c710a64330da4a4c267d2161f6",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 58
+    },
+    {
+      "id": "2023-14154/2023-14102/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 34
+    },
+    {
+      "id": "QRQA-10017-1",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/5964b119-824e-4277-8f83-ef83a15dead0/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 56
+    },
+    {
+      "id": "oasst/1d57ad3f-1008-4545-af55-28edfef77ddb",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 143
+    },
+    {
+      "id": "table/11603",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 29
+    },
+    {
+      "id": "QRQA-10138-1-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "tatqa/30e4ab46-275a-4282-a9b0-2abff9fc806e/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "dolly/503f7f0bc0c71ccbf86e2fe4285137864ba4641f8992693ea37129af4151e25a",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 212
+    },
+    {
+      "id": "table/15327",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 26
+    },
+    {
+      "id": "hotpotqa/5abbbac05542996606241728/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 56
+    },
+    {
+      "id": "tatqa/063e77b5-3206-4269-88b4-2ea433fe2a61/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "authored/0",
+      "family": "chat",
+      "group": "edited_reply",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 25
+    },
+    {
+      "id": "2023-13865/2023-14744/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 36
+    },
+    {
+      "id": "QRQA-10343-2-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "tatqa/e07f8967-1b86-4433-ba9c-47b09e89e6b8/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 57
+    },
+    {
+      "id": "authored/6",
+      "family": "chat",
+      "group": "edited_reply",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 20
+    },
+    {
+      "id": "2023-14278/2023-14628/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 34
+    },
+    {
+      "id": "QRQA-10192-4",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/d8b972a6-1306-452a-b3d5-b173eae63e8b/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "dolly/66ecd6c87c5b7dee3f696479f333ec774c7b6d1e0470ddd4bd855c1158fdcf18",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 84
+    },
+    {
+      "id": "2023-14956/2023-13998/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 40
+    },
+    {
+      "id": "QRQA-10329-2",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/9bdcebed-34bb-4910-9f60-b48b7342f709/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 53
+    },
+    {
+      "id": "dolly/5c3dc118126dd319b038abd8c1853ced0c132341b69a3885e920adb2989b27b1",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 42
+    },
+    {
+      "id": "2023-14306/2023-14418/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 34
+    },
+    {
+      "id": "QRQA-10055-4-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 11
+    },
+    {
+      "id": "tatqa/bd4d283a-0a65-450d-ae42-251f7403be03/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 9
+    },
+    {
+      "id": "dolly/f1aa9c74900249c521420909759aacb46f0da72d77b541aa467e38a291837cf7",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 131
+    },
+    {
+      "id": "2023-13963/2023-15030/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 39
+    },
+    {
+      "id": "hotpotqa/5ae0a854554299603e418432/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 105
+    },
+    {
+      "id": "tatqa/98f01691-b8ad-4e1c-b9dd-09e57fae2743/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "dolly/d3e823f5160c108430ef383638b65ca90dfe0f726a06a652dbd4addee12829ce",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 330
+    },
+    {
+      "id": "table/12453",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 45
+    },
+    {
+      "id": "QRQA-10248-3",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/748488cd-51f7-4bee-8179-de134c33cb75/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 42
+    },
+    {
+      "id": "oasst/0f873c97-22f6-4b37-b503-0054a8389a0f",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 121
+    },
+    {
+      "id": "table/18605",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 26
+    },
+    {
+      "id": "hotpotqa/5ab47f6c5542991751b4d796/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 111
+    },
+    {
+      "id": "tatqa/2189131d-ea05-40c5-9034-68d130f2c97f/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 56
+    },
+    {
+      "id": "oasst/e17187ad-6001-4449-bf6d-21eb53e9cf18",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 123
+    },
+    {
+      "id": "2023-14385/2023-14664/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 43
+    },
+    {
+      "id": "QRQA-10157-3-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 8
+    },
+    {
+      "id": "tatqa/ee3856c8-56f7-424f-9fbf-4b7f2fe9731f/reply/deliver",
+      "family": "tools",
+      "group": "deliver",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "dolly/05e0af33d3ce1fcf6ee105d71644a81b8eb7a8ec2ffebef4ea19705cfe362015",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 55
+    },
+    {
+      "id": "2023-13985/2023-15092/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 33
+    },
+    {
+      "id": "QRQA-10062-5",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/19415774-abb0-4f64-80e2-45263a78df5b/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 43
+    },
+    {
+      "id": "dolly/9842a15efea4f457e3b9870a6a5a8d3cab5e1e65cc4cd0a71b528a60c721a887",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 34
+    },
+    {
+      "id": "table/21663",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 61
+    },
+    {
+      "id": "QRQA-10136-1",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/K969kvriaajGACdfr/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 13
+    },
+    {
+      "id": "oasst/bc92d75f-e017-403e-8375-815828487d4e",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 214
+    },
+    {
+      "id": "table/14395",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 30
+    },
+    {
+      "id": "QRQA-10032-3-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "tatqa/3a59ee37-921a-45eb-889b-279a791702b5/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 13
+    },
+    {
+      "id": "dolly/a9e7e671eee7615d54ddcc5c76b74d97311a26c6e4cecbe26070f2d9677dbe97",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 63
+    },
+    {
+      "id": "table/1195",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 23
+    },
+    {
+      "id": "QRQA-10003-2",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 8
+    },
+    {
+      "id": "tatqa/a606a416-c5c8-4b16-bf1b-0fb06636d050/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 56
+    },
+    {
+      "id": "oasst/32f65b82-5a7e-4ae3-95cf-65f93a55aae9",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 156
+    },
+    {
+      "id": "table/9591",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 25
+    },
+    {
+      "id": "hotpotqa/5a8c2d3f554299240d9c20b9/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 101
+    },
+    {
+      "id": "tatqa/6f2a9b75-8907-4c4a-87c8-c2be01797dd5/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 39
+    },
+    {
+      "id": "oasst/ab62bffa-646c-4119-9323-dc04734b02e4",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 117
+    },
+    {
+      "id": "table/1345",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 36
+    },
+    {
+      "id": "hotpotqa/5ab6a06c554299110f219a40/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 61
+    },
+    {
+      "id": "tatqa/2593e227-a34d-4426-8510-77a9051af505/reply/recovered",
+      "family": "tools",
+      "group": "recovered",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "oasst/276ff694-d268-410b-9c69-2516ae8fdf31",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 155
+    },
+    {
+      "id": "2023-14306/2023-14418/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 33
+    },
+    {
+      "id": "QRQA-10270-2",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "tatqa/8c873bd0-0621-4600-9795-47de28e971b7/reply/open",
+      "family": "tools",
+      "group": "open",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 35
+    },
+    {
+      "id": "authored/7",
+      "family": "chat",
+      "group": "edited_reply",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 22
+    },
+    {
+      "id": "table/7709",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 33
+    },
+    {
+      "id": "hotpotqa/5ab63b0e5542995eadeeff85/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 88
+    },
+    {
+      "id": "tatqa/f95eb564-bcc7-4c6f-831c-cea6f931a94f/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 53
+    },
+    {
+      "id": "dolly/b54bb0694314403ccaf29547e49c9856ebc4f00d57fe62aed16ad9f24d7f6f2a",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 139
+    },
+    {
+      "id": "table/9974",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 31
+    },
+    {
+      "id": "hotpotqa/5ab5aa105542992aa134a37a/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 132
+    },
+    {
+      "id": "tatqa/11b72e71-6b83-41bf-a465-0a73313ce56b/reply/repair",
+      "family": "tools",
+      "group": "repair",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "calculate"
+      ],
+      "target_positions": 62
+    },
+    {
+      "id": "dolly/4c1aaa9ff1eff0e1d5a8a46e3241f571721645f0700d232c9d96b47b619585af",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 46
+    },
+    {
+      "id": "table/17169",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 26
+    },
+    {
+      "id": "QRQA-10136-1-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/gvEvk9HarAimy78Ji/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 22
+    },
+    {
+      "id": "dolly/74fcdd9038675b21af0a9688c3ce252b29613e871473db8cf2f4f57a961e94bc",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 71
+    },
+    {
+      "id": "2023-13985/2023-15092/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 38
+    },
+    {
+      "id": "QRQA-10100-1-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/3JkLqzpnoY5psLkF3/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 111
+    },
+    {
+      "id": "oasst/2d13d851-2b6e-4dff-a0ee-6a8d05378b61",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 51
+    },
+    {
+      "id": "2023-14107/2023-14186/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 38
+    },
+    {
+      "id": "QRQA-10157-3",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 8
+    },
+    {
+      "id": "cosql/buwsaERymuvmXDh2g/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 17
+    },
+    {
+      "id": "authored/4",
+      "family": "chat",
+      "group": "edited_reply",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 39
+    },
+    {
+      "id": "2023-13773/2023-14187/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 36
+    },
+    {
+      "id": "QRQA-10248-3-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/q96Qv6RLWxzWZY7nJ/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 66
+    },
+    {
+      "id": "dolly/35b2b61e90fa66b8b17e2083ea003080a95aa446fbc77e97c9ac77812939ed38",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 56
+    },
+    {
+      "id": "2023-14066/2023-15060/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 35
+    },
+    {
+      "id": "QRQA-10086-1-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/JMtKxgJZNxoYHoet2/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 18
+    },
+    {
+      "id": "dolly/deaf6ece59437c2e8d6a282d450ad0886b3776001a1bf15eb5845b24dd489984",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 73
+    },
+    {
+      "id": "2023-14956/2023-13998/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 38
+    },
+    {
+      "id": "QRQA-10166-3-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/sKJToFPEqHmybZMHz/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 19
+    },
+    {
+      "id": "dolly/55ecbd1bdb3a9c67e250f2aaa4eaca4aa846a2d0c073655bb1c3900d057ac052",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 19
+    },
+    {
+      "id": "table/1601",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 49
+    },
+    {
+      "id": "QRQA-10194-2-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "cosql/DP7HsbzuRoEipkYxK/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 16
+    },
+    {
+      "id": "oasst/cfa3f97f-d1eb-4f8c-86d8-c91b8addef01",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 132
+    },
+    {
+      "id": "table/2577",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 23
+    },
+    {
+      "id": "QRQA-10003-2-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/akqWZxGRHihMWFCQT/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 18
+    },
+    {
+      "id": "authored/2",
+      "family": "chat",
+      "group": "edited_reply",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 22
+    },
+    {
+      "id": "table/17565",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 50
+    },
+    {
+      "id": "QRQA-10017-1-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/zwghjqqyPLgG5pnbj/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "dolly/4405f224f19d3e19a8212aa05164e60baa3b171876d6a2095b2d569d8a74b12b",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 40
+    },
+    {
+      "id": "table/11444",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 89
+    },
+    {
+      "id": "QRQA-10040-3",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 8
+    },
+    {
+      "id": "cosql/E4H92hoSzydtNY6c3/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 50
+    },
+    {
+      "id": "oasst/e9deebd2-d31d-4bfa-addc-e198814ca90f",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 179
+    },
+    {
+      "id": "2023-14154/2023-14102/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 41
+    },
+    {
+      "id": "QRQA-10274-1",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "cosql/WKH8dNxhEk3JvKcyn/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 50
+    },
+    {
+      "id": "oasst/30789063-e5a2-4358-b07a-a017270ac1ae",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 85
+    },
+    {
+      "id": "2023-14066/2023-15060/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 37
+    },
+    {
+      "id": "QRQA-10284-1",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "cosql/n5yn6G296TNA4QJhW/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 57
+    },
+    {
+      "id": "oasst/5d7da95c-50d3-405a-bcd1-76b15fde50ca",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 249
+    },
+    {
+      "id": "2023-14921/2023-14919/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 37
+    },
+    {
+      "id": "hotpotqa/5ac088095542992a796ded37/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 59
+    },
+    {
+      "id": "cosql/2txe4pe5aJjCzj6o3/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 17
+    },
+    {
+      "id": "oasst/277b6f05-d5c4-45bb-8d3f-4edf3ae2e0cc",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 427
+    },
+    {
+      "id": "2023-14441/2023-14303/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 37
+    },
+    {
+      "id": "QRQA-10343-2",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "cosql/kkGsTvRpjCTrJ5pc2/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 105
+    },
+    {
+      "id": "oasst/19cb94ab-d6ab-4dbd-b408-70ffbd9b595c",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 160
+    },
+    {
+      "id": "table/18086",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 34
+    },
+    {
+      "id": "QRQA-10192-4-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/9DyFGDZkjgzwAz6er/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 102
+    },
+    {
+      "id": "dolly/654d0ef2133faa70080e0afa7527d8346ea7c02112cd107fffc9acf2cb7106a3",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 120
+    },
+    {
+      "id": "2023-14144/2023-14904/published",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 33
+    },
+    {
+      "id": "QRQA-10055-4",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 11
+    },
+    {
+      "id": "cosql/wswXBKxXp9rL6XNWC/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 69
+    },
+    {
+      "id": "dolly/1e411788fd2ec38c0e8f0c18092d4fc7af7b8d0fe938dbda024c67ad5b76ab1a",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 51
+    },
+    {
+      "id": "table/12165",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 31
+    },
+    {
+      "id": "QRQA-10100-1",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/RiWertK5TkuJy5ZhG/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 19
+    },
+    {
+      "id": "dolly/c3d6dc83fa703574b68b0bafa1a587bd594de4793a1869e0a44c2039f2487684",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 35
+    },
+    {
+      "id": "table/1301",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 37
+    },
+    {
+      "id": "QRQA-10270-2-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "cosql/Nzkj5pq6cFvuwGwd8/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 10
+    },
+    {
+      "id": "oasst/3e42bc49-ce79-41cb-a224-97f687d76429",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 95
+    },
+    {
+      "id": "2023-14107/2023-14186/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 33
+    },
+    {
+      "id": "QRQA-10032-3",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/n5yn6G296TNA4QJhW/reuse",
+      "family": "tools",
+      "group": "reuse",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [],
+      "target_positions": 24
+    },
+    {
+      "id": "dolly/f34a46544a4282e33fb8a6ed651ca285994c357c1ce5b360a51d5943e6deb494",
+      "family": "chat",
+      "group": "rewrite",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 119
+    },
+    {
+      "id": "table/10769",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 43
+    },
+    {
+      "id": "hotpotqa/5ab6fdd3554299710c8d1fcf/answer",
+      "family": "reasoning",
+      "group": "comparison",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": true,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 125
+    },
+    {
+      "id": "cosql/WwjM5nPMoNkdGA8Ye/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 59
+    },
+    {
+      "id": "oasst/244c2c1b-71a6-4806-9f23-f8c2fbfe4490",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 299
+    },
+    {
+      "id": "table/15966",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 31
+    },
+    {
+      "id": "QRQA-10062-5-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "cosql/W4Qm2nPtMofFQ9zJn/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 50
+    },
+    {
+      "id": "oasst/14a18226-061a-43d8-9176-af4e447a2b78",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 248
+    },
+    {
+      "id": "2023-14441/2023-14303/revision",
+      "family": "documents",
+      "group": "agenda",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 34
+    },
+    {
+      "id": "QRQA-10312-2",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 7
+    },
+    {
+      "id": "cosql/SifkbTqMbADvZrBcJ/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 91
+    },
+    {
+      "id": "oasst/bb6b9142-1384-4df8-b39f-f10956ec3786",
+      "family": "chat",
+      "group": "conversation",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 234
+    },
+    {
+      "id": "table/18373",
+      "family": "documents",
+      "group": "complete_table",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 30
+    },
+    {
+      "id": "QRQA-10329-2-flip",
+      "family": "reasoning",
+      "group": "polarity",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": false,
+      "action_targets": [],
+      "target_positions": 6
+    },
+    {
+      "id": "cosql/J89F2SyEYPzWt6a7c/redirect",
+      "family": "tools",
+      "group": "redirect",
+      "open_thinking": true,
+      "closing": true,
+      "thought_text": false,
+      "prior_provider_response": true,
+      "action_targets": [
+        "database_query"
+      ],
+      "target_positions": 62
+    }
+  ]
+}

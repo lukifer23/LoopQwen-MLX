@@ -1,0 +1,64 @@
+{
+  "at": "2026-11-28T00:19:02.412554+00:00",
+  "processes": {
+    "28483": {
+      "role": "active native worker",
+      "parent": 45815,
+      "status": "running",
+      "rss": 719519744
+    },
+    "45815": {
+      "role": "serial research conductor",
+      "parent": 74253,
+      "status": "sleeping",
+      "rss": 14368768
+    },
+    "11137": {
+      "role": "wait for prior conductor to exit then run the standalone pair",
+      "parent": 74253,
+      "status": "sleeping",
+      "rss": 7454720
+    }
+  },
+  "lease": "pid=28483 checkout=/Users/admin/Downloads/CodeProjects/LoopQwen-MLX command=middle_depth_correction.py",
+  "system_pressure": "normal",
+  "charge_pids": [
+    28483
+  ],
+  "stale_charges": [],
+  "free_bytes": 122420965376,
+  "tree_before_final_clone_pass": {
+    "exports": {
+      "logical": 55470979232,
+      "private_bytes": 15027216384,
+      "files": 904
+    },
+    "checkpoints": {
+      "logical": 40553277906,
+      "private_bytes": 40522706944,
+      "files": 33003
+    },
+    "outputs": {
+      "logical": 8955556489,
+      "private_bytes": 6642061312,
+      "files": 3007
+    },
+    "research": {
+      "logical": 1543175075,
+      "private_bytes": 1550471168,
+      "files": 2536
+    },
+    "paper": {
+      "logical": 55655057,
+      "private_bytes": 57958400,
+      "files": 524
+    },
+    ".git": {
+      "logical": 1255783022,
+      "private_bytes": 1261654016,
+      "files": 2222
+    }
+  },
+  "private_size_measurement": "getattrlist ATTR_CMNEXT_PRIVATESIZE on regular files. Paths with the same device and inode counted once. Shared extents also consume space and are excluded from private bytes.",
+  "scope": "Current checkout model and orchestration processes. Both previously completed quantization conductors exited."
+}

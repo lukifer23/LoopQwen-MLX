@@ -1,0 +1,1276 @@
+{
+  "scope": "First actual assistant generation on all 27 terminal short openings per arm with 512-token allowance. Counts observed positions up to the closing think token or exhaustion.",
+  "cohort": "1d8c80484425fec8a820426f8dc7529c946b8bc81551cbff2df01d48acd279f7",
+  "arms": {
+    "loop": {
+      "tools": {
+        "n": 9,
+        "empty": 9,
+        "unclosed": 0,
+        "median_thought_positions": 1
+      },
+      "reasoning": {
+        "n": 9,
+        "empty": 9,
+        "unclosed": 0,
+        "median_thought_positions": 1
+      },
+      "chat": {
+        "n": 9,
+        "empty": 9,
+        "unclosed": 0,
+        "median_thought_positions": 1
+      }
+    },
+    "ordinary": {
+      "tools": {
+        "n": 9,
+        "empty": 9,
+        "unclosed": 0,
+        "median_thought_positions": 1
+      },
+      "reasoning": {
+        "n": 9,
+        "empty": 9,
+        "unclosed": 0,
+        "median_thought_positions": 1
+      },
+      "chat": {
+        "n": 9,
+        "empty": 9,
+        "unclosed": 0,
+        "median_thought_positions": 1
+      }
+    },
+    "base": {
+      "tools": {
+        "n": 9,
+        "empty": 0,
+        "unclosed": 0,
+        "median_thought_positions": 148
+      },
+      "reasoning": {
+        "n": 9,
+        "empty": 0,
+        "unclosed": 4,
+        "median_thought_positions": 439
+      },
+      "chat": {
+        "n": 9,
+        "empty": 0,
+        "unclosed": 0,
+        "median_thought_positions": 133
+      }
+    },
+    "instruction": {
+      "tools": {
+        "n": 9,
+        "empty": 0,
+        "unclosed": 0,
+        "median_thought_positions": 146
+      },
+      "reasoning": {
+        "n": 9,
+        "empty": 0,
+        "unclosed": 9,
+        "median_thought_positions": 512
+      },
+      "chat": {
+        "n": 9,
+        "empty": 0,
+        "unclosed": 9,
+        "median_thought_positions": 512
+      }
+    }
+  },
+  "rows": [
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "changed",
+      "thought_positions": 161,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "3f801259a19a76b7ac2e40ac9ac4f870ccf1c7438615210e5a417a14305fec96"
+    },
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "irrelevant",
+      "thought_positions": 158,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "41714c4817bd3638e9586c8ecb145450dde992ed50950833ad12946595c1bd45"
+    },
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "original",
+      "thought_positions": 159,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "b389392f08c28d2ba6d0859b66e0857dd442d17d110c7cf25682b6afdb2e64bd"
+    },
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "changed",
+      "thought_positions": 439,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "436a716d07b3a4416b738bdbcb75e62d37bf98f8ee19a25e29173a0d60250294"
+    },
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "irrelevant",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "e4725f15a98588a62f5ff80cdd491de4770b9e13bf7ceffc829445311aa1e92e"
+    },
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "original",
+      "thought_positions": 268,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "dc72250c2ca82e006e5c4b7279fadf22773948bd3ebc7357320dd983de6b7ac3"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "ink",
+      "world": "changed",
+      "thought_positions": 148,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "b5a0d5bcca366a84a86aae98cb672565810fa25d07ae8815371396301ef17c25"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "ink",
+      "world": "irrelevant",
+      "thought_positions": 153,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "256a5927428d2e774655e52d7abd004ed7005f1e885f85dae1111fedefbb4092"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "ink",
+      "world": "original",
+      "thought_positions": 148,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "74ccaadb4ae18b6c2b20e17daa8b6a9e6f5746f56872322e4dd61024a070012a"
+    },
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "changed",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "821b8182f657a2248d28d7c34c508b5652cf784932d5ba92c94e33026d07b1a3"
+    },
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "irrelevant",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "4cb5ecce86175a39cdc46dd4e4e823e8f94031f4ab767b7ab781e0bad0715200"
+    },
+    {
+      "arm": "base",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "original",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "026e4b113758179b6ae75c199634e4a16ca1e674adfeb78b07e317b31f67ad08"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "parcel",
+      "world": "changed",
+      "thought_positions": 133,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "39a0b8200a65ca53bed44827d467b1493551a186c06ff2482ece679d5bb374e1"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "parcel",
+      "world": "irrelevant",
+      "thought_positions": 136,
+      "closed": true,
+      "empty": false,
+      "grade": true,
+      "trace": "dffc92ec2add28289c16b0dd9cfc92d2a53abb3123d7971585d244f25b93e2ad"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "parcel",
+      "world": "original",
+      "thought_positions": 136,
+      "closed": true,
+      "empty": false,
+      "grade": true,
+      "trace": "d70cbe4990fdbc7eb5ceb3aafd1ef371e0110608758480fd8d549995e4c28fcc"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "parcels",
+      "world": "changed",
+      "thought_positions": 134,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "1545fe0b2fbac29598a5e5d57118aa9517b294295b01bb9f091e0487be96fb69"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "parcels",
+      "world": "irrelevant",
+      "thought_positions": 134,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "90750eec040e65a0b5ab7afa380ecbd9a45d101f025812a8ea05ebd624abe1ff"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "parcels",
+      "world": "original",
+      "thought_positions": 134,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "4314534b29278660c2626a308c84c754e1eedc0bd7ff2c3c5f65a05ad0dd7264"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "studio",
+      "world": "changed",
+      "thought_positions": 133,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "38386f8b194cbdd09b8fabf1eab92d393ac76c803f544dba010e63111e2b651e"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "studio",
+      "world": "irrelevant",
+      "thought_positions": 107,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "c035b33c984330c4932aedd10bf79f73fbbd37f19f0d20a7331fcde6b65df8c8"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "studio",
+      "world": "original",
+      "thought_positions": 115,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "4d22cc1a816195d7b0501ff395fdfabfcf5e08f45ba71b2486b1b12b3b4c6190"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "tiles",
+      "world": "changed",
+      "thought_positions": 190,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "b82cfe2632fd4917c4735c79525357de480a57d57cd64d8b908534f04ae1bd7a"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "tiles",
+      "world": "irrelevant",
+      "thought_positions": 208,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "caa10dbf01eaba2d85ebbd8f04f9bff3c5012a53f12a20011e15bb6ddf870720"
+    },
+    {
+      "arm": "base",
+      "family": "tools",
+      "source": "tiles",
+      "world": "original",
+      "thought_positions": 196,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "ee20716e10c7ff032720bad031ee85758a99bf288692a38d4be5898d2de7eed8"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "changed",
+      "thought_positions": 115,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "35303fa61888240e75f902a463d64e785957af98320b4d5b0d5de81d32a89a2c"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "irrelevant",
+      "thought_positions": 142,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "fb0f1f09f3cc15299ffe2e4499164e6659540ea2c5dce37ab248c47955b42891"
+    },
+    {
+      "arm": "base",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "original",
+      "thought_positions": 134,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "b2504f96dcc817873ebd542a8844cbc92d3ef70afec0e595b5f9cd09a1ffa0dc"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "changed",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "58545db33c0dab63b0717f98a2cd8ceb0946723130d502f24fc465b969a420fb"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "irrelevant",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "5e4d58b1fd8fe935c415e66055187a65c4c97c7f8ea484794d2058f8a7dfcd45"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "original",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "c613eeda6c2e4f453d93dc85c0402257f7b6c0ae14ae5be60d5a967c3e0d202c"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "changed",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "d420fec60fe91e94fc2e4b0b0d07847e6c7e178953b54026a5e73a6d54876595"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "irrelevant",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "c9b3d00853c76564dd62de58ccb4026e8c25956784a0b746f391772a9082e9b9"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "original",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "a6d5bc5cc5117953fae70cda90789d34d655364dee3416f66251d8c01564de77"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "ink",
+      "world": "changed",
+      "thought_positions": 146,
+      "closed": true,
+      "empty": false,
+      "grade": true,
+      "trace": "0d7c1863cf458cad733ea54b03950c11ae78ef3f99bd9683a2a025995435910e"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "ink",
+      "world": "irrelevant",
+      "thought_positions": 136,
+      "closed": true,
+      "empty": false,
+      "grade": true,
+      "trace": "2cc80a6386b73330d01d6817ca6330bd297f58e48d311bb8aae29515b0443c8f"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "ink",
+      "world": "original",
+      "thought_positions": 146,
+      "closed": true,
+      "empty": false,
+      "grade": true,
+      "trace": "b8efaae119d2fe9c385e846f6a953e1817a840a9b2170c0dd2c1988ddbab1387"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "changed",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "554d43902d663e6987870c52c9257820c91273c785836daabb36f955323b069f"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "irrelevant",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "119327c3355d64341d9593b2f9f6ec644ced461360003d4b10f1fb4a205fbfac"
+    },
+    {
+      "arm": "instruction",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "original",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "f07d3ce2bc55d890587ebe6c78d3b74ff02834fd78932c99798c5184ecef2fcb"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "parcel",
+      "world": "changed",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "f623ebf280e1a0515b9f75e03137d3684cce9efacc0f04a4449a6488aa2ab367"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "parcel",
+      "world": "irrelevant",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "c3d561106f37e949d5c2494d08e8cb61b69ca4a2d81ba8abb52b081be4d37556"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "parcel",
+      "world": "original",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "8e186d473d9a0aa55c4c6aa7863911ba0da26fa5bb61212e6480b59151110b0c"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "parcels",
+      "world": "changed",
+      "thought_positions": 94,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "0abe82badf1e7c9d5ab57eee1250f85965a21ecb1050607ce28c2c7e7cea465b"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "parcels",
+      "world": "irrelevant",
+      "thought_positions": 94,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "eac5a67a9fc7d05ea4a951ddaa17ab5af9cde0171165f348450cccb44c0f3f6b"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "parcels",
+      "world": "original",
+      "thought_positions": 94,
+      "closed": true,
+      "empty": false,
+      "grade": false,
+      "trace": "b55a77e3b0cfdae9c8014328111d8f87671910ac282dd12c19cdc647d2034532"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "studio",
+      "world": "changed",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "808289097b24f77057fdc90d966210080d71c3f49428643e07383fe5630acba9"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "studio",
+      "world": "irrelevant",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "43c5ff4cbd476616fd7fb39fa4406b145073d7c0c658b13182bd4321ceaeb49f"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "studio",
+      "world": "original",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "d8171ec35a4ca292efe7d57328778f735bb6d4fc2a3541b5947896606e0eb98e"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "tiles",
+      "world": "changed",
+      "thought_positions": 218,
+      "closed": true,
+      "empty": false,
+      "grade": true,
+      "trace": "9227b4e5c0fc3ae538220546de7cff33bcbe4119b6a632d356db918051463939"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "tiles",
+      "world": "irrelevant",
+      "thought_positions": 330,
+      "closed": true,
+      "empty": false,
+      "grade": true,
+      "trace": "ed5bb5164f5d53d2662ee6d4388805a2027be13d5c69641ba6bd87535fd7fd64"
+    },
+    {
+      "arm": "instruction",
+      "family": "tools",
+      "source": "tiles",
+      "world": "original",
+      "thought_positions": 277,
+      "closed": true,
+      "empty": false,
+      "grade": true,
+      "trace": "45cf9387a23686aa292809d5b5c751cbe3eaabc0484560c5f64ce8e0ab18559a"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "changed",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "6730559d7ec2f9494ef42171c204aabd72277d8768936fd91f52671986adfca2"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "irrelevant",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "c447ee891676e4e8abed2e583a826cde87867f20a0a89e642d6fb07cbf12c5c1"
+    },
+    {
+      "arm": "instruction",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "original",
+      "thought_positions": 512,
+      "closed": false,
+      "empty": false,
+      "grade": false,
+      "trace": "c4203cd82d3a2dd9e33264eb059b6f5b15793caf6a167ea06247d5af5dbbdc63"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "597276f219e2d9432d082f8bfe09308c09eecf788cba9ec2262ec0b8d54be389"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "269ad92fdd1d92933617c79e777c9b4e8a7e36ecda7882948b570c4ff23ef456"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "039c90d22a7437773f40a0223eb5ea66dd4a585a26fcb5f33a516070b899bf84"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "7cb44d7fe1d61f40eb784873c0eaac87eabd1f1d9da44ab97fcdbf83595697c7"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "43bd978270b26c48160f654f4b5dc6add18e7b2d0a4f02909ac04239fa445d85"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "56542550a1964aefded93410ac0ee538060011153e77c56e3f906d7270361202"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "ink",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "e91cea3abb7d422d948970d3b63f990565a925cc507fa711b38463ebb84a9e9b"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "ink",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "adfb3f219470356bc34f58ce5ba549e15f385370d62ecf70125ece25609f06ae"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "ink",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "8c82ae98073c1b640cc7d1f2d7d820f99b190ba7b1f962667de280e43c85ad22"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "f83fe99324ef756543c70a58a81e34f2d684d55bf0005c92a636ba05e72b821b"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "3b6ff34203b4c4fe7ff87a4106aa55e1b315516573c853daeaf1f0ad3bf99bf2"
+    },
+    {
+      "arm": "loop",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "51c6db0f53682104c903867e8923e5c33161552f7d5577697e25cfde7af4dbe8"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "parcel",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "f370e22536dfb1513aaaccf36091218d4c212cff495b5d953c4ac87425aae1f2"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "parcel",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "6ea743cb6aed3734c97e34c1c759284c01238510608f6d6ca15915b0e8946c35"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "parcel",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "f41bf0b2510d1e7c79588306390fcc8c3773cbd395230eb2287cd3bc701cf8b5"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "parcels",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "112f0303601095cf9d7f5977d9699d035c78d98bf4d6f899e269da72fd36aff9"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "parcels",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "3542fdfb8a5337104ff7bf06422d73a7634ecc2a12c2797a7d1853701acd3a30"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "parcels",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "13bef1b8433fe483ea18905313708f5711b39e4b1861d6ea66a1c87f699f91ad"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "studio",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "2e7e58c73aaba877334cb9e778425d5f20a5af82652e3c6b56388234121c9919"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "studio",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "d9c407986690a0b3b1cb58df0e798c0abbb51d539b0471e8947d4e97b4f800c9"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "studio",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "397d3113ecabc1f4294a4af7cf2398dca2230650ec174b3355245d6d2c38dc99"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "tiles",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "ae9a97528da521bdf8216dff58cdd4fdfbdfc0f32f5d031ab11d230f4449f4f4"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "tiles",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "4e56ec7a3f41f5571e76ef95df99d3cad2e8d9ce3407d9b9e023ef436eaa6514"
+    },
+    {
+      "arm": "loop",
+      "family": "tools",
+      "source": "tiles",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "b5482cd11bbd210bf7026c73205e9a8a3221bcd1a97598c09468bbb1344f33af"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "52a2c9dafcfa8ad56aaed9c791efde26e784b0733baf362808a36bfbe04cf890"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "76cb06b54827ec5b9672699edbb793d958853a82a299a709e935f0c3a900a128"
+    },
+    {
+      "arm": "loop",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "b74838110ca739ceb71f48aaf827016d6f2a471c6ee6011e01a0a873e84fea63"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "2ac42e506a4857c8636a8474b1936c818c1ffaa391bc4696c5698a85a8a12560"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "b684ec1ff7fb15494e044170796b8f1f8666b731432bafa44fa80b1f22a27f63"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "archive",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "86c0e1ead73df32c7ec41823641fffee50f1ba70166d6921110bc923fcb66c56"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "123c685bf352f028603bc339c4145f2e2fe2c2c956a31e3da9e8bdb8a18ec568"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "a9a4845ea3d054014ecf69c44109689aae17ad13e9ed3b35e0b3dc448fa85457"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "bridge",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "876764a66d54812d2891a1486bdc2220a55bee2b24942ecd87d76bec8e9d3dc3"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "ink",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "87676e05538739689b5bf1f4f16d80ab44c1010d92d6c10e960678f01779000e"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "ink",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "e023320014d2ddf0700adbecdc3e8968ca4b93551b7be571bfd3bc9f2da062e6"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "ink",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "91b3b8714b56bf0b5cab32e201918594739542ae8f6bbb998af8744468800628"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "9b7a4b45aaee21677ac12a574e79b28d30990319a30b11119042aee20ab5297d"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "f17243202d6b5469837a09c18a4c027654890832eccd9efdf5172752cacf2579"
+    },
+    {
+      "arm": "ordinary",
+      "family": "reasoning",
+      "source": "kiln",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "ef91231fc5b5890ef6d6cc86861b33a959ecfafc9d544c532b91a3d3531abe45"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "parcel",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "ecea3b20c526dc43f3e5af5c23f390c5d2d1422f3c1cc2e50a681368ced87c5c"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "parcel",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "f90d8bf3f60e7b6dd0085df117f889487273e831d27e52394503a303f2600daa"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "parcel",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "abd320f54b496e421e4a3e03f4b1b4c5d0cabf277b245bb899be7facb8d63c3c"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "parcels",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "7c62ac1074aef10399116289218e83b2e570f2527b5bc4c6444702f8243cc420"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "parcels",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "e1e1a02102b64533b127f9bbe939e63e176c47b72d15ac14b79d12b943f581dc"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "parcels",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "753885f8e19c6b02c287be1d050706b6c6112da21bb16eca3dfdb91ddde508b2"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "studio",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "897c1d50b38fd7955982d422ecc172013b123048aec661b2f806ac358ad236b2"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "studio",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "6bd9001c39f15fb4f18cdbc5e15ff9ba03caf09c6c0f625be1bf5983a4b0d9e8"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "studio",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": true,
+      "trace": "583729c250d8cb73e31864cf73d211075965f9a86dbfea302eba6600c2e83de0"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "tiles",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "5f82c1057d44de8b83581b3d74e4a1d4bfd4fa377211c083b419a063e363ab16"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "tiles",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "04360581058280514a6b02a3512e554063818ddc3f353a9aae243ab17d02a9ad"
+    },
+    {
+      "arm": "ordinary",
+      "family": "tools",
+      "source": "tiles",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "85ca00421e4e29ebf5abd9b9a0144634eb7b01c7ae3d3f1ee9cde017e5e54b5f"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "changed",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "052c8b77df9bd8129fd10ad5bdbb7e25029c10c87466d0a08ae8269e95d66741"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "irrelevant",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "737a77ea1aa8042cdd597fcce3109391334ffda1c982df56f61c2ced0e6204ad"
+    },
+    {
+      "arm": "ordinary",
+      "family": "chat",
+      "source": "volunteer",
+      "world": "original",
+      "thought_positions": 1,
+      "closed": true,
+      "empty": true,
+      "grade": false,
+      "trace": "54501e90a8ce3302207979e4dfbc15a57257b3b1b329c5380af32db09377419b"
+    }
+  ]
+}

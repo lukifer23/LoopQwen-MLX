@@ -172,11 +172,28 @@ def snapshot():
         assert digest(ROOT / r["file"]) == r["sha"]
         inputs[str(ROOT / r["file"])] = r["sha"]
     assert len(scored_epoch) == 124 and len(generation) == 12
-    # The last matched epoch-reading block fixes the cost cut independently
-    # of any subsequent work from the same native worker.
+    terminal_results = {}
+    for stage, count in (("terminal", 248), ("quantized", 62)):
+        reviewed = use(ROOT / "review" / stage / "scored.json")
+        assert len(reviewed) == count
+        for r in reviewed:
+            assert digest(ROOT / r["file"]) == r["sha"]
+            inputs[str(ROOT / r["file"])] = r["sha"]
+        terminal_results[stage] = use(ROOT / "review" / stage / "summary.json")
+    trained = use(ROOT / "fit-work-0576.json")
+    quant = use(ROOT / "quantization/short-decision.json")
+    callback = use(ROOT / "quantization/callback-audit.json")
+    thoughts = use(ROOT / "training-format-audit.json")
+    generated = use(ROOT / "generated-thought-audit.json")
+    use(ROOT / "terminal-fit-integrity.json")
+    use(ROOT / "pairs/terminal-loop-ordinary-512.json")
+    use(ROOT / "installed/terminal-loop-tiles-512.json.gz")
+    use(ROOT / "quantization/conversion.json")
+    for p in sorted((ROOT / "quantization").glob("*-*-?.json")):
+        use(p)
 
     charges = sorted((f, read(f)) for f in (ROOT / "charges").glob("*.json"))
-    cutoff = use(ROOT / "charges/9c9d046bd87b48bcbfcf41eea5e8de7f.json")["dispatch"]
+    cutoff = use(ROOT / "charges/4235dbe55099477c80e0d597780a7a89.json")["dispatch"]
     costs = {}
     for f, r in charges:
         if r["status"] == "running" or r["dispatch"] > cutoff:
@@ -201,6 +218,12 @@ def snapshot():
             excerpts=excerpts,
             audit=audit,
             fit_epoch=fit_epoch,
+            terminal_results=terminal_results,
+            final_fit=trained,
+            quantization=quant,
+            callback_replays=callback["observations"],
+            thinking_targets=thoughts["families"],
+            generated_thinking=generated["arms"],
             first_epoch_generation=generation,
             exit_objectives=exits["source_weighted"],
             recovery={
@@ -474,7 +497,7 @@ def render():
         check.write_bytes(pdf)
         reader = PdfReader(check)
         pages = [p.extract_text() for p in reader.pages]
-        assert 5 <= len(pages) <= 10 and all(len(s) > 700 for s in pages)
+        assert 5 <= len(pages) <= 12 and all(len(s) > 700 for s in pages)
         assert all(author in pages[0] for author in AUTHORS)
         (P / "paper-draft.pdf").write_bytes(pdf)
         print(len(pages), "pages", len(pdf), "bytes", digest(P / "paper-draft.pdf"))
