@@ -22,11 +22,11 @@ def replay(checkpoint, requests, max_tokens):
     mx.eval(assistant._tool_model.parameters())
     print(
         json.dumps(
-            dict(
-                pid=os.getpid(),
-                loaded_seconds=monotonic() - start,
-                loaded_bytes=mx.get_active_memory(),
-            )
+            {
+                "pid": os.getpid(),
+                "loaded_seconds": monotonic() - start,
+                "loaded_bytes": mx.get_active_memory(),
+            }
         ),
         flush=True,
     )
@@ -50,11 +50,11 @@ def replay(checkpoint, requests, max_tokens):
             )
             print(
                 json.dumps(
-                    dict(
-                        elapsed=monotonic() - tick,
-                        peak=mx.get_peak_memory(),
-                        result=result,
-                    )
+                    {
+                        "elapsed": monotonic() - tick,
+                        "peak": mx.get_peak_memory(),
+                        "result": result,
+                    }
                 ),
                 flush=True,
             )

@@ -6,8 +6,8 @@ from time import perf_counter
 import mlx.core as mx
 
 from . import REVISION
-from .ordinary_model import ordinary as base
 from .identity import fingerprint
+from .ordinary_model import ordinary as base
 from .tool_cli import open_assistant, present
 from .tool_model import Assistant
 from .worker import acquire
