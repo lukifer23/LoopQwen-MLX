@@ -1,0 +1,31 @@
+{
+  "scores": {
+    "terminal": {
+      "reasoning": 1,
+      "tools": 0,
+      "chat": 4
+    },
+    "simple": {
+      "reasoning": 0,
+      "tools": 0,
+      "chat": 4
+    },
+    "corrected": {
+      "reasoning": 0,
+      "tools": 0,
+      "chat": 3
+    }
+  },
+  "passed": false,
+  "stage": "terminal",
+  "models": {
+    "ordinary": {
+      "path": "checkpoints/middle-depth/4619/ordinary/step-0576",
+      "weights": "ee655377d7068bb2e5479eed2bfad63e73431de86cfc8ddea5f58ff46e0332c1"
+    },
+    "loop": {
+      "path": "checkpoints/middle-depth/matched-4619/loop/step-0576",
+      "weights": "e8678f0d74d1eb6779dfea16d6f5677fe12021ad4fa4771317813a336b2a264a"
+    }
+  }
+}
