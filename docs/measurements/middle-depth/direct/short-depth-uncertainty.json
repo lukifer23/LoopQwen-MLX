@@ -1,0 +1,102 @@
+{
+  "source": "4261a3bdb1d414b9f0ce5c474fab0874669089d33d51c18b47dd7cb889ee1347",
+  "contrasts": {
+    "base-to-K1": {
+      "paired_sources": 9,
+      "ordered_resamples": 19683,
+      "macro_difference": 0.2962962962962963,
+      "exact_bootstrap_95": [
+        0.1111111111111111,
+        0.48148148148148145
+      ],
+      "macro_after_leaving_one_source_out": {
+        "reasoning/archive": 0.25925925925925924,
+        "reasoning/bridge": 0.25925925925925924,
+        "reasoning/kiln": 0.37037037037037035,
+        "tools/ink": 0.2962962962962963,
+        "tools/parcels": 0.2962962962962963,
+        "tools/tiles": 0.2962962962962963,
+        "chat/parcel": 0.37037037037037035,
+        "chat/studio": 0.2037037037037037,
+        "chat/volunteer": 0.3148148148148148
+      },
+      "sources_gained": 4,
+      "sources_lost": 0,
+      "sources_tied": 5,
+      "two_sided_source_sign_p": 0.125
+    },
+    "base-to-K2": {
+      "paired_sources": 9,
+      "ordered_resamples": 19683,
+      "macro_difference": 0.1111111111111111,
+      "exact_bootstrap_95": [
+        0.0,
+        0.25925925925925924
+      ],
+      "macro_after_leaving_one_source_out": {
+        "reasoning/archive": 0.07407407407407407,
+        "reasoning/bridge": 0.12962962962962962,
+        "reasoning/kiln": 0.12962962962962962,
+        "tools/ink": 0.1111111111111111,
+        "tools/parcels": 0.1111111111111111,
+        "tools/tiles": 0.1111111111111111,
+        "chat/parcel": 0.14814814814814814,
+        "chat/studio": 0.037037037037037035,
+        "chat/volunteer": 0.14814814814814814
+      },
+      "sources_gained": 2,
+      "sources_lost": 0,
+      "sources_tied": 7,
+      "two_sided_source_sign_p": 0.5
+    },
+    "K1-to-K2": {
+      "paired_sources": 9,
+      "ordered_resamples": 19683,
+      "macro_difference": -0.18518518518518517,
+      "exact_bootstrap_95": [
+        -0.2962962962962963,
+        -0.07407407407407407
+      ],
+      "macro_after_leaving_one_source_out": {
+        "reasoning/archive": -0.18518518518518517,
+        "reasoning/bridge": -0.12962962962962962,
+        "reasoning/kiln": -0.24074074074074073,
+        "tools/ink": -0.18518518518518517,
+        "tools/parcels": -0.18518518518518517,
+        "tools/tiles": -0.18518518518518517,
+        "chat/parcel": -0.2222222222222222,
+        "chat/studio": -0.16666666666666666,
+        "chat/volunteer": -0.16666666666666666
+      },
+      "sources_gained": 0,
+      "sources_lost": 4,
+      "sources_tied": 5,
+      "two_sided_source_sign_p": 0.125
+    },
+    "K2-to-K3": {
+      "paired_sources": 9,
+      "ordered_resamples": 19683,
+      "macro_difference": -0.07407407407407407,
+      "exact_bootstrap_95": [
+        -0.14814814814814814,
+        0.0
+      ],
+      "macro_after_leaving_one_source_out": {
+        "reasoning/archive": -0.037037037037037035,
+        "reasoning/bridge": -0.09259259259259259,
+        "reasoning/kiln": -0.09259259259259259,
+        "tools/ink": -0.07407407407407407,
+        "tools/parcels": -0.07407407407407407,
+        "tools/tiles": -0.07407407407407407,
+        "chat/parcel": -0.09259259259259259,
+        "chat/studio": -0.037037037037037035,
+        "chat/volunteer": -0.09259259259259259
+      },
+      "sources_gained": 0,
+      "sources_lost": 2,
+      "sources_tied": 7,
+      "two_sided_source_sign_p": 0.5
+    }
+  },
+  "scope": "Exploratory sensitivity on the same nine development sources. Independently resample three source groups within each family, retaining all three versions together. The exact two-sided sign test conditions on non-tied source groups and assumes exchangeable signs. These four contrasts were examined after the primary decision."
+}

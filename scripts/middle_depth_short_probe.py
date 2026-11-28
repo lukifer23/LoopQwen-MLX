@@ -1,6 +1,9 @@
 """Run native pass interventions within one frozen loop and audit answer transitions."""
 
 import argparse
+from collections import defaultdict
+from fractions import Fraction
+from math import comb
 from pathlib import Path
 from statistics import fmean
 
@@ -153,7 +156,58 @@ def results():
     )
 
 
+def uncertainty():
+    from scripts.middle_depth_pair_audit import source_uncertainty
+
+    path = ROOT / "direct/short-depth-probe.json"
+    panel = read(path)["rows"]
+    contrasts = {}
+    for before, after in (("base", "K1"), ("base", "K2"), ("K1", "K2"), ("K2", "K3")):
+        grouped = defaultdict(dict)
+        for key, test in panel[after].items():
+            source, world = key.split("/")
+            if world in ("own", "shared"):
+                continue
+            observations = grouped[test["family"]].setdefault(source, {})
+            observations[world] = int(test["correct"]) - int(
+                panel[before][key]["correct"]
+            )
+        groups = {}
+        signs = []
+        for family, sources in grouped.items():
+            if len(sources) != 3:
+                raise ValueError("Expected three independent sources per family")
+            groups[family] = {}
+            for source, worlds in sources.items():
+                if set(worlds) != {"original", "changed", "irrelevant"}:
+                    raise ValueError("Missing paired source version")
+                effect = Fraction(sum(worlds.values()), len(worlds))
+                groups[family][source] = effect
+                signs.append((effect > 0) - (effect < 0))
+        positive, negative = signs.count(1), signs.count(-1)
+        n = positive + negative
+        p = min(
+            1, 2 * sum(comb(n, j) for j in range(min(positive, negative) + 1)) / 2**n
+        )
+        contrasts[f"{before}-to-{after}"] = {
+            **source_uncertainty(groups),
+            "sources_gained": positive,
+            "sources_lost": negative,
+            "sources_tied": signs.count(0),
+            "two_sided_source_sign_p": p,
+        }
+    save(
+        ROOT / "direct/short-depth-uncertainty.json",
+        {
+            "source": digest(path),
+            "contrasts": contrasts,
+            "scope": "Exploratory sensitivity on the same nine development sources. Independently resample three source groups within each family, retaining all three versions together. The exact two-sided sign test conditions on non-tied source groups and assumes exchangeable signs. These four contrasts were examined after the primary decision.",
+        },
+    )
+
+
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("stage", choices=("run", "results"))
-    run() if p.parse_args().stage == "run" else results()
+    actions = {"run": run, "results": results, "uncertainty": uncertainty}
+    p.add_argument("stage", choices=actions)
+    actions[p.parse_args().stage]()
