@@ -100,16 +100,25 @@ def collect(args):
             model, tok, quantized_backbone = load(args.policy)
             weights = read(args.policy / "registration.json")["weights"]
         elif args.policy:
-            if (args.policy / "standalone-middle.json").is_file():
+            bundle = args.policy / "standalone-middle.json"
+            if bundle.is_file():
                 from loopqwen.tool_cli import open_assistant
 
+                if (read(bundle)["arm"] == "base") != (side == "base"):
+                    raise ValueError(
+                        "The standalone model differs from the requested arm"
+                    )
                 assistant = open_assistant(
                     argparse.Namespace(checkpoint=args.policy, tool_format="qwen")
                 )
             else:
                 assistant = MiddleAssistant(BASE, args.policy)
             model, tok = assistant._tool_model, assistant.tokenizer
-            weights = read(args.policy / "registration.json")["weights"]
+            weights = (
+                "untouched-base"
+                if bundle.is_file() and side == "base"
+                else read(args.policy / "registration.json")["weights"]
+            )
         else:
             text, tok = donor(BASE, "instruction" if side == "instruction" else "base")
             model = (
@@ -221,6 +230,7 @@ if __name__ == "__main__":
             "corrected",
             "deployed",
             "direct-full-fit",
+            "direct-headroom",
             "headroom-early",
             "epoch-reading",
             "quantized",

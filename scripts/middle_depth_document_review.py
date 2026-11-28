@@ -14,12 +14,15 @@ from scripts.middle_depth_review import first_visible, lock, pending
 OUT = ROOT / "document-review"
 
 
-def inspect(stage, aggregate):
+def inspect(stage, aggregate, source_stage=None, arms=None):
     tok = tokenizer({"checkpoint": str(BASE)})
     blinded = {}
     rows = []
-    for f in sorted((ROOT / "documents" / stage).glob("*/*/*/*.json.gz")):
-        book, arm, cap, name = f.relative_to(ROOT / "documents" / stage).parts
+    folder = ROOT / "documents" / (source_stage or stage)
+    for f in sorted(folder.glob("*/*/*/*.json.gz")):
+        book, arm, cap, name = f.relative_to(folder).parts
+        if arms and arm not in arms:
+            continue
         world, kind = name.removesuffix(".json.gz").split("-", 1)
         raw = unpack(f)
         tr = raw["trace"]
@@ -167,10 +170,12 @@ if __name__ == "__main__":
     p.add_argument("action", choices=("blind", "aggregate", "pending", "lock"))
     p.add_argument("stage")
     p.add_argument("--prior", nargs="*", default=[])
+    p.add_argument("--source-stage")
+    p.add_argument("--arms", nargs="+")
     a = p.parse_args()
     if a.action == "lock":
         lock(OUT, a.stage)
     else:
-        inspect(a.stage, a.action == "aggregate")
+        inspect(a.stage, a.action == "aggregate", a.source_stage, a.arms)
         if a.action == "pending":
             pending(OUT, a.stage, a.prior)

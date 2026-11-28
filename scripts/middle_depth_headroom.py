@@ -13,9 +13,10 @@ REG = Path("research/diagnostics/middle-depth/output-headroom.md")
 ARMS = ("base", "loop", "ordinary", "instruction")
 
 
-def run(stage, policies):
+def run(stage, policies, arms=ARMS, target_stage=None, enroll_only=False):
     folder = ROOT / "short" / stage / "512"
-    plan = ROOT / "headroom" / (stage + ".json")
+    target_stage = target_stage or stage
+    plan = ROOT / "headroom" / (target_stage + ".json")
     sources = read(SOURCE)
     items = set()
     reasons = {}
@@ -26,7 +27,7 @@ def run(stage, policies):
     for r in sources:
         for world in (*WORLDS, *(("own", "shared") if "followup" in r else ())):
             key = r["id"] + "/" + world
-            for arm in ARMS:
+            for arm in arms:
                 path = folder / arm / (r["id"] + "-" + world + ".json.gz")
                 if not path.exists() and arm in ("base", "instruction"):
                     path = ROOT / "short" / "terminal" / "512" / arm / path.name
@@ -48,14 +49,16 @@ def run(stage, policies):
     if plan.exists() and read(plan) != spec:
         raise ValueError("Changed earlier generations after headroom enrollment")
     save(plan, spec)
+    if enroll_only:
+        return
     for block in (0, 1):
-        for arm in ARMS if block == 0 else reversed(ARMS):
+        for arm in arms if block == 0 else reversed(arms):
             args = [
                 "collect",
                 "--arm",
                 arm,
                 "--stage",
-                stage,
+                target_stage,
                 "--tokens",
                 4096,
                 "--block",
@@ -70,8 +73,31 @@ def run(stage, policies):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--stage", required=True)
-    p.add_argument("--loop", type=Path, required=True)
-    p.add_argument("--ordinary", type=Path, required=True)
+    p.add_argument("--stage")
+    p.add_argument("--loop", type=Path)
+    p.add_argument("--ordinary", type=Path)
+    p.add_argument("--direct", action="store_true")
+    p.add_argument("--enroll-only", action="store_true")
     a = p.parse_args()
-    run(a.stage, {"loop": a.loop, "ordinary": a.ordinary})
+    if a.direct:
+        from scripts.middle_depth_standalone import benchmark_model, check
+
+        arms = ("base", "loop")
+        policies = {}
+        for arm in arms:
+            directory, spec = benchmark_model(arm)
+            check(directory, arm, spec)
+            policies[arm] = directory
+        run(
+            read(ROOT / "direct-decision.json")["short_stage"],
+            policies,
+            arms,
+            "direct-headroom",
+            a.enroll_only,
+        )
+    elif a.stage and a.loop and a.ordinary:
+        run(
+            a.stage, {"loop": a.loop, "ordinary": a.ordinary}, enroll_only=a.enroll_only
+        )
+    else:
+        p.error("Supply --direct or --stage, --loop and --ordinary")

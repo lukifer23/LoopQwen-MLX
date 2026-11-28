@@ -91,3 +91,18 @@ The separate 1,762,468-byte resume archive retains the last two optimizer steps 
 The replay command uses the native worker lease. It reconstructs step 15 in a temporary directory, reloads the original trainer and performs step 16 against the saved full-document features. It compares the resulting weights, optimization state, loss, gradient norm and feature identities to the archived update.
 
 On the M3 Pro the repeated update reproduced the deployed adapter file, registration, four example losses and gradient norm exactly. The serialized optimizer file hash changed. Comparing the six named optimizer tensors individually found identical shapes, dtypes and data bytes for both pairs of moments, the step counter and the learning rate. [Initial file-level check](measurements/middle-depth/full-fit-resume-byte-check.json) · [Native next-update replay](measurements/middle-depth/full-fit-resume-replay.json)
+
+## Longer output and full-book follow-ups
+
+The selected two-model headroom panel enrolls eight short openings using the saved 512-token stopping statuses and the three mandatory originals. Two originals also have own-history and shared-history follow-ups. The study runs each enrolled request at 4,096 generated tokens per assistant turn. Both complete standalone model folders are verified before dispatch. [Enrolled openings and earlier trajectories](measurements/middle-depth/headroom/direct-headroom.json)
+
+```sh
+.venv/bin/python -m scripts.middle_depth_headroom --direct --enroll-only
+.venv/bin/python -m scripts.middle_depth_headroom --direct
+```
+
+The selected book requests extend the existing original and edited openings with follow-ups, irrelevant edits and unanswerable questions. The later review uses its own directory so the published opening judgments stay reproducible. After the enrolled requests finish, collect their source-masked responses with the following command.
+
+```sh
+.venv/bin/python -m scripts.middle_depth_document_review pending direct-final-books --source-stage parent --arms base loop --prior parent direct-child
+```
