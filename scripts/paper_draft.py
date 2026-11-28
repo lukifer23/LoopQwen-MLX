@@ -343,6 +343,44 @@ def snapshot():
                 and r["status"] == "finished"
             ),
         )
+    alt = ROOT / "middle-read"
+    closure_path = Path("research/results/middle-read-0084/decision.json")
+    if closure_path.exists():
+        closure = use(closure_path)
+        for name, sha in closure["receipts"].items():
+            if digest(alt / name) != sha:
+                raise ValueError("Changed middle-read decision input")
+            use(alt / name)
+        decision = read(alt / "early-decision.json")
+        evaluate = ROOT / "review/middle-read-early"
+        if digest(evaluate / "scored.json") != decision["rows"]:
+            raise ValueError("Changed early graded outcomes")
+        use(evaluate / "grades.json")
+        for r in use(evaluate / "scored.json"):
+            path = ROOT / r["file"]
+            if digest(path) != r["sha"]:
+                raise ValueError("Changed early trajectory")
+            hashes[str(path)] = r["sha"]
+        cold = alt / "cold/middle-read-early-loop-tiles-512.json.gz"
+        if digest(cold) != closure["cold_tool_replay"]["archive"]:
+            raise ValueError("Changed cold tool replay")
+        hashes[str(cold)] = digest(cold)
+        prep = use("research/sources/middle-read/preparation.json")
+        use("research/diagnostics/middle-depth/middle-read-fit.json")
+        profile = use(alt / "profile.json")
+        data["middle_read"] = {
+            "closure": closure,
+            "decision": decision,
+            "preparation": prep,
+            "parameters": profile["controller_parameters"],
+            "callbacks": read(alt / "callback-replay.json")["observations"],
+        }
+        for name, charge in closure["charges"].items():
+            p = ROOT / "charges" / name
+            if digest(p) != charge["sha256"]:
+                raise ValueError("Changed middle-read worker charge")
+            r = read(p)
+            cutoff = max(cutoff, r["dispatch"] + r["seconds"])
     for p in sorted((ROOT / "charges").glob("*.json")):
         r = read(p)
         if r["dispatch"] <= cutoff and r["status"] != "running":

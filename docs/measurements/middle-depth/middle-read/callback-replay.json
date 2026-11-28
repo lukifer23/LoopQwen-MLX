@@ -1,0 +1,789 @@
+{
+  "rows": [
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "ink",
+      "world": "changed",
+      "status": "answered",
+      "target": "270",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750/30",
+              "r1",
+              "12*r1"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "25",
+            "25",
+            "300"
+          ],
+          "value": "300"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/ink-changed.json.gz",
+      "sha": "efc7326380a84fd7ad68e73564dc1fea26e1d21472632ea6dac2a4f69ac5011c"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "ink",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750/35",
+              "73/35",
+              "r1",
+              "73*10",
+              "r2",
+              "73*10/35",
+              "r3",
+              "750-10*r3"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "150/7",
+            "73/35",
+            "150/7",
+            "730",
+            "73/35",
+            "146/7",
+            "150/7",
+            "3750/7"
+          ],
+          "value": "3750/7"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/ink-irrelevant.json.gz",
+      "sha": "6e8bddeb02f2c4c33b316193a8446e690b2e78870be3bbd5f8cd24f0d9f49126"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "ink",
+      "world": "original",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "35*12",
+              "750-35*12"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "420",
+            "330"
+          ],
+          "value": "330"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/ink-original.json.gz",
+      "sha": "a995b5460ad14da60de26abbe574e9a5f5eee29625724176e20d2fb1534a105d"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "parcels",
+      "world": "changed",
+      "status": "answered",
+      "target": "Annex",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/parcels-changed.json.gz",
+      "sha": "e20b21375136ee5b82a0fd4820a410d882ef02ba348c1dcca3316ae2ea07b0c8"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "parcels",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/parcels-irrelevant.json.gz",
+      "sha": "fcfe1fae7abeb0de7685737877928fddab2e2ac6aded273258d01f7355ed97e5"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "parcels",
+      "world": "original",
+      "status": "answered",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/parcels-original.json.gz",
+      "sha": "d8773c27fa49897b1987d9adb3a22c0fd5c7459065656513d84c6cd3fbaee052"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "parcels",
+      "world": "own",
+      "status": "answered",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/parcels-own.json.gz",
+      "sha": "42b3c928f2b94a61984e50d8643c552c2d9195c2cdc40d02545d3e98a99af337"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "parcels",
+      "world": "shared",
+      "status": "answered",
+      "target": "Friday",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/parcels-shared.json.gz",
+      "sha": "7975216e6d78d39675bd14270147d3e7244c163d255164b5b9df155d4adace84"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "tiles",
+      "world": "changed",
+      "status": "answered",
+      "target": "174",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "18*24",
+              "24-24",
+              "2*2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "432",
+            "0",
+            "4"
+          ],
+          "value": "4"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/tiles-changed.json.gz",
+      "sha": "a068a7207a2dabe8a3f2e835b2393a96ed9546e80ec7381a6905d05b5b3d3035"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "tiles",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "18*14",
+              "3*11",
+              "3*(14-18)",
+              "3*11-3*(14-18)",
+              "r1"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "252",
+            "33",
+            "-12",
+            "45",
+            "252"
+          ],
+          "value": "252"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/tiles-irrelevant.json.gz",
+      "sha": "052176447cd3570b957fd5f8eff2a5480d82a4d2a034704932c6a52039e28b9e"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "tiles",
+      "world": "original",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "18*14",
+              "2*2",
+              "18-14*2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "252",
+            "4",
+            "-10"
+          ],
+          "value": "-10"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/tiles-original.json.gz",
+      "sha": "ff9d50f20c58e119026be58c1efd16b931e893d96ef0b365372ed7be2a9410d7"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "tiles",
+      "world": "own",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "9-10"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "-1"
+          ],
+          "value": "-1"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k1/tiles-own.json.gz",
+      "sha": "173a155df713f6f8f7c2e5e7d19768b74f81d1d8a1149758a20e8b15062a7233"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k1",
+      "source": "tiles",
+      "world": "shared",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "184-9"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "175"
+          ],
+          "value": "175"
+        }
+      ],
+      "target_observed": true,
+      "correct": true,
+      "file": "short/middle-read-early/512/loop-k1/tiles-shared.json.gz",
+      "sha": "ede180af4fe3fef37c49d129983488d4223b01325e14f95ecfbcbad5ed7beeb4"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "ink",
+      "world": "changed",
+      "status": "invalid_call",
+      "target": "270",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/ink-changed.json.gz",
+      "sha": "050a36ef0f841e94f29630c3f70130cef1fb1d3b8ed3ce52b5dd937fcf5ce53a"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "ink",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "190",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "400",
+              "r1",
+              "r1*350",
+              "r1*350*10"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "400",
+            "400",
+            "140000",
+            "1400000"
+          ],
+          "value": "1400000"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/ink-irrelevant.json.gz",
+      "sha": "b14f4ed3381ab9f92285c82bcd703f7dda2b72cc4fb3b62b23d14ed433338c73"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "ink",
+      "world": "original",
+      "status": "token_limit",
+      "target": "190",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/ink-original.json.gz",
+      "sha": "e3335ec18d13dc02a022eab255b1a08225511be62def6e2e1583af2f014e7fe5"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "parcels",
+      "world": "changed",
+      "status": "answered",
+      "target": "Annex",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/parcels-changed.json.gz",
+      "sha": "d1180229e090da988abdec17e4f6734ca84e66ea5709c30cb9aa29cbc2ee9ea6"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "parcels",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/parcels-irrelevant.json.gz",
+      "sha": "d565de6e71c03b2686eb2f02532db3288d587fc2bbed6d140747b660c30c58cc"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "parcels",
+      "world": "original",
+      "status": "answered",
+      "target": "Loft",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/parcels-original.json.gz",
+      "sha": "e3861a07a80da7df958fedb75d31dac12dbf7e2fe070273693d5806c0ff0a4e5"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "parcels",
+      "world": "own",
+      "status": "answered",
+      "target": "Friday",
+      "submitted": [
+        {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/parcels-own.json.gz",
+      "sha": "4e8548cd16dd35b14dd38c43d7b4a5ac20458e5cbc1509d2f4862d9c7ac3d8eb"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "parcels",
+      "world": "shared",
+      "status": "answered",
+      "target": "Friday",
+      "submitted": [],
+      "replayed": [],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/parcels-shared.json.gz",
+      "sha": "91c0b96f5b49fa3eb0140e59b1c8f69fad79a38428eaae063483af1c42adf855"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "tiles",
+      "world": "changed",
+      "status": "answered",
+      "target": "174",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "24*18",
+              "24*2",
+              "24*2/2",
+              "18*11",
+              "11*2",
+              "11*2*2",
+              "11*2*2*2",
+              "11*2*2*2*2",
+              "11*2*2*2*2*2",
+              "11*2*2*2*2*2*2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "432",
+            "48",
+            "24",
+            "198",
+            "22",
+            "44",
+            "88",
+            "176",
+            "352",
+            "704"
+          ],
+          "value": "704"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/tiles-changed.json.gz",
+      "sha": "54aeb975d0dc9899e28e878f5ee50da4d808513fd803181ee5c73d167a6ad71d"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "tiles",
+      "world": "irrelevant",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "18*14",
+              "3*11",
+              "3*(14-14)",
+              "3*11*14",
+              "3*11*14*11"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "252",
+            "33",
+            "0",
+            "462",
+            "5082"
+          ],
+          "value": "5082"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/tiles-irrelevant.json.gz",
+      "sha": "34e9aa1e90c35c5d5046df28568218ed80137fc24ee2c5add96b5d433fe13a7a"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "tiles",
+      "world": "original",
+      "status": "answered",
+      "target": "184",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "18*14",
+              "2*2",
+              "18-14*2"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "252",
+            "4",
+            "-10"
+          ],
+          "value": "-10"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/tiles-original.json.gz",
+      "sha": "aeade28b73a6f5cd614d3645eb14f11d81ff98df14d402e4235f7ca73545aa7f"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "tiles",
+      "world": "own",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "9-10"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "results": [
+            "-1"
+          ],
+          "value": "-1"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/tiles-own.json.gz",
+      "sha": "6c3ebcef33e726d3cb8dc2e6b68afdf049c634979e5fed28e653875c2603f22d"
+    },
+    {
+      "stage": "middle-read-early",
+      "arm": "loop-k2",
+      "source": "tiles",
+      "world": "shared",
+      "status": "answered",
+      "target": "175",
+      "submitted": [
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1=9",
+              "r2=184-9"
+            ]
+          }
+        },
+        {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "r1=184-9"
+            ]
+          }
+        }
+      ],
+      "replayed": [
+        {
+          "error": "ValueError"
+        },
+        {
+          "error": "ValueError"
+        }
+      ],
+      "target_observed": false,
+      "correct": false,
+      "file": "short/middle-read-early/512/loop-k2/tiles-shared.json.gz",
+      "sha": "6b9efc2e45136a76960e370811495cc4dde37706d4b759592b1b71d7405ef9b6"
+    }
+  ],
+  "presentations": 26,
+  "observations": 23,
+  "all_provider_results_reproduced": true,
+  "graded_success_without_target_observation": 0
+}

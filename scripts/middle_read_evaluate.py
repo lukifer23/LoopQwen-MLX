@@ -14,7 +14,7 @@ from scripts.middle_depth_development import FROZEN
 from scripts.middle_depth_pair_audit import serving, source_uncertainty
 from scripts.middle_depth_standalone import check
 from scripts.middle_depth_wave import dispatch
-from scripts.middle_read_bundle import DEST, REPORT
+from scripts.middle_read_bundle import ARCHIVE, DEST, REPORT
 from scripts.middle_read_fit import EARLY
 
 STAGE = "middle-read-early"
@@ -207,10 +207,89 @@ def result():
     )
 
 
+def close():
+    decision = read(REPORT / "early-decision.json")
+    cold = REPORT / "cold" / "middle-read-early-loop-tiles-512.json.gz"
+    replay = unpack(cold)
+    if decision["passed"] or not replay["passed"] or replay["callbacks"] < 1:
+        raise ValueError(
+            "Miss closure requires the scored early miss and installed tool replay"
+        )
+    charges = {}
+    for p in sorted((ROOT / "charges").glob("*.json")):
+        row = read(p)
+        if row["job"].startswith("middle-read/"):
+            if row["status"] == "running":
+                raise ValueError("Alternative still has a live native worker")
+            charges[p.name] = {
+                "sha256": digest(p),
+                "stage": row["stage"],
+                "status": row["status"],
+                "seconds": row["seconds"],
+            }
+    fit = read(REPORT / "early-fit.json")
+    stopped = read(REPORT / "interrupted-before-update.json")
+    step3 = fit["log"][2]
+    if (
+        not step3["replayed_derivative"]
+        or step3["prepared"] != stopped["prepared"]
+        or not read(REPORT / "restart.json")["passed"]
+    ):
+        raise ValueError("Stored pre-update recovery missing")
+    inputs = {
+        name: digest(REPORT / name)
+        for name in (
+            "early-fit.json",
+            "early-decision.json",
+            "restart.json",
+            "restart-diagnosis.json",
+            "trained-state.json",
+            "resume-archive.json",
+            "standalone.json",
+            "callback-replay.json",
+        )
+    }
+    save(
+        ARCHIVE / "decision.json",
+        {
+            "status": "miss",
+            "study": "middle evidence reads, update 84",
+            "read_counts": [1, 2],
+            "registration": digest(EARLY),
+            "receipts": inputs,
+            "controller": fit["weights"],
+            "retained_public_parent": fit["identity"]["parent"],
+            "resume_generation": "step-0084",
+            "paired_hard_sources": {
+                k: v["paired_hard_sources"] for k, v in decision["summary"].items()
+            },
+            "changes_on_second_read": {
+                "fixed": decision["gains"],
+                "lost": decision["losses"],
+            },
+            "cold_tool_replay": {
+                "archive": digest(cold),
+                "actual_callbacks": replay["callbacks"],
+                "seconds": replay["seconds"],
+                "peak": replay["child_peak_bytes"],
+            },
+            "charged_seconds": {
+                s: sum(r["seconds"] for r in charges.values() if r["stage"] == s)
+                for s in ("profile", "fit", "short")
+            },
+            "charges": charges,
+            "closed": [
+                "epoch two",
+                "sealed confirmation",
+                "replication seed",
+                "another fallback architecture",
+            ],
+            "finding": "The second read fixed two presentations of one chat source and broke a shared-history calculator follow-up. Neither read count completed a changed reasoning or tool source. The two-read model retained four supported openings against the parent's five.",
+        },
+    )
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("collect", "result"))
-    if parser.parse_args().action == "collect":
-        collect()
-    else:
-        result()
+    parser.add_argument("action", choices=("collect", "result", "close"))
+    {"collect": collect, "result": result, "close": close}[parser.parse_args().action]()

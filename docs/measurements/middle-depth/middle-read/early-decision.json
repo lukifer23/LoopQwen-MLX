@@ -1,0 +1,201 @@
+{
+  "passed": false,
+  "checks": {
+    "additional_qualifying_source": false,
+    "opening_retention": false
+  },
+  "stage": "middle-read-early",
+  "registration": "db2d95117ec21ac34fc1fdb8e0ce57afa99e1445627b1e1af1eacfa0f42acb39",
+  "rows": "d89a14fbb39e88c1f9eda19c3d62e95a39eb8aa82ede3093e053bfc8a3b16a9a",
+  "callback_replay": "2c26268d279789572167e3f712bdcdf6690f5dbe042b6e02f66345ff154d85c6",
+  "standalone": "c5baf746279b6965ba041ad2c2d584c69f9d0cda9d22a55ecab713f9e66cdf66",
+  "summary": {
+    "loop-k1": {
+      "opening_work": {
+        "model_turns": 36,
+        "generated_tokens": 988,
+        "new_prompt_tokens": 9049,
+        "reused_prompt_tokens": 0,
+        "warm_layer_token_visits": 240024,
+        "logical_kv_file_bytes": 0,
+        "extra_attention_token_reads": 10001
+      },
+      "numeric_openings": 6,
+      "first_calculator_returned_value": 6,
+      "first_calculator_returned_target": 0,
+      "any_calculator_returned_target": 0,
+      "supported": 2,
+      "by_deadline": 2,
+      "paired_hard_sources": [],
+      "seconds": 18.26524004410021,
+      "mean_capped_time_to_correct": 7.4253344614429535,
+      "followups": {
+        "own": 0,
+        "shared": 1
+      },
+      "by_source": {
+        "archive/changed": false,
+        "archive/irrelevant": false,
+        "archive/original": false,
+        "bridge/changed": false,
+        "bridge/irrelevant": false,
+        "bridge/original": false,
+        "ink/changed": false,
+        "ink/irrelevant": false,
+        "ink/original": false,
+        "kiln/changed": false,
+        "kiln/irrelevant": false,
+        "kiln/original": false,
+        "parcel/changed": true,
+        "parcel/irrelevant": false,
+        "parcel/original": false,
+        "parcels/changed": false,
+        "parcels/irrelevant": false,
+        "parcels/original": false,
+        "parcels/own": false,
+        "parcels/shared": false,
+        "studio/changed": false,
+        "studio/irrelevant": true,
+        "studio/original": false,
+        "tiles/changed": false,
+        "tiles/irrelevant": false,
+        "tiles/original": false,
+        "tiles/own": false,
+        "tiles/shared": true,
+        "volunteer/changed": false,
+        "volunteer/irrelevant": false,
+        "volunteer/original": false
+      }
+    },
+    "loop-k2": {
+      "opening_work": {
+        "model_turns": 34,
+        "generated_tokens": 1775,
+        "new_prompt_tokens": 8189,
+        "reused_prompt_tokens": 0,
+        "warm_layer_token_visits": 238320,
+        "logical_kv_file_bytes": 0,
+        "extra_attention_token_reads": 19860
+      },
+      "numeric_openings": 6,
+      "first_calculator_returned_value": 4,
+      "first_calculator_returned_target": 0,
+      "any_calculator_returned_target": 0,
+      "supported": 4,
+      "by_deadline": 4,
+      "paired_hard_sources": [],
+      "seconds": 30.76384724798845,
+      "mean_capped_time_to_correct": 6.8570207067424676,
+      "followups": {
+        "own": 0,
+        "shared": 0
+      },
+      "by_source": {
+        "archive/changed": false,
+        "archive/irrelevant": false,
+        "archive/original": false,
+        "bridge/changed": false,
+        "bridge/irrelevant": false,
+        "bridge/original": false,
+        "ink/changed": false,
+        "ink/irrelevant": false,
+        "ink/original": false,
+        "kiln/changed": false,
+        "kiln/irrelevant": false,
+        "kiln/original": false,
+        "parcel/changed": true,
+        "parcel/irrelevant": false,
+        "parcel/original": false,
+        "parcels/changed": false,
+        "parcels/irrelevant": false,
+        "parcels/original": false,
+        "parcels/own": false,
+        "parcels/shared": false,
+        "studio/changed": true,
+        "studio/irrelevant": true,
+        "studio/original": true,
+        "tiles/changed": false,
+        "tiles/irrelevant": false,
+        "tiles/original": false,
+        "tiles/own": false,
+        "tiles/shared": false,
+        "volunteer/changed": false,
+        "volunteer/irrelevant": false,
+        "volunteer/original": false
+      }
+    }
+  },
+  "short_source_uncertainty": {
+    "one_to_two": {
+      "paired_sources": 9,
+      "ordered_resamples": 19683,
+      "macro_difference": 0.07407407407407407,
+      "exact_bootstrap_95": [
+        0.0,
+        0.2222222222222222
+      ],
+      "macro_after_leaving_one_source_out": {
+        "reasoning/archive": 0.07407407407407407,
+        "reasoning/bridge": 0.07407407407407407,
+        "reasoning/kiln": 0.07407407407407407,
+        "tools/ink": 0.07407407407407407,
+        "tools/parcels": 0.07407407407407407,
+        "tools/tiles": 0.07407407407407407,
+        "chat/parcel": 0.1111111111111111,
+        "chat/studio": 0.0,
+        "chat/volunteer": 0.1111111111111111
+      }
+    },
+    "base_to_two": {
+      "paired_sources": 9,
+      "ordered_resamples": 19683,
+      "macro_difference": 0.07407407407407407,
+      "exact_bootstrap_95": [
+        -0.1111111111111111,
+        0.3333333333333333
+      ],
+      "macro_after_leaving_one_source_out": {
+        "reasoning/archive": 0.07407407407407407,
+        "reasoning/bridge": 0.07407407407407407,
+        "reasoning/kiln": 0.07407407407407407,
+        "tools/ink": 0.07407407407407407,
+        "tools/parcels": 0.07407407407407407,
+        "tools/tiles": 0.07407407407407407,
+        "chat/parcel": 0.16666666666666666,
+        "chat/studio": -0.05555555555555555,
+        "chat/volunteer": 0.1111111111111111
+      }
+    }
+  },
+  "base": {
+    "supported": 2,
+    "by_deadline": 2,
+    "capped_mean": 7.57880308644208,
+    "tokens": 11063,
+    "seconds": 182.60553866875125,
+    "paired_hard_sources": [],
+    "followups": {
+      "own": 0,
+      "shared": 0
+    }
+  },
+  "parent": {
+    "supported": 5,
+    "by_deadline": 5,
+    "capped_mean": 6.6485128162959075,
+    "tokens": 1504,
+    "seconds": 32.61311653908342,
+    "paired_hard_sources": [],
+    "followups": {
+      "own": 0,
+      "shared": 0
+    }
+  },
+  "gains": [
+    "studio/changed",
+    "studio/original"
+  ],
+  "losses": [
+    "tiles/shared"
+  ]
+}
