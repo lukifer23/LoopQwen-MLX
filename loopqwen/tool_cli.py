@@ -156,6 +156,42 @@ def add_arguments(p, checkpoint=None):
 
 
 def open_assistant(args):
+    bundle = Path(args.checkpoint) / "standalone-middle.json"
+    if bundle.is_file():
+        from . import REVISION
+        from .io import digest, read
+
+        spec = read(bundle)
+        if (
+            spec["schema"] != 1
+            or spec["base_revision"] != REVISION
+            or getattr(args, "tool_format", "compact") != "qwen"
+            or getattr(args, "session_policy", None) is not None
+            or getattr(args, "tool_adapter", None) is not None
+        ):
+            raise ValueError(
+                "Use the standalone checkpoint with --tool-format qwen and its built-in policy"
+            )
+        if spec["arm"] == "base" and spec["policy_sha256"] is None:
+            from .tool_compare import DenseAssistant
+
+            assistant = DenseAssistant(
+                True, "qwen", args.checkpoint, require_release=True
+            )
+            assistant.native_plain = True
+            return assistant
+        if (
+            spec["arm"] == "loop"
+            and digest(bundle.parent / "registration.json") == spec["policy_sha256"]
+        ):
+            from .middle_depth import MiddleAssistant
+
+            if read(bundle.parent / "registration.json")["donor"] != "base":
+                raise ValueError(
+                    "Standalone loop requires its local certified Base donor"
+                )
+            return MiddleAssistant(args.checkpoint, args.checkpoint)
+        raise ValueError("Unexpected standalone model identity")
     if getattr(args, "session_policy", None) is not None:
         from .io import read
 

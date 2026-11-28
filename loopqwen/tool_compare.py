@@ -16,9 +16,15 @@ from .worker import acquire
 class DenseAssistant(Assistant):
     """Run the same conversation protocol with the untouched ordinary-depth checkpoint."""
 
-    def __init__(self, reuse, tool_format="compact", directory=None):
+    def __init__(
+        self, reuse, tool_format="compact", directory=None, *, require_release=False
+    ):
         self.tool_format = tool_format
-        self.language, self.tokenizer, _ = base(directory)
+        self.language, self.tokenizer, _ = (
+            base(directory, require_release=True)
+            if require_release
+            else base(directory)
+        )
         self._tool_model = self.language
         self.reuse_prefix = reuse
         self.dedicated = False
