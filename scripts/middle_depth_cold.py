@@ -51,7 +51,13 @@ atexit.register(close_metrics)
 """
 
 
-def cold(stage, source, cap, archive_stage, arm, standalone=False):
+def cold(stage, source, cap, archive_stage, arm, standalone=False, middle_read=False):
+    if middle_read and (
+        not standalone or arm != "loop" or source == "anne" or cap != 512
+    ):
+        raise ValueError(
+            "The registered middle-read cold replay uses the standalone short pair"
+        )
     if standalone:
         from scripts.middle_depth_standalone import benchmark_model, check
 
@@ -60,7 +66,14 @@ def cold(stage, source, cap, archive_stage, arm, standalone=False):
             stage = chosen["document_stage" if source == "anne" else "short_stage"]
         else:
             stage = "parent" if source == "anne" else "terminal"
-        directory, manifest = benchmark_model(arm)
+        if middle_read:
+            from scripts.middle_read_bundle import DEST, REPORT
+            from scripts.middle_read_evaluate import STAGE
+
+            directory, manifest = DEST, read(REPORT / "standalone.json")
+            stage = STAGE
+        else:
+            directory, manifest = benchmark_model(arm)
     elif arm == "base" or not archive_stage or not stage:
         raise ValueError("Archive replay needs a trained arm and both stage names")
     if source == "anne":
@@ -71,13 +84,21 @@ def cold(stage, source, cap, archive_stage, arm, standalone=False):
         names = ["original-first", "original-own"]
     else:
         task = next(r for r in read(SOURCE) if r["id"] == source)
-        folder = ROOT / "short" / stage / str(cap) / arm
+        folder = (
+            ROOT / "short" / stage / str(cap) / (arm + "-k2" if middle_read else arm)
+        )
         names = [source + "-" + s for s in ("original", "own")]
     refs = [unpack(folder / (name + ".json.gz")) for name in names]
     with (
         worker(
             "long" if source == "anne" else "profile",
-            "installed/" + stage + "/" + arm + "/" + source,
+            ("middle-read/" if middle_read else "")
+            + "installed/"
+            + stage
+            + "/"
+            + arm
+            + "/"
+            + source,
         ) as guard,
         TemporaryDirectory() as temp,
     ):
@@ -89,7 +110,7 @@ def cold(stage, source, cap, archive_stage, arm, standalone=False):
             (wheel,) = archive.glob("*.whl")
             model_args = ["--checkpoint", str(archive)]
             weights = manifest["files"].get(
-                "adapters.safetensors",
+                "controller.safetensors" if middle_read else "adapters.safetensors",
                 "base-dc7cdfe" if source == "anne" else "untouched-base",
             )
         else:
@@ -238,6 +259,8 @@ def cold(stage, source, cap, archive_stage, arm, standalone=False):
         output = ROOT / (
             "standalone/selected-benchmark/cold" if standalone else "installed"
         )
+        if middle_read:
+            output = ROOT / "middle-read" / "cold"
         packed(output / f"{stage}-{arm}-{source}-{cap}.json.gz", rec)
         if not all(same):
             raise ValueError(
@@ -250,8 +273,9 @@ if __name__ == "__main__":
     p.add_argument("--stage")
     p.add_argument("--archive-stage")
     p.add_argument("--standalone", action="store_true")
+    p.add_argument("--middle-read", action="store_true")
     p.add_argument("--arm", choices=("loop", "ordinary", "base"), default="loop")
     p.add_argument("--source", choices=("tiles", "parcels", "anne"), required=True)
     p.add_argument("--cap", type=int, choices=(128, 512, 4096), required=True)
     a = p.parse_args()
-    cold(a.stage, a.source, a.cap, a.archive_stage, a.arm, a.standalone)
+    cold(a.stage, a.source, a.cap, a.archive_stage, a.arm, a.standalone, a.middle_read)
