@@ -173,6 +173,30 @@ def snapshot():
                 if read(p)["job"].startswith("specialist-transfer/")
             ),
         )
+    public = ROOT / "standard-five"
+    data["standard"] = None
+    if (public / "result.json").is_file():
+        data["standard"] = use(public / "result.json")
+        use(public / "source-audit.json")
+        use(public / "tokens.json")
+        use(public / "enrollment.json")
+        for arm in ARMS:
+            receipt = use(public / (arm + "-process.json"))
+            grades_path = public / (arm + "-grades.json")
+            grades = use(grades_path)
+            if digest(grades_path) != receipt["grades"] or len(grades) != 250:
+                raise ValueError("Standard benchmark score receipt changed")
+            for task in data["standard"]["benchmarks"]:
+                path = public / arm / (task + ".json")
+                raw = use(path)
+                subset = [r for r in grades if r["key"].split("/")[0] == task]
+                if (
+                    len(raw) != 50
+                    or len(subset) != 50
+                    or any(r["receipt"] != digest(path) for r in subset)
+                ):
+                    raise ValueError("Incomplete standard benchmark likelihoods")
+            cutoff = max(cutoff, receipt["exited"])
     charges = defaultdict(float)
     for p in sorted((ROOT / "charges").glob("*.json")):
         r = read(p)

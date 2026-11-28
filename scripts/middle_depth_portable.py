@@ -172,6 +172,52 @@ def restore(snapshot, arm, target):
         folder.rename(target)
 
 
+def restore_full_fit(parent, target):
+    """Restore the full-document checkpoint from a verified standalone parent."""
+    import subprocess
+    import sys
+
+    repo = KIT.parents[3]
+    manifest = repo / "docs/measurements/middle-depth/standalone"
+    required = json.loads((manifest / "loop-files.json").read_text())["files"]
+    complete = json.loads((manifest / "long-loop-files.json").read_text())["files"]
+    delta = repo / "research/results/middle-depth-full-document/changes.zip"
+    if target.exists():
+        raise FileExistsError(target)
+    if (
+        any(p.is_symlink() for p in parent.rglob("*"))
+        or {
+            str(p.relative_to(parent)): digest(p)
+            for p in parent.rglob("*")
+            if p.is_file()
+        }
+        != required
+    ):
+        raise ValueError(
+            "Full-document checkpoint needs its verified standalone parent"
+        )
+    target.parent.mkdir(parents=True, exist_ok=True)
+    changed = {name for name, sha in complete.items() if required.get(name) != sha}
+    with TemporaryDirectory(dir=target.parent) as tmp, ZipFile(delta) as z:
+        folder = Path(tmp) / "model"
+        if set(z.namelist()) != changed:
+            raise ValueError("Unexpected full-document file set")
+        if sys.platform == "darwin":
+            subprocess.run(["cp", "-cR", parent, folder], check=True)
+        else:
+            shutil.copytree(parent, folder)
+        for name in changed:
+            with z.open(name) as src, (folder / name).open("wb") as dest:
+                shutil.copyfileobj(src, dest)
+        if {
+            str(p.relative_to(folder)): digest(p)
+            for p in folder.rglob("*")
+            if p.is_file()
+        } != complete:
+            raise ValueError("Restored full-document weights differ")
+        folder.rename(target)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="action", required=True)
@@ -179,11 +225,16 @@ if __name__ == "__main__":
     p.add_argument("--snapshot", required=True, type=Path)
     p.add_argument("--arm", choices=("base", "loop"), required=True)
     p.add_argument("--out", required=True, type=Path)
+    p = sub.add_parser("restore-full-fit")
+    p.add_argument("--parent", required=True, type=Path)
+    p.add_argument("--out", required=True, type=Path)
     p = sub.add_parser("pack")
     p.add_argument("--snapshot", required=True, type=Path)
     p.add_argument("--models", default=Path("exports/standalone-middle-576"), type=Path)
     a = parser.parse_args()
     if a.action == "pack":
         pack(a.snapshot, a.models)
+    elif a.action == "restore-full-fit":
+        restore_full_fit(a.parent, a.out)
     else:
         restore(a.snapshot, a.arm, a.out)

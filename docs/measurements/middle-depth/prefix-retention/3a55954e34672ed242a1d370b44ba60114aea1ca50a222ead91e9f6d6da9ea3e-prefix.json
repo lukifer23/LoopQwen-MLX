@@ -1,0 +1,813 @@
+{
+  "identity": "3a55954e34672ed242a1d370b44ba60114aea1ca50a222ead91e9f6d6da9ea3e",
+  "states": {
+    "site-0-0.safetensors": "99f862c704c8c20d4943d6f6adefcd99ad30f93105fc1be8e4097d901177435f",
+    "site-1-0.safetensors": "531c0c8720a5364b1cbb925821702b141010119c9e5036c333417ca5fcbb21dd",
+    "site-2-0.safetensors": "f31fa01760c362f21e1f089f640411b9ea46cea7c07a9e7c9de6acee268b1f1c",
+    "site-3-0.safetensors": "65c57f1d6aeea5dc166714b70e7b8d4dcf0d1b3fa9ca9927a07eb4f136ab978d",
+    "site-4-0.safetensors": "8df5db1b5ff022b8450d5d128914e86855fcb348aec749928ff986429b27297d",
+    "site-5-0.safetensors": "6be9de5feb762ecb53f18ae9c6a20175af1c25bce9a36caeb8faabc7b06a905c",
+    "site-6-0.safetensors": "2198421870c3afa8db27600472074bbdac4c57f93603c7c5202b5a1ed57c4f9b",
+    "site-7-0.safetensors": "5675d49f63d7d877a13b47445c86614e5a6af2c6f0346df5650324ff362c1bab",
+    "site-8-0.safetensors": "c26fae0d81127e6274802629f594a2e5c25b0ff057e3bc4dda5eda9044680615",
+    "site-9-0.safetensors": "ee7b798da504d571619bbd4dc88a640a990139d84af63c497e6aca8297cfff33",
+    "site-10-0.safetensors": "1a2322c1742d16f6e73513997272f1228dc9e5a9106e7b52884b2a491df4dad3",
+    "site-11-0.safetensors": "f77b2b9977de3c10449b006f850471154d7405cbd9ed1d819794145cb1df129b",
+    "site-12-0.safetensors": "ae45f69a5e65cf3cd008e9ea7fa524e00a1e7fe9d406c2d04a4c2d6ed0a26546",
+    "site-13-0.safetensors": "d3488f61e812f36fe4f14e9774ab40fa20846022dd609c7dfa9087654c442c1a",
+    "site-14-0.safetensors": "67b95ea2287f0913d291f26634f85a0d38dad2091fd8fc10be589f15e2599f74",
+    "site-15-0.safetensors": "3c7c67b9d57c848ee0d5d8c5deaf10af54835c7cc82287590b689faaaf63ba09",
+    "site-12-1.safetensors": "b7397f48eee794f0b05434be0e9ac0dbea9046baff140666c096712b84980e56",
+    "site-13-1.safetensors": "cadde7a2c5d37a3c1fdf7f28652d72532ee0ade2beb6a311af0bee5eca0d9912",
+    "site-14-1.safetensors": "c2141712932c4a7d9fc77681d9b5e436255800384976b685662c346f348de063",
+    "site-15-1.safetensors": "1efe43b8e1ada09333e6bf696c841ffa93811342759b36c70f52f0b90f233f41",
+    "site-16-0.safetensors": "89069c2094c8efb22c8ab8b51aec011eb125db637a051f9cb0825ba3ca937d77",
+    "site-17-0.safetensors": "e926082da388a2ebbb83359443dfc7b30d7bced588349678469070491f7e717c",
+    "site-18-0.safetensors": "a8fd596ce9b4d1f264545b3501958e5d67e7fa688c6a4ef47df01ae8a43a6237",
+    "site-19-0.safetensors": "cf8f4168d8b520e588658648f1b7f751feee798551554a4a5c33240c42ad6773",
+    "site-20-0.safetensors": "bdede1bfeab3fc93b354a7c750d629f6208288fe6d7d436049a46d0b4367cfb1",
+    "site-21-0.safetensors": "d21c11f8dfaf06849a07d833c60e1e1e07f8a06f8c62f9d22b77da0a1f1eb2d1",
+    "site-22-0.safetensors": "0a44f4e948f036d28c2a0fcc102f709231355547369c41ae2dd435c2641a31ee",
+    "site-23-0.safetensors": "382e9e433368ecb6790977116008ab48265f01f616c6aa1a4ceae9e94cf802ca"
+  },
+  "physical_sites": [
+    {
+      "site": [
+        0,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        1,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        2,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        3,
+        0
+      ],
+      "kind": "kv",
+      "consumed": 152448,
+      "tensors": {
+        "k": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        },
+        "v": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        }
+      }
+    },
+    {
+      "site": [
+        4,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        5,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        6,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        7,
+        0
+      ],
+      "kind": "kv",
+      "consumed": 152448,
+      "tensors": {
+        "k": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        },
+        "v": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        }
+      }
+    },
+    {
+      "site": [
+        8,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        9,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        10,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        11,
+        0
+      ],
+      "kind": "kv",
+      "consumed": 152448,
+      "tensors": {
+        "k": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        },
+        "v": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        }
+      }
+    },
+    {
+      "site": [
+        12,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        13,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        14,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        15,
+        0
+      ],
+      "kind": "kv",
+      "consumed": 152448,
+      "tensors": {
+        "k": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        },
+        "v": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        }
+      }
+    },
+    {
+      "site": [
+        12,
+        1
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        13,
+        1
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        14,
+        1
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        15,
+        1
+      ],
+      "kind": "kv",
+      "consumed": 152448,
+      "tensors": {
+        "k": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        },
+        "v": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        }
+      }
+    },
+    {
+      "site": [
+        16,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        17,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        18,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        19,
+        0
+      ],
+      "kind": "kv",
+      "consumed": 152448,
+      "tensors": {
+        "k": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        },
+        "v": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        }
+      }
+    },
+    {
+      "site": [
+        20,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        21,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        22,
+        0
+      ],
+      "kind": "hybrid",
+      "consumed": 152448,
+      "tensors": {
+        "convolution": {
+          "shape": [
+            1,
+            3,
+            6144
+          ],
+          "dtype": "BF16"
+        },
+        "delta": {
+          "shape": [
+            1,
+            16,
+            128,
+            128
+          ],
+          "dtype": "F32"
+        }
+      }
+    },
+    {
+      "site": [
+        23,
+        0
+      ],
+      "kind": "kv",
+      "consumed": 152448,
+      "tensors": {
+        "k": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        },
+        "v": {
+          "shape": [
+            1,
+            2,
+            152448,
+            256
+          ],
+          "dtype": "BF16"
+        }
+      }
+    }
+  ],
+  "complete": true,
+  "evicted": false,
+  "last_use": 1795829244.5872262,
+  "command": [
+    ".venv/bin/python",
+    "-m",
+    "scripts.middle_depth_long_fit",
+    "fit",
+    "--arm",
+    "loop",
+    "--policy",
+    "checkpoints/middle-depth/matched-4619/loop/step-0576"
+  ],
+  "seconds": 332.4648397100391,
+  "avoided_duplicate_bytes": 947497333
+}

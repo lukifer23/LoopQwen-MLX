@@ -195,6 +195,9 @@ def summarize():
             "delta": sum(paired) / 50,
             "paired95": np.quantile(draws, [0.025, 0.975]).tolist(),
             "exact_mcnemar_p": p,
+            "zero_discordance_95_upper": 1 - 0.05 ** (1 / len(keys))
+            if nd == 0
+            else None,
         }
     floor = 0.0
     for i, (name, r) in enumerate(
@@ -210,6 +213,26 @@ def summarize():
         {
             "benchmarks": groups,
             "macro_delta": delta,
+            "mean_accuracy": {
+                arm: sum(r[arm]["accuracy"] for r in groups.values()) / len(groups)
+                for arm in tables
+            },
+            "serving": {
+                arm: {
+                    "wall_seconds_across_items": sum(
+                        r[arm]["seconds"] for r in groups.values()
+                    ),
+                    "peak_mlx": max(r[arm]["peak_mlx"] for r in groups.values()),
+                    "bundle_logical_bytes": sum(
+                        (MODELS / arm / k).stat().st_size
+                        for k in read(OUT / (arm + "-process.json"))["manifest"][
+                            "files"
+                        ]
+                    ),
+                }
+                for arm in tables
+            },
+            "interval_scope": "Seeded stratified paired-item bootstrap conditional on this benchmark set. For zero switches the bootstrap delta is degenerate. The exact one-sided upper bound on the switch probability is reported separately. The fixed Base-first order can affect time comparisons.",
             "paired95": interval,
             "parity_lower_bound_passes": interval[0] > -0.02,
             "plan": digest(PLAN),

@@ -72,3 +72,11 @@ data/standard-five/env/bin/python -m scripts.middle_depth_bench_sources freeze
 ```
 
 Run the pair on an idle native worker. It checks the complete model manifests, opens the Base folder with its installed wheel, finishes and regrades all 250 rows, then opens the loop folder in a new process. Native scores are saved after each item. The two grade files and the paired report are under `docs/measurements/middle-depth/standard-five`.
+
+## Restoring the loop trained on complete documents
+
+The four-document fit has a standalone 1,530,361,024-byte checkpoint. It has completed the 16 registered updates. The repository stores the change from the certified update-576 directory in 1,639,404 additional compressed bytes. Restore to a new directory using the update-576 loop created above. Every restored file must match the new hash manifest. The command was verified in a separate temporary directory. [Full-document fit](measurements/middle-depth/long-fit-loop.json) · [Manifest](measurements/middle-depth/standalone/long-loop-files.json) · [Restoration receipt](../research/results/middle-depth-full-document/changes.json)
+
+```sh
+.venv/bin/python -m scripts.middle_depth_portable restore-full-fit --parent exports/standalone-middle-576/loop --out exports/restored-full-document-loop
+```

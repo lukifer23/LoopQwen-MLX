@@ -105,6 +105,7 @@ def run(arm=None):
     chunks = []
     manifest = {}
     scores = []
+    key_audit = {}
     for name in TASKS:
         task, docs, order, meta = task_rows(name)
         manifest[name] = meta
@@ -120,6 +121,23 @@ def run(arm=None):
                 json.dumps(args, ensure_ascii=False).encode()
             ).hexdigest()
             chunks.append(dict(key=key, requests=args, sha=sig))
+            choices = task.doc_to_choice(doc)
+            gold = int(
+                task.doc_to_text(doc)
+                if task.multiple_input
+                else task.doc_to_target(doc)
+            )
+            if name in ("arc_challenge", "openbookqa"):
+                original = doc["choices"]["label"].index(doc["answerKey"].strip())
+            elif name == "sciq":
+                original = choices.index(doc["correct_answer"])
+            elif name == "hellaswag":
+                original = int(doc["label"])
+            else:
+                original = int(doc["answer"]) - 1
+            if gold != original:
+                raise ValueError(f"Upstream label disagrees with harness on {key}")
+            key_audit[key] = gold
             if arm:
                 row = outcomes[str(i)]
                 if row["request_sha"] != sig:
@@ -134,13 +152,6 @@ def run(arm=None):
                     raise ValueError("Invalid or missing likelihoods")
                 vals = [fsum(v["token_logp"]) for v in row["choices"]]
                 grades = task.process_results(doc, [(v, False) for v in vals])
-                gold = (
-                    task.doc_to_text(doc)
-                    if task.multiple_input
-                    else task.doc_to_target(doc)
-                )
-                choices = task.doc_to_choice(doc)
-                gold = int(gold)
                 raw = max(range(len(vals)), key=lambda j: vals[j])
                 norm = max(range(len(vals)), key=lambda j: vals[j] / len(choices[j]))
                 if int(grades["acc"]) != (raw == gold) or (
@@ -166,6 +177,16 @@ def run(arm=None):
                         receipt=digest(OUT / arm / (name + ".json")),
                     )
                 )
+    key_sha = hashlib.sha256(json.dumps(key_audit, sort_keys=True).encode()).hexdigest()
+    key_path = OUT / "label-verification.json"
+    label_receipt = {
+        "rows": len(key_audit),
+        "label_sha": key_sha,
+        "method": "Pinned dataset labels checked independently against all harness target indices.",
+    }
+    if key_path.exists() and read(key_path) != label_receipt:
+        raise ValueError("Label verification changed")
+    save(key_path, label_receipt)
     frozen = OUT / "enrollment.json"
     if arm:
         if read(frozen)["tasks"] != manifest or len(scores) != 250:

@@ -26,7 +26,7 @@
 #let name(a)=if a=="loop" {"LoopQwen"} else {"Untouched Base"}
 #let families=("reasoning","tools","chat","documents")
 #let pretty(f)=(reasoning:"Grounded reasoning",tools:"Executed tools",chat:"Chat and instructions",documents:"Complete documents").at(f)
-#label[RESEARCH ARTICLE · WORKING DRAFT 7]
+#label[RESEARCH ARTICLE · WORKING DRAFT 8]
 #v(6pt)
 #block[#set par(justify:false)
 #text(font:"Helvetica Neue",size:32pt,weight:"bold",tracking:-0.45pt)[LoopQwen versus Qwen Base]]
@@ -142,6 +142,23 @@ We regard improved recall on the changed Anne source as a reason to test a narro
 
 The precision screen reduced the donor file from 1.50 GB BF16 to 424 MB at four bits. Greedy trajectories changed, including a lost reasoning answer and fewer productive tool calls. The published reference pair retains BF16. A useful deployment recommendation requires an overall paired lower bound above −2 points, material source-level advantages in recall and tool jobs, and a replicated time-to-correct benefit at a fixed deadline. No such recommendation follows from the current sample.
 
+#if d.at("standard", default:none) != none [
+#pagebreak()
+= Five standard benchmarks
+We sampled 50 labeled items without replacement from each test or validation split, froze their token identities, and used the zero-shot completion tasks in EleutherAI’s lm-evaluation-harness 0.4.13. We scored every answer choice against the full native vocabulary. WinoGrande scores the common suffix under two possible antecedents. The other four tasks use character-normalized conditional log likelihood. This measures which completion each checkpoint ranks highest. Our chat and tool studies measure what users actually receive.
+
+#let names=(arc_challenge:"ARC-Challenge",hellaswag:"HellaSwag",winogrande:"WinoGrande",openbookqa:"OpenBookQA",sciq:"SciQ")
+#tab((1.3fr,.7fr,.7fr,.75fr,1.35fr),([Benchmark],[Base /50],[Loop /50],[Gain/loss],[Difference, 95% interval in pp]),
+..for (key,r) in d.standard.benchmarks.pairs() {
+ ([#names.at(key)],[#r.base.hits],[#r.loop.hits],[#r.gains / #r.losses],[#pp(r.delta) (#pp(r.paired95.first()), #pp(r.paired95.last()))])
+})
+#cap([Standard benchmark results.],[Gain and loss count discordant paired items. Each benchmark has a distinct 50-item cohort. Intervals use paired bootstrap resampling within benchmarks. Per-arm Wilson intervals, exact McNemar tests, Holm correction and each item’s score are in the archived result.])
+The equal-benchmark mean difference was #pp(d.standard.macro_delta) percentage points (paired 95% interval #pp(d.standard.paired95.first()) to #pp(d.standard.paired95.last())). Each answer is worth two points within its own benchmark. Independent reference Base scores on the larger evaluation were 40.1% on ARC-Challenge, 54.9% on HellaSwag, 60.2% on WinoGrande, 35.4% on OpenBookQA and 91.7% on SciQ. These published results contextualize our Mac measurements. #link("https://github.com/YuhuanStudio/Yunmo-Next-1B/blob/main/reports/evaluation.md")[Reference evaluation and settings.]
+
+The loop gained 12 answers and lost 10. Its largest loss was four net answers on ARC-Challenge. No individual benchmark reached the registered significance threshold after Holm adjustment. SciQ had no switches in 50 items. Even then, the exact one-sided 95% upper bound on the population switch rate is 5.8%.
+
+Base spent #sec(d.standard.serving.base.wall_seconds_across_items) seconds scoring all choices and LoopQwen spent #sec(d.standard.serving.loop.wall_seconds_across_items) seconds. Peak MLX allocation was #sec(d.standard.serving.base.peak_mlx/1073741824) and #sec(d.standard.serving.loop.peak_mlx/1073741824) GiB, respectively. The Base process exited and its 250 outcomes passed the upstream scorer before we loaded LoopQwen. Both models consumed the same token IDs. Each processed every candidate ending in full. A second calculation from raw per-token log probabilities checked every grade. We found all 50 sampled items per benchmark had distinct source keys, including WinoGrande author pairs and nonempty SciQ passages. Two generic OpenBookQA stems of one and two words occurred in adaptation text. Neither matching training row contained an answer choice.
+]
 #pagebreak()
 = Reproducibility and costs
 All qualifying runs use the 18 GiB M3 Pro with #str(d.hardware.gpu_cores) GPU cores and macOS #d.hardware.macos. One process owns the GPU lease. The packaged models each contain the tokenizer, runtime wheel and weights and can be moved independently. In an offline replay outside the checkout, all 20 token and tool trajectories matched the prior records. Each model missed all ten supported answers on that replay subset. The Base process exited before LoopQwen loaded. Cold process time was #sec(d.replay.arms.base.process_seconds) and #sec(d.replay.arms.loop.process_seconds) seconds, respectively.

@@ -1502,10 +1502,254 @@
       "tokens": 45186
     }
   },
+  "standard": {
+    "benchmarks": {
+      "arc_challenge": {
+        "base": {
+          "hits": 25,
+          "n": 50,
+          "raw_accuracy": 0.44,
+          "input_positions": 7992,
+          "scored_tokens": 1140,
+          "accuracy": 0.5,
+          "wilson95": [
+            0.3664451431682858,
+            0.6335548568317142
+          ],
+          "seconds": 6.726409875962418,
+          "examples_per_second": 7.433385850999152,
+          "peak_mlx": 1769749682
+        },
+        "loop": {
+          "hits": 21,
+          "n": 50,
+          "raw_accuracy": 0.38,
+          "input_positions": 7992,
+          "scored_tokens": 1140,
+          "accuracy": 0.42,
+          "wilson95": [
+            0.2937500335471198,
+            0.5576655823142176
+          ],
+          "seconds": 7.4794338759966195,
+          "examples_per_second": 6.684997932859939,
+          "peak_mlx": 1772487728
+        },
+        "gains": 2,
+        "losses": 6,
+        "delta": -0.08,
+        "paired95": [
+          -0.18049999999999727,
+          0.02
+        ],
+        "exact_mcnemar_p": 0.2890625,
+        "zero_discordance_95_upper": null,
+        "holm_p": 1,
+        "material_gain": false
+      },
+      "hellaswag": {
+        "base": {
+          "hits": 26,
+          "n": 50,
+          "raw_accuracy": 0.4,
+          "input_positions": 14947,
+          "scored_tokens": 5387,
+          "accuracy": 0.52,
+          "wilson95": [
+            0.3851174489004461,
+            0.6520286471342196
+          ],
+          "seconds": 8.927290461724624,
+          "examples_per_second": 5.600803537688491,
+          "peak_mlx": 1884442846
+        },
+        "loop": {
+          "hits": 28,
+          "n": 50,
+          "raw_accuracy": 0.44,
+          "input_positions": 14947,
+          "scored_tokens": 5387,
+          "accuracy": 0.56,
+          "wilson95": [
+            0.4230602802165686,
+            0.6883780078874284
+          ],
+          "seconds": 9.879778417758644,
+          "examples_per_second": 5.060842246231586,
+          "peak_mlx": 1872256854
+        },
+        "gains": 3,
+        "losses": 1,
+        "delta": 0.04,
+        "paired95": [
+          -0.04,
+          0.12
+        ],
+        "exact_mcnemar_p": 0.625,
+        "zero_discordance_95_upper": null,
+        "holm_p": 1,
+        "material_gain": false
+      },
+      "winogrande": {
+        "base": {
+          "hits": 33,
+          "n": 50,
+          "raw_accuracy": 0.66,
+          "input_positions": 2234,
+          "scored_tokens": 590,
+          "accuracy": 0.66,
+          "wilson95": [
+            0.521538260502326,
+            0.7756305077749992
+          ],
+          "seconds": 2.809575084131211,
+          "examples_per_second": 17.796285382229325,
+          "peak_mlx": 1608239050
+        },
+        "loop": {
+          "hits": 35,
+          "n": 50,
+          "raw_accuracy": 0.7,
+          "input_positions": 2234,
+          "scored_tokens": 590,
+          "accuracy": 0.7,
+          "wilson95": [
+            0.562496495355466,
+            0.8089644649911906
+          ],
+          "seconds": 3.046146704989951,
+          "examples_per_second": 16.414179894255927,
+          "peak_mlx": 1603698462
+        },
+        "gains": 4,
+        "losses": 2,
+        "delta": 0.04,
+        "paired95": [
+          -0.06,
+          0.14
+        ],
+        "exact_mcnemar_p": 0.6875,
+        "zero_discordance_95_upper": null,
+        "holm_p": 1,
+        "material_gain": false
+      },
+      "openbookqa": {
+        "base": {
+          "hits": 15,
+          "n": 50,
+          "raw_accuracy": 0.2,
+          "input_positions": 2885,
+          "scored_tokens": 737,
+          "accuracy": 0.3,
+          "wilson95": [
+            0.1910355350088095,
+            0.4375035046445341
+          ],
+          "seconds": 4.7680874180514365,
+          "examples_per_second": 10.4863849204412,
+          "peak_mlx": 1643267694
+        },
+        "loop": {
+          "hits": 17,
+          "n": 50,
+          "raw_accuracy": 0.28,
+          "input_positions": 2885,
+          "scored_tokens": 737,
+          "accuracy": 0.34,
+          "wilson95": [
+            0.22436949222500085,
+            0.47846173949767395
+          ],
+          "seconds": 5.185434295970481,
+          "examples_per_second": 9.642393895310603,
+          "peak_mlx": 1644617808
+        },
+        "gains": 3,
+        "losses": 1,
+        "delta": 0.04,
+        "paired95": [
+          -0.04,
+          0.12
+        ],
+        "exact_mcnemar_p": 0.625,
+        "zero_discordance_95_upper": null,
+        "holm_p": 1,
+        "material_gain": false
+      },
+      "sciq": {
+        "base": {
+          "hits": 49,
+          "n": 50,
+          "raw_accuracy": 1.0,
+          "input_positions": 20101,
+          "scored_tokens": 409,
+          "accuracy": 0.98,
+          "wilson95": [
+            0.8950455641036218,
+            0.9964607407283538
+          ],
+          "seconds": 9.605853499495424,
+          "examples_per_second": 5.205159541796718,
+          "peak_mlx": 2244578892
+        },
+        "loop": {
+          "hits": 49,
+          "n": 50,
+          "raw_accuracy": 0.98,
+          "input_positions": 20101,
+          "scored_tokens": 409,
+          "accuracy": 0.98,
+          "wilson95": [
+            0.8950455641036218,
+            0.9964607407283538
+          ],
+          "seconds": 10.990380082512274,
+          "examples_per_second": 4.54943319745231,
+          "peak_mlx": 2302209619
+        },
+        "gains": 0,
+        "losses": 0,
+        "delta": 0.0,
+        "paired95": [
+          0.0,
+          0.0
+        ],
+        "exact_mcnemar_p": 1,
+        "zero_discordance_95_upper": 0.058155079116972264,
+        "holm_p": 1,
+        "material_gain": false
+      }
+    },
+    "macro_delta": 0.008,
+    "mean_accuracy": {
+      "base": 0.592,
+      "loop": 0.6
+    },
+    "serving": {
+      "base": {
+        "wall_seconds_across_items": 32.83721633936511,
+        "peak_mlx": 2244578892,
+        "bundle_logical_bytes": 1528589074
+      },
+      "loop": {
+        "wall_seconds_across_items": 36.58117337722797,
+        "peak_mlx": 2302209619,
+        "bundle_logical_bytes": 1530360860
+      }
+    },
+    "interval_scope": "Seeded stratified paired-item bootstrap conditional on this benchmark set. For zero switches the bootstrap delta is degenerate. The exact one-sided upper bound on the switch probability is reported separately. The fixed Base-first order can affect time comparisons.",
+    "paired95": [
+      -0.028000000000000004,
+      0.044
+    ],
+    "parity_lower_bound_passes": false,
+    "plan": "62bc7e5c144a653d0369790a3bddda500a67edd1b6ed9d89c0623eb90f6e5dc1",
+    "enrollment": "e115174a0496efdedd007b3c82e990c12593997d7fc3a4a7ac9722680cf81a14"
+  },
   "charges": {
-    "short": 2216.8791055389447,
+    "short": 2296.833562538901,
     "fit": 4728.502841582114,
-    "long": 4622.640855329868,
+    "long": 5799.045466579904,
     "profile": 472.3320924982545
   },
   "input_files": {
@@ -1653,10 +1897,29 @@
     "docs/measurements/middle-depth/standalone/base-files.json": "1e1614696a67734467d02c6244cf4ab96d5eda0277db7e8321dd3cd2609b015a",
     "docs/measurements/middle-depth/standalone/loop-files.json": "3fd8c60ef1017edebc15045d44c683f07769be98dc126f4b527c5efe29c933bc",
     "docs/measurements/middle-depth/ordinary-full-fit-closure.json": "a3183df100abbf4436a500321e9cf7b048e0c011ee1893ec0a51a55e65b8244c",
+    "docs/measurements/middle-depth/standard-five/result.json": "506c53b218514b7d89fefb69ae0b33846f5445e37e018b8bb94de71d3046050c",
+    "docs/measurements/middle-depth/standard-five/source-audit.json": "deb33d8c00c3af6b74e63342588968dfcecfa4bd0fa4fc96763ff0ee74753895",
+    "docs/measurements/middle-depth/standard-five/tokens.json": "62618adc1604c3c3c67e90c401fc0286f87346d6a5cfd9f5aacd56abf31a099c",
+    "docs/measurements/middle-depth/standard-five/enrollment.json": "e115174a0496efdedd007b3c82e990c12593997d7fc3a4a7ac9722680cf81a14",
+    "docs/measurements/middle-depth/standard-five/base-process.json": "75d6d7ad80fa92ad4fb6f288763f31bead38e7448e11459fc5946254ca4380fe",
+    "docs/measurements/middle-depth/standard-five/base-grades.json": "9a72cbcb279050c43ca558f2157c33a97240afc9f29b700e5b044e6dc3ade985",
+    "docs/measurements/middle-depth/standard-five/base/arc_challenge.json": "a31fae015b4995f8369de730e28d8e995296e39d8911ff42f3144d0382f51774",
+    "docs/measurements/middle-depth/standard-five/base/hellaswag.json": "87bc408ebb1ffce02249ede6ee07e8d6925b89a27bdc94106b6ec90928902348",
+    "docs/measurements/middle-depth/standard-five/base/winogrande.json": "2f54a78ff92b71cbd654c279184a3e1c902d9e092a036059df2dfc7b9c431f75",
+    "docs/measurements/middle-depth/standard-five/base/openbookqa.json": "705558ede372072bcaf7bd5766359a9b4fe00186d9007050d6c66926c6bc4f45",
+    "docs/measurements/middle-depth/standard-five/base/sciq.json": "667b1f4207058fd59bd88429ba9ddf35c125370516eb4dfdfd36314daca7277e",
+    "docs/measurements/middle-depth/standard-five/loop-process.json": "72666ecace856a2d081a1f2c9c6bb472bf48687aceed65e09e1d206cee8e42bc",
+    "docs/measurements/middle-depth/standard-five/loop-grades.json": "2b215275a17dfd5da3f2bf23da486e927f89a9bd861b1c77a9ad56fd343b4888",
+    "docs/measurements/middle-depth/standard-five/loop/arc_challenge.json": "3a082f1c355f2fa0908503c2ce321e695fee2ed1de10fec8a922f6e707e095d7",
+    "docs/measurements/middle-depth/standard-five/loop/hellaswag.json": "a87eea0c143db3f0daf879d009b05ff869a56b8130a622a05280267ee8d5e919",
+    "docs/measurements/middle-depth/standard-five/loop/winogrande.json": "32b5b248ba2a452d5ea16a62d308024791c68befb1b60887a79f5f6851cbafa4",
+    "docs/measurements/middle-depth/standard-five/loop/openbookqa.json": "b92f25aa5d439a72d2b8c8a681dba53130948a8e4bb366e7487bc8dfdf71559e",
+    "docs/measurements/middle-depth/standard-five/loop/sciq.json": "a393b747fb7229e09d2ea5f9626dce9c11e205622c0bf313c66102e7b64aea92",
     "docs/measurements/middle-depth/charges/00e316b7df934e3c99b4cfc5a0bfa37a.json": "1fbefa72ffc2a5cbf2009e065b7531a96189baeebef0bb5245a2a6ae470a59e3",
     "docs/measurements/middle-depth/charges/02467db79c1b4803aea37d3e29b722b8.json": "f15e652c23101a57c393cbf8cc746a59b478c69f8e76c91271fa18491a74489c",
     "docs/measurements/middle-depth/charges/02eb504333e04c8db69eb34b70bea737.json": "fcee7cfe3e6a18bfc7fec5e4552813f62c24a6fd60bde0fc6a7f262500aed5c6",
     "docs/measurements/middle-depth/charges/04d35c71ac074c69a123bc8e11c25d83.json": "1799549d3a813d439d8b876b40020bbedf7921a714d2fbeb06beb2301b024b50",
+    "docs/measurements/middle-depth/charges/06f6ef51f9c34f909dc4d91db36c398e.json": "c151129840d183f8a2f66de824c0bda53649de063c1180c8e7829d1621f92658",
     "docs/measurements/middle-depth/charges/0724e38b68034810be37d9a5e16a3630.json": "03dc4404ffce628aa908fc58473e07a12ba122e17d4f9a12923731955e0c06fd",
     "docs/measurements/middle-depth/charges/0762e7c7381b4042b81ac4738f3bb872.json": "e94903418acdda46c19cd338982e2dd0e9c2f0adf390a04c31d68f071679687d",
     "docs/measurements/middle-depth/charges/08488a4c7ba44f91995b37f151786e94.json": "a3cf8fb5d27a400466ba77059f0ed1caf2b2501d33e8b7c860fa2a41b4088976",
@@ -1847,6 +2110,8 @@
     "docs/measurements/middle-depth/charges/e7e042ed1a904061b9e52258b33d8804.json": "f411ecc3322daec51a377e775cd7330b480c3defbafdd171144b300907f41df3",
     "docs/measurements/middle-depth/charges/e85eb70bb225468e963f05d3205d8cfd.json": "9f96721fa2675c3b8569ccf0b87e06fded1bed7bf4a2929af6e933e27442cf5f",
     "docs/measurements/middle-depth/charges/e8d04b62b5574ce29ed654a5733bec21.json": "284046a7a3c3a430a5e38b8b31cf8e4832a2870573446911b741d08159f6a3ee",
+    "docs/measurements/middle-depth/charges/ed463c07eac740f6b1ce649b1e0dd439.json": "179ab97dcd3ce0a20cac5aa48c6c077108ffa2add7184acb55f925814c81495b",
+    "docs/measurements/middle-depth/charges/ee83186638aa4c46a48c8a9b302920aa.json": "203b92217ade22884039c3e7cef471f328aa6ca30f1a511cd1290e8e95e5bad6",
     "docs/measurements/middle-depth/charges/ef8a5f9e594442209dd0ddb5471b8489.json": "4af737da897a5d02fcfe2741f4b07c1cd1be625b774db250d7ae9a91cad164bf",
     "docs/measurements/middle-depth/charges/efe46dad6eb24fa6848d736ab3c70b31.json": "3256f2e3d0e2fecaee71c784931a7fc6807fa2f3068cc4c3a8d5964406449386",
     "docs/measurements/middle-depth/charges/f265fa8d5aed48c8a140816cd4c7b774.json": "9d617ba4a1fa5c9dc31a3ba1015c668aaf759977c6dcdab0136fd30f0b09040f",

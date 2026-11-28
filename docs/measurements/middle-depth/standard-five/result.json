@@ -1,0 +1,244 @@
+{
+  "benchmarks": {
+    "arc_challenge": {
+      "base": {
+        "hits": 25,
+        "n": 50,
+        "raw_accuracy": 0.44,
+        "input_positions": 7992,
+        "scored_tokens": 1140,
+        "accuracy": 0.5,
+        "wilson95": [
+          0.3664451431682858,
+          0.6335548568317142
+        ],
+        "seconds": 6.726409875962418,
+        "examples_per_second": 7.433385850999152,
+        "peak_mlx": 1769749682
+      },
+      "loop": {
+        "hits": 21,
+        "n": 50,
+        "raw_accuracy": 0.38,
+        "input_positions": 7992,
+        "scored_tokens": 1140,
+        "accuracy": 0.42,
+        "wilson95": [
+          0.2937500335471198,
+          0.5576655823142176
+        ],
+        "seconds": 7.4794338759966195,
+        "examples_per_second": 6.684997932859939,
+        "peak_mlx": 1772487728
+      },
+      "gains": 2,
+      "losses": 6,
+      "delta": -0.08,
+      "paired95": [
+        -0.18049999999999727,
+        0.02
+      ],
+      "exact_mcnemar_p": 0.2890625,
+      "zero_discordance_95_upper": null,
+      "holm_p": 1,
+      "material_gain": false
+    },
+    "hellaswag": {
+      "base": {
+        "hits": 26,
+        "n": 50,
+        "raw_accuracy": 0.4,
+        "input_positions": 14947,
+        "scored_tokens": 5387,
+        "accuracy": 0.52,
+        "wilson95": [
+          0.3851174489004461,
+          0.6520286471342196
+        ],
+        "seconds": 8.927290461724624,
+        "examples_per_second": 5.600803537688491,
+        "peak_mlx": 1884442846
+      },
+      "loop": {
+        "hits": 28,
+        "n": 50,
+        "raw_accuracy": 0.44,
+        "input_positions": 14947,
+        "scored_tokens": 5387,
+        "accuracy": 0.56,
+        "wilson95": [
+          0.4230602802165686,
+          0.6883780078874284
+        ],
+        "seconds": 9.879778417758644,
+        "examples_per_second": 5.060842246231586,
+        "peak_mlx": 1872256854
+      },
+      "gains": 3,
+      "losses": 1,
+      "delta": 0.04,
+      "paired95": [
+        -0.04,
+        0.12
+      ],
+      "exact_mcnemar_p": 0.625,
+      "zero_discordance_95_upper": null,
+      "holm_p": 1,
+      "material_gain": false
+    },
+    "winogrande": {
+      "base": {
+        "hits": 33,
+        "n": 50,
+        "raw_accuracy": 0.66,
+        "input_positions": 2234,
+        "scored_tokens": 590,
+        "accuracy": 0.66,
+        "wilson95": [
+          0.521538260502326,
+          0.7756305077749992
+        ],
+        "seconds": 2.809575084131211,
+        "examples_per_second": 17.796285382229325,
+        "peak_mlx": 1608239050
+      },
+      "loop": {
+        "hits": 35,
+        "n": 50,
+        "raw_accuracy": 0.7,
+        "input_positions": 2234,
+        "scored_tokens": 590,
+        "accuracy": 0.7,
+        "wilson95": [
+          0.562496495355466,
+          0.8089644649911906
+        ],
+        "seconds": 3.046146704989951,
+        "examples_per_second": 16.414179894255927,
+        "peak_mlx": 1603698462
+      },
+      "gains": 4,
+      "losses": 2,
+      "delta": 0.04,
+      "paired95": [
+        -0.06,
+        0.14
+      ],
+      "exact_mcnemar_p": 0.6875,
+      "zero_discordance_95_upper": null,
+      "holm_p": 1,
+      "material_gain": false
+    },
+    "openbookqa": {
+      "base": {
+        "hits": 15,
+        "n": 50,
+        "raw_accuracy": 0.2,
+        "input_positions": 2885,
+        "scored_tokens": 737,
+        "accuracy": 0.3,
+        "wilson95": [
+          0.1910355350088095,
+          0.4375035046445341
+        ],
+        "seconds": 4.7680874180514365,
+        "examples_per_second": 10.4863849204412,
+        "peak_mlx": 1643267694
+      },
+      "loop": {
+        "hits": 17,
+        "n": 50,
+        "raw_accuracy": 0.28,
+        "input_positions": 2885,
+        "scored_tokens": 737,
+        "accuracy": 0.34,
+        "wilson95": [
+          0.22436949222500085,
+          0.47846173949767395
+        ],
+        "seconds": 5.185434295970481,
+        "examples_per_second": 9.642393895310603,
+        "peak_mlx": 1644617808
+      },
+      "gains": 3,
+      "losses": 1,
+      "delta": 0.04,
+      "paired95": [
+        -0.04,
+        0.12
+      ],
+      "exact_mcnemar_p": 0.625,
+      "zero_discordance_95_upper": null,
+      "holm_p": 1,
+      "material_gain": false
+    },
+    "sciq": {
+      "base": {
+        "hits": 49,
+        "n": 50,
+        "raw_accuracy": 1.0,
+        "input_positions": 20101,
+        "scored_tokens": 409,
+        "accuracy": 0.98,
+        "wilson95": [
+          0.8950455641036218,
+          0.9964607407283538
+        ],
+        "seconds": 9.605853499495424,
+        "examples_per_second": 5.205159541796718,
+        "peak_mlx": 2244578892
+      },
+      "loop": {
+        "hits": 49,
+        "n": 50,
+        "raw_accuracy": 0.98,
+        "input_positions": 20101,
+        "scored_tokens": 409,
+        "accuracy": 0.98,
+        "wilson95": [
+          0.8950455641036218,
+          0.9964607407283538
+        ],
+        "seconds": 10.990380082512274,
+        "examples_per_second": 4.54943319745231,
+        "peak_mlx": 2302209619
+      },
+      "gains": 0,
+      "losses": 0,
+      "delta": 0.0,
+      "paired95": [
+        0.0,
+        0.0
+      ],
+      "exact_mcnemar_p": 1,
+      "zero_discordance_95_upper": 0.058155079116972264,
+      "holm_p": 1,
+      "material_gain": false
+    }
+  },
+  "macro_delta": 0.008,
+  "mean_accuracy": {
+    "base": 0.592,
+    "loop": 0.6
+  },
+  "serving": {
+    "base": {
+      "wall_seconds_across_items": 32.83721633936511,
+      "peak_mlx": 2244578892,
+      "bundle_logical_bytes": 1528589074
+    },
+    "loop": {
+      "wall_seconds_across_items": 36.58117337722797,
+      "peak_mlx": 2302209619,
+      "bundle_logical_bytes": 1530360860
+    }
+  },
+  "interval_scope": "Seeded stratified paired-item bootstrap conditional on this benchmark set. For zero switches the bootstrap delta is degenerate. The exact one-sided upper bound on the switch probability is reported separately. The fixed Base-first order can affect time comparisons.",
+  "paired95": [
+    -0.028000000000000004,
+    0.044
+  ],
+  "parity_lower_bound_passes": false,
+  "plan": "62bc7e5c144a653d0369790a3bddda500a67edd1b6ed9d89c0623eb90f6e5dc1",
+  "enrollment": "e115174a0496efdedd007b3c82e990c12593997d7fc3a4a7ac9722680cf81a14"
+}
