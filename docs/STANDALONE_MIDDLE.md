@@ -44,7 +44,7 @@ The subsequent screen compared these same two directories on two full QMSum meet
 
 ## Benchmarking the selected standalone pair
 
-The full-document loop gets its own self-contained directory named by its trained-weight hash before the short and book development suites run. After source-masked scoring selects a checkpoint, the following command benchmarks the selected directory and the untouched Base directory outside the checkout. It installs each directory's bundled wheel offline and waits for each model process to exit. Both generation allowances use the same nine short sources, their changed and irrelevant versions, and two real follow-ups. The complete-book primary measurements and specialist screens have separate receipts. [Frozen benchmark and stop rules](../research/diagnostics/middle-depth/standalone-benchmark.md)
+The full-document loop gets its own self-contained directory named by its trained-weight hash before the short and book development suites run. After model-blinded scoring selects a checkpoint, the following command benchmarks the selected directory and the untouched Base directory outside the checkout. It installs each directory's bundled wheel offline and waits for each model process to exit. Both generation allowances use the same nine short sources, their changed and irrelevant versions, and two real follow-ups. The complete-book primary measurements and specialist screens have separate receipts. [Frozen benchmark and stop rules](../research/diagnostics/middle-depth/standalone-benchmark.md)
 
 ```sh
 .venv/bin/python -m scripts.middle_depth_standalone benchmark
@@ -101,7 +101,7 @@ The selected two-model headroom panel enrolls eight short openings using the sav
 .venv/bin/python -m scripts.middle_depth_headroom --direct
 ```
 
-The selected book requests extend the existing original and edited openings with follow-ups, irrelevant edits and unanswerable questions. The later review uses its own directory so the published opening judgments stay reproducible. After the enrolled requests finish, collect their source-masked responses with the following command.
+The selected book requests extend the existing original and edited openings with follow-ups, irrelevant edits and unanswerable questions. The later review uses its own directory so the published opening judgments stay reproducible. After the enrolled requests finish, collect their model-blinded responses with the following command.
 
 ```sh
 .venv/bin/python -m scripts.middle_depth_document_review pending direct-final-books --source-stage parent --arms base loop --prior parent direct-child

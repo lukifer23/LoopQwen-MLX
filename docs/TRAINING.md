@@ -5,9 +5,11 @@
 Train the loop only and compare the deployed checkpoint with pinned untouched Base. The latest native features, checkpoints, budget charges and resume commands are referenced by the current handoff. Older multi-arm commands below reproduce their archived experiments. [Direct handoff](../RESEARCH_GOAL.md) · [Standing comparison](../research/diagnostics/middle-depth/direct-pair.md)
 
 
-## Resume the native middle-depth study
+Update 576 is the retained research checkpoint. The full-document child lost a short success and gained no supported book answer. The separate attention-read controller also missed its development gate. Both can be restored for inspection. The public benchmark and the 116-request installed replay use the standalone update-576 model and untouched Base. [Standalone restoration and benchmarking](STANDALONE_MIDDLE.md) · [Checkpoint selection](measurements/middle-depth/direct-decision.json) · [Controller decision and resume states](../research/results/middle-read-0084)
 
-Both BF16 short fits reached update 576. The actual-history correction missed its registered threshold, so the complete-document development comparison uses those two parents and untouched Base. On the training Mac, check the lease and the remaining budget before starting a worker. The document command verifies existing outputs and continues in the registered order. The 128 and 512 settings limit generated tokens per turn. Each complete novel supplies at least 131,072 actual input tokens.
+## Reproduce the archived middle-depth parent comparison
+
+Both BF16 short fits reached update 576. After the actual-history correction missed its registered threshold, the earlier complete-document comparison enrolled those two parents and untouched Base. On the training Mac, check the lease and the remaining budget before replaying this enrollment. The document command verifies existing outputs and continues in the registered order. The 128 and 512 settings limit generated tokens per turn. Each complete novel supplies at least 131,072 actual input tokens.
 
 ```sh
 .venv/bin/python -m loopqwen resources
