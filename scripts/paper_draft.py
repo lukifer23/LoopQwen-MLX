@@ -381,6 +381,55 @@ def snapshot():
                 raise ValueError("Changed middle-read worker charge")
             r = read(p)
             cutoff = max(cutoff, r["dispatch"] + r["seconds"])
+    headroom = ROOT / "headroom"
+    if (headroom / "short-outcomes.json").exists():
+        extra = {}
+        for name in ("short", "document"):
+            result = headroom / (name + "-outcomes.json")
+            if not result.exists():
+                continue
+            record = use(result)
+            extra[name] = {}
+            for group, measurements in record["groups"].items():
+                extra[name][group] = {
+                    k: v for k, v in measurements.items() if k != "pairs"
+                }
+                for caps in measurements["pairs"].values():
+                    for row in caps.values():
+                        path = ROOT / row["file"]
+                        if digest(path) != row["sha"]:
+                            raise ValueError("Changed output-headroom trajectory")
+                        hashes[str(path)] = row["sha"]
+        data["output_headroom"] = extra
+        cold = ROOT / "standalone/selected-benchmark/cold"
+        data["cold_books"] = use(cold / "pair.json")
+        for arm, result in data["cold_books"]["arms"].items():
+            path = cold / result["archive"]
+            if digest(path) != result["sha256"]:
+                raise ValueError(f"Changed installed {arm} book replay")
+            hashes[str(path)] = result["sha256"]
+        audit = use(ROOT / "direct/short-grade-consistency.json")
+        data["repeated_grades"] = {
+            "shared": audit["shared_across_stages"],
+            "credit": len(audit["conflicts"]["correct"]),
+            "unsupported": len(audit["conflicts"]["unsupported"]),
+        }
+        cutoff = max(
+            cutoff,
+            max(
+                r["dispatch"] + r["seconds"]
+                for p in (ROOT / "charges").glob("*.json")
+                if (r := read(p))["status"] == "finished"
+                and (
+                    "/short/direct-headroom/" in r["job"]
+                    or (
+                        r["stage"] == "long"
+                        and "/4096/parent" in r["job"]
+                        and "document" in extra
+                    )
+                )
+            ),
+        )
     for p in sorted((ROOT / "charges").glob("*.json")):
         r = read(p)
         if r["dispatch"] <= cutoff and r["status"] != "running":

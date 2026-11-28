@@ -62,7 +62,7 @@ The AdamW fit completed 576 updates, four epochs over 288 examples in batches of
 = Evaluation on the same Mac
 Natural reasoning, verified tools, ordinary chat and full-document supported answers each receive one quarter of the primary score. Each short family has three source groups. Each group contributes an original opening, a meaningful change and an irrelevant change. We average within source first. The book family contains two novels, with original and edited editions of each. The 31 openings therefore have unequal individual weights. Own-history and shared-history follow-ups have separate records.
 
-Each paired opening uses the same token IDs, live providers, greedy reasoning-enabled decoding and output allowance. We report 128 and 512 generated tokens per model turn and allow up to three model turns when callbacks are available. These limits exclude the input. Raters reviewed complete visible outputs against the source and the actual action, with model labels masked. An incomplete answer, a material unsupported assertion or failure to execute an explicitly requested action receives zero.
+Each paired opening uses the same token IDs, live providers, greedy reasoning-enabled decoding and output allowance. We report 128 and 512 generated tokens per model turn and allow up to three model turns when callbacks are available. These limits exclude the input. The reviewer saw the source, edition, rubric, visible answer and actual tool observations. Model labels were hidden during grading. An incomplete answer, a material unsupported assertion or failure to execute an explicitly requested action receives zero.
 
 #image("quality.svg",width:100%)
 #cap([Figure 1.],[Supported answers within each family. Each panel uses the same input cohorts. Giving Base more output headroom recovered two chat answers and one document answer. Neither model delivered a correct verified tool opening at either allowance.])
@@ -184,7 +184,7 @@ The arithmetic tools reveal a different loss. On six invoice variants from two s
   let s=d.depth.summary.at(key)
   ([#title],[#str(s.supported)],[#str(s.by_deadline)],[#sec(s.capped_mean) s])
 })
-The second visit lost the original archive decision, the original and irrelevant-change bridge answers, the irrelevant-change studio message and the changed volunteer instruction. The third visit also lost the irrelevant-change archive answer and the original studio message. Neither transition fixed an answer. No pass count solved both meaningful versions of a reasoning or tool source by the deadline. These are source-masked development judgments on nine sources. The one-pass result uses the same trained weights and establishes no benefit from repeating the block at inference on this panel.
+The second visit lost the original archive decision, the original and irrelevant-change bridge answers, the irrelevant-change studio message and the changed volunteer instruction. The third visit also lost the irrelevant-change archive answer and the original studio message. Neither transition fixed an answer. No pass count solved both meaningful versions of a reasoning or tool source by the deadline. These development judgments cover nine sources. The one-pass result uses the same trained weights and establishes no benefit from repeating the block at inference on this panel.
 ]
 #if d.at("middle_read",default:none) != none [
 #pagebreak()
@@ -206,6 +206,31 @@ We trained both exits at every update. Twelve human word problems from GSM8K and
 The second read fixed the original and changed rehearsal messages, both from the same source. On a shared history that supplied the correct tile balance of 184, one read executed 184 − 9 and delivered 175. Two reads wrote assignments in the calculator syntax, received two errors and gave 175 without successful execution. Both missed the same follow-up after their own openings. Neither depth returned a correct target value on the six opening invoices. Across nine development sources, the two-read change in short opening accuracy was +7.41 points, with an exploratory source-stratified 95% interval of 0.00 to +22.22 points. Both gains belonged to chat.
 
 On seven training prompts the second write changed the state, and independent recomputation of the full evidence produced the same state at every probed position. Neither depth solved an original-and-changed reasoning or tool source by the deadline. Training took #sec(mr.closure.charged_seconds.fit) charged seconds including replay attempts, short evaluation #sec(mr.closure.charged_seconds.short) seconds, and profiling and cold verification #sec(mr.closure.charged_seconds.profile) seconds. The restored public CLI reproduced both tile turns and two live callbacks. The registered decision stopped further fitting and confirmation for this alternative. #link(repo+"/tree/main/research/results/middle-read-0084")[Checkpoint, restart proof and decision.]
+]
+#if d.at("output_headroom",default:none) != none [
+#pagebreak()
+= What changes with more time to answer?
+The 128, 512 and 4,096 allowances count generated tokens per model turn, including hidden deliberation. Each complete book still enters as at least 145,000 actual input tokens. A longer allowance can let a model finish computing, and it can let the same error continue. We repeated the original short question in each family, both original novels, and the registered cases where either model reached its earlier output limit. Every selected input was presented to both models.
+
+#let rows=(("short","first","Short openings"),("short","own","Short own-history follow-ups"),("short","shared","Short shared-history follow-ups"),("document","first","Book openings"),("document","own","Book own-history follow-ups"),("document","shared","Book shared-history follow-ups"),("document","unanswerable","Book abstentions"))
+#tab((2.2fr,.7fr,1.3fr,1.3fr),([Matched enrollment],[Per model],[Base, 512 → 4,096],[Loop, 512 → 4,096]),
+..for (family,kind,title) in rows {
+ let group=d.output_headroom.at(family,default:none)
+ if group!=none and group.at("base/"+kind,default:none)!=none {
+   let b=group.at("base/"+kind)
+   let l=group.at("loop/"+kind)
+   ([#title],[#str(b.n)],[#str(b.summary.at("512").supported) → #str(b.summary.at("4096").supported)],[#str(l.summary.at("512").supported) → #str(l.summary.at("4096").supported)])
+ }
+})
+#cap([Output allowance and supported completions.],[Counts describe the selected reruns. Their inclusion depends on earlier stopping status and the mandatory originals. The primary full-cohort estimates remain on pages 3–5.])
+
+Base used the extra allowance to finish the bridge question after the irrelevant edit. It explained why covering the red marker did not establish closure under a blue-marker rule. Its 8.6-second completion missed the eight-second deadline. On the original kiln request Base correctly computed 80 minutes, then claimed that exceeded 90 by 70 minutes and authorized firing. The two answers illustrate why completion alone gives incomplete evidence of reasoning. The selected loop added zero supported short openings or follow-ups. Total short opening time rose from 63.8 to 172.4 seconds for Base and changed from 11.8 to 10.6 seconds for the loop.
+
+#if d.output_headroom.at("document",default:none)!=none [Across the 22 full-book requests, the larger allowance changed no correctness grade. Base still answered only the published Anne opening among the five rerun openings, and exhausted 4,096 tokens on both unanswerable editions. The loop answered all five openings within 512 tokens and missed every requested result. It correctly abstained on both unanswerable editions.]
+
+#strong[Independent full-prefix replay.] After relocating and installing the two standalone model directories separately, we served the full published Anne opening and its own-history calculator turn through the offline CLI. The original included 145,891 physical input tokens. Base's follow-up included #str(d.cold_books.arms.base.input_tokens.at(1)), and the loop's included #str(d.cold_books.arms.loop.input_tokens.at(1)). Both reproduced both reference trajectories, including every generated token and full-attention offset. End-to-end times for the two turns were #sec(d.cold_books.arms.base.cold_seconds_for_both) seconds and #sec(d.cold_books.arms.loop.cold_seconds_for_both) seconds. Neither model called the available calculator in this conversation.
+
+#strong[Repeated scoring.] Across eleven previously locked short-development reviews, #str(d.repeated_grades.shared) identical question, answer and tool-history records occurred in multiple reviews. Every repeated record received the same primary correctness grade. The secondary unsupported-assertion flag differed on #str(d.repeated_grades.unsupported) records. The archive preserves those differences. One reviewer assigned the grades. The agreement measures consistency across repeat presentations to that reviewer.
 ]
 #pagebreak()
 = Reproducibility and costs
