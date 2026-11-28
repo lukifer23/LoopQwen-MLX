@@ -1,0 +1,900 @@
+{
+  "identity": "3af5565cf782ab26c2231805360a90e8bdb9462946755211894d3f01a009e9b5",
+  "groups": [
+    {
+      "states": [
+        {
+          "site": [
+            0,
+            0
+          ],
+          "file": "site-0-0.safetensors",
+          "sha256": "7c135da636febf6a10dd791e326f61e1c251c57610fd93693db86c251460ae50",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            1,
+            0
+          ],
+          "file": "site-1-0.safetensors",
+          "sha256": "6892ac2d277ce1f17407023525d7bcdc5bc9b97198c936de0d626dd2ec4137f8",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            2,
+            0
+          ],
+          "file": "site-2-0.safetensors",
+          "sha256": "5feb3c9edee6a68b6c775b531145020c1075e474f838cb7950a8a8246250ef83",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        }
+      ],
+      "seconds": 13.432420541997999,
+      "hidden": "hidden-0.u16",
+      "hidden_sha256": "868092f2486c289f227c1f773df5b71955b8c5ad1277d01c321f5ecc6d49a866"
+    },
+    {
+      "states": [
+        {
+          "site": [
+            3,
+            0
+          ],
+          "file": "site-3-0.safetensors",
+          "sha256": "bb97e86207132eac2833ccf9a637a16d4c12e9164307d737de2beae3f484c7c9",
+          "kind": "kv",
+          "bytes": 476053691,
+          "consumed": 232448,
+          "tensors": {
+            "k": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            },
+            "v": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            }
+          }
+        },
+        {
+          "site": [
+            4,
+            0
+          ],
+          "file": "site-4-0.safetensors",
+          "sha256": "f5904a9294c377f37d673df55015dd8cd08bbbf53d6c9bdcfa31d4995e3718c8",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            5,
+            0
+          ],
+          "file": "site-5-0.safetensors",
+          "sha256": "a6ada55462b1a35ae76f036d704dd7a41ba616c911d4ec7317515a74e3ffeeec",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            6,
+            0
+          ],
+          "file": "site-6-0.safetensors",
+          "sha256": "8a86279bbd1241dfa4d2a307e8a3517d6670b63e30c430f51db062efae2f1c67",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        }
+      ],
+      "seconds": 112.79544800001895,
+      "hidden": "hidden-1.u16",
+      "hidden_sha256": "ea3cdd5e29598117c0fabcdcb3993e6e0e642a1dc937cb4ec3f9f7c20e120f67"
+    },
+    {
+      "states": [
+        {
+          "site": [
+            7,
+            0
+          ],
+          "file": "site-7-0.safetensors",
+          "sha256": "6e2559922936169ef02adf14f582836bb544efcb52b0c4669f2de413aebee504",
+          "kind": "kv",
+          "bytes": 476053691,
+          "consumed": 232448,
+          "tensors": {
+            "k": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            },
+            "v": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            }
+          }
+        },
+        {
+          "site": [
+            8,
+            0
+          ],
+          "file": "site-8-0.safetensors",
+          "sha256": "228fa24efa85d65e91243dfccdbf11bd0f0f44c4b677861f22d1ee4d4e525d67",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            9,
+            0
+          ],
+          "file": "site-9-0.safetensors",
+          "sha256": "fee849014b701750413ad54ff9eb79d0dad2168b10ae4a006b9df1dbc7ff208e",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            10,
+            0
+          ],
+          "file": "site-10-0.safetensors",
+          "sha256": "0dd5de8d056f208a10813f4607702ba75573c6c3442aad38f3c43c4705b59ffd",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        }
+      ],
+      "seconds": 112.82084970897995,
+      "hidden": "hidden-2.u16",
+      "hidden_sha256": "0746d67dff48f2ffa497b5ffaafa3378f0b533efeae873674ce65210d97b5c56"
+    },
+    {
+      "states": [
+        {
+          "site": [
+            11,
+            0
+          ],
+          "file": "site-11-0.safetensors",
+          "sha256": "b321a1009eb6c338df0a0605a94b12e2db349cab150ff9c020b0372ba1cb5e7b",
+          "kind": "kv",
+          "bytes": 476053691,
+          "consumed": 232448,
+          "tensors": {
+            "k": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            },
+            "v": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            }
+          }
+        }
+      ],
+      "seconds": 101.39607512496877,
+      "hidden": "hidden-3.u16",
+      "hidden_sha256": "f78a3ceaffe82a81ee6f74c7e59cca9c0d168b02a79c439a2064907ae93e6dc5"
+    },
+    {
+      "states": [
+        {
+          "site": [
+            12,
+            0
+          ],
+          "file": "site-12-0.safetensors",
+          "sha256": "e47186ccd93a52c2e91936747e4c92eb05f034d7580c334029c90d093755cfd7",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            13,
+            0
+          ],
+          "file": "site-13-0.safetensors",
+          "sha256": "a7ec3639e702749760fe4fba37e99b62557067a7b6186c9b4c96494c3caeefec",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            14,
+            0
+          ],
+          "file": "site-14-0.safetensors",
+          "sha256": "644498609e2246dd1faacf642cab942b3248e11a2767c9211fafde505547cb39",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            15,
+            0
+          ],
+          "file": "site-15-0.safetensors",
+          "sha256": "614aa1a082c7e662c3fea484ada45bae3ff9bc6fbe0a4dbb8e8bad9ae9341fb1",
+          "kind": "kv",
+          "bytes": 476053691,
+          "consumed": 232448,
+          "tensors": {
+            "k": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            },
+            "v": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            }
+          }
+        },
+        {
+          "site": [
+            12,
+            1
+          ],
+          "file": "site-12-1.safetensors",
+          "sha256": "f027fb7e6deb90991477839cb1487f72ad57f281444fc71ce292b7cc5dab5a93",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            13,
+            1
+          ],
+          "file": "site-13-1.safetensors",
+          "sha256": "08c88c2d450fe405bef5731b80db79b5d987ba7da2271cd7b48762451c80f3c0",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            14,
+            1
+          ],
+          "file": "site-14-1.safetensors",
+          "sha256": "50b0a40b27736ee93e297df34750ed32fd7f05ffd3a15e4976d306cdd4b7bce2",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            15,
+            1
+          ],
+          "file": "site-15-1.safetensors",
+          "sha256": "026484fbd3309e414b6ba881b97325dc618f91cd09b40ad5b42bb4ec85f5ec5d",
+          "kind": "kv",
+          "bytes": 476053691,
+          "consumed": 232448,
+          "tensors": {
+            "k": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            },
+            "v": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            }
+          }
+        },
+        {
+          "site": [
+            16,
+            0
+          ],
+          "file": "site-16-0.safetensors",
+          "sha256": "9d0242509955a2339a7b7ce5c38742117040f909e63e354b01004e78bc43ef09",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            17,
+            0
+          ],
+          "file": "site-17-0.safetensors",
+          "sha256": "497e6301f01e0be0e85218730a1034ed1306638aec7801aa27a898e3fe2dccfd",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            18,
+            0
+          ],
+          "file": "site-18-0.safetensors",
+          "sha256": "5772c98026ab4d96da9882e7eb84b9bbad32ccf139f38316f733226edb599bf7",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        }
+      ],
+      "seconds": 206.9452907499508,
+      "hidden": "hidden-4.u16",
+      "hidden_sha256": "06509e0350aa4bd6a3311719aba0aa38a8187b1baa772af37ff84b8a557cd6a9"
+    },
+    {
+      "states": [
+        {
+          "site": [
+            19,
+            0
+          ],
+          "file": "site-19-0.safetensors",
+          "sha256": "9bdfa8fa74afb55c98a935d2ef2dd01396b499f2bc75ad49f661e8f7eec35385",
+          "kind": "kv",
+          "bytes": 476053691,
+          "consumed": 232448,
+          "tensors": {
+            "k": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            },
+            "v": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            }
+          }
+        },
+        {
+          "site": [
+            20,
+            0
+          ],
+          "file": "site-20-0.safetensors",
+          "sha256": "26ea3d6eff5e8719571bbcf8a92ecf76d9f75f6654d4a7f2a3c7e682a88f644f",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            21,
+            0
+          ],
+          "file": "site-21-0.safetensors",
+          "sha256": "af88aa0e0fc10a36f88ae3ddcfe5323d976b3ec89c8fb8726c8698e7291d721f",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        },
+        {
+          "site": [
+            22,
+            0
+          ],
+          "file": "site-22-0.safetensors",
+          "sha256": "3bcd61c7bf03bc479b21aac16e6cb99ed9e0cae49c25332c727cff14fcf0ba70",
+          "kind": "hybrid",
+          "bytes": 1085626,
+          "consumed": 232448,
+          "tensors": {
+            "convolution": {
+              "shape": [
+                1,
+                3,
+                6144
+              ],
+              "dtype": "BF16"
+            },
+            "delta": {
+              "shape": [
+                1,
+                16,
+                128,
+                128
+              ],
+              "dtype": "F32"
+            }
+          }
+        }
+      ],
+      "seconds": 105.13492300000507,
+      "hidden": "hidden-5.u16",
+      "hidden_sha256": "746f63110fd90fc0d6ab5b1abbcb468ca809845c22eac59b7e8e9cdefc9e1dbe"
+    },
+    {
+      "states": [
+        {
+          "site": [
+            23,
+            0
+          ],
+          "file": "site-23-0.safetensors",
+          "sha256": "45e7bb37ea4b29a652bd3dee5d203eb7b122e6cea46da78255ca63c5dcf32c32",
+          "kind": "kv",
+          "bytes": 476053691,
+          "consumed": 232448,
+          "tensors": {
+            "k": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            },
+            "v": {
+              "shape": [
+                1,
+                2,
+                232448,
+                256
+              ],
+              "dtype": "BF16"
+            }
+          }
+        }
+      ],
+      "seconds": 106.96434029197553
+    }
+  ],
+  "seconds": 759.4893474178971
+}
