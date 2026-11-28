@@ -2698,7 +2698,7 @@
   ],
   "costs": {
     "short": {
-      "seconds": 1975.7,
+      "seconds": 2054.5,
       "stopped": 1,
       "stopped_seconds": 2.4
     },
@@ -2707,15 +2707,15 @@
       "stopped": 32,
       "stopped_seconds": 1544.4
     },
+    "long": {
+      "seconds": 3746.8,
+      "stopped": 16,
+      "stopped_seconds": 423.3
+    },
     "profile": {
       "seconds": 472.3,
       "stopped": 9,
       "stopped_seconds": 144.4
-    },
-    "long": {
-      "seconds": 2684.8,
-      "stopped": 16,
-      "stopped_seconds": 423.3
     }
   },
   "books": [
@@ -2807,6 +2807,313 @@
         "original": false
       }
     }
+  },
+  "parent_comparisons": {
+    "128": {
+      "product": {
+        "families": {
+          "reasoning": {
+            "left": 0.1111111111111111,
+            "right": 0.0,
+            "delta": 0.1111111111111111,
+            "deadline_delta": 0.1111111111111111,
+            "gains": 1,
+            "losses": 0,
+            "sources": {
+              "archive": 0.3333333333333333,
+              "bridge": 0.0,
+              "kiln": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "tools": {
+            "left": 0.0,
+            "right": 0.0,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 0,
+            "losses": 0,
+            "sources": {
+              "ink": 0.0,
+              "parcels": 0.0,
+              "tiles": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "chat": {
+            "left": 0.4444444444444444,
+            "right": 0.0,
+            "delta": 0.4444444444444444,
+            "deadline_delta": 0.4444444444444444,
+            "gains": 4,
+            "losses": 0,
+            "sources": {
+              "parcel": 0.6666666666666666,
+              "studio": 0.6666666666666666,
+              "volunteer": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "documents": {
+            "left": 0.0,
+            "right": 0.0,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 0,
+            "losses": 0,
+            "sources": {
+              "anne": 0.0,
+              "book": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          }
+        },
+        "macro_delta": 0.1388888888888889,
+        "paired_interval": [
+          0.027777777777777776,
+          0.2222222222222222
+        ]
+      },
+      "matched_depth": {
+        "families": {
+          "reasoning": {
+            "left": 0.1111111111111111,
+            "right": 0.0,
+            "delta": 0.1111111111111111,
+            "deadline_delta": 0.1111111111111111,
+            "gains": 1,
+            "losses": 0,
+            "sources": {
+              "archive": 0.3333333333333333,
+              "bridge": 0.0,
+              "kiln": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "tools": {
+            "left": 0.0,
+            "right": 0.0,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 0,
+            "losses": 0,
+            "sources": {
+              "ink": 0.0,
+              "parcels": 0.0,
+              "tiles": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "chat": {
+            "left": 0.4444444444444444,
+            "right": 0.4444444444444444,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 1,
+            "losses": 1,
+            "sources": {
+              "parcel": 0.3333333333333333,
+              "studio": -0.3333333333333333,
+              "volunteer": 0.0
+            },
+            "one_sided_simultaneous_lower": -0.3333333333333333
+          },
+          "documents": {
+            "left": 0.0,
+            "right": 0.0,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 0,
+            "losses": 0,
+            "sources": {
+              "anne": 0.0,
+              "book": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          }
+        },
+        "macro_delta": 0.027777777777777776,
+        "paired_interval": [
+          -0.05555555555555555,
+          0.1111111111111111
+        ]
+      }
+    },
+    "512": {
+      "product": {
+        "families": {
+          "reasoning": {
+            "left": 0.1111111111111111,
+            "right": 0.0,
+            "delta": 0.1111111111111111,
+            "deadline_delta": 0.1111111111111111,
+            "gains": 1,
+            "losses": 0,
+            "sources": {
+              "archive": 0.3333333333333333,
+              "bridge": 0.0,
+              "kiln": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "tools": {
+            "left": 0.0,
+            "right": 0.0,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 0,
+            "losses": 0,
+            "sources": {
+              "ink": 0.0,
+              "parcels": 0.0,
+              "tiles": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "chat": {
+            "left": 0.4444444444444444,
+            "right": 0.2222222222222222,
+            "delta": 0.2222222222222222,
+            "deadline_delta": 0.2222222222222222,
+            "gains": 3,
+            "losses": 1,
+            "sources": {
+              "parcel": 0.0,
+              "studio": 0.6666666666666666,
+              "volunteer": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "documents": {
+            "left": 0.0,
+            "right": 0.25,
+            "delta": -0.25,
+            "deadline_delta": -0.25,
+            "gains": 0,
+            "losses": 1,
+            "sources": {
+              "anne": -0.5,
+              "book": 0.0
+            },
+            "one_sided_simultaneous_lower": -0.5
+          }
+        },
+        "macro_delta": 0.02083333333333333,
+        "paired_interval": [
+          -0.09722222222222222,
+          0.1597222222222222
+        ]
+      },
+      "matched_depth": {
+        "families": {
+          "reasoning": {
+            "left": 0.1111111111111111,
+            "right": 0.0,
+            "delta": 0.1111111111111111,
+            "deadline_delta": 0.1111111111111111,
+            "gains": 1,
+            "losses": 0,
+            "sources": {
+              "archive": 0.3333333333333333,
+              "bridge": 0.0,
+              "kiln": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "tools": {
+            "left": 0.0,
+            "right": 0.0,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 0,
+            "losses": 0,
+            "sources": {
+              "ink": 0.0,
+              "parcels": 0.0,
+              "tiles": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          },
+          "chat": {
+            "left": 0.4444444444444444,
+            "right": 0.4444444444444444,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 1,
+            "losses": 1,
+            "sources": {
+              "parcel": 0.3333333333333333,
+              "studio": -0.3333333333333333,
+              "volunteer": 0.0
+            },
+            "one_sided_simultaneous_lower": -0.3333333333333333
+          },
+          "documents": {
+            "left": 0.0,
+            "right": 0.0,
+            "delta": 0.0,
+            "deadline_delta": 0.0,
+            "gains": 0,
+            "losses": 0,
+            "sources": {
+              "anne": 0.0,
+              "book": 0.0
+            },
+            "one_sided_simultaneous_lower": 0.0
+          }
+        },
+        "macro_delta": 0.027777777777777776,
+        "paired_interval": [
+          -0.05555555555555555,
+          0.1111111111111111
+        ]
+      }
+    }
+  },
+  "local_workflows": {
+    "protocol": "dd0ef832850f4cbaaa343c7ea9e1036f64374045177623ca5389281c730c2e9e",
+    "arms": {
+      "base": {
+        "complete_local_jobs": 0,
+        "local_jobs": 2,
+        "correct_local_requests": 0,
+        "local_requests": 4,
+        "local_correct_by_30_seconds": 0,
+        "local_mean_capped_time_to_correct": 30.0,
+        "local_elapsed": 24.2716149999178,
+        "local_first_visible_mean": 3.2141043124865973,
+        "local_visible_requests": 4,
+        "local_peak_bytes": 1773437850,
+        "replayed_callback_results": 0,
+        "gsm8k_correct": 0,
+        "gsm8k_questions": 4,
+        "gsm8k_elapsed": 32.99924012494739,
+        "mean_process_load_seconds": 1.2677020420087501
+      },
+      "loop": {
+        "complete_local_jobs": 0,
+        "local_jobs": 2,
+        "correct_local_requests": 0,
+        "local_requests": 4,
+        "local_correct_by_30_seconds": 0,
+        "local_mean_capped_time_to_correct": 30.0,
+        "local_elapsed": 12.265935084025841,
+        "local_first_visible_mean": 1.3696457500336692,
+        "local_visible_requests": 2,
+        "local_peak_bytes": 1789197742,
+        "replayed_callback_results": 8,
+        "gsm8k_correct": 1,
+        "gsm8k_questions": 4,
+        "gsm8k_elapsed": 1.5546271260245703,
+        "mean_process_load_seconds": 1.1951049374765716
+      }
+    },
+    "gained_jobs": 0,
+    "lost_jobs": 0,
+    "replication_signal": false,
+    "efficiency_condition": false,
+    "worker_seconds": 78.7980547080515,
+    "scope": "Two project-local jobs with own-history follow-ups, and four separate public math items. Raw local files and review stay outside Git."
   },
   "resident": [
     {
@@ -3760,16 +4067,37 @@
     "docs/measurements/middle-depth/documents/parent/anne/loop/512/original-first.json.gz": "d7032ba1a9d0c9c9c8df840ce0b068dd67f48dd3141f1b10d89f534c817731ca",
     "docs/measurements/middle-depth/documents/parent/anne/ordinary/512/edited-first.json.gz": "2f7649746d5d1503f6b808a87fcc18cf598fb0db5e88f00d17c7c8a910ad204e",
     "docs/measurements/middle-depth/documents/parent/anne/ordinary/512/original-first.json.gz": "4005d09dbecaaed1fec23df9e69763266bea67ff93e8e521a52b9645259bbd34",
-    "docs/measurements/middle-depth/charges/48f365a0dbe940268afec646702766ee.json": "265d9e782da741190c6863f5ecae9991d92e478d42cf009b502a0659073769b7",
+    "docs/measurements/middle-depth/local-workflow-screen.json": "98a461716e3b511c27ebe724717d942a03456ac1811876dce693f056a3e6de9b",
+    "docs/measurements/middle-depth/local-workflow-review-lock.json": "c13789a7a65e71d7d284ca14f1a6dfe031acd238c126598e4f8061ce03dacda1",
+    "docs/measurements/middle-depth/four-families/terminal-parents-128.json": "982719ded433532e191786867af2535b09d41db4e8bed462ee0440608bde83ce",
+    "docs/measurements/middle-depth/document-review/parent/books/book-128.json": "5a38be8e1b944f354b5d0cf9ede19759355f71e059eedcca0d63d8798be173bf",
+    "docs/measurements/middle-depth/documents/parent/book/base/128/edited-first.json.gz": "7bb1791b0f6fc8ee33883b36360f3b8196899c1ffad7974d1b91ac45efe258a1",
+    "docs/measurements/middle-depth/documents/parent/book/base/128/original-first.json.gz": "c5636820fa5b9b4cc84ef3639294071e599455e8c1816b54f023152036c1186c",
+    "docs/measurements/middle-depth/documents/parent/book/loop/128/edited-first.json.gz": "c2574d8dd4b42deae7ca727ee06edb1450e92d1c810d861ce1bd7bff1190407b",
+    "docs/measurements/middle-depth/documents/parent/book/loop/128/original-first.json.gz": "994a573d8c5f43339673b3f7facdd931d9d639b5e907625b234d69b8b30e555b",
+    "docs/measurements/middle-depth/documents/parent/book/ordinary/128/edited-first.json.gz": "7d142cb93316d1ec25c51f2d14027e71aa5d3d1ec34649ee7e4556cf9f118cd1",
+    "docs/measurements/middle-depth/documents/parent/book/ordinary/128/original-first.json.gz": "86edca62032616a1b389cffb5efd49f9fdca576354fd17266ae9979edd3cb92b",
+    "docs/measurements/middle-depth/four-families/terminal-parents-512.json": "9c5f2bd5c97eebeca8ef0f975b361be7b03823154be8ca87530aaf331910dff1",
+    "docs/measurements/middle-depth/document-review/parent/books/book-512.json": "b5b20cbc6d1271a28bb07973d29b2a8f07e5afded616e48184d6b91a8931810b",
+    "docs/measurements/middle-depth/documents/parent/book/base/512/edited-first.json.gz": "7a6399a2c2a7c1fd2d000e98dd785548cff15647bfa8f8aa94d3572207b612d9",
+    "docs/measurements/middle-depth/documents/parent/book/base/512/original-first.json.gz": "988d6dff45f8cd1aa823b468a7b6d240039a50d4da510dc912d1baff32ee0fde",
+    "docs/measurements/middle-depth/documents/parent/book/loop/512/edited-first.json.gz": "930d2d2eede6dadba0077469e005e9a3b84b4405a15033cb061c55b067a672dc",
+    "docs/measurements/middle-depth/documents/parent/book/loop/512/original-first.json.gz": "08162cce7019fbc2375b22754b25de2430d7d7224bfb86ee9730787c3b81aa4f",
+    "docs/measurements/middle-depth/documents/parent/book/ordinary/512/edited-first.json.gz": "a0f60557e1b8401c9f553a4fdff64a09beccf9d76e4714ff2e395c068c77886d",
+    "docs/measurements/middle-depth/documents/parent/book/ordinary/512/original-first.json.gz": "c82dd7861b82d53e6d2ca8e233a22ffe74a40556e4fb16eeaf880929ca60712a",
+    "docs/measurements/middle-depth/charges/3708f8c9cdd04220831451cf94aa7eac.json": "a7e6f2c9a01ff4aeb909ab5dd56364d0bedb392e6e8f5cc990a3a0ce0981cbeb",
+    "docs/measurements/middle-depth/charges/00e316b7df934e3c99b4cfc5a0bfa37a.json": "1fbefa72ffc2a5cbf2009e065b7531a96189baeebef0bb5245a2a6ae470a59e3",
     "docs/measurements/middle-depth/charges/02467db79c1b4803aea37d3e29b722b8.json": "f15e652c23101a57c393cbf8cc746a59b478c69f8e76c91271fa18491a74489c",
     "docs/measurements/middle-depth/charges/02eb504333e04c8db69eb34b70bea737.json": "fcee7cfe3e6a18bfc7fec5e4552813f62c24a6fd60bde0fc6a7f262500aed5c6",
     "docs/measurements/middle-depth/charges/04d35c71ac074c69a123bc8e11c25d83.json": "1799549d3a813d439d8b876b40020bbedf7921a714d2fbeb06beb2301b024b50",
     "docs/measurements/middle-depth/charges/0724e38b68034810be37d9a5e16a3630.json": "03dc4404ffce628aa908fc58473e07a12ba122e17d4f9a12923731955e0c06fd",
     "docs/measurements/middle-depth/charges/0762e7c7381b4042b81ac4738f3bb872.json": "e94903418acdda46c19cd338982e2dd0e9c2f0adf390a04c31d68f071679687d",
     "docs/measurements/middle-depth/charges/08488a4c7ba44f91995b37f151786e94.json": "a3cf8fb5d27a400466ba77059f0ed1caf2b2501d33e8b7c860fa2a41b4088976",
+    "docs/measurements/middle-depth/charges/0c1500119e814fa4b98b600d861aa5ba.json": "f55f7f64ae9f23151bdad6ee79df9420a608bfb830b9d8efe0f41aa48bc41c85",
     "docs/measurements/middle-depth/charges/0f5ec836a6cf4819a666aa06733e104a.json": "00d15b485cfbbceb1972c8c514d8abcb23b4a7bf193cf06938960a859c0972c4",
     "docs/measurements/middle-depth/charges/10e258aa716b4caaa5e5801169127f2e.json": "a42bf8ece9ff31ada8b695c888025d5f0c8f52d71ac6feda739967349f74a35b",
     "docs/measurements/middle-depth/charges/137f41e774b0444c9e02df9a31c93388.json": "eecfb9db7fc333cb0abccfe5e7c72cb61d95ab4d8a9fceae9cd94ce268e70e5f",
+    "docs/measurements/middle-depth/charges/15953e30422142f9b688e23e1f48af56.json": "68fc5bdfda64bed36bda168bb1d4c8bb52c149d46146c571f53eaa33098a7bc3",
     "docs/measurements/middle-depth/charges/15be2d68c62a43038e0fbe595a4be884.json": "1ad30ea8029e51b07b9db7b80b66e1b67f0b29f2ba12f239ba55d6c00dba2af8",
     "docs/measurements/middle-depth/charges/15d18d03d96542ffb95669acd9d6b680.json": "09321960c2283522068e49455d567be3d57620448e6834b93c001b53c3630f51",
     "docs/measurements/middle-depth/charges/16bd028320b7475b9ed0875133c3ceb6.json": "57f06525610666bedaf881df57afbfb439cf737b1ce8e01e167ecc6ba708f59d",
@@ -3777,6 +4105,7 @@
     "docs/measurements/middle-depth/charges/1aaf69ddc6754c8285c6ce8b02fe2dc4.json": "e5b629c6d2f3715156f5f45b2c085eaad92719877667b6dec25316bde5c56443",
     "docs/measurements/middle-depth/charges/1f5a458aaade4efba5104dff72b9ae3d.json": "29a7d983a59ff7104b470f9f32b10368865008c17ea63ddebbd8226233e78d5b",
     "docs/measurements/middle-depth/charges/220e5186cac0454eb9af1247a1189ae2.json": "915b46c14676fe7b9aa2122b9ba53750030c275415c98fc68bb3d435e37084a8",
+    "docs/measurements/middle-depth/charges/234bc344f3c64e64a40030fc5c745ffc.json": "62187ff3748df73c55d8c3c825c214ba0e1034f7f83b4caacafcb95bdd0133d2",
     "docs/measurements/middle-depth/charges/23d0206a34c04530b9b01d7c0b98752a.json": "b5fcb54e809f23c7d2b56a56211c3119008f752b45d34ae261fe8878a9177cb4",
     "docs/measurements/middle-depth/charges/2436d718893e4c6391b914252ff52aec.json": "98261b401a51493a68765d6a663b1163c10296466d802a8e5699006ae08fe862",
     "docs/measurements/middle-depth/charges/24d6e0428aa84411b99634a6be02bf82.json": "66de9bd3b4b74c4f828088fe8f24f81c42a8df96a4991dff769aabf73d08d81e",
@@ -3784,10 +4113,12 @@
     "docs/measurements/middle-depth/charges/257fd5c0c5604099bc478487f50da1bf.json": "f6c8451a20698dccd8b37b5152877fd7f3e407789f20d975b699e1b0c7496b1a",
     "docs/measurements/middle-depth/charges/25aec9dacdb4410fbf09b655d24737cf.json": "896409c26644cf122af3025b10102931f30ffae608df37eaf8dd1ddbc5c3bdc6",
     "docs/measurements/middle-depth/charges/269ea2a7b8794ebcb6f744001ef794b9.json": "0374757ffb1feaaf3cafa3a93c209c1ec38c5d915b22b57bd7966dff3f6dfa39",
+    "docs/measurements/middle-depth/charges/26b0549720394375a273e5184d720315.json": "e45075c046dec64b3323ac9b2ea0dbc5a54c3a270fe878ac6914e97ac4b765bc",
     "docs/measurements/middle-depth/charges/27a4d2f8a9c0481286e9e57d6d0c61b2.json": "c33e821ce513362bfd19b261bdf1a5a01fae299c6418075e43f1fce15478bbe1",
     "docs/measurements/middle-depth/charges/28d3e70131a3417ca4cb6a397ceaebb8.json": "86a48c503527e993be7a827a87070432b733013a5e4b95956e66375401fd4a69",
     "docs/measurements/middle-depth/charges/29f01490aa244a10925535f59e4c5f96.json": "b61e4b115d88b489efc4b2ebaab1cd91963aa9c2c3baf6e09086dc34f3e419e8",
     "docs/measurements/middle-depth/charges/2a7a66826b044babb34bc5d501245914.json": "ce289a7b209ee2fb272c2345443a07442c12f87cc016a7ad684f0ccf35051021",
+    "docs/measurements/middle-depth/charges/2b6c0cceff8e40c79c12418c80ca847e.json": "2cf4a6ba5eed324a3970b41255512b6ded04322e6139a9b10cbf227d84dc83e5",
     "docs/measurements/middle-depth/charges/2bb5b0eb91ad4144859734a6498afd7f.json": "a978b90413ad05b92b4553d5240f8210c0e77a0dd9ce0733eb28790d680f1906",
     "docs/measurements/middle-depth/charges/2e8778c57a48480694adcc60c0582785.json": "9b89599f86eb4abe395821124d0c9f9c6fd17554a11faa0231857220e5b71567",
     "docs/measurements/middle-depth/charges/2e8bbc07ff064a9e8d5ded72c60e2b2c.json": "cb720d104094a57f05d34eb503e96aa6b89dff5889bcd9fcdcd5670598d6e507",
@@ -3801,8 +4132,12 @@
     "docs/measurements/middle-depth/charges/339fc18b55b94ee3bdb3a72954570217.json": "7810500445b821a6b0c85af3af0beea2817076ba2979c537fd79eb450af9b4a8",
     "docs/measurements/middle-depth/charges/34712d6f50314c92b181558750736e31.json": "b4b01c8e6244c181cb00b356b528fb8fc5f244a6f90a20ff128234cdc3535260",
     "docs/measurements/middle-depth/charges/357ece9743454f87828f40c007a3b1e2.json": "277f4f87f67b0d39aba0e01f6dfa2836ffb5e78720e00d68e8945246312184b0",
+    "docs/measurements/middle-depth/charges/35a3c45c25ca45c0b8f1802cd70b984e.json": "2813f2a85209bdea62c354026de61d21ee4d322f01c995644676f04233dd278f",
+    "docs/measurements/middle-depth/charges/37d436d28df3449981858058c4860050.json": "c15126047e0ab2ce928e44d0ed97752e8a9f40c0a6cf14a483e658a326ff8a86",
+    "docs/measurements/middle-depth/charges/38dc90c5a2b7483687d2d2a76ea39f88.json": "6c9ca20ce57bbfb5561ac058b510e9bd4572779bfae81e981c42f73d24588cf9",
     "docs/measurements/middle-depth/charges/39cb9cfa2fb443ba8dc4d747c20aa50c.json": "3766551428c9fcf13f3042acd7c9ae3cf985349a010c24606806ebd2b150f8ae",
     "docs/measurements/middle-depth/charges/3a3aef39185244c48d2cc9d80efc6d77.json": "a49de42d8101934de70a660430d84ea99cae3e17136c676fc78fb71c9ec80943",
+    "docs/measurements/middle-depth/charges/3a865317bd9f4a088e549bc32770638d.json": "31127bdd88b9ec4ffbe09f4a2c0f5ea9380c80d684553a7fb44ef300c521ac13",
     "docs/measurements/middle-depth/charges/3b5b5fa9e52a402092c806aeb6197fe1.json": "68729a1a0ec2ce85343045e138ffe660baab4f00e938bd02e5430247ce4ef9a3",
     "docs/measurements/middle-depth/charges/3def0d2be27e4d8cbb3ba545ea28402f.json": "0b13227423a13bab093d5378f05ea8dfc7a16db6a49cb8b04aa3f7a94ee0d302",
     "docs/measurements/middle-depth/charges/4141119c007e424584e412258656999b.json": "26855a5f5a54e41f79e5c92c2b1276e181cf05432e6ce1668670461b107e4876",
@@ -3811,8 +4146,11 @@
     "docs/measurements/middle-depth/charges/4235dbe55099477c80e0d597780a7a89.json": "99b183b34b0075ae83abab83914cb29be1790ac197720c51f96b2a99d9bd9b23",
     "docs/measurements/middle-depth/charges/42ba1ebde3e64048a57eeda686ef9bd2.json": "5af3329ebb720eabefa1d5acb707d591f4363a40dd0537e2040dd8a79649917c",
     "docs/measurements/middle-depth/charges/44d93faff5364cf1b7d4428feef32895.json": "aa010b5f3cb386aebf5554f3bfa88fbe404f030075a42d31cf52045cab94ab0e",
+    "docs/measurements/middle-depth/charges/4522f3bee2204c76886ec4e2b3303a77.json": "1fbe4936e2460f389f410bebf28ce78024f867e05e99c35dc44f73d1ac6546d3",
+    "docs/measurements/middle-depth/charges/46154cb9671f4be3ab7f51fbc809a688.json": "1c4cd8f78563a65e30d0180ae451eed178f9ddef55645a6ed2000c243b5f7bba",
     "docs/measurements/middle-depth/charges/468b42f73322492fb4110ceff209ce68.json": "fc68730f3bd369b1bd36f7dbc40460142db32201b55f3590f1fc8f3cd91c3887",
     "docs/measurements/middle-depth/charges/4713630989924fcaa21632f4142ebd46.json": "15e88f40e33cb522ab7f85c3b582e0bd7b8e80db68642f162cea411b45126d7d",
+    "docs/measurements/middle-depth/charges/48f365a0dbe940268afec646702766ee.json": "265d9e782da741190c6863f5ecae9991d92e478d42cf009b502a0659073769b7",
     "docs/measurements/middle-depth/charges/490ea927b6e6498794bf453edb06a340.json": "e299fa416647301db943cfa2dbeff62d3a55671071bf048fbf5248e1e7d3bfa8",
     "docs/measurements/middle-depth/charges/496cce077c3b4fe6a556e642adb48b03.json": "cbaa3e4f487bed8454672ed48323a9530bac1d3c5c0ef328ebd1a760c52370b6",
     "docs/measurements/middle-depth/charges/4b339f9e69c141c99f26d2deda0e38a9.json": "bfea4496ba947fbf82eb79af8a07629860b0828d1228e83dfad3ef0048e7c01b",
@@ -3860,6 +4198,7 @@
     "docs/measurements/middle-depth/charges/885beb05dbdc47e8983bca1eb1b85300.json": "b956ab4ac29ef4c010a32f914650c5bf2f89e78cd021314c7531ae2885c29ca5",
     "docs/measurements/middle-depth/charges/89b66e15181e4916bf9a92d2ca0a2a0a.json": "98a414fca33d91c281130109e145b92201c04936dfc03d569ca4436108fd9790",
     "docs/measurements/middle-depth/charges/8ad2d974fd214cb2bb05ffb9873aa5de.json": "5e846b2b9c7e6fe8b105968d313c2fbb425cf0a92bdd56a8a4d1036b73c7eb65",
+    "docs/measurements/middle-depth/charges/8af057e417c14e4fa428446bff1e3bbb.json": "ad059a4c3b9cc242cb617469f0a88687e5ca5efaaa39a6c56b52e56bebe1e07e",
     "docs/measurements/middle-depth/charges/8cee3b283eaf416e9737572397cfd0c4.json": "73b7397ee1845f67e79c76080e28154078b234d90c74ff29fb48516a1cb0dd88",
     "docs/measurements/middle-depth/charges/8d25ea9554064c87bccbce0fb50b147d.json": "e01f3807f91f2f1ea2c85a2823e8fc0a6315c68264d1d7ab071515042fa5a54a",
     "docs/measurements/middle-depth/charges/8dc7ff41cead404d9af0d06e0dbca5ee.json": "f260a0d832ff79041cb263ea91c1252c98ac3baf65c2ee4f3d9e48fb1940c770",
@@ -3895,6 +4234,7 @@
     "docs/measurements/middle-depth/charges/ba0277ed347b4c3faa1ae5f9d57bdc4a.json": "41a110710e4ef7a293dbd5f67a90dde7bb4b3f597f2aca4bb21f5cde571e26de",
     "docs/measurements/middle-depth/charges/ba940a3a903f4b63929232fcaa4f7282.json": "bc2c9e5f1b6e59869c579ac2c17a2b6beee9dccbc70244e14f2a0008ebd72cd9",
     "docs/measurements/middle-depth/charges/bb37337e83a745be8a932e396dfd81af.json": "0170154b67f6d5926f96359cbf6517f0d80a6f2cdf085a25d6964dea3e0755f5",
+    "docs/measurements/middle-depth/charges/bbb153f537c1465eb19486379b2ccbc5.json": "bc951bb51fe0769850013f610380c227c5d76548ac41c488dfa1c40b7b31f185",
     "docs/measurements/middle-depth/charges/bc783ba7a12b40768b19f72e42ea90ee.json": "13bbb6bcba9c6799f143a5b996f42ae51d7a6a30800f374f96c01122585eb987",
     "docs/measurements/middle-depth/charges/be6845d5474848ba993c3b668c555c96.json": "90a853771b9f2734f4b285c04cb21b8f6b367e41e21d95598dd0d4291a74b837",
     "docs/measurements/middle-depth/charges/c0295bdee6474425b5828af0716c6871.json": "ed617c9d757401fe591da6dd228fe371da85b75f4bada7a47ae2b76d231fc6bb",
@@ -3919,6 +4259,7 @@
     "docs/measurements/middle-depth/charges/d173a39b396f4026872e154d567bf785.json": "d5ec9a14e062238bf0d73b7d66ec3e98b83268c1f84615fe89957d372f2e7641",
     "docs/measurements/middle-depth/charges/d286d39e5aeb49d38da02fb5afb39df0.json": "ddc59abcf90e7f861a03680c1ad52fd612b33b81ca594672464a43a8fb003915",
     "docs/measurements/middle-depth/charges/d2e479264cba4e51b7d3d9d0b90f54f9.json": "af334cc74dc387d141fc17e9065fc242365173447359cef7c5c0ed7655ac1f79",
+    "docs/measurements/middle-depth/charges/d4aa52f8488d4b29a7559be5c31f8485.json": "967080191e1141f400046db9e95c253da8797f08ea513f91e68c71c455512c33",
     "docs/measurements/middle-depth/charges/d796af0147fb470894a6cf877dbe8b16.json": "42859a1811954383f99376e6927f4ed307b0061aedfe870cbeedea5f7d9c511b",
     "docs/measurements/middle-depth/charges/d810f9522f79400bbc731d7694079ec1.json": "20415c3b680f6ed502726881ad68d9671b631f10af58d2f5a8cb0c8240f180e5",
     "docs/measurements/middle-depth/charges/dac82bfec4cf43b2b55bd565434bd5fc.json": "bd1d6ad4ba6bcef3a88078b481d9a266a52cedcad9a6b628740713cb646354de",

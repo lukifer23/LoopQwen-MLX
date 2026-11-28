@@ -4,7 +4,6 @@ import argparse
 import csv
 import json
 from pathlib import Path
-from statistics import fmean
 import tempfile
 
 import matplotlib
@@ -257,8 +256,26 @@ def snapshot():
             set(editions) == {"original", "edited"} for editions in scores.values()
         )
         anne_scores[str(cap)] = scores
+    local = use(ROOT / "local-workflow-screen.json")
+    use(ROOT / "local-workflow-review-lock.json")
+    comparisons = {}
+    for cap in (128, 512):
+        result = use(ROOT / f"four-families/terminal-parents-{cap}.json")
+        for bookrow in use(ROOT / f"document-review/parent/books/book-{cap}.json")[
+            "rows"
+        ]:
+            path = ROOT / bookrow["file"]
+            assert digest(path) == bookrow["sha"]
+            inputs[str(path)] = bookrow["sha"]
+        comparisons[str(cap)] = {
+            arm: {
+                k: result[arm][k]
+                for k in ("families", "macro_delta", "paired_interval")
+            }
+            for arm in ("product", "matched_depth")
+        }
     charges = sorted((f, read(f)) for f in (ROOT / "charges").glob("*.json"))
-    cutoff = use(ROOT / "charges/48f365a0dbe940268afec646702766ee.json")["dispatch"]
+    cutoff = use(ROOT / "charges/3708f8c9cdd04220831451cf94aa7eac.json")["dispatch"]
     costs = {}
     for f, r in charges:
         if r["status"] == "running" or r["dispatch"] > cutoff:
@@ -310,6 +327,8 @@ def snapshot():
             books=books,
             anne_pair=anne_pair,
             anne_scores=anne_scores,
+            parent_comparisons=comparisons,
+            local_workflows=local,
             resident=resident["rows"],
             profile=profile["rows"],
             params=profile["trainable"],

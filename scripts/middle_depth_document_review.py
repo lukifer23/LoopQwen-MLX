@@ -1,6 +1,7 @@
 """Grade complete-document answers against the actual book, edition and action history."""
 
 import argparse
+from pathlib import Path
 
 from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint
@@ -140,13 +141,21 @@ def inspect(stage, aggregate):
             ]
             if {(r["arm"], r["world"]) for r in paired} == required:
                 spec = SPECS / f"{source}-dev.json"
+                source_hash = read(spec).get("sha256")
+                if source_hash is None:
+                    enrolled = read(SPECS / f"{source}-inputs.json")
+                    if enrolled["spec"] != digest(spec):
+                        raise ValueError("Book specification differs from enrollment")
+                    source_hash = enrolled["source"]
+                if digest(Path(read(spec)["source"])) != source_hash:
+                    raise ValueError("Book source bytes differ from enrollment")
                 save(
                     OUT / stage / "books" / f"{source}-{cap}.json",
                     {
                         "source": source,
                         "cap": cap,
                         "rows": paired,
-                        "original": read(spec)["sha256"],
+                        "original": source_hash,
                         "rubric_sha": digest(spec),
                         "fold": "Complete original and registered evidence edit on one development novel.",
                     },

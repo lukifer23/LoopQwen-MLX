@@ -1,6 +1,6 @@
 # Where shared decoder depth earns its cost
 
-The working paper explains the training sources, model and control, and how the update-32 results change across output allowances. It includes the native one-epoch compute comparison, full-book runtime and the progression from rule induction to grounded decisions. [Read the paper draft](paper-draft.pdf) · [Frozen evidence snapshot](paper-draft-data.json) · [Rebuild script](../scripts/paper_draft.py)
+The draft follows the four-epoch models through both complete development novels, shows how the four-family comparison changes with the output allowance, and reports real tool use and elapsed time on two project-local operator jobs. [Read the paper draft](paper-draft.pdf) · [Frozen evidence snapshot](paper-draft-data.json) · [Rebuild script](../scripts/paper_draft.py)
 
 The latest additions trace correct calculator outputs through delivery and show answer loss, source location and two-version preferences on 24 held names in complete long documents. [Financial program figure](source-copy-program-audit.svg) · [Long-context figure](long-copy-held.svg) · [Paired quality by source](source-copy-supported-delivery.csv) · [Resume handoff](../RESEARCH_GOAL.md)
 
