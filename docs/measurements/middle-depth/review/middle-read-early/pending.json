@@ -1,0 +1,40 @@
+{
+  "030b9b6add5482c4fc2ed1919029751c5b7d36fed3d6ffb3d6e2c5146b1fd019": {
+    "source": "ink",
+    "world": "irrelevant",
+    "reference": "190 mL, successful execution using 750 minus 16 times 35.",
+    "answer": "The ink will remain in the bottles.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750/35",
+              "73/35",
+              "r1",
+              "73*10",
+              "r2",
+              "73*10/35",
+              "r3",
+              "750-10*r3"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "150/7",
+            "73/35",
+            "150/7",
+            "730",
+            "73/35",
+            "146/7",
+            "150/7",
+            "3750/7"
+          ],
+          "value": "3750/7"
+        }
+      }
+    ]
+  }
+}
