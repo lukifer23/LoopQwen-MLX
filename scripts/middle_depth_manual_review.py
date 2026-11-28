@@ -24,7 +24,8 @@ def review(score):
     tok = tokenizer({"checkpoint": str(BASE)})
     blinded, rows = {}, []
     for name, enrolled in frozen["manuals"].items():
-        verified, (_, _, worlds, _) = openings(name, tok)
+        verified, (_, providers, worlds, _) = openings(name, tok)
+        callbacks = {provider.name: provider.callback for provider in providers}
         if verified != enrolled:
             raise ValueError("Manual enrollment changed")
         for world in WORLD_ORDER:
@@ -60,6 +61,31 @@ def review(score):
                     for t in turns
                     if "call" in t or "calls" in t
                 ]
+                replayed = 0
+                for turn in calls:
+                    observed = (
+                        [turn["observation"]]
+                        if "observation" in turn
+                        else turn.get("observations", [])
+                    )
+                    if not observed:
+                        continue
+                    actions = [turn["call"]] if "call" in turn else turn["calls"]
+                    for action, witness in zip(actions, observed, strict=True):
+                        try:
+                            value = callbacks[action["name"]](**action["arguments"])
+                        except (
+                            ValueError,
+                            TypeError,
+                            SyntaxError,
+                            ArithmeticError,
+                        ) as error:
+                            value = {"error": type(error).__name__}
+                        if value != witness:
+                            raise ValueError(
+                                "Live calculator replay differs from the archived outcome"
+                            )
+                        replayed += 1
                 item = {
                     "source": name,
                     "world": world,
@@ -91,6 +117,7 @@ def review(score):
                         "work": dict(serving(raw, arm)),
                         "peak_bytes": max(t["peak_bytes"] for t in turns),
                         "scratch_bytes": raw["scratch_bytes"],
+                        "replayed_observations": replayed,
                         "calls": calls,
                     }
                 )
@@ -160,7 +187,9 @@ def review(score):
             "incomplete": missing,
             "passed": bool(fixed) and not lost if not missing else None,
             "two_sided_exact_sign_p": exact_mcnemar(len(fixed), len(lost)),
-            "loop_share_among_discordant_95": discordant_interval(len(fixed), len(lost)),
+            "loop_share_among_discordant_95": discordant_interval(
+                len(fixed), len(lost)
+            ),
         }
     save(
         OUT / "result.json",
