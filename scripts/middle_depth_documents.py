@@ -264,13 +264,18 @@ def measure(args, *, manual=False):
         prep = monotonic()
         import sys
 
+        entry_point = (
+            "scripts.middle_depth_manuals"
+            if manual
+            else "scripts.middle_depth_documents"
+        )
         prefix = saved(
             model,
             ids,
             directory,
             ident,
             guard,
-            [".venv/bin/python", "-m", "scripts.middle_depth_documents", *sys.argv[1:]],
+            [".venv/bin/python", "-m", entry_point, *sys.argv[1:]],
         )
         prefill_seconds = monotonic() - prep
         operating_point = args.cache_mode

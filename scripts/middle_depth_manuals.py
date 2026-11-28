@@ -5,9 +5,11 @@ import hashlib
 import re
 import tarfile
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from urllib.request import urlopen
 
 from loopqwen.calculator_tool import tool
+from loopqwen.evaluation.mechanism import packed, unpack
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.qwen_tools import declarations, render
@@ -156,8 +158,57 @@ def freeze(check=False):
         save(FROZEN, record)
 
 
+def compact(raw_path, archive, question, opening):
+    """Replace the registered source text and repeated prompt prefix IDs losslessly."""
+    data = unpack(raw_path)
+    first = data["history"][0]
+    if first != {"role": "user", "content": question}:
+        raise ValueError("The document differs from the source to be factored")
+    first["content"] = None
+    for turn in data["trace"]["turns"]:
+        ids = turn["prompt_ids"]
+        common = next(
+            (i for i, (a, b) in enumerate(zip(ids, opening)) if a != b),
+            min(len(ids), len(opening)),
+        )
+        turn["prompt_ids"] = [common, ids[common:]]
+    packed(
+        archive,
+        {
+            "raw_sha256": digest(raw_path),
+            "opening": fingerprint(opening),
+            "record": data,
+        },
+    )
+    with TemporaryDirectory() as temp:
+        restore(archive, Path(temp) / "replay.json.gz", question, opening)
+
+
+def restore(archive, out, question, opening):
+    envelope = unpack(archive)
+    if fingerprint(opening) != envelope["opening"]:
+        raise ValueError("Restoration requires the exact registered input IDs")
+    data = envelope["record"]
+    data["history"][0]["content"] = question
+    for turn in data["trace"]["turns"]:
+        count, tail = turn["prompt_ids"]
+        if not 0 <= count <= len(opening):
+            raise ValueError("Invalid archived prefix length")
+        turn["prompt_ids"] = opening[:count] + tail
+    out.parent.mkdir(parents=True, exist_ok=True)
+    if out.exists():
+        if digest(out) != envelope["raw_sha256"]:
+            raise ValueError("Destination contains a different trajectory")
+        return
+    with TemporaryDirectory(dir=out.parent) as temp:
+        verified = Path(temp) / "verified.json.gz"
+        packed(verified, data)
+        if digest(verified) != envelope["raw_sha256"]:
+            raise ValueError("Restored raw trajectory differs from the original")
+        verified.replace(out)
+
+
 def run_pair():
-    from loopqwen.evaluation.mechanism import unpack
     from scripts.middle_depth_standalone import MODELS, check
     from scripts.middle_depth_wave import dispatch
 
@@ -166,6 +217,34 @@ def run_pair():
         SPECS / "manual-sources.json"
     ):
         raise ValueError("Registration changed")
+    from scripts.middle_depth_stages import document_files
+
+    long_plan = ROOT / "headroom/direct-complete-books.json"
+    missing = []
+    if not long_plan.is_file():
+        missing.append(str(long_plan))
+    else:
+        for key in read(long_plan)["reasons"]:
+            name, world = key.split("/")
+            for arm in ("base", "loop"):
+                paths = document_files("parent", arm, 4096, name, world, True)
+                missing.extend(str(p) for p in paths.values() if not p.is_file())
+    for arm in ("base", "loop"):
+        cold = (
+            ROOT / f"standalone/selected-benchmark/cold/parent-{arm}-anne-512.json.gz"
+        )
+        if not cold.is_file() or not unpack(cold)["passed"]:
+            missing.append(str(cold))
+    if missing:
+        save(
+            ROOT / STAGE / "dispatch.json",
+            {
+                "status": "blocked-prerequisite",
+                "missing_or_failed": missing,
+                "registration": digest(PLAN),
+            },
+        )
+        raise RuntimeError("Finish the registered full-book and cold comparisons first")
     charges = [read(p) for p in (ROOT / "charges").glob("*.json")]
     used = sum(r["seconds"] for r in charges if r["stage"] == "long")
     manual_used = sum(r["seconds"] for r in charges if r["job"].endswith("/" + STAGE))
@@ -186,11 +265,19 @@ def run_pair():
         )
     for arm in ("base", "loop"):
         check(MODELS / arm, arm)
+    tok = tokenizer({"checkpoint": str(BASE)})
     for i, name in enumerate(("make", "tar")):
+        enrolled, (_, _, worlds, _) = openings(name, tok)
+        if enrolled != frozen["manuals"][name]:
+            raise ValueError("CPU and registered openings differ")
         for j, world in enumerate(WORLD_ORDER):
             for arm in ("loop", "base") if (i + j) % 2 == 0 else ("base", "loop"):
                 path = RAW / STAGE / name / arm / "512" / (world + "-first.json.gz")
                 receipt = ROOT / STAGE / name / arm / (world + ".json")
+                archive = receipt.with_suffix(".trace.json.gz")
+                q, opening = worlds[world]
+                if archive.exists() and not path.exists():
+                    restore(archive, path, q, opening)
                 if not path.exists():
                     dispatch(
                         "manuals",
@@ -217,10 +304,15 @@ def run_pair():
                     or fingerprint(ids) != expected["worlds"][world]["input"]
                 ):
                     raise ValueError("Archived trajectory identity mismatch")
+                compact(path, archive, q, opening)
                 save(
                     receipt,
                     {
                         "raw": str(path),
+                        "archive": str(archive.relative_to(ROOT)),
+                        "archive_sha256": digest(archive),
+                        "raw_bytes": path.stat().st_size,
+                        "archive_bytes": archive.stat().st_size,
                         "sha256": digest(path),
                         "source": raw["source"],
                         "input": fingerprint(ids),
@@ -236,13 +328,23 @@ def run_pair():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("freeze", "verify", "run", "request"))
+    parser.add_argument(
+        "action", choices=("freeze", "verify", "run", "request", "restore")
+    )
     parser.add_argument("--name", choices=("make", "tar"))
     parser.add_argument("--world", choices=WORLD_ORDER)
     parser.add_argument("--arm", choices=("base", "loop"))
+    parser.add_argument("--out", type=Path)
     a = parser.parse_args()
     if a.action in ("freeze", "verify"):
         freeze(check=a.action == "verify")
+    elif a.action == "restore":
+        if not all((a.name, a.arm, a.world, a.out)):
+            parser.error("restore requires --name, --world, --arm and --out")
+        tok = tokenizer({"checkpoint": str(BASE)})
+        _, (_, _, worlds, _) = openings(a.name, tok)
+        archive = ROOT / STAGE / a.name / a.arm / (a.world + ".trace.json.gz")
+        restore(archive, a.out, *worlds[a.world])
     elif a.action == "run":
         run_pair()
     else:
