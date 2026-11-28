@@ -117,3 +117,15 @@ The one-book depth intervention motivates a fresh transfer test on complete GNU 
 ```
 
 The first command reconstructs and verifies all six openings without loading a model. The second enforces the existing long-context allowance and writes source-linked receipts. [Registration](../research/diagnostics/middle-depth/manual-recall.md) · [Physical inputs and references](../research/diagnostics/middle-depth/manual-openings.json)
+
+## Restoring the trained middle-layer evidence reader
+
+The experimental reader uses the complete BF16 update-576 loop directory restored above as its parent. It executes the 24 ordinary layers once and makes two tied attention reads at layer 15. The archive supplies the trained controller and the two latest optimizer generations. The following commands assemble an independent model directory, rebuild its pinned offline wheel and verify every file. The CLI uses the model’s default two reads on ordinary prompts.
+
+```sh
+.venv/bin/python -m scripts.middle_read_bundle restore --destination exports/standalone-middle-read-0084
+.venv/bin/python -m loopqwen ask --checkpoint exports/standalone-middle-read-0084 --tool-format qwen --calculator --prompt 'Use the calculator to subtract 18 from 35.' --max-tokens 512 --trace
+.venv/bin/python -m scripts.middle_read_bundle restore-training --destination checkpoints/middle-read/fit
+```
+
+For optimizer recovery, the native trainer saves the realized clipped gradient after differentiation at a persisted step. Reloading the same weights and recomputing the gradient gave identical forward losses but changed the resulting controller by up to 0.00000684 on the measured second update. Restoring the saved derivative reproduced that update and the optimizer tensors exactly. The next training process also resumed a deliberate stop before update three. [Recomputed derivative](measurements/middle-depth/middle-read/restart-diagnosis.json) · [Exact optimizer replay](measurements/middle-depth/middle-read/restart.json) · [Deliberate interruption](measurements/middle-depth/middle-read/interrupted-before-update.json)
