@@ -220,6 +220,17 @@ def measure(args, *, manual=False):
             else:
                 assist = MiddleAssistant(BASE, args.policy)
             model, tok = assist._tool_model, assist.tokenizer
+            if args.arm == "base":
+                # Saved one-pass prefixes bind the span descriptor as well as its physical sites.
+                registration = Span(12, 4, 1)
+                if model.span.passes != 1 or model.sites != registration.sites(
+                    len(model.text.layers)
+                ):
+                    raise ValueError(
+                        "Standalone Base does not use the registered ordinary layer schedule"
+                    )
+                model.span = registration
+            model.eval()
             weights = (
                 "base-dc7cdfe"
                 if bundle.is_file() and args.arm == "base"
