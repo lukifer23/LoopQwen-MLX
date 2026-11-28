@@ -1,0 +1,89 @@
+{
+  "190a946e1ea50b1731b5039099ba962510c02c7207fccd7538ec7acbe9e821c6": {
+    "source": "make",
+    "world": "edited",
+    "reference": {
+      "objects": 8,
+      "jobs": 2,
+      "compile_rounds": 4,
+      "total_slots": 5
+    },
+    "answer": "2.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "1+1"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "2"
+          ],
+          "value": "2"
+        }
+      }
+    ]
+  },
+  "999e3d311dbb8afb764847fe3ecebef24e495d3a01dc041dfaaf09c61564c535": {
+    "source": "make",
+    "world": "irrelevant",
+    "reference": {
+      "objects": 8,
+      "jobs": 1,
+      "compile_rounds": 8,
+      "total_slots": 9
+    },
+    "answer": "2.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "1+1"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "2"
+          ],
+          "value": "2"
+        }
+      }
+    ]
+  },
+  "c72eb0950091f3673924d5f9aedb57b5206435d4c3323c2e259e6a612eedf587": {
+    "source": "make",
+    "world": "original",
+    "reference": {
+      "objects": 8,
+      "jobs": 1,
+      "compile_rounds": 8,
+      "total_slots": 9
+    },
+    "answer": "2.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "1+1"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "2"
+          ],
+          "value": "2"
+        }
+      }
+    ]
+  }
+}
