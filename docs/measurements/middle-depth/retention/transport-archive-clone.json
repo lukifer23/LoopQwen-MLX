@@ -1,0 +1,23 @@
+{
+  "source": "exports/tool-language-packed-04.lqzip",
+  "target": "exports/tool-language-packed-05.lqzip",
+  "release_reports": [
+    "research/results/transport-lossless-03/report.json",
+    "research/results/transport-lossless-04/report.json"
+  ],
+  "release_sha256": [
+    "6e55c93c4280f63e90f5e5d2379b92e026f13626d6306c7851297ec5cd5c80e3",
+    "8c1fbb6850ca72b38e8fa90ebc7c15803f005880a1e43687e224d8016a99a2b3"
+  ],
+  "size_bytes": [
+    1544038893,
+    1544038920
+  ],
+  "cloned_equal_bytes": 1512833024,
+  "block_bytes": 262144,
+  "distinct_files": true,
+  "volume_free_before": 121369985024,
+  "volume_free_after": 122875285504,
+  "seconds": 3.8219735419843346,
+  "method": "scripts.compact_exports.compact(source, target, apply=True). Unsaved temporary APFS clone of 04 amended with differing 05 blocks, fsynced and fully hashed before atomic replacement. Both final files verified against historical release reports. Concurrent work, snapshots and prior sharing affect free space."
+}
