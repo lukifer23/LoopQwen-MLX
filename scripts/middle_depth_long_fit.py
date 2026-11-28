@@ -4,6 +4,7 @@ import argparse
 import os
 import tempfile
 from datetime import datetime, timedelta
+from math import isfinite
 from pathlib import Path
 from time import monotonic
 
@@ -184,7 +185,43 @@ def adjoint_feature(model, ids, labels, cache):
 
 def extract(model, tok, arm, weights, guard):
     spec = read(SPEC)
+    from scripts.middle_depth_verify import sparse_gradient_comparison
+
     rows = list(examples(tok))
+    name, world, meta, prompt, labels = rows[0]
+    assert meta == spec["rows"][name + "/" + world]
+    # Use the actual assistant labels with both learned LoRA factors active.
+    # The short opening is for gradient qualification. Extraction below uses the entire source.
+    probe = prompt[-(161 - len(labels)) :] + labels[:-1]
+    assert len(probe) == 160 and 0 < len(labels) <= 64
+    guard(force=True)
+    check = sparse_gradient_comparison(model, mx.array([probe]), mx.array(labels))
+    passed = (
+        abs(check["full_loss"] - check["sparse_loss"]) < 0.01
+        and set(check["norms"]) == {"lora_a", "lora_b"}
+        and all(isfinite(n) and n > 0 for n in check["norms"].values())
+        and all(
+            relative is not None and relative < 0.02
+            for relative in check["relative_errors"].values()
+        )
+    )
+    save(
+        ROOT / f"long-trained-gradient-{arm}.json",
+        {
+            "passed": passed,
+            "parent": weights,
+            "source": name + "/" + world,
+            "probe": fingerprint(probe),
+            "targets": meta["targets"],
+            "positions": len(probe),
+            "plan": digest(SPEC),
+            "comparison": check,
+        },
+    )
+    if not passed:
+        raise ValueError(
+            f"Sparse gradients differ from the full trained {arm} reference"
+        )
     result = []
     verified = {}
     for doc in ("gables", "fosdem"):
