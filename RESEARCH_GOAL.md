@@ -10,7 +10,11 @@
 | Long-context pointer fit | 640 updates on two complete Deno releases. Held source-location loss improved by 4.78 nats. The parent and trained two-read model both solved 18/24 paired token decisions. One trained read solved 20/24. The gate failed. [Figure](paper/long-copy-held.svg) · [Weights and results](docs/measurements/long-copy-fit) |
 | Financial repair | 320 human questions on 160 reports have verified calculations. Both fits reached the registered macOS memory-pressure stop during feature extraction. The resumed fit took 29.82 seconds and completed **zero optimizer updates**. The streamed implementation passed its causal gradient test. [Pause receipt](docs/measurements/receipt-repair-streamed-pause.json) · [Training protocol](research/diagnostics/receipt-repair-fit-streamed.json) |
 
-## Resume here
+## Current execution point
+
+The short-fit and history-correction decisions are closed. Run `.venv/bin/python -m scripts.middle_depth_stages parent-books` on the idle native worker to resume the full-document comparison. Saved requests are verified before reuse. The training guide gives the resource and budget checks. [Current training commands](docs/TRAINING.md) · [Selected parent identities](docs/measurements/middle-depth/history-decision.json)
+
+## Study record
 
 The financial branch is closed. The verifier found no completed weights and the 16-report pilot prerequisite failed. The three attempts consumed 134.83 seconds including the original interruption and owner-requested pause. [Terminal receipt and charges](docs/measurements/receipt-repair-fit-streamed/closure.json)
 
@@ -22,7 +26,7 @@ The full-graph optimizer stopped repeatedly on a 1,024-position financial recove
 
 At the matched-recovery snapshot the ordinary arm had reached 205 and the matched loop 155. The 145,891-token trained book pair saved the ordinary original response and both physical prefixes. The loop reached OS warning pressure while materializing the resident histories and later in staged prefill. The remaining pair uses the verified prefixes under the same pressure guard. Overlapping immutable temporal states avoided 868,067,701 duplicate payload bytes. [First attempt](docs/measurements/middle-depth/epoch-one-stop.json) · [Prefix manifests](docs/measurements/middle-depth/prefix-retention)
 
-On a native checkout with normal OS pressure, `.venv/bin/python -m scripts.middle_depth_wave resume-trained` resumes the fitted comparison and preserves completed generations. `.venv/bin/python -m scripts.middle_depth_account` verifies the latest and previous optimizer generations and reports the remaining native budget. Both early policy adapters and their installed wheel are stored in `exports/middle-depth`. Verify that archive with `.venv/bin/python -m scripts.middle_depth_archive verify --directory exports/middle-depth --stage early`.
+The early and final policy adapters and their installed wheels are archived in `exports/middle-depth`. Verify the final archive with `.venv/bin/python -m scripts.middle_depth_archive verify --directory exports/middle-depth --stage source-supervised`.
 
 [Research paper draft](paper/paper-draft.pdf) · [Evidence overview](paper/evidence-overview.pdf) · [Current paper](paper/middle-depth.pdf) · [Comprehensive draft](paper/loopqwen-repair-query-study.pdf) · [Research model and offline replay](docs/SOURCE_COPY_MODEL.md)
 

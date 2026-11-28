@@ -1,16 +1,20 @@
 # Training and reproduction
 
-## Resume the paused receipt-repair fit
+## Resume the native middle-depth study
 
-Use the project's locked environment on the training Mac. The tracked source-copy parent is under `research/results/source-copy-fit-01`. Native assets on this host live under `exports/tool-language-packed-05` and `exports/conditional-reentry-backbone`. Those ignored directories are outside Git. The two attempts used 106 charged seconds of the original 2,800-second budget, leaving 2,694 seconds on resumption. The resume check verifies the original source inventory, parent and donor hashes without running inference. The local offline kit and its inventory are described in [the model guide](SOURCE_COPY_MODEL.md).
+Both BF16 short fits reached update 576. The actual-history correction missed its registered threshold, so the complete-document development comparison uses those two parents and untouched Base. On the training Mac, check the lease and the remaining budget before starting a worker. The document command verifies existing outputs and continues in the registered order. The 128 and 512 settings limit generated tokens per turn. Each complete novel supplies at least 131,072 actual input tokens.
 
 ```sh
-.venv/bin/python -m scripts.resume_receipt_repair check
-# Once the owner resumes the research
-.venv/bin/python -m scripts.resume_receipt_repair fit
+.venv/bin/python -m loopqwen resources
+.venv/bin/python -m scripts.middle_depth_account
+.venv/bin/python -m scripts.middle_depth_stages parent-books
 ```
 
-Inspect `docs/measurements/receipt-repair-fit-streamed/receipt.json`. Archive the complete result directory locally on main. Run `.venv/bin/python -m scripts.verify_receipt_repair` if the result includes final measurements. Commit its verification receipt. Only if both pass, run `.venv/bin/python -m scripts.receipt_repair_pilot measure` and commit the actual trajectories and terminal decision under `docs/measurements/receipt-repair-pilot-streamed/`. A failed fit or pilot closes its downstream product study. No job restarts automatically. For the current evidence and full goal, see the [handoff](../RESEARCH_GOAL.md).
+The standalone guide includes the model directories, public restoration kit and isolated offline comparison. The long-stage registration gives the full-document fitting and selection criteria. [Standalone models](STANDALONE_MIDDLE.md) · [Long-stage registration](../research/diagnostics/middle-depth/long-stage-decision.md) · [Current handoff](../RESEARCH_GOAL.md)
+
+## Archived receipt-repair fit
+
+The original two attempts and the resumed run used 134.83 worker-seconds in total. The resumed run reached the memory-pressure stop during feature extraction before its first optimizer update. The verifier recorded the missing fit and closed the downstream pilot. The original inputs, thresholds and charge history remain available for inspection. [Closure and charges](measurements/receipt-repair-fit-streamed/closure.json) · [Source-copy model guide](SOURCE_COPY_MODEL.md)
 
 ## Reproduce the gated refinement study
 

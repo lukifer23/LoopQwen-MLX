@@ -31,7 +31,8 @@ sys.path.insert(0,str(site))
 runpy.run_module('loopqwen.standalone_replay',run_name='__main__')
 for n,m in list(sys.modules.items()):
     if n=='loopqwen' or n.startswith('loopqwen.'):
-        assert Path(m.__file__).resolve().is_relative_to(site),n
+        files=[m.__file__] if getattr(m,'__file__',None) else list(m.__path__)
+        assert files and all(Path(f).resolve().is_relative_to(site) for f in files),n
 """
 
 
@@ -187,6 +188,18 @@ def replay(arm):
                     child.wait()
         ended = time()
         if child.returncode or psutil.pid_exists(child.pid):
+            packed(
+                REPORT / f"failed-{arm}-{child.pid}.json.gz",
+                {
+                    "arm": arm,
+                    "pid": child.pid,
+                    "exit": child.returncode,
+                    "requests": keys,
+                    "lines": logfile.read_text().splitlines(),
+                    "manifest": manifest,
+                    "plan": digest(PLAN),
+                },
+            )
             raise RuntimeError(
                 f"Standalone native PID {child.pid}, exit {child.returncode}"
             )
