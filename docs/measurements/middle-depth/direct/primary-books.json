@@ -1,0 +1,770 @@
+{
+  "source": "332705b4eabb6f9c8a55d8c4759683c84ad61c2c5b02a8833294a2b2ce6cb067",
+  "grades": "242be0c1ea482b482ece510556d9069df5ef2f7a842b252b8a9f11ec83ba6804",
+  "cases": 48,
+  "contracts": {
+    "128/base": {
+      "groups": {
+        "first": {
+          "total": 6,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "token_limit": 6
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "own": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "token_limit": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "shared": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "token_limit": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "unanswerable": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "token_limit": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        }
+      },
+      "rows": {
+        "anne/edited/first": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145891,
+          "prompt": "d749a5508d98f733bf67ba7a2821b825f739c0bb71aa97c55117fbc21f95ed16",
+          "cold_seconds": 274.7745228339918,
+          "warm_seconds": 27.974931583972648,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "3c8b9744ace6e8633ee71611dd59a026505d560bf08e689c6f94435868268316"
+        },
+        "anne/edited/own": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145915,
+          "prompt": "1a2d28e755ba8e9dc39b0de8331b45afa14a8248f123c21167a1cf4b905e3fd7",
+          "cold_seconds": 260.09657224902185,
+          "warm_seconds": 26.722555582993664,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "1843ed4f9d97df359a3f8eef3092b729b2a0e07c95b69fb6292533fb790dd0e0"
+        },
+        "anne/edited/shared": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145943,
+          "prompt": "0779bd681986fbeb78dfcec67face161ec7fb80460efa3c33a067f5ea2d648c2",
+          "cold_seconds": 260.311984748987,
+          "warm_seconds": 26.937968082958832,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "d0d3985670a39e7f5b381065004cd92b27a4a4b79320b8ded2e30024d630b4f7"
+        },
+        "anne/edited/unanswerable": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145870,
+          "prompt": "507d1ea49539783f7690087bcdf3ce47829c5100f4f4f738a72f50f86efd55ad",
+          "cold_seconds": 260.20564608304994,
+          "warm_seconds": 26.83162941702176,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "9ff80b0d9b216d99c50d4afd65e44cfa5c02dd6ad2668345274cd78d6bb542ed"
+        },
+        "anne/irrelevant/first": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145891,
+          "prompt": "b2513b803c23a2c07019761cb0e4c3ae50014d899c30154f212bdaf851c03e31",
+          "cold_seconds": 260.28557820699643,
+          "warm_seconds": 26.91156154096825,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "9c73f316edffb3cf47decc97c16cc92389f21109a52198110c6886a6b3e76d8f"
+        },
+        "anne/original/first": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145891,
+          "prompt": "30949917dddb85bee7734e873143c732bfc52da4544bf5ea0c9edf9c2112375c",
+          "cold_seconds": 275.27011933305766,
+          "warm_seconds": 28.470528083038516,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "bcab99c47bca1b9bedc8e6ffa3cc119b9b33361954741f61418325660e981631"
+        },
+        "anne/original/own": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145915,
+          "prompt": "4f7a38eae2dfbc8bdb6084c9ae2ee0ad03bd45e941d197a2912ab46c12711707",
+          "cold_seconds": 260.60679583303863,
+          "warm_seconds": 27.23277916701045,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "a8ca8c93c1d507a8d2ca4bccb640011dd8c6cbc4d952a53b3ab533945461e0ed"
+        },
+        "anne/original/shared": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145947,
+          "prompt": "0a2df68a92f44fb224f5d44c716b1970583ed5f6dae25c0f2e69d0c32a9fb3ff",
+          "cold_seconds": 260.60245987406233,
+          "warm_seconds": 27.22844320803415,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "eaa2ab52caccdfd9b221d0350700b85adf87f7d4cc4a124fc516f7e37f4d655b"
+        },
+        "anne/original/unanswerable": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145870,
+          "prompt": "3a7802fd3d7b13a75d259302c2260232b70f9f9a31a1eaa44aa3d956857425ec",
+          "cold_seconds": 260.4229483330273,
+          "warm_seconds": 27.048931666999124,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "4aaff202f597518f0bcf6936a2e48361baa31f666f0329d4ea4f4e2386cb0301"
+        },
+        "book/edited/first": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 167017,
+          "prompt": "ffac9426be62c96f9273418f1b32e7b02dec805fea8cf202871a4966d8e687a4",
+          "cold_seconds": 340.2781505829189,
+          "warm_seconds": 26.398220125003718,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "7bb1791b0f6fc8ee33883b36360f3b8196899c1ffad7974d1b91ac45efe258a1"
+        },
+        "book/irrelevant/first": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 167014,
+          "prompt": "db6b8d43dcb5a3c93233a995cf5f24e3955aaf7740d7c147fc1bcd369d50112c",
+          "cold_seconds": 336.6513457079418,
+          "warm_seconds": 22.77141525002662,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "1f25fb58e64d3c09f3e8687563371582e4c607ce90147db03a8f0390efbf4bc9"
+        },
+        "book/original/first": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 167014,
+          "prompt": "6411e910ac4840045efbf3aab6c662ad8ec0c2135aad41619b861121a3f2ef0a",
+          "cold_seconds": 339.4967092499137,
+          "warm_seconds": 25.616778791998513,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 128,
+          "sha": "c5636820fa5b9b4cc84ef3639294071e599455e8c1816b54f023152036c1186c"
+        }
+      }
+    },
+    "128/loop": {
+      "groups": {
+        "first": {
+          "total": 6,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "answered": 6
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "own": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "answered": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "shared": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "answered": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "unanswerable": {
+          "total": 2,
+          "supported": 2,
+          "by_600s_cold": 2,
+          "stops": {
+            "answered": 2
+          },
+          "mean_capped_cold_time_to_correct": 303.82367822897504,
+          "callbacks": 0
+        }
+      },
+      "rows": {
+        "anne/edited/first": {
+          "supported": false,
+          "error": "Gives both edited source ages but omits the requested difference of five and three quarters years.",
+          "physical_input": 145891,
+          "prompt": "d749a5508d98f733bf67ba7a2821b825f739c0bb71aa97c55117fbc21f95ed16",
+          "cold_seconds": 301.92956979194423,
+          "warm_seconds": 28.01745200000005,
+          "cold_first_visible": 300.631761625933,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "7399115719a819f054625fff5331f9aa5204fcf519ff08e5bbd953321c3cbfbf"
+        },
+        "anne/edited/own": {
+          "supported": false,
+          "error": "Gives both ages but omits the requested 69-month result and never executes the calculator.",
+          "physical_input": 145943,
+          "prompt": "b819e9cfddc9382bdbee62f039cc4ba9948fe20a12ff93538a9ba3d283d1c0a7",
+          "cold_seconds": 304.9063052079873,
+          "warm_seconds": 26.776691125007346,
+          "cold_first_visible": 303.6174564579851,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "dc08af70dc60c0bf67005c94f4994dc97ffe92f6c6c5809fc107ee80f1e47ead"
+        },
+        "anne/edited/shared": {
+          "supported": false,
+          "error": "Gives both ages but omits the requested 69-month result and never executes the calculator.",
+          "physical_input": 145943,
+          "prompt": "0779bd681986fbeb78dfcec67face161ec7fb80460efa3c33a067f5ea2d648c2",
+          "cold_seconds": 304.27138995798305,
+          "warm_seconds": 26.141775875003077,
+          "cold_first_visible": 302.95732387399767,
+          "actual_callbacks": 0,
+          "generated": 28,
+          "sha": "2f2ce04458d2475e15dfc2b0dc65f1d0120af82f9b92a20a3897c7d0ac73728e"
+        },
+        "anne/edited/unanswerable": {
+          "supported": true,
+          "error": null,
+          "physical_input": 145870,
+          "prompt": "507d1ea49539783f7690087bcdf3ce47829c5100f4f4f738a72f50f86efd55ad",
+          "cold_seconds": 304.69451483298326,
+          "warm_seconds": 26.56490075000329,
+          "cold_first_visible": 303.98471158294706,
+          "actual_callbacks": 0,
+          "generated": 17,
+          "sha": "df4c73603ef29a1d5e80fa3debbcbdd9f2e1e625ff231026a7dfbbed784f6eac"
+        },
+        "anne/irrelevant/first": {
+          "supported": false,
+          "error": "Gives both ages but omits their difference of five and a half years.",
+          "physical_input": 145891,
+          "prompt": "b2513b803c23a2c07019761cb0e4c3ae50014d899c30154f212bdaf851c03e31",
+          "cold_seconds": 304.9894776250003,
+          "warm_seconds": 26.85986354202032,
+          "cold_first_visible": 303.7231082909857,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "bb1bf7e70d501f70ced788dc91d64284f9cd8db22a1e15f30e5e4d9bfd6b7976"
+        },
+        "anne/original/first": {
+          "supported": false,
+          "error": "Gives both source ages but omits the requested difference of five and a half years.",
+          "physical_input": 145891,
+          "prompt": "30949917dddb85bee7734e873143c732bfc52da4544bf5ea0c9edf9c2112375c",
+          "cold_seconds": 300.99798283394193,
+          "warm_seconds": 27.08586504199775,
+          "cold_first_visible": 299.73331924993545,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "81b1e096770b744f2d23bedf5c6309c21258372fe840c97feb3f7d2b39a3e00f"
+        },
+        "anne/original/own": {
+          "supported": false,
+          "error": "Recovers both source ages but gives no month conversion and executes no calculator call.",
+          "physical_input": 145943,
+          "prompt": "5825f67b8772cceeb1f408b89f4fdf4333bf9190884a2cc7b9db597701c2fd0f",
+          "cold_seconds": 305.2359807489556,
+          "warm_seconds": 27.106366665975656,
+          "cold_first_visible": 303.9528321659309,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "5450b4df6b8476a9b687e9e8b2e0382dd3d6b4f06f5846e12510b6e52fd24c09"
+        },
+        "anne/original/shared": {
+          "supported": false,
+          "error": "Repeats the year difference without the requested conversion to months or a calculator execution. Presents wording from the shared explanation as a quotation from Anne.",
+          "physical_input": 145947,
+          "prompt": "0a2df68a92f44fb224f5d44c716b1970583ed5f6dae25c0f2e69d0c32a9fb3ff",
+          "cold_seconds": 306.08363462396665,
+          "warm_seconds": 27.954020540986676,
+          "cold_first_visible": 303.4641434579389,
+          "actual_callbacks": 0,
+          "generated": 51,
+          "sha": "6b32a57a502efdcb5a9f88d6f85aefdba6271bbafa5ed979c8a5a6fac70db79f"
+        },
+        "anne/original/unanswerable": {
+          "supported": true,
+          "error": null,
+          "physical_input": 145870,
+          "prompt": "3a7802fd3d7b13a75d259302c2260232b70f9f9a31a1eaa44aa3d956857425ec",
+          "cold_seconds": 302.9528416249668,
+          "warm_seconds": 24.823227541986853,
+          "cold_first_visible": 302.2369960829383,
+          "actual_callbacks": 0,
+          "generated": 17,
+          "sha": "1f914890c23d72123f71fc81aeccf1b38168c2d28377ffc5e471a3bd900f8edc"
+        },
+        "book/edited/first": {
+          "supported": false,
+          "error": "Says no even though the edit frees the bird while the owner remains handcuffed; gives no supporting details.",
+          "physical_input": 167017,
+          "prompt": "ffac9426be62c96f9273418f1b32e7b02dec805fea8cf202871a4966d8e687a4",
+          "cold_seconds": 398.53674908395624,
+          "warm_seconds": 21.837928083958104,
+          "cold_first_visible": 398.3875589580275,
+          "actual_callbacks": 0,
+          "generated": 6,
+          "sha": "c2574d8dd4b42deae7ca727ee06edb1450e92d1c810d861ce1bd7bff1190407b"
+        },
+        "book/irrelevant/first": {
+          "supported": false,
+          "error": "Gives the right yes/no decision but supplies neither scene nor the handcuff evidence.",
+          "physical_input": 167014,
+          "prompt": "db6b8d43dcb5a3c93233a995cf5f24e3955aaf7740d7c147fc1bcd369d50112c",
+          "cold_seconds": 374.6161710830056,
+          "warm_seconds": 19.62711770797614,
+          "cold_first_visible": 374.49647191603435,
+          "actual_callbacks": 0,
+          "generated": 6,
+          "sha": "20471cefa72145847899ec85ac0c6984a8497caf4c3a9bc89cb852e1d0193b82"
+        },
+        "book/original/first": {
+          "supported": false,
+          "error": "Gives the correct no decision but omits the opening cage, final caged bird and handcuffed owner.",
+          "physical_input": 167014,
+          "prompt": "6411e910ac4840045efbf3aab6c662ad8ec0c2135aad41619b861121a3f2ef0a",
+          "cold_seconds": 398.7785654159961,
+          "warm_seconds": 22.079744415997993,
+          "cold_first_visible": 398.6204729580204,
+          "actual_callbacks": 0,
+          "generated": 6,
+          "sha": "994a573d8c5f43339673b3f7facdd931d9d639b5e907625b234d69b8b30e555b"
+        }
+      }
+    },
+    "512/base": {
+      "groups": {
+        "first": {
+          "total": 6,
+          "supported": 2,
+          "by_600s_cold": 2,
+          "stops": {
+            "answered": 4,
+            "token_limit": 2
+          },
+          "mean_capped_cold_time_to_correct": 492.44227617350407,
+          "callbacks": 0
+        },
+        "own": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "token_limit": 1,
+            "answered": 1
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "shared": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "answered": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "unanswerable": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "token_limit": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        }
+      },
+      "rows": {
+        "anne/edited/first": {
+          "supported": false,
+          "error": "Gives two years without either supporting age. The edited statements differ by five and three quarters years.",
+          "physical_input": 145891,
+          "prompt": "d749a5508d98f733bf67ba7a2821b825f739c0bb71aa97c55117fbc21f95ed16",
+          "cold_seconds": 277.5362295830273,
+          "warm_seconds": 30.73663833300816,
+          "cold_first_visible": 276.93940004199976,
+          "actual_callbacks": 0,
+          "generated": 143,
+          "sha": "3a0f57c37d2163a4bc3216ca8a2f05e863a699b4dfd87c24fb255be11d972a39"
+        },
+        "anne/edited/own": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145932,
+          "prompt": "101c0e948d22d5655cc468b135c8a1443d582d74e972ce4df34448cfd679ba0a",
+          "cold_seconds": 278.8912490000366,
+          "warm_seconds": 45.51723233400844,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 512,
+          "sha": "8d142a949fc15a6d63c37b081283bfc4ecf40fb4203c6f2430d7c4999304a1e3"
+        },
+        "anne/edited/shared": {
+          "supported": false,
+          "error": "Drops the three-quarter year during subtraction and supplies 60 months without executing the calculator.",
+          "physical_input": 145943,
+          "prompt": "0779bd681986fbeb78dfcec67face161ec7fb80460efa3c33a067f5ea2d648c2",
+          "cold_seconds": 269.203278416011,
+          "warm_seconds": 35.829261749982834,
+          "cold_first_visible": 264.90915137401316,
+          "actual_callbacks": 0,
+          "generated": 305,
+          "sha": "94186d022a2dba905f57e8ddfe61d3a6b2f6008bb4083491723b3592fc30b237"
+        },
+        "anne/edited/unanswerable": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145870,
+          "prompt": "507d1ea49539783f7690087bcdf3ce47829c5100f4f4f738a72f50f86efd55ad",
+          "cold_seconds": 279.77049708302366,
+          "warm_seconds": 46.39648041699547,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 512,
+          "sha": "75ca6a01cff6bd542be0cfeaeb474ecb8095df17369250a9cc63289fe59851b4"
+        },
+        "anne/irrelevant/first": {
+          "supported": true,
+          "error": null,
+          "physical_input": 145891,
+          "prompt": "b2513b803c23a2c07019761cb0e4c3ae50014d899c30154f212bdaf851c03e31",
+          "cold_seconds": 269.0325710410252,
+          "warm_seconds": 35.65855437499704,
+          "cold_first_visible": 267.32396400003927,
+          "actual_callbacks": 0,
+          "generated": 315,
+          "sha": "a782dfa2dcaa8136c5fe5d003c1813c4a396634572743c28a1bfe93b8e77dc44"
+        },
+        "anne/original/first": {
+          "supported": true,
+          "error": null,
+          "physical_input": 145891,
+          "prompt": "30949917dddb85bee7734e873143c732bfc52da4544bf5ea0c9edf9c2112375c",
+          "cold_seconds": 285.6210859999992,
+          "warm_seconds": 38.82149474998005,
+          "cold_first_visible": 283.89282933302457,
+          "actual_callbacks": 0,
+          "generated": 315,
+          "sha": "beeb596f9873a3127778b0ba7d98c45d9818a50a78506b0bd8647be881866ea4"
+        },
+        "anne/original/own": {
+          "supported": false,
+          "error": "Gives the correct ages and 66 months but omits the requested calculator execution.",
+          "physical_input": 145955,
+          "prompt": "401356f70fe85548a0a0643ec1854a1102ccb3208456b77f656e530c42c0533e",
+          "cold_seconds": 268.23374025005614,
+          "warm_seconds": 34.85972358402796,
+          "cold_first_visible": 264.1711775410222,
+          "actual_callbacks": 0,
+          "generated": 300,
+          "sha": "3fb82f150d23eef1091f2ecb6d31ac376b36dd865c6863caeadd16201adc4566"
+        },
+        "anne/original/shared": {
+          "supported": false,
+          "error": "Gives the correct ages and 66 months but omits the requested calculator execution.",
+          "physical_input": 145947,
+          "prompt": "0a2df68a92f44fb224f5d44c716b1970583ed5f6dae25c0f2e69d0c32a9fb3ff",
+          "cold_seconds": 272.8014118319843,
+          "warm_seconds": 39.42739516595611,
+          "cold_first_visible": 267.60290704102954,
+          "actual_callbacks": 0,
+          "generated": 379,
+          "sha": "ce57e49a91c4dd15df0b3963a2679b549555f1d63d0e350ab0a13b2858ebdb63"
+        },
+        "anne/original/unanswerable": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 145870,
+          "prompt": "3a7802fd3d7b13a75d259302c2260232b70f9f9a31a1eaa44aa3d956857425ec",
+          "cold_seconds": 279.02344850002555,
+          "warm_seconds": 45.64943183399737,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 512,
+          "sha": "959d76258550290f9b601d9e56b68fcc445fd13cd07a9557b2145e65de31f4da"
+        },
+        "book/edited/first": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 167017,
+          "prompt": "ffac9426be62c96f9273418f1b32e7b02dec805fea8cf202871a4966d8e687a4",
+          "cold_seconds": 360.3779364579241,
+          "warm_seconds": 46.4980060000089,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 512,
+          "sha": "7a6399a2c2a7c1fd2d000e98dd785548cff15647bfa8f8aa94d3572207b612d9"
+        },
+        "book/irrelevant/first": {
+          "supported": false,
+          "error": "token_limit",
+          "physical_input": 167014,
+          "prompt": "db6b8d43dcb5a3c93233a995cf5f24e3955aaf7740d7c147fc1bcd369d50112c",
+          "cold_seconds": 356.34523458289914,
+          "warm_seconds": 42.46530412498396,
+          "cold_first_visible": null,
+          "actual_callbacks": 0,
+          "generated": 512,
+          "sha": "f44d9a5ed33f8c7932d43df29b698e5b7bfbee9bbcd694c0db853f7c8ca291ff"
+        },
+        "book/original/first": {
+          "supported": false,
+          "error": "Says yes, attributes the mining passage to the bird and places the final scene at the clinic instead of the desert.",
+          "physical_input": 167014,
+          "prompt": "6411e910ac4840045efbf3aab6c662ad8ec0c2135aad41619b861121a3f2ef0a",
+          "cold_seconds": 357.9538002919289,
+          "warm_seconds": 44.07386983401375,
+          "cold_first_visible": 344.0165631248965,
+          "actual_callbacks": 0,
+          "generated": 454,
+          "sha": "988d6dff45f8cd1aa823b468a7b6d240039a50d4da510dc912d1baff32ee0fde"
+        }
+      }
+    },
+    "512/loop": {
+      "groups": {
+        "first": {
+          "total": 6,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "answered": 6
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "own": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "answered": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "shared": {
+          "total": 2,
+          "supported": 0,
+          "by_600s_cold": 0,
+          "stops": {
+            "answered": 2
+          },
+          "mean_capped_cold_time_to_correct": 600.0,
+          "callbacks": 0
+        },
+        "unanswerable": {
+          "total": 2,
+          "supported": 2,
+          "by_600s_cold": 2,
+          "stops": {
+            "answered": 2
+          },
+          "mean_capped_cold_time_to_correct": 303.5290776460024,
+          "callbacks": 0
+        }
+      },
+      "rows": {
+        "anne/edited/first": {
+          "supported": false,
+          "error": "Gives both edited source ages but omits the requested difference of five and three quarters years.",
+          "physical_input": 145891,
+          "prompt": "d749a5508d98f733bf67ba7a2821b825f739c0bb71aa97c55117fbc21f95ed16",
+          "cold_seconds": 301.0801079169614,
+          "warm_seconds": 27.16799012501724,
+          "cold_first_visible": 299.79837337497156,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "ab451926d06e087caf4c4bb608d23b861996d009e9d4afad9a6ee9ad394c7312"
+        },
+        "anne/edited/own": {
+          "supported": false,
+          "error": "Gives both ages but omits the requested 69-month result and never executes the calculator.",
+          "physical_input": 145943,
+          "prompt": "b819e9cfddc9382bdbee62f039cc4ba9948fe20a12ff93538a9ba3d283d1c0a7",
+          "cold_seconds": 305.14072820794536,
+          "warm_seconds": 27.01111412496539,
+          "cold_first_visible": 303.8370403749868,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "bf76dc9835e24061320fbb9bd1163752f4c067bd45e9bdfb67a81f779f3de319"
+        },
+        "anne/edited/shared": {
+          "supported": false,
+          "error": "Gives both ages but omits the requested 69-month result and never executes the calculator.",
+          "physical_input": 145943,
+          "prompt": "0779bd681986fbeb78dfcec67face161ec7fb80460efa3c33a067f5ea2d648c2",
+          "cold_seconds": 305.5228731239913,
+          "warm_seconds": 27.393259041011333,
+          "cold_first_visible": 304.15388404094847,
+          "actual_callbacks": 0,
+          "generated": 28,
+          "sha": "69c6af9df549ce103a02a03d180416f02d2bf0d7741956ed8f9b17503860a29d"
+        },
+        "anne/edited/unanswerable": {
+          "supported": true,
+          "error": null,
+          "physical_input": 145870,
+          "prompt": "507d1ea49539783f7690087bcdf3ce47829c5100f4f4f738a72f50f86efd55ad",
+          "cold_seconds": 303.2398101250292,
+          "warm_seconds": 25.11019604204921,
+          "cold_first_visible": 302.53096912498586,
+          "actual_callbacks": 0,
+          "generated": 17,
+          "sha": "8745443a59c6dfffb34350644241d4343dbcbb7f23fa2da978b44ce784f679b2"
+        },
+        "anne/irrelevant/first": {
+          "supported": false,
+          "error": "Gives both ages but omits their difference of five and a half years.",
+          "physical_input": 145891,
+          "prompt": "b2513b803c23a2c07019761cb0e4c3ae50014d899c30154f212bdaf851c03e31",
+          "cold_seconds": 303.7922918749973,
+          "warm_seconds": 25.662677792017348,
+          "cold_first_visible": 302.537797457946,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "410ef063b9e83caf2c6354d69c5e5a9e64264d9bcbd34f4782e5095654db800c"
+        },
+        "anne/original/first": {
+          "supported": false,
+          "error": "Gives both source ages but omits the requested difference of five and a half years.",
+          "physical_input": 145891,
+          "prompt": "30949917dddb85bee7734e873143c732bfc52da4544bf5ea0c9edf9c2112375c",
+          "cold_seconds": 301.68818570894655,
+          "warm_seconds": 27.776067917002365,
+          "cold_first_visible": 300.3158024169388,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "d7032ba1a9d0c9c9c8df840ce0b068dd67f48dd3141f1b10d89f534c817731ca"
+        },
+        "anne/original/own": {
+          "supported": false,
+          "error": "Recovers both source ages but gives no month conversion and executes no calculator call.",
+          "physical_input": 145943,
+          "prompt": "5825f67b8772cceeb1f408b89f4fdf4333bf9190884a2cc7b9db597701c2fd0f",
+          "cold_seconds": 305.47148537496105,
+          "warm_seconds": 27.34187129198108,
+          "cold_first_visible": 304.19392304099165,
+          "actual_callbacks": 0,
+          "generated": 27,
+          "sha": "28150576278417f65aa34355ab2d36d908330ea12892c0dfbfa12dd5d536c743"
+        },
+        "anne/original/shared": {
+          "supported": false,
+          "error": "Repeats the year difference without the requested conversion to months or a calculator execution. Presents wording from the shared explanation as a quotation from Anne.",
+          "physical_input": 145947,
+          "prompt": "0a2df68a92f44fb224f5d44c716b1970583ed5f6dae25c0f2e69d0c32a9fb3ff",
+          "cold_seconds": 305.55289729096694,
+          "warm_seconds": 27.42328320798697,
+          "cold_first_visible": 302.95855095796287,
+          "actual_callbacks": 0,
+          "generated": 51,
+          "sha": "77b04734053049948add468c40484e8a7f49622fff7924557d83ea1b97dd7d65"
+        },
+        "anne/original/unanswerable": {
+          "supported": true,
+          "error": null,
+          "physical_input": 145870,
+          "prompt": "3a7802fd3d7b13a75d259302c2260232b70f9f9a31a1eaa44aa3d956857425ec",
+          "cold_seconds": 303.81834516697563,
+          "warm_seconds": 25.688731083995663,
+          "cold_first_visible": 303.1118865409517,
+          "actual_callbacks": 0,
+          "generated": 17,
+          "sha": "325640e8b4f429a60f43930b8eaaa3df6e372050cda3b6f4b1639318965131bd"
+        },
+        "book/edited/first": {
+          "supported": false,
+          "error": "Says no even though the edit frees the bird while the owner remains handcuffed; gives no supporting details.",
+          "physical_input": 167017,
+          "prompt": "ffac9426be62c96f9273418f1b32e7b02dec805fea8cf202871a4966d8e687a4",
+          "cold_seconds": 397.86713025002973,
+          "warm_seconds": 21.168309250031598,
+          "cold_first_visible": 397.71030204195995,
+          "actual_callbacks": 0,
+          "generated": 6,
+          "sha": "930d2d2eede6dadba0077469e005e9a3b84b4405a15033cb061c55b067a672dc"
+        },
+        "book/irrelevant/first": {
+          "supported": false,
+          "error": "Gives the right yes/no decision but supplies neither scene nor the handcuff evidence.",
+          "physical_input": 167014,
+          "prompt": "db6b8d43dcb5a3c93233a995cf5f24e3955aaf7740d7c147fc1bcd369d50112c",
+          "cold_seconds": 374.34469404199626,
+          "warm_seconds": 19.355640666966792,
+          "cold_first_visible": 374.2229061250109,
+          "actual_callbacks": 0,
+          "generated": 6,
+          "sha": "8478b256693258cbcaedaa57751fef44ce43d8b35f30bdad60b29364175d6436"
+        },
+        "book/original/first": {
+          "supported": false,
+          "error": "Gives the correct no decision but omits the opening cage, final caged bird and handcuffed owner.",
+          "physical_input": 167014,
+          "prompt": "6411e910ac4840045efbf3aab6c662ad8ec0c2135aad41619b861121a3f2ef0a",
+          "cold_seconds": 398.98377587500727,
+          "warm_seconds": 22.284954875009134,
+          "cold_first_visible": 398.79741199995624,
+          "actual_callbacks": 0,
+          "generated": 6,
+          "sha": "08162cce7019fbc2375b22754b25de2430d7d7224bfb86ee9730787c3b81aa4f"
+        }
+      }
+    }
+  },
+  "scope": "Two development novels. Original, changed and neutral openings; separate full-prefix own-history and shared-history calculator follow-ups and abstentions on Anne. Versions of the same novel are dependent. Cold times include measured prefix construction and warm generation."
+}

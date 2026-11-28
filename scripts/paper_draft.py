@@ -313,6 +313,36 @@ def snapshot():
                 and r["status"] == "finished"
             ),
         )
+    book_panel = ROOT / "direct/primary-books.json"
+    if book_panel.is_file():
+        product = use(book_panel)
+        review_dir = ROOT / "document-review/direct-primary-books"
+        grades = review_dir / "grades.json"
+        scored = review_dir / "scored.json"
+        if digest(scored) != product["source"] or digest(grades) != product["grades"]:
+            raise ValueError("Complete-book grades changed")
+        use(grades)
+        rows = use(scored)
+        if len(rows) != product["cases"] or len(rows) != 48:
+            raise ValueError("Incomplete primary book panel")
+        for r in rows:
+            path = ROOT / r["file"]
+            if digest(path) != r["sha"]:
+                raise ValueError(f"Changed full-book conversation {path}")
+            hashes[str(path)] = r["sha"]
+        data["primary_books"] = {
+            k: v["groups"] for k, v in product["contracts"].items()
+        }
+        cutoff = max(
+            cutoff,
+            max(
+                r["dispatch"] + r["seconds"]
+                for p in (ROOT / "charges").glob("*.json")
+                if (r := read(p))["stage"] == "long"
+                and r["job"].endswith("/parent")
+                and r["status"] == "finished"
+            ),
+        )
     for p in sorted((ROOT / "charges").glob("*.json")):
         r = read(p)
         if r["dispatch"] <= cutoff and r["status"] != "running":

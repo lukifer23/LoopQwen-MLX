@@ -110,6 +110,10 @@ LoopQwen supplied both ages in both Anne editions and never gave the difference.
 #if d.at("book_depth",default:none) != none [
 #strong[Does the second pass supply the recall?] We repeated the two Anne readings at one pass with identical weights and opening tokens. On the original, one pass supplied both ages. On the edit, it called Anne thirteen and three quarters and described sixteen and three quarters as a future age. The source gives sixteen and three quarters as her present age. Two passes preserved that distinction and both ages. Cold time for the edited answer rose from #sec(d.book_depth.rows.K1.edited.cold_seconds) to #sec(d.book_depth.rows.K2.edited.cold_seconds) seconds. Each depth missed both differences. This intervention locates a benefit in reporting a changed fact on one novel. It adds zero supported final answers.
 ]
+#if d.at("primary_books",default:none) != none [
+#parbreak()
+#strong[Neutral edits, abstention and full-history tools.] At 512 generated tokens Base answered the published and neutrally edited Anne openings correctly, giving it two of six openings across both novels. LoopQwen scored zero of six. Asked for the exact clock minute of Anne’s statement, LoopQwen correctly said the text did not specify it on both editions, at both allowances. Base reached both output limits on both editions. On four calculator follow-ups per model and cap, covering own and shared histories, neither model executed the requested action. Base gave the right 66 months on the two published-edition follow-ups at 512. Both failed the execution criterion. Repeated editions of the same novel supply one source of evidence.
+]
 #pagebreak()
 = Time to a correct response and executable tools
 #image("deadline.svg",width:100%)

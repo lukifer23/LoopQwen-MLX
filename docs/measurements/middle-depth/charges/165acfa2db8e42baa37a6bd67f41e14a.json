@@ -1,0 +1,46 @@
+{
+  "job": "middle-read/restart",
+  "allocator": {
+    "cache_bytes": 0,
+    "memory_guideline_bytes": 3221225472
+  },
+  "stage": "fit",
+  "dispatch": 1795833821.135308,
+  "pid": 37877,
+  "process_start": 1795833820.357539,
+  "initial_process_disk_io": {
+    "read": 937984,
+    "written": 0
+  },
+  "initial": {
+    "pressure": 1,
+    "available": 9582919680,
+    "swap": 852361216,
+    "free": 103408340992,
+    "active": 8,
+    "peak": 0
+  },
+  "status": "stopped",
+  "seconds": 1.3895307089551352,
+  "last": {
+    "pressure": 1,
+    "available": 8066023424,
+    "swap": 852361216,
+    "free": 103408283648,
+    "active": 1507163034,
+    "peak": 1955114406
+  },
+  "reason": "ValueError('Restored next update differs')",
+  "final": {
+    "pressure": 1,
+    "available": 8066023424,
+    "swap": 852361216,
+    "free": 103408271360,
+    "active": 1507699634,
+    "peak": 1955114406
+  },
+  "final_process_disk_io": {
+    "read": 805949440,
+    "written": 28672
+  }
+}
