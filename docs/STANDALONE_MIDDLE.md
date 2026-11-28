@@ -106,3 +106,14 @@ The selected book requests extend the existing original and edited openings with
 ```sh
 .venv/bin/python -m scripts.middle_depth_document_review pending direct-final-books --source-stage parent --arms base loop --prior parent direct-child
 ```
+
+## Independent full-manual recall
+
+The one-book depth intervention motivates a fresh transfer test on complete GNU Make and GNU Tar manuals. The frozen original inputs contain 145,642 and 160,728 physical chat tokens. Each source also has a relevant edit and a neutral edit. The reference program checks all 165 and 206 source nodes respectively and recomputes each answer from its two evidence passages. The direct pair uses the standalone Base and the update-576 loop in separate native processes after the enrolled long-book work. Full requests include a real calculator. The deadline is 600 cold seconds. The registration keeps answer accuracy, factual recall and time to correct separate.
+
+```sh
+.venv/bin/python -m scripts.middle_depth_manuals verify
+.venv/bin/python -m scripts.middle_depth_manuals run
+```
+
+The first command reconstructs and verifies all six openings without loading a model. The second enforces the existing long-context allowance and writes source-linked receipts. [Registration](../research/diagnostics/middle-depth/manual-recall.md) · [Physical inputs and references](../research/diagnostics/middle-depth/manual-openings.json)

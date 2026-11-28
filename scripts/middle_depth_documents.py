@@ -189,8 +189,17 @@ def qualified_resident(model, prefix, full, ident, output_tokens, guard):
     return live
 
 
-def measure(args):
-    cfg = read(FROZEN)[args.book]
+def measure(args, *, manual=False):
+    enrollment = FROZEN
+    records = ROOT / "documents"
+    if manual:
+        from scripts.middle_depth_manuals import FROZEN as enrollment
+        from scripts.middle_depth_manuals import RAW as records
+        from scripts.middle_depth_manuals import openings
+
+        cfg = read(enrollment)["manuals"][args.book]
+    else:
+        cfg = read(enrollment)[args.book]
     depth = getattr(args, "depth", None)
     label = args.arm if depth is None else f"{args.arm}-k{depth}"
     if depth is not None and (args.arm != "loop" or args.policy is None):
@@ -208,7 +217,11 @@ def measure(args):
             else:
                 assist = MiddleAssistant(BASE, args.policy)
             model, tok = assist._tool_model, assist.tokenizer
-            weights = read(args.policy / "registration.json")["weights"]
+            weights = (
+                "base-dc7cdfe"
+                if getattr(assist, "native_plain", False) and args.arm == "base"
+                else read(args.policy / "registration.json")["weights"]
+            )
         else:
             which = "instruction" if args.arm == "instruction" else "base"
             text, tok = donor(BASE, which)
@@ -223,12 +236,17 @@ def measure(args):
             )
         if depth is not None:
             model.span = replace(model.span, passes=depth)
-        spec, t, w, ids = worlds(args.book, tok)
-        assert cfg["spec"] == digest(SPECS / f"{args.book}-dev.json") and cfg[
-            "source"
-        ] == digest(Path(spec["source"]))
+        if manual:
+            actual, (spec, t, w, ids) = openings(args.book, tok)
+            if actual != cfg:
+                raise ValueError("Manual verification differs from enrollment")
+        else:
+            spec, t, w, ids = worlds(args.book, tok)
+            assert cfg["spec"] == digest(SPECS / f"{args.book}-dev.json") and cfg[
+                "source"
+            ] == digest(Path(spec["source"]))
         assert cfg["common_sha"] == fingerprint(ids)
-        if args.world == "irrelevant":
+        if args.world == "irrelevant" and not manual:
             assert not args.followups
             q, full = irrelevant_opening(args.book, tok, w["original"][0], t, ids)
             fixed = read(STABLE)
@@ -238,7 +256,7 @@ def measure(args):
             assert fixed["rows"][args.book]["input"] == fingerprint(full)
         else:
             q, full = w[args.world]
-        out = ROOT / "documents" / args.stage / args.book / label / str(args.tokens)
+        out = records / args.stage / args.book / label / str(args.tokens)
         ident = fingerprint(
             [weights, model.sites, cfg["common_sha"], "saved-prefix-v1"]
         )
@@ -315,7 +333,7 @@ def measure(args):
             if path.exists():
                 record = unpack(path)
                 assert record["identity"] == ident and record["frozen"] == digest(
-                    FROZEN
+                    enrollment
                 )
                 assert record.get("cache_mode", "staged") in (
                     args.cache_mode,
@@ -376,7 +394,7 @@ def measure(args):
                     else None,
                     "identity": ident,
                     "weights": weights,
-                    "frozen": digest(FROZEN),
+                    "frozen": digest(enrollment),
                     "timing": times,
                     "trace": trace,
                     "source": cfg["source"],

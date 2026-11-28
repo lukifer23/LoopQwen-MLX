@@ -1,0 +1,74 @@
+{
+  "make": {
+    "url": "https://mirrors.kernel.org/gnu/make/make-4.2.1.tar.gz",
+    "archive_sha": "e40b8f018c1da64edd1cc9a6fce5fa63b2e707e404e20cad91fbae337c98a5b7",
+    "member": "make-4.2.1/doc/make.info",
+    "band_min": 131072,
+    "band_max": 147999,
+    "question": "In the tutorial's edit build, all of its object files need independent recompilation. Suppose the child make encounters the appendix's jobserver-unavailable warning. Each compile takes one time slot and the final link takes one more. What is the minimum total number of slots? Explain using the object list and the effective parallelism described in this manual.",
+    "edited": [
+      [
+        "jobserver unavailable: using -j1.",
+        "jobserver unavailable: using -j2."
+      ],
+      [
+        "its build in a sequential manner.",
+        "its build with up to two jobs in parallel."
+      ]
+    ],
+    "irrelevant": [
+      [
+        "Here is the makefile for the GNU 'tar' program.",
+        "Below is the makefile for the GNU 'tar' program."
+      ]
+    ],
+    "answers": {
+      "original": {
+        "objects": 8,
+        "jobs": 1,
+        "compile_rounds": 8,
+        "total_slots": 9
+      },
+      "edited": {
+        "objects": 8,
+        "jobs": 2,
+        "compile_rounds": 4,
+        "total_slots": 5
+      }
+    }
+  },
+  "tar": {
+    "url": "https://mirrors.kernel.org/gnu/tar/tar-1.35.tar.xz",
+    "archive_sha": "4d62ff37342ec7aed748535323930c7cf94acf71c3591882b26a7ea50f3edc16",
+    "member": "tar-1.35/doc/tar.info",
+    "band_min": 148000,
+    "band_max": 250000,
+    "question": "Compare blues in the tutorial's illustrated gray/staff verbose listing to outfile in Generate Mode's pair of equivalent genfile commands. Which file is larger, and by how many bytes? Give both sizes.",
+    "edited": [
+      [
+        "genfile --length 100 > outfile\n     genfile --length 100 --file outfile",
+        "genfile --length 40000 > outfile\n     genfile --length 40000 --file outfile"
+      ]
+    ],
+    "irrelevant": [
+      [
+        "# Read file names from file file.list\n     genfile --files-from file.list",
+        "# Read file names from file names.list\n     genfile --files-from names.list"
+      ]
+    ],
+    "answers": {
+      "original": {
+        "blues_bytes": 35793,
+        "outfile_bytes": 100,
+        "larger": "blues",
+        "difference_bytes": 35693
+      },
+      "edited": {
+        "blues_bytes": 35793,
+        "outfile_bytes": 40000,
+        "larger": "outfile",
+        "difference_bytes": 4207
+      }
+    }
+  }
+}

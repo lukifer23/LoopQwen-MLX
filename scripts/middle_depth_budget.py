@@ -119,6 +119,11 @@ def worker(stage, job):
     if stage == "long" and job.endswith("/recall-depth"):
         used = sum(r["seconds"] for r in past if r["job"].endswith("/recall-depth"))
         credit = min(credit, 480 - used)
+    if stage == "long" and job.endswith("/manual-recall"):
+        from scripts.middle_depth_manuals import LIMIT
+
+        used = sum(r["seconds"] for r in past if r["job"].endswith("/manual-recall"))
+        credit = min(credit, LIMIT - used)
     if job.startswith("standard-five/"):
         used = sum(r["seconds"] for r in past if r["job"].startswith("standard-five/"))
         credit = min(credit, 900 - used)
