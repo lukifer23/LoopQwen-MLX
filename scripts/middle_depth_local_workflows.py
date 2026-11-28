@@ -26,8 +26,21 @@ from scripts.middle_depth_wave import dispatch
 
 LOCAL = Path("outputs/middle-depth/local-workflows")
 PLAN = Path("research/diagnostics/middle-depth/local-workflows.md")
-GSM = Path("data/research_external/gsm-test-official.jsonl")
 GSM_SHA = "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14"
+
+
+def public_test_file():
+    from scripts.program_reasoning_material import GSM_REV, source
+
+    archived = Path("data/phase2_external/gsm_test.jsonl")
+    if archived.is_file():
+        if digest(archived) != GSM_SHA:
+            raise ValueError(
+                "Archived GSM8K split differs from the official test bytes"
+            )
+        return archived
+    url = f"https://raw.githubusercontent.com/openai/grade-school-math/{GSM_REV}/grade_school_math/data/test.jsonl"
+    return source("gsm-test-official.jsonl", url, GSM_SHA)
 
 
 def providers(kind, folder, stack):
@@ -116,8 +129,9 @@ def prepare():
                 ],
             },
         ]
-        assert digest(GSM) == GSM_SHA
-        public = [json.loads(line) for line in GSM.read_text().splitlines()]
+        public = [
+            json.loads(line) for line in public_test_file().read_text().splitlines()
+        ]
         assert len(public) == 1319
         for j, index in enumerate((0, 330, 660, 990)):
             item = public[index]
