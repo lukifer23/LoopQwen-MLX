@@ -65,12 +65,107 @@ def compact(base, path, apply):
     return same
 
 
+def compact_indexed_features(apply):
+    """Share complete, byte-identical legacy position shards listed in saved indexes."""
+    import gzip
+    import json
+    from loopqwen.io import digest, read, save
+
+    groups = defaultdict(set)
+    indexes = {}
+    for index in sorted(Path("checkpoints/research").glob("*/partial-index.json.gz")):
+        with gzip.open(index, "rt") as stream:
+            records = json.load(stream)
+        if not isinstance(records, list) or not records or "sha256" not in records[0]:
+            continue
+        folder = index.parent / "positions"
+        if not folder.is_dir() or folder.is_symlink():
+            continue
+        for r in records:
+            name = r["file"]
+            if Path(name).name != name or not name.endswith(".safetensors"):
+                raise ValueError(f"Unexpected indexed feature path in {index}")
+            p = folder / name
+            if p.is_symlink() or not p.is_file():
+                raise ValueError(f"Incomplete indexed feature: {p}")
+            groups[r["sha256"]].add(p)
+        indexes[str(index)] = digest(index)
+
+    receipt = Path("docs/measurements/indexed-feature-storage.json")
+    prior = read(receipt)["clones"] if receipt.exists() else {}
+    clones = {}
+    equal_bytes = 0
+    for sha, paths in groups.items():
+        if len(paths) < 2:
+            continue
+        donor, *copies = sorted(paths)
+        if digest(donor) != sha:
+            raise ValueError(f"Indexed source changed: {donor}")
+        for dest in copies:
+            if digest(dest) != sha:
+                raise ValueError(f"Indexed target changed: {dest}")
+            if dest.samefile(donor):
+                continue
+            n = dest.stat().st_size
+            equal_bytes += n
+            rec = prior.get(str(dest), {})
+            if (
+                rec.get("sha256") == sha
+                and rec.get("source") == str(donor)
+                and rec.get("source_inode") == donor.stat().st_ino
+                and rec.get("target_inode") == dest.stat().st_ino
+                and rec.get("target_ctime_ns") == dest.stat().st_ctime_ns
+            ):
+                clones[str(dest)] = rec
+            elif apply and compact(donor, dest, True) == n:
+                if digest(dest) != sha or dest.samefile(donor):
+                    raise ValueError("Independent clone verification failed")
+                clones[str(dest)] = {
+                    "source": str(donor),
+                    "bytes": n,
+                    "sha256": sha,
+                    "source_inode": donor.stat().st_ino,
+                    "target_inode": dest.stat().st_ino,
+                    "target_ctime_ns": dest.stat().st_ctime_ns,
+                }
+    verified = sum(r["bytes"] for r in clones.values())
+    if apply:
+        save(
+            receipt,
+            {
+                "indexes": indexes,
+                "indexed_paths": sum(map(len, groups.values())),
+                "unique_indexed_hashes": len(groups),
+                "verified_equal_payload_bytes": equal_bytes,
+                "verified_cloned_payload_bytes": verified,
+                "clones": clones,
+                "measurement": "Matching indexed file bytes with independently writable APFS clones. Snapshots, allocation and pre-existing extent sharing affect physical free space.",
+            },
+        )
+    print(
+        len(clones),
+        "verified clones;",
+        verified,
+        "cloned bytes;",
+        equal_bytes,
+        "equal payload bytes",
+    )
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--apply", action="store_true", help="atomically repack verified local exports"
     )
+    parser.add_argument(
+        "--indexed-features",
+        action="store_true",
+        help="audit complete duplicate position shards in saved research indexes",
+    )
     args = parser.parse_args()
+    if args.indexed_features:
+        compact_indexed_features(args.apply)
+        return
     groups = defaultdict(list)
     for path in sorted(Path("exports").glob("*/*")):
         if (

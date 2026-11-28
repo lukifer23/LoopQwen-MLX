@@ -202,14 +202,21 @@ def saved(model, ids, path, identity, guard, command):
     return obj
 
 
-def inventory():
+def inventory(snapshot=None):
     refs = [read(f) for f in (WORK / "features" / "inputs").glob("*.json")]
     data = {r["sha256"]: r["bytes"] for r in refs}
     for sha in data:
         if digest(WORK / "features" / "objects" / (sha + ".safetensors")) != sha:
             raise ValueError("Invalid feature object")
+    out = ROOT / "retention.json"
+    if snapshot:
+        if Path(snapshot).name != snapshot:
+            raise ValueError("Expected a local inventory snapshot name")
+        out = ROOT / "retention" / (snapshot + ".json")
+        if out.exists():
+            raise FileExistsError(out)
     save(
-        ROOT / "retention.json",
+        out,
         dict(
             unique_input_objects=len(data),
             input_references=len(refs),
@@ -227,4 +234,8 @@ def inventory():
 
 
 if __name__ == "__main__":
-    inventory()
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--snapshot")
+    inventory(parser.parse_args().snapshot)

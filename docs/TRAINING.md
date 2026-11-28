@@ -582,3 +582,21 @@ with TemporaryDirectory() as scratch:
 ```
 
 The first staging time belongs in end-to-end measurements. A branch reports both the logical prompt length and the newly processed and reused token counts. Report the cost of a cold request separately when users might never ask a second question. [Full document source and branch measurements](measurements/full-document-features.json)
+
+## Portable checkpoints from the matched middle-span study
+
+The source-supervised fit completed 576 updates for each arm on 1,152 ordered training turns. Both policies keep the certified BF16 Qwen donor frozen. The loop normally makes two visits to layers 12–15 and the ordinary sibling makes one. The terminal comparison also runs untouched Base and the instruction sibling. Each evaluation block is a separate process under the single native worker lease. [Fit identities and optimizer integrity](measurements/middle-depth/terminal-fit-integrity.json) · [Training costs](measurements/middle-depth/fit-work-0576.json)
+
+The local directory `exports/middle-depth/` contains the complete model data, tokenizer and runtime wheel. Its `donor/`, `models/` and `wheels/` directories use relative links to `objects/`. Copy the whole directory with links preserved when moving it to another Mac. The `models/source-supervised/loop/` directory on its own contains the adapter and configuration. Install the project’s native dependencies on Apple Silicon. From the checkout, use the following entry points.
+
+```sh
+.venv/bin/python -m scripts.middle_depth_archive verify --directory exports/middle-depth --stage source-supervised
+.venv/bin/loopqwen ask --checkpoint exports/middle-depth/donor \
+  --session-policy exports/middle-depth/models/source-supervised/loop \
+  --tool-format qwen --calculator --prompt "Use the calculator to subtract 45 from 218." \
+  --max-turns 3 --max-tokens 512 --trace
+```
+
+For an independent installation, install the wheel from `wheels/source-supervised/` into the prepared environment and supply the relocated donor and policy paths to the same CLI. The `early`, `epoch-reading` and `source-supervised` manifests identify the 32-, 144- and 576-update models. Each manifest covers both arms. The optimizer checkpoints and RNG/order cursor remain separate from the inference package. The installation receipts identify which exact weights, contexts and callbacks have undergone cold replay. A completed fit or verified file inventory earns no answer-quality credit. [576-update archive](measurements/middle-depth/archive-source-supervised.json) · [Installed replays](measurements/middle-depth/installed) · [Standalone source-copy release and offline replay](SOURCE_COPY_MODEL.md)
+
+Research records include the frozen source identities and rubrics, raw responses and provider observations, masked grades, and native job charges including interrupted work. The ledger distinguishes time in a stopped invocation from the optimizer work it saved. [Study registration](../research/diagnostics/middle-depth/registration.md) · [Source-linked trajectories](measurements/middle-depth/short) · [Accounting and retained updates](measurements/middle-depth/accounting)
