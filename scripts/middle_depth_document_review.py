@@ -14,14 +14,14 @@ from scripts.middle_depth_review import first_visible, lock, pending
 OUT = ROOT / "document-review"
 
 
-def inspect(stage, aggregate, source_stage=None, arms=None):
+def inspect(stage, aggregate, source_stage=None, arms=None, caps=None):
     tok = tokenizer({"checkpoint": str(BASE)})
     blinded = {}
     rows = []
     folder = ROOT / "documents" / (source_stage or stage)
     for f in sorted(folder.glob("*/*/*/*.json.gz")):
         book, arm, cap, name = f.relative_to(folder).parts
-        if arms and arm not in arms:
+        if (arms and arm not in arms) or (caps and int(cap) not in caps):
             continue
         world, kind = name.removesuffix(".json.gz").split("-", 1)
         raw = unpack(f)
@@ -172,10 +172,11 @@ if __name__ == "__main__":
     p.add_argument("--prior", nargs="*", default=[])
     p.add_argument("--source-stage")
     p.add_argument("--arms", nargs="+")
+    p.add_argument("--caps", nargs="+", type=int)
     a = p.parse_args()
     if a.action == "lock":
         lock(OUT, a.stage)
     else:
-        inspect(a.stage, a.action == "aggregate", a.source_stage, a.arms)
+        inspect(a.stage, a.action == "aggregate", a.source_stage, a.arms, a.caps)
         if a.action == "pending":
             pending(OUT, a.stage, a.prior)
