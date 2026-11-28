@@ -11,7 +11,14 @@ from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.research.cross_view_study import tokenizer
 from scripts.middle_depth_budget import BASE, ROOT
-from scripts.middle_depth_manuals import FROZEN, STAGE, WORLD_ORDER, openings, restore
+from scripts.middle_depth_manuals import (
+    FROZEN,
+    LIMIT,
+    STAGE,
+    WORLD_ORDER,
+    openings,
+    restore,
+)
 from scripts.middle_depth_pair_audit import serving
 from scripts.middle_depth_review import first_visible
 from scripts.paper_file_evidence import discordant_interval
@@ -22,7 +29,7 @@ OUT = ROOT / STAGE
 def review(score):
     frozen = read(FROZEN)
     tok = tokenizer({"checkpoint": str(BASE)})
-    blinded, rows = {}, []
+    blinded, rows, unmeasured = {}, [], []
     for name, enrolled in frozen["manuals"].items():
         verified, (_, providers, worlds, _) = openings(name, tok)
         callbacks = {provider.name: provider.callback for provider in providers}
@@ -33,6 +40,7 @@ def review(score):
             for arm in ("base", "loop"):
                 file = OUT / name / arm / (world + ".json")
                 if not file.is_file():
+                    unmeasured.append([name, world, arm])
                     continue
                 receipt = read(file)
                 archive = ROOT / receipt["archive"]
@@ -191,6 +199,23 @@ def review(score):
                 len(fixed), len(lost)
             ),
         }
+    charges = {}
+    for path in sorted((ROOT / "charges").glob("*.json")):
+        charge = read(path)
+        if charge["job"].endswith("/" + STAGE):
+            if charge["status"] == "running":
+                raise ValueError("A manual request is still running")
+            charges[path.name] = {
+                "job": charge["job"],
+                "sha256": digest(path),
+                "status": charge["status"],
+                "seconds": charge["seconds"],
+                "reason": charge.get("reason"),
+            }
+    spent = sum(c["seconds"] for c in charges.values())
+    status = "complete"
+    if unmeasured:
+        status = "stopped-budget" if spent >= LIMIT else "incomplete"
     save(
         OUT / "result.json",
         {
@@ -202,6 +227,11 @@ def review(score):
             "decisions": decisions,
             "expected_requests": 12,
             "measured_requests": len(rows),
+            "unmeasured": unmeasured,
+            "status": status,
+            "worker_seconds": spent,
+            "worker_ceiling": LIMIT,
+            "charges": charges,
         },
     )
 
