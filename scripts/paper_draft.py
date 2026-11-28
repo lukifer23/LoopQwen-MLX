@@ -211,7 +211,11 @@ def snapshot():
         "worlds"
     ]["original"]
     anne_pair = []
-    for arm, name in (("base", "Untouched Base"), ("loop", "Trained loop")):
+    for arm, name in (
+        ("base", "Untouched Base"),
+        ("ordinary", "Trained ordinary"),
+        ("loop", "Trained loop"),
+    ):
         raw = use(ROOT / f"documents/parent/anne/{arm}/128/original-first.json.gz")
         tr = raw["trace"]
         first = tr["turns"][0]
@@ -239,8 +243,22 @@ def snapshot():
                 scratch=round(raw["scratch_bytes"] / 2**30, 2),
             )
         )
+    anne_scores = {}
+    for cap in (128, 512):
+        panel = use(ROOT / f"document-review/parent/books/anne-{cap}.json")
+        assert len(panel["rows"]) == 6
+        scores = {}
+        for row in panel["rows"]:
+            path = ROOT / row["file"]
+            assert digest(path) == row["sha"]
+            inputs[str(path)] = row["sha"]
+            scores.setdefault(row["arm"], {})[row["world"]] = row["grade"]["correct"]
+        assert all(
+            set(editions) == {"original", "edited"} for editions in scores.values()
+        )
+        anne_scores[str(cap)] = scores
     charges = sorted((f, read(f)) for f in (ROOT / "charges").glob("*.json"))
-    cutoff = use(ROOT / "charges/ba0277ed347b4c3faa1ae5f9d57bdc4a.json")["dispatch"]
+    cutoff = use(ROOT / "charges/48f365a0dbe940268afec646702766ee.json")["dispatch"]
     costs = {}
     for f, r in charges:
         if r["status"] == "running" or r["dispatch"] > cutoff:
@@ -291,6 +309,7 @@ def snapshot():
             costs=costs,
             books=books,
             anne_pair=anne_pair,
+            anne_scores=anne_scores,
             resident=resident["rows"],
             profile=profile["rows"],
             params=profile["trainable"],

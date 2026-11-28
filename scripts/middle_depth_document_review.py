@@ -122,6 +122,35 @@ def inspect(stage, aggregate):
             time_to_correct_cold=r["seconds_cold"] if g["correct"] else None,
         )
     save(OUT / stage / "scored.json", rows)
+    if stage in ("parent", "child"):
+        arms = (
+            ("loop", "ordinary", "base") if stage == "parent" else ("loop", "ordinary")
+        )
+        required = {
+            (arm, edition) for arm in arms for edition in ("original", "edited")
+        }
+        for source, cap in sorted({(r["source"], r["cap"]) for r in rows}):
+            paired = [
+                r
+                for r in rows
+                if r["source"] == source
+                and r["cap"] == cap
+                and r["kind"] == "first"
+                and (r["arm"], r["world"]) in required
+            ]
+            if {(r["arm"], r["world"]) for r in paired} == required:
+                spec = SPECS / f"{source}-dev.json"
+                save(
+                    OUT / stage / "books" / f"{source}-{cap}.json",
+                    {
+                        "source": source,
+                        "cap": cap,
+                        "rows": paired,
+                        "original": read(spec)["sha256"],
+                        "rubric_sha": digest(spec),
+                        "fold": "Complete original and registered evidence edit on one development novel.",
+                    },
+                )
 
 
 if __name__ == "__main__":

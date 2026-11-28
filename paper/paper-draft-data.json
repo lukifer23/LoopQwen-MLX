@@ -2713,7 +2713,7 @@
       "stopped_seconds": 144.4
     },
     "long": {
-      "seconds": 2116.5,
+      "seconds": 2684.8,
       "stopped": 16,
       "stopped_seconds": 423.3
     }
@@ -2754,6 +2754,18 @@
       "scratch": 1.61
     },
     {
+      "model": "Trained ordinary",
+      "length": 145891,
+      "status": "answered",
+      "generated": 64,
+      "build": 251.8,
+      "warm": 32.0,
+      "seconds": 283.8,
+      "peak": 3.44,
+      "sites": 24,
+      "scratch": 1.61
+    },
+    {
       "model": "Trained loop",
       "length": 145891,
       "status": "answered",
@@ -2766,6 +2778,36 @@
       "scratch": 1.88
     }
   ],
+  "anne_scores": {
+    "128": {
+      "base": {
+        "edited": false,
+        "original": false
+      },
+      "loop": {
+        "edited": false,
+        "original": false
+      },
+      "ordinary": {
+        "edited": false,
+        "original": false
+      }
+    },
+    "512": {
+      "base": {
+        "edited": false,
+        "original": true
+      },
+      "loop": {
+        "edited": false,
+        "original": false
+      },
+      "ordinary": {
+        "edited": false,
+        "original": false
+      }
+    }
+  },
   "resident": [
     {
       "mode": "staged",
@@ -3703,9 +3745,22 @@
     "research/diagnostics/middle-depth/document-openings.json": "fd594584868dea13ac3c4894466afe18144b2e81956e0578e0ce0b847a50126f",
     "docs/measurements/middle-depth/documents/parent/anne/base/128/original-first.json.gz": "bcab99c47bca1b9bedc8e6ffa3cc119b9b33361954741f61418325660e981631",
     "docs/measurements/middle-depth/resident-checks/cafef97363c784016c10ea859a4efc6e574101717dc9779d6d7b6d3cd3c4faa4.json": "cbe49afdcf2acb0144c7e397d2c095e049f921363a688ca70fbf4bca5b4d1723",
+    "docs/measurements/middle-depth/documents/parent/anne/ordinary/128/original-first.json.gz": "aae6d33f3bbe8d3972d72aca1348fd90d70135d763d52ed4065480594f94b1cb",
+    "docs/measurements/middle-depth/resident-checks/a260cb0781ef20e5be7975fa68390cbc75c5b0e19e270ec95b593fda77f557d2.json": "834a13bc118b755c6d824e01a008661cdca925893a35dbb0a9c89fb7600d94dc",
     "docs/measurements/middle-depth/documents/parent/anne/loop/128/original-first.json.gz": "81b1e096770b744f2d23bedf5c6309c21258372fe840c97feb3f7d2b39a3e00f",
     "docs/measurements/middle-depth/resident-checks/cba8bfe1c27a8c0c5a4ddce5e5c345e5520722bcf59330d4e1eae18dcd8cd1e2.json": "890b458c9fa65d24af17fdae05a3129fb50b1f58f74b6501ef929a9d059e650e",
-    "docs/measurements/middle-depth/charges/ba0277ed347b4c3faa1ae5f9d57bdc4a.json": "41a110710e4ef7a293dbd5f67a90dde7bb4b3f597f2aca4bb21f5cde571e26de",
+    "docs/measurements/middle-depth/document-review/parent/books/anne-128.json": "069b8670ea09d3d5136aeffa7834b76039c0d6368668a2526ecdf83dc9e967a3",
+    "docs/measurements/middle-depth/documents/parent/anne/base/128/edited-first.json.gz": "3c8b9744ace6e8633ee71611dd59a026505d560bf08e689c6f94435868268316",
+    "docs/measurements/middle-depth/documents/parent/anne/loop/128/edited-first.json.gz": "7399115719a819f054625fff5331f9aa5204fcf519ff08e5bbd953321c3cbfbf",
+    "docs/measurements/middle-depth/documents/parent/anne/ordinary/128/edited-first.json.gz": "de4d059b18fb22ebe1b910377d28f596becfafd58f359b50b4e2c8ac167adc17",
+    "docs/measurements/middle-depth/document-review/parent/books/anne-512.json": "c82138b13d34b98ed116a1b6ad343e822c9be8a53aed55a4060b1ba6e7c995a9",
+    "docs/measurements/middle-depth/documents/parent/anne/base/512/edited-first.json.gz": "3a0f57c37d2163a4bc3216ca8a2f05e863a699b4dfd87c24fb255be11d972a39",
+    "docs/measurements/middle-depth/documents/parent/anne/base/512/original-first.json.gz": "beeb596f9873a3127778b0ba7d98c45d9818a50a78506b0bd8647be881866ea4",
+    "docs/measurements/middle-depth/documents/parent/anne/loop/512/edited-first.json.gz": "ab451926d06e087caf4c4bb608d23b861996d009e9d4afad9a6ee9ad394c7312",
+    "docs/measurements/middle-depth/documents/parent/anne/loop/512/original-first.json.gz": "d7032ba1a9d0c9c9c8df840ce0b068dd67f48dd3141f1b10d89f534c817731ca",
+    "docs/measurements/middle-depth/documents/parent/anne/ordinary/512/edited-first.json.gz": "2f7649746d5d1503f6b808a87fcc18cf598fb0db5e88f00d17c7c8a910ad204e",
+    "docs/measurements/middle-depth/documents/parent/anne/ordinary/512/original-first.json.gz": "4005d09dbecaaed1fec23df9e69763266bea67ff93e8e521a52b9645259bbd34",
+    "docs/measurements/middle-depth/charges/48f365a0dbe940268afec646702766ee.json": "265d9e782da741190c6863f5ecae9991d92e478d42cf009b502a0659073769b7",
     "docs/measurements/middle-depth/charges/02467db79c1b4803aea37d3e29b722b8.json": "f15e652c23101a57c393cbf8cc746a59b478c69f8e76c91271fa18491a74489c",
     "docs/measurements/middle-depth/charges/02eb504333e04c8db69eb34b70bea737.json": "fcee7cfe3e6a18bfc7fec5e4552813f62c24a6fd60bde0fc6a7f262500aed5c6",
     "docs/measurements/middle-depth/charges/04d35c71ac074c69a123bc8e11c25d83.json": "1799549d3a813d439d8b876b40020bbedf7921a714d2fbeb06beb2301b024b50",
@@ -3715,6 +3770,7 @@
     "docs/measurements/middle-depth/charges/0f5ec836a6cf4819a666aa06733e104a.json": "00d15b485cfbbceb1972c8c514d8abcb23b4a7bf193cf06938960a859c0972c4",
     "docs/measurements/middle-depth/charges/10e258aa716b4caaa5e5801169127f2e.json": "a42bf8ece9ff31ada8b695c888025d5f0c8f52d71ac6feda739967349f74a35b",
     "docs/measurements/middle-depth/charges/137f41e774b0444c9e02df9a31c93388.json": "eecfb9db7fc333cb0abccfe5e7c72cb61d95ab4d8a9fceae9cd94ce268e70e5f",
+    "docs/measurements/middle-depth/charges/15be2d68c62a43038e0fbe595a4be884.json": "1ad30ea8029e51b07b9db7b80b66e1b67f0b29f2ba12f239ba55d6c00dba2af8",
     "docs/measurements/middle-depth/charges/15d18d03d96542ffb95669acd9d6b680.json": "09321960c2283522068e49455d567be3d57620448e6834b93c001b53c3630f51",
     "docs/measurements/middle-depth/charges/16bd028320b7475b9ed0875133c3ceb6.json": "57f06525610666bedaf881df57afbfb439cf737b1ce8e01e167ecc6ba708f59d",
     "docs/measurements/middle-depth/charges/1952c316df5941388dcd3c6fb3a7153d.json": "226e644b89d5aa9ee7d9f1fbf4eb14ce1a587a59e720dca73e42a22c20582627",
@@ -3735,6 +3791,7 @@
     "docs/measurements/middle-depth/charges/2bb5b0eb91ad4144859734a6498afd7f.json": "a978b90413ad05b92b4553d5240f8210c0e77a0dd9ce0733eb28790d680f1906",
     "docs/measurements/middle-depth/charges/2e8778c57a48480694adcc60c0582785.json": "9b89599f86eb4abe395821124d0c9f9c6fd17554a11faa0231857220e5b71567",
     "docs/measurements/middle-depth/charges/2e8bbc07ff064a9e8d5ded72c60e2b2c.json": "cb720d104094a57f05d34eb503e96aa6b89dff5889bcd9fcdcd5670598d6e507",
+    "docs/measurements/middle-depth/charges/2f2ed2d45ff44ce08eecb9f6dcf91822.json": "8b7da5d8e86e68049749ee836021b22a1baa48a25483a5144cb87a44b6a4b588",
     "docs/measurements/middle-depth/charges/314956814f124ba28e9b92d929a164c8.json": "d8368cf8dbc393b23765724db339b4bd97e8d578c1f697f8178ae84a52b813df",
     "docs/measurements/middle-depth/charges/317558b3abd542d6b5633f62dbde5d9f.json": "3782859fba03313031a39eb905805dd2fd48cdfec8636b1f6b730a74851f7341",
     "docs/measurements/middle-depth/charges/318c1bf83fcc4ebe868ba8e989986ff2.json": "87f47ea4dedf5a981cbb8da5fc015950844e4c4790cbbaf24acc380175a63cf8",
@@ -3757,9 +3814,11 @@
     "docs/measurements/middle-depth/charges/468b42f73322492fb4110ceff209ce68.json": "fc68730f3bd369b1bd36f7dbc40460142db32201b55f3590f1fc8f3cd91c3887",
     "docs/measurements/middle-depth/charges/4713630989924fcaa21632f4142ebd46.json": "15e88f40e33cb522ab7f85c3b582e0bd7b8e80db68642f162cea411b45126d7d",
     "docs/measurements/middle-depth/charges/490ea927b6e6498794bf453edb06a340.json": "e299fa416647301db943cfa2dbeff62d3a55671071bf048fbf5248e1e7d3bfa8",
+    "docs/measurements/middle-depth/charges/496cce077c3b4fe6a556e642adb48b03.json": "cbaa3e4f487bed8454672ed48323a9530bac1d3c5c0ef328ebd1a760c52370b6",
     "docs/measurements/middle-depth/charges/4b339f9e69c141c99f26d2deda0e38a9.json": "bfea4496ba947fbf82eb79af8a07629860b0828d1228e83dfad3ef0048e7c01b",
     "docs/measurements/middle-depth/charges/4b78dcbda33b4e7392cd6de682ef4431.json": "fdbf23a6fb56fc2da540f108fb39fa41ffd48577155583f816f8d0ab5126231f",
     "docs/measurements/middle-depth/charges/4c8cd0df15a741318bf87c97d65d9907.json": "68f368971ba7782a89b6bce1b5ff529eff79fee223f0bb1bca786183f80621ed",
+    "docs/measurements/middle-depth/charges/4d10a247cd344d1f9b7ee09c1b156c50.json": "fc7d69e3ded8696f2a3677a3068442ea4e77e19fea596163aa46ec86043bef21",
     "docs/measurements/middle-depth/charges/4d65d69eadfd4cac9619fd0f54998839.json": "73878db0f9a6706edba93eb42b596216401d7d155f6fdf50402e407185fb3d14",
     "docs/measurements/middle-depth/charges/4eae127f1a6742feb0b265665ae7a70c.json": "023b7a37124e9acd9e838fecf30069c84082a2b10f88378c56bb484ecd18baa9",
     "docs/measurements/middle-depth/charges/54f1a063d8794f72a525dffe0e1be0d5.json": "0f7162ceff9fc5a5478700fc07d9043bbbe0e6a520e2192352569275668e234e",
@@ -3777,6 +3836,7 @@
     "docs/measurements/middle-depth/charges/63e6da85529542fe8e6c50dc01e65cf5.json": "57cce2d5d479a77fb5dc9fe655fb7cd801ad6e2578a3cb99641e98bfcc9b2076",
     "docs/measurements/middle-depth/charges/643480313eef44edbed68f1ee35cc589.json": "e4fc5f96a592e70fc657d5d58f072f2f9a39e25efa3d31fd321780da2f43c085",
     "docs/measurements/middle-depth/charges/64648cfa187446f58c4a9c3d7ef3994e.json": "e8929ceaf6363aeb70120172d432716fe4f88917c8f7f7bf8196038110c0bd03",
+    "docs/measurements/middle-depth/charges/64c2487613194f8ea3ee01cf396edb6c.json": "c3c5c3f5f87e0f3e42e4b6ddf0803fc490aba57ff0a4f973a761a9a5509f00c2",
     "docs/measurements/middle-depth/charges/683907d3e59a47eeb74cc0a51b989cf9.json": "384a3de36448ff34fcb1c905c4e6d17185e8563569aa1e7b6859d7522ad94a8b",
     "docs/measurements/middle-depth/charges/683e5e4ba6354c5dbc52082194d37e53.json": "f4778b220182e9edbdd0225c23c6950f2de26f48251da6ce196d301c2be781cb",
     "docs/measurements/middle-depth/charges/688741210e504792b72ac27e0df6c17e.json": "8751f13afca3a05d900dc649737f268d2870c16ff5b58b03ac0e4d87665adb79",
@@ -3794,6 +3854,7 @@
     "docs/measurements/middle-depth/charges/7ec1bee558744d33bfafac7ef16b20ec.json": "1359cc2999a4358fc3731c4aff2959e3ab3fdac5b6c4565505493d0f5bf3fc43",
     "docs/measurements/middle-depth/charges/8302b317fdd04c9b8f8f4030f0d54085.json": "f67fe470029d3341b563ac04caf324f38585f7ade99cf1f6fbe76262e7dc73ac",
     "docs/measurements/middle-depth/charges/8319045671bb4485a6f65ade859bf44b.json": "868f75c15daf2b34eac8ab4b77d5dd9d6a4bbd8ec74e2f0bc5522183f82acc84",
+    "docs/measurements/middle-depth/charges/857beddf3cec4e02a598a05d58469275.json": "a45b421f064b78b09d9c3995a565aaccc8707b03f66c01583dfc50cb7dce1f16",
     "docs/measurements/middle-depth/charges/8645789d4db640ed91c8c7fcd55470f0.json": "283f020ac674b4b352e26c781596aa138353781f93bd0112892e36496046a7fd",
     "docs/measurements/middle-depth/charges/87c8609939a24851ac6de820bd72faa8.json": "b823a29f000a4ab50e269556bc886df79ef2ee2c901caabed8b8d0402654999b",
     "docs/measurements/middle-depth/charges/885beb05dbdc47e8983bca1eb1b85300.json": "b956ab4ac29ef4c010a32f914650c5bf2f89e78cd021314c7531ae2885c29ca5",
@@ -3824,12 +3885,14 @@
     "docs/measurements/middle-depth/charges/a7d91c809b7445bfa284a8257c5808fc.json": "042c6b506db189be079db38cce6a520206c9fa5ca083fd1afb3212feaa927cc3",
     "docs/measurements/middle-depth/charges/a8ddf3b19b884c8daf5d9555176de709.json": "576f6fc835f80ef8b4b4e65141dcf0fbc660e2a208dfa7643922c7f2577b74e6",
     "docs/measurements/middle-depth/charges/ab54c1347c7b4be9afa33b3036564467.json": "794b0015fe60c7bf5ae544acdd229c0f30e7f83d7fabbd6314ad75293bfdab1c",
+    "docs/measurements/middle-depth/charges/ac5bb38ce9f44d048f2228e8fd8fd5a9.json": "5bde471096c74efb7a44dce19423974cbf569c165a21f9840412f06b380f791b",
     "docs/measurements/middle-depth/charges/acb03624fa7d4d3c9a3e85e072b41407.json": "5c4afa4fed40e03c8c05451acef0107a53fc19487ed9f4d6f1f0b01ac424c99b",
     "docs/measurements/middle-depth/charges/adb2fb21dd924323b49c2de1373fb52f.json": "12f5d43152f60566956a3cd5a86848f871600125631d82cdb3ac78320ea26f0b",
     "docs/measurements/middle-depth/charges/ae3b66cb686049baa35c75e778f51d80.json": "ff118283ba655ca820dbfa967a362da10089e98c8c91817a37264a4260bfd9c9",
     "docs/measurements/middle-depth/charges/b24a4501bb6e4f5a8a133d414f32b2a4.json": "42ceb20d79eddbf2a19602778043f8446e548d247c1ec734c1b1bc19c3f9a0b7",
     "docs/measurements/middle-depth/charges/b7b75afd04ca4b6194733d75eafed5dd.json": "2464eff1a430031251022d91403e5b2ce57c9b5cbba87ca0b8dec366f4be8e8d",
     "docs/measurements/middle-depth/charges/b8e6eb8ca2fc4800a194c2f0b4a1b32c.json": "5ddfb118bfedba99ffee433651e73977a2551455511208dd899a9abbd94777ad",
+    "docs/measurements/middle-depth/charges/ba0277ed347b4c3faa1ae5f9d57bdc4a.json": "41a110710e4ef7a293dbd5f67a90dde7bb4b3f597f2aca4bb21f5cde571e26de",
     "docs/measurements/middle-depth/charges/ba940a3a903f4b63929232fcaa4f7282.json": "bc2c9e5f1b6e59869c579ac2c17a2b6beee9dccbc70244e14f2a0008ebd72cd9",
     "docs/measurements/middle-depth/charges/bb37337e83a745be8a932e396dfd81af.json": "0170154b67f6d5926f96359cbf6517f0d80a6f2cdf085a25d6964dea3e0755f5",
     "docs/measurements/middle-depth/charges/bc783ba7a12b40768b19f72e42ea90ee.json": "13bbb6bcba9c6799f143a5b996f42ae51d7a6a30800f374f96c01122585eb987",
@@ -3845,6 +3908,7 @@
     "docs/measurements/middle-depth/charges/c7bf2143c6804db9938969687c252593.json": "a808df98dfd341117810273b4526e0b799bd4e5fe0331d9baf17f98cd401e84f",
     "docs/measurements/middle-depth/charges/c9c85e8050604295b0f19cda4298421f.json": "71065bd2f9dc8254402dc59f2f8464fb83bacc19ac723fced938cc5a0bd6fc56",
     "docs/measurements/middle-depth/charges/ca140fe9220d4f1cabf798cfd67e6d6a.json": "4934e73339bcace21b9a6e9ba2cb6e70c0baff628f04131663eeeac2829b37cc",
+    "docs/measurements/middle-depth/charges/ca1ddabd2e934f079b785fdbc78dbf4f.json": "53a88585b16e4c8b8e6d34a01f9e5030f7ff3b3b1e932fd13755cc4e6eef9959",
     "docs/measurements/middle-depth/charges/cbdf9c702ee04b209e6d89fde9bd9776.json": "b49e186f0544c375282c6d94320d40e3e8c74187c85df9f165cb1e7fcae92a27",
     "docs/measurements/middle-depth/charges/ccffa4f92146443f9b828163177cac07.json": "cf2920ab99cb16ef431262bcaf9a8fedc6fc155059238a0d4000ecf61c0c3892",
     "docs/measurements/middle-depth/charges/cdc2598d189644d882257f6f6ce301b1.json": "13305bb3b9016ad736c0c7f7a7ddb87b51aa4e25b17b400594a6786c02b46065",
@@ -3868,6 +3932,7 @@
     "docs/measurements/middle-depth/charges/e7e042ed1a904061b9e52258b33d8804.json": "f411ecc3322daec51a377e775cd7330b480c3defbafdd171144b300907f41df3",
     "docs/measurements/middle-depth/charges/e85eb70bb225468e963f05d3205d8cfd.json": "9f96721fa2675c3b8569ccf0b87e06fded1bed7bf4a2929af6e933e27442cf5f",
     "docs/measurements/middle-depth/charges/e8d04b62b5574ce29ed654a5733bec21.json": "284046a7a3c3a430a5e38b8b31cf8e4832a2870573446911b741d08159f6a3ee",
+    "docs/measurements/middle-depth/charges/ef8a5f9e594442209dd0ddb5471b8489.json": "4af737da897a5d02fcfe2741f4b07c1cd1be625b774db250d7ae9a91cad164bf",
     "docs/measurements/middle-depth/charges/efe46dad6eb24fa6848d736ab3c70b31.json": "3256f2e3d0e2fecaee71c784931a7fc6807fa2f3068cc4c3a8d5964406449386",
     "docs/measurements/middle-depth/charges/f265fa8d5aed48c8a140816cd4c7b774.json": "9d617ba4a1fa5c9dc31a3ba1015c668aaf759977c6dcdab0136fd30f0b09040f",
     "docs/measurements/middle-depth/charges/f5fad8e319d7402e8ced8e9e828351d7.json": "98755dd7e0020e730f6287eb1b1030dd72445dbbf72262bcb399e4fce00a83ba",
