@@ -1,0 +1,347 @@
+{
+  "27689b28fdb22496e013a92b838b39a3729c4ff27362b218257bbaad27e9f28b": {
+    "source": "volunteer",
+    "world": "original",
+    "reference": "One welcoming sentence, arrival at or after 8, bring a mug, gloves supplied.",
+    "answer": "Please don't come before 8, bring a mug, and we will provide the gloves.",
+    "calls": []
+  },
+  "2c3499d40a6d1ca9d6702cb5df4c34cb841705aca8678743d12296100604c355": {
+    "source": "parcel",
+    "world": "changed",
+    "reference": "One question asks for the day, with no request to supply the already-known address.",
+    "answer": "What day of the week will you be picking up the items?",
+    "calls": []
+  },
+  "2f1e099101551e2c95e8923da6770d34d220888d75a5a34f7d856594133f5e61": {
+    "source": "volunteer",
+    "world": "irrelevant",
+    "reference": "One welcoming sentence, arrival at or after 8, bring a mug, gloves supplied.",
+    "answer": "Welcome back, thank you for coming before 8. Please bring a mug and we will provide the gloves.",
+    "calls": []
+  },
+  "370fcb1533bcb67c58ff6df5d11faebf8184c4c6846f23f1017185e451c04dfa": {
+    "source": "tiles",
+    "world": "original",
+    "reference": "184 intact tiles. A successful call must compute 11 times 18 minus 14, or an equivalent calculation using the source quantities.",
+    "answer": "126 intact tiles were delivered.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(18*14)/2"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "126"
+          ],
+          "value": "126"
+        }
+      }
+    ]
+  },
+  "3b0938e9153afc51485390cfe92b68540d1bc2785af8c413a0ec4ed8a89cda5a": {
+    "source": "archive",
+    "world": "irrelevant",
+    "reference": "Ship. The later correction supersedes unpaid and Cedar is outside the hold.",
+    "answer": "No. The archive ship Cedar now. The reason is that the hold list covers batch Elm only. The old register marks batch Cedar unpaid and the signed correction dated a day later marks it paid. The archive ships paid requests unless a preservation hold applies.",
+    "calls": []
+  },
+  "3bcc05e1b92475396beb05e3dd98f1d4d8b55af961f774ee17eec03369a96c90": {
+    "source": "parcel",
+    "world": "original",
+    "reference": "One question asks for address and pickup day, without inventing or placing an order.",
+    "answer": "What is the name of the pickup?",
+    "calls": []
+  },
+  "42a6200b3da6b0ba7cd2442ab9f95b0d254ea515054eb78dfeea82047728fc9d": {
+    "source": "ink",
+    "world": "changed",
+    "reference": "270 mL, successful execution using 750 minus 16 times 30.",
+    "answer": "630 milliliters.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750-30*4"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "630"
+          ],
+          "value": "630"
+        }
+      }
+    ]
+  },
+  "4340683ad247f4422a778fc21c4c6fba76b28328337c2e4e3457dae83d9a2352": {
+    "source": "kiln",
+    "world": "changed",
+    "reference": "Yes. 100 minutes elapsed; 10 minutes beyond 90.",
+    "answer": "No. The kiln instructions allow another firing after 90 minutes of cooling. The firing log records shutdown at 10:20. An unrelated drying rack was emptied at 11:10. The elapsed time since noon is 90 minutes. The margin relative to the rule is zero.",
+    "calls": []
+  },
+  "43ab618044b71095d234a521f0ec712b35106ceb0fc4b435ad228ecf910bfd09": {
+    "source": "ink",
+    "world": "irrelevant",
+    "reference": "190 mL, successful execution using 750 minus 16 times 35.",
+    "answer": "610 milliliters.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "750-35*4"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "610"
+          ],
+          "value": "610"
+        }
+      }
+    ]
+  },
+  "45efdc4c5458ddc07fc481df9e2885701bd6121f46eaa9a0998bbc8e03818a62": {
+    "source": "parcel",
+    "world": "irrelevant",
+    "reference": "One question asks for address and pickup day, without inventing or placing an order.",
+    "answer": "What is the parcel's address?",
+    "calls": []
+  },
+  "565116041ef930796fa40ed9b42b8ee2cd20ca6b6aa2893b4f41879645d5a4a2": {
+    "source": "tiles",
+    "world": "own",
+    "reference": "175 intact tiles from 184 minus 9 with successful calculator use.",
+    "answer": "You have 117 intact tiles now.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "126-9"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "117"
+          ],
+          "value": "117"
+        }
+      }
+    ]
+  },
+  "604422eb0ac7a26a2a139b0056164777e517fcb524415d5f8846a3ccd6644a9d": {
+    "source": "kiln",
+    "world": "irrelevant",
+    "reference": "No. 80 minutes elapsed; 10 minutes short of 90.",
+    "answer": "No. The kiln instructions allow another firing after 90 minutes of cooling. The firing log records shutdown at 10:40. An unrelated drying rack was emptied at 11:15. The elapsed time since noon is 3 hours 30 minutes. The margin relative to the rule is 90 minutes.",
+    "calls": []
+  },
+  "6fb1c7df241adb2f7733a28dfb9060942a1d981e3b4e9e8b6afc9a0080a2efdd": {
+    "source": "parcels",
+    "world": "original",
+    "reference": "Loft; successful matching lookup in the actual CSV.",
+    "answer": "The room for the parcel marked jade in rooms.csv does not exist. Please check the rooms.csv file again to make sure you have the correct parcel name.",
+    "calls": [
+      {
+        "call": {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        },
+        "observation": {
+          "error": "ValueError"
+        }
+      }
+    ]
+  },
+  "74066a8562cadde7c5cf757715602d84f957a8e515f1fb9c9bce4c16bc027cea": {
+    "source": "bridge",
+    "world": "changed",
+    "reference": "Yes. Both includes the blue marker, which triggers closure.",
+    "answer": "Yes.",
+    "calls": []
+  },
+  "756ad454ef1a7b5f54e3b865527d2fc80d6b371e3a3c89f06c699453f6666f1c": {
+    "source": "bridge",
+    "world": "irrelevant",
+    "reference": "No. The red observation does not establish whether the blue marker is covered.",
+    "answer": "Yes.",
+    "calls": []
+  },
+  "8521d59d81abaac8f058f77f369f5b9cacca6a2ad4c938b654934cf980cbeb8d": {
+    "source": "parcels",
+    "world": "changed",
+    "reference": "Annex; successful matching lookup.",
+    "answer": "The room for the parcel marked jade in rooms.csv does not exist. Please check the rooms.csv file again to make sure you have the correct parcel name.",
+    "calls": [
+      {
+        "call": {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        },
+        "observation": {
+          "error": "ValueError"
+        }
+      }
+    ]
+  },
+  "892fd9318d09117f824cddb9f9d2058d45ecfef00af4911e80b45bbbf86f62f6": {
+    "source": "parcels",
+    "world": "shared",
+    "reference": "Friday from a successful lookup of the day for jade.",
+    "answer": "The day for the jade parcel is March 15th.",
+    "calls": []
+  },
+  "99f35417d6bbcf1412b276232ae8a7a72774f469c33aadd082704be89141a04c": {
+    "source": "parcels",
+    "world": "irrelevant",
+    "reference": "Loft; successful matching lookup in the actual CSV.",
+    "answer": "The room for the parcel marked jade in rooms.csv does not exist. Please check the rooms.csv file again to make sure you have the correct parcel name.",
+    "calls": [
+      {
+        "call": {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "room",
+            "key": "jade",
+            "value_column": "room"
+          }
+        },
+        "observation": {
+          "error": "ValueError"
+        }
+      }
+    ]
+  },
+  "b45259a3b612bcfce53c707d5ff0472c2de47d44897b4b76168f106acd228a8e": {
+    "source": "archive",
+    "world": "original",
+    "reference": "Ship. The later correction supersedes unpaid and Cedar is outside the hold.",
+    "answer": "No. The archive ship Cedar now. The reason is that the hold list covers batch Ash only. The old register marks batch Cedar unpaid and the signed correction dated a day later marks it paid. The archive ships paid requests unless a preservation hold applies.",
+    "calls": []
+  },
+  "b59e50daa98157909cd475d67bbe0c1191ce710cb5c45ed1cf017dd88a922ce0": {
+    "source": "parcels",
+    "world": "own",
+    "reference": "Friday from a successful lookup of the day for jade.",
+    "answer": "The day for the parcel marked jade in rooms.csv does not exist. Please check the rooms.csv file again to make sure you have the correct parcel name.",
+    "calls": [
+      {
+        "call": {
+          "name": "csv_lookup",
+          "arguments": {
+            "document": "rooms.csv",
+            "key_column": "day",
+            "key": "jade",
+            "value_column": "day"
+          }
+        },
+        "observation": {
+          "error": "ValueError"
+        }
+      }
+    ]
+  },
+  "b6436f8b26799fd06292a01064e00c283d44d206fa0d9afa1c1413b34ceca4c2": {
+    "source": "archive",
+    "world": "changed",
+    "reference": "Do not ship. The later correction establishes payment, but Cedar is subject to a hold.",
+    "answer": "Should the archive ship Cedar now? Yes. The hold list covers batches Ash and Cedar.",
+    "calls": []
+  },
+  "b994f07668265ad2d8da3cd11ecdc55377e0a3d93de687c69863f7a54bc64949": {
+    "source": "bridge",
+    "world": "original",
+    "reference": "No. The red observation does not establish whether the blue marker is covered.",
+    "answer": "No. The guide says the north bridge closes whenever water covers the blue marker, but today's observation says water covers the red marker. The guide gives no relative heights for these markers.",
+    "calls": []
+  },
+  "cdab8556697bc5566c984501022a2c71ae25dc9ee91e0788f94490c07abd2610": {
+    "source": "kiln",
+    "world": "original",
+    "reference": "No. 80 minutes elapsed; 10 minutes short of 90.",
+    "answer": "No. The kiln instructions allow another firing after 90 minutes of cooling. The firing log records shutdown at 10:40. An unrelated drying rack was emptied at 11:10. The elapsed time since noon is 3 hours 30 minutes. The margin relative to the rule is 90 minutes.",
+    "calls": []
+  },
+  "d7db0d0b65f1be63dcce53355e155799c5790c99fad435866df0b77220d8d647": {
+    "source": "volunteer",
+    "world": "changed",
+    "reference": "One welcoming sentence, arrival at or after 8, bring a notebook, gloves supplied.",
+    "answer": "Please don't come before 8, bring a notebook, and we will provide the gloves.",
+    "calls": []
+  },
+  "db924da40e8d2df27fed7a968ec664f62d09af48a806c62d0be0e1879ce058f0": {
+    "source": "studio",
+    "world": "irrelevant",
+    "reference": "A friendly short message to Bea giving Tuesday C and Thursday A.",
+    "answer": "That's great news! The Tuesday rehearsal will be in Studio C, and Thursday's rehearsal will still be in Studio A. Hope everything goes smoothly!",
+    "calls": []
+  },
+  "de9f895ad9ad6a1f1991bdb52c1b9899ab9849e5527441daee60756ddaa7c43c": {
+    "source": "studio",
+    "world": "changed",
+    "reference": "A friendly short message giving Tuesday B and Thursday A.",
+    "answer": "That's great news! The Tuesday rehearsal will be in Studio B and Thursday's rehearsal will still be in Studio A. Hope everything goes smoothly!",
+    "calls": []
+  },
+  "e8405f2c8e7255f257d1f3f7fca6ff9c30971e42dad5c3cffe01457a43133c8e": {
+    "source": "studio",
+    "world": "original",
+    "reference": "A friendly short message to Bea giving Tuesday C and Thursday A.",
+    "answer": "That's great news! The Tuesday rehearsal will be in Studio C and Thursday's rehearsal will be in Studio A. Hope everything goes smoothly!",
+    "calls": []
+  },
+  "eeb29c3fa9d4eebbb847071f9e94880783e523e0d79fe59dd2cf4fa03c982bcc": {
+    "source": "tiles",
+    "world": "irrelevant",
+    "reference": "184 intact tiles. A successful call must compute 11 times 18 minus 14, or an equivalent calculation using the source quantities.",
+    "answer": "84 intact tiles were delivered.",
+    "calls": [
+      {
+        "call": {
+          "name": "calculate",
+          "arguments": {
+            "steps": [
+              "(18*14)/2",
+              "r1/3",
+              "r1-r2"
+            ]
+          }
+        },
+        "observation": {
+          "results": [
+            "126",
+            "42",
+            "84"
+          ],
+          "value": "84"
+        }
+      }
+    ]
+  }
+}
