@@ -1,0 +1,647 @@
+{
+  "callback_replay": "82afb5d3d2b9514f55359d718f612ea66105d275755797a3c02908e0a6389eeb",
+  "method": "All six numeric openings per evaluated checkpoint. Execute only the first submitted action with each existing provider, leaving its arguments unchanged. Equality-mode results measure syntax compatibility only. The original live trajectory and primary grade remain the reference.",
+  "rows": [
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "ink",
+      "world": "changed",
+      "target": "270",
+      "file": "short/terminal/512/base/ink-changed.json.gz",
+      "sha": "b5a0d5bcca366a84a86aae98cb672565810fa25d07ae8815371396301ef17c25",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "16 bottles \u00d7 30 mL/bottle = 480 mL",
+            "750 mL - 480 mL = 270 mL"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        },
+        "checked_equalities": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "ink",
+      "world": "irrelevant",
+      "target": "190",
+      "file": "short/terminal/512/base/ink-irrelevant.json.gz",
+      "sha": "256a5927428d2e774655e52d7abd004ed7005f1e885f85dae1111fedefbb4092",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "16 bottles \u00d7 35 mL/bottle = 560 mL used",
+            "750 mL total - 560 mL used = 190 mL remaining"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        },
+        "checked_equalities": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "ink",
+      "world": "original",
+      "target": "190",
+      "file": "short/terminal/512/base/ink-original.json.gz",
+      "sha": "74ccaadb4ae18b6c2b20e17daa8b6a9e6f5746f56872322e4dd61024a070012a",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "16 bottles \u00d7 35 mL/bottle = 560 mL",
+            "750 mL - 560 mL = 190 mL"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        },
+        "checked_equalities": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "tiles",
+      "world": "changed",
+      "target": "174",
+      "file": "short/terminal/512/base/tiles-changed.json.gz",
+      "sha": "b82cfe2632fd4917c4735c79525357de480a57d57cd64d8b908534f04ae1bd7a",
+      "first_action": null,
+      "outcomes": {
+        "registered": {
+          "status": "no calculator action"
+        },
+        "checked_equalities": {
+          "status": "no calculator action"
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "tiles",
+      "world": "irrelevant",
+      "target": "184",
+      "file": "short/terminal/512/base/tiles-irrelevant.json.gz",
+      "sha": "caa10dbf01eaba2d85ebbd8f04f9bff3c5012a53f12a20011e15bb6ddf870720",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "11 cartons \u00d7 18 tiles/carton = 198 tiles",
+            "198 tiles - 14 chipped tiles = 184 intact tiles"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        },
+        "checked_equalities": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "base",
+      "source": "tiles",
+      "world": "original",
+      "target": "184",
+      "file": "short/terminal/512/base/tiles-original.json.gz",
+      "sha": "ee20716e10c7ff032720bad031ee85758a99bf288692a38d4be5898d2de7eed8",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "11 * 18 = 198",
+            "198 - 14 = 184"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "rejected",
+          "result": {
+            "error": "ValueError"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned final target",
+          "result": {
+            "results": [
+              "198",
+              "184"
+            ],
+            "value": "184"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "ink",
+      "world": "changed",
+      "target": "270",
+      "file": "short/terminal/512/loop/ink-changed.json.gz",
+      "sha": "e91cea3abb7d422d948970d3b63f990565a925cc507fa711b38463ebb84a9e9b",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "750-30*4"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "630"
+            ],
+            "value": "630"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "630"
+            ],
+            "value": "630"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "ink",
+      "world": "irrelevant",
+      "target": "190",
+      "file": "short/terminal/512/loop/ink-irrelevant.json.gz",
+      "sha": "adfb3f219470356bc34f58ce5ba549e15f385370d62ecf70125ece25609f06ae",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "750-35*4"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "610"
+            ],
+            "value": "610"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "610"
+            ],
+            "value": "610"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "ink",
+      "world": "original",
+      "target": "190",
+      "file": "short/terminal/512/loop/ink-original.json.gz",
+      "sha": "8c82ae98073c1b640cc7d1f2d7d820f99b190ba7b1f962667de280e43c85ad22",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "750-35*4"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "610"
+            ],
+            "value": "610"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "610"
+            ],
+            "value": "610"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "changed",
+      "target": "174",
+      "file": "short/terminal/512/loop/tiles-changed.json.gz",
+      "sha": "ae9a97528da521bdf8216dff58cdd4fdfbdfc0f32f5d031ab11d230f4449f4f4",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "(18*24)/2",
+            "11*(18-24/2)",
+            "r1"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "216",
+              "66",
+              "216"
+            ],
+            "value": "216"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "216",
+              "66",
+              "216"
+            ],
+            "value": "216"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "irrelevant",
+      "target": "184",
+      "file": "short/terminal/512/loop/tiles-irrelevant.json.gz",
+      "sha": "4e56ec7a3f41f5571e76ef95df99d3cad2e8d9ce3407d9b9e023ef436eaa6514",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "18*14"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "252"
+            ],
+            "value": "252"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "252"
+            ],
+            "value": "252"
+          }
+        }
+      }
+    },
+    {
+      "stage": "terminal",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "original",
+      "target": "184",
+      "file": "short/terminal/512/loop/tiles-original.json.gz",
+      "sha": "b5482cd11bbd210bf7026c73205e9a8a3221bcd1a97598c09468bbb1344f33af",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "18*14"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "252"
+            ],
+            "value": "252"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "252"
+            ],
+            "value": "252"
+          }
+        }
+      }
+    },
+    {
+      "stage": "direct-full-fit",
+      "arm": "loop",
+      "source": "ink",
+      "world": "changed",
+      "target": "270",
+      "file": "short/direct-full-fit/512/loop/ink-changed.json.gz",
+      "sha": "ea0efddc5e8e4768de1d23bf311c8e22d803e26f8061e18a2087893d649cb52a",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "750-30*4"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "630"
+            ],
+            "value": "630"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "630"
+            ],
+            "value": "630"
+          }
+        }
+      }
+    },
+    {
+      "stage": "direct-full-fit",
+      "arm": "loop",
+      "source": "ink",
+      "world": "irrelevant",
+      "target": "190",
+      "file": "short/direct-full-fit/512/loop/ink-irrelevant.json.gz",
+      "sha": "c6150f32318d36809c9ac45ff8cd8db77fce687ecaeb9ced639fbdb88be68158",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "750-35*4"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "610"
+            ],
+            "value": "610"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "610"
+            ],
+            "value": "610"
+          }
+        }
+      }
+    },
+    {
+      "stage": "direct-full-fit",
+      "arm": "loop",
+      "source": "ink",
+      "world": "original",
+      "target": "190",
+      "file": "short/direct-full-fit/512/loop/ink-original.json.gz",
+      "sha": "ee25cfc20ba0f8d7a077c6cb9bd19ff12ad5746f0225876a83243bb58fb18ebb",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "750-35*12"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "330"
+            ],
+            "value": "330"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "330"
+            ],
+            "value": "330"
+          }
+        }
+      }
+    },
+    {
+      "stage": "direct-full-fit",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "changed",
+      "target": "174",
+      "file": "short/direct-full-fit/512/loop/tiles-changed.json.gz",
+      "sha": "1dfab9c561d62622b5c746ade50925a1364e5d3afe269d7dfb9a9eb53f3da7c1",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "(18*24)/2",
+            "r1/11"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "216",
+              "216/11"
+            ],
+            "value": "216/11"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "216",
+              "216/11"
+            ],
+            "value": "216/11"
+          }
+        }
+      }
+    },
+    {
+      "stage": "direct-full-fit",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "irrelevant",
+      "target": "184",
+      "file": "short/direct-full-fit/512/loop/tiles-irrelevant.json.gz",
+      "sha": "81d150257c38316a0c397bbd7a9286ad507accaeae6cfdcffdfba16cb388fb72",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "(18*14)/2",
+            "r1/3",
+            "r1-r2"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "126",
+              "42",
+              "84"
+            ],
+            "value": "84"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "126",
+              "42",
+              "84"
+            ],
+            "value": "84"
+          }
+        }
+      }
+    },
+    {
+      "stage": "direct-full-fit",
+      "arm": "loop",
+      "source": "tiles",
+      "world": "original",
+      "target": "184",
+      "file": "short/direct-full-fit/512/loop/tiles-original.json.gz",
+      "sha": "a2455dac9ea638a9dd372e23ead6db085ff494652526cc9db0c4bc650473565f",
+      "first_action": {
+        "name": "calculate",
+        "arguments": {
+          "steps": [
+            "(18*14)/2"
+          ]
+        }
+      },
+      "outcomes": {
+        "registered": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "126"
+            ],
+            "value": "126"
+          }
+        },
+        "checked_equalities": {
+          "status": "returned other quantity",
+          "result": {
+            "results": [
+              "126"
+            ],
+            "value": "126"
+          }
+        }
+      }
+    }
+  ]
+}

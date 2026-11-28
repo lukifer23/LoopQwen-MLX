@@ -114,6 +114,58 @@ def audit(stages=("terminal", "quantized"), arms=None, destination=None):
         )
 
 
+def first_calculations():
+    """Check the first emitted arithmetic action before any provider feedback."""
+    from loopqwen.calculator_tool import tool
+
+    reference = ROOT / "direct/callback-replay.json"
+    providers = {
+        "registered": tool(),
+        "checked_equalities": tool(check_equalities=True),
+    }
+    rows = []
+    for row in read(reference)["rows"]:
+        if row["source"] not in ("ink", "tiles") or row["world"] in ("own", "shared"):
+            continue
+        first = next(iter(row["submitted"]), None)
+        outcomes = {}
+        for mode, provider in providers.items():
+            if first is None or first["name"] != provider.name:
+                outcomes[mode] = {"status": "no calculator action"}
+                continue
+            try:
+                result = provider.callback(**first["arguments"])
+            except (ValueError, TypeError, SyntaxError, ArithmeticError) as e:
+                result = {"error": type(e).__name__}
+            if mode == "registered" and result != row["replayed"][0]:
+                raise ValueError(f"First observation changed for {row['file']}")
+            status = (
+                "rejected"
+                if "error" in result
+                else (
+                    "returned final target"
+                    if result["value"] == row["target"]
+                    else "returned other quantity"
+                )
+            )
+            outcomes[mode] = {"status": status, "result": result}
+        rows.append(
+            {
+                k: row[k]
+                for k in ("stage", "arm", "source", "world", "target", "file", "sha")
+            }
+            | {"first_action": first, "outcomes": outcomes}
+        )
+    save(
+        ROOT / "direct/first-calculations.json",
+        {
+            "callback_replay": digest(reference),
+            "method": "All six numeric openings per evaluated checkpoint. Execute only the first submitted action with each existing provider, leaving its arguments unchanged. Equality-mode results measure syntax compatibility only. The original live trajectory and primary grade remain the reference.",
+            "rows": rows,
+        },
+    )
+
+
 def audit_thinking():
     import re
     from statistics import median
@@ -218,6 +270,7 @@ if __name__ == "__main__":
             {"loop", "base"},
             ROOT / "direct/callback-replay.json",
         )
+        first_calculations()
     else:
         audit()
         audit_thinking()
