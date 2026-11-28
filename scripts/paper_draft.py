@@ -62,7 +62,9 @@ def snapshot():
     data["train"] = use("research/sources/middle-depth/inventory.json")["quotas"]
     data["format"] = use(ROOT / "training-format-audit.json")["families"]
     actions = use(ROOT / "direct/training-first-actions.json")
-    if actions["data"] != digest(Path("research/sources/middle-depth/training.json.gz")):
+    if actions["data"] != digest(
+        Path("research/sources/middle-depth/training.json.gz")
+    ):
         raise ValueError("Initial tool actions come from a different fitting mixture")
     data["training_actions"] = {k: v for k, v in actions.items() if k != "rows"}
     data["recall"] = [
@@ -201,6 +203,23 @@ def snapshot():
                 ):
                     raise ValueError("Incomplete standard benchmark likelihoods")
             cutoff = max(cutoff, receipt["exited"])
+    if (public / "depth-result.json").is_file():
+        depth = use(public / "depth-result.json")
+        receipt = use(public / "loop-k1-process.json")
+        if receipt["grades"] != digest(public / "loop-k1-grades.json"):
+            raise ValueError("One-pass standard grades changed")
+        grades = use(public / "loop-k1-grades.json")
+        for task in depth["benchmarks"]:
+            path = public / "loop-k1" / (task + ".json")
+            subset = [r for r in grades if r["key"].split("/")[0] == task]
+            if (
+                len(use(path)) != 50
+                or len(subset) != 50
+                or any(r["receipt"] != digest(path) for r in subset)
+            ):
+                raise ValueError("Missing same-weight standard per-item likelihoods")
+        data["standard_depth"] = depth
+        cutoff = max(cutoff, receipt["exited"])
     selected = ROOT / "direct-decision.json"
     if selected.is_file():
         selection = use(selected)

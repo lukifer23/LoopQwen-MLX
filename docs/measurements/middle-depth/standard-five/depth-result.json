@@ -1,0 +1,409 @@
+{
+  "intervention": "0506117f1272ed051d498d7f9727c02f7b34e16936c86163e1742bb41dd35c40",
+  "delta_definition": "two passes minus one on identical trained weights",
+  "registered_positive_contribution": false,
+  "grade_files": {
+    "base": "9a72cbcb279050c43ca558f2157c33a97240afc9f29b700e5b044e6dc3ade985",
+    "loop-k1": "8b970980f062947d54208ad78517d2becfaf971b76c9ad8e20f1d2045b173ffb",
+    "loop": "2b215275a17dfd5da3f2bf23da486e927f89a9bd861b1c77a9ad56fd343b4888"
+  },
+  "switches": [
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "arc_challenge/633"
+    },
+    {
+      "base": true,
+      "one_pass": true,
+      "two_passes": false,
+      "key": "arc_challenge/357"
+    },
+    {
+      "base": true,
+      "one_pass": true,
+      "two_passes": false,
+      "key": "arc_challenge/537"
+    },
+    {
+      "base": true,
+      "one_pass": true,
+      "two_passes": false,
+      "key": "arc_challenge/368"
+    },
+    {
+      "base": true,
+      "one_pass": true,
+      "two_passes": false,
+      "key": "arc_challenge/264"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "arc_challenge/1033"
+    },
+    {
+      "base": true,
+      "one_pass": false,
+      "two_passes": false,
+      "key": "arc_challenge/233"
+    },
+    {
+      "base": true,
+      "one_pass": false,
+      "two_passes": false,
+      "key": "arc_challenge/813"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "hellaswag/3561"
+    },
+    {
+      "base": true,
+      "one_pass": false,
+      "two_passes": false,
+      "key": "hellaswag/8984"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "hellaswag/2278"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "hellaswag/9423"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "winogrande/1248"
+    },
+    {
+      "base": false,
+      "one_pass": false,
+      "two_passes": true,
+      "key": "winogrande/889"
+    },
+    {
+      "base": true,
+      "one_pass": true,
+      "two_passes": false,
+      "key": "winogrande/870"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "winogrande/960"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "winogrande/1261"
+    },
+    {
+      "base": true,
+      "one_pass": false,
+      "two_passes": false,
+      "key": "winogrande/459"
+    },
+    {
+      "base": true,
+      "one_pass": false,
+      "two_passes": true,
+      "key": "winogrande/275"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "openbookqa/337"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": false,
+      "key": "openbookqa/29"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": true,
+      "key": "openbookqa/321"
+    },
+    {
+      "base": true,
+      "one_pass": false,
+      "two_passes": true,
+      "key": "openbookqa/257"
+    },
+    {
+      "base": true,
+      "one_pass": false,
+      "two_passes": false,
+      "key": "openbookqa/306"
+    },
+    {
+      "base": false,
+      "one_pass": true,
+      "two_passes": false,
+      "key": "openbookqa/336"
+    },
+    {
+      "base": false,
+      "one_pass": false,
+      "two_passes": true,
+      "key": "openbookqa/121"
+    }
+  ],
+  "benchmarks": {
+    "arc_challenge": {
+      "loop-k1": {
+        "hits": 25,
+        "n": 50,
+        "raw_accuracy": 0.44,
+        "input_positions": 7992,
+        "scored_tokens": 1140,
+        "accuracy": 0.5,
+        "wilson95": [
+          0.3664451431682858,
+          0.6335548568317142
+        ],
+        "seconds": 5.591010789852589,
+        "examples_per_second": 8.942926758565294,
+        "peak_mlx": 1773890407
+      },
+      "loop": {
+        "hits": 21,
+        "n": 50,
+        "raw_accuracy": 0.38,
+        "input_positions": 7992,
+        "scored_tokens": 1140,
+        "accuracy": 0.42,
+        "wilson95": [
+          0.2937500335471198,
+          0.5576655823142176
+        ],
+        "seconds": 7.4794338759966195,
+        "examples_per_second": 6.684997932859939,
+        "peak_mlx": 1772487728
+      },
+      "gains": 0,
+      "losses": 4,
+      "delta": -0.08,
+      "paired95": [
+        -0.16,
+        -0.02
+      ],
+      "exact_mcnemar_p": 0.125,
+      "zero_discordance_95_upper": null,
+      "holm_p": 0.625,
+      "material_gain": false
+    },
+    "hellaswag": {
+      "loop-k1": {
+        "hits": 28,
+        "n": 50,
+        "raw_accuracy": 0.42,
+        "input_positions": 14947,
+        "scored_tokens": 5387,
+        "accuracy": 0.56,
+        "wilson95": [
+          0.4230602802165686,
+          0.6883780078874284
+        ],
+        "seconds": 8.274741377797909,
+        "examples_per_second": 6.042484920937324,
+        "peak_mlx": 1885999926
+      },
+      "loop": {
+        "hits": 28,
+        "n": 50,
+        "raw_accuracy": 0.44,
+        "input_positions": 14947,
+        "scored_tokens": 5387,
+        "accuracy": 0.56,
+        "wilson95": [
+          0.4230602802165686,
+          0.6883780078874284
+        ],
+        "seconds": 9.879778417758644,
+        "examples_per_second": 5.060842246231586,
+        "peak_mlx": 1872256854
+      },
+      "gains": 0,
+      "losses": 0,
+      "delta": 0.0,
+      "paired95": [
+        0.0,
+        0.0
+      ],
+      "exact_mcnemar_p": 1,
+      "zero_discordance_95_upper": 0.058155079116972264,
+      "holm_p": 1,
+      "material_gain": false
+    },
+    "winogrande": {
+      "loop-k1": {
+        "hits": 34,
+        "n": 50,
+        "raw_accuracy": 0.68,
+        "input_positions": 2234,
+        "scored_tokens": 590,
+        "accuracy": 0.68,
+        "wilson95": [
+          0.5418970269185593,
+          0.7924178373934315
+        ],
+        "seconds": 2.4963358782115392,
+        "examples_per_second": 20.029355999891216,
+        "peak_mlx": 1607866070
+      },
+      "loop": {
+        "hits": 35,
+        "n": 50,
+        "raw_accuracy": 0.7,
+        "input_positions": 2234,
+        "scored_tokens": 590,
+        "accuracy": 0.7,
+        "wilson95": [
+          0.562496495355466,
+          0.8089644649911906
+        ],
+        "seconds": 3.046146704989951,
+        "examples_per_second": 16.414179894255927,
+        "peak_mlx": 1603698462
+      },
+      "gains": 2,
+      "losses": 1,
+      "delta": 0.02,
+      "paired95": [
+        -0.04,
+        0.1
+      ],
+      "exact_mcnemar_p": 1,
+      "zero_discordance_95_upper": null,
+      "holm_p": 1,
+      "material_gain": false
+    },
+    "openbookqa": {
+      "loop-k1": {
+        "hits": 17,
+        "n": 50,
+        "raw_accuracy": 0.28,
+        "input_positions": 2885,
+        "scored_tokens": 737,
+        "accuracy": 0.34,
+        "wilson95": [
+          0.22436949222500085,
+          0.47846173949767395
+        ],
+        "seconds": 3.843198626767844,
+        "examples_per_second": 13.00999632226928,
+        "peak_mlx": 1645694470
+      },
+      "loop": {
+        "hits": 17,
+        "n": 50,
+        "raw_accuracy": 0.28,
+        "input_positions": 2885,
+        "scored_tokens": 737,
+        "accuracy": 0.34,
+        "wilson95": [
+          0.22436949222500085,
+          0.47846173949767395
+        ],
+        "seconds": 5.185434295970481,
+        "examples_per_second": 9.642393895310603,
+        "peak_mlx": 1644617808
+      },
+      "gains": 2,
+      "losses": 2,
+      "delta": 0.0,
+      "paired95": [
+        -0.08,
+        0.08
+      ],
+      "exact_mcnemar_p": 1,
+      "zero_discordance_95_upper": null,
+      "holm_p": 1,
+      "material_gain": false
+    },
+    "sciq": {
+      "loop-k1": {
+        "hits": 49,
+        "n": 50,
+        "raw_accuracy": 1.0,
+        "input_positions": 20101,
+        "scored_tokens": 409,
+        "accuracy": 0.98,
+        "wilson95": [
+          0.8950455641036218,
+          0.9964607407283538
+        ],
+        "seconds": 8.927498167322483,
+        "examples_per_second": 5.6006732303811715,
+        "peak_mlx": 2280690348
+      },
+      "loop": {
+        "hits": 49,
+        "n": 50,
+        "raw_accuracy": 0.98,
+        "input_positions": 20101,
+        "scored_tokens": 409,
+        "accuracy": 0.98,
+        "wilson95": [
+          0.8950455641036218,
+          0.9964607407283538
+        ],
+        "seconds": 10.990380082512274,
+        "examples_per_second": 4.54943319745231,
+        "peak_mlx": 2302209619
+      },
+      "gains": 0,
+      "losses": 0,
+      "delta": 0.0,
+      "paired95": [
+        0.0,
+        0.0
+      ],
+      "exact_mcnemar_p": 1,
+      "zero_discordance_95_upper": 0.058155079116972264,
+      "holm_p": 1,
+      "material_gain": false
+    }
+  },
+  "macro_delta": -0.012,
+  "mean_accuracy": {
+    "loop-k1": 0.612,
+    "loop": 0.6
+  },
+  "serving": {
+    "loop-k1": {
+      "wall_seconds_across_items": 29.132784839952365,
+      "peak_mlx": 2280690348,
+      "bundle_logical_bytes": 1530360860
+    },
+    "loop": {
+      "wall_seconds_across_items": 36.58117337722797,
+      "peak_mlx": 2302209619,
+      "bundle_logical_bytes": 1530360860
+    }
+  },
+  "interval_scope": "Seeded within-task paired-item bootstrap. Two passes were measured before the one-pass intervention. Serving order can affect timing.",
+  "paired95": [
+    -0.039999999999999994,
+    0.012
+  ],
+  "plan": "62bc7e5c144a653d0369790a3bddda500a67edd1b6ed9d89c0623eb90f6e5dc1",
+  "enrollment": "e115174a0496efdedd007b3c82e990c12593997d7fc3a4a7ac9722680cf81a14"
+}

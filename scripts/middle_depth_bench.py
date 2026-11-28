@@ -147,24 +147,26 @@ def wilson(k, n):
     return [max(0, center - half), min(1, center + half)]
 
 
-def summarize():
+def summarize(one_pass=False):
+    reference = "loop-k1" if one_pass else "base"
+    first, last = ("loop", reference) if one_pass else (reference, "loop")
     tables = {}
     rng = np.random.default_rng(4619)
     reps = []
-    for arm in ("base", "loop"):
+    for arm in (reference, "loop"):
         receipt = read(OUT / (arm + "-process.json"))
         if receipt["grades"] != digest(OUT / (arm + "-grades.json")) or receipt["exit"]:
             raise ValueError("Missing verified grades")
         tables[arm] = {r["key"]: r for r in read(OUT / (arm + "-grades.json"))}
     if (
-        tables["base"].keys() != tables["loop"].keys()
-        or read(OUT / "base-process.json")["exited"]
-        > read(OUT / "loop-process.json")["launched"]
+        tables[reference].keys() != tables["loop"].keys()
+        or read(OUT / (first + "-process.json"))["exited"]
+        > read(OUT / (last + "-process.json"))["launched"]
     ):
         raise ValueError("Mismatched benchmark or overlapping model lifetimes")
     groups = {}
     for name in TASKS:
-        keys = [k for k in tables["base"] if k.split("/")[0] == name]
+        keys = [k for k in tables[reference] if k.split("/")[0] == name]
         if len(keys) != 50:
             raise ValueError(name)
         paired = []
@@ -186,12 +188,12 @@ def summarize():
             }
         for k in keys:
             if (
-                tables["base"][k]["token_sha"] != tables["loop"][k]["token_sha"]
-                or tables["base"][k]["gold"] != tables["loop"][k]["gold"]
+                tables[reference][k]["token_sha"] != tables["loop"][k]["token_sha"]
+                or tables[reference][k]["gold"] != tables["loop"][k]["gold"]
             ):
                 raise ValueError("Mismatched paired tokens or gold")
             paired.append(
-                int(tables["loop"][k]["correct"]) - int(tables["base"][k]["correct"])
+                int(tables["loop"][k]["correct"]) - int(tables[reference][k]["correct"])
             )
         gains, losses = paired.count(1), paired.count(-1)
         nd = gains + losses
@@ -218,9 +220,61 @@ def summarize():
         r["material_gain"] = r["delta"] >= 0.10 and floor < 0.05
     delta = sum(x["delta"] for x in groups.values()) / 5
     interval = np.quantile(np.mean(reps, axis=0), [0.025, 0.975]).tolist()
+    attribution = {}
+    if one_pass:
+        baseline = {r["key"]: r for r in read(OUT / "base-grades.json")}
+        receipt = read(OUT / "loop-k1-process.json")
+        plan = digest(PLAN.with_name("standard-depth.md"))
+        if (
+            receipt["intervention"] != plan
+            or receipt["manifest"] != read(OUT / "loop-process.json")["manifest"]
+        ):
+            raise ValueError("Depth intervention changed checkpoint or registration")
+        weights = receipt["manifest"]["files"]["adapters.safetensors"]
+        switches = []
+        for name in TASKS:
+            for arm, visits in (("loop-k1", 24), ("loop", 28)):
+                file = OUT / arm / (name + ".json")
+                raw = read(file)
+                if len(raw) != 50 or any(
+                    r["sites"] != visits
+                    or r["weights"] != weights
+                    or tables[arm][name + "/" + idx]["receipt"] != digest(file)
+                    for idx, r in raw.items()
+                ):
+                    raise ValueError(
+                        "Incorrect physical depth, weights or grade lineage"
+                    )
+        for key, row in baseline.items():
+            if (
+                row["token_sha"] != tables[reference][key]["token_sha"]
+                or row["gold"] != tables[reference][key]["gold"]
+            ):
+                raise ValueError(
+                    "Attribution requires three identical openings and labels"
+                )
+            values = [
+                x[key]["correct"] for x in (baseline, tables[reference], tables["loop"])
+            ]
+            if len(set(values)) > 1:
+                switches.append(
+                    dict(zip(("base", "one_pass", "two_passes"), values, strict=True))
+                    | {"key": key}
+                )
+        attribution = {
+            "intervention": plan,
+            "delta_definition": "two passes minus one on identical trained weights",
+            "registered_positive_contribution": interval[0] > 0,
+            "grade_files": {
+                arm: digest(OUT / (arm + "-grades.json"))
+                for arm in ("base", reference, "loop")
+            },
+            "switches": switches,
+        }
     save(
-        OUT / "result.json",
+        OUT / ("depth-result.json" if one_pass else "result.json"),
         {
+            **attribution,
             "benchmarks": groups,
             "macro_delta": delta,
             "mean_accuracy": {
@@ -234,7 +288,9 @@ def summarize():
                     ),
                     "peak_mlx": max(r[arm]["peak_mlx"] for r in groups.values()),
                     "bundle_logical_bytes": sum(
-                        (MODELS / arm / k).stat().st_size
+                        (MODELS / ("loop" if arm == "loop-k1" else arm) / k)
+                        .stat()
+                        .st_size
                         for k in read(OUT / (arm + "-process.json"))["manifest"][
                             "files"
                         ]
@@ -242,9 +298,11 @@ def summarize():
                 }
                 for arm in tables
             },
-            "interval_scope": "Seeded stratified paired-item bootstrap conditional on this benchmark set. For zero switches the bootstrap delta is degenerate. The exact one-sided upper bound on the switch probability is reported separately. The fixed Base-first order can affect time comparisons.",
+            "interval_scope": "Seeded within-task paired-item bootstrap. Two passes were measured before the one-pass intervention. Serving order can affect timing."
+            if one_pass
+            else "Seeded stratified paired-item bootstrap conditional on this benchmark set. For zero switches the bootstrap delta is degenerate. The exact one-sided upper bound on the switch probability is reported separately. The fixed Base-first order can affect time comparisons.",
             "paired95": interval,
-            "parity_lower_bound_passes": interval[0] > -0.02,
+            **({} if one_pass else {"parity_lower_bound_passes": interval[0] > -0.02}),
             "plan": digest(PLAN),
             "enrollment": digest(ENROLL),
         },
@@ -254,13 +312,14 @@ def summarize():
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument(
-        "stage", choices=("tokens", "base", "loop", "loop-k1", "pair", "report")
+        "stage",
+        choices=("tokens", "base", "loop", "loop-k1", "pair", "report", "depth-report"),
     )
     stage = p.parse_args().stage
     if stage == "tokens":
         freeze_tokens()
-    elif stage == "report":
-        summarize()
+    elif stage in ("report", "depth-report"):
+        summarize(one_pass=stage == "depth-report")
     elif stage == "pair":
         freeze_tokens()
         for arm in ("base", "loop"):

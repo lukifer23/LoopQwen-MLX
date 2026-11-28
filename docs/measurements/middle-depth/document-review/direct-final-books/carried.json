@@ -14,6 +14,11 @@
     "first_error": "Gives two years without either supporting age. The edited statements differ by five and three quarters years.",
     "unsupported": true
   },
+  "454463a3a22b8df1cfb812e44beb2fa088b514a55ee6e68261afb4793cc55c6f": {
+    "correct": false,
+    "first_error": "Recovers both source ages but gives no month conversion and executes no calculator call.",
+    "unsupported": false
+  },
   "7567354b5c974d8c980df522da15942f857b16af00a417a1385ae55c003ec80c": {
     "correct": false,
     "first_error": "Gives both source ages but omits the requested difference of five and a half years.",
@@ -32,6 +37,16 @@
   "a88f1b8a21f8cd84a3ee74f42521d0232a90419287099a207de533299ba2e51d": {
     "correct": false,
     "first_error": "Says no even though the edit frees the bird while the owner remains handcuffed; gives no supporting details.",
+    "unsupported": true
+  },
+  "a8e9db5b30d1a029ddebfed8ee7875c5595d7eb41f7eb13cfff643182c8e8e44": {
+    "correct": true,
+    "first_error": null,
+    "unsupported": false
+  },
+  "a9ee209cc76acebe031d3622f89154fbbb7d1c90bba67289a3a7772112eaf036": {
+    "correct": false,
+    "first_error": "Repeats the year difference without the requested conversion to months or a calculator execution. Presents wording from the shared explanation as a quotation from Anne.",
     "unsupported": true
   }
 }

@@ -161,6 +161,9 @@ The equal-benchmark mean difference was #pp(d.standard.macro_delta) percentage p
 The loop gained 12 answers and lost 10. Its largest loss was four net answers on ARC-Challenge. No individual benchmark reached the registered significance threshold after Holm adjustment. SciQ had no switches in 50 items. Even then, the exact one-sided 95% upper bound on the population switch rate is 5.8%.
 
 Base spent #sec(d.standard.serving.base.wall_seconds_across_items) seconds scoring all choices and LoopQwen spent #sec(d.standard.serving.loop.wall_seconds_across_items) seconds. Peak MLX allocation was #sec(d.standard.serving.base.peak_mlx/1073741824) and #sec(d.standard.serving.loop.peak_mlx/1073741824) GiB, respectively. The Base process exited and its 250 outcomes passed the upstream scorer before we loaded LoopQwen. Both models consumed the same token IDs. Each processed every candidate ending in full. A second calculation from raw per-token log probabilities checked every grade. We found all 50 sampled items per benchmark had distinct source keys, including WinoGrande author pairs and nonempty SciQ passages. Two generic OpenBookQA stems of one and two words occurred in adaptation text. Neither matching training row contained an answer choice.
+
+#if d.at("standard_depth",default:none) != none [
+#strong[Which changes require another pass?] Holding the trained weights fixed, one pass scored 153/250 in #sec(d.standard_depth.serving.at("loop-k1").wall_seconds_across_items) seconds. A second pass fixed four answers and lost seven (−1.2 points, paired 95% interval −4.0 to +1.2). Ten of the twelve two-pass wins over Base were already correct at one pass. The second visit lost four ARC-Challenge items, gained one net WinoGrande item and had zero net change on the other three tasks. The complete benchmark panel gives no reliable aggregate accuracy gain from the extra computation.]
 ]
 #pagebreak()
 = Can the loop learn to use the retrieved facts?
