@@ -91,7 +91,15 @@ def collect(args):
         worker("short", str(folder) + "/" + str(args.block)) as guard,
         TemporaryDirectory() as tmp,
     ):
-        if args.policy:
+        quantized_backbone = None
+        if args.stage == "quantized":
+            from scripts.middle_depth_quant import load
+
+            if args.policy is None or side not in ("ordinary", "loop"):
+                raise ValueError("Quantized deployment screening requires a fitted arm")
+            model, tok, quantized_backbone = load(args.policy)
+            weights = read(args.policy / "registration.json")["weights"]
+        elif args.policy:
             assistant = MiddleAssistant(BASE, args.policy)
             model, tok = assistant._tool_model, assistant.tokenizer
             weights = read(args.policy / "registration.json")["weights"]
@@ -113,6 +121,7 @@ def collect(args):
             path = folder / (r["id"] + "-" + world + ".json.gz")
             if path.exists():
                 existing = unpack(path)
+                assert existing.get("quantized_backbone") == quantized_backbone
                 assert existing["weights"] == weights and existing[
                     "protocol"
                 ] == digest(FROZEN)
@@ -151,6 +160,11 @@ def collect(args):
                     source=r["id"],
                     family=r["family"],
                     physical_sites=model.sites,
+                    **(
+                        {"quantized_backbone": quantized_backbone}
+                        if quantized_backbone
+                        else {}
+                    ),
                     world=world,
                     weights=weights,
                     protocol=digest(FROZEN),
@@ -201,6 +215,7 @@ if __name__ == "__main__":
             "deployed",
             "headroom-early",
             "epoch-reading",
+            "quantized",
             "depth",
         ),
         default="initial",

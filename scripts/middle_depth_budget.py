@@ -103,6 +103,14 @@ def worker(stage, job):
     ledger.mkdir(exist_ok=True, parents=True)
     past = [recover_charge(p) for p in ledger.glob("*.json")]
     credit = BUDGET[stage] - sum(r["seconds"] for r in past if r["stage"] == stage)
+    if job.startswith("quantized/") or "/short/quantized/" in job:
+        used = sum(
+            r["seconds"]
+            for r in past
+            if r["stage"] == stage
+            and (r["job"].startswith("quantized/") or "/short/quantized/" in r["job"])
+        )
+        credit = min(credit, 300 - used)
     if "/short/epoch-reading/" in job:
         used = sum(r["seconds"] for r in past if "/short/epoch-reading/" in r["job"])
         credit = min(credit, 600 - used)
