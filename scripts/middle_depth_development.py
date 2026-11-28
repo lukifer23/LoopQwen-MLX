@@ -87,8 +87,12 @@ def collect(args):
     side = args.arm
     name = f"{side}-k{args.depth}" if args.depth else side
     folder = ROOT / "short" / args.stage / str(args.tokens) / name
+    job = str(folder) + "/" + str(args.block)
+    if args.stage == "middle-read-early":
+        job = "middle-read/" + job
+    read_identity = {}
     with (
-        worker("short", str(folder) + "/" + str(args.block)) as guard,
+        worker("short", job) as guard,
         TemporaryDirectory() as tmp,
     ):
         quantized_backbone = None
@@ -119,6 +123,15 @@ def collect(args):
                 if bundle.is_file() and side == "base"
                 else read(args.policy / "registration.json")["weights"]
             )
+            if bundle.is_file() and read(bundle)["schema"] == 2:
+                policy = read(args.policy / "read-policy.json")
+                weights = policy["weights"]
+                read_identity = {
+                    "read_policy": digest(args.policy / "read-policy.json"),
+                    "parent": policy["parent"],
+                    "additional_attention_reads": args.depth or policy["reads"],
+                    "ordinary_layer_calls": len(model.sites),
+                }
         else:
             text, tok = donor(BASE, "instruction" if side == "instruction" else "base")
             model = (
@@ -131,12 +144,22 @@ def collect(args):
                 "instruction" if side == "instruction" else "base"
             )
         if args.depth:
-            model.span = replace(model.span, passes=args.depth)
+            if read_identity:
+                from loopqwen.middle_read import set_reads
+
+                set_reads(model, args.depth)
+            else:
+                model.span = replace(model.span, passes=args.depth)
+        if args.stage == "middle-read-early" and not read_identity:
+            raise ValueError(
+                "Middle-read development requires the standalone controller"
+            )
 
         def take(r, world, question, tools, history):
             path = folder / (r["id"] + "-" + world + ".json.gz")
             if path.exists():
                 existing = unpack(path)
+                assert all(existing.get(k) == v for k, v in read_identity.items())
                 assert existing.get("quantized_backbone") == quantized_backbone
                 assert existing["weights"] == weights and existing[
                     "protocol"
@@ -176,6 +199,7 @@ def collect(args):
                     source=r["id"],
                     family=r["family"],
                     physical_sites=model.sites,
+                    **read_identity,
                     **(
                         {"quantized_backbone": quantized_backbone}
                         if quantized_backbone
@@ -232,6 +256,7 @@ if __name__ == "__main__":
             "direct-full-fit",
             "direct-headroom",
             "headroom-early",
+            "middle-read-early",
             "epoch-reading",
             "quantized",
             "depth",
