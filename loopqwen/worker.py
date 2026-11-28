@@ -119,6 +119,8 @@ def resources():
             except BlockingIOError:
                 owner = f.read().strip()
                 break
+    checkout_owns_lease = owner is not None and f" checkout={root} command=" in owner
+    lease_files = {str(stable_lease_path()), str(lease_path())}
     workers = []
     for proc in psutil.process_iter(["pid", "ppid", "name", "status"]):
         try:
@@ -127,7 +129,13 @@ def resources():
             ):
                 continue
             args = proc.cmdline()[1:]
-            if not any(
+            # Cold replay runs an installed wheel with -I outside the checkout.
+            # Its inherited lease descriptor still identifies the real worker,
+            # even if the original supervising process has already exited.
+            lease_open = checkout_owns_lease and any(
+                f.path in lease_files for f in proc.open_files()
+            )
+            named_worker = any(
                 arg.startswith(
                     (
                         "loopqwen",
@@ -144,24 +152,28 @@ def resources():
                     )
                 )
                 for arg in args
+            )
+            if not lease_open and not (
+                named_worker and Path(proc.cwd()).is_relative_to(root)
             ):
                 continue
-            if not Path(proc.cwd()).is_relative_to(root):
-                continue
+            if lease_open and "-I" in args and "-c" in args:
+                command = "isolated Python with inherited GPU lease"
+            elif "-c" in args:
+                command = next(
+                    (a for a in args if a.endswith(".sh") and len(a) < 128),
+                    "project shell",
+                )
+            else:
+                command = " ".join(args[:5])[:160]
             workers.append(
                 dict(
                     pid=proc.pid,
                     parent=proc.ppid(),
                     status=proc.status(),
                     adopted_by_launchd=proc.ppid() == 1,
-                    command=(
-                        next(
-                            (a for a in args if a.endswith(".sh") and len(a) < 128),
-                            "project shell",
-                        )
-                        if "-c" in args
-                        else " ".join(args[:5])[:160]
-                    ),
+                    checkout_lease_open=lease_open,
+                    command=command,
                     rss_mib=round(proc.memory_info().rss / 2**20, 1),
                 )
             )

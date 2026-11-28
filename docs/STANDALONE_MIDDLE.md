@@ -25,4 +25,11 @@ The native reproducibility check installs the bundled wheel in isolation outside
 .venv/bin/python -m scripts.middle_depth_standalone run
 ```
 
+The cold replay matched all 20 reference trajectories. Base exited 1.58 seconds before the loop process launched. Each model loaded once. The table includes model loading and process teardown in the cold time. Both models missed every supported answer on these four sources and their follow-ups. One earlier Base installation spent 70.02 worker-seconds and stopped because the audit treated a Python namespace package as a regular file. The successful run verified both package types. [Paired timings and trace hashes](measurements/middle-depth/standalone/pair.json) · [First attempt](measurements/middle-depth/charges/dac82bfec4cf43b2b55bd565434bd5fc.json)
+
+| Offline model | Matched responses | Supported answers | Load time | Cold process time | Peak MLX |
+|---|---:|---:|---:|---:|---:|
+| Untouched Base | 10/10 | 0/10 | 1.72 s | 71.81 s | 1.66 GiB |
+| Trained loop | 10/10 | 0/10 | 1.77 s | 18.32 s | 1.66 GiB |
+
 The four-epoch short panel gave 5/27 supported answers for the loop, 4/27 for the trained ordinary sibling and 2/27 for untouched Base at 512 tokens. The untouched instruction sibling scored 6/27. In the weight-only Q4 trial both fitted models decoded the same fixed positions more than twice as fast. The Q4 loop lost its one supported archive decision. Across nine explicit tool openings, successful provider returns fell from six to zero for the loop and five to zero for ordinary depth. BF16 is the reproducible research reference. The full-document quality thresholds remain open. [Frozen scoring](measurements/middle-depth/review/terminal/summary.json) · [Precision decision](measurements/middle-depth/quantization/short-decision.json) · [Restoration kit and identities](../research/results/middle-depth-576)

@@ -135,3 +135,27 @@ def test_active_lease_survives_cache_eviction(tmp_path):
         assert result.returncode and "BlockingIOError" in result.stderr
     with stable.open() as file:
         fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
+
+
+def test_resources_finds_installed_child_outside_checkout(tmp_path, monkeypatch):
+    from loopqwen import worker
+
+    stable = tmp_path / "gpu.lock"
+    monkeypatch.setattr(worker, "stable_lease_path", lambda: stable)
+    monkeypatch.setattr(worker, "lease_path", lambda: tmp_path / "legacy.lock")
+    with worker._lock(stable, None) as lease, subprocess.Popen(
+        [sys.executable, "-I", "-c", "import sys; print('ready', flush=True); sys.stdin.read()"],
+        cwd=tmp_path,
+        pass_fds=(lease.fileno(),),
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        text=True,
+    ) as child:
+        try:
+            assert child.stdout.readline().strip() == "ready"
+            row = next(p for p in worker.resources()["processes"] if p["pid"] == child.pid)
+            assert row["checkout_lease_open"]
+            assert "isolated Python" in row["command"]
+        finally:
+            child.communicate(input="", timeout=5)
+    assert all(p["pid"] != child.pid for p in worker.resources()["processes"])

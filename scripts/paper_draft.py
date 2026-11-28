@@ -173,7 +173,12 @@ def snapshot():
         inputs[str(ROOT / r["file"])] = r["sha"]
     assert len(scored_epoch) == 124 and len(generation) == 12
     terminal_results = {}
-    for stage, count in (("terminal", 248), ("quantized", 62)):
+    for stage, count in (
+        ("terminal", 248),
+        ("quantized", 62),
+        ("simple", 62),
+        ("corrected", 62),
+    ):
         reviewed = use(ROOT / "review" / stage / "scored.json")
         assert len(reviewed) == count
         for r in reviewed:
@@ -192,8 +197,17 @@ def snapshot():
     for p in sorted((ROOT / "quantization").glob("*-*-?.json")):
         use(p)
 
+    correction = use(ROOT / "history-decision.json")
+    standalone = use(ROOT / "standalone/pair.json")
+    use(ROOT / "standalone/restore.json")
+    for arm in standalone["order"]:
+        path = ROOT / "standalone" / (arm + "-replay.json.gz")
+        replay = use(path)
+        assert replay["passed"] and replay["pid_absent"]
+        assert inputs[str(path)] == standalone["arms"][arm]["trace"]
+
     charges = sorted((f, read(f)) for f in (ROOT / "charges").glob("*.json"))
-    cutoff = use(ROOT / "charges/4235dbe55099477c80e0d597780a7a89.json")["dispatch"]
+    cutoff = use(ROOT / "charges/ca140fe9220d4f1cabf798cfd67e6d6a.json")["dispatch"]
     costs = {}
     for f, r in charges:
         if r["status"] == "running" or r["dispatch"] > cutoff:
@@ -219,6 +233,8 @@ def snapshot():
             audit=audit,
             fit_epoch=fit_epoch,
             terminal_results=terminal_results,
+            correction=correction,
+            standalone=standalone,
             final_fit=trained,
             quantization=quant,
             callback_replays=callback["observations"],
