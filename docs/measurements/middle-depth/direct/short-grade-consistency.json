@@ -1,0 +1,66 @@
+{
+  "grades": {
+    "initial": "83289726116c27d3b512cbcda6d63187af50bd0178d2879d31701f931b844f69",
+    "early": "1d0765f77142e573a35f2ed993cc1d10d59f57639402c6b65883799ad587f5a0",
+    "epoch-reading": "2e6f7baecf78841163d3576cb9e1773a487a0701ff6bec64bb69ce65fdcc1521",
+    "headroom-early": "d23ee280ca36fa4b5ed6a10f07fb834adfcd4d21a18d9c732a5fb5235823ec8b",
+    "terminal": "5aafb1243b1b8c0df7c3e6475f7d6adc30bd07c46a1acdadd81dd9780b4d7641",
+    "corrected": "649a79e5d93902764efac9d8e72e15a58084b45c3dec0bdf8aca34617d1e7671",
+    "simple": "259d35faba41eb46144e8bbea46681ee126e2e9bb3742f40cd701d2646e91476",
+    "quantized": "1a3451cf5a68d29d3cb48596845b92a2763e1a5e261b06b60abef9f3bfd9f6f7",
+    "depth": "ae73ed735e29f1d6fbdb06e1fcfe40191d78fd9675a0ffbb5feb220a296abf8c",
+    "direct-full-fit": "bad3aedb1e634aac200298910dcf752ae775c41ab4d5c83705b46b573f9e4a5f",
+    "middle-read-early": "33385480ecccd8578fa64153bda3928771bd518f12d54a7318199181a8aef42f"
+  },
+  "unique_responses": 351,
+  "shared_across_stages": 67,
+  "occurrences": 466,
+  "conflicts": {
+    "correct": {},
+    "unsupported": {
+      "00118ff3132f183eb58b39e4e60d5a84d0a2063d6a966f5b71cc1ed952e9d55e": [
+        {
+          "stage": "headroom-early",
+          "correct": false,
+          "first_error": "Repeats equations with unsupported equals signs and delivers a manual answer without successful execution.",
+          "unsupported": true
+        },
+        {
+          "stage": "terminal",
+          "correct": false,
+          "first_error": "Both attempts to calculate the result failed.",
+          "unsupported": false
+        }
+      ],
+      "8e2f93af1955a3f0b61f089b0652db5fc3a818b9393a8d45fd6c26720a10aadc": [
+        {
+          "stage": "headroom-early",
+          "correct": false,
+          "first_error": "Repeats an equality assertion in the calculator and attributes the resulting syntax error to the provider.",
+          "unsupported": true
+        },
+        {
+          "stage": "terminal",
+          "correct": false,
+          "first_error": "No successful requested calculator execution.",
+          "unsupported": false
+        }
+      ],
+      "9440aae49025ce3a4671209c1d0cb778b240ffdffa9f11a6923a82aa994170d5": [
+        {
+          "stage": "headroom-early",
+          "correct": false,
+          "first_error": "Supplies multiple multi-sentence alternatives when one sentence was requested.",
+          "unsupported": false
+        },
+        {
+          "stage": "terminal",
+          "correct": false,
+          "first_error": "Introduces an unsupported evening arrival time and gives multiple drafts.",
+          "unsupported": true
+        }
+      ]
+    }
+  },
+  "scope": "Repeated identical source, world, reference, answer and tool history across locked development reviews. This checks label consistency, not independent inter-rater agreement."
+}

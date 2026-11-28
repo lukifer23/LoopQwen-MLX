@@ -57,11 +57,13 @@ def review(stage):
     return prompts
 
 
-def pending(directory, stage, prior):
+def pending(directory, stage, prior, review_conflicts=False):
     """Carry a locked human/source judgment only for identical review content."""
     target = directory / stage
     deck = read(target / "blinded.json")
     known, origins = {}, {}
+    variants = defaultdict(dict)
+    conflicts = set()
     for name in (*prior, stage):
         folder = directory / name
         grade_path = folder / "grades.json"
@@ -73,10 +75,24 @@ def pending(directory, stage, prior):
         for key in deck.keys() & graded.keys():
             if originals.get(key) != deck[key] or fingerprint(deck[key]) != key:
                 raise ValueError("A prior grade belongs to different source material")
+            if review_conflicts:
+                variants[key][name] = {"grade": graded[key], "grade_file": sha}
             if key in known and known[key] != graded[key]:
-                raise ValueError("Conflicting locked judgments require source review")
+                if not review_conflicts:
+                    raise ValueError(
+                        "Conflicting locked judgments require source review"
+                    )
+                conflicts.add(key)
             known[key] = graded[key]
             origins.setdefault(key, []).append({"stage": name, "grade_file": sha})
+    if review_conflicts:
+        for key in conflicts:
+            if stage not in variants[key]:
+                del known[key], origins[key]
+        save(
+            target / "conflicting-prior.json",
+            {k: variants[k] for k in sorted(conflicts)},
+        )
     save(target / "carried.json", {k: known[k] for k in sorted(known)})
     save(target / "carried-sources.json", {k: origins[k] for k in sorted(origins)})
     new = {k: v for k, v in deck.items() if k not in known}
@@ -107,6 +123,40 @@ def lock(directory, stage):
     if dest.exists() and any(grades.get(k) != v for k, v in read(dest).items()):
         raise ValueError("Cannot silently replace an earlier locked grade")
     save(dest, {k: grades[k] for k in sorted(grades)})
+
+
+def consistency(stages, name):
+    """Compare primary credit and ancillary flags only on byte-identical review content."""
+    folder = ROOT / "review"
+    seen = defaultdict(list)
+    sources = {}
+    for stage in stages:
+        grades = folder / stage / "grades.json"
+        deck = read(folder / stage / "blinded.json")
+        source = read(grades)
+        if set(source) != set(deck):
+            raise ValueError("Only a fully locked review can enter the comparison")
+        sources[stage] = digest(grades)
+        for key, grade in source.items():
+            if fingerprint(deck[key]) != key:
+                raise ValueError("Changed blinded reply")
+            seen[key].append({"stage": stage, **grade})
+    shared = {k: v for k, v in seen.items() if len(v) > 1}
+    conflicts = {
+        field: {k: v for k, v in shared.items() if len({x[field] for x in v}) > 1}
+        for field in ("correct", "unsupported")
+    }
+    save(
+        ROOT / "direct" / (name + ".json"),
+        {
+            "grades": sources,
+            "unique_responses": len(seen),
+            "shared_across_stages": len(shared),
+            "occurrences": sum(len(v) for v in seen.values()),
+            "conflicts": conflicts,
+            "scope": "Repeated identical source, world, reference, answer and tool history across locked development reviews. This checks label consistency, not independent inter-rater agreement.",
+        },
+    )
 
 
 def first_visible(turns, timestamps, tok):
@@ -220,13 +270,18 @@ def aggregate(stage):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("action", choices=("blind", "aggregate", "pending", "lock"))
+    p.add_argument(
+        "action", choices=("blind", "aggregate", "pending", "lock", "consistency")
+    )
     p.add_argument("stage")
     p.add_argument("--prior", nargs="*", default=[])
+    p.add_argument("--review-conflicts", action="store_true")
     args = p.parse_args()
-    if args.action == "pending":
+    if args.action == "consistency":
+        consistency(args.prior, args.stage)
+    elif args.action == "pending":
         review(args.stage)
-        pending(ROOT / "review", args.stage, args.prior)
+        pending(ROOT / "review", args.stage, args.prior, args.review_conflicts)
     elif args.action == "lock":
         lock(ROOT / "review", args.stage)
     elif args.action == "blind":
