@@ -1,0 +1,56 @@
+{
+  "passed": true,
+  "arms": {
+    "base": {
+      "archive": "parent-base-anne-512.json.gz",
+      "sha256": "04119cee48677225c176c6305d4c7e84ca905ba745f66e308e1bda31df0fc5af",
+      "weights": "base-dc7cdfe",
+      "wheel": "7bddaf7595a89c7c1eba61b6f9f060f0dc2ecaaa47ce317cb57db58578068055",
+      "input_tokens": [
+        145891,
+        145955
+      ],
+      "generated_tokens": [
+        315,
+        300
+      ],
+      "actual_callbacks": 0,
+      "cold_seconds_for_both": 610.4795511669945,
+      "peak_bytes": 2219150586,
+      "observed_first_stdout": [
+        609.9295770830358,
+        610.1896682920051
+      ],
+      "reference_files": {
+        "documents/parent/anne/base/512/original-first.json.gz": "beeb596f9873a3127778b0ba7d98c45d9818a50a78506b0bd8647be881866ea4",
+        "documents/parent/anne/base/512/original-own.json.gz": "3fb82f150d23eef1091f2ecb6d31ac376b36dd865c6863caeadd16201adc4566"
+      }
+    },
+    "loop": {
+      "archive": "parent-loop-anne-512.json.gz",
+      "sha256": "eff4faecf17ef1e6cf87476ac9264fdc277362fd592155ae78f094459e4fa35a",
+      "weights": "e8678f0d74d1eb6779dfea16d6f5677fe12021ad4fa4771317813a336b2a264a",
+      "wheel": "7bddaf7595a89c7c1eba61b6f9f060f0dc2ecaaa47ce317cb57db58578068055",
+      "input_tokens": [
+        145891,
+        145943
+      ],
+      "generated_tokens": [
+        27,
+        27
+      ],
+      "actual_callbacks": 0,
+      "cold_seconds_for_both": 574.57327320904,
+      "peak_bytes": 2856365370,
+      "observed_first_stdout": [
+        574.2870588340447,
+        574.5471979170106
+      ],
+      "reference_files": {
+        "documents/parent/anne/loop/512/original-first.json.gz": "d7032ba1a9d0c9c9c8df840ce0b068dd67f48dd3141f1b10d89f534c817731ca",
+        "documents/parent/anne/loop/512/original-own.json.gz": "28150576278417f65aa34355ab2d36d908330ea12892c0dfbfa12dd5d536c743"
+      }
+    }
+  },
+  "scope": "Complete original Anne opening and own-history follow-up. Both isolated offline packaged CLIs reproduced the earlier resident trajectories through staged full attention. The requested calculator was available and neither model called it."
+}

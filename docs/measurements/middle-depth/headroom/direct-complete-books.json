@@ -1,0 +1,66 @@
+{
+  "sources": {
+    "documents/parent/anne/loop/512/original-first.json.gz": "d7032ba1a9d0c9c9c8df840ce0b068dd67f48dd3141f1b10d89f534c817731ca",
+    "documents/parent/anne/loop/512/original-own.json.gz": "28150576278417f65aa34355ab2d36d908330ea12892c0dfbfa12dd5d536c743",
+    "documents/parent/anne/loop/512/original-shared.json.gz": "77b04734053049948add468c40484e8a7f49622fff7924557d83ea1b97dd7d65",
+    "documents/parent/anne/loop/512/original-unanswerable.json.gz": "325640e8b4f429a60f43930b8eaaa3df6e372050cda3b6f4b1639318965131bd",
+    "documents/parent/anne/base/512/original-first.json.gz": "beeb596f9873a3127778b0ba7d98c45d9818a50a78506b0bd8647be881866ea4",
+    "documents/parent/anne/base/512/original-own.json.gz": "3fb82f150d23eef1091f2ecb6d31ac376b36dd865c6863caeadd16201adc4566",
+    "documents/parent/anne/base/512/original-shared.json.gz": "ce57e49a91c4dd15df0b3963a2679b549555f1d63d0e350ab0a13b2858ebdb63",
+    "documents/parent/anne/base/512/original-unanswerable.json.gz": "959d76258550290f9b601d9e56b68fcc445fd13cd07a9557b2145e65de31f4da",
+    "documents/parent/anne/loop/512/edited-first.json.gz": "ab451926d06e087caf4c4bb608d23b861996d009e9d4afad9a6ee9ad394c7312",
+    "documents/parent/anne/loop/512/edited-own.json.gz": "bf76dc9835e24061320fbb9bd1163752f4c067bd45e9bdfb67a81f779f3de319",
+    "documents/parent/anne/loop/512/edited-shared.json.gz": "69c6af9df549ce103a02a03d180416f02d2bf0d7741956ed8f9b17503860a29d",
+    "documents/parent/anne/loop/512/edited-unanswerable.json.gz": "8745443a59c6dfffb34350644241d4343dbcbb7f23fa2da978b44ce784f679b2",
+    "documents/parent/anne/base/512/edited-first.json.gz": "3a0f57c37d2163a4bc3216ca8a2f05e863a699b4dfd87c24fb255be11d972a39",
+    "documents/parent/anne/base/512/edited-own.json.gz": "8d142a949fc15a6d63c37b081283bfc4ecf40fb4203c6f2430d7c4999304a1e3",
+    "documents/parent/anne/base/512/edited-shared.json.gz": "94186d022a2dba905f57e8ddfe61d3a6b2f6008bb4083491723b3592fc30b237",
+    "documents/parent/anne/base/512/edited-unanswerable.json.gz": "75ca6a01cff6bd542be0cfeaeb474ecb8095df17369250a9cc63289fe59851b4",
+    "documents/parent/anne/loop/512/irrelevant-first.json.gz": "410ef063b9e83caf2c6354d69c5e5a9e64264d9bcbd34f4782e5095654db800c",
+    "documents/parent/anne/base/512/irrelevant-first.json.gz": "a782dfa2dcaa8136c5fe5d003c1813c4a396634572743c28a1bfe93b8e77dc44",
+    "documents/parent/book/loop/512/original-first.json.gz": "08162cce7019fbc2375b22754b25de2430d7d7224bfb86ee9730787c3b81aa4f",
+    "documents/parent/book/base/512/original-first.json.gz": "988d6dff45f8cd1aa823b468a7b6d240039a50d4da510dc912d1baff32ee0fde",
+    "documents/parent/book/loop/512/edited-first.json.gz": "930d2d2eede6dadba0077469e005e9a3b84b4405a15033cb061c55b067a672dc",
+    "documents/parent/book/base/512/edited-first.json.gz": "7a6399a2c2a7c1fd2d000e98dd785548cff15647bfa8f8aa94d3572207b612d9",
+    "documents/parent/book/loop/512/irrelevant-first.json.gz": "8478b256693258cbcaedaa57751fef44ce43d8b35f30bdad60b29364175d6436",
+    "documents/parent/book/base/512/irrelevant-first.json.gz": "f44d9a5ed33f8c7932d43df29b698e5b7bfbee9bbcd694c0db853f7c8ca291ff"
+  },
+  "reasons": {
+    "anne/original": [
+      [
+        "base",
+        "unanswerable"
+      ]
+    ],
+    "anne/edited": [
+      [
+        "base",
+        "own"
+      ],
+      [
+        "base",
+        "unanswerable"
+      ]
+    ],
+    "book/original": [],
+    "book/edited": [
+      [
+        "base",
+        "first"
+      ]
+    ],
+    "book/irrelevant": [
+      [
+        "base",
+        "first"
+      ]
+    ]
+  },
+  "models": {
+    "loop": {
+      "path": "checkpoints/middle-depth/matched-4619/loop/step-0576",
+      "weights": "e8678f0d74d1eb6779dfea16d6f5677fe12021ad4fa4771317813a336b2a264a"
+    }
+  },
+  "registration": "018bc9099773ee8d563b9bba3347c9aa1a5f2a81bcefae656f934068fc7a1eb9"
+}
