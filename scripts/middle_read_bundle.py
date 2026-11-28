@@ -38,6 +38,35 @@ def retain():
         raise ValueError("Terminal generation differs")
 
 
+def restore_training(destination):
+    fit = read(REPORT / "early-fit.json")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    with TemporaryDirectory(dir=destination.parent) as tmp:
+        root = Path(tmp) / "fit"
+        root.mkdir()
+        for number in (72, 84):
+            name = f"step-{number:04d}"
+            origin = ARCHIVE / name
+            validate(origin, fit["identity"])
+            shutil.copytree(origin, root / name)
+            validate(root / name, fit["identity"])
+        if digest(root / "step-0084/state.json") != fit["state"]:
+            raise ValueError("Unregistered terminal generation")
+        save(
+            root / "latest.json",
+            {"latest": "step-0084", "previous": "step-0072", "state": fit["state"]},
+        )
+        if destination.exists():
+            for path in root.rglob("*"):
+                if path.is_file() and digest(path) != digest(
+                    destination / path.relative_to(root)
+                ):
+                    raise ValueError("Existing resume directory differs")
+        else:
+            root.rename(destination)
+    return destination
+
+
 def restore(destination):
     fit = read(REPORT / "early-fit.json")
     state = validate(ARCHIVE / "step-0084", fit["identity"])
@@ -99,9 +128,12 @@ def restore(destination):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("retain", "restore"))
-    parser.add_argument("--destination", type=Path, default=DEST)
+    parser.add_argument("action", choices=("retain", "restore", "restore-training"))
+    parser.add_argument("--destination", type=Path)
     args = parser.parse_args()
     if args.action == "retain":
         retain()
-    print(restore(args.destination))
+    if args.action == "restore-training":
+        print(restore_training(args.destination or RUN / "fit"))
+    else:
+        print(restore(args.destination or DEST))

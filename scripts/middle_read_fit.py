@@ -67,13 +67,53 @@ def validate(path, identity=None):
         and state["identity"] != identity
         or path.name != f"step-{state['step']:04d}"
         or state["next_seed"] != state["identity"]["seed"] + state["step"]
+        or set(state["hashes"]) != {"optimizer.safetensors", "controller.safetensors"}
         or any(digest(path / file) != sha for file, sha in state["hashes"].items())
     ):
         raise ValueError("Invalid middle-read resume generation")
     return state
 
 
-def fit(until, restart_check=False):
+def derivative(m, step, r, spec, guard):
+    x = mx.array([r["p"] + r["y"][:-1]])
+    anchor = mx.stop_gradient(m._execute(m.text.model.embed_tokens(x), m.sites[:LAYER]))
+    mx.eval(anchor)
+    labels = mx.array(r["y"])
+
+    def objective():
+        h = m._execute(anchor, m.sites[LAYER:])
+        h = m.text.model.norm(h[:, -labels.size :])
+        logits = m.project(h)[0].astype(mx.float32)
+        val = nn.losses.cross_entropy(logits, labels).mean()
+        if r["negatives"]:
+            pos, wrong = zip(*r["negatives"], strict=True)
+            k = mx.array(pos)
+            val += (
+                0.65
+                * nn.softplus(
+                    1 + logits[k, mx.array(wrong)] - logits[k, labels[k]]
+                ).mean()
+            )
+        return val
+
+    values = []
+    grads = []
+    for n in spec["depths"]:
+        set_reads(m, n)
+        value, g = nn.value_and_grad(step, objective)()
+        mx.eval(value, g)
+        values.append(value.item())
+        grads.append(g)
+        guard(force=True)
+    grad = tree_map(lambda a, b: (a + b) * 0.5, *grads)
+    grad, norm = optim.clip_grad_norm(grad, 1.0)
+    magnitude = norm.item()
+    if not all(map(math.isfinite, [*values, magnitude])):
+        raise FloatingPointError("Nonfinite native update")
+    return grad, values, magnitude
+
+
+def fit(until, restart_check=False, pause_prepared=False):
     spec = read(SPEC)
     profile = read(REPORT / "profile.json")
     if (
@@ -149,43 +189,60 @@ def fit(until, restart_check=False):
             guard(force=True)
             mx.random.seed(spec["seed"] + index)
             r = data[index % len(data)]
-            x = mx.array([r["p"] + r["y"][:-1]])
-            anchor = mx.stop_gradient(
-                m._execute(m.text.model.embed_tokens(x), m.sites[:LAYER])
-            )
-            mx.eval(anchor)
-            labels = mx.array(r["y"])
-
-            def objective(anchor=anchor, labels=labels, negatives=r["negatives"]):
-                h = m._execute(anchor, m.sites[LAYER:])
-                h = m.text.model.norm(h[:, -labels.size :])
-                logits = m.project(h)[0].astype(mx.float32)
-                val = nn.losses.cross_entropy(logits, labels).mean()
-                if negatives:
-                    pos, wrong = zip(*negatives, strict=True)
-                    k = mx.array(pos)
-                    val += (
-                        0.65
-                        * nn.softplus(
-                            1 + logits[k, mx.array(wrong)] - logits[k, labels[k]]
-                        ).mean()
+            parent_state = folder / f"step-{index:04d}" / "state.json"
+            journal = folder / f"prepared-{index + 1:04d}"
+            descriptor = journal / "update.json"
+            replayed_derivative = descriptor.exists()
+            if replayed_derivative:
+                prepared = read(descriptor)
+                if (
+                    prepared["parent"] != digest(parent_state)
+                    or prepared["row"] != r["id"]
+                    or prepared["seed"] != spec["seed"] + index
+                    or prepared["weights"] != digest(journal / "gradient.safetensors")
+                ):
+                    raise ValueError(
+                        "Prepared update no longer matches its parent or row"
                     )
-                return val
-
-            values = []
-            grads = []
-            for n in spec["depths"]:
-                set_reads(m, n)
-                value, g = nn.value_and_grad(step, objective)()
-                mx.eval(value, g)
-                values.append(value.item())
-                grads.append(g)
-                guard(force=True)
-            grad = tree_map(lambda a, b: (a + b) * 0.5, *grads)
-            grad, norm = optim.clip_grad_norm(grad, 1.0)
-            magnitude = norm.item()
-            if not all(map(math.isfinite, [*values, magnitude])):
-                raise FloatingPointError("Nonfinite native update")
+                grad = tree_unflatten(
+                    list(mx.load(str(journal / "gradient.safetensors")).items())
+                )
+                values, magnitude = prepared["loss"], prepared["norm"]
+            else:
+                if restart_check:
+                    raise ValueError(
+                        "Exact optimizer replay requires the realized native derivative"
+                    )
+                grad, values, magnitude = derivative(m, step, r, spec, guard)
+                if parent_state.exists():
+                    with TemporaryDirectory(dir=folder) as tmp:
+                        fresh = Path(tmp) / "update"
+                        fresh.mkdir()
+                        tensors(fresh / "gradient.safetensors", grad)
+                        save(
+                            fresh / "update.json",
+                            {
+                                "parent": digest(parent_state),
+                                "row": r["id"],
+                                "seed": spec["seed"] + index,
+                                "weights": digest(fresh / "gradient.safetensors"),
+                                "norm": magnitude,
+                                "loss": values,
+                            },
+                        )
+                        fresh.rename(journal)
+            if pause_prepared and index + 1 == until:
+                if not descriptor.exists():
+                    raise ValueError("Pause requires a saved optimizer parent")
+                save(
+                    REPORT / "interrupted-before-update.json",
+                    {
+                        "next_update": until,
+                        "prepared": digest(descriptor),
+                        "parent": digest(parent_state),
+                    },
+                )
+                return
             opt.update(step, grad)
             mx.eval(step.parameters(), opt.state)
             number = index + 1
@@ -193,7 +250,9 @@ def fit(until, restart_check=False):
                 {
                     "step": number,
                     "row": r["id"],
-                    "positions": x.size,
+                    "replayed_derivative": replayed_derivative,
+                    "prepared": digest(descriptor) if descriptor.exists() else None,
+                    "positions": len(r["p"]) + len(r["y"]) - 1,
                     "loss": values,
                     "gradient": magnitude,
                     "seconds": monotonic() - tick,
@@ -222,6 +281,8 @@ def fit(until, restart_check=False):
                         "passed": all(verified.values()),
                         "checks": verified,
                         "first": digest(folder / "step-0001/state.json"),
+                        "boundary": "after differentiation, before optimizer application",
+                        "realized_gradient": digest(journal / "gradient.safetensors"),
                         "second": digest(ref / "state.json"),
                     },
                 )
@@ -249,5 +310,6 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--until", type=int, required=True)
     p.add_argument("--restart-check", action="store_true")
+    p.add_argument("--pause-prepared", action="store_true")
     a = p.parse_args()
-    fit(a.until, a.restart_check)
+    fit(a.until, a.restart_check, a.pause_prepared)

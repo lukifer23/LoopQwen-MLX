@@ -9,6 +9,7 @@ from loopqwen.evaluation.mechanism import unpack
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from scripts.middle_depth_budget import ROOT
+from scripts.middle_depth_callback_audit import audit
 from scripts.middle_depth_development import FROZEN
 from scripts.middle_depth_pair_audit import serving, source_uncertainty
 from scripts.middle_depth_standalone import check
@@ -102,6 +103,11 @@ def result():
                 // 24,
             ),
         }
+    callback_path = REPORT / "callback-replay.json"
+    audit((STAGE,), set(rows), callback_path)
+    callbacks = read(callback_path)
+    if callbacks["presentations"] != 26:
+        raise ValueError("Incomplete tool action audit")
     baseline = read(ROOT / "direct/short-depth-probe.json")
     for arm, panel in rows.items():
         openings = {
@@ -121,7 +127,25 @@ def result():
                 and v["source"] + "/changed" in qualified
             }
         )
+        numeric = [
+            r
+            for r in callbacks["rows"]
+            if r["arm"] == arm
+            and r["source"] in ("ink", "tiles")
+            and r["world"] in ("original", "changed", "irrelevant")
+        ]
         summary[arm] |= {
+            "numeric_openings": len(numeric),
+            "first_calculator_returned_value": sum(
+                bool(r["replayed"]) and "value" in r["replayed"][0] for r in numeric
+            ),
+            "first_calculator_returned_target": sum(
+                bool(r["replayed"]) and r["replayed"][0].get("value") == r["target"]
+                for r in numeric
+            ),
+            "any_calculator_returned_target": sum(
+                r["target_observed"] for r in numeric
+            ),
             "supported": sum(v["grade"]["correct"] for v in openings.values()),
             "by_deadline": len(qualified),
             "paired_hard_sources": sources,
@@ -167,6 +191,7 @@ def result():
             "stage": STAGE,
             "registration": digest(EARLY),
             "rows": digest(scored),
+            "callback_replay": digest(callback_path),
             "standalone": digest(REPORT / "standalone.json"),
             "summary": summary,
             "short_source_uncertainty": differences,

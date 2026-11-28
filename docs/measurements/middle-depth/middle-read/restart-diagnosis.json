@@ -1,0 +1,160 @@
+{
+  "passed": false,
+  "checks": {
+    "controller": false,
+    "optimizer": false,
+    "loss_gradient": false
+  },
+  "first": "be29a8e7a5ff6227d962408c4e0bef78efe6f3e7c36686aa95494bffebb829c9",
+  "second": "badfd23f870132949b236feb6ea94fc9ee9f4545951290f20ee3eacb97b74908",
+  "reference_loss": [
+    0.0002162423770641908,
+    0.00022259783872868866
+  ],
+  "restored_loss": [
+    0.0002162423770641908,
+    0.00022259783872868866
+  ],
+  "reference_gradient": 0.00037225865526124835,
+  "restored_gradient": 0.0003723066474776715,
+  "tensors": {
+    "controller/query.down.weight": {
+      "different": 0,
+      "max": 0.0,
+      "original_max": 0.03123612329363823,
+      "restored_max": 0.03123612329363823
+    },
+    "controller/query.up.weight": {
+      "different": 8192,
+      "max": 3.755522470783035e-07,
+      "original_max": 3.29616159433499e-05,
+      "restored_max": 3.2975342037389055e-05
+    },
+    "controller/content.down.weight": {
+      "different": 8171,
+      "max": 6.843358278274536e-06,
+      "original_max": 0.03135271742939949,
+      "restored_max": 0.031352698802948
+    },
+    "controller/content.up.weight": {
+      "different": 8133,
+      "max": 1.7452402971684933e-06,
+      "original_max": 0.0003746918519027531,
+      "restored_max": 0.00037469336530193686
+    },
+    "controller/gate.down.weight": {
+      "different": 4089,
+      "max": 2.4884939193725586e-06,
+      "original_max": 0.03132421150803566,
+      "restored_max": 0.03132440894842148
+    },
+    "controller/gate.up.weight": {
+      "different": 4062,
+      "max": 5.32544800080359e-06,
+      "original_max": 0.00037390165380202234,
+      "restored_max": 0.0003739054955076426
+    },
+    "controller/bias": {
+      "different": 1020,
+      "max": 1.9277504179626703e-06,
+      "original_max": 0.00036597688449546695,
+      "restored_max": 0.0003658332861959934
+    },
+    "optimizer/step": {
+      "different": false,
+      "max": 0.0,
+      "original_max": 2.0,
+      "restored_max": 2.0
+    },
+    "optimizer/query.up.weight.m": {
+      "different": 8192,
+      "max": 2.967293077915656e-12,
+      "original_max": 3.044507701499555e-10,
+      "restored_max": 3.0460486910577345e-10
+    },
+    "optimizer/query.up.weight.v": {
+      "different": 8192,
+      "max": 9.35109911032725e-23,
+      "original_max": 9.269026476131937e-21,
+      "restored_max": 9.27841142179272e-21
+    },
+    "optimizer/query.down.weight.v": {
+      "different": 0,
+      "max": 0.0,
+      "original_max": 0.0,
+      "restored_max": 0.0
+    },
+    "optimizer/query.down.weight.m": {
+      "different": 0,
+      "max": 0.0,
+      "original_max": 0.0,
+      "restored_max": 0.0
+    },
+    "optimizer/learning_rate": {
+      "different": false,
+      "max": 0.0,
+      "original_max": 0.0002500000118743628,
+      "restored_max": 0.0002500000118743628
+    },
+    "optimizer/gate.up.weight.m": {
+      "different": 4083,
+      "max": 7.043126970529556e-09,
+      "original_max": 0.0008231666288338602,
+      "restored_max": 0.0008231662213802338
+    },
+    "optimizer/gate.up.weight.v": {
+      "different": 2022,
+      "max": 8.881784197001252e-16,
+      "original_max": 8.349321944933763e-08,
+      "restored_max": 8.349321944933763e-08
+    },
+    "optimizer/gate.down.weight.m": {
+      "different": 4096,
+      "max": 6.088285431360418e-11,
+      "original_max": 1.4023394889761676e-08,
+      "restored_max": 1.4042578655448779e-08
+    },
+    "optimizer/gate.down.weight.v": {
+      "different": 4096,
+      "max": 1.103723634941756e-19,
+      "original_max": 1.9665562282041866e-17,
+      "restored_max": 1.9719401813751717e-17
+    },
+    "optimizer/content.up.weight.v": {
+      "different": 4365,
+      "max": 3.552713678800501e-15,
+      "original_max": 8.427161191093546e-08,
+      "restored_max": 8.427161191093546e-08
+    },
+    "optimizer/content.up.weight.m": {
+      "different": 8172,
+      "max": 6.868503987789154e-09,
+      "original_max": 0.0008244613418355584,
+      "restored_max": 0.0008244607015512884
+    },
+    "optimizer/content.down.weight.m": {
+      "different": 8192,
+      "max": 8.773581861021285e-11,
+      "original_max": 1.313838549066304e-08,
+      "restored_max": 1.3209103144617984e-08
+    },
+    "optimizer/content.down.weight.v": {
+      "different": 8192,
+      "max": 1.8632243297756948e-19,
+      "original_max": 1.7261719173681114e-17,
+      "restored_max": 1.7448041606658683e-17
+    },
+    "optimizer/bias.m": {
+      "different": 1024,
+      "max": 2.684828359633684e-08,
+      "original_max": 0.0015641431091353297,
+      "restored_max": 0.0015641521895304322
+    },
+    "optimizer/bias.v": {
+      "different": 627,
+      "max": 2.3092638912203256e-14,
+      "original_max": 3.018975576196681e-07,
+      "restored_max": 3.018975576196681e-07
+    }
+  }
+}
