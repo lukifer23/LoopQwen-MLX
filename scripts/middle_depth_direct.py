@@ -3,11 +3,11 @@
 import argparse
 from pathlib import Path
 
-from loopqwen.io import read, save, digest
+from loopqwen.io import digest, read, save
 from scripts.middle_depth_budget import ROOT
-from scripts.middle_depth_decision import panel, contrast, product_gates
-from scripts.middle_depth_stages import RUN, verify_long_fit, documents, final_books
-from scripts.middle_depth_wave import generate, dispatch
+from scripts.middle_depth_decision import contrast, panel, product_gates
+from scripts.middle_depth_stages import RUN, documents, final_books, verify_long_fit
+from scripts.middle_depth_wave import dispatch, generate
 
 SCOPE = Path("research/diagnostics/middle-depth/direct-pair.md")
 CHOSEN = ROOT / "direct-decision.json"
@@ -29,8 +29,11 @@ def children():
     child = RUN / "long/loop"
     proof = verify_long_fit("loop", src, child)
     save(ROOT / "direct-long-integrity.json", proof)
-    generate(SHORT, ["loop"], [128, 512], {"loop": child})
-    documents(LONG, {"loop": child}, ["loop"], [128, 512])
+    from scripts.middle_depth_standalone import full_fit_bundle
+
+    bundle = full_fit_bundle(child)
+    generate(SHORT, ["loop"], [128, 512], {"loop": bundle})
+    documents(LONG, {"loop": bundle}, ["loop"], [128, 512])
 
 
 def select():

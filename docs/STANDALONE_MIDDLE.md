@@ -41,3 +41,34 @@ On the first published-edition Anne opening, the trained loop returned a 27-toke
 We compared the two restored directories in four fresh processes on the M3 Pro. One job required reading optimizer pointers and answering a rollback follow-up. The other required querying the actual file inventory and comparing the backbone hashes. The providers could supply all four answers. The loop executed eight callbacks. One returned the inventory schema, six returned no records and one returned a calculation error. Base executed zero. Neither completed a job or answered a request correctly. Across four requests the loop used 12.27 seconds and Base used 24.27. Charging unsuccessful requests the registered 30-second deadline yielded 30 seconds per request for both. On a separate four-question GSM8K sample, the loop answered one correctly and Base zero. Raw operational data and replies remain local. [Prospective protocol](../research/diagnostics/middle-depth/local-workflows.md) · [Aggregate result](measurements/middle-depth/local-workflow-screen.json)
 
 The subsequent screen compared these same two directories on two full QMSum meetings, four changed GSM8K questions and an operator handoff that required real Python execution and a CSV follow-up. LoopQwen answered both versions of one math problem. Base answered both versions of zero. Neither model delivered a supported meeting summary or completed the operator job, including when genuine stdout was supplied. [Aggregate scores and native timings](measurements/middle-depth/specialist-result.json)
+
+## Benchmarking the selected standalone pair
+
+The full-document loop gets its own self-contained directory named by its trained-weight hash before the short and book development suites run. After source-masked scoring selects a checkpoint, the following command benchmarks the selected directory and the untouched Base directory outside the checkout. It installs each directory's bundled wheel offline and waits for each model process to exit. Both generation allowances use the same nine short sources, their changed and irrelevant versions, and two real follow-ups. The complete-book primary measurements and specialist screens have separate receipts. [Frozen benchmark and stop rules](../research/diagnostics/middle-depth/standalone-benchmark.md)
+
+```sh
+.venv/bin/python -m scripts.middle_depth_standalone benchmark
+.venv/bin/python -m scripts.middle_depth_pair_audit chosen
+```
+
+The update-576 audit reconstructed both four-family scores from the locked grades and hash-checked trajectories. All 78,732 source resamples give the same 512-token percentile interval as the registered Monte Carlo estimate, −9.72 to +15.97 percentage points. Omitting one source moved the estimated effect from −4.17 to +8.33 points. The 27 short openings used 333,676 layer visits across processed token positions for LoopQwen and 652,200 for Base. The loop generated 1,504 tokens to Base’s 11,063. Mean time to a correct short answer, charging failures eight seconds, was 6.65 versus 7.58 seconds. On the complete books it was 600 versus 521 seconds at the 600-second deadline. [Audited accuracy, confidence intervals, costs and source sensitivity](measurements/middle-depth/direct/parent-audit.json)
+
+Once the selected 512-token Anne opening and own-history references exist, run the full-prefix cold check separately for each installed model. It reads the complete published book, serves the calculator follow-up through the public CLI and records every actual callback and the OS-observed time to first stdout.
+
+```sh
+.venv/bin/python -m scripts.middle_depth_cold --standalone --arm base --source anne --cap 512
+.venv/bin/python -m scripts.middle_depth_cold --standalone --arm loop --source anne --cap 512
+```
+
+## Five public benchmarks
+
+The standard suite uses the official zero-shot completion definitions and metrics in lm-evaluation-harness 0.4.13. The standalone native MLX process receives label-free context/continuation pairs. An independent process gives the resulting likelihoods back to the harness for grading. The source files are small pinned Parquet downloads. The isolated harness environment keeps its dependencies out of the native training environment. [Frozen tasks, external Base scores, statistics and budget](../research/diagnostics/middle-depth/standard-five.md) · [Enrolled split indices](measurements/middle-depth/standard-five/enrollment.json)
+
+```sh
+uv venv --python .venv/bin/python data/standard-five/env
+uv pip install --python data/standard-five/env/bin/python 'lm-eval==0.4.13'
+data/standard-five/env/bin/python -m scripts.middle_depth_bench_sources freeze
+.venv/bin/python -m scripts.middle_depth_bench pair
+```
+
+Run the pair on an idle native worker. It checks the complete model manifests, opens the Base folder with its installed wheel, finishes and regrades all 250 rows, then opens the loop folder in a new process. Native scores are saved after each item. The two grade files and the paired report are under `docs/measurements/middle-depth/standard-five`.

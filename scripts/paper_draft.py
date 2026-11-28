@@ -1,6 +1,7 @@
 """Build the direct LoopQwen versus untouched Base paper from verified native records."""
 
 import argparse
+import csv
 from collections import defaultdict
 import json
 from pathlib import Path
@@ -42,6 +43,7 @@ def snapshot():
         ("hardware", "hardware.json"),
         ("local", "local-workflow-screen.json"),
         ("replay", "standalone/pair.json"),
+        ("direct_audit", "direct/parent-audit.json"),
         ("restore", "standalone/restore.json"),
         ("source_audit", "data-audit.json"),
     ):
@@ -256,6 +258,41 @@ def render():
             raise ValueError(
                 f"Inspect PDF pagination and byline: {[len(p) for p in pages]}"
             )
+        # Publish the plotted data and the exact artwork embedded in this draft.
+        (P / "paper-draft-quality.svg").write_bytes(
+            (folder / "quality.svg").read_bytes()
+        )
+        (P / "paper-draft-deadlines.svg").write_bytes(
+            (folder / "deadline.svg").read_bytes()
+        )
+        with (P / "paper-draft-sources.csv").open("w", newline="") as out:
+            writer = csv.writer(out, lineterminator="\n")
+            writer.writerow(
+                (
+                    "output_cap",
+                    "family",
+                    "source",
+                    "openings",
+                    "base_correct",
+                    "loop_correct",
+                    "gained_worlds",
+                    "lost_worlds",
+                )
+            )
+            for cap, values in d["caps"].items():
+                for row in values["sources"]:
+                    writer.writerow(
+                        (
+                            cap,
+                            row["family"],
+                            row["source"],
+                            row["n"],
+                            row["base"],
+                            row["loop"],
+                            "|".join(row["gained"]),
+                            "|".join(row["lost"]),
+                        )
+                    )
         (P / "paper-draft.pdf").write_bytes(pdf)
         print(
             len(pages),

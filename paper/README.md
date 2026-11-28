@@ -1,5 +1,7 @@
 # LoopQwen versus Qwen Base
 
+[Current supported-answer figure](paper-draft-quality.svg) · [Time-to-correct figure](paper-draft-deadlines.svg) · [Source counts and paired gains and losses](paper-draft-sources.csv). These are generated from the same evidence snapshot as the working PDF.
+
 The current working paper compares one trained LoopQwen checkpoint with untouched Qwen3.5-0.8B-Base throughout. It reports source-by-source gains and losses, native training and serving costs, both complete-document bands, executable local jobs and the two-point overall margin. [Read the current PDF](paper-draft.pdf) · [Frozen evidence](paper-draft-data.json) · [Rebuild the PDF](../scripts/paper_draft.py)
 
 ## Historical publications and assets

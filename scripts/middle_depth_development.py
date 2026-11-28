@@ -100,7 +100,14 @@ def collect(args):
             model, tok, quantized_backbone = load(args.policy)
             weights = read(args.policy / "registration.json")["weights"]
         elif args.policy:
-            assistant = MiddleAssistant(BASE, args.policy)
+            if (args.policy / "standalone-middle.json").is_file():
+                from loopqwen.tool_cli import open_assistant
+
+                assistant = open_assistant(
+                    argparse.Namespace(checkpoint=args.policy, tool_format="qwen")
+                )
+            else:
+                assistant = MiddleAssistant(BASE, args.policy)
             model, tok = assistant._tool_model, assistant.tokenizer
             weights = read(args.policy / "registration.json")["weights"]
         else:

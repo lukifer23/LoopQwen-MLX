@@ -194,7 +194,14 @@ def measure(args):
         "long", f"{args.book}/{args.arm}/{args.world}/{args.tokens}/{args.stage}"
     ) as guard:
         if args.policy:
-            assist = MiddleAssistant(BASE, args.policy)
+            if (args.policy / "standalone-middle.json").is_file():
+                from loopqwen.tool_cli import open_assistant
+
+                assist = open_assistant(
+                    argparse.Namespace(checkpoint=args.policy, tool_format="qwen")
+                )
+            else:
+                assist = MiddleAssistant(BASE, args.policy)
             model, tok = assist._tool_model, assist.tokenizer
             weights = read(args.policy / "registration.json")["weights"]
         else:

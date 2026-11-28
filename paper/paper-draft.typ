@@ -26,7 +26,7 @@
 #let name(a)=if a=="loop" {"LoopQwen"} else {"Untouched Base"}
 #let families=("reasoning","tools","chat","documents")
 #let pretty(f)=(reasoning:"Grounded reasoning",tools:"Executed tools",chat:"Chat and instructions",documents:"Complete documents").at(f)
-#label[RESEARCH ARTICLE · WORKING DRAFT 6]
+#label[RESEARCH ARTICLE · WORKING DRAFT 7]
 #v(6pt)
 #block[#set par(justify:false)
 #text(font:"Helvetica Neue",size:32pt,weight:"bold",tracking:-0.45pt)[LoopQwen versus Qwen Base]]
@@ -72,7 +72,7 @@ Each paired opening uses the same token IDs, live providers, greedy reasoning-en
  let x=d.caps.at(c)
  ([#c tokens],[#pp(x.macro_delta) pp],[#pp(x.paired_interval.first()) to #pp(x.paired_interval.last())])
 })
-#cap([Table 2.],[LoopQwen minus Base, resampling paired source groups within families. With two or three source groups per family these development intervals have limited resolution. The source pairs, edits and output allowances do not constitute independent replications.])
+#cap([Table 2.],[LoopQwen minus Base, resampling paired source groups within families. An independent enumeration of all #str(d.direct_audit.at("512").ordered_resamples) ordered source resamples reproduced both intervals. At 512 tokens, omitting one source at a time gave macro differences from #pp(calc.min(..d.direct_audit.at("512").macro_after_leaving_one_source_out.values())) to #pp(calc.max(..d.direct_audit.at("512").macro_after_leaving_one_source_out.values())) points. Both caps use the same 11 sources.])
 
 #pagebreak()
 = Which sources changed the outcome?
@@ -115,6 +115,7 @@ LoopQwen supplied both ages in both Anne editions and never gave the difference.
 #tab((2.7fr,1fr,1fr),([Short workload, 27 openings],[Base],[LoopQwen]),
 [Elapsed across all requests],[#sec(d.serving.base.seconds) s],[#sec(d.serving.loop.seconds) s],
 [Output tokens across requests],[#str(d.serving.base.tokens)],[#str(d.serving.loop.tokens)],
+[Layer visits across all processed token positions],[#str(d.direct_audit.at("512").costs.at("base/short").warm_layer_token_visits)],[#str(d.direct_audit.at("512").costs.at("loop/short").warm_layer_token_visits)],
 [Supported by eight seconds],[#str(d.serving.base.by_deadline)/27],[#str(d.serving.loop.by_deadline)/27],
 [Mean time to correct, failures charged eight seconds],[#sec(d.serving.base.mean_time_to_correct) s],[#sec(d.serving.loop.mean_time_to_correct) s],
 [Peak MLX allocation],[#sec(d.serving.base.peak / 1073741824) GiB],[#sec(d.serving.loop.peak / 1073741824) GiB])

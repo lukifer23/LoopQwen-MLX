@@ -113,6 +113,14 @@ def worker(stage, job):
             r["seconds"] for r in past if r["job"].startswith("specialist-transfer/")
         )
         credit = min(credit, 300 - used)
+    if job.startswith("standard-five/"):
+        used = sum(r["seconds"] for r in past if r["job"].startswith("standard-five/"))
+        credit = min(credit, 900 - used)
+    if job.startswith("installed-benchmark/"):
+        used = sum(
+            r["seconds"] for r in past if r["job"].startswith("installed-benchmark/")
+        )
+        credit = min(credit, 900 - used)
     if job.startswith("standalone-pair/"):
         spent = sum(
             r["seconds"] for r in past if r["job"].startswith("standalone-pair/")

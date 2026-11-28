@@ -51,7 +51,18 @@ atexit.register(close_metrics)
 """
 
 
-def cold(stage, source, cap, archive_stage, arm):
+def cold(stage, source, cap, archive_stage, arm, standalone=False):
+    if standalone:
+        from scripts.middle_depth_standalone import benchmark_model, check
+
+        chosen = read(ROOT / "direct-decision.json")
+        if arm == "loop":
+            stage = chosen["document_stage" if source == "anne" else "short_stage"]
+        else:
+            stage = "parent" if source == "anne" else "terminal"
+        directory, manifest = benchmark_model(arm)
+    elif arm == "base" or not archive_stage or not stage:
+        raise ValueError("Archive replay needs a trained arm and both stage names")
     if source == "anne":
         from scripts.middle_depth_documents import SPECS
 
@@ -72,15 +83,29 @@ def cold(stage, source, cap, archive_stage, arm):
     ):
         tmp = Path(temp)
         archive = tmp / "relocated"
-        # Preserve the relative object/view relationships in an independent
-        # archive tree. APFS clones copy the contents on an unsupported volume.
-        subprocess.run(["cp", "-cR", str(ARCHIVE), str(archive)], check=True)
-        verify(archive, archive_stage)
-        wheel = next((archive / "wheels" / archive_stage).glob("*.whl"))
-        policy = archive / "models" / archive_stage / arm
-        assert all(
-            r["weights"] == read(policy / "registration.json")["weights"] for r in refs
-        )
+        if standalone:
+            subprocess.run(["cp", "-cR", directory, archive], check=True)
+            check(archive, arm, manifest)
+            (wheel,) = archive.glob("*.whl")
+            model_args = ["--checkpoint", str(archive)]
+            weights = manifest["files"].get(
+                "adapters.safetensors",
+                "base-dc7cdfe" if source == "anne" else "untouched-base",
+            )
+        else:
+            subprocess.run(["cp", "-cR", str(ARCHIVE), str(archive)], check=True)
+            verify(archive, archive_stage)
+            wheel = next((archive / "wheels" / archive_stage).glob("*.whl"))
+            policy = archive / "models" / archive_stage / arm
+            model_args = [
+                "--checkpoint",
+                str(archive / "donor"),
+                "--session-policy",
+                str(policy),
+            ]
+            weights = read(policy / "registration.json")["weights"]
+        if any(r["weights"] != weights for r in refs):
+            raise ValueError("Cold replay reference uses different weights")
         site = tmp / "installed"
         subprocess.run(
             [
@@ -119,10 +144,7 @@ def cold(stage, source, cap, archive_stage, arm):
             opening = [*provider, "--prompt", question, "--cache-state-prefill"]
         args = [
             "ask",
-            "--checkpoint",
-            str(archive / "donor"),
-            "--session-policy",
-            str(policy),
+            *model_args,
             "--tool-format",
             "qwen",
             *opening,
@@ -195,6 +217,7 @@ def cold(stage, source, cap, archive_stage, arm):
             source=source,
             stage=stage,
             arm=arm,
+            standalone=standalone,
             cap=cap,
             seconds=monotonic() - tick,
             wheel_sha256=digest(wheel),
@@ -212,7 +235,10 @@ def cold(stage, source, cap, archive_stage, arm):
                 str((folder / (name + ".json.gz")).relative_to(ROOT)) for name in names
             ],
         )
-        packed(ROOT / "installed" / f"{stage}-{arm}-{source}-{cap}.json.gz", rec)
+        output = ROOT / (
+            "standalone/selected-benchmark/cold" if standalone else "installed"
+        )
+        packed(output / f"{stage}-{arm}-{source}-{cap}.json.gz", rec)
         if not all(same):
             raise ValueError(
                 "Installed replay differs from the paired source trajectory"
@@ -221,10 +247,11 @@ def cold(stage, source, cap, archive_stage, arm):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser()
-    p.add_argument("--stage", required=True)
-    p.add_argument("--archive-stage", required=True)
-    p.add_argument("--arm", choices=("loop", "ordinary"), default="loop")
+    p.add_argument("--stage")
+    p.add_argument("--archive-stage")
+    p.add_argument("--standalone", action="store_true")
+    p.add_argument("--arm", choices=("loop", "ordinary", "base"), default="loop")
     p.add_argument("--source", choices=("tiles", "parcels", "anne"), required=True)
     p.add_argument("--cap", type=int, choices=(128, 512, 4096), required=True)
     a = p.parse_args()
-    cold(a.stage, a.source, a.cap, a.archive_stage, a.arm)
+    cold(a.stage, a.source, a.cap, a.archive_stage, a.arm, a.standalone)
