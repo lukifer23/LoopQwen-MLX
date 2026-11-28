@@ -1,0 +1,1090 @@
+[
+  {
+    "source": "cac9639426a7c1f316ebb61aa97e496903517b6cadf5c1b9998801e2cd2b8c67",
+    "corpus": "MAWPS",
+    "edition": 0,
+    "input": "Adam bought 9 packages of cat food and 7 packages of dog food. Each package of cat food contained 10 cans, and each package of dog food contained 5 cans. How many more cans of cat food than dog food did Adam buy?",
+    "roles": "Count the cans of each food from the packages and cans per package, then subtract the dog food from the cat food.",
+    "mentions": [
+      [
+        12,
+        13,
+        "9"
+      ],
+      [
+        39,
+        40,
+        "7"
+      ],
+      [
+        98,
+        100,
+        "10"
+      ],
+      [
+        146,
+        147,
+        "5"
+      ]
+    ],
+    "steps": [
+      "9*10",
+      "7*5",
+      "r1-r2"
+    ],
+    "returned": {
+      "results": [
+        "90",
+        "35",
+        "55"
+      ],
+      "value": "55"
+    }
+  },
+  {
+    "source": "cac9639426a7c1f316ebb61aa97e496903517b6cadf5c1b9998801e2cd2b8c67",
+    "corpus": "MAWPS",
+    "edition": 1,
+    "input": "Adam bought 8 packages of cat food and 7 packages of dog food. Each package of cat food contained 10 cans, and each package of dog food contained 5 cans. How many more cans of cat food than dog food did Adam buy?",
+    "roles": "Count the cans of each food from the packages and cans per package, then subtract the dog food from the cat food.",
+    "mentions": [
+      [
+        12,
+        13,
+        "8"
+      ],
+      [
+        39,
+        40,
+        "7"
+      ],
+      [
+        98,
+        100,
+        "10"
+      ],
+      [
+        146,
+        147,
+        "5"
+      ]
+    ],
+    "steps": [
+      "8*10",
+      "7*5",
+      "r1-r2"
+    ],
+    "returned": {
+      "results": [
+        "80",
+        "35",
+        "45"
+      ],
+      "value": "45"
+    }
+  },
+  {
+    "source": "2be17e39827f4d482f04275492dc9aadf4a531a867c6fccc1accb3f8601e3fb6",
+    "corpus": "MAWPS",
+    "edition": 0,
+    "input": "Paula 's aunt gave her $ 109 to spend on clothes at the mall. She bought 2 shirts that cost $ 11 each and a pair of pants that cost $ 13. How much money does Paula have left to buy more clothes?",
+    "roles": "The shirts cost their count times the price of one shirt. Subtract that and the cost of the pants from the starting amount.",
+    "mentions": [
+      [
+        25,
+        28,
+        "109"
+      ],
+      [
+        73,
+        74,
+        "2"
+      ],
+      [
+        94,
+        96,
+        "11"
+      ],
+      [
+        134,
+        136,
+        "13"
+      ]
+    ],
+    "steps": [
+      "2*11",
+      "r1+13",
+      "109-r2"
+    ],
+    "returned": {
+      "results": [
+        "22",
+        "35",
+        "74"
+      ],
+      "value": "74"
+    }
+  },
+  {
+    "source": "2be17e39827f4d482f04275492dc9aadf4a531a867c6fccc1accb3f8601e3fb6",
+    "corpus": "MAWPS",
+    "edition": 1,
+    "input": "Paula 's aunt gave her $ 99 to spend on clothes at the mall. She bought 2 shirts that cost $ 11 each and a pair of pants that cost $ 13. How much money does Paula have left to buy more clothes?",
+    "roles": "The shirts cost their count times the price of one shirt. Subtract that and the cost of the pants from the starting amount.",
+    "mentions": [
+      [
+        25,
+        27,
+        "99"
+      ],
+      [
+        72,
+        73,
+        "2"
+      ],
+      [
+        93,
+        95,
+        "11"
+      ],
+      [
+        133,
+        135,
+        "13"
+      ]
+    ],
+    "steps": [
+      "2*11",
+      "r1+13",
+      "99-r2"
+    ],
+    "returned": {
+      "results": [
+        "22",
+        "35",
+        "64"
+      ],
+      "value": "64"
+    }
+  },
+  {
+    "source": "f100e3bbfc5d460aebac9d6e7550cba25177a5c40ef01856f7f4aaaf1ded5f33",
+    "corpus": "MAWPS",
+    "edition": 0,
+    "input": "Melanie, Benny, Sandy, and Jessica each have 9 dozen Pokemon cards. How many Pokemon cards do they have in all?",
+    "roles": "Convert each person\u2019s dozens to cards, then include all four people.",
+    "mentions": [
+      [
+        45,
+        46,
+        "9"
+      ],
+      [
+        47,
+        52,
+        "12"
+      ]
+    ],
+    "steps": [
+      "9*12",
+      "4*r1"
+    ],
+    "returned": {
+      "results": [
+        "108",
+        "432"
+      ],
+      "value": "432"
+    }
+  },
+  {
+    "source": "f100e3bbfc5d460aebac9d6e7550cba25177a5c40ef01856f7f4aaaf1ded5f33",
+    "corpus": "MAWPS",
+    "edition": 1,
+    "input": "Melanie, Benny, Sandy, and Jessica each have 8 dozen Pokemon cards. How many Pokemon cards do they have in all?",
+    "roles": "Convert each person\u2019s dozens to cards, then include all four people.",
+    "mentions": [
+      [
+        45,
+        46,
+        "8"
+      ],
+      [
+        47,
+        52,
+        "12"
+      ]
+    ],
+    "steps": [
+      "8*12",
+      "4*r1"
+    ],
+    "returned": {
+      "results": [
+        "96",
+        "384"
+      ],
+      "value": "384"
+    }
+  },
+  {
+    "source": "c1d819340a96ba4d35eaede8a3363d124397be33c301002e1edb0c6bc43c0ac7",
+    "corpus": "MAWPS",
+    "edition": 0,
+    "input": "There are 46 children in the classroom, each student will get 4 dozen pencils. How many pencils will the teacher have to give out?",
+    "roles": "Each child needs four dozen pencils. Multiply that per-child quantity by the class size.",
+    "mentions": [
+      [
+        10,
+        12,
+        "46"
+      ],
+      [
+        62,
+        63,
+        "4"
+      ],
+      [
+        64,
+        69,
+        "12"
+      ]
+    ],
+    "steps": [
+      "4*12",
+      "46*r1"
+    ],
+    "returned": {
+      "results": [
+        "48",
+        "2208"
+      ],
+      "value": "2208"
+    }
+  },
+  {
+    "source": "c1d819340a96ba4d35eaede8a3363d124397be33c301002e1edb0c6bc43c0ac7",
+    "corpus": "MAWPS",
+    "edition": 1,
+    "input": "There are 36 children in the classroom, each student will get 4 dozen pencils. How many pencils will the teacher have to give out?",
+    "roles": "Each child needs four dozen pencils. Multiply that per-child quantity by the class size.",
+    "mentions": [
+      [
+        10,
+        12,
+        "36"
+      ],
+      [
+        62,
+        63,
+        "4"
+      ],
+      [
+        64,
+        69,
+        "12"
+      ]
+    ],
+    "steps": [
+      "4*12",
+      "36*r1"
+    ],
+    "returned": {
+      "results": [
+        "48",
+        "1728"
+      ],
+      "value": "1728"
+    }
+  },
+  {
+    "source": "e921a99da9186ecdfb046deb17bd8c23dd661d9dde1999a3e1d872b77743102a",
+    "corpus": "MAWPS",
+    "edition": 0,
+    "input": "On Wednesday, Joan spent 4 half - dollars playing pinball. The next day, she spent 14 half - dollars on pinball. What was the total amount Joan spent playing pinball?",
+    "roles": "Convert the half-dollar coins from both days to dollars and add the amounts.",
+    "mentions": [
+      [
+        25,
+        26,
+        "4"
+      ],
+      [
+        27,
+        31,
+        "1/2"
+      ],
+      [
+        83,
+        85,
+        "14"
+      ],
+      [
+        86,
+        90,
+        "1/2"
+      ]
+    ],
+    "steps": [
+      "4*(1/2)",
+      "14*(1/2)",
+      "r1+r2"
+    ],
+    "returned": {
+      "results": [
+        "2",
+        "7",
+        "9"
+      ],
+      "value": "9"
+    }
+  },
+  {
+    "source": "e921a99da9186ecdfb046deb17bd8c23dd661d9dde1999a3e1d872b77743102a",
+    "corpus": "MAWPS",
+    "edition": 1,
+    "input": "On Wednesday, Joan spent 4 half - dollars playing pinball. The next day, she spent 12 half - dollars on pinball. What was the total amount Joan spent playing pinball?",
+    "roles": "Convert the half-dollar coins from both days to dollars and add the amounts.",
+    "mentions": [
+      [
+        25,
+        26,
+        "4"
+      ],
+      [
+        27,
+        31,
+        "1/2"
+      ],
+      [
+        83,
+        85,
+        "12"
+      ],
+      [
+        86,
+        90,
+        "1/2"
+      ]
+    ],
+    "steps": [
+      "4*(1/2)",
+      "12*(1/2)",
+      "r1+r2"
+    ],
+    "returned": {
+      "results": [
+        "2",
+        "6",
+        "8"
+      ],
+      "value": "8"
+    }
+  },
+  {
+    "source": "1c59c124c76ff21079c91e8c6cb9f8610026fc4d22e87b1de2791b4b97077e54",
+    "corpus": "MAWPS",
+    "edition": 0,
+    "input": "The number of gears a machine can make varies directly by how long it operates. If it can make 2088 gears in 8 hours, How many gears can it make in 9 hours?",
+    "roles": "Find the gears produced in one hour, then apply that rate to the requested running time.",
+    "mentions": [
+      [
+        95,
+        99,
+        "2088"
+      ],
+      [
+        109,
+        110,
+        "8"
+      ],
+      [
+        148,
+        149,
+        "9"
+      ]
+    ],
+    "steps": [
+      "2088*9",
+      "r1/8"
+    ],
+    "returned": {
+      "results": [
+        "18792",
+        "2349"
+      ],
+      "value": "2349"
+    }
+  },
+  {
+    "source": "1c59c124c76ff21079c91e8c6cb9f8610026fc4d22e87b1de2791b4b97077e54",
+    "corpus": "MAWPS",
+    "edition": 1,
+    "input": "The number of gears a machine can make varies directly by how long it operates. If it can make 2088 gears in 8 hours, How many gears can it make in 10 hours?",
+    "roles": "Find the gears produced in one hour, then apply that rate to the requested running time.",
+    "mentions": [
+      [
+        95,
+        99,
+        "2088"
+      ],
+      [
+        109,
+        110,
+        "8"
+      ],
+      [
+        148,
+        150,
+        "10"
+      ]
+    ],
+    "steps": [
+      "2088*10",
+      "r1/8"
+    ],
+    "returned": {
+      "results": [
+        "20880",
+        "2610"
+      ],
+      "value": "2610"
+    }
+  },
+  {
+    "source": "52e5cb7ec7c1e638d4d98275414567031715b0950f4973b64a1bde9ea97f937b",
+    "corpus": "GSM8K",
+    "edition": 0,
+    "input": "Alan went to the market and bought 20 eggs at the price of $2 per egg. He bought 6 chickens for the price of $8 per chicken. How much money did Alan spend at the market?",
+    "roles": "Price the eggs and the chickens separately using their own unit prices, then add the two costs.",
+    "mentions": [
+      [
+        35,
+        37,
+        "20"
+      ],
+      [
+        60,
+        61,
+        "2"
+      ],
+      [
+        81,
+        82,
+        "6"
+      ],
+      [
+        110,
+        111,
+        "8"
+      ]
+    ],
+    "steps": [
+      "20*2",
+      "6*8",
+      "r1+r2"
+    ],
+    "returned": {
+      "results": [
+        "40",
+        "48",
+        "88"
+      ],
+      "value": "88"
+    }
+  },
+  {
+    "source": "52e5cb7ec7c1e638d4d98275414567031715b0950f4973b64a1bde9ea97f937b",
+    "corpus": "GSM8K",
+    "edition": 1,
+    "input": "Alan went to the market and bought 15 eggs at the price of $2 per egg. He bought 6 chickens for the price of $8 per chicken. How much money did Alan spend at the market?",
+    "roles": "Price the eggs and the chickens separately using their own unit prices, then add the two costs.",
+    "mentions": [
+      [
+        35,
+        37,
+        "15"
+      ],
+      [
+        60,
+        61,
+        "2"
+      ],
+      [
+        81,
+        82,
+        "6"
+      ],
+      [
+        110,
+        111,
+        "8"
+      ]
+    ],
+    "steps": [
+      "15*2",
+      "6*8",
+      "r1+r2"
+    ],
+    "returned": {
+      "results": [
+        "30",
+        "48",
+        "78"
+      ],
+      "value": "78"
+    }
+  },
+  {
+    "source": "668a5098eb383c8951de2b8d243cf9e7ce5066a65e42f6290a8983438ee44549",
+    "corpus": "GSM8K",
+    "edition": 0,
+    "input": "Olaf is sailing across the ocean with 25 men, including himself. He needs 1/2 a gallon of water per day per man. The boat can go 200 miles per day and he needs to travel 4,000 miles. How many gallons of water does he need?",
+    "roles": "Divide the voyage distance by daily travel. Multiply the number of days by the daily water requirement for all the men.",
+    "mentions": [
+      [
+        38,
+        40,
+        "25"
+      ],
+      [
+        74,
+        77,
+        "1/2"
+      ],
+      [
+        129,
+        132,
+        "200"
+      ],
+      [
+        170,
+        175,
+        "4000"
+      ]
+    ],
+    "steps": [
+      "25*(1/2)",
+      "4000/200",
+      "r2*r1"
+    ],
+    "returned": {
+      "results": [
+        "25/2",
+        "20",
+        "250"
+      ],
+      "value": "250"
+    }
+  },
+  {
+    "source": "668a5098eb383c8951de2b8d243cf9e7ce5066a65e42f6290a8983438ee44549",
+    "corpus": "GSM8K",
+    "edition": 1,
+    "input": "Olaf is sailing across the ocean with 25 men, including himself. He needs 1/2 a gallon of water per day per man. The boat can go 200 miles per day and he needs to travel 4,400 miles. How many gallons of water does he need?",
+    "roles": "Divide the voyage distance by daily travel. Multiply the number of days by the daily water requirement for all the men.",
+    "mentions": [
+      [
+        38,
+        40,
+        "25"
+      ],
+      [
+        74,
+        77,
+        "1/2"
+      ],
+      [
+        129,
+        132,
+        "200"
+      ],
+      [
+        170,
+        175,
+        "4400"
+      ]
+    ],
+    "steps": [
+      "25*(1/2)",
+      "4400/200",
+      "r2*r1"
+    ],
+    "returned": {
+      "results": [
+        "25/2",
+        "22",
+        "275"
+      ],
+      "value": "275"
+    }
+  },
+  {
+    "source": "ecb9845562785f67a0dd8317e53a1c21bb53c1417db7dcf51f2a47fd778e9fad",
+    "corpus": "GSM8K",
+    "edition": 0,
+    "input": "Tabitha adds 1 serving of honey per cup of tea in the evening.  She usually has 2 cups of tea before bed.  She buys her honey in a 16-ounce container.  If there are 6 servings of honey per ounce, how many nights will she be able to enjoy honey in her tea before bed?",
+    "roles": "Convert the container to servings and divide by the servings consumed in one evening.",
+    "mentions": [
+      [
+        13,
+        14,
+        "1"
+      ],
+      [
+        80,
+        81,
+        "2"
+      ],
+      [
+        131,
+        133,
+        "16"
+      ],
+      [
+        165,
+        166,
+        "6"
+      ]
+    ],
+    "steps": [
+      "1*2",
+      "6*16",
+      "r2/r1"
+    ],
+    "returned": {
+      "results": [
+        "2",
+        "96",
+        "48"
+      ],
+      "value": "48"
+    }
+  },
+  {
+    "source": "ecb9845562785f67a0dd8317e53a1c21bb53c1417db7dcf51f2a47fd778e9fad",
+    "corpus": "GSM8K",
+    "edition": 1,
+    "input": "Tabitha adds 1 serving of honey per cup of tea in the evening.  She usually has 2 cups of tea before bed.  She buys her honey in a 12-ounce container.  If there are 6 servings of honey per ounce, how many nights will she be able to enjoy honey in her tea before bed?",
+    "roles": "Convert the container to servings and divide by the servings consumed in one evening.",
+    "mentions": [
+      [
+        13,
+        14,
+        "1"
+      ],
+      [
+        80,
+        81,
+        "2"
+      ],
+      [
+        131,
+        133,
+        "12"
+      ],
+      [
+        165,
+        166,
+        "6"
+      ]
+    ],
+    "steps": [
+      "1*2",
+      "6*12",
+      "r2/r1"
+    ],
+    "returned": {
+      "results": [
+        "2",
+        "72",
+        "36"
+      ],
+      "value": "36"
+    }
+  },
+  {
+    "source": "241af82ddfdda6cf613e25249a1957741d56cf180f237369d432cded930a1e70",
+    "corpus": "GSM8K",
+    "edition": 0,
+    "input": "Kim has 4 dozen shirts.  She lets her sister have 1/3 of them.  How many shirts does she have left?",
+    "roles": "Convert the dozens to shirts, find the one-third given away, and subtract it.",
+    "mentions": [
+      [
+        8,
+        9,
+        "4"
+      ],
+      [
+        10,
+        15,
+        "12"
+      ],
+      [
+        50,
+        53,
+        "1/3"
+      ]
+    ],
+    "steps": [
+      "4*12",
+      "r1/3",
+      "r1-r2"
+    ],
+    "returned": {
+      "results": [
+        "48",
+        "16",
+        "32"
+      ],
+      "value": "32"
+    }
+  },
+  {
+    "source": "241af82ddfdda6cf613e25249a1957741d56cf180f237369d432cded930a1e70",
+    "corpus": "GSM8K",
+    "edition": 1,
+    "input": "Kim has 5 dozen shirts.  She lets her sister have 1/3 of them.  How many shirts does she have left?",
+    "roles": "Convert the dozens to shirts, find the one-third given away, and subtract it.",
+    "mentions": [
+      [
+        8,
+        9,
+        "5"
+      ],
+      [
+        10,
+        15,
+        "12"
+      ],
+      [
+        50,
+        53,
+        "1/3"
+      ]
+    ],
+    "steps": [
+      "5*12",
+      "r1/3",
+      "r1-r2"
+    ],
+    "returned": {
+      "results": [
+        "60",
+        "20",
+        "40"
+      ],
+      "value": "40"
+    }
+  },
+  {
+    "source": "d42561b954b3b9205da49e3a444bd483e800f08fdff5c1a46f0c2a367f842e53",
+    "corpus": "GSM8K",
+    "edition": 0,
+    "input": "Jaco wants to buy Christmas gifts for his 8 friends that are worth $9 each.  Also, he wants to buy gifts for his mother and father that are of the same amount. He has a $100 budget to buy all gifts. How much is Jaco's budget for each of his mother and father's gift?",
+    "roles": "Subtract the total for the eight friends from the budget and share the rest equally between the two parents.",
+    "mentions": [
+      [
+        42,
+        43,
+        "8"
+      ],
+      [
+        68,
+        69,
+        "9"
+      ],
+      [
+        170,
+        173,
+        "100"
+      ]
+    ],
+    "steps": [
+      "9*8",
+      "100-r1",
+      "r2/2"
+    ],
+    "returned": {
+      "results": [
+        "72",
+        "28",
+        "14"
+      ],
+      "value": "14"
+    }
+  },
+  {
+    "source": "d42561b954b3b9205da49e3a444bd483e800f08fdff5c1a46f0c2a367f842e53",
+    "corpus": "GSM8K",
+    "edition": 1,
+    "input": "Jaco wants to buy Christmas gifts for his 8 friends that are worth $7 each.  Also, he wants to buy gifts for his mother and father that are of the same amount. He has a $100 budget to buy all gifts. How much is Jaco's budget for each of his mother and father's gift?",
+    "roles": "Subtract the total for the eight friends from the budget and share the rest equally between the two parents.",
+    "mentions": [
+      [
+        42,
+        43,
+        "8"
+      ],
+      [
+        68,
+        69,
+        "7"
+      ],
+      [
+        170,
+        173,
+        "100"
+      ]
+    ],
+    "steps": [
+      "7*8",
+      "100-r1",
+      "r2/2"
+    ],
+    "returned": {
+      "results": [
+        "56",
+        "44",
+        "22"
+      ],
+      "value": "22"
+    }
+  },
+  {
+    "source": "a4280a44b48ddc8dc98a17a727170cf8d329ed49d9ec775f7072840f62fe75e6",
+    "corpus": "GSM8K",
+    "edition": 0,
+    "input": "Adam bought 3 kilograms of nuts and 2.5 kilograms of dried fruits at a store. One kilogram of nuts costs $12 and one kilogram of dried fruit costs $8. How much did his purchases cost?",
+    "roles": "Multiply each weight by the price for that food and add the two costs.",
+    "mentions": [
+      [
+        12,
+        13,
+        "3"
+      ],
+      [
+        36,
+        39,
+        "5/2"
+      ],
+      [
+        78,
+        81,
+        "1"
+      ],
+      [
+        106,
+        108,
+        "12"
+      ],
+      [
+        113,
+        116,
+        "1"
+      ],
+      [
+        148,
+        149,
+        "8"
+      ]
+    ],
+    "steps": [
+      "3*12",
+      "(5/2)*8",
+      "r1+r2"
+    ],
+    "returned": {
+      "results": [
+        "36",
+        "20",
+        "56"
+      ],
+      "value": "56"
+    }
+  },
+  {
+    "source": "a4280a44b48ddc8dc98a17a727170cf8d329ed49d9ec775f7072840f62fe75e6",
+    "corpus": "GSM8K",
+    "edition": 1,
+    "input": "Adam bought 3 kilograms of nuts and 2.5 kilograms of dried fruits at a store. One kilogram of nuts costs $14 and one kilogram of dried fruit costs $8. How much did his purchases cost?",
+    "roles": "Multiply each weight by the price for that food and add the two costs.",
+    "mentions": [
+      [
+        12,
+        13,
+        "3"
+      ],
+      [
+        36,
+        39,
+        "5/2"
+      ],
+      [
+        78,
+        81,
+        "1"
+      ],
+      [
+        106,
+        108,
+        "14"
+      ],
+      [
+        113,
+        116,
+        "1"
+      ],
+      [
+        148,
+        149,
+        "8"
+      ]
+    ],
+    "steps": [
+      "3*14",
+      "(5/2)*8",
+      "r1+r2"
+    ],
+    "returned": {
+      "results": [
+        "42",
+        "20",
+        "62"
+      ],
+      "value": "62"
+    }
+  },
+  {
+    "source": {
+      "id": "2023-14199",
+      "title": "Power profiling with the Firefox Profiler",
+      "room": "AW1.126",
+      "start": "2023-02-04T17:30:00+01:00",
+      "end": "2023-02-04T18:00:00+01:00",
+      "uid": "14199@FOSDEM23@fosdem.org",
+      "track": "Energy",
+      "url": "https://archive.fosdem.org/2023/schedule/event/energy_power_profiling_firefox/"
+    },
+    "csv_sha256": "e2e0ae4e63389ca2c728bd060bf36381ff9a0e65255115ef0139101a14e7a21e",
+    "actual": {
+      "value": "AW1.126"
+    },
+    "arguments": {
+      "document": "conference.csv",
+      "key_column": "session",
+      "key": "Power profiling with the Firefox Profiler",
+      "value_column": "room"
+    }
+  },
+  {
+    "source": {
+      "id": "2023-15054",
+      "title": "AI Discussion",
+      "room": "UB5.132",
+      "start": "2023-02-04T16:30:00+01:00",
+      "end": "2023-02-04T16:55:00+01:00",
+      "uid": "15054@FOSDEM23@fosdem.org",
+      "track": "Legal and Policy Issues",
+      "url": "https://archive.fosdem.org/2023/schedule/event/ai_discussion/"
+    },
+    "csv_sha256": "e2e0ae4e63389ca2c728bd060bf36381ff9a0e65255115ef0139101a14e7a21e",
+    "actual": {
+      "value": "UB5.132"
+    },
+    "arguments": {
+      "document": "conference.csv",
+      "key_column": "session",
+      "key": "AI Discussion",
+      "value_column": "room"
+    }
+  },
+  {
+    "source": {
+      "id": "2023-13937",
+      "title": "Finite state machine (and some retrogaming)",
+      "room": "UB5.230",
+      "start": "2023-02-05T10:30:00+01:00",
+      "end": "2023-02-05T10:55:00+01:00",
+      "uid": "13937@FOSDEM23@fosdem.org",
+      "track": "JavaScript",
+      "url": "https://archive.fosdem.org/2023/schedule/event/state_machine/"
+    },
+    "csv_sha256": "e2e0ae4e63389ca2c728bd060bf36381ff9a0e65255115ef0139101a14e7a21e",
+    "actual": {
+      "value": "UB5.230"
+    },
+    "arguments": {
+      "document": "conference.csv",
+      "key_column": "session",
+      "key": "Finite state machine (and some retrogaming)",
+      "value_column": "room"
+    }
+  },
+  {
+    "source": {
+      "id": "2023-13881",
+      "title": "PIMMI",
+      "room": "UB4.132",
+      "start": "2023-02-04T13:30:00+01:00",
+      "end": "2023-02-04T14:00:00+01:00",
+      "uid": "13881@FOSDEM23@fosdem.org",
+      "track": "Open Research Tools and Technology",
+      "url": "https://archive.fosdem.org/2023/schedule/event/openresearch_pimmi/"
+    },
+    "csv_sha256": "e2e0ae4e63389ca2c728bd060bf36381ff9a0e65255115ef0139101a14e7a21e",
+    "actual": {
+      "value": "UB4.132"
+    },
+    "arguments": {
+      "document": "conference.csv",
+      "key_column": "session",
+      "key": "PIMMI",
+      "value_column": "room"
+    }
+  },
+  {
+    "source": {
+      "id": "2023-14622",
+      "title": "Effective management of Kubernetes resources for cluster admins",
+      "room": "H.1301 (Cornil)",
+      "start": "2023-02-04T18:25:00+01:00",
+      "end": "2023-02-04T18:45:00+01:00",
+      "uid": "14622@FOSDEM23@fosdem.org",
+      "track": "Sovereign Cloud",
+      "url": "https://archive.fosdem.org/2023/schedule/event/sovcloud_effective_management_of_kubernetes_resources_for_cluster_admins/"
+    },
+    "csv_sha256": "e2e0ae4e63389ca2c728bd060bf36381ff9a0e65255115ef0139101a14e7a21e",
+    "actual": {
+      "value": "H.1301 (Cornil)"
+    },
+    "arguments": {
+      "document": "conference.csv",
+      "key_column": "session",
+      "key": "Effective management of Kubernetes resources for cluster admins",
+      "value_column": "room"
+    }
+  },
+  {
+    "source": {
+      "id": "2023-13882",
+      "title": "Deep Dive Into Query Performance",
+      "room": "UA2.118 (Henriot)",
+      "start": "2023-02-05T15:00:00+01:00",
+      "end": "2023-02-05T15:50:00+01:00",
+      "uid": "13882@FOSDEM23@fosdem.org",
+      "track": "PostgreSQL",
+      "url": "https://archive.fosdem.org/2023/schedule/event/postgresql_deep_dive_into_query_performance/"
+    },
+    "csv_sha256": "e2e0ae4e63389ca2c728bd060bf36381ff9a0e65255115ef0139101a14e7a21e",
+    "actual": {
+      "value": "UA2.118 (Henriot)"
+    },
+    "arguments": {
+      "document": "conference.csv",
+      "key_column": "session",
+      "key": "Deep Dive Into Query Performance",
+      "value_column": "room"
+    }
+  }
+]

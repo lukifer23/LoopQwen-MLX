@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "plan": "e4ba03505b7fde6dec7bdb94ff4ccf22731e3858b61d66bc806db8968f14b073",
+  "base": "98a608c74cfb5ca1beb41c33f76dfd119e5e69eeefabda089eb2c077eac23617",
+  "parent": "e8678f0d74d1eb6779dfea16d6f5677fe12021ad4fa4771317813a336b2a264a",
+  "seed": 7793,
+  "training": "1dc6bfa524162758dea23e3000a3041c388f6cf678f7c2109f7bcb03b2435349",
+  "source": "tatqa/0da57c95-2709-4b67-a1be-db6f325fb4e5/reply/open",
+  "opening_probe": "39d1f01d08ab323f6f3c35592245c2f13e9d510a0059392fc2f52402b53c75df",
+  "probe_positions": 181,
+  "gradient_positions": 548,
+  "gradient_seconds": 0.4244055830058642,
+  "controller_parameters": 41984,
+  "ordinary_layer_calls": 24,
+  "extra_attention_reads": [
+    1,
+    2
+  ],
+  "scratch_bytes": 1836040,
+  "peak_mlx": 5611176348,
+  "initial": {
+    "1": {
+      "max": 0.0,
+      "relative_rms": 0.0,
+      "argmax_equal": true
+    },
+    "2": {
+      "max": 0.0,
+      "relative_rms": 0.0,
+      "argmax_equal": true
+    }
+  },
+  "gradient_norms": {
+    "query.down.weight": 0.0,
+    "query.up.weight": 0.0,
+    "content.down.weight": 0.0,
+    "content.up.weight": 0.1041678711771965,
+    "gate.down.weight": 0.0,
+    "gate.up.weight": 0.04490344598889351,
+    "bias": 0.10894563049077988
+  },
+  "loss": 0.0370057038962841,
+  "stock_recomputed_memory": {
+    "max": 0.0,
+    "relative_rms": 0.0,
+    "argmax_equal": true
+  },
+  "middle_offset": 181,
+  "middle_retained": 181,
+  "later_read_influence": {
+    "max": 1.41796875,
+    "relative_rms": 0.09302307665348053,
+    "argmax_equal": true
+  },
+  "causal_prefix": {
+    "max": 0.0,
+    "relative_rms": 0.0,
+    "argmax_equal": true
+  },
+  "chunked": {
+    "max": 0.4375,
+    "relative_rms": 0.02808113768696785,
+    "argmax_equal": true
+  },
+  "invalidated_on_depth_change": true,
+  "attention_offsets": {
+    "3": 181,
+    "7": 181,
+    "11": 181,
+    "15": 181,
+    "19": 181,
+    "23": 181
+  },
+  "hybrid_histories": 18,
+  "staged_prefix": {
+    "max": 0.0,
+    "relative_rms": 0.0,
+    "argmax_equal": true
+  },
+  "staged_next": {
+    "max": 0.0625,
+    "relative_rms": 6.050256342859939e-05,
+    "argmax_equal": true
+  }
+}
