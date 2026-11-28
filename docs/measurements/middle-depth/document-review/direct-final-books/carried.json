@@ -24,6 +24,11 @@
     "first_error": "Gives both ages but omits their difference of five and a half years.",
     "unsupported": false
   },
+  "3573bac072b20daa6b2f63d1483170016558bf25b039baf8f2d263f306618f72": {
+    "correct": true,
+    "unsupported": false,
+    "first_error": null
+  },
   "454463a3a22b8df1cfb812e44beb2fa088b514a55ee6e68261afb4793cc55c6f": {
     "correct": false,
     "first_error": "Recovers both source ages but gives no month conversion and executes no calculator call.",
@@ -49,6 +54,16 @@
     "first_error": null,
     "unsupported": false
   },
+  "97bc573efea965a87b0b1c0fe4ead88c1404f400df6333b76562c54a9a170dfe": {
+    "correct": false,
+    "unsupported": false,
+    "first_error": "Gives the correct ages and 66 months but omits the requested calculator execution."
+  },
+  "9cc9e38625705fee38836ce17c670c7b15cf9af7fd3f67af7234140a82542130": {
+    "correct": false,
+    "unsupported": false,
+    "first_error": "Gives the correct ages and 66 months but omits the requested calculator execution."
+  },
   "9cfb39cdbfb2ee6bac96da49381385829195cdd48d49d958731ca49364be2a98": {
     "correct": false,
     "first_error": "Gives both edited source ages but omits the requested difference of five and three quarters years.",
@@ -68,5 +83,15 @@
     "correct": false,
     "first_error": "Repeats the year difference without the requested conversion to months or a calculator execution. Presents wording from the shared explanation as a quotation from Anne.",
     "unsupported": true
+  },
+  "c8e373b00ea3fb527c5b682835b31ee0d618f6bbbe3e49911c9c5087bae9f9ae": {
+    "correct": false,
+    "unsupported": true,
+    "first_error": "Drops the three-quarter year during subtraction and supplies 60 months without executing the calculator."
+  },
+  "f04655da2d6f2d2abce0aaab1ca5ddaa9ea34d3b38285a2911313ee6893d4309": {
+    "correct": false,
+    "unsupported": false,
+    "first_error": "Gives the right yes/no decision but supplies neither scene nor the handcuff evidence."
   }
 }

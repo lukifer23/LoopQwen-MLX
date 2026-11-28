@@ -684,7 +684,7 @@
   ],
   "complete": true,
   "evicted": false,
-  "last_use": 1795833326.833983,
+  "last_use": 1795835911.047787,
   "command": [
     ".venv/bin/python",
     "-m",
@@ -693,15 +693,18 @@
     "--book",
     "anne",
     "--world",
-    "irrelevant",
+    "edited",
     "--arm",
     "base",
     "--stage",
     "parent",
     "--tokens",
-    "512",
+    "4096",
     "--cache-mode",
-    "resident"
+    "resident",
+    "--policy",
+    "exports/standalone-middle-576/base",
+    "--followups"
   ],
   "seconds": 231.90420879091835,
   "avoided_duplicate_bytes": 1736135402

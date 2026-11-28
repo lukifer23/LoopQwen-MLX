@@ -684,7 +684,7 @@
   ],
   "complete": true,
   "evicted": false,
-  "last_use": 1795833777.483765,
+  "last_use": 1795836865.924944,
   "command": [
     ".venv/bin/python",
     "-m",
@@ -699,9 +699,11 @@
     "--stage",
     "parent",
     "--tokens",
-    "512",
+    "4096",
     "--cache-mode",
-    "resident"
+    "resident",
+    "--policy",
+    "exports/standalone-middle-576/base"
   ],
   "seconds": 313.8799304579152,
   "avoided_duplicate_bytes": 0
