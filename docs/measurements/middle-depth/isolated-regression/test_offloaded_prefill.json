@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[False-direct]",
+      "status": "passed",
+      "seconds": 0.049418792012147605,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[False-stabilized]",
+      "status": "passed",
+      "seconds": 0.028283833002205938,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[False-input_anchor]",
+      "status": "passed",
+      "seconds": 0.024597208946943283,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[True-direct]",
+      "status": "passed",
+      "seconds": 0.050459542020689696,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[True-stabilized]",
+      "status": "passed",
+      "seconds": 0.027918458974454552,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_offloaded_prefill.py::test_disk_prefill_preserves_full_logits_across_three_passes[True-input_anchor]",
+      "status": "passed",
+      "seconds": 0.026618041971232742,
+      "phase": "call"
+    }
+  ],
+  "seconds": 0.9152371659874916,
+  "files": [
+    "tests/test_offloaded_prefill.py"
+  ],
+  "module_sha": "16a1dddb6d6d6956338b9678ea2d92ec3a91803888db08cdd6caf6fc2f497367",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

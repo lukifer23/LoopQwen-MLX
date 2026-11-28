@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_tool_cli_release.py::test_real_tool_cli_matches_public_api",
+      "status": "passed",
+      "seconds": 15.179631915991195,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_small_adapter_overlay_reproduces_changed_public_execution",
+      "status": "passed",
+      "seconds": 2.3535747500136495,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_followup_reuses_real_observations_without_replaying_callbacks",
+      "status": "passed",
+      "seconds": 1.9839966250001453,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_cli_followup_reuses_real_observation_and_prompt",
+      "status": "passed",
+      "seconds": 3.195311833987944,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_own_prompt_file_compares_two_real_decoders_on_the_identical_thinking_prompt",
+      "status": "passed",
+      "seconds": 2.783256374998018,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_generate_compares_user_file_on_two_loaded_native_checkpoints[False]",
+      "status": "passed",
+      "seconds": 2.38356783404015,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_generate_compares_user_file_on_two_loaded_native_checkpoints[True]",
+      "status": "passed",
+      "seconds": 2.3714002079796046,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_plain_four_layer_policy_and_base_cli_prefill_all_physical_sites",
+      "status": "passed",
+      "seconds": 3.5484956249711104,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_cli_release.py::test_staged_shared_query_cli_uses_trained_weights_and_complete_histories",
+      "status": "passed",
+      "seconds": 4.727776415995322,
+      "phase": "call"
+    }
+  ],
+  "seconds": 39.31025420804508,
+  "files": [
+    "tests/test_tool_cli_release.py"
+  ],
+  "module_sha": "f1cca9c7b9f22ab46518df952b842e2e47bd0e84b92d79bd7362533f87dcfeb4",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

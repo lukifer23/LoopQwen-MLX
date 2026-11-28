@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_attention_memory.py::test_window_selection_streams_the_same_features_used_for_training",
+      "status": "passed",
+      "seconds": 0.010106040979735553,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_attention_memory.py::test_bias_is_causal_and_preserves_every_older_key",
+      "status": "passed",
+      "seconds": 0.0021750409505330026,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_attention_memory.py::test_held_out_registers_contain_hard_negatives_and_one_visible_gold",
+      "status": "passed",
+      "seconds": 0.5363795410376042,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_attention_memory.py::test_releasing_an_attention_site_frees_its_full_history_immediately",
+      "status": "passed",
+      "seconds": 0.00017458299407735467,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_attention_memory.py::test_full_context_intervention_changes_only_the_two_key_names",
+      "status": "passed",
+      "seconds": 0.5579394999658689,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_attention_memory.py::test_reader_bias_reaches_quantized_attention_and_changes_the_output",
+      "status": "passed",
+      "seconds": 0.01093391701579094,
+      "phase": "call"
+    }
+  ],
+  "seconds": 1.8221814999706112,
+  "files": [
+    "tests/test_attention_memory.py"
+  ],
+  "module_sha": "c59b16c2954181600be64eef51baae0c74a4340bcb77f0642dc0750fedf389a0",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

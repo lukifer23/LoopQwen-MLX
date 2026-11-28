@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_frozen_memory_attention.py::test_frozen_memory_adjoint_all_heads_chunks_and_single_or_causal_suffix",
+      "status": "passed",
+      "seconds": 0.04279320902423933,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_frozen_memory_attention.py::test_nested_short_query_reads_match_dense_forward_and_backward",
+      "status": "passed",
+      "seconds": 0.004601457971148193,
+      "phase": "call"
+    }
+  ],
+  "seconds": 0.7319138330058195,
+  "files": [
+    "tests/test_frozen_memory_attention.py"
+  ],
+  "module_sha": "fdf11f36b03814b8a2b620f0e31776b8528d54c07f723f0a31fb342b33640092",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

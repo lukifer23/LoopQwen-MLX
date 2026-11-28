@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_tool_session.py::test_reject_ambiguous_actions[{\"name\":\"x\",\"name\":\"y\",\"arguments\":{}}]",
+      "status": "passed",
+      "seconds": 0.00010916596511378884,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_reject_ambiguous_actions[{\"name\":\"x\",\"arguments\":[]}]",
+      "status": "passed",
+      "seconds": 9.304203558713198e-05,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_reject_ambiguous_actions[{\"name\":\"x\",\"arguments\":{},\"other\":1}]",
+      "status": "passed",
+      "seconds": 8.587498450651765e-05,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_reject_ambiguous_actions[{\"name\":\"x\",\"arguments\":{}} trailing text]",
+      "status": "passed",
+      "seconds": 8.408399298787117e-05,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_real_world_link_and_value_require_the_observation",
+      "status": "passed",
+      "seconds": 0.0007802919717505574,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_parse_object_and_concise_answer",
+      "status": "passed",
+      "seconds": 8.845899719744921e-05,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_catalog_supports_arbitrary_json_field_names_and_values",
+      "status": "passed",
+      "seconds": 0.00031658296938985586,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_nonfinite_call_rejected",
+      "status": "passed",
+      "seconds": 0.00010358297731727362,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_external_callbacks_compute_from_arguments",
+      "status": "passed",
+      "seconds": 0.0018706670380197465,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_recovery_follows_a_real_callback_exception_and_discards_prior_cache",
+      "status": "passed",
+      "seconds": 0.0031528330291621387,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_tool_session.py::test_resume_uses_existing_qwen_observation_without_repeating_call_or_adding_user",
+      "status": "passed",
+      "seconds": 0.6184766670339741,
+      "phase": "call"
+    }
+  ],
+  "seconds": 0.7672404579934664,
+  "files": [
+    "tests/test_tool_session.py"
+  ],
+  "module_sha": "09a6b77f6a5aaa2c9bef37039fd30ec654e84363eb583d3d4b20b242bf623c11",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

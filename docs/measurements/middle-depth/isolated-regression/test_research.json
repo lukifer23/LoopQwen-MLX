@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_research.py::test_pretrained_and_schedule",
+      "status": "passed",
+      "seconds": 1.0806042089825496,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_cached_full_parity",
+      "status": "passed",
+      "seconds": 4.315157875011209,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_real_gdn",
+      "status": "passed",
+      "seconds": 0.965183666034136,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_optimizer_and_gradient",
+      "status": "passed",
+      "seconds": 0.9097779999719933,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_each_call_contributes_to_the_shared_gradient[reference-1e-05]",
+      "status": "passed",
+      "seconds": 0.9547175000188872,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_each_call_contributes_to_the_shared_gradient[native-0.025]",
+      "status": "passed",
+      "seconds": 0.740920499956701,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_labels_splits_and_normalization",
+      "status": "passed",
+      "seconds": 0.02265166601864621,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_checkpoint_resume_and_reproducibility[reference]",
+      "status": "passed",
+      "seconds": 2.200629665981978,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_checkpoint_resume_and_reproducibility[native]",
+      "status": "passed",
+      "seconds": 1.7584129170281813,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_stabilized_gate_trains",
+      "status": "passed",
+      "seconds": 0.621367542014923,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_packing_resets_state_at_boundaries[reference]",
+      "status": "passed",
+      "seconds": 1.436612540972419,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_research.py::test_packing_resets_state_at_boundaries[native]",
+      "status": "passed",
+      "seconds": 3.551635042007547,
+      "phase": "call"
+    }
+  ],
+  "seconds": 19.32989200000884,
+  "files": [
+    "tests/test_research.py"
+  ],
+  "module_sha": "2fec522fe594006f9e27a6c50d9ec2e1efeb068f925cfd88dd7f96790b3d7eb4",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

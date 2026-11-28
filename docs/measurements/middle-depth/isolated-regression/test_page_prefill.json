@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_page_prefill.py::test_page_selection_preserves_history_and_ignores_later_queries",
+      "status": "passed",
+      "seconds": 0.008972832991275936,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_page_prefill.py::test_packed_pages_restore_selected_rows_and_all_affine_factors",
+      "status": "passed",
+      "seconds": 0.0043589579872787,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_page_prefill.py::test_direct_packed_query_tiles_match_full_mask_and_preserve_reserved_history",
+      "status": "passed",
+      "seconds": 0.005325249978341162,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_page_prefill.py::test_resident_register_cache_is_local_to_the_selected_request",
+      "status": "passed",
+      "seconds": 0.011115957982838154,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_page_prefill.py::test_packed_metal_decode_matches_strided_gqa_with_and_without_reader_bias",
+      "status": "passed",
+      "seconds": 0.013995333050843328,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_page_prefill.py::test_fused_output_attention_preserves_single_token_end_of_long_prefill",
+      "status": "passed",
+      "seconds": 0.01066266599809751,
+      "phase": "call"
+    }
+  ],
+  "seconds": 0.7564287079731002,
+  "files": [
+    "tests/test_page_prefill.py"
+  ],
+  "module_sha": "6992132815b7b55e5371bd99295e9b2dc21c9e016d0bae08df3967886ec7cbd9",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

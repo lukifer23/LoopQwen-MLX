@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_keyed_csv.py::test_keyed_record",
+      "status": "passed",
+      "seconds": 0.0006974589778110385,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_keyed_csv.py::test_keys_require_unambiguous_well_formed_records[id,x\\na,\\na,2\\n-Multiple]",
+      "status": "passed",
+      "seconds": 0.0003432919620536268,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_keyed_csv.py::test_keys_require_unambiguous_well_formed_records[id,id,x\\na,a,2\\n-unambiguous]",
+      "status": "passed",
+      "seconds": 0.00033591699320822954,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_keyed_csv.py::test_keys_require_unambiguous_well_formed_records[id,x\\na,2\\nb,3,4\\n-different widths]",
+      "status": "passed",
+      "seconds": 0.0003036250127479434,
+      "phase": "call"
+    }
+  ],
+  "seconds": 0.10199250001460314,
+  "files": [
+    "tests/test_keyed_csv.py"
+  ],
+  "module_sha": "cc426452ed7483bd7947b3628e6fbe9ec6cde93ccc8cacbc61ca3b6a81a28cda",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_shared_query.py::test_shared_query_preserves_stock_at_start_and_writes_history_once",
+      "status": "passed",
+      "seconds": 0.01857395895058289,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_shared_query.py::test_trained_shared_queries_are_causal_and_read_the_actual_values_each_visit",
+      "status": "passed",
+      "seconds": 0.01953366695670411,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_shared_query.py::test_backpropagation_updates_the_tied_query_step_and_dense_control_has_equal_capacity",
+      "status": "passed",
+      "seconds": 0.009672083950135857,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_shared_query.py::test_native_and_differentiable_attention_agree_for_single_and_partial_suffix",
+      "status": "passed",
+      "seconds": 0.0039974580286070704,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_shared_query.py::test_cited_probability_uses_only_causal_keys_and_trains_the_actual_query",
+      "status": "passed",
+      "seconds": 0.050850541971158236,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_shared_query.py::test_intermediate_prefill_writes_identical_states_without_building_output_queries",
+      "status": "passed",
+      "seconds": 0.010245874989777803,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_shared_query.py::test_shared_query_resume_restores_exact_exposure_and_optimizer",
+      "status": "passed",
+      "seconds": 0.04005725000752136,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_shared_query.py::test_staged_fp16_history_reproduces_two_trained_reads_and_preserves_every_kv_row",
+      "status": "passed",
+      "seconds": 0.07208737498149276,
+      "phase": "call"
+    }
+  ],
+  "seconds": 0.9800029590260237,
+  "files": [
+    "tests/test_shared_query.py"
+  ],
+  "module_sha": "1a40adadb88e640a8cce55cfdcffb0c80924399d8a67e15831db988b9e6cf03b",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_qwen_tools.py::test_qwen_parallel_calls_rebuild_published_template",
+      "status": "passed",
+      "seconds": 0.49008529202546924,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_invalid_second_qwen_call_executes_neither[<tool_call>\\n<function=missing>\\n<parameter=k>\\nx\\n</parameter>\\n</function>\\n</tool_call>]",
+      "status": "passed",
+      "seconds": 0.43958529201336205,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_invalid_second_qwen_call_executes_neither[<tool_call>\\n<function=read>\\n<parameter=k>\\na\\n</parameter>\\n</function>\\n</tool_call>suffix]",
+      "status": "passed",
+      "seconds": 0.43000300001585856,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_invalid_second_qwen_call_executes_neither[malformed2]",
+      "status": "passed",
+      "seconds": 0.4306373330182396,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_invalid_second_qwen_call_executes_neither[<tool_call><function=read><parameter=k>x</parameter>]",
+      "status": "passed",
+      "seconds": 0.4289298750227317,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_nested_nonfinite_numeric_data",
+      "status": "passed",
+      "seconds": 0.00017754198051989079,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_qwen_tools.py::test_literal_string_selected_by_reference_enum_or_typed_union",
+      "status": "passed",
+      "seconds": 0.00042195897549390793,
+      "phase": "call"
+    }
+  ],
+  "seconds": 3.011752584017813,
+  "files": [
+    "tests/test_qwen_tools.py"
+  ],
+  "module_sha": "2197260b240c27307aff183e1f7e431fac3aa6abb56581a85dad1de5a106d112",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

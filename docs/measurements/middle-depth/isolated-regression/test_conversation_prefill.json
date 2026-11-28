@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_conversation_prefill.py::test_follows_exact_tokens_and_graph_across_user_messages",
+      "status": "passed",
+      "seconds": 0.00013000000035390258,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_conversation_prefill.py::test_retained_states_are_owned_by_one_conversation",
+      "status": "passed",
+      "seconds": 0.00014712498523294926,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_conversation_prefill.py::test_extended_prefix_advances_only_along_actual_shared_tokens",
+      "status": "passed",
+      "seconds": 0.00013812503311783075,
+      "phase": "call"
+    }
+  ],
+  "seconds": 0.1028454169863835,
+  "files": [
+    "tests/test_conversation_prefill.py"
+  ],
+  "module_sha": "68501fe0e6665f6dd6d0e138a10bf333cba7e418f200a8b8bcba26fede596d53",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}

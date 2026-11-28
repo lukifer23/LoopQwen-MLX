@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "test": "tests/test_evidence_loop.py::test_disjoint_memory_sources_and_frozen_gold",
+      "status": "passed",
+      "seconds": 0.00487750000320375,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_evidence_loop.py::test_passage_uses_only_a_finished_user_message_and_open_assistant_turn",
+      "status": "passed",
+      "seconds": 0.4869066249812022,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_evidence_loop.py::test_science_supports_and_distractors_do_not_cross_splits",
+      "status": "passed",
+      "seconds": 0.009446249983739108,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_evidence_loop.py::test_science_scorer_accepts_answer_text_without_grading_an_article_as_a_letter",
+      "status": "passed",
+      "seconds": 0.0003432919620536268,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_evidence_loop.py::test_induction_scorer_reads_a_conclusion_about_the_queried_person",
+      "status": "passed",
+      "seconds": 0.0015547499642707407,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_evidence_loop.py::test_science_reader_registers_its_key_projection_as_a_trainable_module",
+      "status": "passed",
+      "seconds": 0.024870708002708852,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_evidence_loop.py::test_family_scorer_preserves_relation_direction_and_multiword_qualifiers",
+      "status": "passed",
+      "seconds": 0.001881416013929993,
+      "phase": "call"
+    },
+    {
+      "test": "tests/test_evidence_loop.py::test_native_support_supervision_matches_the_qwen_attention_operator",
+      "status": "passed",
+      "seconds": 0.025583415990695357,
+      "phase": "call"
+    }
+  ],
+  "seconds": 1.246371667017229,
+  "files": [
+    "tests/test_evidence_loop.py"
+  ],
+  "module_sha": "278d7f5f161256f6d9951e707c94b7d7ffbc544aee6c77f3608d738e59169819",
+  "runtime": "9f2ad106f2f5bbb4004e3d21b29ab314b74c11eeae142ee4882935c20de975c3",
+  "stopped": null
+}
