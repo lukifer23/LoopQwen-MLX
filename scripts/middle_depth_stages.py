@@ -272,17 +272,101 @@ def short_parent_books():
 
 def long_fit():
     parents = selected()
+    attempts = {}
     for arm in ARMS:
-        dispatch("long_fit", "fit", "--arm", arm, "--policy", parents[arm])
+        try:
+            dispatch("long_fit", "fit", "--arm", arm, "--policy", parents[arm])
+        except NativeResourceStop as error:
+            attempts[arm] = {
+                "status": "resource_stop",
+                "charge": str(error.charge.relative_to(ROOT)),
+                "charge_sha": digest(error.charge),
+            }
+        else:
+            path = ROOT / f"long-fit-{arm}.json"
+            attempts[arm] = {
+                "status": "complete",
+                "receipt": path.name,
+                "sha": digest(path),
+            }
+        save(ROOT / "long-fit-panel.json", attempts)
+    if any(row["status"] != "complete" for row in attempts.values()):
+        raise RuntimeError(
+            "Full-document fitting stopped before both siblings finished; see long-fit-panel.json"
+        )
+
+
+def verify_long_fit(arm, parent, model):
+    from math import isfinite
+
+    import numpy as np
+    from safetensors import safe_open
+
+    from scripts.middle_depth_long_fit import SPEC
+
+    trained = read(ROOT / f"long-fit-{arm}.json")
+    spec = read(SPEC)
+    weights = "adapters.safetensors"
+    policy = read(model / "registration.json")
+    if (
+        trained["parent"] != digest(parent / weights)
+        or trained["parent"] != policy["short_parent"]
+        or trained["weights"] != digest(model / weights)
+        or trained["weights"] != policy["weights"]
+        or policy["plan"] != digest(SPEC)
+    ):
+        raise ValueError(f"Invalid full-document parent or deployed weights for {arm}")
+    log = trained["log"]
+    if [r["step"] for r in log] != list(range(1, spec["steps"] + 1)) or any(
+        not isfinite(r["gradient"])
+        or r["gradient"] <= 0
+        or len(r["loss"]) != len(spec["rows"])
+        or not all(map(isfinite, r["loss"]))
+        for r in log
+    ):
+        raise ValueError(f"Incomplete or nonfinite full-document updates for {arm}")
+    with (
+        safe_open(str(parent / weights), framework="np") as a,
+        safe_open(str(model / weights), framework="np") as b,
+    ):
+        names = a.keys()
+        if set(names) != set(b.keys()):
+            raise ValueError(f"Adapter inventory changed for {arm}")
+        changed = []
+        for name in names:
+            before, after = a.get_tensor(name), b.get_tensor(name)
+            if (
+                before.shape != after.shape
+                or before.dtype != after.dtype
+                or not np.isfinite(after).all()
+            ):
+                raise ValueError(f"Invalid full-document tensor {name}")
+            if before.tobytes() != after.tobytes():
+                changed.append(name)
+    allowed = {f"text.model.layers.23.mlp.down_proj.lora_{part}" for part in ("a", "b")}
+    if (
+        not changed
+        or set(changed) - allowed
+        or set(changed) != set(trained["changed_tensors"])
+    ):
+        raise ValueError(
+            f"Unexpected full-document parameter changes in {arm}: {changed}"
+        )
+    return {
+        "parent": trained["parent"],
+        "weights": trained["weights"],
+        "steps": len(log),
+        "changed": changed,
+    }
 
 
 def long_children():
     models = {arm: RUN / "long" / arm for arm in ARMS}
-    for arm, p in models.items():
-        assert (
-            digest(p / "adapters.safetensors")
-            == read(ROOT / f"long-fit-{arm}.json")["weights"]
-        )
+    parents = selected()
+    save(
+        ROOT / "long-fit-integrity.json",
+        {arm: verify_long_fit(arm, parents[arm], p) for arm, p in models.items()},
+    )
     generate("deployed", list(ARMS), [128, 512], models)
     documents("child", models, ["ordinary", "loop"], [128, 512])
 

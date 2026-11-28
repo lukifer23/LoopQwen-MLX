@@ -1,15 +1,15 @@
 """Fit the final MLP at exact supervised positions following complete natural documents."""
 
 import argparse
-from datetime import datetime, timedelta
-from pathlib import Path
 import os
 import tempfile
+from datetime import datetime, timedelta
+from pathlib import Path
 from time import monotonic
 
 import mlx.core as mx
-import mlx.nn as nn
 import mlx.optimizers as optim
+from mlx import nn
 from mlx.utils import tree_flatten
 from mlx_lm.models.base import create_attention_mask
 
@@ -18,9 +18,9 @@ from loopqwen.io import digest, read, save
 from loopqwen.middle_depth import MiddleAssistant
 from loopqwen.research.cross_view_study import tokenizer
 from loopqwen.research.native_function_data import token_pair
-from scripts.middle_depth_retention import saved
 from scripts.agenda_sources import events, source
 from scripts.middle_depth_budget import BASE, ROOT, worker
+from scripts.middle_depth_retention import saved
 from scripts.program_language_material import answer, user
 
 SPEC = Path("research/diagnostics/middle-depth/long-fit.json")
@@ -186,6 +186,7 @@ def extract(model, tok, arm, weights, guard):
     spec = read(SPEC)
     rows = list(examples(tok))
     result = []
+    verified = {}
     for doc in ("gables", "fosdem"):
         pair = [r for r in rows if r[0] == doc]
         a, b = (r[3] for r in pair)
@@ -197,6 +198,7 @@ def extract(model, tok, arm, weights, guard):
             assert meta == spec["rows"][name + "/" + world]
             ref = folder / (world + ".json")
             if not ref.exists():
+                started = monotonic()
                 if prefix is None:
                     import sys
 
@@ -222,6 +224,7 @@ def extract(model, tok, arm, weights, guard):
                     guard()
                     end = min(i + 128, start)
                     disk.decode_hidden(mx.array([p[i:end]]), emit=False)
+                guard(force=True)
                 z, initial_loss = adjoint_feature(
                     model, mx.array([p[start:] + y[:-1]]), mx.array(y), disk.cache
                 )
@@ -233,6 +236,9 @@ def extract(model, tok, arm, weights, guard):
                         sha=digest(f),
                         input=meta["input"],
                         initial_loss=initial_loss,
+                        extraction_seconds=monotonic() - started,
+                        prefix_cold_seconds=prefix.cold_seconds,
+                        targets=meta["targets"],
                         positions=len(y),
                         prefix=ident,
                         offsets=[
@@ -245,9 +251,48 @@ def extract(model, tok, arm, weights, guard):
                 del disk
             f = folder / (world + ".safetensors")
             info = read(ref)
-            assert digest(f) == info["sha"] and info["input"] == meta["input"]
-            assert all(v == len(p) + len(y) - 1 for v in info["offsets"])
-            result.append(mx.load(str(f)))
+            attention_sites = sum(
+                not model.text.layers[i].is_linear for i, _ in model.sites
+            )
+            if (
+                digest(f) != info["sha"]
+                or info["input"] != meta["input"]
+                or info["prefix"] != ident
+                or info["positions"] != len(y)
+                or info.get("targets", meta["targets"]) != meta["targets"]
+                or info["offsets"] != [len(p) + len(y) - 1] * attention_sites
+            ):
+                raise ValueError(
+                    f"Saved feature identity or physical history changed for {name}/{world}"
+                )
+            feature = mx.load(str(f))
+            if (
+                fingerprint(feature["labels"].tolist()) != meta["targets"]
+                or feature["residual"].shape
+                != (1, max(64, len(y)), model.args.hidden_size)
+                or not mx.all(mx.isfinite(feature["residual"])).item()
+            ):
+                raise ValueError(
+                    f"Invalid native target residual or labels for {name}/{world}"
+                )
+            result.append(feature)
+            verified[f"{name}/{world}"] = {
+                "metadata": info,
+                "source_sha": meta["source_sha"],
+                "input_positions": len(p),
+                "supervised_positions": len(y),
+                "final_chunk_positions": feature["residual"].shape[1],
+                "bytes": f.stat().st_size,
+                "file": str(f),
+            }
+            save(
+                ROOT / f"long-features-{arm}.json",
+                {
+                    "parent": weights,
+                    "plan": digest(SPEC),
+                    "rows": verified,
+                },
+            )
         del prefix
     return result
 
