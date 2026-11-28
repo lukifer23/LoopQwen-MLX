@@ -3,6 +3,7 @@
 import argparse
 import shutil
 import subprocess
+import zipfile
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
@@ -14,6 +15,58 @@ from scripts.verify_runtime_wheel import build
 REVISION = "840e8ad305d5e4faf2ac6296e4f84b90d1de7d70"
 DEST = MODELS.parent / "standalone-middle-read-0084"
 ARCHIVE = Path("research/results/middle-read-0084")
+
+
+def copy_prepared(source, target, parent_sha):
+    descriptor = read(source / "update.json")
+    if descriptor["parent"] != parent_sha or descriptor["weights"] != digest(
+        source / "gradient.safetensors"
+    ):
+        raise ValueError("Invalid prepared gradient")
+    if not target.exists():
+        with TemporaryDirectory(dir=target.parent) as tmp:
+            copy = Path(tmp) / "prepared"
+            shutil.copytree(source, copy)
+            copy.rename(target)
+    if any(
+        digest(source / name) != digest(target / name)
+        for name in ("update.json", "gradient.safetensors")
+    ):
+        raise ValueError("Restored derivative differs")
+
+
+def retain_restart_proof():
+    names = (
+        "recomputed-attempt/step-0001",
+        "recomputed-attempt/step-0002",
+        "fit/step-0001",
+        "fit/step-0002",
+        "fit/prepared-0002",
+        "fit/prepared-0003",
+    )
+    files = sorted(p for name in names for p in (RUN / name).iterdir() if p.is_file())
+    dest = ARCHIVE / "restart-proof.zip"
+    with TemporaryDirectory(dir=ARCHIVE) as tmp:
+        output = Path(tmp) / dest.name
+        with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as z:
+            for p in files:
+                info = zipfile.ZipInfo(str(p.relative_to(RUN)))
+                z.writestr(info, p.read_bytes(), compress_type=zipfile.ZIP_DEFLATED)
+        with zipfile.ZipFile(output) as z:
+            if any(z.read(str(p.relative_to(RUN))) != p.read_bytes() for p in files):
+                raise ValueError("Restart proof differs from the original updates")
+        if dest.exists() and digest(output) != digest(dest):
+            raise ValueError("Existing restart proof differs")
+        if not dest.exists():
+            output.rename(dest)
+    save(
+        REPORT / "restart-proof.json",
+        {
+            "archive": digest(dest),
+            "bytes": dest.stat().st_size,
+            "files": {str(p.relative_to(RUN)): digest(p) for p in files},
+        },
+    )
 
 
 def retain():
@@ -36,6 +89,12 @@ def retain():
         validate(target, fit["identity"])
     if digest(ARCHIVE / "step-0084/state.json") != fit["state"]:
         raise ValueError("Terminal generation differs")
+    copy_prepared(
+        RUN / "fit/prepared-0073",
+        ARCHIVE / "prepared-0073",
+        digest(ARCHIVE / "step-0072/state.json"),
+    )
+    retain_restart_proof()
 
 
 def restore_training(destination):
@@ -50,6 +109,11 @@ def restore_training(destination):
             validate(origin, fit["identity"])
             shutil.copytree(origin, root / name)
             validate(root / name, fit["identity"])
+        copy_prepared(
+            ARCHIVE / "prepared-0073",
+            root / "prepared-0073",
+            digest(root / "step-0072/state.json"),
+        )
         if digest(root / "step-0084/state.json") != fit["state"]:
             raise ValueError("Unregistered terminal generation")
         save(
