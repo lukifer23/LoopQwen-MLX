@@ -796,8 +796,8 @@
     }
   ],
   "complete": true,
-  "evicted": true,
-  "last_use": 1795826630.706445,
+  "evicted": false,
+  "last_use": 1795832206.03393,
   "command": [
     ".venv/bin/python",
     "-m",
@@ -806,20 +806,19 @@
     "--book",
     "anne",
     "--world",
-    "edited",
+    "original",
     "--arm",
     "loop",
     "--stage",
     "parent",
     "--tokens",
-    "512",
+    "128",
     "--cache-mode",
     "resident",
     "--policy",
-    "checkpoints/middle-depth/matched-4619/loop/step-0576"
+    "checkpoints/middle-depth/matched-4619/loop/step-0576",
+    "--followups"
   ],
-  "seconds": 272.3761989999912,
-  "avoided_duplicate_bytes": 868067701,
-  "evicted_at": 1795830282.4414022,
-  "former_bytes": 2022979188
+  "seconds": 275.02126553998096,
+  "avoided_duplicate_bytes": 2891025876
 }
