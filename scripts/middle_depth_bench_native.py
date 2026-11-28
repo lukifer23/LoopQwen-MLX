@@ -1,6 +1,7 @@
 """Score frozen, label-free standard task requests with one installed MLX model."""
 
 import argparse
+from dataclasses import replace
 from math import isfinite
 import os
 from pathlib import Path
@@ -20,6 +21,17 @@ def measure(args):
         argparse.Namespace(checkpoint=args.checkpoint, tool_format="qwen")
     )
     model, tokenizer = assistant._tool_model, assistant.tokenizer
+    if args.one_pass:
+        if (
+            read(args.checkpoint / "standalone-middle.json")["arm"] != "loop"
+            or model.span.passes != 2
+        ):
+            raise ValueError(
+                "The intervention requires the unchanged deployed two-pass loop"
+            )
+        model.span = replace(model.span, passes=1)
+        if len(model.sites) != 24:
+            raise ValueError("Physical one-pass layer count differs")
     mx.eval(model.parameters())
     loaded = monotonic() - tick
     policy = args.checkpoint / "registration.json"
@@ -38,6 +50,8 @@ def measure(args):
         prior = read(path) if path.exists() else {}
         if idx in prior:
             saved = prior[idx]
+            if saved["sites"] != len(model.sites):
+                raise ValueError("Cannot resume a different pass count")
             if (saved["weights"], saved["request_sha"], saved["token_sha"]) != (
                 weights,
                 item["sha"],
@@ -139,4 +153,5 @@ if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
     for flag in ("checkpoint", "requests", "tokens", "output"):
         p.add_argument("--" + flag, required=True, type=Path)
+    p.add_argument("--one-pass", action="store_true")
     measure(p.parse_args())

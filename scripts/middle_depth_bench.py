@@ -57,15 +57,21 @@ def verify(arm):
 
 
 def run_arm(arm):
+    one_pass = arm == "loop-k1"
+    deployed = "loop" if one_pass else arm
+    if one_pass:
+        product = read(OUT / "loop-process.json")
+        if product["exit"] or product["grades"] != digest(OUT / "loop-grades.json"):
+            raise ValueError("The complete two-pass product pair is required")
     if arm != "base":
         base = read(OUT / "base-process.json")
         if base["exit"] != 0 or digest(OUT / "base-grades.json") != base["grades"]:
             raise ValueError("Base verification must finish first")
-    manifest = check(MODELS / arm, arm)
+    manifest = check(MODELS / deployed, deployed)
     with worker("short", "standard-five/" + arm) as guard, TemporaryDirectory() as tmp:
         temp = Path(tmp)
         site = temp / "site"
-        (wheel,) = (MODELS / arm).glob("*.whl")
+        (wheel,) = (MODELS / deployed).glob("*.whl")
         subprocess.run(
             ["uv", "pip", "install", "--offline", "--no-deps", "--target", site, wheel],
             check=True,
@@ -90,7 +96,7 @@ def run_arm(arm):
             str(site),
             str(script),
             "--checkpoint",
-            (MODELS / arm).resolve(),
+            (MODELS / deployed).resolve(),
             "--requests",
             REQUESTS.resolve(),
             "--tokens",
@@ -98,6 +104,8 @@ def run_arm(arm):
             "--output",
             (OUT / arm).resolve(),
         ]
+        if one_pass:
+            cmd.append("--one-pass")
         start = time()
         with subprocess.Popen(cmd, cwd=temp, **env) as p:
             try:
@@ -122,6 +130,8 @@ def run_arm(arm):
             "runner": digest(script),
             "peak": read(temp / "metrics.json")["peak_bytes"],
         }
+        if one_pass:
+            receipt["intervention"] = digest(PLAN.with_name("standard-depth.md"))
         save(OUT / (arm + "-process.json"), receipt)
         if p.returncode:
             raise RuntimeError(f"Installed benchmark worker exited {p.returncode}")
@@ -243,7 +253,9 @@ def summarize():
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("stage", choices=("tokens", "base", "loop", "pair", "report"))
+    p.add_argument(
+        "stage", choices=("tokens", "base", "loop", "loop-k1", "pair", "report")
+    )
     stage = p.parse_args().stage
     if stage == "tokens":
         freeze_tokens()

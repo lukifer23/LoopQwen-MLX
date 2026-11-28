@@ -214,6 +214,8 @@ def run(arm=None):
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("action", choices=("freeze", "base", "loop", "selected-loop"))
+    p.add_argument(
+        "action", choices=("freeze", "base", "loop", "selected-loop", "loop-k1")
+    )
     a = p.parse_args()
     run(None if a.action == "freeze" else a.action)

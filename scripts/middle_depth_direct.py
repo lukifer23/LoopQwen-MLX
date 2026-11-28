@@ -128,6 +128,7 @@ if __name__ == "__main__":
             CHOSEN.name,
             "direct-complete-books.json",
             primary_only=stage == "primary-books",
+            standalone=True,
         )
     else:
         decisions(stage == "parent-scores")

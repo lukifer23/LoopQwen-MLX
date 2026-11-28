@@ -207,8 +207,11 @@ def measure(args, *, manual=False):
     with worker(
         "long", f"{args.book}/{label}/{args.world}/{args.tokens}/{args.stage}"
     ) as guard:
+        bundle = args.policy / "standalone-middle.json" if args.policy else None
         if args.policy:
-            if (args.policy / "standalone-middle.json").is_file():
+            if bundle and bundle.is_file():
+                if read(bundle)["arm"] != args.arm:
+                    raise ValueError("Standalone checkpoint and requested arm differ")
                 from loopqwen.tool_cli import open_assistant
 
                 assist = open_assistant(
@@ -219,7 +222,7 @@ def measure(args, *, manual=False):
             model, tok = assist._tool_model, assist.tokenizer
             weights = (
                 "base-dc7cdfe"
-                if getattr(assist, "native_plain", False) and args.arm == "base"
+                if bundle.is_file() and args.arm == "base"
                 else read(args.policy / "registration.json")["weights"]
             )
         else:
@@ -398,6 +401,9 @@ def measure(args, *, manual=False):
                     if operating_point != args.cache_mode
                     else None,
                     "identity": ident,
+                    "standalone_manifest": digest(bundle)
+                    if bundle and bundle.is_file()
+                    else None,
                     "weights": weights,
                     "frozen": digest(enrollment),
                     "timing": times,

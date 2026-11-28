@@ -127,6 +127,10 @@ def worker(stage, job):
     if job.startswith("standard-five/"):
         used = sum(r["seconds"] for r in past if r["job"].startswith("standard-five/"))
         credit = min(credit, 900 - used)
+        if job == "standard-five/loop-k1":
+            credit = min(
+                credit, 120 - sum(r["seconds"] for r in past if r["job"] == job)
+            )
     if job.startswith("installed-benchmark/"):
         used = sum(
             r["seconds"] for r in past if r["job"].startswith("installed-benchmark/")

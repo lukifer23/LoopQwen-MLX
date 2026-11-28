@@ -145,7 +145,7 @@ def document_request(stage, policies, arm, cap, book, world, followups=False):
         spec = read(FROZEN)[book]
         weights = (
             read(policies[arm] / "registration.json")["weights"]
-            if arm in policies
+            if arm in policies and arm != "base"
             else "base-dc7cdfe"
         )
         first_history = None
@@ -209,6 +209,7 @@ def final_books(
     decision_file="long-decision.json",
     enrollment_file="complete-books.json",
     primary_only=False,
+    standalone=False,
 ):
     decision = read(ROOT / decision_file)
     models = {k: Path(v["path"]) for k, v in decision["models"].items()}
@@ -216,6 +217,13 @@ def final_books(
         if digest(path / "adapters.safetensors") != decision["models"][arm]["weights"]:
             raise ValueError("A selected document checkpoint has changed")
     stages = {a: decision["document_stage"] for a in models} | {"base": "parent"}
+    if standalone:
+        from scripts.middle_depth_standalone import benchmark_model, check
+
+        for arm in arms:
+            path, inventory = benchmark_model(arm)
+            check(path, arm, inventory)
+            models[arm] = path
     # Finish primary matched turns and stability checks before extra headroom.
     for i, book in enumerate(("anne", "book")):
         for cap in (128, 512):
