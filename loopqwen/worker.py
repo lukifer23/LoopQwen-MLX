@@ -6,6 +6,7 @@ import sys
 from pathlib import Path
 
 _lease = None
+_stable_lease = None
 CACHE_BYTES = 256 * 1024**2
 
 
@@ -13,10 +14,23 @@ def lease_path():
     return Path.home() / "Library" / "Caches" / "LoopQwen" / "gpu-worker.lock"
 
 
+def stable_lease_path():
+    return (
+        Path.home() / "Library" / "Application Support" / "LoopQwen" / "gpu-worker.lock"
+    )
+
+
 def child_lease():
     acquire()
-    fd = _lease.fileno()
-    return dict(pass_fds=(fd,), env={**os.environ, "LOOPQWEN_LEASE_FD": str(fd)})
+    legacy, stable = _lease.fileno(), _stable_lease.fileno()
+    return dict(
+        pass_fds=(legacy, stable),
+        env={
+            **os.environ,
+            "LOOPQWEN_LEASE_FD": str(legacy),
+            "LOOPQWEN_STABLE_LEASE_FD": str(stable),
+        },
+    )
 
 
 def check_study(root):
@@ -36,14 +50,8 @@ def check_study(root):
                     raise RuntimeError(f"{phase} conductor {owner} owns this checkout")
 
 
-def acquire():
-    global _lease
-    if _lease is not None:
-        return
-    check_study(Path(__file__).resolve().parents[1])
-    path = lease_path()
+def _lock(path, inherited):
     path.parent.mkdir(mode=0o700, exist_ok=True, parents=True)
-    inherited = os.environ.pop("LOOPQWEN_LEASE_FD", None)
     if inherited is not None:
         fd = int(inherited)
         if not os.path.samestat(os.fstat(fd), path.stat()):
@@ -67,7 +75,25 @@ def acquire():
             f"pid={os.getpid()} checkout={Path.cwd()} command={Path(sys.argv[0]).name}"
         )
         file.flush()
-    _lease = file
+    return file
+
+
+def acquire():
+    global _lease, _stable_lease
+    if _lease is not None:
+        return
+    check_study(Path(__file__).resolve().parents[1])
+    # Cache cleaners can unlink a locked inode. The persistent lock keeps new
+    # workers exclusive. Also take the historical lock for installed releases.
+    stable = _lock(
+        stable_lease_path(), os.environ.pop("LOOPQWEN_STABLE_LEASE_FD", None)
+    )
+    try:
+        _lease = _lock(lease_path(), os.environ.pop("LOOPQWEN_LEASE_FD", None))
+    except BaseException:
+        stable.close()
+        raise
+    _stable_lease = stable
     import mlx.core as mx
 
     mx.set_cache_limit(CACHE_BYTES)
@@ -81,14 +107,18 @@ def resources():
     from .hardware import gpu_utilization
 
     root = Path(__file__).resolve().parent.parent
-    path = lease_path()
     owner = None
-    if path.is_file():
-        with path.open() as f:
+    for path in (stable_lease_path(), lease_path()):
+        try:
+            file = path.open()
+        except FileNotFoundError:
+            continue
+        with file as f:
             try:
                 fcntl.flock(f, fcntl.LOCK_SH | fcntl.LOCK_NB)
             except BlockingIOError:
                 owner = f.read().strip()
+                break
     workers = []
     for proc in psutil.process_iter(["pid", "ppid", "name", "status"]):
         try:
@@ -101,6 +131,8 @@ def resources():
                 arg.startswith(
                     (
                         "loopqwen",
+                        "scripts.middle_depth_",
+                        "scripts/middle_depth_",
                         "scripts/run_phase3",
                         "scripts/phase3_",
                         "scripts/phase4",

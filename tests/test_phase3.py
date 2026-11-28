@@ -115,3 +115,23 @@ def test_dag_certificate_accepts_independent_order_and_omitted_irrelevant_sink()
     text = "\n".join(list(reversed(claims)) + ["Final answer: " + row["answer"]])
     assert verify(row, text)["verified"]
     assert not verify(row, "\n".join(text.splitlines()[1:]))["verified"]
+
+
+def test_active_lease_survives_cache_eviction(tmp_path):
+    import fcntl
+    from loopqwen.worker import _lock
+
+    stable = tmp_path / "application-support" / "gpu.lock"
+    cache = tmp_path / "caches" / "gpu.lock"
+    with _lock(stable, None), _lock(cache, None):
+        cache.unlink()
+        # A different process can open a new cache inode after a cleaner ran.
+        # The persistent lease must prevent it from starting a second model.
+        result = subprocess.run(
+            [sys.executable, "-c", "import fcntl,sys; f=open(sys.argv[1]); "
+             "fcntl.flock(f,fcntl.LOCK_EX|fcntl.LOCK_NB)", str(stable)],
+            capture_output=True, text=True, check=False,
+        )
+        assert result.returncode and "BlockingIOError" in result.stderr
+    with stable.open() as file:
+        fcntl.flock(file, fcntl.LOCK_EX | fcntl.LOCK_NB)
