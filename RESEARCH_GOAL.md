@@ -12,7 +12,7 @@
 
 ## Current execution point
 
-The short-fit and history-correction decisions are closed. Run `.venv/bin/python -m scripts.middle_depth_stages parent-books` on the idle native worker to resume the full-document comparison. Saved requests are verified before reuse. The training guide gives the resource and budget checks. [Current training commands](docs/TRAINING.md) · [Selected parent identities](docs/measurements/middle-depth/history-decision.json)
+The short-fit and history-correction decisions are closed. Run `.venv/bin/python -m scripts.middle_depth_stages parent-books` on the idle native worker to resume the full-document comparison. The terminal loop finished the 145,891-token published Anne opening with 28 independently tracked layer histories. Both full-vocabulary cache probes matched staged execution exactly. The loop used 273.9 seconds to construct the reusable prefix and 27.1 seconds for the warm request. Scoring covers the original and edited editions together. Saved requests are verified before reuse. The training guide gives the resource and budget checks. [Current training commands](docs/TRAINING.md) · [Selected parent identities](docs/measurements/middle-depth/history-decision.json)
 
 ## Study record
 

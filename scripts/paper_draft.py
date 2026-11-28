@@ -13,6 +13,7 @@ from pypdf import PdfReader
 import typst
 
 from loopqwen.evaluation.mechanism import unpack
+from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from scripts.middle_depth_budget import ROOT
 
@@ -206,8 +207,40 @@ def snapshot():
         assert replay["passed"] and replay["pid_absent"]
         assert inputs[str(path)] == standalone["arms"][arm]["trace"]
 
+    opening = use("research/diagnostics/middle-depth/document-openings.json")["anne"][
+        "worlds"
+    ]["original"]
+    anne_pair = []
+    for arm, name in (("base", "Untouched Base"), ("loop", "Trained loop")):
+        raw = use(ROOT / f"documents/parent/anne/{arm}/128/original-first.json.gz")
+        tr = raw["trace"]
+        first = tr["turns"][0]
+        assert len(first["prompt_ids"]) == opening["length"]
+        assert fingerprint(first["prompt_ids"]) == opening["input"]
+        check = use(ROOT / "resident-checks" / (raw["identity"] + ".json"))
+        assert check["passed"] and check["maximum_logit_error"] == [0.0, 0.0]
+        assert raw["cache_mode"] == "resident" and raw["sites"] == check["sites"]
+        assert all(
+            site["offset"] == site["retained"]
+            for t in tr["turns"]
+            for site in t["kv_history"]
+        )
+        anne_pair.append(
+            dict(
+                model=name,
+                length=opening["length"],
+                status=tr["status"],
+                generated=sum(len(t["token_ids"]) for t in tr["turns"]),
+                build=round(raw["cold_build_seconds"], 1),
+                warm=round(tr["seconds"], 1),
+                seconds=round(raw["cold_build_seconds"] + tr["seconds"], 1),
+                peak=round(max(t["peak_bytes"] for t in tr["turns"]) / 2**30, 2),
+                sites=len(raw["sites"]),
+                scratch=round(raw["scratch_bytes"] / 2**30, 2),
+            )
+        )
     charges = sorted((f, read(f)) for f in (ROOT / "charges").glob("*.json"))
-    cutoff = use(ROOT / "charges/ca140fe9220d4f1cabf798cfd67e6d6a.json")["dispatch"]
+    cutoff = use(ROOT / "charges/ba0277ed347b4c3faa1ae5f9d57bdc4a.json")["dispatch"]
     costs = {}
     for f, r in charges:
         if r["status"] == "running" or r["dispatch"] > cutoff:
@@ -257,6 +290,7 @@ def snapshot():
             early=early,
             costs=costs,
             books=books,
+            anne_pair=anne_pair,
             resident=resident["rows"],
             profile=profile["rows"],
             params=profile["trainable"],
