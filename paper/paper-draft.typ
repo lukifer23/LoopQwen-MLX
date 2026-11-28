@@ -206,7 +206,7 @@ We evaluated the same BF16 weights on two jobs that arise when operating this pr
 [Mean time to correct, charging failures 30 s],[#w.base.local_mean_capped_time_to_correct s],[#w.loop.local_mean_capped_time_to_correct s])
 #cap([Table.],[Four fresh sequential processes alternated the starting model across two blocks. The two standalone models received identical opening token IDs, tools and output allowances. A complete job requires both answers and the requested execution.])
 
-Base never queried a provider. The loop searched for the restart information, received empty passages and asserted that the files lacked it. A query using a word present in both files retrieved both pointers. On four unmodified questions from the public GSM8K test split, the loop answered #str(w.loop.gsm8k_correct)/4 and Base #str(w.base.gsm8k_correct)/4. These four items permit individual answer checks, with little precision for a benchmark-wide comparison. #link("https://github.com/openai/grade-school-math")[GSM8K source.]
+Base never queried a provider. The loop obtained the inventory schema once. Six searches or queries returned no records, and one calculator call returned an error. It interpreted empty search results as evidence that the restart pointers were absent. A query using a word present in both files retrieved both pointers. On four unmodified questions from the public GSM8K test split, the loop answered #str(w.loop.gsm8k_correct)/4 and Base #str(w.base.gsm8k_correct)/4. These four items permit individual answer checks, with little precision for a benchmark-wide comparison. #link("https://github.com/openai/grade-school-math")[GSM8K source.]
 
 == Four equally weighted families
 #let pc=d.parent_comparisons

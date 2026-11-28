@@ -1,6 +1,8 @@
 """Review local responses without model labels and publish only workload-level aggregates."""
 
 import argparse
+import json
+from collections import Counter
 from contextlib import ExitStack
 from statistics import fmean
 
@@ -86,10 +88,63 @@ def blind():
     save(LOCAL / "review" / "blinded.json", {k: deck[k] for k in sorted(deck)})
 
 
+def verify_provider_access():
+    """Check that the available interfaces expose the real source values."""
+    with ExitStack() as stack:
+        search, _ = providers("resume", LOCAL, stack)
+        passages = search.callback(query="step")["passages"]
+        returned = {r["document"]: json.loads(r["text"]) for r in passages}
+        pointers = {n: read(LOCAL / n) for n in ("archived.json", "matched.json")}
+        if returned != pointers:
+            raise ValueError("The search provider did not expose both actual pointers")
+        schema, query, _ = providers("transfer", LOCAL, stack)
+        db = "inventory.db"
+        if "files" not in schema.callback(database_name=db)["tables"]:
+            raise ValueError("The inventory table is inaccessible")
+        files = query.callback(
+            database_name=db,
+            statement="SELECT model,filename,bytes,sha256 FROM files ORDER BY model,filename",
+        )
+        if files["truncated"]:
+            raise ValueError("Incomplete inventory verification")
+        from scripts.middle_depth_standalone import MODELS
+
+        actual = [
+            [arm, str(f.relative_to(MODELS / arm)), f.stat().st_size, digest(f)]
+            for arm in ("base", "loop")
+            for f in (MODELS / arm).rglob("*")
+            if f.is_file()
+        ]
+        if files["rows"] != sorted(actual):
+            raise ValueError("Read-only queries and standalone file bytes differ")
+        save(
+            LOCAL / "review" / "provider-witness.json",
+            {"search": passages, "inventory": files},
+        )
+
+
+def callback_result(call):
+    obs = call["observation"]
+    if "error" in obs:
+        return "error"
+    if call["name"] == "database_schema":
+        return "schema"
+    for field in ("rows", "passages"):
+        if field in obs:
+            return "nonempty_source" if obs[field] else "empty_source"
+    return "other_result"
+
+
 def report():
     folder = LOCAL / "review"
+    verify_provider_access()
     deck = read(folder / "blinded.json")
     grades = read(folder / "grades.json")
+    lock = read(ROOT / "local-workflow-review-lock.json")
+    if lock["blinded_sha256"] != digest(folder / "blinded.json") or lock[
+        "grades_sha256"
+    ] != digest(folder / "grades.json"):
+        raise ValueError("Local review differs from the pre-comparison lock")
     if set(deck) != set(grades) or any(fingerprint(v) != k for k, v in deck.items()):
         raise ValueError("Complete the masked local review before comparison")
     rows = []
@@ -125,6 +180,7 @@ def report():
                 "pid": raw["pid"],
                 "block": case["block"],
                 "calls": len(item["calls"]),
+                "callback_results": [callback_result(c) for c in item["calls"]],
             }
         )
     save(folder / "scored.json", rows)
@@ -164,6 +220,9 @@ def report():
             "local_visible_requests": len(visible),
             "local_peak_bytes": max(r["peak"] for r in local),
             "replayed_callback_results": sum(r["calls"] for r in local),
+            "callback_outcomes": dict(
+                Counter(v for r in local for v in r["callback_results"])
+            ),
             "gsm8k_correct": sum(r["correct"] for r in public),
             "gsm8k_questions": len(public),
             "gsm8k_elapsed": sum(r["seconds"] for r in public),
