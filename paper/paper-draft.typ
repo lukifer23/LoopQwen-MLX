@@ -26,7 +26,7 @@
 #let name(a)=if a=="loop" {"LoopQwen"} else {"Untouched Base"}
 #let families=("reasoning","tools","chat","documents")
 #let pretty(f)=(reasoning:"Grounded reasoning",tools:"Executed tools",chat:"Chat and instructions",documents:"Complete documents").at(f)
-#label[RESEARCH ARTICLE · WORKING DRAFT 9]
+#label[RESEARCH ARTICLE · WORKING DRAFT 10]
 #v(6pt)
 #block[#set par(justify:false)
 #text(font:"Helvetica Neue",size:32pt,weight:"bold",tracking:-0.45pt)[LoopQwen versus Qwen Base]]
@@ -38,7 +38,7 @@
 #v(9pt)
 #label[Abstract]
 
-We ask whether a small looped language model can retain the overall quality of untouched Qwen3.5-0.8B-Base and improve the work a local user can finish. LoopQwen repeats four pretrained layers and learns from complete answers, changed evidence and tool histories. At a 512-token output allowance it delivered 5 correct supported answers on 27 short requests, compared with 2 for Base. On four complete-book questions spanning 145,891 to 167,017 input tokens, LoopQwen delivered zero supported answers and Base delivered one. With four equally weighted task families the difference was +2.08 percentage points (paired 95% interval −9.72 to +15.97). The interval includes losses larger than the two-point deployment margin adopted after these parent results. The loop reproduced both requested ages in two versions of one novel, including an edited fraction, but omitted the requested subtraction. It made eight callbacks in two project-local jobs and finished neither. With weights fixed, one, two and three passes solved 10, 5 and 3 of the same 27 short requests. Additional visits corrected no answers and lost seven. A separate full-document training update also failed its selection rule. Recall on one novel and shorter replies therefore coexist with a measured cost to repeating the block on these short tasks.
+We ask whether a small looped language model can retain the overall quality of untouched Qwen3.5-0.8B-Base and improve the work a local user can finish. LoopQwen repeats four pretrained layers and learns from complete answers, changed evidence and tool histories. At a 512-token output allowance it delivered 5 correct supported answers on 27 short requests, compared with 2 for Base. On four complete-book questions spanning 145,891 to 167,017 input tokens, LoopQwen delivered zero supported answers and Base delivered one. With four equally weighted task families the difference was +2.08 percentage points (paired 95% interval −9.72 to +15.97). The interval includes losses larger than the two-point deployment margin adopted after these parent results. The loop reproduced both requested ages in two versions of one novel, including an edited fraction, but omitted the requested subtraction. It made eight callbacks in two project-local jobs and finished neither. With weights fixed, one, two and three passes solved 10, 5 and 3 of the same 27 short requests. Additional visits corrected no short answers and lost seven. On the edited novel, the second pass recovered the correct present age where one pass introduced a contradiction. Both missed the difference. A separate full-document training update failed its selection rule. Recall on one novel and shorter replies therefore coexist with a measured cost to repeating the block on these short tasks.
 
 = Introduction
 On a personal computer the relevant question is how often an assistant delivers the correct result before its user gives up. We compare one complete trained LoopQwen checkpoint with the pinned, untouched Base checkpoint. A difference can arise from training, repeated computation or their interaction. This design estimates the result of choosing the deployed loop over Base. We keep the requested action, supporting evidence and final answer in the score, including when an incorrect response arrives quickly.
@@ -107,6 +107,9 @@ In _McTeague_, the published and edited requests contain 167,014 and 167,017 tok
 
 LoopQwen supplied both ages in both Anne editions and never gave the difference. Base supplied the correct original answer in 285.6 seconds cold, then answered two years on the edit. On McTeague the loop said “No” in both editions. It omitted the requested evidence on the original and missed the reversal in the edit. Cold time for the upper-band originals was about 399 seconds for LoopQwen and 358 seconds for Base. Exact full attention and separate hybrid state at every physical visit establish that the model processed those tokens. The zero supported answers from the loop in both bands establish the present limit on useful context.
 
+#if d.at("book_depth",default:none) != none [
+#strong[Does the second pass supply the recall?] We repeated the two Anne readings at one pass with identical weights and opening tokens. On the original, one pass supplied both ages. On the edit, it called Anne thirteen and three quarters and described sixteen and three quarters as a future age. The source gives sixteen and three quarters as her present age. Two passes preserved that distinction and both ages. Cold time for the edited answer rose from #sec(d.book_depth.rows.K1.edited.cold_seconds) to #sec(d.book_depth.rows.K2.edited.cold_seconds) seconds. Each depth missed both differences. This intervention locates a benefit in reporting a changed fact on one novel. It adds zero supported final answers.
+]
 #pagebreak()
 = Time to a correct response and executable tools
 #image("deadline.svg",width:100%)
@@ -178,7 +181,7 @@ The second visit lost the original archive decision, the original and irrelevant
 ]
 #pagebreak()
 = Reproducibility and costs
-All qualifying runs use the 18 GiB M3 Pro with #str(d.hardware.gpu_cores) GPU cores and macOS #d.hardware.macos. One process owns the GPU lease. The packaged models each contain the tokenizer, runtime wheel and weights and can be moved independently. In an offline replay outside the checkout, all 20 token and tool trajectories matched the prior records. Each model missed all ten supported answers on that replay subset. The Base process exited before LoopQwen loaded. Cold process time was #sec(d.replay.arms.base.process_seconds) and #sec(d.replay.arms.loop.process_seconds) seconds, respectively.
+All qualifying runs use the 18 GiB M3 Pro with #str(d.hardware.gpu_cores) GPU cores and macOS #d.hardware.macos. One process owns the GPU lease. The packaged models each contain the tokenizer, runtime wheel and weights and can be moved independently. In the initial 20-request offline replay both models missed all ten supported answers. The expanded installed benchmark reproduced every prompt, output, callback, status and attention-history length across 116 requests. Four separate processes loaded the complete models outside the checkout with network access blocked. At 512 generated tokens, the installed loop solved 5/27 openings in 32.4 seconds of generation and Base solved 2/27 in 179.6 seconds. Both missed both own-history follow-ups. Mean deadline-capped time was 6.64 versus 7.58 seconds. The 56 observed callbacks across both caps are execution events, including provider errors.
 
 #tab((2.2fr,1.1fr),([Development worker charges at this evidence cut],[Seconds]),
 [Profiling and verification],[#sec(d.charges.profile)],

@@ -63,7 +63,7 @@ def results():
     ):
         source = ROOT / "document-review" / folder
         grades = read(source / "scored.json")
-        facts = component if depth == 1 and label == "K1" else historical
+        facts = component if label == "K1" else historical
         pair = {}
         for r in grades:
             if (r["arm"], r["source"], r["cap"], r["kind"]) != (
@@ -96,6 +96,36 @@ def results():
             ][world]:
                 raise ValueError("Opening differs from the enrolled full edition")
             histories = [(i, k) for i, k in sites if i % 4 == 3]
+            identity = fingerprint(
+                [weights, sites, study["common_sha"], "saved-prefix-v1"]
+            )
+            if raw["identity"] != identity:
+                raise ValueError("Wrong native prefix identity")
+            retention = read(ROOT / "prefix-retention" / f"documents-{identity}.json")
+            states = retention["physical_sites"]
+            if [tuple(s["site"]) for s in states] != sites or len(
+                retention["states"]
+            ) != len(sites):
+                raise ValueError("Missing physical hybrid state")
+            for state in states:
+                kv = tuple(state["site"]) in histories
+                expected = {"k", "v"} if kv else {"convolution", "delta"}
+                if (
+                    state["consumed"] != study["common"]
+                    or set(state["tensors"]) != expected
+                    or (
+                        kv
+                        and any(
+                            t["shape"][2] != study["common"]
+                            for t in state["tensors"].values()
+                        )
+                    )
+                ):
+                    raise ValueError("Unexpected retained temporal state")
+            if raw["cache_mode"] == "resident":
+                parity = read(ROOT / "resident-checks" / (identity + ".json"))
+                if not parity["passed"] or any(parity["maximum_logit_error"]):
+                    raise ValueError("Resident and staged logits differ")
             for turn in raw["trace"]["turns"]:
                 last = len(turn["prompt_ids"]) + len(turn["token_ids"]) - 1
                 kv = turn["kv_history"]
@@ -123,6 +153,8 @@ def results():
                 "peak_bytes": r["peak"],
                 "scratch_bytes": r["scratch_bytes"],
                 "physical_visits": len(sites),
+                "prefix": identity,
+                "certified_state_hashes": fingerprint(retention["states"]),
             }
         if set(pair) != {"original", "edited"}:
             raise ValueError("Missing edition")

@@ -3158,11 +3158,235 @@
       }
     }
   },
+  "installed_selected": {
+    "result": "43e619f5f565fa34e497ac4e4c406b098f8645644269cfb0c7725404386d92c6",
+    "requests": 116,
+    "runs": {
+      "128/loop": {
+        "requests": 29,
+        "actual_callbacks": 18,
+        "pid": 21016,
+        "trace_sha256": "fb76ddb2928e5bf0a432c1a8fb2844ffe739b6f49570dc6ab0b45dbcf5d39a71",
+        "launched": 1795831283.90491,
+        "exited": 1795831320.733577,
+        "opening": {
+          "n": 27,
+          "correct": 5,
+          "elapsed": 30.58614570600912,
+          "mean_capped_time_to_correct": 6.635913016996778
+        },
+        "own_history": {
+          "n": 2,
+          "correct": 0,
+          "elapsed": 4.220480915973894,
+          "mean_capped_time_to_correct": 8.0
+        },
+        "peak_bytes": 1780417330
+      },
+      "128/base": {
+        "requests": 29,
+        "actual_callbacks": 0,
+        "pid": 21317,
+        "trace_sha256": "144923b4a51d5e64f344705320245a4f2efd4a2c1f4f023fe7e866a836e7cd55",
+        "launched": 1795831322.9447622,
+        "exited": 1795831383.27211,
+        "opening": {
+          "n": 27,
+          "correct": 0,
+          "elapsed": 54.049394039902836,
+          "mean_capped_time_to_correct": 8.0
+        },
+        "own_history": {
+          "n": 2,
+          "correct": 0,
+          "elapsed": 4.23179158300627,
+          "mean_capped_time_to_correct": 8.0
+        },
+        "peak_bytes": 1763748754
+      },
+      "512/base": {
+        "requests": 29,
+        "actual_callbacks": 20,
+        "pid": 21783,
+        "trace_sha256": "0966e3e46aef015ac21dcb0321dde5009de40c7ade212b7acc5815fccf919d77",
+        "launched": 1795831385.426721,
+        "exited": 1795831584.8015301,
+        "opening": {
+          "n": 27,
+          "correct": 2,
+          "elapsed": 179.6264322901261,
+          "mean_capped_time_to_correct": 7.584094205261122
+        },
+        "own_history": {
+          "n": 2,
+          "correct": 0,
+          "elapsed": 17.727742291986942,
+          "mean_capped_time_to_correct": 8.0
+        },
+        "peak_bytes": 1783784326
+      },
+      "512/loop": {
+        "requests": 29,
+        "actual_callbacks": 18,
+        "pid": 23206,
+        "trace_sha256": "adb6ccd1989b3926b605a88b27d3a0ceb97779713de6a1ba134fe973852a7497",
+        "launched": 1795831587.496608,
+        "exited": 1795831626.986166,
+        "opening": {
+          "n": 27,
+          "correct": 5,
+          "elapsed": 32.384252002171706,
+          "mean_capped_time_to_correct": 6.644097530852175
+        },
+        "own_history": {
+          "n": 2,
+          "correct": 0,
+          "elapsed": 4.590434750018176,
+          "mean_capped_time_to_correct": 8.0
+        },
+        "peak_bytes": 1780409138
+      }
+    },
+    "checked": "Independent readback of 116 installed traces against hash-bound development trajectories. Compared visible final answer, status, every turn, prompt ID, output ID, submitted call, actual observation and full-attention history length. Verified four different native process IDs with non-overlapping lifetimes."
+  },
+  "book_depth": {
+    "plan": "2bb85072c32d89953ff71b58e9a92292e40ff335bcab55c2e6f36cd2d751076d",
+    "one_pass_component_review": "f70c21ce6e4bb1ebb0c6bae4975a5662f2e1c687b33f84a95c03cea7efdd9b17",
+    "original_component_review": "362bdd400726812e1d99848ce883d4a3195e9d3dc5962e1d9b135b3e1912e169",
+    "summary": {
+      "base": {
+        "fact_pair": false,
+        "correct": 1,
+        "capped_time_to_correct": 442.8105429999996
+      },
+      "K2": {
+        "fact_pair": true,
+        "correct": 0,
+        "capped_time_to_correct": 600.0
+      },
+      "K1": {
+        "fact_pair": false,
+        "correct": 0,
+        "capped_time_to_correct": 600.0
+      }
+    },
+    "rows": {
+      "base": {
+        "edited": {
+          "trace": "documents/parent/anne/base/512/edited-first.json.gz",
+          "sha": "3a0f57c37d2163a4bc3216ca8a2f05e863a699b4dfd87c24fb255be11d972a39",
+          "review_key": "2f6db55a0246902cd9b3379e0116b9e9a36a2d16ecbc2b2e69b5b449710ec82a",
+          "length": 145891,
+          "cold_seconds": 277.5362295830273,
+          "status": "answered",
+          "facts": false,
+          "correct": false,
+          "facts_by_600": false,
+          "complete_by_600": false,
+          "peak_bytes": 3692302064,
+          "scratch_bytes": 1733982358,
+          "physical_visits": 24,
+          "prefix": "cafef97363c784016c10ea859a4efc6e574101717dc9779d6d7b6d3cd3c4faa4",
+          "certified_state_hashes": "5e41b85738033796cbe076886f75607e1f1672762e88d92a517c98263dcfd8ad"
+        },
+        "original": {
+          "trace": "documents/parent/anne/base/512/original-first.json.gz",
+          "sha": "beeb596f9873a3127778b0ba7d98c45d9818a50a78506b0bd8647be881866ea4",
+          "review_key": "8a7c21d06d318b2c3db0a9afb9e28e273421c2721c2bb92be808501c2e95be77",
+          "length": 145891,
+          "cold_seconds": 285.6210859999992,
+          "status": "answered",
+          "facts": true,
+          "correct": true,
+          "facts_by_600": true,
+          "complete_by_600": true,
+          "peak_bytes": 3692302064,
+          "scratch_bytes": 1733982358,
+          "physical_visits": 24,
+          "prefix": "cafef97363c784016c10ea859a4efc6e574101717dc9779d6d7b6d3cd3c4faa4",
+          "certified_state_hashes": "5e41b85738033796cbe076886f75607e1f1672762e88d92a517c98263dcfd8ad"
+        }
+      },
+      "K2": {
+        "edited": {
+          "trace": "documents/parent/anne/loop/512/edited-first.json.gz",
+          "sha": "ab451926d06e087caf4c4bb608d23b861996d009e9d4afad9a6ee9ad394c7312",
+          "review_key": "9cfb39cdbfb2ee6bac96da49381385829195cdd48d49d958731ca49364be2a98",
+          "length": 145891,
+          "cold_seconds": 301.0801079169614,
+          "status": "answered",
+          "facts": true,
+          "correct": false,
+          "facts_by_600": true,
+          "complete_by_600": false,
+          "peak_bytes": 4005498680,
+          "scratch_bytes": 2022979188,
+          "physical_visits": 28,
+          "prefix": "cba8bfe1c27a8c0c5a4ddce5e5c345e5520722bcf59330d4e1eae18dcd8cd1e2",
+          "certified_state_hashes": "c8fe7369d03129df247ad396d0ea66e0ec5cb0f87ed34034e851284f602e00ac"
+        },
+        "original": {
+          "trace": "documents/parent/anne/loop/512/original-first.json.gz",
+          "sha": "d7032ba1a9d0c9c9c8df840ce0b068dd67f48dd3141f1b10d89f534c817731ca",
+          "review_key": "7567354b5c974d8c980df522da15942f857b16af00a417a1385ae55c003ec80c",
+          "length": 145891,
+          "cold_seconds": 301.68818570894655,
+          "status": "answered",
+          "facts": true,
+          "correct": false,
+          "facts_by_600": true,
+          "complete_by_600": false,
+          "peak_bytes": 4005498680,
+          "scratch_bytes": 2022979188,
+          "physical_visits": 28,
+          "prefix": "cba8bfe1c27a8c0c5a4ddce5e5c345e5520722bcf59330d4e1eae18dcd8cd1e2",
+          "certified_state_hashes": "c8fe7369d03129df247ad396d0ea66e0ec5cb0f87ed34034e851284f602e00ac"
+        }
+      },
+      "K1": {
+        "edited": {
+          "trace": "documents/recall-depth/anne/loop-k1/512/edited-first.json.gz",
+          "sha": "3a024bbefb62580ca101fd4472cb4a7313252e12bd260999c7f8572cf603ef27",
+          "review_key": "f32a8fc72bfb2af89efc06ef962972d63e2b54087ae7a3df3c275fc6c8bc2885",
+          "length": 145891,
+          "cold_seconds": 263.9913814160391,
+          "status": "answered",
+          "facts": false,
+          "correct": false,
+          "facts_by_600": false,
+          "complete_by_600": false,
+          "peak_bytes": 3694071540,
+          "scratch_bytes": 1733982355,
+          "physical_visits": 24,
+          "prefix": "dea6bc475af1d3ed7b948bb21227e2bb8a2446c7f2b3a68af2580e04b37c48fd",
+          "certified_state_hashes": "9e47db738fa1d3776b5a437dfae562868c52cba936c7cd43fa738f77abc83742"
+        },
+        "original": {
+          "trace": "documents/recall-depth/anne/loop-k1/512/original-first.json.gz",
+          "sha": "f779a673ae3cde06b6be63f780b768cab15b1834d5787c68df131fa80b5460b4",
+          "review_key": "7567354b5c974d8c980df522da15942f857b16af00a417a1385ae55c003ec80c",
+          "length": 145891,
+          "cold_seconds": 263.3636507500196,
+          "status": "answered",
+          "facts": true,
+          "correct": false,
+          "facts_by_600": true,
+          "complete_by_600": false,
+          "peak_bytes": 3694071540,
+          "scratch_bytes": 1733982355,
+          "physical_visits": 24,
+          "prefix": "dea6bc475af1d3ed7b948bb21227e2bb8a2446c7f2b3a68af2580e04b37c48fd",
+          "certified_state_hashes": "9e47db738fa1d3776b5a437dfae562868c52cba936c7cd43fa738f77abc83742"
+        }
+      }
+    },
+    "local_second_pass_recall_benefit": true
+  },
   "charges": {
     "short": 2476.7358752908767,
     "fit": 4728.502841582114,
-    "long": 6691.012604538933,
-    "profile": 472.3320924982545
+    "long": 6983.973618913966,
+    "profile": 811.6268268732238
   },
   "input_files": {
     "docs/measurements/middle-depth/hardware.json": "f0074131d77055246fec8c774eba2cf8fe3f9ec45ac49dc3705972d940a49016",
@@ -3473,6 +3697,18 @@
     "docs/measurements/middle-depth/short/depth/512/loop-k3/volunteer-changed.json.gz": "a815ded1b5de43a9e0ce8c72f060f5d79caa11a75c515da01b875c14b29892bd",
     "docs/measurements/middle-depth/short/depth/512/loop-k3/volunteer-irrelevant.json.gz": "1b79d158874efc1bd2f87767f8b40efb576565ce1152d4db36f86e4e768ad06f",
     "docs/measurements/middle-depth/short/depth/512/loop-k3/volunteer-original.json.gz": "10b382cc8a4dec319b83bf851a5f02361c552144a24c35e41e7165d2ffe5094c",
+    "docs/measurements/middle-depth/standalone/selected-benchmark/audit.json": "760048d89bd2ee17dea4afb2f8675e62a936605baff1e0ebdb601c95aa183423",
+    "docs/measurements/middle-depth/standalone/selected-benchmark/result.json": "43e619f5f565fa34e497ac4e4c406b098f8645644269cfb0c7725404386d92c6",
+    "docs/measurements/middle-depth/standalone/selected-benchmark/128/loop-replay.json.gz": "fb76ddb2928e5bf0a432c1a8fb2844ffe739b6f49570dc6ab0b45dbcf5d39a71",
+    "docs/measurements/middle-depth/standalone/selected-benchmark/128/base-replay.json.gz": "144923b4a51d5e64f344705320245a4f2efd4a2c1f4f023fe7e866a836e7cd55",
+    "docs/measurements/middle-depth/standalone/selected-benchmark/512/base-replay.json.gz": "0966e3e46aef015ac21dcb0321dde5009de40c7ade212b7acc5815fccf919d77",
+    "docs/measurements/middle-depth/standalone/selected-benchmark/512/loop-replay.json.gz": "adb6ccd1989b3926b605a88b27d3a0ceb97779713de6a1ba134fe973852a7497",
+    "docs/measurements/middle-depth/direct/book-recall-depth.json": "4593610c8daf645083836d148294749c7a6dad428b6efffcd7cb8949b2b06d1c",
+    "docs/measurements/middle-depth/direct/short-depth-uncertainty.json": "5c8c208c6f8504bbc2cb112a843edda6b0bf23dfc1370d4364b49ba2733d6aac",
+    "docs/measurements/middle-depth/document-review/recall-depth/fact-grades.json": "f70c21ce6e4bb1ebb0c6bae4975a5662f2e1c687b33f84a95c03cea7efdd9b17",
+    "docs/measurements/middle-depth/document-review/recall-depth/grades.json": "6a4f44c2b4a4f6b9a9bf6fcc1721253ebfce925894aebced36e45d4547a10564",
+    "docs/measurements/middle-depth/documents/recall-depth/anne/loop-k1/512/edited-first.json.gz": "3a024bbefb62580ca101fd4472cb4a7313252e12bd260999c7f8572cf603ef27",
+    "docs/measurements/middle-depth/documents/recall-depth/anne/loop-k1/512/original-first.json.gz": "f779a673ae3cde06b6be63f780b768cab15b1834d5787c68df131fa80b5460b4",
     "docs/measurements/middle-depth/charges/00e316b7df934e3c99b4cfc5a0bfa37a.json": "1fbefa72ffc2a5cbf2009e065b7531a96189baeebef0bb5245a2a6ae470a59e3",
     "docs/measurements/middle-depth/charges/02467db79c1b4803aea37d3e29b722b8.json": "f15e652c23101a57c393cbf8cc746a59b478c69f8e76c91271fa18491a74489c",
     "docs/measurements/middle-depth/charges/02eb504333e04c8db69eb34b70bea737.json": "fcee7cfe3e6a18bfc7fec5e4552813f62c24a6fd60bde0fc6a7f262500aed5c6",
@@ -3481,6 +3717,7 @@
     "docs/measurements/middle-depth/charges/0724e38b68034810be37d9a5e16a3630.json": "03dc4404ffce628aa908fc58473e07a12ba122e17d4f9a12923731955e0c06fd",
     "docs/measurements/middle-depth/charges/0762e7c7381b4042b81ac4738f3bb872.json": "e94903418acdda46c19cd338982e2dd0e9c2f0adf390a04c31d68f071679687d",
     "docs/measurements/middle-depth/charges/08488a4c7ba44f91995b37f151786e94.json": "a3cf8fb5d27a400466ba77059f0ed1caf2b2501d33e8b7c860fa2a41b4088976",
+    "docs/measurements/middle-depth/charges/09b3083c2c36498587e97cf6b0049037.json": "a9e02a78e92533ba87473c26920cb2a107ca1e4af0b15cf455eccb5a687d4ed1",
     "docs/measurements/middle-depth/charges/0c1500119e814fa4b98b600d861aa5ba.json": "f55f7f64ae9f23151bdad6ee79df9420a608bfb830b9d8efe0f41aa48bc41c85",
     "docs/measurements/middle-depth/charges/0f5ec836a6cf4819a666aa06733e104a.json": "00d15b485cfbbceb1972c8c514d8abcb23b4a7bf193cf06938960a859c0972c4",
     "docs/measurements/middle-depth/charges/10e258aa716b4caaa5e5801169127f2e.json": "a42bf8ece9ff31ada8b695c888025d5f0c8f52d71ac6feda739967349f74a35b",
@@ -3493,6 +3730,7 @@
     "docs/measurements/middle-depth/charges/1952c316df5941388dcd3c6fb3a7153d.json": "226e644b89d5aa9ee7d9f1fbf4eb14ce1a587a59e720dca73e42a22c20582627",
     "docs/measurements/middle-depth/charges/19788c25869a45d1bd75a799b26de5f6.json": "0a822961e7592efc63c763e6dd8294179aeed4040e7a2e92f8cd15ace41cbd49",
     "docs/measurements/middle-depth/charges/1aaf69ddc6754c8285c6ce8b02fe2dc4.json": "e5b629c6d2f3715156f5f45b2c085eaad92719877667b6dec25316bde5c56443",
+    "docs/measurements/middle-depth/charges/1c40a1bc162a4b6ead9299653b7e4ea3.json": "1546a71ed07ba82fc769421d8beb6a199c8fe1ad322017da3a2cada722b5b538",
     "docs/measurements/middle-depth/charges/1f5a458aaade4efba5104dff72b9ae3d.json": "29a7d983a59ff7104b470f9f32b10368865008c17ea63ddebbd8226233e78d5b",
     "docs/measurements/middle-depth/charges/20399759a8cc4290b445a34bbaba5b2d.json": "caeb1533eb6ec856981a0bbaffea109b40cd8240beb5cef6342a7b22911f89d8",
     "docs/measurements/middle-depth/charges/220e5186cac0454eb9af1247a1189ae2.json": "915b46c14676fe7b9aa2122b9ba53750030c275415c98fc68bb3d435e37084a8",
@@ -3577,6 +3815,7 @@
     "docs/measurements/middle-depth/charges/683907d3e59a47eeb74cc0a51b989cf9.json": "384a3de36448ff34fcb1c905c4e6d17185e8563569aa1e7b6859d7522ad94a8b",
     "docs/measurements/middle-depth/charges/683e5e4ba6354c5dbc52082194d37e53.json": "f4778b220182e9edbdd0225c23c6950f2de26f48251da6ce196d301c2be781cb",
     "docs/measurements/middle-depth/charges/688741210e504792b72ac27e0df6c17e.json": "8751f13afca3a05d900dc649737f268d2870c16ff5b58b03ac0e4d87665adb79",
+    "docs/measurements/middle-depth/charges/691ecb79714c49b0bf8e2f5a9dfb8876.json": "3aa200d6480d760a763fa7b298238932ce703051182c0d732ab0bb8d95f14b98",
     "docs/measurements/middle-depth/charges/69e90175526c4333a240705fdb0a1648.json": "1b10e8daf8fb091402b946f442de11c523bcc97c388c70dacbb2bbeaf824d4f6",
     "docs/measurements/middle-depth/charges/6ba8361c939b42df970a877e332d61a4.json": "29390ee4bf00b21e14659e1d17ffe023c61c8b971de75bc87ba2fb82b7ecf3af",
     "docs/measurements/middle-depth/charges/6df00ac6d65c417d9115fd3ba8f538c1.json": "0df8ef65c2def25566e98e96624741cc9a0f40e0e62cc626dc6ba262fb107784",
@@ -3608,6 +3847,7 @@
     "docs/measurements/middle-depth/charges/8d25ea9554064c87bccbce0fb50b147d.json": "e01f3807f91f2f1ea2c85a2823e8fc0a6315c68264d1d7ab071515042fa5a54a",
     "docs/measurements/middle-depth/charges/8dc7ff41cead404d9af0d06e0dbca5ee.json": "f260a0d832ff79041cb263ea91c1252c98ac3baf65c2ee4f3d9e48fb1940c770",
     "docs/measurements/middle-depth/charges/8f77dd5044b24dd7ab987e418af9ce58.json": "c802febf3b602e8dcc51d565dd4caca0ff1cbb9e197ff9c10cd14caa72874977",
+    "docs/measurements/middle-depth/charges/9143a5243331498e9eeb1e6a44a817f4.json": "73c426d8465fb40bea3f4f10319d208886734ed2a4f79969192836781bbfbf98",
     "docs/measurements/middle-depth/charges/93172cd4844e45efa4ea904fb74224e3.json": "f3884fc61b8b89863169e8ec97c928610d29c3a00846f3a1f2f5546b5c836d80",
     "docs/measurements/middle-depth/charges/93428df07b13424f800de0b879f6cf41.json": "f746381bac00ce763696b2a31d0b213ed9151bf006b9c00d361ebfb2ea8c7bcc",
     "docs/measurements/middle-depth/charges/94794ff80e2b456abebf102a21ed1680.json": "855ef50186b74a65191c9dc939a2537ae8024c51c5eee6a86e0e7edccfb2faf4",
@@ -3636,6 +3876,7 @@
     "docs/measurements/middle-depth/charges/acb03624fa7d4d3c9a3e85e072b41407.json": "5c4afa4fed40e03c8c05451acef0107a53fc19487ed9f4d6f1f0b01ac424c99b",
     "docs/measurements/middle-depth/charges/adb2fb21dd924323b49c2de1373fb52f.json": "12f5d43152f60566956a3cd5a86848f871600125631d82cdb3ac78320ea26f0b",
     "docs/measurements/middle-depth/charges/ae3b66cb686049baa35c75e778f51d80.json": "ff118283ba655ca820dbfa967a362da10089e98c8c91817a37264a4260bfd9c9",
+    "docs/measurements/middle-depth/charges/af4f2076397946298d152a54229994dc.json": "39d0be56ce5f42581965e813f4104be79ac4f50679c75590325973efaf213403",
     "docs/measurements/middle-depth/charges/b24a4501bb6e4f5a8a133d414f32b2a4.json": "42ceb20d79eddbf2a19602778043f8446e548d247c1ec734c1b1bc19c3f9a0b7",
     "docs/measurements/middle-depth/charges/b7b75afd04ca4b6194733d75eafed5dd.json": "2464eff1a430031251022d91403e5b2ce57c9b5cbba87ca0b8dec366f4be8e8d",
     "docs/measurements/middle-depth/charges/b7cba7649488425bb3f05601176f1b61.json": "2e4ea05a084d76ef1efce1b32f6a1cf60606fced311abf9a8e16ba4442068f82",
@@ -3643,6 +3884,7 @@
     "docs/measurements/middle-depth/charges/ba0277ed347b4c3faa1ae5f9d57bdc4a.json": "41a110710e4ef7a293dbd5f67a90dde7bb4b3f597f2aca4bb21f5cde571e26de",
     "docs/measurements/middle-depth/charges/ba940a3a903f4b63929232fcaa4f7282.json": "bc2c9e5f1b6e59869c579ac2c17a2b6beee9dccbc70244e14f2a0008ebd72cd9",
     "docs/measurements/middle-depth/charges/bb37337e83a745be8a932e396dfd81af.json": "0170154b67f6d5926f96359cbf6517f0d80a6f2cdf085a25d6964dea3e0755f5",
+    "docs/measurements/middle-depth/charges/bb7950ac26ba41ab9f82dd5d76055698.json": "b21d13310557e83bb7ce51c1e6ff37becea197a58bf01d287999fc1268a511c0",
     "docs/measurements/middle-depth/charges/bbb153f537c1465eb19486379b2ccbc5.json": "bc951bb51fe0769850013f610380c227c5d76548ac41c488dfa1c40b7b31f185",
     "docs/measurements/middle-depth/charges/bc783ba7a12b40768b19f72e42ea90ee.json": "13bbb6bcba9c6799f143a5b996f42ae51d7a6a30800f374f96c01122585eb987",
     "docs/measurements/middle-depth/charges/be6845d5474848ba993c3b668c555c96.json": "90a853771b9f2734f4b285c04cb21b8f6b367e41e21d95598dd0d4291a74b837",

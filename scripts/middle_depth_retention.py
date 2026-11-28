@@ -13,14 +13,13 @@ RECIPES = ROOT / "prefix-retention"
 LIMIT = 16 * GIB
 
 
-def tree_size(paths):
-    files = {
-        f.stat().st_ino: f.stat().st_size
-        for p in paths
-        if p.exists()
-        for f in p.rglob("*")
-        if f.is_file()
-    }
+def tree_size(paths, *, exclude=None):
+    files = {}
+    for path in paths:
+        for item in path.rglob("*"):
+            if (exclude is None or not item.is_relative_to(exclude)) and item.is_file():
+                stat = item.stat()
+                files[stat.st_dev, stat.st_ino] = stat.st_size
     return sum(files.values())
 
 
@@ -34,6 +33,27 @@ def recipe(path):
     return RECIPES / (path.parent.name + "-" + path.name + ".json")
 
 
+def archived_training_prefixes():
+    receipt = ROOT / "full-fit-resume-restore.json"
+    features = ROOT / "long-features-loop.json"
+    kit = Path("research/results/middle-depth-full-document")
+    if not receipt.exists() or not (kit / "resume.json").exists():
+        return set()
+    proof = read(receipt)
+    archive = read(kit / "resume.json")
+    if digest(kit / "resume.zip") != proof["zip_sha256"] or archive[
+        "features"
+    ] != digest(features):
+        return set()
+    rows = read(features)["rows"].values()
+    if any(
+        proof["verified_members"].get(row["file"]) != row["metadata"]["sha"]
+        for row in rows
+    ):
+        return set()
+    return {Path(row["file"]).parent / "prefix" for row in rows}
+
+
 def open_prefix(path, model, ids, identity, command):
     """Reserve peak storage conservatively, including both hidden boundary files."""
     cfg = model.args
@@ -45,15 +65,39 @@ def open_prefix(path, model, ids, identity, command):
     )
     active = [WORK / "documents", WORK / "long-training", WORK / "features"]
     cap = min(LIMIT, shutil.disk_usage(WORK).free + tree_size(active) - 24 * GIB)
-    if reserve > cap:
-        raise InterruptedError("A single exact document exceeds scratch headroom")
     referenced = recipe(path)
     previous = read(referenced) if referenced.exists() else None
     if previous is not None and previous["identity"] != identity:
         raise ValueError("Prefix reconstruction identity changed")
+    resident = (
+        previous
+        and previous.get("complete")
+        and not previous.get("evicted")
+        and (path / "prefix.json").is_file()
+    )
+    if resident:
+        stored = read(path / "prefix.json")
+        entries = [row for group in stored["groups"] for row in group["states"]]
+        if (
+            [tuple(row["site"]) for row in entries] != list(model.sites)
+            or {row["file"]: row["sha256"] for row in entries} != previous["states"]
+            or any(
+                (path / row["file"]).stat().st_size != row["bytes"] for row in entries
+            )
+        ):
+            raise ValueError("Stored complete prefix disagrees with its reservation")
+    elif reserve > cap:
+        raise InterruptedError("A single exact document exceeds scratch headroom")
+
+    def required():
+        if resident:
+            return tree_size(active)
+        return tree_size(active, exclude=path) + reserve
+
     # Keep incomplete work and unregistered legacy directories. Reclaim only
     # fully verified derivative states for which the source and command survive.
-    while tree_size(active) - tree_size([path]) + reserve > cap:
+    while required() > cap:
+        archived = archived_training_prefixes()
         eligible = []
         for manifest in directories():
             f = manifest.parent
@@ -67,18 +111,36 @@ def open_prefix(path, model, ids, identity, command):
             ):
                 continue
             if receipt.get("complete") and not receipt.get("evicted"):
-                eligible.append((receipt["last_use"], f, r, receipt))
+                eligible.append((f not in archived, receipt["last_use"], f, r, receipt))
         if not eligible:
             raise InterruptedError(
                 "Derived cache limit, no verified prefix available for rebuilding"
             )
-        _, f, r, receipt = min(eligible)
+        _, _, f, r, receipt = min(eligible)
         state = read(f / "prefix.json")
+        entries = [v for g in state["groups"] for v in g["states"]]
+        if {v["file"]: v["sha256"] for v in entries} != receipt["states"]:
+            raise ValueError("Prefix manifest differs from its prior certification")
         for g in state["groups"]:
             for item in g["states"]:
                 if digest(f / item["file"]) != item["sha256"]:
                     raise ValueError("Prefix changed before reversible reclamation")
-        receipt.update(evicted=True, evicted_at=time(), former_bytes=tree_size([f]))
+        manifest_sha = digest(f / "prefix.json")
+        retained = RECIPES / "manifests" / (manifest_sha + ".json")
+        if not retained.exists():
+            save(retained, state)
+        if digest(retained) != manifest_sha:
+            raise ValueError("Archived prefix manifest failed readback")
+        receipt.update(
+            evicted=True,
+            evicted_at=time(),
+            former_bytes=tree_size([f]),
+            exclusive_working_bytes=tree_size(active) - tree_size(active, exclude=f),
+            manifest_sha256=manifest_sha,
+            eviction_basis="verified archived full-document features"
+            if f in archived
+            else "least recently used verified prefix",
+        )
         save(r, receipt)
         shutil.rmtree(f)
     return previous

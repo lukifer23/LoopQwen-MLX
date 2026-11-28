@@ -253,6 +253,43 @@ def snapshot():
             ),
         )
     charges = defaultdict(float)
+    installed = ROOT / "standalone/selected-benchmark"
+    if (installed / "audit.json").is_file():
+        record = use(installed / "audit.json")
+        scores = use(installed / "result.json")
+        assert record["result"] == digest(installed / "result.json")
+        for label, run in record["runs"].items():
+            cap, arm = label.split("/")
+            trace_file = installed / cap / (arm + "-replay.json.gz")
+            if (
+                digest(trace_file) != run["trace_sha256"]
+                or run["trace_sha256"] != scores["runs"][label]["trace"]
+            ):
+                raise ValueError("Changed installed trace")
+            hashes[str(trace_file)] = run["trace_sha256"]
+            cutoff = max(cutoff, run["exited"])
+        data["installed_selected"] = record
+    long_probe = ROOT / "direct/book-recall-depth.json"
+    if long_probe.is_file():
+        data["book_depth"] = use(long_probe)
+        use(ROOT / "direct/short-depth-uncertainty.json")
+        use(ROOT / "document-review/recall-depth/fact-grades.json")
+        use(ROOT / "document-review/recall-depth/grades.json")
+        for pair in data["book_depth"]["rows"].values():
+            for r in pair.values():
+                path = ROOT / r["trace"]
+                if digest(path) != r["sha"]:
+                    raise ValueError("Changed complete-book pass intervention")
+                hashes[str(path)] = r["sha"]
+        cutoff = max(
+            cutoff,
+            max(
+                r["dispatch"] + r["seconds"]
+                for p in (ROOT / "charges").glob("*.json")
+                if (r := read(p))["job"].endswith("/recall-depth")
+                and r["status"] == "finished"
+            ),
+        )
     for p in sorted((ROOT / "charges").glob("*.json")):
         r = read(p)
         if r["dispatch"] <= cutoff and r["status"] != "running":

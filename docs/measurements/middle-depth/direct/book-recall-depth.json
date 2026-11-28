@@ -1,0 +1,133 @@
+{
+  "plan": "2bb85072c32d89953ff71b58e9a92292e40ff335bcab55c2e6f36cd2d751076d",
+  "one_pass_component_review": "f70c21ce6e4bb1ebb0c6bae4975a5662f2e1c687b33f84a95c03cea7efdd9b17",
+  "original_component_review": "362bdd400726812e1d99848ce883d4a3195e9d3dc5962e1d9b135b3e1912e169",
+  "summary": {
+    "base": {
+      "fact_pair": false,
+      "correct": 1,
+      "capped_time_to_correct": 442.8105429999996
+    },
+    "K2": {
+      "fact_pair": true,
+      "correct": 0,
+      "capped_time_to_correct": 600.0
+    },
+    "K1": {
+      "fact_pair": false,
+      "correct": 0,
+      "capped_time_to_correct": 600.0
+    }
+  },
+  "rows": {
+    "base": {
+      "edited": {
+        "trace": "documents/parent/anne/base/512/edited-first.json.gz",
+        "sha": "3a0f57c37d2163a4bc3216ca8a2f05e863a699b4dfd87c24fb255be11d972a39",
+        "review_key": "2f6db55a0246902cd9b3379e0116b9e9a36a2d16ecbc2b2e69b5b449710ec82a",
+        "length": 145891,
+        "cold_seconds": 277.5362295830273,
+        "status": "answered",
+        "facts": false,
+        "correct": false,
+        "facts_by_600": false,
+        "complete_by_600": false,
+        "peak_bytes": 3692302064,
+        "scratch_bytes": 1733982358,
+        "physical_visits": 24,
+        "prefix": "cafef97363c784016c10ea859a4efc6e574101717dc9779d6d7b6d3cd3c4faa4",
+        "certified_state_hashes": "5e41b85738033796cbe076886f75607e1f1672762e88d92a517c98263dcfd8ad"
+      },
+      "original": {
+        "trace": "documents/parent/anne/base/512/original-first.json.gz",
+        "sha": "beeb596f9873a3127778b0ba7d98c45d9818a50a78506b0bd8647be881866ea4",
+        "review_key": "8a7c21d06d318b2c3db0a9afb9e28e273421c2721c2bb92be808501c2e95be77",
+        "length": 145891,
+        "cold_seconds": 285.6210859999992,
+        "status": "answered",
+        "facts": true,
+        "correct": true,
+        "facts_by_600": true,
+        "complete_by_600": true,
+        "peak_bytes": 3692302064,
+        "scratch_bytes": 1733982358,
+        "physical_visits": 24,
+        "prefix": "cafef97363c784016c10ea859a4efc6e574101717dc9779d6d7b6d3cd3c4faa4",
+        "certified_state_hashes": "5e41b85738033796cbe076886f75607e1f1672762e88d92a517c98263dcfd8ad"
+      }
+    },
+    "K2": {
+      "edited": {
+        "trace": "documents/parent/anne/loop/512/edited-first.json.gz",
+        "sha": "ab451926d06e087caf4c4bb608d23b861996d009e9d4afad9a6ee9ad394c7312",
+        "review_key": "9cfb39cdbfb2ee6bac96da49381385829195cdd48d49d958731ca49364be2a98",
+        "length": 145891,
+        "cold_seconds": 301.0801079169614,
+        "status": "answered",
+        "facts": true,
+        "correct": false,
+        "facts_by_600": true,
+        "complete_by_600": false,
+        "peak_bytes": 4005498680,
+        "scratch_bytes": 2022979188,
+        "physical_visits": 28,
+        "prefix": "cba8bfe1c27a8c0c5a4ddce5e5c345e5520722bcf59330d4e1eae18dcd8cd1e2",
+        "certified_state_hashes": "c8fe7369d03129df247ad396d0ea66e0ec5cb0f87ed34034e851284f602e00ac"
+      },
+      "original": {
+        "trace": "documents/parent/anne/loop/512/original-first.json.gz",
+        "sha": "d7032ba1a9d0c9c9c8df840ce0b068dd67f48dd3141f1b10d89f534c817731ca",
+        "review_key": "7567354b5c974d8c980df522da15942f857b16af00a417a1385ae55c003ec80c",
+        "length": 145891,
+        "cold_seconds": 301.68818570894655,
+        "status": "answered",
+        "facts": true,
+        "correct": false,
+        "facts_by_600": true,
+        "complete_by_600": false,
+        "peak_bytes": 4005498680,
+        "scratch_bytes": 2022979188,
+        "physical_visits": 28,
+        "prefix": "cba8bfe1c27a8c0c5a4ddce5e5c345e5520722bcf59330d4e1eae18dcd8cd1e2",
+        "certified_state_hashes": "c8fe7369d03129df247ad396d0ea66e0ec5cb0f87ed34034e851284f602e00ac"
+      }
+    },
+    "K1": {
+      "edited": {
+        "trace": "documents/recall-depth/anne/loop-k1/512/edited-first.json.gz",
+        "sha": "3a024bbefb62580ca101fd4472cb4a7313252e12bd260999c7f8572cf603ef27",
+        "review_key": "f32a8fc72bfb2af89efc06ef962972d63e2b54087ae7a3df3c275fc6c8bc2885",
+        "length": 145891,
+        "cold_seconds": 263.9913814160391,
+        "status": "answered",
+        "facts": false,
+        "correct": false,
+        "facts_by_600": false,
+        "complete_by_600": false,
+        "peak_bytes": 3694071540,
+        "scratch_bytes": 1733982355,
+        "physical_visits": 24,
+        "prefix": "dea6bc475af1d3ed7b948bb21227e2bb8a2446c7f2b3a68af2580e04b37c48fd",
+        "certified_state_hashes": "9e47db738fa1d3776b5a437dfae562868c52cba936c7cd43fa738f77abc83742"
+      },
+      "original": {
+        "trace": "documents/recall-depth/anne/loop-k1/512/original-first.json.gz",
+        "sha": "f779a673ae3cde06b6be63f780b768cab15b1834d5787c68df131fa80b5460b4",
+        "review_key": "7567354b5c974d8c980df522da15942f857b16af00a417a1385ae55c003ec80c",
+        "length": 145891,
+        "cold_seconds": 263.3636507500196,
+        "status": "answered",
+        "facts": true,
+        "correct": false,
+        "facts_by_600": true,
+        "complete_by_600": false,
+        "peak_bytes": 3694071540,
+        "scratch_bytes": 1733982355,
+        "physical_visits": 24,
+        "prefix": "dea6bc475af1d3ed7b948bb21227e2bb8a2446c7f2b3a68af2580e04b37c48fd",
+        "certified_state_hashes": "9e47db738fa1d3776b5a437dfae562868c52cba936c7cd43fa738f77abc83742"
+      }
+    }
+  },
+  "local_second_pass_recall_benefit": true
+}
