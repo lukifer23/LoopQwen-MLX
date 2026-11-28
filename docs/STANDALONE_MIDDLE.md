@@ -80,3 +80,12 @@ The four-document fit has a standalone 1,530,361,024-byte checkpoint. It has com
 ```sh
 .venv/bin/python -m scripts.middle_depth_portable restore-full-fit --parent exports/standalone-middle-576/loop --out exports/restored-full-document-loop
 ```
+
+The separate 1,762,468-byte resume archive retains the last two optimizer steps and all four complete-document feature shards. A fresh restore reproduced all 17 files, totaling 5,262,294 bytes. The final adapter comes from the existing deployment archive. The preceding adapter is stored as its compressed difference. [Independent restore hashes and byte counts](measurements/middle-depth/full-fit-resume-restore.json)
+
+```sh
+.venv/bin/python -m scripts.middle_depth_resume_bundle restore --out outputs/restored-full-document-training
+.venv/bin/python -m scripts.middle_depth_resume_bundle replay
+```
+
+The replay command uses the native worker lease. It reconstructs step 15 in a temporary directory, reloads the original trainer and performs step 16 against the saved full-document features. It compares the resulting weights, optimization state, loss, gradient norm and feature identities to the archived update.

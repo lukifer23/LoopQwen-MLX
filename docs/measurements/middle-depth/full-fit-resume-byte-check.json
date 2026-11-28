@@ -1,0 +1,24 @@
+{
+  "passed": false,
+  "archive": "cbfabe2aca052a794a4e8fa81ca7b5b40e846cdffc36e165e6adbc0597faae5f",
+  "step": 16,
+  "hashes": {
+    "adapters.safetensors": "f441012101657679164f72dc0ecb7570e80011fffcd8ee1b06e6b6ef63fac0cd",
+    "optimizer.safetensors": "1ba6861b60a535b9eefe82b8536c120e7ec0c7ec3db3a3bab6f168e369b8b640",
+    "registration.json": "755725fa9c7ee63d5b02e9ec1298d8eaa5d6e4e579e8512aeb762ac66c06f03a"
+  },
+  "expected": {
+    "adapters.safetensors": "f441012101657679164f72dc0ecb7570e80011fffcd8ee1b06e6b6ef63fac0cd",
+    "optimizer.safetensors": "5f30bf5ad37d17513c98b8cf16d9133677858f2f759f9ad31c61cbfab4f9d042",
+    "registration.json": "755725fa9c7ee63d5b02e9ec1298d8eaa5d6e4e579e8512aeb762ac66c06f03a"
+  },
+  "identical_metrics": {
+    "step": true,
+    "gradient": true,
+    "loss": true
+  },
+  "features": "142460c252a7b8ad3d6d942f725a82081bde8bc20cd064edf8c6ca063a3d5266",
+  "reference_features": "142460c252a7b8ad3d6d942f725a82081bde8bc20cd064edf8c6ca063a3d5266",
+  "seconds": 0.12206066597718745,
+  "source": "Original MLX trainer restarted from restored step 15 in an independent temporary working directory using four archived full-document features."
+}
