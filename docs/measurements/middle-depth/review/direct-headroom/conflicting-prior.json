@@ -1,0 +1,124 @@
+{
+  "00118ff3132f183eb58b39e4e60d5a84d0a2063d6a966f5b71cc1ed952e9d55e": {
+    "terminal": {
+      "grade": {
+        "correct": false,
+        "first_error": "Both attempts to calculate the result failed.",
+        "unsupported": false
+      },
+      "grade_file": "5aafb1243b1b8c0df7c3e6475f7d6adc30bd07c46a1acdadd81dd9780b4d7641"
+    },
+    "headroom-early": {
+      "grade": {
+        "correct": false,
+        "first_error": "Repeats equations with unsupported equals signs and delivers a manual answer without successful execution.",
+        "unsupported": true
+      },
+      "grade_file": "d23ee280ca36fa4b5ed6a10f07fb834adfcd4d21a18d9c732a5fb5235823ec8b"
+    },
+    "direct-headroom": {
+      "grade": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "Both equation-form calls were rejected. The answer computes 184 by hand and attributes the failure to the calculator without evidence."
+      },
+      "grade_file": "c9e8dbfc347699deaf1776aa8105ea465ca343ecb679ca2489d725aa08faea73"
+    }
+  },
+  "3b3f3e4a6a74eac339ab9d6c0da9cec9bdbbcecd8c2c8591e3f3b9063e505fa4": {
+    "terminal": {
+      "grade": {
+        "correct": false,
+        "first_error": "The calculator returned an error.",
+        "unsupported": false
+      },
+      "grade_file": "5aafb1243b1b8c0df7c3e6475f7d6adc30bd07c46a1acdadd81dd9780b4d7641"
+    },
+    "headroom-early": {
+      "grade": {
+        "correct": false,
+        "first_error": "Submits quantities with unit text and equality signs; provider rejects the program.",
+        "unsupported": false
+      },
+      "grade_file": "d23ee280ca36fa4b5ed6a10f07fb834adfcd4d21a18d9c732a5fb5235823ec8b"
+    },
+    "direct-headroom": {
+      "grade": {
+        "correct": false,
+        "unsupported": false,
+        "first_error": "The equation with units was rejected and no successful calculation supports the correct numerical answer."
+      },
+      "grade_file": "c9e8dbfc347699deaf1776aa8105ea465ca343ecb679ca2489d725aa08faea73"
+    }
+  },
+  "8e2f93af1955a3f0b61f089b0652db5fc3a818b9393a8d45fd6c26720a10aadc": {
+    "terminal": {
+      "grade": {
+        "correct": false,
+        "first_error": "No successful requested calculator execution.",
+        "unsupported": false
+      },
+      "grade_file": "5aafb1243b1b8c0df7c3e6475f7d6adc30bd07c46a1acdadd81dd9780b4d7641"
+    },
+    "headroom-early": {
+      "grade": {
+        "correct": false,
+        "first_error": "Repeats an equality assertion in the calculator and attributes the resulting syntax error to the provider.",
+        "unsupported": true
+      },
+      "grade_file": "d23ee280ca36fa4b5ed6a10f07fb834adfcd4d21a18d9c732a5fb5235823ec8b"
+    },
+    "direct-headroom": {
+      "grade": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "The submitted equality was rejected; the manual balance is correct but the claim of a calculator arithmetic issue is unsupported."
+      },
+      "grade_file": "c9e8dbfc347699deaf1776aa8105ea465ca343ecb679ca2489d725aa08faea73"
+    }
+  },
+  "9440aae49025ce3a4671209c1d0cb778b240ffdffa9f11a6923a82aa994170d5": {
+    "terminal": {
+      "grade": {
+        "correct": false,
+        "first_error": "Introduces an unsupported evening arrival time and gives multiple drafts.",
+        "unsupported": true
+      },
+      "grade_file": "5aafb1243b1b8c0df7c3e6475f7d6adc30bd07c46a1acdadd81dd9780b4d7641"
+    },
+    "headroom-early": {
+      "grade": {
+        "correct": false,
+        "first_error": "Supplies multiple multi-sentence alternatives when one sentence was requested.",
+        "unsupported": false
+      },
+      "grade_file": "d23ee280ca36fa4b5ed6a10f07fb834adfcd4d21a18d9c732a5fb5235823ec8b"
+    }
+  },
+  "a67857d0e97b536bcd9f834fa1f0ebbdd2bc4d7c933d9b2f849e36d11826c9b5": {
+    "terminal": {
+      "grade": {
+        "correct": false,
+        "first_error": "Invents a legal hold on Cedar.",
+        "unsupported": true
+      },
+      "grade_file": "5aafb1243b1b8c0df7c3e6475f7d6adc30bd07c46a1acdadd81dd9780b4d7641"
+    },
+    "headroom-early": {
+      "grade": {
+        "correct": false,
+        "first_error": "Invents a preservation hold on Cedar and asks about payment instead of shipping.",
+        "unsupported": true
+      },
+      "grade_file": "d23ee280ca36fa4b5ed6a10f07fb834adfcd4d21a18d9c732a5fb5235823ec8b"
+    },
+    "direct-headroom": {
+      "grade": {
+        "correct": false,
+        "unsupported": true,
+        "first_error": "Invents a preservation hold on Cedar and discusses payment instead of the requested shipping decision."
+      },
+      "grade_file": "c9e8dbfc347699deaf1776aa8105ea465ca343ecb679ca2489d725aa08faea73"
+    }
+  }
+}
