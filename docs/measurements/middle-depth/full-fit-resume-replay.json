@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "archive": "cbfabe2aca052a794a4e8fa81ca7b5b40e846cdffc36e165e6adbc0597faae5f",
+  "step": 16,
+  "hashes": {
+    "adapters.safetensors": "f441012101657679164f72dc0ecb7570e80011fffcd8ee1b06e6b6ef63fac0cd",
+    "optimizer.safetensors": "1ba6861b60a535b9eefe82b8536c120e7ec0c7ec3db3a3bab6f168e369b8b640",
+    "registration.json": "755725fa9c7ee63d5b02e9ec1298d8eaa5d6e4e579e8512aeb762ac66c06f03a"
+  },
+  "expected": {
+    "adapters.safetensors": "f441012101657679164f72dc0ecb7570e80011fffcd8ee1b06e6b6ef63fac0cd",
+    "optimizer.safetensors": "5f30bf5ad37d17513c98b8cf16d9133677858f2f759f9ad31c61cbfab4f9d042",
+    "registration.json": "755725fa9c7ee63d5b02e9ec1298d8eaa5d6e4e579e8512aeb762ac66c06f03a"
+  },
+  "optimizer_tensors": {
+    "learning_rate": {
+      "expected": {
+        "sha": "4cd79b64d23f5391e876a052348acb5b88de89e2c38ca44934594f53525bf122",
+        "dtype": "float32",
+        "shape": []
+      },
+      "actual": {
+        "sha": "4cd79b64d23f5391e876a052348acb5b88de89e2c38ca44934594f53525bf122",
+        "dtype": "float32",
+        "shape": []
+      }
+    },
+    "lora_a.m": {
+      "expected": {
+        "sha": "ca619d784a334e3f50b99bc59cd068123074756264c868c7584278540cfc5127",
+        "dtype": "float32",
+        "shape": [
+          3584,
+          16
+        ]
+      },
+      "actual": {
+        "sha": "ca619d784a334e3f50b99bc59cd068123074756264c868c7584278540cfc5127",
+        "dtype": "float32",
+        "shape": [
+          3584,
+          16
+        ]
+      }
+    },
+    "lora_a.v": {
+      "expected": {
+        "sha": "8f9f6fd7d65fd31c66bbf3251868726b7110ad384880845b21cd45e827761d86",
+        "dtype": "float32",
+        "shape": [
+          3584,
+          16
+        ]
+      },
+      "actual": {
+        "sha": "8f9f6fd7d65fd31c66bbf3251868726b7110ad384880845b21cd45e827761d86",
+        "dtype": "float32",
+        "shape": [
+          3584,
+          16
+        ]
+      }
+    },
+    "lora_b.m": {
+      "expected": {
+        "sha": "e36d44669b5c0c4503c9625be4d0d489a7c8e4c6ba84251411e260da2e7f2534",
+        "dtype": "float32",
+        "shape": [
+          16,
+          1024
+        ]
+      },
+      "actual": {
+        "sha": "e36d44669b5c0c4503c9625be4d0d489a7c8e4c6ba84251411e260da2e7f2534",
+        "dtype": "float32",
+        "shape": [
+          16,
+          1024
+        ]
+      }
+    },
+    "lora_b.v": {
+      "expected": {
+        "sha": "0cebe56f3d99c9a27dd733552675be777c67169e7f93229348fea35e1dbe3ad1",
+        "dtype": "float32",
+        "shape": [
+          16,
+          1024
+        ]
+      },
+      "actual": {
+        "sha": "0cebe56f3d99c9a27dd733552675be777c67169e7f93229348fea35e1dbe3ad1",
+        "dtype": "float32",
+        "shape": [
+          16,
+          1024
+        ]
+      }
+    },
+    "step": {
+      "expected": {
+        "sha": "5eb6da0e0e522104c6d50b0748e6893762f7f2c00a7163a46ccbb535bfd61a0d",
+        "dtype": "uint64",
+        "shape": []
+      },
+      "actual": {
+        "sha": "5eb6da0e0e522104c6d50b0748e6893762f7f2c00a7163a46ccbb535bfd61a0d",
+        "dtype": "uint64",
+        "shape": []
+      }
+    }
+  },
+  "optimizer_file_identical": false,
+  "identical_metrics": {
+    "step": true,
+    "gradient": true,
+    "loss": true
+  },
+  "features": "142460c252a7b8ad3d6d942f725a82081bde8bc20cd064edf8c6ca063a3d5266",
+  "reference_features": "142460c252a7b8ad3d6d942f725a82081bde8bc20cd064edf8c6ca063a3d5266",
+  "seconds": 0.10890229203505442,
+  "source": "Original MLX trainer restarted from restored step 15 in an independent temporary working directory using four archived full-document features."
+}

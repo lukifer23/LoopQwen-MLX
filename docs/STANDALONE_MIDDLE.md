@@ -89,3 +89,5 @@ The separate 1,762,468-byte resume archive retains the last two optimizer steps 
 ```
 
 The replay command uses the native worker lease. It reconstructs step 15 in a temporary directory, reloads the original trainer and performs step 16 against the saved full-document features. It compares the resulting weights, optimization state, loss, gradient norm and feature identities to the archived update.
+
+On the M3 Pro the repeated update reproduced the deployed adapter file, registration, four example losses and gradient norm exactly. The serialized optimizer file hash changed. Comparing the six named optimizer tensors individually found identical shapes, dtypes and data bytes for both pairs of moments, the step counter and the learning rate. [Initial file-level check](measurements/middle-depth/full-fit-resume-byte-check.json) · [Native next-update replay](measurements/middle-depth/full-fit-resume-replay.json)
