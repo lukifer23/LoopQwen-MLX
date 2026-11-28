@@ -12,6 +12,12 @@ Both BF16 short fits reached update 576. The actual-history correction missed it
 
 The standalone guide includes the model directories, public restoration kit and isolated offline comparison. The long-stage registration gives the full-document fitting and selection criteria. [Standalone models](STANDALONE_MIDDLE.md) · [Long-stage registration](../research/diagnostics/middle-depth/long-stage-decision.md) · [Current handoff](../RESEARCH_GOAL.md)
 
+### Native process and disk accounting
+
+`loopqwen resources` lists the checkout conductor and the processes holding its GPU lease, including an isolated model running from a temporary installation. The standalone paired receipt records each model PID, exit and peak MLX allocation. On the verified pair, Base exited before the loop launched. [Standalone process and answer records](measurements/middle-depth/standalone/pair.json)
+
+The storage audit counted 55.47 GB of logical export files and 15.03 GB of blocks private to those files. Shared blocks also occupy disk. Across four compaction passes, APFS clones shared 2,028,363,172 verified payload bytes while preserving independently writable files. The final small-shard pass covered 36 duplicate files and reduced their private allocation from 47,501,312 bytes to zero. Full SHA-256 checks verified each copy. The study limits rebuildable scratch to 16 GiB and stops below 24 GiB free. [Checkout inventory](measurements/middle-depth/retention/checkout-hygiene.json) · [Historical release archives](measurements/middle-depth/retention/transport-archive-clone.json) · [Indexed features](measurements/indexed-feature-storage.json) · [Large duplicate payloads](measurements/middle-depth/retention/legacy-identical-payloads.json) · [Small duplicate shards](measurements/middle-depth/retention/legacy-small-shards.json)
+
 ## Archived receipt-repair fit
 
 The original two attempts and the resumed run used 134.83 worker-seconds in total. The resumed run reached the memory-pressure stop during feature extraction before its first optimizer update. The verifier recorded the missing fit and closed the downstream pilot. The original inputs, thresholds and charge history remain available for inspection. [Closure and charges](measurements/receipt-repair-fit-streamed/closure.json) · [Source-copy model guide](SOURCE_COPY_MODEL.md)
