@@ -1,0 +1,91 @@
+{
+  "result": "43e619f5f565fa34e497ac4e4c406b098f8645644269cfb0c7725404386d92c6",
+  "requests": 116,
+  "runs": {
+    "128/loop": {
+      "requests": 29,
+      "actual_callbacks": 18,
+      "pid": 21016,
+      "trace_sha256": "fb76ddb2928e5bf0a432c1a8fb2844ffe739b6f49570dc6ab0b45dbcf5d39a71",
+      "launched": 1795831283.90491,
+      "exited": 1795831320.733577,
+      "opening": {
+        "n": 27,
+        "correct": 5,
+        "elapsed": 30.58614570600912,
+        "mean_capped_time_to_correct": 6.635913016996778
+      },
+      "own_history": {
+        "n": 2,
+        "correct": 0,
+        "elapsed": 4.220480915973894,
+        "mean_capped_time_to_correct": 8.0
+      },
+      "peak_bytes": 1780417330
+    },
+    "128/base": {
+      "requests": 29,
+      "actual_callbacks": 0,
+      "pid": 21317,
+      "trace_sha256": "144923b4a51d5e64f344705320245a4f2efd4a2c1f4f023fe7e866a836e7cd55",
+      "launched": 1795831322.9447622,
+      "exited": 1795831383.27211,
+      "opening": {
+        "n": 27,
+        "correct": 0,
+        "elapsed": 54.049394039902836,
+        "mean_capped_time_to_correct": 8.0
+      },
+      "own_history": {
+        "n": 2,
+        "correct": 0,
+        "elapsed": 4.23179158300627,
+        "mean_capped_time_to_correct": 8.0
+      },
+      "peak_bytes": 1763748754
+    },
+    "512/base": {
+      "requests": 29,
+      "actual_callbacks": 20,
+      "pid": 21783,
+      "trace_sha256": "0966e3e46aef015ac21dcb0321dde5009de40c7ade212b7acc5815fccf919d77",
+      "launched": 1795831385.426721,
+      "exited": 1795831584.8015301,
+      "opening": {
+        "n": 27,
+        "correct": 2,
+        "elapsed": 179.6264322901261,
+        "mean_capped_time_to_correct": 7.584094205261122
+      },
+      "own_history": {
+        "n": 2,
+        "correct": 0,
+        "elapsed": 17.727742291986942,
+        "mean_capped_time_to_correct": 8.0
+      },
+      "peak_bytes": 1783784326
+    },
+    "512/loop": {
+      "requests": 29,
+      "actual_callbacks": 18,
+      "pid": 23206,
+      "trace_sha256": "adb6ccd1989b3926b605a88b27d3a0ceb97779713de6a1ba134fe973852a7497",
+      "launched": 1795831587.496608,
+      "exited": 1795831626.986166,
+      "opening": {
+        "n": 27,
+        "correct": 5,
+        "elapsed": 32.384252002171706,
+        "mean_capped_time_to_correct": 6.644097530852175
+      },
+      "own_history": {
+        "n": 2,
+        "correct": 0,
+        "elapsed": 4.590434750018176,
+        "mean_capped_time_to_correct": 8.0
+      },
+      "peak_bytes": 1780409138
+    }
+  },
+  "checked": "Independent readback of 116 installed traces against hash-bound development trajectories. Compared visible final answer, status, every turn, prompt ID, output ID, submitted call, actual observation and full-attention history length. Verified four different native process IDs with non-overlapping lifetimes."
+}
