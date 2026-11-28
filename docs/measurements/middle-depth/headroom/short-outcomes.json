@@ -1,0 +1,1249 @@
+{
+  "enrollment": "51fe05a629cdca410b30e10a1a625230957f83b71da49ba8da5af040fa603a46",
+  "scored": {
+    "512": "1d8c80484425fec8a820426f8dc7529c946b8bc81551cbff2df01d48acd279f7",
+    "4096": "b7db0d4f782cbf3398fc7847ae0e4d7e1ab30e89ad05d4b645e5279e95be7e31"
+  },
+  "deadline_seconds": 8,
+  "output_caps": [
+    512,
+    4096
+  ],
+  "groups": {
+    "base/first": {
+      "pairs": {
+        "archive/original/first": {
+          "512": {
+            "file": "short/terminal/512/base/archive-original.json.gz",
+            "sha": "b389392f08c28d2ba6d0859b66e0857dd442d17d110c7cf25682b6afdb2e64bd",
+            "correct": false,
+            "seconds": 5.34666208300041,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Invents a legal hold on Cedar.",
+            "first_visible": 2.476135874981992,
+            "peak": 1653271918,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 330,
+              "new_prompt_tokens": 67,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 9504,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/archive-original.json.gz",
+            "sha": "d691fae7d51873750d9c2750dad605598d037cd77e96ffebc783063f85f20c44",
+            "correct": false,
+            "seconds": 4.869345666957088,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Invents a preservation hold on Cedar and discusses payment instead of the requested shipping decision.",
+            "first_visible": 2.3730458749923855,
+            "peak": 1653271918,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 330,
+              "new_prompt_tokens": 67,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 9504,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b"
+          }
+        },
+        "bridge/irrelevant/first": {
+          "512": {
+            "file": "short/terminal/512/base/bridge-irrelevant.json.gz",
+            "sha": "e4725f15a98588a62f5ff80cdd491de4770b9e13bf7ceffc829445311aa1e92e",
+            "correct": false,
+            "seconds": 7.706641083001159,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "token_limit",
+            "error": "token_limit",
+            "first_visible": null,
+            "peak": 1651561766,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 512,
+              "new_prompt_tokens": 66,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 13848,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/bridge-irrelevant.json.gz",
+            "sha": "d948112a7f3539e7beb9ce977c8221b8f8488b3a3081c59746e8ad4b3ffa7cd1",
+            "correct": true,
+            "seconds": 8.634902333957143,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": null,
+            "first_visible": 7.670885415980592,
+            "peak": 1652133266,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 591,
+              "new_prompt_tokens": 66,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 15744,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba"
+          }
+        },
+        "kiln/changed/first": {
+          "512": {
+            "file": "short/terminal/512/base/kiln-changed.json.gz",
+            "sha": "821b8182f657a2248d28d7c34c508b5652cf784932d5ba92c94e33026d07b1a3",
+            "correct": false,
+            "seconds": 7.7465765419765376,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "token_limit",
+            "error": "token_limit",
+            "first_visible": null,
+            "peak": 1666897550,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 512,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 14088,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/kiln-changed.json.gz",
+            "sha": "89de68f4e4d7142a065b2d264662d5c3bc2603753cdaf60b27a63ceb2648b52c",
+            "correct": false,
+            "seconds": 60.433912999986205,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "token_limit",
+            "error": "token_limit",
+            "first_visible": null,
+            "peak": 1666897550,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 4096,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 100104,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a"
+          }
+        },
+        "kiln/irrelevant/first": {
+          "512": {
+            "file": "short/terminal/512/base/kiln-irrelevant.json.gz",
+            "sha": "4cb5ecce86175a39cdc46dd4e4e823e8f94031f4ab767b7ab781e0bad0715200",
+            "correct": false,
+            "seconds": 7.7842349170241505,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "token_limit",
+            "error": "token_limit",
+            "first_visible": null,
+            "peak": 1666897550,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 512,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 14088,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/kiln-irrelevant.json.gz",
+            "sha": "7d0be47a16f470380e117b8de4c034aa31800f2fc307b8489284cbc757cf9746",
+            "correct": false,
+            "seconds": 59.68002545798663,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "token_limit",
+            "error": "token_limit",
+            "first_visible": null,
+            "peak": 1666897550,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 4096,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 100104,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff"
+          }
+        },
+        "kiln/original/first": {
+          "512": {
+            "file": "short/terminal/512/base/kiln-original.json.gz",
+            "sha": "026e4b113758179b6ae75c199634e4a16ca1e674adfeb78b07e317b31f67ad08",
+            "correct": false,
+            "seconds": 7.869905249972362,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "token_limit",
+            "error": "token_limit",
+            "first_visible": null,
+            "peak": 1666824398,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 512,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 14088,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/kiln-original.json.gz",
+            "sha": "34a4d2491db760461adde7450df92282eff4c93ced30f49dc4883351888fcba0",
+            "correct": false,
+            "seconds": 14.18907829100499,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Correctly gives 80 minutes, then treats that as exceeding 90 minutes by 70 and permits firing.",
+            "first_visible": 13.351907957985532,
+            "peak": 1666824398,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 995,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 25680,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991"
+          }
+        },
+        "parcels/original/first": {
+          "512": {
+            "file": "short/terminal/512/base/parcels-original.json.gz",
+            "sha": "4314534b29278660c2626a308c84c754e1eedc0bd7ff2c3c5f65a05ad0dd7264",
+            "correct": false,
+            "seconds": 11.012704082997516,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": 2.7964726670179516,
+            "peak": 1773472090,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 577,
+              "new_prompt_tokens": 1854,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 58272,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/parcels-original.json.gz",
+            "sha": "77d66f5f8d5ddcd182c27c22d9fd36392dd4e3cad4e972810a400f59f95dd333",
+            "correct": false,
+            "seconds": 9.061792958003934,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": 2.1951154999551363,
+            "peak": 1773527962,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 577,
+              "new_prompt_tokens": 1854,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 58272,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f"
+          }
+        },
+        "tiles/original/first": {
+          "512": {
+            "file": "short/terminal/512/base/tiles-original.json.gz",
+            "sha": "ee20716e10c7ff032720bad031ee85758a99bf288692a38d4be5898d2de7eed8",
+            "correct": false,
+            "seconds": 12.079881832993124,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Both attempts to calculate the result failed.",
+            "first_visible": 3.1708216249826364,
+            "peak": 1774738812,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 724,
+              "new_prompt_tokens": 2110,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 67944,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/tiles-original.json.gz",
+            "sha": "26752aec3139af15591b3f2439c55b7188f7eb51b7243861d2af6e22d27a63b1",
+            "correct": false,
+            "seconds": 11.407881667022593,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Both equation-form calls were rejected. The answer computes 184 by hand and attributes the failure to the calculator without evidence.",
+            "first_visible": 3.083759416011162,
+            "peak": 1774738844,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 724,
+              "new_prompt_tokens": 2110,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 67944,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5"
+          }
+        },
+        "volunteer/original/first": {
+          "512": {
+            "file": "short/terminal/512/base/volunteer-original.json.gz",
+            "sha": "b2504f96dcc817873ebd542a8844cbc92d3ef70afec0e595b5f9cd09a1ffa0dc",
+            "correct": false,
+            "seconds": 4.28583999996772,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Introduces an unsupported evening arrival time and gives multiple drafts.",
+            "first_visible": 2.143428415991366,
+            "peak": 1633129726,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 280,
+              "new_prompt_tokens": 51,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 7920,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/volunteer-original.json.gz",
+            "sha": "43dd3c196d4bddca9f1629bd0986367495e7fcbc760034d200be3b22f3d0638e",
+            "correct": false,
+            "seconds": 4.143281833967194,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Provides three alternatives instead of one welcoming sentence and introduces an unsupported PM arrival time.",
+            "first_visible": 2.021003292000387,
+            "peak": 1633030922,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 280,
+              "new_prompt_tokens": 51,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 7920,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79"
+          }
+        }
+      },
+      "n": 8,
+      "summary": {
+        "512": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 63.83244579093298,
+          "stops": {
+            "answered": 3,
+            "token_limit": 4,
+            "turn_limit": 1
+          }
+        },
+        "4096": {
+          "supported": 1,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 172.42022120888578,
+          "stops": {
+            "answered": 5,
+            "token_limit": 2,
+            "turn_limit": 1
+          }
+        }
+      },
+      "gains": [
+        "bridge/irrelevant/first"
+      ],
+      "losses": []
+    },
+    "loop/first": {
+      "pairs": {
+        "archive/original/first": {
+          "512": {
+            "file": "short/terminal/512/loop/archive-original.json.gz",
+            "sha": "039c90d22a7437773f40a0223eb5ea66dd4a585a26fcb5f33a516070b899bf84",
+            "correct": false,
+            "seconds": 1.4079629170009866,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Omits the controlling payment correction and uses unpaid status to reason about holds.",
+            "first_visible": 0.15318170795217156,
+            "peak": 1663093040,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 69,
+              "new_prompt_tokens": 67,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 3780,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/archive-original.json.gz",
+            "sha": "b58ed51d1abff5c44b526e3c0b9e003f8c1f14cebf1eaf5a04db8ef6b29d0300",
+            "correct": false,
+            "seconds": 1.2063569170422852,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Omits the controlling payment correction and uses unpaid status to reason about holds.",
+            "first_visible": 0.12278020801022649,
+            "peak": 1663093040,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 69,
+              "new_prompt_tokens": 67,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 3780,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "202fcbf11b32b5647e9d7fb25554f64fd90e0bb46a1564e56a6db604c480479b"
+          }
+        },
+        "bridge/irrelevant/first": {
+          "512": {
+            "file": "short/terminal/512/loop/bridge-irrelevant.json.gz",
+            "sha": "43bd978270b26c48160f654f4b5dc6add18e7b2d0a4f02909ac04239fa445d85",
+            "correct": false,
+            "seconds": 0.14248454198241234,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "The red marker does not entail closure.",
+            "first_visible": 0.10286154097411782,
+            "peak": 1661469502,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 6,
+              "new_prompt_tokens": 66,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 1988,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/bridge-irrelevant.json.gz",
+            "sha": "459ccd063cf411e3f1ce62a53e06d399eb4aff500ec4729c986ffd565ad4a88c",
+            "correct": false,
+            "seconds": 0.13654404203407466,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "The red marker does not entail closure.",
+            "first_visible": 0.09928712499095127,
+            "peak": 1662084938,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 6,
+              "new_prompt_tokens": 66,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 1988,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "0f9a15b3e7ca48e0b45d3a1b58964a6754467a8dd06ce34f8a8db9b33f07a4ba"
+          }
+        },
+        "kiln/changed/first": {
+          "512": {
+            "file": "short/terminal/512/loop/kiln-changed.json.gz",
+            "sha": "f83fe99324ef756543c70a58a81e34f2d684d55bf0005c92a636ba05e72b821b",
+            "correct": false,
+            "seconds": 1.7025272500468418,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Miscounts elapsed cooling and reverses the firing decision.",
+            "first_visible": 0.11250266700517386,
+            "peak": 1677912150,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 92,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 4676,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/kiln-changed.json.gz",
+            "sha": "80ff048785afd7ae48c54cc5ab236bd26e8a08636e640ec1f3fed40195bdc636",
+            "correct": false,
+            "seconds": 1.5789889169973321,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Miscounts elapsed cooling and reverses the firing decision.",
+            "first_visible": 0.09710612503113225,
+            "peak": 1677879382,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 92,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 4676,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "7cb0ad0b0d3ddd0b0377f37be2fab54306224b4be0c6ccd5bde3c01a120c742a"
+          }
+        },
+        "kiln/irrelevant/first": {
+          "512": {
+            "file": "short/terminal/512/loop/kiln-irrelevant.json.gz",
+            "sha": "3b6ff34203b4c4fe7ff87a4106aa55e1b315516573c853daeaf1f0ad3bf99bf2",
+            "correct": false,
+            "seconds": 1.4999108330230229,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Miscounts 80 minutes as 30.",
+            "first_visible": 0.10347691702190787,
+            "peak": 1677879382,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 81,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 4368,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/kiln-irrelevant.json.gz",
+            "sha": "4bde331dc89780942c2c1929815b24e9e00717bd79f7ce1610f64c4301f4dad0",
+            "correct": false,
+            "seconds": 1.418658625043463,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Miscounts 80 minutes as 30.",
+            "first_visible": 0.10238391702296212,
+            "peak": 1677879382,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 81,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 4368,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "3be43077112d0463a3401e559906b0716f3191662d9c8f0966e97a199d22fdff"
+          }
+        },
+        "kiln/original/first": {
+          "512": {
+            "file": "short/terminal/512/loop/kiln-original.json.gz",
+            "sha": "51c6db0f53682104c903867e8923e5c33161552f7d5577697e25cfde7af4dbe8",
+            "correct": false,
+            "seconds": 1.5095571670099162,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Miscounts 80 minutes as 30.",
+            "first_visible": 0.13414675003150478,
+            "peak": 1677665846,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 81,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 4368,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/kiln-original.json.gz",
+            "sha": "c1ff5f773368506fb1ff52798391e6a94b5654283f18e9a7c0e2638dcd230fd0",
+            "correct": false,
+            "seconds": 1.4307737500057556,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Miscounts 80 minutes as 30.",
+            "first_visible": 0.1272582919918932,
+            "peak": 1677665846,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 81,
+              "new_prompt_tokens": 76,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 4368,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "864eb07292715d3fce54aae5cf4250d452476ba14290dac70a7106d97b374991"
+          }
+        },
+        "parcels/original/first": {
+          "512": {
+            "file": "short/terminal/512/loop/parcels-original.json.gz",
+            "sha": "13bef1b8433fe483ea18905313708f5711b39e4b1861d6ea66a1c87f699f91ad",
+            "correct": false,
+            "seconds": 2.5155957079841755,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Invents room 12345 after the lookup error.",
+            "first_visible": 1.8888121669879183,
+            "peak": 1773564338,
+            "work": {
+              "model_turns": 2,
+              "generated_tokens": 96,
+              "new_prompt_tokens": 847,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 26348,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/parcels-original.json.gz",
+            "sha": "f2dd0718b5e6d90fc1058ed7dad0f7ea503cc9a68e171db3f281f06f915dac6c",
+            "correct": false,
+            "seconds": 2.000215041975025,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Invents room 12345 after the lookup error.",
+            "first_visible": 1.515411333006341,
+            "peak": 1773570482,
+            "work": {
+              "model_turns": 2,
+              "generated_tokens": 96,
+              "new_prompt_tokens": 847,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 26348,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "470e1d69da747937725e69610cc895ae26c8594964124787d773ec3e27affa9f"
+          }
+        },
+        "tiles/original/first": {
+          "512": {
+            "file": "short/terminal/512/loop/tiles-original.json.gz",
+            "sha": "b5482cd11bbd210bf7026c73205e9a8a3221bcd1a97598c09468bbb1344f33af",
+            "correct": false,
+            "seconds": 2.575443624984473,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": null,
+            "peak": 1778598318,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 105,
+              "new_prompt_tokens": 1385,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 41636,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/tiles-original.json.gz",
+            "sha": "80fcc3afc8b552a3d1ebe87715ac0158f70da7797608d7f5c2aec9bab336ac83",
+            "correct": false,
+            "seconds": 2.38564466702519,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": null,
+            "peak": 1778620846,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 105,
+              "new_prompt_tokens": 1385,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 41636,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "dac8ad8dd53817bdb623a98d3ce7f962410721ecb36d349af888591c3c34baa5"
+          }
+        },
+        "volunteer/original/first": {
+          "512": {
+            "file": "short/terminal/512/loop/volunteer-original.json.gz",
+            "sha": "b74838110ca739ceb71f48aaf827016d6f2a471c6ee6011e01a0a873e84fea63",
+            "correct": false,
+            "seconds": 0.4281392080010846,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Repeats the prohibition and instructions without a welcome for the new volunteer.",
+            "first_visible": 0.08734674996230751,
+            "peak": 1640966854,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 23,
+              "new_prompt_tokens": 51,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 2044,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/volunteer-original.json.gz",
+            "sha": "941b252a44c6b170bc593755d93a0deaa14e5fcb42075c5fee03bbdd0894e61b",
+            "correct": false,
+            "seconds": 0.4077286249957979,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Repeats the prohibition and instructions without a welcome for the new volunteer.",
+            "first_visible": 0.08501129102660343,
+            "peak": 1640966854,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 23,
+              "new_prompt_tokens": 51,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 2044,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "ee2e22b9e86a37faa8e1507abec592f75b2badf8c2bf389a51c02b56684fdc79"
+          }
+        }
+      },
+      "n": 8,
+      "summary": {
+        "512": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 11.781621250032913,
+          "stops": {
+            "answered": 7,
+            "turn_limit": 1
+          }
+        },
+        "4096": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 10.564910585118923,
+          "stops": {
+            "answered": 7,
+            "turn_limit": 1
+          }
+        }
+      },
+      "gains": [],
+      "losses": []
+    },
+    "base/own": {
+      "pairs": {
+        "parcels/original/own": {
+          "512": {
+            "file": "short/terminal/512/base/parcels-own.json.gz",
+            "sha": "9b2f73e9472435233c2c3936472c673b5ff96a1b454169dc654e748e920dbb18",
+            "correct": false,
+            "seconds": 11.894298375002109,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "token_limit",
+            "error": "token_limit",
+            "first_visible": null,
+            "peak": 1773426010,
+            "work": {
+              "model_turns": 2,
+              "generated_tokens": 632,
+              "new_prompt_tokens": 1477,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 50568,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "953a96df06bbf6c6216e1ac799800448a17a48d70f6e7844f6bc2ea7ed370069"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/parcels-own.json.gz",
+            "sha": "d1d213e7e6d421470b9f5af6d8a920028cf7a0cffaeff8c9192daf6893178892",
+            "correct": false,
+            "seconds": 62.641547584033106,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "token_limit",
+            "error": "token_limit",
+            "first_visible": null,
+            "peak": 1773439898,
+            "work": {
+              "model_turns": 2,
+              "generated_tokens": 4216,
+              "new_prompt_tokens": 1477,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 136584,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "953a96df06bbf6c6216e1ac799800448a17a48d70f6e7844f6bc2ea7ed370069"
+          }
+        },
+        "tiles/original/own": {
+          "512": {
+            "file": "short/terminal/512/base/tiles-own.json.gz",
+            "sha": "f4ef757840499d29891c25a2f8ae05d95bccfcd77b265db70f2da27af5894dd3",
+            "correct": false,
+            "seconds": 7.0796972080133855,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "No successful requested calculator execution.",
+            "first_visible": 4.360108292021323,
+            "peak": 1774776220,
+            "work": {
+              "model_turns": 2,
+              "generated_tokens": 402,
+              "new_prompt_tokens": 1871,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 54504,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "f13d46cf0cf7be2d4d3ea4131225b02fc838e89e0fe564f494c690919f202969"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/tiles-own.json.gz",
+            "sha": "dbaa85a1135dc94906eeb50f8c92cdff125d9a8fc608374ff1d0a5dd2d0930cf",
+            "correct": false,
+            "seconds": 6.599551292019896,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "The submitted equality was rejected; the manual balance is correct but the claim of a calculator arithmetic issue is unsupported.",
+            "first_visible": 4.012471000023652,
+            "peak": 1774785436,
+            "work": {
+              "model_turns": 2,
+              "generated_tokens": 402,
+              "new_prompt_tokens": 1871,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 54504,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "f13d46cf0cf7be2d4d3ea4131225b02fc838e89e0fe564f494c690919f202969"
+          }
+        }
+      },
+      "n": 2,
+      "summary": {
+        "512": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 18.973995583015494,
+          "stops": {
+            "token_limit": 1,
+            "answered": 1
+          }
+        },
+        "4096": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 69.241098876053,
+          "stops": {
+            "token_limit": 1,
+            "answered": 1
+          }
+        }
+      },
+      "gains": [],
+      "losses": []
+    },
+    "loop/own": {
+      "pairs": {
+        "parcels/original/own": {
+          "512": {
+            "file": "short/terminal/512/loop/parcels-own.json.gz",
+            "sha": "63e9d775e5a155cf8c09edac519f64462d708e7adb938fe144a39efd600c5177",
+            "correct": false,
+            "seconds": 1.8369815839687362,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "invalid_call",
+            "error": "invalid_call",
+            "first_visible": null,
+            "peak": 1778610606,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 76,
+              "new_prompt_tokens": 516,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 16548,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "12b0337c5b68e6709e44659578d2f237f665edadc18ffea7a7563b8ec7a2000b"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/parcels-own.json.gz",
+            "sha": "c9ba9f3ee2ed8646f87b8e531c23f62c767de6438c661b89205fd417e6ae85f6",
+            "correct": false,
+            "seconds": 1.5254219999769703,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "invalid_call",
+            "error": "invalid_call",
+            "first_visible": null,
+            "peak": 1778592750,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 76,
+              "new_prompt_tokens": 516,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 16548,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "12b0337c5b68e6709e44659578d2f237f665edadc18ffea7a7563b8ec7a2000b"
+          }
+        },
+        "tiles/original/own": {
+          "512": {
+            "file": "short/terminal/512/loop/tiles-own.json.gz",
+            "sha": "fc9070d3e93102bd2be76bfeeba42ef9d6acc36ad8f1b94ab3a3fb25845ad392",
+            "correct": false,
+            "seconds": 2.9734495420125313,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": null,
+            "peak": 1780412338,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 115,
+              "new_prompt_tokens": 1986,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 58744,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "edefde0ec1837cbcc29ae12fa557bba7e914b5e075794065d2bb87b6ef04cf71"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/tiles-own.json.gz",
+            "sha": "e5178ccf82415ba462f20a43d043443e0c2e02187a2d7f70b65097c222e6add7",
+            "correct": false,
+            "seconds": 2.791112584003713,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": null,
+            "peak": 1780447666,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 115,
+              "new_prompt_tokens": 1986,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 58744,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "edefde0ec1837cbcc29ae12fa557bba7e914b5e075794065d2bb87b6ef04cf71"
+          }
+        }
+      },
+      "n": 2,
+      "summary": {
+        "512": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 4.8104311259812675,
+          "stops": {
+            "invalid_call": 1,
+            "turn_limit": 1
+          }
+        },
+        "4096": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 4.316534583980683,
+          "stops": {
+            "invalid_call": 1,
+            "turn_limit": 1
+          }
+        }
+      },
+      "gains": [],
+      "losses": []
+    },
+    "base/shared": {
+      "pairs": {
+        "parcels/original/shared": {
+          "512": {
+            "file": "short/terminal/512/base/parcels-shared.json.gz",
+            "sha": "c69e40f614b499efff5ee574d9992dec3f827cb4df0f9707bfc0720c9ffb4137",
+            "correct": false,
+            "seconds": 9.134618874988519,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": 2.0924312499701045,
+            "peak": 1773427610,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 515,
+              "new_prompt_tokens": 1840,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 56448,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/parcels-shared.json.gz",
+            "sha": "a59789bf63954038a9eef1452e8f8a34cb2f336e831915334cad9bfd61224592",
+            "correct": false,
+            "seconds": 8.142145332996733,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": 1.7185312089859508,
+            "peak": 1773427610,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 515,
+              "new_prompt_tokens": 1840,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 56448,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460"
+          }
+        },
+        "tiles/original/shared": {
+          "512": {
+            "file": "short/terminal/512/base/tiles-shared.json.gz",
+            "sha": "6fbd083cfbd59348d61b3f06cd1462827280ced9fccd223c22daf5ba36873f4e",
+            "correct": false,
+            "seconds": 9.978946499992162,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "The calculator returned an error.",
+            "first_visible": 3.2939486670074984,
+            "peak": 1768027034,
+            "work": {
+              "model_turns": 2,
+              "generated_tokens": 533,
+              "new_prompt_tokens": 1203,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 41616,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/base/tiles-shared.json.gz",
+            "sha": "84e48030336702046033ba788fcc06d2fbdcbdbbc2310ea4a647d58789f3901f",
+            "correct": false,
+            "seconds": 8.156609792029485,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "The equation with units was rejected and no successful calculation supports the correct numerical answer.",
+            "first_visible": 2.8932747910148464,
+            "peak": 1768070042,
+            "work": {
+              "model_turns": 2,
+              "generated_tokens": 533,
+              "new_prompt_tokens": 1203,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 41616,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e"
+          }
+        }
+      },
+      "n": 2,
+      "summary": {
+        "512": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 19.11356537498068,
+          "stops": {
+            "turn_limit": 1,
+            "answered": 1
+          }
+        },
+        "4096": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 16.29875512502622,
+          "stops": {
+            "turn_limit": 1,
+            "answered": 1
+          }
+        }
+      },
+      "gains": [],
+      "losses": []
+    },
+    "loop/shared": {
+      "pairs": {
+        "parcels/original/shared": {
+          "512": {
+            "file": "short/terminal/512/loop/parcels-shared.json.gz",
+            "sha": "0df997aaf8042bafd8142c5d722473abd080ae1eb07b1b270eacf058ffc84950",
+            "correct": false,
+            "seconds": 0.5337953750276938,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Invents a calendar date without the requested lookup.",
+            "first_visible": 0.2712733329972252,
+            "peak": 1773489074,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 17,
+              "new_prompt_tokens": 416,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 12096,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/parcels-shared.json.gz",
+            "sha": "3585fdb548b6f6060bd6dd9daac2848c52e08455067a2c16832a6d0bf0ad68e4",
+            "correct": false,
+            "seconds": 0.45094145799521357,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "answered",
+            "error": "Invents a calendar date without the requested lookup.",
+            "first_visible": 0.23422991699771956,
+            "peak": 1773472690,
+            "work": {
+              "model_turns": 1,
+              "generated_tokens": 17,
+              "new_prompt_tokens": 416,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 12096,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "c62e40efa328c00d23fb83242be95301fb98910acdd57b49e0605c212b80d460"
+          }
+        },
+        "tiles/original/shared": {
+          "512": {
+            "file": "short/terminal/512/loop/tiles-shared.json.gz",
+            "sha": "1010cd063d46bf2fda72911feff657b752881f7540ce02554bcb4daf6bdc6384",
+            "correct": false,
+            "seconds": 2.716382540995255,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": null,
+            "peak": 1778528686,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 119,
+              "new_prompt_tokens": 1508,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 45472,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e"
+          },
+          "4096": {
+            "file": "short/direct-headroom/4096/loop/tiles-shared.json.gz",
+            "sha": "9db09084e04eeb8603245df28448c026f5c5a7c247963d0b4412fb00eda127a6",
+            "correct": false,
+            "seconds": 2.625633707968518,
+            "by_deadline": false,
+            "capped_time": 8,
+            "status": "turn_limit",
+            "error": "turn_limit",
+            "first_visible": null,
+            "peak": 1778581934,
+            "work": {
+              "model_turns": 3,
+              "generated_tokens": 119,
+              "new_prompt_tokens": 1508,
+              "reused_prompt_tokens": 0,
+              "warm_layer_token_visits": 45472,
+              "logical_kv_file_bytes": 0
+            },
+            "input": "6f68040baff48a6a9832b0b22e3064ad96e92f44721e46995c3cfe93ba32670e"
+          }
+        }
+      },
+      "n": 2,
+      "summary": {
+        "512": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 3.250177916022949,
+          "stops": {
+            "answered": 1,
+            "turn_limit": 1
+          }
+        },
+        "4096": {
+          "supported": 0,
+          "by_deadline": 0,
+          "mean_capped": 8.0,
+          "seconds": 3.0765751659637317,
+          "stops": {
+            "answered": 1,
+            "turn_limit": 1
+          }
+        }
+      },
+      "gains": [],
+      "losses": []
+    }
+  },
+  "scope": "Mandatory originals and cases selected by earlier token-limit status. Own-history and shared-history outcomes remain separate."
+}
