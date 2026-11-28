@@ -161,40 +161,46 @@ def prepare():
     return frozen()
 
 
-def frozen():
-    cohort = read(LOCAL / "cohort.json")
-    if cohort["plan"] != digest(PLAN) or any(
-        digest(LOCAL / f) != h for f, h in cohort["files"].items()
+def frozen(folder=LOCAL, plan=PLAN):
+    cohort = read(folder / "cohort.json")
+    if cohort["plan"] != digest(plan) or any(
+        digest(folder / f) != h for f, h in cohort["files"].items()
     ):
         raise ValueError("Local evaluation inputs changed")
     return cohort
 
 
-def collect(arm, block):
-    cohort = frozen()
-    with worker("short", f"local-workflows/{arm}/{block}") as guard:
+def collect(
+    arm, block, *, folder=LOCAL, plan=PLAN, catalog=providers, job="local-workflows"
+):
+    cohort = frozen(folder, plan)
+    with worker("short", f"{job}/{arm}/{block}") as guard:
         guard()
         manifest = check(MODELS / arm, arm)
         start = monotonic()
         assistant = open_assistant(
-            argparse.Namespace(checkpoint=MODELS / arm, tool_format="qwen")
+            argparse.Namespace(
+                checkpoint=MODELS / arm,
+                tool_format="qwen",
+                session_policy=MODELS / arm if arm == "ordinary" else None,
+            )
         )
         mx.eval(assistant._tool_model.parameters())
         load_seconds = monotonic() - start
         for case in cohort["cases"]:
             if case["block"] != block:
                 continue
-            path = LOCAL / "traces" / arm / (case["id"] + ".json.gz")
+            path = folder / "traces" / arm / (case["id"] + ".json.gz")
             if path.exists():
                 old = unpack(path)
-                if old["cohort"] != digest(LOCAL / "cohort.json") or old[
+                if old["cohort"] != digest(folder / "cohort.json") or old[
                     "model"
                 ] != fingerprint(manifest["files"]):
                     raise ValueError("Source or model differs in existing local trace")
                 continue
             rows = []
             with ExitStack() as stack:
-                tools = providers(case["kind"], LOCAL, stack)
+                tools = catalog(case["kind"], folder, stack)
                 chat = assistant.conversation(tools)
                 for i, q in enumerate(case["prompts"]):
                     before = list(chat.messages)
@@ -244,7 +250,7 @@ def collect(arm, block):
                 path,
                 {
                     "arm": arm,
-                    "cohort": digest(LOCAL / "cohort.json"),
+                    "cohort": digest(folder / "cohort.json"),
                     "model": fingerprint(manifest["files"]),
                     "pid": os.getpid(),
                     "load_seconds": load_seconds,

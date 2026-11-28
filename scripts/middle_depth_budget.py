@@ -104,8 +104,15 @@ def worker(stage, job):
     past = [recover_charge(p) for p in ledger.glob("*.json")]
     credit = BUDGET[stage] - sum(r["seconds"] for r in past if r["stage"] == stage)
     if job.startswith("local-workflows/"):
-        used = sum(r["seconds"] for r in past if r["job"].startswith("local-workflows/"))
+        used = sum(
+            r["seconds"] for r in past if r["job"].startswith("local-workflows/")
+        )
         credit = min(credit, 360 - used)
+    if job.startswith("specialist-transfer/"):
+        used = sum(
+            r["seconds"] for r in past if r["job"].startswith("specialist-transfer/")
+        )
+        credit = min(credit, 300 - used)
     if job.startswith("standalone-pair/"):
         spent = sum(
             r["seconds"] for r in past if r["job"].startswith("standalone-pair/")

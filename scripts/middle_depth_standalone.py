@@ -46,9 +46,9 @@ def check(folder, arm):
     return spec
 
 
-def prepare():
-    if all((MODELS / arm).is_dir() for arm in ("base", "loop")):
-        for arm in ("base", "loop"):
+def prepare(arms=("base", "loop")):
+    if all((MODELS / arm).is_dir() for arm in arms):
+        for arm in arms:
             check(MODELS / arm, arm)
         return
     verify(ARCHIVE, STAGE)
@@ -57,8 +57,13 @@ def prepare():
     with TemporaryDirectory(dir=MODELS) as t:
         tmp = Path(t)
         rev = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
-        wheel = build(tmp, rev)
-        for arm in ("base", "loop"):
+        if arms == ("ordinary",):
+            base = check(MODELS / "base", "base")
+            rev = base["revision"]
+            wheel = next((MODELS / "base").glob("*.whl"))
+        else:
+            wheel = build(tmp, rev)
+        for arm in arms:
             target = MODELS / arm
             if target.exists():
                 check(target, arm)
@@ -68,7 +73,7 @@ def prepare():
             for name, r in registered["files"].items():
                 if name.startswith("donor/"):
                     rel = Path(name).relative_to("donor")
-                elif arm == "loop" and name.startswith("models/" + STAGE + "/loop/"):
+                elif arm != "base" and name.startswith(f"models/{STAGE}/{arm}/"):
                     rel = Path(name).name
                 else:
                     continue
@@ -80,17 +85,18 @@ def prepare():
                 if dest.is_symlink() or digest(dest) != r["sha256"]:
                     raise ValueError(f"Incorrect standalone copy {dest}")
             subprocess.run(["cp", "-c", wheel, root / wheel.name], check=True)
-            save(
-                root / "standalone-middle.json",
-                {
-                    "schema": 1,
-                    "arm": arm,
-                    "base_revision": REVISION,
-                    "policy_sha256": digest(root / "registration.json")
-                    if arm == "loop"
-                    else None,
-                },
-            )
+            if arm != "ordinary":
+                save(
+                    root / "standalone-middle.json",
+                    {
+                        "schema": 1,
+                        "arm": arm,
+                        "base_revision": REVISION,
+                        "policy_sha256": digest(root / "registration.json")
+                        if arm == "loop"
+                        else None,
+                    },
+                )
             files = {
                 str(f.relative_to(root)): digest(f)
                 for f in root.rglob("*")
@@ -276,11 +282,13 @@ def run():
 
 if __name__ == "__main__":
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("action", choices=("build", "replay", "run"))
+    p.add_argument("action", choices=("build", "build-ordinary", "replay", "run"))
     p.add_argument("--arm", choices=("base", "loop"))
     a = p.parse_args()
     if a.action == "build":
         prepare()
+    elif a.action == "build-ordinary":
+        prepare(("ordinary",))
     elif a.action == "replay":
         replay(a.arm)
     else:
