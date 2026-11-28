@@ -163,6 +163,7 @@ def probe(arm, precision, repeat):
             del cache, logits
         report = {
             "arm": arm,
+            "physical_layer_visits": len(model.sites),
             "precision": precision,
             "repeat": repeat,
             "backbone": weights,
@@ -183,6 +184,8 @@ def probe(arm, precision, repeat):
                 for r in rows
                 if 64 <= len(r["p"]) + len(r["y"]) <= 128 and r["negatives"]
             )
+            update_start = monotonic()
+            mx.reset_peak_memory()
             model.train()
             ids = mx.array([r["p"] + r["y"][:-1]])
             h = model.prefix_hidden(ids)
@@ -221,6 +224,10 @@ def probe(arm, precision, repeat):
                 "gradient": norm.item(),
                 "changed": changed,
                 "depths": list(ks),
+                "input_positions": ids.shape[1],
+                "target_positions": len(r["y"]),
+                "seconds": monotonic() - update_start,
+                "peak_bytes": mx.get_peak_memory(),
             }
         guard(force=True)
         save(ROOT / "quantization" / f"{arm}-{precision}-{repeat}.json", report)
@@ -256,7 +263,7 @@ def run():
 def score():
     from statistics import median
 
-    from scripts.middle_depth_progress import measure
+    from scripts.middle_depth_progress import measure, requests
 
     proof = verified()
     arms = {}
@@ -265,6 +272,14 @@ def score():
     }
     for arm in ("ordinary", "loop"):
         quality = measure("quantized", arm, "terminal", arm, 512)
+        outcomes = {s: requests(s, arm, 512) for s in ("terminal", "quantized")}
+        followups = {
+            world: {
+                source: {s: rows[source, world] for s, rows in outcomes.items()}
+                for source in ("tiles", "parcels")
+            }
+            for world in ("own", "shared")
+        }
         costs = {}
         for precision in ("bf16", "q4"):
             rows = [
@@ -300,6 +315,7 @@ def score():
         )
         arms[arm] = {
             "source_comparison": quality,
+            "followups": followups,
             "by_eight_seconds": rates,
             "fixed_work": costs,
             "passes_short_screen": retained
