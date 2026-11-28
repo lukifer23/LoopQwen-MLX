@@ -1,6 +1,8 @@
 """Run the prespecified short tests in fresh processes and apply the source-level gate."""
 
 import argparse
+from collections import Counter, defaultdict
+from fractions import Fraction
 from statistics import fmean
 
 from loopqwen.evaluation.mechanism import unpack
@@ -8,6 +10,7 @@ from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from scripts.middle_depth_budget import ROOT
 from scripts.middle_depth_development import FROZEN
+from scripts.middle_depth_pair_audit import serving, source_uncertainty
 from scripts.middle_depth_standalone import check
 from scripts.middle_depth_wave import dispatch
 from scripts.middle_read_bundle import DEST, REPORT
@@ -51,6 +54,7 @@ def result():
     for depth in (1, 2):
         arm = f"loop-k{depth}"
         panel = {}
+        work = Counter()
         for r in accepted:
             if r["arm"] != arm:
                 continue
@@ -83,10 +87,21 @@ def result():
                     for h in t["kv_history"]
                 ] != [(i, 0, n, n) for i in range(3, 24, 4)]:
                     raise ValueError("Missing ordinary attention history")
+            visits = serving(raw, "ordinary")
+            if r["world"] not in ("own", "shared"):
+                work.update(visits)
             panel[key] = r
         if set(panel) != expected or len(panel) != 31:
             raise ValueError("Incomplete enrollment")
         rows[arm] = panel
+        summary[arm] = {
+            "opening_work": dict(
+                work,
+                extra_attention_token_reads=depth
+                * work["warm_layer_token_visits"]
+                // 24,
+            ),
+        }
     baseline = read(ROOT / "direct/short-depth-probe.json")
     for arm, panel in rows.items():
         openings = {
@@ -106,7 +121,7 @@ def result():
                 and v["source"] + "/changed" in qualified
             }
         )
-        summary[arm] = {
+        summary[arm] |= {
             "supported": sum(v["grade"]["correct"] for v in openings.values()),
             "by_deadline": len(qualified),
             "paired_hard_sources": sources,
@@ -129,6 +144,21 @@ def result():
         "opening_retention": two["supported"]
         >= max(one["supported"], parent["supported"]),
     }
+    differences = {}
+    for name, reference in (
+        ("one_to_two", one["by_source"]),
+        ("base_to_two", {k: v["correct"] for k, v in baseline["rows"]["base"].items()}),
+    ):
+        groups = defaultdict(dict)
+        for k, r in rows["loop-k2"].items():
+            if r["world"] in ("own", "shared"):
+                continue
+            family = groups[r["family"]]
+            src = r["source"]
+            family[src] = family.get(src, Fraction()) + Fraction(
+                int(two["by_source"][k]) - int(reference[k]), 3
+            )
+        differences[name] = source_uncertainty(groups)
     save(
         REPORT / "early-decision.json",
         {
@@ -139,6 +169,7 @@ def result():
             "rows": digest(scored),
             "standalone": digest(REPORT / "standalone.json"),
             "summary": summary,
+            "short_source_uncertainty": differences,
             "base": baseline["summary"]["base"],
             "parent": parent,
             "gains": [
