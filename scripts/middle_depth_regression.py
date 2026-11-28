@@ -7,7 +7,14 @@ from time import monotonic
 import pytest
 
 from loopqwen.io import digest, read, save
+from loopqwen.identity import fingerprint
 from scripts.middle_depth_budget import ROOT, DevelopmentLimit, worker
+
+
+def runtime_identity():
+    return fingerprint(
+        {str(p): digest(p) for p in sorted(Path("loopqwen").rglob("*.py"))}
+    )
 
 
 def run(full=False, module=None):
@@ -71,6 +78,7 @@ def run(full=False, module=None):
                 "seconds": monotonic() - start,
                 "files": files,
                 "module_sha": digest(Path(module)) if module else None,
+                "runtime": runtime_identity(),
                 "stopped": str(stopped[0]) if stopped else None,
             },
         )
@@ -85,15 +93,21 @@ def isolated():
 
     suite = sorted(Path("tests").glob("test_*.py"))
     observations = []
+    runtime = runtime_identity()
     for path in suite:
         result = ROOT / "isolated-regression" / (path.stem + ".json")
         done = read(result) if result.exists() else {}
-        if not done.get("passed") or done.get("module_sha") != digest(path):
+        if (
+            not done.get("passed")
+            or done.get("module_sha") != digest(path)
+            or done.get("runtime") != runtime
+        ):
             dispatch("regression", "--module", path)
         observations += read(result)["tests"]
     expected = {r["test"] for r in read(ROOT / "full-regression.json")["tests"]}
-    if {r["test"] for r in observations} != expected:
-        raise ValueError("The rerun and original collected suite differ")
+    observed = {r["test"] for r in observations}
+    if not expected.issubset(observed):
+        raise ValueError("The rerun omitted previously supported tests")
     save(
         ROOT / "full-regression-isolated.json",
         {
@@ -101,6 +115,8 @@ def isolated():
             "tests": observations,
             "files": len(suite),
             "original": digest(ROOT / "full-regression.json"),
+            "additional_tests": sorted(observed - expected),
+            "runtime": runtime,
             "method": "One independent native pytest process per module under the same exclusive resource guard.",
         },
     )
