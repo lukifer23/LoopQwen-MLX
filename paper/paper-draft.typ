@@ -26,7 +26,7 @@
 #let name(a)=if a=="loop" {"LoopQwen"} else {"Untouched Base"}
 #let families=("reasoning","tools","chat","documents")
 #let pretty(f)=(reasoning:"Grounded reasoning",tools:"Executed tools",chat:"Chat and instructions",documents:"Complete documents").at(f)
-#label[RESEARCH ARTICLE · WORKING DRAFT 8]
+#label[RESEARCH ARTICLE · WORKING DRAFT 9]
 #v(6pt)
 #block[#set par(justify:false)
 #text(font:"Helvetica Neue",size:32pt,weight:"bold",tracking:-0.45pt)[LoopQwen versus Qwen Base]]
@@ -34,11 +34,11 @@
 #v(6pt)
 #text(font:"Helvetica Neue",size:12pt)[#link("https://github.com/lukifer23")[lukifer23] #h(12pt) GPT 6.2 Astra]
 #linebreak()
-#small[Native Apple Silicon MLX · Development evidence through update 576]
+#small[Native Apple Silicon MLX · Update 576 and full-document follow-on]
 #v(9pt)
 #label[Abstract]
 
-We ask whether a small looped language model can retain the overall quality of untouched Qwen3.5-0.8B-Base and improve the work a local user can finish. LoopQwen repeats four pretrained layers and learns from complete answers, changed evidence and tool histories. At a 512-token output allowance it delivered 5 correct supported answers on 27 short requests, compared with 2 for Base. On four complete-book questions spanning 145,891 to 167,017 input tokens, LoopQwen delivered zero supported answers and Base delivered one. With four equally weighted task families the difference was +2.08 percentage points (paired 95% interval −9.72 to +15.97). The interval includes losses larger than the two-point deployment margin adopted after these parent results. The loop reproduced both requested ages in two versions of one novel, including an edited fraction, but omitted the requested subtraction. It made eight callbacks in two project-local jobs and finished neither. Both models can be installed independently and run offline. The present evidence identifies a difference in recall on one document and shorter responses on short tasks. Specialization, general superiority and useful full-document reasoning remain unverified.
+We ask whether a small looped language model can retain the overall quality of untouched Qwen3.5-0.8B-Base and improve the work a local user can finish. LoopQwen repeats four pretrained layers and learns from complete answers, changed evidence and tool histories. At a 512-token output allowance it delivered 5 correct supported answers on 27 short requests, compared with 2 for Base. On four complete-book questions spanning 145,891 to 167,017 input tokens, LoopQwen delivered zero supported answers and Base delivered one. With four equally weighted task families the difference was +2.08 percentage points (paired 95% interval −9.72 to +15.97). The interval includes losses larger than the two-point deployment margin adopted after these parent results. The loop reproduced both requested ages in two versions of one novel, including an edited fraction, but omitted the requested subtraction. It made eight callbacks in two project-local jobs and finished neither. With weights fixed, one, two and three passes solved 10, 5 and 3 of the same 27 short requests. Additional visits corrected no answers and lost seven. A separate full-document training update also failed its selection rule. Recall on one novel and shorter replies therefore coexist with a measured cost to repeating the block on these short tasks.
 
 = Introduction
 On a personal computer the relevant question is how often an assistant delivers the correct result before its user gives up. We compare one complete trained LoopQwen checkpoint with the pinned, untouched Base checkpoint. A difference can arise from training, repeated computation or their interaction. This design estimates the result of choosing the deployed loop over Base. We keep the requested action, supporting evidence and final answer in the score, including when an incorrect response arrives quickly.
@@ -158,6 +158,23 @@ The equal-benchmark mean difference was #pp(d.standard.macro_delta) percentage p
 The loop gained 12 answers and lost 10. Its largest loss was four net answers on ARC-Challenge. No individual benchmark reached the registered significance threshold after Holm adjustment. SciQ had no switches in 50 items. Even then, the exact one-sided 95% upper bound on the population switch rate is 5.8%.
 
 Base spent #sec(d.standard.serving.base.wall_seconds_across_items) seconds scoring all choices and LoopQwen spent #sec(d.standard.serving.loop.wall_seconds_across_items) seconds. Peak MLX allocation was #sec(d.standard.serving.base.peak_mlx/1073741824) and #sec(d.standard.serving.loop.peak_mlx/1073741824) GiB, respectively. The Base process exited and its 250 outcomes passed the upstream scorer before we loaded LoopQwen. Both models consumed the same token IDs. Each processed every candidate ending in full. A second calculation from raw per-token log probabilities checked every grade. We found all 50 sampled items per benchmark had distinct source keys, including WinoGrande author pairs and nonempty SciQ passages. Two generic OpenBookQA stems of one and two words occurred in adaptation text. Neither matching training row contained an answer choice.
+]
+#pagebreak()
+= Can the loop learn to use the retrieved facts?
+We continued from the trained loop with four complete training inputs. The published and edited versions of Hawthorne’s _The House of the Seven Gables_ asked whether an old deed still supported a claim. In the complete FOSDEM calendar, a change to one event’s end time reversed a duration comparison. The book inputs contained 158,281 and 158,283 tokens. Both calendars contained 232,749 tokens. We held the recurrent block fixed and updated the two low-rank factors in the final decoder MLP. This isolates what a small output-side adaptation can recover from an existing representation.
+
+Each AdamW update included answers for all four inputs, with 33, 33, 37 and 45 supervised positions respectively. The training loss fell on all four inputs over 16 updates. On the held novels the updated loop rounded both of Anne’s later ages to sixteen, giving the same five-year difference in both editions. On both editions of _McTeague_ it quoted the publisher’s royalty notice. All four openings failed at each output allowance. At 512 generated tokens the short score fell from 5/27 to 4/27. One rehearsal message improved, one archive decision reversed incorrectly and one clarification lost the missing day. The registered selection rule retained update 576.
+
+The arithmetic tools reveal a different loss. On six invoice variants from two sources, the retained loop issued six executable first calculations. On the ink invoice it calculated for four bottles when the order specified sixteen. Across all six it never delivered the correct final quantity. Base delivered all six quantities correctly, although its first calculator request was rejected five times and absent once. Neither model earned executed-task credit. Sixty of the 72 tool training rows already supplied a provider response. Selecting the operation and operands before the first call is a distinct supervision target.
+
+#if d.at("depth",default:none) != none [
+#strong[Pass count on the same weights.] We varied only the number of actual executions of layers 12–15. The question, weights, providers, decoding and 512-token allowance were fixed. Each count produced 27 openings and four follow-ups. Capped time charges failures the full eight-second deadline.
+#tab((1.3fr,1.0fr,1.0fr,1.2fr),([Execution],[Correct / 27],[By 8 s],[Mean capped time]),
+..for (key,title) in (("base","Untouched Base"),("K1","Loop, one pass"),("K2","Loop, two passes"),("K3","Loop, three passes")){
+  let s=d.depth.summary.at(key)
+  ([#title],[#str(s.supported)],[#str(s.by_deadline)],[#sec(s.capped_mean) s])
+})
+The second visit lost the original archive decision, the original and irrelevant-change bridge answers, the irrelevant-change studio message and the changed volunteer instruction. The third visit also lost the irrelevant-change archive answer and the original studio message. Neither transition fixed an answer. No pass count solved both meaningful versions of a reasoning or tool source by the deadline. These are source-masked development judgments on nine sources. The one-pass result uses the same trained weights and establishes no benefit from repeating the block at inference on this panel.
 ]
 #pagebreak()
 = Reproducibility and costs

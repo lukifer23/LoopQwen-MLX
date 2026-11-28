@@ -208,6 +208,7 @@ def final_books(
     arms=("loop", "base", "ordinary"),
     decision_file="long-decision.json",
     enrollment_file="complete-books.json",
+    primary_only=False,
 ):
     decision = read(ROOT / decision_file)
     models = {k: Path(v["path"]) for k, v in decision["models"].items()}
@@ -221,6 +222,8 @@ def final_books(
             for j, world in enumerate(("original", "edited", "irrelevant")):
                 for arm in arms if (i + j) % 2 == 0 else reversed(arms):
                     document_request(stages[arm], models, arm, cap, book, world, True)
+    if primary_only:
+        return
     # Freeze the paired extended-output enrollment using only earlier stopping
     # status and the mandatory originals. No answer text or scores enter selection.
     reasons = {}

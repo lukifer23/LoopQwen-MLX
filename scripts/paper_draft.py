@@ -197,6 +197,61 @@ def snapshot():
                 ):
                     raise ValueError("Incomplete standard benchmark likelihoods")
             cutoff = max(cutoff, receipt["exited"])
+    selected = ROOT / "direct-decision.json"
+    if selected.is_file():
+        selection = use(selected)
+        child = use(ROOT / "long-fit-loop.json")
+        resume = use(ROOT / "full-fit-resume-replay.json")
+        quantities = use(ROOT / "direct/quantity-review.json")
+        initial_calls = use(ROOT / "direct/first-calculations.json")
+        use(ROOT / "direct/callback-replay.json")
+        use(ROOT / "document-review/direct-child/grades.json")
+        use(ROOT / "review/direct-full-fit/grades.json")
+        for stage in ("document-review/direct-child", "review/direct-full-fit"):
+            for row in use(ROOT / stage / "scored.json"):
+                path = ROOT / row["file"]
+                if digest(path) != row["sha"]:
+                    raise ValueError(f"Changed full-document fit trajectory {path}")
+                hashes[str(path)] = row["sha"]
+        data["full_fit"] = {
+            "decision": selection,
+            "weights": child["weights"],
+            "steps": len(child["log"]),
+            "first_losses": child["log"][0]["loss"],
+            "last_losses": child["log"][-1]["loss"],
+            "positions": child["positions"],
+            "features": use(ROOT / "long-features-loop.json"),
+            "resume_passed": resume["passed"],
+            "quantity_rows": len(quantities["rows"]),
+            "first_calls": len(initial_calls["rows"]),
+        }
+        cutoff = max(
+            cutoff,
+            max(
+                r["dispatch"] + r["seconds"]
+                for p in (ROOT / "charges").glob("*.json")
+                if (r := read(p))["job"].endswith("/direct-child")
+                and r["status"] == "finished"
+            ),
+        )
+    probe = ROOT / "direct/short-depth-probe.json"
+    if probe.is_file():
+        data["depth"] = use(probe)
+        use(ROOT / "review/depth/grades.json")
+        for row in use(ROOT / "review/depth/scored.json"):
+            path = ROOT / row["file"]
+            if digest(path) != row["sha"]:
+                raise ValueError(f"Changed within-checkpoint answer {path}")
+            hashes[str(path)] = row["sha"]
+        cutoff = max(
+            cutoff,
+            max(
+                r["dispatch"] + r["seconds"]
+                for p in (ROOT / "charges").glob("*.json")
+                if "/short/depth/" in (r := read(p))["job"]
+                and r["status"] == "finished"
+            ),
+        )
     charges = defaultdict(float)
     for p in sorted((ROOT / "charges").glob("*.json")):
         r = read(p)

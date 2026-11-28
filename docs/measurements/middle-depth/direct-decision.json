@@ -1,0 +1,36 @@
+{
+  "scope": "f96d98e65f0f994c85fe365f82e7b56e78c1fb838bd5e3321ba7d78eb3449d13",
+  "retained_full_fit": false,
+  "evidence": {
+    "parent": {
+      "short": {
+        "chat": 0.4444444444444444,
+        "tools": 0.0,
+        "reasoning": 0.1111111111111111
+      },
+      "documents": {
+        "anne": 0.0,
+        "book": 0.0
+      }
+    },
+    "child": {
+      "short": {
+        "chat": 0.4444444444444444,
+        "tools": 0.0,
+        "reasoning": 0.0
+      },
+      "documents": {
+        "anne": 0.0,
+        "book": 0.0
+      }
+    }
+  },
+  "short_stage": "terminal",
+  "document_stage": "parent",
+  "models": {
+    "loop": {
+      "path": "checkpoints/middle-depth/matched-4619/loop/step-0576",
+      "weights": "e8678f0d74d1eb6779dfea16d6f5677fe12021ad4fa4771317813a336b2a264a"
+    }
+  }
+}

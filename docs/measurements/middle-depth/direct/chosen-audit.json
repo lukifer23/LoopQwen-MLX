@@ -1,0 +1,166 @@
+{
+  "128": {
+    "comparison_sha": "6fc005d2b36539f6fa74606b04ea4f5d8171a493aa9ba65db103570b65b9c204",
+    "paired_sources": 11,
+    "ordered_resamples": 78732,
+    "macro_difference": 0.1388888888888889,
+    "exact_bootstrap_95": [
+      0.027777777777777776,
+      0.2222222222222222
+    ],
+    "macro_after_leaving_one_source_out": {
+      "chat/parcel": 0.1111111111111111,
+      "chat/studio": 0.1111111111111111,
+      "chat/volunteer": 0.19444444444444445,
+      "documents/anne": 0.1388888888888889,
+      "documents/book": 0.1388888888888889,
+      "reasoning/archive": 0.1111111111111111,
+      "reasoning/bridge": 0.1527777777777778,
+      "reasoning/kiln": 0.1527777777777778,
+      "tools/ink": 0.1388888888888889,
+      "tools/parcels": 0.1388888888888889,
+      "tools/tiles": 0.1388888888888889
+    },
+    "registered_bootstrap_95": [
+      0.027777777777777776,
+      0.2222222222222222
+    ],
+    "costs": {
+      "loop/short": {
+        "model_turns": 39,
+        "generated_tokens": 1504,
+        "new_prompt_tokens": 10452,
+        "reused_prompt_tokens": 0,
+        "warm_layer_token_visits": 333676,
+        "logical_kv_file_bytes": 0,
+        "requests": 27,
+        "correct": 5,
+        "serving_seconds": 33.06331945711281,
+        "peak_mlx_bytes": 1778594222,
+        "mean_deadline_capped_time_to_correct": 6.642925137296078
+      },
+      "base/short": {
+        "model_turns": 27,
+        "generated_tokens": 3456,
+        "new_prompt_tokens": 4636,
+        "reused_prompt_tokens": 0,
+        "warm_layer_token_visits": 193560,
+        "logical_kv_file_bytes": 0,
+        "requests": 27,
+        "correct": 0,
+        "serving_seconds": 59.07844700111309,
+        "peak_mlx_bytes": 1762867738,
+        "mean_deadline_capped_time_to_correct": 8.0
+      },
+      "loop/documents": {
+        "model_turns": 4,
+        "generated_tokens": 66,
+        "new_prompt_tokens": 21397,
+        "reused_prompt_tokens": 604416,
+        "warm_layer_token_visits": 600852,
+        "logical_kv_file_bytes": 8664913012,
+        "requests": 4,
+        "correct": 0,
+        "serving_seconds": 99.0209895419539,
+        "peak_mlx_bytes": 4348890936,
+        "mean_deadline_capped_time_to_correct": 600.0
+      },
+      "base/documents": {
+        "model_turns": 4,
+        "generated_tokens": 512,
+        "new_prompt_tokens": 21397,
+        "reused_prompt_tokens": 604416,
+        "warm_layer_token_visits": 525720,
+        "logical_kv_file_bytes": 7427068296,
+        "requests": 4,
+        "correct": 0,
+        "serving_seconds": 108.4604585840134,
+        "peak_mlx_bytes": 3995733708,
+        "mean_deadline_capped_time_to_correct": 600.0
+      }
+    },
+    "units": "Macro and bounds are proportions. Source clusters stay within families. The exact percentile bootstrap enumerates the empirical source distribution. With two or three sources per family its population coverage is uncertain. Warm layer-token visits count distinct layer/pass sites times fresh input and fed-back output positions. Logical KV bytes describe instrumented file accesses. Serving seconds exclude reusable prefix construction. Deadline-capped time uses cold book cost and charges failures their full deadline."
+  },
+  "512": {
+    "comparison_sha": "6768834e76ab1337b4c29032ffb822d81d373b200013df6fc75db969719de0d0",
+    "paired_sources": 11,
+    "ordered_resamples": 78732,
+    "macro_difference": 0.020833333333333332,
+    "exact_bootstrap_95": [
+      -0.09722222222222222,
+      0.1597222222222222
+    ],
+    "macro_after_leaving_one_source_out": {
+      "chat/parcel": 0.04861111111111111,
+      "chat/studio": -0.034722222222222224,
+      "chat/volunteer": 0.04861111111111111,
+      "documents/anne": 0.08333333333333333,
+      "documents/book": -0.041666666666666664,
+      "reasoning/archive": -0.006944444444444444,
+      "reasoning/bridge": 0.034722222222222224,
+      "reasoning/kiln": 0.034722222222222224,
+      "tools/ink": 0.020833333333333332,
+      "tools/parcels": 0.020833333333333332,
+      "tools/tiles": 0.020833333333333332
+    },
+    "registered_bootstrap_95": [
+      -0.09722222222222222,
+      0.1597222222222222
+    ],
+    "costs": {
+      "loop/short": {
+        "model_turns": 39,
+        "generated_tokens": 1504,
+        "new_prompt_tokens": 10452,
+        "reused_prompt_tokens": 0,
+        "warm_layer_token_visits": 333676,
+        "logical_kv_file_bytes": 0,
+        "requests": 27,
+        "correct": 5,
+        "serving_seconds": 32.61311653908342,
+        "peak_mlx_bytes": 1778598318,
+        "mean_deadline_capped_time_to_correct": 6.6485128162959075
+      },
+      "base/short": {
+        "model_turns": 42,
+        "generated_tokens": 11063,
+        "new_prompt_tokens": 16154,
+        "reused_prompt_tokens": 0,
+        "warm_layer_token_visits": 652200,
+        "logical_kv_file_bytes": 0,
+        "requests": 27,
+        "correct": 2,
+        "serving_seconds": 182.60553866875125,
+        "peak_mlx_bytes": 1774738844,
+        "mean_deadline_capped_time_to_correct": 7.57880308644208
+      },
+      "loop/documents": {
+        "model_turns": 4,
+        "generated_tokens": 66,
+        "new_prompt_tokens": 21397,
+        "reused_prompt_tokens": 604416,
+        "warm_layer_token_visits": 600852,
+        "logical_kv_file_bytes": 8664913012,
+        "requests": 4,
+        "correct": 0,
+        "serving_seconds": 98.39732216706034,
+        "peak_mlx_bytes": 4354395960,
+        "mean_deadline_capped_time_to_correct": 600.0
+      },
+      "base/documents": {
+        "model_turns": 4,
+        "generated_tokens": 1424,
+        "new_prompt_tokens": 21397,
+        "reused_prompt_tokens": 604416,
+        "warm_layer_token_visits": 547608,
+        "logical_kv_file_bytes": 7427068296,
+        "requests": 4,
+        "correct": 1,
+        "serving_seconds": 160.13000891701085,
+        "peak_mlx_bytes": 3997945584,
+        "mean_deadline_capped_time_to_correct": 521.4052714999998
+      }
+    },
+    "units": "Macro and bounds are proportions. Source clusters stay within families. The exact percentile bootstrap enumerates the empirical source distribution. With two or three sources per family its population coverage is uncertain. Warm layer-token visits count distinct layer/pass sites times fresh input and fed-back output positions. Logical KV bytes describe instrumented file accesses. Serving seconds exclude reusable prefix construction. Deadline-capped time uses cold book cost and charges failures their full deadline."
+  }
+}

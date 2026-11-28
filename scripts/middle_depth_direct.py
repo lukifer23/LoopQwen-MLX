@@ -109,6 +109,7 @@ if __name__ == "__main__":
             "fit",
             "children",
             "select",
+            "primary-books",
             "final-books",
             "decisions",
             "parent-scores",
@@ -121,7 +122,12 @@ if __name__ == "__main__":
         children()
     elif stage == "select":
         select()
-    elif stage == "final-books":
-        final_books(("loop", "base"), CHOSEN.name, "direct-complete-books.json")
+    elif stage in ("primary-books", "final-books"):
+        final_books(
+            ("loop", "base"),
+            CHOSEN.name,
+            "direct-complete-books.json",
+            primary_only=stage == "primary-books",
+        )
     else:
         decisions(stage == "parent-scores")
