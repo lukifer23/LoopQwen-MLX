@@ -1,12 +1,12 @@
 """Blind, score and audit the registered complete GNU manual pairs."""
 
 import argparse
-from math import comb
 from pathlib import Path
 from statistics import mean
 from tempfile import TemporaryDirectory
 
 from loopqwen.evaluation.mechanism import unpack
+from loopqwen.evaluation.statistics import exact_mcnemar
 from loopqwen.identity import fingerprint
 from loopqwen.io import digest, read, save
 from loopqwen.research.cross_view_study import tokenizer
@@ -14,6 +14,7 @@ from scripts.middle_depth_budget import BASE, ROOT
 from scripts.middle_depth_manuals import FROZEN, STAGE, WORLD_ORDER, openings, restore
 from scripts.middle_depth_pair_audit import serving
 from scripts.middle_depth_review import first_visible
+from scripts.paper_file_evidence import discordant_interval
 
 OUT = ROOT / STAGE
 
@@ -152,23 +153,14 @@ def review(score):
                 equal.append(name)
             else:
                 (fixed if l else lost).append(name)
-        discordant = len(fixed) + len(lost)
         decisions[metric] = {
             "gained": fixed,
             "lost": lost,
             "tied": equal,
             "incomplete": missing,
             "passed": bool(fixed) and not lost if not missing else None,
-            "two_sided_exact_sign_p": min(
-                1.0,
-                2
-                * sum(
-                    comb(discordant, i) for i in range(min(len(fixed), len(lost)) + 1)
-                )
-                / 2**discordant,
-            )
-            if discordant
-            else None,
+            "two_sided_exact_sign_p": exact_mcnemar(len(fixed), len(lost)),
+            "loop_share_among_discordant_95": discordant_interval(len(fixed), len(lost)),
         }
     save(
         OUT / "result.json",
